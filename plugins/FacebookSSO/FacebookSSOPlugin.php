@@ -131,7 +131,7 @@ class FacebookSSOPlugin extends Plugin
             include_once $dir . '/actions/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'Facebookclient':
-        case 'Facebookqueuehandler':
+        case 'FacebookQueueHandler':
             include_once $dir . '/lib/' . strtolower($cls) . '.php';
             return false;
         default:
@@ -146,7 +146,7 @@ class FacebookSSOPlugin extends Plugin
     function needsScripts($action)
     {
         static $needy = array(
-            //'FacebookloginAction',
+            'FacebookloginAction',
             'FacebookfinishloginAction',
             'FacebookadminpanelAction',
             'FacebooksettingsAction'
@@ -398,6 +398,37 @@ ENDOFSCRIPT;
             );
         }
 
+        return true;
+    }
+
+    /**
+     * Add a Facebook queue item for each notice
+     *
+     * @param Notice $notice      the notice
+     * @param array  &$transports the list of transports (queues)
+     *
+     * @return boolean hook return
+     */
+    function onStartEnqueueNotice($notice, &$transports)
+    {
+        if (self::hasApplication() && $notice->isLocal()) {
+            array_push($transports, 'facebook');
+        }
+        return true;
+    }
+
+    /**
+     * Register Facebook notice queue handler
+     *
+     * @param QueueManager $manager
+     *
+     * @return boolean hook return
+     */
+    function onEndInitializeQueueManager($manager)
+    {
+        if (self::hasApplication()) {
+            $manager->connect('facebook', 'FacebookQueueHandler');
+        }
         return true;
     }
 

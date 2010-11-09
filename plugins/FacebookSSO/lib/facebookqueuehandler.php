@@ -31,8 +31,6 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
-
 class FacebookQueueHandler extends QueueHandler
 {
     function transport()
@@ -43,7 +41,7 @@ class FacebookQueueHandler extends QueueHandler
     function handle($notice)
     {
         if ($this->_isLocal($notice)) {
-            return facebookBroadcastNotice($notice);
+            return Facebookclient::facebookBroadcastNotice($notice);
         }
         return true;
     }

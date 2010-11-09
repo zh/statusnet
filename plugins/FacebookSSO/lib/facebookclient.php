@@ -47,9 +47,9 @@ class Facebookclient
     protected $flink         = null; // Foreign_link StatusNet -> Facebook
     protected $notice        = null; // The user's notice
     protected $user          = null; // Sender of the notice
-    protected $oldRestClient = null; // Old REST API client
+    //protected $oldRestClient = null; // Old REST API client
 
-    function __constructor($notice)
+    function __construct($notice)
     {
         $this->facebook = self::getFacebook();
         $this->notice   = $notice;
@@ -58,29 +58,8 @@ class Facebookclient
             $notice->profile_id,
             FACEBOOK_SERVICE
         );
-        
+
         $this->user = $this->flink->getUser();
-
-        $this->oldRestClient = self::getOldRestClient();
-    }
-
-    /*
-     * Get and instance of the old REST API client for sending notices from
-     * users with Facebook links that pre-exist the Graph API
-     */
-    static function getOldRestClient()
-    {
-        $apikey = common_config('facebook', 'apikey');
-        $secret = common_config('facebook', 'secret');
-
-        // If there's no app key and secret set in the local config, look
-        // for a global one
-        if (empty($apikey) || empty($secret)) {
-            $apikey = common_config('facebook', 'global_apikey');
-            $secret = common_config('facebook', 'global_secret');
-        }
-
-        return new FacebookRestClient($apikey, $secret, null);
     }
 
     /*
@@ -125,8 +104,9 @@ class Facebookclient
      */
     static function facebookBroadcastNotice($notice)
     {
+        common_debug('Facebook broadcast');
         $client = new Facebookclient($notice);
-        $client->sendNotice();
+        return $client->sendNotice();
     }
 
     /*
@@ -191,12 +171,24 @@ class Facebookclient
         // If there's nothing in the credentials field try to send via
         // the Old Rest API
 
-        if (empty($this->flink->credentials)) {
-            $this->sendOldRest();
-        } else {
+        if ($this->isFacebookBound()) {
+            common_debug("notice is facebook bound", __FILE__);
+            if (empty($this->flink->credentials)) {
+                $this->sendOldRest();
+            } else {
 
-            // Otherwise we most likely have an access token
-            $this->sendGraph();
+                // Otherwise we most likely have an access token
+                $this->sendGraph();
+            }
+
+        } else {
+            common_debug(
+                sprintf(
+                    "Skipping notice %d - not bound for Facebook",
+                    $this->notice->id,
+                    __FILE__
+                )
+            );
         }
     }
 
@@ -205,7 +197,55 @@ class Facebookclient
      */
     function sendGraph()
     {
-        common_debug("Send notice via Graph API", __FILE__);
+        try {
+
+            $fbuid = $this->flink->foreign_id;
+
+            common_debug(
+                sprintf(
+                    "Attempting use Graph API to post notice %d as a stream item for %s (%d), fbuid %s",
+                    $this->notice->id,
+                    $this->user->nickname,
+                    $this->user->id,
+                    $fbuid
+                ),
+                __FILE__
+            );
+
+            $params = array(
+                'access_token' => $this->flink->credentials,
+                'message'      => $this->notice->content
+            );
+
+            $attachments = $this->notice->attachments();
+
+            if (!empty($attachments)) {
+
+                // We can only send one attachment with the Graph API
+
+                $first = array_shift($attachments);
+
+                if (substr($first->mimetype, 0, 6) == 'image/'
+                    || in_array(
+                        $first->mimetype,
+                        array('application/x-shockwave-flash', 'audio/mpeg' ))) {
+
+                   $params['picture'] = $first->url;
+                   $params['caption'] = 'Click for full size';
+                   $params['source']  = $first->url;
+                }
+
+            }
+
+            $result = $this->facebook->api(
+                sprintf('/%s/feed', $fbuid), 'post', $params
+            );
+
+        } catch (FacebookApiException $e) {
+            return $this->handleFacebookError($e);
+        }
+
+        return true;
     }
 
     /*
@@ -216,40 +256,40 @@ class Facebookclient
      */
     function sendOldRest()
     {
-        if (isFacebookBound()) {
+        try {
 
-            try {
+            $canPublish = $this->checkPermission('publish_stream');
+            $canUpdate  = $this->checkPermission('status_update');
 
-                $canPublish = $this->checkPermission('publish_stream');
-                $canUpdate  = $this->checkPermission('status_update');
+            // We prefer to use stream.publish, because it can handle
+            // attachments and returns the ID of the published item
 
-                // Post to Facebook
-                if ($notice->hasAttachments() && $canPublish == 1) {
-                    $this->restPublishStream();
-                } elseif ($canUpdate == 1 || $canPublish == 1) {
-                    $this->restStatusUpdate();
-                } else {
+            if ($canPublish == 1) {
+                $this->restPublishStream();
+            } else if ($canUpdate == 1) {
+                // as a last resort we can just update the user's "status"
+                $this->restStatusUpdate();
+            } else {
 
-                    $msg = 'Not sending notice %d to Facebook because user %s '
-                         . '(%d), fbuid %s,  does not have \'status_update\' '
-                         . 'or \'publish_stream\' permission.';
+                $msg = 'Not sending notice %d to Facebook because user %s '
+                     . '(%d), fbuid %s,  does not have \'status_update\' '
+                     . 'or \'publish_stream\' permission.';
 
-                    common_log(
-                        LOG_WARNING,
-                        sprintf(
-                            $msg,
-                            $this->notice->id,
-                            $this->user->nickname,
-                            $this->user->id,
-                            $this->flink->foreign_id
-                        ),
-                        __FILE__
-                    );
-                }
-
-            } catch (FacebookRestClientException $e) {
-                return $this->handleFacebookError($e);
+                common_log(
+                    LOG_WARNING,
+                    sprintf(
+                        $msg,
+                        $this->notice->id,
+                        $this->user->nickname,
+                        $this->user->id,
+                        $this->flink->foreign_id
+                    ),
+                    __FILE__
+                );
             }
+
+        } catch (FacebookApiException $e) {
+            return $this->handleFacebookError($e);
         }
 
         return true;
@@ -267,12 +307,11 @@ class Facebookclient
      */
     function checkPermission($permission)
     {
-
         if (!in_array($permission, array('publish_stream', 'status_update'))) {
-             throw new ServerExpception("No such permission!");
+             throw new ServerException("No such permission!");
         }
 
-        $fbuid = $this->flink->foreign_link;
+        $fbuid = $this->flink->foreign_id;
 
         common_debug(
             sprintf(
@@ -285,23 +324,13 @@ class Facebookclient
             __FILE__
         );
 
-        // NOTE: $this->oldRestClient->users_hasAppPermission() has been
-        // returning bogus results, so we're using FQL to check for
-        // permissions
-
-        $fql = sprintf(
-            "SELECT %s FROM permissions WHERE uid = %s",
-            $permission,
-            $fbuid
+        $hasPermission = $this->facebook->api(
+            array(
+                'method'   => 'users.hasAppPermission',
+                'ext_perm' => $permission,
+                'uid'      => $fbuid
+            )
         );
-
-        $result = $this->oldRestClient->fql_query($fql);
-
-        $hasPermission = 0;
-
-        if (isset($result[0][$permission])) {
-            $canPublish = $result[0][$permission];
-        }
 
         if ($hasPermission == 1) {
 
@@ -338,14 +367,27 @@ class Facebookclient
             return false;
 
         }
-    
     }
 
+    /*
+     * Handle a Facebook API Exception
+     *
+     * @param FacebookApiException $e the exception
+     *
+     */
     function handleFacebookError($e)
     {
         $fbuid  = $this->flink->foreign_id;
-        $code   = $e->getCode();
         $errmsg = $e->getMessage();
+        $code   = $e->getCode();
+
+        // The Facebook PHP SDK seems to always set the code attribute
+        // of the Exception to 0; they put the real error code it in
+        // the message. Gar!
+        if ($code == 0) {
+            preg_match('/^\(#(?<code>\d+)\)/', $errmsg, $matches);
+            $code = $matches['code'];
+        }
 
         // XXX: Check for any others?
         switch($code) {
@@ -414,6 +456,14 @@ class Facebookclient
         }
     }
 
+    /*
+     * Publish a notice to Facebook as a status update
+     *
+     * This is the least preferable way to send a notice to Facebook because
+     * it doesn't support attachments and the API method doesn't return
+     * the ID of the post on Facebook.
+     *
+     */
     function restStatusUpdate()
     {
         $fbuid = $this->flink->foreign_id;
@@ -429,11 +479,13 @@ class Facebookclient
             __FILE__
         );
 
-        $result = $this->oldRestClient->users_setStatus(
-             $this->notice->content,
-             $fbuid,
-             false,
-             true
+        $result = $this->facebook->api(
+            array(
+                'method'               => 'users.setStatus',
+                'status'               => $this->notice->content,
+                'status_includes_verb' => true,
+                'uid'                  => $fbuid
+            )
         );
 
         common_log(
@@ -447,16 +499,19 @@ class Facebookclient
             ),
             __FILE__
         );
+
     }
 
+    /*
+     * Publish a notice to a Facebook user's stream using the old REST API
+     */
     function restPublishStream()
     {
         $fbuid = $this->flink->foreign_id;
 
         common_debug(
             sprintf(
-                'Attempting to post notice %d as stream item with attachment for '
-                . '%s (%d) fbuid %s',
+                'Attempting to post notice %d as stream item for %s (%d) fbuid %s',
                 $this->notice->id,
                 $this->user->nickname,
                 $this->user->id,
@@ -465,42 +520,52 @@ class Facebookclient
             __FILE__
         );
 
-        $fbattachment = format_attachments($notice->attachments());
+        $fbattachment = $this->formatAttachments();
 
-        $this->oldRestClient->stream_publish(
-            $this->notice->content,
-            $fbattachment,
-            null,
-            null,
-            $fbuid
+        $result = $this->facebook->api(
+            array(
+                'method'     => 'stream.publish',
+                'message'    => $this->notice->content,
+                'attachment' => $fbattachment,
+                'uid'        => $fbuid
+            )
         );
 
         common_log(
             LOG_INFO,
             sprintf(
-                'Posted notice %d as a stream item with attachment for %s '
-                . '(%d), fbuid %s',
+                'Posted notice %d as a %s for %s (%d), fbuid %s',
                 $this->notice->id,
+                empty($fbattachment) ? 'stream item' : 'stream item with attachment',
                 $this->user->nickname,
                 $this->user->id,
                 $fbuid
             ),
             __FILE__
         );
-        
+
     }
 
-    function format_attachments($attachments)
+    /*
+     * Format attachments for the old REST API stream.publish method
+     *
+     * Note: Old REST API supports multiple attachments per post
+     *
+     */
+    function formatAttachments()
     {
+
+        $attachments = $this->notice->attachments();
+
         $fbattachment          = array();
         $fbattachment['media'] = array();
 
         foreach($attachments as $attachment)
         {
             if($enclosure = $attachment->getEnclosure()){
-                $fbmedia = get_fbmedia_for_attachment($enclosure);
+                $fbmedia = $this->getFacebookMedia($enclosure);
             }else{
-                $fbmedia = get_fbmedia_for_attachment($attachment);
+                $fbmedia = $this->getFacebookMedia($attachment);
             }
             if($fbmedia){
                 $fbattachment['media'][]=$fbmedia;
@@ -518,9 +583,9 @@ class Facebookclient
     }
 
     /**
-     * given an File objects, returns an associative array suitable for Facebook media
+     * given a File objects, returns an associative array suitable for Facebook media
      */
-    function get_fbmedia_for_attachment($attachment)
+    function getFacebookMedia($attachment)
     {
         $fbmedia    = array();
 
@@ -545,9 +610,13 @@ class Facebookclient
         return $fbmedia;
     }
 
+    /*
+     * Disconnect a user from Facebook by deleting his Foreign_link.
+     * Notifies the user his account has been disconnected by email.
+     */
     function disconnect()
     {
-        $fbuid = $this->flink->foreign_link;
+        $fbuid = $this->flink->foreign_id;
 
         common_log(
             LOG_INFO,
@@ -560,7 +629,7 @@ class Facebookclient
             __FILE__
         );
 
-        $result = $flink->delete();
+        $result = $this->flink->delete();
 
         if (empty($result)) {
             common_log(
@@ -631,7 +700,7 @@ BODY;
             $this->user->nickname,
             $siteName
         );
-        
+
         common_switch_locale();
 
         return mail_to_user($this->user, $subject, $body);

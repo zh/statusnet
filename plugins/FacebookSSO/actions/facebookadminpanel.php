@@ -82,7 +82,7 @@ class FacebookadminpanelAction extends AdminPanelAction
     function saveSettings()
     {
         static $settings = array(
-            'facebook'     => array('appid', 'secret'),
+            'facebook' => array('appid', 'secret'),
         );
 
         $values = array();
@@ -116,7 +116,7 @@ class FacebookadminpanelAction extends AdminPanelAction
 
     function validate(&$values)
     {
-        // appId and secret (can't be too long)
+        // appId, key and secret (can't be too long)
 
         if (mb_strlen($values['facebook']['appid']) > 255) {
             $this->clientError(
