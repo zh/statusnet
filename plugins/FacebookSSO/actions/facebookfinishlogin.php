@@ -33,7 +33,6 @@ if (!defined('STATUSNET')) {
 
 class FacebookfinishloginAction extends Action
 {
-
     private $facebook = null; // Facebook client
     private $fbuid    = null; // Facebook user ID
     private $fbuser   = null; // Facebook user object (JSON)
@@ -341,12 +340,14 @@ class FacebookfinishloginAction extends Action
         }
 
         $args = array(
-            'nickname' => $nickname,
-            'fullname' => $this->fbuser['firstname'] . ' ' . $this->fbuser['lastname'],
-            // XXX: Figure out how to get email
-            'homepage' => $this->fbuser['link'],
-            'bio'      => $this->fbuser['about'],
-            'location' => $this->fbuser['location']['name']
+            'nickname'        => $nickname,
+            'fullname'        => $this->fbuser['first_name']
+                . ' ' . $this->fbuser['last_name'],
+            'email'           => $this->fbuser['email'],
+            'email_confirmed' => true,
+            'homepage'        => $this->fbuser['website'],
+            'bio'             => $this->fbuser['about'],
+            'location'        => $this->fbuser['location']['name']
         );
 
         if (!empty($invite)) {
@@ -361,6 +362,8 @@ class FacebookfinishloginAction extends Action
             $this->serverError(_m('Error connecting user to Facebook.'));
             return;
         }
+
+        $this->setAvatar($user);
 
         common_set_user($user);
         common_real_login(true);
@@ -382,6 +385,68 @@ class FacebookfinishloginAction extends Action
             ),
             303
         );
+    }
+
+    /*
+     * Attempt to download the user's Facebook picture and create a
+     * StatusNet avatar for the new user.
+     */
+    function setAvatar($user)
+    {
+        $picUrl = sprintf(
+            'http://graph.facebook.com/%s/picture?type=large',
+            $this->fbuid
+        );
+
+        // fetch the picture from Facebook
+        $client = new HTTPClient();
+
+        common_debug("status = $status - " . $finalUrl , __FILE__);
+
+        // fetch the actual picture
+        $response = $client->get($picUrl);
+
+        if ($response->isOk()) {
+
+            $finalUrl = $client->getUrl();
+            $filename = 'facebook-' . substr(strrchr($finalUrl, '/'), 1 );
+
+            common_debug("Filename = " . $filename, __FILE__);
+
+            $ok = file_put_contents(
+                Avatar::path($filename),
+                $response->getBody()
+            );
+
+            if (!$ok) {
+                common_log(
+                    LOG_WARNING,
+                    sprintf(
+                        'Couldn\'t save Facebook avatar %s',
+                        $tmp
+                    ),
+                    __FILE__
+                );
+
+            } else {
+
+                $profile = $user->getProfile();
+
+                if ($profile->setOriginal($filename)) {
+                    common_log(
+                        LOG_INFO,
+                        sprintf(
+                            'Saved avatar for %s (%d) from Facebook profile %s, filename = %s',
+                             $user->nickname,
+                             $user->id,
+                             $this->fbuid,
+                             $picture
+                        ),
+                        __FILE__
+                    );
+                }
+            }
+        }
     }
 
     function connectNewUser()
@@ -437,7 +502,6 @@ class FacebookfinishloginAction extends Action
             __FILE__
         );
 
-        // Return to Facebook connection settings tab
         common_redirect(common_local_url('facebookfinishlogin'), 303);
     }
 

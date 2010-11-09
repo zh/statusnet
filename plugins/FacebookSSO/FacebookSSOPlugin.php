@@ -3,7 +3,8 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2010, StatusNet, Inc.
  *
- * A plugin for single-sign-in (SSO) with Facebook
+ * A plugin for integrating Facebook with StatusNet. Includes single-sign-on
+ * and publishing notices to Facebook using Facebook's Graph API.
  *
  * PHP version 5
  *
@@ -35,14 +36,7 @@ if (!defined('STATUSNET')) {
 define("FACEBOOK_SERVICE", 2);
 
 /**
- * Main class for Facebook single-sign-on plugin
- *
- *
- * Simple plugins can be implemented as a single module. Others are more complex
- * and require additional modules; these should use their own directory, like
- * 'local/plugins/{$name}/'. All files related to the plugin, including images,
- * JavaScript, CSS, external libraries or PHP modules should go in the plugin
- * directory.
+ * Main class for Facebook plugin
  *
  * @category  Plugin
  * @package   StatusNet
@@ -62,8 +56,7 @@ class FacebookSSOPlugin extends Plugin
     /**
      * Initializer for this plugin
      *
-     * Plugins overload this method to do any initialization they need,
-     * like connecting to remote servers or creating paths or so on.
+     * Gets an instance of the Facebook API client object
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
@@ -79,31 +72,7 @@ class FacebookSSOPlugin extends Plugin
     }
 
     /**
-     * Cleanup for this plugin
-     *
-     * Plugins overload this method to do any cleanup they need,
-     * like disconnecting from remote servers or deleting temp files or so on.
-     *
-     * @return boolean hook value; true means continue processing, false means stop.
-     */
-    function cleanup()
-    {
-        return true;
-    }
-
-    /**
      * Load related modules when needed
-     *
-     * Most non-trivial plugins will require extra modules to do their work. Typically
-     * these include data classes, action classes, widget classes, or external libraries.
-     *
-     * This method receives a class name and loads the PHP file related to that class. By
-     * tradition, action classes typically have files named for the action, all lower-case.
-     * Data classes are in files with the data class name, initial letter capitalized.
-     *
-     * Note that this method will be called for *all* overloaded classes, not just ones
-     * in this plugin! So, make sure to return true by default to let other plugins, and
-     * the core code, get a chance.
      *
      * @param string $cls Name of the class to be loaded
      *
@@ -118,11 +87,8 @@ class FacebookSSOPlugin extends Plugin
 
         switch ($cls)
         {
-        case 'Facebook': // New JavaScript SDK
+        case 'Facebook': // Facebook PHP SDK
             include_once $dir . '/extlib/facebook.php';
-            return false;
-        case 'FacebookRestClient': // Old REST lib
-            include_once $dir . '/extlib/facebookapi_php5_restlib.php';
             return false;
         case 'FacebookloginAction':
         case 'FacebookfinishloginAction':
@@ -153,21 +119,14 @@ class FacebookSSOPlugin extends Plugin
         );
 
         if (in_array(get_class($action), $needy)) {
-            common_debug("needs scripts!");
             return true;
         } else {
-            common_debug("doesn't need scripts!");
             return false;
         }
     }
 
     /**
      * Map URLs to actions
-     *
-     * This event handler lets the plugin map URLs on the site to actions (and
-     * thus an action handler class). Note that the action handler class for an
-     * action will be named 'FoobarAction', where action = 'foobar'. The class
-     * must be loaded in the onAutoload() method.
      *
      * @param Net_URL_Mapper $m path-to-action mapper
      *
@@ -281,6 +240,11 @@ class FacebookSSOPlugin extends Plugin
 
     /*
      * Is there a Facebook application for the plugin to use?
+     *
+     * Checks to see if a Facebook application ID and secret
+     * have been configured and a valid Facebook API client
+     * object exists.
+     *
      */
     function hasApplication()
     {
@@ -298,6 +262,12 @@ class FacebookSSOPlugin extends Plugin
         return false;
     }
 
+    /*
+     * Output a Facebook div for the Facebook JavaSsript SDK to use
+     *
+     * @param Action $action the current action
+     *
+     */
     function onStartShowHeader($action)
     {
         // output <div id="fb-root"></div> as close to <body> as possible
@@ -305,6 +275,12 @@ class FacebookSSOPlugin extends Plugin
         return true;
     }
 
+    /*
+     * Load the Facebook JavaScript SDK on pages that need them.
+     *
+     * @param Action $action the current action
+     *
+     */
     function onEndShowScripts($action)
     {
         if ($this->needsScripts($action)) {
@@ -324,7 +300,7 @@ $('#facebook_button').bind('click', function(event) {
         } else {
             // NOP (user cancelled login)
         }
-    }, {perms:'read_stream,publish_stream,offline_access,user_status,user_location,user_website'});
+    }, {perms:'read_stream,publish_stream,offline_access,user_status,user_location,user_website,email'});
 });
 ENDOFSCRIPT;
 
@@ -341,7 +317,7 @@ ENDOFSCRIPT;
     /*
      * Log the user out of Facebook, per the Facebook authentication guide
      *
-     * @param Action action the action
+     * @param Action action the current action
      */
     function onEndLogout($action)
     {
@@ -381,10 +357,10 @@ ENDOFSCRIPT;
     }
 
     /*
-     * Add fbml namespace so Facebook's JavaScript SDK can parse and render
-     * XFBML tags (e.g: <fb:login-button>)
+     * Add fbml namespace to our HTML, so Facebook's JavaScript SDK can parse
+     * and render XFBML tags
      *
-     * @param Action    $action   current action
+     * @param Action    $action   the current action
      * @param array     $attrs    array of attributes for the HTML tag
      *
      * @return nothing
@@ -430,6 +406,30 @@ ENDOFSCRIPT;
             $manager->connect('facebook', 'FacebookQueueHandler');
         }
         return true;
+    }
+
+    /*
+     * Use SSL for Facebook stuff
+     *
+     * @param string $action name
+     * @param boolean $ssl outval to force SSL
+     * @return mixed hook return value
+     */
+    function onSensitiveAction($action, &$ssl)
+    {
+        $sensitive = array(
+            'facebookadminpanel',
+            'facebooksettings',
+            'facebooklogin',
+            'facebookfinishlogin'
+        );
+
+        if (in_array($action, $sensitive)) {
+            $ssl = true;
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /*

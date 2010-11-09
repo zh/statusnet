@@ -47,7 +47,6 @@ class Facebookclient
     protected $flink         = null; // Foreign_link StatusNet -> Facebook
     protected $notice        = null; // The user's notice
     protected $user          = null; // Sender of the notice
-    //protected $oldRestClient = null; // Old REST API client
 
     function __construct($notice)
     {
@@ -382,7 +381,7 @@ class Facebookclient
         $code   = $e->getCode();
 
         // The Facebook PHP SDK seems to always set the code attribute
-        // of the Exception to 0; they put the real error code it in
+        // of the Exception to 0; they put the real error code in
         // the message. Gar!
         if ($code == 0) {
             preg_match('/^\(#(?<code>\d+)\)/', $errmsg, $matches);
@@ -554,7 +553,6 @@ class Facebookclient
      */
     function formatAttachments()
     {
-
         $attachments = $this->notice->attachments();
 
         $fbattachment          = array();
