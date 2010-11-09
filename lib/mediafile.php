@@ -127,8 +127,8 @@ class MediaFile
         $outname = File::filename($this->user->getProfile(), 'thumb-' . $this->filename, $this->mimetype);
         $outpath = File::path($outname);
 
-        $width = 100;
-        $height = 75;
+        $width = common_config('attachments', 'thumb_width');
+        $height = common_config('attachments', 'thumb_height');
 
         $image->resizeTo($outpath, $width, $height);
         File_thumbnail::saveThumbnail($this->fileRecord->id,

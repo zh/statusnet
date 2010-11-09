@@ -250,6 +250,8 @@ $default =
               'monthly_quota' => 15000000,
               'uploads' => true,
               'filecommand' => '/usr/bin/file',
+              'thumb_width' => 100,
+              'thumb_height' => 75,
               ),
         'application' =>
         array('desclimit' => null),

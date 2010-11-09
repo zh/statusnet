@@ -58,11 +58,11 @@ class File_oembed extends Memcached_DataObject
         return array(false, false, false);
     }
 
-    function _getOembed($url, $maxwidth = 500, $maxheight = 400) {
+    function _getOembed($url) {
         require_once INSTALLDIR.'/extlib/Services/oEmbed.php';
         $parameters = array(
-            'maxwidth'=>$maxwidth,
-            'maxheight'=>$maxheight,
+            'maxwidth' => common_config('attachments', 'thumb_width'),
+            'maxheight' => common_config('attachments', 'thumb_height'),
         );
         try{
             $oEmbed = new Services_oEmbed($url);
