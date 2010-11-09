@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - UserFlag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:47:54+0000\n"
+"POT-Creation-Date: 2010-11-07 20:25+0000\n"
+"PO-Revision-Date: 2010-11-07 20:29:20+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-23 19:01:50+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r75596); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-05 00:29:34+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r76266); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-plugin-userflag\n"
@@ -48,23 +48,19 @@ msgstr[1] "Marcate per %1$s e %2$d alteres"
 msgid "Flagged by %s"
 msgstr "Marcate per %s"
 
-#. TRANS: Client error when setting flag that has already been set for a profile.
-#: flagprofile.php:66
-msgid "Flag already exists."
-msgstr "Le marca ja existe."
-
 #. TRANS: AJAX form title for a flagged profile.
-#: flagprofile.php:126
+#: flagprofile.php:125
 msgid "Flagged for review"
 msgstr "Marcate pro revision"
 
 #. TRANS: Body text for AJAX form when a profile has been flagged for review.
-#: flagprofile.php:130
+#. TRANS: Message added to a profile if it has been flagged for review.
+#: flagprofile.php:129 UserFlagPlugin.php:173
 msgid "Flagged"
 msgstr "Marcate"
 
 #. TRANS: Plugin description.
-#: UserFlagPlugin.php:292
+#: UserFlagPlugin.php:294
 msgid ""
 "This plugin allows flagging of profiles for review and reviewing flagged "
 "profiles."
@@ -98,7 +94,7 @@ msgid "Flag profile for review."
 msgstr "Marcar profilo pro revision."
 
 #. TRANS: Server exception.
-#: User_flag_profile.php:145
+#: User_flag_profile.php:160
 #, php-format
 msgid "Couldn't flag profile \"%d\" for review."
 msgstr "Non poteva marcar profilo \"%d\" pro revision."

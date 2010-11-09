@@ -306,7 +306,7 @@ class NoticeListItem extends Widget
         $attrs = array('href' => $this->profile->profileurl,
                        'class' => 'url');
         if (!empty($this->profile->fullname)) {
-            $attrs['title'] = $this->profile->fullname . ' (' . $this->profile->nickname . ')';
+            $attrs['title'] = $this->profile->getFancyName();
         }
         $this->out->elementStart('a', $attrs);
         $this->showAvatar();
@@ -327,11 +327,8 @@ class NoticeListItem extends Widget
 
     function showAvatar()
     {
-        if ('shownotice' === $this->out->trimmed('action')) {
-            $avatar_size = AVATAR_PROFILE_SIZE;
-        } else {
-            $avatar_size = AVATAR_STREAM_SIZE;
-        }
+	$avatar_size = AVATAR_STREAM_SIZE;
+
         $avatar = $this->profile->getAvatar($avatar_size);
 
         $this->out->element('img', array('src' => ($avatar) ?

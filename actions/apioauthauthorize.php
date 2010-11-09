@@ -421,7 +421,7 @@ class ApiOauthAuthorizeAction extends Action
         if ($this->app->name == 'anonymous') {
             // Special message for the anonymous app and consumer.
             // TRANS: User notification of external application requesting account access.
-            // TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
+            // TRANS: %3$s is the access type requested (read-write or read-only), %4$s is the StatusNet sitename.
             $msg = _('An application would like the ability ' .
                  'to <strong>%3$s</strong> your %4$s account data. ' .
                  'You should only give access to your %4$s account ' .

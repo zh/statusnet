@@ -48,10 +48,8 @@ require_once INSTALLDIR . '/lib/webcolor.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class DesignSettingsAction extends AccountSettingsAction
 {
-
     var $submitaction = null;
 
     /**
@@ -59,9 +57,9 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return string Title of the page
      */
-
     function title()
     {
+        // TRANS: Page title for profile design page.
         return _('Profile design');
     }
 
@@ -70,9 +68,9 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return instructions for use
      */
-
     function getInstructions()
     {
+        // TRANS: Instructions for profile design page.
         return _('Customize the way your profile looks ' .
         'with a background image and a colour palette of your choice.');
     }
@@ -84,10 +82,8 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return nothing
      */
-
     function showDesignForm($design)
     {
-
         $this->elementStart('form', array('method' => 'post',
                                           'enctype' => 'multipart/form-data',
                                           'id' => 'form_settings_design',
@@ -98,14 +94,18 @@ class DesignSettingsAction extends AccountSettingsAction
 
         $this->elementStart('fieldset', array('id' =>
             'settings_design_background-image'));
+        // TRANS: Fieldset legend on profile design page.
         $this->element('legend', null, _('Change background image'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->element('label', array('for' => 'design_background-image_file'),
+                                // TRANS: Label in form on profile design page.
+                                // TRANS: Field contains file name on user's computer that could be that user's custom profile background image.
                                 _('Upload file'));
         $this->element('input', array('name' => 'design_background-image_file',
                                       'type' => 'file',
                                       'id' => 'design_background-image_file'));
+        // TRANS: Instructions for form on profile design page.
         $this->element('p', 'form_guide', _('You can upload your personal ' .
             'background image. The maximum file size is 2MB.'));
         $this->element('input', array('name' => 'MAX_FILE_SIZE',
@@ -115,7 +115,6 @@ class DesignSettingsAction extends AccountSettingsAction
         $this->elementEnd('li');
 
         if (!empty($design->backgroundimage)) {
-
             $this->elementStart('li', array('id' =>
                 'design_background-image_onoff'));
 
@@ -136,7 +135,8 @@ class DesignSettingsAction extends AccountSettingsAction
 
             $this->element('label', array('for' => 'design_background-image_on',
                                           'class' => 'radio'),
-                                          _('On'));
+                                          // TRANS: Radio button on profile design page that will enable use of the uploaded profile image.
+                                          _m('RADIO','On'));
 
             $attrs = array('name' => 'design_background-image_onoff',
                            'type' => 'radio',
@@ -152,12 +152,16 @@ class DesignSettingsAction extends AccountSettingsAction
 
             $this->element('label', array('for' => 'design_background-image_off',
                                           'class' => 'radio'),
-                                          _('Off'));
+                                          // TRANS: Radio button on profile design page that will disable use of the uploaded profile image.
+                                          _m('RADIO','Off'));
+            // TRANS: Form guide for a set of radio buttons on the profile design page that will enable or disable
+            // TRANS: use of the uploaded profile image.
             $this->element('p', 'form_guide', _('Turn background image on or off.'));
             $this->elementEnd('li');
 
             $this->elementStart('li');
             $this->checkbox('design_background-image_repeat',
+                            // TRANS: Checkbox label on profile design page that will cause the profile image to be tiled.
                             _('Tile background image'),
                             ($design->disposition & BACKGROUND_TILE) ? true : false);
             $this->elementEnd('li');
@@ -167,14 +171,15 @@ class DesignSettingsAction extends AccountSettingsAction
         $this->elementEnd('fieldset');
 
         $this->elementStart('fieldset', array('id' => 'settings_design_color'));
+        // TRANS: Fieldset legend on profile design page to change profile page colours.
         $this->element('legend', null, _('Change colours'));
         $this->elementStart('ul', 'form_data');
 
         try {
-
             $bgcolor = new WebColor($design->backgroundcolor);
 
             $this->elementStart('li');
+            // TRANS: Label on profile design page for setting a profile page background colour.
             $this->element('label', array('for' => 'swatch-1'), _('Background'));
             $this->element('input', array('name' => 'design_background',
                                           'type' => 'text',
@@ -188,6 +193,7 @@ class DesignSettingsAction extends AccountSettingsAction
             $ccolor = new WebColor($design->contentcolor);
 
             $this->elementStart('li');
+            // TRANS: Label on profile design page for setting a profile page content colour.
             $this->element('label', array('for' => 'swatch-2'), _('Content'));
             $this->element('input', array('name' => 'design_content',
                                           'type' => 'text',
@@ -201,6 +207,7 @@ class DesignSettingsAction extends AccountSettingsAction
             $sbcolor = new WebColor($design->sidebarcolor);
 
             $this->elementStart('li');
+            // TRANS: Label on profile design page for setting a profile page sidebar colour.
             $this->element('label', array('for' => 'swatch-3'), _('Sidebar'));
             $this->element('input', array('name' => 'design_sidebar',
                                         'type' => 'text',
@@ -214,6 +221,7 @@ class DesignSettingsAction extends AccountSettingsAction
             $tcolor = new WebColor($design->textcolor);
 
             $this->elementStart('li');
+            // TRANS: Label on profile design page for setting a profile page text colour.
             $this->element('label', array('for' => 'swatch-4'), _('Text'));
             $this->element('input', array('name' => 'design_text',
                                         'type' => 'text',
@@ -227,6 +235,7 @@ class DesignSettingsAction extends AccountSettingsAction
             $lcolor = new WebColor($design->linkcolor);
 
             $this->elementStart('li');
+            // TRANS: Label on profile design page for setting a profile page links colour.
             $this->element('label', array('for' => 'swatch-5'), _('Links'));
             $this->element('input', array('name' => 'design_links',
                                          'type' => 'text',
@@ -244,16 +253,22 @@ class DesignSettingsAction extends AccountSettingsAction
         $this->elementEnd('ul');
         $this->elementEnd('fieldset');
 
+        // TRANS: Button text on profile design page to immediately reset all colour settings to default.
         $this->submit('defaults', _('Use defaults'), 'submit form_action-default',
+            // TRANS: Title for button on profile design page to reset all colour settings to default.
             'defaults', _('Restore default designs'));
 
         $this->element('input', array('id' => 'settings_design_reset',
                                      'type' => 'reset',
-                                     'value' => 'Reset',
+                                     // TRANS: Button text on profile design page to reset all colour settings to default without saving.
+                                     'value' => _m('BUTTON','Reset'),
                                      'class' => 'submit form_action-primary',
+                                     // TRANS: Title for button on profile design page to reset all colour settings to default without saving.
                                      'title' => _('Reset back to default')));
 
-        $this->submit('save', _('Save'), 'submit form_action-secondary',
+        // TRANS: Button text on profile design page to save settings.
+        $this->submit('save', _m('BUTTON','Save'), 'submit form_action-secondary',
+            // TRANS: Title for button on profile design page to save settings.
             'save', _('Save design'));
 
         $this->elementEnd('fieldset');
@@ -268,7 +283,6 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return void
      */
-
     function handlePost()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -280,8 +294,10 @@ class DesignSettingsAction extends AccountSettingsAction
                 && empty($_POST)
                 && ($_SERVER['CONTENT_LENGTH'] > 0)
             ) {
-                $msg = _('The server was unable to handle that much POST ' .
-                    'data (%s bytes) due to its current configuration.');
+                // TRANS: Form validation error in design settings form. POST should remain untranslated.
+                $msg = _m('The server was unable to handle that much POST data (%s byte) due to its current configuration.',
+                          'The server was unable to handle that much POST data (%s bytes) due to its current configuration.',
+                          intval($_SERVER['CONTENT_LENGTH']));
 
                 $this->showForm(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
                 return;
@@ -301,6 +317,7 @@ class DesignSettingsAction extends AccountSettingsAction
         } else if ($this->arg('defaults')) {
             $this->restoreDefaults();
         } else {
+            // TRANS: Unknown form validation error in design settings form.
             $this->showForm(_('Unexpected form submission.'));
         }
     }
@@ -310,7 +327,6 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return void
      */
-
     function showStylesheets()
     {
         parent::showStylesheets();
@@ -322,7 +338,6 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return void
      */
-
     function showScripts()
     {
         parent::showScripts();
@@ -340,10 +355,8 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return nothing
      */
-
     function saveBackgroundImage($design)
     {
-
         // Now that we have a Design ID we can add a file to the design.
         // XXX: This is an additional DB hit, but figured having the image
         // associated with the Design rather than the User was worth
@@ -388,6 +401,7 @@ class DesignSettingsAction extends AccountSettingsAction
 
             if ($result === false) {
                 common_log_db_error($design, 'UPDATE', __FILE__);
+                // TRANS: Error message displayed if design settings could not be saved.
                 $this->showForm(_('Couldn\'t update your design.'));
                 return;
             }
@@ -399,7 +413,6 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return nothing
      */
-
     function restoreDefaults()
     {
         $design = $this->getWorkingDesign();
@@ -410,12 +423,13 @@ class DesignSettingsAction extends AccountSettingsAction
 
             if ($result === false) {
                 common_log_db_error($design, 'DELETE', __FILE__);
+                // TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
                 $this->showForm(_('Couldn\'t update your design.'));
                 return;
             }
         }
 
+        // TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
         $this->showForm(_('Design defaults restored.'), true);
     }
-
 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
+"POT-Creation-Date: 2010-11-04 18:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,23 +44,19 @@ msgstr[1] ""
 msgid "Flagged by %s"
 msgstr ""
 
-#. TRANS: Client error when setting flag that has already been set for a profile.
-#: flagprofile.php:66
-msgid "Flag already exists."
-msgstr ""
-
 #. TRANS: AJAX form title for a flagged profile.
-#: flagprofile.php:126
+#: flagprofile.php:125
 msgid "Flagged for review"
 msgstr ""
 
 #. TRANS: Body text for AJAX form when a profile has been flagged for review.
-#: flagprofile.php:130
+#. TRANS: Message added to a profile if it has been flagged for review.
+#: flagprofile.php:129 UserFlagPlugin.php:173
 msgid "Flagged"
 msgstr ""
 
 #. TRANS: Plugin description.
-#: UserFlagPlugin.php:292
+#: UserFlagPlugin.php:294
 msgid ""
 "This plugin allows flagging of profiles for review and reviewing flagged "
 "profiles."
@@ -93,7 +89,7 @@ msgid "Flag profile for review."
 msgstr ""
 
 #. TRANS: Server exception.
-#: User_flag_profile.php:145
+#: User_flag_profile.php:160
 #, php-format
 msgid "Couldn't flag profile \"%d\" for review."
 msgstr ""

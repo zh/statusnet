@@ -118,16 +118,16 @@ EndShowHTML: Showing after the html element
 - $action: the current action
 
 StartPublicGroupNav: Showing the public group nav menu
-- $action: the current action
+- $menu: the menu widget; use $menu->action for output
 
 EndPublicGroupNav: At the end of the public group nav menu
-- $action: the current action
+- $menu: the menu widget; use $menu->action for output
 
 StartSubGroupNav: Showing the subscriptions group nav menu
-- $action: the current action
+- $menu: the menu widget; use $menu->action for output
 
 EndSubGroupNav: At the end of the subscriptions group nav menu
-- $action: the current action
+- $menu: the menu widget; use $menu->action for output
 
 StartInitializeRouter: Before the router instance has been initialized; good place to add routes
 - $m: the Net_URL_Mapper that has just been set up
@@ -301,6 +301,20 @@ StartProfileSaveForm: before starting to save a profile settings form
 
 EndProfileSaveForm: after saving a profile settings form (after commit, no profile or user object!)
 - $action: action object being shown
+
+StartEmailFormData: just before showing text entry fields on email settings page
+- $action: action object being shown
+
+EndEmailFormData: just after showing text entry fields on email settings page
+- $action: action object being shown
+
+StartEmailSaveForm: before starting to save a email settings form
+- $action: action object being shown
+- &$user: user being saved
+
+EndEmailSaveForm: after saving a email settings form (after commit)
+- $action: action object being shown
+- &$user: user being saved
 
 StartRegistrationFormData: just before showing text entry fields on registration page
 - $action: action object being shown

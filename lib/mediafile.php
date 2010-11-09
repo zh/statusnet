@@ -278,6 +278,9 @@ class MediaFile
     static function getUploadedFileType($f, $originalFilename=false) {
         require_once 'MIME/Type.php';
         require_once 'MIME/Type/Extension.php';
+
+        // We have to disable auto handling of PEAR errors
+        PEAR::staticPushErrorHandling(PEAR_ERROR_RETURN);
         $mte = new MIME_Type_Extension();
 
         $cmd = &PEAR::getStaticProperty('MIME_Type', 'fileCmd');
@@ -330,6 +333,8 @@ class MediaFile
             }
         }
         if ($supported === true || in_array($filetype, $supported)) {
+            // Restore PEAR error handlers for our DB code...
+            PEAR::staticPopErrorHandling();
             return $filetype;
         }
         $media = MIME_Type::getMedia($filetype);
@@ -344,6 +349,8 @@ class MediaFile
             // TRANS: %s is the file type that was denied.
             $hint = sprintf(_('"%s" is not a supported file type on this server.'), $filetype);
         }
+        // Restore PEAR error handlers for our DB code...
+        PEAR::staticPopErrorHandling();
         throw new ClientException($hint);
     }
 

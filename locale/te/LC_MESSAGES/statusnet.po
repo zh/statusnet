@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-02 22:51+0000\n"
-"PO-Revision-Date: 2010-11-02 22:53:45+0000\n"
+"POT-Creation-Date: 2010-11-07 20:24+0000\n"
+"PO-Revision-Date: 2010-11-07 20:27:45+0000\n"
 "Language-Team: Telugu <http://translatewiki.net/wiki/Portal:te>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75875); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r76266); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-30 23:42:01+0000\n"
+"X-POT-Import-Date: 2010-11-05 00:36:07+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -85,12 +85,14 @@ msgstr "అందుబాటు అమరికలను భద్రపరచ�
 #. TRANS: Save button for settings for a profile in a subscriptions list.
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
+#. TRANS: Button text on profile design page to save settings.
 #: actions/accessadminpanel.php:193 actions/emailsettings.php:228
 #: actions/imsettings.php:187 actions/othersettings.php:134
 #: actions/pathsadminpanel.php:512 actions/profilesettings.php:201
 #: actions/sitenoticeadminpanel.php:197 actions/smssettings.php:209
 #: actions/subscriptions.php:246 actions/useradminpanel.php:298
-#: lib/applicationeditform.php:355 lib/groupeditform.php:207
+#: lib/applicationeditform.php:355 lib/designsettings.php:270
+#: lib/groupeditform.php:207
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "భద్రపరచు"
@@ -158,7 +160,7 @@ msgstr "%1$s మరియు మిత్రులు, పేజీ %2$d"
 #. TRANS: Timeline title for user and friends. %s is a user nickname.
 #: actions/all.php:94 actions/all.php:191 actions/allrss.php:115
 #: actions/apitimelinefriends.php:207 actions/apitimelinehome.php:113
-#: lib/personalgroupnav.php:100
+#: lib/personalgroupnav.php:103
 #, php-format
 msgid "%s and friends"
 msgstr "%s మరియు మిత్రులు"
@@ -328,11 +330,13 @@ msgstr "ప్రొఫైలుని భద్రపరచలేకున్�
 
 #. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
 #. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
+#. TRANS: Form validation error in design settings form. POST should remain untranslated.
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:95 actions/apimediaupload.php:81
 #: actions/apistatusesupdate.php:210 actions/avatarsettings.php:269
 #: actions/designadminpanel.php:125 actions/editapplication.php:121
 #: actions/newapplication.php:104 actions/newnotice.php:95
+#: lib/designsettings.php:298
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s byte) due to its "
@@ -739,7 +743,7 @@ msgstr "మీకు అధీకరణ లేదు."
 #: actions/repeat.php:83 actions/smssettings.php:256 actions/subedit.php:40
 #: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
-#: lib/designsettings.php:294
+#: lib/designsettings.php:310
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
@@ -761,12 +765,13 @@ msgstr "అవతారాన్ని పెట్టడంలో పొరప�
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
 #. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
+#. TRANS: Unknown form validation error in design settings form.
 #: actions/apioauthauthorize.php:294 actions/avatarsettings.php:294
 #: actions/designadminpanel.php:104 actions/editapplication.php:144
 #: actions/emailsettings.php:290 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:125
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
-#: actions/smssettings.php:277 lib/designsettings.php:304
+#: actions/smssettings.php:277 lib/designsettings.php:321
 msgid "Unexpected form submission."
 msgstr ""
 
@@ -812,7 +817,7 @@ msgstr "ఖాతా"
 #. TRANS: Label for group nickname (dt). Text hidden by default.
 #: actions/apioauthauthorize.php:459 actions/login.php:252
 #: actions/profilesettings.php:110 actions/register.php:433
-#: actions/showgroup.php:245 actions/tagother.php:94
+#: actions/showgroup.php:240 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:132
 msgid "Nickname"
@@ -1073,7 +1078,7 @@ msgstr "అటువంటి జోడింపు లేదు."
 #: actions/avatarbynickname.php:60 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:85 actions/groupdesignsettings.php:84
 #: actions/grouplogo.php:86 actions/groupmembers.php:76
-#: actions/grouprss.php:91 actions/showgroup.php:121
+#: actions/grouprss.php:91 actions/showgroup.php:116
 msgid "No nickname."
 msgstr "పేరు"
 
@@ -1090,7 +1095,7 @@ msgstr "తప్పుడు పరిమాణం."
 #. TRANS: Title for avatar upload page.
 #. TRANS: Label for group avatar (dt). Text hidden by default.
 #. TRANS: Link description in user account settings menu.
-#: actions/avatarsettings.php:66 actions/showgroup.php:229
+#: actions/avatarsettings.php:66 actions/showgroup.php:224
 #: lib/accountsettingsaction.php:113
 msgid "Avatar"
 msgstr "అవతారం"
@@ -1133,21 +1138,18 @@ msgstr "మునుజూపు"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
 #: actions/avatarsettings.php:155
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "తొలగించు"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
 #: actions/avatarsettings.php:173
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Upload"
-msgstr "ఎగుమతించు"
+msgstr "ఎక్కించు"
 
 #. TRANS: Button on avatar upload crop form to confirm a selected crop as avatar.
 #: actions/avatarsettings.php:243
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Crop"
 msgstr "కత్తిరించు"
@@ -1266,7 +1268,7 @@ msgstr "నిరోధపు సమాచారాన్ని భద్రప�
 #: actions/groupunblock.php:88 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:139 actions/showgroup.php:148 lib/command.php:168
+#: actions/showgroup.php:134 actions/showgroup.php:143 lib/command.php:168
 #: lib/command.php:380
 msgid "No such group."
 msgstr "అటువంటి గుంపు లేదు."
@@ -1440,9 +1442,8 @@ msgstr "ఈ ఉపకరణాన్ని తొలగించు"
 
 #. TRANS: Client error when trying to delete group while not logged in.
 #: actions/deletegroup.php:64
-#, fuzzy
 msgid "You must be logged in to delete a group."
-msgstr "గుంపుని వదిలివెళ్ళడానికి మీరు ప్రవేశించి ఉండాలి."
+msgstr "గుంపుని తొలగించడానికి మీరు ప్రవేశించి ఉండాలి."
 
 #. TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
 #: actions/deletegroup.php:94 actions/joingroup.php:88
@@ -1452,23 +1453,22 @@ msgstr "Jabber ID లేదు."
 
 #. TRANS: Client error when trying to delete a group without having the rights to delete it.
 #: actions/deletegroup.php:107
-#, fuzzy
 msgid "You are not allowed to delete this group."
-msgstr "మీరు ఈ గుంపులో సభ్యులు కాదు."
+msgstr "ఈ గుంపును తొలగించడానికి మీకు అనుమతి లేదు."
 
 #. TRANS: Server error displayed if a group could not be deleted.
 #. TRANS: %s is the name of the group that could not be deleted.
 #: actions/deletegroup.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete group %s."
-msgstr "గుంపుని తాజాకరించలేకున్నాం."
+msgstr "%s గుంపుని తొలగించలేకున్నాం."
 
 #. TRANS: Message given after deleting a group.
 #. TRANS: %s is the deleted group's name.
 #: actions/deletegroup.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted group %s"
-msgstr "%2$s గుంపు నుండి %1$s వైదొలిగారు"
+msgstr "%s గుంపుని తొలగించాం"
 
 #. TRANS: Title of delete group page.
 #. TRANS: Form legend for deleting a group.
@@ -1584,9 +1584,8 @@ msgid "Invalid logo URL."
 msgstr "చిహ్నపు URL చెల్లదు."
 
 #: actions/designadminpanel.php:340
-#, fuzzy
 msgid "Invalid SSL logo URL."
-msgstr "చిహ్నపు URL చెల్లదు."
+msgstr "SSL చిహ్నపు URL చెల్లదు."
 
 #: actions/designadminpanel.php:344
 #, php-format
@@ -1602,9 +1601,8 @@ msgid "Site logo"
 msgstr "సైటు చిహ్నం"
 
 #: actions/designadminpanel.php:457
-#, fuzzy
 msgid "SSL logo"
-msgstr "సైటు చిహ్నం"
+msgstr "SSL చిహ్నం"
 
 #: actions/designadminpanel.php:469
 msgid "Change theme"
@@ -1627,12 +1625,14 @@ msgstr "సైటు అలంకారం"
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
 
-#: actions/designadminpanel.php:512 lib/designsettings.php:101
+#. TRANS: Fieldset legend on profile design page.
+#: actions/designadminpanel.php:512 lib/designsettings.php:98
 msgid "Change background image"
 msgstr "నేపథ్య చిత్రాన్ని మార్చు"
 
+#. TRANS: Label on profile design page for setting a profile page background colour.
 #: actions/designadminpanel.php:517 actions/designadminpanel.php:600
-#: lib/designsettings.php:178
+#: lib/designsettings.php:183
 msgid "Background"
 msgstr "నేపథ్యం"
 
@@ -1644,42 +1644,50 @@ msgid ""
 msgstr "సైటుకి మీరు నేపథ్యపు చిత్రాన్ని ఎక్కించవచ్చు. గరిష్ఠ ఫైలు పరిమాణం %1$s."
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:553 lib/designsettings.php:139
+#: actions/designadminpanel.php:553
 msgid "On"
 msgstr "ఆన్"
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:570 lib/designsettings.php:155
+#: actions/designadminpanel.php:570
 msgid "Off"
 msgstr "ఆఫ్"
 
-#: actions/designadminpanel.php:571 lib/designsettings.php:156
+#. TRANS: Form guide for a set of radio buttons on the profile design page that will enable or disable
+#. TRANS: use of the uploaded profile image.
+#: actions/designadminpanel.php:571 lib/designsettings.php:159
 #, fuzzy
 msgid "Turn background image on or off."
 msgstr "నేపథ్య చిత్రాన్ని మార్చు"
 
-#: actions/designadminpanel.php:576 lib/designsettings.php:161
+#. TRANS: Checkbox label on profile design page that will cause the profile image to be tiled.
+#: actions/designadminpanel.php:576 lib/designsettings.php:165
 #, fuzzy
 msgid "Tile background image"
 msgstr "నేపథ్య చిత్రాన్ని మార్చు"
 
-#: actions/designadminpanel.php:590 lib/designsettings.php:170
+#. TRANS: Fieldset legend on profile design page to change profile page colours.
+#: actions/designadminpanel.php:590 lib/designsettings.php:175
 msgid "Change colours"
 msgstr "రంగులను మార్చు"
 
-#: actions/designadminpanel.php:613 lib/designsettings.php:191
+#. TRANS: Label on profile design page for setting a profile page content colour.
+#: actions/designadminpanel.php:613 lib/designsettings.php:197
 msgid "Content"
 msgstr "విషయం"
 
-#: actions/designadminpanel.php:626 lib/designsettings.php:204
+#. TRANS: Label on profile design page for setting a profile page sidebar colour.
+#: actions/designadminpanel.php:626 lib/designsettings.php:211
 msgid "Sidebar"
 msgstr "పక్కపట్టీ"
 
-#: actions/designadminpanel.php:639 lib/designsettings.php:217
+#. TRANS: Label on profile design page for setting a profile page text colour.
+#: actions/designadminpanel.php:639 lib/designsettings.php:225
 msgid "Text"
 msgstr "పాఠ్యం"
 
-#: actions/designadminpanel.php:652 lib/designsettings.php:230
+#. TRANS: Label on profile design page for setting a profile page links colour.
+#: actions/designadminpanel.php:652 lib/designsettings.php:239
 msgid "Links"
 msgstr "లంకెలు"
 
@@ -1691,16 +1699,19 @@ msgstr "ఉన్నత"
 msgid "Custom CSS"
 msgstr "ప్రత్యేక CSS"
 
-#: actions/designadminpanel.php:702 lib/designsettings.php:247
+#. TRANS: Button text on profile design page to immediately reset all colour settings to default.
+#: actions/designadminpanel.php:702 lib/designsettings.php:257
 msgid "Use defaults"
 msgstr "అప్రమేయాలని ఉపయోగించు"
 
-#: actions/designadminpanel.php:703 lib/designsettings.php:248
+#. TRANS: Title for button on profile design page to reset all colour settings to default.
+#: actions/designadminpanel.php:703 lib/designsettings.php:259
 #, fuzzy
 msgid "Restore default designs"
 msgstr "అప్రమేయాలని ఉపయోగించు"
 
-#: actions/designadminpanel.php:709 lib/designsettings.php:254
+#. TRANS: Title for button on profile design page to reset all colour settings to default without saving.
+#: actions/designadminpanel.php:709 lib/designsettings.php:267
 #, fuzzy
 msgid "Reset back to default"
 msgstr "అప్రమేయాలని ఉపయోగించు"
@@ -1709,11 +1720,12 @@ msgstr "అప్రమేయాలని ఉపయోగించు"
 #: actions/designadminpanel.php:711 actions/licenseadminpanel.php:319
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/snapshotadminpanel.php:245 actions/tagother.php:154
-#: lib/applicationeditform.php:357 lib/designsettings.php:256
+#: lib/applicationeditform.php:357
 msgid "Save"
 msgstr "భద్రపరచు"
 
-#: actions/designadminpanel.php:712 lib/designsettings.php:257
+#. TRANS: Title for button on profile design page to save settings.
+#: actions/designadminpanel.php:712 lib/designsettings.php:272
 msgid "Save design"
 msgstr "రూపురేఖలని భద్రపరచు"
 
@@ -1851,7 +1863,7 @@ msgstr "గుంపుని తాజాకరించలేకున్న�
 
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:288 classes/User_group.php:513
+#: actions/editgroup.php:288 classes/User_group.php:529
 msgid "Could not create aliases."
 msgstr "మారుపేర్లని సృష్టించలేకపోయాం."
 
@@ -1967,7 +1979,7 @@ msgstr "%s (@%s) మీ నోటీసుని ఇష్టపడ్డార�
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:197
 msgid "Send me email when someone sends me a private message."
-msgstr ""
+msgstr "ఎవరైనా నాకు అంతరంగిక సందేశాన్ని పంపించినప్పుడు నాకు ఈమెయిలుని పంపించు"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:203
@@ -2141,7 +2153,7 @@ msgid ""
 msgstr "[ఒక ఖాతాని నమోదుచేసుకుని](%%action.register%%) మీరే మొదట వ్రాసేవారు ఎందుకు కాకూడదు!"
 
 #: actions/favoritesrss.php:111 actions/showfavorites.php:77
-#: lib/personalgroupnav.php:115
+#: lib/personalgroupnav.php:118
 #, php-format
 msgid "%s's favorite notices"
 msgstr "%sకి ఇష్టమైన నోటీసులు"
@@ -2321,8 +2333,10 @@ msgid ""
 "palette of your choice."
 msgstr "నేపథ్య చిత్రం మరియు రంగుల ఎంపికతో మీ గుంపు ఎలా కనిపించాలో మలచుకోండి."
 
+#. TRANS: Error message displayed if design settings could not be saved.
+#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
 #: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
-#: lib/designsettings.php:391 lib/designsettings.php:413
+#: lib/designsettings.php:405 lib/designsettings.php:427
 msgid "Couldn't update your design."
 msgstr "మీ రూపురేఖలని తాజాకరించలేకపోయాం."
 
@@ -2706,7 +2720,7 @@ msgstr[1] "మీరు ఇప్పటికే ఈ వాడుకరులక
 #. TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
 #. TRANS: Used as list item for already registered people (%1$s is nickname, %2$s is e-mail address).
 #: actions/invite.php:145 actions/invite.php:159
-#, fuzzy, php-format
+#, php-format
 msgctxt "INVITE"
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -2906,7 +2920,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:239
 msgid "License selection"
-msgstr ""
+msgstr "లైసెన్సు ఎంపిక"
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
@@ -3254,25 +3268,25 @@ msgstr ""
 msgid "Notice has no profile."
 msgstr "నోటీసుకి ప్రొఫైలు లేదు."
 
-#: actions/oembed.php:87 actions/shownotice.php:176
+#: actions/oembed.php:83 actions/shownotice.php:172
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%2$sలో %1$s యొక్క స్థితి"
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
-#: actions/oembed.php:159
+#: actions/oembed.php:155
 #, fuzzy, php-format
 msgid "Content type %s not supported."
 msgstr "విషయ రకం "
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
-#: actions/oembed.php:163
+#: actions/oembed.php:159
 #, php-format
 msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1200
+#: actions/oembed.php:180 actions/oembed.php:199 lib/apiaction.php:1200
 #: lib/apiaction.php:1227 lib/apiaction.php:1356
 msgid "Not a supported data format."
 msgstr ""
@@ -3771,7 +3785,7 @@ msgstr "1-64 చిన్నబడి అక్షరాలు లేదా అ�
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for full group name (dt). Text hidden by default.
 #: actions/profilesettings.php:117 actions/register.php:457
-#: actions/showgroup.php:257 actions/tagother.php:104
+#: actions/showgroup.php:252 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:150
 msgid "Full name"
 msgstr "పూర్తి పేరు"
@@ -3813,7 +3827,7 @@ msgstr "స్వపరిచయం"
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group location (dt). Text hidden by default.
 #: actions/profilesettings.php:149 actions/register.php:485
-#: actions/showgroup.php:267 actions/tagother.php:112
+#: actions/showgroup.php:262 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:180
 #: lib/userprofile.php:165
 msgid "Location"
@@ -4389,7 +4403,7 @@ msgid "Repeated!"
 msgstr "పునరావృతించారు!"
 
 #: actions/replies.php:126 actions/repliesrss.php:68
-#: lib/personalgroupnav.php:105
+#: lib/personalgroupnav.php:108
 #, php-format
 msgid "Replies to %s"
 msgstr "%sకి స్పందనలు"
@@ -4527,7 +4541,7 @@ msgid "Description"
 msgstr "వివరణ"
 
 #. TRANS: Header for group statistics on a group page (h2).
-#: actions/showapplication.php:192 actions/showgroup.php:453
+#: actions/showapplication.php:192 actions/showgroup.php:448
 #: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "గణాంకాలు"
@@ -4639,96 +4653,95 @@ msgid "This is a way to share what you like."
 msgstr "మీకు నచ్చినవి పంచుకోడానికి ఇదొక మార్గం."
 
 #. TRANS: Page title for first group page. %s is a group name.
-#: actions/showgroup.php:80
+#: actions/showgroup.php:75
 #, php-format
 msgid "%s group"
 msgstr "%s గుంపు"
 
 #. TRANS: Page title for any but first group page.
 #. TRANS: %1$s is a group name, $2$s is a page number.
-#: actions/showgroup.php:84
+#: actions/showgroup.php:79
 #, php-format
 msgid "%1$s group, page %2$d"
 msgstr "%1$s గుంపు , %2$dవ పేజీ"
 
 #. TRANS: Group profile header (h2). Text hidden by default.
-#: actions/showgroup.php:225
+#: actions/showgroup.php:220
 msgid "Group profile"
 msgstr "గుంపు ప్రొఫైలు"
 
 #. TRANS: Label for group URL (dt). Text hidden by default.
-#: actions/showgroup.php:275 actions/tagother.php:118
+#: actions/showgroup.php:270 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:178
 msgid "URL"
 msgstr ""
 
 #. TRANS: Label for group description or group note (dt). Text hidden by default.
-#: actions/showgroup.php:287 actions/tagother.php:128
+#: actions/showgroup.php:282 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:195
 msgid "Note"
 msgstr "గమనిక"
 
 #. TRANS: Label for group aliases (dt). Text hidden by default.
-#: actions/showgroup.php:298 lib/groupeditform.php:187
+#: actions/showgroup.php:293 lib/groupeditform.php:187
 msgid "Aliases"
 msgstr "మారుపేర్లు"
 
 #. TRANS: Group actions header (h2). Text hidden by default.
-#: actions/showgroup.php:309
+#: actions/showgroup.php:304
 msgid "Group actions"
 msgstr "గుంపు చర్యలు"
 
 #. TRANS: Tooltip for feed link. %s is a group nickname.
-#: actions/showgroup.php:350
+#: actions/showgroup.php:345
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "%s కొరకు స్పందనల ఫీడు (RSS 1.0)"
 
 #. TRANS: Tooltip for feed link. %s is a group nickname.
-#: actions/showgroup.php:357
+#: actions/showgroup.php:352
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "%s కొరకు స్పందనల ఫీడు (RSS 2.0)"
 
 #. TRANS: Tooltip for feed link. %s is a group nickname.
-#: actions/showgroup.php:364
+#: actions/showgroup.php:359
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "%s కొరకు స్పందనల ఫీడు (ఆటమ్)"
 
 #. TRANS: Tooltip for feed link. %s is a group nickname.
-#: actions/showgroup.php:370
+#: actions/showgroup.php:365
 #, php-format
 msgid "FOAF for %s group"
 msgstr "%s గుంపు"
 
 #. TRANS: Header for mini list of group members on a group page (h2).
-#: actions/showgroup.php:407
+#: actions/showgroup.php:402
 msgid "Members"
 msgstr "సభ్యులు"
 
 #. TRANS: Description for mini list of group members on a group page when the group has no members.
-#: actions/showgroup.php:413 lib/profileaction.php:117
+#: actions/showgroup.php:408 lib/profileaction.php:117
 #: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(ఏమీలేదు)"
 
 #. TRANS: Link to all group members from mini list of group members if group has more than n members.
-#: actions/showgroup.php:422
+#: actions/showgroup.php:417
 msgid "All members"
 msgstr "అందరు సభ్యులూ"
 
 #. TRANS: Label for creation date in statistics on group page.
-#: actions/showgroup.php:458
+#: actions/showgroup.php:453
 #, fuzzy
 msgctxt "LABEL"
 msgid "Created"
 msgstr "సృష్టితం"
 
 #. TRANS: Label for member count in statistics on group page.
-#: actions/showgroup.php:466
-#, fuzzy
+#: actions/showgroup.php:461
 msgctxt "LABEL"
 msgid "Members"
 msgstr "సభ్యులు"
@@ -4737,7 +4750,7 @@ msgstr "సభ్యులు"
 #. TRANS: **%s** is the group alias, %%%%site.name%%%% is the site name,
 #. TRANS: %%%%action.register%%%% is the URL for registration, %%%%doc.help%%%% is a URL to help.
 #. TRANS: This message contains Markdown links. Ensure they are formatted correctly: [Description](link).
-#: actions/showgroup.php:481
+#: actions/showgroup.php:476
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4756,7 +4769,7 @@ msgstr ""
 #. TRANS: Notice on group pages for anonymous users for StatusNet sites that accept no new registrations.
 #. TRANS: **%s** is the group alias, %%%%site.name%%%% is the site name,
 #. TRANS: This message contains Markdown links. Ensure they are formatted correctly: [Description](link).
-#: actions/showgroup.php:491
+#: actions/showgroup.php:486
 #, fuzzy, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4772,7 +4785,7 @@ msgstr ""
 "doc.help%%%%))"
 
 #. TRANS: Header for list of group administrators on a group page (h2).
-#: actions/showgroup.php:520
+#: actions/showgroup.php:515
 msgid "Admins"
 msgstr "నిర్వాహకులు"
 
@@ -5527,7 +5540,7 @@ msgstr "వాడుకరి"
 #. TRANS: Instruction for user admin panel.
 #: actions/useradminpanel.php:69
 msgid "User settings for this StatusNet site"
-msgstr ""
+msgstr "ఈ స్టేటస్&zwnj;నెట్ సైటుకి వాడుకరి అమరికలు"
 
 #. TRANS: Form validation error in user admin panel when a non-numeric character limit was set.
 #: actions/useradminpanel.php:147
@@ -5549,7 +5562,7 @@ msgstr ""
 
 #. TRANS: Link description in user account settings menu.
 #: actions/useradminpanel.php:215 lib/accountsettingsaction.php:106
-#: lib/personalgroupnav.php:109
+#: lib/personalgroupnav.php:112
 msgid "Profile"
 msgstr "ప్రొఫైలు"
 
@@ -5705,11 +5718,13 @@ msgstr "'%s' అనే అవతారపు URL తప్పు"
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "'%s' కొరకు తప్పుడు బొమ్మ రకం"
 
-#: actions/userdesignsettings.php:76 lib/designsettings.php:65
+#. TRANS: Page title for profile design page.
+#: actions/userdesignsettings.php:76 lib/designsettings.php:63
 msgid "Profile design"
 msgstr "ఫ్రొఫైలు రూపురేఖలు"
 
-#: actions/userdesignsettings.php:87 lib/designsettings.php:76
+#. TRANS: Instructions for profile design page.
+#: actions/userdesignsettings.php:87 lib/designsettings.php:74
 #, fuzzy
 msgid ""
 "Customize the way your profile looks with a background image and a colour "
@@ -5812,9 +5827,9 @@ msgstr "ఇష్టపడు"
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
 #: classes/Fave.php:151
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s marked notice %2$s as a favorite."
-msgstr "%s (@%s) మీ నోటీసుని ఇష్టపడ్డారు"
+msgstr "%2$s నోటీసుని %1$s ఇష్టాంశంగా గుర్తించారు."
 
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:142
@@ -5829,29 +5844,38 @@ msgstr ""
 
 #. TRANS: Message given if an upload is larger than the configured maximum.
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
-#: classes/File.php:189
+#. TRANS: %1$s is used for plural.
+#: classes/File.php:190
 #, php-format
 msgid ""
+"No file may be larger than %1$d byte and the file you sent was %2$d bytes. "
+"Try to upload a smaller version."
+msgid_plural ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
-msgstr ""
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Message given if an upload would exceed user quota.
-#. TRANS: %d (number) is the user quota in bytes.
-#: classes/File.php:201
+#. TRANS: %d (number) is the user quota in bytes and is used for plural.
+#: classes/File.php:203
 #, php-format
-msgid "A file this large would exceed your user quota of %d bytes."
-msgstr ""
+msgid "A file this large would exceed your user quota of %d byte."
+msgid_plural "A file this large would exceed your user quota of %d bytes."
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Message given id an upload would exceed a user's monthly quota.
-#. TRANS: $d (number) is the monthly user quota in bytes.
-#: classes/File.php:210
+#. TRANS: $d (number) is the monthly user quota in bytes and is used for plural.
+#: classes/File.php:215
 #, php-format
-msgid "A file this large would exceed your monthly quota of %d bytes."
-msgstr ""
+msgid "A file this large would exceed your monthly quota of %d byte."
+msgid_plural "A file this large would exceed your monthly quota of %d bytes."
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
-#: classes/File.php:247 classes/File.php:262
+#: classes/File.php:262 classes/File.php:277
 msgid "Invalid filename."
 msgstr "తప్పుడు దస్త్రపుపేరు.."
 
@@ -5979,33 +6003,33 @@ msgid "Problem saving notice."
 msgstr "సందేశాన్ని భద్రపరచడంలో పొరపాటు."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:907
-msgid "Bad type provided to saveKnownGroups"
+#: classes/Notice.php:905
+msgid "Bad type provided to saveKnownGroups."
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1006
+#: classes/Notice.php:1004
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "సందేశాన్ని భద్రపరచడంలో పొరపాటు."
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1120
+#: classes/Notice.php:1118
 #, fuzzy, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr "స్థానిక గుంపుని తాజాకరించలేకున్నాం."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1822
+#: classes/Notice.php:1820
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
 #. TRANS: Full name of a profile or group followed by nickname in parens
-#: classes/Profile.php:164
-#, fuzzy, php-format
+#: classes/Profile.php:164 classes/User_group.php:247
+#, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -6101,22 +6125,22 @@ msgid "Single-user mode code called when not enabled."
 msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:495
+#: classes/User_group.php:511
 msgid "Could not create group."
 msgstr "గుంపుని సృష్టించలేకపోయాం."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:505
+#: classes/User_group.php:521
 msgid "Could not set group URI."
 msgstr "గుంపుని సృష్టించలేకపోయాం."
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:528
+#: classes/User_group.php:544
 msgid "Could not set group membership."
 msgstr "గుంపు సభ్యత్వాన్ని అమర్చలేకపోయాం."
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:543
+#: classes/User_group.php:559
 msgid "Could not save local group info."
 msgstr "స్థానిక గుంపుని తాజాకరించలేకున్నాం."
 
@@ -6171,7 +6195,7 @@ msgstr "శీర్షికలేని పేజీ"
 #: lib/action.php:310
 msgctxt "TOOLTIP"
 msgid "Show more"
-msgstr ""
+msgstr "మరింత చూపించు"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
 #: lib/action.php:526
@@ -6525,7 +6549,7 @@ msgid "User configuration"
 msgstr "వాడుకరి స్వరూపణం"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:355 lib/personalgroupnav.php:115
+#: lib/adminpanelaction.php:355 lib/personalgroupnav.php:118
 msgid "User"
 msgstr "వాడుకరి"
 
@@ -7051,7 +7075,7 @@ msgstr "ఈ లంకెని ఒకేసారి ఉపయోగించగ
 #: lib/command.php:812
 #, php-format
 msgid "Unsubscribed %s."
-msgstr ""
+msgstr "%sని చందా విరమింపజేసారు."
 
 #. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
 #: lib/command.php:830
@@ -7204,23 +7228,41 @@ msgstr "అధీకృత అనుసంధాన ఉపకరణాలు"
 msgid "Database error"
 msgstr ""
 
-#: lib/designsettings.php:105
+#. TRANS: Label in form on profile design page.
+#. TRANS: Field contains file name on user's computer that could be that user's custom profile background image.
+#: lib/designsettings.php:104
 msgid "Upload file"
 msgstr "ఫైలుని ఎక్కించు"
 
+#. TRANS: Instructions for form on profile design page.
 #: lib/designsettings.php:109
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr "మీ వ్యక్తిగత నేపథ్యపు చిత్రాన్ని మీరు ఎక్కించవచ్చు. గరిష్ఠ ఫైలు పరిమాణం 2మెబై."
 
-#: lib/designsettings.php:283
-#, php-format
-msgid ""
-"The server was unable to handle that much POST data (%s bytes) due to its "
-"current configuration."
-msgstr ""
+#. TRANS: Radio button on profile design page that will enable use of the uploaded profile image.
+#: lib/designsettings.php:139
+#, fuzzy
+msgctxt "RADIO"
+msgid "On"
+msgstr "ఆన్"
 
-#: lib/designsettings.php:418
+#. TRANS: Radio button on profile design page that will disable use of the uploaded profile image.
+#: lib/designsettings.php:156
+#, fuzzy
+msgctxt "RADIO"
+msgid "Off"
+msgstr "ఆఫ్"
+
+#. TRANS: Button text on profile design page to reset all colour settings to default without saving.
+#: lib/designsettings.php:264
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Reset"
+msgstr "రీసెట్"
+
+#. TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
+#: lib/designsettings.php:433
 msgid "Design defaults restored."
 msgstr ""
 
@@ -7235,11 +7277,11 @@ msgstr "ఈ నోటీసుని పునరావృతించు"
 
 #: lib/feed.php:84
 msgid "RSS 1.0"
-msgstr ""
+msgstr "RSS 1.0"
 
 #: lib/feed.php:86
 msgid "RSS 2.0"
-msgstr ""
+msgstr "RSS 2.0"
 
 #: lib/feed.php:88
 msgid "Atom"
@@ -7708,7 +7750,7 @@ msgstr ""
 
 #. TRANS: Subject for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
-#: lib/mail.php:603
+#: lib/mail.php:607
 #, php-format
 msgid "%1$s (@%2$s) added your notice as a favorite"
 msgstr "%1$s (@%2$s) మీ నోటీసుని ఇష్టపడ్డారు"
@@ -7718,7 +7760,7 @@ msgstr "%1$s (@%2$s) మీ నోటీసుని ఇష్టపడ్డా
 #. TRANS: %3$s is a URL to the faved notice, %4$s is the faved notice text,
 #. TRANS: %5$s is a URL to all faves of the adding user, %6$s is the StatusNet sitename,
 #. TRANS: %7$s is the adding user's nickname.
-#: lib/mail.php:610
+#: lib/mail.php:614
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -7756,7 +7798,7 @@ msgstr ""
 "%6$s\n"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
-#: lib/mail.php:668
+#: lib/mail.php:672
 #, php-format
 msgid ""
 "The full conversation can be read here:\n"
@@ -7769,7 +7811,7 @@ msgstr ""
 
 #. TRANS: E-mail subject for notice notification.
 #. TRANS: %1$s is the sending user's long name, %2$s is the adding user's nickname.
-#: lib/mail.php:676
+#: lib/mail.php:680
 #, php-format
 msgid "%1$s (@%2$s) sent a notice to your attention"
 msgstr "%1$s (@%2$s) మీ దృష్టికి ఒక నోటిసుని పంపించారు"
@@ -7780,7 +7822,7 @@ msgstr "%1$s (@%2$s) మీ దృష్టికి ఒక నోటిసు�
 #. TRANS: %5$s is a URL to the full conversion if it exists (otherwise empty),
 #. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replied for the addressed user,
 #. TRANS: %8$s is a URL to the addressed user's e-mail settings, %9$s is the sender's nickname.
-#: lib/mail.php:684
+#: lib/mail.php:688
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -7925,7 +7967,7 @@ msgstr "ఇష్టాంశాన్ని తొలగించలేకప�
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %1$s is the file type that was denied, %2$s is the application part of
 #. TRANS: the MIME type that was denied.
-#: lib/mediafile.php:340
+#: lib/mediafile.php:345
 #, php-format
 msgid ""
 "\"%1$s\" is not a supported file type on this server. Try using another %2$s "
@@ -7934,7 +7976,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %s is the file type that was denied.
-#: lib/mediafile.php:345
+#: lib/mediafile.php:350
 #, php-format
 msgid "\"%s\" is not a supported file type on this server."
 msgstr ""
@@ -8079,31 +8121,31 @@ msgstr ""
 msgid "Couldn't insert new subscription."
 msgstr "కొత్త చందాని చేర్చలేకపోయాం."
 
-#: lib/personalgroupnav.php:99
+#: lib/personalgroupnav.php:102
 msgid "Personal"
 msgstr "వ్యక్తిగత"
 
-#: lib/personalgroupnav.php:104
+#: lib/personalgroupnav.php:107
 msgid "Replies"
 msgstr "స్పందనలు"
 
-#: lib/personalgroupnav.php:114
+#: lib/personalgroupnav.php:117
 msgid "Favorites"
 msgstr "ఇష్టాంశాలు"
 
-#: lib/personalgroupnav.php:125
+#: lib/personalgroupnav.php:128
 msgid "Inbox"
 msgstr "వచ్చినవి"
 
-#: lib/personalgroupnav.php:126
+#: lib/personalgroupnav.php:129
 msgid "Your incoming messages"
 msgstr "మీకు వచ్చిన సందేశాలు"
 
-#: lib/personalgroupnav.php:130
+#: lib/personalgroupnav.php:133
 msgid "Outbox"
 msgstr "పంపినవి"
 
-#: lib/personalgroupnav.php:131
+#: lib/personalgroupnav.php:134
 msgid "Your sent messages"
 msgstr "మీరు పంపిన సందేశాలు"
 
@@ -8303,6 +8345,12 @@ msgstr ""
 msgid "None"
 msgstr "ఏమీలేదు"
 
+#. TRANS: Server exception displayed if a theme name was invalid.
+#: lib/theme.php:74
+#, fuzzy
+msgid "Invalid theme name."
+msgstr "తప్పుడు దస్త్రపుపేరు.."
+
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
 msgstr ""
@@ -8359,10 +8407,9 @@ msgstr ""
 
 #. TRANS: Title for the form to unblock a user.
 #: lib/unblockform.php:67
-#, fuzzy
 msgctxt "TITLE"
 msgid "Unblock"
-msgstr "నిరోధాన్ని ఎత్తివేయి"
+msgstr "నిరోధపు ఎత్తివేత"
 
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
@@ -8550,16 +8597,3 @@ msgid "%d entry in backup."
 msgid_plural "%d entries in backup."
 msgstr[0] ""
 msgstr[1] ""
-
-#~ msgid "Name is too long (maximum 255 chars)."
-#~ msgstr "పేరు చాలా పెద్దగా ఉంది (గరిష్ఠంగా 255 అక్షరాలు)."
-
-#, fuzzy
-#~ msgid "Organization is too long (maximum 255 chars)."
-#~ msgstr "సంస్థ పేరు మరీ పెద్దగా ఉంది (255 అక్షరాలు గరిష్ఠం)."
-
-#~ msgid "That's too long. Max notice size is %d chars."
-#~ msgstr "అది చాలా పొడవుంది. గరిష్ఠ నోటీసు పరిమాణం %d అక్షరాలు."
-
-#~ msgid "Max notice size is %d chars, including attachment URL."
-#~ msgstr "గరిష్ఠ నోటీసు పొడవు %d అక్షరాలు, జోడింపు URLని కలుపుకుని."

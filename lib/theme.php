@@ -51,7 +51,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class Theme
 {
     var $name = null;
@@ -65,14 +64,14 @@ class Theme
      *
      * @param string $name Name of the theme; defaults to config value
      */
-
     function __construct($name=null)
     {
         if (empty($name)) {
             $name = common_config('site', 'theme');
         }
         if (!self::validName($name)) {
-            throw new ServerException("Invalid theme name.");
+            // TRANS: Server exception displayed if a theme name was invalid.
+            throw new ServerException(_('Invalid theme name.'));
         }
         $this->name = $name;
 
@@ -95,7 +94,6 @@ class Theme
         $fulldir = $instroot.'/'.$name;
 
         if (file_exists($fulldir) && is_dir($fulldir)) {
-
             $this->dir = $fulldir;
             $this->path = $this->relativeThemePath('theme', 'theme', $name);
         }
@@ -113,11 +111,9 @@ class Theme
      *
      * @todo consolidate code with that for other customizable paths
      */
-
     protected function relativeThemePath($group, $fallbackSubdir, $name)
     {
         if (StatusNet::isHTTPS()) {
-
             $sslserver = common_config($group, 'sslserver');
 
             if (empty($sslserver)) {
@@ -140,9 +136,7 @@ class Theme
             }
 
             $protocol = 'https';
-
         } else {
-
             $path = common_config($group, 'path');
 
             if (empty($path)) {
@@ -179,7 +173,6 @@ class Theme
      *
      * @return string full pathname, like /var/www/mublog/theme/default/logo.png
      */
-
     function getFile($relative)
     {
         return $this->dir.'/'.$relative;
@@ -192,7 +185,6 @@ class Theme
      *
      * @return string full URL, like 'http://example.com/theme/default/logo.png'
      */
-
     function getPath($relative)
     {
         return $this->path.'/'.$relative;
@@ -258,7 +250,6 @@ class Theme
      *
      * @return string File path to the theme file
      */
-
     static function file($relative, $name=null)
     {
         $theme = new Theme($name);
@@ -273,7 +264,6 @@ class Theme
      *
      * @return string URL of the file
      */
-
     static function path($relative, $name=null)
     {
         $theme = new Theme($name);
@@ -285,7 +275,6 @@ class Theme
      *
      * @return array list of available theme names
      */
-
     static function listAvailable()
     {
         $local   = self::subdirsOf(self::localRoot());
@@ -305,7 +294,6 @@ class Theme
      *
      * @return array relative filenames of subdirs, or empty array
      */
-
     protected static function subdirsOf($dir)
     {
         $subdirs = array();
@@ -330,7 +318,6 @@ class Theme
      *
      * @return string local root dir for themes
      */
-
     protected static function localRoot()
     {
         $basedir = common_config('local', 'dir');
@@ -347,7 +334,6 @@ class Theme
      *
      * @return string root dir for StatusNet themes
      */
-
     protected static function installRoot()
     {
         $instroot = common_config('theme', 'dir');

@@ -8,13 +8,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
+"POT-Creation-Date: 2010-11-04 18:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
+#. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
+#: twitterimport.php:113
+#, php-format
+msgid "RT @%1$s %2$s"
+msgstr ""
 
 #: twitter.php:349
 msgid "Your Twitter bridge has been disabled."
@@ -37,7 +44,7 @@ msgid ""
 msgstr ""
 
 #: TwitterBridgePlugin.php:151 TwitterBridgePlugin.php:174
-#: TwitterBridgePlugin.php:291 twitteradminpanel.php:52
+#: TwitterBridgePlugin.php:302 twitteradminpanel.php:52
 msgid "Twitter"
 msgstr ""
 
@@ -49,11 +56,11 @@ msgstr ""
 msgid "Twitter integration options"
 msgstr ""
 
-#: TwitterBridgePlugin.php:292
+#: TwitterBridgePlugin.php:303
 msgid "Twitter bridge configuration"
 msgstr ""
 
-#: TwitterBridgePlugin.php:316
+#: TwitterBridgePlugin.php:327
 msgid ""
 "The Twitter \"bridge\" plugin allows integration of a StatusNet instance "
 "with <a href=\"http://twitter.com/\">Twitter</a>."
@@ -354,17 +361,10 @@ msgstr ""
 msgid "Twitter account disconnected."
 msgstr ""
 
-#: twittersettings.php:283 twittersettings.php:293
+#: twittersettings.php:283 twittersettings.php:294
 msgid "Couldn't save Twitter preferences."
 msgstr ""
 
-#: twittersettings.php:297
+#: twittersettings.php:302
 msgid "Twitter preferences saved."
-msgstr ""
-
-#. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
-#. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: daemons/twitterstatusfetcher.php:264
-#, php-format
-msgid "RT @%1$s %2$s"
 msgstr ""

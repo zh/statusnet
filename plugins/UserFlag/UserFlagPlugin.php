@@ -128,25 +128,9 @@ class UserFlagPlugin extends Plugin
      */
     function onEndProfilePageActionsElements(&$action, $profile)
     {
-        $user = common_current_user();
-
-        if (!empty($user) && ($user->id != $profile->id)) {
-
-            $action->elementStart('li', 'entity_flag');
-
-            if (User_flag_profile::exists($profile->id, $user->id)) {
-                // @todo FIXME: Add a title explaining what 'flagged' means?
-                // TRANS: Message added to a profile if it has been flagged for review.
-                $action->element('p', 'flagged', _('Flagged'));
-            } else {
-                $form = new FlagProfileForm($action, $profile,
-                                            array('action' => 'showstream',
-                                                  'nickname' => $profile->nickname));
-                $form->show();
-            }
-
-            $action->elementEnd('li');
-        }
+        $this->showFlagButton($action, $profile,
+                              array('action' => 'showstream',
+                                    'nickname' => $profile->nickname));
 
         return true;
     }
@@ -160,22 +144,40 @@ class UserFlagPlugin extends Plugin
      */
     function onEndProfileListItemActionElements($item)
     {
-        $user = common_current_user();
-
-        if (!empty($user)) {
-
-            list($action, $args) = $item->action->returnToArgs();
-
-            $args['action'] = $action;
-
-            $form = new FlagProfileForm($item->action, $item->profile, $args);
-
-            $item->action->elementStart('li', 'entity_flag');
-            $form->show();
-            $item->action->elementEnd('li');
-        }
+        list($action, $args) = $item->action->returnToArgs();
+        $args['action'] = $action;
+        $this->showFlagButton($item->action, $item->profile, $args);
 
         return true;
+    }
+
+    /**
+     * Actually output a flag button. If the target profile has already been
+     * flagged by the current user, a null-action faux button is shown.
+     *
+     * @param Action $action
+     * @param Profile $profile
+     * @param array $returnToArgs
+     */
+    protected function showFlagButton($action, $profile, $returnToArgs)
+    {
+        $user = common_current_user();
+
+        if (!empty($user) && ($user->id != $profile->id)) {
+
+            $action->elementStart('li', 'entity_flag');
+
+            if (User_flag_profile::exists($profile->id, $user->id)) {
+                // @todo FIXME: Add a title explaining what 'flagged' means?
+                // TRANS: Message added to a profile if it has been flagged for review.
+                $action->element('p', 'flagged', _m('Flagged'));
+            } else {
+                $form = new FlagProfileForm($action, $profile, $returnToArgs);
+                $form->show();
+            }
+
+            $action->elementEnd('li');
+        }
     }
 
     /**

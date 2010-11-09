@@ -206,7 +206,7 @@ class AdsensePlugin extends UAPPlugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:Adsense',
                             'rawdescription' =>
-                            _m('Plugin to add Google Adsense to StatusNet sites.'));
+                            _m('Plugin to add Google AdSense to StatusNet sites.'));
         return true;
     }
 }

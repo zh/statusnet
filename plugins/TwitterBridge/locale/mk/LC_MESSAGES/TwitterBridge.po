@@ -9,17 +9,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - TwitterBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:47:52+0000\n"
+"POT-Creation-Date: 2010-11-04 18:25+0000\n"
+"PO-Revision-Date: 2010-11-04 18:29:21+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-23 19:01:06+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r75596); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-29 16:14:11+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r76004); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-twitterbridge\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
+
+#. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
+#. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
+#: twitterimport.php:113
+#, php-format
+msgid "RT @%1$s %2$s"
+msgstr "RT @%1$s %2$s"
 
 #: twitter.php:349
 msgid "Your Twitter bridge has been disabled."
@@ -53,7 +60,7 @@ msgstr ""
 "%3$s"
 
 #: TwitterBridgePlugin.php:151 TwitterBridgePlugin.php:174
-#: TwitterBridgePlugin.php:291 twitteradminpanel.php:52
+#: TwitterBridgePlugin.php:302 twitteradminpanel.php:52
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -65,11 +72,11 @@ msgstr "Најава или регистрација со Twitter"
 msgid "Twitter integration options"
 msgstr "Нагодувања за обединување со Twitter"
 
-#: TwitterBridgePlugin.php:292
+#: TwitterBridgePlugin.php:303
 msgid "Twitter bridge configuration"
 msgstr "Нагодувања за мостот до Twitter"
 
-#: TwitterBridgePlugin.php:316
+#: TwitterBridgePlugin.php:327
 msgid ""
 "The Twitter \"bridge\" plugin allows integration of a StatusNet instance "
 "with <a href=\"http://twitter.com/\">Twitter</a>."
@@ -391,17 +398,10 @@ msgstr "Не можев да го отстранам корисникот на T
 msgid "Twitter account disconnected."
 msgstr "Врската со сметката на Twitter е прекината."
 
-#: twittersettings.php:283 twittersettings.php:293
+#: twittersettings.php:283 twittersettings.php:294
 msgid "Couldn't save Twitter preferences."
 msgstr "Не можев да ги зачувам нагодувањата за Twitter."
 
-#: twittersettings.php:297
+#: twittersettings.php:302
 msgid "Twitter preferences saved."
 msgstr "Нагодувањата за Twitter се зачувани."
-
-#. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
-#. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: daemons/twitterstatusfetcher.php:264
-#, php-format
-msgid "RT @%1$s %2$s"
-msgstr "RT @%1$s %2$s"
