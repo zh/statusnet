@@ -48,11 +48,14 @@ class MediaFile
     {
         if ($user == null) {
             $this->user = common_current_user();
+        } else {
+            $this->user = $user;
         }
 
         $this->filename   = $filename;
         $this->mimetype   = $mimetype;
         $this->fileRecord = $this->storeFile();
+        $this->thumbnailRecord = $this->storeThumbnail();
 
         $this->fileurl = common_local_url('attachment',
                                     array('attachment' => $this->fileRecord->id));
@@ -100,6 +103,38 @@ class MediaFile
         }
 
         return $file;
+    }
+
+    /**
+     * Generate and store a thumbnail image for the uploaded file, if applicable.
+     *
+     * @return File_thumbnail or null
+     */
+    function storeThumbnail()
+    {
+        if (substr($this->mimetype, 0, strlen('image/')) != 'image/') {
+            // @fixme video thumbs would be nice!
+            return null;
+        }
+        try {
+            $image = new ImageFile($this->fileRecord->id,
+                                   File::path($this->filename));
+        } catch (Exception $e) {
+            // Unsupported image type.
+            return null;
+        }
+
+        $outname = File::filename($this->user->getProfile(), 'thumb-' . $this->filename, $this->mimetype);
+        $outpath = File::path($outname);
+
+        $width = 100;
+        $height = 75;
+
+        $image->resizeTo($outpath, $width, $height);
+        File_thumbnail::saveThumbnail($this->fileRecord->id,
+                                      File::url($outname),
+                                      $width,
+                                      $height);
     }
 
     function rememberFile($file, $short)
