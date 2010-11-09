@@ -112,6 +112,12 @@ class OembedAction extends Action
                         //$oembed['width']=
                         //$oembed['height']=
                         $oembed['url']=$attachment->url;
+                        $thumb = $attachment->getThumbnail();
+                        if ($thumb) {
+                            $oembed['thumbnail_url'] = $thumb->url;
+                            $oembed['thumbnail_width'] = $thumb->width;
+                            $oembed['thumbnail_height'] = $thumb->height;
+                        }
                     }else{
                         $oembed['type']='link';
                         $oembed['url']=common_local_url('attachment',

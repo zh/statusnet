@@ -384,4 +384,14 @@ class File extends Memcached_DataObject
         $enclosure = $this->getEnclosure();
         return !empty($enclosure);
     }
+
+    /**
+     * Get the attachment's thumbnail record, if any.
+     *
+     * @return File_thumbnail
+     */
+    function getThumbnail()
+    {
+        return File_thumbnail::staticGet('file_id', $this->id);
+    }
 }
