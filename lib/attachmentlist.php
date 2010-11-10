@@ -197,7 +197,10 @@ class AttachmentListItem extends Widget
     }
 
     function linkAttr() {
-        return array('class' => 'attachment', 'href' => $this->attachment->url, 'id' => 'attachment-' . $this->attachment->id);
+        return array('class' => 'attachment',
+                     'href' => $this->attachment->url,
+                     'id' => 'attachment-' . $this->attachment->id,
+                     'title' => $this->title());
     }
 
     function showLink() {
@@ -244,8 +247,9 @@ class AttachmentListItem extends Widget
                 case 'image/jpeg':
                     $thumb = (object)array();
                     $thumb->url = $enc->url;
-                    $thumb->width = 100;
-                    $thumb->height = 75; // @fixme
+                    // @fixme use the given width/height aspect
+                    $thumb->width = common_config('attachments', 'thumb_width');
+                    $thumb->height = common_config('attachments', 'thumb_height');
                     return $thumb;
             }
         }
