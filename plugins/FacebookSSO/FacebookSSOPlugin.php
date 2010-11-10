@@ -94,6 +94,7 @@ class FacebookSSOPlugin extends Plugin
         case 'FacebookfinishloginAction':
         case 'FacebookadminpanelAction':
         case 'FacebooksettingsAction':
+        case 'FacebookdeauthorizeAction':
             include_once $dir . '/actions/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'Facebookclient':
@@ -149,10 +150,13 @@ class FacebookSSOPlugin extends Plugin
                 'main/facebookfinishlogin',
                 array('action' => 'facebookfinishlogin')
             );
-
             $m->connect(
                 'settings/facebook',
                 array('action' => 'facebooksettings')
+            );
+            $m->connect(
+                'facebook/deauthorize',
+                array('action' => 'facebookdeauthorize')
             );
 
         }

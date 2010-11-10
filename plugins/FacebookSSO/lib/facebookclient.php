@@ -673,25 +673,29 @@ class Facebookclient
      */
     function mailFacebookDisconnect()
     {
-        $profile = $user->getProfile();
+        $profile = $this->user->getProfile();
 
         $siteName = common_config('site', 'name');
 
-        common_switch_locale($user->language);
+        common_switch_locale($this->user->language);
 
-        $subject = sprintf(
-            _m('Your Facebook connection has been removed'),
-            $siteName
-        );
+        $subject = _m('Your Facebook connection has been removed');
 
         $msg = <<<BODY
-Hi, %1$s. We're sorry to inform you we are unable to publish your notice to
-Facebook, and have removed the connection between your %2$s account and Facebook.
+Hi %1$s,
 
-This may have happened because you have removed permission for %2$s to post on
-your behalf, or perhaps you have deactivated your Facebook account. You can
-reconnect your %s account to Facebook at any time by logging in with Facebook
-again.
+We're sorry to inform you we are unable to publish your notice to
+Facebook, and have removed the connection between your %2$s account and
+Facebook.
+
+This may have happened because you have removed permission for %2$s
+to post on your behalf, or perhaps you have deactivated your Facebook
+account. You can reconnect your %s account to Facebook at any time by
+logging in with Facebook again.
+
+Sincerely,
+
+%2$s
 BODY;
         $body = sprintf(
             _m($msg),
