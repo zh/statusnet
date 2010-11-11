@@ -218,7 +218,7 @@ class UserEmailSummaryHandler extends QueueHandler
 	    $ess->last_summary_id = $new_top;
 	    $ess->modified        = common_sql_now();
 
-	    $ess->update();
+	    $ess->update($orig);
 	}
 	
 	return true;
