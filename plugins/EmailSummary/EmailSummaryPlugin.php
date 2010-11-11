@@ -135,4 +135,68 @@ class EmailSummaryPlugin extends Plugin
 	$qm->connect('usersum', 'UserEmailSummaryHandler');
 	return true;
     }
+    
+    /**
+     * Add a checkbox to turn off email summaries
+     * 
+     * @param Action $action Action being executed (emailsettings)
+     * 
+     * @return boolean hook value
+     */
+    
+    function onEndEmailFormData($action)
+    {
+	$user = common_current_user();
+	
+	$action->elementStart('li');
+	$action->checkbox('emailsummary',
+			  // TRANS: Checkbox label in e-mail preferences form.
+			  _('Send me a periodic summary of updates from my network.'),
+			  Email_summary_status::getSendSummary($user->id));
+	$action->elementEnd('li');
+	return true;
+    }
+    
+    /**
+     * Add a checkbox to turn off email summaries
+     * 
+     * @param Action $action Action being executed (emailsettings)
+     * 
+     * @return boolean hook value
+     */
+    
+    function onEndEmailSaveForm($action)
+    {
+	$sendSummary = $action->boolean('emailsummary');
+	
+	$user = common_current_user();
+	
+	if (!empty($user)) {
+	    
+	    $ess = Email_summary_status::staticGet('user_id', $user->id);
+	    
+	    if (empty($ess)) {
+		
+		$ess = new Email_summary_status();
+
+		$ess->user_id      = $user->id;
+		$ess->send_summary = $sendSummary;
+		$ess->created      = common_sql_now();
+		$ess->modified     = common_sql_now();
+		
+		$ess->insert();
+		
+	    } else {
+		
+		$orig = clone($ess);
+		
+		$ess->send_summary = $sendSummary;
+		$ess->modified     = common_sql_now();
+		
+		$ess->update($orig);
+	    }
+	}
+	
+	return true;
+    }
 }
