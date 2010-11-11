@@ -56,6 +56,8 @@ class AllrssAction extends Rss10Action
      * @param array $args Web and URL arguments
      *
      * @return boolean false if user doesn't exist
+     *
+     */
     function prepare($args)
     {
         parent::prepare($args);
