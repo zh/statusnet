@@ -120,7 +120,7 @@ class File_oembed extends Memcached_DataObject
             }
         }
         $file_oembed->insert();
-        if (!empty($data->thumbnail_url)) {
+        if (!empty($data->thumbnail_url) || ($data->type == 'photo')) {
             $ft = File_thumbnail::staticGet('file_id', $file_id);
             if (!empty($ft)) {
                 common_log(LOG_WARNING, "Strangely, a File_thumbnail object exists for new file $file_id",

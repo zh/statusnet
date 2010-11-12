@@ -55,10 +55,21 @@ class File_thumbnail extends Memcached_DataObject
      * @param int $file_id
      */
     public static function saveNew($data, $file_id) {
-        self::saveThumbnail($file_id,
-                            $data->thumbnail_url,
-                            $data->thumbnail_width,
-                            $data->thumbnail_height);
+        if (!empty($data->thumbnail_url)) {
+            // Non-photo types such as video will usually
+            // show us a thumbnail, though it's not required.
+            self::saveThumbnail($file_id,
+                                $data->thumbnail_url,
+                                $data->thumbnail_width,
+                                $data->thumbnail_height);
+        } else if ($data->type == 'photo') {
+            // The inline photo URL given should also fit within
+            // our requested thumbnail size, per oEmbed spec.
+            self::saveThumbnail($file_id,
+                                $data->url,
+                                $data->width,
+                                $data->height);
+        }
     }
 
     /**
