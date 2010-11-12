@@ -144,6 +144,7 @@ class Notice_to_status extends Memcached_DataObject
 
     /**
      * Save a mapping between a notice and a status
+     * Warning: status_id values may not fit in 32-bit integers.
      *
      * @param integer $notice_id ID of the notice in StatusNet
      * @param integer $status_id ID of the status in Twitter
@@ -153,12 +154,18 @@ class Notice_to_status extends Memcached_DataObject
 
     static function saveNew($notice_id, $status_id)
     {
+        if (empty($notice_id)) {
+            throw new Exception("Invalid notice_id $notice_id");
+        }
         $n2s = Notice_to_status::staticGet('notice_id', $notice_id);
 
         if (!empty($n2s)) {
             return $n2s;
         }
 
+        if (empty($status_id)) {
+            throw new Exception("Invalid status_id $status_id");
+        }
         $n2s = Notice_to_status::staticGet('status_id', $status_id);
 
         if (!empty($n2s)) {
