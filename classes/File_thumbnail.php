@@ -48,12 +48,34 @@ class File_thumbnail extends Memcached_DataObject
         return array(false, false, false);
     }
 
-    function saveNew($data, $file_id) {
+    /**
+     * Save oEmbed-provided thumbnail data
+     *
+     * @param object $data
+     * @param int $file_id
+     */
+    public static function saveNew($data, $file_id) {
+        self::saveThumbnail($file_id,
+                            $data->thumbnail_url,
+                            $data->thumbnail_width,
+                            $data->thumbnail_height);
+    }
+
+    /**
+     * Save a thumbnail record for the referenced file record.
+     *
+     * @param int $file_id
+     * @param string $url
+     * @param int $width
+     * @param int $height
+     */
+    static function saveThumbnail($file_id, $url, $width, $height)
+    {
         $tn = new File_thumbnail;
         $tn->file_id = $file_id;
-        $tn->url = $data->thumbnail_url;
-        $tn->width = intval($data->thumbnail_width);
-        $tn->height = intval($data->thumbnail_height);
+        $tn->url = $url;
+        $tn->width = intval($width);
+        $tn->height = intval($height);
         $tn->insert();
     }
 }

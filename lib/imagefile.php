@@ -115,10 +115,46 @@ class ImageFile
         return new ImageFile(null, $_FILES[$param]['tmp_name']);
     }
 
+    /**
+     * Compat interface for old code generating avatar thumbnails...
+     * Saves the scaled file directly into the avatar area.
+     *
+     * @param int $size target width & height -- must be square
+     * @param int $x (default 0) upper-left corner to crop from
+     * @param int $y (default 0) upper-left corner to crop from
+     * @param int $w (default full) width of image area to crop
+     * @param int $h (default full) height of image area to crop
+     * @return string filename
+     */
     function resize($size, $x = 0, $y = 0, $w = null, $h = null)
+    {
+        $targetType = $this->preferredType($this->type);
+        $outname = Avatar::filename($this->id,
+                                    image_type_to_extension($targetType),
+                                    $size,
+                                    common_timestamp());
+        $outpath = Avatar::path($outname);
+        $this->resizeTo($outpath, $size, $size, $x, $y, $w, $h);
+        return $outname;
+    }
+
+    /**
+     * Create and save a thumbnail image.
+     *
+     * @param string $outpath
+     * @param int $width target width
+     * @param int $height target height
+     * @param int $x (default 0) upper-left corner to crop from
+     * @param int $y (default 0) upper-left corner to crop from
+     * @param int $w (default full) width of image area to crop
+     * @param int $h (default full) height of image area to crop
+     * @return string full local filesystem filename
+     */
+    function resizeTo($outpath, $width, $height, $x=0, $y=0, $w=null, $h=null)
     {
         $w = ($w === null) ? $this->width:$w;
         $h = ($h === null) ? $this->height:$h;
+        $targetType = $this->preferredType($this->type);
 
         if (!file_exists($this->filepath)) {
             throw new Exception(_('Lost our file.'));
@@ -126,20 +162,16 @@ class ImageFile
         }
 
         // Don't crop/scale if it isn't necessary
-        if ($size === $this->width
-            && $size === $this->height
+        if ($width === $this->width
+            && $height === $this->height
             && $x === 0
             && $y === 0
             && $w === $this->width
-            && $h === $this->height) {
+            && $h === $this->height
+            && $this->type == $targetType) {
 
-            $outname = Avatar::filename($this->id,
-                                        image_type_to_extension($this->type),
-                                        $size,
-                                        common_timestamp());
-            $outpath = Avatar::path($outname);
             @copy($this->filepath, $outpath);
-            return $outname;
+            return $outpath;
         }
 
         switch ($this->type) {
@@ -166,7 +198,7 @@ class ImageFile
             return;
         }
 
-        $image_dest = imagecreatetruecolor($size, $size);
+        $image_dest = imagecreatetruecolor($width, $height);
 
         if ($this->type == IMAGETYPE_GIF || $this->type == IMAGETYPE_PNG || $this->type == IMAGETYPE_BMP) {
 
@@ -189,30 +221,9 @@ class ImageFile
             }
         }
 
-        imagecopyresampled($image_dest, $image_src, 0, 0, $x, $y, $size, $size, $w, $h);
+        imagecopyresampled($image_dest, $image_src, 0, 0, $x, $y, $width, $height, $w, $h);
 
-        if($this->type == IMAGETYPE_BMP) {
-            //we don't want to save BMP... it's an inefficient, rare, antiquated format
-            //save png instead
-            $this->type = IMAGETYPE_PNG;
-        } else if($this->type == IMAGETYPE_WBMP) {
-            //we don't want to save WBMP... it's a rare format that we can't guarantee clients will support
-            //save png instead
-            $this->type = IMAGETYPE_PNG;
-        } else if($this->type == IMAGETYPE_XBM) {
-            //we don't want to save XBM... it's a rare format that we can't guarantee clients will support
-            //save png instead
-            $this->type = IMAGETYPE_PNG;
-        }
-
-        $outname = Avatar::filename($this->id,
-                                    image_type_to_extension($this->type),
-                                    $size,
-                                    common_timestamp());
-
-        $outpath = Avatar::path($outname);
-
-        switch ($this->type) {
+        switch ($targetType) {
          case IMAGETYPE_GIF:
             imagegif($image_dest, $outpath);
             break;
@@ -230,7 +241,31 @@ class ImageFile
         imagedestroy($image_src);
         imagedestroy($image_dest);
 
-        return $outname;
+        return $outpath;
+    }
+
+    /**
+     * Several obscure file types should be normalized to PNG on resize.
+     *
+     * @param int $type
+     * @return int
+     */
+    function preferredType($type)
+    {
+        if($type == IMAGETYPE_BMP) {
+            //we don't want to save BMP... it's an inefficient, rare, antiquated format
+            //save png instead
+            return IMAGETYPE_PNG;
+        } else if($type == IMAGETYPE_WBMP) {
+            //we don't want to save WBMP... it's a rare format that we can't guarantee clients will support
+            //save png instead
+            return IMAGETYPE_PNG;
+        } else if($type == IMAGETYPE_XBM) {
+            //we don't want to save XBM... it's a rare format that we can't guarantee clients will support
+            //save png instead
+            return IMAGETYPE_PNG;
+        }
+        return $type;
     }
 
     function unlink()

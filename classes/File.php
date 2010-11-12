@@ -352,22 +352,28 @@ class File extends Memcached_DataObject
                 $mimetype = substr($mimetype,0,$semicolon);
             }
             if(in_array($mimetype,$notEnclosureMimeTypes)){
+                // Never treat generic HTML links as an enclosure type!
+                // But if we have oEmbed info, we'll consider it golden.
                 $oembed = File_oembed::staticGet('file_id',$this->id);
-                if($oembed){
+                if($oembed && in_array($oembed->type, array('photo', 'video'))){
                     $mimetype = strtolower($oembed->mimetype);
                     $semicolon = strpos($mimetype,';');
                     if($semicolon){
                         $mimetype = substr($mimetype,0,$semicolon);
                     }
-                    if(in_array($mimetype,$notEnclosureMimeTypes)){
-                        return false;
-                    }else{
+                    // @fixme uncertain if this is right.
+                    // we want to expose things like YouTube videos as
+                    // viewable attachments, but don't expose them as
+                    // downloadable enclosures.....?
+                    //if (in_array($mimetype, $notEnclosureMimeTypes)) {
+                    //    return false;
+                    //} else {
                         if($oembed->mimetype) $enclosure->mimetype=$oembed->mimetype;
                         if($oembed->url) $enclosure->url=$oembed->url;
                         if($oembed->title) $enclosure->title=$oembed->title;
                         if($oembed->modified) $enclosure->modified=$oembed->modified;
                         unset($oembed->size);
-                    }
+                    //}
                 } else {
                     return false;
                 }
@@ -381,5 +387,15 @@ class File extends Memcached_DataObject
     {
         $enclosure = $this->getEnclosure();
         return !empty($enclosure);
+    }
+
+    /**
+     * Get the attachment's thumbnail record, if any.
+     *
+     * @return File_thumbnail
+     */
+    function getThumbnail()
+    {
+        return File_thumbnail::staticGet('file_id', $this->id);
     }
 }
