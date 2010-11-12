@@ -218,55 +218,30 @@ class AttachmentListItem extends Widget
     function showRepresentation() {
         $thumb = $this->getThumbInfo();
         if ($thumb) {
-            $thumb = $this->sizeThumb($thumb);
             $this->out->element('img', array('alt' => '', 'src' => $thumb->url, 'width' => $thumb->width, 'height' => $thumb->height));
         }
     }
 
     /**
-     * Pull a thumbnail image reference for the given file.
-     * In order we check:
-     *  1) file_thumbnail table (thumbnails found via oEmbed)
-     *  2) image URL from direct dereference or oEmbed 'photo' type URL
-     *  3) ???
+     * Pull a thumbnail image reference for the given file, and if necessary
+     * resize it to match currently thumbnail size settings.
      *
-     * @return mixed object with (url, width, height) properties, or false
+     * @return File_Thumbnail or false/null
      */
     function getThumbInfo()
     {
         $thumbnail = File_thumbnail::staticGet('file_id', $this->attachment->id);
         if ($thumbnail) {
-            return $thumbnail;
-        }
-        $enc = $this->attachment->getEnclosure();
-        if ($enc) {
-            switch ($enc->mimetype) {
-                case 'image/gif':
-                case 'image/png':
-                case 'image/jpg':
-                case 'image/jpeg':
-                    $thumb = (object)array();
-                    $thumb->url = $enc->url;
-                    // @fixme use the given width/height aspect
-                    $thumb->width = common_config('attachments', 'thumb_width');
-                    $thumb->height = common_config('attachments', 'thumb_height');
-                    return $thumb;
+            $maxWidth = common_config('attachments', 'thumb_width');
+            $maxHeight = common_config('attachments', 'thumb_height');
+            if ($thumbnail->width > $maxWidth) {
+                $thumb = clone($thumbnail);
+                $thumb->width = $maxWidth;
+                $thumb->height = intval($thumbnail->height * $maxWidth / $thumbnail->width);
+                return $thumb;
             }
         }
-        return false;
-    }
-
-    function sizeThumb($thumbnail) {
-        $maxWidth = 100;
-        $maxHeight = 75;
-        if ($thumbnail->width > $maxWidth) {
-            $thumb = clone($thumbnail);
-            $thumb->width = $maxWidth;
-            $thumb->height = intval($thumbnail->height * $maxWidth / $thumbnail->width);
-            return $thumb;
-        } else {
-            return $thumbnail;
-        }
+        return $thumbnail;
     }
 
     /**
