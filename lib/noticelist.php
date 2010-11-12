@@ -385,8 +385,10 @@ class NoticeListItem extends Widget
     }
 
     function showNoticeAttachments() {
-        $al = new InlineAttachmentList($this->notice, $this->out);
-        $al->show();
+        if (common_config('attachments', 'show_thumbs')) {
+            $al = new InlineAttachmentList($this->notice, $this->out);
+            $al->show();
+        }
     }
 
     /**
