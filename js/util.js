@@ -56,7 +56,7 @@ var SN = { // StatusNet
             NoticeDataGeoCookie: 'NoticeDataGeo',
             NoticeDataGeoSelected: 'notice_data-geo_selected',
             StatusNetInstance:'StatusNetInstance'
-        },
+        }
     },
 
     messages: {},
