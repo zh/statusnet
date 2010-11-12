@@ -427,50 +427,6 @@ var SN = { // StatusNet
                     return false;
                 }).attr('title', SN.msg('showmore_tooltip'));
             }
-            else {
-                //imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
-
-                notice.find('a.attachment').each(function() {
-                    /*
-                    var attachId = ($(this).attr('id').substring('attachment'.length + 1));
-                    if (attachId) {
-                        var thumbUrl = $('address .url')[0].href+'attachment/' + attachId + '/thumb';
-                        var thumb = $('<div class="attachment-thumb">Thumb: <img/></div>');
-                        thumb.find('img').attr('src', thumbUrl).last();
-                        notice.find('.entry-title .entry-content').append(thumb);
-                    }
-                    */
-                });
-
-                if ($('#shownotice').length == 0) {
-                    /*
-                    var t;
-                    notice.find('a.thumbnail').hover(
-                        function() {
-                            var anchor = $(this);
-                            $('a.thumbnail').children('img').hide();
-                            anchor.closest(".entry-title").addClass('ov');
-
-                            if (anchor.children('img').length === 0) {
-                                t = setTimeout(function() {
-                                    $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-                                        anchor.append(data);
-                                    });
-                                }, 500);
-                            }
-                            else {
-                                anchor.children('img').show();
-                            }
-                        },
-                        function() {
-                            clearTimeout(t);
-                            $('a.thumbnail').children('img').hide();
-                            $(this).closest('.entry-title').removeClass('ov');
-                        }
-                    );
-                    */
-                }
-            }
         },
 
         NoticeDataAttach: function() {
