@@ -59,25 +59,15 @@ class File_oembed extends Memcached_DataObject
     }
 
     function _getOembed($url) {
-        require_once INSTALLDIR.'/extlib/Services/oEmbed.php';
         $parameters = array(
             'maxwidth' => common_config('attachments', 'thumb_width'),
             'maxheight' => common_config('attachments', 'thumb_height'),
         );
-        try{
-            $oEmbed = new Services_oEmbed($url);
-            $object = $oEmbed->getObject($parameters);
-            return $object;
-        }catch(Exception $e){
-            try{
-                $oEmbed = new Services_oEmbed($url, array(
-                    Services_oEmbed::OPTION_API => common_config('oohembed', 'endpoint')
-                ));
-                $object = $oEmbed->getObject($parameters);
-                return $object;
-            }catch(Exception $ex){
-                return false;
-            }
+        try {
+            return oEmbedHelper::getObject($url, $parameters);
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Error during oembed lookup for $url - " . $e->getMessage());
+            return false;
         }
     }
 
