@@ -245,7 +245,7 @@ class StatusNet
      * Establish default configuration based on given or default server and path
      * Sets global $_server, $_path, and $config
      */
-    protected static function initDefaults($server, $path)
+    public static function initDefaults($server, $path)
     {
         global $_server, $_path, $config;
 

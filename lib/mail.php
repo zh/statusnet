@@ -593,6 +593,10 @@ function mail_notify_fave($other, $user, $notice)
     }
 
     $profile = $user->getProfile();
+    if ($other->hasBlocked($profile)) {
+        // If the author has blocked us, don't spam them with a notification.
+        return;
+    }
 
     $bestname = $profile->getBestName();
 

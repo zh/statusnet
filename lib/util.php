@@ -1038,7 +1038,7 @@ function common_group_link($sender_id, $nickname)
         $attrs = array('href' => $group->permalink(),
                        'class' => 'url');
         if (!empty($group->fullname)) {
-            $attrs['title'] = $group->fullname . ' (' . $group->nickname . ')';
+            $attrs['title'] = $group->getFancyName();
         }
         $xs = new XMLStringer();
         $xs->elementStart('span', 'vcard');

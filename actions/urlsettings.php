@@ -68,6 +68,7 @@ class UrlsettingsAction extends AccountSettingsAction
 
     function getInstructions()
     {
+        // TRANS: Instructions for tab "Other" in user profile settings.
         return _('Manage various other options.');
     }
 
@@ -107,6 +108,9 @@ class UrlsettingsAction extends AccountSettingsAction
         {
             $services[$name]=$name;
             if($value['freeService']){
+                // TRANS: Used as a suffix for free URL shorteners in a dropdown list in the tab "Other" of a
+                // TRANS: user's profile settings. This message has one space at the beginning. Use your
+                // TRANS: language's word separator here if it has one (most likely a single space).
                 $services[$name].=_(' (free service)');
             }
         }
@@ -115,7 +119,9 @@ class UrlsettingsAction extends AccountSettingsAction
             asort($services);
 
             $this->elementStart('li');
+            // TRANS: Label for dropdown with URL shortener services.
             $this->dropdown('urlshorteningservice', _('Shorten URLs with'),
+                            // TRANS: Tooltip for for dropdown with URL shortener services.
                             $services, _('Automatic shortening service to use.'),
                             false, $user->urlshorteningservice);
             $this->elementEnd('li');
@@ -135,7 +141,8 @@ class UrlsettingsAction extends AccountSettingsAction
                      _('URLs in notices longer than this will be shortened, 0 means always shorten.'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->submit('save', _('Save'));
+        // TRANS: Button text for saving "Other settings" in profile.
+        $this->submit('save', _m('BUTTON','Save'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
@@ -162,7 +169,8 @@ class UrlsettingsAction extends AccountSettingsAction
         $urlshorteningservice = $this->trimmed('urlshorteningservice');
 
         if (!is_null($urlshorteningservice) && strlen($urlshorteningservice) > 50) {
-            $this->showForm(_('URL shortening service is too long (max 50 chars).'));
+            // TRANS: Form validation error for form "Other settings" in user profile.
+            $this->showForm(_('URL shortening service is too long (maximum 50 characters).'));
             return;
         }
 
@@ -192,6 +200,7 @@ class UrlsettingsAction extends AccountSettingsAction
 
         if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
+            // TRANS: Server error displayed when "Other" settings in user profile could not be updated on the server.
             $this->serverError(_('Couldn\'t update user.'));
             return;
         }

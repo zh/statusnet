@@ -3,7 +3,7 @@ README
 ------
 
 StatusNet 0.9.6 "Man on the Moon"
-25 October 2010 - RELEASE CANDIDATE
+29 October 2010
 
 This is the README file for StatusNet, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -121,6 +121,16 @@ Notable changes this version:
 - Unicode fixes for OStatus notices
 - Header metadata on notice pages to aid in manual reposting on Facebook
 - Lots of little fixes...
+
+Changes from 0.9.6 release candidate 1:
+- fix for broken group pages when logged out
+- fix for stuck ping queue entries when bad profile
+- fix for bogus single-user nickname config entry error
+- i18n updates
+- nofollow updates
+- SSL-only mode secure cookie fix
+- experimental ApiLogger plugin for usage data gathering
+- experimental follow-everyone plugin
 
 A full changelog is available at http://status.net/wiki/StatusNet_0.9.6.
 

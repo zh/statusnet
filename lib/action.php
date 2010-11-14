@@ -283,6 +283,7 @@ class Action extends HTMLOutputter // lawsuit
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
                 Event::handle('StartShowLaconicaScripts', array($this))) {
                 $this->script('util.js');
+                $this->showScriptMessages();
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
                 Event::handle('EndShowStatusNetScripts', array($this));
@@ -290,6 +291,54 @@ class Action extends HTMLOutputter // lawsuit
             }
             Event::handle('EndShowScripts', array($this));
         }
+    }
+
+    /**
+     * Exports a map of localized text strings to JavaScript code.
+     *
+     * Plugins can add to what's exported by hooking the StartScriptMessages or EndScriptMessages
+     * events and appending to the array. Try to avoid adding strings that won't be used, as
+     * they'll be added to HTML output.
+     */
+    function showScriptMessages()
+    {
+        $messages = array();
+        if (Event::handle('StartScriptMessages', array($this, &$messages))) {
+            // Common messages needed for timeline views etc...
+
+            // TRANS: Localized tooltip for '...' expansion button on overlong remote messages.
+            $messages['showmore_tooltip'] = _m('TOOLTIP', 'Show more');
+
+            $messages = array_merge($messages, $this->getScriptMessages());
+        }
+        Event::handle('EndScriptMessages', array($this, &$messages));
+        if ($messages) {
+            $this->inlineScript('SN.messages=' . json_encode($messages));
+        }
+        return $messages;
+    }
+
+    /**
+     * If the action will need localizable text strings, export them here like so:
+     *
+     * return array('pool_deepend' => _('Deep end'),
+     *              'pool_shallow' => _('Shallow end'));
+     *
+     * The exported map will be available via SN.msg() to JS code:
+     *
+     *   $('#pool').html('<div class="deepend"></div><div class="shallow"></div>');
+     *   $('#pool .deepend').text(SN.msg('pool_deepend'));
+     *   $('#pool .shallow').text(SN.msg('pool_shallow'));
+     *
+     * Exports a map of localized text strings to JavaScript code.
+     *
+     * Plugins can add to what's exported on any action by hooking the StartScriptMessages or
+     * EndScriptMessages events and appending to the array. Try to avoid adding strings that won't
+     * be used, as they'll be added to HTML output.
+     */
+    function getScriptMessages()
+    {
+        return array();
     }
 
     /**
@@ -824,16 +873,17 @@ class Action extends HTMLOutputter // lawsuit
                             // TRANS: Secondary navigation menu option leading to privacy policy.
                             _('Privacy'));
             $this->menuItem(common_local_url('doc', array('title' => 'source')),
-                            // TRANS: Secondary navigation menu option.
+                            // TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
                             _('Source'));
             $this->menuItem(common_local_url('version'),
                             // TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
                             _('Version'));
             $this->menuItem(common_local_url('doc', array('title' => 'contact')),
-                            // TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
+                            // TRANS: Secondary navigation menu option leading to e-mail contact information on the
+                            // TRANS: StatusNet site, where to report bugs, ...
                             _('Contact'));
             $this->menuItem(common_local_url('doc', array('title' => 'badge')),
-                            // TRANS: Secondary navigation menu option.
+                            // TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
                             _('Badge'));
             Event::handle('EndSecondaryNav', array($this));
         }

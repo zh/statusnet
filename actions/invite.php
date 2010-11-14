@@ -142,7 +142,7 @@ class InviteAction extends CurrentUserDesignAction
             $this->elementStart('ul');
             foreach ($this->already as $other) {
                 // TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
-                $this->element('li', null, sprintf(_('%1$s (%2$s)'), $other->nickname, $other->email));
+                $this->element('li', null, sprintf(_m('INVITE','%1$s (%2$s)'), $other->nickname, $other->email));
             }
             $this->elementEnd('ul');
         }
@@ -156,7 +156,7 @@ class InviteAction extends CurrentUserDesignAction
             $this->elementStart('ul');
             foreach ($this->subbed as $other) {
                 // TRANS: Used as list item for already registered people (%1$s is nickname, %2$s is e-mail address).
-                $this->element('li', null, sprintf(_('%1$s (%2$s)'), $other->nickname, $other->email));
+                $this->element('li', null, sprintf(_m('INVITE','%1$s (%2$s)'), $other->nickname, $other->email));
             }
             $this->elementEnd('ul');
         }

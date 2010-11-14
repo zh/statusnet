@@ -2,7 +2,7 @@
 
 /**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2009-2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -32,9 +32,10 @@
  * @author   Sarven Capadisli <csarven@status.net>
  * @author   Tom Adams <tom@holizz.com>
  * @author   Zach Copley <zach@status.net>
+ * @copyright 2009-2010 StatusNet, Inc http://status.net
  * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
- * @version  0.9.x
+ * @version  1.0.x
  * @link     http://status.net
  */
 
@@ -53,12 +54,12 @@ abstract class Installer
         'mysql' => array(
             'name' => 'MySQL',
             'check_module' => 'mysqli',
-            'installer' => 'mysql_db_installer',
+            'scheme' => 'mysqli', // DSN prefix for PEAR::DB
         ),
         'pgsql' => array(
             'name' => 'PostgreSQL',
             'check_module' => 'pgsql',
-            'installer' => 'pgsql_db_installer',
+            'scheme' => 'pgsql', // DSN prefix for PEAR::DB
         ),
     );
 
@@ -254,6 +255,7 @@ abstract class Installer
      * Set up the database with the appropriate function for the selected type...
      * Saves database info into $this->db.
      * 
+     * @fixme escape things in the connection string in case we have a funny pass etc
      * @return mixed array of database connection params on success, false on failure
      */
     function setupDatabase()
@@ -261,119 +263,39 @@ abstract class Installer
         if ($this->db) {
             throw new Exception("Bad order of operations: DB already set up.");
         }
-        $method = self::$dbModules[$this->dbtype]['installer'];
-        $db = call_user_func(array($this, $method),
-                             $this->host,
-                             $this->database,
-                             $this->username,
-                             $this->password);
-        $this->db = $db;
-        return $this->db;
-    }
-
-    /**
-     * Set up a database on PostgreSQL.
-     * Will output status updates during the operation.
-     * 
-     * @param string $host
-     * @param string $database
-     * @param string $username
-     * @param string $password
-     * @return mixed array of database connection params on success, false on failure
-     * 
-     * @fixme escape things in the connection string in case we have a funny pass etc
-     */
-    function Pgsql_Db_installer($host, $database, $username, $password)
-    {
-        $connstring = "dbname=$database host=$host user=$username";
-
-        //No password would mean trust authentication used.
-        if (!empty($password)) {
-            $connstring .= " password=$password";
-        }
         $this->updateStatus("Starting installation...");
+
+        if (empty($this->password)) {
+            $auth = '';
+        } else {
+            $auth = ":$this->password";
+        }
+        $scheme = self::$dbModules[$this->dbtype]['scheme'];
+        $dsn = "{$scheme}://{$this->username}{$auth}@{$this->host}/{$this->database}";
+
         $this->updateStatus("Checking database...");
-        $conn = pg_connect($connstring);
+        $conn = $this->connectDatabase($dsn);
 
-        if ($conn ===false) {
-            $this->updateStatus("Failed to connect to database: $connstring");
-            return false;
-        }
-
-        //ensure database encoding is UTF8
-        $record = pg_fetch_object(pg_query($conn, 'SHOW server_encoding'));
-        if ($record->server_encoding != 'UTF8') {
-            $this->updateStatus("StatusNet requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
-            return false;
-        }
-
-        $this->updateStatus("Running database script...");
-        //wrap in transaction;
-        pg_query($conn, 'BEGIN');
-        $res = $this->runDbScript('statusnet_pg.sql', $conn, 'pgsql');
-
-        if ($res === false) {
-            $this->updateStatus("Can't run database script.", true);
-            return false;
-        }
-        foreach (array('sms_carrier' => 'SMS carrier',
-                    'notice_source' => 'notice source',
-                    'foreign_services' => 'foreign service')
-              as $scr => $name) {
-            $this->updateStatus(sprintf("Adding %s data to database...", $name));
-            $res = $this->runDbScript($scr.'.sql', $conn, 'pgsql');
-            if ($res === false) {
-                $this->updateStatus(sprintf("Can't run %s script.", $name), true);
+        // ensure database encoding is UTF8
+        if ($this->dbtype == 'mysql') {
+            // @fixme utf8m4 support for mysql 5.5?
+            // Force the comms charset to utf8 for sanity
+            // This doesn't currently work. :P
+            //$conn->executes('set names utf8');
+        } else if ($this->dbtype == 'pgsql') {
+            $record = $conn->getRow('SHOW server_encoding');
+            if ($record->server_encoding != 'UTF8') {
+                $this->updateStatus("StatusNet requires UTF8 character encoding. Your database is ". htmlentities($record->server_encoding));
                 return false;
             }
         }
-        pg_query($conn, 'COMMIT');
 
-        if (empty($password)) {
-            $sqlUrl = "pgsql://$username@$host/$database";
-        } else {
-            $sqlUrl = "pgsql://$username:$password@$host/$database";
-        }
-
-        $db = array('type' => 'pgsql', 'database' => $sqlUrl);
-
-        return $db;
-    }
-
-    /**
-     * Set up a database on MySQL.
-     * Will output status updates during the operation.
-     * 
-     * @param string $host
-     * @param string $database
-     * @param string $username
-     * @param string $password
-     * @return mixed array of database connection params on success, false on failure
-     * 
-     * @fixme escape things in the connection string in case we have a funny pass etc
-     */
-    function Mysql_Db_installer($host, $database, $username, $password)
-    {
-        $this->updateStatus("Starting installation...");
-        $this->updateStatus("Checking database...");
-
-        $conn = mysqli_init();
-        if (!$conn->real_connect($host, $username, $password)) {
-            $this->updateStatus("Can't connect to server '$host' as '$username'.", true);
-            return false;
-        }
-        $this->updateStatus("Changing to database...");
-        if (!$conn->select_db($database)) {
-            $this->updateStatus("Can't change to database.", true);
+        $res = $this->updateStatus("Creating database tables...");
+        if (!$this->createCoreTables($conn)) {
+            $this->updateStatus("Error creating tables.", true);
             return false;
         }
 
-        $this->updateStatus("Running database script...");
-        $res = $this->runDbScript('statusnet.sql', $conn);
-        if ($res === false) {
-            $this->updateStatus("Can't run database script.", true);
-            return false;
-        }
         foreach (array('sms_carrier' => 'SMS carrier',
                     'notice_source' => 'notice source',
                     'foreign_services' => 'foreign service')
@@ -386,9 +308,52 @@ abstract class Installer
             }
         }
 
-        $sqlUrl = "mysqli://$username:$password@$host/$database";
-        $db = array('type' => 'mysql', 'database' => $sqlUrl);
+        $db = array('type' => $this->dbtype, 'database' => $dsn);
         return $db;
+    }
+
+    /**
+     * Open a connection to the database.
+     *
+     * @param <type> $dsn
+     * @return <type> 
+     */
+    function connectDatabase($dsn)
+    {
+        // @fixme move this someplace more sensible
+        //set_include_path(INSTALLDIR . '/extlib' . PATH_SEPARATOR . get_include_path());
+        require_once 'DB.php';
+        return DB::connect($dsn);
+    }
+
+    /**
+     * Create core tables on the given database connection.
+     *
+     * @param DB_common $conn
+     */
+    function createCoreTables(DB_common $conn)
+    {
+        $schema = Schema::get($conn);
+        $tableDefs = $this->getCoreSchema();
+        foreach ($tableDefs as $name => $def) {
+            if (defined('DEBUG_INSTALLER')) {
+                echo " $name ";
+            }
+            $schema->ensureTable($name, $def);
+        }
+        return true;
+    }
+
+    /**
+     * Fetch the core table schema definitions.
+     *
+     * @return array of table names => table def arrays
+     */
+    function getCoreSchema()
+    {
+        $schema = array();
+        include INSTALLDIR . '/db/core.php';
+        return $schema;
     }
 
     /**
@@ -463,13 +428,12 @@ abstract class Installer
     /**
      * Install schema into the database
      *
-     * @param string $filename location of database schema file
-     * @param dbconn $conn     connection to database
-     * @param string $type     type of database, currently mysql or pgsql
+     * @param string    $filename location of database schema file
+     * @param DB_common $conn     connection to database
      *
      * @return boolean - indicating success or failure
      */
-    function runDbScript($filename, $conn, $type = 'mysqli')
+    function runDbScript($filename, DB_common $conn)
     {
         $sql = trim(file_get_contents(INSTALLDIR . '/db/' . $filename));
         $stmts = explode(';', $sql);
@@ -478,26 +442,12 @@ abstract class Installer
             if (!mb_strlen($stmt)) {
                 continue;
             }
-            // FIXME: use PEAR::DB or PDO instead of our own switch
-            switch ($type) {
-            case 'mysqli':
-                $res = $conn->query($stmt);
-                if ($res === false) {
-                    $error = $conn->error;
-                }
-                break;
-            case 'pgsql':
-                $res = pg_query($conn, $stmt);
-                if ($res === false) {
-                    $error = pg_last_error();
-                }
-                break;
-            default:
-                $this->updateStatus("runDbScript() error: unknown database type ". $type ." provided.");
-            }
-            if ($res === false) {
+            try {
+                $res = $conn->simpleQuery($stmt);
+            } catch (Exception $e) {
+                $error = $e->getMessage();
                 $this->updateStatus("ERROR ($error) for SQL '$stmt'");
-                return $res;
+                return false;
             }
         }
         return true;
@@ -510,9 +460,6 @@ abstract class Installer
      */
     function registerInitialUser()
     {
-        define('STATUSNET', true);
-        define('LACONICA', true); // compatibility
-
         require_once INSTALLDIR . '/lib/common.php';
 
         $data = array('nickname' => $this->adminNick,
@@ -559,10 +506,22 @@ abstract class Installer
      */
     function doInstall()
     {
-        $this->db = $this->setupDatabase();
+        $this->updateStatus("Initializing...");
+        ini_set('display_errors', 1);
+        error_reporting(E_ALL);
+        define('STATUSNET', 1);
+        require_once INSTALLDIR . '/lib/framework.php';
+        StatusNet::initDefaults($this->server, $this->path);
 
-        if (!$this->db) {
-            // database connection failed, do not move on to create config file.
+        try {
+            $this->db = $this->setupDatabase();
+            if (!$this->db) {
+                // database connection failed, do not move on to create config file.
+                return false;
+            }
+        } catch (Exception $e) {
+            // Lower-level DB error!
+            $this->updateStatus("Database error: " . $e->getMessage(), true);
             return false;
         }
 
