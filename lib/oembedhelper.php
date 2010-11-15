@@ -20,11 +20,10 @@
 if (!defined('STATUSNET')) {
     exit(1);
 }
-require_once INSTALLDIR.'/extlib/Services/oEmbed.php';
 
 
 /**
- * Utility class to wrap Services_oEmbed:
+ * Utility class to wrap basic oEmbed lookups.
  *
  * Blacklisted hosts will use an alternate lookup method:
  *  - Twitpic
@@ -89,43 +88,134 @@ class oEmbedHelper
             $api = self::$apiMap[$host];
             common_log(LOG_INFO, 'QQQ: going to: ' . $api);
         } else {
-            $api = false;
             common_log(LOG_INFO, 'QQQ: no map for ' . $host);
+            try {
+                $api = self::discover($url);
+            } catch (Exception $e) {
+                // Discovery failed... fall back to oohembed if enabled.
+                $oohembed = common_config('oohembed', 'endpoint');
+                if ($oohembed) {
+                    $api = $oohembed;
+                } else {
+                    throw $e;
+                }
+            }
+            common_log(LOG_INFO, 'QQQ: going to: ' . $api);
         }
         return self::getObjectFrom($api, $url, $params);
     }
 
     /**
-     * Actually do an oEmbed lookup to a particular API endpoint,
-     * or to the autodiscovered target, or to oohembed.
+     * Perform basic discovery.
+     * @return string
+     */
+    static function discover($url)
+    {
+        // @fixme ideally skip this for non-HTML stuff!
+        $body = self::http($url);
+        return self::discoverFromHTML($url, $body);
+    }
+
+    /**
+     * Partially ripped from OStatus' FeedDiscovery class.
      *
-     * @param mixed $api string or false: oEmbed API endpoint URL
+     * @param string $url source URL, used to resolve relative links
+     * @param string $body HTML body text
+     * @return mixed string with URL or false if no target found
+     */
+    static function discoverFromHTML($url, $body)
+    {
+        // DOMDocument::loadHTML may throw warnings on unrecognized elements,
+        // and notices on unrecognized namespaces.
+        $old = error_reporting(error_reporting() & ~(E_WARNING | E_NOTICE));
+        $dom = new DOMDocument();
+        $ok = $dom->loadHTML($body);
+        error_reporting($old);
+
+        if (!$ok) {
+            throw new oEmbedHelper_BadHtmlException();
+        }
+
+        // Ok... now on to the links!
+        $feeds = array(
+            'application/json+oembed' => false,
+        );
+
+        $nodes = $dom->getElementsByTagName('link');
+        for ($i = 0; $i < $nodes->length; $i++) {
+            $node = $nodes->item($i);
+            if ($node->hasAttributes()) {
+                $rel = $node->attributes->getNamedItem('rel');
+                $type = $node->attributes->getNamedItem('type');
+                $href = $node->attributes->getNamedItem('href');
+                if ($rel && $type && $href) {
+                    $rel = array_filter(explode(" ", $rel->value));
+                    $type = trim($type->value);
+                    $href = trim($href->value);
+
+                    if (in_array('alternate', $rel) && array_key_exists($type, $feeds) && empty($feeds[$type])) {
+                        // Save the first feed found of each type...
+                        $feeds[$type] = $href;
+                    }
+                }
+            }
+        }
+
+        // Return the highest-priority feed found
+        foreach ($feeds as $type => $url) {
+            if ($url) {
+                return $url;
+            }
+        }
+
+        return false;
+        throw new oEmbedHelper_DiscoveryException();
+    }
+
+    /**
+     * Actually do an oEmbed lookup to a particular API endpoint.
+     *
+     * @param string $api oEmbed API endpoint URL
      * @param string $url target URL to look up info about
      * @param array $params
      * @return object
      */
-    static protected function getObjectFrom($api, $url, $params=array())
+    static function getObjectFrom($api, $url, $params=array())
     {
-        $options = array();
-        if ($api) {
-            $options[Services_oEmbed::OPTION_API] = $api;
+        $params['url'] = $url;
+        $params['format'] = 'json';
+        $data = self::json($api, $params);
+        return self::normalize($data);
+    }
+
+    /**
+     * Normalize oEmbed format.
+     *
+     * @param object $orig
+     * @return object
+     */
+    static function normalize($orig)
+    {
+        $data = clone($orig);
+
+        if (empty($data->type)) {
+            throw new Exception('Invalid oEmbed data: no type field.');
         }
 
-        try {
-            $oEmbed = new Services_oEmbed_Tweaked($url, $options);
-        } catch (Services_oEmbed_Exception_NoSupport $e) {
-            // Discovery failed... fall back to oohembed if enabled.
-            $oohembed = common_config('oohembed', 'endpoint');
-            if ($oohembed) {
-                $options[Services_oEmbed::OPTION_API] = $oohembed;
-                $oEmbed = new Services_oEmbed_Tweaked($url, $options);
-            } else {
-                throw $e;
+        if ($data->type == 'image') {
+            // YFrog does this.
+            $data->type = 'photo';
+        }
+
+        if (isset($data->thumbnail_url)) {
+            if (!isset($data->thumbnail_width)) {
+                // !?!?!
+                $data->thumbnail_width = common_config('attachments', 'thumb_width');
+                $data->thumbnail_height = common_config('attachments', 'thumb_height');
             }
         }
 
-        // And.... let's go look it up!
-        return $oEmbed->getObject($params);
+        return $data;
     }
 
     /**
@@ -212,35 +302,22 @@ class oEmbedHelper
     }
 }
 
-class Services_oEmbed_Tweaked extends Services_oEmbed
+class oEmbedHelper_Exception extends Exception
 {
-    protected function discover($url)
-    {
-        $api = parent::discover($url);
-        if (strpos($api, '?') !== false) {
-            // Services_oEmbed doesn't expect to find existing params
-            // on its API endpoint, which may surprise you since the
-            // spec says discovery URLs should include parameters... :)
-            //
-            // Appending a '&' on the end keeps the later-appended '?'
-            // from breaking whatever the first parameters was.
-            return $api . '&';
-        }
-        return $api;
-    }
+}
 
-    public function getObject(array $params = array())
+class oEmbedHelper_BadHtmlException extends oEmbedHelper_Exception
+{
+    function __construct($previous=null)
     {
-        $api = $this->options[self::OPTION_API];
-        if (strpos($api, '?') !== false) {
-            // The Services_oEmbed code appends a '?' on the end, which breaks
-            // the next parameter which may be something important like
-            // maxwidth.
-            //
-            // Sticking this bogus entry into our parameters gets us past it.
-            $params = array_merge(array('statusnet' => 1), $params);
-        }
-        return parent::getObject($params);
+        return parent::__construct('Bad HTML in discovery data.', 0, $previous);
     }
+}
 
+class oEmbedHelper_DiscoveryException extends oEmbedHelper_Exception
+{
+    function __construct($previous=null)
+    {
+        return parent::__construct('No oEmbed discovery data.', 0, $previous);
+    }
 }
