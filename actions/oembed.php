@@ -108,9 +108,16 @@ class OembedAction extends Action
                         $oembed['url']=$file_oembed->url;
                     }else if(substr($attachment->mimetype,0,strlen('image/'))=='image/'){
                         $oembed['type']='photo';
-                        //TODO set width and height
-                        //$oembed['width']=
-                        //$oembed['height']=
+                        if ($attachment->filename) {
+                            $filepath = File::path($attachment->filename);
+                            $gis = @getimagesize($filepath);
+                            if ($gis) {
+                                $oembed['width'] = $gis[0];
+                                $oembed['height'] = $gis[1];
+                            } else {
+                                // TODO Either throw an error or find a fallback?
+                            }
+                        }
                         $oembed['url']=$attachment->url;
                         $thumb = $attachment->getThumbnail();
                         if ($thumb) {
