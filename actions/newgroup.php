@@ -146,8 +146,8 @@ class NewgroupAction extends Action
             // TRANS: %d is the maximum number of allowed characters.
             $this->showForm(sprintf(_m('Description is too long (maximum %d character).',
                                        'Description is too long (maximum %d characters).',
-                                       User_group::maxDescription(),
-				       User_group::maxDescription())));
+                                       User_group::maxDescription()),
+                                    User_group::maxDescription()));
             return;
         } else if (!is_null($location) && mb_strlen($location) > 255) {
             $this->showForm(_('Location is too long (maximum 255 characters).'));
