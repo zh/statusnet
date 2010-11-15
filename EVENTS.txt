@@ -1158,3 +1158,11 @@ StartRevokeRole: when a role is being revoked
 EndRevokeRole: when a role has been revoked
 - $profile: profile that lost the role
 - $role: string name of the role
+
+StartAtomPubNewActivity: When a new activity comes in through Atom Pub API
+- &$activity: received activity
+
+EndAtomPubNewActivity: When a new activity comes in through Atom Pub API
+- $activity: received activity
+- $notice: notice that was created
+

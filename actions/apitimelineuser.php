@@ -325,20 +325,38 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         $activity = new Activity($dom->documentElement);
 
-        if ($activity->verb != ActivityVerb::POST) {
-            $this->clientError(_('Can only handle post activities.'));
-            return;
+        if (Event::handle('StartAtomPubNewActivity', array(&$activity))) {
+
+            if ($activity->verb != ActivityVerb::POST) {
+                $this->clientError(_('Can only handle post activities.'));
+                return;
+            }
+
+            $note = $activity->objects[0];
+
+            if (!in_array($note->type, array(ActivityObject::NOTE,
+                                             ActivityObject::BLOGENTRY,
+                                             ActivityObject::STATUS))) {
+                $this->clientError(sprintf(_('Cannot handle activity object type "%s"',
+                                             $note->type)));
+                return;
+            }
+
+            $saved = $this->postNote($activity);
+
+            Event::handle('EndAtomPubNewActivity', array($activity, $saved));
         }
 
+        if (!empty($saved)) {
+            header("Location: " . common_local_url('ApiStatusesShow', array('notice_id' => $saved->id,
+                                                                            'format' => 'atom')));
+            $this->showSingleAtomStatus($saved);
+        }
+    }
+
+    function postNote($activity)
+    {
         $note = $activity->objects[0];
-
-        if (!in_array($note->type, array(ActivityObject::NOTE,
-                                         ActivityObject::BLOGENTRY,
-                                         ActivityObject::STATUS))) {
-            $this->clientError(sprintf(_('Cannot handle activity object type "%s"',
-                                         $note->type)));
-            return;
-        }
 
         // Use summary as fallback for content
 
@@ -458,11 +476,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
                                  'atompub', // TODO: deal with this
                                  $options);
 
-        if (!empty($saved)) {
-            header("Location: " . common_local_url('ApiStatusesShow', array('notice_id' => $saved->id,
-                                                                            'format' => 'atom')));
-            $this->showSingleAtomStatus($saved);
-        }
+        return $saved;
     }
 
     function purify($content)
