@@ -109,10 +109,8 @@ class UserProfile extends Widget
                                         'alt' => $this->profile->nickname));
             $this->out->elementEnd('dd');
 
-            $user = User::staticGet('id', $this->profile->id);
-
             $cur = common_current_user();
-            if ($cur && $cur->id == $user->id) {
+            if ($cur && $cur->id == $this->profile->id) {
                 $this->out->elementStart('dd');
                 $this->out->element('a', array('href' => common_local_url('avatarsettings')), _('Edit Avatar'));
                 $this->out->elementEnd('dd');
@@ -278,7 +276,7 @@ class UserProfile extends Widget
                         }
                         $this->out->elementEnd('li');
 
-                        if ($cur->mutuallySubscribed($this->user)) {
+                        if ($cur->mutuallySubscribed($this->profile)) {
 
                             // message
 
@@ -290,7 +288,7 @@ class UserProfile extends Widget
 
                             // nudge
 
-                            if ($this->user->email && $this->user->emailnotifynudge) {
+                            if ($this->user && $this->user->email && $this->user->emailnotifynudge) {
                                 $this->out->elementStart('li', 'entity_nudge');
                                 $nf = new NudgeForm($this->out, $this->user);
                                 $nf->show();
@@ -327,7 +325,7 @@ class UserProfile extends Widget
                             $this->out->elementStart('ul');
                             if ($cur->hasRight(Right::SANDBOXUSER)) {
                                 $this->out->elementStart('li', 'entity_sandbox');
-                                if ($this->user->isSandboxed()) {
+                                if ($this->profile->isSandboxed()) {
                                     $usf = new UnSandboxForm($this->out, $this->profile, $r2args);
                                     $usf->show();
                                 } else {
@@ -339,7 +337,7 @@ class UserProfile extends Widget
 
                             if ($cur->hasRight(Right::SILENCEUSER)) {
                                 $this->out->elementStart('li', 'entity_silence');
-                                if ($this->user->isSilenced()) {
+                                if ($this->profile->isSilenced()) {
                                     $usf = new UnSilenceForm($this->out, $this->profile, $r2args);
                                     $usf->show();
                                 } else {
@@ -387,7 +385,7 @@ class UserProfile extends Widget
         $r2args['action'] = $action;
 
         $this->out->elementStart('li', "entity_role_$role");
-        if ($this->user->hasRole($role)) {
+        if ($this->profile->hasRole($role)) {
             $rf = new RevokeRoleForm($role, $label, $this->out, $this->profile, $r2args);
             $rf->show();
         } else {
