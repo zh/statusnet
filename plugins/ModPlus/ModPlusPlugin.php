@@ -40,4 +40,59 @@ class ModPlusPlugin extends Plugin
 
         return true;
     }
+
+    /**
+     * Load JS at runtime if we're logged in.
+     *
+     * @param Action $action
+     * @return boolean hook result
+     */
+    function onEndShowScripts($action)
+    {
+        $user = common_current_user();
+        if ($user) {
+            $action->script('plugins/ModPlus/modplus.js');
+        }
+        return true;
+    }
+
+    /**
+     * Autoloader
+     *
+     * Loads our classes if they're requested.
+     *
+     * @param string $cls Class requested
+     *
+     * @return boolean hook return
+     */
+    function onAutoload($cls)
+    {
+        switch ($cls)
+        {
+        case 'RemoteprofileAction':
+        case 'RemoteProfileAction':
+            require_once dirname(__FILE__) . '/remoteprofileaction.php';
+            return false;
+        default:
+            return true;
+        }
+    }
+
+    /**
+     * Add OpenID-related paths to the router table
+     *
+     * Hook for RouterInitialized event.
+     *
+     * @param Net_URL_Mapper $m URL mapper
+     *
+     * @return boolean hook return
+     */
+    function onStartInitializeRouter($m)
+    {
+        $m->connect('user/remote/:id',
+                array('action' => 'remoteprofile'),
+                array('id' => '[\d]+'));
+
+        return true;
+    }
 }
