@@ -15,19 +15,56 @@ class oEmbedTest extends PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        //$this->old_oohembed = common_config('oohembed', 'endpoint');
+        $this->old_oohembed = common_config('oohembed', 'endpoint');
     }
 
     public function tearDown()
     {
-        //$GLOBALS['config']['attachments']['supported'] = $this->old_attachments_supported;
+        $GLOBALS['config']['oohembed']['endpoint'] = $this->old_oohembed;
     }
 
     /**
-     * @dataProvider fallbackSources
+     * Test with oohembed DISABLED.
      *
+     * @dataProvider discoverableSources
      */
     public function testoEmbed($url, $expectedType)
+    {
+        $GLOBALS['config']['oohembed']['endpoint'] = false;
+        $this->_doTest($url, $expectedType);
+    }
+
+    /**
+     * Test with oohembed ENABLED.
+     *
+     * @dataProvider fallbackSources
+     */
+    public function testoohEmbed($url, $expectedType)
+    {
+        $GLOBALS['config']['oohembed']['endpoint'] = $this->_endpoint();
+        $this->_doTest($url, $expectedType);
+    }
+
+    /**
+     * Get default oohembed endpoint.
+     *
+     * @return string
+     */
+    function _endpoint()
+    {
+        $default = array();
+        $_server = 'localhost'; $_path = '';
+        require INSTALLDIR . '/lib/default.php';
+        return $default['oohembed']['endpoint'];
+    }
+
+    /**
+     * Actually run an individual test.
+     *
+     * @param string $url
+     * @param string $expectedType
+     */
+    function _doTest($url, $expectedType)
     {
         try {
             $data = oEmbedHelper::getObject($url);
