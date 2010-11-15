@@ -241,9 +241,14 @@ class ApiTimelineUserAction extends ApiBareAuthAction
      *
      * @return boolean true
      */
+    
     function isReadOnly($args)
     {
-        return true;
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
     /**
