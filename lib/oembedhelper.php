@@ -69,7 +69,6 @@ class oEmbedHelper
      */
     public static function getObject($url, $params=array())
     {
-        common_log(LOG_INFO, 'QQQ: wtf? ' . $url);
         $host = parse_url($url, PHP_URL_HOST);
         if (substr($host, 0, 4) == 'www.') {
             $host = substr($host, 4);
@@ -86,9 +85,7 @@ class oEmbedHelper
         // Whitelist: known API endpoints for sites that don't provide discovery...
         if (array_key_exists($host, self::$apiMap)) {
             $api = self::$apiMap[$host];
-            common_log(LOG_INFO, 'QQQ: going to: ' . $api);
         } else {
-            common_log(LOG_INFO, 'QQQ: no map for ' . $host);
             try {
                 $api = self::discover($url);
             } catch (Exception $e) {
@@ -100,7 +97,6 @@ class oEmbedHelper
                     throw $e;
                 }
             }
-            common_log(LOG_INFO, 'QQQ: going to: ' . $api);
         }
         return self::getObjectFrom($api, $url, $params);
     }
