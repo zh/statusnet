@@ -198,10 +198,12 @@ class XmppManager extends IoManager
                 $this->conn->processTime(0);
                 return true;
             } else {
+                common_log(LOG_ERR, __METHOD__ . ' failed: 0 bytes sent');
                 return false;
             }
         } else {
             // Can't send right now...
+            common_log(LOG_ERR, __METHOD__ . ' failed: XMPP server connection currently down');
             return false;
         }
     }
