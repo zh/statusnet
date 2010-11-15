@@ -164,7 +164,6 @@ class oEmbedHelper
             }
         }
 
-        return false;
         throw new oEmbedHelper_DiscoveryException();
     }
 
