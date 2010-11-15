@@ -98,6 +98,10 @@ class UserProfile extends Widget
         if (Event::handle('StartProfilePageAvatar', array($this->out, $this->profile))) {
 
             $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
+            if (!$avatar) {
+                // hack for remote Twitter users: no 96px, but large Twitter size is 73px
+                $avatar = $this->profile->getAvatar(73);
+            }
 
             $this->out->elementStart('dl', 'entity_depiction');
             $this->out->element('dt', null, _('Photo'));
