@@ -116,10 +116,24 @@ class File extends Memcached_DataObject
     }
 
     /**
+     * Go look at a URL and possibly save data about it if it's new:
+     * - follow redirect chains and store them in file_redirection
+     * - look up oEmbed data and save it in file_oembed
+     * - if a thumbnail is available, save it in file_thumbnail
+     * - save file record with basic info
+     * - optionally save a file_to_post record
+     * - return the File object with the full reference
+     *
      * @fixme refactor this mess, it's gotten pretty scary.
-     * @param bool $followRedirects
+     * @param string $given_url the URL we're looking at
+     * @param int $notice_id (optional)
+     * @param bool $followRedirects defaults to true
+     *
+     * @return mixed File on success, -1 on some errors
+     *
+     * @throws ServerException on some errors
      */
-    function processNew($given_url, $notice_id=null, $followRedirects=true) {
+    public function processNew($given_url, $notice_id=null, $followRedirects=true) {
         if (empty($given_url)) return -1;   // error, no url to process
         $given_url = File_redirection::_canonUrl($given_url);
         if (empty($given_url)) return -1;   // error, no url to process
