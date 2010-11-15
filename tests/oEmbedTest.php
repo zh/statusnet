@@ -69,6 +69,18 @@ class oEmbedTest extends PHPUnit_Framework_TestCase
         try {
             $data = oEmbedHelper::getObject($url);
             $this->assertEquals($expectedType, $data->type);
+            if ($data->type == 'photo') {
+                $this->assertTrue(!empty($data->url), 'Photo must have a URL.');
+                $this->assertTrue(!empty($data->width), 'Photo must have a width.');
+                $this->assertTrue(!empty($data->height), 'Photo must have a height.');
+            } else if ($data->type == 'video') {
+                $this->assertTrue(!empty($data->html), 'Video must have embedding HTML.');
+                $this->assertTrue(!empty($data->thumbnail_url), 'Video should have a thumbnail.');
+            }
+            if (!empty($data->thumbnail_url)) {
+                $this->assertTrue(!empty($data->thumbnail_width), 'Thumbnail must list a width.');
+                $this->assertTrue(!empty($data->thumbnail_height), 'Thumbnail must list a height.');
+            }
         } catch (Exception $e) {
             if ($expectedType == 'none') {
                 $this->assertEquals($expectedType, 'none', 'Should not have data for this URL.');
