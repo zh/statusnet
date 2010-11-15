@@ -47,12 +47,23 @@ class RemoteProfileAction extends ShowstreamAction
         } else {
             $base = $this->profile->nickname;
         }
+        $host = parse_url($this->profile->profileurl, PHP_URL_HOST);
+        return sprintf(_m('%s on %s'), $base, $host);
     }
 
-    function showContent()
+    /**
+     * Instead of showing notices, link to the original offsite profile.
+     */
+    function showNotices()
     {
-        $this->showProfile();
-        // don't show notices
+        $url = $this->profile->profileurl;
+        $host = parse_url($url, PHP_URL_HOST);
+        $markdown = sprintf(
+                _m('This profile is registered on another site; see [the profile page on %s](%s).'),
+                $host,
+                $url);
+        $html = common_markup_to_html($markdown);
+        $this->raw($html);
     }
 
     function getFeeds()
@@ -64,10 +75,13 @@ class RemoteProfileAction extends ShowstreamAction
     {
         // none
     }
+
     function showLocalNav()
     {
-        // none...?
+        $nav = new PublicGroupNav($this);
+        $nav->show();
     }
+
     function showSections()
     {
         ProfileAction::showSections();
