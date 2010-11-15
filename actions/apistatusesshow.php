@@ -100,13 +100,23 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     {
         parent::handle($args);
 
-        if (!in_array($this->format, array('xml', 'json'))) {
+        if (!in_array($this->format, array('xml', 'json', 'atom'))) {
             // TRANS: Client error displayed when trying to handle an unknown API method.
-            $this->clientError(_('API method not found.'), $code = 404);
+            $this->clientError(_('API method not found.'), 404);
             return;
         }
 
-        $this->showNotice();
+        switch ($_SERVER['REQUEST_METHOD']) {
+        case 'GET':
+            $this->showNotice();
+            break;
+        case 'DELETE':
+            $this->deleteNotice();
+            break;
+        default:
+            $this->clientError(_('HTTP method not supported.'), 405);
+            return;
+        }
     }
 
     /**
@@ -117,10 +127,18 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     function showNotice()
     {
         if (!empty($this->notice)) {
-            if ($this->format == 'xml') {
+            switch ($this->format) {
+            case 'xml':
                 $this->showSingleXmlStatus($this->notice);
-            } elseif ($this->format == 'json') {
+                break;
+            case 'json':
                 $this->show_single_json_status($this->notice);
+                break;
+            case 'atom':
+                $this->showSingleAtomStatus($this->notice);
+                break;
+            default:
+                throw new Exception(sprintf(_("Unsupported format: %s"), $this->format));
             }
         } else {
             // XXX: Twitter just sets a 404 header and doens't bother
@@ -153,9 +171,14 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
      *
      * @return boolean true
      */
+    
     function isReadOnly($args)
     {
-        return true;
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
     /**
@@ -196,5 +219,32 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
         }
 
         return null;
+    }
+
+    function deleteNotice()
+    {
+        if ($this->format != 'atom') {
+            $this->clientError(_("Can only delete using the Atom format."));
+            return;
+        }
+
+        if (empty($this->auth_user) ||
+            ($this->notice->profile_id != $this->auth_user->id &&
+             !$this->auth_user->hasRight(Right::DELETEOTHERSNOTICE))) {
+            $this->clientError(_('Can\'t delete this notice.'), 403);
+            return;
+        }
+
+        if (Event::handle('StartDeleteOwnNotice', array($this->auth_user, $this->notice))) {
+            $this->notice->delete();
+            Event::handle('EndDeleteOwnNotice', array($this->auth_user, $this->notice));
+        }
+
+        // @fixme is there better output we could do here?
+
+        header('HTTP/1.1 200 OK');
+        header('Content-Type: text/plain');
+        print(sprintf(_('Deleted notice %d'), $this->notice->id));
+        print("\n");
     }
 }

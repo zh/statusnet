@@ -726,6 +726,12 @@ class ApiAction extends Action
         $this->endDocument('xml');
     }
 
+    function showSingleAtomStatus($notice)
+    {
+        header('Content-Type: application/atom+xml; charset=utf-8');
+        print $notice->asAtomEntry(true, true, true, $this->auth_user);
+    }
+
     function show_single_json_status($notice)
     {
         $this->initDocument('json');

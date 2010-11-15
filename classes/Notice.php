@@ -1611,6 +1611,35 @@ class Notice extends Memcached_DataObject
             Event::handle('EndActivityGeo', array(&$this, &$xs, $lat, $lon));
         }
 
+        // @fixme check this logic
+
+        if ($this->isLocal()) {
+
+            $selfUrl = common_local_url('ApiStatusesShow', array('id' => $this->id,
+                                                                 'format' => 'atom'));
+
+            if (Event::handle('StartActivityRelSelf', array(&$this, &$xs, &$selfUrl))) {
+                $xs->element('link', array('rel' => 'self',
+                                           'type' => 'application/atom+xml',
+                                           'href' => $selfUrl));
+                Event::handle('EndActivityRelSelf', array(&$this, &$xs, $selfUrl));
+            }
+
+            if (!empty($cur) && $cur->id == $this->profile_id) {
+
+                // note: $selfUrl may have been changed by a plugin
+                $relEditUrl = common_local_url('ApiStatusesShow', array('id' => $this->id,
+                                                                        'format' => 'atom'));
+
+                if (Event::handle('StartActivityRelEdit', array(&$this, &$xs, &$relEditUrl))) {
+                    $xs->element('link', array('rel' => 'edit',
+                                               'type' => 'application/atom+xml',
+                                               'href' => $relEditUrl));
+                    Event::handle('EndActivityRelEdit', array(&$this, &$xs, $relEditUrl));
+                }
+            }
+        }
+
         if (Event::handle('StartActivityEnd', array(&$this, &$xs))) {
             $xs->elementEnd('entry');
             Event::handle('EndActivityEnd', array(&$this, &$xs));
