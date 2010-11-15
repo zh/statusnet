@@ -452,4 +452,9 @@ class Attachment extends AttachmentListItem
 
         return $scrubbed;
     }
+
+    function showFallback()
+    {
+        // still needed: should show a link?
+    }
 }
