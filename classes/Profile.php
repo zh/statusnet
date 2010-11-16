@@ -494,6 +494,29 @@ class Profile extends Memcached_DataObject
         return $cnt;
     }
 
+    /**
+     * Is this profile subscribed to another profile?
+     *
+     * @param Profile $other
+     * @return boolean
+     */
+    function isSubscribed($other)
+    {
+        return Subscription::exists($this, $other);
+    }
+
+    /**
+     * Are these two profiles subscribed to each other?
+     *
+     * @param Profile $other
+     * @return boolean
+     */
+    function mutuallySubscribed($other)
+    {
+        return $this->isSubscribed($other) &&
+          $other->isSubscribed($this);
+    }
+
     function hasFave($notice)
     {
         $cache = common_memcache();

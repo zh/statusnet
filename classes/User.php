@@ -84,7 +84,8 @@ class User extends Memcached_DataObject
 
     function isSubscribed($other)
     {
-        return Subscription::exists($this->getProfile(), $other);
+        $profile = $this->getProfile();
+        return $profile->isSubscribed($other);
     }
 
     // 'update' won't write key columns, so we have to do it ourselves.
@@ -418,8 +419,8 @@ class User extends Memcached_DataObject
 
     function mutuallySubscribed($other)
     {
-        return $this->isSubscribed($other) &&
-          $other->isSubscribed($this);
+        $profile = $this->getProfile();
+        return $profile->mutuallySubscribed($other);
     }
 
     function mutuallySubscribedUsers()
