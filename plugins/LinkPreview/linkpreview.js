@@ -161,6 +161,14 @@
             }
 
             LinkPreview.links = links;
+        },
+
+        /**
+         * Clear out any link preview data.
+         */
+        clear: function() {
+            LinkPreview.links = [];
+            $('#link-preview').empty();
         }
     };
 
@@ -169,7 +177,11 @@
         if (params.width) oEmbed.width = params.width;
         if (params.height) oEmbed.height = params.height;
 
-        $('#form_notice').append('<div id="link-preview" class="thumbnails"></div>');
+        $('#form_notice')
+            .append('<div id="link-preview" class="thumbnails"></div>')
+            .bind('reset', function() {
+                LinkPreview.clear();
+            });
 
         // Piggyback on the counter update...
         var origCounter = SN.U.Counter;
