@@ -64,6 +64,11 @@ class RemoteProfileAction extends ShowstreamAction
                 $url);
         $html = common_markup_to_html($markdown);
         $this->raw($html);
+
+        if ($this->profile->hasRole(Profile_role::SILENCED)) {
+            $markdown = _m('Site moderators have silenced this profile, which prevents delivery of new messages to any users on this site.');
+            $this->raw(common_markup_to_html($markdown));
+        }
     }
 
     function getFeeds()
@@ -71,9 +76,13 @@ class RemoteProfileAction extends ShowstreamAction
         // none
     }
 
+    /**
+     * Don't do various extra stuff, and also trim some things to avoid crawlers.
+     */
     function extraHead()
     {
-        // none
+        $this->element('meta', array('name' => 'robots',
+                                     'content' => 'noindex,nofollow'));
     }
 
     function showLocalNav()

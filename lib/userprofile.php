@@ -321,6 +321,9 @@ class UserProfile extends Widget
                         }
                         $this->out->elementEnd('li');
 
+                        // Some actions won't be applicable to non-local users.
+                        $isLocal = !empty($this->user);
+
                         if ($cur->hasRight(Right::SANDBOXUSER) ||
                             $cur->hasRight(Right::SILENCEUSER) ||
                             $cur->hasRight(Right::DELETEUSER)) {
@@ -351,7 +354,7 @@ class UserProfile extends Widget
                                 $this->out->elementEnd('li');
                             }
 
-                            if ($cur->hasRight(Right::DELETEUSER)) {
+                            if ($isLocal && $cur->hasRight(Right::DELETEUSER)) {
                                 $this->out->elementStart('li', 'entity_delete');
                                 $df = new DeleteUserForm($this->out, $this->profile, $r2args);
                                 $df->show();
@@ -361,7 +364,7 @@ class UserProfile extends Widget
                             $this->out->elementEnd('li');
                         }
                         
-                        if ($cur->hasRight(Right::GRANTROLE)) {
+                        if ($isLocal && $cur->hasRight(Right::GRANTROLE)) {
                             $this->out->elementStart('li', 'entity_role');
                             $this->out->element('p', null, _('User role'));
                             $this->out->elementStart('ul');
