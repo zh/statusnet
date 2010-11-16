@@ -76,6 +76,7 @@ class Popularity
                 'notice.rendered,notice.url,notice.created,notice.modified,' .
                 'notice.reply_to,notice.is_local,notice.source,notice.conversation, ' .
                 'notice.lat,notice.lon,location_id,location_ns,notice.repeat_of';
+        $qry .= ' HAVING \'silenced\' NOT IN (SELECT role FROM profile_role WHERE profile_id=notice.profile_id)';
         $qry .= ' ORDER BY weight DESC';
 
         $offset = $this->offset;
