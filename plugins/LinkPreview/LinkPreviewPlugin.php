@@ -52,6 +52,12 @@ class LinkPreviewPlugin extends Plugin
         $user = common_current_user();
         if ($user) {
             $action->script('plugins/LinkPreview/linkpreview.js');
+            $data = json_encode(array(
+                'api' => common_config('oohembed', 'endpoint'),
+                'width' => common_config('attachments', 'thumbwidth'),
+                'height' => common_config('attachments', 'thumbheight'),
+            ));
+            $action->inlineScript('$(function() {SN.Init.LinkPreview && SN.Init.LinkPreview('.$data.');})');
         }
         return true;
     }

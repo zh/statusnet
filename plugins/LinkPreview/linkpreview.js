@@ -2,27 +2,11 @@
  * (c) 2010 StatusNet, Inc.
  */
 
-$(function() {
-    /**
-     * Find URL links from the source text that may be interesting.
-     *
-     * @param {String} text
-     * @return {Array} list of URLs
-     */
-    function findLinks(text)
-    {
-        // @fixme match this to core code
-        var re = /(?:^| )(https?:\/\/.+?\/.+?)(?= |$)/mg;
-        var links = [];
-        var matches;
-        while ((matches = re.exec(text)) !== null) {
-            links.push(matches[1]);
-        }
-        return links;
-    }
-
+(function() {
     var oEmbed = {
         api: 'http://oohembed.com/oohembed',
+        width: 100,
+        height: 75,
         cache: {},
         callbacks: {},
 
@@ -69,8 +53,8 @@ $(function() {
             var params = {
                 url: url,
                 format: 'json',
-                maxwidth: 100,
-                maxheight: 75,
+                maxwidth: oEmbed.width,
+                maxheight: oEmbed.height,
                 callback: '?'
             };
             $.get(oEmbed.api, params, function(data, xhr) {
@@ -78,6 +62,24 @@ $(function() {
             }, 'jsonp');
         }
     };
+
+    /**
+     * Find URL links from the source text that may be interesting.
+     *
+     * @param {String} text
+     * @return {Array} list of URLs
+     */
+    function findLinks(text)
+    {
+        // @fixme match this to core code
+        var re = /(?:^| )(https?:\/\/.+?\/.+?)(?= |$)/mg;
+        var links = [];
+        var matches;
+        while ((matches = re.exec(text)) !== null) {
+            links.push(matches[1]);
+        }
+        return links;
+    }
 
     /**
      * Start looking up info for a link preview...
@@ -137,12 +139,19 @@ $(function() {
             prepLinkPreview(id, links[i]);
         }
     }
-    $('#form_notice').append('<div id="link-preview" class="thumbnails"></div>');
 
-    // Piggyback on the counter update...
-    var origCounter = SN.U.Counter;
-    SN.U.Counter = function(form) {
-        previewLinks($('#notice_data-text').val());
-        return origCounter(form);
+    SN.Init.LinkPreview = function(params) {
+        if (params.api) oEmbed.api = params.api;
+        if (params.width) oEmbed.width = params.width;
+        if (params.height) oEmbed.height = params.height;
+
+        $('#form_notice').append('<div id="link-preview" class="thumbnails"></div>');
+
+        // Piggyback on the counter update...
+        var origCounter = SN.U.Counter;
+        SN.U.Counter = function(form) {
+            previewLinks($('#notice_data-text').val());
+            return origCounter(form);
+        }
     }
-});
+})();
