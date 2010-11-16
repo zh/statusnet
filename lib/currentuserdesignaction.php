@@ -63,6 +63,8 @@ class CurrentUserDesignAction extends Action
         parent::prepare($argarray);
 
         $this->cur = common_current_user();
+
+	return true;
     }
 
     /**
@@ -76,7 +78,7 @@ class CurrentUserDesignAction extends Action
     {
         if (!empty($this->cur)) {
 
-            $design = $cur->getDesign();
+            $design = $this->cur->getDesign();
 
             if (!empty($design)) {
                 return $design;
