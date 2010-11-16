@@ -56,6 +56,11 @@ class ModPlusPlugin extends Plugin
         return true;
     }
 
+    function onEndShowStatusNetStyles($action) {
+        $action->cssLink('plugins/ModPlus/modplus.css');
+        return true;
+    }
+
     /**
      * Autoloader
      *
@@ -94,5 +99,18 @@ class ModPlusPlugin extends Plugin
                 array('id' => '[\d]+'));
 
         return true;
+    }
+
+    function onStartShowNoticeItem($item)
+    {
+        $profile = $item->profile;
+        $isRemote = !(User::staticGet('id', $profile->id));
+        if ($isRemote) {
+            $target = common_local_url('remoteprofile', array('id' => $profile->id));
+            $label = _m('Remote profile options...');
+            $item->out->elementStart('div', 'remote-profile-options');
+            $item->out->element('a', array('href' => $target), $label);
+            $item->out->elementEnd('div');
+        }
     }
 }
