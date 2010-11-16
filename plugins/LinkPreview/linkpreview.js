@@ -62,82 +62,86 @@
         }
     };
 
-    /**
-     * Find URL links from the source text that may be interesting.
-     *
-     * @param {String} text
-     * @return {Array} list of URLs
-     */
-    function findLinks(text)
-    {
-        // @fixme match this to core code
-        var re = /(?:^| )(https?:\/\/.+?\/.+?)(?= |$)/mg;
-        var links = [];
-        var matches;
-        while ((matches = re.exec(text)) !== null) {
-            links.push(matches[1]);
-        }
-        return links;
-    }
+    var LinkPreview = {
+        links: [],
 
-    /**
-     * Start looking up info for a link preview...
-     * May start async data loads.
-     *
-     * @param {String} id
-     * @param {String} url
-     */
-    function prepLinkPreview(id, url)
-    {
-        oEmbed.lookup(url, function(data) {
-            var thumb = null;
-            var width = 100;
-            if (typeof data.thumbnail_url == "string") {
-                thumb = data.thumbnail_url;
-                if (typeof data.thumbnail_width !== "undefined") {
-                    if (data.thumbnail_width < width) {
-                        width = data.thumbnail_width;
+        /**
+         * Find URL links from the source text that may be interesting.
+         *
+         * @param {String} text
+         * @return {Array} list of URLs
+         */
+        findLinks: function (text)
+        {
+            // @fixme match this to core code
+            var re = /(?:^| )(https?:\/\/.+?\/.+?)(?= |$)/mg;
+            var links = [];
+            var matches;
+            while ((matches = re.exec(text)) !== null) {
+                links.push(matches[1]);
+            }
+            return links;
+        },
+
+        /**
+         * Start looking up info for a link preview...
+         * May start async data loads.
+         *
+         * @param {String} id
+         * @param {String} url
+         */
+        prepLinkPreview: function(id, url)
+        {
+            oEmbed.lookup(url, function(data) {
+                var thumb = null;
+                var width = 100;
+                if (typeof data.thumbnail_url == "string") {
+                    thumb = data.thumbnail_url;
+                    if (typeof data.thumbnail_width !== "undefined") {
+                        if (data.thumbnail_width < width) {
+                            width = data.thumbnail_width;
+                        }
+                    }
+                } else if (data.type == 'photo' && typeof data.url == "string") {
+                    thumb = data.url;
+                    if (typeof data.width !== "undefined") {
+                        if (data.width < width) {
+                            width = data.width;
+                        }
                     }
                 }
-            } else if (data.type == 'photo' && typeof data.url == "string") {
-                thumb = data.url;
-                if (typeof data.width !== "undefined") {
-                    if (data.width < width) {
-                        width = data.width;
-                    }
+                if (thumb) {
+                    var link = $('<span class="inline-attachment"><a><img/></a></span>');
+                    link.find('a')
+                            .attr('href', url)
+                            .attr('target', '_blank')
+                            .last()
+                        .find('img')
+                            .attr('src', thumb)
+                            .attr('width', width)
+                            .attr('title', data.title || data.url || url);
+                    $('#' + id).append(link);
                 }
-            }
-            if (thumb) {
-                var link = $('<span class="inline-attachment"><a><img/></a></span>');
-                link.find('a')
-                        .attr('href', url)
-                        .attr('target', '_blank')
-                        .last()
-                    .find('img')
-                        .attr('src', thumb)
-                        .attr('width', width)
-                        .attr('title', data.title || data.url || url);
-                $('#' + id).append(link);
-            }
-        });
-    }
+            });
+        },
 
-    /**
-     * Update the live preview section with links found in the given text.
-     * May start async data loads.
-     *
-     * @param {String} text: free-form input text
-     */
-    function previewLinks(text)
-    {
-        var links = findLinks(text);
-        $('#link-preview').html('');
-        for (var i = 0; i < links.length; i++) {
-            var id = 'link-preview-' + i;
-            $('#link-preview').append('<span id="' + id + '"></span>');
-            prepLinkPreview(id, links[i]);
+        /**
+         * Update the live preview section with links found in the given text.
+         * May start async data loads.
+         *
+         * @param {String} text: free-form input text
+         */
+        previewLinks: function(text)
+        {
+            var links = LinkPreview.findLinks(text);
+            $('#link-preview').html('');
+            for (var i = 0; i < links.length; i++) {
+                var id = 'link-preview-' + i;
+                $('#link-preview').append('<span id="' + id + '"></span>');
+                LinkPreview.prepLinkPreview(id, links[i]);
+            }
         }
-    }
+    };
 
     SN.Init.LinkPreview = function(params) {
         if (params.api) oEmbed.api = params.api;
@@ -149,7 +153,7 @@
         // Piggyback on the counter update...
         var origCounter = SN.U.Counter;
         SN.U.Counter = function(form) {
-            previewLinks($('#notice_data-text').val());
+            LinkPreview.previewLinks($('#notice_data-text').val());
             return origCounter(form);
         }
     }
