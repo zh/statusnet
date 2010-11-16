@@ -45,10 +45,9 @@ define("FACEBOOK_SERVICE", 2);
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class FacebookSSOPlugin extends Plugin
+class FacebookBridgePlugin extends Plugin
 {
     public $appId    = null; // Facebook application ID
-    public $apikey   = null; // Facebook API key (for deprecated "Old REST API")
     public $secret   = null; // Facebook application secret
     public $facebook = null; // Facebook application instance
     public $dir      = null; // Facebook SSO plugin dir
@@ -64,7 +63,6 @@ class FacebookSSOPlugin extends Plugin
     {
         $this->facebook = Facebookclient::getFacebook(
             $this->appId,
-            $this->apikey,
             $this->secret
         );
 
@@ -101,10 +99,30 @@ class FacebookSSOPlugin extends Plugin
         case 'FacebookQueueHandler':
             include_once $dir . '/lib/' . strtolower($cls) . '.php';
             return false;
+        case 'Notice_to_item':
+            include_once $dir . '/classes/' . $cls . '.php';
+            return false;
         default:
             return true;
         }
 
+    }
+
+    /**
+     * Database schema setup
+     *
+     * We maintain a table mapping StatusNet notices to Facebook items
+     *
+     * @see Schema
+     * @see ColumnDef
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
+        $schema->ensureTable('notice_to_item', Notice_to_item::schemaDef());
+        return true;
     }
 
     /*
@@ -436,6 +454,54 @@ ENDOFSCRIPT;
         }
     }
 
+    /**
+     * If a notice gets deleted, remove the Notice_to_item mapping and
+     * delete the item on Facebook
+     *
+     * @param User   $user   The user doing the deleting
+     * @param Notice $notice The notice getting deleted
+     *
+     * @return boolean hook value
+     */
+    function onStartDeleteOwnNotice(User $user, Notice $notice)
+    {
+        $client = new Facebookclient($notice);
+        $client->streamRemove();
+        
+        return true;
+    }
+
+    /**
+     * Notify remote users when their notices get favorited.
+     *
+     * @param Profile or User $profile of local user doing the faving
+     * @param Notice $notice being favored
+     * @return hook return value
+     */
+    function onEndFavorNotice(Profile $profile, Notice $notice)
+    {
+        $client = new Facebookclient($notice);
+        $client->like();
+
+        return true;
+    }
+
+    /**
+     * Notify remote users when their notices get de-favorited.
+     *
+     * @param Profile $profile Profile person doing the de-faving
+     * @param Notice  $notice  Notice being favored
+     *
+     * @return hook return value
+     */
+    function onEndDisfavorNotice(Profile $profile, Notice $notice)
+    {
+        $client = new Facebookclient($notice);
+        $client->unLike();
+
+        return true;
+    }
+
     /*
      * Add version info for this plugin
      *
@@ -447,7 +513,7 @@ ENDOFSCRIPT;
             'name' => 'Facebook Single-Sign-On',
             'version' => STATUSNET_VERSION,
             'author' => 'Craig Andrews, Zach Copley',
-            'homepage' => 'http://status.net/wiki/Plugin:FacebookSSO',
+            'homepage' => 'http://status.net/wiki/Plugin:FacebookBridge',
             'rawdescription' =>
             _m('A plugin for integrating StatusNet with Facebook.')
         );

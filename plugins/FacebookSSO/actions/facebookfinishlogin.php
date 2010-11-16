@@ -97,7 +97,7 @@ class FacebookfinishloginAction extends Action
         parent::handle($args);
 
         if (common_is_real_login()) {
-            
+
             // User is already logged in, are her accounts already linked?
 
             $flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_SERVICE);
@@ -121,48 +121,52 @@ class FacebookfinishloginAction extends Action
             } else {
 
                 // Possibly reconnect an existing account
-                
+
                 $this->connectUser();
             }
 
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->handlePost();
+        } else {
+            $this->tryLogin();
+        }
+    }
 
-            $token = $this->trimmed('token');
+    function handlePost()
+    {
+        $token = $this->trimmed('token');
 
-            if (!$token || $token != common_session_token()) {
+        if (!$token || $token != common_session_token()) {
+            $this->showForm(
+                _m('There was a problem with your session token. Try again, please.')
+            );
+            return;
+        }
+
+        if ($this->arg('create')) {
+
+            if (!$this->boolean('license')) {
                 $this->showForm(
-                    _m('There was a problem with your session token. Try again, please.'));
+                    _m('You can\'t register if you don\'t agree to the license.'),
+                    $this->trimmed('newname')
+                );
                 return;
             }
 
-            if ($this->arg('create')) {
+            // We has a valid Facebook session and the Facebook user has
+            // agreed to the SN license, so create a new user
+            $this->createNewUser();
 
-                if (!$this->boolean('license')) {
-                    $this->showForm(
-                        _m('You can\'t register if you don\'t agree to the license.'),
-                        $this->trimmed('newname')
-                    );
-                    return;
-                }
+        } else if ($this->arg('connect')) {
 
-                // We has a valid Facebook session and the Facebook user has
-                // agreed to the SN license, so create a new user
-                $this->createNewUser();
+            $this->connectNewUser();
 
-            } else if ($this->arg('connect')) {
-
-                $this->connectNewUser();
-
-            } else {
-
-                $this->showForm(
-                    _m('An unknown error has occured.'),
-                    $this->trimmed('newname')
-                );
-            }
         } else {
 
-            $this->tryLogin();
+            $this->showForm(
+                _m('An unknown error has occured.'),
+                $this->trimmed('newname')
+            );
         }
     }
 
@@ -173,7 +177,7 @@ class FacebookfinishloginAction extends Action
             $this->element('div', array('class' => 'error'), $this->error);
 
         } else {
-        
+
             $this->element(
                 'div', 'instructions',
                 // TRANS: %s is the site name.
@@ -343,25 +347,32 @@ class FacebookfinishloginAction extends Action
             'nickname'        => $nickname,
             'fullname'        => $this->fbuser['first_name']
                 . ' ' . $this->fbuser['last_name'],
-            'email'           => $this->fbuser['email'],
-            'email_confirmed' => true,
             'homepage'        => $this->fbuser['website'],
             'bio'             => $this->fbuser['about'],
             'location'        => $this->fbuser['location']['name']
         );
 
+        // It's possible that the email address is already in our
+        // DB. It's a unique key, so we need to check
+        if ($this->isNewEmail($this->fbuser['email'])) {
+            $args['email']           = $this->fbuser['email'];
+            $args['email_confirmed'] = true;
+        }
+
         if (!empty($invite)) {
             $args['code'] = $invite->code;
         }
 
-        $user = User::register($args);
-
+        $user   = User::register($args);
         $result = $this->flinkUser($user->id, $this->fbuid);
 
         if (!$result) {
             $this->serverError(_m('Error connecting user to Facebook.'));
             return;
         }
+
+        // Add a Foreign_user record
+        Facebookclient::addFacebookUser($this->fbuser);
 
         $this->setAvatar($user);
 
@@ -371,20 +382,16 @@ class FacebookfinishloginAction extends Action
         common_log(
             LOG_INFO,
             sprintf(
-                'Registered new user %d from Facebook user %s',
+                'Registered new user %s (%d) from Facebook user %s, (fbuid %d)',
+                $user->nickname,
                 $user->id,
+                $this->fbuser['name'],
                 $this->fbuid
             ),
             __FILE__
         );
 
-        common_redirect(
-            common_local_url(
-                'showstream',
-                array('nickname' => $user->nickname)
-            ),
-            303
-        );
+        $this->goHome($user->nickname);
     }
 
     /*
@@ -401,17 +408,19 @@ class FacebookfinishloginAction extends Action
         // fetch the picture from Facebook
         $client = new HTTPClient();
 
-        common_debug("status = $status - " . $finalUrl , __FILE__);
-
         // fetch the actual picture
         $response = $client->get($picUrl);
 
         if ($response->isOk()) {
 
             $finalUrl = $client->getUrl();
-            $filename = 'facebook-' . substr(strrchr($finalUrl, '/'), 1 );
 
-            common_debug("Filename = " . $filename, __FILE__);
+            // Make sure the filename is unique becuase it's possible for a user
+            // to deauthorize our app, and then come back in as a new user but
+            // have the same Facebook picture (avatar URLs have a unique index
+            // and their URLs are based on the filenames).
+            $filename = 'facebook-' . common_good_rand(4) . '-'
+                . substr(strrchr($finalUrl, '/'), 1);
 
             $ok = file_put_contents(
                 Avatar::path($filename),
@@ -430,17 +439,20 @@ class FacebookfinishloginAction extends Action
 
             } else {
 
+                // save it as an avatar
                 $profile = $user->getProfile();
 
                 if ($profile->setOriginal($filename)) {
                     common_log(
                         LOG_INFO,
                         sprintf(
-                            'Saved avatar for %s (%d) from Facebook profile %s, filename = %s',
+                            'Saved avatar for %s (%d) from Facebook picture for '
+                                . '%s (fbuid %d), filename = %s',
                              $user->nickname,
                              $user->id,
+                             $this->fbuser['name'],
                              $this->fbuid,
-                             $picture
+                             $filename
                         ),
                         __FILE__
                     );
@@ -462,19 +474,17 @@ class FacebookfinishloginAction extends Action
         $user = User::staticGet('nickname', $nickname);
 
         if (!empty($user)) {
-            common_debug('Facebook Connect Plugin - ' .
-                         "Legit user to connect to Facebook: $nickname");
+            common_debug(
+                sprintf(
+                    'Found a legit user to connect to Facebook: %s (%d)',
+                    $user->nickname,
+                    $user->id
+                ),
+                __FILE__
+            );
         }
 
-        $result = $this->flinkUser($user->id, $this->fbuid);
-
-        if (!$result) {
-            $this->serverError(_m('Error connecting user to Facebook.'));
-            return;
-        }
-
-        common_debug('Facebook Connnect Plugin - ' .
-                     "Connected Facebook user $this->fbuid to local user $user->id");
+        $this->tryLinkUser($user);
 
         common_set_user($user);
         common_real_login(true);
@@ -485,7 +495,12 @@ class FacebookfinishloginAction extends Action
     function connectUser()
     {
         $user = common_current_user();
+        $this->tryLinkUser($user);
+        common_redirect(common_local_url('facebookfinishlogin'), 303);
+    }
 
+    function tryLinkUser($user)
+    {
         $result = $this->flinkUser($user->id, $this->fbuid);
 
         if (empty($result)) {
@@ -495,14 +510,14 @@ class FacebookfinishloginAction extends Action
 
         common_debug(
             sprintf(
-                'Connected Facebook user %s to local user %d',
+                'Connected Facebook user %s (fbuid %d) to local user %s (%d)',
+                $this->fbuser['name'],
                 $this->fbuid,
+                $user->nickname,
                 $user->id
             ),
             __FILE__
         );
-
-        common_redirect(common_local_url('facebookfinishlogin'), 303);
     }
 
     function tryLogin()
@@ -573,7 +588,7 @@ class FacebookfinishloginAction extends Action
         $flink->user_id = $user_id;
         $flink->foreign_id = $fbuid;
         $flink->service = FACEBOOK_SERVICE;
-        
+
         // Pull the access token from the Facebook cookies
         $flink->credentials = $this->facebook->getAccessToken();
 
@@ -595,8 +610,8 @@ class FacebookfinishloginAction extends Action
 
         // Try the full name
 
-        $fullname = trim($this->fbuser['firstname'] .
-            ' ' . $this->fbuser['lastname']);
+        $fullname = trim($this->fbuser['first_name'] .
+            ' ' . $this->fbuser['last_name']);
 
         if (!empty($fullname)) {
             $fullname = $this->nicknamize($fullname);
@@ -617,20 +632,57 @@ class FacebookfinishloginAction extends Action
          return strtolower($str);
      }
 
-    function isNewNickname($str)
-    {
-        if (!Validate::string($str, array('min_length' => 1,
-                                          'max_length' => 64,
-                                          'format' => NICKNAME_FMT))) {
+     /*
+      * Is the desired nickname already taken?
+      *
+      * @return boolean result
+      */
+     function isNewNickname($str)
+     {
+        if (
+            !Validate::string(
+                $str,
+                array(
+                    'min_length' => 1,
+                    'max_length' => 64,
+                    'format' => NICKNAME_FMT
+                )
+            )
+        ) {
             return false;
         }
+
         if (!User::allowed_nickname($str)) {
             return false;
         }
+
         if (User::staticGet('nickname', $str)) {
             return false;
         }
+
         return true;
     }
+
+    /*
+     * Do we already have a user record with this email?
+     * (emails have to be unique but they can change)
+     *
+     * @param string $email the email address to check
+     *
+     * @return boolean result
+     */
+     function isNewEmail($email)
+     {
+         // we shouldn't have to validate the format
+         $result = User::staticGet('email', $email);
+
+         if (empty($result)) {
+             common_debug("XXXXXXXXXXXXXXXXXX We've never seen this email before!!!");
+             return true;
+         }
+         common_debug("XXXXXXXXXXXXXXXXXX dupe email address!!!!");
+
+         return false;
+     }
 
 }

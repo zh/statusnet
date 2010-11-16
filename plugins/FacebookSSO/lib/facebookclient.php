@@ -173,11 +173,11 @@ class Facebookclient
         if ($this->isFacebookBound()) {
             common_debug("notice is facebook bound", __FILE__);
             if (empty($this->flink->credentials)) {
-                $this->sendOldRest();
+                return $this->sendOldRest();
             } else {
 
                 // Otherwise we most likely have an access token
-                $this->sendGraph();
+                return $this->sendGraph();
             }
 
         } else {
@@ -213,6 +213,7 @@ class Facebookclient
 
             $params = array(
                 'access_token' => $this->flink->credentials,
+                // XXX: Need to worrry about length of the message?
                 'message'      => $this->notice->content
             );
 
@@ -220,7 +221,7 @@ class Facebookclient
 
             if (!empty($attachments)) {
 
-                // We can only send one attachment with the Graph API
+                // We can only send one attachment with the Graph API :(
 
                 $first = array_shift($attachments);
 
@@ -238,6 +239,21 @@ class Facebookclient
 
             $result = $this->facebook->api(
                 sprintf('/%s/feed', $fbuid), 'post', $params
+            );
+
+            // Save a mapping
+            Notice_to_item::saveNew($this->notice->id, $result['id']);
+
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    "Posted notice %d as a stream item for %s (%d), fbuid %s",
+                    $this->notice->id,
+                    $this->user->nickname,
+                    $this->user->id,
+                    $fbuid
+                ),
+                __FILE__
             );
 
         } catch (FacebookApiException $e) {
@@ -481,24 +497,42 @@ class Facebookclient
         $result = $this->facebook->api(
             array(
                 'method'               => 'users.setStatus',
-                'status'               => $this->notice->content,
+                'status'               => $this->formatMessage(),
                 'status_includes_verb' => true,
                 'uid'                  => $fbuid
             )
         );
 
-        common_log(
-            LOG_INFO,
-            sprintf(
-                "Posted notice %s as a status update for %s (%d), fbuid %s",
+        if ($result == 1) { // 1 is success
+
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    "Posted notice %s as a status update for %s (%d), fbuid %s",
+                    $this->notice->id,
+                    $this->user->nickname,
+                    $this->user->id,
+                    $fbuid
+                ),
+                __FILE__
+            );
+
+            // There is no item ID returned for status update so we can't
+            // save a Notice_to_item mapping
+
+        } else {
+
+            $msg = sprintf(
+                "Error posting notice %s as a status update for %s (%d), fbuid %s - error code: %s",
                 $this->notice->id,
                 $this->user->nickname,
                 $this->user->id,
-                $fbuid
-            ),
-            __FILE__
-        );
+                $fbuid,
+                $result // will contain 0, or an error
+            );
 
+            throw new FacebookApiException($msg, $result);
+        }
     }
 
     /*
@@ -524,25 +558,66 @@ class Facebookclient
         $result = $this->facebook->api(
             array(
                 'method'     => 'stream.publish',
-                'message'    => $this->notice->content,
+                'message'    => $this->formatMessage(),
                 'attachment' => $fbattachment,
                 'uid'        => $fbuid
             )
         );
 
-        common_log(
-            LOG_INFO,
-            sprintf(
-                'Posted notice %d as a %s for %s (%d), fbuid %s',
+        if (!empty($result)) { // result will contain the item ID
+
+            // Save a mapping
+            Notice_to_item::saveNew($this->notice->id, $result);
+
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    'Posted notice %d as a %s for %s (%d), fbuid %s',
+                    $this->notice->id,
+                    empty($fbattachment) ? 'stream item' : 'stream item with attachment',
+                    $this->user->nickname,
+                    $this->user->id,
+                    $fbuid
+                ),
+                __FILE__
+            );
+
+        } else {
+
+            $msg = sprintf(
+                'Could not post notice %d as a %s for %s (%d), fbuid %s - error code: %s',
                 $this->notice->id,
                 empty($fbattachment) ? 'stream item' : 'stream item with attachment',
                 $this->user->nickname,
                 $this->user->id,
+                $result, // result will contain an error code
                 $fbuid
-            ),
-            __FILE__
-        );
+            );
 
+            throw new FacebookApiException($msg, $result);
+        }
+    }
+
+    /*
+     * Format the text message of a stream item so it's appropriate for
+     * sending to Facebook. If the notice is too long, truncate it, and
+     * add a linkback to the original notice at the end.
+     *
+     * @return String $txt the formated message
+     */
+    function formatMessage()
+    {
+        // Start with the plaintext source of this notice...
+        $txt = $this->notice->content;
+
+        // Facebook has a 420-char hardcoded max.
+        if (mb_strlen($statustxt) > 420) {
+            $noticeUrl = common_shorten_url($this->notice->uri);
+            $urlLen = mb_strlen($noticeUrl);
+            $txt = mb_substr($statustxt, 0, 420 - ($urlLen + 3)) . ' … ' . $noticeUrl;
+        }
+
+        return $txt;
     }
 
     /*
@@ -706,6 +781,242 @@ BODY;
         common_switch_locale();
 
         return mail_to_user($this->user, $subject, $body);
+    }
+
+    /*
+     * Check to see if we have a mapping to a copy of this notice
+     * on Facebook
+     *
+     * @param Notice $notice the notice to check
+     *
+     * @return mixed null if it can't find one, or the id of the Facebook
+     *               stream item
+     */
+    static function facebookStatusId($notice)
+    {
+        $n2i = Notice_to_item::staticGet('notice_id', $notice->id);
+
+        if (empty($n2i)) {
+            return null;
+        } else {
+            return $n2i->item_id;
+        }
+    }
+
+    /*
+     * Save a Foreign_user record of a Facebook user
+     *
+     * @param object $fbuser a Facebook Graph API user obj
+     *                       See: http://developers.facebook.com/docs/reference/api/user
+     * @return mixed $result Id or key
+     *
+     */
+    static function addFacebookUser($fbuser)
+    {
+        // remove any existing, possibly outdated, record
+        $luser = Foreign_user::getForeignUser($fbuser['id'], FACEBOOK_SERVICE);
+
+        if (!empty($luser)) {
+
+            $result = $luser->delete();
+
+            if ($result != false) {
+                common_log(
+                    LOG_INFO,
+                    sprintf(
+                        'Removed old Facebook user: %s, fbuid %d',
+                        $fbuid['name'],
+                        $fbuid['id']
+                    ),
+                    __FILE__
+                );
+            }
+        }
+
+        $fuser = new Foreign_user();
+
+        $fuser->nickname = $fbuser['name'];
+        $fuser->uri      = $fbuser['link'];
+        $fuser->id       = $fbuser['id'];
+        $fuser->service  = FACEBOOK_SERVICE;
+        $fuser->created  = common_sql_now();
+
+        $result = $fuser->insert();
+
+        if (empty($result)) {
+            common_log(
+                LOG_WARNING,
+                    sprintf(
+                        'Failed to add new Facebook user: %s, fbuid %d',
+                        $fbuser['name'],
+                        $fbuser['id']
+                    ),
+                    __FILE__
+            );
+
+            common_log_db_error($fuser, 'INSERT', __FILE__);
+        } else {
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    'Added new Facebook user: %s, fbuid %d',
+                    $fbuser['name'],
+                    $fbuser['id']
+                ),
+                __FILE__
+            );
+        }
+
+        return $result;
+    }
+
+    /*
+     * Remove an item from a Facebook user's feed if we have a mapping
+     * for it.
+     */
+    function streamRemove()
+    {
+        $n2i = Notice_to_item::staticGet('notice_id', $this->notice->id);
+
+        if (!empty($this->flink) && !empty($n2i)) {
+
+            $result = $this->facebook->api(
+                array(
+                    'method'  => 'stream.remove',
+                    'post_id' => $n2i->item_id,
+                    'uid'     => $this->flink->foreign_id
+                )
+            );
+
+            if (!empty($result) && result == true) {
+
+                common_log(
+                  LOG_INFO,
+                    sprintf(
+                        'Deleted Facebook item: %s for %s (%d), fbuid %d',
+                        $n2i->item_id,
+                        $this->user->nickname,
+                        $this->user->id,
+                        $this->flink->foreign_id
+                    ),
+                    __FILE__
+                );
+
+                $n2i->delete();
+
+            } else {
+
+                common_log(
+                  LOG_WARNING,
+                    sprintf(
+                        'Could not deleted Facebook item: %s for %s (%d), fbuid %d',
+                        $n2i->item_id,
+                        $this->user->nickname,
+                        $this->user->id,
+                        $this->flink->foreign_id
+                    ),
+                    __FILE__
+                );
+            }
+        }
+    }
+
+    /*
+     * Like an item in a Facebook user's feed if we have a mapping
+     * for it.
+     */
+    function like()
+    {
+        $n2i = Notice_to_item::staticGet('notice_id', $this->notice->id);
+
+        if (!empty($this->flink) && !empty($n2i)) {
+
+            $result = $this->facebook->api(
+                array(
+                    'method'  => 'stream.addlike',
+                    'post_id' => $n2i->item_id,
+                    'uid'     => $this->flink->foreign_id
+                )
+            );
+
+            if (!empty($result) && result == true) {
+
+                common_log(
+                  LOG_INFO,
+                    sprintf(
+                        'Added like for item: %s for %s (%d), fbuid %d',
+                        $n2i->item_id,
+                        $this->user->nickname,
+                        $this->user->id,
+                        $this->flink->foreign_id
+                    ),
+                    __FILE__
+                );
+
+            } else {
+
+                common_log(
+                  LOG_WARNING,
+                    sprintf(
+                        'Could not like Facebook item: %s for %s (%d), fbuid %d',
+                        $n2i->item_id,
+                        $this->user->nickname,
+                        $this->user->id,
+                        $this->flink->foreign_id
+                    ),
+                    __FILE__
+                );
+            }
+        }
+    }
+
+    /*
+     * Unlike an item in a Facebook user's feed if we have a mapping
+     * for it.
+     */
+    function unLike()
+    {
+        $n2i = Notice_to_item::staticGet('notice_id', $this->notice->id);
+
+        if (!empty($this->flink) && !empty($n2i)) {
+
+            $result = $this->facebook->api(
+                array(
+                    'method'  => 'stream.removeLike',
+                    'post_id' => $n2i->item_id,
+                    'uid'     => $this->flink->foreign_id
+                )
+            );
+
+            if (!empty($result) && result == true) {
+
+                common_log(
+                  LOG_INFO,
+                    sprintf(
+                        'Removed like for item: %s for %s (%d), fbuid %d',
+                        $n2i->item_id,
+                        $this->user->nickname,
+                        $this->user->id,
+                        $this->flink->foreign_id
+                    ),
+                    __FILE__
+                );
+
+            } else {
+
+                common_log(
+                  LOG_WARNING,
+                    sprintf(
+                        'Could not remove like for Facebook item: %s for %s (%d), fbuid %d',
+                        $n2i->item_id,
+                        $this->user->nickname,
+                        $this->user->id,
+                        $this->flink->foreign_id
+                    ),
+                    __FILE__
+                );
+            }
+        }
     }
 
 }

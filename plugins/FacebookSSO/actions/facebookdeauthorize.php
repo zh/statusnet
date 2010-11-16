@@ -112,7 +112,7 @@ class FacebookdeauthorizeAction extends Action
                 common_log(
                     LOG_WARNING,
                     sprintf(
-                        '%s (%d), fbuid $s has deauthorized his/her Facebook '
+                        '%s (%d), fbuid %d has deauthorized his/her Facebook '
                         . 'connection but hasn\'t set a password so s/he '
                         . 'is locked out.',
                         $user->nickname,
@@ -135,8 +135,8 @@ class FacebookdeauthorizeAction extends Action
                 );
             } else {
                 // It probably wasn't Facebook that hit this action,
-                // so redirect to the login page
-                common_redirect(common_local_url('login'), 303);
+                // so redirect to the public timeline
+                common_redirect(common_local_url('public'), 303);
             }
         }
     }
