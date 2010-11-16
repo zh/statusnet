@@ -53,7 +53,7 @@ class LinkPreviewPlugin extends Plugin
         if ($user) {
             $action->script('plugins/LinkPreview/linkpreview.js');
             $data = json_encode(array(
-                'api' => common_config('oohembed', 'endpoint'),
+                'api' => common_local_url('oembedproxy'),
                 'width' => common_config('attachments', 'thumbwidth'),
                 'height' => common_config('attachments', 'thumbheight'),
             ));
@@ -73,10 +73,11 @@ class LinkPreviewPlugin extends Plugin
      */
     function onAutoload($cls)
     {
-        switch ($cls)
+        $lower = strtolower($cls);
+        switch ($lower)
         {
-        case 'LinkpreviewAction':
-            require_once dirname(__FILE__) . '/linkpreviewaction.php';
+        case 'oembedproxyaction':
+            require_once dirname(__FILE__) . '/' . $lower . '.php';
             return false;
         default:
             return true;
@@ -92,8 +93,8 @@ class LinkPreviewPlugin extends Plugin
      */
     function onStartInitializeRouter($m)
     {
-        $m->connect('main/preview/link',
-                array('action' => 'linkpreview'));
+        $m->connect('main/oembed/proxy',
+                array('action' => 'oembedproxy'));
 
         return true;
     }

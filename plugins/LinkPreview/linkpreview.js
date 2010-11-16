@@ -54,12 +54,11 @@
                 url: url,
                 format: 'json',
                 maxwidth: oEmbed.width,
-                maxheight: oEmbed.height,
-                callback: '?'
+                maxheight: oEmbed.height
             };
             $.get(oEmbed.api, params, function(data, xhr) {
                 callback(data);
-            }, 'jsonp');
+            }, 'json');
         }
     };
 
