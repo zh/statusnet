@@ -133,13 +133,34 @@
          */
         previewLinks: function(text)
         {
+            var old = LinkPreview.links;
             var links = LinkPreview.findLinks(text);
-            $('#link-preview').html('');
-            for (var i = 0; i < links.length; i++) {
-                var id = 'link-preview-' + i;
-                $('#link-preview').append('<span id="' + id + '"></span>');
-                LinkPreview.prepLinkPreview(id, links[i]);
+
+            // Check for existing common elements...
+            for (var i = 0; i < old.length && i < links.length; i++) {
+                if (links[i] != old[i]) {
+                    // Change an existing entry!
+                    var id = 'link-preview-' + i;
+                    $('#' + id).html('');
+                    LinkPreview.prepLinkPreview(id, links[i]);
+                }
             }
+            if (links.length > old.length) {
+                // Adding new entries, whee!
+                for (var i = old.length; i < links.length; i++) {
+                    var id = 'link-preview-' + i;
+                    $('#link-preview').append('<span id="' + id + '"></span>');
+                    LinkPreview.prepLinkPreview(id, links[i]);
+                }
+            } else if (old.length > links.length) {
+                // Remove preview entries for links that have been removed.
+                for (var i = links.length; i < old.length; i++) {
+                    var id = 'link-preview-' + i;
+                    $('#' + id).remove();
+                }
+            }
+
+            LinkPreview.links = links;
         }
     };
 
