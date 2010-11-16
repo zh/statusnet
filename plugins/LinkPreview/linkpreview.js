@@ -21,29 +21,63 @@ $(function() {
         return links;
     }
 
-    /**
-     * Do an oEmbed lookup for the given URL.
-     *
-     * @fixme proxy through ourselves if possible?
-     * @fixme use the global thumbnail size settings
-     *
-     * @param {String} url
-     * @param {function} callback
-     */
-    function oEmbedLookup(url, callback)
-    {
-        var api = 'http://oohembed.com/oohembed';
-        var params = {
-            url: url,
-            format: 'json',
-            maxwidth: 100,
-            maxheight: 75,
-            callback: '?'
-        };
-        $.get(api, params, function(data, xhr) {
-            callback(data);
-        }, 'jsonp');
-    }
+    var oEmbed = {
+        api: 'http://oohembed.com/oohembed',
+        cache: {},
+        callbacks: {},
+
+        /**
+         * Do a cached oEmbed lookup for the given URL.
+         *
+         * @param {String} url
+         * @param {function} callback
+         */
+        lookup: function(url, callback)
+        {
+            if (typeof oEmbed.cache[url] == "object") {
+                // We already have a successful lookup.
+                callback(oEmbed.cache[url]);
+            } else if (typeof oEmbed.callbacks[url] == "undefined") {
+                // No lookup yet... Start it!
+                oEmbed.callbacks[url] = [callback];
+
+                oEmbed.rawLookup(url, function(data) {
+                    oEmbed.cache[url] = data;
+                    var callbacks = oEmbed.callbacks[url];
+                    oEmbed.callbacks[url] = undefined;
+                    for (var i = 0; i < callbacks.length; i++) {
+                        callbacks[i](data);
+                    }
+                });
+            } else {
+                // A lookup is in progress.
+                oEmbed.callbacks[url].push(callback);
+            }
+        },
+
+        /**
+         * Do an oEmbed lookup for the given URL.
+         *
+         * @fixme proxy through ourselves if possible?
+         * @fixme use the global thumbnail size settings
+         *
+         * @param {String} url
+         * @param {function} callback
+         */
+        rawLookup: function(url, callback)
+        {
+            var params = {
+                url: url,
+                format: 'json',
+                maxwidth: 100,
+                maxheight: 75,
+                callback: '?'
+            };
+            $.get(oEmbed.api, params, function(data, xhr) {
+                callback(data);
+            }, 'jsonp');
+        }
+    };
 
     /**
      * Start looking up info for a link preview...
@@ -54,7 +88,7 @@ $(function() {
      */
     function prepLinkPreview(id, url)
     {
-        oEmbedLookup(url, function(data) {
+        oEmbed.lookup(url, function(data) {
             var thumb = null;
             var width = 100;
             if (typeof data.thumbnail_url == "string") {
@@ -73,9 +107,11 @@ $(function() {
                 }
             }
             if (thumb) {
-                var link = $('<a><img/></a>');
-                link.attr('href', url)
-                    .attr('target', '_blank')
+                var link = $('<span class="inline-attachment"><a><img/></a></span>');
+                link.find('a')
+                        .attr('href', url)
+                        .attr('target', '_blank')
+                        .last()
                     .find('img')
                         .attr('src', thumb)
                         .attr('width', width)
@@ -101,9 +137,12 @@ $(function() {
             prepLinkPreview(id, links[i]);
         }
     }
-    $('#form_notice').append('<div id="link-preview"></div>');
-    $('#notice_data-text').change(function() {
-       var text = $(this).val();
-       previewLinks(text);
-    });
+    $('#form_notice').append('<div id="link-preview" class="thumbnails"></div>');
+
+    // Piggyback on the counter update...
+    var origCounter = SN.U.Counter;
+    SN.U.Counter = function(form) {
+        previewLinks($('#notice_data-text').val());
+        return origCounter(form);
+    }
 });
