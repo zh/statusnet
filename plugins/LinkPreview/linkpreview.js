@@ -73,11 +73,14 @@ $(function() {
                 }
             }
             if (thumb) {
-                var img = $('<img/>')
-                    .attr('src', thumb)
-                    .attr('width', width)
-                    .attr('title', data.title || data.url || url);
-                $('#' + id).append(img);
+                var link = $('<a><img/></a>');
+                link.attr('href', url)
+                    .attr('target', '_blank')
+                    .find('img')
+                        .attr('src', thumb)
+                        .attr('width', width)
+                        .attr('title', data.title || data.url || url);
+                $('#' + id).append(link);
             }
         });
     }
