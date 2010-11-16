@@ -54,7 +54,8 @@
                 url: url,
                 format: 'json',
                 maxwidth: oEmbed.width,
-                maxheight: oEmbed.height
+                maxheight: oEmbed.height,
+                token: $('#token').val()
             };
             $.get(oEmbed.api, params, function(data, xhr) {
                 callback(data);
