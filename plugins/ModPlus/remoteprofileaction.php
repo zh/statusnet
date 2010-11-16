@@ -59,7 +59,8 @@ class RemoteProfileAction extends ShowstreamAction
         $url = $this->profile->profileurl;
         $host = parse_url($url, PHP_URL_HOST);
         $markdown = sprintf(
-                _m('This profile is registered on another site; see [the profile page on %s](%s).'),
+                _m('This remote profile is registered on another site; see [%s\'s original profile page on %s](%s).'),
+                $this->profile->nickname,
                 $host,
                 $url);
         $html = common_markup_to_html($markdown);
@@ -95,6 +96,11 @@ class RemoteProfileAction extends ShowstreamAction
     {
         ProfileAction::showSections();
         // skip tag cloud
+    }
+
+    function showStatistics()
+    {
+        // skip
     }
 
 }
