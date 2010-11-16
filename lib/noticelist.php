@@ -208,6 +208,7 @@ class NoticeListItem extends Widget
         $this->showStart();
         if (Event::handle('StartShowNoticeItem', array($this))) {
             $this->showNotice();
+            $this->showNoticeAttachments();
             $this->showNoticeInfo();
             $this->showNoticeOptions();
             Event::handle('EndShowNoticeItem', array($this));
@@ -381,6 +382,13 @@ class NoticeListItem extends Widget
             $this->out->raw(common_render_content($this->notice->content, $this->notice));
         }
         $this->out->elementEnd('p');
+    }
+
+    function showNoticeAttachments() {
+        if (common_config('attachments', 'show_thumbs')) {
+            $al = new InlineAttachmentList($this->notice, $this->out);
+            $al->show();
+        }
     }
 
     /**

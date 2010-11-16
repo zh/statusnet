@@ -156,7 +156,8 @@ class MapstractionPlugin extends Plugin
                                   ' var user = null; '.
                                   (($actionName == 'showstream') ? ' user = scrapeUser(); ' : '') .
                                   ' var notices = scrapeNotices(user); ' .
-                                  ' showMapstraction($("#map_canvas"), notices); '.
+				  ' var canvas = $("#map_canvas")[0]; ' .
+                                  ' if (typeof(canvas) != "undefined") { showMapstraction(canvas, notices); } '.
                                   '});');
         }
 

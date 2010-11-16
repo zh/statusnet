@@ -189,6 +189,7 @@ class TwitterImport
         Notice_to_status::saveNew($notice->id, $status->id);
 
         $this->saveStatusMentions($notice, $status);
+        $this->saveStatusAttachments($notice, $status);
 
         $notice->blowOnInsert();
 
@@ -645,6 +646,22 @@ class TwitterImport
                     common_log(LOG_INFO, __METHOD__ . ": saving reply: notice {$notice->id} to profile {$user->id}");
                     $id = $reply->insert();
                 }
+            }
+        }
+    }
+
+    /**
+     * Record URL links from the notice. Needed to get thumbnail records
+     * for referenced photo and video posts, etc.
+     *
+     * @param Notice $notice
+     * @param object $status
+     */
+    function saveStatusAttachments($notice, $status)
+    {
+        if (!empty($status->entities) && !empty($status->entities->urls)) {
+            foreach ($status->entities->urls as $url) {
+                File::processNew($url->url, $notice->id);
             }
         }
     }

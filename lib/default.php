@@ -250,6 +250,9 @@ $default =
               'monthly_quota' => 15000000,
               'uploads' => true,
               'filecommand' => '/usr/bin/file',
+              'show_thumbs' => true, // show thumbnails in notice lists for uploaded images, and photos and videos linked remotely that provide oEmbed info
+              'thumb_width' => 100,
+              'thumb_height' => 75,
               ),
         'application' =>
         array('desclimit' => null),

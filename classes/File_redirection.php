@@ -91,9 +91,16 @@ class File_redirection extends Memcached_DataObject
             $request->setMethod(HTTP_Request2::METHOD_HEAD);
             $response = $request->send();
 
-            if (405 == $response->getStatus()) {
+            if (405 == $response->getStatus() || 204 == $response->getStatus()) {
+                // HTTP 405 Unsupported Method
                 // Server doesn't support HEAD method? Can this really happen?
                 // We'll try again as a GET and ignore the response data.
+                //
+                // HTTP 204 No Content
+                // YFrog sends 204 responses back for our HEAD checks, which
+                // seems like it may be a logic error in their servers. If
+                // we get a 204 back, re-run it as a GET... if there's really
+                // no content it'll be cheap. :)
                 $request = self::_commonHttp($short_url, $redirs);
                 $response = $request->send();
             }
@@ -235,6 +242,18 @@ class File_redirection extends Memcached_DataObject
         return null;
     }
 
+    /**
+     * Basic attempt to canonicalize a URL, cleaning up some standard variants
+     * such as funny syntax or a missing path. Used internally when cleaning
+     * up URLs for storage and following redirect chains.
+     *
+     * Note that despite being on File_redirect, this function DOES NOT perform
+     * any dereferencing of redirects.
+     *
+     * @param string $in_url input URL
+     * @param string $default_scheme if given a bare link; defaults to 'http://'
+     * @return string
+     */
     function _canonUrl($in_url, $default_scheme = 'http://') {
         if (empty($in_url)) return false;
         $out_url = $in_url;

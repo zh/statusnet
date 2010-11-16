@@ -79,23 +79,33 @@ class AttachmentList extends Widget
         $atts = new File;
         $att = $atts->getAttachments($this->notice->id);
         if (empty($att)) return 0;
-        $this->out->elementStart('dl', array('id' =>'attachments',
-                                             'class' => 'entry-content'));
-        // TRANS: DT element label in attachment list.
-        $this->out->element('dt', null, _('Attachments'));
-        $this->out->elementStart('dd');
-        $this->out->elementStart('ol', array('class' => 'attachments'));
+        $this->showListStart();
 
         foreach ($att as $n=>$attachment) {
             $item = $this->newListItem($attachment);
             $item->show();
         }
 
+        $this->showListEnd();
+
+        return count($att);
+    }
+
+    function showListStart()
+    {
+        $this->out->elementStart('dl', array('id' =>'attachments',
+                                             'class' => 'entry-content'));
+        // TRANS: DT element label in attachment list.
+        $this->out->element('dt', null, _('Attachments'));
+        $this->out->elementStart('dd');
+        $this->out->elementStart('ol', array('class' => 'attachments'));
+    }
+
+    function showListEnd()
+    {
         $this->out->elementEnd('dd');
         $this->out->elementEnd('ol');
         $this->out->elementEnd('dl');
-
-        return count($att);
     }
 
     /**
@@ -187,7 +197,10 @@ class AttachmentListItem extends Widget
     }
 
     function linkAttr() {
-        return array('class' => 'attachment', 'href' => $this->attachment->url, 'id' => 'attachment-' . $this->attachment->id);
+        return array('class' => 'attachment',
+                     'href' => $this->attachment->url,
+                     'id' => 'attachment-' . $this->attachment->id,
+                     'title' => $this->title());
     }
 
     function showLink() {
@@ -203,10 +216,32 @@ class AttachmentListItem extends Widget
     }
 
     function showRepresentation() {
-        $thumbnail = File_thumbnail::staticGet('file_id', $this->attachment->id);
-        if (!empty($thumbnail)) {
-            $this->out->element('img', array('alt' => '', 'src' => $thumbnail->url, 'width' => $thumbnail->width, 'height' => $thumbnail->height));
+        $thumb = $this->getThumbInfo();
+        if ($thumb) {
+            $this->out->element('img', array('alt' => '', 'src' => $thumb->url, 'width' => $thumb->width, 'height' => $thumb->height));
         }
+    }
+
+    /**
+     * Pull a thumbnail image reference for the given file, and if necessary
+     * resize it to match currently thumbnail size settings.
+     *
+     * @return File_Thumbnail or false/null
+     */
+    function getThumbInfo()
+    {
+        $thumbnail = File_thumbnail::staticGet('file_id', $this->attachment->id);
+        if ($thumbnail) {
+            $maxWidth = common_config('attachments', 'thumb_width');
+            $maxHeight = common_config('attachments', 'thumb_height');
+            if ($thumbnail->width > $maxWidth) {
+                $thumb = clone($thumbnail);
+                $thumb->width = $maxWidth;
+                $thumb->height = intval($thumbnail->height * $maxWidth / $thumbnail->width);
+                return $thumb;
+            }
+        }
+        return $thumbnail;
     }
 
     /**
@@ -234,6 +269,9 @@ class AttachmentListItem extends Widget
     }
 }
 
+/**
+ * used for one-off attachment action
+ */
 class Attachment extends AttachmentListItem
 {
     function showLink() {
@@ -417,15 +455,6 @@ class Attachment extends AttachmentListItem
 
     function showFallback()
     {
-        // If we don't know how to display an attachment inline, we probably
-        // shouldn't have gotten to this point.
-        //
-        // But, here we are... displaying details on a file or remote URL
-        // either on the main view or in an ajax-loaded lightbox. As a lesser
-        // of several evils, we'll try redirecting to the actual target via
-        // client-side JS.
-
-        common_log(LOG_ERR, "Empty or unknown type for file id {$this->attachment->id}; falling back to client-side redirect.");
-        $this->out->raw('<script>window.location = ' . json_encode($this->attachment->url) . ';</script>');
+        // still needed: should show a link?
     }
 }

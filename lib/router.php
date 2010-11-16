@@ -399,12 +399,12 @@ class Router
 
             $m->connect('api/statuses/show.:format',
                         array('action' => 'ApiStatusesShow',
-                              'format' => '(xml|json)'));
+                              'format' => '(xml|json|atom)'));
 
             $m->connect('api/statuses/show/:id.:format',
                         array('action' => 'ApiStatusesShow',
                               'id' => '[0-9]+',
-                              'format' => '(xml|json)'));
+                              'format' => '(xml|json|atom)'));
 
             $m->connect('api/statuses/update.:format',
                         array('action' => 'ApiStatusesUpdate',
@@ -685,6 +685,13 @@ class Router
 
             $m->connect('api/oauth/authorize',
                         array('action' => 'ApiOauthAuthorize'));
+
+            $m->connect('api/statusnet/app/service/:id.xml',
+                        array('action' => 'ApiAtomService',
+                              'id' => '[a-zA-Z0-9]+'));
+
+            $m->connect('api/statusnet/app/service.xml',
+                        array('action' => 'ApiAtomService'));
 
             // Admin
 
