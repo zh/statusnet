@@ -274,15 +274,15 @@ class Action extends HTMLOutputter // lawsuit
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
                 $this->script('jquery.min.js');
-                $this->script('jquery.form.js');
-                $this->script('jquery.cookie.js');
-                $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.js').'"); }');
+                $this->script('jquery.form.min.js');
+                $this->script('jquery.cookie.min.js');
+                $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
                 $this->script('jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
                 Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->script('util.js');
+                $this->script('util.min.js');
                 $this->showScriptMessages();
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
@@ -300,9 +300,11 @@ class Action extends HTMLOutputter // lawsuit
      * events and appending to the array. Try to avoid adding strings that won't be used, as
      * they'll be added to HTML output.
      */
+    
     function showScriptMessages()
     {
         $messages = array();
+	
         if (Event::handle('StartScriptMessages', array($this, &$messages))) {
             // Common messages needed for timeline views etc...
 
@@ -310,11 +312,14 @@ class Action extends HTMLOutputter // lawsuit
             $messages['showmore_tooltip'] = _m('TOOLTIP', 'Show more');
 
             $messages = array_merge($messages, $this->getScriptMessages());
+	    
+	    Event::handle('EndScriptMessages', array($this, &$messages));
         }
-        Event::handle('EndScriptMessages', array($this, &$messages));
-        if ($messages) {
+	
+        if (!empty($messages)) {
             $this->inlineScript('SN.messages=' . json_encode($messages));
         }
+	
         return $messages;
     }
 

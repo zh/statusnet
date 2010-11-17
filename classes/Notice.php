@@ -476,7 +476,9 @@ class Notice extends Memcached_DataObject
      * @return void
      */
     function saveUrls() {
-        common_replace_urls_callback($this->content, array($this, 'saveUrl'), $this->id);
+        if (common_config('attachments', 'process_links')) {
+            common_replace_urls_callback($this->content, array($this, 'saveUrl'), $this->id);
+        }
     }
 
     /**
@@ -489,9 +491,11 @@ class Notice extends Memcached_DataObject
      */
     function saveKnownUrls($urls)
     {
-        // @fixme validation?
-        foreach (array_unique($urls) as $url) {
-            File::processNew($url, $this->id);
+        if (common_config('attachments', 'process_links')) {
+            // @fixme validation?
+            foreach (array_unique($urls) as $url) {
+                File::processNew($url, $this->id);
+            }
         }
     }
 

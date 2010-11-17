@@ -139,6 +139,7 @@ class File_redirection extends Memcached_DataObject
      * reached.
      *
      * @param string $in_url
+     * @param boolean $discover true to attempt dereferencing the redirect if we don't know it already
      * @return mixed one of:
      *         string - target URL, if this is a direct link or a known redirect
      *         array - redirect info if this is an *unknown* redirect:
@@ -150,7 +151,7 @@ class File_redirection extends Memcached_DataObject
      *                size (optional): byte size from Content-Length header
      *                time (optional): timestamp from Last-Modified header
      */
-    public function where($in_url) {
+    public function where($in_url, $discover=true) {
         // let's see if we know this...
         $a = File::staticGet('url', $in_url);
 
@@ -166,8 +167,13 @@ class File_redirection extends Memcached_DataObject
             }
         }
 
-        $ret = File_redirection::lookupWhere($in_url);
-        return $ret;
+        if ($discover) {
+            $ret = File_redirection::lookupWhere($in_url);
+            return $ret;
+        } else {
+            // No manual dereferencing; leave the unknown URL as is.
+            return $in_url;
+        }
     }
 
     /**

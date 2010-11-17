@@ -848,7 +848,7 @@ function common_linkify($url) {
 
         $canon = File_redirection::_canonUrl($url);
 
-        $longurl_data = File_redirection::where($canon);
+        $longurl_data = File_redirection::where($canon, common_config('attachments', 'process_links'));
         if (is_array($longurl_data)) {
             $longurl = $longurl_data['url'];
         } elseif (is_string($longurl_data)) {
@@ -872,8 +872,10 @@ function common_linkify($url) {
     $f = File::staticGet('url', $longurl);
 
     if (empty($f)) {
-        // XXX: this writes to the database. :<
-        $f = File::processNew($longurl);
+        if (common_config('attachments', 'process_links')) {
+            // XXX: this writes to the database. :<
+            $f = File::processNew($longurl);
+        }
     }
 
     if (!empty($f)) {
