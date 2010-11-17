@@ -103,7 +103,6 @@ class Facebookclient
      */
     static function facebookBroadcastNotice($notice)
     {
-        common_debug('Facebook broadcast');
         $client = new Facebookclient($notice);
         return $client->sendNotice();
     }
