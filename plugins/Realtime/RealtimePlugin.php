@@ -322,7 +322,7 @@ class RealtimePlugin extends Plugin
 
     function _getScripts()
     {
-        return array('plugins/Realtime/realtimeupdate.js');
+        return array('plugins/Realtime/realtimeupdate.min.js');
     }
 
     /**
