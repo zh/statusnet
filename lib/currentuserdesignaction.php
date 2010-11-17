@@ -88,4 +88,9 @@ class CurrentUserDesignAction extends Action
         return parent::getDesign();
     }
 
+    function getCurrentUser()
+    {
+	return $this->cur;
+    }
 }
+

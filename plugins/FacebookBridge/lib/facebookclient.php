@@ -202,7 +202,7 @@ class Facebookclient
 
             common_debug(
                 sprintf(
-                    "Attempting use Graph API to post notice %d as a stream item for %s (%d), fbuid %s",
+                    "Attempting use Graph API to post notice %d as a stream item for %s (%d), fbuid %d",
                     $this->notice->id,
                     $this->user->nickname,
                     $this->user->id,
@@ -247,7 +247,7 @@ class Facebookclient
             common_log(
                 LOG_INFO,
                 sprintf(
-                    "Posted notice %d as a stream item for %s (%d), fbuid %s",
+                    "Posted notice %d as a stream item for %s (%d), fbuid %d",
                     $this->notice->id,
                     $this->user->nickname,
                     $this->user->id,
@@ -287,7 +287,7 @@ class Facebookclient
             } else {
 
                 $msg = 'Not sending notice %d to Facebook because user %s '
-                     . '(%d), fbuid %s,  does not have \'status_update\' '
+                     . '(%d), fbuid %d,  does not have \'status_update\' '
                      . 'or \'publish_stream\' permission.';
 
                 common_log(
@@ -330,7 +330,7 @@ class Facebookclient
 
         common_debug(
             sprintf(
-                'Checking for %s permission for user %s (%d), fbuid %s',
+                'Checking for %s permission for user %s (%d), fbuid %d',
                 $permission,
                 $this->user->nickname,
                 $this->user->id,
@@ -351,7 +351,7 @@ class Facebookclient
 
             common_debug(
                 sprintf(
-                    '%s (%d), fbuid %s has %s permission',
+                    '%s (%d), fbuid %d has %s permission',
                     $permission,
                     $this->user->nickname,
                     $this->user->id,
@@ -425,6 +425,12 @@ class Facebookclient
             );
             return true;
             break;
+
+         // @fixme: Facebook returns these 2xx permission errors sometimes
+         // FOR NO GOOD REASON AT ALL! It would be better to retry a few times
+         // over an extended period of time to instead of immediately
+         // disconnecting.
+
          case 200: // Permissions error
          case 250: // Updating status requires the extended permission status_update
             $this->disconnect();
@@ -485,7 +491,7 @@ class Facebookclient
 
         common_debug(
             sprintf(
-                "Attempting to post notice %d as a status update for %s (%d), fbuid %s",
+                "Attempting to post notice %d as a status update for %s (%d), fbuid %d",
                 $this->notice->id,
                 $this->user->nickname,
                 $this->user->id,
@@ -508,7 +514,7 @@ class Facebookclient
             common_log(
                 LOG_INFO,
                 sprintf(
-                    "Posted notice %s as a status update for %s (%d), fbuid %s",
+                    "Posted notice %s as a status update for %s (%d), fbuid %d",
                     $this->notice->id,
                     $this->user->nickname,
                     $this->user->id,
@@ -523,7 +529,7 @@ class Facebookclient
         } else {
 
             $msg = sprintf(
-                "Error posting notice %s as a status update for %s (%d), fbuid %s - error code: %s",
+                "Error posting notice %s as a status update for %s (%d), fbuid %d - error code: %s",
                 $this->notice->id,
                 $this->user->nickname,
                 $this->user->id,
@@ -544,7 +550,7 @@ class Facebookclient
 
         common_debug(
             sprintf(
-                'Attempting to post notice %d as stream item for %s (%d) fbuid %s',
+                'Attempting to post notice %d as stream item for %s (%d) fbuid %d',
                 $this->notice->id,
                 $this->user->nickname,
                 $this->user->id,
@@ -572,7 +578,7 @@ class Facebookclient
             common_log(
                 LOG_INFO,
                 sprintf(
-                    'Posted notice %d as a %s for %s (%d), fbuid %s',
+                    'Posted notice %d as a %s for %s (%d), fbuid %d',
                     $this->notice->id,
                     empty($fbattachment) ? 'stream item' : 'stream item with attachment',
                     $this->user->nickname,
@@ -585,7 +591,7 @@ class Facebookclient
         } else {
 
             $msg = sprintf(
-                'Could not post notice %d as a %s for %s (%d), fbuid %s - error code: %s',
+                'Could not post notice %d as a %s for %s (%d), fbuid %d - error code: %s',
                 $this->notice->id,
                 empty($fbattachment) ? 'stream item' : 'stream item with attachment',
                 $this->user->nickname,
@@ -694,7 +700,7 @@ class Facebookclient
         common_log(
             LOG_INFO,
             sprintf(
-                'Removing Facebook link for %s (%d), fbuid %s',
+                'Removing Facebook link for %s (%d), fbuid %d',
                 $this->user->nickname,
                 $this->user->id,
                 $fbuid
@@ -708,7 +714,7 @@ class Facebookclient
             common_log(
                 LOG_ERR,
                 sprintf(
-                    'Could not remove Facebook link for %s (%d), fbuid %s',
+                    'Could not remove Facebook link for %s (%d), fbuid %d',
                     $this->user->nickname,
                     $this->user->id,
                     $fbuid
@@ -719,13 +725,31 @@ class Facebookclient
         }
 
         // Notify the user that we are removing their Facebook link
+        if (!empty($this->user->email)) {
+            $result = $this->mailFacebookDisconnect();
 
-        $result = $this->mailFacebookDisconnect();
+            if (!$result) {
 
-        if (!$result) {
+                $msg = 'Unable to send email to notify %s (%d), fbuid %d '
+                     . 'about his/her Facebook link being removed.';
 
-            $msg = 'Unable to send email to notify %s (%d), fbuid %s '
-                 . 'about his/her Facebook link being removed.';
+                common_log(
+                    LOG_WARNING,
+                    sprintf(
+                        $msg,
+                        $this->user->nickname,
+                        $this->user->id,
+                        $fbuid
+                    ),
+                    __FILE__
+                );
+            }
+
+        } else {
+
+            $msg = 'Unable to send email to notify %s (%d), fbuid %d '
+                 . 'about his/her Facebook link being removed because the '
+                 . 'user has not set an email address.';
 
             common_log(
                 LOG_WARNING,
@@ -780,7 +804,83 @@ BODY;
 
         common_switch_locale();
 
-        return mail_to_user($this->user, $subject, $body);
+        $result = mail_to_user($this->user, $subject, $body);
+
+        if (empty($this->user->password)) {
+            $result = self::emailWarn($this->user);
+        }
+
+        return $result;
+    }
+
+    /*
+     * Send the user an email warning that their account has been
+     * disconnected and he/she has no way to login and must contact
+     * the site administrator for help.
+     *
+     * @param User $user the deauthorizing user
+     *
+     */
+    static function emailWarn($user)
+    {
+        $profile = $user->getProfile();
+
+        $siteName  = common_config('site', 'name');
+        $siteEmail = common_config('site', 'email');
+
+        if (empty($siteEmail)) {
+            common_log(
+                LOG_WARNING,
+                    "No site email address configured. Please set one."
+            );
+        }
+
+        common_switch_locale($user->language);
+
+        $subject = _m('Contact the %s administrator to retrieve your account');
+
+        $msg = <<<BODY
+Hi %1$s,
+
+We've noticed you have deauthorized the Facebook connection for your
+%2$s account.  You have not set a password for your %2$s account yet, so
+you will not be able to login. If you wish to continue using your %2$s
+account, please contact the site administrator (%3$s) to set a password.
+
+Sincerely,
+
+%2$s
+BODY;
+        $body = sprintf(
+            _m($msg),
+            $user->nickname,
+            $siteName,
+            $siteEmail
+        );
+
+        common_switch_locale();
+
+        if (mail_to_user($user, $subject, $body)) {
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    'Sent account lockout warning to %s (%d)',
+                    $user->nickname,
+                    $user->id
+                ),
+                __FILE__
+            );
+        } else {
+            common_log(
+                LOG_WARNING,
+                sprintf(
+                    'Unable to send account lockout warning to %s (%d)',
+                    $user->nickname,
+                    $user->id
+                ),
+                __FILE__
+            );
+        }
     }
 
     /*

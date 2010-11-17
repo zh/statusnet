@@ -82,7 +82,7 @@ class FacebookdeauthorizeAction extends Action
                     LOG_WARNING,
                     sprintf(
                         'Unable to delete Facebook foreign link '
-                            . 'for %s (%d), fbuid %s',
+                            . 'for %s (%d), fbuid %d',
                         $user->nickname,
                         $user->id,
                         $fbuid
@@ -95,7 +95,7 @@ class FacebookdeauthorizeAction extends Action
             common_log(
                 LOG_INFO,
                 sprintf(
-                    'Facebook callback: %s (%d), fbuid %s has deauthorized '
+                    'Facebook callback: %s (%d), fbuid %d has deauthorized '
                         . 'the Facebook application.',
                     $user->nickname,
                     $user->id,
@@ -107,7 +107,7 @@ class FacebookdeauthorizeAction extends Action
             // Warn the user about being locked out of their account
             // if we can.
             if (empty($user->password) && !empty($user->email)) {
-                $this->emailWarn($user);
+                Facebookclient::emailWarn($user);
             } else {
                 common_log(
                     LOG_WARNING,
@@ -138,76 +138,6 @@ class FacebookdeauthorizeAction extends Action
                 // so redirect to the public timeline
                 common_redirect(common_local_url('public'), 303);
             }
-        }
-    }
-
-    /*
-     * Send the user an email warning that their account has been
-     * disconnected and he/she has no way to login and must contact
-     * the site administrator for help.
-     *
-     * @param User $user the deauthorizing user
-     *
-     */
-    function emailWarn($user)
-    {
-        $profile = $user->getProfile();
-
-        $siteName  = common_config('site', 'name');
-        $siteEmail = common_config('site', 'email');
-
-        if (empty($siteEmail)) {
-            common_log(
-                LOG_WARNING,
-                    "No site email address configured. Please set one."
-            );
-        }
-
-        common_switch_locale($user->language);
-
-        $subject = _m('Contact the %s administrator to retrieve your account');
-
-        $msg = <<<BODY
-Hi %1$s,
-
-We've noticed you have deauthorized the Facebook connection for your
-%2$s account.  You have not set a password for your %2$s account yet, so
-you will not be able to login. If you wish to continue using your %2$s
-account, please contact the site administrator (%3$s) to set a password.
-
-Sincerely,
-
-%2$s
-BODY;
-        $body = sprintf(
-            _m($msg),
-            $user->nickname,
-            $siteName,
-            $siteEmail
-        );
-
-        common_switch_locale();
-
-        if (mail_to_user($user, $subject, $body)) {
-            common_log(
-                LOG_INFO,
-                sprintf(
-                    'Sent account lockout warning to %s (%d)',
-                    $user->nickname,
-                    $user->id
-                ),
-                __FILE__
-            );
-        } else {
-            common_log(
-                LOG_WARNING,
-                sprintf(
-                    'Unable to send account lockout warning to %s (%d)',
-                    $user->nickname,
-                    $user->id
-                ),
-                __FILE__
-            );
         }
     }
 

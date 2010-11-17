@@ -236,7 +236,8 @@ class FacebookBridgePlugin extends Plugin
     }
 
     /*
-     * Add a tab for user-level Facebook settings
+     * Add a tab for user-level Facebook settings if the user
+     * has a link to Facebook
      *
      * @param Action &action the current action
      *
@@ -247,17 +248,32 @@ class FacebookBridgePlugin extends Plugin
         if ($this->hasApplication()) {
             $action_name = $action->trimmed('action');
 
-            $action->menuItem(
-                common_local_url('facebooksettings'),
-                // TRANS: Menu item tab.
-                _m('MENU','Facebook'),
-                // TRANS: Tooltip for menu item "Facebook".
-                _m('Facebook settings'),
-                $action_name === 'facebooksettings'
-            );
+            // CurrentUserDesignAction stores the current user in $cur
+            $user = $action->getCurrentUser();
+
+            $flink = null;
+
+            if (!empty($user)) {
+                $flink = Foreign_link::getByUserID(
+                    $user->id,
+                    FACEBOOK_SERVICE
+                );
+            }
+
+            if (!empty($flink)) {
+
+                $action->menuItem(
+                    common_local_url('facebooksettings'),
+                    // TRANS: Menu item tab.
+                    _m('MENU','Facebook'),
+                    // TRANS: Tooltip for menu item "Facebook".
+                    _m('Facebook settings'),
+                    $action_name === 'facebooksettings'
+                );
+
+            }
         }
 
-        return true;
     }
 
     /*
