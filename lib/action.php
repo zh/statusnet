@@ -274,7 +274,7 @@ class Action extends HTMLOutputter // lawsuit
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
                 $this->script('jquery.min.js');
-                $this->script('jquery.form.js');
+                $this->script('jquery.form.min.js');
                 $this->script('jquery.cookie.js');
                 $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.js').'"); }');
                 $this->script('jquery.joverlay.min.js');
