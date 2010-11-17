@@ -282,7 +282,7 @@ class Action extends HTMLOutputter // lawsuit
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
                 Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->script('util.js');
+                $this->script('util.min.js');
                 $this->showScriptMessages();
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
