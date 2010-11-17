@@ -50,7 +50,7 @@ class LinkPreviewPlugin extends Plugin
     function onEndShowScripts($action)
     {
         $user = common_current_user();
-        if ($user) {
+        if ($user && common_config('attachments', 'process_links')) {
             $action->script('plugins/LinkPreview/linkpreview.js');
             $data = json_encode(array(
                 'api' => common_local_url('oembedproxy'),

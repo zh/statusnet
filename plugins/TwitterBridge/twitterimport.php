@@ -659,9 +659,11 @@ class TwitterImport
      */
     function saveStatusAttachments($notice, $status)
     {
-        if (!empty($status->entities) && !empty($status->entities->urls)) {
-            foreach ($status->entities->urls as $url) {
-                File::processNew($url->url, $notice->id);
+        if (common_config('attachments', 'process_links')) {
+            if (!empty($status->entities) && !empty($status->entities->urls)) {
+                foreach ($status->entities->urls as $url) {
+                    File::processNew($url->url, $notice->id);
+                }
             }
         }
     }
