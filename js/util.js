@@ -236,8 +236,9 @@ var SN = { // StatusNet
                         form.append('<p class="form_response error">Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
                     }
                     else {
-                        if ($('.'+SN.C.S.Error, xhr.responseXML).length > 0) {
-                            form.append(document._importNode($('.'+SN.C.S.Error, xhr.responseXML)[0], true));
+                        var response = SN.U.GetResponseXML(xhr);
+                        if ($('.'+SN.C.S.Error, response).length > 0) {
+                            form.append(document._importNode($('.'+SN.C.S.Error, response)[0], true));
                         }
                         else {
                             if (parseInt(xhr.status) === 0 || jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) >= 0) {
@@ -324,6 +325,16 @@ var SN = { // StatusNet
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', SN.C.I.NoticeDataGeo.NDG);
                 }
             });
+        },
+
+        GetResponseXML: function(xhr) {
+            // Work around unavailable responseXML when document.domain
+            // has been modified by Meteor or other tools.
+            try {
+                return xhr.responseXML;
+            } catch (e) {
+                return (new DOMParser()).parseFromString(xhr.responseText, "text/xml");
+            }
         },
 
         NoticeReply: function() {
