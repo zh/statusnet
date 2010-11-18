@@ -36,7 +36,7 @@ if (!defined('STATUSNET')) {
 define("FACEBOOK_SERVICE", 2);
 
 /**
- * Main class for Facebook plugin
+ * Main class for Facebook Bridge plugin
  *
  * @category  Plugin
  * @package   StatusNet
@@ -50,7 +50,7 @@ class FacebookBridgePlugin extends Plugin
     public $appId    = null; // Facebook application ID
     public $secret   = null; // Facebook application secret
     public $facebook = null; // Facebook application instance
-    public $dir      = null; // Facebook SSO plugin dir
+    public $dir      = null; // Facebook plugin dir
 
     /**
      * Initializer for this plugin
@@ -526,7 +526,7 @@ ENDOFSCRIPT;
     function onPluginVersion(&$versions)
     {
         $versions[] = array(
-            'name' => 'Facebook Single-Sign-On',
+            'name' => 'Facebook Bridge',
             'version' => STATUSNET_VERSION,
             'author' => 'Craig Andrews, Zach Copley',
             'homepage' => 'http://status.net/wiki/Plugin:FacebookBridge',
