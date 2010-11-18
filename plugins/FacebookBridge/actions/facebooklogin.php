@@ -79,8 +79,9 @@ class FacebookloginAction extends Action
             array(
                 'href' => $facebook->getLoginUrl(
                     array(
-                        'next'   => common_local_url('facebookfinishlogin'),
-                        'cancel' => common_local_url('facebooklogin')
+                        'next'       => common_local_url('facebookfinishlogin'),
+                        'cancel'     => common_local_url('facebooklogin'),
+                        'req_perms'  => 'read_stream,publish_stream,offline_access,user_status,user_location,user_website,email'
                     )
                  ),
                 'id'    => 'facebook_button'
