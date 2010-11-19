@@ -125,6 +125,14 @@ class Profile extends Memcached_DataObject
         return $avatar;
     }
 
+    /**
+     * Delete attached avatars for this user from the database and filesystem.
+     * This should be used instead of a batch delete() to ensure that files
+     * get removed correctly.
+     *
+     * @param boolean $original true to delete only the original-size file
+     * @return <type>
+     */
     function delete_avatars($original=true)
     {
         $avatar = new Avatar();
@@ -664,9 +672,11 @@ class Profile extends Memcached_DataObject
         $this->_deleteMessages();
         $this->_deleteTags();
         $this->_deleteBlocks();
+        $this->delete_avatars();
 
-        $related = array('Avatar',
-                         'Reply',
+        // Warning: delete() will run on the batch objects,
+        // not on individual objects.
+        $related = array('Reply',
                          'Group_member',
                          );
         Event::handle('ProfileDeleteRelated', array($this, &$related));
