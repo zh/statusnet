@@ -438,10 +438,14 @@ class TwitterBridgePlugin extends Plugin
                 return true;
             }
 
-            $token = TwitterOAuthClient::unpackToken($flink->credentials);
-            $client = new TwitterOAuthClient($token->key, $token->secret);
+            try {
+                $token = TwitterOAuthClient::unpackToken($flink->credentials);
+                $client = new TwitterOAuthClient($token->key, $token->secret);
 
-            $client->statusesDestroy($n2s->status_id);
+                $client->statusesDestroy($n2s->status_id);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, "Error attempting to delete bridged notice from Twitter: " . $e->getMessage());
+            }
 
             $n2s->delete();
         }
@@ -475,10 +479,14 @@ class TwitterBridgePlugin extends Plugin
             return true;
         }
 
-        $token = TwitterOAuthClient::unpackToken($flink->credentials);
-        $client = new TwitterOAuthClient($token->key, $token->secret);
+        try {
+            $token = TwitterOAuthClient::unpackToken($flink->credentials);
+            $client = new TwitterOAuthClient($token->key, $token->secret);
 
-        $client->favoritesCreate($status_id);
+            $client->favoritesCreate($status_id);
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Error attempting to favorite bridged notice on Twitter: " . $e->getMessage());
+        }
 
         return true;
     }
@@ -511,10 +519,14 @@ class TwitterBridgePlugin extends Plugin
             return true;
         }
 
-        $token = TwitterOAuthClient::unpackToken($flink->credentials);
-        $client = new TwitterOAuthClient($token->key, $token->secret);
+        try {
+            $token = TwitterOAuthClient::unpackToken($flink->credentials);
+            $client = new TwitterOAuthClient($token->key, $token->secret);
 
-        $client->favoritesDestroy($status_id);
+            $client->favoritesDestroy($status_id);
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Error attempting to unfavorite bridged notice on Twitter: " . $e->getMessage());
+        }
 
         return true;
     }
