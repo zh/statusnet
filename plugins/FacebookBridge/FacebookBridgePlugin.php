@@ -209,6 +209,19 @@ class FacebookBridgePlugin extends Plugin
     }
 
     /**
+     * If the plugin's installed, this should be accessible to admins
+     */
+    function onAdminPanelCheck($name, &$isOK)
+    {
+        if ($name == 'facebook') {
+            $isOK = true;
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Add a Facebook tab to the admin panels
      *
      * @param Widget $nav Admin panel nav
@@ -483,7 +496,7 @@ ENDOFSCRIPT;
     {
         $client = new Facebookclient($notice);
         $client->streamRemove();
-        
+
         return true;
     }
 
