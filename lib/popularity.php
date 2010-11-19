@@ -53,12 +53,12 @@ class Popularity
     {
         // @fixme there should be a common func for this
         if (common_config('db', 'type') == 'pgsql') {
-            if (!empty($this->out->tag)) {
-                $tag = pg_escape_string($this->out->tag);
+            if (!empty($this->tag)) {
+                $tag = pg_escape_string($this->tag);
             }
         } else {
-            if (!empty($this->out->tag)) {
-                 $tag = mysql_escape_string($this->out->tag);
+            if (!empty($this->tag)) {
+                 $tag = mysql_escape_string($this->tag);
             }
         }
         $weightexpr = common_sql_weight('fave.modified', common_config('popular', 'dropoff'));
