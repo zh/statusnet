@@ -1365,11 +1365,16 @@ class ApiAction extends Action
         return;
     }
 
+    private static function is_decimal($str)
+    {
+        return preg_match('/^[0-9]+$/', $str);
+    }
+
     function getTargetUser($id)
     {
         if (empty($id)) {
             // Twitter supports these other ways of passing the user ID
-            if (is_numeric($this->arg('id'))) {
+            if (self::is_decimal($this->arg('id'))) {
                 return User::staticGet($this->arg('id'));
             } else if ($this->arg('id')) {
                 $nickname = common_canonical_nickname($this->arg('id'));
@@ -1377,7 +1382,7 @@ class ApiAction extends Action
             } else if ($this->arg('user_id')) {
                 // This is to ensure that a non-numeric user_id still
                 // overrides screen_name even if it doesn't get used
-                if (is_numeric($this->arg('user_id'))) {
+                if (self::is_decimal($this->arg('user_id'))) {
                     return User::staticGet('id', $this->arg('user_id'));
                 }
             } else if ($this->arg('screen_name')) {
@@ -1388,7 +1393,7 @@ class ApiAction extends Action
                 return $this->auth_user;
             }
 
-        } else if (is_numeric($id)) {
+        } else if (self::is_decimal($id)) {
             return User::staticGet($id);
         } else {
             $nickname = common_canonical_nickname($id);
@@ -1401,7 +1406,7 @@ class ApiAction extends Action
         if (empty($id)) {
 
             // Twitter supports these other ways of passing the user ID
-            if (is_numeric($this->arg('id'))) {
+            if (self::is_decimal($this->arg('id'))) {
                 return Profile::staticGet($this->arg('id'));
             } else if ($this->arg('id')) {
                 // Screen names currently can only uniquely identify a local user.
@@ -1411,7 +1416,7 @@ class ApiAction extends Action
             } else if ($this->arg('user_id')) {
                 // This is to ensure that a non-numeric user_id still
                 // overrides screen_name even if it doesn't get used
-                if (is_numeric($this->arg('user_id'))) {
+                if (self::is_decimal($this->arg('user_id'))) {
                     return Profile::staticGet('id', $this->arg('user_id'));
                 }
             } else if ($this->arg('screen_name')) {
@@ -1419,7 +1424,7 @@ class ApiAction extends Action
                 $user = User::staticGet('nickname', $nickname);
                 return $user ? $user->getProfile() : null;
             }
-        } else if (is_numeric($id)) {
+        } else if (self::is_decimal($id)) {
             return Profile::staticGet($id);
         } else {
             $nickname = common_canonical_nickname($id);
@@ -1431,7 +1436,7 @@ class ApiAction extends Action
     function getTargetGroup($id)
     {
         if (empty($id)) {
-            if (is_numeric($this->arg('id'))) {
+            if (self::is_decimal($this->arg('id'))) {
                 return User_group::staticGet($this->arg('id'));
             } else if ($this->arg('id')) {
                 $nickname = common_canonical_nickname($this->arg('id'));
@@ -1444,7 +1449,7 @@ class ApiAction extends Action
             } else if ($this->arg('group_id')) {
                 // This is to ensure that a non-numeric user_id still
                 // overrides screen_name even if it doesn't get used
-                if (is_numeric($this->arg('group_id'))) {
+                if (self::is_decimal($this->arg('group_id'))) {
                     return User_group::staticGet('id', $this->arg('group_id'));
                 }
             } else if ($this->arg('group_name')) {
@@ -1457,7 +1462,7 @@ class ApiAction extends Action
                 }
             }
 
-        } else if (is_numeric($id)) {
+        } else if (self::is_decimal($id)) {
             return User_group::staticGet($id);
         } else {
             $nickname = common_canonical_nickname($id);
