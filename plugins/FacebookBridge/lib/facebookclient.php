@@ -103,6 +103,7 @@ class Facebookclient
      */
     static function facebookBroadcastNotice($notice)
     {
+        common_debug('Facebook broadcast');
         $client = new Facebookclient($notice);
         return $client->sendNotice();
     }
@@ -424,12 +425,6 @@ class Facebookclient
             );
             return true;
             break;
-
-         // @fixme: Facebook returns these 2xx permission errors sometimes
-         // FOR NO GOOD REASON AT ALL! It would be better to retry a few times
-         // over an extended period of time to instead of immediately
-         // disconnecting.
-
          case 200: // Permissions error
          case 250: // Updating status requires the extended permission status_update
             $this->disconnect();
@@ -979,40 +974,48 @@ BODY;
 
         if (!empty($this->flink) && !empty($n2i)) {
 
-            $result = $this->facebook->api(
-                array(
-                    'method'  => 'stream.remove',
-                    'post_id' => $n2i->item_id,
-                    'uid'     => $this->flink->foreign_id
-                )
-            );
+            try {
 
-            if (!empty($result) && result == true) {
-
-                common_log(
-                  LOG_INFO,
-                    sprintf(
-                        'Deleted Facebook item: %s for %s (%d), fbuid %d',
-                        $n2i->item_id,
-                        $this->user->nickname,
-                        $this->user->id,
-                        $this->flink->foreign_id
-                    ),
-                    __FILE__
+                $result = $this->facebook->api(
+                    array(
+                        'method'  => 'stream.remove',
+                        'post_id' => $n2i->item_id,
+                        'uid'     => $this->flink->foreign_id
+                    )
                 );
 
-                $n2i->delete();
+                if (!empty($result) && result == true) {
 
-            } else {
+                    common_log(
+                      LOG_INFO,
+                        sprintf(
+                            'Deleted Facebook item: %s for %s (%d), fbuid %d',
+                            $n2i->item_id,
+                            $this->user->nickname,
+                            $this->user->id,
+                            $this->flink->foreign_id
+                        ),
+                        __FILE__
+                    );
 
+                    $n2i->delete();
+
+                } else {
+                    throw new FaceboookApiException(var_export($result, true));
+                }
+
+            } catch (FacebookApiException $e) {
                 common_log(
                   LOG_WARNING,
                     sprintf(
-                        'Could not deleted Facebook item: %s for %s (%d), fbuid %d',
+                        'Could not deleted Facebook item: %s for %s (%d), '
+                            . 'fbuid %d - (API error: %s) item already deleted '
+                            . 'on Facebook? ',
                         $n2i->item_id,
                         $this->user->nickname,
                         $this->user->id,
-                        $this->flink->foreign_id
+                        $this->flink->foreign_id,
+                        $e
                     ),
                     __FILE__
                 );
@@ -1030,38 +1033,45 @@ BODY;
 
         if (!empty($this->flink) && !empty($n2i)) {
 
-            $result = $this->facebook->api(
-                array(
-                    'method'  => 'stream.addlike',
-                    'post_id' => $n2i->item_id,
-                    'uid'     => $this->flink->foreign_id
-                )
-            );
+            try {
 
-            if (!empty($result) && result == true) {
-
-                common_log(
-                  LOG_INFO,
-                    sprintf(
-                        'Added like for item: %s for %s (%d), fbuid %d',
-                        $n2i->item_id,
-                        $this->user->nickname,
-                        $this->user->id,
-                        $this->flink->foreign_id
-                    ),
-                    __FILE__
+                $result = $this->facebook->api(
+                    array(
+                        'method'  => 'stream.addlike',
+                        'post_id' => $n2i->item_id,
+                        'uid'     => $this->flink->foreign_id
+                    )
                 );
 
-            } else {
+                if (!empty($result) && result == true) {
 
+                    common_log(
+                      LOG_INFO,
+                        sprintf(
+                            'Added like for item: %s for %s (%d), fbuid %d',
+                            $n2i->item_id,
+                            $this->user->nickname,
+                            $this->user->id,
+                            $this->flink->foreign_id
+                        ),
+                        __FILE__
+                    );
+
+                } else {
+                    throw new FacebookApiException(var_export($result, true));
+                }
+
+            } catch (FacebookApiException $e) {
                 common_log(
                   LOG_WARNING,
                     sprintf(
-                        'Could not like Facebook item: %s for %s (%d), fbuid %d',
+                        'Could not like Facebook item: %s for %s (%d), '
+                            . 'fbuid %d (API error: %s)',
                         $n2i->item_id,
                         $this->user->nickname,
                         $this->user->id,
-                        $this->flink->foreign_id
+                        $this->flink->foreign_id,
+                        $e
                     ),
                     __FILE__
                 );
@@ -1079,38 +1089,45 @@ BODY;
 
         if (!empty($this->flink) && !empty($n2i)) {
 
-            $result = $this->facebook->api(
-                array(
-                    'method'  => 'stream.removeLike',
-                    'post_id' => $n2i->item_id,
-                    'uid'     => $this->flink->foreign_id
-                )
-            );
+            try {
 
-            if (!empty($result) && result == true) {
-
-                common_log(
-                  LOG_INFO,
-                    sprintf(
-                        'Removed like for item: %s for %s (%d), fbuid %d',
-                        $n2i->item_id,
-                        $this->user->nickname,
-                        $this->user->id,
-                        $this->flink->foreign_id
-                    ),
-                    __FILE__
+                $result = $this->facebook->api(
+                    array(
+                        'method'  => 'stream.removeLike',
+                        'post_id' => $n2i->item_id,
+                        'uid'     => $this->flink->foreign_id
+                    )
                 );
 
-            } else {
+                if (!empty($result) && result == true) {
 
-                common_log(
+                    common_log(
+                      LOG_INFO,
+                        sprintf(
+                            'Removed like for item: %s for %s (%d), fbuid %d',
+                            $n2i->item_id,
+                            $this->user->nickname,
+                            $this->user->id,
+                            $this->flink->foreign_id
+                        ),
+                        __FILE__
+                    );
+
+                } else {
+                    throw new FacebookApiException(var_export($result, true));
+                }
+
+            } catch (FacebookApiException $e) {
+                  common_log(
                   LOG_WARNING,
                     sprintf(
-                        'Could not remove like for Facebook item: %s for %s (%d), fbuid %d',
+                        'Could not remove like for Facebook item: %s for %s '
+                          . '(%d), fbuid %d (API error: %s)',
                         $n2i->item_id,
                         $this->user->nickname,
                         $this->user->id,
-                        $this->flink->foreign_id
+                        $this->flink->foreign_id,
+                        $e
                     ),
                     __FILE__
                 );
