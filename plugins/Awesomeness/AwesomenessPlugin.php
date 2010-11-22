@@ -105,7 +105,7 @@ EOT
     function onStartSaveNewNoticeWeb($action, $user, &$content, &$options)
     {
     	$content = htmlspecialchars($content);
-    	$options['rendered'] = preg_replace("/(^|\s|-)(awesome|awesomeness[\?!\.\,]?)(\s|$)/i", " <b>$2</b> ", $content);
+    	$options['rendered'] = preg_replace("/(^|\s|-)((?:awesome|awesomeness)[\?!\.\,]?)(\s|$)/i", " <b>$2</b> ", $content);
     }
 	
 }
