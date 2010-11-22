@@ -114,7 +114,7 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
             $this->page = 1;
         }
 
-        // TODO: Suppport since_id -- we need to tweak the backend
+        // TODO: Suppport max_id -- we need to tweak the backend
         // Search classes to support it.
 
         $this->since_id = $this->trimmed('since_id');
@@ -175,6 +175,10 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
 
                 if (!$this->max_id) {
                     $this->max_id = $notice->id;
+                }
+
+                if ($this->since_id && $notice->id <= $this->since_id) {
+                    break;
                 }
 
                 if ($cnt > $this->rpp) {

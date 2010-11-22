@@ -272,7 +272,11 @@ function main()
         return;
     }
 
-    $args = array_merge($args, $_REQUEST);
+    // Note the order here: arguments from the URL mapper will
+    // override request params that have been sent. This ensures
+    // that for instance an action parameter can't be overridden
+    // with an arbitrary action class.
+    $args = array_merge($_REQUEST, $args);
 
     Event::handle('ArgsInitialize', array(&$args));
 
