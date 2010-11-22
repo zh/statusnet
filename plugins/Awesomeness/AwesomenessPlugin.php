@@ -31,8 +31,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Facebook plugin to add a StatusNet Facebook canvas application
- * and allow registration and authentication via Facebook Connect
+ * Fun sample plugin: tweaks input data and adds a 'Cornify' widget to sidebar.
  *
  * @category Plugin
  * @package  StatusNet
