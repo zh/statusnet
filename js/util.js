@@ -457,7 +457,101 @@ var SN = { // StatusNet
 
                     return false;
                 });
+                if (typeof this.files == "object") {
+                    // Some newer browsers will let us fetch the files for preview.
+                    for (var i = 0; i < this.files.length; i++) {
+                        SN.U.PreviewAttach(this.files[i]);
+                    }
+                }
             });
+        },
+
+        /**
+         * For browsers with FileAPI support: make a thumbnail if possible,
+         * and append it into the attachment display widget.
+         *
+         * Known good:
+         * - Firefox 3.6.6, 4.0b7
+         * - Chrome 8.0.552.210
+         *
+         * Known ok metadata, can't get contents:
+         * - Safari 5.0.2
+         *
+         * Known fail:
+         * - Opera 10.63, 11 beta (no input.files interface)
+         *
+         * @param {File} file
+         *
+         * @todo use configured thumbnail size
+         * @todo detect pixel size?
+         * @todo should we render a thumbnail to a canvas and then use the smaller image?
+         */
+        PreviewAttach: function(file) {
+            var tooltip = file.type + ' ' + Math.round(file.size / 1024) + 'KB';
+            var preview = true;
+
+            var blobAsDataURL;
+            if (typeof window.createObjectURL != "undefined") {
+                /**
+                 * createObjectURL lets us reference the file directly from an <img>
+                 * This produces a compact URL with an opaque reference to the file,
+                 * which we can reference immediately.
+                 *
+                 * - Firefox 3.6.6: no
+                 * - Firefox 4.0b7: no
+                 * - Safari 5.0.2: no
+                 * - Chrome 8.0.552.210: works!
+                 */
+                blobAsDataURL = function(blob, callback) {
+                    callback(window.createObjectURL(blob));
+                }
+            } else if (typeof window.FileReader != "undefined") {
+                /**
+                 * FileAPI's FileReader can build a data URL from a blob's contents,
+                 * but it must read the file and build it asynchronously. This means
+                 * we'll be passing a giant data URL around, which may be inefficient.
+                 *
+                 * - Firefox 3.6.6: works!
+                 * - Firefox 4.0b7: works!
+                 * - Safari 5.0.2: no
+                 * - Chrome 8.0.552.210: works!
+                 */
+                blobAsDataURL = function(blob, callback) {
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        callback(reader.result);
+                    }
+                    reader.readAsDataURL(blob);
+                }
+            } else {
+                preview = false;
+            }
+
+            var imageTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'];
+            if ($.inArray(file.type, imageTypes) == -1) {
+                // We probably don't know how to show the file.
+                preview = false;
+            }
+
+            var maxSize = 8 * 1024 * 1024;
+            if (file.size > maxSize) {
+                // Don't kill the browser trying to load some giant image.
+                preview = false;
+            }
+
+            if (preview) {
+                blobAsDataURL(file, function(url) {
+                    var img = $('<img>')
+                        .attr('title', tooltip)
+                        .attr('alt', tooltip)
+                        .attr('src', url)
+                        .attr('style', 'height: 120px');
+                    $('#'+SN.C.S.NoticeDataAttachSelected).append(img);
+                });
+            } else {
+                var img = $('<div></div>').text(tooltip);
+                $('#'+SN.C.S.NoticeDataAttachSelected).append(img);
+            }
         },
 
         NoticeLocationAttach: function() {
