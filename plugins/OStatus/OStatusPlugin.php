@@ -52,8 +52,6 @@ class OStatusPlugin extends Plugin
     function onRouterInitialized($m)
     {
         // Discovery actions
-        $m->connect('main/xrd',
-                    array('action' => 'userxrd'));
         $m->connect('main/ownerxrd',
                     array('action' => 'ownerxrd'));
         $m->connect('main/ostatus',
@@ -1010,14 +1008,6 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
-    function onStartHostMetaLinks(&$links) {
-        $url = common_local_url('userxrd');
-        $url.= '?uri={uri}';
-        $links[] = array('rel' => Discovery::LRDD_REL,
-                              'template' => $url,
-                              'title' => array('Resource Descriptor'));
-    }
-    
     function onEndXrdActionLinks(&$xrd, $user)
     {
         // Salmon

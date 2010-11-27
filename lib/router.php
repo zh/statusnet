@@ -151,6 +151,8 @@ class Router
                         array('action' => 'publicxrds'));
             $m->connect('.well-known/host-meta',
                         array('action' => 'hostmeta'));
+	    $m->connect('main/xrd',
+			array('action' => 'userxrd'));
 
             // these take a code
 
