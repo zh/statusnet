@@ -1010,7 +1010,13 @@ class OStatusPlugin extends Plugin
 
     function onEndXrdActionLinks(&$xrd, $user)
     {
-        // Salmon
+	$xrd->links[] = array('rel' => Discovery::UPDATESFROM,
+			      'href' => common_local_url('ApiTimelineUser',
+							 array('id' => $user->id,
+							       'format' => 'atom')),
+			      'type' => 'application/atom+xml');
+	
+	            // Salmon
         $salmon_url = common_local_url('usersalmon',
                                        array('id' => $user->id));
 
