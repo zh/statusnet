@@ -28,6 +28,10 @@ if (!defined('STATUSNET')) {
 
 class XrdAction extends Action
 {
+    const PROFILEPAGE = 'http://webfinger.net/rel/profile-page';
+    const UPDATESFROM = 'http://schemas.google.com/g/2010#updates-from';
+    const HCARD = 'http://microformats.org/profile/hcard';
+    
     public $uri;
 
     public $user;
@@ -46,7 +50,7 @@ class XrdAction extends Action
         }
 
         if (empty($xrd->subject)) {
-            $xrd->subject = Discovery::normalize($this->uri);
+            $xrd->subject = self::normalize($this->uri);
         }
 
 	if (Event::handle('StartXrdActionAliases', array(&$xrd, $this->user))) {
@@ -74,12 +78,12 @@ class XrdAction extends Action
 
 	if (Event::handle('StartXrdActionLinks', array(&$xrd, $this->user))) {
 	    
-	    $xrd->links[] = array('rel' => Discovery::PROFILEPAGE,
+	    $xrd->links[] = array('rel' => self::PROFILEPAGE,
 				  'type' => 'text/html',
 				  'href' => $profile->profileurl);
 	    
 	    // hCard
-	    $xrd->links[] = array('rel' => Discovery::HCARD,
+	    $xrd->links[] = array('rel' => self::HCARD,
 				  'type' => 'text/html',
 				  'href' => common_local_url('hcard', array('nickname' => $nick)));
 	    
@@ -93,17 +97,39 @@ class XrdAction extends Action
 				  'href' => common_local_url('foaf',
 							     array('nickname' => $nick)));
 	    
-	    $xrd->links[] = array('rel' => Discovery::UPDATESFROM,
-				  'href' => common_local_url('ApiTimelineUser',
-							     array('id' => $this->user->id,
-								   'format' => 'atom')),
-				  'type' => 'application/atom+xml');
-	    
+
 	    Event::handle('EndXrdActionLinks', array(&$xrd, $this->user));
 	}
 	    
 
         header('Content-type: application/xrd+xml');
         print $xrd->toXML();
+    }
+    
+    /**
+     * Given a "user id" make sure it's normalized to either a webfinger
+     * acct: uri or a profile HTTP URL.
+     */
+    
+    public static function normalize($user_id)
+    {
+        if (substr($user_id, 0, 5) == 'http:' ||
+            substr($user_id, 0, 6) == 'https:' ||
+            substr($user_id, 0, 5) == 'acct:') {
+            return $user_id;
+        }
+
+        if (strpos($user_id, '@') !== FALSE) {
+            return 'acct:' . $user_id;
+        }
+
+        return 'http://' . $user_id;
+    }
+
+    public static function isWebfinger($user_id)
+    {
+        $uri = self::normalize($user_id);
+
+        return (substr($uri, 0, 5) == 'acct:');
     }
 }

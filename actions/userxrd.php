@@ -32,9 +32,9 @@ class UserxrdAction extends XrdAction
         parent::prepare($args);
 
         $this->uri = $this->trimmed('uri');
-        $this->uri = Discovery::normalize($this->uri);
+        $this->uri = self::normalize($this->uri);
 
-        if (Discovery::isWebfinger($this->uri)) {
+        if (self::isWebfinger($this->uri)) {
             $parts = explode('@', substr(urldecode($this->uri), 5));
             if (count($parts) == 2) {
                 list($nick, $domain) = $parts;
