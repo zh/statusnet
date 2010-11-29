@@ -517,14 +517,32 @@ function common_user_cache_hash($user=false)
     }
 }
 
-// get canonical version of nickname for comparison
+/**
+ * get canonical version of nickname for comparison
+ *
+ * Currently this just runs strtolower(); more is needed.
+ *
+ * @fixme normalize punctuation chars where applicable
+ * @fixme reject invalid input
+ *
+ * @param string $nickname
+ * @return string
+ */
 function common_canonical_nickname($nickname)
 {
     // XXX: UTF-8 canonicalization (like combining chars)
     return strtolower($nickname);
 }
 
-// get canonical version of email for comparison
+/**
+ * get canonical version of email for comparison
+ *
+ * @fixme actually normalize
+ * @fixme reject invalid input
+ *
+ * @param string $email
+ * @return string
+ */
 function common_canonical_email($email)
 {
     // XXX: canonicalize UTF-8
@@ -532,6 +550,15 @@ function common_canonical_email($email)
     return $email;
 }
 
+/**
+ * Partial notice markup rendering step: build links to !group references.
+ *
+ * @fixme use abstracted group nickname regex
+ *
+ * @param string $text partially rendered HTML
+ * @param Notice $notice in whose context we're working
+ * @return string partially rendered HTML
+ */
 function common_render_content($text, $notice)
 {
     $r = common_render_text($text);
@@ -597,6 +624,13 @@ function common_linkify_mention($mention)
     return $output;
 }
 
+/**
+ * @fixme use NICKNAME_FMT more consistently
+ *
+ * @param string $text
+ * @param Notice $notice notice in whose context we're building links
+ * @return array
+ */
 function common_find_mentions($text, $notice)
 {
     $mentions = array();
@@ -1026,6 +1060,27 @@ function common_group_link($sender_id, $nickname)
     }
 }
 
+/**
+ * Resolve an ambiguous profile nickname reference, checking in following order:
+ * - profiles that $sender subscribes to
+ * - profiles that subscribe to $sender
+ * - local user profiles
+ *
+ * WARNING: does not validate or normalize $nickname -- MUST BE PRE-VALIDATED
+ * OR THERE MAY BE A RISK OF SQL INJECTION ATTACKS. THIS FUNCTION DOES NOT
+ * ESCAPE SQL.
+ *
+ * @fixme validate input
+ * @fixme escape SQL
+ * @fixme fix or remove mystery third parameter
+ * @fixme is $sender a User or Profile?
+ *
+ * @param <type> $sender the user or profile in whose context we're looking
+ * @param string $nickname validated nickname of
+ * @param <type> $dt unused mystery parameter.
+ *
+ * @return Profile or null
+ */
 function common_relative_profile($sender, $nickname, $dt=null)
 {
     // Try to find profiles this profile is subscribed to that have this nickname
