@@ -26,18 +26,18 @@ class NicknameTest extends PHPUnit_Framework_TestCase
         $exception = null;
         $normalized = false;
         try {
-            $normalized = Nickname::normalize($normalized);
+            $normalized = Nickname::normalize($input);
         } catch (NicknameException $e) {
             $exception = $e;
         }
 
         if ($expected === false) {
             if ($expectedException) {
-                $this->assert($exception && $exception instanceof $expectedException,
+                $this->assertTrue($exception && $exception instanceof $expectedException,
                         "invalid input '$input' expected to fail with $expectedException, " .
                         "got " . get_class($exception) . ': ' . $exception->getMessage());
             } else {
-                $this->assert($normalized == false,
+                $this->assertTrue($normalized == false,
                         "invalid input '$input' expected to fail");
             }
         } else {
@@ -47,7 +47,7 @@ class NicknameTest extends PHPUnit_Framework_TestCase
             } else {
                 $msg .= "'$normalized'";
             }
-            $this->assertEquals($expected, $norm, $msg);
+            $this->assertEquals($expected, $normalized, $msg);
         }
     }
 
