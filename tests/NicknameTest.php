@@ -17,18 +17,37 @@ require_once INSTALLDIR . '/lib/common.php';
 class NicknameTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @dataProvider provider
+     * Basic test using Nickname::normalize()
      *
+     * @dataProvider provider
      */
-    public function testBasic($input, $expected)
+    public function testBasic($input, $expected, $expectedException=null)
     {
-        $matches = array();
-        // First problem: this is all manual, wtf!
-        if (preg_match('/^([' . NICKNAME_FMT . ']{1,64})$/', $input, $matches)) {
-            $norm = common_canonical_nickname($matches[1]);
-            $this->assertEquals($expected, $norm, "normalized input nickname: $input -> $norm");
+        $exception = null;
+        $normalized = false;
+        try {
+            $normalized = Nickname::normalize($normalized);
+        } catch (NicknameException $e) {
+            $exception = $e;
+        }
+
+        if ($expected === false) {
+            if ($expectedException) {
+                $this->assert($exception && $exception instanceof $expectedException,
+                        "invalid input '$input' expected to fail with $expectedException, " .
+                        "got " . get_class($exception) . ': ' . $exception->getMessage());
+            } else {
+                $this->assert($normalized == false,
+                        "invalid input '$input' expected to fail");
+            }
         } else {
-            $this->assertEquals($expected, false, "invalid input nickname: $input");
+            $msg = "normalized input nickname '$input' expected to normalize to '$expected', got ";
+            if ($exception) {
+                $msg .= get_class($exception) . ': ' . $exception->getMessage();
+            } else {
+                $msg .= "'$normalized'";
+            }
+            $this->assertEquals($expected, $norm, $msg);
         }
     }
 
@@ -36,17 +55,38 @@ class NicknameTest extends PHPUnit_Framework_TestCase
     {
         return array(
                      array('evan', 'evan'),
+
+                     // Case and underscore variants
                      array('Evan', 'evan'),
                      array('EVAN', 'evan'),
                      array('ev_an', 'evan'),
-                     array('ev.an', 'evan'),
-                     array('ev/an', false),
-                     array('ev an', false),
-                     array('ev-an', false),
-                     array('évan', false), // so far...
-                     array('Évan', false), // so far...
+                     array('E__V_an', 'evan'),
                      array('evan1', 'evan1'),
                      array('evan_1', 'evan1'),
+                     array('0x20', '0x20'),
+                     array('1234', '1234'), // should this be allowed though? :)
+                     array('12__34', '1234'),
+
+                     // Some (currently) invalid chars...
+                     array('^#@&^#@', false, 'NicknameInvalidException'), // all invalid :D
+                     array('ev.an', false, 'NicknameInvalidException'),
+                     array('ev/an', false, 'NicknameInvalidException'),
+                     array('ev an', false, 'NicknameInvalidException'),
+                     array('ev-an', false, 'NicknameInvalidException'),
+
+                     // Non-ASCII letters; currently not allowed, in future
+                     // we'll add them at least with conversion to ASCII.
+                     // Not much use until we have storage of display names,
+                     // though.
+                     array('évan', false, 'NicknameInvalidException'), // so far...
+                     array('Évan', false, 'NicknameInvalidException'), // so far...
+
+                     // Length checks
+                     array('', false, 'NicknameEmptyException'),
+                     array('___', false, 'NicknameEmptyException'),
+                     array('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'), // 64 chars
+                     array('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee_', 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'), // the _ will be trimmed off, remaining valid
+                     array('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', false, 'NicknameTooLongException'), // 65 chars -- too long
                      );
     }
 }

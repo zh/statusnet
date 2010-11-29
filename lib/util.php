@@ -520,18 +520,15 @@ function common_user_cache_hash($user=false)
 /**
  * get canonical version of nickname for comparison
  *
- * Currently this just runs strtolower(); more is needed.
- *
- * @fixme normalize punctuation chars where applicable
- * @fixme reject invalid input
- *
  * @param string $nickname
  * @return string
+ *
+ * @throws NicknameException on invalid input
+ * @deprecated call Nickname::normalize() directly.
  */
 function common_canonical_nickname($nickname)
 {
-    // XXX: UTF-8 canonicalization (like combining chars)
-    return strtolower($nickname);
+    return Nickname::normalize($nickname);
 }
 
 /**
@@ -553,8 +550,6 @@ function common_canonical_email($email)
 /**
  * Partial notice markup rendering step: build links to !group references.
  *
- * @fixme use abstracted group nickname regex
- *
  * @param string $text partially rendered HTML
  * @param Notice $notice in whose context we're working
  * @return string partially rendered HTML
@@ -564,7 +559,8 @@ function common_render_content($text, $notice)
     $r = common_render_text($text);
     $id = $notice->profile_id;
     $r = common_linkify_mentions($r, $notice);
-    $r = preg_replace('/(^|[\s\.\,\:\;]+)!([A-Za-z0-9]{1,64})/e', "'\\1!'.common_group_link($id, '\\2')", $r);
+    $r = preg_replace('/(^|[\s\.\,\:\;]+)!(' . Nickname::DISPLAY_FMT . ')/e',
+                      "'\\1!'.common_group_link($id, '\\2')", $r);
     return $r;
 }
 
@@ -625,11 +621,19 @@ function common_linkify_mention($mention)
 }
 
 /**
- * @fixme use NICKNAME_FMT more consistently
+ * Find @-mentions in the given text, using the given notice object as context.
+ * References will be resolved with common_relative_profile() against the user
+ * who posted the notice.
+ *
+ * Note the return data format is internal, to be used for building links and
+ * such. Should not be used directly; rather, call common_linkify_mentions().
  *
  * @param string $text
  * @param Notice $notice notice in whose context we're building links
+ *
  * @return array
+ *
+ * @access private
  */
 function common_find_mentions($text, $notice)
 {
@@ -665,12 +669,12 @@ function common_find_mentions($text, $notice)
             }
         }
 
-        preg_match_all('/^T ([A-Z0-9]{1,64}) /',
+        preg_match_all('/^T (' . Nickname::DISPLAY_FMT . ') /',
                        $text,
                        $tmatches,
                        PREG_OFFSET_CAPTURE);
 
-        preg_match_all('/(?:^|\s+)@(['.NICKNAME_FMT.']{1,64})/',
+        preg_match_all('/(?:^|\s+)@(' . Nickname::DISPLAY_FMT . ')\b/',
                        $text,
                        $atmatches,
                        PREG_OFFSET_CAPTURE);
@@ -678,7 +682,12 @@ function common_find_mentions($text, $notice)
         $matches = array_merge($tmatches[1], $atmatches[1]);
 
         foreach ($matches as $match) {
-            $nickname = common_canonical_nickname($match[0]);
+            try {
+                $nickname = Nickname::normalize($match[0]);
+            } catch (NicknameException $e) {
+                // Bogus match? Drop it.
+                continue;
+            }
 
             // Try to get a profile for this nickname.
             // Start with conversation context, then go to
@@ -1038,6 +1047,13 @@ function common_valid_profile_tag($str)
     return preg_match('/^[A-Za-z0-9_\-\.]{1,64}$/', $str);
 }
 
+/**
+ *
+ * @param <type> $sender_id
+ * @param <type> $nickname
+ * @return <type>
+ * @access private
+ */
 function common_group_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
