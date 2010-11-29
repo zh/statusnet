@@ -51,6 +51,25 @@ class NicknameTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Test on the regex matching used in common_find_mentions
+     * (testing on the full notice rendering is difficult as it needs
+     * to be able to pull from global state)
+     *
+     * @dataProvider provider
+     */
+    public function testAtReply($input, $expected, $expectedException=null)
+    {
+        if ($expected == false) {
+            // nothing to do
+        } else {
+            $text = "@{$input} awesome! :)";
+            $matches = common_find_mentions_raw($text);
+            $this->assertEquals(1, count($matches));
+            $this->assertEquals($expected, Nickname::normalize($matches[0][0]));
+        }
+    }
+
     static public function provider()
     {
         return array(

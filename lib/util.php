@@ -564,6 +564,16 @@ function common_render_content($text, $notice)
     return $r;
 }
 
+/**
+ * Finds @-mentions within the partially-rendered text section and
+ * turns them into live links.
+ *
+ * Should generally not be called except from common_render_content().
+ *
+ * @param string $text partially-rendered HTML
+ * @param Notice $notice in-progress or complete Notice object for context
+ * @return string partially-rendered HTML
+ */
 function common_linkify_mentions($text, $notice)
 {
     $mentions = common_find_mentions($text, $notice);
@@ -669,17 +679,7 @@ function common_find_mentions($text, $notice)
             }
         }
 
-        preg_match_all('/^T (' . Nickname::DISPLAY_FMT . ') /',
-                       $text,
-                       $tmatches,
-                       PREG_OFFSET_CAPTURE);
-
-        preg_match_all('/(?:^|\s+)@(' . Nickname::DISPLAY_FMT . ')\b/',
-                       $text,
-                       $atmatches,
-                       PREG_OFFSET_CAPTURE);
-
-        $matches = array_merge($tmatches[1], $atmatches[1]);
+        $matches = common_find_mentions_raw($text);
 
         foreach ($matches as $match) {
             try {
@@ -751,6 +751,31 @@ function common_find_mentions($text, $notice)
     }
 
     return $mentions;
+}
+
+/**
+ * Does the actual regex pulls to find @-mentions in text.
+ * Should generally not be called directly; for use in common_find_mentions.
+ *
+ * @param string $text
+ * @return array of PCRE match arrays
+ */
+function common_find_mentions_raw($text)
+{
+    $tmatches = array();
+    preg_match_all('/^T (' . Nickname::DISPLAY_FMT . ') /',
+                   $text,
+                   $tmatches,
+                   PREG_OFFSET_CAPTURE);
+
+    $atmatches = array();
+    preg_match_all('/(?:^|\s+)@(' . Nickname::DISPLAY_FMT . ')\b/',
+                   $text,
+                   $atmatches,
+                   PREG_OFFSET_CAPTURE);
+
+    $matches = array_merge($tmatches[1], $atmatches[1]);
+    return $matches;
 }
 
 function common_render_text($text)
