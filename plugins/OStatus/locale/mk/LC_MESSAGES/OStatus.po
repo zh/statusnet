@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-02 22:51+0000\n"
-"PO-Revision-Date: 2010-11-02 22:54:51+0000\n"
+"POT-Creation-Date: 2010-11-29 15:37+0000\n"
+"PO-Revision-Date: 2010-11-29 15:42:00+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-29 16:13:55+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r75875); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-02 23:07:28+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r77421); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -23,94 +23,94 @@ msgstr ""
 
 #. TRANS: Link description for link to subscribe to a remote user.
 #. TRANS: Link text for a user to subscribe to an OStatus user.
-#: OStatusPlugin.php:229 OStatusPlugin.php:939
+#: OStatusPlugin.php:225 OStatusPlugin.php:935
 msgid "Subscribe"
 msgstr "Претплати се"
 
 #. TRANS: Link description for link to join a remote group.
-#: OStatusPlugin.php:248 OStatusPlugin.php:657 actions/ostatussub.php:109
+#: OStatusPlugin.php:244 OStatusPlugin.php:653 actions/ostatussub.php:109
 msgid "Join"
 msgstr "Зачлени се"
 
 #. TRANSLATE: %s is a domain.
-#: OStatusPlugin.php:461
+#: OStatusPlugin.php:457
 #, php-format
 msgid "Sent from %s via OStatus"
 msgstr "Испратено од %s преку OStatus"
 
 #. TRANS: Exception.
-#: OStatusPlugin.php:533
+#: OStatusPlugin.php:529
 msgid "Could not set up remote subscription."
 msgstr "Не можев да ја поставам далечинската претплата."
 
-#: OStatusPlugin.php:607
+#: OStatusPlugin.php:603
 msgid "Unfollow"
 msgstr "Престани со следење"
 
 #. TRANS: Success message for unsubscribe from user attempt through OStatus.
 #. TRANS: %1$s is the unsubscriber's name, %2$s is the unsubscribed user's name.
-#: OStatusPlugin.php:610
+#: OStatusPlugin.php:606
 #, php-format
 msgid "%1$s stopped following %2$s."
 msgstr "%1$s престана да го/ја следи %2$s."
 
-#: OStatusPlugin.php:638
+#: OStatusPlugin.php:634
 msgid "Could not set up remote group membership."
 msgstr "Не можев да го поставам членството во далечинската група."
 
 #. TRANS: Success message for subscribe to group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
-#: OStatusPlugin.php:660
+#: OStatusPlugin.php:656
 #, php-format
 msgid "%1$s has joined group %2$s."
 msgstr "%1$s се зачлени во групата %2$s."
 
 #. TRANS: Exception.
-#: OStatusPlugin.php:669
+#: OStatusPlugin.php:665
 msgid "Failed joining remote group."
 msgstr "Не успеав да Ве зачленам во далечинската група."
 
-#: OStatusPlugin.php:709
+#: OStatusPlugin.php:705
 msgid "Leave"
 msgstr "Напушти"
 
 #. TRANS: Success message for unsubscribe from group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the unsubscribed group's name.
-#: OStatusPlugin.php:712
+#: OStatusPlugin.php:708
 #, php-format
 msgid "%1$s has left group %2$s."
 msgstr "%1$s ја напушти групата %2$s."
 
-#: OStatusPlugin.php:787
+#: OStatusPlugin.php:783
 msgid "Disfavor"
 msgstr "Откажи бендисана"
 
 #. TRANS: Success message for remove a favorite notice through OStatus.
 #. TRANS: %1$s is the unfavoring user's name, %2$s is URI to the no longer favored notice.
-#: OStatusPlugin.php:790
+#: OStatusPlugin.php:786
 #, php-format
 msgid "%1$s marked notice %2$s as no longer a favorite."
 msgstr "%1$s повеќе не ја бендисува забелешката %2$s."
 
 #. TRANS: Link text for link to remote subscribe.
-#: OStatusPlugin.php:866
+#: OStatusPlugin.php:862
 msgid "Remote"
 msgstr "Далечински"
 
 #. TRANS: Title for activity.
-#: OStatusPlugin.php:906
+#: OStatusPlugin.php:902
 msgid "Profile update"
 msgstr "Поднова на профил"
 
 #. TRANS: Ping text for remote profile update through OStatus.
 #. TRANS: %s is user that updated their profile.
-#: OStatusPlugin.php:909
+#: OStatusPlugin.php:905
 #, php-format
 msgid "%s has updated their profile page."
 msgstr "%s ја поднови својата профилна страница."
 
 #. TRANS: Plugin description.
-#: OStatusPlugin.php:954
+#: OStatusPlugin.php:950
 msgid ""
 "Follow people across social networks that implement <a href=\"http://ostatus."
 "org/\">OStatus</a>."
@@ -360,16 +360,6 @@ msgid "Unable to find services for %s."
 msgstr "Не можев да најдам служби за %s."
 
 #. TRANS: Exception.
-#: lib/xrd.php:64
-msgid "Invalid XML."
-msgstr "Неважечко XML."
-
-#. TRANS: Exception.
-#: lib/xrd.php:69
-msgid "Invalid XML, missing XRD root."
-msgstr "Неважечко XML. Нема XRD-основа."
-
-#. TRANS: Exception.
 #: lib/magicenvelope.php:80
 msgid "Unable to locate signer public key."
 msgstr "Не можам да го пронајдам јавниот клуч на потписникот."
@@ -441,7 +431,7 @@ msgstr "Неважечки hub.topic „%s“. Групата не постои.
 msgid "Invalid URL passed for %1$s: \"%2$s\""
 msgstr "Добив неважечка URL-адреса за %1$s: „%2$s“"
 
-#: actions/userxrd.php:59 actions/ownerxrd.php:39 actions/usersalmon.php:43
+#: actions/ownerxrd.php:39 actions/usersalmon.php:43
 msgid "No such user."
 msgstr "Нема таков корисник."
 
@@ -791,3 +781,9 @@ msgstr "Неочекувано барање за претплата за %s."
 #, php-format
 msgid "Unexpected unsubscribe request for %s."
 msgstr "Неочекувано барање за отпишување од претплата за %s."
+
+#~ msgid "Invalid XML."
+#~ msgstr "Неважечко XML."
+
+#~ msgid "Invalid XML, missing XRD root."
+#~ msgstr "Неважечко XML. Нема XRD-основа."
