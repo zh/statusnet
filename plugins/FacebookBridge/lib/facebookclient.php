@@ -58,7 +58,9 @@ class Facebookclient
             FACEBOOK_SERVICE
         );
 
-        $this->user = $this->flink->getUser();
+        if (!empty($this->flink)) {
+            $this->user = $this->flink->getUser();
+        }
     }
 
     /*
@@ -103,7 +105,6 @@ class Facebookclient
      */
     static function facebookBroadcastNotice($notice)
     {
-        common_debug('Facebook broadcast');
         $client = new Facebookclient($notice);
         return $client->sendNotice();
     }
