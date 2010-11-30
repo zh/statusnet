@@ -164,8 +164,12 @@ class Router
 
 	$names = array_unique($names);
 	asort($names);
+
+	// Unique enough.
 	
-        return Cache::key('router:'.STATUSNET_VERSION.':'.implode(',', $names));
+	$uniq = crc32(implode(',', $names));
+	
+        return Cache::key('router:'.STATUSNET_VERSION.':'.$uniq);
     }
     
     function initialize()
