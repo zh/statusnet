@@ -14,18 +14,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-29 15:37+0000\n"
-"PO-Revision-Date: 2010-11-29 15:39:55+0000\n"
+"POT-Creation-Date: 2010-11-30 16:54+0000\n"
+"PO-Revision-Date: 2010-11-30 16:56:36+0000\n"
 "Language-Team: Simplified Chinese <http://translatewiki.net/wiki/Portal:zh-"
 "hans>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r77421); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r77474); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2010-11-07 21:20:20+0000\n"
+"X-POT-Import-Date: 2010-11-29 19:47:15+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -513,7 +513,6 @@ msgstr "你不能取消关注自己。"
 
 #. TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
 #: actions/apifriendshipsexists.php:88
-#, fuzzy
 msgid "Two valid IDs or nick names must be supplied."
 msgstr "必须提供两个有效的 ID 或用户昵称。"
 
@@ -941,14 +940,13 @@ msgid "Already repeated that notice."
 msgstr "已转发了该消息。"
 
 #: actions/apistatusesshow.php:117
-#, fuzzy
 msgid "HTTP method not supported."
-msgstr "API方法没有找到。"
+msgstr "HTTP 方法不支持。"
 
 #: actions/apistatusesshow.php:141
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported format: %s"
-msgstr "不支持的格式。"
+msgstr "不支持的格式：%s"
 
 #. TRANS: Client error displayed requesting a deleted status.
 #: actions/apistatusesshow.php:152
@@ -962,7 +960,7 @@ msgstr "没有找到此 ID 的消息。"
 
 #: actions/apistatusesshow.php:227
 msgid "Can only delete using the Atom format."
-msgstr ""
+msgstr "只能使用 Atom 格式删除。"
 
 #. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
 #: actions/apistatusesshow.php:234 actions/deletenotice.php:78
@@ -970,9 +968,9 @@ msgid "Can't delete this notice."
 msgstr "无法删除这条消息。"
 
 #: actions/apistatusesshow.php:247
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted notice %d"
-msgstr "删除消息"
+msgstr "删除消息 %d"
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:221
@@ -1089,13 +1087,12 @@ msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%2$s 上有 %1$s 标签的消息！"
 
 #: actions/apitimelineuser.php:300
-#, fuzzy
 msgid "Only the user can add to their own timeline."
-msgstr "只有该用户才能查看自己的私信。"
+msgstr "只有该用户才能添加到他们的时间线。"
 
 #: actions/apitimelineuser.php:306
 msgid "Only accept AtomPub for atom feeds."
-msgstr ""
+msgstr "Atom feeds 只接受 AtomPub。"
 
 #: actions/apitimelineuser.php:316
 msgid "Atom post must be an Atom entry."

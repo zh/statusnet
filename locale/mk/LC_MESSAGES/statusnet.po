@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-29 15:37+0000\n"
-"PO-Revision-Date: 2010-11-29 15:39:41+0000\n"
+"POT-Creation-Date: 2010-11-30 16:54+0000\n"
+"PO-Revision-Date: 2010-11-30 16:56:17+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r77421); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r77474); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2010-11-07 21:20:20+0000\n"
+"X-POT-Import-Date: 2010-11-29 19:47:15+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -384,7 +384,7 @@ msgstr "Не може да се поднови Вашиот изглед."
 
 #: actions/apiatomservice.php:85
 msgid "Main"
-msgstr ""
+msgstr "Главна"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -524,11 +524,8 @@ msgstr "Не можете да престанете да се следите с�
 
 #. TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
 #: actions/apifriendshipsexists.php:88
-#, fuzzy
 msgid "Two valid IDs or nick names must be supplied."
-msgstr ""
-"Мора да се наведат две кориснички назнаки (ID) или screen_names (имиња за "
-"приказ)."
+msgstr "Мора да наведете две назнаки (ID) или прекари."
 
 #. TRANS: Client error displayed when a source user could not be determined showing friendship.
 #: actions/apifriendshipsshow.php:131
@@ -962,14 +959,13 @@ msgid "Already repeated that notice."
 msgstr "Забелешката е веќе повторена."
 
 #: actions/apistatusesshow.php:117
-#, fuzzy
 msgid "HTTP method not supported."
-msgstr "API методот не е пронајден."
+msgstr "HTML-методот не е поддржан."
 
 #: actions/apistatusesshow.php:141
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported format: %s"
-msgstr "Неподдржан формат."
+msgstr "Неподдржан формат: %s"
 
 #. TRANS: Client error displayed requesting a deleted status.
 #: actions/apistatusesshow.php:152
@@ -983,7 +979,7 @@ msgstr "Нема пронајдено статус со тој ID."
 
 #: actions/apistatusesshow.php:227
 msgid "Can only delete using the Atom format."
-msgstr ""
+msgstr "Може да се избрише само користејќи го форматот Atom."
 
 #. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
 #: actions/apistatusesshow.php:234 actions/deletenotice.php:78
@@ -991,9 +987,9 @@ msgid "Can't delete this notice."
 msgstr "Не може да се избрише оваа забелешка."
 
 #: actions/apistatusesshow.php:247
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted notice %d"
-msgstr "Бриши забелешка"
+msgstr "Избришана забелешката %d"
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:221
@@ -1116,36 +1112,35 @@ msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Подновувањата се означени со %1$s на %2$s!"
 
 #: actions/apitimelineuser.php:300
-#, fuzzy
 msgid "Only the user can add to their own timeline."
-msgstr "Само корисникот може да го чита своето сандаче."
+msgstr "Само корисникот може да ја надополнува својата хронологија."
 
 #: actions/apitimelineuser.php:306
 msgid "Only accept AtomPub for atom feeds."
-msgstr ""
+msgstr "Прифаќај само AtomPub за Atom-канали."
 
 #: actions/apitimelineuser.php:316
 msgid "Atom post must be an Atom entry."
-msgstr ""
+msgstr "Забелешката преку Atom мора да биде Atom-ставка."
 
 #: actions/apitimelineuser.php:325
 msgid "Can only handle post activities."
-msgstr ""
+msgstr "Може да работи само со објавувања."
 
 #: actions/apitimelineuser.php:334
 #, php-format
 msgid "Cannot handle activity object type \"%s\""
-msgstr ""
+msgstr "Не може да работи со предмети на активност од типот „%s“"
 
 #: actions/apitimelineuser.php:392
-#, fuzzy, php-format
+#, php-format
 msgid "Notice with URI \"%s\" already exists."
-msgstr "Не постои забелешка со таков id."
+msgstr "Веќе постои забелешка со URI „%s“."
 
 #: actions/apitimelineuser.php:423
 #, php-format
 msgid "AtomPub post with unknown attention URI %s"
-msgstr ""
+msgstr "AtomPub-објава со непознат URI за внимание %s"
 
 #. TRANS: Server error for unfinished API method showTrends.
 #: actions/apitrends.php:85
@@ -6046,9 +6041,9 @@ msgstr "Назнаката (ID) %s на профилот е неважечка."
 #. TRANS: Exception thrown providing an invalid group ID.
 #. TRANS: %s is the invalid group ID.
 #: classes/Group_member.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "Group ID %s is invalid."
-msgstr "Грешка во зачувувањето на корисникот; неправилен."
+msgstr "Групната назнака %s е неважечка."
 
 #. TRANS: Activity title.
 #: classes/Group_member.php:113 lib/joinform.php:114
@@ -6221,9 +6216,8 @@ msgstr "Корисникот Ве има блокирано."
 
 #. TRANS: Exception thrown when trying to unsibscribe without a subscription.
 #: classes/Subscription.php:171
-#, fuzzy
 msgid "Not subscribed!"
-msgstr "Не сте претплатени!"
+msgstr "Не сте ни претплатени!"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
@@ -6802,11 +6796,11 @@ msgstr "Икона за овој програм"
 #. TRANS: Form input field instructions.
 #. TRANS: %d is the number of available characters for the description.
 #: lib/applicationeditform.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Describe your application in %d character"
 msgid_plural "Describe your application in %d characters"
-msgstr[0] "Опишете го програмот со %d знаци"
-msgstr[1] "Опишете го програмот со %d знаци"
+msgstr[0] "Опишете го програмот со %d знак"
+msgstr[1] "Опишете го програмот со %d знака"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:205
@@ -6933,15 +6927,13 @@ msgstr "Ознаки за овој прилог"
 
 #. TRANS: Exception thrown when a password change fails.
 #: lib/authenticationplugin.php:221 lib/authenticationplugin.php:227
-#, fuzzy
 msgid "Password changing failed."
-msgstr "Менувањето на лозинката не успеа"
+msgstr "Промената на лозинката не успеа."
 
 #. TRANS: Exception thrown when a password change attempt fails because it is not allowed.
 #: lib/authenticationplugin.php:238
-#, fuzzy
 msgid "Password changing is not allowed."
-msgstr "Менувањето на лозинка не е дозволено"
+msgstr "Менувањето на лозинки не е дозволено."
 
 #. TRANS: Title for the form to block a user.
 #: lib/blockform.php:68
@@ -6955,9 +6947,8 @@ msgstr "Резултати од наредбата"
 
 #. TRANS: Title for command results.
 #: lib/channel.php:194
-#, fuzzy
 msgid "AJAX error"
-msgstr "Ajax-грешка"
+msgstr "AJAX-грешка"
 
 #. TRANS: E-mail subject when a command has completed.
 #: lib/channel.php:233 lib/mailhandler.php:143
@@ -7368,7 +7359,6 @@ msgstr "Оди на инсталаторот."
 
 #. TRANS: Menu item for Instant Messaging settings.
 #: lib/connectsettingsaction.php:106
-#, fuzzy
 msgctxt "MENU"
 msgid "IM"
 msgstr "IM"
@@ -7380,7 +7370,6 @@ msgstr "Подновувања преку инстант-пораки (IM)"
 
 #. TRANS: Menu item for Short Message Service settings.
 #: lib/connectsettingsaction.php:113
-#, fuzzy
 msgctxt "MENU"
 msgid "SMS"
 msgstr "СМС"
@@ -7392,10 +7381,9 @@ msgstr "Подновувања по СМС"
 
 #. TRANS: Menu item for OuAth connection settings.
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgctxt "MENU"
 msgid "Connections"
-msgstr "Сврзувања"
+msgstr "Поврзувања"
 
 #. TRANS: Tooltip for connected applications (Connections through OAuth) menu item.
 #: lib/connectsettingsaction.php:122
@@ -7642,9 +7630,9 @@ msgstr "Неподдржан фомрат на слики."
 #. TRANS: Exception thrown when too large a file is uploaded.
 #. TRANS: %s is the maximum file size, for example "500b", "10kB" or "2MB".
 #: lib/imagefile.php:90
-#, fuzzy, php-format
+#, php-format
 msgid "That file is too big. The maximum file size is %s."
-msgstr "Ова е предолго. Максималната должина е 140 знаци."
+msgstr "Податотеката е преголема. Максималната дозволена големина изнесува %s."
 
 #: lib/imagefile.php:95
 msgid "Partial upload."
@@ -8186,15 +8174,13 @@ msgstr "Испрати директна забелешка"
 
 #. TRANS Label entry in drop-down selection box in direct-message inbox/outbox. This is the default entry in the drop-down box, doubling as instructions and a brake against accidental submissions with the first user in the list.
 #: lib/messageform.php:137
-#, fuzzy
 msgid "Select recipient:"
-msgstr "Одберете лиценца"
+msgstr "Оберете примач:"
 
 #. TRANS Entry in drop-down selection box in direct-message inbox/outbox when no one is available to message.
 #: lib/messageform.php:150
-#, fuzzy
 msgid "No mutual subscribers."
-msgstr "Не сте претплатени!"
+msgstr "Нема заемни претплатници."
 
 #: lib/messageform.php:153
 msgid "To"
@@ -8789,14 +8775,13 @@ msgstr[1] ""
 
 #. TRANS: Exception.
 #: lib/xrd.php:64
-#, fuzzy
 msgid "Invalid XML."
-msgstr "Погрешна големина."
+msgstr "Неважечки XML."
 
 #. TRANS: Exception.
 #: lib/xrd.php:69
 msgid "Invalid XML, missing XRD root."
-msgstr ""
+msgstr "Неважечки XML. Нема XRD-корен."
 
 #. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
 #: scripts/restoreuser.php:61
