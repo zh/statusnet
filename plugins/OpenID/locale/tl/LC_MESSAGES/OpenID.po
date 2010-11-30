@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:47:00+0000\n"
+"POT-Creation-Date: 2010-11-30 20:16+0000\n"
+"PO-Revision-Date: 2010-11-30 20:19:36+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-23 18:59:08+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r75590); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-29 19:44:23+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -511,42 +511,35 @@ msgstr "Hindi pinayagan ang pagpapatala."
 msgid "Not a valid invitation code."
 msgstr "Hindi isang tanggap na kodigo ng paanyaya."
 
-#. TRANS: OpenID plugin message. The entered new user name did not conform to the requirements.
-#: finishopenidlogin.php:281
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
-"Ang palayaw ay dapat lamang na may maliliit ng mga titik at mga bilang at "
-"walang mga patlang."
-
 #. TRANS: OpenID plugin message. The entered new user name is blacklisted.
-#: finishopenidlogin.php:287
+#: finishopenidlogin.php:284
 msgid "Nickname not allowed."
 msgstr "Hindi pinayagan ang palayaw."
 
 #. TRANS: OpenID plugin message. The entered new user name is already used.
-#: finishopenidlogin.php:293
+#: finishopenidlogin.php:290
 msgid "Nickname already in use. Try another one."
 msgstr "Ginagamit na ang palayaw. Sumubok ng iba."
 
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
-#: finishopenidlogin.php:301 finishopenidlogin.php:388
+#: finishopenidlogin.php:298 finishopenidlogin.php:385
 msgid "Stored OpenID not found."
 msgstr "Hindi natagpuan ang nakalagak na OpenID."
 
 #. TRANS: OpenID plugin server error.
-#: finishopenidlogin.php:311
+#: finishopenidlogin.php:308
 msgid "Creating new account for OpenID that already has a user."
 msgstr ""
 "Nililikha ang bagong akawnt para sa OpenID na mayroon nang isang tagagamit."
 
 #. TRANS: OpenID plugin message.
-#: finishopenidlogin.php:376
+#: finishopenidlogin.php:373
 msgid "Invalid username or password."
 msgstr "Hindi tanggap na pangalan ng tagagamit o hudyat."
 
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
-#: finishopenidlogin.php:396
+#: finishopenidlogin.php:393
 msgid "Error connecting user to OpenID."
 msgstr "May kamalian sa pag-ugnay ng tagagamit sa OpenID."
 
@@ -644,3 +637,8 @@ msgstr "Kamalian sa pag-ugnay ng tagagamit."
 #: finishaddopenid.php:145
 msgid "Error updating profile"
 msgstr "Kamalian sa pagsasapanahon ng balangkas"
+
+#~ msgid "Nickname must have only lowercase letters and numbers and no spaces."
+#~ msgstr ""
+#~ "Ang palayaw ay dapat lamang na may maliliit ng mga titik at mga bilang at "
+#~ "walang mga patlang."

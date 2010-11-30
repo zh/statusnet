@@ -7,6 +7,7 @@
 # Author: Isoph
 # Author: Jean-Frédéric
 # Author: Julien C
+# Author: Lockal
 # Author: McDutchie
 # Author: Patcito
 # Author: Peter17
@@ -20,17 +21,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-29 15:37+0000\n"
-"PO-Revision-Date: 2010-11-29 15:39:22+0000\n"
+"POT-Creation-Date: 2010-11-30 20:16+0000\n"
+"PO-Revision-Date: 2010-11-30 20:18:01+0000\n"
 "Language-Team: French <http://translatewiki.net/wiki/Portal:fr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r77421); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-POT-Import-Date: 2010-11-07 21:20:20+0000\n"
+"X-POT-Import-Date: 2010-11-30 17:54:26+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -548,24 +549,13 @@ msgstr "Impossible de déterminer l’utilisateur source."
 msgid "Could not find target user."
 msgstr "Impossible de trouver l’utilisateur cible."
 
-#. TRANS: Group edit form validation error.
-#. TRANS: Group create form validation error.
-#. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:165 actions/editgroup.php:191
-#: actions/newgroup.php:127 actions/profilesettings.php:243
-#: actions/register.php:212
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
-"Les pseudos ne peuvent contenir que des caractères minuscules et des "
-"chiffres, sans espaces."
-
 #. TRANS: Client error trying to create a group with a nickname this is already in use.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:175 actions/editgroup.php:196
-#: actions/newgroup.php:132 actions/profilesettings.php:277
-#: actions/register.php:215
+#: actions/apigroupcreate.php:156 actions/editgroup.php:189
+#: actions/newgroup.php:129 actions/profilesettings.php:277
+#: actions/register.php:214
 msgid "Nickname already in use. Try another one."
 msgstr "Pseudo déjà utilisé. Essayez-en un autre."
 
@@ -573,9 +563,9 @@ msgstr "Pseudo déjà utilisé. Essayez-en un autre."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:183 actions/editgroup.php:200
-#: actions/newgroup.php:136 actions/profilesettings.php:247
-#: actions/register.php:217
+#: actions/apigroupcreate.php:164 actions/editgroup.php:193
+#: actions/newgroup.php:133 actions/profilesettings.php:247
+#: actions/register.php:216
 msgid "Not a valid nickname."
 msgstr "Pseudo invalide."
 
@@ -584,10 +574,10 @@ msgstr "Pseudo invalide."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:200 actions/editapplication.php:233
-#: actions/editgroup.php:207 actions/newapplication.php:211
-#: actions/newgroup.php:143 actions/profilesettings.php:252
-#: actions/register.php:224
+#: actions/apigroupcreate.php:181 actions/editapplication.php:233
+#: actions/editgroup.php:200 actions/newapplication.php:211
+#: actions/newgroup.php:140 actions/profilesettings.php:252
+#: actions/register.php:223
 msgid "Homepage is not a valid URL."
 msgstr "L’adresse du site personnel n’est pas un URL valide. "
 
@@ -595,9 +585,9 @@ msgstr "L’adresse du site personnel n’est pas un URL valide. "
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:210 actions/editgroup.php:211
-#: actions/newgroup.php:147 actions/profilesettings.php:256
-#: actions/register.php:227
+#: actions/apigroupcreate.php:191 actions/editgroup.php:204
+#: actions/newgroup.php:144 actions/profilesettings.php:256
+#: actions/register.php:226
 msgid "Full name is too long (maximum 255 characters)."
 msgstr "Le nom complet est trop long (limité à 255 caractères maximum)."
 
@@ -609,9 +599,9 @@ msgstr "Le nom complet est trop long (limité à 255 caractères maximum)."
 #. TRANS: %d is the maximum number of characters for the description.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed characters.
-#: actions/apigroupcreate.php:220 actions/editapplication.php:201
-#: actions/editgroup.php:216 actions/newapplication.php:178
-#: actions/newgroup.php:152
+#: actions/apigroupcreate.php:201 actions/editapplication.php:201
+#: actions/editgroup.php:209 actions/newapplication.php:178
+#: actions/newgroup.php:149
 #, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
@@ -622,9 +612,9 @@ msgstr[1] "La description est trop longue (limitée à %d caractères maximum)."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:234 actions/editgroup.php:223
-#: actions/newgroup.php:159 actions/profilesettings.php:269
-#: actions/register.php:236
+#: actions/apigroupcreate.php:215 actions/editgroup.php:216
+#: actions/newgroup.php:156 actions/profilesettings.php:269
+#: actions/register.php:235
 msgid "Location is too long (maximum 255 characters)."
 msgstr "L’emplacement est trop long (limité à 255 caractères maximum)."
 
@@ -634,17 +624,17 @@ msgstr "L’emplacement est trop long (limité à 255 caractères maximum)."
 #. TRANS: %d is the maximum number of allowed aliases.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed aliases.
-#: actions/apigroupcreate.php:255 actions/editgroup.php:236
-#: actions/newgroup.php:172
+#: actions/apigroupcreate.php:236 actions/editgroup.php:229
+#: actions/newgroup.php:169
 #, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Trop d’alias ! Un maximum de %d est autorisé."
+msgstr[1] "Trop d’alias ! Un maximum de %d est autorisé."
 
 #. TRANS: Client error shown when providing an invalid alias during group creation.
 #. TRANS: %s is the invalid alias.
-#: actions/apigroupcreate.php:280
+#: actions/apigroupcreate.php:253
 #, php-format
 msgid "Invalid alias: \"%s\"."
 msgstr "Alias invalide : « %s »."
@@ -653,8 +643,8 @@ msgstr "Alias invalide : « %s »."
 #. TRANS: %s is the alias that is already in use.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/apigroupcreate.php:291 actions/editgroup.php:253
-#: actions/newgroup.php:189
+#: actions/apigroupcreate.php:264 actions/editgroup.php:244
+#: actions/newgroup.php:184
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "Alias « %s » déjà utilisé. Essayez-en un autre."
@@ -662,8 +652,8 @@ msgstr "Alias « %s » déjà utilisé. Essayez-en un autre."
 #. TRANS: Client error displayed when trying to use an alias during group creation that is the same as the group's nickname.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/apigroupcreate.php:305 actions/editgroup.php:260
-#: actions/newgroup.php:196
+#: actions/apigroupcreate.php:278 actions/editgroup.php:251
+#: actions/newgroup.php:191
 msgid "Alias can't be the same as nickname."
 msgstr "L’alias ne peut pas être le même que le pseudo."
 
@@ -864,7 +854,7 @@ msgstr "Compte"
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group nickname (dt). Text hidden by default.
 #: actions/apioauthauthorize.php:459 actions/login.php:252
-#: actions/profilesettings.php:110 actions/register.php:433
+#: actions/profilesettings.php:110 actions/register.php:432
 #: actions/showgroup.php:240 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:134
@@ -874,7 +864,7 @@ msgstr "Pseudo"
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
 #: actions/apioauthauthorize.php:463 actions/login.php:255
-#: actions/register.php:438 lib/accountsettingsaction.php:120
+#: actions/register.php:437 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -1953,24 +1943,24 @@ msgstr "Remplissez ce formulaire pour modifier les options du groupe."
 
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/editgroup.php:248 actions/newgroup.php:184
+#: actions/editgroup.php:239 actions/newgroup.php:179
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "Alias invalide : « %s »"
 
 #. TRANS: Server error displayed when editing a group fails.
-#: actions/editgroup.php:281
+#: actions/editgroup.php:272
 msgid "Could not update group."
 msgstr "Impossible de mettre à jour le groupe."
 
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:288 classes/User_group.php:529
+#: actions/editgroup.php:279 classes/User_group.php:529
 msgid "Could not create aliases."
 msgstr "Impossible de créer les alias."
 
 #. TRANS: Group edit form success message.
-#: actions/editgroup.php:305
+#: actions/editgroup.php:296
 msgid "Options saved."
 msgstr "Vos options ont été enregistrées."
 
@@ -2118,7 +2108,7 @@ msgid "Cannot normalize that email address"
 msgstr "Impossible d’utiliser cette adresse courriel"
 
 #. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:379 actions/register.php:208
+#: actions/emailsettings.php:379 actions/register.php:212
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "Adresse courriel invalide."
@@ -3123,11 +3113,11 @@ msgstr "Ouvrir une session"
 msgid "Login to site"
 msgstr "Ouverture de session"
 
-#: actions/login.php:258 actions/register.php:492
+#: actions/login.php:258 actions/register.php:491
 msgid "Remember me"
 msgstr "Se souvenir de moi"
 
-#: actions/login.php:259 actions/register.php:494
+#: actions/login.php:259 actions/register.php:493
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "Ouvrir automatiquement ma session à l’avenir (déconseillé pour les "
@@ -3536,7 +3526,7 @@ msgid "6 or more characters"
 msgstr "6 caractères ou plus"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:442
+#: actions/register.php:441
 msgid "Confirm"
 msgstr "Confirmer"
 
@@ -3548,11 +3538,11 @@ msgstr "Identique au mot de passe ci-dessus"
 msgid "Change"
 msgstr "Modifier"
 
-#: actions/passwordsettings.php:154 actions/register.php:239
+#: actions/passwordsettings.php:154 actions/register.php:238
 msgid "Password must be 6 or more characters."
 msgstr "Votre mot de passe doit contenir au moins 6 caractères."
 
-#: actions/passwordsettings.php:157 actions/register.php:242
+#: actions/passwordsettings.php:157 actions/register.php:241
 msgid "Passwords don't match."
 msgstr "Les mots de passe ne correspondent pas."
 
@@ -3902,7 +3892,7 @@ msgstr "1 à 64 lettres minuscules ou chiffres, sans ponctuation ni espaces."
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for full group name (dt). Text hidden by default.
-#: actions/profilesettings.php:117 actions/register.php:457
+#: actions/profilesettings.php:117 actions/register.php:456
 #: actions/showgroup.php:252 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:152
 msgid "Full name"
@@ -3910,7 +3900,7 @@ msgstr "Nom complet"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:122 actions/register.php:462
+#: actions/profilesettings.php:122 actions/register.php:461
 #: lib/applicationeditform.php:236 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Site personnel"
@@ -3924,7 +3914,7 @@ msgstr ""
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#: actions/profilesettings.php:133 actions/register.php:473
+#: actions/profilesettings.php:133 actions/register.php:472
 #, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
@@ -3932,19 +3922,19 @@ msgstr[0] "Décrivez-vous avec vos intérêts en %d caractère"
 msgstr[1] "Décrivez-vous avec vos intérêts en %d caractères"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:139 actions/register.php:478
+#: actions/profilesettings.php:139 actions/register.php:477
 msgid "Describe yourself and your interests"
 msgstr "Décrivez vous et vos interêts"
 
 #. TRANS: Text area label in form for profile settings where users can provide.
 #. TRANS: their biography.
-#: actions/profilesettings.php:143 actions/register.php:480
+#: actions/profilesettings.php:143 actions/register.php:479
 msgid "Bio"
 msgstr "Bio"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group location (dt). Text hidden by default.
-#: actions/profilesettings.php:149 actions/register.php:485
+#: actions/profilesettings.php:149 actions/register.php:484
 #: actions/showgroup.php:262 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:180
 #: lib/userprofile.php:167
@@ -3952,7 +3942,7 @@ msgid "Location"
 msgstr "Emplacement"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:152 actions/register.php:487
+#: actions/profilesettings.php:152 actions/register.php:486
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "Indiquez votre emplacement, ex.: « Ville, État (ou région), Pays »"
 
@@ -4007,7 +3997,7 @@ msgstr ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
-#: actions/profilesettings.php:262 actions/register.php:230
+#: actions/profilesettings.php:262 actions/register.php:229
 #, php-format
 msgid "Bio is too long (maximum %d character)."
 msgid_plural "Bio is too long (maximum %d characters)."
@@ -4297,7 +4287,7 @@ msgstr "Le mot de passe doit contenir au moins 6 caractères."
 msgid "Password and confirmation do not match."
 msgstr "Le mot de passe et sa confirmation ne correspondent pas."
 
-#: actions/recoverpassword.php:388 actions/register.php:257
+#: actions/recoverpassword.php:388 actions/register.php:256
 msgid "Error setting user."
 msgstr "Erreur lors de la configuration de l’utilisateur."
 
@@ -4306,7 +4296,7 @@ msgid "New password successfully saved. You are now logged in."
 msgstr ""
 "Nouveau mot de passe créé avec succès. Votre session est maintenant ouverte."
 
-#: actions/register.php:92 actions/register.php:196 actions/register.php:414
+#: actions/register.php:92 actions/register.php:196 actions/register.php:413
 msgid "Sorry, only invited people can register."
 msgstr "Désolé ! Seules les personnes invitées peuvent s’inscrire."
 
@@ -4318,7 +4308,7 @@ msgstr "Désolé, code d’invitation invalide."
 msgid "Registration successful"
 msgstr "Compte créé avec succès"
 
-#: actions/register.php:121 actions/register.php:513 lib/logingroupnav.php:85
+#: actions/register.php:121 actions/register.php:512 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Créer un compte"
 
@@ -4326,19 +4316,19 @@ msgstr "Créer un compte"
 msgid "Registration not allowed."
 msgstr "Inscription non autorisée."
 
-#: actions/register.php:205
+#: actions/register.php:209
 msgid "You can't register if you don't agree to the license."
 msgstr "Vous ne pouvez pas vous inscrire si vous n’acceptez pas la licence."
 
-#: actions/register.php:219
+#: actions/register.php:218
 msgid "Email address already exists."
 msgstr "Cette adresse courriel est déjà utilisée."
 
-#: actions/register.php:252 actions/register.php:274
+#: actions/register.php:251 actions/register.php:273
 msgid "Invalid username or password."
 msgstr "Identifiant ou mot de passe incorrect."
 
-#: actions/register.php:352
+#: actions/register.php:351
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
@@ -4346,41 +4336,41 @@ msgstr ""
 "Avec ce formulaire vous pouvez créer un nouveau compte. Vous pourrez ensuite "
 "poster des avis and et vous relier à des amis et collègues. "
 
-#: actions/register.php:434
+#: actions/register.php:433
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
 "1 à 64 lettres minuscules ou chiffres, sans ponctuation ni espaces. Requis."
 
-#: actions/register.php:439
+#: actions/register.php:438
 msgid "6 or more characters. Required."
 msgstr "6 caractères ou plus. Requis."
 
-#: actions/register.php:443
+#: actions/register.php:442
 msgid "Same as password above. Required."
 msgstr "Identique au mot de passe ci-dessus. Requis."
 
 #. TRANS: Link description in user account settings menu.
-#: actions/register.php:447 actions/register.php:451
+#: actions/register.php:446 actions/register.php:450
 #: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:127
 msgid "Email"
 msgstr "Courriel"
 
-#: actions/register.php:448 actions/register.php:452
+#: actions/register.php:447 actions/register.php:451
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
 "Utilisé uniquement pour les mises à jour, les notifications, et la "
 "récupération de mot de passe"
 
-#: actions/register.php:459
+#: actions/register.php:458
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Nom plus long, votre \"vrai\" nom de préférence"
 
-#: actions/register.php:464
+#: actions/register.php:463
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr ""
 "Adresse URL de votre page personnelle, blogue ou profil sur un autre site"
 
-#: actions/register.php:525
+#: actions/register.php:524
 #, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
@@ -4388,23 +4378,23 @@ msgstr ""
 "Je comprends que le contenu et les données de %1$s sont privés et "
 "confidentiels."
 
-#: actions/register.php:535
+#: actions/register.php:534
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr "Mon texte et les fichiers sont protégés par copyright par %1$s."
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
-#: actions/register.php:539
+#: actions/register.php:538
 msgid "My text and files remain under my own copyright."
 msgstr "Mon texte et les fichiers restent sous mon propre droit d'auteur."
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
-#: actions/register.php:542
+#: actions/register.php:541
 msgid "All rights reserved."
 msgstr "Tous droits réservés."
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:547
+#: actions/register.php:546
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -4414,7 +4404,7 @@ msgstr ""
 "données personnelles : mot de passe, adresse électronique, adresse de "
 "messagerie instantanée, numéro de téléphone."
 
-#: actions/register.php:590
+#: actions/register.php:589
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -4448,7 +4438,7 @@ msgstr ""
 "Merci pour votre inscription ! Nous vous souhaitons d’apprécier notre "
 "service."
 
-#: actions/register.php:614
+#: actions/register.php:613
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -6300,18 +6290,18 @@ msgstr "%1$s suit à présent %2$s."
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
-#: classes/User.php:385
+#: classes/User.php:395
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Bienvenue à %1$s, @%2$s !"
 
 #. TRANS: Server exception.
-#: classes/User.php:913
+#: classes/User.php:923
 msgid "No single user defined for single-user mode."
 msgstr "Aucun utilisateur unique défini pour le mode mono-utilisateur."
 
 #. TRANS: Server exception.
-#: classes/User.php:917
+#: classes/User.php:927
 msgid "Single-user mode code called when not enabled."
 msgstr "Code en mode mono-utilisateur appelé quand ce n’est pas autorisé."
 
@@ -6957,6 +6947,7 @@ msgid "Revoke"
 msgstr "Révoquer"
 
 #: lib/atom10feed.php:112
+#, fuzzy
 msgid "author element must contain a name element."
 msgstr "l’élément « auteur » doit contenir un élément « nom »."
 
@@ -7401,25 +7392,25 @@ msgstr ""
 "tracking - pas encore implémenté.\n"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:136
+#: lib/common.php:147
 msgid "No configuration file found."
 msgstr "Aucun fichier de configuration n’a été trouvé."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
-#: lib/common.php:139
+#: lib/common.php:150
 msgid "I looked for configuration files in the following places:"
 msgstr ""
 "Les fichiers de configuration ont été cherchés aux emplacements suivants :"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:142
+#: lib/common.php:153
 msgid "You may wish to run the installer to fix this."
 msgstr "Vous pouvez essayer de lancer l’installeur pour régler ce problème."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: The text is link text that leads to the installer page.
-#: lib/common.php:146
+#: lib/common.php:157
 msgid "Go to the installer."
 msgstr "Aller au programme d’installation"
 
@@ -8268,6 +8259,26 @@ msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Envoyer"
 
+#. TRANS: Validation error in form for registration, profile and group settings, etc.
+#: lib/nickname.php:145
+msgid "Nickname must have only lowercase letters and numbers and no spaces."
+msgstr ""
+"Les pseudos ne peuvent contenir que des caractères minuscules et des "
+"chiffres, sans espaces."
+
+#. TRANS: Validation error in form for registration, profile and group settings, etc.
+#: lib/nickname.php:158
+msgid "Nickname cannot be empty."
+msgstr ""
+
+#. TRANS: Validation error in form for registration, profile and group settings, etc.
+#: lib/nickname.php:171
+#, php-format
+msgid "Nickname cannot be more than %d character long."
+msgid_plural "Nickname cannot be more than %d characters long."
+msgstr[0] ""
+msgstr[1] ""
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Envoyer un avis"
@@ -8504,7 +8515,7 @@ msgid "Revoke the \"%s\" role from this user"
 msgstr "Révoquer le rôle « %s » de cet utilisateur"
 
 #. TRANS: Client error on action trying to visit a non-existing page.
-#: lib/router.php:858
+#: lib/router.php:938
 msgid "Page not found."
 msgstr "Page non trouvée."
 
@@ -8760,64 +8771,64 @@ msgid "Moderator"
 msgstr "Modérateur"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1177
+#: lib/util.php:1276
 msgid "a few seconds ago"
 msgstr "il y a quelques secondes"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1180
+#: lib/util.php:1279
 msgid "about a minute ago"
 msgstr "il y a 1 minute"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1184
+#: lib/util.php:1283
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
-msgstr[0] "une minute"
-msgstr[1] "%d minutes"
+msgstr[0] "il y a environ une minute"
+msgstr[1] "il y a environ %d minutes"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1187
+#: lib/util.php:1286
 msgid "about an hour ago"
 msgstr "il y a 1 heure"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1191
+#: lib/util.php:1290
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
-msgstr[0] "une heure"
-msgstr[1] "%d heures"
+msgstr[0] "il y a environ une heure"
+msgstr[1] "il y a environ %d heures"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1194
+#: lib/util.php:1293
 msgid "about a day ago"
 msgstr "il y a 1 jour"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1198
+#: lib/util.php:1297
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
-msgstr[0] "un jour"
-msgstr[1] "%d jours"
+msgstr[0] "il y a environ un jour"
+msgstr[1] "il y a environ %d jours"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1201
+#: lib/util.php:1300
 msgid "about a month ago"
 msgstr "il y a 1 mois"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1205
+#: lib/util.php:1304
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
-msgstr[0] "un"
-msgstr[1] "%d"
+msgstr[0] "il y a environ un mois"
+msgstr[1] "il y a environ %d mois"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1208
+#: lib/util.php:1307
 msgid "about a year ago"
 msgstr "il y a environ 1 an"
 
