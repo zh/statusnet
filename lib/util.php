@@ -1118,17 +1118,20 @@ function common_group_link($sender_id, $nickname)
  *
  * @param <type> $sender the user or profile in whose context we're looking
  * @param string $nickname validated nickname of
- * @param <type> $dt unused mystery parameter.
+ * @param <type> $dt unused mystery parameter; in Notice reply-to handling a timestamp is passed.
  *
  * @return Profile or null
  */
 function common_relative_profile($sender, $nickname, $dt=null)
 {
+    // Will throw exception on invalid input.
+    $nickname = Nickname::normalize($nickname);
+
     // Try to find profiles this profile is subscribed to that have this nickname
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
-    $recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender->id.' and subscribed = id)', 'AND');
-    $recipient->whereAdd("nickname = '" . trim($nickname) . "'", 'AND');
+    $recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.intval($sender->id).' and subscribed = id)', 'AND');
+    $recipient->whereAdd("nickname = '" . $recipient->escape($nickname) . "'", 'AND');
     if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update
@@ -1137,8 +1140,8 @@ function common_relative_profile($sender, $nickname, $dt=null)
     // Try to find profiles that listen to this profile and that have this nickname
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
-    $recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender->id.' and subscriber = id)', 'AND');
-    $recipient->whereAdd("nickname = '" . trim($nickname) . "'", 'AND');
+    $recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.intval($sender->id).' and subscriber = id)', 'AND');
+    $recipient->whereAdd("nickname = '" . $recipient->escape($nickname) . "'", 'AND');
     if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update
