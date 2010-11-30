@@ -139,7 +139,7 @@ class Command
     {
         $user = null;
         if (Event::handle('StartCommandGetUser', array($this, $arg, &$user))) {
-            $user = User::staticGet('nickname', $arg);
+            $user = User::staticGet('nickname', Nickname::normalize($arg));
         }
         Event::handle('EndCommandGetUser', array($this, $arg, &$user));
         if (!$user){

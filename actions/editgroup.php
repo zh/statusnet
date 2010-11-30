@@ -177,21 +177,14 @@ class EditgroupAction extends GroupDesignAction
             return;
         }
 
-        $nickname    = common_canonical_nickname($this->trimmed('nickname'));
+        $nickname    = Nickname::normalize($this->trimmed('nickname'));
         $fullname    = $this->trimmed('fullname');
         $homepage    = $this->trimmed('homepage');
         $description = $this->trimmed('description');
         $location    = $this->trimmed('location');
         $aliasstring = $this->trimmed('aliases');
 
-        if (!Validate::string($nickname, array('min_length' => 1,
-                                               'max_length' => 64,
-                                               'format' => NICKNAME_FMT))) {
-            // TRANS: Group edit form validation error.
-            $this->showForm(_('Nickname must have only lowercase letters '.
-                              'and numbers and no spaces.'));
-            return;
-        } else if ($this->nicknameExists($nickname)) {
+        if ($this->nicknameExists($nickname)) {
             // TRANS: Group edit form validation error.
             $this->showForm(_('Nickname already in use. Try another one.'));
             return;
@@ -241,9 +234,7 @@ class EditgroupAction extends GroupDesignAction
         }
 
         foreach ($aliases as $alias) {
-            if (!Validate::string($alias, array('min_length' => 1,
-                                                'max_length' => 64,
-                                                'format' => NICKNAME_FMT))) {
+            if (!Nickname::isValid($alias)) {
                 // TRANS: Group edit form validation error.
                 $this->showForm(sprintf(_('Invalid alias: "%s"'), $alias));
                 return;

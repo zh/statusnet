@@ -113,21 +113,18 @@ class NewgroupAction extends Action
 
     function trySave()
     {
-        $nickname    = $this->trimmed('nickname');
+        try {
+            $nickname = Nickname::normalize($this->trimmed('nickname'));
+        } catch (NicknameException $e) {
+            $this->showForm($e->getMessage());
+        }
         $fullname    = $this->trimmed('fullname');
         $homepage    = $this->trimmed('homepage');
         $description = $this->trimmed('description');
         $location    = $this->trimmed('location');
         $aliasstring = $this->trimmed('aliases');
 
-        if (!Validate::string($nickname, array('min_length' => 1,
-                                               'max_length' => 64,
-                                               'format' => NICKNAME_FMT))) {
-            // TRANS: Group create form validation error.
-            $this->showForm(_('Nickname must have only lowercase letters '.
-                              'and numbers and no spaces.'));
-            return;
-        } else if ($this->nicknameExists($nickname)) {
+        if ($this->nicknameExists($nickname)) {
             // TRANS: Group create form validation error.
             $this->showForm(_('Nickname already in use. Try another one.'));
             return;
@@ -177,9 +174,7 @@ class NewgroupAction extends Action
         }
 
         foreach ($aliases as $alias) {
-            if (!Validate::string($alias, array('min_length' => 1,
-                                                'max_length' => 64,
-                                                'format' => NICKNAME_FMT))) {
+            if (!Nickname::isValid($alias)) {
                 // TRANS: Group create form validation error.
                 $this->showForm(sprintf(_('Invalid alias: "%s"'), $alias));
                 return;

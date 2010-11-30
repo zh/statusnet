@@ -116,6 +116,16 @@ class User extends Memcached_DataObject
         return $result;
     }
 
+    /**
+     * Check whether the given nickname is potentially usable, or if it's
+     * excluded by any blacklists on this system.
+     *
+     * WARNING: INPUT IS NOT VALIDATED OR NORMALIZED. NON-NORMALIZED INPUT
+     * OR INVALID INPUT MAY LEAD TO FALSE RESULTS.
+     *
+     * @param string $nickname
+     * @return boolean true if clear, false if blacklisted
+     */
     static function allowed_nickname($nickname)
     {
         // XXX: should already be validated for size, content, etc.

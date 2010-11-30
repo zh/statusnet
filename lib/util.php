@@ -517,14 +517,29 @@ function common_user_cache_hash($user=false)
     }
 }
 
-// get canonical version of nickname for comparison
+/**
+ * get canonical version of nickname for comparison
+ *
+ * @param string $nickname
+ * @return string
+ *
+ * @throws NicknameException on invalid input
+ * @deprecated call Nickname::normalize() directly.
+ */
 function common_canonical_nickname($nickname)
 {
-    // XXX: UTF-8 canonicalization (like combining chars)
-    return strtolower($nickname);
+    return Nickname::normalize($nickname);
 }
 
-// get canonical version of email for comparison
+/**
+ * get canonical version of email for comparison
+ *
+ * @fixme actually normalize
+ * @fixme reject invalid input
+ *
+ * @param string $email
+ * @return string
+ */
 function common_canonical_email($email)
 {
     // XXX: canonicalize UTF-8
@@ -532,15 +547,33 @@ function common_canonical_email($email)
     return $email;
 }
 
+/**
+ * Partial notice markup rendering step: build links to !group references.
+ *
+ * @param string $text partially rendered HTML
+ * @param Notice $notice in whose context we're working
+ * @return string partially rendered HTML
+ */
 function common_render_content($text, $notice)
 {
     $r = common_render_text($text);
     $id = $notice->profile_id;
     $r = common_linkify_mentions($r, $notice);
-    $r = preg_replace('/(^|[\s\.\,\:\;]+)!([A-Za-z0-9]{1,64})/e', "'\\1!'.common_group_link($id, '\\2')", $r);
+    $r = preg_replace('/(^|[\s\.\,\:\;]+)!(' . Nickname::DISPLAY_FMT . ')/e',
+                      "'\\1!'.common_group_link($id, '\\2')", $r);
     return $r;
 }
 
+/**
+ * Finds @-mentions within the partially-rendered text section and
+ * turns them into live links.
+ *
+ * Should generally not be called except from common_render_content().
+ *
+ * @param string $text partially-rendered HTML
+ * @param Notice $notice in-progress or complete Notice object for context
+ * @return string partially-rendered HTML
+ */
 function common_linkify_mentions($text, $notice)
 {
     $mentions = common_find_mentions($text, $notice);
@@ -597,6 +630,21 @@ function common_linkify_mention($mention)
     return $output;
 }
 
+/**
+ * Find @-mentions in the given text, using the given notice object as context.
+ * References will be resolved with common_relative_profile() against the user
+ * who posted the notice.
+ *
+ * Note the return data format is internal, to be used for building links and
+ * such. Should not be used directly; rather, call common_linkify_mentions().
+ *
+ * @param string $text
+ * @param Notice $notice notice in whose context we're building links
+ *
+ * @return array
+ *
+ * @access private
+ */
 function common_find_mentions($text, $notice)
 {
     $mentions = array();
@@ -631,20 +679,15 @@ function common_find_mentions($text, $notice)
             }
         }
 
-        preg_match_all('/^T ([A-Z0-9]{1,64}) /',
-                       $text,
-                       $tmatches,
-                       PREG_OFFSET_CAPTURE);
-
-        preg_match_all('/(?:^|\s+)@(['.NICKNAME_FMT.']{1,64})/',
-                       $text,
-                       $atmatches,
-                       PREG_OFFSET_CAPTURE);
-
-        $matches = array_merge($tmatches[1], $atmatches[1]);
+        $matches = common_find_mentions_raw($text);
 
         foreach ($matches as $match) {
-            $nickname = common_canonical_nickname($match[0]);
+            try {
+                $nickname = Nickname::normalize($match[0]);
+            } catch (NicknameException $e) {
+                // Bogus match? Drop it.
+                continue;
+            }
 
             // Try to get a profile for this nickname.
             // Start with conversation context, then go to
@@ -708,6 +751,31 @@ function common_find_mentions($text, $notice)
     }
 
     return $mentions;
+}
+
+/**
+ * Does the actual regex pulls to find @-mentions in text.
+ * Should generally not be called directly; for use in common_find_mentions.
+ *
+ * @param string $text
+ * @return array of PCRE match arrays
+ */
+function common_find_mentions_raw($text)
+{
+    $tmatches = array();
+    preg_match_all('/^T (' . Nickname::DISPLAY_FMT . ') /',
+                   $text,
+                   $tmatches,
+                   PREG_OFFSET_CAPTURE);
+
+    $atmatches = array();
+    preg_match_all('/(?:^|\s+)@(' . Nickname::DISPLAY_FMT . ')\b/',
+                   $text,
+                   $atmatches,
+                   PREG_OFFSET_CAPTURE);
+
+    $matches = array_merge($tmatches[1], $atmatches[1]);
+    return $matches;
 }
 
 function common_render_text($text)
@@ -1004,6 +1072,13 @@ function common_valid_profile_tag($str)
     return preg_match('/^[A-Za-z0-9_\-\.]{1,64}$/', $str);
 }
 
+/**
+ *
+ * @param <type> $sender_id
+ * @param <type> $nickname
+ * @return <type>
+ * @access private
+ */
 function common_group_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
@@ -1026,13 +1101,37 @@ function common_group_link($sender_id, $nickname)
     }
 }
 
+/**
+ * Resolve an ambiguous profile nickname reference, checking in following order:
+ * - profiles that $sender subscribes to
+ * - profiles that subscribe to $sender
+ * - local user profiles
+ *
+ * WARNING: does not validate or normalize $nickname -- MUST BE PRE-VALIDATED
+ * OR THERE MAY BE A RISK OF SQL INJECTION ATTACKS. THIS FUNCTION DOES NOT
+ * ESCAPE SQL.
+ *
+ * @fixme validate input
+ * @fixme escape SQL
+ * @fixme fix or remove mystery third parameter
+ * @fixme is $sender a User or Profile?
+ *
+ * @param <type> $sender the user or profile in whose context we're looking
+ * @param string $nickname validated nickname of
+ * @param <type> $dt unused mystery parameter; in Notice reply-to handling a timestamp is passed.
+ *
+ * @return Profile or null
+ */
 function common_relative_profile($sender, $nickname, $dt=null)
 {
+    // Will throw exception on invalid input.
+    $nickname = Nickname::normalize($nickname);
+
     // Try to find profiles this profile is subscribed to that have this nickname
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
-    $recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender->id.' and subscribed = id)', 'AND');
-    $recipient->whereAdd("nickname = '" . trim($nickname) . "'", 'AND');
+    $recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.intval($sender->id).' and subscribed = id)', 'AND');
+    $recipient->whereAdd("nickname = '" . $recipient->escape($nickname) . "'", 'AND');
     if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update
@@ -1041,8 +1140,8 @@ function common_relative_profile($sender, $nickname, $dt=null)
     // Try to find profiles that listen to this profile and that have this nickname
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
-    $recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender->id.' and subscriber = id)', 'AND');
-    $recipient->whereAdd("nickname = '" . trim($nickname) . "'", 'AND');
+    $recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.intval($sender->id).' and subscriber = id)', 'AND');
+    $recipient->whereAdd("nickname = '" . $recipient->escape($nickname) . "'", 'AND');
     if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update

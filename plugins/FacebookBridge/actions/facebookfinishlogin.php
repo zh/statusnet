@@ -324,12 +324,10 @@ class FacebookfinishloginAction extends Action
             }
         }
 
-        $nickname = $this->trimmed('newname');
-
-        if (!Validate::string($nickname, array('min_length' => 1,
-                                               'max_length' => 64,
-                                               'format' => NICKNAME_FMT))) {
-            $this->showForm(_m('Nickname must have only lowercase letters and numbers and no spaces.'));
+        try {
+            $nickname = Nickname::normalize($this->trimmed('newname'));
+        } catch (NicknameException $e) {
+            $this->showForm($e->getMessage());
             return;
         }
 
@@ -639,16 +637,7 @@ class FacebookfinishloginAction extends Action
       */
      function isNewNickname($str)
      {
-        if (
-            !Validate::string(
-                $str,
-                array(
-                    'min_length' => 1,
-                    'max_length' => 64,
-                    'format' => NICKNAME_FMT
-                )
-            )
-        ) {
+        if (!Nickname::isValid($str)) {
             return false;
         }
 
