@@ -12,18 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-29 15:37+0000\n"
-"PO-Revision-Date: 2010-11-29 15:39:54+0000\n"
+"POT-Creation-Date: 2010-11-30 16:54+0000\n"
+"PO-Revision-Date: 2010-11-30 16:56:35+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r77421); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r77474); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2010-11-07 21:20:20+0000\n"
+"X-POT-Import-Date: 2010-11-29 19:47:15+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -528,9 +528,10 @@ msgstr "Ви не можете відписатись від самого себ
 
 #. TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
 #: actions/apifriendshipsexists.php:88
-#, fuzzy
 msgid "Two valid IDs or nick names must be supplied."
-msgstr "Два ID або імені у мережі мають бути представлені."
+msgstr ""
+"Два чинних ID або двоє чинних імен користувачів (ніків) мають бути "
+"представлені."
 
 #. TRANS: Client error displayed when a source user could not be determined showing friendship.
 #: actions/apifriendshipsshow.php:131
@@ -970,14 +971,13 @@ msgid "Already repeated that notice."
 msgstr "Цей допис вже повторено."
 
 #: actions/apistatusesshow.php:117
-#, fuzzy
 msgid "HTTP method not supported."
-msgstr "API метод не знайдено."
+msgstr "HTTP спосіб не підтримується."
 
 #: actions/apistatusesshow.php:141
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported format: %s"
-msgstr "Формат не підтримується."
+msgstr "Не підтримується формат: %s"
 
 #. TRANS: Client error displayed requesting a deleted status.
 #: actions/apistatusesshow.php:152
@@ -999,9 +999,9 @@ msgid "Can't delete this notice."
 msgstr "Не можна видалити цей допис."
 
 #: actions/apistatusesshow.php:247
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted notice %d"
-msgstr "Видалити допис"
+msgstr "Вилучене повідомлення %d"
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:221
@@ -1128,10 +1128,8 @@ msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Оновлення позначені з %1$s на %2$s!"
 
 #: actions/apitimelineuser.php:300
-#, fuzzy
 msgid "Only the user can add to their own timeline."
-msgstr ""
-"Лише користувач має можливість переглядати свою власну поштову скриньку."
+msgstr "Користувач може робити доповнення тільки до своєї власної хронології."
 
 #: actions/apitimelineuser.php:306
 msgid "Only accept AtomPub for atom feeds."
@@ -1151,9 +1149,9 @@ msgid "Cannot handle activity object type \"%s\""
 msgstr ""
 
 #: actions/apitimelineuser.php:392
-#, fuzzy, php-format
+#, php-format
 msgid "Notice with URI \"%s\" already exists."
-msgstr "Допису з таким id не існує."
+msgstr "Повідомлення з URI \"%s\" вже існує."
 
 #: actions/apitimelineuser.php:423
 #, php-format
@@ -8189,15 +8187,13 @@ msgstr "Надіслати прямий допис"
 
 #. TRANS Label entry in drop-down selection box in direct-message inbox/outbox. This is the default entry in the drop-down box, doubling as instructions and a brake against accidental submissions with the first user in the list.
 #: lib/messageform.php:137
-#, fuzzy
 msgid "Select recipient:"
-msgstr "Оберіть ліцензію"
+msgstr "Оберіть одержувача:"
 
 #. TRANS Entry in drop-down selection box in direct-message inbox/outbox when no one is available to message.
 #: lib/messageform.php:150
-#, fuzzy
 msgid "No mutual subscribers."
-msgstr "Не підписано!"
+msgstr "Немає відповідних абонентів."
 
 #: lib/messageform.php:153
 msgid "To"
@@ -8807,9 +8803,8 @@ msgstr[2] ""
 
 #. TRANS: Exception.
 #: lib/xrd.php:64
-#, fuzzy
 msgid "Invalid XML."
-msgstr "Недійсний розмір."
+msgstr "Непрацездатний XML."
 
 #. TRANS: Exception.
 #: lib/xrd.php:69

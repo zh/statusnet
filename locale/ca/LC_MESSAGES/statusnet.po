@@ -15,17 +15,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-29 15:37+0000\n"
-"PO-Revision-Date: 2010-11-29 15:39:01+0000\n"
+"POT-Creation-Date: 2010-11-30 16:54+0000\n"
+"PO-Revision-Date: 2010-11-30 16:55:53+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r77421); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r77474); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-11-07 21:20:20+0000\n"
+"X-POT-Import-Date: 2010-11-29 19:47:15+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1240,21 +1240,18 @@ msgstr "Vista prèvia"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
 #: actions/avatarsettings.php:155
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "Elimina"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
 #: actions/avatarsettings.php:173
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Upload"
 msgstr "Puja"
 
 #. TRANS: Button on avatar upload crop form to confirm a selected crop as avatar.
 #: actions/avatarsettings.php:243
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Crop"
 msgstr "Retalla"
@@ -1407,7 +1404,6 @@ msgstr "Desbloca l'usuari del grup"
 
 #. TRANS: Button text for unblocking a user from a group.
 #: actions/blockedfromgroup.php:323
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Unblock"
 msgstr "Desbloca"
@@ -1471,9 +1467,8 @@ msgstr "No s'ha pogut actualitzar l'usuari."
 #. TRANS: Server error displayed when an address confirmation code deletion from the
 #. TRANS: database fails in the contact address confirmation action.
 #: actions/confirmaddress.php:132
-#, fuzzy
 msgid "Could not delete address confirmation."
-msgstr "No s'ha pogut eliminar la confirmació de MI."
+msgstr "No s'ha pogut eliminar la confirmació de l'adreça."
 
 #. TRANS: Title for the contact address confirmation action.
 #: actions/confirmaddress.php:150
@@ -1551,9 +1546,8 @@ msgstr "Elimina aquesta aplicació"
 
 #. TRANS: Client error when trying to delete group while not logged in.
 #: actions/deletegroup.php:64
-#, fuzzy
 msgid "You must be logged in to delete a group."
-msgstr "Heu d'haver iniciat una sessió per deixar un grup."
+msgstr "Heu d'haver iniciat una sessió per eliminar un grup."
 
 #. TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
 #: actions/deletegroup.php:94 actions/joingroup.php:88
@@ -1563,9 +1557,8 @@ msgstr "Cap sobrenom o ID."
 
 #. TRANS: Client error when trying to delete a group without having the rights to delete it.
 #: actions/deletegroup.php:107
-#, fuzzy
 msgid "You are not allowed to delete this group."
-msgstr "No sou un membre del grup."
+msgstr "No teniu permisos per eliminar el grup."
 
 #. TRANS: Server error displayed if a group could not be deleted.
 #. TRANS: %s is the name of the group that could not be deleted.
@@ -1589,14 +1582,14 @@ msgstr "Elimina el grup"
 
 #. TRANS: Warning in form for deleleting a group.
 #: actions/deletegroup.php:206
-#, fuzzy
 msgid ""
 "Are you sure you want to delete this group? This will clear all data about "
 "the group from the database, without a backup. Public posts to this group "
 "will still appear in individual timelines."
 msgstr ""
-"Esteu segur que voleu eliminar l'usuari? S'esborraran totes les dades de "
-"l'usuari de la base de dades, sense cap còpia de seguretat."
+"Esteu segur que voleu eliminar el grup? S'esborraran totes les dades del "
+"grup a la base de dades, sense cap còpia de seguretat. Els apunts públics al "
+"grup encara apareixeran a les línies temporals individuals."
 
 #. TRANS: Submit button title for 'No' when deleting a group.
 #: actions/deletegroup.php:224
@@ -1692,9 +1685,8 @@ msgid "Invalid logo URL."
 msgstr "L'URL del logotip no és vàlid."
 
 #: actions/designadminpanel.php:340
-#, fuzzy
 msgid "Invalid SSL logo URL."
-msgstr "L'URL del logotip no és vàlid."
+msgstr "L'URL SSL del logotip no és vàlid."
 
 #: actions/designadminpanel.php:344
 #, php-format
@@ -1875,7 +1867,6 @@ msgstr "Cal un nom."
 
 #. TRANS: Validation error shown when providing too long a name in the "Edit application" form.
 #: actions/editapplication.php:188 actions/newapplication.php:169
-#, fuzzy
 msgid "Name is too long (maximum 255 characters)."
 msgstr "El nom és massa llarg (màx. 255 caràcters)."
 
@@ -2814,16 +2805,15 @@ msgstr "Convida nous usuaris"
 #. TRANS: Plural form is based on the number of reported already subscribed e-mail addresses.
 #. TRANS: Followed by a bullet list.
 #: actions/invite.php:139
-#, fuzzy
 msgid "You are already subscribed to this user:"
 msgid_plural "You are already subscribed to these users:"
-msgstr[0] "Ja estàs subscrit a aquests usuaris:"
-msgstr[1] "Ja estàs subscrit a aquests usuaris:"
+msgstr[0] "Ja esteu subscrit a aquests usuari:"
+msgstr[1] "Ja esteu subscrit a aquests usuaris:"
 
 #. TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
 #. TRANS: Used as list item for already registered people (%1$s is nickname, %2$s is e-mail address).
 #: actions/invite.php:145 actions/invite.php:159
-#, fuzzy, php-format
+#, php-format
 msgctxt "INVITE"
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -4880,14 +4870,12 @@ msgstr "Tots els membres"
 
 #. TRANS: Label for creation date in statistics on group page.
 #: actions/showgroup.php:453
-#, fuzzy
 msgctxt "LABEL"
 msgid "Created"
 msgstr "S'ha creat"
 
 #. TRANS: Label for member count in statistics on group page.
 #: actions/showgroup.php:461
-#, fuzzy
 msgctxt "LABEL"
 msgid "Members"
 msgstr "Membres"

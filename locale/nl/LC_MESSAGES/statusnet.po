@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-29 15:37+0000\n"
-"PO-Revision-Date: 2010-11-29 15:39:43+0000\n"
+"POT-Creation-Date: 2010-11-30 16:54+0000\n"
+"PO-Revision-Date: 2010-11-30 16:56:18+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r77421); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r77474); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-11-07 21:20:20+0000\n"
+"X-POT-Import-Date: 2010-11-29 19:47:15+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -386,7 +386,7 @@ msgstr "Het was niet mogelijk uw ontwerp bij te werken."
 
 #: actions/apiatomservice.php:85
 msgid "Main"
-msgstr ""
+msgstr "Hoofdmenu"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -527,10 +527,8 @@ msgstr "U kunt het abonnement op uzelf niet opzeggen."
 
 #. TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
 #: actions/apifriendshipsexists.php:88
-#, fuzzy
 msgid "Two valid IDs or nick names must be supplied."
-msgstr ""
-"Er moeten twee gebruikersnamen (screen_names) of ID's opgegeven worden."
+msgstr "Er moeten twee ID's of gebruikersnamen opgegeven worden."
 
 #. TRANS: Client error displayed when a source user could not be determined showing friendship.
 #: actions/apifriendshipsshow.php:131
@@ -971,14 +969,13 @@ msgid "Already repeated that notice."
 msgstr "U hebt die mededeling al herhaald."
 
 #: actions/apistatusesshow.php:117
-#, fuzzy
 msgid "HTTP method not supported."
-msgstr "De API-functie is niet aangetroffen."
+msgstr "HTTP-methode wordt niet ondersteund."
 
 #: actions/apistatusesshow.php:141
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported format: %s"
-msgstr "Niet-ondersteund bestandsformaat."
+msgstr "Niet-ondersteund formaat: %s"
 
 #. TRANS: Client error displayed requesting a deleted status.
 #: actions/apistatusesshow.php:152
@@ -992,7 +989,7 @@ msgstr "Er is geen status gevonden met dit ID."
 
 #: actions/apistatusesshow.php:227
 msgid "Can only delete using the Atom format."
-msgstr ""
+msgstr "Het is alleen mogelijk te verwijderen via de Atomopmaak."
 
 #. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
 #: actions/apistatusesshow.php:234 actions/deletenotice.php:78
@@ -1000,9 +997,9 @@ msgid "Can't delete this notice."
 msgstr "Deze mededeling kan niet verwijderd worden."
 
 #: actions/apistatusesshow.php:247
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted notice %d"
-msgstr "Mededeling verwijderen"
+msgstr "Mededeling %d is verwijderd"
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:221
@@ -1126,36 +1123,35 @@ msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Updates met het label %1$s op %2$s!"
 
 #: actions/apitimelineuser.php:300
-#, fuzzy
 msgid "Only the user can add to their own timeline."
-msgstr "Gebruikers kunnen alleen hun eigen postvakken lezen."
+msgstr "Gebruikers kunnen alleen zelf aan hun eigen tijdlijn toevoegen."
 
 #: actions/apitimelineuser.php:306
 msgid "Only accept AtomPub for atom feeds."
-msgstr ""
+msgstr "Alleen AtomPub voor Atomfeeds accepteren."
 
 #: actions/apitimelineuser.php:316
 msgid "Atom post must be an Atom entry."
-msgstr ""
+msgstr "Het Atombericht moet een Atomopmaak hebben."
 
 #: actions/apitimelineuser.php:325
 msgid "Can only handle post activities."
-msgstr ""
+msgstr "Het is alleen mogelijk om POST-activiteit af te handelen."
 
 #: actions/apitimelineuser.php:334
 #, php-format
 msgid "Cannot handle activity object type \"%s\""
-msgstr ""
+msgstr "Het is niet mogelijk om het activiteitobjecttype \"%s\" te verwerken"
 
 #: actions/apitimelineuser.php:392
-#, fuzzy, php-format
+#, php-format
 msgid "Notice with URI \"%s\" already exists."
-msgstr "Er bestaat geen mededeling met dat ID."
+msgstr "De mededeling met URI \"%s\" bestaat al."
 
 #: actions/apitimelineuser.php:423
 #, php-format
 msgid "AtomPub post with unknown attention URI %s"
-msgstr ""
+msgstr "Het AtomPubbericht met onbekende aandachts-URI is %s"
 
 #. TRANS: Server error for unfinished API method showTrends.
 #: actions/apitrends.php:85
@@ -8223,15 +8219,13 @@ msgstr "Directe mededeling verzenden"
 
 #. TRANS Label entry in drop-down selection box in direct-message inbox/outbox. This is the default entry in the drop-down box, doubling as instructions and a brake against accidental submissions with the first user in the list.
 #: lib/messageform.php:137
-#, fuzzy
 msgid "Select recipient:"
-msgstr "Selecteer licentie"
+msgstr "Selecteer ontvanger:"
 
 #. TRANS Entry in drop-down selection box in direct-message inbox/outbox when no one is available to message.
 #: lib/messageform.php:150
-#, fuzzy
 msgid "No mutual subscribers."
-msgstr "Niet geabonneerd!"
+msgstr "Geen wederzijdse abonnees."
 
 #: lib/messageform.php:153
 msgid "To"
@@ -8835,14 +8829,13 @@ msgstr[1] ""
 
 #. TRANS: Exception.
 #: lib/xrd.php:64
-#, fuzzy
 msgid "Invalid XML."
-msgstr "Ongeldige afmetingen."
+msgstr "Ongeldige XML."
 
 #. TRANS: Exception.
 #: lib/xrd.php:69
 msgid "Invalid XML, missing XRD root."
-msgstr ""
+msgstr "Ongeldige XML. De XRD-root mist."
 
 #. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
 #: scripts/restoreuser.php:61
