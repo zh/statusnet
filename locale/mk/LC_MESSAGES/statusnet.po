@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-30 16:54+0000\n"
-"PO-Revision-Date: 2010-11-30 16:56:17+0000\n"
+"POT-Creation-Date: 2010-11-30 20:16+0000\n"
+"PO-Revision-Date: 2010-11-30 20:18:13+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r77474); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2010-11-29 19:47:15+0000\n"
+"X-POT-Import-Date: 2010-11-30 17:54:26+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -448,8 +448,8 @@ msgstr "Нема текст за пораката!"
 #, php-format
 msgid "That's too long. Maximum message size is %d character."
 msgid_plural "That's too long. Maximum message size is %d characters."
-msgstr[0] "Ова е предолго. Дозволен е највеќе %d знак"
-msgstr[1] "Ова е предолго. Дозволени се највеќе %d знаци"
+msgstr[0] "Ова е предолго. Дозволен е највеќе %d знак во пораката."
+msgstr[1] "Ова е предолго. Дозволени се највеќе %d знаци во пораката."
 
 #. TRANS: Client error displayed if a recipient user could not be found (403).
 #: actions/apidirectmessagenew.php:139
@@ -537,22 +537,13 @@ msgstr "Не можев да го утврдам целниот корисник
 msgid "Could not find target user."
 msgstr "Не можев да го пронајдам целниот корисник."
 
-#. TRANS: Group edit form validation error.
-#. TRANS: Group create form validation error.
-#. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:165 actions/editgroup.php:191
-#: actions/newgroup.php:127 actions/profilesettings.php:243
-#: actions/register.php:212
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr "Прекарот мора да има само мали букви и бројки и да нема празни места."
-
 #. TRANS: Client error trying to create a group with a nickname this is already in use.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:175 actions/editgroup.php:196
-#: actions/newgroup.php:132 actions/profilesettings.php:277
-#: actions/register.php:215
+#: actions/apigroupcreate.php:156 actions/editgroup.php:189
+#: actions/newgroup.php:129 actions/profilesettings.php:277
+#: actions/register.php:214
 msgid "Nickname already in use. Try another one."
 msgstr "Тој прекар е во употреба. Одберете друг."
 
@@ -560,9 +551,9 @@ msgstr "Тој прекар е во употреба. Одберете друг.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:183 actions/editgroup.php:200
-#: actions/newgroup.php:136 actions/profilesettings.php:247
-#: actions/register.php:217
+#: actions/apigroupcreate.php:164 actions/editgroup.php:193
+#: actions/newgroup.php:133 actions/profilesettings.php:247
+#: actions/register.php:216
 msgid "Not a valid nickname."
 msgstr "Неправилен прекар."
 
@@ -571,10 +562,10 @@ msgstr "Неправилен прекар."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:200 actions/editapplication.php:233
-#: actions/editgroup.php:207 actions/newapplication.php:211
-#: actions/newgroup.php:143 actions/profilesettings.php:252
-#: actions/register.php:224
+#: actions/apigroupcreate.php:181 actions/editapplication.php:233
+#: actions/editgroup.php:200 actions/newapplication.php:211
+#: actions/newgroup.php:140 actions/profilesettings.php:252
+#: actions/register.php:223
 msgid "Homepage is not a valid URL."
 msgstr "Главната страница не е важечка URL-адреса."
 
@@ -582,9 +573,9 @@ msgstr "Главната страница не е важечка URL-адрес�
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:210 actions/editgroup.php:211
-#: actions/newgroup.php:147 actions/profilesettings.php:256
-#: actions/register.php:227
+#: actions/apigroupcreate.php:191 actions/editgroup.php:204
+#: actions/newgroup.php:144 actions/profilesettings.php:256
+#: actions/register.php:226
 msgid "Full name is too long (maximum 255 characters)."
 msgstr "Полното име е предолго (највеќе 255 знаци)."
 
@@ -596,9 +587,9 @@ msgstr "Полното име е предолго (највеќе 255 знаци
 #. TRANS: %d is the maximum number of characters for the description.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed characters.
-#: actions/apigroupcreate.php:220 actions/editapplication.php:201
-#: actions/editgroup.php:216 actions/newapplication.php:178
-#: actions/newgroup.php:152
+#: actions/apigroupcreate.php:201 actions/editapplication.php:201
+#: actions/editgroup.php:209 actions/newapplication.php:178
+#: actions/newgroup.php:149
 #, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
@@ -609,9 +600,9 @@ msgstr[1] "Описот е предолг (дозволено е највеќе 
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:234 actions/editgroup.php:223
-#: actions/newgroup.php:159 actions/profilesettings.php:269
-#: actions/register.php:236
+#: actions/apigroupcreate.php:215 actions/editgroup.php:216
+#: actions/newgroup.php:156 actions/profilesettings.php:269
+#: actions/register.php:235
 msgid "Location is too long (maximum 255 characters)."
 msgstr "Местоположбата е предолга (највеќе 255 знаци)."
 
@@ -621,8 +612,8 @@ msgstr "Местоположбата е предолга (највеќе 255 з�
 #. TRANS: %d is the maximum number of allowed aliases.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed aliases.
-#: actions/apigroupcreate.php:255 actions/editgroup.php:236
-#: actions/newgroup.php:172
+#: actions/apigroupcreate.php:236 actions/editgroup.php:229
+#: actions/newgroup.php:169
 #, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
@@ -631,7 +622,7 @@ msgstr[1] "Премногу алијаси! Дозволено е највеќе
 
 #. TRANS: Client error shown when providing an invalid alias during group creation.
 #. TRANS: %s is the invalid alias.
-#: actions/apigroupcreate.php:280
+#: actions/apigroupcreate.php:253
 #, php-format
 msgid "Invalid alias: \"%s\"."
 msgstr "Неважечки алијас: „%s“."
@@ -640,8 +631,8 @@ msgstr "Неважечки алијас: „%s“."
 #. TRANS: %s is the alias that is already in use.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/apigroupcreate.php:291 actions/editgroup.php:253
-#: actions/newgroup.php:189
+#: actions/apigroupcreate.php:264 actions/editgroup.php:244
+#: actions/newgroup.php:184
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "Алијасот „%s“ е зафатен. Одберете друг."
@@ -649,8 +640,8 @@ msgstr "Алијасот „%s“ е зафатен. Одберете друг."
 #. TRANS: Client error displayed when trying to use an alias during group creation that is the same as the group's nickname.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/apigroupcreate.php:305 actions/editgroup.php:260
-#: actions/newgroup.php:196
+#: actions/apigroupcreate.php:278 actions/editgroup.php:251
+#: actions/newgroup.php:191
 msgid "Alias can't be the same as nickname."
 msgstr "Алијасот не може да биде ист како прекарот."
 
@@ -845,7 +836,7 @@ msgstr "Сметка"
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group nickname (dt). Text hidden by default.
 #: actions/apioauthauthorize.php:459 actions/login.php:252
-#: actions/profilesettings.php:110 actions/register.php:433
+#: actions/profilesettings.php:110 actions/register.php:432
 #: actions/showgroup.php:240 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:134
@@ -855,7 +846,7 @@ msgstr "Прекар"
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
 #: actions/apioauthauthorize.php:463 actions/login.php:255
-#: actions/register.php:438 lib/accountsettingsaction.php:120
+#: actions/register.php:437 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "Лозинка"
 
@@ -1929,24 +1920,24 @@ msgstr "ОБразецов служи за уредување на групат�
 
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/editgroup.php:248 actions/newgroup.php:184
+#: actions/editgroup.php:239 actions/newgroup.php:179
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "Неважечки алијас: „%s“"
 
 #. TRANS: Server error displayed when editing a group fails.
-#: actions/editgroup.php:281
+#: actions/editgroup.php:272
 msgid "Could not update group."
 msgstr "Не можев да ја подновам групата."
 
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:288 classes/User_group.php:529
+#: actions/editgroup.php:279 classes/User_group.php:529
 msgid "Could not create aliases."
 msgstr "Не можеше да се создадат алијаси."
 
 #. TRANS: Group edit form success message.
-#: actions/editgroup.php:305
+#: actions/editgroup.php:296
 msgid "Options saved."
 msgstr "Нагодувањата се зачувани."
 
@@ -2095,7 +2086,7 @@ msgid "Cannot normalize that email address"
 msgstr "Неможам да ја нормализирам таа е-поштенска адреса"
 
 #. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:379 actions/register.php:208
+#: actions/emailsettings.php:379 actions/register.php:212
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "Неправилна адреса за е-пошта."
@@ -3093,11 +3084,11 @@ msgstr "Најава"
 msgid "Login to site"
 msgstr "Најавете се"
 
-#: actions/login.php:258 actions/register.php:492
+#: actions/login.php:258 actions/register.php:491
 msgid "Remember me"
 msgstr "Запамети ме"
 
-#: actions/login.php:259 actions/register.php:494
+#: actions/login.php:259 actions/register.php:493
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "Отсега врши автоматска најава. Не треба да се користи за јавни сметачи!"
@@ -3501,7 +3492,7 @@ msgid "6 or more characters"
 msgstr "6 или повеќе знаци"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:442
+#: actions/register.php:441
 msgid "Confirm"
 msgstr "Потврди"
 
@@ -3513,11 +3504,11 @@ msgstr "Исто како лозинката погоре"
 msgid "Change"
 msgstr "Промени"
 
-#: actions/passwordsettings.php:154 actions/register.php:239
+#: actions/passwordsettings.php:154 actions/register.php:238
 msgid "Password must be 6 or more characters."
 msgstr "Лозинката мора да содржи барем 6 знаци."
 
-#: actions/passwordsettings.php:157 actions/register.php:242
+#: actions/passwordsettings.php:157 actions/register.php:241
 msgid "Passwords don't match."
 msgstr "Лозинките не се совпаѓаат."
 
@@ -3867,7 +3858,7 @@ msgstr "1-64 мали букви или бројки, без интерпукц�
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for full group name (dt). Text hidden by default.
-#: actions/profilesettings.php:117 actions/register.php:457
+#: actions/profilesettings.php:117 actions/register.php:456
 #: actions/showgroup.php:252 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:152
 msgid "Full name"
@@ -3875,7 +3866,7 @@ msgstr "Цело име"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:122 actions/register.php:462
+#: actions/profilesettings.php:122 actions/register.php:461
 #: lib/applicationeditform.php:236 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Домашна страница"
@@ -3889,7 +3880,7 @@ msgstr ""
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#: actions/profilesettings.php:133 actions/register.php:473
+#: actions/profilesettings.php:133 actions/register.php:472
 #, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
@@ -3897,19 +3888,19 @@ msgstr[0] "Опишете се себеси и своите интереси с�
 msgstr[1] "Опишете се себеси и своите интереси со %d знаци."
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:139 actions/register.php:478
+#: actions/profilesettings.php:139 actions/register.php:477
 msgid "Describe yourself and your interests"
 msgstr "Опишете се себеси и Вашите интереси"
 
 #. TRANS: Text area label in form for profile settings where users can provide.
 #. TRANS: their biography.
-#: actions/profilesettings.php:143 actions/register.php:480
+#: actions/profilesettings.php:143 actions/register.php:479
 msgid "Bio"
 msgstr "Биографија"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group location (dt). Text hidden by default.
-#: actions/profilesettings.php:149 actions/register.php:485
+#: actions/profilesettings.php:149 actions/register.php:484
 #: actions/showgroup.php:262 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:180
 #: lib/userprofile.php:167
@@ -3917,7 +3908,7 @@ msgid "Location"
 msgstr "Местоположба"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:152 actions/register.php:487
+#: actions/profilesettings.php:152 actions/register.php:486
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "Каде се наоѓате, на пр. „Град, Област, Земја“."
 
@@ -3973,7 +3964,7 @@ msgstr ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
-#: actions/profilesettings.php:262 actions/register.php:230
+#: actions/profilesettings.php:262 actions/register.php:229
 #, php-format
 msgid "Bio is too long (maximum %d character)."
 msgid_plural "Bio is too long (maximum %d characters)."
@@ -4262,7 +4253,7 @@ msgstr "Лозинката мора да има барем 6 знаци."
 msgid "Password and confirmation do not match."
 msgstr "Двете лозинки не се совпаѓаат."
 
-#: actions/recoverpassword.php:388 actions/register.php:257
+#: actions/recoverpassword.php:388 actions/register.php:256
 msgid "Error setting user."
 msgstr "Грешка во поставувањето на корисникот."
 
@@ -4270,7 +4261,7 @@ msgstr "Грешка во поставувањето на корисникот."
 msgid "New password successfully saved. You are now logged in."
 msgstr "Новата лозинка е успешно зачувана. Сега сте најавени."
 
-#: actions/register.php:92 actions/register.php:196 actions/register.php:414
+#: actions/register.php:92 actions/register.php:196 actions/register.php:413
 msgid "Sorry, only invited people can register."
 msgstr "Жалиме, регистрацијата е само со покана."
 
@@ -4282,7 +4273,7 @@ msgstr "Жалиме, неважечки код за поканата."
 msgid "Registration successful"
 msgstr "Регистрацијата е успешна"
 
-#: actions/register.php:121 actions/register.php:513 lib/logingroupnav.php:85
+#: actions/register.php:121 actions/register.php:512 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Регистрирај се"
 
@@ -4290,19 +4281,19 @@ msgstr "Регистрирај се"
 msgid "Registration not allowed."
 msgstr "Регистрирањето не е дозволено."
 
-#: actions/register.php:205
+#: actions/register.php:209
 msgid "You can't register if you don't agree to the license."
 msgstr "Не може да се регистрирате ако не ја прифаќате лиценцата."
 
-#: actions/register.php:219
+#: actions/register.php:218
 msgid "Email address already exists."
 msgstr "Адресата веќе постои."
 
-#: actions/register.php:252 actions/register.php:274
+#: actions/register.php:251 actions/register.php:273
 msgid "Invalid username or password."
 msgstr "Погрешно име или лозинка."
 
-#: actions/register.php:352
+#: actions/register.php:351
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
@@ -4310,63 +4301,63 @@ msgstr ""
 "Со овој образец можете да создадете нова сметка. Потоа ќе можете да "
 "објавувате забелешки и да се поврзувате со пријатели и колеги. "
 
-#: actions/register.php:434
+#: actions/register.php:433
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
 "1-64 мали букви или бројки, без интерпункциски знаци и празни места. "
 "Задолжително поле."
 
-#: actions/register.php:439
+#: actions/register.php:438
 msgid "6 or more characters. Required."
 msgstr "Барем 6 знаци. Задолжително поле."
 
-#: actions/register.php:443
+#: actions/register.php:442
 msgid "Same as password above. Required."
 msgstr "Исто што и лозинката погоре. Задолжително поле."
 
 #. TRANS: Link description in user account settings menu.
-#: actions/register.php:447 actions/register.php:451
+#: actions/register.php:446 actions/register.php:450
 #: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:127
 msgid "Email"
 msgstr "Е-пошта"
 
-#: actions/register.php:448 actions/register.php:452
+#: actions/register.php:447 actions/register.php:451
 msgid "Used only for updates, announcements, and password recovery"
 msgstr "Се користи само за подновувања, објави и повраќање на лозинка."
 
-#: actions/register.php:459
+#: actions/register.php:458
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Подолго име, по можност Вашето вистинско име и презиме"
 
-#: actions/register.php:464
+#: actions/register.php:463
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL на Вашата домашна страница, блог или профил на друго мрежно место."
 
-#: actions/register.php:525
+#: actions/register.php:524
 #, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
 msgstr "Сфаќам дека содржината и податоците на %1$s се лични и доверливи."
 
-#: actions/register.php:535
+#: actions/register.php:534
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr "Авторското правво на мојот текст и податотеки го има %1$s."
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
-#: actions/register.php:539
+#: actions/register.php:538
 msgid "My text and files remain under my own copyright."
 msgstr ""
 "Јас ја задржувам сопственоста на авторското право врз мојот текст и "
 "податотеки."
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
-#: actions/register.php:542
+#: actions/register.php:541
 msgid "All rights reserved."
 msgstr "Сите права задржани."
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:547
+#: actions/register.php:546
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -4375,7 +4366,7 @@ msgstr ""
 "Мојот текст и податотеки се достапни под %s, освен следниве приватни "
 "податоци: лозинка, е-пошта, IM-адреса и телефонски број."
 
-#: actions/register.php:590
+#: actions/register.php:589
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -4409,7 +4400,7 @@ msgstr ""
 "Ви благодариме што се зачленивте и Ви пожелуваме пријатни мигови со оваа "
 "служба."
 
-#: actions/register.php:614
+#: actions/register.php:613
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -6248,18 +6239,18 @@ msgstr "%1$s сега го/ја следи %2$s."
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
-#: classes/User.php:385
+#: classes/User.php:395
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Добредојдовте на %1$s, @%2$s!"
 
 #. TRANS: Server exception.
-#: classes/User.php:913
+#: classes/User.php:923
 msgid "No single user defined for single-user mode."
 msgstr "Не е зададен корисник за еднокорисничкиот режим."
 
 #. TRANS: Server exception.
-#: classes/User.php:917
+#: classes/User.php:927
 msgid "Single-user mode code called when not enabled."
 msgstr "Повикан е еднокориснички режим, но не е овозможен."
 
@@ -6870,7 +6861,7 @@ msgstr "Откажи"
 
 #: lib/applicationlist.php:247
 msgid " by "
-msgstr "од "
+msgstr " од "
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:260
@@ -7336,24 +7327,24 @@ msgstr ""
 "tracking - сè уште не е имплементирано.\n"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:136
+#: lib/common.php:147
 msgid "No configuration file found."
 msgstr "Нема пронајдено податотека со поставки."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
-#: lib/common.php:139
+#: lib/common.php:150
 msgid "I looked for configuration files in the following places:"
 msgstr "Пребарав податотеки со поставки на следниве места:"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:142
+#: lib/common.php:153
 msgid "You may wish to run the installer to fix this."
 msgstr "Препорачуваме да го пуштите инсталатерот за да го поправите ова."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: The text is link text that leads to the installer page.
-#: lib/common.php:146
+#: lib/common.php:157
 msgid "Go to the installer."
 msgstr "Оди на инсталаторот."
 
@@ -8195,6 +8186,24 @@ msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Прати"
 
+#. TRANS: Validation error in form for registration, profile and group settings, etc.
+#: lib/nickname.php:145
+msgid "Nickname must have only lowercase letters and numbers and no spaces."
+msgstr "Прекарот мора да има само мали букви и бројки и да нема празни места."
+
+#. TRANS: Validation error in form for registration, profile and group settings, etc.
+#: lib/nickname.php:158
+msgid "Nickname cannot be empty."
+msgstr ""
+
+#. TRANS: Validation error in form for registration, profile and group settings, etc.
+#: lib/nickname.php:171
+#, php-format
+msgid "Nickname cannot be more than %d character long."
+msgid_plural "Nickname cannot be more than %d characters long."
+msgstr[0] ""
+msgstr[1] ""
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Испрати забелешка"
@@ -8431,7 +8440,7 @@ msgid "Revoke the \"%s\" role from this user"
 msgstr "Одземи му ја улогата „%s“ на корисников"
 
 #. TRANS: Client error on action trying to visit a non-existing page.
-#: lib/router.php:858
+#: lib/router.php:938
 msgid "Page not found."
 msgstr "Страницата не е пронајдена."
 
@@ -8682,17 +8691,17 @@ msgid "Moderator"
 msgstr "Модератор"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1177
+#: lib/util.php:1276
 msgid "a few seconds ago"
 msgstr "пред неколку секунди"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1180
+#: lib/util.php:1279
 msgid "about a minute ago"
 msgstr "пред една минута"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1184
+#: lib/util.php:1283
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -8700,12 +8709,12 @@ msgstr[0] "пред околу една минута"
 msgstr[1] "пред околу %d минути"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1187
+#: lib/util.php:1286
 msgid "about an hour ago"
 msgstr "пред еден час"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1191
+#: lib/util.php:1290
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -8713,12 +8722,12 @@ msgstr[0] "пред околу еден час"
 msgstr[1] "пред околу %d часа"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1194
+#: lib/util.php:1293
 msgid "about a day ago"
 msgstr "пред еден ден"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1198
+#: lib/util.php:1297
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -8726,12 +8735,12 @@ msgstr[0] "пред околу еден ден"
 msgstr[1] "пред околу %d дена"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1201
+#: lib/util.php:1300
 msgid "about a month ago"
 msgstr "пред еден месец"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1205
+#: lib/util.php:1304
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -8739,7 +8748,7 @@ msgstr[0] "пред околу еден месец"
 msgstr[1] "пред околу %d месеци"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1208
+#: lib/util.php:1307
 msgid "about a year ago"
 msgstr "пред една година"
 
@@ -8799,5 +8808,5 @@ msgstr "Нема назначено корисник. Ќе го употреба
 #, php-format
 msgid "%d entry in backup."
 msgid_plural "%d entries in backup."
-msgstr[0] "%d резервна ставка."
-msgstr[1] "%d резервни ставки."
+msgstr[0] "Има %d резервна ставка."
+msgstr[1] "Има %d резервни ставки."

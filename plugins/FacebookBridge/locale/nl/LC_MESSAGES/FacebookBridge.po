@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-30 16:54+0000\n"
-"PO-Revision-Date: 2010-11-30 16:57:19+0000\n"
+"POT-Creation-Date: 2010-11-30 20:16+0000\n"
+"PO-Revision-Date: 2010-11-30 20:19:00+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-29 20:21:26+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r77474); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-30 17:54:27+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -49,11 +49,11 @@ msgstr "Facebookinstellingen"
 msgid "A plugin for integrating StatusNet with Facebook."
 msgstr "Een plug-in voor het integreren van StatusNet met Facebook."
 
-#: lib/facebookclient.php:775
+#: lib/facebookclient.php:776
 msgid "Your Facebook connection has been removed"
 msgstr "Uw koppeling met Facebook is verwijderd"
 
-#: lib/facebookclient.php:834
+#: lib/facebookclient.php:835
 #, php-format
 msgid "Contact the %s administrator to retrieve your account"
 msgstr ""
@@ -178,26 +178,20 @@ msgstr "Registratie is niet toegestaan."
 msgid "Not a valid invitation code."
 msgstr "De uitnodigingscode is ongeldig."
 
-#: actions/facebookfinishlogin.php:332
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
-"De gebruikersnaam mag alleen kleine letters en cijfers bevatten. Spaties "
-"zijn niet toegestaan."
-
-#: actions/facebookfinishlogin.php:337
+#: actions/facebookfinishlogin.php:335
 msgid "Nickname not allowed."
 msgstr "Gebruikersnaam niet toegestaan."
 
-#: actions/facebookfinishlogin.php:342
+#: actions/facebookfinishlogin.php:340
 msgid "Nickname already in use. Try another one."
 msgstr ""
 "De opgegeven gebruikersnaam is al in gebruik. Kies een andere gebruikersnaam."
 
-#: actions/facebookfinishlogin.php:370 actions/facebookfinishlogin.php:507
+#: actions/facebookfinishlogin.php:368 actions/facebookfinishlogin.php:505
 msgid "Error connecting user to Facebook."
 msgstr "Fout bij het verbinden van de gebruiker met Facebook."
 
-#: actions/facebookfinishlogin.php:470
+#: actions/facebookfinishlogin.php:468
 msgid "Invalid username or password."
 msgstr "Ongeldige gebruikersnaam of wachtwoord."
 
@@ -323,3 +317,8 @@ msgstr "Het was niet mogelijk de verwijzing naar Facebook te verwijderen."
 #: actions/facebooksettings.php:268
 msgid "You have disconnected from Facebook."
 msgstr "U bent losgekoppeld van Facebook."
+
+#~ msgid "Nickname must have only lowercase letters and numbers and no spaces."
+#~ msgstr ""
+#~ "De gebruikersnaam mag alleen kleine letters en cijfers bevatten. Spaties "
+#~ "zijn niet toegestaan."

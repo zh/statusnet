@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:46:59+0000\n"
+"POT-Creation-Date: 2010-11-30 20:16+0000\n"
+"PO-Revision-Date: 2010-11-30 20:19:35+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-23 18:59:08+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r75590); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-29 19:44:23+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -472,41 +472,35 @@ msgstr "No es permet el registre."
 msgid "Not a valid invitation code."
 msgstr "No és un codi d'invitació vàlid."
 
-#. TRANS: OpenID plugin message. The entered new user name did not conform to the requirements.
-#: finishopenidlogin.php:281
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
-"El sobrenom ha de contenir només lletres minúscules i nombres, i cap espai."
-
 #. TRANS: OpenID plugin message. The entered new user name is blacklisted.
-#: finishopenidlogin.php:287
+#: finishopenidlogin.php:284
 msgid "Nickname not allowed."
 msgstr "No es permet el sobrenom."
 
 #. TRANS: OpenID plugin message. The entered new user name is already used.
-#: finishopenidlogin.php:293
+#: finishopenidlogin.php:290
 msgid "Nickname already in use. Try another one."
 msgstr "El sobrenom ja és en ús. Proveu-ne un altre."
 
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
-#: finishopenidlogin.php:301 finishopenidlogin.php:388
+#: finishopenidlogin.php:298 finishopenidlogin.php:385
 msgid "Stored OpenID not found."
 msgstr "No s'ha trobat la connexió OpenID emmagatzemada."
 
 #. TRANS: OpenID plugin server error.
-#: finishopenidlogin.php:311
+#: finishopenidlogin.php:308
 msgid "Creating new account for OpenID that already has a user."
 msgstr ""
 "S'està creant un compte nou per a una connexió OpenID que ja té un usuari."
 
 #. TRANS: OpenID plugin message.
-#: finishopenidlogin.php:376
+#: finishopenidlogin.php:373
 msgid "Invalid username or password."
 msgstr "El nom d'usuari o la contrasenya no són vàlids."
 
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
-#: finishopenidlogin.php:396
+#: finishopenidlogin.php:393
 msgid "Error connecting user to OpenID."
 msgstr "S'ha produït un error en connectar l'usuari amb la connexió OpenID."
 
@@ -604,3 +598,8 @@ msgstr "S'ha produït un error en connectar l'usuari"
 #: finishaddopenid.php:145
 msgid "Error updating profile"
 msgstr "S'ha produït un error en actualitzar el perfil"
+
+#~ msgid "Nickname must have only lowercase letters and numbers and no spaces."
+#~ msgstr ""
+#~ "El sobrenom ha de contenir només lletres minúscules i nombres, i cap "
+#~ "espai."

@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:47:00+0000\n"
+"POT-Creation-Date: 2010-11-30 20:16+0000\n"
+"PO-Revision-Date: 2010-11-30 20:19:35+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-23 18:59:08+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r75590); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-29 19:44:23+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -494,39 +494,34 @@ msgstr "Регистрацијата не е дозволена."
 msgid "Not a valid invitation code."
 msgstr "Ова не е важечки код за покана."
 
-#. TRANS: OpenID plugin message. The entered new user name did not conform to the requirements.
-#: finishopenidlogin.php:281
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr "Прекарот мора да има само мали букви и бројки и да нема празни места."
-
 #. TRANS: OpenID plugin message. The entered new user name is blacklisted.
-#: finishopenidlogin.php:287
+#: finishopenidlogin.php:284
 msgid "Nickname not allowed."
 msgstr "Прекарот не е дозволен."
 
 #. TRANS: OpenID plugin message. The entered new user name is already used.
-#: finishopenidlogin.php:293
+#: finishopenidlogin.php:290
 msgid "Nickname already in use. Try another one."
 msgstr "Прекарот е зафатен. Одберете друг."
 
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
-#: finishopenidlogin.php:301 finishopenidlogin.php:388
+#: finishopenidlogin.php:298 finishopenidlogin.php:385
 msgid "Stored OpenID not found."
 msgstr "Складираниот OpenID не е пронајден."
 
 #. TRANS: OpenID plugin server error.
-#: finishopenidlogin.php:311
+#: finishopenidlogin.php:308
 msgid "Creating new account for OpenID that already has a user."
 msgstr "Создавање на сметка за OpenID што веќе има корисник."
 
 #. TRANS: OpenID plugin message.
-#: finishopenidlogin.php:376
+#: finishopenidlogin.php:373
 msgid "Invalid username or password."
 msgstr "Неважечко корисничко име или лозинка."
 
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
-#: finishopenidlogin.php:396
+#: finishopenidlogin.php:393
 msgid "Error connecting user to OpenID."
 msgstr "Грешка при поврзувањето на корисникот со OpenID."
 
@@ -623,3 +618,7 @@ msgstr "Грешка при поврзувањето на корисникот."
 #: finishaddopenid.php:145
 msgid "Error updating profile"
 msgstr "Грешка при подновувањето на профилот"
+
+#~ msgid "Nickname must have only lowercase letters and numbers and no spaces."
+#~ msgstr ""
+#~ "Прекарот мора да има само мали букви и бројки и да нема празни места."
