@@ -79,6 +79,7 @@ class EmailsettingsAction extends AccountSettingsAction
     function showScripts()
     {
         parent::showScripts();
+        $this->script('emailsettings.js');
         $this->autofocus('email');
     }
 
@@ -159,6 +160,16 @@ class EmailsettingsAction extends AccountSettingsAction
             $this->elementEnd('li');
             $this->elementEnd('ul');
 
+            // Our stylesheets make the form_data list items all floats, which
+            // creates lots of problems with trying to wrap divs around things.
+            // This should force a break before the next section, which needs
+            // to be separate so we can disable the things in it when the
+            // checkbox is off.
+            $this->elementStart('div', array('style' => 'clear: both'));
+            $this->elementEnd('div');
+
+            $this->elementStart('div', array('id' => 'emailincoming'));
+
             if ($user->incomingemail) {
                 $this->elementStart('p');
                 $this->element('span', 'address', $user->incomingemail);
@@ -186,6 +197,9 @@ class EmailsettingsAction extends AccountSettingsAction
 
             // TRANS: Button label for adding an e-mail address to send notices from.
             $this->submit('newincoming', _m('BUTTON','New'));
+
+            $this->elementEnd('div'); // div#emailincoming
+
             $this->elementEnd('fieldset');
         }
 
@@ -518,6 +532,7 @@ class EmailsettingsAction extends AccountSettingsAction
         $orig = clone($user);
 
         $user->incomingemail = null;
+        $user->emailpost = 0;
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
@@ -542,6 +557,7 @@ class EmailsettingsAction extends AccountSettingsAction
         $orig = clone($user);
 
         $user->incomingemail = mail_new_incoming_address();
+        $user->emailpost = 1;
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
