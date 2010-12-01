@@ -84,15 +84,23 @@ RealtimeUpdate = {
 
         RealtimeUpdate._documenttitle = document.title;
 
-        $(window).bind('focus', function(){ RealtimeUpdate._windowhasfocus = true; });
+        $(window).bind('focus', function() {
+          RealtimeUpdate._windowhasfocus = true;
+
+          // Clear the counter on the window title when we focus in.
+          RealtimeUpdate._updatecounter = 0;
+          RealtimeUpdate.removeWindowCounter();
+        });
 
         $(window).bind('blur', function() {
           $('#notices_primary .notice').removeClass('mark-top');
 
           $('#notices_primary .notice:first').addClass('mark-top');
 
-          RealtimeUpdate._updatecounter = 0;
-          document.title = RealtimeUpdate._documenttitle;
+          // While we're in the background, received messages will increment
+          // a counter that we put on the window title. This will cause some
+          // browsers to also flash or mark the tab or window title bar until
+          // you seek attention (eg Firefox 4 pinned app tabs).
           RealtimeUpdate._windowhasfocus = false;
 
           return false;
@@ -206,6 +214,17 @@ RealtimeUpdate = {
               RealtimeUpdate._updatecounter += 1;
               document.title = '('+RealtimeUpdate._updatecounter+') ' + RealtimeUpdate._documenttitle;
           }
+     },
+
+     /**
+      * Clear the background update counter from the window title.
+      *
+      * @access private
+      *
+      * @fixme could interfere with anything else trying similar tricks
+      */
+     removeWindowCounter: function() {
+          document.title = RealtimeUpdate._documenttitle;
      },
 
      /**
@@ -507,7 +526,6 @@ RealtimeUpdate = {
       * dumping them into the timeline view.
       *
       * @fixme long timelines are not trimmed here as they are for things received while not paused
-      * @fixme Ticket #2913: the queued counter on the window title does not get cleared
       *
       * @access private
       */
