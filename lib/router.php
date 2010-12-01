@@ -128,12 +128,13 @@ class Router
     {
         if (empty($this->m)) {
             $k = self::cacheKey();
-            $m = Cache::get($k);
+            $c = Cache::instance();
+            $m = $c->get($k);
             if (!empty($m)) {
                 $this->m = $m;
             } else {
                 $this->m = $this->initialize();
-                Cache::set($k, $this->m);
+                $c->set($k, $this->m);
             }
         }
     }
@@ -156,18 +157,18 @@ class Router
     static function cacheKey()
     {
         $plugins     = StatusNet::getActivePlugins();
-	$names       = array();
+        $names       = array();
 	
-	foreach ($plugins as $plugin) {
-	    $names[] = $plugin[0];
-	}
+        foreach ($plugins as $plugin) {
+            $names[] = $plugin[0];
+        }
 
-	$names = array_unique($names);
-	asort($names);
+        $names = array_unique($names);
+        asort($names);
 
-	// Unique enough.
+        // Unique enough.
 	
-	$uniq = crc32(implode(',', $names));
+        $uniq = crc32(implode(',', $names));
 	
         return Cache::key('router:'.STATUSNET_VERSION.':'.$uniq);
     }
