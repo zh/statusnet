@@ -33,13 +33,15 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 require_once 'Net/URL/Mapper.php';
 
-class StatusNet_URL_Mapper extends Net_URL_Mapper {
+class StatusNet_URL_Mapper extends Net_URL_Mapper
+{
     private static $_singleton = null;
+    private $_actionToPath = array();
 
     private function __construct()
     {
     }
-
+    
     public static function getInstance($id = '__default__')
     {
         if (empty(self::$_singleton)) {
@@ -53,9 +55,46 @@ class StatusNet_URL_Mapper extends Net_URL_Mapper {
         $result = null;
         if (Event::handle('StartConnectPath', array(&$path, &$defaults, &$rules, &$result))) {
             $result = parent::connect($path, $defaults, $rules);
+	    if (array_key_exists('action', $defaults)) {
+		$action = $defaults['action'];
+	    } elseif (array_key_exists('action', $rules)) {
+		$action = $rules['action'];
+	    } else {
+		$action = null;
+	    }
+	    $this->_mapAction($action, $result);
             Event::handle('EndConnectPath', array($path, $defaults, $rules, $result));
         }
         return $result;
+    }
+    
+    protected function _mapAction($action, $path)
+    {
+	if (!array_key_exists($action, $this->_actionToPath)) {
+	    $this->_actionToPath[$action] = array();
+	}
+	$this->_actionToPath[$action][] = $path;
+	return;
+    }
+    
+    public function generate($values = array(), $qstring = array(), $anchor = '')
+    {
+	if (!array_key_exists('action', $values)) {
+	    return parent::generate($values, $qstring, $anchor);
+	}
+	
+	$action = $values['action'];
+
+	if (!array_key_exists($action, $this->_actionToPath)) {
+	    return parent::generate($values, $qstring, $anchor);
+	}
+	
+	$oldPaths    = $this->paths;
+	$this->paths = $this->_actionToPath[$action];
+	$result      = parent::generate($values, $qstring, $anchor);
+	$this->paths = $oldPaths;
+
+	return $result;
     }
 }
 
@@ -87,11 +126,53 @@ class Router
 
     function __construct()
     {
-        if (!$this->m) {
-            $this->m = $this->initialize();
+        if (empty($this->m)) {
+            $k = self::cacheKey();
+            $c = Cache::instance();
+            $m = $c->get($k);
+            if (!empty($m)) {
+                $this->m = $m;
+            } else {
+                $this->m = $this->initialize();
+                $c->set($k, $this->m);
+            }
         }
     }
 
+    /**
+     * Create a unique hashkey for the router.
+     * 
+     * The router's url map can change based on the version of the software
+     * you're running and the plugins that are enabled. To avoid having bad routes
+     * get stuck in the cache, the key includes a list of plugins and the software
+     * version.
+     * 
+     * There can still be problems with a) differences in versions of the plugins and 
+     * b) people running code between official versions, but these tend to be more
+     * sophisticated users who can grok what's going on and clear their caches.
+     * 
+     * @return string cache key string that should uniquely identify a router
+     */
+    
+    static function cacheKey()
+    {
+        $plugins     = StatusNet::getActivePlugins();
+        $names       = array();
+	
+        foreach ($plugins as $plugin) {
+            $names[] = $plugin[0];
+        }
+
+        $names = array_unique($names);
+        asort($names);
+
+        // Unique enough.
+	
+        $uniq = crc32(implode(',', $names));
+	
+        return Cache::key('router:'.STATUSNET_VERSION.':'.$uniq);
+    }
+    
     function initialize()
     {
         $m = StatusNet_URL_Mapper::getInstance();

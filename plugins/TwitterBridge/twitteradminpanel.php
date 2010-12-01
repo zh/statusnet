@@ -133,6 +133,11 @@ class TwitteradminpanelAction extends AdminPanelAction
 
         $config->query('COMMIT');
 
+        // Flush the router cache: we may have enabled/disabled bridging,
+        // which will add or remove some actions.
+        $cache = Cache::instance();
+        $cache->delete(Router::cacheKey());
+
         return;
     }
 
