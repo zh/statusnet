@@ -173,11 +173,17 @@ class EmailsettingsAction extends AccountSettingsAction
             }
 
             $this->elementStart('p');
-            $this->element('span', 'input_instructions',
-                           // TRANS: Instructions for incoming e-mail address input form.
-                           _('Make a new email address for posting to; '.
-                             'cancels the old one.'));
+            if ($user->incomingemail) {
+                // TRANS: Instructions for incoming e-mail address input form, when an address has already been assigned.
+                $msg = _('Make a new email address for posting to; '.
+                         'cancels the old one.');
+            } else {
+                // TRANS: Instructions for incoming e-mail address input form.
+                $msg = _('To send notices via email, we need to create a unique email address for you on this server:');
+            }
+            $this->element('span', 'input_instructions', $msg);
             $this->elementEnd('p');
+
             // TRANS: Button label for adding an e-mail address to send notices from.
             $this->submit('newincoming', _m('BUTTON','New'));
             $this->elementEnd('fieldset');
