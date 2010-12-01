@@ -23,7 +23,7 @@ class Nickname
      * Regex fragment for pulling an arbitrarily-formated nickname.
      *
      * Not guaranteed to be valid after normalization; run the string through
-     * Nickname::normalize() to get the canonical form, or Nickname::validate()
+     * Nickname::normalize() to get the canonical form, or Nickname::isValid()
      * if you just need to check if it's properly formatted.
      *
      * This and CANONICAL_FMT replace the old NICKNAME_FMT, but be aware
@@ -61,7 +61,7 @@ class Nickname
      * @param string $str
      * @return boolean
      */
-    public static function validate($str)
+    public static function isValid($str)
     {
         try {
             self::normalize($str);

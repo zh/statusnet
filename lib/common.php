@@ -124,7 +124,7 @@ require_once 'markdown.php';
  * note that it includes the [] and repeating bits, so should be wrapped
  * directly in a capture paren usually.
  *
- * For validation, use Nickname::validate() etc.
+ * For validation, use Nickname::normalize(), Nickname::isValid() etc.
  *
  * @deprecated
  */

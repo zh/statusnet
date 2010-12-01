@@ -273,7 +273,7 @@ class FinishopenidloginAction extends Action
         }
 
         try {
-            $nickname = Nickname::validate($this->trimmed('newname'));
+            $nickname = Nickname::normalize($this->trimmed('newname'));
         } catch (NicknameException $e) {
             $this->showForm($e->getMessage());
             return;
