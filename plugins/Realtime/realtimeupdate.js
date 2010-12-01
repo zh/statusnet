@@ -112,13 +112,15 @@ RealtimeUpdate = {
       *
       * @param {Object} data: extended JSON API-formatted notice
       *
-      * @fixme Ticket #2914: already-visible sent notices are still queued up
-      *        when paused, inflating the queue count
-      *
       * @access public
       */
      receive: function(data)
      {
+          if (RealtimeUpdate.isNoticeVisible(data.id)) {
+              // Probably posted by the user in this window, and so already
+              // shown by the AJAX form handler. Ignore it.
+              return;
+          }
           if (RealtimeUpdate._paused === false) {
               RealtimeUpdate.purgeLastNoticeItem();
 
@@ -149,7 +151,7 @@ RealtimeUpdate = {
       */
      insertNoticeItem: function(data) {
         // Don't add it if it already exists
-        if ($("#notice-"+data.id).length > 0) {
+        if (RealtimeUpdate.isNoticeVisible(data.id)) {
             return;
         }
 
@@ -162,6 +164,21 @@ RealtimeUpdate = {
 
         SN.U.NoticeReplyTo($('#'+noticeItemID));
         SN.U.NoticeWithAttachment($('#'+noticeItemID));
+     },
+
+     /**
+      * Check if the given notice is visible in the timeline currently.
+      * Used to avoid duplicate processing of notices that have been
+      * displayed by other means.
+      *
+      * @param {number} id: notice ID to check
+      *
+      * @return boolean
+      *
+      * @access private
+      */
+     isNoticeVisible: function(id) {
+        return ($("#notice-"+id).length > 0);
      },
 
      /**
