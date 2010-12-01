@@ -149,6 +149,16 @@ class EmailsettingsAction extends AccountSettingsAction
             $this->elementStart('fieldset', array('id' => 'settings_email_incoming'));
             // TRANS: Form legend for incoming e-mail settings form.
             $this->element('legend', null, _('Incoming email'));
+
+            $this->elementStart('ul', 'form_data');
+            $this->elementStart('li');
+            $this->checkbox('emailpost',
+                    // TRANS: Checkbox label in e-mail preferences form.
+                    _('I want to post notices by email.'),
+                    $user->emailpost);
+            $this->elementEnd('li');
+            $this->elementEnd('ul');
+
             if ($user->incomingemail) {
                 $this->elementStart('p');
                 $this->element('span', 'address', $user->incomingemail);
@@ -211,14 +221,6 @@ class EmailsettingsAction extends AccountSettingsAction
 			    _('Allow friends to nudge me and send me an email.'),
 			    $user->emailnotifynudge);
 	    $this->elementEnd('li');
-	    if (common_config('emailpost', 'enabled')) {
-		$this->elementStart('li');
-		$this->checkbox('emailpost',
-				// TRANS: Checkbox label in e-mail preferences form.
-				_('I want to post notices by email.'),
-				$user->emailpost);
-		$this->elementEnd('li');
-	    }
 	    $this->elementStart('li');
 	    $this->checkbox('emailmicroid',
 			    // TRANS: Checkbox label in e-mail preferences form.
