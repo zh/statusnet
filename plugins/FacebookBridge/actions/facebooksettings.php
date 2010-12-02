@@ -42,7 +42,6 @@ if (!defined('STATUSNET')) {
  * @see      SettingsAction
  */
 class FacebooksettingsAction extends ConnectSettingsAction {
-
     private $facebook; // Facebook PHP-SDK client obj
     private $flink;
     private $user;
@@ -121,7 +120,6 @@ class FacebooksettingsAction extends ConnectSettingsAction {
      * @return void
      */
     function showContent() {
-
         if (!empty($this->flink)) {
 
             $this->elementStart(
@@ -194,7 +192,6 @@ class FacebooksettingsAction extends ConnectSettingsAction {
             $this->element('legend', null, _m('Disconnect my account from Facebook'));
 
             if (empty($this->user->password)) {
-
                 $this->elementStart('p', array('class' => 'form_guide'));
 
                 $msg = sprintf(
@@ -207,13 +204,14 @@ class FacebooksettingsAction extends ConnectSettingsAction {
 
                 $this->raw(common_markup_to_html($msg));
                 $this->elementEnd('p');
-
             } else {
-
+                // @todo FIXME: i18n: This message is not being used.
                 $msg = sprintf(
+                    // TRANS: Message displayed when initiating disconnect of a StatusNet user
+                    // TRANS: from a Facebook account. %1$s is the StatusNet site name.
                     _m(
                         'Keep your %1$s account but disconnect from Facebook. ' .
-                        'You\'ll use your 1%$s password to log in.'
+                        'You\'ll use your %1$s password to log in.'
                     ),
                     common_config('site', 'name')
                 );
@@ -234,7 +232,6 @@ class FacebooksettingsAction extends ConnectSettingsAction {
      * @return void
      */
     function saveSettings() {
-
         $noticesync = $this->boolean('noticesync');
         $replysync  = $this->boolean('replysync');
 
@@ -255,7 +252,6 @@ class FacebooksettingsAction extends ConnectSettingsAction {
      * and shows the user a success message if all goes well.
      */
     function disconnect() {
-
         $result = $this->flink->delete();
         $this->flink = null;
 
@@ -267,5 +263,4 @@ class FacebooksettingsAction extends ConnectSettingsAction {
 
         $this->showForm(_m('You have disconnected from Facebook.'), true);
     }
-
 }
