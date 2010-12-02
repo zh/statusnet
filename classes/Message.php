@@ -45,11 +45,18 @@ class Message extends Memcached_DataObject
             throw new ClientException(_('You are banned from sending direct messages.'));
         }
 
+        $user = User::staticGet('id', $sender->id);
+
         $msg = new Message();
 
         $msg->from_profile = $from;
         $msg->to_profile = $to;
-        $msg->content = common_shorten_links($content);
+        if ($user) {
+            // Use the sender's URL shortening options.
+            $msg->content = $user->shortenLinks($content);
+        } else {
+            $msg->content = common_shorten_links($content);
+        }
         $msg->rendered = common_render_text($content);
         $msg->created = common_sql_now();
         $msg->source = $source;

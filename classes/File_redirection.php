@@ -187,13 +187,14 @@ class File_redirection extends Memcached_DataObject
      * may be saved.
      *
      * @param string $long_url
+     * @param User $user whose shortening options to use; defaults to the current web session user
      * @return string
      */
-    function makeShort($long_url) {
+    function makeShort($long_url, $user=null) {
 
         $canon = File_redirection::_canonUrl($long_url);
 
-        $short_url = File_redirection::_userMakeShort($canon);
+        $short_url = File_redirection::_userMakeShort($canon, $user);
 
         // Did we get one? Is it shorter?
         if (!empty($short_url) && mb_strlen($short_url) < mb_strlen($long_url)) {
@@ -203,8 +204,8 @@ class File_redirection extends Memcached_DataObject
         }
     }
 
-    function _userMakeShort($long_url) {
-        $short_url = common_shorten_url($long_url);
+    function _userMakeShort($long_url, User $user=null) {
+        $short_url = common_shorten_url($long_url, $user);
         if (!empty($short_url) && $short_url != $long_url) {
             $short_url = (string)$short_url;
             // store it

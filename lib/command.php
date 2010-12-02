@@ -479,7 +479,7 @@ class MessageCommand extends Command
             return;
         }
 
-        $this->text = common_shorten_links($this->text);
+        $this->text = $this->user->shortenLinks($this->text);
 
         if (Message::contentTooLong($this->text)) {
             // XXX: i18n. Needs plural support.
@@ -582,7 +582,7 @@ class ReplyCommand extends Command
             return;
         }
 
-        $this->text = common_shorten_links($this->text);
+        $this->text = $this->user->shortenLinks($this->text);
 
         if (Notice::contentTooLong($this->text)) {
             // XXX: i18n. Needs plural support.

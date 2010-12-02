@@ -398,7 +398,7 @@ class XmppManager extends IoManager
     function add_notice(&$user, &$pl)
     {
         $body = trim($pl['body']);
-        $content_shortened = common_shorten_links($body);
+        $content_shortened = $user->shortenLinks($body);
         if (Notice::contentTooLong($content_shortened)) {
           $from = jabber_normalize_jid($pl['from']);
           // TRANS: Response to XMPP source when it sent too long a message.

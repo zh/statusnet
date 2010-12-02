@@ -927,4 +927,23 @@ class User extends Memcached_DataObject
             throw new ServerException(_('Single-user mode code called when not enabled.'));
         }
     }
+
+    /**
+     * Find and shorten links in the given text using this user's URL shortening
+     * settings.
+     *
+     * By default, links will be left untouched if the text is shorter than the
+     * configured maximum notice length. Pass true for the $always parameter
+     * to force all links to be shortened regardless.
+     *
+     * Side effects: may save file and file_redirection records for referenced URLs.
+     *
+     * @param string $text
+     * @param boolean $always
+     * @return string
+     */
+    public function shortenLinks($text, $always=false)
+    {
+        return common_shorten_links($text, $always, $this);
+    }
 }

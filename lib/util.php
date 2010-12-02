@@ -789,7 +789,14 @@ function common_render_text($text)
     return $r;
 }
 
-function common_replace_urls_callback($text, $callback, $notice_id = null) {
+/**
+ * Find links in the given text and pass them to the given callback function.
+ *
+ * @param string $text
+ * @param function($text, $arg) $callback: return replacement text
+ * @param mixed $arg: optional argument will be passed on to the callback
+ */
+function common_replace_urls_callback($text, $callback, $arg = null) {
     // Start off with a regex
     $regex = '#'.
     '(?:^|[\s\<\>\(\)\[\]\{\}\\\'\\\";]+)(?![\@\!\#])'.
@@ -830,10 +837,21 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
     '#ixu';
     //preg_match_all($regex,$text,$matches);
     //print_r($matches);
-    return preg_replace_callback($regex, curry('callback_helper',$callback,$notice_id) ,$text);
+    return preg_replace_callback($regex, curry('callback_helper',$callback,$arg) ,$text);
 }
 
-function callback_helper($matches, $callback, $notice_id) {
+/**
+ * Intermediate callback for common_replace_links(), helps resolve some
+ * ambiguous link forms before passing on to the final callback.
+ *
+ * @param array $matches
+ * @param callable $callback
+ * @param mixed $arg optional argument to pass on as second param to callback
+ * @return string
+ * 
+ * @access private
+ */
+function callback_helper($matches, $callback, $arg=null) {
     $url=$matches[1];
     $left = strpos($matches[0],$url);
     $right = $left+strlen($url);
@@ -876,11 +894,7 @@ function callback_helper($matches, $callback, $notice_id) {
         }
     }while($original_url!=$url);
 
-    if(empty($notice_id)){
-        $result = call_user_func_array($callback, array($url));
-    }else{
-        $result = call_user_func_array($callback, array(array($url,$notice_id)) );
-    }
+    $result = call_user_func_array($callback, array($url, $arg));
     return substr($matches[0],0,$left) . $result . substr($matches[0],$right);
 }
 
@@ -980,11 +994,27 @@ function common_linkify($url) {
     return XMLStringer::estring('a', $attrs, $url);
 }
 
-function common_shorten_links($text, $always = false)
+/**
+ * Find and shorten links in a given chunk of text if it's longer than the
+ * configured notice content limit (or unconditionally).
+ *
+ * Side effects: may save file and file_redirection records for referenced URLs.
+ *
+ * Pass the $user option or call $user->shortenLinks($text) to ensure the proper
+ * user's options are used; otherwise the current web session user's setitngs
+ * will be used or ur1.ca if there is no active web login.
+ *
+ * @param string $text
+ * @param boolean $always (optional)
+ * @param User $user (optional)
+ *
+ * @return string
+ */
+function common_shorten_links($text, $always = false, User $user=null)
 {
     $maxLength = Notice::maxContent();
     if (!$always && ($maxLength == 0 || mb_strlen($text) <= $maxLength)) return $text;
-    return common_replace_urls_callback($text, array('File_redirection', 'makeShort'));
+    return common_replace_urls_callback($text, array('File_redirection', 'makeShort'), $user);
 }
 
 /**
@@ -2028,15 +2058,18 @@ function common_database_tablename($tablename)
  * Length is not considered.
  *
  * @param string $long_url
+ * @param User $user to specify a particular user's options
  * @return string may return the original URL if shortening failed
  *
  * @fixme provide a way to specify a particular shortener
- * @fixme provide a way to specify to use a given user's shortening preferences
  */
-function common_shorten_url($long_url)
+function common_shorten_url($long_url, User $user=null)
 {
     $long_url = trim($long_url);
-    $user = common_current_user();
+    if (empty($user)) {
+        // Current web session
+        $user = common_current_user();
+    }
     if (empty($user)) {
         // common current user does not find a user when called from the XMPP daemon
         // therefore we'll set one here fix, so that XMPP given URLs may be shortened

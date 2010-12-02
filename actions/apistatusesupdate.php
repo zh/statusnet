@@ -231,7 +231,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             return;
         }
 
-        $status_shortened = common_shorten_links($this->status);
+        $status_shortened = $this->auth_user->shortenlinks($this->status);
 
         if (Notice::contentTooLong($status_shortened)) {
             // Note: Twitter truncates anything over 140, flags the status

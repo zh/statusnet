@@ -370,7 +370,7 @@ class FacebookAction extends Action
             $this->showPage(_m('No notice content!'));
             return;
         } else {
-            $content_shortened = common_shorten_links($content);
+            $content_shortened = $user->shortenLinks($content);
 
             if (Notice::contentTooLong($content_shortened)) {
                 // @todo FIXME: i18n: Needs plural.

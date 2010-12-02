@@ -380,7 +380,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         $rendered = $this->purify($sourceContent);
         $content = html_entity_decode(strip_tags($rendered), ENT_QUOTES, 'UTF-8');
 
-        $shortened = common_shorten_links($content);
+        $shortened = $this->auth_user->shortenLinks($content);
 
         $options = array('is_local' => Notice::LOCAL_PUBLIC,
                          'rendered' => $rendered,

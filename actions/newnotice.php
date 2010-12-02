@@ -154,7 +154,7 @@ class NewnoticeAction extends Action
             return;
         }
 
-        $content_shortened = common_shorten_links($content);
+        $content_shortened = $user->shortenLinks($content);
         if (Notice::contentTooLong($content_shortened)) {
             // TRANS: Client error displayed when the parameter "status" is missing.
             // TRANS: %d is the maximum number of character for a notice.

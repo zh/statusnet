@@ -256,9 +256,14 @@ class Notice extends Memcached_DataObject
             $is_local = Notice::LOCAL_PUBLIC;
         }
 
-        $profile = Profile::staticGet($profile_id);
-
-        $final = common_shorten_links($content);
+        $profile = Profile::staticGet('id', $profile_id);
+        $user = User::staticGet('id', $profile_id);
+        if ($user) {
+            // Use the local user's shortening preferences, if applicable.
+            $final = $user->shortenLinks($content);
+        } else {
+            $final = common_shorten_links($content);
+        }
 
         if (Notice::contentTooLong($final)) {
             // TRANS: Client exception thrown if a notice contains too many characters.
@@ -502,8 +507,7 @@ class Notice extends Memcached_DataObject
     /**
      * @private callback
      */
-    function saveUrl($data) {
-        list($url, $notice_id) = $data;
+    function saveUrl($url, $notice_id) {
         File::processNew($url, $notice_id);
     }
 
