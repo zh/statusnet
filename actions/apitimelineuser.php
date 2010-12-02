@@ -297,13 +297,15 @@ class ApiTimelineUserAction extends ApiBareAuthAction
     {
         if (empty($this->auth_user) ||
             $this->auth_user->id != $this->user->id) {
-            $this->clientError(_("Only the user can add to their own timeline."));
+            // TRANS: Client error displayed trying to add a notice to another user's timeline.
+            $this->clientError(_('Only the user can add to their own timeline.'));
             return;
         }
 
+        // Only handle posts for Atom
         if ($this->format != 'atom') {
-            // Only handle posts for Atom
-            $this->clientError(_("Only accept AtomPub for atom feeds."));
+            // TRANS: Client error displayed when using another format than AtomPub.
+            $this->clientError(_('Only accept AtomPub for Atom feeds.'));
             return;
         }
 
@@ -313,6 +315,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         if ($dom->documentElement->namespaceURI != Activity::ATOM ||
             $dom->documentElement->localName != 'entry') {
+            // TRANS: Client error displayed when not using an Atom entry.
             $this->clientError(_('Atom post must be an Atom entry.'));
             return;
         }
@@ -322,7 +325,9 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         if (Event::handle('StartAtomPubNewActivity', array(&$activity))) {
 
             if ($activity->verb != ActivityVerb::POST) {
-                $this->clientError(_('Can only handle post activities.'));
+                // TRANS: Client error displayed when not using the POST verb.
+                // TRANS: Do not translate POST.
+                $this->clientError(_('Can only handle POST activities.'));
                 return;
             }
 
@@ -331,8 +336,10 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             if (!in_array($note->type, array(ActivityObject::NOTE,
                                              ActivityObject::BLOGENTRY,
                                              ActivityObject::STATUS))) {
-                $this->clientError(sprintf(_('Cannot handle activity object type "%s"',
-                                             $note->type)));
+                // TRANS: Client error displayed when using an unsupported activity object type.
+                // TRANS: %s is the unsupported activity object type.
+                $this->clientError(sprintf(_('Cannot handle activity object type "%s".'),
+                                             $note->type));
                 return;
             }
 
@@ -362,8 +369,9 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             $sourceContent = $note->title;
         } else {
             // @fixme fetch from $sourceUrl?
-            // @todo i18n FIXME: use sprintf and add i18n.
-            $this->clientError("No content for notice {$note->id}.");
+            // TRANS: Client error displayed when posting a notice without content through the API.
+            $this->clientError(sprintf(_('No content for notice %d.'),
+                                       $note->id));
             return;
         }
 
@@ -389,6 +397,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             $notice = Notice::staticGet('uri', trim($note->id));
 
             if (!empty($notice)) {
+                // TRANS: Client error displayed when using another format than AtomPub.
                 $this->clientError(sprintf(_('Notice with URI "%s" already exists.'),
                                            $note->id));
                 return;
