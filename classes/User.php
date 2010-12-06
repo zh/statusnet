@@ -929,6 +929,38 @@ class User extends Memcached_DataObject
     }
 
     /**
+     * This is kind of a hack for using external setup code that's trying to
+     * build single-user sites.
+     *
+     * Will still return a username if the config singleuser/nickname is set
+     * even if the account doesn't exist, which normally indicates that the
+     * site is horribly misconfigured.
+     *
+     * At the moment, we need to let it through so that router setup can
+     * complete, otherwise we won't be able to create the account.
+     *
+     * This will be easier when we can more easily create the account and
+     * *then* switch the site to 1user mode without jumping through hoops.
+     *
+     * @return string
+     * @throws ServerException if no valid single user account is present
+     * @throws ServerException if called when not in single-user mode
+     */
+    static function singleUserNickname()
+    {
+        try {
+            $user = User::singleUser();
+            return $user->nickname;
+        } catch (Exception $e) {
+            if (common_config('singleuser', 'enabled') && common_config('singleuser', 'nickname')) {
+                common_log(LOG_WARN, "Warning: code attempting to pull single-user nickname when the account does not exist. If this is not setup time, this is probably a bug.");
+                return common_config('singleuser', 'nickname');
+            }
+            throw $e;
+        }
+    }
+
+    /**
      * Find and shorten links in the given text using this user's URL shortening
      * settings.
      *
