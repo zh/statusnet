@@ -156,21 +156,7 @@ class Router
     
     static function cacheKey()
     {
-        $plugins     = StatusNet::getActivePlugins();
-        $names       = array();
-	
-        foreach ($plugins as $plugin) {
-            $names[] = $plugin[0];
-        }
-
-        $names = array_unique($names);
-        asort($names);
-
-        // Unique enough.
-	
-        $uniq = crc32(implode(',', $names));
-	
-        return Cache::key('router:'.STATUSNET_VERSION.':'.$uniq);
+        return Cache::codeKey('router');
     }
     
     function initialize()
