@@ -329,6 +329,14 @@ class Activity
 
     function asString($namespace=false, $author=true)
     {
+        $c = Cache::instance();
+
+        $str = $c->get('activity:as-string:'.Cache::keyize($this->id));
+
+        if (!empty($str)) {
+            return $str;
+        }
+
         $xs = new XMLStringer(true);
 
         if ($namespace) {
@@ -549,7 +557,11 @@ class Activity
 
         $xs->elementEnd('entry');
 
-        return $xs->getString();
+        $str = $xs->getString();
+	
+        $c->set('activity:as-string:'.Cache::keyize($this->id), $str);
+	
+        return $str;
     }
 
     private function _child($element, $tag, $namespace=self::SPEC)

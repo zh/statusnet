@@ -1236,10 +1236,16 @@ class Notice extends Memcached_DataObject
 
     function asActivity($cur = null, $source = false)
     {
+        $act = self::cacheGet('notice:as-activity:'.$this->id);
+
+        if (!empty($act)) {
+            return $act;
+        }
+
         $act = new Activity();
 	
         if (Event::handle('StartNoticeAsActivity', array($this, &$act))) {
-	    
+
             $profile = $this->getProfile();
 	    
             $act->actor     = ActivityObject::fromProfile($profile);
@@ -1400,6 +1406,8 @@ class Notice extends Memcached_DataObject
             Event::handle('EndNoticeAsActivity', array($this, &$act));
         }
 	
+        self::cacheSet('notice:as-activity:'.$this->id, $act);
+
         return $act;
     }
 
