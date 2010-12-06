@@ -59,7 +59,8 @@ $default =
               'textlimit' => 140,
               'indent' => true,
               'use_x_sendfile' => false,
-              'notice' => null // site wide notice text
+              'notice' => null, // site wide notice text
+              'build' => 1, // build number, for code-dependent cache
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
