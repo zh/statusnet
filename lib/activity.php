@@ -478,7 +478,8 @@ class Activity
         
         foreach ($this->enclosures as $enclosure) {
             if (is_string($enclosure)) {
-                $xs->element('link', array('href' => $enclosure));
+                $xs->element('link', array('rel' => 'enclosure',
+                                           'href' => $enclosure));
             } else {
                 $attributes = array('rel' => 'enclosure',
                                     'href' => $enclosure->url,
@@ -487,7 +488,7 @@ class Activity
                 if ($enclosure->title) {
                     $attributes['title'] = $enclosure->title;
                 }
-                $xs->element('link', array('href' => $enclosure));
+                $xs->element('link', $attributes);
             }
         }
 
