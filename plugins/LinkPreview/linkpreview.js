@@ -3,6 +3,9 @@
  */
 
 (function() {
+    /**
+     * Quickie wrapper around ooembed JSON lookup
+     */
     var oEmbed = {
         api: 'http://oohembed.com/oohembed',
         width: 100,
@@ -57,14 +60,24 @@
                 maxheight: oEmbed.height,
                 token: $('#token').val()
             };
-            $.get(oEmbed.api, params, function(data, xhr) {
-                callback(data);
-            }, 'json');
+            $.ajax({
+                url: oEmbed.api,
+                data: params,
+                dataType: 'json',
+                success: function(data, xhr) {
+                    callback(data);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    callback(null);
+                }
+            });
         }
     };
 
     var LinkPreview = {
         links: [],
+        state: [],
+        refresh: [],
 
         /**
          * Find URL links from the source text that may be interesting.
@@ -88,22 +101,26 @@
          * Start looking up info for a link preview...
          * May start async data loads.
          *
-         * @param {String} id
-         * @param {String} url
+         * @param {number} col: column number to insert preview into
          */
-        prepLinkPreview: function(id, url)
+        prepLinkPreview: function(col)
         {
+            var id = 'link-preview-' + col;
+            var url = LinkPreview.links[col];
+            LinkPreview.refresh[col] = false;
+            LinkPreview.markLoading(col);
+
             oEmbed.lookup(url, function(data) {
                 var thumb = null;
                 var width = 100;
-                if (typeof data.thumbnail_url == "string") {
+                if (data && typeof data.thumbnail_url == "string") {
                     thumb = data.thumbnail_url;
                     if (typeof data.thumbnail_width !== "undefined") {
                         if (data.thumbnail_width < width) {
                             width = data.thumbnail_width;
                         }
                     }
-                } else if (data.type == 'photo' && typeof data.url == "string") {
+                } else if (data && data.type == 'photo' && typeof data.url == "string") {
                     thumb = data.url;
                     if (typeof data.width !== "undefined") {
                         if (data.width < width) {
@@ -111,6 +128,7 @@
                         }
                     }
                 }
+
                 if (thumb) {
                     var link = $('<span class="inline-attachment"><a><img/></a></span>');
                     link.find('a')
@@ -121,7 +139,19 @@
                             .attr('src', thumb)
                             .attr('width', width)
                             .attr('title', data.title || data.url || url);
+                    $('#' + id).empty();
                     $('#' + id).append(link);
+                } else {
+                    // No thumbnail available or error retriving it.
+                    LinkPreview.clearLink(col);
+                }
+
+                if (LinkPreview.refresh[col]) {
+                    // Darn user has typed more characters.
+                    // Go fetch another link!
+                    LinkPreview.prepLinkPreview(col);
+                } else {
+                    LinkPreview.markDone(col);
                 }
             });
         },
@@ -134,34 +164,57 @@
          */
         previewLinks: function(text)
         {
+            var i;
             var old = LinkPreview.links;
             var links = LinkPreview.findLinks(text);
+            LinkPreview.links = links;
 
             // Check for existing common elements...
-            for (var i = 0; i < old.length && i < links.length; i++) {
+            for (i = 0; i < old.length && i < links.length; i++) {
                 if (links[i] != old[i]) {
-                    // Change an existing entry!
-                    var id = 'link-preview-' + i;
-                    $('#' + id).html('');
-                    LinkPreview.prepLinkPreview(id, links[i]);
+                    if (LinkPreview.state[i] == "loading") {
+                        // Slate this column for a refresh when this one's done.
+                        LinkPreview.refresh[i] = true;
+                    } else {
+                        // Change an existing entry!
+                        LinkPreview.prepLinkPreview(i);
+                    }
                 }
             }
             if (links.length > old.length) {
                 // Adding new entries, whee!
-                for (var i = old.length; i < links.length; i++) {
-                    var id = 'link-preview-' + i;
-                    $('#link-preview').append('<span id="' + id + '"></span>');
-                    LinkPreview.prepLinkPreview(id, links[i]);
+                for (i = old.length; i < links.length; i++) {
+                    LinkPreview.addPreviewArea(i);
+                    LinkPreview.prepLinkPreview(i);
                 }
             } else if (old.length > links.length) {
                 // Remove preview entries for links that have been removed.
-                for (var i = links.length; i < old.length; i++) {
-                    var id = 'link-preview-' + i;
-                    $('#' + id).remove();
+                for (i = links.length; i < old.length; i++) {
+                    LinkPreview.clearLink(i);
                 }
             }
+        },
 
-            LinkPreview.links = links;
+        addPreviewArea: function(col) {
+            var id = 'link-preview-' + col;
+            $('#link-preview').append('<span id="' + id + '"></span>');
+        },
+
+        clearLink: function(col) {
+            var id = 'link-preview-' + col;
+            $('#' + id).html('');
+        },
+
+        markLoading: function(col) {
+            LinkPreview.state[col] = "loading";
+            var id = 'link-preview-' + col;
+            $('#' + id).attr('style', 'opacity: 0.5');
+        },
+
+        markDone: function(col) {
+            LinkPreview.state[col] = "done";
+            var id = 'link-preview-' + col;
+            $('#' + id).removeAttr('style');
         },
 
         /**
