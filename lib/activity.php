@@ -348,8 +348,6 @@ class Activity
 
         if ($this->verb == ActivityVerb::POST && count($this->objects) == 1) {
 
-            common_debug('Using default object entry notation.');
-
             $obj = $this->objects[0];
 
             $xs->element('id', null, $obj->id);
