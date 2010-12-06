@@ -787,8 +787,7 @@ class Router
 
             if (common_config('singleuser', 'enabled')) {
 
-                $user = User::singleUser();
-                $nickname = $user->nickname;
+                $nickname = User::singleUserNickname();
 
                 foreach (array('subscriptions', 'subscribers',
                                'all', 'foaf', 'xrds',
