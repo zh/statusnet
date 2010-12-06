@@ -1538,6 +1538,18 @@ external: external links in notices. One of three values: 'sometimes',
     nofollowed on profile, notice, and favorites page. Default is
     'sometimes'.
 
+router
+------
+
+We use a router class for mapping URLs to code. This section controls
+how that router works.
+
+cache: whether to cache the router in memcache (or another caching
+    mechanism). Defaults to true, but may be set to false for
+    developers (who might be actively adding pages, so won't want the
+    router cached) or others who see strange behavior. You're unlikely
+    to need this unless you're a developer.
+
 Plugins
 =======
 
