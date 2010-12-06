@@ -50,6 +50,9 @@ class OembedproxyAction extends OembedAction
 
     function handle($args)
     {
+        // Trigger short error responses; not a human-readable web page.
+        StatusNet::setApi(true);
+
         // We're not a general oEmbed proxy service; limit to valid sessions.
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
