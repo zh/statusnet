@@ -1236,7 +1236,7 @@ class Notice extends Memcached_DataObject
 
     function asActivity($cur = null, $source = false)
     {
-        $act = self::cacheGet('notice:as-activity:'.$this->id);
+        $act = self::cacheGet(Cache::codeKey('notice:as-activity:'.$this->id));
 
         if (!empty($act)) {
             return $act;
@@ -1406,7 +1406,7 @@ class Notice extends Memcached_DataObject
             Event::handle('EndNoticeAsActivity', array($this, &$act));
         }
 	
-        self::cacheSet('notice:as-activity:'.$this->id, $act);
+        self::cacheSet(Cache::codeKey('notice:as-activity:'.$this->id), $act);
 
         return $act;
     }

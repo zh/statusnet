@@ -331,7 +331,7 @@ class Activity
     {
         $c = Cache::instance();
 
-        $str = $c->get('activity:as-string:'.Cache::keyize($this->id));
+        $str = $c->get(Cache::codeKey('activity:as-string:'.$this->id));
 
         if (!empty($str)) {
             return $str;
@@ -559,7 +559,7 @@ class Activity
 
         $str = $xs->getString();
 	
-        $c->set('activity:as-string:'.Cache::keyize($this->id), $str);
+        $c->set(Cache::codeKey('activity:as-string:'.$this->id), $str);
 	
         return $str;
     }
