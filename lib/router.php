@@ -127,15 +127,19 @@ class Router
     function __construct()
     {
         if (empty($this->m)) {
-            $k = self::cacheKey();
-            $c = Cache::instance();
-            $m = $c->get($k);
-            if (!empty($m)) {
-                $this->m = $m;
-            } else {
+	    if (!common_config('router', 'cache')) {
                 $this->m = $this->initialize();
-                $c->set($k, $this->m);
-            }
+	    } else {
+		$k = self::cacheKey();
+		$c = Cache::instance();
+		$m = $c->get($k);
+		if (!empty($m)) {
+		    $this->m = $m;
+		} else {
+		    $this->m = $this->initialize();
+		    $c->set($k, $this->m);
+		}
+	    }
         }
     }
 
@@ -156,21 +160,7 @@ class Router
     
     static function cacheKey()
     {
-        $plugins     = StatusNet::getActivePlugins();
-        $names       = array();
-	
-        foreach ($plugins as $plugin) {
-            $names[] = $plugin[0];
-        }
-
-        $names = array_unique($names);
-        asort($names);
-
-        // Unique enough.
-	
-        $uniq = crc32(implode(',', $names));
-	
-        return Cache::key('router:'.STATUSNET_VERSION.':'.$uniq);
+        return Cache::codeKey('router');
     }
     
     function initialize()
@@ -787,8 +777,7 @@ class Router
 
             if (common_config('singleuser', 'enabled')) {
 
-                $user = User::singleUser();
-                $nickname = $user->nickname;
+                $nickname = User::singleUserNickname();
 
                 foreach (array('subscriptions', 'subscribers',
                                'all', 'foaf', 'xrds',
