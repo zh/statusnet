@@ -87,7 +87,15 @@ class AutocompleteAction extends Action
 
     function prepare($args)
     {
+        // If we die, show short error messages.
+        StatusNet::setApi(true);
+
         parent::prepare($args);
+
+        $cur = common_current_user();
+        if (!$cur) {
+            throw new ClientException('Access forbidden', true);
+        }
         $this->groups=array();
         $this->users=array();
         $q = $this->arg('q');
