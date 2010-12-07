@@ -97,10 +97,23 @@ class XrdAction extends Action
                                   'href' => common_local_url('foaf',
                                                              array('nickname' => $nick)));
 	    
+            $xrd->links[] = array('rel' => 'http://apinamespace.org/atom',
+                                  'type' => 'application/atomsvc+xml',
+                                  'href' => common_local_url('ApiAtomService', array('id' => $nick)));
+
+            if (common_config('site', 'fancy')) {
+                $apiRoot = common_path('api/', true);
+            } else {
+                $apiRoot = common_path('index.php/api/', true);
+            }
+            
+            $xrd->links[] = array('rel' => 'http://apinamespace.org/twitter',
+                                  'href' => $apiRoot,
+                                  'property' => array(array('type' => 'http://apinamespace.org/twitter/username',
+                                                            'value' => $nick)));
 
             Event::handle('EndXrdActionLinks', array(&$xrd, $this->user));
         }
-	    
 
         header('Content-type: application/xrd+xml');
         print $xrd->toXML();
