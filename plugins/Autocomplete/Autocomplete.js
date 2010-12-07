@@ -6,7 +6,7 @@ $(document).ready(function(){
             return row.nickname;
         }
     }
-            $('#notice_data-text').autocomplete($('address .url')[0].href+'/plugins/Autocomplete/autocomplete.json', {
+            $('#notice_data-text').autocomplete($('address .url')[0].href+'main/autocomplete/suggest', {
                 multiple: true,
                 multipleSeparator: " ",
                 minChars: 1,
