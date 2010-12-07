@@ -12,7 +12,13 @@ $(document).ready(function(){
                 minChars: 1,
                 formatItem: function(row, i, max){
                     row = eval("(" + row + ")");
-                    return fullName(row);
+                    // the display:inline is because our INSANE stylesheets
+                    // override the standard display of all img tags for no
+                    // good reason.
+                    var div = $('<div><img style="display:inline; vertical-align: middle"> <span></span></div>')
+                        .find('img').attr('src', row.avatar).end()
+                        .find('span').text(fullName(row)).end()
+                    return div.html();
                 },
                 formatMatch: function(row, i, max){
                     row = eval("(" + row + ")");

@@ -126,10 +126,32 @@ class AutocompleteAction extends Action
         $results = array();
         foreach($this->users as $user){
             $profile = $user->getProfile();
-            $results[]=array('nickname' => $user->nickname, 'fullname'=> $profile->fullname, 'type'=>'user');
+            $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
+            // sigh.... encapsulate this upstream!
+            if ($avatar) {
+                $avatar = $avatar->displayUrl();
+            } else {
+                $avatar = Avatar::defaultImage(AVATAR_MINI_SIZE);
+            }
+            $results[] = array(
+                'nickname' => $user->nickname,
+                'fullname'=> $profile->fullname,
+                'avatar' => $avatar,
+                'type' => 'user'
+            );
         }
         foreach($this->groups as $group){
-            $results[]=array('nickname' => $group->nickname, 'fullname'=> $group->fullname, 'type'=>'group');
+            // sigh.... encapsulate this upstream!
+            if ($group->mini_logo) {
+                $avatar = $group->mini_logo;
+            } else {
+                $avatar = User_group::defaultLogo(AVATAR_MINI_SIZE);
+            }
+            $results[] = array(
+                'nickname' => $group->nickname,
+                'fullname'=> $group->fullname,
+                'avatar' => $avatar,
+                'type' => 'group');
         }
         foreach($results as $result) {
             print json_encode($result) . "\n";
