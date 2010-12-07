@@ -259,12 +259,17 @@ class NoticeTitlePlugin extends Plugin
      * @return boolean hook value
      */
 
-    function onStartActivityTitle(&$notice, &$xs, &$output)
+    function onEndNoticeAsActivity($notice, &$activity)
     {
         $title = Notice_title::fromNotice($notice);
 
         if (!empty($title)) {
-            $output = $title;
+            foreach ($activity->objects as $obj) {
+                if ($obj->id == $notice->uri) {
+                    $obj->title = $title;
+                    break;
+                }
+            }
         }
 
         return true;

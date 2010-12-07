@@ -191,7 +191,11 @@ class RegisterAction extends Action
             }
 
             // Input scrubbing
-            $nickname = common_canonical_nickname($nickname);
+            try {
+                $nickname = Nickname::normalize($nickname);
+            } catch (NicknameException $e) {
+                $this->showForm($e->getMessage());
+            }
             $email    = common_canonical_email($email);
 
             if (!$this->boolean('license')) {
@@ -199,11 +203,6 @@ class RegisterAction extends Action
                                   'agree to the license.'));
             } else if ($email && !Validate::email($email, common_config('email', 'check_domain'))) {
                 $this->showForm(_('Not a valid email address.'));
-            } else if (!Validate::string($nickname, array('min_length' => 1,
-                                                          'max_length' => 64,
-                                                          'format' => NICKNAME_FMT))) {
-                $this->showForm(_('Nickname must have only lowercase letters '.
-                                  'and numbers and no spaces.'));
             } else if ($this->nicknameExists($nickname)) {
                 $this->showForm(_('Nickname already in use. Try another one.'));
             } else if (!User::allowed_nickname($nickname)) {

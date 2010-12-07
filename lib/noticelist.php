@@ -208,6 +208,7 @@ class NoticeListItem extends Widget
         $this->showStart();
         if (Event::handle('StartShowNoticeItem', array($this))) {
             $this->showNotice();
+            $this->showNoticeAttachments();
             $this->showNoticeInfo();
             $this->showNoticeOptions();
             Event::handle('EndShowNoticeItem', array($this));
@@ -327,11 +328,8 @@ class NoticeListItem extends Widget
 
     function showAvatar()
     {
-        if ('shownotice' === $this->out->trimmed('action')) {
-            $avatar_size = AVATAR_PROFILE_SIZE;
-        } else {
-            $avatar_size = AVATAR_STREAM_SIZE;
-        }
+	$avatar_size = AVATAR_STREAM_SIZE;
+
         $avatar = $this->profile->getAvatar($avatar_size);
 
         $this->out->element('img', array('src' => ($avatar) ?
@@ -384,6 +382,13 @@ class NoticeListItem extends Widget
             $this->out->raw(common_render_content($this->notice->content, $this->notice));
         }
         $this->out->elementEnd('p');
+    }
+
+    function showNoticeAttachments() {
+        if (common_config('attachments', 'show_thumbs')) {
+            $al = new InlineAttachmentList($this->notice, $this->out);
+            $al->show();
+        }
     }
 
     /**

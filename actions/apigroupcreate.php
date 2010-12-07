@@ -73,7 +73,7 @@ class ApiGroupCreateAction extends ApiAuthAction
 
         $this->user  = $this->auth_user;
 
-        $this->nickname    = $this->arg('nickname');
+        $this->nickname    = Nickname::normalize($this->arg('nickname'));
         $this->fullname    = $this->arg('full_name');
         $this->homepage    = $this->arg('homepage');
         $this->description = $this->arg('description');
@@ -150,26 +150,7 @@ class ApiGroupCreateAction extends ApiAuthAction
      */
     function validateParams()
     {
-        $valid = Validate::string(
-            $this->nickname, array(
-                'min_length' => 1,
-                'max_length' => 64,
-                'format' => NICKNAME_FMT
-            )
-        );
-
-        if (!$valid) {
-            $this->clientError(
-                // TRANS: Validation error in form for group creation.
-                _(
-                    'Nickname must have only lowercase letters ' .
-                    'and numbers and no spaces.'
-                ),
-                403,
-                $this->format
-            );
-            return false;
-        } elseif ($this->groupNicknameExists($this->nickname)) {
+        if ($this->groupNicknameExists($this->nickname)) {
             $this->clientError(
                 // TRANS: Client error trying to create a group with a nickname this is already in use.
                 _('Nickname already in use. Try another one.'),
@@ -265,15 +246,7 @@ class ApiGroupCreateAction extends ApiAuthAction
 
         foreach ($this->aliases as $alias) {
 
-            $valid = Validate::string(
-                $alias, array(
-                    'min_length' => 1,
-                    'max_length' => 64,
-                    'format' => NICKNAME_FMT
-                )
-            );
-
-            if (!$valid) {
+            if (!Nickname::isValid($alias)) {
                 $this->clientError(
                     // TRANS: Client error shown when providing an invalid alias during group creation.
                     // TRANS: %s is the invalid alias.

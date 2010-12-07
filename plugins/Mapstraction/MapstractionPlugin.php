@@ -67,10 +67,10 @@ class MapstractionPlugin extends Plugin
     {
         $m->connect(':nickname/all/map',
                     array('action' => 'allmap'),
-                    array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                    array('nickname' => Nickname::DISPLAY_FMT));
         $m->connect(':nickname/map',
                     array('action' => 'usermap'),
-                    array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                    array('nickname' => Nickname::DISPLAY_FMT));
         return true;
     }
 
@@ -156,7 +156,8 @@ class MapstractionPlugin extends Plugin
                                   ' var user = null; '.
                                   (($actionName == 'showstream') ? ' user = scrapeUser(); ' : '') .
                                   ' var notices = scrapeNotices(user); ' .
-                                  ' showMapstraction($("#map_canvas"), notices); '.
+				  ' var canvas = $("#map_canvas")[0]; ' .
+                                  ' if (typeof(canvas) != "undefined") { showMapstraction(canvas, notices); } '.
                                   '});');
         }
 

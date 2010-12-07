@@ -66,7 +66,7 @@ class AutocompletePlugin extends Plugin
     function onRouterInitialized($m)
     {
         if (common_logged_in()) {
-            $m->connect('plugins/Autocomplete/autocomplete.json', array('action'=>'autocomplete'));
+            $m->connect('main/autocomplete/suggest', array('action'=>'autocomplete'));
         }
     }
 

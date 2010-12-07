@@ -59,7 +59,8 @@ $default =
               'textlimit' => 140,
               'indent' => true,
               'use_x_sendfile' => false,
-              'notice' => null // site wide notice text
+              'notice' => null, // site wide notice text
+              'build' => 1, // build number, for code-dependent cache
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
@@ -251,6 +252,10 @@ $default =
               'monthly_quota' => 15000000,
               'uploads' => true,
               'filecommand' => '/usr/bin/file',
+              'show_thumbs' => true, // show thumbnails in notice lists for uploaded images, and photos and videos linked remotely that provide oEmbed info
+              'thumb_width' => 100,
+              'thumb_height' => 75,
+              'process_links' => true, // check linked resources for embeddable photos and videos; this will hit referenced external web sites when processing new messages.
               ),
         'application' =>
         array('desclimit' => null),
@@ -331,4 +336,6 @@ $default =
         array('ssl_cafile' => false, // To enable SSL cert validation, point to a CA bundle (eg '/usr/lib/ssl/certs/ca-certificates.crt')
               'curl' => false, // Use CURL backend for HTTP fetches if available. (If not, PHP's socket streams will be used.)
               ),
+	'router' =>
+	array('cache' => true), // whether to cache the router object. Defaults to true, turn off for devel
         );

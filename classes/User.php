@@ -79,7 +79,8 @@ class User extends Memcached_DataObject
 
     function isSubscribed($other)
     {
-        return Subscription::exists($this->getProfile(), $other);
+        $profile = $this->getProfile();
+        return $profile->isSubscribed($other);
     }
 
     // 'update' won't write key columns, so we have to do it ourselves.
@@ -110,6 +111,16 @@ class User extends Memcached_DataObject
         return $result;
     }
 
+    /**
+     * Check whether the given nickname is potentially usable, or if it's
+     * excluded by any blacklists on this system.
+     *
+     * WARNING: INPUT IS NOT VALIDATED OR NORMALIZED. NON-NORMALIZED INPUT
+     * OR INVALID INPUT MAY LEAD TO FALSE RESULTS.
+     *
+     * @param string $nickname
+     * @return boolean true if clear, false if blacklisted
+     */
     static function allowed_nickname($nickname)
     {
         // XXX: should already be validated for size, content, etc.
@@ -413,8 +424,8 @@ class User extends Memcached_DataObject
 
     function mutuallySubscribed($other)
     {
-        return $this->isSubscribed($other) &&
-          $other->isSubscribed($this);
+        $profile = $this->getProfile();
+        return $profile->mutuallySubscribed($other);
     }
 
     function mutuallySubscribedUsers()
@@ -910,5 +921,56 @@ class User extends Memcached_DataObject
             // TRANS: Server exception.
             throw new ServerException(_('Single-user mode code called when not enabled.'));
         }
+    }
+
+    /**
+     * This is kind of a hack for using external setup code that's trying to
+     * build single-user sites.
+     *
+     * Will still return a username if the config singleuser/nickname is set
+     * even if the account doesn't exist, which normally indicates that the
+     * site is horribly misconfigured.
+     *
+     * At the moment, we need to let it through so that router setup can
+     * complete, otherwise we won't be able to create the account.
+     *
+     * This will be easier when we can more easily create the account and
+     * *then* switch the site to 1user mode without jumping through hoops.
+     *
+     * @return string
+     * @throws ServerException if no valid single user account is present
+     * @throws ServerException if called when not in single-user mode
+     */
+    static function singleUserNickname()
+    {
+        try {
+            $user = User::singleUser();
+            return $user->nickname;
+        } catch (Exception $e) {
+            if (common_config('singleuser', 'enabled') && common_config('singleuser', 'nickname')) {
+                common_log(LOG_WARN, "Warning: code attempting to pull single-user nickname when the account does not exist. If this is not setup time, this is probably a bug.");
+                return common_config('singleuser', 'nickname');
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Find and shorten links in the given text using this user's URL shortening
+     * settings.
+     *
+     * By default, links will be left untouched if the text is shorter than the
+     * configured maximum notice length. Pass true for the $always parameter
+     * to force all links to be shortened regardless.
+     *
+     * Side effects: may save file and file_redirection records for referenced URLs.
+     *
+     * @param string $text
+     * @param boolean $always
+     * @return string
+     */
+    public function shortenLinks($text, $always=false)
+    {
+        return common_shorten_links($text, $always, $this);
     }
 }

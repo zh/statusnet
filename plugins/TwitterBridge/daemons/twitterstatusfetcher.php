@@ -205,8 +205,9 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         }
 
         if (!empty($timeline)) {
-            Twitter_synch_status::setLastId($flink->foreign_id, 'home_timeline', $timeline[0]->id);
-            common_debug("Set lastId value '{$timeline[0]->id}' for foreign id '{$flink->foreign_id}' and timeline 'home_timeline'");
+            $lastId = twitter_id($timeline[0]);
+            Twitter_synch_status::setLastId($flink->foreign_id, 'home_timeline', $lastId);
+            common_debug("Set lastId value '$lastId' for foreign id '{$flink->foreign_id}' and timeline 'home_timeline'");
         }
 
         // Okay, record the time we synced with Twitter for posterity

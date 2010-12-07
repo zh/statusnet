@@ -119,9 +119,16 @@ class HTMLOutputter extends XMLOutputter
 
         $language = $this->getLanguage();
 
-        $this->elementStart('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
-                                          'xml:lang' => $language,
-                                          'lang' => $language));
+        $attrs = array(
+            'xmlns' => 'http://www.w3.org/1999/xhtml',
+            'xml:lang' => $language,
+            'lang' => $language
+        );
+
+        if (Event::handle('StartHtmlElement', array($this, &$attrs))) {
+            $this->elementStart('html', $attrs);
+            Event::handle('EndHtmlElement', array($this, &$attrs));
+        }
     }
 
     function getLanguage()

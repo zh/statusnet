@@ -39,6 +39,8 @@ class ActivityContext
     public $location;
     public $attention = array();
     public $conversation;
+    public $forwardID; // deprecated, use ActivityVerb::SHARE instead
+    public $forwardUrl; // deprecated, use ActivityVerb::SHARE instead
 
     const THR     = 'http://purl.org/syndication/thread/1.0';
     const GEORSS  = 'http://www.georss.org/georss';

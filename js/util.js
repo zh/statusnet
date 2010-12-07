@@ -56,7 +56,7 @@ var SN = { // StatusNet
             NoticeDataGeoCookie: 'NoticeDataGeo',
             NoticeDataGeoSelected: 'notice_data-geo_selected',
             StatusNetInstance:'StatusNetInstance'
-        },
+        }
     },
 
     messages: {},
@@ -236,8 +236,9 @@ var SN = { // StatusNet
                         form.append('<p class="form_response error">Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
                     }
                     else {
-                        if ($('.'+SN.C.S.Error, xhr.responseXML).length > 0) {
-                            form.append(document._importNode($('.'+SN.C.S.Error, xhr.responseXML)[0], true));
+                        var response = SN.U.GetResponseXML(xhr);
+                        if ($('.'+SN.C.S.Error, response).length > 0) {
+                            form.append(document._importNode($('.'+SN.C.S.Error, response)[0], true));
                         }
                         else {
                             if (parseInt(xhr.status) === 0 || jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) >= 0) {
@@ -324,6 +325,16 @@ var SN = { // StatusNet
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', SN.C.I.NoticeDataGeo.NDG);
                 }
             });
+        },
+
+        GetResponseXML: function(xhr) {
+            // Work around unavailable responseXML when document.domain
+            // has been modified by Meteor or other tools.
+            try {
+                return xhr.responseXML;
+            } catch (e) {
+                return (new DOMParser()).parseFromString(xhr.responseText, "text/xml");
+            }
         },
 
         NoticeReply: function() {
@@ -427,61 +438,6 @@ var SN = { // StatusNet
                     return false;
                 }).attr('title', SN.msg('showmore_tooltip'));
             }
-            else {
-                $.fn.jOverlay.options = {
-                    method : 'GET',
-                    data : '',
-                    url : '',
-                    color : '#000',
-                    opacity : '0.6',
-                    zIndex : 9999,
-                    center : false,
-                    imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
-                    bgClickToClose : true,
-                    success : function() {
-                        $('#jOverlayContent').append('<button class="close">&#215;</button>');
-                        $('#jOverlayContent button').click($.closeOverlay);
-                    },
-                    timeout : 0,
-                    autoHide : true,
-                    css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
-                };
-
-                notice.find('a.attachment').click(function() {
-                    var attachId = ($(this).attr('id').substring('attachment'.length + 1));
-                    if (attachId) {
-                        $().jOverlay({url: $('address .url')[0].href+'attachment/' + attachId + '/ajax'});
-                        return false;
-                    }
-                });
-
-                if ($('#shownotice').length == 0) {
-                    var t;
-                    notice.find('a.thumbnail').hover(
-                        function() {
-                            var anchor = $(this);
-                            $('a.thumbnail').children('img').hide();
-                            anchor.closest(".entry-title").addClass('ov');
-
-                            if (anchor.children('img').length === 0) {
-                                t = setTimeout(function() {
-                                    $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-                                        anchor.append(data);
-                                    });
-                                }, 500);
-                            }
-                            else {
-                                anchor.children('img').show();
-                            }
-                        },
-                        function() {
-                            clearTimeout(t);
-                            $('a.thumbnail').children('img').hide();
-                            $(this).closest('.entry-title').removeClass('ov');
-                        }
-                    );
-                }
-            }
         },
 
         NoticeDataAttach: function() {
@@ -501,7 +457,101 @@ var SN = { // StatusNet
 
                     return false;
                 });
+                if (typeof this.files == "object") {
+                    // Some newer browsers will let us fetch the files for preview.
+                    for (var i = 0; i < this.files.length; i++) {
+                        SN.U.PreviewAttach(this.files[i]);
+                    }
+                }
             });
+        },
+
+        /**
+         * For browsers with FileAPI support: make a thumbnail if possible,
+         * and append it into the attachment display widget.
+         *
+         * Known good:
+         * - Firefox 3.6.6, 4.0b7
+         * - Chrome 8.0.552.210
+         *
+         * Known ok metadata, can't get contents:
+         * - Safari 5.0.2
+         *
+         * Known fail:
+         * - Opera 10.63, 11 beta (no input.files interface)
+         *
+         * @param {File} file
+         *
+         * @todo use configured thumbnail size
+         * @todo detect pixel size?
+         * @todo should we render a thumbnail to a canvas and then use the smaller image?
+         */
+        PreviewAttach: function(file) {
+            var tooltip = file.type + ' ' + Math.round(file.size / 1024) + 'KB';
+            var preview = true;
+
+            var blobAsDataURL;
+            if (typeof window.createObjectURL != "undefined") {
+                /**
+                 * createObjectURL lets us reference the file directly from an <img>
+                 * This produces a compact URL with an opaque reference to the file,
+                 * which we can reference immediately.
+                 *
+                 * - Firefox 3.6.6: no
+                 * - Firefox 4.0b7: no
+                 * - Safari 5.0.2: no
+                 * - Chrome 8.0.552.210: works!
+                 */
+                blobAsDataURL = function(blob, callback) {
+                    callback(window.createObjectURL(blob));
+                }
+            } else if (typeof window.FileReader != "undefined") {
+                /**
+                 * FileAPI's FileReader can build a data URL from a blob's contents,
+                 * but it must read the file and build it asynchronously. This means
+                 * we'll be passing a giant data URL around, which may be inefficient.
+                 *
+                 * - Firefox 3.6.6: works!
+                 * - Firefox 4.0b7: works!
+                 * - Safari 5.0.2: no
+                 * - Chrome 8.0.552.210: works!
+                 */
+                blobAsDataURL = function(blob, callback) {
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        callback(reader.result);
+                    }
+                    reader.readAsDataURL(blob);
+                }
+            } else {
+                preview = false;
+            }
+
+            var imageTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'];
+            if ($.inArray(file.type, imageTypes) == -1) {
+                // We probably don't know how to show the file.
+                preview = false;
+            }
+
+            var maxSize = 8 * 1024 * 1024;
+            if (file.size > maxSize) {
+                // Don't kill the browser trying to load some giant image.
+                preview = false;
+            }
+
+            if (preview) {
+                blobAsDataURL(file, function(url) {
+                    var img = $('<img>')
+                        .attr('title', tooltip)
+                        .attr('alt', tooltip)
+                        .attr('src', url)
+                        .attr('style', 'height: 120px');
+                    $('#'+SN.C.S.NoticeDataAttachSelected).append(img);
+                });
+            } else {
+                var img = $('<div></div>').text(tooltip);
+                $('#'+SN.C.S.NoticeDataAttachSelected).append(img);
+            }
         },
 
         NoticeLocationAttach: function() {

@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-02 22:51+0000\n"
-"PO-Revision-Date: 2010-11-02 22:53:29+0000\n"
+"POT-Creation-Date: 2010-11-30 20:16+0000\n"
+"PO-Revision-Date: 2010-11-30 20:18:12+0000\n"
 "Language-Team: Korean <http://translatewiki.net/wiki/Portal:ko>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75875); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2010-10-30 23:42:01+0000\n"
+"X-POT-Import-Date: 2010-11-30 17:54:26+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -86,12 +86,14 @@ msgstr "접근 설정을 저장"
 #. TRANS: Save button for settings for a profile in a subscriptions list.
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
-#: actions/accessadminpanel.php:193 actions/emailsettings.php:228
+#. TRANS: Button text on profile design page to save settings.
+#: actions/accessadminpanel.php:193 actions/emailsettings.php:232
 #: actions/imsettings.php:187 actions/othersettings.php:134
 #: actions/pathsadminpanel.php:512 actions/profilesettings.php:201
 #: actions/sitenoticeadminpanel.php:197 actions/smssettings.php:209
 #: actions/subscriptions.php:246 actions/useradminpanel.php:298
-#: lib/applicationeditform.php:355 lib/groupeditform.php:207
+#: lib/applicationeditform.php:355 lib/designsettings.php:270
+#: lib/groupeditform.php:207
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "저장"
@@ -104,6 +106,7 @@ msgid "No such page."
 msgstr "해당하는 페이지 없음"
 
 #. TRANS: Client error when user not found for an action.
+#. TRANS: Client error when user not found for an rss related action.
 #. TRANS: Client error displayed when no existing user is provided for a user's delivery device setting.
 #. TRANS: Client error displayed if a user could not be found.
 #. TRANS: Client error when user not found updating a profile background image.
@@ -124,24 +127,26 @@ msgstr "해당하는 페이지 없음"
 #. TRANS: Client error displayed requesting most recent notices for a non-existing user.
 #. TRANS: Client error displayed trying to get an avatar for a non-existing user.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
-#: actions/all.php:80 actions/apiaccountupdatedeliverydevice.php:110
+#: actions/all.php:80 actions/allrss.php:69
+#: actions/apiaccountupdatedeliverydevice.php:110
 #: actions/apiaccountupdateprofile.php:103
 #: actions/apiaccountupdateprofilebackgroundimage.php:118
-#: actions/apiaccountupdateprofileimage.php:104 actions/apiblockcreate.php:95
-#: actions/apiblockdestroy.php:94 actions/apidirectmessage.php:75
-#: actions/apidirectmessagenew.php:72 actions/apigroupcreate.php:111
-#: actions/apigroupismember.php:89 actions/apigroupjoin.php:98
-#: actions/apigroupleave.php:98 actions/apigrouplist.php:70
-#: actions/apistatusesupdate.php:230 actions/apisubscriptions.php:85
-#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:173
-#: actions/apitimelinehome.php:78 actions/apitimelinementions.php:77
-#: actions/apitimelineuser.php:79 actions/avatarbynickname.php:79
-#: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/hcard.php:67 actions/microsummary.php:62 actions/newmessage.php:116
-#: actions/otp.php:76 actions/remotesubscribe.php:145
-#: actions/remotesubscribe.php:154 actions/replies.php:73
-#: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
-#: actions/userbyid.php:74 actions/usergroups.php:93 actions/userrss.php:40
+#: actions/apiaccountupdateprofileimage.php:104 actions/apiatomservice.php:60
+#: actions/apiblockcreate.php:95 actions/apiblockdestroy.php:94
+#: actions/apidirectmessage.php:75 actions/apidirectmessagenew.php:72
+#: actions/apigroupcreate.php:111 actions/apigroupismember.php:89
+#: actions/apigroupjoin.php:98 actions/apigroupleave.php:98
+#: actions/apigrouplist.php:70 actions/apistatusesupdate.php:230
+#: actions/apisubscriptions.php:85 actions/apitimelinefavorites.php:70
+#: actions/apitimelinefriends.php:173 actions/apitimelinehome.php:78
+#: actions/apitimelinementions.php:77 actions/apitimelineuser.php:79
+#: actions/avatarbynickname.php:79 actions/favoritesrss.php:74
+#: actions/foaf.php:40 actions/foaf.php:58 actions/hcard.php:67
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
+#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
+#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
+#: actions/showfavorites.php:105 actions/userbyid.php:74
+#: actions/usergroups.php:93 actions/userrss.php:40 actions/userxrd.php:59
 #: actions/xrds.php:71 lib/command.php:497 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
@@ -157,9 +162,9 @@ msgstr "%s 및 친구들, %d 페이지"
 #. TRANS: H1 text for page. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Timeline title for user and friends. %s is a user nickname.
-#: actions/all.php:94 actions/all.php:191 actions/allrss.php:115
+#: actions/all.php:94 actions/all.php:191 actions/allrss.php:117
 #: actions/apitimelinefriends.php:207 actions/apitimelinehome.php:113
-#: lib/personalgroupnav.php:100
+#: lib/personalgroupnav.php:103
 #, php-format
 msgid "%s and friends"
 msgstr "%s 및 친구들"
@@ -227,7 +232,7 @@ msgstr "당신 및 친구들"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
-#: actions/allrss.php:120 actions/apitimelinefriends.php:213
+#: actions/allrss.php:122 actions/apitimelinefriends.php:213
 #: actions/apitimelinehome.php:119
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
@@ -272,7 +277,7 @@ msgstr "%2$s에 있는 %1$s 및 친구들의 업데이트!"
 #: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:239
 #: actions/apitimelineretweetedtome.php:118
 #: actions/apitimelineretweetsofme.php:150 actions/apitimelinetag.php:159
-#: actions/apitimelineuser.php:158 actions/apiusershow.php:100
+#: actions/apitimelineuser.php:206 actions/apiusershow.php:100
 msgid "API method not found."
 msgstr "API 메서드 발견 안 됨."
 
@@ -327,11 +332,13 @@ msgstr "프로필을 저장 할 수 없습니다."
 
 #. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
 #. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
+#. TRANS: Form validation error in design settings form. POST should remain untranslated.
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:95 actions/apimediaupload.php:81
 #: actions/apistatusesupdate.php:210 actions/avatarsettings.php:269
 #: actions/designadminpanel.php:125 actions/editapplication.php:121
 #: actions/newapplication.php:104 actions/newnotice.php:95
+#: lib/designsettings.php:298
 #, fuzzy, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s byte) due to its "
@@ -363,6 +370,20 @@ msgstr "디자인 설정을 저장할 수 없습니다."
 #: actions/apiaccountupdateprofilecolors.php:139
 msgid "Could not update your design."
 msgstr "디자인을 업데이트 할 수 없습니다."
+
+#: actions/apiatomservice.php:85
+msgid "Main"
+msgstr ""
+
+#. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title in atom group notice feed. %s is a group name.
+#. TRANS: Title in atom user notice feed. %s is a user name.
+#: actions/apiatomservice.php:92 actions/grouprss.php:139
+#: actions/userrss.php:94 lib/atomgroupnoticefeed.php:63
+#: lib/atomusernoticefeed.php:68
+#, php-format
+msgid "%s timeline"
+msgstr "%s 타임라인"
 
 #. TRANS: Client error displayed when users try to block themselves.
 #: actions/apiblockcreate.php:104
@@ -490,7 +511,7 @@ msgstr "자기 자신을 언팔로우할 수 없습니다."
 #. TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
 #: actions/apifriendshipsexists.php:88
 #, fuzzy
-msgid "Two valid IDs or screen_names must be supplied."
+msgid "Two valid IDs or nick names must be supplied."
 msgstr "두 개의 사용자 ID나 대화명을 입력해야 합니다."
 
 #. TRANS: Client error displayed when a source user could not be determined showing friendship.
@@ -503,24 +524,13 @@ msgstr "소스 이용자를 확인할 수 없습니다."
 msgid "Could not find target user."
 msgstr "타겟 이용자를 찾을 수 없습니다."
 
-#. TRANS: Group edit form validation error.
-#. TRANS: Group create form validation error.
-#. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:165 actions/editgroup.php:191
-#: actions/newgroup.php:127 actions/profilesettings.php:243
-#: actions/register.php:212
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
-"별명은 반드시 영소문자와 숫자로만 이루어져야 하며 스페이스의 사용이 불가 합니"
-"다."
-
 #. TRANS: Client error trying to create a group with a nickname this is already in use.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:175 actions/editgroup.php:196
-#: actions/newgroup.php:132 actions/profilesettings.php:277
-#: actions/register.php:215
+#: actions/apigroupcreate.php:156 actions/editgroup.php:189
+#: actions/newgroup.php:129 actions/profilesettings.php:277
+#: actions/register.php:214
 msgid "Nickname already in use. Try another one."
 msgstr "별명이 이미 사용중 입니다. 다른 별명을 시도해 보십시오."
 
@@ -528,9 +538,9 @@ msgstr "별명이 이미 사용중 입니다. 다른 별명을 시도해 보십�
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:183 actions/editgroup.php:200
-#: actions/newgroup.php:136 actions/profilesettings.php:247
-#: actions/register.php:217
+#: actions/apigroupcreate.php:164 actions/editgroup.php:193
+#: actions/newgroup.php:133 actions/profilesettings.php:247
+#: actions/register.php:216
 msgid "Not a valid nickname."
 msgstr "유효한 별명이 아닙니다"
 
@@ -539,10 +549,10 @@ msgstr "유효한 별명이 아닙니다"
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:200 actions/editapplication.php:233
-#: actions/editgroup.php:207 actions/newapplication.php:211
-#: actions/newgroup.php:143 actions/profilesettings.php:252
-#: actions/register.php:224
+#: actions/apigroupcreate.php:181 actions/editapplication.php:233
+#: actions/editgroup.php:200 actions/newapplication.php:211
+#: actions/newgroup.php:140 actions/profilesettings.php:252
+#: actions/register.php:223
 msgid "Homepage is not a valid URL."
 msgstr "홈페이지 주소형식이 올바르지 않습니다."
 
@@ -550,9 +560,9 @@ msgstr "홈페이지 주소형식이 올바르지 않습니다."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:210 actions/editgroup.php:211
-#: actions/newgroup.php:147 actions/profilesettings.php:256
-#: actions/register.php:227
+#: actions/apigroupcreate.php:191 actions/editgroup.php:204
+#: actions/newgroup.php:144 actions/profilesettings.php:256
+#: actions/register.php:226
 #, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
 msgstr "실명이 너무 깁니다. (최대 255글자)"
@@ -565,9 +575,9 @@ msgstr "실명이 너무 깁니다. (최대 255글자)"
 #. TRANS: %d is the maximum number of characters for the description.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed characters.
-#: actions/apigroupcreate.php:220 actions/editapplication.php:201
-#: actions/editgroup.php:216 actions/newapplication.php:178
-#: actions/newgroup.php:152
+#: actions/apigroupcreate.php:201 actions/editapplication.php:201
+#: actions/editgroup.php:209 actions/newapplication.php:178
+#: actions/newgroup.php:149
 #, fuzzy, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
@@ -577,9 +587,9 @@ msgstr[0] "설명이 너무 깁니다. (최대 %d 글자)"
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:234 actions/editgroup.php:223
-#: actions/newgroup.php:159 actions/profilesettings.php:269
-#: actions/register.php:236
+#: actions/apigroupcreate.php:215 actions/editgroup.php:216
+#: actions/newgroup.php:156 actions/profilesettings.php:269
+#: actions/register.php:235
 #, fuzzy
 msgid "Location is too long (maximum 255 characters)."
 msgstr "위치가 너무 깁니다. (최대 255글자)"
@@ -590,8 +600,8 @@ msgstr "위치가 너무 깁니다. (최대 255글자)"
 #. TRANS: %d is the maximum number of allowed aliases.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed aliases.
-#: actions/apigroupcreate.php:255 actions/editgroup.php:236
-#: actions/newgroup.php:172
+#: actions/apigroupcreate.php:236 actions/editgroup.php:229
+#: actions/newgroup.php:169
 #, fuzzy, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
@@ -599,7 +609,7 @@ msgstr[0] "별명이 너무 많습니다! 최대 %d개."
 
 #. TRANS: Client error shown when providing an invalid alias during group creation.
 #. TRANS: %s is the invalid alias.
-#: actions/apigroupcreate.php:280
+#: actions/apigroupcreate.php:253
 #, fuzzy, php-format
 msgid "Invalid alias: \"%s\"."
 msgstr "사용할 수 없는 별명 : \"%s\""
@@ -608,8 +618,8 @@ msgstr "사용할 수 없는 별명 : \"%s\""
 #. TRANS: %s is the alias that is already in use.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/apigroupcreate.php:291 actions/editgroup.php:253
-#: actions/newgroup.php:189
+#: actions/apigroupcreate.php:264 actions/editgroup.php:244
+#: actions/newgroup.php:184
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "별명 \"%s\" 이 이미 사용중 입니다. 다른 별명을 시도해 보십시오."
@@ -617,8 +627,8 @@ msgstr "별명 \"%s\" 이 이미 사용중 입니다. 다른 별명을 시도해
 #. TRANS: Client error displayed when trying to use an alias during group creation that is the same as the group's nickname.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/apigroupcreate.php:305 actions/editgroup.php:260
-#: actions/newgroup.php:196
+#: actions/apigroupcreate.php:278 actions/editgroup.php:251
+#: actions/newgroup.php:191
 msgid "Alias can't be the same as nickname."
 msgstr ""
 
@@ -726,7 +736,7 @@ msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
 #: actions/deletenotice.php:177 actions/disfavor.php:74
-#: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
+#: actions/emailsettings.php:275 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:65 actions/imsettings.php:230
 #: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
@@ -738,7 +748,7 @@ msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 #: actions/repeat.php:83 actions/smssettings.php:256 actions/subedit.php:40
 #: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
-#: lib/designsettings.php:294
+#: lib/designsettings.php:310
 msgid "There was a problem with your session token. Try again, please."
 msgstr "세션토큰에 문제가 있습니다. 다시 시도해주십시오."
 
@@ -760,12 +770,13 @@ msgstr "OAuth 응용 프로그램 사용자 추가 중 데이터베이스 오류
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
 #. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
+#. TRANS: Unknown form validation error in design settings form.
 #: actions/apioauthauthorize.php:294 actions/avatarsettings.php:294
 #: actions/designadminpanel.php:104 actions/editapplication.php:144
-#: actions/emailsettings.php:290 actions/grouplogo.php:322
+#: actions/emailsettings.php:294 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:125
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
-#: actions/smssettings.php:277 lib/designsettings.php:304
+#: actions/smssettings.php:277 lib/designsettings.php:321
 msgid "Unexpected form submission."
 msgstr "잘못된 폼 제출"
 
@@ -780,7 +791,7 @@ msgid "Allow or deny access"
 msgstr "접근 허용 또는 거부"
 
 #. TRANS: User notification of external application requesting account access.
-#. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
+#. TRANS: %3$s is the access type requested (read-write or read-only), %4$s is the StatusNet sitename.
 #: actions/apioauthauthorize.php:425
 #, fuzzy, php-format
 msgid ""
@@ -817,17 +828,17 @@ msgstr "계정"
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group nickname (dt). Text hidden by default.
 #: actions/apioauthauthorize.php:459 actions/login.php:252
-#: actions/profilesettings.php:110 actions/register.php:433
-#: actions/showgroup.php:245 actions/tagother.php:94
+#: actions/profilesettings.php:110 actions/register.php:432
+#: actions/showgroup.php:240 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
-#: lib/userprofile.php:132
+#: lib/userprofile.php:134
 msgid "Nickname"
 msgstr "별명"
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
 #: actions/apioauthauthorize.php:463 actions/login.php:255
-#: actions/register.php:438 lib/accountsettingsaction.php:120
+#: actions/register.php:437 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "비밀 번호"
 
@@ -930,15 +941,39 @@ msgstr "자기 자신의 소식은 재전송할 수 없습니다."
 msgid "Already repeated that notice."
 msgstr "이미 재전송된 소식입니다."
 
+#: actions/apistatusesshow.php:117
+#, fuzzy
+msgid "HTTP method not supported."
+msgstr "API 메서드 발견 안 됨."
+
+#: actions/apistatusesshow.php:141
+#, fuzzy, php-format
+msgid "Unsupported format: %s"
+msgstr "지원하지 않는 형식입니다."
+
 #. TRANS: Client error displayed requesting a deleted status.
-#: actions/apistatusesshow.php:134
+#: actions/apistatusesshow.php:152
 msgid "Status deleted."
 msgstr "삭제된 소식입니다."
 
 #. TRANS: Client error displayed requesting a status with an invalid ID.
-#: actions/apistatusesshow.php:141
+#: actions/apistatusesshow.php:159
 msgid "No status with that ID found."
 msgstr "발견된 ID의 상태가 없습니다."
+
+#: actions/apistatusesshow.php:227
+msgid "Can only delete using the Atom format."
+msgstr ""
+
+#. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
+#: actions/apistatusesshow.php:234 actions/deletenotice.php:78
+msgid "Can't delete this notice."
+msgstr "이 통지를 지울 수 없습니다."
+
+#: actions/apistatusesshow.php:247
+#, fuzzy, php-format
+msgid "Deleted notice %d"
+msgstr "통지 삭제"
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:221
@@ -1056,6 +1091,38 @@ msgstr "%s 태그된 통지"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%2$s에 있는 %1$s의 업데이트!"
 
+#: actions/apitimelineuser.php:300
+#, fuzzy
+msgid "Only the user can add to their own timeline."
+msgstr "오직 해당 사용자만 자신의 메일박스를 열람할 수 있습니다."
+
+#: actions/apitimelineuser.php:306
+msgid "Only accept AtomPub for atom feeds."
+msgstr ""
+
+#: actions/apitimelineuser.php:316
+msgid "Atom post must be an Atom entry."
+msgstr ""
+
+#: actions/apitimelineuser.php:325
+msgid "Can only handle post activities."
+msgstr ""
+
+#: actions/apitimelineuser.php:334
+#, php-format
+msgid "Cannot handle activity object type \"%s\""
+msgstr ""
+
+#: actions/apitimelineuser.php:392
+#, fuzzy, php-format
+msgid "Notice with URI \"%s\" already exists."
+msgstr "해당 id의 프로필이 없습니다."
+
+#: actions/apitimelineuser.php:423
+#, php-format
+msgid "AtomPub post with unknown attention URI %s"
+msgstr ""
+
 #. TRANS: Server error for unfinished API method showTrends.
 #: actions/apitrends.php:85
 msgid "API method under construction."
@@ -1078,7 +1145,7 @@ msgstr "해당하는 첨부파일이 없습니다."
 #: actions/avatarbynickname.php:60 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:85 actions/groupdesignsettings.php:84
 #: actions/grouplogo.php:86 actions/groupmembers.php:76
-#: actions/grouprss.php:91 actions/showgroup.php:121
+#: actions/grouprss.php:91 actions/showgroup.php:116
 msgid "No nickname."
 msgstr "별명이 없습니다."
 
@@ -1095,7 +1162,7 @@ msgstr "옳지 않은 크기"
 #. TRANS: Title for avatar upload page.
 #. TRANS: Label for group avatar (dt). Text hidden by default.
 #. TRANS: Link description in user account settings menu.
-#: actions/avatarsettings.php:66 actions/showgroup.php:229
+#: actions/avatarsettings.php:66 actions/showgroup.php:224
 #: lib/accountsettingsaction.php:113
 msgid "Avatar"
 msgstr "아바타"
@@ -1270,7 +1337,7 @@ msgstr "정보차단을 저장하는데 실패했습니다."
 #: actions/groupunblock.php:88 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:139 actions/showgroup.php:148 lib/command.php:168
+#: actions/showgroup.php:134 actions/showgroup.php:143 lib/command.php:168
 #: lib/command.php:380
 msgid "No such group."
 msgstr "그러한 그룹이 없습니다."
@@ -1355,8 +1422,8 @@ msgstr "그 주소는 이미 승인되었습니다."
 #. TRANS: Server error thrown when user profile settings could not be updated.
 #. TRANS: Server error thrown on database error updating SMS preferences.
 #. TRANS: Server error thrown on database error removing a registered SMS phone number.
-#: actions/confirmaddress.php:118 actions/emailsettings.php:331
-#: actions/emailsettings.php:477 actions/imsettings.php:283
+#: actions/confirmaddress.php:118 actions/emailsettings.php:337
+#: actions/emailsettings.php:486 actions/imsettings.php:283
 #: actions/imsettings.php:442 actions/othersettings.php:184
 #: actions/profilesettings.php:326 actions/smssettings.php:308
 #: actions/smssettings.php:464
@@ -1413,7 +1480,7 @@ msgstr "이 응용프로그램 삭제 않기"
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:131
 #: actions/newapplication.php:114 actions/showapplication.php:118
-#: lib/action.php:1404
+#: lib/action.php:1409
 msgid "There was a problem with your session token."
 msgstr "당신의 세션토큰관련 문제가 있습니다."
 
@@ -1515,11 +1582,6 @@ msgstr "이 사용자 삭제"
 msgid "Not logged in."
 msgstr "로그인하고 있지 않습니다."
 
-#. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
-#: actions/deletenotice.php:78
-msgid "Can't delete this notice."
-msgstr "이 통지를 지울 수 없습니다."
-
 #. TRANS: Instructions for deleting a notice.
 #: actions/deletenotice.php:110
 #, fuzzy
@@ -1547,7 +1609,7 @@ msgid "Do not delete this notice"
 msgstr "이 통지를 지울 수 없습니다."
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:166 lib/noticelist.php:667
+#: actions/deletenotice.php:166 lib/noticelist.php:672
 msgid "Delete this notice"
 msgstr "이 게시글 삭제하기"
 
@@ -1631,12 +1693,14 @@ msgstr "사용자 지정 테마"
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
 
-#: actions/designadminpanel.php:512 lib/designsettings.php:101
+#. TRANS: Fieldset legend on profile design page.
+#: actions/designadminpanel.php:512 lib/designsettings.php:98
 msgid "Change background image"
 msgstr "배경 이미지 바꾸기"
 
+#. TRANS: Label on profile design page for setting a profile page background colour.
 #: actions/designadminpanel.php:517 actions/designadminpanel.php:600
-#: lib/designsettings.php:178
+#: lib/designsettings.php:183
 msgid "Background"
 msgstr "배경"
 
@@ -1649,40 +1713,48 @@ msgstr ""
 "사이트의 배경 이미지를 업로드할 수 있습니다. 최대 파일 크기는 %1$s 입니다."
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:553 lib/designsettings.php:139
+#: actions/designadminpanel.php:553
 msgid "On"
 msgstr "켜기"
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:570 lib/designsettings.php:155
+#: actions/designadminpanel.php:570
 msgid "Off"
 msgstr "끄기"
 
-#: actions/designadminpanel.php:571 lib/designsettings.php:156
+#. TRANS: Form guide for a set of radio buttons on the profile design page that will enable or disable
+#. TRANS: use of the uploaded profile image.
+#: actions/designadminpanel.php:571 lib/designsettings.php:159
 msgid "Turn background image on or off."
 msgstr "배경 이미지를 켜거나 끈다."
 
-#: actions/designadminpanel.php:576 lib/designsettings.php:161
+#. TRANS: Checkbox label on profile design page that will cause the profile image to be tiled.
+#: actions/designadminpanel.php:576 lib/designsettings.php:165
 msgid "Tile background image"
 msgstr "배경 이미지를 반복 나열"
 
-#: actions/designadminpanel.php:590 lib/designsettings.php:170
+#. TRANS: Fieldset legend on profile design page to change profile page colours.
+#: actions/designadminpanel.php:590 lib/designsettings.php:175
 msgid "Change colours"
 msgstr "색상 변경"
 
-#: actions/designadminpanel.php:613 lib/designsettings.php:191
+#. TRANS: Label on profile design page for setting a profile page content colour.
+#: actions/designadminpanel.php:613 lib/designsettings.php:197
 msgid "Content"
 msgstr "만족하는"
 
-#: actions/designadminpanel.php:626 lib/designsettings.php:204
+#. TRANS: Label on profile design page for setting a profile page sidebar colour.
+#: actions/designadminpanel.php:626 lib/designsettings.php:211
 msgid "Sidebar"
 msgstr "가장자리 창"
 
-#: actions/designadminpanel.php:639 lib/designsettings.php:217
+#. TRANS: Label on profile design page for setting a profile page text colour.
+#: actions/designadminpanel.php:639 lib/designsettings.php:225
 msgid "Text"
 msgstr "문자"
 
-#: actions/designadminpanel.php:652 lib/designsettings.php:230
+#. TRANS: Label on profile design page for setting a profile page links colour.
+#: actions/designadminpanel.php:652 lib/designsettings.php:239
 msgid "Links"
 msgstr "링크"
 
@@ -1694,15 +1766,18 @@ msgstr "고급 검색"
 msgid "Custom CSS"
 msgstr "사용자 정의 CSS"
 
-#: actions/designadminpanel.php:702 lib/designsettings.php:247
+#. TRANS: Button text on profile design page to immediately reset all colour settings to default.
+#: actions/designadminpanel.php:702 lib/designsettings.php:257
 msgid "Use defaults"
 msgstr "기본값 사용"
 
-#: actions/designadminpanel.php:703 lib/designsettings.php:248
+#. TRANS: Title for button on profile design page to reset all colour settings to default.
+#: actions/designadminpanel.php:703 lib/designsettings.php:259
 msgid "Restore default designs"
 msgstr ""
 
-#: actions/designadminpanel.php:709 lib/designsettings.php:254
+#. TRANS: Title for button on profile design page to reset all colour settings to default without saving.
+#: actions/designadminpanel.php:709 lib/designsettings.php:267
 msgid "Reset back to default"
 msgstr ""
 
@@ -1710,11 +1785,12 @@ msgstr ""
 #: actions/designadminpanel.php:711 actions/licenseadminpanel.php:319
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/snapshotadminpanel.php:245 actions/tagother.php:154
-#: lib/applicationeditform.php:357 lib/designsettings.php:256
+#: lib/applicationeditform.php:357
 msgid "Save"
 msgstr "저장"
 
-#: actions/designadminpanel.php:712 lib/designsettings.php:257
+#. TRANS: Title for button on profile design page to save settings.
+#: actions/designadminpanel.php:712 lib/designsettings.php:272
 msgid "Save design"
 msgstr "디자인 저장"
 
@@ -1840,24 +1916,24 @@ msgstr "다음 양식을 이용해 그룹을 편집하십시오."
 
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/editgroup.php:248 actions/newgroup.php:184
+#: actions/editgroup.php:239 actions/newgroup.php:179
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "사용할 수 없는 별명 : \"%s\""
 
 #. TRANS: Server error displayed when editing a group fails.
-#: actions/editgroup.php:281
+#: actions/editgroup.php:272
 msgid "Could not update group."
 msgstr "그룹을 업데이트 할 수 없습니다."
 
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:288 classes/User_group.php:513
+#: actions/editgroup.php:279 classes/User_group.php:529
 msgid "Could not create aliases."
 msgstr "관심소식을 생성할 수 없습니다."
 
 #. TRANS: Group edit form success message.
-#: actions/editgroup.php:305
+#: actions/editgroup.php:296
 msgid "Options saved."
 msgstr "옵션을 저장했습니다."
 
@@ -1953,81 +2029,81 @@ msgid "Email preferences"
 msgstr "메일 설정"
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:184
+#: actions/emailsettings.php:186
 msgid "Send me notices of new subscriptions through email."
 msgstr "새로운 예약 구독의 통지를 메일로 보내주세요."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:190
+#: actions/emailsettings.php:192
 msgid "Send me email when someone adds my notice as a favorite."
 msgstr "누군가 내 글을 좋아하는 게시글로 추가했을 때, 메일을 보냅니다."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:197
+#: actions/emailsettings.php:199
 msgid "Send me email when someone sends me a private message."
 msgstr "누군가 내게 비밀메시지를 보냈을 때, 메일을 보냅니다."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:203
+#: actions/emailsettings.php:205
 msgid "Send me email when someone sends me an \"@-reply\"."
 msgstr "누군가 내게 @ 답장을 보냈을 때, 메일을 보냅니다."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:209
+#: actions/emailsettings.php:211
 msgid "Allow friends to nudge me and send me an email."
 msgstr "친구들이 내게 메일이나 쪽지를 보낼 수 있도록 허용합니다."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:216
+#: actions/emailsettings.php:218
 msgid "I want to post notices by email."
 msgstr "메일로 통보를 포스트합니다."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:223
+#: actions/emailsettings.php:225
 msgid "Publish a MicroID for my email address."
 msgstr "메일 주소를 위한 MicroID의 생성"
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
-#: actions/emailsettings.php:338
+#: actions/emailsettings.php:346
 msgid "Email preferences saved."
 msgstr "메일 설정이 저장되었습니다."
 
 #. TRANS: Message given saving e-mail address without having provided one.
-#: actions/emailsettings.php:357
+#: actions/emailsettings.php:366
 msgid "No email address."
 msgstr "메일 주소가 없습니다."
 
 #. TRANS: Message given saving e-mail address that cannot be normalised.
-#: actions/emailsettings.php:365
+#: actions/emailsettings.php:374
 msgid "Cannot normalize that email address"
 msgstr "메일 주소를 정규화 할 수 없습니다."
 
 #. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:370 actions/register.php:208
+#: actions/emailsettings.php:379 actions/register.php:212
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "올바른 메일 주소가 아닙니다."
 
 #. TRANS: Message given saving e-mail address that is already set.
-#: actions/emailsettings.php:374
+#: actions/emailsettings.php:383
 msgid "That is already your email address."
 msgstr "그 메일 주소는 이미 귀하의 것입니다."
 
 #. TRANS: Message given saving e-mail address that is already set for another user.
-#: actions/emailsettings.php:378
+#: actions/emailsettings.php:387
 msgid "That email address already belongs to another user."
 msgstr "그 메일 주소는 이미 다른 사용자의 소유입니다."
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
 #. TRANS: Server error thrown on database error adding SMS confirmation code.
-#: actions/emailsettings.php:395 actions/imsettings.php:351
+#: actions/emailsettings.php:404 actions/imsettings.php:351
 #: actions/smssettings.php:373
 msgid "Couldn't insert confirmation code."
 msgstr "확인 코드를 추가 할 수 없습니다."
 
 #. TRANS: Message given saving valid e-mail address that is to be confirmed.
-#: actions/emailsettings.php:402
+#: actions/emailsettings.php:411
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
@@ -2038,57 +2114,57 @@ msgstr ""
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
 #. TRANS: Message given canceling IM address confirmation that is not pending.
 #. TRANS: Message given canceling SMS phone number confirmation that is not pending.
-#: actions/emailsettings.php:423 actions/imsettings.php:386
+#: actions/emailsettings.php:432 actions/imsettings.php:386
 #: actions/smssettings.php:408
 msgid "No pending confirmation to cancel."
 msgstr "취소 할 대기중인 인증이 없습니다."
 
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
-#: actions/emailsettings.php:428
+#: actions/emailsettings.php:437
 #, fuzzy
 msgid "That is the wrong email address."
 msgstr "옳지 않은 메신저 계정 입니다."
 
 #. TRANS: Server error thrown on database error canceling e-mail address confirmation.
 #. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
-#: actions/emailsettings.php:437 actions/smssettings.php:422
+#: actions/emailsettings.php:446 actions/smssettings.php:422
 msgid "Couldn't delete email confirmation."
 msgstr "메일 승인을 삭제 할 수 없습니다."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
-#: actions/emailsettings.php:442
+#: actions/emailsettings.php:451
 msgid "Email confirmation cancelled."
 msgstr "취소 할 대기중인 인증이 없습니다."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
-#: actions/emailsettings.php:462
+#: actions/emailsettings.php:471
 msgid "That is not your email address."
 msgstr "그 메일 주소는 귀하의 것이 아닙니다."
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
-#: actions/emailsettings.php:483
+#: actions/emailsettings.php:492
 msgid "The email address was removed."
 msgstr "메일 주소를 지웠습니다."
 
-#: actions/emailsettings.php:497 actions/smssettings.php:568
+#: actions/emailsettings.php:506 actions/smssettings.php:568
 msgid "No incoming email address."
 msgstr "받는 메일 주소가 없습니다."
 
 #. TRANS: Server error thrown on database error removing incoming e-mail address.
 #. TRANS: Server error thrown on database error adding incoming e-mail address.
-#: actions/emailsettings.php:508 actions/emailsettings.php:532
+#: actions/emailsettings.php:517 actions/emailsettings.php:541
 #: actions/smssettings.php:578 actions/smssettings.php:602
 msgid "Couldn't update user record."
 msgstr "사용자 기록을 업데이트 할 수 없습니다."
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
-#: actions/emailsettings.php:512 actions/smssettings.php:581
+#: actions/emailsettings.php:521 actions/smssettings.php:581
 msgid "Incoming email address removed."
 msgstr "받는 메일 주소를 지웠습니다."
 
 #. TRANS: Message given after successfully adding an incoming e-mail address.
-#: actions/emailsettings.php:536 actions/smssettings.php:605
+#: actions/emailsettings.php:545 actions/smssettings.php:605
 msgid "New incoming email address added."
 msgstr "새로운 받는 메일 주소를 추가했습니다."
 
@@ -2100,7 +2176,7 @@ msgstr "이 게시글은 이미 좋아하는 게시글입니다."
 msgid "Disfavor favorite"
 msgstr "좋아하는글 취소"
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:91
+#: actions/favorited.php:65 lib/popularnoticesection.php:62
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "인기있는 게시글"
@@ -2132,7 +2208,7 @@ msgid ""
 msgstr ""
 
 #: actions/favoritesrss.php:111 actions/showfavorites.php:77
-#: lib/personalgroupnav.php:115
+#: lib/personalgroupnav.php:118
 #, php-format
 msgid "%s's favorite notices"
 msgstr "%s 님의 좋아하는 글"
@@ -2316,8 +2392,10 @@ msgid ""
 "palette of your choice."
 msgstr ""
 
+#. TRANS: Error message displayed if design settings could not be saved.
+#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
 #: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
-#: lib/designsettings.php:391 lib/designsettings.php:413
+#: lib/designsettings.php:405 lib/designsettings.php:427
 msgid "Couldn't update your design."
 msgstr "디자인을 수정할 수 없습니다."
 
@@ -2405,15 +2483,6 @@ msgstr "관리자 만들기"
 msgctxt "TOOLTIP"
 msgid "Make this user an admin"
 msgstr ""
-
-#. TRANS: Message is used as link title. %s is a user nickname.
-#. TRANS: Title in atom group notice feed. %s is a group name.
-#. TRANS: Title in atom user notice feed. %s is a user name.
-#: actions/grouprss.php:139 actions/userrss.php:94
-#: lib/atomgroupnoticefeed.php:63 lib/atomusernoticefeed.php:68
-#, php-format
-msgid "%s timeline"
-msgstr "%s 타임라인"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #: actions/grouprss.php:142
@@ -2979,11 +3048,11 @@ msgstr "로그인"
 msgid "Login to site"
 msgstr "사이트에 로그인하세요."
 
-#: actions/login.php:258 actions/register.php:492
+#: actions/login.php:258 actions/register.php:491
 msgid "Remember me"
 msgstr "자동 로그인"
 
-#: actions/login.php:259 actions/register.php:494
+#: actions/login.php:259 actions/register.php:493
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "앞으로는 자동으로 로그인합니다. 공용 컴퓨터에서는 이용하지 마십시오!"
 
@@ -3249,26 +3318,26 @@ msgstr ""
 msgid "Notice has no profile."
 msgstr "이용자가 프로필을 가지고 있지 않습니다."
 
-#: actions/oembed.php:87 actions/shownotice.php:176
+#: actions/oembed.php:83 actions/shownotice.php:172
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%1$s의 상태 (%2$s에서)"
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
-#: actions/oembed.php:159
+#: actions/oembed.php:168
 #, fuzzy, php-format
 msgid "Content type %s not supported."
 msgstr "연결"
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
-#: actions/oembed.php:163
+#: actions/oembed.php:172
 #, php-format
 msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1200
-#: lib/apiaction.php:1227 lib/apiaction.php:1356
+#: actions/oembed.php:193 actions/oembed.php:212 lib/apiaction.php:1206
+#: lib/apiaction.php:1233 lib/apiaction.php:1362
 msgid "Not a supported data format."
 msgstr "지원하는 형식의 데이터가 아닙니다."
 
@@ -3383,7 +3452,7 @@ msgid "6 or more characters"
 msgstr "6글자 이상"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:442
+#: actions/register.php:441
 msgid "Confirm"
 msgstr "인증"
 
@@ -3395,11 +3464,11 @@ msgstr "위와 같은 비밀 번호"
 msgid "Change"
 msgstr "변경"
 
-#: actions/passwordsettings.php:154 actions/register.php:239
+#: actions/passwordsettings.php:154 actions/register.php:238
 msgid "Password must be 6 or more characters."
 msgstr "비밀번호는 6자리 이상이어야 합니다."
 
-#: actions/passwordsettings.php:157 actions/register.php:242
+#: actions/passwordsettings.php:157 actions/register.php:241
 msgid "Passwords don't match."
 msgstr "비밀 번호가 일치하지 않습니다."
 
@@ -3629,7 +3698,7 @@ msgstr ""
 
 #. TRANS: Fieldset legens in Paths admin panel.
 #. TRANS: DT element label in attachment list.
-#: actions/pathsadminpanel.php:419 lib/attachmentlist.php:85
+#: actions/pathsadminpanel.php:419 lib/attachmentlist.php:99
 msgid "Attachments"
 msgstr "첨부파일"
 
@@ -3759,15 +3828,15 @@ msgstr "1-64자 사이에 영소문자, 숫자로만 씁니다. 기호나 공백
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for full group name (dt). Text hidden by default.
-#: actions/profilesettings.php:117 actions/register.php:457
-#: actions/showgroup.php:257 actions/tagother.php:104
-#: lib/groupeditform.php:157 lib/userprofile.php:150
+#: actions/profilesettings.php:117 actions/register.php:456
+#: actions/showgroup.php:252 actions/tagother.php:104
+#: lib/groupeditform.php:157 lib/userprofile.php:152
 msgid "Full name"
 msgstr "실명"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:122 actions/register.php:462
+#: actions/profilesettings.php:122 actions/register.php:461
 #: lib/applicationeditform.php:236 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "홈페이지"
@@ -3781,34 +3850,34 @@ msgstr "귀하의 홈페이지, 블로그 혹은 다른 사이트의 프로필 �
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#: actions/profilesettings.php:133 actions/register.php:473
+#: actions/profilesettings.php:133 actions/register.php:472
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
 msgstr[0] "%d자 이내에서 자기 소개 및 자기 관심사"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:139 actions/register.php:478
+#: actions/profilesettings.php:139 actions/register.php:477
 msgid "Describe yourself and your interests"
 msgstr "자기 소개 및 자기 관심사"
 
 #. TRANS: Text area label in form for profile settings where users can provide.
 #. TRANS: their biography.
-#: actions/profilesettings.php:143 actions/register.php:480
+#: actions/profilesettings.php:143 actions/register.php:479
 msgid "Bio"
 msgstr "자기소개"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group location (dt). Text hidden by default.
-#: actions/profilesettings.php:149 actions/register.php:485
-#: actions/showgroup.php:267 actions/tagother.php:112
+#: actions/profilesettings.php:149 actions/register.php:484
+#: actions/showgroup.php:262 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:180
-#: lib/userprofile.php:165
+#: lib/userprofile.php:167
 msgid "Location"
 msgstr "위치"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:152 actions/register.php:487
+#: actions/profilesettings.php:152 actions/register.php:486
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "당신은 어디에 삽니까? \"시, 도 (or 군,구), 나라\""
 
@@ -3820,7 +3889,7 @@ msgstr ""
 #. TRANS: Field label in form for profile settings.
 #: actions/profilesettings.php:165 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
-#: lib/subscriptionlist.php:108 lib/userprofile.php:210
+#: lib/subscriptionlist.php:108 lib/userprofile.php:212
 msgid "Tags"
 msgstr "태그"
 
@@ -3859,7 +3928,7 @@ msgstr "나에게 구독하는 사람에게 자동 구독 신청"
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
-#: actions/profilesettings.php:262 actions/register.php:230
+#: actions/profilesettings.php:262 actions/register.php:229
 #, fuzzy, php-format
 msgid "Bio is too long (maximum %d character)."
 msgid_plural "Bio is too long (maximum %d characters)."
@@ -4137,7 +4206,7 @@ msgstr "비밀 번호는 6자 이상이어야 합니다."
 msgid "Password and confirmation do not match."
 msgstr "비밀 번호가 일치하지 않습니다."
 
-#: actions/recoverpassword.php:388 actions/register.php:257
+#: actions/recoverpassword.php:388 actions/register.php:256
 msgid "Error setting user."
 msgstr "사용자 세팅 오류"
 
@@ -4146,7 +4215,7 @@ msgid "New password successfully saved. You are now logged in."
 msgstr ""
 "새로운 비밀 번호를 성공적으로 저장했습니다. 귀하는 이제 로그인 되었습니다."
 
-#: actions/register.php:92 actions/register.php:196 actions/register.php:414
+#: actions/register.php:92 actions/register.php:196 actions/register.php:413
 msgid "Sorry, only invited people can register."
 msgstr "죄송합니다. 단지 초대된 사람들만 등록할 수 있습니다."
 
@@ -4159,7 +4228,7 @@ msgstr "확인 코드 오류"
 msgid "Registration successful"
 msgstr "회원 가입이 성공적입니다."
 
-#: actions/register.php:121 actions/register.php:513 lib/logingroupnav.php:85
+#: actions/register.php:121 actions/register.php:512 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "등록"
 
@@ -4167,86 +4236,86 @@ msgstr "등록"
 msgid "Registration not allowed."
 msgstr "가입이 허용되지 않습니다."
 
-#: actions/register.php:205
+#: actions/register.php:209
 msgid "You can't register if you don't agree to the license."
 msgstr "라이선스에 동의하지 않는다면 등록할 수 없습니다."
 
-#: actions/register.php:219
+#: actions/register.php:218
 msgid "Email address already exists."
 msgstr "이메일 주소가 이미 존재 합니다."
 
-#: actions/register.php:252 actions/register.php:274
+#: actions/register.php:251 actions/register.php:273
 msgid "Invalid username or password."
 msgstr "사용자 이름이나 비밀 번호가 틀렸습니다."
 
-#: actions/register.php:352
+#: actions/register.php:351
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
 
-#: actions/register.php:434
+#: actions/register.php:433
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
 "1-64자 사이에 영소문자, 숫자로만 씁니다. 기호나 공백을 쓰면 안 됩니다. 필수 "
 "입력."
 
-#: actions/register.php:439
+#: actions/register.php:438
 msgid "6 or more characters. Required."
 msgstr "6글자 이상이 필요합니다."
 
-#: actions/register.php:443
+#: actions/register.php:442
 msgid "Same as password above. Required."
 msgstr "위와 같은 비밀 번호. 필수 사항."
 
 #. TRANS: Link description in user account settings menu.
-#: actions/register.php:447 actions/register.php:451
+#: actions/register.php:446 actions/register.php:450
 #: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:127
 msgid "Email"
 msgstr "메일"
 
-#: actions/register.php:448 actions/register.php:452
+#: actions/register.php:447 actions/register.php:451
 msgid "Used only for updates, announcements, and password recovery"
 msgstr "업데이트나 공지, 비밀번호 찾기에 사용하세요."
 
-#: actions/register.php:459
+#: actions/register.php:458
 msgid "Longer name, preferably your \"real\" name"
 msgstr "더욱 긴 이름을 요구합니다."
 
-#: actions/register.php:464
+#: actions/register.php:463
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "귀하의 홈페이지, 블로그 혹은 다른 사이트의 프로필 페이지 URL"
 
-#: actions/register.php:525
+#: actions/register.php:524
 #, fuzzy, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
 msgstr "%1$s의 컨텐츠와 데이터는 외부 유출을 금지합니다."
 
-#: actions/register.php:535
+#: actions/register.php:534
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr "글과 파일의 저작권은 %1$s의 소유입니다"
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
-#: actions/register.php:539
+#: actions/register.php:538
 msgid "My text and files remain under my own copyright."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
-#: actions/register.php:542
+#: actions/register.php:541
 msgid "All rights reserved."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:547
+#: actions/register.php:546
 #, fuzzy, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr "다음 개인정보 제외: 비밀 번호, 메일 주소, 메신저 주소, 전화 번호"
 
-#: actions/register.php:590
+#: actions/register.php:589
 #, fuzzy, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -4279,7 +4348,7 @@ msgstr ""
 "\n"
 "다시 한번 가입하신 것을 환영하면서 즐거운 서비스가 되셨으면 합니다."
 
-#: actions/register.php:614
+#: actions/register.php:613
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -4323,7 +4392,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "다른 마이크로블로깅 서비스의 귀하의 프로필 URL"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:406
+#: lib/userprofile.php:411
 msgid "Subscribe"
 msgstr "구독"
 
@@ -4364,7 +4433,7 @@ msgstr "자신의 글은 재전송할 수 없습니다."
 msgid "You already repeated that notice."
 msgstr "이미 재전송된 소식입니다."
 
-#: actions/repeat.php:114 lib/noticelist.php:686
+#: actions/repeat.php:114 lib/noticelist.php:691
 msgid "Repeated"
 msgstr "재전송됨"
 
@@ -4373,7 +4442,7 @@ msgid "Repeated!"
 msgstr "재전송됨!"
 
 #: actions/replies.php:126 actions/repliesrss.php:68
-#: lib/personalgroupnav.php:105
+#: lib/personalgroupnav.php:108
 #, php-format
 msgid "Replies to %s"
 msgstr "%s에 답신"
@@ -4505,7 +4574,7 @@ msgid "Description"
 msgstr "설명"
 
 #. TRANS: Header for group statistics on a group page (h2).
-#: actions/showapplication.php:192 actions/showgroup.php:453
+#: actions/showapplication.php:192 actions/showgroup.php:448
 #: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "통계"
@@ -4524,7 +4593,7 @@ msgid "Reset key & secret"
 msgstr ""
 
 #: actions/showapplication.php:252 lib/deletegroupform.php:121
-#: lib/deleteuserform.php:66 lib/noticelist.php:667
+#: lib/deleteuserform.php:66 lib/noticelist.php:672
 msgid "Delete"
 msgstr "삭제"
 
@@ -4614,95 +4683,95 @@ msgid "This is a way to share what you like."
 msgstr "좋아하는 글을 지정하면 자기가 무엇을 좋아하는지 알릴 수 있습니다."
 
 #. TRANS: Page title for first group page. %s is a group name.
-#: actions/showgroup.php:80
+#: actions/showgroup.php:75
 #, php-format
 msgid "%s group"
 msgstr "%s 그룹"
 
 #. TRANS: Page title for any but first group page.
 #. TRANS: %1$s is a group name, $2$s is a page number.
-#: actions/showgroup.php:84
+#: actions/showgroup.php:79
 #, php-format
 msgid "%1$s group, page %2$d"
 msgstr "그룹, %d페이지"
 
 #. TRANS: Group profile header (h2). Text hidden by default.
-#: actions/showgroup.php:225
+#: actions/showgroup.php:220
 msgid "Group profile"
 msgstr "그룹 프로필"
 
 #. TRANS: Label for group URL (dt). Text hidden by default.
-#: actions/showgroup.php:275 actions/tagother.php:118
-#: actions/userauthorization.php:175 lib/userprofile.php:178
+#: actions/showgroup.php:270 actions/tagother.php:118
+#: actions/userauthorization.php:175 lib/userprofile.php:180
 msgid "URL"
 msgstr "URL"
 
 #. TRANS: Label for group description or group note (dt). Text hidden by default.
-#: actions/showgroup.php:287 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:195
+#: actions/showgroup.php:282 actions/tagother.php:128
+#: actions/userauthorization.php:187 lib/userprofile.php:197
 msgid "Note"
 msgstr "설명"
 
 #. TRANS: Label for group aliases (dt). Text hidden by default.
-#: actions/showgroup.php:298 lib/groupeditform.php:187
+#: actions/showgroup.php:293 lib/groupeditform.php:187
 msgid "Aliases"
 msgstr ""
 
 #. TRANS: Group actions header (h2). Text hidden by default.
-#: actions/showgroup.php:309
+#: actions/showgroup.php:304
 msgid "Group actions"
 msgstr "그룹 행동"
 
 #. TRANS: Tooltip for feed link. %s is a group nickname.
-#: actions/showgroup.php:350
+#: actions/showgroup.php:345
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "%s 그룹을 위한 공지피드 (RSS 1.0)"
 
 #. TRANS: Tooltip for feed link. %s is a group nickname.
-#: actions/showgroup.php:357
+#: actions/showgroup.php:352
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "%s 그룹을 위한 공지피드 (RSS 2.0)"
 
 #. TRANS: Tooltip for feed link. %s is a group nickname.
-#: actions/showgroup.php:364
+#: actions/showgroup.php:359
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "%s 그룹을 위한 공지피드 (Atom)"
 
 #. TRANS: Tooltip for feed link. %s is a group nickname.
-#: actions/showgroup.php:370
+#: actions/showgroup.php:365
 #, php-format
 msgid "FOAF for %s group"
 msgstr "%s의 보낸쪽지함"
 
 #. TRANS: Header for mini list of group members on a group page (h2).
-#: actions/showgroup.php:407
+#: actions/showgroup.php:402
 msgid "Members"
 msgstr "회원"
 
 #. TRANS: Description for mini list of group members on a group page when the group has no members.
-#: actions/showgroup.php:413 lib/profileaction.php:117
+#: actions/showgroup.php:408 lib/profileaction.php:117
 #: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(없음)"
 
 #. TRANS: Link to all group members from mini list of group members if group has more than n members.
-#: actions/showgroup.php:422
+#: actions/showgroup.php:417
 msgid "All members"
 msgstr "모든 회원"
 
 #. TRANS: Label for creation date in statistics on group page.
-#: actions/showgroup.php:458
+#: actions/showgroup.php:453
 #, fuzzy
 msgctxt "LABEL"
 msgid "Created"
 msgstr "생성됨"
 
 #. TRANS: Label for member count in statistics on group page.
-#: actions/showgroup.php:466
+#: actions/showgroup.php:461
 #, fuzzy
 msgctxt "LABEL"
 msgid "Members"
@@ -4712,7 +4781,7 @@ msgstr "회원"
 #. TRANS: **%s** is the group alias, %%%%site.name%%%% is the site name,
 #. TRANS: %%%%action.register%%%% is the URL for registration, %%%%doc.help%%%% is a URL to help.
 #. TRANS: This message contains Markdown links. Ensure they are formatted correctly: [Description](link).
-#: actions/showgroup.php:481
+#: actions/showgroup.php:476
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4725,7 +4794,7 @@ msgstr ""
 #. TRANS: Notice on group pages for anonymous users for StatusNet sites that accept no new registrations.
 #. TRANS: **%s** is the group alias, %%%%site.name%%%% is the site name,
 #. TRANS: This message contains Markdown links. Ensure they are formatted correctly: [Description](link).
-#: actions/showgroup.php:491
+#: actions/showgroup.php:486
 #, fuzzy, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4737,7 +4806,7 @@ msgstr ""
 "Micro-blogging)의 사용자 그룹입니다. "
 
 #. TRANS: Header for list of group administrators on a group page (h2).
-#: actions/showgroup.php:520
+#: actions/showgroup.php:515
 #, fuzzy
 msgid "Admins"
 msgstr "관리자"
@@ -5412,7 +5481,7 @@ msgid "User profile"
 msgstr "이용자 프로필"
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
-#: lib/userprofile.php:103
+#: lib/userprofile.php:107
 msgid "Photo"
 msgstr "사진"
 
@@ -5502,7 +5571,7 @@ msgstr ""
 
 #. TRANS: Link description in user account settings menu.
 #: actions/useradminpanel.php:215 lib/accountsettingsaction.php:106
-#: lib/personalgroupnav.php:109
+#: lib/personalgroupnav.php:112
 msgid "Profile"
 msgstr "프로필"
 
@@ -5671,11 +5740,13 @@ msgstr "아바타 URL '%s'을(를) 읽어낼 수 없습니다."
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "%S 잘못된 그림 파일 타입입니다. "
 
-#: actions/userdesignsettings.php:76 lib/designsettings.php:65
+#. TRANS: Page title for profile design page.
+#: actions/userdesignsettings.php:76 lib/designsettings.php:63
 msgid "Profile design"
 msgstr "프로필 디자인"
 
-#: actions/userdesignsettings.php:87 lib/designsettings.php:76
+#. TRANS: Instructions for profile design page.
+#: actions/userdesignsettings.php:87 lib/designsettings.php:74
 msgid ""
 "Customize the way your profile looks with a background image and a colour "
 "palette of your choice."
@@ -5772,7 +5843,7 @@ msgid "Plugins"
 msgstr "플러그인"
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:880
+#: actions/version.php:198 lib/action.php:885
 msgid "Version"
 msgstr "버전"
 
@@ -5793,41 +5864,47 @@ msgid "%1$s marked notice %2$s as a favorite."
 msgstr "누군가 내 글을 좋아하는 게시글로 추가했을 때, 메일을 보냅니다."
 
 #. TRANS: Server exception thrown when a URL cannot be processed.
-#: classes/File.php:142
+#: classes/File.php:156
 #, php-format
 msgid "Cannot process URL '%s'"
 msgstr "'%s' URL을 처리할 수 없습니다"
 
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
-#: classes/File.php:174
+#: classes/File.php:188
 msgid "Robin thinks something is impossible."
 msgstr ""
 
 #. TRANS: Message given if an upload is larger than the configured maximum.
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
-#: classes/File.php:189
+#. TRANS: %1$s is used for plural.
+#: classes/File.php:204
 #, php-format
 msgid ""
+"No file may be larger than %1$d byte and the file you sent was %2$d bytes. "
+"Try to upload a smaller version."
+msgid_plural ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
-msgstr ""
+msgstr[0] ""
 
 #. TRANS: Message given if an upload would exceed user quota.
-#. TRANS: %d (number) is the user quota in bytes.
-#: classes/File.php:201
+#. TRANS: %d (number) is the user quota in bytes and is used for plural.
+#: classes/File.php:217
 #, php-format
-msgid "A file this large would exceed your user quota of %d bytes."
-msgstr ""
+msgid "A file this large would exceed your user quota of %d byte."
+msgid_plural "A file this large would exceed your user quota of %d bytes."
+msgstr[0] ""
 
 #. TRANS: Message given id an upload would exceed a user's monthly quota.
-#. TRANS: $d (number) is the monthly user quota in bytes.
-#: classes/File.php:210
+#. TRANS: $d (number) is the monthly user quota in bytes and is used for plural.
+#: classes/File.php:229
 #, php-format
-msgid "A file this large would exceed your monthly quota of %d bytes."
-msgstr ""
+msgid "A file this large would exceed your monthly quota of %d byte."
+msgid_plural "A file this large would exceed your monthly quota of %d bytes."
+msgstr[0] ""
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
-#: classes/File.php:247 classes/File.php:262
+#: classes/File.php:276 classes/File.php:291
 #, fuzzy
 msgid "Invalid filename."
 msgstr "옳지 않은 크기"
@@ -5962,32 +6039,32 @@ msgid "Problem saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:907
-msgid "Bad type provided to saveKnownGroups"
+#: classes/Notice.php:909
+msgid "Bad type provided to saveKnownGroups."
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1006
+#: classes/Notice.php:1008
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1120
+#: classes/Notice.php:1122
 #, fuzzy, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr "새 그룹을 만들 수 없습니다."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1822
+#: classes/Notice.php:1853
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
 #. TRANS: Full name of a profile or group followed by nickname in parens
-#: classes/Profile.php:164
+#: classes/Profile.php:172 classes/User_group.php:247
 #, fuzzy, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
@@ -5995,14 +6072,14 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:812
+#: classes/Profile.php:845
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:821
+#: classes/Profile.php:854
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -6068,38 +6145,38 @@ msgstr "%1$s님이 귀하의 알림 메시지를 %2$s에서 듣고 있습니다.
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
-#: classes/User.php:384
+#: classes/User.php:395
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%s에 답신"
 
 #. TRANS: Server exception.
-#: classes/User.php:912
+#: classes/User.php:923
 msgid "No single user defined for single-user mode."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/User.php:916
+#: classes/User.php:927
 msgid "Single-user mode code called when not enabled."
 msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:495
+#: classes/User_group.php:511
 msgid "Could not create group."
 msgstr "새 그룹을 만들 수 없습니다."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:505
+#: classes/User_group.php:521
 msgid "Could not set group URI."
 msgstr "새 그룹을 만들 수 없습니다."
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:528
+#: classes/User_group.php:544
 msgid "Could not set group membership."
 msgstr "그룹 맴버십을 세팅할 수 없습니다."
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:543
+#: classes/User_group.php:559
 msgid "Could not save local group info."
 msgstr "새 그룹을 만들 수 없습니다."
 
@@ -6151,201 +6228,201 @@ msgid "Untitled page"
 msgstr "제목없는 페이지"
 
 #. TRANS: Localized tooltip for '...' expansion button on overlong remote messages.
-#: lib/action.php:310
+#: lib/action.php:312
 msgctxt "TOOLTIP"
 msgid "Show more"
 msgstr ""
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:526
+#: lib/action.php:531
 msgid "Primary site navigation"
 msgstr "주 사이트 네비게이션"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:532
+#: lib/action.php:537
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "개인 프로필과 친구 타임라인"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:535
+#: lib/action.php:540
 msgctxt "MENU"
 msgid "Personal"
 msgstr "개인"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:537
+#: lib/action.php:542
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "당신의 메일, 아바타, 비밀 번호, 프로필을 변경하세요."
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: lib/action.php:540
+#: lib/action.php:545
 msgid "Account"
 msgstr "계정"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:542
+#: lib/action.php:547
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "연결"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:545
+#: lib/action.php:550
 msgid "Connect"
 msgstr "연결"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:548
+#: lib/action.php:553
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "메일 주소 확인"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
-#: lib/action.php:551 lib/groupnav.php:117
+#: lib/action.php:556 lib/groupnav.php:117
 msgctxt "MENU"
 msgid "Admin"
 msgstr "관리"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:555
+#: lib/action.php:560
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "%s에 친구를 가입시키기 위해 친구와 동료를 초대합니다."
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:558
+#: lib/action.php:563
 msgctxt "MENU"
 msgid "Invite"
 msgstr "초대"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:564
+#: lib/action.php:569
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "이 사이트에서 로그아웃"
 
 #. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:567
+#: lib/action.php:572
 msgctxt "MENU"
 msgid "Logout"
 msgstr "로그아웃"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:572
+#: lib/action.php:577
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "새 계정 만들기"
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:575
+#: lib/action.php:580
 msgctxt "MENU"
 msgid "Register"
 msgstr "등록"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:578
+#: lib/action.php:583
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "이 사이트에 로그인"
 
 #. TRANS: Main menu option when not logged in to log in
-#: lib/action.php:581
+#: lib/action.php:586
 msgctxt "MENU"
 msgid "Login"
 msgstr "로그인"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:584
+#: lib/action.php:589
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "도움말"
 
 #. TRANS: Main menu option for help on the StatusNet site
-#: lib/action.php:587
+#: lib/action.php:592
 msgctxt "MENU"
 msgid "Help"
 msgstr "도움말"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:590
+#: lib/action.php:595
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "사람이나 단어 검색"
 
 #. TRANS: Main menu option when logged in or when the StatusNet instance is not private
-#: lib/action.php:593
+#: lib/action.php:598
 msgctxt "MENU"
 msgid "Search"
 msgstr "검색"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:615 lib/adminpanelaction.php:387
+#: lib/action.php:620 lib/adminpanelaction.php:387
 msgid "Site notice"
 msgstr "사이트 공지"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:682
+#: lib/action.php:687
 msgid "Local views"
 msgstr "로컬 뷰"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:752
+#: lib/action.php:757
 msgid "Page notice"
 msgstr "페이지 공지"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:853
+#: lib/action.php:858
 msgid "Secondary site navigation"
 msgstr "보조 사이트 네비게이션"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:859
+#: lib/action.php:864
 msgid "Help"
 msgstr "도움말"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:862
+#: lib/action.php:867
 msgid "About"
 msgstr "정보"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:865
+#: lib/action.php:870
 msgid "FAQ"
 msgstr "자주 묻는 질문"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:870
+#: lib/action.php:875
 msgid "TOS"
 msgstr "서비스 약관"
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:874
+#: lib/action.php:879
 msgid "Privacy"
 msgstr "개인정보 취급방침"
 
 #. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-#: lib/action.php:877
+#: lib/action.php:882
 msgid "Source"
 msgstr "소스 코드"
 
 #. TRANS: Secondary navigation menu option leading to e-mail contact information on the
 #. TRANS: StatusNet site, where to report bugs, ...
-#: lib/action.php:884
+#: lib/action.php:889
 msgid "Contact"
 msgstr "연락하기"
 
 #. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-#: lib/action.php:887
+#: lib/action.php:892
 msgid "Badge"
 msgstr "배지"
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:916
+#: lib/action.php:921
 msgid "StatusNet software license"
 msgstr "StatusNet 소프트웨어 라이선스"
 
@@ -6353,7 +6430,7 @@ msgstr "StatusNet 소프트웨어 라이선스"
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
-#: lib/action.php:923
+#: lib/action.php:928
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -6363,7 +6440,7 @@ msgstr ""
 "공하는 마이크로블로깅서비스입니다."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:926
+#: lib/action.php:931
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** 는 마이크로블로깅서비스입니다."
@@ -6372,7 +6449,7 @@ msgstr "**%%site.name%%** 는 마이크로블로깅서비스입니다."
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: %s is the version of StatusNet that is being used.
-#: lib/action.php:933
+#: lib/action.php:938
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -6384,51 +6461,51 @@ msgstr ""
 "fsf.org/licensing/licenses/agpl-3.0.html) 라이선스에 따라 사용할 수 있습니다."
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:949
+#: lib/action.php:954
 msgid "Site content license"
 msgstr "사이트 컨텐츠 라이선스"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:956
+#: lib/action.php:961
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "%1$s의 컨텐츠와 데이터는 외부 유출을 금지합니다."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:963
+#: lib/action.php:968
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr "컨텐츠와 데이터의 저작권은 %1$s의 소유입니다. All rights reserved."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:967
+#: lib/action.php:972
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "컨텐츠와 데이터의 저작권은 각 이용자의 소유입니다. All rights reserved."
 
 #. TRANS: license message in footer.
 #. TRANS: %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:999
+#: lib/action.php:1004
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr "%1$s의 모든 컨텐츠와 데이터는 %2$s 라이선스에 따라 이용할 수 있습니다."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1335
+#: lib/action.php:1340
 msgid "Pagination"
 msgstr "페이지수"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1346
+#: lib/action.php:1351
 msgid "After"
 msgstr "뒷 페이지"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1356
+#: lib/action.php:1361
 msgid "Before"
 msgstr "앞 페이지"
 
@@ -6510,7 +6587,7 @@ msgid "User configuration"
 msgstr "메일 주소 확인"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:355 lib/personalgroupnav.php:115
+#: lib/adminpanelaction.php:355 lib/personalgroupnav.php:118
 msgid "User"
 msgstr "사용자"
 
@@ -6728,12 +6805,12 @@ msgid "author element must contain a name element."
 msgstr ""
 
 #. TRANS: DT element label in attachment list item.
-#: lib/attachmentlist.php:256
+#: lib/attachmentlist.php:294
 msgid "Author"
 msgstr "작성자"
 
 #. TRANS: DT element label in attachment list item.
-#: lib/attachmentlist.php:270
+#: lib/attachmentlist.php:308
 msgid "Provider"
 msgstr "미리보기"
 
@@ -7117,26 +7194,26 @@ msgid ""
 msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:136
+#: lib/common.php:147
 #, fuzzy
 msgid "No configuration file found."
 msgstr "확인 코드가 없습니다."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
-#: lib/common.php:139
+#: lib/common.php:150
 #, fuzzy
 msgid "I looked for configuration files in the following places:"
 msgstr "다음 사람들에게 초대권을 보냈습니다:"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:142
+#: lib/common.php:153
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: The text is link text that leads to the installer page.
-#: lib/common.php:146
+#: lib/common.php:157
 msgid "Go to the installer."
 msgstr "이 사이트에 로그인"
 
@@ -7180,25 +7257,41 @@ msgstr "응용프로그램 삭제"
 msgid "Database error"
 msgstr "데이터베이스 오류"
 
-#: lib/designsettings.php:105
+#. TRANS: Label in form on profile design page.
+#. TRANS: Field contains file name on user's computer that could be that user's custom profile background image.
+#: lib/designsettings.php:104
 msgid "Upload file"
 msgstr "실행 실패"
 
+#. TRANS: Instructions for form on profile design page.
 #: lib/designsettings.php:109
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr "개인 아바타를 올릴 수 있습니다. 최대 파일 크기는 2MB입니다."
 
-#: lib/designsettings.php:283
-#, php-format
-msgid ""
-"The server was unable to handle that much POST data (%s bytes) due to its "
-"current configuration."
-msgstr ""
-"현재 설정으로 인해 너무 많은 POST 데이터(%s 바이트)는 서버에서 처리할 수 없습"
-"니다."
+#. TRANS: Radio button on profile design page that will enable use of the uploaded profile image.
+#: lib/designsettings.php:139
+#, fuzzy
+msgctxt "RADIO"
+msgid "On"
+msgstr "켜기"
 
-#: lib/designsettings.php:418
+#. TRANS: Radio button on profile design page that will disable use of the uploaded profile image.
+#: lib/designsettings.php:156
+#, fuzzy
+msgctxt "RADIO"
+msgid "Off"
+msgstr "끄기"
+
+#. TRANS: Button text on profile design page to reset all colour settings to default without saving.
+#: lib/designsettings.php:264
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Reset"
+msgstr "초기화"
+
+#. TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
+#: lib/designsettings.php:433
 #, fuzzy
 msgid "Design defaults restored."
 msgstr "메일 설정이 저장되었습니다."
@@ -7407,7 +7500,7 @@ msgid "Partial upload."
 msgstr "불완전한 업로드."
 
 #. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
-#: lib/imagefile.php:103 lib/mediafile.php:179
+#: lib/imagefile.php:103 lib/mediafile.php:228
 msgid "System error uploading file."
 msgstr "파일을 올리는데 시스템 오류 발생"
 
@@ -7415,30 +7508,30 @@ msgstr "파일을 올리는데 시스템 오류 발생"
 msgid "Not an image or corrupt file."
 msgstr "그림 파일이 아니거나 손상된 파일 입니다."
 
-#: lib/imagefile.php:124
+#: lib/imagefile.php:160
 msgid "Lost our file."
 msgstr "파일을 잃어버렸습니다."
 
-#: lib/imagefile.php:165 lib/imagefile.php:226
+#: lib/imagefile.php:197 lib/imagefile.php:237
 msgid "Unknown file type"
 msgstr "알 수 없는 종류의 파일입니다"
 
 #. TRANS: Number of megabytes. %d is the number.
-#: lib/imagefile.php:248
+#: lib/imagefile.php:283
 #, fuzzy, php-format
 msgid "%dMB"
 msgid_plural "%dMB"
 msgstr[0] "MB"
 
 #. TRANS: Number of kilobytes. %d is the number.
-#: lib/imagefile.php:252
+#: lib/imagefile.php:287
 #, fuzzy, php-format
 msgid "%dkB"
 msgid_plural "%dkB"
 msgstr[0] "kB"
 
 #. TRANS: Number of bytes. %d is the number.
-#: lib/imagefile.php:255
+#: lib/imagefile.php:290
 #, php-format
 msgid "%dB"
 msgid_plural "%dB"
@@ -7640,7 +7733,7 @@ msgstr ""
 
 #. TRANS: Subject for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
-#: lib/mail.php:603
+#: lib/mail.php:607
 #, fuzzy, php-format
 msgid "%1$s (@%2$s) added your notice as a favorite"
 msgstr "누군가 내 글을 좋아하는 게시글로 추가했을 때, 메일을 보냅니다."
@@ -7650,7 +7743,7 @@ msgstr "누군가 내 글을 좋아하는 게시글로 추가했을 때, 메일�
 #. TRANS: %3$s is a URL to the faved notice, %4$s is the faved notice text,
 #. TRANS: %5$s is a URL to all faves of the adding user, %6$s is the StatusNet sitename,
 #. TRANS: %7$s is the adding user's nickname.
-#: lib/mail.php:610
+#: lib/mail.php:614
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -7672,7 +7765,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
-#: lib/mail.php:668
+#: lib/mail.php:672
 #, php-format
 msgid ""
 "The full conversation can be read here:\n"
@@ -7682,7 +7775,7 @@ msgstr ""
 
 #. TRANS: E-mail subject for notice notification.
 #. TRANS: %1$s is the sending user's long name, %2$s is the adding user's nickname.
-#: lib/mail.php:676
+#: lib/mail.php:680
 #, fuzzy, php-format
 msgid "%1$s (@%2$s) sent a notice to your attention"
 msgstr "누군가 내 글을 좋아하는 게시글로 추가했을 때, 메일을 보냅니다."
@@ -7693,7 +7786,7 @@ msgstr "누군가 내 글을 좋아하는 게시글로 추가했을 때, 메일�
 #. TRANS: %5$s is a URL to the full conversion if it exists (otherwise empty),
 #. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replied for the addressed user,
 #. TRANS: %8$s is a URL to the addressed user's e-mail settings, %9$s is the sender's nickname.
-#: lib/mail.php:684
+#: lib/mail.php:688
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -7730,7 +7823,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:228 lib/noticelist.php:516
+#: lib/mailbox.php:228 lib/noticelist.php:521
 msgid "from"
 msgstr "방법"
 
@@ -7756,64 +7849,64 @@ msgid "Unsupported message type: %s"
 msgstr "지원하지 않는 그림 파일 형식입니다."
 
 #. TRANS: Client exception thrown when a database error was thrown during a file upload operation.
-#: lib/mediafile.php:99 lib/mediafile.php:125
+#: lib/mediafile.php:102 lib/mediafile.php:174
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
 
 #. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
-#: lib/mediafile.php:145
+#: lib/mediafile.php:194
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
 msgstr ""
 "업로드 파일이 php.ini 설정 파일의 upload_max_filesize 값을 넘어갔습니다."
 
 #. TRANS: Client exception.
-#: lib/mediafile.php:151
+#: lib/mediafile.php:200
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form."
 msgstr "업로드 파일이 HTML 폼에서 지정한 MAX_FILE_SIZE 값을 넘어갔습니다."
 
 #. TRANS: Client exception.
-#: lib/mediafile.php:157
+#: lib/mediafile.php:206
 msgid "The uploaded file was only partially uploaded."
 msgstr "업로드 파일이 일부만 업로드되었습니다."
 
 #. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
-#: lib/mediafile.php:165
+#: lib/mediafile.php:214
 msgid "Missing a temporary folder."
 msgstr "임시 폴더가 없습니다"
 
 #. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
-#: lib/mediafile.php:169
+#: lib/mediafile.php:218
 msgid "Failed to write file to disk."
 msgstr "디스크에 파일을 쓰는 데 실패했습니다."
 
 #. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
-#: lib/mediafile.php:173
+#: lib/mediafile.php:222
 msgid "File upload stopped by extension."
 msgstr ""
 
 #. TRANS: Client exception thrown when a file upload operation would cause a user to exceed a set quota.
-#: lib/mediafile.php:189 lib/mediafile.php:232
+#: lib/mediafile.php:238 lib/mediafile.php:281
 msgid "File exceeds user's quota."
 msgstr "파일이 사용자의 제한 용량을 넘어갑니다."
 
 #. TRANS: Client exception thrown when a file upload operation fails because the file could
 #. TRANS: not be moved from the temporary folder to the permanent file location.
-#: lib/mediafile.php:209 lib/mediafile.php:251
+#: lib/mediafile.php:258 lib/mediafile.php:300
 msgid "File could not be moved to destination directory."
 msgstr ""
 
 #. TRANS: Client exception thrown when a file upload operation has been stopped because the MIME
 #. TRANS: type of the uploaded file could not be determined.
-#: lib/mediafile.php:216 lib/mediafile.php:257
+#: lib/mediafile.php:265 lib/mediafile.php:306
 msgid "Could not determine file's MIME type."
 msgstr "소스 이용자를 확인할 수 없습니다."
 
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %1$s is the file type that was denied, %2$s is the application part of
 #. TRANS: the MIME type that was denied.
-#: lib/mediafile.php:340
+#: lib/mediafile.php:394
 #, php-format
 msgid ""
 "\"%1$s\" is not a supported file type on this server. Try using another %2$s "
@@ -7822,7 +7915,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %s is the file type that was denied.
-#: lib/mediafile.php:345
+#: lib/mediafile.php:399
 #, php-format
 msgid "\"%s\" is not a supported file type on this server."
 msgstr ""
@@ -7831,18 +7924,49 @@ msgstr ""
 msgid "Send a direct notice"
 msgstr "직접 메시지 보내기"
 
-#: lib/messageform.php:146
+#. TRANS Label entry in drop-down selection box in direct-message inbox/outbox. This is the default entry in the drop-down box, doubling as instructions and a brake against accidental submissions with the first user in the list.
+#: lib/messageform.php:137
+#, fuzzy
+msgid "Select recipient:"
+msgstr "라이선스 선택"
+
+#. TRANS Entry in drop-down selection box in direct-message inbox/outbox when no one is available to message.
+#: lib/messageform.php:150
+#, fuzzy
+msgid "No mutual subscribers."
+msgstr "구독하고 있지 않습니다!"
+
+#: lib/messageform.php:153
 msgid "To"
 msgstr "받는 이"
 
-#: lib/messageform.php:159 lib/noticeform.php:186
+#: lib/messageform.php:166 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "사용 가능한 글자"
 
-#: lib/messageform.php:178 lib/noticeform.php:237
+#: lib/messageform.php:185 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "보내기"
+
+#. TRANS: Validation error in form for registration, profile and group settings, etc.
+#: lib/nickname.php:145
+msgid "Nickname must have only lowercase letters and numbers and no spaces."
+msgstr ""
+"별명은 반드시 영소문자와 숫자로만 이루어져야 하며 스페이스의 사용이 불가 합니"
+"다."
+
+#. TRANS: Validation error in form for registration, profile and group settings, etc.
+#: lib/nickname.php:158
+msgid "Nickname cannot be empty."
+msgstr ""
+
+#. TRANS: Validation error in form for registration, profile and group settings, etc.
+#: lib/nickname.php:171
+#, php-format
+msgid "Nickname cannot be more than %d character long."
+msgid_plural "Nickname cannot be more than %d characters long."
+msgstr[0] ""
 
 #: lib/noticeform.php:160
 msgid "Send a notice"
@@ -7876,55 +8000,55 @@ msgid ""
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:446
+#: lib/noticelist.php:451
 msgid "N"
 msgstr "북"
 
 #. TRANS: Used in coordinates as abbreviation of south
-#: lib/noticelist.php:448
+#: lib/noticelist.php:453
 msgid "S"
 msgstr "남"
 
 #. TRANS: Used in coordinates as abbreviation of east
-#: lib/noticelist.php:450
+#: lib/noticelist.php:455
 msgid "E"
 msgstr "동"
 
 #. TRANS: Used in coordinates as abbreviation of west
-#: lib/noticelist.php:452
+#: lib/noticelist.php:457
 msgid "W"
 msgstr "서"
 
-#: lib/noticelist.php:454
+#: lib/noticelist.php:459
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
-#: lib/noticelist.php:463
+#: lib/noticelist.php:468
 msgid "at"
 msgstr "위치"
 
-#: lib/noticelist.php:512
+#: lib/noticelist.php:517
 msgid "web"
 msgstr "웹"
 
-#: lib/noticelist.php:578
+#: lib/noticelist.php:583
 msgid "in context"
 msgstr "문맥"
 
-#: lib/noticelist.php:613
+#: lib/noticelist.php:618
 msgid "Repeated by"
 msgstr "재전송됨"
 
-#: lib/noticelist.php:640
+#: lib/noticelist.php:645
 msgid "Reply to this notice"
 msgstr "이 게시글에 대해 답장하기"
 
-#: lib/noticelist.php:641
+#: lib/noticelist.php:646
 msgid "Reply"
 msgstr "답장하기"
 
-#: lib/noticelist.php:685
+#: lib/noticelist.php:690
 #, fuzzy
 msgid "Notice repeated"
 msgstr "게시글이 등록되었습니다."
@@ -7962,31 +8086,31 @@ msgstr ""
 msgid "Couldn't insert new subscription."
 msgstr "예약 구독을 추가 할 수 없습니다."
 
-#: lib/personalgroupnav.php:99
+#: lib/personalgroupnav.php:102
 msgid "Personal"
 msgstr "개인"
 
-#: lib/personalgroupnav.php:104
+#: lib/personalgroupnav.php:107
 msgid "Replies"
 msgstr "답신"
 
-#: lib/personalgroupnav.php:114
+#: lib/personalgroupnav.php:117
 msgid "Favorites"
 msgstr "좋아하는 글들"
 
-#: lib/personalgroupnav.php:125
+#: lib/personalgroupnav.php:128
 msgid "Inbox"
 msgstr "받은 쪽지함"
 
-#: lib/personalgroupnav.php:126
+#: lib/personalgroupnav.php:129
 msgid "Your incoming messages"
 msgstr "받은 메시지"
 
-#: lib/personalgroupnav.php:130
+#: lib/personalgroupnav.php:133
 msgid "Outbox"
 msgstr "보낸 쪽지함"
 
-#: lib/personalgroupnav.php:131
+#: lib/personalgroupnav.php:134
 msgid "Your sent messages"
 msgstr "보낸 메시지"
 
@@ -8082,7 +8206,7 @@ msgid "Revoke the \"%s\" role from this user"
 msgstr "그룹 이용자는 차단해제"
 
 #. TRANS: Client error on action trying to visit a non-existing page.
-#: lib/router.php:847
+#: lib/router.php:938
 #, fuzzy
 msgid "Page not found."
 msgstr "API 메서드 발견 안 됨."
@@ -8190,6 +8314,12 @@ msgstr ""
 msgid "None"
 msgstr "없음"
 
+#. TRANS: Server exception displayed if a theme name was invalid.
+#: lib/theme.php:74
+#, fuzzy
+msgid "Invalid theme name."
+msgstr "옳지 않은 크기"
+
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
 msgstr ""
@@ -8282,108 +8412,108 @@ msgstr "구독 해제"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "이용자가 프로필을 가지고 있지 않습니다."
 
-#: lib/userprofile.php:117
+#: lib/userprofile.php:119
 msgid "Edit Avatar"
 msgstr "아바타 편집"
 
-#: lib/userprofile.php:234 lib/userprofile.php:248
+#: lib/userprofile.php:236 lib/userprofile.php:250
 msgid "User actions"
 msgstr "사용자 동작"
 
-#: lib/userprofile.php:237
+#: lib/userprofile.php:239
 msgid "User deletion in progress..."
 msgstr ""
 
-#: lib/userprofile.php:263
+#: lib/userprofile.php:265
 msgid "Edit profile settings"
 msgstr "프로필 설정"
 
-#: lib/userprofile.php:264
+#: lib/userprofile.php:266
 msgid "Edit"
 msgstr "편집"
 
-#: lib/userprofile.php:287
+#: lib/userprofile.php:289
 msgid "Send a direct message to this user"
 msgstr "이 회원에게 직접 메시지를 보냅니다."
 
-#: lib/userprofile.php:288
+#: lib/userprofile.php:290
 msgid "Message"
 msgstr "메시지"
 
-#: lib/userprofile.php:326
+#: lib/userprofile.php:331
 msgid "Moderate"
 msgstr ""
 
-#: lib/userprofile.php:364
+#: lib/userprofile.php:369
 #, fuzzy
 msgid "User role"
 msgstr "이용자 프로필"
 
-#: lib/userprofile.php:366
+#: lib/userprofile.php:371
 msgctxt "role"
 msgid "Administrator"
 msgstr "관리자"
 
-#: lib/userprofile.php:367
+#: lib/userprofile.php:372
 msgctxt "role"
 msgid "Moderator"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1175
+#: lib/util.php:1276
 msgid "a few seconds ago"
 msgstr "몇 초 전"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1178
+#: lib/util.php:1279
 msgid "about a minute ago"
 msgstr "1분 전"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1182
+#: lib/util.php:1283
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
 msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1185
+#: lib/util.php:1286
 msgid "about an hour ago"
 msgstr "1시간 전"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1189
+#: lib/util.php:1290
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
 msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1192
+#: lib/util.php:1293
 msgid "about a day ago"
 msgstr "하루 전"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1196
+#: lib/util.php:1297
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
 msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1199
+#: lib/util.php:1300
 msgid "about a month ago"
 msgstr "1달 전"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1203
+#: lib/util.php:1304
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
 msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1206
+#: lib/util.php:1307
 msgid "about a year ago"
 msgstr "1년 전"
 
@@ -8400,18 +8530,29 @@ msgid "%s is not a valid color! Use 3 or 6 hex characters."
 msgstr "홈페이지 주소형식이 올바르지 않습니다."
 
 #. TRANS: %s is the URL to the StatusNet site's Instant Messaging settings.
-#: lib/xmppmanager.php:285
+#: lib/xmppmanager.php:287
 #, php-format
 msgid "Unknown user. Go to %s to add your address to your account"
 msgstr ""
 
 #. TRANS: Response to XMPP source when it sent too long a message.
 #. TRANS: %1$d the maximum number of allowed characters (used for plural), %2$d is the sent number.
-#: lib/xmppmanager.php:404
+#: lib/xmppmanager.php:406
 #, fuzzy, php-format
 msgid "Message too long. Maximum is %1$d character, you sent %2$d."
 msgid_plural "Message too long. Maximum is %1$d characters, you sent %2$d."
 msgstr[0] "당신이 보낸 메시지가 너무 길어요. 최대 140글자까지입니다."
+
+#. TRANS: Exception.
+#: lib/xrd.php:64
+#, fuzzy
+msgid "Invalid XML."
+msgstr "옳지 않은 크기"
+
+#. TRANS: Exception.
+#: lib/xrd.php:69
+msgid "Invalid XML, missing XRD root."
+msgstr ""
 
 #. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
 #: scripts/restoreuser.php:61
@@ -8431,21 +8572,3 @@ msgstr "프로필을 지정하지 않았습니다."
 msgid "%d entry in backup."
 msgid_plural "%d entries in backup."
 msgstr[0] ""
-
-#, fuzzy
-#~ msgid "Name is too long (maximum 255 chars)."
-#~ msgstr "실명이 너무 깁니다. (최대 255글자)"
-
-#, fuzzy
-#~ msgid "Organization is too long (maximum 255 chars)."
-#~ msgstr "기관 이름이 너무 깁니다. (최대 255글자)"
-
-#~ msgid "That's too long. Max notice size is %d chars."
-#~ msgstr "너무 깁니다. 통지의 최대 길이는 %d 글자 입니다."
-
-#~ msgid "Max notice size is %d chars, including attachment URL."
-#~ msgstr "소식의 최대 길이는 첨부 URL을 포함하여 %d 글자입니다."
-
-#, fuzzy
-#~ msgid " tagged %s"
-#~ msgstr "%s 태그된 통지"

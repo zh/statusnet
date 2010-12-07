@@ -128,6 +128,44 @@ function is_twitter_notice($id)
     return (!empty($n2s));
 }
 
+/**
+ * Pull the formatted status ID number from a Twitter status object
+ * returned via JSON from Twitter API.
+ *
+ * Encapsulates checking for the id_str attribute, which is required
+ * to read 64-bit "Snowflake" ID numbers on a 32-bit system -- the
+ * integer id attribute gets corrupted into a double-precision float,
+ * losing a few digits of precision.
+ *
+ * Warning: avoid performing arithmetic or direct comparisons with
+ * this number, as it may get coerced back to a double on 32-bit.
+ *
+ * @param object $status
+ * @param string $field base field name if not 'id'
+ * @return mixed id number as int or string
+ */
+function twitter_id($status, $field='id')
+{
+    $field_str = "{$field}_str";
+    if (isset($status->$field_str)) {
+        // String version of the id -- required on 32-bit systems
+        // since the 64-bit numbers get corrupted as ints.
+        return $status->$field_str;
+    } else {
+        return $status->$field;
+    }
+}
+
+/**
+ * Check if we need to broadcast a notice over the Twitter bridge, and
+ * do so if necessary. Will determine whether to do a straight post or
+ * a repeat/retweet
+ *
+ * This function is meant to be called directly from TwitterQueueHandler.
+ *
+ * @param Notice $notice
+ * @return boolean true if complete or successful, false if we should retry
+ */
 function broadcast_twitter($notice)
 {
     $flink = Foreign_link::getByUserID($notice->profile_id,
@@ -137,8 +175,13 @@ function broadcast_twitter($notice)
     if (!empty($flink) && TwitterOAuthClient::isPackedToken($flink->credentials)) {
         if (!empty($notice->repeat_of) && is_twitter_notice($notice->repeat_of)) {
             $retweet = retweet_notice($flink, Notice::staticGet('id', $notice->repeat_of));
-            if (!empty($retweet)) {
-                Notice_to_status::saveNew($notice->id, $retweet->id);
+            if (is_object($retweet)) {
+                Notice_to_status::saveNew($notice->id, twitter_id($retweet));
+                return true;
+            } else {
+                // Our error processing will have decided if we need to requeue
+                // this or can discard safely.
+                return $retweet;
             }
         } else if (is_twitter_bound($notice, $flink)) {
             return broadcast_oauth($notice, $flink);
@@ -148,6 +191,21 @@ function broadcast_twitter($notice)
     return true;
 }
 
+/**
+ * Send a retweet to Twitter for a notice that has been previously bridged
+ * in or out.
+ *
+ * Warning: the return value is not guaranteed to be an object; some error
+ * conditions will return a 'true' which should be passed on to a calling
+ * queue handler.
+ *
+ * No local information about the resulting retweet is saved: it's up to
+ * caller to save new mappings etc if appropriate.
+ *
+ * @param Foreign_link $flink
+ * @param Notice $notice
+ * @return mixed object with resulting Twitter status data on success, or true/false/null on error conditions.
+ */
 function retweet_notice($flink, $notice)
 {
     $token = TwitterOAuthClient::unpackToken($flink->credentials);
@@ -212,7 +270,7 @@ function broadcast_oauth($notice, $flink) {
     try {
         $status = $client->statusesUpdate($statustxt, $params);
         if (!empty($status)) {
-            Notice_to_status::saveNew($notice->id, $status->id);
+            Notice_to_status::saveNew($notice->id, twitter_id($status));
         }
     } catch (OAuthClientException $e) {
         return process_error($e, $flink, $notice);

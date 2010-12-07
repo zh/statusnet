@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:46:59+0000\n"
+"POT-Creation-Date: 2010-11-30 20:16+0000\n"
+"PO-Revision-Date: 2010-11-30 20:19:35+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-23 18:59:08+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r75590); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-29 19:44:23+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -340,7 +340,6 @@ msgstr ""
 
 #. TRANS: button label for OAuth authorization page when needing OpenID authentication first.
 #: OpenIDPlugin.php:641
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Continue"
 msgstr "Weiter"
@@ -499,41 +498,34 @@ msgstr "Registrierung nicht erlaubt."
 msgid "Not a valid invitation code."
 msgstr "Kein gültiger Einladungscode."
 
-#. TRANS: OpenID plugin message. The entered new user name did not conform to the requirements.
-#: finishopenidlogin.php:281
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
-"Der Benutzername darf nur aus Kleinbuchstaben und Zahlen bestehen. "
-"Leerzeichen sind nicht erlaubt."
-
 #. TRANS: OpenID plugin message. The entered new user name is blacklisted.
-#: finishopenidlogin.php:287
+#: finishopenidlogin.php:284
 msgid "Nickname not allowed."
 msgstr "Benutzername nicht erlaubt."
 
 #. TRANS: OpenID plugin message. The entered new user name is already used.
-#: finishopenidlogin.php:293
+#: finishopenidlogin.php:290
 msgid "Nickname already in use. Try another one."
 msgstr "Benutzername wird bereits verwendet. Suche dir einen anderen aus."
 
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
-#: finishopenidlogin.php:301 finishopenidlogin.php:388
+#: finishopenidlogin.php:298 finishopenidlogin.php:385
 msgid "Stored OpenID not found."
 msgstr ""
 
 #. TRANS: OpenID plugin server error.
-#: finishopenidlogin.php:311
+#: finishopenidlogin.php:308
 msgid "Creating new account for OpenID that already has a user."
 msgstr ""
 
 #. TRANS: OpenID plugin message.
-#: finishopenidlogin.php:376
+#: finishopenidlogin.php:373
 msgid "Invalid username or password."
 msgstr "Benutzername oder Passwort falsch."
 
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
-#: finishopenidlogin.php:396
+#: finishopenidlogin.php:393
 msgid "Error connecting user to OpenID."
 msgstr ""
 
@@ -628,3 +620,8 @@ msgstr ""
 #: finishaddopenid.php:145
 msgid "Error updating profile"
 msgstr ""
+
+#~ msgid "Nickname must have only lowercase letters and numbers and no spaces."
+#~ msgstr ""
+#~ "Der Benutzername darf nur aus Kleinbuchstaben und Zahlen bestehen. "
+#~ "Leerzeichen sind nicht erlaubt."

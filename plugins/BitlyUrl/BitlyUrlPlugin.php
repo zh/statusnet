@@ -116,7 +116,7 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
         $params = http_build_query(array(
             'login' => $this->getLogin(),
             'apiKey' => $this->getApiKey()), '', '&');
-        $serviceUrl = sprintf($this->serviceUrl, $url) . '&' . $params;
+        $serviceUrl = sprintf($this->serviceUrl, urlencode($url)) . '&' . $params;
 
         $request = HTTPClient::start();
         return $request->get($serviceUrl);
@@ -143,6 +143,10 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
             common_log(LOG_INFO, $body);
             $json = json_decode($body, true);
             if ($json['statusCode'] == 'OK') {
+                if (!isset($json['results'][$url])) {
+                    common_log(LOG_ERR, "bit.ly returned OK response, but didn't find expected URL $url in $body");
+                    return false;
+                }
                 $data = $json['results'][$url];
                 if (isset($data['shortUrl'])) {
                     return true;

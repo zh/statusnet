@@ -48,10 +48,8 @@ require_once INSTALLDIR . '/lib/webcolor.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class DesignSettingsAction extends AccountSettingsAction
 {
-
     var $submitaction = null;
 
     /**
@@ -59,9 +57,9 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return string Title of the page
      */
-
     function title()
     {
+        // TRANS: Page title for profile design page.
         return _('Profile design');
     }
 
@@ -70,9 +68,9 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return instructions for use
      */
-
     function getInstructions()
     {
+        // TRANS: Instructions for profile design page.
         return _('Customize the way your profile looks ' .
         'with a background image and a colour palette of your choice.');
     }
@@ -84,11 +82,11 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return nothing
      */
-
     function showDesignForm($design)
     {
         $form = new DesignForm($this, $design, $this->selfUrl());
         $form->show();
+
     }
 
     /**
@@ -99,7 +97,6 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return void
      */
-
     function handlePost()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -111,8 +108,10 @@ class DesignSettingsAction extends AccountSettingsAction
                 && empty($_POST)
                 && ($_SERVER['CONTENT_LENGTH'] > 0)
             ) {
-                $msg = _('The server was unable to handle that much POST ' .
-                    'data (%s bytes) due to its current configuration.');
+                // TRANS: Form validation error in design settings form. POST should remain untranslated.
+                $msg = _m('The server was unable to handle that much POST data (%s byte) due to its current configuration.',
+                          'The server was unable to handle that much POST data (%s bytes) due to its current configuration.',
+                          intval($_SERVER['CONTENT_LENGTH']));
 
                 $this->showForm(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
                 return;
@@ -132,6 +131,7 @@ class DesignSettingsAction extends AccountSettingsAction
         } else if ($this->arg('defaults')) {
             $this->restoreDefaults();
         } else {
+            // TRANS: Unknown form validation error in design settings form.
             $this->showForm(_('Unexpected form submission.'));
         }
     }
@@ -141,7 +141,6 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return void
      */
-
     function showStylesheets()
     {
         parent::showStylesheets();
@@ -153,7 +152,6 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return void
      */
-
     function showScripts()
     {
         parent::showScripts();
@@ -171,7 +169,6 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return nothing
      */
-
     function saveBackgroundImage($design)
     {
         // Now that we have a Design ID we can add a file to the design.
@@ -217,6 +214,7 @@ class DesignSettingsAction extends AccountSettingsAction
 
             if ($result === false) {
                 common_log_db_error($design, 'UPDATE', __FILE__);
+                // TRANS: Error message displayed if design settings could not be saved.
                 $this->showForm(_('Couldn\'t update your design.'));
                 return;
             }
@@ -228,7 +226,6 @@ class DesignSettingsAction extends AccountSettingsAction
      *
      * @return nothing
      */
-
     function restoreDefaults()
     {
         $design = $this->getWorkingDesign();
@@ -239,12 +236,13 @@ class DesignSettingsAction extends AccountSettingsAction
 
             if ($result === false) {
                 common_log_db_error($design, 'DELETE', __FILE__);
+                // TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
                 $this->showForm(_('Couldn\'t update your design.'));
                 return;
             }
         }
 
+        // TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
         $this->showForm(_('Design defaults restored.'), true);
     }
-
 }

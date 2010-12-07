@@ -225,7 +225,13 @@ class ProfilesettingsAction extends AccountSettingsAction
 
         if (Event::handle('StartProfileSaveForm', array($this))) {
 
-            $nickname = $this->trimmed('nickname');
+            try {
+                $nickname = Nickname::normalize($this->trimmed('nickname'));
+            } catch (NicknameException $e) {
+                $this->showForm($e->getMessage());
+                return;
+            }
+
             $fullname = $this->trimmed('fullname');
             $homepage = $this->trimmed('homepage');
             $bio = $this->trimmed('bio');
@@ -236,13 +242,7 @@ class ProfilesettingsAction extends AccountSettingsAction
             $tagstring = $this->trimmed('tags');
 
             // Some validation
-            if (!Validate::string($nickname, array('min_length' => 1,
-                                                   'max_length' => 64,
-                                                   'format' => NICKNAME_FMT))) {
-                // TRANS: Validation error in form for profile settings.
-                $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
-                return;
-            } else if (!User::allowed_nickname($nickname)) {
+            if (!User::allowed_nickname($nickname)) {
                 // TRANS: Validation error in form for profile settings.
                 $this->showForm(_('Not a valid nickname.'));
                 return;

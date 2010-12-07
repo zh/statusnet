@@ -52,8 +52,6 @@ class OStatusPlugin extends Plugin
     function onRouterInitialized($m)
     {
         // Discovery actions
-        $m->connect('main/xrd',
-                    array('action' => 'userxrd'));
         $m->connect('main/ownerxrd',
                     array('action' => 'ownerxrd'));
         $m->connect('main/ostatus',
@@ -1010,11 +1008,43 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
-    function onStartHostMetaLinks(&$links) {
-        $url = common_local_url('userxrd');
-        $url.= '?uri={uri}';
-        $links[] = array('rel' => Discovery::LRDD_REL,
-                              'template' => $url,
-                              'title' => array('Resource Descriptor'));
+    function onEndXrdActionLinks(&$xrd, $user)
+    {
+    	$xrd->links[] = array('rel' => Discovery::UPDATESFROM,
+			      'href' => common_local_url('ApiTimelineUser',
+							 array('id' => $user->id,
+							       'format' => 'atom')),
+			      'type' => 'application/atom+xml');
+	
+	            // Salmon
+        $salmon_url = common_local_url('usersalmon',
+                                       array('id' => $user->id));
+
+        $xrd->links[] = array('rel' => Salmon::REL_SALMON,
+                              'href' => $salmon_url);
+        // XXX : Deprecated - to be removed.
+        $xrd->links[] = array('rel' => Salmon::NS_REPLIES,
+                              'href' => $salmon_url);
+
+        $xrd->links[] = array('rel' => Salmon::NS_MENTIONS,
+                              'href' => $salmon_url);
+
+        // Get this user's keypair
+        $magickey = Magicsig::staticGet('user_id', $user->id);
+        if (!$magickey) {
+            // No keypair yet, let's generate one.
+            $magickey = new Magicsig();
+            $magickey->generate($user->id);
+        }
+
+        $xrd->links[] = array('rel' => Magicsig::PUBLICKEYREL,
+                              'href' => 'data:application/magic-public-key,'. $magickey->toString(false));
+
+        // TODO - finalize where the redirect should go on the publisher
+        $url = common_local_url('ostatussub') . '?profile={uri}';
+        $xrd->links[] = array('rel' => 'http://ostatus.org/schema/1.0/subscribe',
+                              'template' => $url );
+	
+    	return true;
     }
 }

@@ -51,6 +51,11 @@ class HostMetaAction extends Action
         $xrd->host = $domain;
 
         if(Event::handle('StartHostMetaLinks', array(&$xrd->links))) {
+            $url = common_local_url('userxrd');
+            $url.= '?uri={uri}';
+            $xrd->links[] = array('rel' => Discovery::LRDD_REL,
+                      'template' => $url,
+                      'title' => array('Resource Descriptor'));
             Event::handle('EndHostMetaLinks', array(&$xrd->links));
         }
 

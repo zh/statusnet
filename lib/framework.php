@@ -115,6 +115,17 @@ require_once 'markdown.php';
 
 // XXX: other formats here
 
+/**
+ * Avoid the NICKNAME_FMT constant; use the Nickname class instead.
+ *
+ * Nickname::DISPLAY_FMT is more suitable for inserting into regexes;
+ * note that it includes the [] and repeating bits, so should be wrapped
+ * directly in a capture paren usually.
+ *
+ * For validation, use Nickname::normalize(), Nickname::isValid() etc.
+ *
+ * @deprecated
+ */
 define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
 
 require_once INSTALLDIR.'/lib/util.php';

@@ -85,6 +85,9 @@ class ApiSearchJSONAction extends ApiPrivateAuthAction
             $this->page = 1;
         }
 
+        // TODO: Suppport max_id -- we need to tweak the backend
+        // Search classes to support it.
+
         $this->since_id = $this->trimmed('since_id');
         $this->geocode  = $this->trimmed('geocode');
 
@@ -127,9 +130,9 @@ class ApiSearchJSONAction extends ApiPrivateAuthAction
             $cnt = $notice->find();
         }
 
-        // TODO: since_id, lang, geocode
+        // TODO: max_id, lang, geocode
 
-        $results = new JSONSearchResultsList($notice, $q, $this->rpp, $this->page);
+        $results = new JSONSearchResultsList($notice, $q, $this->rpp, $this->page, $this->since_id);
 
         $this->initDocument('json');
         $results->show();

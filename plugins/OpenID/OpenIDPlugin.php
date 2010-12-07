@@ -757,4 +757,29 @@ class OpenIDPlugin extends Plugin
 
         return true;
     }
+
+    /**
+     * Add link in user's XRD file to allow OpenID login.
+     * 
+     * This link in the XRD should let users log in with their
+     * Webfinger identity to services that support it. See
+     * http://webfinger.org/login for an example.
+     *
+     * @param XRD  &$xrd Currently-displaying XRD object
+     * @param User $user The user that it's for
+     * 
+     * @return boolean hook value (always true)
+     */
+
+    function onEndXrdActionLinks(&$xrd, $user)
+    {
+        $profile = $user->getProfile();
+	
+        if (!empty($profile)) {
+            $xrd->links[] = array('rel' => 'http://specs.openid.net/auth/2.0/provider',
+                                  'href' => $profile->profileurl);
+        }
+	
+        return true;
+    }
 }
