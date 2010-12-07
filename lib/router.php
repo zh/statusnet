@@ -55,14 +55,14 @@ class StatusNet_URL_Mapper extends Net_URL_Mapper
         $result = null;
         if (Event::handle('StartConnectPath', array(&$path, &$defaults, &$rules, &$result))) {
             $result = parent::connect($path, $defaults, $rules);
-	    if (array_key_exists('action', $defaults)) {
-		$action = $defaults['action'];
-	    } elseif (array_key_exists('action', $rules)) {
-		$action = $rules['action'];
-	    } else {
-		$action = null;
-	    }
-	    $this->_mapAction($action, $result);
+            if (array_key_exists('action', $defaults)) {
+                $action = $defaults['action'];
+            } elseif (array_key_exists('action', $rules)) {
+                $action = $rules['action'];
+            } else {
+                $action = null;
+            }
+            $this->_mapAction($action, $result);
             Event::handle('EndConnectPath', array($path, $defaults, $rules, $result));
         }
         return $result;
@@ -70,31 +70,31 @@ class StatusNet_URL_Mapper extends Net_URL_Mapper
     
     protected function _mapAction($action, $path)
     {
-	if (!array_key_exists($action, $this->_actionToPath)) {
-	    $this->_actionToPath[$action] = array();
-	}
-	$this->_actionToPath[$action][] = $path;
-	return;
+        if (!array_key_exists($action, $this->_actionToPath)) {
+            $this->_actionToPath[$action] = array();
+        }
+        $this->_actionToPath[$action][] = $path;
+        return;
     }
     
     public function generate($values = array(), $qstring = array(), $anchor = '')
     {
-	if (!array_key_exists('action', $values)) {
-	    return parent::generate($values, $qstring, $anchor);
-	}
+        if (!array_key_exists('action', $values)) {
+            return parent::generate($values, $qstring, $anchor);
+        }
 	
-	$action = $values['action'];
+        $action = $values['action'];
 
-	if (!array_key_exists($action, $this->_actionToPath)) {
-	    return parent::generate($values, $qstring, $anchor);
-	}
+        if (!array_key_exists($action, $this->_actionToPath)) {
+            return parent::generate($values, $qstring, $anchor);
+        }
 	
-	$oldPaths    = $this->paths;
-	$this->paths = $this->_actionToPath[$action];
-	$result      = parent::generate($values, $qstring, $anchor);
-	$this->paths = $oldPaths;
+        $oldPaths    = $this->paths;
+        $this->paths = $this->_actionToPath[$action];
+        $result      = parent::generate($values, $qstring, $anchor);
+        $this->paths = $oldPaths;
 
-	return $result;
+        return $result;
     }
 }
 
@@ -127,19 +127,19 @@ class Router
     function __construct()
     {
         if (empty($this->m)) {
-	    if (!common_config('router', 'cache')) {
+            if (!common_config('router', 'cache')) {
                 $this->m = $this->initialize();
-	    } else {
-		$k = self::cacheKey();
-		$c = Cache::instance();
-		$m = $c->get($k);
-		if (!empty($m)) {
-		    $this->m = $m;
-		} else {
-		    $this->m = $this->initialize();
-		    $c->set($k, $this->m);
-		}
-	    }
+            } else {
+                $k = self::cacheKey();
+                $c = Cache::instance();
+                $m = $c->get($k);
+                if (!empty($m)) {
+                    $this->m = $m;
+                } else {
+                    $this->m = $this->initialize();
+                    $c->set($k, $this->m);
+                }
+            }
         }
     }
 
@@ -199,7 +199,7 @@ class Router
                           'deleteuser',
                           'geocode',
                           'version',
-                          );
+            );
 
             foreach ($main as $a) {
                 $m->connect('main/'.$a, array('action' => $a));
@@ -222,8 +222,8 @@ class Router
                         array('action' => 'publicxrds'));
             $m->connect('.well-known/host-meta',
                         array('action' => 'hostmeta'));
-	    $m->connect('main/xrd',
-			array('action' => 'userxrd'));
+            $m->connect('main/xrd',
+                        array('action' => 'userxrd'));
 
             // these take a code
 
@@ -248,19 +248,19 @@ class Router
             }
 
             $m->connect('settings/oauthapps/show/:id',
-                array('action' => 'showapplication'),
-                array('id' => '[0-9]+')
+                        array('action' => 'showapplication'),
+                        array('id' => '[0-9]+')
             );
             $m->connect('settings/oauthapps/new',
-                array('action' => 'newapplication')
+                        array('action' => 'newapplication')
             );
             $m->connect('settings/oauthapps/edit/:id',
-                array('action' => 'editapplication'),
-                array('id' => '[0-9]+')
+                        array('action' => 'editapplication'),
+                        array('id' => '[0-9]+')
             );
             $m->connect('settings/oauthapps/delete/:id',
-                array('action' => 'deleteapplication'),
-                array('id' => '[0-9]+')
+                        array('action' => 'deleteapplication'),
+                        array('id' => '[0-9]+')
             );
 
             // search
@@ -951,14 +951,14 @@ class Router
         $qpos = strpos($url, '?');
         if ($qpos !== false) {
             $url = substr($url, 0, $qpos+1) .
-              str_replace('?', '&', substr($url, $qpos+1));
+                str_replace('?', '&', substr($url, $qpos+1));
 
             // @fixme this is a hacky workaround for http_build_query in the
             // lower-level code and bad configs that set the default separator
             // to &amp; instead of &. Encoded &s in parameters will not be
             // affected.
             $url = substr($url, 0, $qpos+1) .
-              str_replace('&amp;', '&', substr($url, $qpos+1));
+                str_replace('&amp;', '&', substr($url, $qpos+1));
 
         }
 
