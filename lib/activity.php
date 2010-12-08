@@ -327,16 +327,8 @@ class Activity
         return null;
     }
 
-    function asString($namespace=false, $author=true)
+    function asString($namespace=false, $author=true, $source=false)
     {
-        $c = Cache::instance();
-
-        $str = $c->get(Cache::codeKey('activity:as-string:'.$this->id));
-
-        if (!empty($str)) {
-            return $str;
-        }
-
         $xs = new XMLStringer(true);
 
         if ($namespace) {
@@ -502,7 +494,7 @@ class Activity
 
         // Info on the source feed
 
-        if (!empty($this->source)) {
+        if ($source && !empty($this->source)) {
             $xs->elementStart('source');
 	    
             $xs->element('id', null, $this->source->id);
@@ -558,8 +550,6 @@ class Activity
         $xs->elementEnd('entry');
 
         $str = $xs->getString();
-	
-        $c->set(Cache::codeKey('activity:as-string:'.$this->id), $str);
 	
         return $str;
     }
