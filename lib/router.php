@@ -916,6 +916,10 @@ class Router
                         array('subscriber' => '[0-9]+',
                               'subscribed' => '[0-9]+'));
 
+            $m->connect('api/statusnet/app/subscriptions/:subscriber.atom',
+                        array('action' => 'AtomPubSubscriptionFeed'),
+                        array('subscriber' => '[0-9]+'));
+
             // user stuff
 
             Event::handle('RouterInitialized', array($m));
