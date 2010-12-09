@@ -210,6 +210,74 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
         $this->raw($feed->getString());
     }
 
+    function addSubscription()
+    {
+        if (empty($this->auth_user) ||
+            $this->auth_user->id != $this->_profile->id) {
+            throw new ClientException(_("Can't add someone else's".
+                                        " subscription"), 403);
+        }
+        
+        $xml = file_get_contents('php://input');
+
+        $dom = DOMDocument::loadXML($xml);
+
+        if ($dom->documentElement->namespaceURI != Activity::ATOM ||
+            $dom->documentElement->localName != 'entry') {
+            // TRANS: Client error displayed when not using an Atom entry.
+            $this->clientError(_('Atom post must be an Atom entry.'));
+            return;
+        }
+
+        $activity = new Activity($dom->documentElement);
+
+        $sub = null;
+
+        if (Event::handle('StartAtomPubNewActivity', array(&$activity))) {
+
+            if ($activity->verb != ActivityVerb::FOLLOW) {
+                // TRANS: Client error displayed when not using the POST verb.
+                // TRANS: Do not translate POST.
+                $this->clientError(_('Can only handle Follow activities.'));
+                return;
+            }
+
+            $person = $activity->objects[0];
+
+            if ($person->type != ActivityObject::PERSON) {
+                $this->clientError(_('Can only follow people.'));
+                return;
+            }
+
+            // XXX: OStatus discovery (maybe)
+
+            $profile = Profile::fromURI($person->id);
+
+            if (empty($profile)) {
+                $this->clientError(sprintf(_('Unknown profile %s'), $person->id));
+                return;
+            }
+
+            if (Subscription::start($this->_profile, $profile)) {
+                $sub = Subscription::pkeyGet(array('subscriber' => $this->_profile->id,
+                                                   'subscribed' => $profile->id));
+            }
+
+            Event::handle('EndAtomPubNewActivity', array($activity, $sub));
+        }
+
+        if (!empty($sub)) {
+            $act = $sub->asActivity();
+
+            header('Content-Type: application/atom+xml; charset=utf-8');
+            header('Content-Location: ' . $act->selfLink);
+
+            $this->startXML();
+            $this->raw($act->asString(true, true, true));
+            $this->endXML();
+        }
+    }
+
     /**
      * Return true if read only.
      *
@@ -253,7 +321,7 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
 
     function requiresAuth()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             return true;
         } else {
             return false;
