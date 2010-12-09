@@ -53,54 +53,67 @@ class XrdAction extends Action
             $xrd->subject = self::normalize($this->uri);
         }
 
-	if (Event::handle('StartXrdActionAliases', array(&$xrd, $this->user))) {
+        if (Event::handle('StartXrdActionAliases', array(&$xrd, $this->user))) {
 	    
-	    // Possible aliases for the user
+            // Possible aliases for the user
 	    
-	    $uris = array($this->user->uri, $profile->profileurl);
+            $uris = array($this->user->uri, $profile->profileurl);
 	    
-	    // FIXME: Webfinger generation code should live somewhere on its own
+            // FIXME: Webfinger generation code should live somewhere on its own
 	    
-	    $path = common_config('site', 'path');
+            $path = common_config('site', 'path');
 	    
-	    if (empty($path)) {
-		$uris[] = sprintf('acct:%s@%s', $nick, common_config('site', 'server'));
-	    }
+            if (empty($path)) {
+                $uris[] = sprintf('acct:%s@%s', $nick, common_config('site', 'server'));
+            }
 	    
-	    foreach ($uris as $uri) {
-		if ($uri != $xrd->subject) {
-		    $xrd->alias[] = $uri;
-		}
-	    }
+            foreach ($uris as $uri) {
+                if ($uri != $xrd->subject) {
+                    $xrd->alias[] = $uri;
+                }
+            }
 	    
-	    Event::handle('EndXrdActionAliases', array(&$xrd, $this->user));
-	}
+            Event::handle('EndXrdActionAliases', array(&$xrd, $this->user));
+        }
 
-	if (Event::handle('StartXrdActionLinks', array(&$xrd, $this->user))) {
+        if (Event::handle('StartXrdActionLinks', array(&$xrd, $this->user))) {
 	    
-	    $xrd->links[] = array('rel' => self::PROFILEPAGE,
-				  'type' => 'text/html',
-				  'href' => $profile->profileurl);
+            $xrd->links[] = array('rel' => self::PROFILEPAGE,
+                                  'type' => 'text/html',
+                                  'href' => $profile->profileurl);
 	    
-	    // hCard
-	    $xrd->links[] = array('rel' => self::HCARD,
-				  'type' => 'text/html',
-				  'href' => common_local_url('hcard', array('nickname' => $nick)));
+            // hCard
+            $xrd->links[] = array('rel' => self::HCARD,
+                                  'type' => 'text/html',
+                                  'href' => common_local_url('hcard', array('nickname' => $nick)));
 	    
-	    // XFN
-	    $xrd->links[] = array('rel' => 'http://gmpg.org/xfn/11',
-				  'type' => 'text/html',
-				  'href' => $profile->profileurl);
-	    // FOAF
-	    $xrd->links[] = array('rel' => 'describedby',
-				  'type' => 'application/rdf+xml',
-				  'href' => common_local_url('foaf',
-							     array('nickname' => $nick)));
+            // XFN
+            $xrd->links[] = array('rel' => 'http://gmpg.org/xfn/11',
+                                  'type' => 'text/html',
+                                  'href' => $profile->profileurl);
+            // FOAF
+            $xrd->links[] = array('rel' => 'describedby',
+                                  'type' => 'application/rdf+xml',
+                                  'href' => common_local_url('foaf',
+                                                             array('nickname' => $nick)));
 	    
+            $xrd->links[] = array('rel' => 'http://apinamespace.org/atom',
+                                  'type' => 'application/atomsvc+xml',
+                                  'href' => common_local_url('ApiAtomService', array('id' => $nick)));
 
-	    Event::handle('EndXrdActionLinks', array(&$xrd, $this->user));
-	}
-	    
+            if (common_config('site', 'fancy')) {
+                $apiRoot = common_path('api/', true);
+            } else {
+                $apiRoot = common_path('index.php/api/', true);
+            }
+            
+            $xrd->links[] = array('rel' => 'http://apinamespace.org/twitter',
+                                  'href' => $apiRoot,
+                                  'property' => array(array('type' => 'http://apinamespace.org/twitter/username',
+                                                            'value' => $nick)));
+
+            Event::handle('EndXrdActionLinks', array(&$xrd, $this->user));
+        }
 
         header('Content-type: application/xrd+xml');
         print $xrd->toXML();
