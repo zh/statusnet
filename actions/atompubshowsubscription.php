@@ -105,7 +105,9 @@ class AtompubshowsubscriptionAction extends ApiAuthAction
 
     function handle($argarray=null)
     {
+        parent::handle($argarray);
         switch ($_SERVER['REQUEST_METHOD']) {
+        case 'HEAD':
         case 'GET':
             $this->showSubscription();
             break;
@@ -178,8 +180,6 @@ class AtompubshowsubscriptionAction extends ApiAuthAction
 
     /**
      * Return last modified, if applicable.
-     *
-     * MAY override
      *
      * @return string last modified http header
      */
