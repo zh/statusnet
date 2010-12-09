@@ -78,20 +78,28 @@ class PiwikAnalyticsPlugin extends Plugin
      */
     function onEndShowScripts($action)
     {
-        $piwikCode1 = <<<ENDOFPIWIK
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://{$this->piwikroot}" : "http://{$this->piwikroot}");
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-ENDOFPIWIK;
-        $piwikCode2 = <<<ENDOFPIWIK
+        // Slight modification to the default code.
+        // Loading the piwik.js file from a <script> created in a document.write
+        // meant that the browser had no way to preload it, ensuring that its
+        // loading will be synchronous, blocking further page rendering.
+        //
+        // User-agents understand protocol-relative links, so instead of the
+        // URL produced in JS we can just give a universal one. Since it's
+        // sitting there in the DOM ready to go, the browser can preload the
+        // file for us and we're less likely to have to wait for it.
+        $piwikUrl = '//' . $this->piwikroot . 'piwik.js';
+        $piwikCode = <<<ENDOFPIWIK
 try {
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://{$this->piwikroot}" : "http://{$this->piwikroot}");
     var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", {$this->piwikId});
     piwikTracker.trackPageView();
     piwikTracker.enableLinkTracking();
 } catch( err ) {}
 ENDOFPIWIK;
 
-        $action->inlineScript($piwikCode1);
-        $action->inlineScript($piwikCode2);
+        // Don't use $action->script() here; it'll try to preface the URL.
+        $action->element('script', array('type' => 'text/javascript', 'src' => $piwikUrl), ' ');
+        $action->inlineScript($piwikCode);
         return true;
     }
 
