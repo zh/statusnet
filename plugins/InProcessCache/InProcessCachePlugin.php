@@ -58,6 +58,22 @@ class InProcessCachePlugin extends Plugin
 {
     private $_items = array();
     private $_hits  = array();
+    private $active;
+
+    /**
+     * Constructor checks if it's safe to use the in-process cache.
+     * On CLI scripts, we'll disable ourselves to avoid data corruption
+     * due to keeping stale data around.
+     *
+     * On web requests we'll roll the dice; they're short-lived so have
+     * less chance of stale data. Race conditions are still possible,
+     * so beware!
+     */
+    function __construct()
+    {
+        parent::__construct();
+        $this->active = (PHP_SAPI != 'cli');
+    }
 
     /**
      * Get an item from the cache
@@ -75,7 +91,7 @@ class InProcessCachePlugin extends Plugin
 
     function onStartCacheGet(&$key, &$value)
     {
-        if (array_key_exists($key, $this->_items)) {
+        if ($this->active && array_key_exists($key, $this->_items)) {
             $value = $this->_items[$key];
             if (array_key_exists($key, $this->_hits)) {
                 $this->_hits[$key]++;
@@ -103,8 +119,8 @@ class InProcessCachePlugin extends Plugin
 
     function onEndCacheGet($key, &$value)
     {
-        if (!array_key_exists($key, $this->_items) || 
-            $this->_items[$key] != $value) {
+        if ($this->active && (!array_key_exists($key, $this->_items) ||
+            $this->_items[$key] != $value)) {
             $this->_items[$key] = $value;
         }
         return true;
@@ -126,7 +142,9 @@ class InProcessCachePlugin extends Plugin
 
     function onEndCacheSet($key, $value, $flag, $expiry)
     {
-        $this->_items[$key] = $value;
+        if ($this->active) {
+            $this->_items[$key] = $value;
+        }
         return true;
     }
 
@@ -144,7 +162,7 @@ class InProcessCachePlugin extends Plugin
      
     function onStartCacheDelete(&$key, &$success)
     {
-        if (array_key_exists($key, $this->_items)) {
+        if ($this->active && array_key_exists($key, $this->_items)) {
             unset($this->_items[$key]);
         }
         return true;
@@ -182,7 +200,7 @@ class InProcessCachePlugin extends Plugin
 
     function cleanup()
     {
-        if (common_config('inprocess', 'stats')) {
+        if ($this->active && common_config('inprocess', 'stats')) {
             $this->log(LOG_INFO, "cache size: " . 
                        count($this->_items));
             $sum = 0;
