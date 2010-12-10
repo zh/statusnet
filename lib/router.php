@@ -920,6 +920,15 @@ class Router
                         array('action' => 'AtomPubSubscriptionFeed'),
                         array('subscriber' => '[0-9]+'));
 
+            $m->connect('api/statusnet/app/favorites/:profile/:notice.atom',
+                        array('action' => 'AtomPubShowFavorite'),
+                        array('profile' => '[0-9]+',
+                              'notice' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/favorites/:profile.atom',
+                        array('action' => 'AtomPubFavoriteFeed'),
+                        array('profile' => '[0-9]+'));
+
             // user stuff
 
             Event::handle('RouterInitialized', array($m));

@@ -138,6 +138,9 @@ class Fave extends Memcached_DataObject
         $act = new Activity();
 
         $act->verb = ActivityVerb::FAVORITE;
+
+        // FIXME: rationalize this with URL below
+
         $act->id   = TagURI::mint('favor:%d:%d:%s',
                                   $profile->id,
                                   $notice->id,
@@ -154,6 +157,13 @@ class Fave extends Memcached_DataObject
 
         $act->actor     = ActivityObject::fromProfile($profile);
         $act->objects[] = ActivityObject::fromNotice($notice);
+
+        $url = common_local_url('AtomPubShowFavorite',
+                                          array('profile' => $this->user_id,
+                                                'notice'  => $this->notice_id));
+
+        $act->selfLink = $url;
+        $act->editLink = $url;
 
         return $act;
     }
