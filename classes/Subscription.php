@@ -264,4 +264,68 @@ class Subscription extends Memcached_DataObject
 
         return $act;
     }
+
+    /**
+     * Stream of subscriptions with the same subscriber
+     *
+     * Useful for showing pages that list subscriptions in reverse
+     * chronological order. Has offset & limit to make paging
+     * easy.
+     *
+     * @param integer $subscriberId Profile ID of the subscriber
+     * @param integer $offset       Offset from latest
+     * @param integer $limit        Maximum number to fetch
+     *
+     * @return Subscription stream of subscriptions; use fetch() to iterate
+     */
+
+    static function bySubscriber($subscriberId,
+                                 $offset = 0,
+                                 $limit = PROFILES_PER_PAGE)
+    {
+        $sub = new Subscription();
+
+        $sub->subscriber = $subscriberId;
+
+        $sub->whereAdd('subscribed != ' . $subscriberId);
+
+        $sub->orderBy('created DESC');
+        $sub->limit($offset, $limit);
+
+        $sub->find();
+
+        return $sub;
+    }
+
+    /**
+     * Stream of subscriptions with the same subscribed profile
+     *
+     * Useful for showing pages that list subscribers in reverse
+     * chronological order. Has offset & limit to make paging
+     * easy.
+     *
+     * @param integer $subscribedId Profile ID of the subscribed
+     * @param integer $offset       Offset from latest
+     * @param integer $limit        Maximum number to fetch
+     *
+     * @return Subscription stream of subscriptions; use fetch() to iterate
+     */
+
+    static function bySubscribed($subscribedId,
+                                 $offset = 0,
+                                 $limit = PROFILES_PER_PAGE)
+    {
+        $sub = new Subscription();
+
+        $sub->subscribed = $subscribedId;
+
+        $sub->whereAdd('subscriber != ' . $subscribedId);
+
+        $sub->orderBy('created DESC');
+        $sub->limit($offset, $limit);
+
+        $sub->find();
+
+        return $sub;
+    }
 }

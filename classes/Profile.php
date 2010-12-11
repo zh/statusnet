@@ -380,54 +380,32 @@ class Profile extends Memcached_DataObject
 
     function getSubscriptions($offset=0, $limit=null)
     {
-        $qry =
-          'SELECT profile.* ' .
-          'FROM profile JOIN subscription ' .
-          'ON profile.id = subscription.subscribed ' .
-          'WHERE subscription.subscriber = %d ' .
-          'AND subscription.subscribed != subscription.subscriber ' .
-          'ORDER BY subscription.created DESC ';
+        $subs = Subscription::bySubscriber($this->id,
+                                           $offset,
+                                           $limit);
 
-        if ($offset>0 && !is_null($limit)){
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-            }
+        $profiles = array();
+
+        while ($subs->fetch()) {
+            $profiles[] = Profile::staticGet($subs->subscribed);
         }
 
-        $profile = new Profile();
-
-        $profile->query(sprintf($qry, $this->id));
-
-        return $profile;
+        return new ArrayWrapper($profiles);
     }
 
     function getSubscribers($offset=0, $limit=null)
     {
-        $qry =
-          'SELECT profile.* ' .
-          'FROM profile JOIN subscription ' .
-          'ON profile.id = subscription.subscriber ' .
-          'WHERE subscription.subscribed = %d ' .
-          'AND subscription.subscribed != subscription.subscriber ' .
-          'ORDER BY subscription.created DESC ';
+        $subs = Subscription::bySubscribed($this->id,
+                                           $offset,
+                                           $limit);
 
-        if ($offset>0 && !is_null($limit)){
-            if ($offset) {
-                if (common_config('db','type') == 'pgsql') {
-                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-                } else {
-                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-                }
-            }
+        $profiles = array();
+
+        while ($subs->fetch()) {
+            $profiles[] = Profile::staticGet($subs->subscriber);
         }
 
-        $profile = new Profile();
-
-        $cnt = $profile->query(sprintf($qry, $this->id));
-
-        return $profile;
+        return new ArrayWrapper($profiles);
     }
 
     function getConnectedApps($offset = 0, $limit = null)
