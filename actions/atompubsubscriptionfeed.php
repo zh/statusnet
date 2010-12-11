@@ -51,8 +51,8 @@ require_once INSTALLDIR . '/lib/apiauth.php';
 
 class AtompubsubscriptionfeedAction extends ApiAuthAction
 {
-    private $_profile    = null;
-    private $_subscribed = null;
+    private $_profile       = null;
+    private $_subscriptions = null;
 
     /**
      * For initializing members of the class.
@@ -76,11 +76,12 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
         }
 
         // page and count from ApiAction
-        // Note: this is a list of profiles, not subscriptions
 
-        $this->_subscribed = 
-            $this->_profile->getSubscriptions(($this->page-1) * $this->count, 
-                                              $this->count + 1);
+        $offset = ($this->page-1) * $this->count;
+
+        $this->_subscriptions = Subscription::bySubscriber($subscriber,
+                                                           $offset,
+                                                           $this->count + 1);
 
         return true;
     }
@@ -174,7 +175,7 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
                                  'type' => 'application/atom+xml'));
         }
 
-        if ($this->_subscribed->N > $this->count) {
+        if ($this->_subscriptions->N > $this->count) {
 
             $feed->addLink(common_local_url('AtomPubSubscriptionFeed',
                                             array('subscriber' =>
@@ -189,7 +190,7 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
 
         // XXX: This is kind of inefficient
 
-        while ($this->_subscribed->fetch()) {
+        while ($this->_subscriptions->fetch()) {
 
             // We get one more than needed; skip that one
 
@@ -199,16 +200,20 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
                 break;
             }
 
-            $sub = Subscription::pkeyGet(array('subscriber' =>
-                                               $this->_profile->id,
-                                               'subscribed' =>
-                                               $this->_subscribed->id));
-            $act = $sub->asActivity();
+            $act = $this->_subscriptions->asActivity();
             $feed->addEntryRaw($act->asString(false, false, false));
         }
 
         $this->raw($feed->getString());
     }
+
+    /**
+     * Add a new subscription
+     *
+     * Handling the POST method for AtomPub
+     *
+     * @return void
+     */
 
     function addSubscription()
     {
