@@ -26,6 +26,8 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Subscription extends Memcached_DataObject
 {
+    const CACHE_WINDOW = 201;
+
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
@@ -90,6 +92,9 @@ class Subscription extends Memcached_DataObject
             $sub->notify();
 
             self::blow('user:notices_with_friends:%d', $subscriber->id);
+
+            self::blow('subscription:by-subscriber:'.$subscriber->id);
+            self::blow('subscription:by-subscribed:'.$other->id);
 
             $subscriber->blowSubscriptionCount();
             $other->blowSubscriberCount();
@@ -220,6 +225,9 @@ class Subscription extends Memcached_DataObject
 
             self::blow('user:notices_with_friends:%d', $subscriber->id);
 
+            self::blow('subscription:by-subscriber:'.$subscriber->id);
+            self::blow('subscription:by-subscribed:'.$other->id);
+
             $subscriber->blowSubscriptionCount();
             $other->blowSubscriberCount();
 
@@ -283,6 +291,29 @@ class Subscription extends Memcached_DataObject
                                  $offset = 0,
                                  $limit = PROFILES_PER_PAGE)
     {
+        if ($offset + $limit > self::CACHE_WINDOW) {
+            return new ArrayWrapper(self::realBySubscriber($subscriberId,
+                                                           $offset,
+                                                           $limit));
+        } else {
+            $key = 'subscription:by-subscriber:'.$subscriberId;
+            $window = self::cacheGet($key);
+            if ($window === false) {
+                $window = self::realBySubscriber($subscriberId,
+                                                 0,
+                                                 self::CACHE_WINDOW);
+                self::cacheSet($key, $window);
+            }
+            return new ArrayWrapper(array_slice($window,
+                                                $offset,
+                                                $limit));
+        }
+    }
+
+    private static function realBySubscriber($subscriberId,
+                                             $offset,
+                                             $limit)
+    {
         $sub = new Subscription();
 
         $sub->subscriber = $subscriberId;
@@ -294,7 +325,13 @@ class Subscription extends Memcached_DataObject
 
         $sub->find();
 
-        return $sub;
+        $subs = array();
+
+        while ($sub->fetch()) {
+            $subs[] = clone($sub);
+        }
+
+        return $subs;
     }
 
     /**
@@ -315,6 +352,29 @@ class Subscription extends Memcached_DataObject
                                  $offset = 0,
                                  $limit = PROFILES_PER_PAGE)
     {
+        if ($offset + $limit > self::CACHE_WINDOW) {
+            return new ArrayWrapper(self::realBySubscribed($subscribedId,
+                                                           $offset,
+                                                           $limit));
+        } else {
+            $key = 'subscription:by-subscribed:'.$subscribedId;
+            $window = self::cacheGet($key);
+            if ($window === false) {
+                $window = self::realBySubscribed($subscribedId,
+                                                 0,
+                                                 self::CACHE_WINDOW);
+                self::cacheSet($key, $window);
+            }
+            return new ArrayWrapper(array_slice($window,
+                                                $offset,
+                                                $limit));
+        }
+    }
+
+    private static function realBySubscribed($subscribedId,
+                                             $offset,
+                                             $limit)
+    {
         $sub = new Subscription();
 
         $sub->subscribed = $subscribedId;
@@ -326,6 +386,33 @@ class Subscription extends Memcached_DataObject
 
         $sub->find();
 
-        return $sub;
+        $subs = array();
+
+        while ($sub->fetch()) {
+            $subs[] = clone($sub);
+        }
+
+        return $subs;
+    }
+
+    /**
+     * Flush cached subscriptions when subscription is updated
+     *
+     * Because we cache subscriptions, it's useful to flush them
+     * here.
+     *
+     * @param mixed $orig Original version of object
+     *
+     * @return boolean success flag.
+     */
+
+    function update($orig=null)
+    {
+        $result = parent::update($orig);
+
+        self::blow('subscription:by-subscriber:'.$this->subscriber);
+        self::blow('subscription:by-subscribed:'.$this->subscribed);
+
+        return $result;
     }
 }
