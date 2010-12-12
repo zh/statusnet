@@ -167,4 +167,32 @@ class Fave extends Memcached_DataObject
 
         return $act;
     }
+
+    /**
+     * Fetch a stream of favorites by profile
+     *
+     * @param integer $profileId Profile that faved
+     * @param integer $offset    Offset from last
+     * @param integer $limit     Number to get
+     *
+     * @return mixed stream of faves, use fetch() to iterate
+     *
+     * @todo Cache results
+     * @todo integrate with Fave::stream()
+     */
+
+    static function byProfile($profileId, $offset, $limit)
+    {
+        $fav = new Fave();
+
+        $fav->user_id = $profileId;
+
+        $fav->orderBy('modified DESC');
+
+        $fav->limit($offset, $limit);
+
+        $fav->find();
+
+        return $fav;
+    }
 }
