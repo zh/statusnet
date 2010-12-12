@@ -148,8 +148,8 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
                                 $this->_profile->getBestName()));
 
         $feed->setSubtitle(sprintf(_("People %s has subscribed to on %s"),
-                                   $this->_profile->getBestName()),
-                           common_config('site', 'name'));
+                                   $this->_profile->getBestName(),
+                                   common_config('site', 'name')));
 
         $feed->addLink(common_local_url('subscriptions',
                                         array('nickname' => 
