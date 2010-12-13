@@ -97,7 +97,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
         $offset = ($this->page - 1) * APPS_PER_PAGE;
         $limit  =  APPS_PER_PAGE + 1;
 
-        $connection = $profile->getConnectedApps($offset, $limit);
+        $connection = $user->getConnectedApps($offset, $limit);
 
         $cnt = 0;
 
