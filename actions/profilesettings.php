@@ -454,11 +454,15 @@ class ProfilesettingsAction extends AccountSettingsAction
     }
 
     function showAside() {
+        $user = common_current_user();
+
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
-        $this->element('a',
-                       array('href' => common_local_url('backupaccount')),
-                       _('Backup account'));
+        if ($user->hasRight(Right::BACKUPACCOUNT)) {
+            $this->element('a',
+                           array('href' => common_local_url('backupaccount')),
+                           _('Backup account'));
+        }
         $this->elementEnd('div');
     }
 }
