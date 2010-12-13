@@ -199,6 +199,7 @@ class Router
                           'deleteuser',
                           'geocode',
                           'version',
+                          'backupaccount',
             );
 
             foreach ($main as $a) {
