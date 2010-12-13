@@ -80,7 +80,8 @@ class ApiAtomServiceAction extends ApiBareAuthAction
 
         $this->startXML();
         $this->elementStart('service', array('xmlns' => 'http://www.w3.org/2007/app',
-                                             'xmlns:atom' => 'http://www.w3.org/2005/Atom'));
+                                             'xmlns:atom' => 'http://www.w3.org/2005/Atom',
+                                             'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/'));
         $this->elementStart('workspace');
         $this->element('atom:title', null, _('Main'));
         $this->elementStart('collection',
@@ -92,6 +93,37 @@ class ApiAtomServiceAction extends ApiBareAuthAction
                        sprintf(_("%s timeline"),
                                $this->user->nickname));
         $this->element('accept', null, 'application/atom+xml;type=entry');
+        $this->element('activity:verb', null, ActivityVerb::POST);
+        $this->elementEnd('collection');
+        $this->elementStart('collection',
+                            array('href' => common_local_url('AtomPubSubscriptionFeed',
+                                                             array('subscriber' => $this->user->id))));
+        $this->element('atom:title',
+                       null,
+                       sprintf(_("%s subscriptions"),
+                               $this->user->nickname));
+        $this->element('accept', null, 'application/atom+xml;type=entry');
+        $this->element('activity:verb', null, ActivityVerb::FOLLOW);
+        $this->elementEnd('collection');
+        $this->elementStart('collection',
+                            array('href' => common_local_url('AtomPubFavoriteFeed',
+                                                             array('profile' => $this->user->id))));
+        $this->element('atom:title',
+                       null,
+                       sprintf(_("%s favorites"),
+                               $this->user->nickname));
+        $this->element('accept', null, 'application/atom+xml;type=entry');
+        $this->element('activity:verb', null, ActivityVerb::FAVORITE);
+        $this->elementEnd('collection');
+        $this->elementStart('collection',
+                            array('href' => common_local_url('AtomPubMembershipFeed',
+                                                             array('profile' => $this->user->id))));
+        $this->element('atom:title',
+                       null,
+                       sprintf(_("%s memberships"),
+                               $this->user->nickname));
+        $this->element('accept', null, 'application/atom+xml;type=entry');
+        $this->element('activity:verb', null, ActivityVerb::JOIN);
         $this->elementEnd('collection');
         $this->elementEnd('workspace');
         $this->elementEnd('service');
