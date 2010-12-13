@@ -118,6 +118,13 @@ class Group_member extends Memcached_DataObject
                                 $member->getBestName(),
                                 $group->getBestName());
 
+        $url = common_local_url('AtomPubShowMembership',
+                                array('profile' => $member->id,
+                                      'group' => $group->id));
+
+        $act->selfLink = $url;
+        $act->editLink = $url;
+
         return $act;
     }
 }
