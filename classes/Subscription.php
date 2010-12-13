@@ -253,6 +253,8 @@ class Subscription extends Memcached_DataObject
 
         $act->verb = ActivityVerb::FOLLOW;
 
+        // XXX: rationalize this with the URL
+
         $act->id   = TagURI::mint('follow:%d:%d:%s',
                                   $subscriber->id,
                                   $subscribed->id,
@@ -269,6 +271,13 @@ class Subscription extends Memcached_DataObject
 
         $act->actor     = ActivityObject::fromProfile($subscriber);
         $act->objects[] = ActivityObject::fromProfile($subscribed);
+
+        $url = common_local_url('AtomPubShowSubscription',
+                                array('subscriber' => $subscriber->id,
+                                      'subscribed' => $subscribed->id));
+
+        $act->selfLink = $url;
+        $act->editLink = $url;
 
         return $act;
     }

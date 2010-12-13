@@ -26,6 +26,15 @@ class Group_member extends Memcached_DataObject
         return Memcached_DataObject::pkeyGet('Group_member', $kv);
     }
 
+    /**
+     * Method to add a user to a group.
+     *
+     * @param integer $group_id   Group to add to
+     * @param integer $profile_id Profile being added
+     * 
+     * @return Group_member new membership object
+     */
+
     static function join($group_id, $profile_id)
     {
         $member = new Group_member();
@@ -42,7 +51,7 @@ class Group_member extends Memcached_DataObject
             throw new Exception(_("Group join failed."));
         }
 
-        return true;
+        return $member;
     }
 
     static function leave($group_id, $profile_id)
@@ -92,6 +101,31 @@ class Group_member extends Memcached_DataObject
         return $group;
     }
 
+    /**
+     * Get stream of memberships by member
+     *
+     * @param integer $memberId profile ID of the member to fetch for
+     * @param integer $offset   offset from start of stream to get
+     * @param integer $limit    number of memberships to get
+     *
+     * @return Group_member stream of memberships, use fetch() to iterate
+     */
+
+    static function byMember($memberId, $offset=0, $limit=GROUPS_PER_PAGE)
+    {
+        $membership = new Group_member();
+
+        $membership->profile_id = $memberId;
+
+        $membership->orderBy('created DESC');
+
+        $membership->limit($offset, $limit);
+
+        $membership->find();
+
+        return $membership;
+    }
+
     function asActivity()
     {
         $member = $this->getMember();
@@ -117,6 +151,13 @@ class Group_member extends Memcached_DataObject
         $act->content = sprintf(_('%1$s has joined group %2$s.'),
                                 $member->getBestName(),
                                 $group->getBestName());
+
+        $url = common_local_url('AtomPubShowMembership',
+                                array('profile' => $member->id,
+                                      'group' => $group->id));
+
+        $act->selfLink = $url;
+        $act->editLink = $url;
 
         return $act;
     }

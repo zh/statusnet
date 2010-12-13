@@ -761,13 +761,6 @@ class Router
             $m->connect('api/oauth/authorize',
                         array('action' => 'ApiOauthAuthorize'));
 
-            $m->connect('api/statusnet/app/service/:id.xml',
-                        array('action' => 'ApiAtomService',
-                              'id' => Nickname::INPUT_FMT));
-
-            $m->connect('api/statusnet/app/service.xml',
-                        array('action' => 'ApiAtomService'));
-
             // Admin
 
             $m->connect('admin/site', array('action' => 'siteadminpanel'));
@@ -908,6 +901,42 @@ class Router
                             array('action' => 'showstream'),
                             array('nickname' => Nickname::DISPLAY_FMT));
             }
+
+            // AtomPub API
+
+            $m->connect('api/statusnet/app/service/:id.xml',
+                        array('action' => 'ApiAtomService',
+                              'id' => Nickname::DISPLAY_FMT));
+
+            $m->connect('api/statusnet/app/service.xml',
+                        array('action' => 'ApiAtomService'));
+
+            $m->connect('api/statusnet/app/subscriptions/:subscriber/:subscribed.atom',
+                        array('action' => 'AtomPubShowSubscription'),
+                        array('subscriber' => '[0-9]+',
+                              'subscribed' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/subscriptions/:subscriber.atom',
+                        array('action' => 'AtomPubSubscriptionFeed'),
+                        array('subscriber' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/favorites/:profile/:notice.atom',
+                        array('action' => 'AtomPubShowFavorite'),
+                        array('profile' => '[0-9]+',
+                              'notice' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/favorites/:profile.atom',
+                        array('action' => 'AtomPubFavoriteFeed'),
+                        array('profile' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/memberships/:profile/:group.atom',
+                        array('action' => 'AtomPubShowMembership'),
+                        array('profile' => '[0-9]+',
+                              'group' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/memberships/:profile.atom',
+                        array('action' => 'AtomPubMembershipFeed'),
+                        array('profile' => '[0-9]+'));
 
             // user stuff
 
