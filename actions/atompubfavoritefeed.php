@@ -163,8 +163,8 @@ class AtompubfavoritefeedAction extends ApiAuthAction
 
             $feed->addLink(common_local_url('AtomPubFavoriteFeed',
                                             array('profile' => 
-                                                  $this->_profile->id,
-                                                  'page' => 
+                                                  $this->_profile->id),
+                                            array('page' => 
                                                   $this->page - 1)),
                            array('rel' => 'prev',
                                  'type' => 'application/atom+xml'));
@@ -174,8 +174,8 @@ class AtompubfavoritefeedAction extends ApiAuthAction
 
             $feed->addLink(common_local_url('AtomPubFavoriteFeed',
                                             array('profile' =>
-                                                  $this->_profile->id,
-                                                  'page' =>
+                                                  $this->_profile->id),
+                                            array('page' =>
                                                   $this->page + 1)),
                            array('rel' => 'next',
                                  'type' => 'application/atom+xml'));
