@@ -934,7 +934,7 @@ class Router
                         array('profile' => '[0-9]+',
                               'group' => '[0-9]+'));
 
-            $m->connect('api/statusnet/app/membership/:profile.atom',
+            $m->connect('api/statusnet/app/memberships/:profile.atom',
                         array('action' => 'AtomPubMembershipFeed'),
                         array('profile' => '[0-9]+'));
 
