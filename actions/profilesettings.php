@@ -459,9 +459,18 @@ class ProfilesettingsAction extends AccountSettingsAction
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
         if ($user->hasRight(Right::BACKUPACCOUNT)) {
+            $this->elementStart('li');
             $this->element('a',
                            array('href' => common_local_url('backupaccount')),
                            _('Backup account'));
+            $this->elementEnd('li');
+        }
+        if ($user->hasRight(Right::DELETEACCOUNT)) {
+            $this->elementStart('li');
+            $this->element('a',
+                           array('href' => common_local_url('deleteaccount')),
+                           _('Delete account'));
+            $this->elementEnd('li');
         }
         $this->elementEnd('div');
     }
