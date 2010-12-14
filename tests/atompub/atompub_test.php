@@ -188,6 +188,25 @@ class AtomPubClient
         $activity = new Activity($dom->documentRoot);
         return true;
     }
+
+    static function entryEditURL($str) {
+        $dom = new DOMDocument;
+        $dom->loadXML($str);
+        $path = new DOMXPath($dom);
+        $path->registerNamespace('atom', 'http://www.w3.org/2005/Atom');
+
+        $links = $path->query('/atom:entry/atom:link[@rel="edit"]', $dom->documentRoot);
+        if ($links && $links->length) {
+            if ($links->length > 1) {
+                throw new Exception('Bad Atom entry; has multiple rel=edit links.');
+            }
+            $link = $links->item(0);
+            $url = $link->getAttribute('href');
+            return $url;
+        } else {
+            throw new Exception('Atom entry lists no rel=edit link.');
+        }
+    }
 }
 
 
@@ -254,10 +273,12 @@ $body = $notice->get();
 AtomPubClient::validateAtomEntry($body);
 echo "ok\n";
 
-echo "Confirming new entry looks right... ";
-// confirm that it actually is what we expected
-// confirm it has an edit URL that matches $target
-echo "NYI\n";
+echo "Confirming new entry points to itself right... ";
+$editUrl = AtomPubClient::entryEditURL($body);
+if ($editUrl != $noticeUrl) {
+    die("Entry lists edit URL as $editUrl, no match!\n");
+}
+echo "OK\n";
 
 echo "Refetching the collection... ";
 $feed = $collection->get();
