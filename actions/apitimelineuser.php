@@ -309,9 +309,15 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             return;
         }
 
-        $xml = file_get_contents('php://input');
+        $xml = trim(file_get_contents('php://input'));
+        if (empty($xml)) {
+            $this->clientError(_('Atom post must not be empty.'));
+        }
 
         $dom = DOMDocument::loadXML($xml);
+        if (!$dom) {
+            $this->clientError(_('Atom post must be well-formed XML.'));
+        }
 
         if ($dom->documentElement->namespaceURI != Activity::ATOM ||
             $dom->documentElement->localName != 'entry') {
@@ -349,6 +355,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         }
 
         if (!empty($saved)) {
+            header('HTTP/1.1 201 Created');
             header("Location: " . common_local_url('ApiStatusesShow', array('notice_id' => $saved->id,
                                                                             'format' => 'atom')));
             $this->showSingleAtomStatus($saved);
