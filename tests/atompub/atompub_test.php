@@ -65,8 +65,8 @@ class AtomPubClient
      */
     private function httpClient($method='GET')
     {
-        $client = new HTTPClient($this->url, 'GET');
-        // basic auth, whee
+        $client = new HTTPClient($this->url);
+        $client->setMethod($method);
         $client->setAuth($this->user, $this->pass);
         return $client;
     }
@@ -211,9 +211,39 @@ $collection = new AtomPubClient($url, $user, $pass);
 
 // confirm the feed has edit links ..... ?
 
-// $atom = '';
+echo "Posting an empty message (should fail)... ";
+try {
+    $noticeUrl = $collection->post('');
+    die("FAILED, succeeded!\n");
+} catch (Exception $e) {
+    echo "ok\n";
+}
+
+echo "Posting an invalid XML message (should fail)... ";
+try {
+    $noticeUrl = $collection->post('<feed<entry>barf</yomomma>');
+    die("FAILED, succeeded!\n");
+} catch (Exception $e) {
+    echo "ok\n";
+}
+
+echo "Posting a valid XML but non-Atom message (should fail)... ";
+try {
+    $noticeUrl = $collection->post('<feed xmlns="http://notatom.com"><id>arf</id><entry><id>barf</id></entry></feed>');
+    die("FAILED, succeeded!\n");
+} catch (Exception $e) {
+    echo "ok\n";
+}
 
 // post!
+$rand = mt_rand(0, 99999);
+$atom = <<<END_ATOM
+<entry xmlns="http://www.w3.org/2005/Atom">
+    <title>This is an AtomPub test post title ($rand)</title>
+    <content>This is an AtomPub test post content ($rand)</content>
+</entry>
+END_ATOM;
+
 echo "Posting a new message... ";
 $noticeUrl = $collection->post($atom);
 echo "ok, got $noticeUrl\n";
