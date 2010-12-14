@@ -157,7 +157,7 @@ class AtomPubClient
      */
     function delete()
     {
-        $client = $this->httpClient('GET');
+        $client = $this->httpClient('DELETE');
         $client->setBody($data);
         $response = $client->send();
 
