@@ -67,7 +67,7 @@ class AtomPubClient
     {
         $client = new HTTPClient($this->url, 'GET');
         // basic auth, whee
-        $client->setAuth($this->user, $this->password);
+        $client->setAuth($this->user, $this->pass);
         return $client;
     }
 
@@ -78,7 +78,7 @@ class AtomPubClient
         if ($response->isOk()) {
             return $response->getBody();
         } else {
-            throw new Exception("Bogus return code: " . $response->getStatus());
+            throw new Exception("Bogus return code: " . $response->getStatus() . ': ' . $response->getBody());
         }
     }
 
@@ -102,7 +102,7 @@ class AtomPubClient
         $response = $client->send();
 
         if ($response->getStatus() != '201') {
-            throw new Exception("Expected HTTP 201 on POST, got " . $response->getStatus());
+            throw new Exception("Expected HTTP 201 on POST, got " . $response->getStatus() . ': ' . $response->getBody());
         }
         $loc = $response->getHeader('Location');
         $contentLoc = $response->getHeader('Content-Location');
@@ -142,7 +142,7 @@ class AtomPubClient
         $response = $client->send();
 
         if ($response->getStatus() != '200' && $response->getStatus() != '204') {
-            throw new Exception("Expected HTTP 200 or 204 on PUT, got " . $response->getStatus());
+            throw new Exception("Expected HTTP 200 or 204 on PUT, got " . $response->getStatus() . ': ' . $response->getBody());
         }
 
         return true;
@@ -162,7 +162,7 @@ class AtomPubClient
         $response = $client->send();
 
         if ($response->getStatus() != '200' && $response->getStatus() != '204') {
-            throw new Exception("Expected HTTP 200 or 204 on DELETE, got " . $response->getStatus());
+            throw new Exception("Expected HTTP 200 or 204 on DELETE, got " . $response->getStatus() . ': ' . $response->getBody());
         }
 
         return true;
