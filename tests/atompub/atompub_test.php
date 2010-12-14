@@ -1,7 +1,49 @@
+#!/usr/bin/env php
 <?php
+/*
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2010, StatusNet, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/../..'));
+
+$shortoptions = 'n:p:';
+$longoptions = array('nickname=', 'password=', 'dry-run');
+
+$helptext = <<<END_OF_HELP
+USAGE: atompub_test.php [options]
+
+Runs some tests on the AtomPub interface for the site. You must provide
+a user account to authenticate as; it will be used to make some test
+posts on the site.
+
+Options:
+  -n<user>  --nickname=<user>  Nickname of account to post as
+  -p<pass>  --password=<pass>  Password for account
+  --dry-run                    Skip tests that modify the site (post, delete)
+
+END_OF_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
 
 class AtomPubClient
 {
+    public $url;
+    private $user, $pass;
+
     /**
      *
      * @param string $url collection feed URL
@@ -16,76 +58,212 @@ class AtomPubClient
     }
 
     /**
-     * @param string $baseUrl to attempt feed discovery from
-     * @return AtomPubClient
+     * Set up an HTTPClient with auth for our resource.
+     *
+     * @param string $method
+     * @return HTTPClient
      */
-    static function discoverFromPage($baseUrl)
+    private function httpClient($method='GET')
     {
-        
+        $client = new HTTPClient($this->url, 'GET');
+        // basic auth, whee
+        $client->setAuth($this->user, $this->password);
+        return $client;
     }
 
     function get()
     {
-        
-    }
-    
-    function post($stuff, $type='application/atom+xml;type=entry')
-    {
-        // post it up!
-        // optional 'Slug' header too
-        // .. receive ..
-        if ($response->getStatus() == '201') {
-            // yay
-            // MUST have a "Location" header
-            // if it has a Content-Location header, it MUST match Location
-            //   and if it does, check the response body -- it should match what we posted, more or less.
+        $client = $this->httpClient('GET');
+        $response = $client->send();
+        if ($response->isOk()) {
+            return $response->getBody();
         } else {
-            throw new Exception("Expected HTTP 201 on POST, got " . $response->getStatus());
+            throw new Exception("Bogus return code: " . $response->getStatus());
         }
     }
 
+    /**
+     * Create a new resource by POSTing it to the collection.
+     * If successful, will return the URL representing the
+     * canonical location of the new resource. Neat!
+     *
+     * @param string $data
+     * @param string $type defaults to Atom entry
+     * @return string URL to the created resource
+     *
+     * @throws exceptions on failure
+     */
+    function post($data, $type='application/atom+xml;type=entry')
+    {
+        $client = $this->httpClient('POST');
+        $client->setHeader('Content-Type', $type);
+        // optional Slug header not used in this case
+        $client->setBody($data);
+        $response = $client->send();
+
+        if ($response->getStatus() != '201') {
+            throw new Exception("Expected HTTP 201 on POST, got " . $response->getStatus());
+        }
+        $loc = $response->getHeader('Location');
+        $contentLoc = $response->getHeader('Content-Location');
+
+        if (empty($loc)) {
+            throw new Exception("AtomPub POST response missing Location header.");
+        }
+        if (!empty($contentLoc)) {
+            if ($loc != $contentLoc) {
+                throw new Exception("AtomPub POST response Location and Content-Location headers do not match.");
+            }
+
+            // If Content-Location and Location match, that means the response
+            // body is safe to interpret as the resource itself.
+            if ($type == 'application/atom+xml;type=entry') {
+                self::validateAtomEntry($response->getBody());
+            }
+        }
+
+        return $loc;
+    }
+
+    /**
+     * Note that StatusNet currently doesn't allow PUT editing on notices.
+     *
+     * @param string $data
+     * @param string $type defaults to Atom entry
+     * @return true on success
+     *
+     * @throws exceptions on failure
+     */
     function put($data, $type='application/atom+xml;type=entry')
     {
-        // PUT it up!
-        // must get a 200 back.
-        // unlike post, we don't get the location too.
+        $client = $this->httpClient('PUT');
+        $client->setHeader('Content-Type', $type);
+        $client->setBody($data);
+        $response = $client->send();
+
+        if ($response->getStatus() != '200' && $response->getStatus() != '204') {
+            throw new Exception("Expected HTTP 200 or 204 on PUT, got " . $response->getStatus());
+        }
+
+        return true;
+    }
+
+    /**
+     * Delete the resource.
+     *
+     * @return true on success
+     *
+     * @throws exceptions on failure
+     */
+    function delete()
+    {
+        $client = $this->httpClient('GET');
+        $client->setBody($data);
+        $response = $client->send();
+
+        if ($response->getStatus() != '200' && $response->getStatus() != '204') {
+            throw new Exception("Expected HTTP 200 or 204 on DELETE, got " . $response->getStatus());
+        }
+
+        return true;
+    }
+
+    /**
+     * Ensure that the given string is a parseable Atom entry.
+     *
+     * @param string $str
+     * @return boolean
+     * @throws Exception on invalid input
+     */
+    static function validateAtomEntry($str)
+    {
+        if (empty($str)) {
+            throw new Exception('Bad Atom entry: empty');
+        }
+        $dom = new DOMDocument;
+        if (!$dom->loadXML($str)) {
+            throw new Exception('Bad Atom entry: XML is not well formed.');
+        }
+
+        $activity = new Activity($dom);
+        return true;
     }
 }
 
+
+$user = get_option_value('n', 'nickname');
+$pass = get_option_value('p', 'password');
+
+if (!$user) {
+    die("Must set a user: --nickname=<username>\n");
+}
+if (!$pass) {
+    die("Must set a password: --password=<username>\n");
+}
+
 // discover the feed...
+// @fixme will this actually work?
+$url = common_local_url('ApiTimelineUser', array('format' => 'atom', 'id' => $user));
+
+echo "Collection URL is: $url\n";
+
+$collection = new AtomPubClient($url, $user, $pass);
 
 // confirm the feed has edit links ..... ?
 
-$pub = new AtomPubClient($url, $user, $pass);
+// $atom = '';
 
 // post!
-$target = $pub->post($atom);
+echo "Posting a new message... ";
+$noticeUrl = $collection->post($atom);
+echo "ok, got $noticeUrl\n";
 
-// make sure it's accessible
-// fetch $target -- should give us the atom entry
+echo "Fetching the new notice... ";
+$notice = new AtomPubClient($noticeUrl, $user, $pass);
+$body = $notice->get();
+AtomPubClient::validateAtomEntry($body);
+echo "ok\n";
+
+echo "Confirming new entry looks right... ";
+// confirm that it actually is what we expected
+// confirm it has an edit URL that matches $target
+echo "NYI\n";
+
+echo "Refetching the collection... ";
+$feed = $collection->get();
+echo "ok\n";
+
+echo "Confirming new entry is in the feed... ";
+// make sure the new entry is in there
 //  edit URL should match
+echo "NYI\n";
 
-// refetch the feed; make sure the new entry is in there
-//  edit URL should match
-
-// try editing! it should fail.
+echo "Editing notice (should fail)... ";
 try {
-    $target2 = $pub->put($target, $atom2);
-    // FAIL! this shouldn't work.
-} catch (AtomPubPermissionDeniedException $e) {
-    // yay
+    $notice->put($target, $atom2);
+    die("ERROR: editing a notice should have failed.\n");
+} catch (Exception $e) {
+    echo "ok (failed as expected)\n";
 }
 
-// try deleting!
-$pub->delete();
+echo "Deleting notice... ";
+$notice->delete();
+echo "ok\n";
 
-// fetch $target -- it should be gone now
+echo "Refetching deleted notice to confirm it's gone... ";
+try {
+    $body = $notice->get();
+    die("ERROR: notice should be gone now.\n");
+} catch (Exception $e) {
+    echo "ok\n";
+}
 
-// fetch the feed again; the new entry should be gone again
+echo "Refetching the collection.. ";
+$feed = $collection->get();
+echo "ok\n";
 
-
-
-
+echo "Confirming deleted notice is no longer in the feed... ";
+echo "NYI\n";
 
 // make subscriptions
 // make some posts
