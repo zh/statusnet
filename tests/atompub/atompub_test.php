@@ -185,7 +185,7 @@ class AtomPubClient
             throw new Exception('Bad Atom entry: XML is not well formed.');
         }
 
-        $activity = new Activity($dom);
+        $activity = new Activity($dom->documentRoot);
         return true;
     }
 }
@@ -283,6 +283,7 @@ echo "ok\n";
 echo "Refetching deleted notice to confirm it's gone... ";
 try {
     $body = $notice->get();
+    var_dump($body);
     die("ERROR: notice should be gone now.\n");
 } catch (Exception $e) {
     echo "ok\n";
