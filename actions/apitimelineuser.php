@@ -356,7 +356,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         if (!empty($saved)) {
             header('HTTP/1.1 201 Created');
-            header("Location: " . common_local_url('ApiStatusesShow', array('notice_id' => $saved->id,
+            header("Location: " . common_local_url('ApiStatusesShow', array('id' => $saved->id,
                                                                             'format' => 'atom')));
             $this->showSingleAtomStatus($saved);
         }
