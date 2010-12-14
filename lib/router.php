@@ -905,8 +905,8 @@ class Router
             // AtomPub API
 
             $m->connect('api/statusnet/app/service/:id.xml',
-                        array('action' => 'ApiAtomService',
-                              'id' => Nickname::DISPLAY_FMT));
+                        array('action' => 'ApiAtomService'),
+                        array('id' => Nickname::DISPLAY_FMT));
 
             $m->connect('api/statusnet/app/service.xml',
                         array('action' => 'ApiAtomService'));
