@@ -207,6 +207,41 @@ class AtomPubClient
             throw new Exception('Atom entry lists no rel=edit link.');
         }
     }
+
+    static function entryId($str) {
+        $dom = new DOMDocument;
+        $dom->loadXML($str);
+        $path = new DOMXPath($dom);
+        $path->registerNamespace('atom', 'http://www.w3.org/2005/Atom');
+
+        $links = $path->query('/atom:entry/atom:id', $dom->documentRoot);
+        if ($links && $links->length) {
+            if ($links->length > 1) {
+                throw new Exception('Bad Atom entry; has multiple id entries.');
+            }
+            $link = $links->item(0);
+            $url = $link->textContent;
+            return $url;
+        } else {
+            throw new Exception('Atom entry lists no id.');
+        }
+    }
+
+    static function getEntryInFeed($str, $id)
+    {
+        $dom = new DOMDocument;
+        $dom->loadXML($str);
+        $path = new DOMXPath($dom);
+        $path->registerNamespace('atom', 'http://www.w3.org/2005/Atom');
+
+        $query = '/atom:feed/atom:entry[atom:id="'.$id.'"]';
+        $items = $path->query($query, $dom->documentRoot);
+        if ($items && $items->length) {
+            return $items->item(0);
+        } else {
+            return null;
+        }
+    }
 }
 
 
@@ -273,6 +308,10 @@ $body = $notice->get();
 AtomPubClient::validateAtomEntry($body);
 echo "ok\n";
 
+echo "Getting the notice ID URI... ";
+$noticeUri = AtomPubClient::entryId($body);
+echo "ok: $noticeUri\n";
+
 echo "Confirming new entry points to itself right... ";
 $editUrl = AtomPubClient::entryEditURL($body);
 if ($editUrl != $noticeUrl) {
@@ -285,9 +324,12 @@ $feed = $collection->get();
 echo "ok\n";
 
 echo "Confirming new entry is in the feed... ";
-// make sure the new entry is in there
+$entry = AtomPubClient::getEntryInFeed($feed, $noticeUri);
+if (!$entry) {
+    die("missing!\n");
+}
 //  edit URL should match
-echo "NYI\n";
+echo "ok\n";
 
 echo "Editing notice (should fail)... ";
 try {
@@ -315,7 +357,11 @@ $feed = $collection->get();
 echo "ok\n";
 
 echo "Confirming deleted notice is no longer in the feed... ";
-echo "NYI\n";
+$entry = AtomPubClient::getEntryInFeed($feed, $noticeUri);
+if ($entry) {
+    die("still there!\n");
+}
+echo "ok\n";
 
 // make subscriptions
 // make some posts
