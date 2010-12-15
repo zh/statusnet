@@ -55,14 +55,14 @@ class StatusNet_URL_Mapper extends Net_URL_Mapper
         $result = null;
         if (Event::handle('StartConnectPath', array(&$path, &$defaults, &$rules, &$result))) {
             $result = parent::connect($path, $defaults, $rules);
-	    if (array_key_exists('action', $defaults)) {
-		$action = $defaults['action'];
-	    } elseif (array_key_exists('action', $rules)) {
-		$action = $rules['action'];
-	    } else {
-		$action = null;
-	    }
-	    $this->_mapAction($action, $result);
+            if (array_key_exists('action', $defaults)) {
+                $action = $defaults['action'];
+            } elseif (array_key_exists('action', $rules)) {
+                $action = $rules['action'];
+            } else {
+                $action = null;
+            }
+            $this->_mapAction($action, $result);
             Event::handle('EndConnectPath', array($path, $defaults, $rules, $result));
         }
         return $result;
@@ -70,31 +70,31 @@ class StatusNet_URL_Mapper extends Net_URL_Mapper
     
     protected function _mapAction($action, $path)
     {
-	if (!array_key_exists($action, $this->_actionToPath)) {
-	    $this->_actionToPath[$action] = array();
-	}
-	$this->_actionToPath[$action][] = $path;
-	return;
+        if (!array_key_exists($action, $this->_actionToPath)) {
+            $this->_actionToPath[$action] = array();
+        }
+        $this->_actionToPath[$action][] = $path;
+        return;
     }
     
     public function generate($values = array(), $qstring = array(), $anchor = '')
     {
-	if (!array_key_exists('action', $values)) {
-	    return parent::generate($values, $qstring, $anchor);
-	}
+        if (!array_key_exists('action', $values)) {
+            return parent::generate($values, $qstring, $anchor);
+        }
 	
-	$action = $values['action'];
+        $action = $values['action'];
 
-	if (!array_key_exists($action, $this->_actionToPath)) {
-	    return parent::generate($values, $qstring, $anchor);
-	}
+        if (!array_key_exists($action, $this->_actionToPath)) {
+            return parent::generate($values, $qstring, $anchor);
+        }
 	
-	$oldPaths    = $this->paths;
-	$this->paths = $this->_actionToPath[$action];
-	$result      = parent::generate($values, $qstring, $anchor);
-	$this->paths = $oldPaths;
+        $oldPaths    = $this->paths;
+        $this->paths = $this->_actionToPath[$action];
+        $result      = parent::generate($values, $qstring, $anchor);
+        $this->paths = $oldPaths;
 
-	return $result;
+        return $result;
     }
 }
 
@@ -127,19 +127,19 @@ class Router
     function __construct()
     {
         if (empty($this->m)) {
-	    if (!common_config('router', 'cache')) {
+            if (!common_config('router', 'cache')) {
                 $this->m = $this->initialize();
-	    } else {
-		$k = self::cacheKey();
-		$c = Cache::instance();
-		$m = $c->get($k);
-		if (!empty($m)) {
-		    $this->m = $m;
-		} else {
-		    $this->m = $this->initialize();
-		    $c->set($k, $this->m);
-		}
-	    }
+            } else {
+                $k = self::cacheKey();
+                $c = Cache::instance();
+                $m = $c->get($k);
+                if (!empty($m)) {
+                    $this->m = $m;
+                } else {
+                    $this->m = $this->initialize();
+                    $c->set($k, $this->m);
+                }
+            }
         }
     }
 
@@ -199,7 +199,7 @@ class Router
                           'deleteuser',
                           'geocode',
                           'version',
-                          );
+            );
 
             foreach ($main as $a) {
                 $m->connect('main/'.$a, array('action' => $a));
@@ -222,8 +222,8 @@ class Router
                         array('action' => 'publicxrds'));
             $m->connect('.well-known/host-meta',
                         array('action' => 'hostmeta'));
-    	    $m->connect('main/xrd',
-                		array('action' => 'userxrd'));
+            $m->connect('main/xrd',
+                        array('action' => 'userxrd'));
 
             // these take a code
 
@@ -248,19 +248,19 @@ class Router
             }
 
             $m->connect('settings/oauthapps/show/:id',
-                array('action' => 'showapplication'),
-                array('id' => '[0-9]+')
+                        array('action' => 'showapplication'),
+                        array('id' => '[0-9]+')
             );
             $m->connect('settings/oauthapps/new',
-                array('action' => 'newapplication')
+                        array('action' => 'newapplication')
             );
             $m->connect('settings/oauthapps/edit/:id',
-                array('action' => 'editapplication'),
-                array('id' => '[0-9]+')
+                        array('action' => 'editapplication'),
+                        array('id' => '[0-9]+')
             );
             $m->connect('settings/oauthapps/delete/:id',
-                array('action' => 'deleteapplication'),
-                array('id' => '[0-9]+')
+                        array('action' => 'deleteapplication'),
+                        array('id' => '[0-9]+')
             );
 
             // search
@@ -408,7 +408,7 @@ class Router
 
             $m->connect('api/statuses/friends_timeline/:id.:format',
                         array('action' => 'ApiTimelineFriends',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statuses/home_timeline.:format',
@@ -417,7 +417,7 @@ class Router
 
             $m->connect('api/statuses/home_timeline/:id.:format',
                         array('action' => 'ApiTimelineHome',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statuses/user_timeline.:format',
@@ -426,7 +426,7 @@ class Router
 
             $m->connect('api/statuses/user_timeline/:id.:format',
                         array('action' => 'ApiTimelineUser',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statuses/mentions.:format',
@@ -435,7 +435,7 @@ class Router
 
             $m->connect('api/statuses/mentions/:id.:format',
                         array('action' => 'ApiTimelineMentions',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statuses/replies.:format',
@@ -444,7 +444,7 @@ class Router
 
             $m->connect('api/statuses/replies/:id.:format',
                         array('action' => 'ApiTimelineMentions',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statuses/retweeted_by_me.:format',
@@ -465,7 +465,7 @@ class Router
 
             $m->connect('api/statuses/friends/:id.:format',
                         array('action' => 'ApiUserFriends',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
             $m->connect('api/statuses/followers.:format',
@@ -474,7 +474,7 @@ class Router
 
             $m->connect('api/statuses/followers/:id.:format',
                         array('action' => 'ApiUserFollowers',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
             $m->connect('api/statuses/show.:format',
@@ -517,7 +517,7 @@ class Router
 
             $m->connect('api/users/show/:id.:format',
                         array('action' => 'ApiUserShow',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
             // direct messages
@@ -555,12 +555,12 @@ class Router
 
             $m->connect('api/friendships/create/:id.:format',
                         array('action' => 'ApiFriendshipsCreate',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
             $m->connect('api/friendships/destroy/:id.:format',
                         array('action' => 'ApiFriendshipsDestroy',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
             // Social graph
@@ -617,17 +617,17 @@ class Router
 
             $m->connect('api/favorites/:id.:format',
                         array('action' => 'ApiTimelineFavorites',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/favorites/create/:id.:format',
                         array('action' => 'ApiFavoriteCreate',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => '[0-9]+',
                               'format' => '(xml|json)'));
 
             $m->connect('api/favorites/destroy/:id.:format',
                         array('action' => 'ApiFavoriteDestroy',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => '[0-9]+',
                               'format' => '(xml|json)'));
             // blocks
 
@@ -637,7 +637,7 @@ class Router
 
             $m->connect('api/blocks/create/:id.:format',
                         array('action' => 'ApiBlockCreate',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
             $m->connect('api/blocks/destroy.:format',
@@ -646,7 +646,7 @@ class Router
 
             $m->connect('api/blocks/destroy/:id.:format',
                         array('action' => 'ApiBlockDestroy',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
             // help
 
@@ -682,7 +682,7 @@ class Router
 
             $m->connect('api/statusnet/groups/timeline/:id.:format',
                         array('action' => 'ApiTimelineGroup',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statusnet/groups/show.:format',
@@ -691,12 +691,12 @@ class Router
 
             $m->connect('api/statusnet/groups/show/:id.:format',
                         array('action' => 'ApiGroupShow',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
             $m->connect('api/statusnet/groups/join.:format',
                         array('action' => 'ApiGroupJoin',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
             $m->connect('api/statusnet/groups/join/:id.:format',
@@ -705,7 +705,7 @@ class Router
 
             $m->connect('api/statusnet/groups/leave.:format',
                         array('action' => 'ApiGroupLeave',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
             $m->connect('api/statusnet/groups/leave/:id.:format',
@@ -722,7 +722,7 @@ class Router
 
             $m->connect('api/statusnet/groups/list/:id.:format',
                         array('action' => 'ApiGroupList',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json|rss|atom)'));
 
             $m->connect('api/statusnet/groups/list_all.:format',
@@ -735,7 +735,7 @@ class Router
 
             $m->connect('api/statusnet/groups/membership/:id.:format',
                         array('action' => 'ApiGroupMembership',
-                              'id' => Nickname::DISPLAY_FMT,
+                              'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
             $m->connect('api/statusnet/groups/create.:format',
@@ -771,13 +771,6 @@ class Router
 
             $m->connect('api/oauth/authorize',
                         array('action' => 'ApiOauthAuthorize'));
-
-            $m->connect('api/statusnet/app/service/:id.xml',
-                        array('action' => 'ApiAtomService',
-                              'id' => Nickname::DISPLAY_FMT));
-
-            $m->connect('api/statusnet/app/service.xml',
-                        array('action' => 'ApiAtomService'));
 
             // Admin
 
@@ -928,6 +921,42 @@ class Router
                             array('nickname' => Nickname::DISPLAY_FMT));
             }
 
+            // AtomPub API
+
+            $m->connect('api/statusnet/app/service/:id.xml',
+                        array('action' => 'ApiAtomService'),
+                        array('id' => Nickname::DISPLAY_FMT));
+
+            $m->connect('api/statusnet/app/service.xml',
+                        array('action' => 'ApiAtomService'));
+
+            $m->connect('api/statusnet/app/subscriptions/:subscriber/:subscribed.atom',
+                        array('action' => 'AtomPubShowSubscription'),
+                        array('subscriber' => '[0-9]+',
+                              'subscribed' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/subscriptions/:subscriber.atom',
+                        array('action' => 'AtomPubSubscriptionFeed'),
+                        array('subscriber' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/favorites/:profile/:notice.atom',
+                        array('action' => 'AtomPubShowFavorite'),
+                        array('profile' => '[0-9]+',
+                              'notice' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/favorites/:profile.atom',
+                        array('action' => 'AtomPubFavoriteFeed'),
+                        array('profile' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/memberships/:profile/:group.atom',
+                        array('action' => 'AtomPubShowMembership'),
+                        array('profile' => '[0-9]+',
+                              'group' => '[0-9]+'));
+
+            $m->connect('api/statusnet/app/memberships/:profile.atom',
+                        array('action' => 'AtomPubMembershipFeed'),
+                        array('profile' => '[0-9]+'));
+
             // user stuff
 
             Event::handle('RouterInitialized', array($m));
@@ -970,14 +999,14 @@ class Router
         $qpos = strpos($url, '?');
         if ($qpos !== false) {
             $url = substr($url, 0, $qpos+1) .
-              str_replace('?', '&', substr($url, $qpos+1));
+                str_replace('?', '&', substr($url, $qpos+1));
 
             // @fixme this is a hacky workaround for http_build_query in the
             // lower-level code and bad configs that set the default separator
             // to &amp; instead of &. Encoded &s in parameters will not be
             // affected.
             $url = substr($url, 0, $qpos+1) .
-              str_replace('&amp;', '&', substr($url, $qpos+1));
+                str_replace('&amp;', '&', substr($url, $qpos+1));
 
         }
 

@@ -973,4 +973,34 @@ class User extends Memcached_DataObject
     {
         return common_shorten_links($text, $always, $this);
     }
+
+    /*
+     * Get a list of OAuth client application that have access to this
+     * user's account.
+     */
+    function getConnectedApps($offset = 0, $limit = null)
+    {
+        $qry =
+          'SELECT u.* ' .
+          'FROM oauth_application_user u, oauth_application a ' .
+          'WHERE u.profile_id = %d ' .
+          'AND a.id = u.application_id ' .
+          'AND u.access_type > 0 ' .
+          'ORDER BY u.created DESC ';
+
+        if ($offset > 0) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $apps = new Oauth_application_user();
+
+        $cnt = $apps->query(sprintf($qry, $this->id));
+
+        return $apps;
+    }
+
 }

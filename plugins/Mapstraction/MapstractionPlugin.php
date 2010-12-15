@@ -128,8 +128,8 @@ class MapstractionPlugin extends Plugin
             $action->script((StatusNet::isHTTPS()?'https':'http') + '://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6');
             break;
         case 'openlayers':
-            // XXX: is this not nice...?
-            $action->script('http://openlayers.org/api/OpenLayers.js');
+            // Use our included stripped & minified OpenLayers.
+            $action->script(common_path('plugins/Mapstraction/OpenLayers/OpenLayers.js'));
             break;
         case 'yahoo':
             $action->script(sprintf('http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=%s',
@@ -140,11 +140,19 @@ class MapstractionPlugin extends Plugin
             return true;
         }
 
-        $action->script(sprintf('%s?(%s)',
-                                common_path('plugins/Mapstraction/js/mxn.js'),
-                                $this->provider));
+        if ($this->provider == 'openlayers') {
+            // We have an optimized path for our default case.
+            //
+            // Note that OpenLayers.js needs to be separate, or it won't
+            // be able to find its UI images and styles.
+            $action->script(common_path('plugins/Mapstraction/usermap-mxn-openlayers.min.js'));
+        } else {
+            $action->script(sprintf('%s?(%s)',
+                                    common_path('plugins/Mapstraction/js/mxn.js'),
+                                    $this->provider));
 
-        $action->script(common_path('plugins/Mapstraction/usermap.js'));
+            $action->script(common_path('plugins/Mapstraction/usermap.js'));
+        }
 
         $action->inlineScript(sprintf('var _provider = "%s";', $this->provider));
 

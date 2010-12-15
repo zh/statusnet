@@ -163,6 +163,22 @@ class SubscriptionsAction extends GalleryAction
         $cloud2 = new SubscriptionsPeopleSelfTagCloudSection($this);
         $cloud2->show();
     }
+
+    /**
+     * Link to feeds of subscriptions
+     *
+     * @return array of Feed objects
+     */
+
+    function getFeeds()
+    {
+        return array(new Feed(Feed::ATOM,
+                              common_local_url('AtomPubSubscriptionFeed',
+                                               array('subscriber' => $this->profile->id)),
+                              sprintf(_('Subscription feed for %s (Atom)'),
+                                      $this->profile->nickname)));
+
+    }
 }
 
 // XXX SubscriptionsList and SubscriptionList are dangerously close
@@ -249,4 +265,5 @@ class SubscriptionsListItem extends SubscriptionListItem
         $this->out->elementEnd('form');
         return;
     }
+
 }

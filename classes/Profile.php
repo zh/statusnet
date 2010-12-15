@@ -380,79 +380,32 @@ class Profile extends Memcached_DataObject
 
     function getSubscriptions($offset=0, $limit=null)
     {
-        $qry =
-          'SELECT profile.* ' .
-          'FROM profile JOIN subscription ' .
-          'ON profile.id = subscription.subscribed ' .
-          'WHERE subscription.subscriber = %d ' .
-          'AND subscription.subscribed != subscription.subscriber ' .
-          'ORDER BY subscription.created DESC ';
+        $subs = Subscription::bySubscriber($this->id,
+                                           $offset,
+                                           $limit);
 
-        if ($offset>0 && !is_null($limit)){
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-            }
+        $profiles = array();
+
+        while ($subs->fetch()) {
+            $profiles[] = Profile::staticGet($subs->subscribed);
         }
 
-        $profile = new Profile();
-
-        $profile->query(sprintf($qry, $this->id));
-
-        return $profile;
+        return new ArrayWrapper($profiles);
     }
 
     function getSubscribers($offset=0, $limit=null)
     {
-        $qry =
-          'SELECT profile.* ' .
-          'FROM profile JOIN subscription ' .
-          'ON profile.id = subscription.subscriber ' .
-          'WHERE subscription.subscribed = %d ' .
-          'AND subscription.subscribed != subscription.subscriber ' .
-          'ORDER BY subscription.created DESC ';
+        $subs = Subscription::bySubscribed($this->id,
+                                           $offset,
+                                           $limit);
 
-        if ($offset>0 && !is_null($limit)){
-            if ($offset) {
-                if (common_config('db','type') == 'pgsql') {
-                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-                } else {
-                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-                }
-            }
+        $profiles = array();
+
+        while ($subs->fetch()) {
+            $profiles[] = Profile::staticGet($subs->subscriber);
         }
 
-        $profile = new Profile();
-
-        $cnt = $profile->query(sprintf($qry, $this->id));
-
-        return $profile;
-    }
-
-    function getConnectedApps($offset = 0, $limit = null)
-    {
-        $qry =
-          'SELECT u.* ' .
-          'FROM oauth_application_user u, oauth_application a ' .
-          'WHERE u.profile_id = %d ' .
-          'AND a.id = u.application_id ' .
-          'AND u.access_type > 0 ' .
-          'ORDER BY u.created DESC ';
-
-        if ($offset > 0) {
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-            }
-        }
-
-        $apps = new Oauth_application_user();
-
-        $cnt = $apps->query(sprintf($qry, $this->id));
-
-        return $apps;
+        return new ArrayWrapper($profiles);
     }
 
     function subscriptionCount()

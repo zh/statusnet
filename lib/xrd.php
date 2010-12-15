@@ -130,13 +130,23 @@ class XRD
 
         foreach ($this->links as $link) {
             $titles = array();
+            $properties = array();
             if (isset($link['title'])) {
                 $titles = $link['title'];
                 unset($link['title']);
             }
+            if (isset($link['property'])) {
+                $properties = $link['property'];
+                unset($link['property']);
+            }
             $xs->elementStart('Link', $link);
             foreach ($titles as $title) {
                 $xs->element('Title', null, $title);
+            }
+            foreach ($properties as $property) {
+                $xs->element('Property',
+                             array('type' => $property['type']),
+                             $property['value']);
             }
             $xs->elementEnd('Link');
         }

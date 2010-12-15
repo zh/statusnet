@@ -1234,7 +1234,7 @@ class Notice extends Memcached_DataObject
      * @return Activity activity object representing this Notice.
      */
 
-    function asActivity($cur = null, $source = false)
+    function asActivity()
     {
         $act = self::cacheGet(Cache::codeKey('notice:as-activity:'.$this->id));
 
@@ -1332,68 +1332,37 @@ class Notice extends Memcached_DataObject
 	    
             $act->context = $ctx;
 
-            $noticeInfoAttr = array('local_id' => $this->id); // local notice ID (useful to clients for ordering)
+            // Source
 
-            $ns = $this->getSource();
+            $atom_feed = $profile->getAtomFeed();
 
-            if (!empty($ns)) {
-                $noticeInfoAttr['source'] =  $ns->code;
-                if (!empty($ns->url)) {
-                    $noticeInfoAttr['source_link'] = $ns->url;
-                    if (!empty($ns->name)) {
-                        $noticeInfoAttr['source'] =  '<a href="'
-                            . htmlspecialchars($ns->url)
-                            . '" rel="nofollow">'
-                            . htmlspecialchars($ns->name)
-                            . '</a>';
-                    }
+            if (!empty($atom_feed)) {
+
+                $act->source = new ActivitySource();
+		    
+                // XXX: we should store the actual feed ID
+
+                $act->source->id = $atom_feed;
+
+                // XXX: we should store the actual feed title
+
+                $act->source->title = $profile->getBestName();
+
+                $act->source->links['alternate'] = $profile->profileurl;
+                $act->source->links['self']      = $atom_feed;
+
+                $act->source->icon = $profile->avatarUrl(AVATAR_PROFILE_SIZE);
+		    
+                $notice = $profile->getCurrentNotice();
+
+                if (!empty($notice)) {
+                    $act->source->updated = self::utcDate($notice->created);
                 }
-            }
 
-            if (!empty($cur)) {
-                $noticeInfoAttr['favorite'] = ($cur->hasFave($this)) ? "true" : "false";
-                $cp = $cur->getProfile();
-                $noticeInfoAttr['repeated'] = ($cp->hasRepeated($this->id)) ? "true" : "false";
-            }
+                $user = User::staticGet('id', $profile->id);
 
-            if (!empty($this->repeat_of)) {
-                $noticeInfoAttr['repeat_of'] = $this->repeat_of;
-            }
-
-            $act->extra[] = array('statusnet:notice_info', $noticeInfoAttr, null);
-
-            if ($source) {
-		
-                $atom_feed = $profile->getAtomFeed();
-
-                if (!empty($atom_feed)) {
-
-                    $act->source = new ActivitySource();
-		    
-                    // XXX: we should store the actual feed ID
-
-                    $act->source->id = $atom_feed;
-
-                    // XXX: we should store the actual feed title
-
-                    $act->source->title = $profile->getBestName();
-
-                    $act->source->links['alternate'] = $profile->profileurl;
-                    $act->source->links['self']      = $atom_feed;
-
-                    $act->source->icon = $profile->avatarUrl(AVATAR_PROFILE_SIZE);
-		    
-                    $notice = $profile->getCurrentNotice();
-
-                    if (!empty($notice)) {
-                        $act->source->updated = self::utcDate($notice->created);
-                    }
-
-                    $user = User::staticGet('id', $profile->id);
-
-                    if (!empty($user)) {
-                        $act->source->links['license'] = common_config('license', 'url');
-                    }
+                if (!empty($user)) {
+                    $act->source->links['license'] = common_config('license', 'url');
                 }
             }
 
@@ -1414,12 +1383,65 @@ class Notice extends Memcached_DataObject
     // This has gotten way too long. Needs to be sliced up into functional bits
     // or ideally exported to a utility class.
 
-    function asAtomEntry($namespace=false, $source=false, $author=true, $cur=null)
+    function asAtomEntry($namespace=false,
+                         $source=false,
+                         $author=true, 
+                         $cur=null)
     {
-        $act = $this->asActivity($cur, $source);
-        return $act->asString($namespace, $author);
+        $act = $this->asActivity();
+        $act->extra[] = $this->noticeInfo($cur);
+        return $act->asString($namespace, $author, $source);
     }
-    
+
+    /**
+     * Extra notice info for atom entries
+     * 
+     * Clients use some extra notice info in the atom stream.
+     * This gives it to them.
+     *
+     * @param User $cur Current user
+     *
+     * @return array representation of <statusnet:notice_info> element
+     */
+
+    function noticeInfo($cur)
+    {
+        // local notice ID (useful to clients for ordering)
+
+        $noticeInfoAttr = array('local_id' => $this->id);
+
+        // notice source
+
+        $ns = $this->getSource();
+
+        if (!empty($ns)) {
+            $noticeInfoAttr['source'] =  $ns->code;
+            if (!empty($ns->url)) {
+                $noticeInfoAttr['source_link'] = $ns->url;
+                if (!empty($ns->name)) {
+                    $noticeInfoAttr['source'] =  '<a href="'
+                        . htmlspecialchars($ns->url)
+                        . '" rel="nofollow">'
+                        . htmlspecialchars($ns->name)
+                        . '</a>';
+                }
+            }
+        }
+
+        // favorite and repeated
+
+        if (!empty($cur)) {
+            $noticeInfoAttr['favorite'] = ($cur->hasFave($this)) ? "true" : "false";
+            $cp = $cur->getProfile();
+            $noticeInfoAttr['repeated'] = ($cp->hasRepeated($this->id)) ? "true" : "false";
+        }
+
+        if (!empty($this->repeat_of)) {
+            $noticeInfoAttr['repeat_of'] = $this->repeat_of;
+        }
+
+        return array('statusnet:notice_info', $noticeInfoAttr, null);
+    }
 
     /**
      * Returns an XML string fragment with a reference to a notice as an

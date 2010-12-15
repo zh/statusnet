@@ -20,7 +20,25 @@
 class Nickname
 {
     /**
-     * Regex fragment for pulling an arbitrarily-formated nickname.
+     * Regex fragment for pulling a formated nickname *OR* ID number.
+     * Suitable for router def of 'id' parameters on API actions.
+     *
+     * Not guaranteed to be valid after normalization; run the string through
+     * Nickname::normalize() to get the canonical form, or Nickname::isValid()
+     * if you just need to check if it's properly formatted.
+     *
+     * This, DISPLAY_FMT, and CANONICAL_FMT replace the old NICKNAME_FMT,
+     * but be aware that these should not be enclosed in []s.
+     *
+     * @fixme would prefer to define in reference to the other constants
+     */
+    const INPUT_FMT = '(?:[0-9]+|[0-9a-zA-Z_]{1,64})';
+
+    /**
+     * Regex fragment for acceptable user-formatted variant of a nickname.
+     * This includes some chars such as underscore which will be removed
+     * from the normalized canonical form, but still must fit within
+     * field length limits.
      *
      * Not guaranteed to be valid after normalization; run the string through
      * Nickname::normalize() to get the canonical form, or Nickname::isValid()
@@ -29,7 +47,7 @@ class Nickname
      * This and CANONICAL_FMT replace the old NICKNAME_FMT, but be aware
      * that these should not be enclosed in []s.
      */
-    const DISPLAY_FMT = '[0-9a-zA-Z_]+';
+    const DISPLAY_FMT = '[0-9a-zA-Z_]{1,64}';
 
     /**
      * Regex fragment for checking a canonical nickname.
