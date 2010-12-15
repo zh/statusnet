@@ -85,6 +85,19 @@ var SN = { // StatusNet
                     SN.U.Counter(form);
                 });
 
+                var delayedUpdate= function(e) {
+                    // Cut and paste events fire *before* the operation,
+                    // so we need to trigger an update in a little bit.
+                    // This would be so much easier if the 'change' event
+                    // actually fired every time the value changed. :P
+                    window.setTimeout(function() {
+                        SN.U.Counter(form);
+                    }, 50);
+                };
+                // Note there's still no event for mouse-triggered 'delete'.
+                NDT.bind('cut', delayedUpdate)
+                   .bind('paste', delayedUpdate);
+
                 NDT.bind('keydown', function(e) {
                     SN.U.SubmitOnReturn(e, form);
                 });
