@@ -145,4 +145,16 @@ class XrdAction extends Action
 
         return (substr($uri, 0, 5) == 'acct:');
     }
+
+    /**
+     * Is this action read-only?
+     *
+     * @param array $args other arguments
+     *
+     * @return boolean is read only action?
+     */
+    function isReadOnly($args)
+    {
+        return true;
+    }
 }
