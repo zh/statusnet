@@ -165,7 +165,7 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     }
 
     /**
-     * Is this action read only?
+     * We expose AtomPub here, so non-GET/HEAD reqs must be read/write.
      *
      * @param array $args other arguments
      *
@@ -174,11 +174,7 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     
     function isReadOnly($args)
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-	    return true;
-	} else {
-	    return false;
-	}
+        return ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'HEAD');
     }
 
     /**

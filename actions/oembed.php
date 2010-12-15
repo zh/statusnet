@@ -215,4 +215,15 @@ class OembedAction extends Action
         return;
     }
 
+    /**
+     * Is this action read-only?
+     *
+     * @param array $args other arguments
+     *
+     * @return boolean is read only action?
+     */
+    function isReadOnly($args)
+    {
+        return true;
+    }
 }
