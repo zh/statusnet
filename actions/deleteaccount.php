@@ -284,7 +284,7 @@ class DeleteAccountForm extends Form
 
         if ($cur->hasRight(Right::BACKUPACCOUNT)) {
             $msg .= sprintf(_('<p>You are strongly advised to '.
-                              '<a href="%s">back up your data</a>'
+                              '<a href="%s">back up your data</a>'.
                               ' before deletion.</p>'),
                            common_local_url('backupaccount'));
         }
