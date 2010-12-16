@@ -52,6 +52,8 @@ if (!defined('STATUSNET')) {
 
 class AccountRestorer
 {
+    private $_trusted = false;
+
     function loadXML($xml)
     {
         $dom = DOMDocument::loadXML($xml);
@@ -72,29 +74,22 @@ class AccountRestorer
 
         if (!empty($subjectEl)) {
             $subject = new ActivityObject($subjectEl);
-            // TRANS: Commandline script output. %1$s is the subject ID, %2$s is the subject nickname.
-            printfv(_("Backup file for user %1$s (%2$s)")."\n", $subject->id, Ostatus_profile::getActivityObjectNickname($subject));
         } else {
             throw new Exception("Feed doesn't have an <activity:subject> element.");
         }
 
         if (is_null($user)) {
-            // TRANS: Commandline script output.
-            printfv(_("No user specified; using backup user.")."\n");
             $user = $this->userFromSubject($subject);
         }
 
         $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
 
-        // TRANS: Commandline script output. %d is the number of entries in the activity stream in backup; used for plural.
-        printfv(_m("%d entry in backup.","%d entries in backup.",$entries->length)."\n", $entries->length);
+        $activities = $this->entriesToActivities($entries, $feed);
 
-        for ($i = $entries->length - 1; $i >= 0; $i--) {
+        // XXX: sort entries here
+
+        foreach ($activities as $activity) {
             try {
-                $entry = $entries->item($i);
-
-                $activity = new Activity($entry, $feed);
-
                 switch ($activity->verb) {
                 case ActivityVerb::FOLLOW:
                     $this->subscribeProfile($user, $subject, $activity);
@@ -109,7 +104,7 @@ class AccountRestorer
                     throw new Exception("Unknown verb: {$activity->verb}");
                 }
             } catch (Exception $e) {
-                print $e->getMessage()."\n";
+                common_log(LOG_WARNING, $e->getMessage());
                 continue;
             }
         }
@@ -120,19 +115,22 @@ class AccountRestorer
         $profile = $user->getProfile();
 
         if ($activity->objects[0]->id == $subject->id) {
-
-            $other = $activity->actor;
-            $otherUser = User::staticGet('uri', $other->id);
-
-            if (!empty($otherUser)) {
-                $otherProfile = $otherUser->getProfile();
+            if (!$this->_trusted) {
+                    throw new Exception("Skipping a pushed subscription.");
             } else {
-                throw new Exception("Can't force remote user to subscribe.");
-            }
-            // XXX: don't do this for untrusted input!
-            Subscription::start($otherProfile, $profile);
+                $other = $activity->actor;
+                $otherUser = User::staticGet('uri', $other->id);
 
-        } else if (empty($activity->actor) || $activity->actor->id == $subject->id) {
+                if (!empty($otherUser)) {
+                    $otherProfile = $otherUser->getProfile();
+                } else {
+                    throw new Exception("Can't force remote user to subscribe.");
+                }
+                // XXX: don't do this for untrusted input!
+                Subscription::start($otherProfile, $profile);
+            }
+        } else if (empty($activity->actor) 
+                   || $activity->actor->id == $subject->id) {
 
             $other = $activity->objects[0];
             $otherUser = User::staticGet('uri', $other->id);
