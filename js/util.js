@@ -622,6 +622,9 @@ var SN = { // StatusNet
 
         /**
          * Setup function -- DOES NOT trigger actions immediately.
+         *
+         * Goes through all notices currently displayed and sets up attachment
+         * handling if needed.
          */
         NoticeAttachments: function() {
             $('.notice a.attachment').each(function() {
@@ -629,6 +632,16 @@ var SN = { // StatusNet
             });
         },
 
+        /**
+         * Setup function -- DOES NOT trigger actions immediately.
+         *
+         * Sets up special attachment link handling if needed. Currently this
+         * consists only of making the "more" button used for OStatus message
+         * cropping turn into an auto-expansion button that loads the full
+         * text from an attachment file.
+         *
+         * @param {jQuery} notice
+         */
         NoticeWithAttachment: function(notice) {
             if (notice.find('.attachment').length === 0) {
                 return;
@@ -648,6 +661,17 @@ var SN = { // StatusNet
             }
         },
 
+        /**
+         * Setup function -- DOES NOT trigger actions immediately.
+         *
+         * Sets up event handlers for the file-attachment widget in the
+         * new notice form. When a file is selected, a box will be added
+         * below the text input showing the filename and, if supported
+         * by the browser, a thumbnail preview.
+         *
+         * This preview box will also allow removing the attachment
+         * prior to posting.
+         */
         NoticeDataAttach: function() {
             NDA = $('#'+SN.C.S.NoticeDataAttach);
             NDA.change(function() {
@@ -762,6 +786,18 @@ var SN = { // StatusNet
             }
         },
 
+        /**
+         * Setup function -- DOES NOT trigger actions immediately.
+         *
+         * Initializes state for the location-lookup features in the
+         * new-notice form. Seems to set up some event handlers for
+         * triggering lookups and using the new values.
+         *
+         * @fixme tl;dr
+         * @fixme there's not good visual state update here, so users have a
+         *        hard time figuring out if it's working or fixing if it's wrong.
+         *
+         */
         NoticeLocationAttach: function() {
             var NLat = $('#'+SN.C.S.NoticeLat).val();
             var NLon = $('#'+SN.C.S.NoticeLon).val();
@@ -919,6 +955,18 @@ var SN = { // StatusNet
             }
         },
 
+        /**
+         * Setup function -- DOES NOT trigger actions immediately.
+         *
+         * Initializes event handlers for the "Send direct message" link on
+         * profile pages, setting it up to display a dialog box when clicked.
+         *
+         * Unlike the repeat confirmation form, this appears to fetch
+         * the form _from the original link target_, so the form itself
+         * doesn't need to be in the current document.
+         *
+         * @fixme breaks ability to open link in new window?
+         */
         NewDirectMessage: function() {
             NDM = $('.entity_send-a-message a');
             NDM.attr({'href':NDM.attr('href')+'&ajax=1'});
@@ -947,6 +995,15 @@ var SN = { // StatusNet
             });
         },
 
+        /**
+         * Return a date object with the current local time on the
+         * given year, month, and day.
+         *
+         * @param {number} year: 4-digit year
+         * @param {number} month: 0 == January
+         * @param {number} day: 1 == 1
+         * @return {Date}
+         */
         GetFullYear: function(year, month, day) {
             var date = new Date();
             date.setFullYear(year, month, day);
@@ -954,7 +1011,22 @@ var SN = { // StatusNet
             return date;
         },
 
+        /**
+         * Some sort of object interface for storing some structured
+         * information in a cookie.
+         *
+         * Appears to be used to save the last-used login nickname?
+         * That's something that browsers usually take care of for us
+         * these days, do we really need to do it? Does anything else
+         * use this interface?
+         *
+         * @fixme what is this?
+         * @fixme should this use non-cookie local storage when available?
+         */
         StatusNetInstance: {
+            /**
+             * @fixme what is this?
+             */
             Set: function(value) {
                 var SNI = SN.U.StatusNetInstance.Get();
                 if (SNI !== null) {
@@ -970,6 +1042,9 @@ var SN = { // StatusNet
                     });
             },
 
+            /**
+             * @fixme what is this?
+             */
             Get: function() {
                 var cookieValue = $.cookie(SN.C.S.StatusNetInstance);
                 if (cookieValue !== null) {
@@ -978,6 +1053,9 @@ var SN = { // StatusNet
                 return null;
             },
 
+            /**
+             * @fixme what is this?
+             */
             Delete: function() {
                 $.cookie(SN.C.S.StatusNetInstance, null);
             }
@@ -989,6 +1067,9 @@ var SN = { // StatusNet
          *
          * @fixme this should be done in a saner way, with machine-readable
          * info about what page we're looking at.
+         *
+         * @param {DOMElement} notice: HTML chunk with formatted notice
+         * @return boolean
          */
         belongsOnTimeline: function(notice) {
             var action = $("body").attr('id');
@@ -1017,6 +1098,14 @@ var SN = { // StatusNet
     },
 
     Init: {
+        /**
+         * If user is logged in, run setup code for the new notice form:
+         *
+         *  - char counter
+         *  - AJAX submission
+         *  - location events
+         *  - file upload events
+         */
         NoticeForm: function() {
             if ($('body.user_in').length > 0) {
                 SN.U.NoticeLocationAttach();
@@ -1030,6 +1119,12 @@ var SN = { // StatusNet
             }
         },
 
+        /**
+         * Run setup code for notice timeline views items:
+         *
+         * - AJAX submission for fave/repeat/reply (if logged in)
+         * - Attachment link extras ('more' links)
+         */
         Notices: function() {
             if ($('body.user_in').length > 0) {
                 SN.U.NoticeFavor();
@@ -1040,6 +1135,12 @@ var SN = { // StatusNet
             SN.U.NoticeAttachments();
         },
 
+        /**
+         * Run setup code for user & group profile page header area if logged in:
+         *
+         * - AJAX submission for sub/unsub/join/leave/nudge
+         * - AJAX form popup for direct-message
+         */
         EntityActions: function() {
             if ($('body.user_in').length > 0) {
                 $('.form_user_subscribe').live('click', function() { SN.U.FormXHR($(this)); return false; });
@@ -1052,6 +1153,14 @@ var SN = { // StatusNet
             }
         },
 
+        /**
+         * Run setup code for login form:
+         *
+         * - loads saved last-used-nickname from cookie
+         * - sets event handler to save nickname to cookie on submit
+         *
+         * @fixme is this necessary? Browsers do their own form saving these days.
+         */
         Login: function() {
             if (SN.U.StatusNetInstance.Get() !== null) {
                 var nickname = SN.U.StatusNetInstance.Get().Nickname;
@@ -1068,6 +1177,13 @@ var SN = { // StatusNet
     }
 };
 
+/**
+ * Run initialization functions on DOM-ready.
+ *
+ * Note that if we're waiting on other scripts to load, this won't happen
+ * until that's done. To load scripts asynchronously without delaying setup,
+ * don't start them loading until after DOM-ready time!
+ */
 $(document).ready(function(){
     if ($('.'+SN.C.S.FormNotice).length > 0) {
         SN.Init.NoticeForm();
@@ -1084,6 +1200,7 @@ $(document).ready(function(){
 });
 
 // Formerly in xbImportNode.js
+// @fixme put it back there -- since we're minifying we can concat in the makefile now
 
 /* is this stuff defined? */
 if (!document.ELEMENT_NODE) {
@@ -1132,6 +1249,7 @@ document._importNode = function(node, allChildren) {
 	}
 };
 
+// @fixme put this next bit back too -- since we're minifying we can concat in the makefile now
 // A shim to implement the W3C Geolocation API Specification using Gears or the Ajax API
 if (typeof navigator.geolocation == "undefined" || navigator.geolocation.shim ) { (function(){
 
