@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-30 20:16+0000\n"
-"PO-Revision-Date: 2010-11-30 20:19:00+0000\n"
+"POT-Creation-Date: 2010-12-16 15:08+0000\n"
+"PO-Revision-Date: 2010-12-16 15:11:56+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-30 17:54:27+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-30 20:40:35+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -41,7 +41,7 @@ msgstr "Instellingen voor Facebookintegratie"
 
 #. TRANS: Tooltip for menu item "Facebook".
 #. TRANS: Page title for Facebook settings.
-#: FacebookBridgePlugin.php:283 actions/facebooksettings.php:106
+#: FacebookBridgePlugin.php:283 actions/facebooksettings.php:105
 msgid "Facebook settings"
 msgstr "Facebookinstellingen"
 
@@ -71,7 +71,7 @@ msgstr ""
 msgid "There is already a local account linked with that Facebook account."
 msgstr "Er is al een lokale gebruiker verbonden met deze Facebookgebruiker."
 
-#: actions/facebookfinishlogin.php:141 actions/facebooksettings.php:87
+#: actions/facebookfinishlogin.php:141 actions/facebooksettings.php:86
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 "Er is een probleem ontstaan met uw sessie. Probeer het nog een keer, "
@@ -253,30 +253,30 @@ msgstr "Opslaan"
 msgid "Save Facebook settings"
 msgstr "Facebookinstellingen opslaan"
 
-#: actions/facebooksettings.php:139
+#: actions/facebooksettings.php:137
 msgid "Connected Facebook user"
 msgstr "Gekoppelde Facebookgebruiker"
 
-#: actions/facebooksettings.php:166
+#: actions/facebooksettings.php:164
 msgid "Publish my notices to Facebook."
 msgstr "Mijn mededelingen publiceren op Facebook."
 
-#: actions/facebooksettings.php:176
+#: actions/facebooksettings.php:174
 msgid "Send \"@\" replies to Facebook."
 msgstr "Antwoorden met \"@\" naar Facebook verzenden."
 
 #. TRANS: Submit button to save synchronisation settings.
-#: actions/facebooksettings.php:185
+#: actions/facebooksettings.php:183
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Opslaan"
 
 #. TRANS: Legend.
-#: actions/facebooksettings.php:194
+#: actions/facebooksettings.php:192
 msgid "Disconnect my account from Facebook"
 msgstr "Mijn gebruiker loskoppelen van Facebook"
 
-#: actions/facebooksettings.php:202
+#: actions/facebooksettings.php:199
 #, php-format
 msgid ""
 "Disconnecting your Faceboook would make it impossible to log in! Please [set "
@@ -285,40 +285,36 @@ msgstr ""
 "Door los te koppelen van Faceboook zou u niet meer kunnen aanmelden! [Stel "
 "eerst een wachtwoord in](%s)."
 
-#: actions/facebooksettings.php:215
+#: actions/facebooksettings.php:213
+#, fuzzy, php-format
 msgid ""
-"Keep your %1$s account but disconnect from Facebook. You'll use your 1%$s "
+"Keep your %1$s account but disconnect from Facebook. You'll use your %1$s "
 "password to log in."
 msgstr ""
 "Uw gebruiker bij %1$s behouden maar deze loskoppelen van Facebook. U kunt uw "
 "wachtwoord van %1$s gebruiken om aan te melden."
 
 #. TRANS: Submit button.
-#: actions/facebooksettings.php:222
+#: actions/facebooksettings.php:220
 msgctxt "BUTTON"
 msgid "Disconnect"
 msgstr "Loskoppelen"
 
-#: actions/facebooksettings.php:246
+#: actions/facebooksettings.php:243
 msgid "There was a problem saving your sync preferences."
 msgstr ""
 "Er is een fout opgetreden tijdens het opslaan van uw "
 "synchronisatievoorkeuren."
 
 #. TRANS: Confirmation that synchronisation settings have been saved into the system.
-#: actions/facebooksettings.php:249
+#: actions/facebooksettings.php:246
 msgid "Sync preferences saved."
 msgstr "Uw synchronisatievoorkeuren zijn opgeslagen."
 
-#: actions/facebooksettings.php:264
+#: actions/facebooksettings.php:260
 msgid "Couldn't delete link to Facebook."
 msgstr "Het was niet mogelijk de verwijzing naar Facebook te verwijderen."
 
-#: actions/facebooksettings.php:268
+#: actions/facebooksettings.php:264
 msgid "You have disconnected from Facebook."
 msgstr "U bent losgekoppeld van Facebook."
-
-#~ msgid "Nickname must have only lowercase letters and numbers and no spaces."
-#~ msgstr ""
-#~ "De gebruikersnaam mag alleen kleine letters en cijfers bevatten. Spaties "
-#~ "zijn niet toegestaan."

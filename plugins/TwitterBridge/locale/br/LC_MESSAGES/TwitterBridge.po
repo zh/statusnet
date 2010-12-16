@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - TwitterBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-30 20:16+0000\n"
-"PO-Revision-Date: 2010-11-30 20:20:40+0000\n"
+"POT-Creation-Date: 2010-12-16 15:08+0000\n"
+"PO-Revision-Date: 2010-12-16 15:13:10+0000\n"
 "Language-Team: Breton <http://translatewiki.net/wiki/Portal:br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-30 17:54:30+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-30 20:43:58+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: #out-statusnet-plugin-twitterbridge\n"
@@ -26,7 +26,7 @@ msgstr ""
 #: twitterimport.php:114
 #, php-format
 msgid "RT @%1$s %2$s"
-msgstr ""
+msgstr "RT @%1$s %2$s"
 
 #: twitter.php:407
 msgid "Your Twitter bridge has been disabled."
@@ -75,73 +75,73 @@ msgstr ""
 msgid "Twitter bridge settings"
 msgstr ""
 
-#: twitteradminpanel.php:145
+#: twitteradminpanel.php:150
 msgid "Invalid consumer key. Max length is 255 characters."
 msgstr ""
 
-#: twitteradminpanel.php:151
+#: twitteradminpanel.php:156
 msgid "Invalid consumer secret. Max length is 255 characters."
 msgstr ""
 
-#: twitteradminpanel.php:207
+#: twitteradminpanel.php:212
 msgid "Twitter application settings"
 msgstr ""
 
-#: twitteradminpanel.php:213
+#: twitteradminpanel.php:218
 msgid "Consumer key"
 msgstr ""
 
-#: twitteradminpanel.php:214
+#: twitteradminpanel.php:219
 msgid "Consumer key assigned by Twitter"
 msgstr ""
 
-#: twitteradminpanel.php:222
+#: twitteradminpanel.php:227
 msgid "Consumer secret"
 msgstr ""
 
-#: twitteradminpanel.php:223
+#: twitteradminpanel.php:228
 msgid "Consumer secret assigned by Twitter"
 msgstr ""
 
-#: twitteradminpanel.php:233
+#: twitteradminpanel.php:238
 msgid "Note: a global consumer key and secret are set."
 msgstr ""
 
-#: twitteradminpanel.php:240
+#: twitteradminpanel.php:245
 msgid "Integration source"
 msgstr ""
 
-#: twitteradminpanel.php:241
+#: twitteradminpanel.php:246
 msgid "Name of your Twitter application"
 msgstr ""
 
-#: twitteradminpanel.php:253
+#: twitteradminpanel.php:258
 msgid "Options"
 msgstr "Dibarzhioù"
 
-#: twitteradminpanel.php:260
+#: twitteradminpanel.php:265
 msgid "Enable \"Sign-in with Twitter\""
 msgstr ""
 
-#: twitteradminpanel.php:262
+#: twitteradminpanel.php:267
 msgid "Allow users to login with their Twitter credentials"
 msgstr ""
 
-#: twitteradminpanel.php:269
+#: twitteradminpanel.php:274
 msgid "Enable Twitter import"
 msgstr ""
 
-#: twitteradminpanel.php:271
+#: twitteradminpanel.php:276
 msgid ""
 "Allow users to import their Twitter friends' timelines. Requires daemons to "
 "be manually configured."
 msgstr ""
 
-#: twitteradminpanel.php:288 twittersettings.php:200
+#: twitteradminpanel.php:293 twittersettings.php:200
 msgid "Save"
 msgstr "Enrollañ"
 
-#: twitteradminpanel.php:288
+#: twitteradminpanel.php:293
 msgid "Save Twitter settings"
 msgstr "Enrollañ arventennoù Twitter"
 
@@ -151,15 +151,15 @@ msgstr "Kevreet oc'h dija."
 
 #: twitterlogin.php:64
 msgid "Twitter Login"
-msgstr ""
+msgstr "Keveadenn Twitter"
 
 #: twitterlogin.php:69
 msgid "Login with your Twitter account"
-msgstr ""
+msgstr "Kevreadenn gant ho kont Twitter"
 
 #: twitterlogin.php:87
 msgid "Sign in with Twitter"
-msgstr ""
+msgstr "Kevreañ gant Twitter"
 
 #: twitterauthorization.php:120 twittersettings.php:226
 msgid "There was a problem with your session token. Try again, please."
@@ -196,7 +196,7 @@ msgstr ""
 
 #: twitterauthorization.php:351
 msgid "Connection options"
-msgstr ""
+msgstr "Dibarzhioù kevreañ"
 
 #: twitterauthorization.php:360
 #, php-format
@@ -211,7 +211,7 @@ msgstr "Krouiñ ur gont nevez"
 
 #: twitterauthorization.php:383
 msgid "Create a new user with this nickname."
-msgstr ""
+msgstr "Krouiñ un implijer nevez gant al lesanv-se."
 
 #: twitterauthorization.php:386
 msgid "New nickname"
@@ -227,7 +227,7 @@ msgstr "Krouiñ"
 
 #: twitterauthorization.php:396
 msgid "Connect existing account"
-msgstr ""
+msgstr "Kevreañ d'ur gont a zo dioutañ"
 
 #: twitterauthorization.php:398
 msgid ""
@@ -237,7 +237,7 @@ msgstr ""
 
 #: twitterauthorization.php:401
 msgid "Existing nickname"
-msgstr ""
+msgstr "Lesanv a zo dioutañ"
 
 #: twitterauthorization.php:404
 msgid "Password"
@@ -249,7 +249,7 @@ msgstr "Kevreañ"
 
 #: twitterauthorization.php:423 twitterauthorization.php:432
 msgid "Registration not allowed."
-msgstr ""
+msgstr "N'eo ket aotreet krouiñ kontoù."
 
 #: twitterauthorization.php:439
 msgid "Not a valid invitation code."
@@ -257,11 +257,11 @@ msgstr ""
 
 #: twitterauthorization.php:452
 msgid "Nickname not allowed."
-msgstr ""
+msgstr "Lesanv nann-aotreet."
 
 #: twitterauthorization.php:457
 msgid "Nickname already in use. Try another one."
-msgstr ""
+msgstr "Implijet eo dija al lesanv-se. Klaskit unan all."
 
 #: twitterauthorization.php:472
 msgid "Error registering user."
@@ -274,7 +274,7 @@ msgstr ""
 
 #: twitterauthorization.php:503
 msgid "Invalid username or password."
-msgstr ""
+msgstr "Anv implijer pe ger-tremen direizh."
 
 #: twittersettings.php:58
 msgid "Twitter settings"
@@ -296,7 +296,7 @@ msgstr ""
 
 #: twittersettings.php:126
 msgid "Disconnect my account from Twitter"
-msgstr ""
+msgstr "Digevreañ ma c'hont deus Twitter"
 
 #: twittersettings.php:132
 msgid "Disconnecting your Twitter could make it impossible to log in! Please "

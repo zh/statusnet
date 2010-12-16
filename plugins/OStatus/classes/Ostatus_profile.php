@@ -1514,8 +1514,11 @@ class Ostatus_profile extends Managed_DataObject
         }
 
         // Try the profile url (like foo.example.com or example.com/user/foo)
-
-        $profileUrl = ($object->link) ? $object->link : $hints['profileurl'];
+        if (!empty($object->link)) {
+            $profileUrl = $object->link;
+        } else if (!empty($hints['profileurl'])) {
+            $profileUrl = $hints['profileurl'];
+        }
 
         if (!empty($profileUrl)) {
             $nickname = self::nicknameFromURI($profileUrl);
@@ -1546,9 +1549,11 @@ class Ostatus_profile extends Managed_DataObject
 
     protected static function nicknameFromURI($uri)
     {
-        preg_match('/(\w+):/', $uri, $matches);
-
-        $protocol = $matches[1];
+        if (preg_match('/(\w+):/', $uri, $matches)) {
+            $protocol = $matches[1];
+        } else {
+            return null;
+        }
 
         switch ($protocol) {
         case 'acct':

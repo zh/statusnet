@@ -160,7 +160,16 @@ class Router
     
     static function cacheKey()
     {
-        return Cache::codeKey('router');
+        $parts = array('router');
+
+        // Many router paths depend on this setting.
+        if (common_config('singleuser', 'enabled')) {
+            $parts[] = '1user';
+        } else {
+            $parts[] = 'multi';
+        }
+
+        return Cache::codeKey(implode(':', $parts));
     }
     
     function initialize()

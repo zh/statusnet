@@ -1,6 +1,7 @@
 # Translation of StatusNet - TwitterBridge to Simplified Chinese (‪中文(简体)‬)
 # Expored from translatewiki.net
 #
+# Author: PhiLiP
 # Author: ZhengYiFeng
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -9,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - TwitterBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-30 20:16+0000\n"
-"PO-Revision-Date: 2010-11-30 20:20:41+0000\n"
+"POT-Creation-Date: 2010-12-16 15:08+0000\n"
+"PO-Revision-Date: 2010-12-16 15:13:11+0000\n"
 "Language-Team: Simplified Chinese <http://translatewiki.net/wiki/Portal:zh-"
 "hans>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-30 17:54:30+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-30 20:43:58+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: #out-statusnet-plugin-twitterbridge\n"
@@ -87,73 +88,73 @@ msgstr ""
 msgid "Twitter bridge settings"
 msgstr "Twitter bridge 设置"
 
-#: twitteradminpanel.php:145
+#: twitteradminpanel.php:150
 msgid "Invalid consumer key. Max length is 255 characters."
 msgstr "无效的 consumer key。最大长度为 255 字符。"
 
-#: twitteradminpanel.php:151
+#: twitteradminpanel.php:156
 msgid "Invalid consumer secret. Max length is 255 characters."
 msgstr "无效的 consumer secret。最大长度为 255 字符。"
 
-#: twitteradminpanel.php:207
+#: twitteradminpanel.php:212
 msgid "Twitter application settings"
 msgstr "Twitter 应用设置"
 
-#: twitteradminpanel.php:213
+#: twitteradminpanel.php:218
 msgid "Consumer key"
 msgstr "Consumer key"
 
-#: twitteradminpanel.php:214
+#: twitteradminpanel.php:219
 msgid "Consumer key assigned by Twitter"
 msgstr "Twitter 分配的 consumer key"
 
-#: twitteradminpanel.php:222
+#: twitteradminpanel.php:227
 msgid "Consumer secret"
 msgstr "Consumer secret"
 
-#: twitteradminpanel.php:223
+#: twitteradminpanel.php:228
 msgid "Consumer secret assigned by Twitter"
 msgstr "Twitter 分配的 consumer secret"
 
-#: twitteradminpanel.php:233
+#: twitteradminpanel.php:238
 msgid "Note: a global consumer key and secret are set."
 msgstr "注意：已设置了一个全局的 consumer key 和 secret。"
 
-#: twitteradminpanel.php:240
+#: twitteradminpanel.php:245
 msgid "Integration source"
 msgstr "整合来源"
 
-#: twitteradminpanel.php:241
+#: twitteradminpanel.php:246
 msgid "Name of your Twitter application"
 msgstr "你的 Twitter 应用名称"
 
-#: twitteradminpanel.php:253
+#: twitteradminpanel.php:258
 msgid "Options"
 msgstr "选项"
 
-#: twitteradminpanel.php:260
+#: twitteradminpanel.php:265
 msgid "Enable \"Sign-in with Twitter\""
 msgstr "启用 “使用 Twitter 登录”"
 
-#: twitteradminpanel.php:262
+#: twitteradminpanel.php:267
 msgid "Allow users to login with their Twitter credentials"
 msgstr "允许用户使用他们的 Twitter 帐号登录。"
 
-#: twitteradminpanel.php:269
+#: twitteradminpanel.php:274
 msgid "Enable Twitter import"
 msgstr "启用 Twitter 导入"
 
-#: twitteradminpanel.php:271
+#: twitteradminpanel.php:276
 msgid ""
 "Allow users to import their Twitter friends' timelines. Requires daemons to "
 "be manually configured."
 msgstr "允许用户导入他们 Twitter 好友的时间线。需要手动设置后台进程。"
 
-#: twitteradminpanel.php:288 twittersettings.php:200
+#: twitteradminpanel.php:293 twittersettings.php:200
 msgid "Save"
 msgstr "保存"
 
-#: twitteradminpanel.php:288
+#: twitteradminpanel.php:293
 msgid "Save Twitter settings"
 msgstr "保存 Twitter 设置"
 
@@ -369,7 +370,7 @@ msgstr "未预料的表单提交。"
 
 #: twittersettings.php:251
 msgid "No Twitter connection to remove."
-msgstr ""
+msgstr "没有可以移除的Twitter连接。"
 
 #: twittersettings.php:259
 msgid "Couldn't remove Twitter user."
@@ -386,6 +387,3 @@ msgstr "无法保存 Twitter 参数设置。"
 #: twittersettings.php:302
 msgid "Twitter preferences saved."
 msgstr "已保存 Twitter 参数设置。"
-
-#~ msgid "Nickname must have only lowercase letters and numbers and no spaces."
-#~ msgstr "昵称只能使用小写字母和数字且不能使用空格。"
