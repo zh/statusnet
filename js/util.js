@@ -19,7 +19,8 @@
  * @package   StatusNet
  * @author    Sarven Capadisli <csarven@status.net>
  * @author    Evan Prodromou <evan@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @author    Brion Vibber <brion@status.net>
+ * @copyright 2009,2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -33,6 +34,14 @@ var SN = { // StatusNet
             HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307]
         },
 
+        /**
+         * @fixme are these worth the trouble? They seem to mostly just duplicate
+         * themselves while slightly obscuring the actual selector, so it's hard
+         * to pop over to the HTML and find something.
+         *
+         * In theory, minification could reduce them to shorter variable names,
+         * but at present that doesn't happen with yui-compressor.
+         */
         S: { // Selector
             Disabled: 'disabled',
             Warning: 'warning',
@@ -59,7 +68,25 @@ var SN = { // StatusNet
         }
     },
 
+    /**
+     * Map of localized message strings exported to script from the PHP
+     * side via Action::getScriptMessages().
+     *
+     * Retrieve them via SN.msg(); this array is an implementation detail.
+     *
+     * @access private
+     */
     messages: {},
+
+    /**
+     * Grabs a localized string that's been previously exported to us
+     * from server-side code via Action::getScriptMessages().
+     *
+     * @example alert(SN.msg('coolplugin-failed'));
+     *
+     * @param {String} key: string key name to pull from message index
+     * @return matching localized message string
+     */
     msg: function(key) {
         if (typeof SN.messages[key] == "undefined") {
             return '[' + key + ']';
@@ -69,6 +96,14 @@ var SN = { // StatusNet
     },
 
     U: { // Utils
+        /**
+         * Setup function -- DOES NOT trigger actions immediately.
+         *
+         * Sets up event handlers on the new notice form.
+         *
+         * @param {jQuery} form: jQuery object whose first matching element is the form
+         * @access private
+         */
         FormNoticeEnhancements: function(form) {
             if (jQuery.data(form[0], 'ElementData') === undefined) {
                 MaxLength = form.find('#'+SN.C.S.NoticeTextCount).text();
@@ -111,6 +146,17 @@ var SN = { // StatusNet
             }
         },
 
+        /**
+         * To be called from keydown event handler on the notice import form.
+         * Checks if return or enter key was pressed, and if so attempts to
+         * submit the form and cancel standard processing of the enter key.
+         *
+         * @param {Event} event
+         * @param {jQuery} el: jQuery object whose first element is the notice posting form
+         *
+         * @return {boolean} whether to cancel the event? Does this actually pass through?
+         * @access private
+         */
         SubmitOnReturn: function(event, el) {
             if (event.keyCode == 13 || event.keyCode == 10) {
                 el.submit();
@@ -123,6 +169,20 @@ var SN = { // StatusNet
             return true;
         },
 
+        /**
+         * To be called from event handlers on the notice import form.
+         * Triggers an update of the remaining-characters counter.
+         *
+         * Additional counter updates will be suppressed during the
+         * next half-second to avoid flooding the layout engine with
+         * updates, followed by another automatic check.
+         *
+         * The maximum length is pulled from data established by
+         * FormNoticeEnhancements.
+         *
+         * @param {jQuery} form: jQuery object whose first element is the notice posting form
+         * @access private
+         */
         Counter: function(form) {
             SN.C.I.FormNoticeCurrent = form;
 
@@ -156,10 +216,24 @@ var SN = { // StatusNet
             }
         },
 
+        /**
+         * Pull the count of characters in the current edit field.
+         * Plugins replacing the edit control may need to override this.
+         *
+         * @param {jQuery} form: jQuery object whose first element is the notice posting form
+         * @return number of chars
+         */
         CharacterCount: function(form) {
             return form.find('#'+SN.C.S.NoticeDataText).val().length;
         },
 
+        /**
+         * Called internally after the counter update blackout period expires;
+         * runs another update to make sure we didn't miss anything.
+         *
+         * @param {jQuery} form: jQuery object whose first element is the notice posting form
+         * @access private
+         */
         ClearCounterBlackout: function(form) {
             // Allow keyup events to poke the counter again
             SN.C.I.CounterBlackout = false;
@@ -167,6 +241,22 @@ var SN = { // StatusNet
             SN.U.Counter(form);
         },
 
+        /**
+         * Grabs form data and submits it asynchronously, with 'ajax=1'
+         * parameter added to the rest.
+         *
+         * If a successful response includes another form, that form
+         * will be extracted and copied in, replacing the original form.
+         * If there's no form, the first paragraph will be used.
+         *
+         * @fixme can sometimes explode confusingly if returnd data is bogus
+         * @fixme error handling is pretty vague
+         * @fixme can't submit file uploads
+         *
+         * @param {jQuery} form: jQuery object whose first element is a form
+         *
+         * @access public
+         */
         FormXHR: function(form) {
             $.ajax({
                 type: 'POST',
@@ -195,6 +285,33 @@ var SN = { // StatusNet
             });
         },
 
+        /**
+         * Setup function -- DOES NOT trigger actions immediately.
+         *
+         * Sets up event handlers for special-cased async submission of the
+         * notice-posting form, including some pre-post validation.
+         *
+         * Unlike FormXHR() this does NOT submit the form immediately!
+         * It sets up event handlers so that any method of submitting the
+         * form (click on submit button, enter, submit() etc) will trigger
+         * it properly.
+         *
+         * Also unlike FormXHR(), this system will use a hidden iframe
+         * automatically to handle file uploads via <input type="file">
+         * controls.
+         *
+         * @fixme tl;dr
+         * @fixme vast swaths of duplicate code and really long variable names clutter this function up real bad
+         * @fixme error handling is unreliable
+         * @fixme cookieValue is a global variable, but probably shouldn't be
+         * @fixme saving the location cache cookies should be split out
+         * @fixme some error messages are hardcoded english: needs i18n
+         * @fixme special-case for bookmarklet is confusing and uses a global var "self". Is this ok?
+         *
+         * @param {jQuery} form: jQuery object whose first element is a form
+         *
+         * @access public
+         */
         FormNoticeXHR: function(form) {
             SN.C.I.NoticeDataGeo = {};
             form.append('<input type="hidden" name="ajax" value="1"/>');
@@ -340,9 +457,17 @@ var SN = { // StatusNet
             });
         },
 
+        /**
+         * Fetch an XML DOM from an XHR's response data.
+         *
+         * Works around unavailable responseXML when document.domain
+         * has been modified by Meteor or other tools, in some but not
+         * all browsers.
+         *
+         * @param {XMLHTTPRequest} xhr
+         * @return DOMDocument
+         */
         GetResponseXML: function(xhr) {
-            // Work around unavailable responseXML when document.domain
-            // has been modified by Meteor or other tools.
             try {
                 return xhr.responseXML;
             } catch (e) {
@@ -350,12 +475,39 @@ var SN = { // StatusNet
             }
         },
 
+        /**
+         * Setup function -- DOES NOT trigger actions immediately.
+         *
+         * Sets up event handlers on all visible notice's reply buttons to
+         * tweak the new-notice form with needed variables and focus it
+         * when pushed.
+         *
+         * (This replaces the default reply button behavior to submit
+         * directly to a form which comes back with a specialized page
+         * with the form data prefilled.)
+         *
+         * @access private
+         */
         NoticeReply: function() {
             if ($('#'+SN.C.S.NoticeDataText).length > 0 && $('#content .notice_reply').length > 0) {
                 $('#content .notice').each(function() { SN.U.NoticeReplyTo($(this)); });
             }
         },
 
+        /**
+         * Setup function -- DOES NOT trigger actions immediately.
+         *
+         * Sets up event handlers on the given notice's reply button to
+         * tweak the new-notice form with needed variables and focus it
+         * when pushed.
+         *
+         * (This replaces the default reply button behavior to submit
+         * directly to a form which comes back with a specialized page
+         * with the form data prefilled.)
+         *
+         * @param {jQuery} notice: jQuery object containing one or more notices
+         * @access private
+         */
         NoticeReplyTo: function(notice) {
             notice.find('.notice_reply').live('click', function() {
                 var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
@@ -364,6 +516,16 @@ var SN = { // StatusNet
             });
         },
 
+        /**
+         * Updates the new notice posting form with bits for replying to the
+         * given user. Adds replyto parameter to the form, and a "@foo" to the
+         * text area.
+         *
+         * @fixme replyto is a global variable, but probably shouldn't be
+         *
+         * @param {String} nick
+         * @param {String} id
+         */
         NoticeReplySet: function(nick,id) {
             if (nick.match(SN.C.I.PatternUsername)) {
                 var text = $('#'+SN.C.S.NoticeDataText);
@@ -381,11 +543,25 @@ var SN = { // StatusNet
             }
         },
 
+        /**
+         * Setup function -- DOES NOT apply immediately.
+         *
+         * Sets up event handlers for favor/disfavor forms to submit via XHR.
+         * Uses 'live' rather than 'bind', so applies to future as well as present items.
+         */
         NoticeFavor: function() {
             $('.form_favor').live('click', function() { SN.U.FormXHR($(this)); return false; });
             $('.form_disfavor').live('click', function() { SN.U.FormXHR($(this)); return false; });
         },
 
+        /**
+         * Setup function -- DOES NOT trigger actions immediately.
+         *
+         * Sets up event handlers for repeat forms to toss up a confirmation
+         * popout before submitting.
+         *
+         * Uses 'live' rather than 'bind', so applies to future as well as present items.
+         */
         NoticeRepeat: function() {
             $('.form_repeat').live('click', function(e) {
                 e.preventDefault();
@@ -395,6 +571,22 @@ var SN = { // StatusNet
             });
         },
 
+        /**
+         * Shows a confirmation dialog box variant of the repeat button form.
+         * This seems to use a technique where the repeat form contains
+         * _both_ a standalone button _and_ text and buttons for a dialog.
+         * The dialog will close after its copy of the form is submitted,
+         * or if you click its 'close' button.
+         *
+         * The dialog is created by duplicating the original form and changing
+         * its style; while clever, this is hard to generalize and probably
+         * duplicates a lot of unnecessary HTML output.
+         *
+         * @fixme create confirmation dialogs through a generalized interface
+         * that can be reused instead of hardcoded text and styles.
+         *
+         * @param {jQuery} form
+         */
         NoticeRepeatConfirmation: function(form) {
             var submit_i = form.find('.submit');
 
@@ -428,6 +620,9 @@ var SN = { // StatusNet
             });
         },
 
+        /**
+         * Setup function -- DOES NOT trigger actions immediately.
+         */
         NoticeAttachments: function() {
             $('.notice a.attachment').each(function() {
                 SN.U.NoticeWithAttachment($(this).closest('.notice'));
