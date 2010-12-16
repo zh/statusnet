@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-30 20:16+0000\n"
-"PO-Revision-Date: 2010-11-30 20:20:02+0000\n"
+"POT-Creation-Date: 2010-12-16 15:08+0000\n"
+"PO-Revision-Date: 2010-12-16 15:12:44+0000\n"
 "Language-Team: Breton <http://translatewiki.net/wiki/Portal:br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-30 17:54:30+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-30 20:43:51+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -63,7 +63,7 @@ msgstr ""
 #: OStatusPlugin.php:656
 #, php-format
 msgid "%1$s has joined group %2$s."
-msgstr ""
+msgstr "%1$s a zo bet er strollad %2$s."
 
 #. TRANS: Exception.
 #: OStatusPlugin.php:665
@@ -233,30 +233,30 @@ msgid "Can't save OStatus profile."
 msgstr ""
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1627 classes/Ostatus_profile.php:1655
+#: classes/Ostatus_profile.php:1632 classes/Ostatus_profile.php:1660
 msgid "Not a valid webfinger address."
 msgstr ""
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1737
+#: classes/Ostatus_profile.php:1742
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr ""
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1756
+#: classes/Ostatus_profile.php:1761
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr ""
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1764
+#: classes/Ostatus_profile.php:1769
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1807
+#: classes/Ostatus_profile.php:1812
 msgid "Could not store HTML content of long post as file."
 msgstr ""
 
@@ -579,11 +579,11 @@ msgstr "Kadarnaat"
 #. TRANS: Tooltip for button "Confirm".
 #: actions/ostatussub.php:117
 msgid "Subscribe to this user"
-msgstr ""
+msgstr "En em goumanantiñ d'an implijer-mañ"
 
 #: actions/ostatussub.php:138
 msgid "You are already subscribed to this user."
-msgstr ""
+msgstr "Koumanantet oc'h dija d'an implijerien-mañ."
 
 #: actions/ostatussub.php:167
 msgid "Photo"
@@ -719,7 +719,7 @@ msgstr ""
 #. TRANS: Page title.
 #: actions/ostatusinit.php:218
 msgid "OStatus Connect"
-msgstr ""
+msgstr "Kevreadenn OStatus"
 
 #: actions/pushcallback.php:50
 msgid "Empty or invalid feed id."

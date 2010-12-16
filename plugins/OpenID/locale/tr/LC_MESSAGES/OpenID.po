@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-30 20:16+0000\n"
-"PO-Revision-Date: 2010-11-30 20:19:36+0000\n"
+"POT-Creation-Date: 2010-12-16 15:08+0000\n"
+"PO-Revision-Date: 2010-12-16 15:12:31+0000\n"
 "Language-Team: Turkish <http://translatewiki.net/wiki/Portal:tr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-29 19:44:23+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-30 20:43:49+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tr\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -382,37 +382,37 @@ msgstr ""
 msgid "OpenID Account Setup"
 msgstr "OpenID Hesap Kurulumu"
 
-#: finishopenidlogin.php:110
+#: finishopenidlogin.php:117
 msgid "Create new account"
 msgstr "Yeni hesap oluştur"
 
-#: finishopenidlogin.php:112
+#: finishopenidlogin.php:119
 msgid "Create a new user with this nickname."
 msgstr "Bu kullanıcı adıyla yeni bir kullanıcı oluştur."
 
-#: finishopenidlogin.php:115
+#: finishopenidlogin.php:122
 msgid "New nickname"
 msgstr "Yeni kullanıcı adı"
 
-#: finishopenidlogin.php:117
+#: finishopenidlogin.php:124
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr ""
 "1-64 küçük harf veya rakam, noktalama işaretlerine ve boşluklara izin "
 "verilmez"
 
 #. TRANS: Button label in form in which to create a new user on the site for an OpenID.
-#: finishopenidlogin.php:142
+#: finishopenidlogin.php:149
 msgctxt "BUTTON"
 msgid "Create"
 msgstr "Oluştur"
 
 #. TRANS: Used as form legend for form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:148
+#: finishopenidlogin.php:163
 msgid "Connect existing account"
 msgstr "Varolan hesaba bağlan"
 
 #. TRANS: User instructions for form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:151
+#: finishopenidlogin.php:166
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
@@ -421,35 +421,35 @@ msgstr ""
 "adı ve parolanızla giriş yapın."
 
 #. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:155
+#: finishopenidlogin.php:170
 msgid "Existing nickname"
 msgstr "Varolan kullanıcı adı"
 
 #. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:159
+#: finishopenidlogin.php:174
 msgid "Password"
 msgstr "Parola"
 
 #. TRANS: Button label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:163
+#: finishopenidlogin.php:178
 msgctxt "BUTTON"
 msgid "Connect"
 msgstr "Bağlan"
 
 #. TRANS: Status message in case the response from the OpenID provider is that the logon attempt was cancelled.
-#: finishopenidlogin.php:176 finishaddopenid.php:90
+#: finishopenidlogin.php:191 finishaddopenid.php:90
 msgid "OpenID authentication cancelled."
 msgstr "OpenID kimlik doğrulaması iptal edildi."
 
 #. TRANS: OpenID authentication failed; display the error message. %s is the error message.
 #. TRANS: OpenID authentication failed; display the error message.
 #. TRANS: %s is the error message.
-#: finishopenidlogin.php:180 finishaddopenid.php:95
+#: finishopenidlogin.php:195 finishaddopenid.php:95
 #, php-format
 msgid "OpenID authentication failed: %s"
 msgstr "OpenID kimlik doğrulaması başarısız oldu: %s"
 
-#: finishopenidlogin.php:200 finishaddopenid.php:111
+#: finishopenidlogin.php:215 finishaddopenid.php:111
 msgid ""
 "OpenID authentication aborted: you are not allowed to login to this site."
 msgstr ""
@@ -458,43 +458,43 @@ msgstr ""
 
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site.
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and none was provided.
-#: finishopenidlogin.php:252 finishopenidlogin.php:262
+#: finishopenidlogin.php:267 finishopenidlogin.php:277
 msgid "Registration not allowed."
 msgstr "Kayıt yapılmasına izin verilmiyor."
 
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and the one provided was not valid.
-#: finishopenidlogin.php:270
+#: finishopenidlogin.php:285
 msgid "Not a valid invitation code."
 msgstr "Geçerli bir davet kodu değil."
 
 #. TRANS: OpenID plugin message. The entered new user name is blacklisted.
-#: finishopenidlogin.php:284
+#: finishopenidlogin.php:299
 msgid "Nickname not allowed."
 msgstr "Bu kullanıcı adına izin verilmiyor."
 
 #. TRANS: OpenID plugin message. The entered new user name is already used.
-#: finishopenidlogin.php:290
+#: finishopenidlogin.php:305
 msgid "Nickname already in use. Try another one."
 msgstr "Kullanıcı adı halihazırda kullanılıyor. Başka bir tane deneyin."
 
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
-#: finishopenidlogin.php:298 finishopenidlogin.php:385
+#: finishopenidlogin.php:313 finishopenidlogin.php:400
 msgid "Stored OpenID not found."
 msgstr "Kayıtlı OpenID bulunamadı."
 
 #. TRANS: OpenID plugin server error.
-#: finishopenidlogin.php:308
+#: finishopenidlogin.php:323
 msgid "Creating new account for OpenID that already has a user."
 msgstr ""
 
 #. TRANS: OpenID plugin message.
-#: finishopenidlogin.php:373
+#: finishopenidlogin.php:388
 msgid "Invalid username or password."
 msgstr "Geçersiz kullanıcı adı veya parola."
 
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
-#: finishopenidlogin.php:393
+#: finishopenidlogin.php:408
 msgid "Error connecting user to OpenID."
 msgstr "OpenID ile kullanıcı bağlanırken hata oluştu."
 
@@ -587,8 +587,3 @@ msgstr "Kullanıcı bağlama hatası."
 #: finishaddopenid.php:145
 msgid "Error updating profile"
 msgstr "Profil güncelleme hatası"
-
-#~ msgid "Nickname must have only lowercase letters and numbers and no spaces."
-#~ msgstr ""
-#~ "Kullanıcı adı sadece küçük harfler ve rakamlardan oluşabilir, boşluk "
-#~ "kullanılamaz."

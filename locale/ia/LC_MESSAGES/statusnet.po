@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-30 20:16+0000\n"
-"PO-Revision-Date: 2010-11-30 20:18:07+0000\n"
+"POT-Creation-Date: 2010-12-16 15:08+0000\n"
+"PO-Revision-Date: 2010-12-16 15:10:56+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-11-30 17:54:26+0000\n"
+"X-POT-Import-Date: 2010-11-30 20:43:14+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -85,11 +85,11 @@ msgstr "Salveguardar configurationes de accesso"
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
 #. TRANS: Button text on profile design page to save settings.
-#: actions/accessadminpanel.php:193 actions/emailsettings.php:232
+#: actions/accessadminpanel.php:193 actions/emailsettings.php:254
 #: actions/imsettings.php:187 actions/othersettings.php:134
 #: actions/pathsadminpanel.php:512 actions/profilesettings.php:201
 #: actions/sitenoticeadminpanel.php:197 actions/smssettings.php:209
-#: actions/subscriptions.php:246 actions/useradminpanel.php:298
+#: actions/subscriptions.php:262 actions/useradminpanel.php:298
 #: lib/applicationeditform.php:355 lib/designsettings.php:270
 #: lib/groupeditform.php:207
 msgctxt "BUTTON"
@@ -380,19 +380,37 @@ msgstr "Impossibile salveguardar le configurationes del apparentia."
 msgid "Could not update your design."
 msgstr "Non poteva actualisar le apparentia."
 
-#: actions/apiatomservice.php:85
+#: actions/apiatomservice.php:86
 msgid "Main"
-msgstr ""
+msgstr "Principal"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
 #. TRANS: Title in atom user notice feed. %s is a user name.
-#: actions/apiatomservice.php:92 actions/grouprss.php:139
+#: actions/apiatomservice.php:93 actions/grouprss.php:139
 #: actions/userrss.php:94 lib/atomgroupnoticefeed.php:63
 #: lib/atomusernoticefeed.php:68
 #, php-format
 msgid "%s timeline"
 msgstr "Chronologia de %s"
+
+#. TRANS: Header for subscriptions overview for a user (first page).
+#. TRANS: %s is a user nickname.
+#: actions/apiatomservice.php:103 actions/atompubsubscriptionfeed.php:147
+#: actions/subscriptions.php:51
+#, php-format
+msgid "%s subscriptions"
+msgstr "Subscriptiones de %s"
+
+#: actions/apiatomservice.php:113 actions/atompubfavoritefeed.php:142
+#, fuzzy, php-format
+msgid "%s favorites"
+msgstr "Favorites"
+
+#: actions/apiatomservice.php:123
+#, fuzzy, php-format
+msgid "%s memberships"
+msgstr "Membros del gruppo %s"
 
 #. TRANS: Client error displayed when users try to block themselves.
 #: actions/apiblockcreate.php:104
@@ -520,7 +538,6 @@ msgstr "Tu non pote cessar de sequer te mesme."
 
 #. TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
 #: actions/apifriendshipsexists.php:88
-#, fuzzy
 msgid "Two valid IDs or nick names must be supplied."
 msgstr "Duo IDs o pseudonymos valide debe esser fornite."
 
@@ -743,7 +760,7 @@ msgstr "Indicio de requesta jam autorisate."
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
 #: actions/deletenotice.php:177 actions/disfavor.php:74
-#: actions/emailsettings.php:275 actions/favor.php:75 actions/geocode.php:55
+#: actions/emailsettings.php:297 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:65 actions/imsettings.php:230
 #: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
@@ -780,7 +797,7 @@ msgstr ""
 #. TRANS: Unknown form validation error in design settings form.
 #: actions/apioauthauthorize.php:294 actions/avatarsettings.php:294
 #: actions/designadminpanel.php:104 actions/editapplication.php:144
-#: actions/emailsettings.php:294 actions/grouplogo.php:322
+#: actions/emailsettings.php:316 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:125
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:277 lib/designsettings.php:321
@@ -854,7 +871,7 @@ msgstr "Contrasigno"
 #. TRANS: Button label to cancel an IM address confirmation procedure.
 #. TRANS: Button label to cancel a SMS address confirmation procedure.
 #. TRANS: Button label in the "Edit application" form.
-#: actions/apioauthauthorize.php:478 actions/emailsettings.php:127
+#: actions/apioauthauthorize.php:478 actions/emailsettings.php:128
 #: actions/imsettings.php:131 actions/smssettings.php:137
 #: lib/applicationeditform.php:351
 msgctxt "BUTTON"
@@ -931,7 +948,8 @@ msgstr "Tu non pote deler le stato de un altere usator."
 #. TRANS: Client error displayed trying to display redents of a non-exiting notice.
 #. TRANS: Error message displayed trying to delete a non-existing notice.
 #: actions/apistatusesretweet.php:74 actions/apistatusesretweets.php:70
-#: actions/deletenotice.php:61 actions/shownotice.php:92
+#: actions/atompubshowfavorite.php:82 actions/deletenotice.php:61
+#: actions/shownotice.php:92
 msgid "No such notice."
 msgstr "Nota non trovate."
 
@@ -947,15 +965,17 @@ msgstr "Non pote repeter tu proprie nota."
 msgid "Already repeated that notice."
 msgstr "Iste nota ha ja essite repetite."
 
-#: actions/apistatusesshow.php:117
-#, fuzzy
+#: actions/apistatusesshow.php:117 actions/atompubfavoritefeed.php:104
+#: actions/atompubmembershipfeed.php:106 actions/atompubshowfavorite.php:116
+#: actions/atompubshowsubscription.php:118
+#: actions/atompubsubscriptionfeed.php:109
 msgid "HTTP method not supported."
-msgstr "Methodo API non trovate."
+msgstr "Methodo HTTP non supportate."
 
 #: actions/apistatusesshow.php:141
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported format: %s"
-msgstr "Formato non supportate."
+msgstr "Formato non supportate: %s"
 
 #. TRANS: Client error displayed requesting a deleted status.
 #: actions/apistatusesshow.php:152
@@ -967,19 +987,19 @@ msgstr "Stato delite."
 msgid "No status with that ID found."
 msgstr "Nulle stato trovate con iste ID."
 
-#: actions/apistatusesshow.php:227
+#: actions/apistatusesshow.php:223
 msgid "Can only delete using the Atom format."
-msgstr ""
+msgstr "Le deletion es solmente possibile con le formato Atom."
 
 #. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
-#: actions/apistatusesshow.php:234 actions/deletenotice.php:78
+#: actions/apistatusesshow.php:230 actions/deletenotice.php:78
 msgid "Can't delete this notice."
 msgstr "Non pote deler iste nota."
 
-#: actions/apistatusesshow.php:247
-#, fuzzy, php-format
+#: actions/apistatusesshow.php:243
+#, php-format
 msgid "Deleted notice %d"
-msgstr "Deler nota"
+msgstr "Nota %d delite"
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:221
@@ -1102,37 +1122,64 @@ msgstr "Notas con etiquetta %s"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Actualisationes con etiquetta %1$s in %2$s!"
 
-#: actions/apitimelineuser.php:300
-#, fuzzy
+#. TRANS: Client error displayed trying to add a notice to another user's timeline.
+#: actions/apitimelineuser.php:297
 msgid "Only the user can add to their own timeline."
-msgstr "Solmente le usator pote leger su proprie cassas postal."
+msgstr "Solmente le usator pote adder cosas a su proprie chronologia."
 
-#: actions/apitimelineuser.php:306
-msgid "Only accept AtomPub for atom feeds."
-msgstr ""
+#. TRANS: Client error displayed when using another format than AtomPub.
+#: actions/apitimelineuser.php:304
+#, fuzzy
+msgid "Only accept AtomPub for Atom feeds."
+msgstr "Solmente acceptar AtomPub pro syndicationes in Atom."
 
-#: actions/apitimelineuser.php:316
+#: actions/apitimelineuser.php:310
+#, fuzzy
+msgid "Atom post must not be empty."
+msgstr "Message Atom debe esser un entrata Atom."
+
+#: actions/apitimelineuser.php:315
+#, fuzzy
+msgid "Atom post must be well-formed XML."
+msgstr "Message Atom debe esser un entrata Atom."
+
+#. TRANS: Client error displayed when not using an Atom entry.
+#: actions/apitimelineuser.php:321 actions/atompubfavoritefeed.php:226
+#: actions/atompubmembershipfeed.php:228
+#: actions/atompubsubscriptionfeed.php:233
 msgid "Atom post must be an Atom entry."
-msgstr ""
+msgstr "Message Atom debe esser un entrata Atom."
 
-#: actions/apitimelineuser.php:325
-msgid "Can only handle post activities."
-msgstr ""
+#. TRANS: Client error displayed when not using the POST verb.
+#. TRANS: Do not translate POST.
+#: actions/apitimelineuser.php:332
+#, fuzzy
+msgid "Can only handle POST activities."
+msgstr "Solmente le activitates POST es possibile."
 
-#: actions/apitimelineuser.php:334
-#, php-format
-msgid "Cannot handle activity object type \"%s\""
-msgstr ""
-
-#: actions/apitimelineuser.php:392
+#. TRANS: Client error displayed when using an unsupported activity object type.
+#. TRANS: %s is the unsupported activity object type.
+#: actions/apitimelineuser.php:343
 #, fuzzy, php-format
-msgid "Notice with URI \"%s\" already exists."
-msgstr "Non existe un nota con iste ID."
+msgid "Cannot handle activity object type \"%s\"."
+msgstr "Impossibile manear le typo de objecto de activitate \"%s\""
 
-#: actions/apitimelineuser.php:423
+#. TRANS: Client error displayed when posting a notice without content through the API.
+#: actions/apitimelineuser.php:376
+#, fuzzy, php-format
+msgid "No content for notice %d."
+msgstr "Cercar in contento de notas"
+
+#. TRANS: Client error displayed when using another format than AtomPub.
+#: actions/apitimelineuser.php:404
+#, php-format
+msgid "Notice with URI \"%s\" already exists."
+msgstr "Un nota con le URI \"%s\" jam existe."
+
+#: actions/apitimelineuser.php:435
 #, php-format
 msgid "AtomPub post with unknown attention URI %s"
-msgstr ""
+msgstr "Message AtomPub con URI de attention incognite %s"
 
 #. TRANS: Server error for unfinished API method showTrends.
 #: actions/apitrends.php:85
@@ -1143,6 +1190,150 @@ msgstr "Methodo API in construction."
 #: actions/apiusershow.php:94
 msgid "User not found."
 msgstr "Usator non trovate."
+
+#: actions/atompubfavoritefeed.php:70
+#, fuzzy
+msgid "No such profile"
+msgstr "Profilo non existe."
+
+#: actions/atompubfavoritefeed.php:145
+#, php-format
+msgid "Notices %s has favorited to on %s"
+msgstr ""
+
+#: actions/atompubfavoritefeed.php:215 actions/atompubsubscriptionfeed.php:222
+#, fuzzy
+msgid "Can't add someone else's subscription"
+msgstr "Non poteva inserer nove subscription."
+
+#. TRANS: Client error displayed when not using the POST verb.
+#. TRANS: Do not translate POST.
+#: actions/atompubfavoritefeed.php:239
+#, fuzzy
+msgid "Can only handle Favorite activities."
+msgstr "Solmente le activitates POST es possibile."
+
+#: actions/atompubfavoritefeed.php:248 actions/atompubmembershipfeed.php:248
+#, fuzzy
+msgid "Can only fave notices."
+msgstr "Solmente le activitates POST es possibile."
+
+#: actions/atompubfavoritefeed.php:256
+#, fuzzy
+msgid "Unknown note."
+msgstr "Incognite"
+
+#: actions/atompubfavoritefeed.php:263
+#, fuzzy
+msgid "Already a favorite."
+msgstr "Adder al favorites"
+
+#: actions/atompubmembershipfeed.php:72 actions/atompubshowfavorite.php:76
+#: actions/atompubshowmembership.php:73 actions/subscribe.php:107
+msgid "No such profile."
+msgstr "Profilo non existe."
+
+#: actions/atompubmembershipfeed.php:144
+#, fuzzy, php-format
+msgid "%s group memberships"
+msgstr "Membros del gruppo %s"
+
+#: actions/atompubmembershipfeed.php:147
+#, fuzzy, php-format
+msgid "Groups %s is a member of on %s"
+msgstr "Gruppos del quales %s es membro"
+
+#: actions/atompubmembershipfeed.php:217
+msgid "Can't add someone else's membership"
+msgstr ""
+
+#. TRANS: Client error displayed when not using the POST verb.
+#. TRANS: Do not translate POST.
+#: actions/atompubmembershipfeed.php:241
+#, fuzzy
+msgid "Can only handle Join activities."
+msgstr "Solmente le activitates POST es possibile."
+
+#: actions/atompubmembershipfeed.php:256
+#, fuzzy
+msgid "Unknown group."
+msgstr "Incognite"
+
+#: actions/atompubmembershipfeed.php:263
+#, fuzzy
+msgid "Already a member."
+msgstr "Tote le membros"
+
+#: actions/atompubmembershipfeed.php:270
+msgid "Blocked by admin."
+msgstr ""
+
+#: actions/atompubshowfavorite.php:89
+#, fuzzy
+msgid "No such favorite."
+msgstr "File non existe."
+
+#: actions/atompubshowfavorite.php:151
+#, fuzzy
+msgid "Can't delete someone else's favorite"
+msgstr "Non poteva deler le favorite."
+
+#: actions/atompubshowmembership.php:81
+#, fuzzy
+msgid "No such group"
+msgstr "Gruppo non existe."
+
+#: actions/atompubshowmembership.php:90
+#, fuzzy
+msgid "Not a member"
+msgstr "Tote le membros"
+
+#: actions/atompubshowmembership.php:115
+#, fuzzy
+msgid "Method not supported"
+msgstr "Methodo HTTP non supportate."
+
+#: actions/atompubshowmembership.php:150
+msgid "Can't delete someone else's membership"
+msgstr ""
+
+#: actions/atompubshowsubscription.php:72
+#: actions/atompubshowsubscription.php:81
+#: actions/atompubsubscriptionfeed.php:74
+#, fuzzy, php-format
+msgid "No such profile id: %d"
+msgstr "Profilo non existe."
+
+#: actions/atompubshowsubscription.php:90
+#, fuzzy, php-format
+msgid "Profile %d not subscribed to profile %d"
+msgstr "Tu non es subscribite a iste profilo."
+
+#: actions/atompubshowsubscription.php:154
+#, fuzzy
+msgid "Can't delete someone else's subscription"
+msgstr "Non poteva deler auto-subscription."
+
+#: actions/atompubsubscriptionfeed.php:150
+#, fuzzy, php-format
+msgid "People %s has subscribed to on %s"
+msgstr "Personas qui seque %s"
+
+#. TRANS: Client error displayed when not using the POST verb.
+#. TRANS: Do not translate POST.
+#: actions/atompubsubscriptionfeed.php:246
+#, fuzzy
+msgid "Can only handle Follow activities."
+msgstr "Solmente le activitates POST es possibile."
+
+#: actions/atompubsubscriptionfeed.php:253
+msgid "Can only follow people."
+msgstr ""
+
+#: actions/atompubsubscriptionfeed.php:262
+#, fuzzy, php-format
+msgid "Unknown profile %s"
+msgstr "Typo de file incognite"
 
 #. TRANS: Client error displayed trying to get a non-existing attachment.
 #: actions/attachment.php:73
@@ -1430,8 +1621,8 @@ msgstr "Iste adresse ha ja essite confirmate."
 #. TRANS: Server error thrown when user profile settings could not be updated.
 #. TRANS: Server error thrown on database error updating SMS preferences.
 #. TRANS: Server error thrown on database error removing a registered SMS phone number.
-#: actions/confirmaddress.php:118 actions/emailsettings.php:337
-#: actions/emailsettings.php:486 actions/imsettings.php:283
+#: actions/confirmaddress.php:118 actions/emailsettings.php:359
+#: actions/emailsettings.php:508 actions/imsettings.php:283
 #: actions/imsettings.php:442 actions/othersettings.php:184
 #: actions/profilesettings.php:326 actions/smssettings.php:308
 #: actions/smssettings.php:464
@@ -1956,12 +2147,12 @@ msgstr "Configurar como reciper e-mail de %%site.name%%."
 
 #. TRANS: Form legend for e-mail settings form.
 #. TRANS: Field label for e-mail address input in e-mail settings form.
-#: actions/emailsettings.php:106 actions/emailsettings.php:132
+#: actions/emailsettings.php:107 actions/emailsettings.php:133
 msgid "Email address"
 msgstr "Adresse de e-mail"
 
 #. TRANS: Form note in e-mail settings form.
-#: actions/emailsettings.php:112
+#: actions/emailsettings.php:113
 msgid "Current confirmed email address."
 msgstr "Adresse de e-mail actualmente confirmate."
 
@@ -1970,14 +2161,14 @@ msgstr "Adresse de e-mail actualmente confirmate."
 #. TRANS: Button label to remove a confirmed IM address.
 #. TRANS: Button label to remove a confirmed SMS address.
 #. TRANS: Button label for removing a set sender SMS e-mail address to post notices from.
-#: actions/emailsettings.php:115 actions/emailsettings.php:162
+#: actions/emailsettings.php:116 actions/emailsettings.php:183
 #: actions/imsettings.php:116 actions/smssettings.php:124
 #: actions/smssettings.php:180
 msgctxt "BUTTON"
 msgid "Remove"
 msgstr "Remover"
 
-#: actions/emailsettings.php:122
+#: actions/emailsettings.php:123
 msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
@@ -1990,14 +2181,14 @@ msgstr ""
 #. TRANS: use in examples by http://www.rfc-editor.org/rfc/rfc2606.txt.
 #. TRANS: Any other domain may be owned by a legitimate person or
 #. TRANS: organization.
-#: actions/emailsettings.php:139
+#: actions/emailsettings.php:140
 msgid "Email address, like \"UserName@example.org\""
 msgstr "Le adresse de e-mail, como \"nomine@example.org\""
 
 #. TRANS: Button label for adding an e-mail address in e-mail settings form.
 #. TRANS: Button label for adding an IM address in IM settings form.
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
-#: actions/emailsettings.php:143 actions/imsettings.php:151
+#: actions/emailsettings.php:144 actions/imsettings.php:151
 #: actions/smssettings.php:162
 msgctxt "BUTTON"
 msgid "Add"
@@ -2005,111 +2196,118 @@ msgstr "Adder"
 
 #. TRANS: Form legend for incoming e-mail settings form.
 #. TRANS: Form legend for incoming SMS settings form.
-#: actions/emailsettings.php:151 actions/smssettings.php:171
+#: actions/emailsettings.php:152 actions/smssettings.php:171
 msgid "Incoming email"
 msgstr "E-mail entrante"
 
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:158
+msgid "I want to post notices by email."
+msgstr "Io vole publicar notas per e-mail."
+
 #. TRANS: Form instructions for incoming e-mail form in e-mail settings.
 #. TRANS: Form instructions for incoming SMS e-mail address form in SMS settings.
-#: actions/emailsettings.php:159 actions/smssettings.php:178
+#: actions/emailsettings.php:180 actions/smssettings.php:178
 msgid "Send email to this address to post new notices."
 msgstr "Invia e-mail a iste adresse pro publicar nove notas."
 
-#. TRANS: Instructions for incoming e-mail address input form.
+#. TRANS: Instructions for incoming e-mail address input form, when an address has already been assigned.
 #. TRANS: Instructions for incoming SMS e-mail address input form.
-#: actions/emailsettings.php:168 actions/smssettings.php:186
+#: actions/emailsettings.php:189 actions/smssettings.php:186
 msgid "Make a new email address for posting to; cancels the old one."
 msgstr ""
 "Face un nove adresse de e-mail per le qual publicar; cancella le vetule."
 
+#. TRANS: Instructions for incoming e-mail address input form.
+#: actions/emailsettings.php:193
+msgid ""
+"To send notices via email, we need to create a unique email address for you "
+"on this server:"
+msgstr ""
+
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
-#: actions/emailsettings.php:172 actions/smssettings.php:189
+#: actions/emailsettings.php:199 actions/smssettings.php:189
 msgctxt "BUTTON"
 msgid "New"
 msgstr "Nove"
 
 #. TRANS: Form legend for e-mail preferences form.
-#: actions/emailsettings.php:178
+#: actions/emailsettings.php:208
 msgid "Email preferences"
 msgstr "Preferentias de e-mail"
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:186
+#: actions/emailsettings.php:216
 msgid "Send me notices of new subscriptions through email."
 msgstr "Inviar me notificationes de nove subscriptiones per e-mail."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:192
+#: actions/emailsettings.php:222
 msgid "Send me email when someone adds my notice as a favorite."
 msgstr "Inviar me e-mail quando alcuno adde mi nota al favorites."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:199
+#: actions/emailsettings.php:229
 msgid "Send me email when someone sends me a private message."
 msgstr "Inviar me e-mail quando alcuno me invia un message private."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:205
+#: actions/emailsettings.php:235
 msgid "Send me email when someone sends me an \"@-reply\"."
 msgstr "Inviar me e-mail quando alcuno me invia un \"responsa @\"."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:211
+#: actions/emailsettings.php:241
 msgid "Allow friends to nudge me and send me an email."
 msgstr "Permitte que amicos me pulsa e me invia e-mail."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:218
-msgid "I want to post notices by email."
-msgstr "Io vole publicar notas per e-mail."
-
-#. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:225
+#: actions/emailsettings.php:247
 msgid "Publish a MicroID for my email address."
 msgstr "Publicar un MicroID pro mi adresse de e-mail."
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
-#: actions/emailsettings.php:346
+#: actions/emailsettings.php:368
 msgid "Email preferences saved."
 msgstr "Preferentias de e-mail salveguardate."
 
 #. TRANS: Message given saving e-mail address without having provided one.
-#: actions/emailsettings.php:366
+#: actions/emailsettings.php:388
 msgid "No email address."
 msgstr "Nulle adresse de e-mail."
 
 #. TRANS: Message given saving e-mail address that cannot be normalised.
-#: actions/emailsettings.php:374
+#: actions/emailsettings.php:396
 msgid "Cannot normalize that email address"
 msgstr "Non pote normalisar iste adresse de e-mail"
 
 #. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:379 actions/register.php:212
+#: actions/emailsettings.php:401 actions/register.php:212
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "Adresse de e-mail invalide."
 
 #. TRANS: Message given saving e-mail address that is already set.
-#: actions/emailsettings.php:383
+#: actions/emailsettings.php:405
 msgid "That is already your email address."
 msgstr "Isto es ja tu adresse de e-mail."
 
 #. TRANS: Message given saving e-mail address that is already set for another user.
-#: actions/emailsettings.php:387
+#: actions/emailsettings.php:409
 msgid "That email address already belongs to another user."
 msgstr "Iste adresse de e-mail pertine ja a un altere usator."
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
 #. TRANS: Server error thrown on database error adding SMS confirmation code.
-#: actions/emailsettings.php:404 actions/imsettings.php:351
+#: actions/emailsettings.php:426 actions/imsettings.php:351
 #: actions/smssettings.php:373
 msgid "Couldn't insert confirmation code."
 msgstr "Non poteva inserer le codice de confirmation."
 
 #. TRANS: Message given saving valid e-mail address that is to be confirmed.
-#: actions/emailsettings.php:411
+#: actions/emailsettings.php:433
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
@@ -2121,56 +2319,56 @@ msgstr ""
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
 #. TRANS: Message given canceling IM address confirmation that is not pending.
 #. TRANS: Message given canceling SMS phone number confirmation that is not pending.
-#: actions/emailsettings.php:432 actions/imsettings.php:386
+#: actions/emailsettings.php:454 actions/imsettings.php:386
 #: actions/smssettings.php:408
 msgid "No pending confirmation to cancel."
 msgstr "Nulle confirmation pendente a cancellar."
 
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
-#: actions/emailsettings.php:437
+#: actions/emailsettings.php:459
 msgid "That is the wrong email address."
 msgstr "Iste adresse de e-mail es erronee."
 
 #. TRANS: Server error thrown on database error canceling e-mail address confirmation.
 #. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
-#: actions/emailsettings.php:446 actions/smssettings.php:422
+#: actions/emailsettings.php:468 actions/smssettings.php:422
 msgid "Couldn't delete email confirmation."
 msgstr "Non poteva deler confirmation de e-mail."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
-#: actions/emailsettings.php:451
+#: actions/emailsettings.php:473
 msgid "Email confirmation cancelled."
 msgstr "Confirmation de e-mail cancellate."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
-#: actions/emailsettings.php:471
+#: actions/emailsettings.php:493
 msgid "That is not your email address."
 msgstr "Isto non es tu adresse de e-mail."
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
-#: actions/emailsettings.php:492
+#: actions/emailsettings.php:514
 msgid "The email address was removed."
 msgstr "Le adresse de e-mail ha essite removite."
 
-#: actions/emailsettings.php:506 actions/smssettings.php:568
+#: actions/emailsettings.php:528 actions/smssettings.php:568
 msgid "No incoming email address."
 msgstr "Nulle adresse de e-mail entrante."
 
 #. TRANS: Server error thrown on database error removing incoming e-mail address.
 #. TRANS: Server error thrown on database error adding incoming e-mail address.
-#: actions/emailsettings.php:517 actions/emailsettings.php:541
+#: actions/emailsettings.php:540 actions/emailsettings.php:565
 #: actions/smssettings.php:578 actions/smssettings.php:602
 msgid "Couldn't update user record."
 msgstr "Non poteva actualisar le datos del usator."
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
-#: actions/emailsettings.php:521 actions/smssettings.php:581
+#: actions/emailsettings.php:544 actions/smssettings.php:581
 msgid "Incoming email address removed."
 msgstr "Adresse de e-mail entrante removite."
 
 #. TRANS: Message given after successfully adding an incoming e-mail address.
-#: actions/emailsettings.php:545 actions/smssettings.php:605
+#: actions/emailsettings.php:569 actions/smssettings.php:605
 msgid "New incoming email address added."
 msgstr "Nove adresse de e-mail entrante addite."
 
@@ -5370,17 +5568,13 @@ msgstr "Tu non es subscribite a iste profilo."
 
 #. TRANS: Server error displayed when updating a subscription fails with a database error.
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
-#: actions/subedit.php:89 classes/Subscription.php:136
+#: actions/subedit.php:89 classes/Subscription.php:141
 msgid "Could not save subscription."
 msgstr "Non poteva salveguardar le subscription."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr "Iste action accepta solmente le requestas de typo POST."
-
-#: actions/subscribe.php:107
-msgid "No such profile."
-msgstr "Profilo non existe."
 
 #: actions/subscribe.php:117
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
@@ -5447,13 +5641,6 @@ msgstr ""
 "%s non ha subscriptores. Proque non [crear un conto](%%%%action.register%%%"
 "%) e esser le prime?"
 
-#. TRANS: Header for subscriptions overview for a user (first page).
-#. TRANS: %s is a user nickname.
-#: actions/subscriptions.php:51
-#, php-format
-msgid "%s subscriptions"
-msgstr "Subscriptiones de %s"
-
 #. TRANS: Header for subscriptions overview for a user (not first page).
 #. TRANS: %1$s is a user nickname, %2$d is the page number.
 #: actions/subscriptions.php:55
@@ -5503,13 +5690,18 @@ msgstr ""
 msgid "%s is not listening to anyone."
 msgstr "%s non seque alcuno."
 
+#: actions/subscriptions.php:178
+#, fuzzy, php-format
+msgid "Subscription feed for %s (Atom)"
+msgstr "Syndication de notas pro %s (Atom)"
+
 #. TRANS: Checkbox label for enabling Jabber messages for a profile in a subscriptions list.
-#: actions/subscriptions.php:226
+#: actions/subscriptions.php:242
 msgid "Jabber"
 msgstr "Jabber"
 
 #. TRANS: Checkbox label for enabling SMS messages for a profile in a subscriptions list.
-#: actions/subscriptions.php:241
+#: actions/subscriptions.php:257
 msgid "SMS"
 msgstr "SMS"
 
@@ -5918,13 +6110,13 @@ msgid "Author(s)"
 msgstr "Autor(es)"
 
 #. TRANS: Activity title when marking a notice as favorite.
-#: classes/Fave.php:148 lib/favorform.php:143
+#: classes/Fave.php:151 lib/favorform.php:143
 msgid "Favor"
 msgstr "Favorir"
 
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
-#: classes/Fave.php:151
+#: classes/Fave.php:154
 #, php-format
 msgid "%1$s marked notice %2$s as a favorite."
 msgstr "%1$s marcava le nota %2$s como favorite."
@@ -5982,42 +6174,42 @@ msgid "Invalid filename."
 msgstr "Nomine de file invalide."
 
 #. TRANS: Exception thrown when joining a group fails.
-#: classes/Group_member.php:42
+#: classes/Group_member.php:51
 msgid "Group join failed."
 msgstr "Le inscription al gruppo ha fallite."
 
 #. TRANS: Exception thrown when trying to leave a group the user is not a member of.
-#: classes/Group_member.php:55
+#: classes/Group_member.php:64
 msgid "Not part of group."
 msgstr "Non es membro del gruppo."
 
 #. TRANS: Exception thrown when trying to leave a group fails.
-#: classes/Group_member.php:63
+#: classes/Group_member.php:72
 msgid "Group leave failed."
 msgstr "Le cancellation del membrato del gruppo ha fallite."
 
 #. TRANS: Exception thrown providing an invalid profile ID.
 #. TRANS: %s is the invalid profile ID.
-#: classes/Group_member.php:76
+#: classes/Group_member.php:85
 #, php-format
 msgid "Profile ID %s is invalid."
 msgstr "Le ID de profilo %s es invalide."
 
 #. TRANS: Exception thrown providing an invalid group ID.
 #. TRANS: %s is the invalid group ID.
-#: classes/Group_member.php:89
-#, fuzzy, php-format
+#: classes/Group_member.php:98
+#, php-format
 msgid "Group ID %s is invalid."
-msgstr "Error de salveguardar le usator; invalide."
+msgstr "Le ID de gruppo %s es invalide."
 
 #. TRANS: Activity title.
-#: classes/Group_member.php:113 lib/joinform.php:114
+#: classes/Group_member.php:147 lib/joinform.php:114
 msgid "Join"
 msgstr "Inscriber"
 
 #. TRANS: Success message for subscribe to group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
-#: classes/Group_member.php:117
+#: classes/Group_member.php:151
 #, php-format
 msgid "%1$s has joined group %2$s."
 msgstr "%1$s se ha jungite al gruppo %2$s."
@@ -6045,12 +6237,12 @@ msgid "You are banned from sending direct messages."
 msgstr "Il te es prohibite inviar messages directe."
 
 #. TRANS: Message given when a message could not be stored on the server.
-#: classes/Message.php:62
+#: classes/Message.php:69
 msgid "Could not insert message."
 msgstr "Non poteva inserer message."
 
 #. TRANS: Message given when a message could not be updated on the server.
-#: classes/Message.php:73
+#: classes/Message.php:80
 msgid "Could not update message with new URI."
 msgstr "Non poteva actualisar message con nove URI."
 
@@ -6068,17 +6260,17 @@ msgid "Database error inserting hashtag: %s"
 msgstr "Error in base de datos durante insertion del marca (hashtag): %s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:265
+#: classes/Notice.php:270
 msgid "Problem saving notice. Too long."
 msgstr "Problema salveguardar nota. Troppo longe."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:270
+#: classes/Notice.php:275
 msgid "Problem saving notice. Unknown user."
 msgstr "Problema salveguardar nota. Usator incognite."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:276
+#: classes/Notice.php:281
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
@@ -6086,7 +6278,7 @@ msgstr ""
 "alcun minutas."
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:283
+#: classes/Notice.php:288
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -6095,36 +6287,36 @@ msgstr ""
 "novo post alcun minutas."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:291
+#: classes/Notice.php:296
 msgid "You are banned from posting notices on this site."
 msgstr "Il te es prohibite publicar notas in iste sito."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:358 classes/Notice.php:385
+#: classes/Notice.php:363 classes/Notice.php:390
 msgid "Problem saving notice."
 msgstr "Problema salveguardar nota."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:909
+#: classes/Notice.php:913
 msgid "Bad type provided to saveKnownGroups."
 msgstr "Mal typo fornite a saveKnownGroups."
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1008
+#: classes/Notice.php:1012
 msgid "Problem saving group inbox."
 msgstr "Problema salveguardar le cassa de entrata del gruppo."
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1122
+#: classes/Notice.php:1126
 #, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr "Non poteva salveguardar le responsa pro %1$d, %2$d."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1853
+#: classes/Notice.php:1645
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -6138,14 +6330,14 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:845
+#: classes/Profile.php:798
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr "Non pote revocar le rolo \"%1$s\" del usator #%2$d; non existe."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:854
+#: classes/Profile.php:807
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -6163,48 +6355,48 @@ msgid "Unable to save tag."
 msgstr "Impossibile salveguardar le etiquetta."
 
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
-#: classes/Subscription.php:75 lib/oauthstore.php:482
+#: classes/Subscription.php:77 lib/oauthstore.php:482
 msgid "You have been banned from subscribing."
 msgstr "Tu ha essite blocate del subscription."
 
 #. TRANS: Exception thrown when trying to subscribe while already subscribed.
-#: classes/Subscription.php:80
+#: classes/Subscription.php:82
 msgid "Already subscribed!"
 msgstr "Ja subscribite!"
 
 #. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
-#: classes/Subscription.php:85
+#: classes/Subscription.php:87
 msgid "User has blocked you."
 msgstr "Le usator te ha blocate."
 
 #. TRANS: Exception thrown when trying to unsibscribe without a subscription.
-#: classes/Subscription.php:171
+#: classes/Subscription.php:176
 msgid "Not subscribed!"
 msgstr "Non subscribite!"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
-#: classes/Subscription.php:178
+#: classes/Subscription.php:183
 msgid "Could not delete self-subscription."
 msgstr "Non poteva deler auto-subscription."
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
-#: classes/Subscription.php:206
+#: classes/Subscription.php:211
 msgid "Could not delete subscription OMB token."
 msgstr "Non poteva deler le indicio OMB del subscription."
 
 #. TRANS: Exception thrown when a subscription could not be deleted on the server.
-#: classes/Subscription.php:218
+#: classes/Subscription.php:223
 msgid "Could not delete subscription."
 msgstr "Non poteva deler subscription."
 
 #. TRANS: Activity tile when subscribing to another person.
-#: classes/Subscription.php:255
+#: classes/Subscription.php:265
 msgid "Follow"
 msgstr "Sequer"
 
 #. TRANS: Notification given when one person starts following another.
 #. TRANS: %1$s is the subscriber, %2$s is the subscribed.
-#: classes/Subscription.php:258
+#: classes/Subscription.php:268
 #, php-format
 msgid "%1$s is now following %2$s."
 msgstr "%1$s seque ora %2$s."
@@ -6574,11 +6766,16 @@ msgid "Before"
 msgstr "Ante"
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
-#: lib/activity.php:120
+#: lib/activity.php:125
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 "Expectava le elemento-radice de un syndication, ma recipeva un documento XML "
 "integre."
+
+#: lib/activity.php:360
+#, fuzzy
+msgid "Post"
+msgstr "Photo"
 
 #. TRANS: Client exception thrown when there is no source attribute.
 #: lib/activityutils.php:200
@@ -6760,10 +6957,10 @@ msgstr "Icone pro iste application"
 #. TRANS: Form input field instructions.
 #. TRANS: %d is the number of available characters for the description.
 #: lib/applicationeditform.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Describe your application in %d character"
 msgid_plural "Describe your application in %d characters"
-msgstr[0] "Describe tu application in %d characteres"
+msgstr[0] "Describe tu application in %d character"
 msgstr[1] "Describe tu application in %d characteres"
 
 #. TRANS: Form input field instructions.
@@ -6892,15 +7089,13 @@ msgstr "Etiquettas pro iste annexo"
 
 #. TRANS: Exception thrown when a password change fails.
 #: lib/authenticationplugin.php:221 lib/authenticationplugin.php:227
-#, fuzzy
 msgid "Password changing failed."
-msgstr "Cambio del contrasigno fallite"
+msgstr "Cambio del contrasigno fallite."
 
 #. TRANS: Exception thrown when a password change attempt fails because it is not allowed.
 #: lib/authenticationplugin.php:238
-#, fuzzy
 msgid "Password changing is not allowed."
-msgstr "Cambio del contrasigno non permittite"
+msgstr "Cambio del contrasigno non permittite."
 
 #. TRANS: Title for the form to block a user.
 #: lib/blockform.php:68
@@ -6914,9 +7109,8 @@ msgstr "Resultatos del commando"
 
 #. TRANS: Title for command results.
 #: lib/channel.php:194
-#, fuzzy
 msgid "AJAX error"
-msgstr "Error de Ajax"
+msgstr "Error de AJAX"
 
 #. TRANS: E-mail subject when a command has completed.
 #: lib/channel.php:233 lib/mailhandler.php:143
@@ -7324,7 +7518,6 @@ msgstr "Ir al installator."
 
 #. TRANS: Menu item for Instant Messaging settings.
 #: lib/connectsettingsaction.php:106
-#, fuzzy
 msgctxt "MENU"
 msgid "IM"
 msgstr "MI"
@@ -7336,7 +7529,6 @@ msgstr "Actualisationes per messageria instantanee (MI)"
 
 #. TRANS: Menu item for Short Message Service settings.
 #: lib/connectsettingsaction.php:113
-#, fuzzy
 msgctxt "MENU"
 msgid "SMS"
 msgstr "SMS"
@@ -7348,7 +7540,6 @@ msgstr "Actualisationes per SMS"
 
 #. TRANS: Menu item for OuAth connection settings.
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgctxt "MENU"
 msgid "Connections"
 msgstr "Connexiones"
@@ -8137,15 +8328,13 @@ msgstr "Inviar un nota directe"
 
 #. TRANS Label entry in drop-down selection box in direct-message inbox/outbox. This is the default entry in the drop-down box, doubling as instructions and a brake against accidental submissions with the first user in the list.
 #: lib/messageform.php:137
-#, fuzzy
 msgid "Select recipient:"
-msgstr "Selige licentia"
+msgstr "Selige destinatario:"
 
 #. TRANS Entry in drop-down selection box in direct-message inbox/outbox when no one is available to message.
 #: lib/messageform.php:150
-#, fuzzy
 msgid "No mutual subscribers."
-msgstr "Non subscribite!"
+msgstr "Nulle subscriptores mutual."
 
 #: lib/messageform.php:153
 msgid "To"
@@ -8161,22 +8350,22 @@ msgid "Send"
 msgstr "Inviar"
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:145
+#: lib/nickname.php:163
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "Le pseudonymo pote solmente haber minusculas e numeros, sin spatios."
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:158
+#: lib/nickname.php:176
 msgid "Nickname cannot be empty."
-msgstr ""
+msgstr "Le pseudonymo non pote esser vacue."
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:171
+#: lib/nickname.php:189
 #, php-format
 msgid "Nickname cannot be more than %d character long."
 msgid_plural "Nickname cannot be more than %d characters long."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Le pseudonymo non pote haber plus de %d character."
+msgstr[1] "Le pseudonymo non pote haber plus de %d characteres."
 
 #: lib/noticeform.php:160
 msgid "Send a notice"
@@ -8414,7 +8603,7 @@ msgid "Revoke the \"%s\" role from this user"
 msgstr "Revocar le rolo \"%s\" de iste usator"
 
 #. TRANS: Client error on action trying to visit a non-existing page.
-#: lib/router.php:938
+#: lib/router.php:957
 msgid "Page not found."
 msgstr "Pagina non trovate."
 
@@ -8670,17 +8859,17 @@ msgid "Moderator"
 msgstr "Moderator"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1276
+#: lib/util.php:1306
 msgid "a few seconds ago"
 msgstr "alcun secundas retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1279
+#: lib/util.php:1309
 msgid "about a minute ago"
 msgstr "circa un minuta retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1283
+#: lib/util.php:1313
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -8688,12 +8877,12 @@ msgstr[0] "circa un minuta retro"
 msgstr[1] "circa %d minutas retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1286
+#: lib/util.php:1316
 msgid "about an hour ago"
 msgstr "circa un hora retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1290
+#: lib/util.php:1320
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -8701,12 +8890,12 @@ msgstr[0] "circa un hora retro"
 msgstr[1] "circa %d horas retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1293
+#: lib/util.php:1323
 msgid "about a day ago"
 msgstr "circa un die retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1297
+#: lib/util.php:1327
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -8714,12 +8903,12 @@ msgstr[0] "circa un die retro"
 msgstr[1] "circa %d dies retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1300
+#: lib/util.php:1330
 msgid "about a month ago"
 msgstr "circa un mense retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1304
+#: lib/util.php:1334
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -8727,7 +8916,7 @@ msgstr[0] "circa un mense retro"
 msgstr[1] "circa %d menses retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1307
+#: lib/util.php:1337
 msgid "about a year ago"
 msgstr "circa un anno retro"
 
@@ -8760,14 +8949,13 @@ msgstr[1] "Message troppo longe. Maximo es %1$d characteres, tu inviava %2$d."
 
 #. TRANS: Exception.
 #: lib/xrd.php:64
-#, fuzzy
 msgid "Invalid XML."
-msgstr "Dimension invalide."
+msgstr "XML invalide."
 
 #. TRANS: Exception.
 #: lib/xrd.php:69
 msgid "Invalid XML, missing XRD root."
-msgstr ""
+msgstr "XML invalide, radice XRD mancante."
 
 #. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
 #: scripts/restoreuser.php:61

@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-30 20:16+0000\n"
-"PO-Revision-Date: 2010-11-30 20:19:00+0000\n"
+"POT-Creation-Date: 2010-12-16 15:08+0000\n"
+"PO-Revision-Date: 2010-12-16 15:11:55+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-30 17:54:27+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r77503); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-11-30 20:40:35+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -41,7 +41,7 @@ msgstr "Поставки за обединување со Facebook"
 
 #. TRANS: Tooltip for menu item "Facebook".
 #. TRANS: Page title for Facebook settings.
-#: FacebookBridgePlugin.php:283 actions/facebooksettings.php:106
+#: FacebookBridgePlugin.php:283 actions/facebooksettings.php:105
 msgid "Facebook settings"
 msgstr "Поставки за Facebook"
 
@@ -69,7 +69,7 @@ msgstr ""
 msgid "There is already a local account linked with that Facebook account."
 msgstr "Веќе постои локална сметка поврзана со тааа сметка на Facebook."
 
-#: actions/facebookfinishlogin.php:141 actions/facebooksettings.php:87
+#: actions/facebookfinishlogin.php:141 actions/facebooksettings.php:86
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Се поајви проблем со Вашиот сесиски жетон. Обидете се повторно."
 
@@ -248,30 +248,30 @@ msgstr "Зачувај"
 msgid "Save Facebook settings"
 msgstr "Зачувај поставки за Facebook"
 
-#: actions/facebooksettings.php:139
+#: actions/facebooksettings.php:137
 msgid "Connected Facebook user"
 msgstr "Поврзан корисник на Facebook"
 
-#: actions/facebooksettings.php:166
+#: actions/facebooksettings.php:164
 msgid "Publish my notices to Facebook."
 msgstr "Објавувај ми ги забелешките на Facebook."
 
-#: actions/facebooksettings.php:176
+#: actions/facebooksettings.php:174
 msgid "Send \"@\" replies to Facebook."
 msgstr "Испраќај „@“-одговори на Facebook."
 
 #. TRANS: Submit button to save synchronisation settings.
-#: actions/facebooksettings.php:185
+#: actions/facebooksettings.php:183
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Зачувај"
 
 #. TRANS: Legend.
-#: actions/facebooksettings.php:194
+#: actions/facebooksettings.php:192
 msgid "Disconnect my account from Facebook"
 msgstr "Исклучи ми ја сметката од Facebook"
 
-#: actions/facebooksettings.php:202
+#: actions/facebooksettings.php:199
 #, php-format
 msgid ""
 "Disconnecting your Faceboook would make it impossible to log in! Please [set "
@@ -280,37 +280,34 @@ msgstr ""
 "Ако ја исклучите сметката од Faceboook, тогаш нема да можете да се "
 "најавувате! Најпрвин [ставете лозинка](%s)."
 
-#: actions/facebooksettings.php:215
+#: actions/facebooksettings.php:213
+#, fuzzy, php-format
 msgid ""
-"Keep your %1$s account but disconnect from Facebook. You'll use your 1%$s "
+"Keep your %1$s account but disconnect from Facebook. You'll use your %1$s "
 "password to log in."
 msgstr ""
 "Задржете ја сметката на %1$s, но исклучете ја од Facebook. За најава ќе ја "
 "користите лозинката на 1%$s."
 
 #. TRANS: Submit button.
-#: actions/facebooksettings.php:222
+#: actions/facebooksettings.php:220
 msgctxt "BUTTON"
 msgid "Disconnect"
 msgstr "Исклучи"
 
-#: actions/facebooksettings.php:246
+#: actions/facebooksettings.php:243
 msgid "There was a problem saving your sync preferences."
 msgstr "Се појави проблем при зачувувањето на нагодувањата за усогласување."
 
 #. TRANS: Confirmation that synchronisation settings have been saved into the system.
-#: actions/facebooksettings.php:249
+#: actions/facebooksettings.php:246
 msgid "Sync preferences saved."
 msgstr "Нагодувањата за усогласување се зачувани."
 
-#: actions/facebooksettings.php:264
+#: actions/facebooksettings.php:260
 msgid "Couldn't delete link to Facebook."
 msgstr "Не можев да ја избришам врската со Facebook."
 
-#: actions/facebooksettings.php:268
+#: actions/facebooksettings.php:264
 msgid "You have disconnected from Facebook."
 msgstr "Сега сте исклучени од Facebook."
-
-#~ msgid "Nickname must have only lowercase letters and numbers and no spaces."
-#~ msgstr ""
-#~ "Прекарот мора да има само мали букви и бројки и да нема празни места."
