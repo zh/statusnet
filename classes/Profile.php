@@ -215,26 +215,29 @@ class Profile extends Memcached_DataObject
     function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id)
     {
         // XXX It would be nice to do this without a join
+        // (necessary to do it efficiently on accounts with long history)
 
         $notice = new Notice();
 
         $query =
           "select id from notice join notice_tag on id=notice_id where tag='".
           $notice->escape($tag) .
-          "' and profile_id=" . $notice->escape($this->id);
+          "' and profile_id=" . intval($this->id);
 
-        if ($since_id != 0) {
-            $query .= " and id > $since_id";
+        $since = Notice::whereSinceId($since_id, 'id', 'notice.created');
+        if ($since) {
+            $query .= " and ($since)";
         }
 
-        if ($max_id != 0) {
-            $query .= " and id <= $max_id";
+        $max = Notice::whereMaxId($max_id, 'id', 'notice.created');
+        if ($max) {
+            $query .= " and ($max)";
         }
 
-        $query .= ' order by id DESC';
+        $query .= ' order by notice.created DESC, id DESC';
 
         if (!is_null($offset)) {
-            $query .= " LIMIT $limit OFFSET $offset";
+            $query .= " LIMIT " . intval($limit) . " OFFSET " . intval($offset);
         }
 
         $notice->query($query);
