@@ -668,14 +668,14 @@ class Notice extends Memcached_DataObject
             $notice->whereAdd('is_local !='. Notice::GATEWAY);
         }
 
-        $since = Notice::getAsTimestamp($since_id);
+        $since = Notice::whereSinceId($since_id);
         if ($since) {
-            $notice->whereAdd(sprintf("(created = '%s' and id > %d) or (created > '%s')", $since, $since_id, $since));
+            $notice->whereAdd($since);
         }
 
-        $max = Notice::getAsTimestamp($max_id);
+        $max = Notice::whereMaxId($max_id);
         if ($max) {
-            $notice->whereAdd(sprintf("(created < '%s') or (created = '%s' and id <= %d)", $max, $max, $max_id));
+            $notice->whereAdd($max);
         }
 
         $ids = array();
@@ -2004,6 +2004,46 @@ class Notice extends Memcached_DataObject
             return $deleted->created;
         }
 
+        return false;
+    }
+
+    /**
+     * Build an SQL 'where' fragment for timestamp-based sorting from a since_id
+     * parameter, matching notices posted after the given one (exclusive).
+     *
+     * If the referenced notice can't be found, will return false.
+     *
+     * @param int $id
+     * @param string $idField
+     * @param string $createdField
+     * @return mixed string or false if no match
+     */
+    public static function whereSinceId($id, $idField='id', $createdField='created')
+    {
+        $since = Notice::getAsTimestamp($id);
+        if ($since) {
+            return sprintf("($createdField = '%s' and $idField > %d) or ($createdField > '%s')", $since, $id, $since);
+        }
+        return false;
+    }
+
+    /**
+     * Build an SQL 'where' fragment for timestamp-based sorting from a max_id
+     * parameter, matching notices posted before the given one (inclusive).
+     *
+     * If the referenced notice can't be found, will return false.
+     *
+     * @param int $id
+     * @param string $idField
+     * @param string $createdField
+     * @return mixed string or false if no match
+     */
+    public static function whereMaxId($id, $idField='id', $createdField='created')
+    {
+        $max = Notice::getAsTimestamp($id);
+        if ($max) {
+            return sprintf("($createdField < '%s') or ($createdField = '%s' and $idField <= %d)", $max, $max, $id);
+        }
         return false;
     }
 }
