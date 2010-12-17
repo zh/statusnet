@@ -480,7 +480,10 @@ create table group_inbox (
 
     constraint primary key (group_id, notice_id),
     index group_inbox_created_idx (created),
-    index group_inbox_notice_id_idx (notice_id)
+    index group_inbox_notice_id_idx (notice_id),
+
+    -- Needed for sorting group messages by timestamp
+    index group_inbox_group_id_created_notice_id_idx (group_id, created, notice_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 

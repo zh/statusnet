@@ -8,3 +8,6 @@ alter table notice_tag add index notice_tag_tag_created_notice_id_idx (tag, crea
 
 -- Needed for sorting reply/mentions timelines
 alter table reply add index reply_profile_id_modified_notice_id_idx (profile_id, modified, notice_id);
+
+-- Needed for sorting group messages by timestamp
+alter table group_inbox add index group_inbox_group_id_created_notice_id_idx (group_id, created, notice_id);
