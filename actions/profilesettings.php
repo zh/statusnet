@@ -472,6 +472,13 @@ class ProfilesettingsAction extends AccountSettingsAction
                            _('Delete account'));
             $this->elementEnd('li');
         }
+        if ($user->hasRight(Right::RESTOREACCOUNT)) {
+            $this->elementStart('li');
+            $this->element('a',
+                           array('href' => common_local_url('restoreaccount')),
+                           _('Restore account'));
+            $this->elementEnd('li');
+        }
         $this->elementEnd('div');
     }
 }
