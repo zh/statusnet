@@ -162,7 +162,10 @@ create table reply (
     constraint primary key (notice_id, profile_id),
     index reply_notice_id_idx (notice_id),
     index reply_profile_id_idx (profile_id),
-    index reply_replied_id_idx (replied_id)
+    index reply_replied_id_idx (replied_id),
+
+    -- Needed for sorting reply/mentions timelines
+    index reply_profile_id_modified_notice_id_idx (profile_id, modified, notice_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
