@@ -85,6 +85,19 @@ class Fave extends Memcached_DataObject
         return $ids;
     }
 
+    /**
+     * Note that the sorting for this is by order of *fave* not order of *notice*.
+     *
+     * @fixme add since_id, max_id support?
+     *
+     * @param <type> $user_id
+     * @param <type> $own
+     * @param <type> $offset
+     * @param <type> $limit
+     * @param <type> $since_id
+     * @param <type> $max_id
+     * @return <type>
+     */
     function _streamDirect($user_id, $own, $offset, $limit, $since_id, $max_id)
     {
         $fav = new Fave();
