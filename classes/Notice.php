@@ -668,15 +668,8 @@ class Notice extends Memcached_DataObject
             $notice->whereAdd('is_local !='. Notice::GATEWAY);
         }
 
-        $since = Notice::whereSinceId($since_id);
-        if ($since) {
-            $notice->whereAdd($since);
-        }
-
-        $max = Notice::whereMaxId($max_id);
-        if ($max) {
-            $notice->whereAdd($max);
-        }
+        Notice::addWhereSinceId($notice, $since_id);
+        Notice::addWhereMaxId($notice, $max_id);
 
         $ids = array();
 
@@ -2028,6 +2021,25 @@ class Notice extends Memcached_DataObject
     }
 
     /**
+     * Build an SQL 'where' fragment for timestamp-based sorting from a since_id
+     * parameter, matching notices posted after the given one (exclusive), and
+     * if necessary add it to the data object's query.
+     *
+     * @param DB_DataObject $obj
+     * @param int $id
+     * @param string $idField
+     * @param string $createdField
+     * @return mixed string or false if no match
+     */
+    public static function addWhereSinceId(DB_DataObject $obj, $id, $idField='id', $createdField='created')
+    {
+        $since = self::whereSinceId($id);
+        if ($since) {
+            $obj->whereAdd($since);
+        }
+    }
+
+    /**
      * Build an SQL 'where' fragment for timestamp-based sorting from a max_id
      * parameter, matching notices posted before the given one (inclusive).
      *
@@ -2045,5 +2057,24 @@ class Notice extends Memcached_DataObject
             return sprintf("($createdField < '%s') or ($createdField = '%s' and $idField <= %d)", $max, $max, $id);
         }
         return false;
+    }
+
+    /**
+     * Build an SQL 'where' fragment for timestamp-based sorting from a max_id
+     * parameter, matching notices posted before the given one (inclusive), and
+     * if necessary add it to the data object's query.
+     *
+     * @param DB_DataObject $obj
+     * @param int $id
+     * @param string $idField
+     * @param string $createdField
+     * @return mixed string or false if no match
+     */
+    public static function addWhereMaxId(DB_DataObject $obj, $id, $idField='id', $createdField='created')
+    {
+        $max = self::whereMaxId($id);
+        if ($max) {
+            $obj->whereAdd($max);
+        }
     }
 }

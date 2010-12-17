@@ -252,57 +252,21 @@ class Profile extends Memcached_DataObject
     {
         $notice = new Notice();
 
-        // Temporary hack until notice_profile_id_idx is updated
-        // to (profile_id, id) instead of (profile_id, created, id).
-        // It's been falling back to PRIMARY instead, which is really
-        // very inefficient for a profile that hasn't posted in a few
-        // months. Even though forcing the index will cause a filesort,
-        // it's usually going to be better.
-        if (common_config('db', 'type') == 'mysql') {
-            $index = '';
-            $query =
-              "select id from notice force index (notice_profile_id_idx) ".
-              "where profile_id=" . $notice->escape($this->id);
+        $notice->profile_id = $this->id;
 
-            if ($since_id != 0) {
-                $query .= " and id > $since_id";
-            }
+        $notice->selectAdd();
+        $notice->selectAdd('id');
 
-            if ($max_id != 0) {
-                $query .= " and id <= $max_id";
-            }
+        Notice::addWhereSinceId($notice, $since_id);
+        Notice::addWhereMaxId($notice, $max_id);
 
-            $query .= ' order by id DESC';
+        $notice->orderBy('created DESC, id DESC');
 
-            if (!is_null($offset)) {
-                $query .= " LIMIT $limit OFFSET $offset";
-            }
-
-            $notice->query($query);
-        } else {
-            $index = '';
-
-            $notice->profile_id = $this->id;
-
-            $notice->selectAdd();
-            $notice->selectAdd('id');
-
-            if ($since_id != 0) {
-                $notice->whereAdd('id > ' . $since_id);
-            }
-
-            if ($max_id != 0) {
-                $notice->whereAdd('id <= ' . $max_id);
-            }
-
-            $notice->orderBy('id DESC');
-
-            if (!is_null($offset)) {
-                $notice->limit($offset, $limit);
-            }
-
-            $notice->find();
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
         }
+
+        $notice->find();
 
         $ids = array();
 
