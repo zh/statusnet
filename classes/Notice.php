@@ -1692,8 +1692,8 @@ class Notice extends Memcached_DataObject
 
         $notice->orderBy('created'); // NB: asc!
 
-        if (!is_null($offset)) {
-            $notice->limit($offset, $limit);
+        if (!is_null($limit)) {
+            $notice->limit(0, $limit);
         }
 
         $ids = array();
