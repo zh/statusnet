@@ -189,6 +189,8 @@ class ActivityImporter extends QueueHandler
                                                         " it's got a different author %s."),
                                                       $sourceUri, $uri));
                 }
+            } else {
+                throw new ClientException("Not overwriting author info for non-trusted user.");
             }
         }
 
@@ -338,8 +340,11 @@ class ActivityImporter extends QueueHandler
 
     function purify($content)
     {
+        require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
+
         $config = array('safe' => 1,
                         'deny_attribute' => 'id,style,on*');
+
         return htmLawed($content, $config);
     }
 }
