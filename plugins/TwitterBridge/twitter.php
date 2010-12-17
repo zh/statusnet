@@ -45,7 +45,7 @@ function add_twitter_user($twitter_id, $screen_name)
     $fuser = new Foreign_user();
 
     $fuser->nickname = $screen_name;
-    $fuser->uri = 'http://twitter.com/' . $screen_name;
+    $fuser->uri = 'http://twitter.com/#!/' . $screen_name;
     $fuser->id = $twitter_id;
     $fuser->service = TWITTER_SERVICE;
     $fuser->created = common_sql_now();

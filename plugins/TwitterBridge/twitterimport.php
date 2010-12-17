@@ -207,7 +207,7 @@ class TwitterImport
      */
     function makeStatusURI($username, $id)
     {
-        return 'http://twitter.com/'
+        return 'http://twitter.com/#!/'
           . $username
           . '/status/'
           . $id;
@@ -264,7 +264,7 @@ class TwitterImport
     function ensureProfile($user)
     {
         // check to see if there's already a profile for this user
-        $profileurl = 'http://twitter.com/' . $user->screen_name;
+        $profileurl = 'http://twitter.com/#!/' . $user->screen_name;
         $profile = $this->getProfileByUrl($user->screen_name, $profileurl);
 
         if (!empty($profile)) {
@@ -618,15 +618,15 @@ class TwitterImport
 
     static function tagLink($tag)
     {
-        return "<a href='https://twitter.com/search?q=%23{$tag}' class='hashtag'>{$tag}</a>";
+        return "<a href='https://search.twitter.com/search?q=%23{$tag}' class='hashtag'>{$tag}</a>";
     }
 
     static function atLink($screenName, $fullName=null)
     {
         if (!empty($fullName)) {
-            return "<a href='http://twitter.com/{$screenName}' title='{$fullName}'>{$screenName}</a>";
+            return "<a href='http://twitter.com/#!/{$screenName}' title='{$fullName}'>{$screenName}</a>";
         } else {
-            return "<a href='http://twitter.com/{$screenName}'>{$screenName}</a>";
+            return "<a href='http://twitter.com/#!/{$screenName}'>{$screenName}</a>";
         }
     }
 
