@@ -45,7 +45,7 @@ class SQLProfilePlugin extends Plugin
 
     function onStartDBQuery($obj, $query, &$result)
     {
-        if (!$this->recursionGuard) {
+        if (!$this->recursionGuard && preg_match('/\bselect\b/i', $query)) {
             $this->recursionGuard = true;
             $xobj = clone($obj);
             $explain = $xobj->query('EXPLAIN ' . $query);
