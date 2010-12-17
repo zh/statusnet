@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2010, StatusNet, Inc.
  *
- * A class for restoring accounts
+ * Importer for feeds of activities
  * 
  * PHP version 5
  *
@@ -35,13 +35,11 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * A class for restoring accounts
+ * Importer for feeds of activities
  *
- * This is a clumsy objectification of the functions in restoreuser.php.
- * 
- * Note that it quite illegally uses the OStatus_profile class which may
- * not even exist on this server.
- * 
+ * Takes an XML file representing a feed of activities and imports each
+ * activity to the user in question.
+ *
  * @category  Account
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
@@ -50,309 +48,82 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class AccountRestorer
+class FeedImporter extends QueueHandler
 {
-    private $_trusted = false;
+    /**
+     * Transport identifier
+     *
+     * @return string identifier for this queue handler
+     */
 
-    function loadXML($xml)
+    public function transport()
     {
-        $dom = DOMDocument::loadXML($xml);
-
-        if ($dom->documentElement->namespaceURI != Activity::ATOM ||
-            $dom->documentElement->localName != 'feed') {
-            throw new Exception("'$filename' is not an Atom feed.");
-        }
-
-        return $dom;
+        return 'feedimp';
     }
 
-    function importActivityStream($user, $doc)
+    function handle($data)
     {
-        $feed = $doc->documentElement;
+        list($user, $xml, $trusted) = $data;
 
-        $subjectEl = ActivityUtils::child($feed, Activity::SUBJECT, Activity::SPEC);
+        try {
+            $doc = DOMDocument::loadXML($xml);
 
-        if (!empty($subjectEl)) {
-            $subject = new ActivityObject($subjectEl);
-        } else {
-            throw new Exception("Feed doesn't have an <activity:subject> element.");
-        }
+            if ($doc->documentElement->namespaceURI != Activity::ATOM ||
+                $doc->documentElement->localName != 'feed') {
+                throw new ClientException(_("Not an atom feed."));
+            }
 
-        if (is_null($user)) {
-            $user = $this->userFromSubject($subject);
-        }
+            $feed = $doc->documentElement;
 
-        $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
+            $author = ActivityUtils::getFeedAuthor($feed);
 
-        $activities = $this->entriesToActivities($entries, $feed);
+            if (empty($author)) {
+                throw new ClientException(_("No author in the feed."));
+            }
 
-        // XXX: sort entries here
-
-        foreach ($activities as $activity) {
-            try {
-                switch ($activity->verb) {
-                case ActivityVerb::FOLLOW:
-                    $this->subscribeProfile($user, $subject, $activity);
-                    break;
-                case ActivityVerb::JOIN:
-                    $this->joinGroup($user, $activity);
-                    break;
-                case ActivityVerb::POST:
-                    $this->postNote($user, $activity);
-                    break;
-                default:
-                    throw new Exception("Unknown verb: {$activity->verb}");
+            if (empty($user)) {
+                if ($trusted) {
+                    $user = $this->userFromAuthor($author);
                 }
-            } catch (Exception $e) {
-                common_log(LOG_WARNING, $e->getMessage());
-                continue;
-            }
-        }
-    }
-
-    function subscribeProfile($user, $subject, $activity)
-    {
-        $profile = $user->getProfile();
-
-        if ($activity->objects[0]->id == $subject->id) {
-            if (!$this->_trusted) {
-                    throw new Exception("Skipping a pushed subscription.");
-            } else {
-                $other = $activity->actor;
-                $otherUser = User::staticGet('uri', $other->id);
-
-                if (!empty($otherUser)) {
-                    $otherProfile = $otherUser->getProfile();
-                } else {
-                    throw new Exception("Can't force remote user to subscribe.");
-                }
-                // XXX: don't do this for untrusted input!
-                Subscription::start($otherProfile, $profile);
-            }
-        } else if (empty($activity->actor) 
-                   || $activity->actor->id == $subject->id) {
-
-            $other = $activity->objects[0];
-            $otherUser = User::staticGet('uri', $other->id);
-
-            if (!empty($otherUser)) {
-                $otherProfile = $otherUser->getProfile();
-            } else {
-                $oprofile = Ostatus_profile::ensureActivityObjectProfile($other);
-                $otherProfile = $oprofile->localProfile();
             }
 
-            Subscription::start($profile, $otherProfile);
-        } else {
-            throw new Exception("This activity seems unrelated to our user.");
+            $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
+
+            $activities = $this->entriesToActivities($entries, $feed);
+
+            $qm = QueueManager::get();
+
+            foreach ($activities as $activity) {
+                $qm->enqueue(array($user, $author, $activity, $trusted), 'actimp');
+            }
+        } catch (ClientException $ce) {
+            common_log(LOG_WARNING, $ce->getMessage());
+            return true;
+        } catch (ServerException $se) {
+            common_log(LOG_ERR, $ce->getMessage());
+            return false;
+        } catch (Exception $e) {
+            common_log(LOG_ERR, $ce->getMessage());
+            return false;
         }
     }
 
-    function joinGroup($user, $activity)
+    function userFromAuthor($author)
     {
-        // XXX: check that actor == subject
-
-        $uri = $activity->objects[0]->id;
-
-        $group = User_group::staticGet('uri', $uri);
-
-        if (empty($group)) {
-            $oprofile = Ostatus_profile::ensureActivityObjectProfile($activity->objects[0]);
-            if (!$oprofile->isGroup()) {
-                throw new Exception("Remote profile is not a group!");
-            }
-            $group = $oprofile->localGroup();
-        }
-
-        assert(!empty($group));
-
-        if (Event::handle('StartJoinGroup', array($group, $user))) {
-            Group_member::join($group->id, $user->id);
-            Event::handle('EndJoinGroup', array($group, $user));
-        }
-    }
-
-    // XXX: largely cadged from Ostatus_profile::processNote()
-
-    function postNote($user, $activity)
-    {
-        $note = $activity->objects[0];
-
-        $sourceUri = $note->id;
-
-        $notice = Notice::staticGet('uri', $sourceUri);
-
-        if (!empty($notice)) {
-            // This is weird.
-            $orig = clone($notice);
-            $notice->profile_id = $user->id;
-            $notice->update($orig);
-            return;
-        }
-
-        // Use summary as fallback for content
-
-        if (!empty($note->content)) {
-            $sourceContent = $note->content;
-        } else if (!empty($note->summary)) {
-            $sourceContent = $note->summary;
-        } else if (!empty($note->title)) {
-            $sourceContent = $note->title;
-        } else {
-            // @fixme fetch from $sourceUrl?
-            // @todo i18n FIXME: use sprintf and add i18n.
-            throw new ClientException("No content for notice {$sourceUri}.");
-        }
-
-        // Get (safe!) HTML and text versions of the content
-
-        $rendered = $this->purify($sourceContent);
-        $content = html_entity_decode(strip_tags($rendered), ENT_QUOTES, 'UTF-8');
-
-        $shortened = $user->shortenLinks($content);
-
-        $options = array('is_local' => Notice::LOCAL_PUBLIC,
-                         'uri' => $sourceUri,
-                         'rendered' => $rendered,
-                         'replies' => array(),
-                         'groups' => array(),
-                         'tags' => array(),
-                         'urls' => array());
-
-        // Check for optional attributes...
-
-        if (!empty($activity->time)) {
-            $options['created'] = common_sql_date($activity->time);
-        }
-
-        if ($activity->context) {
-            // Any individual or group attn: targets?
-
-            list($options['groups'], $options['replies']) = $this->filterAttention($activity->context->attention);
-
-            // Maintain direct reply associations
-            // @fixme what about conversation ID?
-            if (!empty($activity->context->replyToID)) {
-                $orig = Notice::staticGet('uri',
-                                          $activity->context->replyToID);
-                if (!empty($orig)) {
-                    $options['reply_to'] = $orig->id;
-                }
-            }
-
-            $location = $activity->context->location;
-
-            if ($location) {
-                $options['lat'] = $location->lat;
-                $options['lon'] = $location->lon;
-                if ($location->location_id) {
-                    $options['location_ns'] = $location->location_ns;
-                    $options['location_id'] = $location->location_id;
-                }
-            }
-        }
-
-        // Atom categories <-> hashtags
-
-        foreach ($activity->categories as $cat) {
-            if ($cat->term) {
-                $term = common_canonical_tag($cat->term);
-                if ($term) {
-                    $options['tags'][] = $term;
-                }
-            }
-        }
-
-        // Atom enclosures -> attachment URLs
-        foreach ($activity->enclosures as $href) {
-            // @fixme save these locally or....?
-            $options['urls'][] = $href;
-        }
-
-        $saved = Notice::saveNew($user->id,
-                                 $content,
-                                 'restore', // TODO: restore the actual source
-                                 $options);
-
-        return $saved;
-    }
-
-    function filterAttention($attn)
-    {
-        $groups = array();
-        $replies = array();
-
-        foreach (array_unique($attn) as $recipient) {
-
-            // Is the recipient a local user?
-
-            $user = User::staticGet('uri', $recipient);
-
-            if ($user) {
-                // @fixme sender verification, spam etc?
-                $replies[] = $recipient;
-                continue;
-            }
-
-            // Is the recipient a remote group?
-            $oprofile = Ostatus_profile::ensureProfileURI($recipient);
-
-            if ($oprofile) {
-                if (!$oprofile->isGroup()) {
-                    // may be canonicalized or something
-                    $replies[] = $oprofile->uri;
-                }
-                continue;
-            }
-
-            // Is the recipient a local group?
-            // @fixme uri on user_group isn't reliable yet
-            // $group = User_group::staticGet('uri', $recipient);
-            $id = OStatusPlugin::localGroupFromUrl($recipient);
-
-            if ($id) {
-                $group = User_group::staticGet('id', $id);
-                if ($group) {
-                    // Deliver to all members of this local group if allowed.
-                    $profile = $sender->localProfile();
-                    if ($profile->isMember($group)) {
-                        $groups[] = $group->id;
-                    } else {
-                        common_log(LOG_INFO, "Skipping reply to local group {$group->nickname} as sender {$profile->id} is not a member");
-                    }
-                    continue;
-                } else {
-                    common_log(LOG_INFO, "Skipping reply to bogus group $recipient");
-                }
-            }
-        }
-
-        return array($groups, $replies);
-    }
- 
-   function userFromSubject($subject)
-    {
-        $user = User::staticGet('uri', $subject->id);
+        $user = User::staticGet('uri', $author->id);
 
         if (empty($user)) {
             $attrs =
-                array('nickname' => Ostatus_profile::getActivityObjectNickname($subject),
-                      'uri' => $subject->id);
+                array('nickname' => Ostatus_profile::getActivityObjectNickname($author),
+                      'uri' => $author->id);
 
             $user = User::register($attrs);
         }
 
         $profile = $user->getProfile();
-        Ostatus_profile::updateProfile($profile, $subject);
+        Ostatus_profile::updateProfile($profile, $author);
 
         // FIXME: Update avatar
         return $user;
-    }
-
-    function purify($content)
-    {
-        $config = array('safe' => 1,
-                        'deny_attribute' => 'id,style,on*');
-        return htmLawed($content, $config);
     }
 }
