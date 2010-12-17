@@ -131,7 +131,13 @@ create table notice (
     location_ns integer comment 'namespace for location',
     repeat_of integer comment 'notice this is a repeat of' references notice (id),
 
+    -- For public timeline...
+    index notice_created_id_is_local_idx (created,id,is_local),
+
+    -- For profile timelines...
     index notice_profile_id_idx (profile_id,created,id),
+
+    -- Are these enough?
     index notice_conversation_idx (conversation),
     index notice_created_idx (created),
     index notice_replyto_idx (reply_to),
