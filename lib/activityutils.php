@@ -270,4 +270,51 @@ class ActivityUtils
 
         return false;
     }
+
+    static function getFeedAuthor($feedEl)
+    {
+        // Try the feed author
+
+        $author = ActivityUtils::child($feedEl, Activity::AUTHOR, Activity::ATOM);
+
+        if (!empty($author)) {
+            return new ActivityObject($author);
+        }
+
+        // Try old and deprecated activity:subject
+
+        $subject = ActivityUtils::child($feedEl, Activity::SUBJECT, Activity::SPEC);
+
+        if (!empty($subject)) {
+            return new ActivityObject($subject);
+        }
+
+        // Sheesh. Not a very nice feed! Let's try fingerpoken in the
+        // entries.
+
+        $entries = $feedEl->getElementsByTagNameNS(Activity::ATOM, 'entry');
+
+        if (!empty($entries) && $entries->length > 0) {
+
+            $entry = $entries->item(0);
+
+            // Try the author
+
+            $author = ActivityUtils::child($entry, Activity::AUTHOR, Activity::ATOM);
+
+            if (!empty($author)) {
+                return new ActivityObject($author);
+            }
+
+            // Try the (deprecated) activity:actor
+
+            $actor = ActivityUtils::child($entry, Activity::ACTOR, Activity::SPEC);
+
+            if (!empty($actor)) {
+                return new ActivityObject($actor);
+            }
+        }
+
+        return null;
+    }
 }
