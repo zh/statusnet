@@ -1690,7 +1690,7 @@ class Notice extends Memcached_DataObject
 
         $notice->repeat_of = $this->id;
 
-        $notice->orderBy('created'); // NB: asc!
+        $notice->orderBy('created, id'); // NB: asc!
 
         if (!is_null($limit)) {
             $notice->limit(0, $limit);
