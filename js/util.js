@@ -242,6 +242,26 @@ var SN = { // StatusNet
         },
 
         /**
+         * Helper function to rewrite default HTTP form action URLs to HTTPS
+         * so we can actually fetch them when on an SSL page in ssl=sometimes
+         * mode.
+         *
+         * It would be better to output URLs that didn't hardcode protocol
+         * and hostname in the first place...
+         *
+         * @param {String} url
+         * @return string
+         */
+        RewriteAjaxAction: function(url) {
+            // Quick hack: rewrite AJAX submits to HTTPS if they'd fail otherwise.
+            if (document.location.protocol == 'https:' && url.substr(0, 5) == 'http:') {
+                return url.replace(/^http:\/\/[^:\/]+/, 'https://' + document.location.host);
+            } else {
+                return url;
+            }
+        },
+
+        /**
          * Grabs form data and submits it asynchronously, with 'ajax=1'
          * parameter added to the rest.
          *
@@ -261,7 +281,7 @@ var SN = { // StatusNet
             $.ajax({
                 type: 'POST',
                 dataType: 'xml',
-                url: form.attr('action'),
+                url: SN.U.RewriteAjaxAction(form.attr('action')),
                 data: form.serialize() + '&ajax=1',
                 beforeSend: function(xhr) {
                     form
@@ -315,6 +335,32 @@ var SN = { // StatusNet
         FormNoticeXHR: function(form) {
             SN.C.I.NoticeDataGeo = {};
             form.append('<input type="hidden" name="ajax" value="1"/>');
+
+            // Make sure we don't have a mixed HTTP/HTTPS submission...
+            form.attr('action', SN.U.RewriteAjaxAction(form.attr('action')));
+
+            /**
+             * Show a response feedback bit under the new-notice dialog.
+             *
+             * @param {String} cls: CSS class name to use ('error' or 'success')
+             * @param {String} text
+             * @access private
+             */
+            var showFeedback = function(cls, text) {
+                form.append(
+                    $('<p class="form_response"></p>')
+                        .addClass(cls)
+                        .text(text)
+                );
+            };
+
+            /**
+             * Hide the previous response feedback, if any.
+             */
+            var removeFeedback = function() {
+                form.find('.form_response').remove();
+            };
+
             form.ajaxForm({
                 dataType: 'xml',
                 timeout: '60000',
@@ -361,9 +407,10 @@ var SN = { // StatusNet
                         .find('#'+SN.C.S.NoticeActionSubmit)
                             .removeClass(SN.C.S.Disabled)
                             .removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
-                    form.find('.form_response').remove();
+                    removeFeedback();
                     if (textStatus == 'timeout') {
-                        form.append('<p class="form_response error">Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.</p>');
+                        // @fixme i18n
+                        showFeedback('error', 'Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.');
                     }
                     else {
                         var response = SN.U.GetResponseXML(xhr);
@@ -378,28 +425,27 @@ var SN = { // StatusNet
                                 SN.U.FormNoticeEnhancements(form);
                             }
                             else {
-                                form.append('<p class="form_response error">(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.</p>');
+                                // @fixme i18n
+                                showFeedback('error', '(Sorry! We had trouble sending your notice ('+xhr.status+' '+xhr.statusText+'). Please report the problem to the site administrator if this happens again.');
                             }
                         }
                     }
                 },
                 success: function(data, textStatus) {
-                    form.find('.form_response').remove();
-                    var result;
-                    if ($('#'+SN.C.S.Error, data).length > 0) {
-                        result = document._importNode($('p', data)[0], true);
-                        result = result.textContent || result.innerHTML;
-                        form.append('<p class="form_response error">'+result+'</p>');
+                    removeFeedback();
+                    var errorResult = $('#'+SN.C.S.Error, data);
+                    if (errorResult.length > 0) {
+                        showFeedback('error', errorResult.text());
                     }
                     else {
                         if($('body')[0].id == 'bookmarklet') {
+                            // @fixme self is not referenced anywhere?
                             self.close();
                         }
 
-                        if ($('#'+SN.C.S.CommandResult, data).length > 0) {
-                            result = document._importNode($('p', data)[0], true);
-                            result = result.textContent || result.innerHTML;
-                            form.append('<p class="form_response success">'+result+'</p>');
+                        var commandResult = $('#'+SN.C.S.CommandResult, data);
+                        if (commandResult.length > 0) {
+                            showFeedback('success', commandResult.text());
                         }
                         else {
                             // New notice post was successful. If on our timeline, show it!
@@ -428,9 +474,7 @@ var SN = { // StatusNet
                             else {
                                 // Not on a timeline that this belongs on?
                                 // Just show a success message.
-                                result = document._importNode($('title', data)[0], true);
-                                result_title = result.textContent || result.innerHTML;
-                                form.append('<p class="form_response success">'+result_title+'</p>');
+                                showFeedback('success', $('title', data).text());
                             }
                         }
                         form.resetForm();
