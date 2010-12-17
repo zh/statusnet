@@ -55,15 +55,10 @@ class Notice_tag extends Memcached_DataObject
         $nt->selectAdd();
         $nt->selectAdd('notice_id');
 
-        if ($since_id != 0) {
-            $nt->whereAdd('notice_id > ' . $since_id);
-        }
+        Notice::addWhereSinceId($nt, $since_id, 'notice_id');
+        Notice::addWhereMaxId($nt, $max_id, 'notice_id');
 
-        if ($max_id != 0) {
-            $nt->whereAdd('notice_id <= ' . $max_id);
-        }
-
-        $nt->orderBy('notice_id DESC');
+        $nt->orderBy('created DESC, notice_id DESC');
 
         if (!is_null($offset)) {
             $nt->limit($offset, $limit);

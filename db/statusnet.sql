@@ -307,7 +307,10 @@ create table notice_tag (
 
     constraint primary key (tag, notice_id),
     index notice_tag_created_idx (created),
-    index notice_tag_notice_id_idx (notice_id)
+    index notice_tag_notice_id_idx (notice_id),
+
+    -- For sorting tag-filtered public timeline
+    index notice_tag_tag_created_notice_id_idx (tag, created, notice_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* Synching with foreign services */
