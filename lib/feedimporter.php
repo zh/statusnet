@@ -68,12 +68,13 @@ class FeedImporter extends QueueHandler
         try {
             $doc = DOMDocument::loadXML($xml);
 
-            if ($doc->documentElement->namespaceURI != Activity::ATOM ||
-                $doc->documentElement->localName != 'feed') {
+            $feed = $doc->documentElement;
+
+            if ($feed->namespaceURI != Activity::ATOM ||
+                $feed->localName != 'feed') {
                 throw new ClientException(_("Not an atom feed."));
             }
 
-            $feed = $doc->documentElement;
 
             $author = ActivityUtils::getFeedAuthor($feed);
 
