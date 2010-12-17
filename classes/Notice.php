@@ -1978,4 +1978,26 @@ class Notice extends Memcached_DataObject
         $d = new DateTime($dateStr, new DateTimeZone('UTC'));
         return $d->format(DATE_W3C);
     }
+
+    /**
+     * Look up the creation timestamp for a given notice ID, even
+     * if it's been deleted.
+     *
+     * @param int $id
+     * @return mixed string recorded creation timestamp, or false if can't be found
+     */
+    public static function getAsTimestamp($id)
+    {
+        $notice = Notice::staticGet('id', $id);
+        if ($notice) {
+            return $notice->created;
+        } else {
+            $deleted = Deleted_notice::staticGet('id', $id);
+            if ($deleted) {
+                return $deleted->created;
+            } else {
+                return false;
+            }
+        }
+    }
 }
