@@ -72,7 +72,7 @@ class ActivityImporter extends QueueHandler
                 $this->joinGroup($user, $activity);
                 break;
             case ActivityVerb::POST:
-                $this->postNote($user, $activity);
+                $this->postNote($user, $author, $activity);
                 break;
             default:
                 throw new Exception("Unknown verb: {$activity->verb}");
@@ -141,12 +141,16 @@ class ActivityImporter extends QueueHandler
         if (empty($group)) {
             $oprofile = Ostatus_profile::ensureActivityObjectProfile($activity->objects[0]);
             if (!$oprofile->isGroup()) {
-                throw new Exception("Remote profile is not a group!");
+                throw new ClientException("Remote profile is not a group!");
             }
             $group = $oprofile->localGroup();
         }
 
         assert(!empty($group));
+
+        if ($user->isMember($group)) {
+            throw new ClientException("User is already a member of this group.");
+        }
 
         if (Event::handle('StartJoinGroup', array($group, $user))) {
             Group_member::join($group->id, $user->id);
@@ -156,7 +160,7 @@ class ActivityImporter extends QueueHandler
 
     // XXX: largely cadged from Ostatus_profile::processNote()
 
-    function postNote($user, $activity)
+    function postNote($user, $author, $activity)
     {
         $note = $activity->objects[0];
 
@@ -165,11 +169,27 @@ class ActivityImporter extends QueueHandler
         $notice = Notice::staticGet('uri', $sourceUri);
 
         if (!empty($notice)) {
-            // This is weird.
-            $orig = clone($notice);
-            $notice->profile_id = $user->id;
-            $notice->update($orig);
-            return;
+            
+            common_log(LOG_INFO, "Notice {$sourceUri} already exists.");
+
+            if ($this->trusted) {
+
+                $profile = $notice->getProfile();
+
+                $uri = $profile->getUri();
+
+                if ($uri == $author->id) {
+                    common_log(LOG_INFO, "Updating notice author from $author->id to $user->uri");
+                    $orig = clone($notice);
+                    $notice->profile_id = $user->id;
+                    $notice->update($orig);
+                    return;
+                } else {
+                    throw new ClientException(sprintf(_("Already know about notice %s and ".
+                                                        " it's got a different author %s."),
+                                                      $sourceUri, $uri));
+                }
+            }
         }
 
         // Use summary as fallback for content
@@ -199,7 +219,8 @@ class ActivityImporter extends QueueHandler
                          'replies' => array(),
                          'groups' => array(),
                          'tags' => array(),
-                         'urls' => array());
+                         'urls' => array(),
+                         'distribute' => false);
 
         // Check for optional attributes...
 
@@ -250,6 +271,8 @@ class ActivityImporter extends QueueHandler
             // @fixme save these locally or....?
             $options['urls'][] = $href;
         }
+
+        common_log(LOG_INFO, "Saving notice {$options['uri']}");
 
         $saved = Notice::saveNew($user->id,
                                  $content,
