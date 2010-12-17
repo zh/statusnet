@@ -75,9 +75,8 @@ try {
         $user = null;
     }
     $xml = getActivityStreamDocument();
-    $restorer = new AccountRestorer();
-    $doc = $restorer->loadXML($xml);
-    $restorer->importActivityStream($user, $doc);
+    $qm = QueueManager::get();
+    $qm->enqueue(array($user, $xml, true), 'feedimp');
 } catch (Exception $e) {
     print $e->getMessage()."\n";
     exit(1);

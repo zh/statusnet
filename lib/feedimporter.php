@@ -84,12 +84,12 @@ class FeedImporter extends QueueHandler
             if (empty($user)) {
                 if ($trusted) {
                     $user = $this->userFromAuthor($author);
+                } else {
+                    throw new ClientException(_("Can't import without a user."));
                 }
             }
 
-            $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
-
-            $activities = $this->entriesToActivities($entries, $feed);
+            $activities = $this->getActivities($feed);
 
             $qm = QueueManager::get();
 
@@ -105,6 +105,36 @@ class FeedImporter extends QueueHandler
         } catch (Exception $e) {
             common_log(LOG_ERR, $ce->getMessage());
             return false;
+        }
+    }
+
+    function getActivities($feed)
+    {
+        $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
+
+        $activities = array();
+
+        for ($i = 0; $i < $entries->length; $i++) {
+            $activities[] = new Activity($entries->item($i));
+        }
+
+        usort($activities, array("FeedImporter", "activitySort"));
+
+        return $activities;
+    }
+
+    /**
+     * Sort activities oldest-first
+     */
+
+    static function activitySort($a, $b)
+    {
+        if ($a->time == $b->time) {
+            return 0;
+        } else if ($a->time < $b->time) {
+            return -1;
+        } else {
+            return 1;
         }
     }
 

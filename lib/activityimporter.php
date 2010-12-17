@@ -81,10 +81,10 @@ class ActivityImporter extends QueueHandler
             common_log(LOG_WARNING, $ce->getMessage());
             return true;
         } catch (ServerException $se) {
-            common_log(LOG_ERR, $ce->getMessage());
+            common_log(LOG_ERR, $se->getMessage());
             return false;
         } catch (Exception $e) {
-            common_log(LOG_ERR, $ce->getMessage());
+            common_log(LOG_ERR, $e->getMessage());
             return false;
         }
         return true;
@@ -95,6 +95,11 @@ class ActivityImporter extends QueueHandler
         $profile = $user->getProfile();
 
         if ($activity->objects[0]->id == $author->id) {
+
+            if (!$this->trusted) {
+                throw new ClientException(_("Can't force subscription for untrusted user."));
+            }
+
             $other = $activity->actor;
             $otherUser = User::staticGet('uri', $other->id);
             
