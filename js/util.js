@@ -242,6 +242,26 @@ var SN = { // StatusNet
         },
 
         /**
+         * Helper function to rewrite default HTTP form action URLs to HTTPS
+         * so we can actually fetch them when on an SSL page in ssl=sometimes
+         * mode.
+         *
+         * It would be better to output URLs that didn't hardcode protocol
+         * and hostname in the first place...
+         *
+         * @param {String} url
+         * @return string
+         */
+        RewriteAjaxAction: function(url) {
+            // Quick hack: rewrite AJAX submits to HTTPS if they'd fail otherwise.
+            if (document.location.protocol == 'https:' && url.substr(0, 5) == 'http:') {
+                return url.replace(/^http:\/\/[^:\/]+/, 'https://' + document.location.host);
+            } else {
+                return url;
+            }
+        },
+
+        /**
          * Grabs form data and submits it asynchronously, with 'ajax=1'
          * parameter added to the rest.
          *
@@ -261,7 +281,7 @@ var SN = { // StatusNet
             $.ajax({
                 type: 'POST',
                 dataType: 'xml',
-                url: form.attr('action'),
+                url: SN.U.RewriteAjaxAction(form.attr('action')),
                 data: form.serialize() + '&ajax=1',
                 beforeSend: function(xhr) {
                     form
@@ -315,6 +335,9 @@ var SN = { // StatusNet
         FormNoticeXHR: function(form) {
             SN.C.I.NoticeDataGeo = {};
             form.append('<input type="hidden" name="ajax" value="1"/>');
+
+            // Make sure we don't have a mixed HTTP/HTTPS submission...
+            form.attr('action', SN.U.RewriteAjaxAction(form.attr('action')));
 
             /**
              * Show a response feedback bit under the new-notice dialog.
