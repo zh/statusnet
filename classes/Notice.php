@@ -654,7 +654,7 @@ class Notice extends Memcached_DataObject
         $notice->selectAdd(); // clears it
         $notice->selectAdd('id');
 
-        $notice->orderBy('id DESC');
+        $notice->orderBy('created DESC, id DESC');
 
         if (!is_null($offset)) {
             $notice->limit($offset, $limit);
@@ -668,12 +668,14 @@ class Notice extends Memcached_DataObject
             $notice->whereAdd('is_local !='. Notice::GATEWAY);
         }
 
-        if ($since_id != 0) {
-            $notice->whereAdd('id > ' . $since_id);
+        $since = Notice::getAsTimestamp($since_id);
+        if ($since) {
+            $notice->whereAdd(sprintf("(created = '%s' and id > %d) or (created > '%s')", $since, $since_id, $since));
         }
 
-        if ($max_id != 0) {
-            $notice->whereAdd('id <= ' . $max_id);
+        $max = Notice::getAsTimestamp($max_id);
+        if ($max) {
+            $notice->whereAdd(sprintf("(created < '%s') or (created = '%s' and id <= %d)", $max, $max, $max_id));
         }
 
         $ids = array();
@@ -1988,16 +1990,20 @@ class Notice extends Memcached_DataObject
      */
     public static function getAsTimestamp($id)
     {
+        if (!$id) {
+            return false;
+        }
+
         $notice = Notice::staticGet('id', $id);
         if ($notice) {
             return $notice->created;
-        } else {
-            $deleted = Deleted_notice::staticGet('id', $id);
-            if ($deleted) {
-                return $deleted->created;
-            } else {
-                return false;
-            }
         }
+
+        $deleted = Deleted_notice::staticGet('id', $id);
+        if ($deleted) {
+            return $deleted->created;
+        }
+
+        return false;
     }
 }
