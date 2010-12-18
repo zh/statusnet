@@ -627,7 +627,8 @@ create table profile_role (
     role    varchar(32) not null comment 'string representing the role',
     created datetime not null comment 'date the role was granted',
 
-    constraint primary key (profile_id, role)
+    constraint primary key (profile_id, role),
+    index profile_role_role_created_profile_id_idx (role, created, profile_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 

@@ -18,3 +18,6 @@ alter table reply add index reply_profile_id_modified_notice_id_idx (profile_id,
 
 -- Needed for sorting group messages by timestamp
 alter table group_inbox add index group_inbox_group_id_created_notice_id_idx (group_id, created, notice_id);
+
+-- Helps make some reverse role lookups more efficient if there's a lot of assigned accounts
+alter table profile_role add index profile_role_role_created_profile_id_idx (role, created, profile_id);
