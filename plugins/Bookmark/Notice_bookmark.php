@@ -47,6 +47,8 @@ class Notice_bookmark extends Memcached_DataObject
 {
     public $__table = 'notice_bookmark'; // table name
     public $notice_id;                   // int(4)  primary_key not_null
+	public $title;                       // varchar(255)
+	public $description;                 // text
 
     /**
      * Get an instance by key
@@ -76,7 +78,9 @@ class Notice_bookmark extends Memcached_DataObject
 
     function table()
     {
-        return array('notice_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL);
+        return array('notice_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'title' => DB_DATAOBJECT_STR,
+					 'description' => DB_DATAOBJECT_STR);
     }
 
     /**
