@@ -704,19 +704,14 @@ class Notice extends Memcached_DataObject
 
         $notice->conversation = $id;
 
-        $notice->orderBy('id DESC');
+        $notice->orderBy('created DESC, id DESC');
 
         if (!is_null($offset)) {
             $notice->limit($offset, $limit);
         }
 
-        if ($since_id != 0) {
-            $notice->whereAdd('id > ' . $since_id);
-        }
-
-        if ($max_id != 0) {
-            $notice->whereAdd('id <= ' . $max_id);
-        }
+        Notice::addWhereSinceId($notice, $since_id);
+        Notice::addWhereMaxId($notice, $max_id);
 
         $ids = array();
 

@@ -140,11 +140,11 @@ create table notice (
     -- For api/statuses/repeats...
     index notice_repeat_of_created_id_idx (repeat_of, created, id),
 
-    -- Are these enough?
-    index notice_conversation_idx (conversation),
-    index notice_created_idx (created),
+    -- For conversation views
+    index notice_conversation_created_id_idx (conversation, created, id),
+
+    -- Are these needed/used?
     index notice_replyto_idx (reply_to),
-    index notice_repeatof_idx (repeat_of),
 
     FULLTEXT(content)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
