@@ -128,15 +128,25 @@ class NewbookmarkAction extends Action
 				throw new ClientException(_('Bookmark must have an URL.'));
 			}
 
-			// XXX: filter "for:nickname" tags
+			$rawtags = preg_split('/[\s,]+/', $this->_tags);
 
-            $tags = array_map('common_canonical_tag',
-                              preg_split('/[\s,]+/', $this->_tags));
+			$tags = array();
+
+			// filter "for:nickname" tags
+
+			foreach ($rawtags as $tag) {
+				if (0 == mb_stricmp($tag, 'for:', 4)) {
+					
+				} else {
+					$tags[] = common_canonical_tag($tag);
+				}
+			}
 
 			$hashtags = array();
 			$taglinks = array();
 
 			foreach ($tags as $tag) {
+				
 				$hashtags[] = '#'.$tag;
 				if (common_config('singleuser', 'enabled')) {
 					// regular TagAction isn't set up in 1user mode

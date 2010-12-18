@@ -87,6 +87,12 @@ class BookmarkPlugin extends Plugin
 		return true;
 	}
 
+	function onEndShowStyles($action)
+	{
+		$action->style('.bookmark_tags li { display: inline; }');
+		return true;
+	}
+
 	/**
 	 * Load related modules when needed
 	 *
@@ -129,6 +135,52 @@ class BookmarkPlugin extends Plugin
 					array('action' => 'newbookmark'),
 					array('id' => '[0-9]+'));
 
+		return true;
+	}
+
+	function onStartShowNoticeItem($nli)
+	{
+		$nb = Notice_bookmark::staticGet('notice_id',
+										 $nli->notice->id);
+
+		if (!empty($nb)) {
+			$att = $nli->notice->attachments();
+			$nli->out->elementStart('h3');
+			$nli->out->element('a',
+							   array('href' => $att[0]->url),
+							   $nb->title);
+			$nli->out->elementEnd('h3');
+			$nli->out->element('p',
+							   array('class' => 'bookmark_description'),
+							   $nb->description);
+			$nli->out->elementStart('p');
+			$nli->out->element('a', array('href' => $nli->profile->profileurl,
+										  'class' => 'bookmark_author',
+										  'title' => $nli->profile->getBestName()),
+							   $nli->profile->getBestName());
+			$nli->out->elementEnd('p');
+			$tags = $nli->notice->getTags();
+			$nli->out->elementStart('ul', array('class' => 'bookmark_tags'));
+			foreach ($tags as $tag) {
+				if (common_config('singleuser', 'enabled')) {
+					// regular TagAction isn't set up in 1user mode
+					$nickname = User::singleUserNickname();
+					$url = common_local_url('showstream',
+											array('nickname' => $nickname,
+												  'tag' => $tag));
+				} else {
+					$url = common_local_url('tag', array('tag' => $tag));
+				}
+				$nli->out->elementStart('li');
+				$nli->out->element('a', array('rel' => 'tag',
+											  'href' => $url),
+								   $tag);
+				$nli->out->elementEnd('li');
+				$nli->out->text(' ');
+			}
+			$nli->out->elementEnd('ul');
+			return false;
+		}
 		return true;
 	}
 
