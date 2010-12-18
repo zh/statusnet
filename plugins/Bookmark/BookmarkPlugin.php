@@ -76,6 +76,17 @@ class BookmarkPlugin extends Plugin
 		return true;
 	}
 
+	function onNoticeDeleteRelated($notice)
+	{
+		$nb = Notice_bookmark::staticGet('notice_id', $notice->id);
+
+		if (!empty($nb)) {
+			$nb->delete();
+		}
+
+		return true;
+	}
+
 	/**
 	 * Load related modules when needed
 	 *
