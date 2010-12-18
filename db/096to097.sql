@@ -21,3 +21,6 @@ alter table group_inbox add index group_inbox_group_id_created_notice_id_idx (gr
 
 -- Helps make some reverse role lookups more efficient if there's a lot of assigned accounts
 alter table profile_role add index profile_role_role_created_profile_id_idx (role, created, profile_id);
+
+-- Fix for sorting a user's group memberships by order joined
+alter table group_member add index group_member_profile_id_created_idx (profile_id, created);

@@ -463,7 +463,10 @@ create table group_member (
 
     constraint primary key (group_id, profile_id),
     index group_member_profile_id_idx (profile_id),
-    index group_member_created_idx (created)
+    index group_member_created_idx (created),
+
+    -- To pull up a list of someone's groups in order joined
+    index group_member_profile_id_created_idx (profile_id, created)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
