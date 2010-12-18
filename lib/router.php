@@ -529,6 +529,11 @@ class Router
                               'id' => Nickname::INPUT_FMT,
                               'format' => '(xml|json)'));
 
+            $m->connect('api/users/profile_image/:screen_name.:format',
+                        array('action' => 'ApiUserProfileImage',
+                              'screen_name' => Nickname::DISPLAY_FMT,
+                              'format' => '(xml|json)'));
+
             // direct messages
 
             $m->connect('api/direct_messages.:format',

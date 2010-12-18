@@ -311,7 +311,7 @@ class ProfileNoticeListItem extends DoFollowListItem
                            'class' => 'url');
 
             if (!empty($this->profile->fullname)) {
-                $attrs['title'] = $this->getFancyName();
+                $attrs['title'] = $this->profile->getFancyName();
             }
 
             $this->out->elementStart('span', 'repeat');

@@ -339,10 +339,14 @@ class Memcached_DataObject extends Safe_DataObject
 
         $start = microtime(true);
         $fail = false;
-        try {
-            $result = parent::_query($string);
-        } catch (Exception $e) {
-            $fail = $e;
+        $result = null;
+        if (Event::handle('StartDBQuery', array($this, $string, &$result))) {
+            try {
+                $result = parent::_query($string);
+            } catch (Exception $e) {
+                $fail = $e;
+            }
+            Event::handle('EndDBQuery', array($this, $string, &$result));
         }
         $delta = microtime(true) - $start;
 

@@ -999,7 +999,7 @@ StartXrdActionAliases: About to set aliases for the XRD object for a user
 EndXrdActionAliases: Done with aliases for the XRD object for a user
 - &$xrd: XRD object being shown
 - $user: User being shown
- 
+
 StartXrdActionLinks: About to set links for the XRD object for a user
 - &$xrd: XRD object being shown
 - $user: User being shown
@@ -1007,3 +1007,13 @@ StartXrdActionLinks: About to set links for the XRD object for a user
 EndXrdActionLinks: Done with links for the XRD object for a user
 - &$xrd: XRD object being shown
 - $user: User being shown
+
+AdminPanelCheck: When checking whether the current user can access a given admin panel
+- $name:  Name of the admin panel
+- &$isOK: Boolean whether the user is allowed to use the panel
+
+StartAdminPanelNav: Before displaying the first item in the list of admin panels
+- $nav The AdminPanelNav widget
+
+EndAdminPanelNav: After displaying the last item in the list of admin panels
+- $nav The AdminPanelNav widget
