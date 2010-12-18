@@ -180,7 +180,9 @@ class NewbookmarkAction extends Action
 
 			if (!empty($saved)) {
 				$nb = new Notice_bookmark();
-				$nb->notice_id = $saved->id;
+				$nb->notice_id   = $saved->id;
+				$nb->title       = $this->_title;
+				$nb->description = $this->_description;
 				$nb->insert();
 			}
 

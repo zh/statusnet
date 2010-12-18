@@ -66,7 +66,12 @@ class BookmarkPlugin extends Plugin
 												 'integer',
 												 null,
 												 true,
-												 'PRI')));
+												 'PRI'),
+								   new ColumnDef('title',
+												 'varchar',
+												 255),
+								   new ColumnDef('description',
+												 'text')));
 
 		return true;
 	}
