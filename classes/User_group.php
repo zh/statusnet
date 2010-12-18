@@ -100,15 +100,10 @@ class User_group extends Memcached_DataObject
         $inbox->selectAdd();
         $inbox->selectAdd('notice_id');
 
-        if ($since_id != 0) {
-            $inbox->whereAdd('notice_id > ' . $since_id);
-        }
+        Notice::addWhereSinceId($inbox, $since_id, 'notice_id');
+        Notice::addWhereMaxId($inbox, $max_id, 'notice_id');
 
-        if ($max_id != 0) {
-            $inbox->whereAdd('notice_id <= ' . $max_id);
-        }
-
-        $inbox->orderBy('notice_id DESC');
+        $inbox->orderBy('created DESC, notice_id DESC');
 
         if (!is_null($offset)) {
             $inbox->limit($offset, $limit);

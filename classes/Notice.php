@@ -654,7 +654,7 @@ class Notice extends Memcached_DataObject
         $notice->selectAdd(); // clears it
         $notice->selectAdd('id');
 
-        $notice->orderBy('id DESC');
+        $notice->orderBy('created DESC, id DESC');
 
         if (!is_null($offset)) {
             $notice->limit($offset, $limit);
@@ -668,13 +668,8 @@ class Notice extends Memcached_DataObject
             $notice->whereAdd('is_local !='. Notice::GATEWAY);
         }
 
-        if ($since_id != 0) {
-            $notice->whereAdd('id > ' . $since_id);
-        }
-
-        if ($max_id != 0) {
-            $notice->whereAdd('id <= ' . $max_id);
-        }
+        Notice::addWhereSinceId($notice, $since_id);
+        Notice::addWhereMaxId($notice, $max_id);
 
         $ids = array();
 
@@ -709,19 +704,14 @@ class Notice extends Memcached_DataObject
 
         $notice->conversation = $id;
 
-        $notice->orderBy('id DESC');
+        $notice->orderBy('created DESC, id DESC');
 
         if (!is_null($offset)) {
             $notice->limit($offset, $limit);
         }
 
-        if ($since_id != 0) {
-            $notice->whereAdd('id > ' . $since_id);
-        }
-
-        if ($max_id != 0) {
-            $notice->whereAdd('id <= ' . $max_id);
-        }
+        Notice::addWhereSinceId($notice, $since_id);
+        Notice::addWhereMaxId($notice, $max_id);
 
         $ids = array();
 
@@ -1695,10 +1685,10 @@ class Notice extends Memcached_DataObject
 
         $notice->repeat_of = $this->id;
 
-        $notice->orderBy('created'); // NB: asc!
+        $notice->orderBy('created, id'); // NB: asc!
 
-        if (!is_null($offset)) {
-            $notice->limit($offset, $limit);
+        if (!is_null($limit)) {
+            $notice->limit(0, $limit);
         }
 
         $ids = array();
@@ -1977,5 +1967,109 @@ class Notice extends Memcached_DataObject
         $dateStr = date('d F Y H:i:s', strtotime($dt));
         $d = new DateTime($dateStr, new DateTimeZone('UTC'));
         return $d->format(DATE_W3C);
+    }
+
+    /**
+     * Look up the creation timestamp for a given notice ID, even
+     * if it's been deleted.
+     *
+     * @param int $id
+     * @return mixed string recorded creation timestamp, or false if can't be found
+     */
+    public static function getAsTimestamp($id)
+    {
+        if (!$id) {
+            return false;
+        }
+
+        $notice = Notice::staticGet('id', $id);
+        if ($notice) {
+            return $notice->created;
+        }
+
+        $deleted = Deleted_notice::staticGet('id', $id);
+        if ($deleted) {
+            return $deleted->created;
+        }
+
+        return false;
+    }
+
+    /**
+     * Build an SQL 'where' fragment for timestamp-based sorting from a since_id
+     * parameter, matching notices posted after the given one (exclusive).
+     *
+     * If the referenced notice can't be found, will return false.
+     *
+     * @param int $id
+     * @param string $idField
+     * @param string $createdField
+     * @return mixed string or false if no match
+     */
+    public static function whereSinceId($id, $idField='id', $createdField='created')
+    {
+        $since = Notice::getAsTimestamp($id);
+        if ($since) {
+            return sprintf("($createdField = '%s' and $idField > %d) or ($createdField > '%s')", $since, $id, $since);
+        }
+        return false;
+    }
+
+    /**
+     * Build an SQL 'where' fragment for timestamp-based sorting from a since_id
+     * parameter, matching notices posted after the given one (exclusive), and
+     * if necessary add it to the data object's query.
+     *
+     * @param DB_DataObject $obj
+     * @param int $id
+     * @param string $idField
+     * @param string $createdField
+     * @return mixed string or false if no match
+     */
+    public static function addWhereSinceId(DB_DataObject $obj, $id, $idField='id', $createdField='created')
+    {
+        $since = self::whereSinceId($id);
+        if ($since) {
+            $obj->whereAdd($since);
+        }
+    }
+
+    /**
+     * Build an SQL 'where' fragment for timestamp-based sorting from a max_id
+     * parameter, matching notices posted before the given one (inclusive).
+     *
+     * If the referenced notice can't be found, will return false.
+     *
+     * @param int $id
+     * @param string $idField
+     * @param string $createdField
+     * @return mixed string or false if no match
+     */
+    public static function whereMaxId($id, $idField='id', $createdField='created')
+    {
+        $max = Notice::getAsTimestamp($id);
+        if ($max) {
+            return sprintf("($createdField < '%s') or ($createdField = '%s' and $idField <= %d)", $max, $max, $id);
+        }
+        return false;
+    }
+
+    /**
+     * Build an SQL 'where' fragment for timestamp-based sorting from a max_id
+     * parameter, matching notices posted before the given one (inclusive), and
+     * if necessary add it to the data object's query.
+     *
+     * @param DB_DataObject $obj
+     * @param int $id
+     * @param string $idField
+     * @param string $createdField
+     * @return mixed string or false if no match
+     */
+    public static function addWhereMaxId(DB_DataObject $obj, $id, $idField='id', $createdField='created')
+    {
+        $max = self::whereMaxId($id);
+        if ($max) {
+            $obj->whereAdd($max);
+        }
     }
 }

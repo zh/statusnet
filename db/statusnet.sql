@@ -131,11 +131,21 @@ create table notice (
     location_ns integer comment 'namespace for location',
     repeat_of integer comment 'notice this is a repeat of' references notice (id),
 
+    -- For public timeline...
+    index notice_created_id_is_local_idx (created,id,is_local),
+
+    -- For profile timelines...
     index notice_profile_id_idx (profile_id,created,id),
-    index notice_conversation_idx (conversation),
-    index notice_created_idx (created),
+
+    -- For api/statuses/repeats...
+    index notice_repeat_of_created_id_idx (repeat_of, created, id),
+
+    -- For conversation views
+    index notice_conversation_created_id_idx (conversation, created, id),
+
+    -- Are these needed/used?
     index notice_replyto_idx (reply_to),
-    index notice_repeatof_idx (repeat_of),
+
     FULLTEXT(content)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
@@ -156,7 +166,10 @@ create table reply (
     constraint primary key (notice_id, profile_id),
     index reply_notice_id_idx (notice_id),
     index reply_profile_id_idx (profile_id),
-    index reply_replied_id_idx (replied_id)
+    index reply_replied_id_idx (replied_id),
+
+    -- Needed for sorting reply/mentions timelines
+    index reply_profile_id_modified_notice_id_idx (profile_id, modified, notice_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
@@ -301,7 +314,10 @@ create table notice_tag (
 
     constraint primary key (tag, notice_id),
     index notice_tag_created_idx (created),
-    index notice_tag_notice_id_idx (notice_id)
+    index notice_tag_notice_id_idx (notice_id),
+
+    -- For sorting tag-filtered public timeline
+    index notice_tag_tag_created_notice_id_idx (tag, created, notice_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* Synching with foreign services */
@@ -447,7 +463,10 @@ create table group_member (
 
     constraint primary key (group_id, profile_id),
     index group_member_profile_id_idx (profile_id),
-    index group_member_created_idx (created)
+    index group_member_created_idx (created),
+
+    -- To pull up a list of someone's groups in order joined
+    index group_member_profile_id_created_idx (profile_id, created)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
@@ -468,7 +487,10 @@ create table group_inbox (
 
     constraint primary key (group_id, notice_id),
     index group_inbox_created_idx (created),
-    index group_inbox_notice_id_idx (notice_id)
+    index group_inbox_notice_id_idx (notice_id),
+
+    -- Needed for sorting group messages by timestamp
+    index group_inbox_group_id_created_notice_id_idx (group_id, created, notice_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
@@ -608,7 +630,8 @@ create table profile_role (
     role    varchar(32) not null comment 'string representing the role',
     created datetime not null comment 'date the role was granted',
 
-    constraint primary key (profile_id, role)
+    constraint primary key (profile_id, role),
+    index profile_role_role_created_profile_id_idx (role, created, profile_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
