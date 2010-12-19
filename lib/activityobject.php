@@ -106,6 +106,8 @@ class ActivityObject
     public $largerImage;
     public $description;
 
+	public $extra; // For extra stuff
+
     /**
      * Constructor
      *
@@ -563,6 +565,11 @@ class ActivityObject
 
         if (!empty($this->poco)) {
             $xs->raw($this->poco->asString());
+        }
+
+        foreach ($this->extra as $el) {
+            list($tag, $attrs, $content) = $el;
+            $xs->element($tag, $attrs, $content);
         }
 
         $xs->elementEnd($tag);
