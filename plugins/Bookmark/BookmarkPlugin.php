@@ -65,7 +65,7 @@ class BookmarkPlugin extends Plugin
 							 array(new ColumnDef('notice_id',
 												 'integer',
 												 null,
-												 true,
+												 false,
 												 'PRI'),
 								   new ColumnDef('title',
 												 'varchar',
@@ -90,6 +90,7 @@ class BookmarkPlugin extends Plugin
 	function onEndShowStyles($action)
 	{
 		$action->style('.bookmark_tags li { display: inline; }');
+		$action->style('.bookmark_mentions li { display: inline; }');
 		return true;
 	}
 
@@ -162,25 +163,88 @@ class BookmarkPlugin extends Plugin
 			$tags = $nli->notice->getTags();
 			$nli->out->elementStart('ul', array('class' => 'bookmark_tags'));
 			foreach ($tags as $tag) {
-				if (common_config('singleuser', 'enabled')) {
-					// regular TagAction isn't set up in 1user mode
-					$nickname = User::singleUserNickname();
-					$url = common_local_url('showstream',
-											array('nickname' => $nickname,
-												  'tag' => $tag));
-				} else {
-					$url = common_local_url('tag', array('tag' => $tag));
-				}
 				$nli->out->elementStart('li');
-				$nli->out->element('a', array('rel' => 'tag',
-											  'href' => $url),
+				$nli->out->element('a', 
+								   array('rel' => 'tag',
+										 'href' => Notice_tag::url($tag)),
 								   $tag);
 				$nli->out->elementEnd('li');
 				$nli->out->text(' ');
 			}
 			$nli->out->elementEnd('ul');
+			$replies = $nli->notice->getReplies();
+			if (!empty($replies)) {
+				$nli->out->elementStart('ul', array('class' => 'bookmark_mentions'));
+				foreach ($replies as $reply) {
+					$other = Profile::staticGet('id', $reply);
+					$nli->out->elementStart('li');
+					$nli->out->element('a', array('rel' => 'tag',
+												  'href' => $other->profileurl,
+												  'title' => $other->getBestName()),
+									   sprintf('for:%s', $other->nickname));
+					$nli->out->elementEnd('li');
+					$nli->out->text(' ');
+				}
+				$nli->out->elementEnd('ul');
+			}
 			return false;
 		}
+		return true;
+	}
+
+	function onStartActivityObjectFromNotice($notice, &$object)
+	{
+		$nb = Notice_bookmark::staticGet('notice_id',
+										 $notice->id);
+
+		if (!empty($nb)) {
+
+			$object->id      = $notice->uri;
+			$object->type    = ActivityObject::BOOKMARK;
+			$object->title   = $nb->title;
+			$object->summary = $nb->summary;
+
+			// Attributes of the URL
+
+			$attachments = $notice->attachments();
+
+			if (count($attachments) != 1) {
+				throw new ServerException(_('Bookmark notice with the wrong number of attachments.'));
+			}
+
+			$target = $attachments[0];
+
+			$attrs = array('rel' => 'related',
+						   'href' => $target->url);
+
+			if (!empty($target->title)) {
+				$attrs['title'] = $target->title;
+			}
+
+			$object->extra[] = array('link', $attrs);
+												   
+			// Attributes of the thumbnail, if any
+
+			$thumbnail = $target->getThumbnail();
+
+			if (!empty($thumbnail)) {
+				$tattrs = array('rel' => 'preview',
+								'href' => $thumbnail->url);
+
+				if (!empty($thumbnail->width)) {
+					$tattrs['media:width'] = $thumbnail->width;
+				}
+
+				if (!empty($thumbnail->height)) {
+					$tattrs['media:height'] = $thumbnail->height;
+				}
+
+				$object->extra[] = array('link', $attrs);
+			}
+
+			return false;
+		}
+
 		return true;
 	}
 
