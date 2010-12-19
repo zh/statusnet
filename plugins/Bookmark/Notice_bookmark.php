@@ -115,4 +115,76 @@ class Notice_bookmark extends Memcached_DataObject
     {
         return array(false, false, false);
     }
+
+	static function saveNew($user, $title, $url, $rawtags, $description)
+	{
+		if (is_string($rawtags)) {
+			$rawtags = preg_split('/[\s,]+/', $rawtags);
+		}
+
+		$tags = array();
+		$replies = array();
+
+		// filter "for:nickname" tags
+
+		foreach ($rawtags as $tag) {
+			if (strtolower(mb_substr($tag, 0, 4)) == 'for:') {
+				$nickname = mb_substr($tag, 4);
+				$other = common_relative_profile($user->getProfile(),
+												 $nickname);
+				if (!empty($other)) {
+					$replies[] = $other->getUri();
+				}
+			} else {
+				$tags[] = common_canonical_tag($tag);
+			}
+		}
+
+		$hashtags = array();
+		$taglinks = array();
+
+		foreach ($tags as $tag) {
+			$hashtags[] = '#'.$tag;
+			$attrs = array('href' => Notice_tag::url($tag),
+						   'rel'  => $tag,
+						   'class' => 'tag');
+			$taglinks[] = XMLStringer::estring('a', $attrs, $tag);
+		}
+
+		$content = sprintf(_('"%s" %s %s %s'),
+						   $title,
+						   File_redirection::makeShort($url, $user),
+						   $description,
+						   implode(' ', $hashtags));
+
+		$rendered = sprintf(_('<span class="xfolkentry">'.
+							  '<a class="taggedlink" href="%s">%s</a> '.
+							  '<span class="description">%s</span> '.
+							  '<span class="meta">%s</span>'.
+							  '</span>'),
+							htmlspecialchars($url),
+							htmlspecialchars($title),
+							htmlspecialchars($description),
+							implode(' ', $taglinks));
+
+		$options = array('urls' => array($url),
+						 'rendered' => $rendered,
+						 'tags' => $tags,
+						 'replies' => $replies);
+
+		$saved = Notice::saveNew($user->id,
+								 $content,
+								 'web',
+								 $options);
+
+		if (!empty($saved)) {
+			$nb = new Notice_bookmark();
+			$nb->notice_id   = $saved->id;
+			$nb->title       = $title;
+			$nb->description = $description;
+			$nb->insert();
+		}
+
+		return $saved;
+	}
 }
