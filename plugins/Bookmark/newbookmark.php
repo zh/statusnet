@@ -128,73 +128,12 @@ class NewbookmarkAction extends Action
 				throw new ClientException(_('Bookmark must have an URL.'));
 			}
 
-			$rawtags = preg_split('/[\s,]+/', $this->_tags);
 
-			$tags = array();
-
-			// filter "for:nickname" tags
-
-			foreach ($rawtags as $tag) {
-				if (0 == mb_stricmp($tag, 'for:', 4)) {
-					
-				} else {
-					$tags[] = common_canonical_tag($tag);
-				}
-			}
-
-			$hashtags = array();
-			$taglinks = array();
-
-			foreach ($tags as $tag) {
-				
-				$hashtags[] = '#'.$tag;
-				if (common_config('singleuser', 'enabled')) {
-					// regular TagAction isn't set up in 1user mode
-					$nickname = User::singleUserNickname();
-					$url = common_local_url('showstream',
-											array('nickname' => $nickname,
-												  'tag' => $tag));
-				} else {
-					$url = common_local_url('tag', array('tag' => $tag));
-				}
-				$attrs = array('href' => $url,
-							   'rel'  => $tag,
-							   'class' => 'tag');
-				$taglinks[] = XMLStringer::estring('a', $attrs, $tag);
-			}
-
-			$content = sprintf(_('"%s" %s %s %s'),
-							   $this->_title,
-							   File_redirection::makeShort($this->_url, $this->_user),
-							   $this->_description,
-							   implode(' ', $hashtags));
-
-			$rendered = sprintf(_('<span class="xfolkentry">'.
-								  '<a class="taggedlink" href="%s">%s</a> '.
-								  '<span class="description">%s</span> '.
-								  '<span class="meta">%s</span>'.
-								  '</span>'),
-								htmlspecialchars($this->_url),
-								htmlspecialchars($this->_title),
-								htmlspecialchars($this->_description),
-								implode(' ', $taglinks));
-
-			$options = array('urls' => array($this->_url),
-							 'rendered' => $rendered,
-							 'tags' => $tags);
-
-			$saved = Notice::saveNew($this->_user->id,
-									 $content,
-									 'web',
-									 $options);
-
-			if (!empty($saved)) {
-				$nb = new Notice_bookmark();
-				$nb->notice_id   = $saved->id;
-				$nb->title       = $this->_title;
-				$nb->description = $this->_description;
-				$nb->insert();
-			}
+			$saved = Notice_bookmark::saveNew($this->_user,
+											  $this->_title,
+											  $this->_url,
+											  $this->_tags,
+											  $this->_description);
 
 		} catch (ClientException $ce) {
 			$this->_error = $ce->getMessage();
