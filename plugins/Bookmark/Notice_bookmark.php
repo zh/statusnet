@@ -116,8 +116,12 @@ class Notice_bookmark extends Memcached_DataObject
         return array(false, false, false);
     }
 
-	static function saveNew($user, $title, $url, $rawtags, $description)
+	static function saveNew($user, $title, $url, $rawtags, $description, $options=null)
 	{
+		if (empty($options)) {
+			$options = array();
+		}
+
 		if (is_string($rawtags)) {
 			$rawtags = preg_split('/[\s,]+/', $rawtags);
 		}
@@ -167,10 +171,10 @@ class Notice_bookmark extends Memcached_DataObject
 							htmlspecialchars($description),
 							implode(' ', $taglinks));
 
-		$options = array('urls' => array($url),
-						 'rendered' => $rendered,
-						 'tags' => $tags,
-						 'replies' => $replies);
+		$options = array_merge($options, array('urls' => array($url),
+											   'rendered' => $rendered,
+											   'tags' => $tags,
+											   'replies' => $replies));
 
 		$saved = Notice::saveNew($user->id,
 								 $content,
