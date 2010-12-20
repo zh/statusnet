@@ -1017,3 +1017,27 @@ StartAdminPanelNav: Before displaying the first item in the list of admin panels
 
 EndAdminPanelNav: After displaying the last item in the list of admin panels
 - $nav The AdminPanelNav widget
+
+StartActivityObjectFromNotice: When converting a notice to an activity:object
+- $notice: The notice being converted
+- &$object: The resulting object. Fill this and return false to override defaults.
+
+EndActivityObjectFromNotice: After converting a notice to an activity:object
+- $notice: The notice being converted
+- &$object: The resulting object. Can be edited
+
+StartActivityObjectFromProfile: When converting a profile to an activity:object
+- $profile: The profile being converted
+- &$object: The (empty) object. Fill it up and return false to override defaults.
+
+EndActivityObjectFromProfile: After converting a profile to an activity:object
+- $profile: The profile being converted
+- &$object: The finished object. Can be tweaked
+
+StartActivityObjectFromGroup: When converting a group to an activity:object
+- $group: The group being converted
+- &$object: The (empty) object. Fill and return false to override.
+
+EndActivityObjectFromGroup:  After converting a group to an activity:object
+- $group:  The group being converted
+- &$object: The finished object. Tweak as needed.

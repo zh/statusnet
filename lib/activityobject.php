@@ -381,13 +381,18 @@ class ActivityObject
     static function fromNotice(Notice $notice)
     {
         $object = new ActivityObject();
+		
+		if (Event::handle('StartActivityObjectFromNotice', array($notice, &$object))) {
 
-        $object->type    = ActivityObject::NOTE;
+			$object->type    = ActivityObject::NOTE;
 
-        $object->id      = $notice->uri;
-        $object->title   = $notice->content;
-        $object->content = $notice->rendered;
-        $object->link    = $notice->bestUrl();
+			$object->id      = $notice->uri;
+			$object->title   = $notice->content;
+			$object->content = $notice->rendered;
+			$object->link    = $notice->bestUrl();
+
+			Event::handle('EndActivityObjectFromNotice', array($notice, &$object));
+		}
 
         return $object;
     }
@@ -396,57 +401,62 @@ class ActivityObject
     {
         $object = new ActivityObject();
 
-        $object->type   = ActivityObject::PERSON;
-        $object->id     = $profile->getUri();
-        $object->title  = $profile->getBestName();
-        $object->link   = $profile->profileurl;
+		if (Event::handle('StartActivityObjectFromProfile', array($profile, &$object))) {
 
-        $orig = $profile->getOriginalAvatar();
+			$object->type   = ActivityObject::PERSON;
+			$object->id     = $profile->getUri();
+			$object->title  = $profile->getBestName();
+			$object->link   = $profile->profileurl;
 
-        if (!empty($orig)) {
-            $object->avatarLinks[] = AvatarLink::fromAvatar($orig);
-        }
+			$orig = $profile->getOriginalAvatar();
 
-        $sizes = array(
-            AVATAR_PROFILE_SIZE,
-            AVATAR_STREAM_SIZE,
-            AVATAR_MINI_SIZE
-        );
+			if (!empty($orig)) {
+				$object->avatarLinks[] = AvatarLink::fromAvatar($orig);
+			}
 
-        foreach ($sizes as $size) {
-            $alink  = null;
-            $avatar = $profile->getAvatar($size);
+			$sizes = array(
+                AVATAR_PROFILE_SIZE,
+                AVATAR_STREAM_SIZE,
+                AVATAR_MINI_SIZE
+            );
 
-            if (!empty($avatar)) {
-                $alink = AvatarLink::fromAvatar($avatar);
-            } else {
-                $alink = new AvatarLink();
-                $alink->type   = 'image/png';
-                $alink->height = $size;
-                $alink->width  = $size;
-                $alink->url    = Avatar::defaultImage($size);
+			foreach ($sizes as $size) {
+				$alink  = null;
+				$avatar = $profile->getAvatar($size);
 
-                if ($size == AVATAR_PROFILE_SIZE) {
-                    // Hack for Twitter import: we don't have a 96x96 image,
-                    // but we do have a 73x73 image. For now, fake it with that.
-                    $avatar = $profile->getAvatar(73);
-                    if ($avatar) {
-                        $alink = AvatarLink::fromAvatar($avatar);
-                        $alink->height= $size;
-                        $alink->width = $size;
-                    }
-                }
-            }
+				if (!empty($avatar)) {
+					$alink = AvatarLink::fromAvatar($avatar);
+				} else {
+					$alink = new AvatarLink();
+					$alink->type   = 'image/png';
+					$alink->height = $size;
+					$alink->width  = $size;
+					$alink->url    = Avatar::defaultImage($size);
 
-            $object->avatarLinks[] = $alink;
-        }
+					if ($size == AVATAR_PROFILE_SIZE) {
+						// Hack for Twitter import: we don't have a 96x96 image,
+						// but we do have a 73x73 image. For now, fake it with that.
+						$avatar = $profile->getAvatar(73);
+						if ($avatar) {
+							$alink = AvatarLink::fromAvatar($avatar);
+							$alink->height= $size;
+							$alink->width = $size;
+						}
+					}
+				}
 
-        if (isset($profile->lat) && isset($profile->lon)) {
-            $object->geopoint = (float)$profile->lat
-                . ' ' . (float)$profile->lon;
-        }
+				$object->avatarLinks[] = $alink;
+			}
 
-        $object->poco = PoCo::fromProfile($profile);
+			if (isset($profile->lat) && isset($profile->lon)) {
+				$object->geopoint = (float)$profile->lat
+					. ' ' . (float)$profile->lon;
+			}
+
+			$object->poco = PoCo::fromProfile($profile);
+
+			Event::handle('EndActivityObjectFromProfile', array($profile, &$object));
+		}
 
         return $object;
     }
@@ -455,43 +465,42 @@ class ActivityObject
     {
         $object = new ActivityObject();
 
-        $object->type   = ActivityObject::GROUP;
-        $object->id     = $group->getUri();
-        $object->title  = $group->getBestName();
-        $object->link   = $group->getUri();
+		if (Event::handle('StartActivityObjectFromGroup', array($group, &$object))) {
 
-        $object->avatarLinks[] = AvatarLink::fromFilename(
-            $group->homepage_logo,
-            AVATAR_PROFILE_SIZE
-        );
+			$object->type   = ActivityObject::GROUP;
+			$object->id     = $group->getUri();
+			$object->title  = $group->getBestName();
+			$object->link   = $group->getUri();
 
-        $object->avatarLinks[] = AvatarLink::fromFilename(
-            $group->stream_logo,
-            AVATAR_STREAM_SIZE
-        );
+			$object->avatarLinks[] = AvatarLink::fromFilename($group->homepage_logo,
+															  AVATAR_PROFILE_SIZE);
 
-        $object->avatarLinks[] = AvatarLink::fromFilename(
-            $group->mini_logo,
-            AVATAR_MINI_SIZE
-        );
+			$object->avatarLinks[] = AvatarLink::fromFilename($group->stream_logo,
+															  AVATAR_STREAM_SIZE);
 
-        $object->poco = PoCo::fromGroup($group);
+			$object->avatarLinks[] = AvatarLink::fromFilename($group->mini_logo,
+															  AVATAR_MINI_SIZE);
+
+			$object->poco = PoCo::fromGroup($group);
+
+			Event::handle('EndActivityObjectFromGroup', array($group, &$object));
+		}
 
         return $object;
     }
+	
+	function outputTo($xo, $tag='activity:object')
+	{
+		if (!empty($tag)) {
+			$xo->elementStart($tag);
+		}
 
-    function asString($tag='activity:object')
-    {
-        $xs = new XMLStringer(true);
+        $xo->element('activity:object-type', null, $this->type);
 
-        $xs->elementStart($tag);
-
-        $xs->element('activity:object-type', null, $this->type);
-
-        $xs->element(self::ID, null, $this->id);
+        $xo->element(self::ID, null, $this->id);
 
         if (!empty($this->title)) {
-            $xs->element(
+            $xo->element(
                 self::TITLE,
                 null,
                 common_xml_safe_str($this->title)
@@ -499,7 +508,7 @@ class ActivityObject
         }
 
         if (!empty($this->summary)) {
-            $xs->element(
+            $xo->element(
                 self::SUMMARY,
                 null,
                 common_xml_safe_str($this->summary)
@@ -508,7 +517,7 @@ class ActivityObject
 
         if (!empty($this->content)) {
             // XXX: assuming HTML content here
-            $xs->element(
+            $xo->element(
                 ActivityUtils::CONTENT,
                 array('type' => 'html'),
                 common_xml_safe_str($this->content)
@@ -516,7 +525,7 @@ class ActivityObject
         }
 
         if (!empty($this->link)) {
-            $xs->element(
+            $xo->element(
                 'link',
                 array(
                     'rel' => 'alternate',
@@ -531,7 +540,7 @@ class ActivityObject
             || $this->type == ActivityObject::GROUP) {
 
             foreach ($this->avatarLinks as $avatar) {
-                $xs->element(
+                $xo->element(
                     'link', array(
                         'rel'  => 'avatar',
                         'type'         => $avatar->type,
@@ -545,7 +554,7 @@ class ActivityObject
         }
 
         if (!empty($this->geopoint)) {
-            $xs->element(
+            $xo->element(
                 'georss:point',
                 null,
                 $this->geopoint
@@ -553,10 +562,26 @@ class ActivityObject
         }
 
         if (!empty($this->poco)) {
-            $xs->raw($this->poco->asString());
+            $xo->raw($this->poco->asString());
         }
 
-        $xs->elementEnd($tag);
+        foreach ($this->extra as $el) {
+            list($extraTag, $attrs, $content) = $el;
+            $xo->element($extraTag, $attrs, $content);
+        }
+
+		if (!empty($tag)) {
+			$xo->elementEnd($tag);
+		}
+
+        return;
+	}
+
+    function asString($tag='activity:object')
+    {
+        $xs = new XMLStringer(true);
+
+		$this->outputTo($xs, $tag);
 
         return $xs->getString();
     }
