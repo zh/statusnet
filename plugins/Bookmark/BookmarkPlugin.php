@@ -107,20 +107,20 @@ class BookmarkPlugin extends Plugin
 		$dir = dirname(__FILE__);
 
 		switch ($cls)
-		{
-		case 'NewbookmarkAction':
-			include_once $dir.'/newbookmark.php';
+            {
+            case 'NewbookmarkAction':
+                include_once $dir.'/newbookmark.php';
+                return false;
+            case 'Notice_bookmark':
+                include_once $dir.'/'.$cls.'.php';
+                return false;
+            case 'BookmarkForm':
+            case 'DeliciousBackupImporter':
+                include_once $dir.'/'.strtolower($cls).'.php';
 			return false;
-		case 'Notice_bookmark':
-			include_once $dir.'/'.$cls.'.php';
-			return false;
-		case 'BookmarkForm':
-		case 'DeliciousBackupImporter':
-			include_once $dir.'/'.strtolower($cls).'.php';
-			return false;
-		default:
-			return true;
-		}
+            default:
+                return true;
+            }
 	}
 
 	/**
@@ -203,7 +203,8 @@ class BookmarkPlugin extends Plugin
 			$object->id      = $notice->uri;
 			$object->type    = ActivityObject::BOOKMARK;
 			$object->title   = $nb->title;
-			$object->summary = $nb->summary;
+			$object->summary = $nb->description;
+            $object->link    = $notice->bestUrl();
 
 			// Attributes of the URL
 
