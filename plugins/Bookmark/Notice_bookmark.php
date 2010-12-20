@@ -116,8 +116,37 @@ class Notice_bookmark extends Memcached_DataObject
         return array(false, false, false);
     }
 
+	static function getByURL($user, $url)
+	{
+		$file = File::staticGet('url', $url);
+		if (!empty($file)) {
+			$f2p = new File_to_post();
+			$f2p->file_id = $file->id;
+			if ($f2p->find()) {
+				while ($f2p->fetch()) {
+					$n = Notice::staticGet('id', $f2p->post_id);
+					if (!empty($n)) {
+						if ($n->profile_id == $user->id) {
+							$nb = Notice_bookmark::staticGet('notice_id', $n->id);
+							if (!empty($nb)) {
+								return $nb;
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	static function saveNew($user, $title, $url, $rawtags, $description, $options=null)
 	{
+		$nb = self::getByURL($user, $url);
+
+		if (!empty($nb)) {
+			throw new ClientException(_('Bookmark already exists.'));
+		}
+
 		if (empty($options)) {
 			$options = array();
 		}
