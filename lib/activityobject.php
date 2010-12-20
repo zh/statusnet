@@ -415,10 +415,10 @@ class ActivityObject
 			}
 
 			$sizes = array(
-						   AVATAR_PROFILE_SIZE,
-						   AVATAR_STREAM_SIZE,
-						   AVATAR_MINI_SIZE
-						   );
+                AVATAR_PROFILE_SIZE,
+                AVATAR_STREAM_SIZE,
+                AVATAR_MINI_SIZE
+            );
 
 			foreach ($sizes as $size) {
 				$alink  = null;
@@ -488,19 +488,19 @@ class ActivityObject
 
         return $object;
     }
+	
+	function outputTo($xo, $tag='activity:object')
+	{
+		if (!empty($tag)) {
+			$xo->elementStart($tag);
+		}
 
-    function asString($tag='activity:object')
-    {
-        $xs = new XMLStringer(true);
+        $xo->element('activity:object-type', null, $this->type);
 
-        $xs->elementStart($tag);
-
-        $xs->element('activity:object-type', null, $this->type);
-
-        $xs->element(self::ID, null, $this->id);
+        $xo->element(self::ID, null, $this->id);
 
         if (!empty($this->title)) {
-            $xs->element(
+            $xo->element(
                 self::TITLE,
                 null,
                 common_xml_safe_str($this->title)
@@ -508,7 +508,7 @@ class ActivityObject
         }
 
         if (!empty($this->summary)) {
-            $xs->element(
+            $xo->element(
                 self::SUMMARY,
                 null,
                 common_xml_safe_str($this->summary)
@@ -517,7 +517,7 @@ class ActivityObject
 
         if (!empty($this->content)) {
             // XXX: assuming HTML content here
-            $xs->element(
+            $xo->element(
                 ActivityUtils::CONTENT,
                 array('type' => 'html'),
                 common_xml_safe_str($this->content)
@@ -525,7 +525,7 @@ class ActivityObject
         }
 
         if (!empty($this->link)) {
-            $xs->element(
+            $xo->element(
                 'link',
                 array(
                     'rel' => 'alternate',
@@ -540,7 +540,7 @@ class ActivityObject
             || $this->type == ActivityObject::GROUP) {
 
             foreach ($this->avatarLinks as $avatar) {
-                $xs->element(
+                $xo->element(
                     'link', array(
                         'rel'  => 'avatar',
                         'type'         => $avatar->type,
@@ -554,7 +554,7 @@ class ActivityObject
         }
 
         if (!empty($this->geopoint)) {
-            $xs->element(
+            $xo->element(
                 'georss:point',
                 null,
                 $this->geopoint
@@ -562,10 +562,26 @@ class ActivityObject
         }
 
         if (!empty($this->poco)) {
-            $xs->raw($this->poco->asString());
+            $xo->raw($this->poco->asString());
         }
 
-        $xs->elementEnd($tag);
+        foreach ($this->extra as $el) {
+            list($extraTag, $attrs, $content) = $el;
+            $xo->element($extraTag, $attrs, $content);
+        }
+
+		if (!empty($tag)) {
+			$xo->elementEnd($tag);
+		}
+
+        return;
+	}
+
+    function asString($tag='activity:object')
+    {
+        $xs = new XMLStringer(true);
+
+		$this->outputTo($xs, $tag);
 
         return $xs->getString();
     }
