@@ -483,11 +483,19 @@ class FeedSub extends Memcached_DataObject
         if ($this->secret) {
             if (preg_match('/^sha1=([0-9a-fA-F]{40})$/', $hmac, $matches)) {
                 $their_hmac = strtolower($matches[1]);
-                $our_hmac = hash_hmac('sha1', $post, $this->secret);
+                $our_hmac = hash_hmac('sha1', $post, $this->secret) . 'x';
                 if ($their_hmac === $our_hmac) {
                     return true;
                 }
-                common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bad SHA-1 HMAC: got $their_hmac, expected $our_hmac for feed $this->uri on $this->huburi");
+                if (common_config('feedsub', 'debug')) {
+                    $tempfile = tempnam(sys_get_temp_dir(), 'feedsub-receive');
+                    if ($tempfile) {
+                        file_put_contents($tempfile, $post);
+                    }
+                    common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bad SHA-1 HMAC: got $their_hmac, expected $our_hmac for feed $this->uri on $this->huburi; saved to $tempfile");
+                } else {
+                    common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bad SHA-1 HMAC: got $their_hmac, expected $our_hmac for feed $this->uri on $this->huburi");
+                }
             } else {
                 common_log(LOG_ERR, __METHOD__ . ": ignoring PuSH with bogus HMAC '$hmac'");
             }
