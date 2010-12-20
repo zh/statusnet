@@ -16,8 +16,6 @@ class DeliciousBackupImporter
 
 		$children = $dl->childNodes;
 
-		common_debug("<dl> child nodes is " . $children->length);
-
 		$dt = null;
 
 		for ($i = 0; $i < $children->length; $i++) {
@@ -40,6 +38,7 @@ class DeliciousBackupImporter
 					$dd = $child;
 					$saved = $this->importBookmark($user, $dt, $dd);
 					$dt = null;
+					$dd = null;
 				case 'p':
 					common_log(LOG_INFO, 'Skipping the <p> in the <dl>.');
 					break;
@@ -48,18 +47,25 @@ class DeliciousBackupImporter
 				}
 			} catch (Exception $e) {
 				common_log(LOG_ERR, $e->getMessage());
+				$dt = $dd = null;
 			}
 		}
 	}
 
 	function importBookmark($user, $dt, $dd = null)
 	{
-		common_debug("DT child nodes length = " . $dt->childNodes->length);
+		// We have to go squirrelling around in the child nodes
+		// on the off chance that we've received another <dt>
+		// as a child.
 
 		for ($i = 0; $i < $dt->childNodes->length; $i++) {
 			$child = $dt->childNodes->item($i);
 			if ($child->nodeType == XML_ELEMENT_NODE) {
-				common_debug('DT has an element child with tag name '. $child->tagName);
+				if ($child->tagName == 'dt' && !is_null($dd)) {
+					$this->importBookmark($user, $dt);
+					$this->importBookmark($user, $child, $dd);
+					return;
+				}
 			}
 		}
 
@@ -83,7 +89,7 @@ class DeliciousBackupImporter
 			$description = null;
 		}
 
-		$title       = $a->getAttribute('title');
+		$title       = $a->nodeValue;
 		$url         = $a->getAttribute('href');
 		$tags        = $a->getAttribute('tags');
 		$addDate     = $a->getAttribute('add_date');
