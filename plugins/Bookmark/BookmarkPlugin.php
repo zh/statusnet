@@ -115,6 +115,7 @@ class BookmarkPlugin extends Plugin
 			include_once $dir.'/'.$cls.'.php';
 			return false;
 		case 'BookmarkForm':
+		case 'DeliciousBackupImporter':
 			include_once $dir.'/'.strtolower($cls).'.php';
 			return false;
 		default:
