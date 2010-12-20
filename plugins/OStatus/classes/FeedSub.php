@@ -483,7 +483,7 @@ class FeedSub extends Memcached_DataObject
         if ($this->secret) {
             if (preg_match('/^sha1=([0-9a-fA-F]{40})$/', $hmac, $matches)) {
                 $their_hmac = strtolower($matches[1]);
-                $our_hmac = hash_hmac('sha1', $post, $this->secret) . 'x';
+                $our_hmac = hash_hmac('sha1', $post, $this->secret);
                 if ($their_hmac === $our_hmac) {
                     return true;
                 }
