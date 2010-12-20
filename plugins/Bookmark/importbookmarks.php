@@ -23,13 +23,12 @@ $shortoptions = 'i:n:f:';
 $longoptions = array('id=', 'nickname=', 'file=');
 
 $helptext = <<<END_OF_IMPORTBOOKMARKS_HELP
-importbookmarks.php [options]
-Restore a backed-up Delicious.com bookmark file
+    importbookmarks.php [options]
+    Restore a backed-up Delicious.com bookmark file
 
-  -i --id       ID of user to import bookmarks for
-  -n --nickname nickname of the user to import for
-  -f --file     file to read from (STDIN by default)
-
+    -i --id       ID of user to import bookmarks for
+    -n --nickname nickname of the user to import for
+    -f --file     file to read from (STDIN by default)
 END_OF_IMPORTBOOKMARKS_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
@@ -62,7 +61,6 @@ function getBookmarksFile()
 
 	return $html;
 }
-
 
 try {
 	$dbi = new DeliciousBackupImporter();
