@@ -349,32 +349,7 @@ class Activity
         if ($this->verb == ActivityVerb::POST && count($this->objects) == 1) {
 
             $obj = $this->objects[0];
-
-            $xs->element('id', null, $obj->id);
-            $xs->element('activity:object-type', null, $obj->type);
-            
-            if (!empty($obj->title)) {
-                $xs->element('title', null, $obj->title);
-            } else {
-                // XXX need a better default title
-                $xs->element('title', null, _('Post'));
-            }
-
-            if (!empty($obj->content)) {
-                $xs->element('content', array('type' => 'html'), $obj->content);
-            }
-            
-            if (!empty($obj->summary)) {
-                $xs->element('summary', null, $obj->summary);
-            }
-            
-            if (!empty($obj->link)) {
-                $xs->element('link', array('rel' => 'alternate',
-                                           'type' => 'text/html'),
-                             $obj->link);
-            }
-
-            // XXX: some object types might have other values here.
+			$obj->outputTo($xs, null);
 
         } else {
             $xs->element('id', null, $this->id);
@@ -408,12 +383,12 @@ class Activity
                 $xs->element('name', array(), $this->actor->title);
             }
             $xs->elementEnd('author');
-            $xs->raw($this->actor->asString('activity:actor'));
+            $this->actor->outputTo($xs, 'activity:actor');
         }
 
         if ($this->verb != ActivityVerb::POST || count($this->objects) != 1) {
             foreach($this->objects as $object) {
-                $xs->raw($object->asString());
+                $object->outputTo($xs, 'activity:object');
             }
         }
 
@@ -467,7 +442,7 @@ class Activity
         }
 
         if ($this->target) {
-            $xs->raw($this->target->asString('activity:target'));
+            $this->target->outputTo($xs, 'activity:target');
         }
 
         foreach ($this->categories as $cat) {
