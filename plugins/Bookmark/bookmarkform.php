@@ -47,20 +47,33 @@ if (!defined('STATUSNET')) {
 
 class BookmarkForm extends Form
 {
-	private $_title       = null;
-	private $_url         = null;
-	private $_tags        = null;
-	private $_description = null;
+    private $_title       = null;
+    private $_url         = null;
+    private $_tags        = null;
+    private $_description = null;
 
-	function __construct($out=null, $title=null, $url=null, $tags=null, $description=null)
-	{
-		parent::__construct($out);
+    /**
+     * Construct a bookmark form
+     *
+     * @param HTMLOutputter $out         output channel
+     * @param string        $title       Title of the bookmark
+     * @param string        $url         URL of the bookmark
+     * @param string        $tags        Tags to show
+     * @param string        $description Description of the bookmark
+     *
+     * @return void
+     */
 
-		$this->_title       = $title;
-		$this->_url         = $url;
-		$this->_tags        = $tags;
-		$this->_description = $description;
-	}
+    function __construct($out=null, $title=null, $url=null, $tags=null,
+                         $description=null)
+    {
+        parent::__construct($out);
+
+        $this->_title       = $title;
+        $this->_url         = $url;
+        $this->_tags        = $tags;
+        $this->_description = $description;
+    }
 
     /**
      * ID of the form
@@ -103,35 +116,35 @@ class BookmarkForm extends Form
 
     function formData()
     {
-		$this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
+        $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-		$this->out->input('title',
-						  _('Title'),
-						  $this->_title,
-						  _('Title of the bookmark'));
+        $this->out->input('title',
+                          _('Title'),
+                          $this->_title,
+                          _('Title of the bookmark'));
         $this->unli();
 
         $this->li();
         $this->out->input('url',
-						  _('URL'),
+                          _('URL'),
                           $this->_url,   
-						  _('URL to bookmark'));
+                          _('URL to bookmark'));
         $this->unli();
 
         $this->li();
         $this->out->input('tags',
-						  _('Tags'),
+                          _('Tags'),
                           $this->_tags,   
-						  _('Comma- or space-separated list of tags'));
+                          _('Comma- or space-separated list of tags'));
         $this->unli();
 
         $this->li();
         $this->out->input('description',
-						  _('Description'),
+                          _('Description'),
                           $this->_description,   
-						  _('Description of the URL'));
+                          _('Description of the URL'));
         $this->unli();
 
         $this->out->elementEnd('ul');
