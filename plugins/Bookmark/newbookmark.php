@@ -47,13 +47,13 @@ if (!defined('STATUSNET')) {
 
 class NewbookmarkAction extends Action
 {
-    private $_user        = null;
-    private $_error       = null;
-    private $_complete    = null;
-    private $_title       = null;
-    private $_url         = null;
-    private $_tags        = null;
-    private $_description = null;
+    protected $_user        = null;
+    protected $_error       = null;
+    protected $_complete    = null;
+    protected $_title       = null;
+    protected $_url         = null;
+    protected $_tags        = null;
+    protected $_description = null;
 
     /**
      * Returns the title of the action

@@ -127,7 +127,8 @@ class BookmarkPlugin extends Plugin
         switch ($cls)
         {
         case 'NewbookmarkAction':
-            include_once $dir.'/newbookmark.php';
+        case 'BookmarkpopupAction':
+            include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'Notice_bookmark':
             include_once $dir.'/'.$cls.'.php';
@@ -155,6 +156,8 @@ class BookmarkPlugin extends Plugin
         $m->connect('main/bookmark/new',
                     array('action' => 'newbookmark'),
                     array('id' => '[0-9]+'));
+
+        $m->connect('main/bookmark/popup', array('action' => 'bookmarkpopup'));
 
         return true;
     }
@@ -310,6 +313,28 @@ class BookmarkPlugin extends Plugin
                             'homepage' => 'http://status.net/wiki/Plugin:Bookmark',
                             'rawdescription' =>
                             _m('Simple extension for supporting bookmarks.'));
+        return true;
+    }
+
+    /**
+     * Load our document if requested
+     *
+     * @param string &$title  Title to fetch
+     * @param string &$output HTML to output
+     *
+     * @return boolean hook value
+     */
+
+    function onStartLoadDoc(&$title, &$output)
+    {
+        if ($title == 'bookmarklet') {
+            $filename = INSTALLDIR.'/plugins/Bookmark/bookmarklet';
+
+            $c      = file_get_contents($filename);
+            $output = common_markup_to_html($c);
+            return false; // success!
+        }
+
         return true;
     }
 }
