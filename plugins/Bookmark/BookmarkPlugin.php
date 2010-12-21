@@ -134,6 +134,7 @@ class BookmarkPlugin extends Plugin
             return false;
         case 'BookmarkForm':
         case 'DeliciousBackupImporter':
+        case 'DeliciousBookmarkImporter':
             include_once $dir.'/'.strtolower($cls).'.php';
             return false;
         default:
@@ -283,6 +284,13 @@ class BookmarkPlugin extends Plugin
             return false;
         }
 
+        return true;
+    }
+
+    function onEndInitializeQueueManager($qm)
+    {
+        $qm->connect('dlcsback', 'DeliciousBackupImporter');
+        $qm->connect('dlcsbkmk', 'DeliciousBookmarkImporter');
         return true;
     }
 

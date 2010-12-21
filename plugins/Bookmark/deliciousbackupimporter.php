@@ -34,8 +34,6 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/apiauth.php';
-
 /**
  * Importer class for Delicious bookmarks
  *
@@ -47,8 +45,19 @@ require_once INSTALLDIR . '/lib/apiauth.php';
  * @link      http://status.net/
  */
 
-class DeliciousBackupImporter
+class DeliciousBackupImporter extends QueueHandler
 {
+    /**
+     * Transport of the importer
+     *
+     * @return string transport string
+     */
+
+    function transport()
+    {
+        return 'dlcsback';
+    }
+
     /**
      * Import an in-memory bookmark list to a user's account
      *
@@ -59,14 +68,15 @@ class DeliciousBackupImporter
      * a bunch of <dt>'s, occasionally with <dd>'s.
      * There are sometimes <p>'s lost inside.
      *
-     * @param User   $user User whose feed we're going to fill
-     * @param string $body Body of the file
+     * @param array $data pair of user, text
      *
-     * @return void
+     * @return boolean success value
      */
 
-    function importBookmarks($user, $body)
+    function handle($data)
     {
+        list($user, $body) = $data;
+
         $doc = $this->importHTML($body);
 
         $dls = $doc->getElementsByTagName('dl');
@@ -117,6 +127,8 @@ class DeliciousBackupImporter
                 $dt = $dd = null;
             }
         }
+
+        return true;
     }
 
     /**
@@ -152,40 +164,9 @@ class DeliciousBackupImporter
             }
         }
 
-        $as = $dt->getElementsByTagName('a');
-
-        if ($as->length == 0) {
-            throw new ClientException(_("No <A> tag in a <DT>."));
-        }
-
-        $a = $as->item(0);
-                    
-        $private = $a->getAttribute('private');
-
-        if ($private != 0) {
-            throw new ClientException(_('Skipping private bookmark.'));
-        }
-
-        if (!empty($dd)) {
-            $description = $dd->nodeValue;
-        } else {
-            $description = null;
-        }
-
-        $title   = $a->nodeValue;
-        $url     = $a->getAttribute('href');
-        $tags    = $a->getAttribute('tags');
-        $addDate = $a->getAttribute('add_date');
-        $created = common_sql_date(intval($addDate));
-
-        $saved = Notice_bookmark::saveNew($user,
-                                          $title,
-                                          $url,
-                                          $tags,
-                                          $description,
-                                          array('created' => $created));
-
-        return $saved;
+        $qm = QueueManager::get();
+        
+        $qm->enqueue(array($user, $dt, $dd), 'dlcsbkmk');
     }
 
     /**

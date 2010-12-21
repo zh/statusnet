@@ -83,13 +83,12 @@ function getBookmarksFile()
 }
 
 try {
-    $dbi = new DeliciousBackupImporter();
-
     $user = getUser();
-
     $html = getBookmarksFile();
 
-    $dbi->importBookmarks($user, $html);
+    $qm = QueueManager::get();
+    
+    $qm->enqueue(array($user, $html), 'dlcsback');
 
 } catch (Exception $e) {
     print $e->getMessage()."\n";
