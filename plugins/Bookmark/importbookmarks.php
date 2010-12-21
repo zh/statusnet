@@ -1,7 +1,11 @@
 <?php
-/*
+/**
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2010 StatusNet, Inc.
+ *
+ * Import a bookmarks file as notices
+ * 
+ * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,23 +19,39 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Bookmark
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/../..'));
 
 $shortoptions = 'i:n:f:';
-$longoptions = array('id=', 'nickname=', 'file=');
+$longoptions  = array('id=', 'nickname=', 'file=');
 
 $helptext = <<<END_OF_IMPORTBOOKMARKS_HELP
-    importbookmarks.php [options]
-    Restore a backed-up Delicious.com bookmark file
+importbookmarks.php [options]
+Restore a backed-up Delicious.com bookmark file
 
-    -i --id       ID of user to import bookmarks for
-    -n --nickname nickname of the user to import for
-    -f --file     file to read from (STDIN by default)
+-i --id       ID of user to import bookmarks for
+-n --nickname nickname of the user to import for
+-f --file     file to read from (STDIN by default)
 END_OF_IMPORTBOOKMARKS_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
+
+/**
+ * Get the bookmarks file as a string
+ * 
+ * Uses the -f or --file parameter to open and read a
+ * a bookmarks file
+ *
+ * @return string Contents of the file
+ */
 
 function getBookmarksFile()
 {
@@ -54,22 +74,22 @@ function getBookmarksFile()
         throw new Exception("File '$filename' not readable.");
     }
 
-    // TRANS: Commandline script output. %s is the filename that contains a backup for a user.
-    printfv(_("Getting backup from file '%s'.")."\n",$filename);
+    // TRANS: %s is the filename that contains a backup for a user.
+    printfv(_("Getting backup from file '%s'.")."\n", $filename);
 
     $html = file_get_contents($filename);
 
-	return $html;
+    return $html;
 }
 
 try {
-	$dbi = new DeliciousBackupImporter();
+    $dbi = new DeliciousBackupImporter();
 
-	$user = getUser();
+    $user = getUser();
 
     $html = getBookmarksFile();
 
-	$dbi->importBookmarks($user, $html);
+    $dbi->importBookmarks($user, $html);
 
 } catch (Exception $e) {
     print $e->getMessage()."\n";
