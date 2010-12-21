@@ -94,7 +94,7 @@ class BookmarkForm extends Form
 
     function formClass()
     {
-        return 'form_new_bookmark';
+        return 'form_settings';
     }
 
     /**
