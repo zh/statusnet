@@ -47,18 +47,24 @@ if (!defined('STATUSNET')) {
 
 class NewbookmarkAction extends Action
 {
-	private $_user        = null;
-	private $_error       = null;
-	private $_complete    = null;
-	private $_title       = null;
-	private $_url         = null;
-	private $_tags        = null;
-	private $_description = null;
+    private $_user        = null;
+    private $_error       = null;
+    private $_complete    = null;
+    private $_title       = null;
+    private $_url         = null;
+    private $_tags        = null;
+    private $_description = null;
 
-	function title()
-	{
-		return _('New bookmark');
-	}
+    /**
+     * Returns the title of the action
+     *
+     * @return string Action title
+     */
+
+    function title()
+    {
+        return _('New bookmark');
+    }
 
     /**
      * For initializing members of the class.
@@ -72,20 +78,21 @@ class NewbookmarkAction extends Action
     {
         parent::prepare($argarray);
 
-		$this->_user = common_current_user();
+        $this->_user = common_current_user();
 
-		if (empty($this->_user)) {
-			throw new ClientException(_("Must be logged in to post a bookmark."), 403);
-		}
+        if (empty($this->_user)) {
+            throw new ClientException(_("Must be logged in to post a bookmark."),
+                                      403);
+        }
 
-		if ($this->isPost()) {
-			$this->checkSessionToken();
-		}
+        if ($this->isPost()) {
+            $this->checkSessionToken();
+        }
 
-		$this->_title       = $this->trimmed('title');
-		$this->_url         = $this->trimmed('url');
-		$this->_tags        = $this->trimmed('tags');
-		$this->_description = $this->trimmed('description');
+        $this->_title       = $this->trimmed('title');
+        $this->_url         = $this->trimmed('url');
+        $this->_tags        = $this->trimmed('tags');
+        $this->_description = $this->trimmed('description');
 
         return true;
     }
@@ -100,13 +107,13 @@ class NewbookmarkAction extends Action
 
     function handle($argarray=null)
     {
-		parent::handle($argarray);
+        parent::handle($argarray);
 
-		if ($this->isPost()) {
-			$this->newBookmark();
-		} else {
-			$this->showPage();
-		}
+        if ($this->isPost()) {
+            $this->newBookmark();
+        } else {
+            $this->showPage();
+        }
 
         return;
     }
@@ -119,29 +126,29 @@ class NewbookmarkAction extends Action
 
     function newBookmark()
     {
-		try {
-			if (empty($this->_title)) {
-				throw new ClientException(_('Bookmark must have a title.'));
-			}
+        try {
+            if (empty($this->_title)) {
+                throw new ClientException(_('Bookmark must have a title.'));
+            }
 
-			if (empty($this->_url)) {
-				throw new ClientException(_('Bookmark must have an URL.'));
-			}
+            if (empty($this->_url)) {
+                throw new ClientException(_('Bookmark must have an URL.'));
+            }
 
 
-			$saved = Notice_bookmark::saveNew($this->_user,
-											  $this->_title,
-											  $this->_url,
-											  $this->_tags,
-											  $this->_description);
+            $saved = Notice_bookmark::saveNew($this->_user,
+                                              $this->_title,
+                                              $this->_url,
+                                              $this->_tags,
+                                              $this->_description);
 
-		} catch (ClientException $ce) {
-			$this->_error = $ce->getMessage();
-			$this->showPage();
-			return;
-		}
+        } catch (ClientException $ce) {
+            $this->_error = $ce->getMessage();
+            $this->showPage();
+            return;
+        }
 
-		common_redirect($saved->bestUrl(), 303);
+        common_redirect($saved->bestUrl(), 303);
     }
 
     /**
@@ -152,17 +159,17 @@ class NewbookmarkAction extends Action
 
     function showContent()
     {
-		if (!empty($this->_error)) {
-			$this->element('p', 'error', $this->_error);
-		}
+        if (!empty($this->_error)) {
+            $this->element('p', 'error', $this->_error);
+        }
 
-		$form = new BookmarkForm($this,
-								 $this->_title,
-								 $this->_url,
-								 $this->_tags,
-								 $this->_description);
+        $form = new BookmarkForm($this,
+                                 $this->_title,
+                                 $this->_url,
+                                 $this->_tags,
+                                 $this->_description);
 
-		$form->show();
+        $form->show();
 
         return;
     }
@@ -187,3 +194,4 @@ class NewbookmarkAction extends Action
         }
     }
 }
+ 
