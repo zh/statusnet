@@ -47,8 +47,8 @@ class Notice_bookmark extends Memcached_DataObject
 {
     public $__table = 'notice_bookmark'; // table name
     public $notice_id;                   // int(4)  primary_key not_null
-	public $title;                       // varchar(255)
-	public $description;                 // text
+    public $title;                       // varchar(255)
+    public $description;                 // text
 
     /**
      * Get an instance by key
@@ -80,7 +80,7 @@ class Notice_bookmark extends Memcached_DataObject
     {
         return array('notice_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'title' => DB_DATAOBJECT_STR,
-					 'description' => DB_DATAOBJECT_STR);
+                     'description' => DB_DATAOBJECT_STR);
     }
 
     /**
@@ -116,108 +116,133 @@ class Notice_bookmark extends Memcached_DataObject
         return array(false, false, false);
     }
 
-	static function getByURL($user, $url)
-	{
-		$file = File::staticGet('url', $url);
-		if (!empty($file)) {
-			$f2p = new File_to_post();
-			$f2p->file_id = $file->id;
-			if ($f2p->find()) {
-				while ($f2p->fetch()) {
-					$n = Notice::staticGet('id', $f2p->post_id);
-					if (!empty($n)) {
-						if ($n->profile_id == $user->id) {
-							$nb = Notice_bookmark::staticGet('notice_id', $n->id);
-							if (!empty($nb)) {
-								return $nb;
-							}
-						}
-					}
-				}
-			}
-		}
-		return null;
-	}
+    /**
+     * Get the bookmark that a user made for an URL
+     *
+     * @param User   $user User to check for
+     * @param string $url  URL to check for
+     *
+     * @return Notice_bookmark bookmark found or null
+     */
+     
+    static function getByURL($user, $url)
+    {
+        $file = File::staticGet('url', $url);
+        if (!empty($file)) {
+            $f2p = new File_to_post();
 
-	static function saveNew($user, $title, $url, $rawtags, $description, $options=null)
-	{
-		$nb = self::getByURL($user, $url);
+            $f2p->file_id = $file->id;
+            if ($f2p->find()) {
+                while ($f2p->fetch()) {
+                    $n = Notice::staticGet('id', $f2p->post_id);
+                    if (!empty($n)) {
+                        if ($n->profile_id == $user->id) {
+                            $nb = Notice_bookmark::staticGet('notice_id', $n->id);
+                            if (!empty($nb)) {
+                                return $nb;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
-		if (!empty($nb)) {
-			throw new ClientException(_('Bookmark already exists.'));
-		}
+    /**
+     * Save a new notice bookmark
+     *
+     * @param User   $user        To save the bookmark for
+     * @param string $title       Title of the bookmark
+     * @param string $url         URL of the bookmark
+     * @param mixed  $rawtags     array of tags or string
+     * @param string $description Description of the bookmark
+     * @param array  $options     Options for the Notice::saveNew()
+     *
+     * @return Notice saved notice
+     */
 
-		if (empty($options)) {
-			$options = array();
-		}
+    static function saveNew($user, $title, $url, $rawtags, $description,
+                            $options=null)
+    {
+        $nb = self::getByURL($user, $url);
 
-		if (is_string($rawtags)) {
-			$rawtags = preg_split('/[\s,]+/', $rawtags);
-		}
+        if (!empty($nb)) {
+            throw new ClientException(_('Bookmark already exists.'));
+        }
 
-		$tags = array();
-		$replies = array();
+        if (empty($options)) {
+            $options = array();
+        }
 
-		// filter "for:nickname" tags
+        if (is_string($rawtags)) {
+            $rawtags = preg_split('/[\s,]+/', $rawtags);
+        }
 
-		foreach ($rawtags as $tag) {
-			if (strtolower(mb_substr($tag, 0, 4)) == 'for:') {
-				$nickname = mb_substr($tag, 4);
-				$other = common_relative_profile($user->getProfile(),
-												 $nickname);
-				if (!empty($other)) {
-					$replies[] = $other->getUri();
-				}
-			} else {
-				$tags[] = common_canonical_tag($tag);
-			}
-		}
+        $tags    = array();
+        $replies = array();
 
-		$hashtags = array();
-		$taglinks = array();
+        // filter "for:nickname" tags
 
-		foreach ($tags as $tag) {
-			$hashtags[] = '#'.$tag;
-			$attrs = array('href' => Notice_tag::url($tag),
-						   'rel'  => $tag,
-						   'class' => 'tag');
-			$taglinks[] = XMLStringer::estring('a', $attrs, $tag);
-		}
+        foreach ($rawtags as $tag) {
+            if (strtolower(mb_substr($tag, 0, 4)) == 'for:') {
+                $nickname = mb_substr($tag, 4);
+                $other    = common_relative_profile($user->getProfile(),
+                                                    $nickname);
+                if (!empty($other)) {
+                    $replies[] = $other->getUri();
+                }
+            } else {
+                $tags[] = common_canonical_tag($tag);
+            }
+        }
 
-		$content = sprintf(_('"%s" %s %s %s'),
-						   $title,
-						   File_redirection::makeShort($url, $user),
-						   $description,
-						   implode(' ', $hashtags));
+        $hashtags = array();
+        $taglinks = array();
 
-		$rendered = sprintf(_('<span class="xfolkentry">'.
-							  '<a class="taggedlink" href="%s">%s</a> '.
-							  '<span class="description">%s</span> '.
-							  '<span class="meta">%s</span>'.
-							  '</span>'),
-							htmlspecialchars($url),
-							htmlspecialchars($title),
-							htmlspecialchars($description),
-							implode(' ', $taglinks));
+        foreach ($tags as $tag) {
+            $hashtags[] = '#'.$tag;
+            $attrs      = array('href' => Notice_tag::url($tag),
+                                'rel'  => $tag,
+                                'class' => 'tag');
+            $taglinks[] = XMLStringer::estring('a', $attrs, $tag);
+        }
 
-		$options = array_merge($options, array('urls' => array($url),
-											   'rendered' => $rendered,
-											   'tags' => $tags,
-											   'replies' => $replies));
+        $content = sprintf(_('"%s" %s %s %s'),
+                           $title,
+                           File_redirection::makeShort($url, $user),
+                           $description,
+                           implode(' ', $hashtags));
 
-		$saved = Notice::saveNew($user->id,
-								 $content,
-								 'web',
-								 $options);
+        $rendered = sprintf(_('<span class="xfolkentry">'.
+                              '<a class="taggedlink" href="%s">%s</a> '.
+                              '<span class="description">%s</span> '.
+                              '<span class="meta">%s</span>'.
+                              '</span>'),
+                            htmlspecialchars($url),
+                            htmlspecialchars($title),
+                            htmlspecialchars($description),
+                            implode(' ', $taglinks));
 
-		if (!empty($saved)) {
-			$nb = new Notice_bookmark();
-			$nb->notice_id   = $saved->id;
-			$nb->title       = $title;
-			$nb->description = $description;
-			$nb->insert();
-		}
+        $options = array_merge($options, array('urls' => array($url),
+                                               'rendered' => $rendered,
+                                               'tags' => $tags,
+                                               'replies' => $replies));
 
-		return $saved;
-	}
+        $saved = Notice::saveNew($user->id,
+                                 $content,
+                                 'web',
+                                 $options);
+
+        if (!empty($saved)) {
+            $nb = new Notice_bookmark();
+
+            $nb->notice_id   = $saved->id;
+            $nb->title       = $title;
+            $nb->description = $description;
+            $nb->insert();
+        }
+
+        return $saved;
+    }
 }
