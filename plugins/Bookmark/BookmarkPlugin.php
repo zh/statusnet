@@ -29,7 +29,7 @@
  */
 
 if (!defined('STATUSNET')) {
-	exit(1);
+    exit(1);
 }
 
 /**
@@ -46,219 +46,263 @@ if (!defined('STATUSNET')) {
 
 class BookmarkPlugin extends Plugin
 {
-	/**
-	 * Database schema setup
-	 *
-	 * @see Schema
-	 * @see ColumnDef
-	 *
-	 * @return boolean hook value; true means continue processing, false means stop.
-	 */
+    const VERSION = '0.1';
 
-	function onCheckSchema()
-	{
-		$schema = Schema::get();
+    /**
+     * Database schema setup
+     *
+     * @see Schema
+     * @see ColumnDef
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
 
-		// For storing user-submitted flags on profiles
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
 
-		$schema->ensureTable('notice_bookmark',
-							 array(new ColumnDef('notice_id',
-												 'integer',
-												 null,
-												 false,
-												 'PRI'),
-								   new ColumnDef('title',
-												 'varchar',
-												 255),
-								   new ColumnDef('description',
-												 'text')));
+        // For storing user-submitted flags on profiles
 
-		return true;
-	}
+        $schema->ensureTable('notice_bookmark',
+                             array(new ColumnDef('notice_id',
+                                                 'integer',
+                                                 null,
+                                                 false,
+                                                 'PRI'),
+                                   new ColumnDef('title',
+                                                 'varchar',
+                                                 255),
+                                   new ColumnDef('description',
+                                                 'text')));
 
-	function onNoticeDeleteRelated($notice)
-	{
-		$nb = Notice_bookmark::staticGet('notice_id', $notice->id);
+        return true;
+    }
 
-		if (!empty($nb)) {
-			$nb->delete();
-		}
+    /**
+     * When a notice is deleted, delete the related Notice_bookmark
+     *
+     * @param Notice $notice Notice being deleted
+     * 
+     * @return boolean hook value
+     */
 
-		return true;
-	}
+    function onNoticeDeleteRelated($notice)
+    {
+        $nb = Notice_bookmark::staticGet('notice_id', $notice->id);
 
-	function onEndShowStyles($action)
-	{
-		$action->style('.bookmark_tags li { display: inline; }');
-		$action->style('.bookmark_mentions li { display: inline; }');
-		return true;
-	}
+        if (!empty($nb)) {
+            $nb->delete();
+        }
 
-	/**
-	 * Load related modules when needed
-	 *
-	 * @param string $cls Name of the class to be loaded
-	 *
-	 * @return boolean hook value; true means continue processing, false means stop.
-	 */
+        return true;
+    }
 
-	function onAutoload($cls)
-	{
-		$dir = dirname(__FILE__);
+    /**
+     * Show the CSS necessary for this plugin
+     *
+     * @param Action $action the action being run
+     *
+     * @return boolean hook value
+     */
 
-		switch ($cls)
-            {
-            case 'NewbookmarkAction':
-                include_once $dir.'/newbookmark.php';
-                return false;
-            case 'Notice_bookmark':
-                include_once $dir.'/'.$cls.'.php';
-                return false;
-            case 'BookmarkForm':
-            case 'DeliciousBackupImporter':
-                include_once $dir.'/'.strtolower($cls).'.php';
-			return false;
-            default:
-                return true;
+    function onEndShowStyles($action)
+    {
+        $action->style('.bookmark_tags li { display: inline; }');
+        $action->style('.bookmark_mentions li { display: inline; }');
+        return true;
+    }
+
+    /**
+     * Load related modules when needed
+     *
+     * @param string $cls Name of the class to be loaded
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
+
+    function onAutoload($cls)
+    {
+        $dir = dirname(__FILE__);
+
+        switch ($cls)
+        {
+        case 'NewbookmarkAction':
+            include_once $dir.'/newbookmark.php';
+            return false;
+        case 'Notice_bookmark':
+            include_once $dir.'/'.$cls.'.php';
+            return false;
+        case 'BookmarkForm':
+        case 'DeliciousBackupImporter':
+            include_once $dir.'/'.strtolower($cls).'.php';
+            return false;
+        default:
+            return true;
+        }
+    }
+
+    /**
+     * Map URLs to actions
+     *
+     * @param Net_URL_Mapper $m path-to-action mapper
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
+
+    function onRouterInitialized($m)
+    {
+        $m->connect('main/bookmark/new',
+                    array('action' => 'newbookmark'),
+                    array('id' => '[0-9]+'));
+
+        return true;
+    }
+
+    /**
+     * Output the HTML for a bookmark in a list
+     *
+     * @param NoticeListItem $nli The list item being shown.
+     *
+     * @return boolean hook value
+     */
+
+    function onStartShowNoticeItem($nli)
+    {
+        $nb = Notice_bookmark::staticGet('notice_id',
+                                         $nli->notice->id);
+
+        if (!empty($nb)) {
+            $att = $nli->notice->attachments();
+            $nli->out->elementStart('h3');
+            $nli->out->element('a',
+                               array('href' => $att[0]->url),
+                               $nb->title);
+            $nli->out->elementEnd('h3');
+            $nli->out->element('p',
+                               array('class' => 'bookmark_description'),
+                               $nb->description);
+            $nli->out->elementStart('p');
+            $nli->out->element('a', array('href' => $nli->profile->profileurl,
+                                          'class' => 'bookmark_author',
+                                          'title' => $nli->profile->getBestName()),
+                               $nli->profile->getBestName());
+            $nli->out->elementEnd('p');
+            $tags = $nli->notice->getTags();
+            $nli->out->elementStart('ul', array('class' => 'bookmark_tags'));
+            foreach ($tags as $tag) {
+                $nli->out->elementStart('li');
+                $nli->out->element('a', 
+                                   array('rel' => 'tag',
+                                         'href' => Notice_tag::url($tag)),
+                                   $tag);
+                $nli->out->elementEnd('li');
+                $nli->out->text(' ');
             }
-	}
+            $nli->out->elementEnd('ul');
+            $replies = $nli->notice->getReplies();
+            if (!empty($replies)) {
+                $nli->out->elementStart('ul', array('class' => 'bookmark_mentions'));
+                foreach ($replies as $reply) {
+                    $other = Profile::staticGet('id', $reply);
+                    $nli->out->elementStart('li');
+                    $nli->out->element('a', array('rel' => 'tag',
+                                                  'href' => $other->profileurl,
+                                                  'title' => $other->getBestName()),
+                                       sprintf('for:%s', $other->nickname));
+                    $nli->out->elementEnd('li');
+                    $nli->out->text(' ');
+                }
+                $nli->out->elementEnd('ul');
+            }
+            return false;
+        }
+        return true;
+    }
 
-	/**
-	 * Map URLs to actions
-	 *
-	 * @param Net_URL_Mapper $m path-to-action mapper
-	 *
-	 * @return boolean hook value; true means continue processing, false means stop.
-	 */
+    /**
+     * Render a notice as a Bookmark object
+     *
+     * @param Notice         $notice  Notice to render
+     * @param ActivityObject &$object Empty object to fill
+     *
+     * @return boolean hook value
+     */
+     
+    function onStartActivityObjectFromNotice($notice, &$object)
+    {
+        $nb = Notice_bookmark::staticGet('notice_id',
+                                         $notice->id);
+                                         
+        if (!empty($nb)) {
 
-	function onRouterInitialized($m)
-	{
-		$m->connect('main/bookmark/new',
-					array('action' => 'newbookmark'),
-					array('id' => '[0-9]+'));
-
-		return true;
-	}
-
-	function onStartShowNoticeItem($nli)
-	{
-		$nb = Notice_bookmark::staticGet('notice_id',
-										 $nli->notice->id);
-
-		if (!empty($nb)) {
-			$att = $nli->notice->attachments();
-			$nli->out->elementStart('h3');
-			$nli->out->element('a',
-							   array('href' => $att[0]->url),
-							   $nb->title);
-			$nli->out->elementEnd('h3');
-			$nli->out->element('p',
-							   array('class' => 'bookmark_description'),
-							   $nb->description);
-			$nli->out->elementStart('p');
-			$nli->out->element('a', array('href' => $nli->profile->profileurl,
-										  'class' => 'bookmark_author',
-										  'title' => $nli->profile->getBestName()),
-							   $nli->profile->getBestName());
-			$nli->out->elementEnd('p');
-			$tags = $nli->notice->getTags();
-			$nli->out->elementStart('ul', array('class' => 'bookmark_tags'));
-			foreach ($tags as $tag) {
-				$nli->out->elementStart('li');
-				$nli->out->element('a', 
-								   array('rel' => 'tag',
-										 'href' => Notice_tag::url($tag)),
-								   $tag);
-				$nli->out->elementEnd('li');
-				$nli->out->text(' ');
-			}
-			$nli->out->elementEnd('ul');
-			$replies = $nli->notice->getReplies();
-			if (!empty($replies)) {
-				$nli->out->elementStart('ul', array('class' => 'bookmark_mentions'));
-				foreach ($replies as $reply) {
-					$other = Profile::staticGet('id', $reply);
-					$nli->out->elementStart('li');
-					$nli->out->element('a', array('rel' => 'tag',
-												  'href' => $other->profileurl,
-												  'title' => $other->getBestName()),
-									   sprintf('for:%s', $other->nickname));
-					$nli->out->elementEnd('li');
-					$nli->out->text(' ');
-				}
-				$nli->out->elementEnd('ul');
-			}
-			return false;
-		}
-		return true;
-	}
-
-	function onStartActivityObjectFromNotice($notice, &$object)
-	{
-		$nb = Notice_bookmark::staticGet('notice_id',
-										 $notice->id);
-
-		if (!empty($nb)) {
-
-			$object->id      = $notice->uri;
-			$object->type    = ActivityObject::BOOKMARK;
-			$object->title   = $nb->title;
-			$object->summary = $nb->description;
+            $object->id      = $notice->uri;
+            $object->type    = ActivityObject::BOOKMARK;
+            $object->title   = $nb->title;
+            $object->summary = $nb->description;
             $object->link    = $notice->bestUrl();
 
-			// Attributes of the URL
+            // Attributes of the URL
 
-			$attachments = $notice->attachments();
+            $attachments = $notice->attachments();
 
-			if (count($attachments) != 1) {
-				throw new ServerException(_('Bookmark notice with the wrong number of attachments.'));
-			}
+            if (count($attachments) != 1) {
+                throw new ServerException(_('Bookmark notice with the '.
+                                            'wrong number of attachments.'));
+            }
 
-			$target = $attachments[0];
+            $target = $attachments[0];
 
-			$attrs = array('rel' => 'related',
-						   'href' => $target->url);
+            $attrs = array('rel' => 'related',
+                           'href' => $target->url);
 
-			if (!empty($target->title)) {
-				$attrs['title'] = $target->title;
-			}
+            if (!empty($target->title)) {
+                $attrs['title'] = $target->title;
+            }
 
-			$object->extra[] = array('link', $attrs);
-												   
-			// Attributes of the thumbnail, if any
+            $object->extra[] = array('link', $attrs);
+                                                   
+            // Attributes of the thumbnail, if any
 
-			$thumbnail = $target->getThumbnail();
+            $thumbnail = $target->getThumbnail();
 
-			if (!empty($thumbnail)) {
-				$tattrs = array('rel' => 'preview',
-								'href' => $thumbnail->url);
+            if (!empty($thumbnail)) {
+                $tattrs = array('rel' => 'preview',
+                                'href' => $thumbnail->url);
 
-				if (!empty($thumbnail->width)) {
-					$tattrs['media:width'] = $thumbnail->width;
-				}
+                if (!empty($thumbnail->width)) {
+                    $tattrs['media:width'] = $thumbnail->width;
+                }
 
-				if (!empty($thumbnail->height)) {
-					$tattrs['media:height'] = $thumbnail->height;
-				}
+                if (!empty($thumbnail->height)) {
+                    $tattrs['media:height'] = $thumbnail->height;
+                }
 
-				$object->extra[] = array('link', $attrs);
-			}
+                $object->extra[] = array('link', $attrs);
+            }
 
-			return false;
-		}
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	function onPluginVersion(&$versions)
-	{
-		$versions[] = array('name' => 'Sample',
-							'version' => STATUSNET_VERSION,
-							'author' => 'Evan Prodromou',
-							'homepage' => 'http://status.net/wiki/Plugin:Bookmark',
-							'rawdescription' =>
-							_m('Simple extension for supporting bookmarks.'));
-		return true;
-	}
+    /**
+     * Plugin version data
+     *
+     * @param array &$versions array of version data
+     * 
+     * @return value
+     */
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Sample',
+                            'version' => self::VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:Bookmark',
+                            'rawdescription' =>
+                            _m('Simple extension for supporting bookmarks.'));
+        return true;
+    }
 }
 
