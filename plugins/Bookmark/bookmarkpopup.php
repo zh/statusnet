@@ -44,12 +44,11 @@ if (!defined('STATUSNET')) {
  */
 class BookmarkpopupAction extends NewbookmarkAction
 {
-    function prepare($args)
-    {
-        $result = parent::prepare($args);
-        common_debug('Values: ' . $this->_title . ' ' . $this->_url);
-        return $result;
-    }
+    /**
+     * Show the title section of the window
+     *
+     * @return void
+     */
 
     function showTitle()
     {
@@ -59,6 +58,14 @@ class BookmarkpopupAction extends NewbookmarkAction
                        null, sprintf(_('Bookmark on %s'), 
                                      common_config('site', 'name')));
     }
+
+    /**
+     * Show the header section of the page
+     *
+     * Shows a stub page and the bookmark form.
+     *
+     * @return void
+     */
 
     function showHeader()
     {
@@ -70,16 +77,28 @@ class BookmarkpopupAction extends NewbookmarkAction
         $this->elementEnd('address');
         if (common_logged_in()) {
             $form = new BookmarkForm($this,
-                                     $this->_title,
-                                     $this->_url);
+                                     $this->title,
+                                     $this->url);
             $form->show();
         }
         $this->elementEnd('div');
     }
 
+    /**
+     * Hide the core section of the page
+     * 
+     * @return void
+     */
+
     function showCore()
     {
     }
+
+    /**
+     * Hide the footer section of the page
+     *
+     * @return void
+     */
 
     function showFooter()
     {

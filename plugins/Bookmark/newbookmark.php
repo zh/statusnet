@@ -27,7 +27,6 @@
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 if (!defined('STATUSNET')) {
     // This check helps protect against security problems;
     // your code file can't be executed directly from the web.
@@ -47,13 +46,13 @@ if (!defined('STATUSNET')) {
 
 class NewbookmarkAction extends Action
 {
-    protected $_user        = null;
-    protected $_error       = null;
-    protected $_complete    = null;
-    protected $_title       = null;
-    protected $_url         = null;
-    protected $_tags        = null;
-    protected $_description = null;
+    protected $user        = null;
+    protected $error       = null;
+    protected $complete    = null;
+    protected $title       = null;
+    protected $url         = null;
+    protected $tags        = null;
+    protected $description = null;
 
     /**
      * Returns the title of the action
@@ -78,9 +77,9 @@ class NewbookmarkAction extends Action
     {
         parent::prepare($argarray);
 
-        $this->_user = common_current_user();
+        $this->user = common_current_user();
 
-        if (empty($this->_user)) {
+        if (empty($this->user)) {
             throw new ClientException(_("Must be logged in to post a bookmark."),
                                       403);
         }
@@ -89,10 +88,10 @@ class NewbookmarkAction extends Action
             $this->checkSessionToken();
         }
 
-        $this->_title       = $this->trimmed('title');
-        $this->_url         = $this->trimmed('url');
-        $this->_tags        = $this->trimmed('tags');
-        $this->_description = $this->trimmed('description');
+        $this->title       = $this->trimmed('title');
+        $this->url         = $this->trimmed('url');
+        $this->tags        = $this->trimmed('tags');
+        $this->description = $this->trimmed('description');
 
         return true;
     }
@@ -127,23 +126,23 @@ class NewbookmarkAction extends Action
     function newBookmark()
     {
         try {
-            if (empty($this->_title)) {
+            if (empty($this->title)) {
                 throw new ClientException(_('Bookmark must have a title.'));
             }
 
-            if (empty($this->_url)) {
+            if (empty($this->url)) {
                 throw new ClientException(_('Bookmark must have an URL.'));
             }
 
 
-            $saved = Notice_bookmark::saveNew($this->_user,
-                                              $this->_title,
-                                              $this->_url,
-                                              $this->_tags,
-                                              $this->_description);
+            $saved = Notice_bookmark::saveNew($this->user,
+                                              $this->title,
+                                              $this->url,
+                                              $this->tags,
+                                              $this->description);
 
         } catch (ClientException $ce) {
-            $this->_error = $ce->getMessage();
+            $this->error = $ce->getMessage();
             $this->showPage();
             return;
         }
@@ -159,15 +158,15 @@ class NewbookmarkAction extends Action
 
     function showContent()
     {
-        if (!empty($this->_error)) {
-            $this->element('p', 'error', $this->_error);
+        if (!empty($this->error)) {
+            $this->element('p', 'error', $this->error);
         }
 
         $form = new BookmarkForm($this,
-                                 $this->_title,
-                                 $this->_url,
-                                 $this->_tags,
-                                 $this->_description);
+                                 $this->title,
+                                 $this->url,
+                                 $this->tags,
+                                 $this->description);
 
         $form->show();
 

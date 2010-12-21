@@ -290,6 +290,14 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Add our two queue handlers to the queue manager
+     *
+     * @param QueueManager $qm current queue manager
+     * 
+     * @return boolean hook value
+     */
+
     function onEndInitializeQueueManager($qm)
     {
         $qm->connect('dlcsback', 'DeliciousBackupImporter');
