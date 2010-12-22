@@ -105,6 +105,7 @@ class ActivityObject
     public $thumbnail;
     public $largerImage;
     public $description;
+    public $extra = array();
 
     // Extra stuff, that may need to be serialized
 
