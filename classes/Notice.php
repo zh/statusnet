@@ -234,6 +234,8 @@ class Notice extends Memcached_DataObject
      *                           in place of extracting # tags from content
      *              array 'urls' list of attached/referred URLs to save with the
      *                           notice in place of extracting links from content
+     *              boolean 'distribute' whether to distribute the notice, default true
+     *                    
      * @fixme tag override
      *
      * @return Notice
@@ -243,7 +245,8 @@ class Notice extends Memcached_DataObject
         $defaults = array('uri' => null,
                           'url' => null,
                           'reply_to' => null,
-                          'repeat_of' => null);
+                          'repeat_of' => null,
+                          'distribute' => true);
 
         if (!empty($options)) {
             $options = $options + $defaults;
@@ -426,8 +429,10 @@ class Notice extends Memcached_DataObject
             $notice->saveUrls();
         }
 
-        // Prepare inbox delivery, may be queued to background.
-        $notice->distribute();
+        if ($distribute) {
+            // Prepare inbox delivery, may be queued to background.
+            $notice->distribute();
+        }
 
         return $notice;
     }
