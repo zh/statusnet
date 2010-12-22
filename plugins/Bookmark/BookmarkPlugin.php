@@ -175,48 +175,91 @@ class BookmarkPlugin extends Plugin
                                          $nli->notice->id);
 
         if (!empty($nb)) {
-            $att = $nli->notice->attachments();
-            $nli->out->elementStart('h3');
-            $nli->out->element('a',
-                               array('href' => $att[0]->url),
-                               $nb->title);
-            $nli->out->elementEnd('h3');
-            $nli->out->element('p',
-                               array('class' => 'bookmark_description'),
-                               $nb->description);
-            $nli->out->elementStart('p');
-            $nli->out->element('a', array('href' => $nli->profile->profileurl,
-                                          'class' => 'bookmark_author',
-                                          'title' => $nli->profile->getBestName()),
-                               $nli->profile->getBestName());
-            $nli->out->elementEnd('p');
-            $tags = $nli->notice->getTags();
-            $nli->out->elementStart('ul', array('class' => 'bookmark_tags'));
-            foreach ($tags as $tag) {
-                $nli->out->elementStart('li');
-                $nli->out->element('a', 
-                                   array('rel' => 'tag',
-                                         'href' => Notice_tag::url($tag)),
-                                   $tag);
-                $nli->out->elementEnd('li');
-                $nli->out->text(' ');
+
+            $out     = $nli->out;
+            $notice  = $nli->notice;
+            $profile = $nli->profile;
+
+            $atts = $notice->attachments();
+
+            if (count($atts) < 1) {
+                // Something wrong; let default code deal with it.
+                return true;
             }
-            $nli->out->elementEnd('ul');
+
+            $att = $atts[0];
+
+            $out->elementStart('h3');
+            $out->element('a',
+                          array('href' => $att->url),
+                          $nb->title);
+            $out->elementEnd('h3');
+
+            $out->elementStart('ul', array('class' => 'bookmark_tags'));
+            
+            // Replies look like "for:" tags
+
             $replies = $nli->notice->getReplies();
+
             if (!empty($replies)) {
-                $nli->out->elementStart('ul', array('class' => 'bookmark_mentions'));
                 foreach ($replies as $reply) {
                     $other = Profile::staticGet('id', $reply);
-                    $nli->out->elementStart('li');
-                    $nli->out->element('a', array('rel' => 'tag',
-                                                  'href' => $other->profileurl,
-                                                  'title' => $other->getBestName()),
-                                       sprintf('for:%s', $other->nickname));
-                    $nli->out->elementEnd('li');
-                    $nli->out->text(' ');
+                    $out->elementStart('li');
+                    $out->element('a', array('rel' => 'tag',
+                                             'href' => $other->profileurl,
+                                             'title' => $other->getBestName()),
+                                  sprintf('for:%s', $other->nickname));
+                    $out->elementEnd('li');
+                    $out->text(' ');
                 }
-                $nli->out->elementEnd('ul');
             }
+
+            $tags = $nli->notice->getTags();
+
+            foreach ($tags as $tag) {
+                $out->elementStart('li');
+                $out->element('a', 
+                              array('rel' => 'tag',
+                                    'href' => Notice_tag::url($tag)),
+                              $tag);
+                $out->elementEnd('li');
+                $out->text(' ');
+            }
+
+            $out->elementEnd('ul');
+
+            $out->element('p',
+                          array('class' => 'bookmark_description'),
+                          $nb->description);
+
+            $nli->showNoticeAttachments();
+
+            $out->elementStart('p', array('style' => 'float: left'));
+
+            $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
+
+            $out->element('img', array('src' => ($avatar) ?
+                                       $avatar->displayUrl() :
+                                       Avatar::defaultImage(AVATAR_MINI_SIZE),
+                                       'class' => 'avatar photo bookmark_avatar',
+                                       'width' => AVATAR_MINI_SIZE,
+                                       'height' => AVATAR_MINI_SIZE,
+                                       'alt' => $profile->getBestName()));
+            $out->raw('&nbsp;');
+            $out->element('a', array('href' => $profile->profileurl,
+                                     'title' => $profile->getBestName()),
+                          $profile->nickname);
+
+            $nli->showNoticeLink();
+            $nli->showNoticeSource();
+            $nli->showNoticeLocation();
+            $nli->showContext();
+            $nli->showRepeat();
+
+            $out->elementEnd('p');
+
+            $nli->showNoticeOptions();
+
             return false;
         }
         return true;
