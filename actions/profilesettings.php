@@ -452,4 +452,33 @@ class ProfilesettingsAction extends AccountSettingsAction
             return $other->id != $user->id;
         }
     }
+
+    function showAside() {
+        $user = common_current_user();
+
+        $this->elementStart('div', array('id' => 'aside_primary',
+                                         'class' => 'aside'));
+        if ($user->hasRight(Right::BACKUPACCOUNT)) {
+            $this->elementStart('li');
+            $this->element('a',
+                           array('href' => common_local_url('backupaccount')),
+                           _('Backup account'));
+            $this->elementEnd('li');
+        }
+        if ($user->hasRight(Right::DELETEACCOUNT)) {
+            $this->elementStart('li');
+            $this->element('a',
+                           array('href' => common_local_url('deleteaccount')),
+                           _('Delete account'));
+            $this->elementEnd('li');
+        }
+        if ($user->hasRight(Right::RESTOREACCOUNT)) {
+            $this->elementStart('li');
+            $this->element('a',
+                           array('href' => common_local_url('restoreaccount')),
+                           _('Restore account'));
+            $this->elementEnd('li');
+        }
+        $this->elementEnd('div');
+    }
 }

@@ -105,8 +105,7 @@ class ActivityObject
     public $thumbnail;
     public $largerImage;
     public $description;
-
-	public $extra; // For extra stuff
+    public $extra = array();
 
     /**
      * Constructor
