@@ -119,13 +119,13 @@ class Notice_bookmark extends Memcached_DataObject
     /**
      * Get the bookmark that a user made for an URL
      *
-     * @param User   $user User to check for
-     * @param string $url  URL to check for
+     * @param Profile $profile Profile to check for
+     * @param string  $url     URL to check for
      *
      * @return Notice_bookmark bookmark found or null
      */
      
-    static function getByURL($user, $url)
+    static function getByURL($profile, $url)
     {
         $file = File::staticGet('url', $url);
         if (!empty($file)) {
@@ -136,7 +136,7 @@ class Notice_bookmark extends Memcached_DataObject
                 while ($f2p->fetch()) {
                     $n = Notice::staticGet('id', $f2p->post_id);
                     if (!empty($n)) {
-                        if ($n->profile_id == $user->id) {
+                        if ($n->profile_id == $profile->id) {
                             $nb = Notice_bookmark::staticGet('notice_id', $n->id);
                             if (!empty($nb)) {
                                 return $nb;
@@ -152,20 +152,20 @@ class Notice_bookmark extends Memcached_DataObject
     /**
      * Save a new notice bookmark
      *
-     * @param User   $user        To save the bookmark for
-     * @param string $title       Title of the bookmark
-     * @param string $url         URL of the bookmark
-     * @param mixed  $rawtags     array of tags or string
-     * @param string $description Description of the bookmark
-     * @param array  $options     Options for the Notice::saveNew()
+     * @param Profile $profile     To save the bookmark for
+     * @param string  $title       Title of the bookmark
+     * @param string  $url         URL of the bookmark
+     * @param mixed   $rawtags     array of tags or string
+     * @param string  $description Description of the bookmark
+     * @param array   $options     Options for the Notice::saveNew()
      *
      * @return Notice saved notice
      */
 
-    static function saveNew($user, $title, $url, $rawtags, $description,
+    static function saveNew($profile, $title, $url, $rawtags, $description,
                             $options=null)
     {
-        $nb = self::getByURL($user, $url);
+        $nb = self::getByURL($profile, $url);
 
         if (!empty($nb)) {
             throw new ClientException(_('Bookmark already exists.'));
@@ -187,7 +187,7 @@ class Notice_bookmark extends Memcached_DataObject
         foreach ($rawtags as $tag) {
             if (strtolower(mb_substr($tag, 0, 4)) == 'for:') {
                 $nickname = mb_substr($tag, 4);
-                $other    = common_relative_profile($user->getProfile(),
+                $other    = common_relative_profile($profile,
                                                     $nickname);
                 if (!empty($other)) {
                     $replies[] = $other->getUri();
@@ -208,9 +208,16 @@ class Notice_bookmark extends Memcached_DataObject
             $taglinks[] = XMLStringer::estring('a', $attrs, $tag);
         }
 
+        // Use user's preferences for short URLs, if possible
+
+        $user = User::staticGet('id', $profile->id);
+
+        $shortUrl = File_redirection::makeShort($url, 
+                                                empty($user) ? null : $user);
+
         $content = sprintf(_('"%s" %s %s %s'),
                            $title,
-                           File_redirection::makeShort($url, $user),
+                           $shortUrl,
                            $description,
                            implode(' ', $hashtags));
 
@@ -229,7 +236,7 @@ class Notice_bookmark extends Memcached_DataObject
                                                'tags' => $tags,
                                                'replies' => $replies));
 
-        $saved = Notice::saveNew($user->id,
+        $saved = Notice::saveNew($profile->id,
                                  $content,
                                  'web',
                                  $options);
