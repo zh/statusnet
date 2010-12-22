@@ -48,6 +48,7 @@ if (!defined('STATUSNET')) {
 class RestoreaccountAction extends Action
 {
     private $success = false;
+    private $inprogress = false;
 
     /**
      * Returns the title of the page
@@ -208,8 +209,13 @@ class RestoreaccountAction extends Action
             $qm = QueueManager::get();
             $qm->enqueue(array(common_current_user(), $xml, false), 'feedimp');
 
-            $this->success = true;
-            
+            if ($qm instanceof UnQueueManager) {
+                // No active queuing means we've actually just completed the job!
+                $this->success = true;
+            } else {
+                // We've fed data into background queues, and it's probably still running.
+                $this->inprogress = true;
+            }
             $this->showPage();
 
         } catch (Exception $e) {
@@ -228,6 +234,9 @@ class RestoreaccountAction extends Action
     function showContent()
     {
         if ($this->success) {
+            $this->element('p', null,
+                           _('Feed has been restored. Your old posts should now appear in search and your profile page.'));
+        } else if ($this->inprogress) {
             $this->element('p', null,
                            _('Feed will be restored. Please wait a few minutes for results.'));
         } else {
