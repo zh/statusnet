@@ -107,10 +107,6 @@ class ActivityObject
     public $description;
     public $extra = array();
 
-    // Extra stuff, that may need to be serialized
-
-    public $extra = array();
-
     /**
      * Constructor
      *
