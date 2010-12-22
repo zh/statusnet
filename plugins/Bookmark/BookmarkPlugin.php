@@ -107,8 +107,7 @@ class BookmarkPlugin extends Plugin
 
     function onEndShowStyles($action)
     {
-        $action->style('.bookmark_tags li { display: inline; }');
-        $action->style('.bookmark_mentions li { display: inline; }');
+        $action->cssLink('plugins/Bookmark/bookmark.css');
         return true;
     }
 
