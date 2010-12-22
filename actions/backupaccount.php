@@ -97,7 +97,7 @@ class BackupaccountAction extends Action
 
     function handle($argarray=null)
     {
-        parent::handle($args);
+        parent::handle($argarray);
 
         if ($this->isPost()) {
             $this->sendFeed();
