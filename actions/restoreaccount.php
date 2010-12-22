@@ -95,7 +95,7 @@ class RestoreaccountAction extends Action
 
     function handle($argarray=null)
     {
-        parent::handle($args);
+        parent::handle($argarray);
 
         if ($this->isPost()) {
             $this->restoreAccount();
@@ -143,6 +143,7 @@ class RestoreaccountAction extends Action
             return;
         case UPLOAD_ERR_NO_FILE:
             // No file; probably just a non-AJAX submission.
+            throw new ClientException(_('No uploaded file.'));
             return;
         case UPLOAD_ERR_NO_TMP_DIR:
             // TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
@@ -185,12 +186,19 @@ class RestoreaccountAction extends Action
 
             // This check is costly but we should probably give
             // the user some info ahead of time.
+            $doc = new DOMDocument();
 
-            $doc = DOMDocument::loadXML($xml);
+            // Disable PHP warnings so we don't spew low-level XML errors to output...
+            // would be nice if we can just get exceptions instead.
+            $old_err = error_reporting();
+            error_reporting($old_err & ~E_WARNING);
+            $doc->loadXML($xml);
+            error_reporting($old_err);
 
             $feed = $doc->documentElement;
 
-            if ($feed->namespaceURI != Activity::ATOM ||
+            if (!$feed ||
+                $feed->namespaceURI != Activity::ATOM ||
                 $feed->localName != 'feed') {
                 throw new ClientException(_("Not an atom feed."));
             }
