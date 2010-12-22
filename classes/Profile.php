@@ -858,6 +858,18 @@ class Profile extends Memcached_DataObject
             case Right::EMAILONFAVE:
                 $result = !$this->isSandboxed();
                 break;
+            case Right::BACKUPACCOUNT:
+                $result = common_config('profile', 'backup');
+                break;
+            case Right::RESTOREACCOUNT:
+                $result = common_config('profile', 'restore');
+                break;
+            case Right::DELETEACCOUNT:
+                $result = common_config('profile', 'delete');
+                break;
+            case Right::MOVEACCOUNT:
+                $result = common_config('profile', 'move');
+                break;
             default:
                 $result = false;
                 break;

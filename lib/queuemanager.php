@@ -241,6 +241,8 @@ abstract class QueueManager extends IoManager
 
             // Background user management tasks...
             $this->connect('deluser', 'DelUserQueueHandler');
+            $this->connect('feedimp', 'FeedImporter');
+            $this->connect('actimp', 'ActivityImporter');
 
             // Broadcasting profile updates to OMB remote subscribers
             $this->connect('profile', 'ProfileQueueHandler');

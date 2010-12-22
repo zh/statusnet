@@ -897,54 +897,19 @@ class Ostatus_profile extends Managed_DataObject
      * @return Ostatus_profile
      * @throws Exception
      */
+
     public static function ensureAtomFeed($feedEl, $hints)
     {
-        // Try to get a profile from the feed activity:subject
+        $author = ActivityUtils::getFeedAuthor($feedEl);
 
-        $subject = ActivityUtils::child($feedEl, Activity::SUBJECT, Activity::SPEC);
-
-        if (!empty($subject)) {
-            $subjObject = new ActivityObject($subject);
-            return self::ensureActivityObjectProfile($subjObject, $hints);
+        if (empty($author)) {
+            // XXX: make some educated guesses here
+            // TRANS: Feed sub exception.
+            throw new FeedSubException(_m('Can\'t find enough profile '.
+                                          'information to make a feed.'));
         }
 
-        // Otherwise, try the feed author
-
-        $author = ActivityUtils::child($feedEl, Activity::AUTHOR, Activity::ATOM);
-
-        if (!empty($author)) {
-            $authorObject = new ActivityObject($author);
-            return self::ensureActivityObjectProfile($authorObject, $hints);
-        }
-
-        // Sheesh. Not a very nice feed! Let's try fingerpoken in the
-        // entries.
-
-        $entries = $feedEl->getElementsByTagNameNS(Activity::ATOM, 'entry');
-
-        if (!empty($entries) && $entries->length > 0) {
-
-            $entry = $entries->item(0);
-
-            $actor = ActivityUtils::child($entry, Activity::ACTOR, Activity::SPEC);
-
-            if (!empty($actor)) {
-                $actorObject = new ActivityObject($actor);
-                return self::ensureActivityObjectProfile($actorObject, $hints);
-
-            }
-
-            $author = ActivityUtils::child($entry, Activity::AUTHOR, Activity::ATOM);
-
-            if (!empty($author)) {
-                $authorObject = new ActivityObject($author);
-                return self::ensureActivityObjectProfile($authorObject, $hints);
-            }
-        }
-
-        // XXX: make some educated guesses here
-        // TRANS: Feed sub exception.
-        throw new FeedSubException(_m('Can\'t find enough profile information to make a feed.'));
+        return self::ensureActivityObjectProfile($author, $hints);
     }
 
     /**
