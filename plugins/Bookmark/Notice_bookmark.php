@@ -238,7 +238,8 @@ class Notice_bookmark extends Memcached_DataObject
 
         $saved = Notice::saveNew($profile->id,
                                  $content,
-                                 'web',
+                                 array_key_exists('source', $options) ?
+                                 $options['source'] : 'web',
                                  $options);
 
         if (!empty($saved)) {

@@ -276,10 +276,16 @@ class BookmarkPlugin extends Plugin
      
     function onStartActivityObjectFromNotice($notice, &$object)
     {
+        common_log(LOG_INFO,
+                   "Checking {$notice->uri} to see if it's a bookmark.");
+
         $nb = Notice_bookmark::staticGet('notice_id',
                                          $notice->id);
                                          
         if (!empty($nb)) {
+
+            common_log(LOG_INFO,
+                       "Formatting notice {$notice->uri} as a bookmark.");
 
             $object->id      = $notice->uri;
             $object->type    = ActivityObject::BOOKMARK;
@@ -386,6 +392,105 @@ class BookmarkPlugin extends Plugin
         }
 
         return true;
+    }
+
+    /**
+     * Handle a posted bookmark from PuSH
+     *
+     * @param Activity        $activity activity to handle
+     * @param Ostatus_profile $oprofile Profile for the feed
+     *
+     * @return boolean hook value
+     */
+
+    function onStartHandleFeedEntryWithProfile($activity, $oprofile) {
+
+        common_log(LOG_INFO, "BookmarkPlugin called for new feed entry.");
+
+        if ($activity->verb == ActivityVerb::POST &&
+            $activity->objects[0]->type == ActivityObject::BOOKMARK) {
+
+            common_log(LOG_INFO, "Importing activity {$activity->id} as a bookmark.");
+
+            $author = $oprofile->checkAuthorship($activity);
+
+            if (empty($author)) {
+                throw new ClientException(_('Can\'t get author for activity.'));
+            }
+
+            self::_postRemoteBookmark($author,
+                                      $activity);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    static private function _postRemoteBookmark(Ostatus_profile $author, Activity $activity)
+    {
+        $bookmark = $activity->objects[0];
+
+        $relLinkEls = ActivityUtils::getLinks($bookmark->element, 'related');
+
+        if (count($relLinkEls) < 1) {
+            throw new ClientException(_('Expected exactly 1 link rel=related in a Bookmark.'));
+        }
+
+        if (count($relLinkEls) > 1) {
+            common_log(LOG_WARNING, "Got too many link rel=related in a Bookmark.");
+        }
+
+        $linkEl = $relLinkEls[0];
+
+        $url = $linkEl->getAttribute('href');
+
+        $tags = array();
+
+        foreach ($activity->categories as $category) {
+            $tags[] = common_canonical_tag($category->term);
+        }
+
+        $options = array('uri' => $bookmark->id,
+                         'url' => $bookmark->link,
+                         'created' => common_sql_time($activity->time),
+                         'is_local' => Notice::REMOTE_OMB,
+                         'source' => 'ostatus');
+
+        // Fill in location if available
+
+        $location = $activity->context->location;
+
+        if ($location) {
+            $options['lat'] = $location->lat;
+            $options['lon'] = $location->lon;
+            if ($location->location_id) {
+                $options['location_ns'] = $location->location_ns;
+                $options['location_id'] = $location->location_id;
+            }
+        }
+
+        $replies = $activity->context->attention;
+        $options['groups'] = $author->filterReplies($author, $replies);
+        $options['replies'] = $replies;
+
+        // Maintain direct reply associations
+        // @fixme what about conversation ID?
+
+        if (!empty($activity->context->replyToID)) {
+            $orig = Notice::staticGet('uri',
+                                      $activity->context->replyToID);
+            if (!empty($orig)) {
+                $options['reply_to'] = $orig->id;
+            }
+        }
+
+        Notice_bookmark::saveNew($author->localProfile(),
+                                 $bookmark->title,
+                                 $url,
+                                 $tags,
+                                 $bookmark->summary,
+                                 $options);
     }
 }
 
