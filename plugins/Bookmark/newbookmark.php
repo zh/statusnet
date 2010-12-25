@@ -135,7 +135,7 @@ class NewbookmarkAction extends Action
             }
 
 
-            $saved = Notice_bookmark::saveNew($this->user->getProfile(),
+            $saved = Bookmark::saveNew($this->user->getProfile(),
                                               $this->title,
                                               $this->url,
                                               $this->tags,

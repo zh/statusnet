@@ -43,12 +43,16 @@ if (!defined('STATUSNET')) {
  * @see      DB_DataObject
  */
 
-class Notice_bookmark extends Memcached_DataObject
+class Bookmark extends Memcached_DataObject
 {
-    public $__table = 'notice_bookmark'; // table name
-    public $notice_id;                   // int(4)  primary_key not_null
-    public $title;                       // varchar(255)
-    public $description;                 // text
+    public $__table = 'bookmark'; // table name
+    public $profile_id;           // int(4)  primary_key not_null
+    public $url;                  // varchar(255) primary_key not_null
+    public $title;                // varchar(255)
+    public $description;          // text
+    public $uri;                  // varchar(255)
+    public $url_crc32;            // int(4) not_null
+    public $created;              // datetime
 
     /**
      * Get an instance by key
@@ -64,7 +68,7 @@ class Notice_bookmark extends Memcached_DataObject
 
     function staticGet($k, $v=null)
     {
-        return Memcached_DataObject::staticGet('Notice_bookmark', $k, $v);
+        return Memcached_DataObject::staticGet('Bookmark', $k, $v);
     }
 
     /**
@@ -78,9 +82,13 @@ class Notice_bookmark extends Memcached_DataObject
 
     function table()
     {
-        return array('notice_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+        return array('profile_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'url' => DB_DATAOBJECT_STR,
                      'title' => DB_DATAOBJECT_STR,
-                     'description' => DB_DATAOBJECT_STR);
+                     'description' => DB_DATAOBJECT_STR,
+                     'uri' => DB_DATAOBJECT_STR,
+                     'url_crc32' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
     }
 
     /**
@@ -102,7 +110,9 @@ class Notice_bookmark extends Memcached_DataObject
 
     function keyTypes()
     {
-        return array('notice_id' => 'K');
+        return array('profile_id' => 'K',
+                     'url' => 'K',
+                     'uri' => 'U');
     }
 
     /**
@@ -117,36 +127,59 @@ class Notice_bookmark extends Memcached_DataObject
     }
 
     /**
+     * Get a bookmark based on a notice
+     * 
+     * @param Notice $notice Notice to check for
+     *
+     * @return Bookmark found bookmark or null
+     */
+    
+    function getByNotice($notice)
+    {
+        return self::staticGet('uri', $notice->uri);
+    }
+
+    /**
      * Get the bookmark that a user made for an URL
      *
      * @param Profile $profile Profile to check for
      * @param string  $url     URL to check for
      *
-     * @return Notice_bookmark bookmark found or null
+     * @return Bookmark bookmark found or null
      */
      
     static function getByURL($profile, $url)
     {
-        $file = File::staticGet('url', $url);
-        if (!empty($file)) {
-            $f2p = new File_to_post();
+        return self::pkeyGet(array('profile_id' => $profile->id,
+                                   'url' => $url));
+        return null;
+    }
 
-            $f2p->file_id = $file->id;
-            if ($f2p->find()) {
-                while ($f2p->fetch()) {
-                    $n = Notice::staticGet('id', $f2p->post_id);
-                    if (!empty($n)) {
-                        if ($n->profile_id == $profile->id) {
-                            $nb = Notice_bookmark::staticGet('notice_id', $n->id);
-                            if (!empty($nb)) {
-                                return $nb;
-                            }
-                        }
-                    }
-                }
+    /**
+     * Get the bookmark that a user made for an URL
+     *
+     * @param Profile $profile Profile to check for
+     * @param integer $crc32   CRC-32 of URL to check for
+     *
+     * @return array Bookmark objects found (usually 1 or 0)
+     */
+     
+    static function getByCRC32($profile, $crc32)
+    {
+        $bookmarks = array();
+
+        $nb = new Bookmark();
+        
+        $nb->profile_id = $profile->id;
+        $nb->url_crc32  = $crc32;
+
+        if ($nb->find()) {
+            while ($nb->fetch()) {
+                $bookmarks[] = clone($nb);
             }
         }
-        return null;
+
+        return $bookmarks;
     }
 
     /**
@@ -179,6 +212,32 @@ class Notice_bookmark extends Memcached_DataObject
             $rawtags = preg_split('/[\s,]+/', $rawtags);
         }
 
+        $nb = new Bookmark();
+
+        $nb->profile_id  = $profile->id;
+        $nb->url         = $url;
+        $nb->title       = $title;
+        $nb->description = $description;
+        $nb->url_crc32   = crc32($nb->url);
+        $nb->created     = common_sql_now();
+
+        if (array_key_exists('uri', $options)) {
+            $nb->uri = $options['uri'];
+        } else {
+            $dt = new DateTime($nb->created);
+            // I posit that it's sufficiently impossible
+            // for the same user to generate two CRC-32-clashing
+            // URLs in the same second that this is a safe unique identifier.
+            // If you find a real counterexample, contact me at acct:evan@status.net
+            // and I will publicly apologize for my hubris.
+            $nb->uri = common_local_url('showbookmark',
+                                        array('user' => $profile->id,
+                                              'created' => $dt->format(DateTime::W3C),
+                                              'crc32' => sprintf('%08x', $nb->url_crc32)));
+        }
+
+        $nb->insert();
+
         $tags    = array();
         $replies = array();
 
@@ -196,6 +255,8 @@ class Notice_bookmark extends Memcached_DataObject
                 $tags[] = common_canonical_tag($tag);
             }
         }
+
+        // 
 
         $hashtags = array();
         $taglinks = array();
@@ -236,20 +297,15 @@ class Notice_bookmark extends Memcached_DataObject
                                                'tags' => $tags,
                                                'replies' => $replies));
 
+        if (!array_key_exists('uri', $options)) {
+            $options['uri'] = $nb->uri;
+        }
+
         $saved = Notice::saveNew($profile->id,
                                  $content,
                                  array_key_exists('source', $options) ?
                                  $options['source'] : 'web',
                                  $options);
-
-        if (!empty($saved)) {
-            $nb = new Notice_bookmark();
-
-            $nb->notice_id   = $saved->id;
-            $nb->title       = $title;
-            $nb->description = $description;
-            $nb->insert();
-        }
 
         return $saved;
     }

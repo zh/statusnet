@@ -63,23 +63,52 @@ class BookmarkPlugin extends Plugin
 
         // For storing user-submitted flags on profiles
 
-        $schema->ensureTable('notice_bookmark',
-                             array(new ColumnDef('notice_id',
+        $schema->ensureTable('bookmark',
+                             array(new ColumnDef('profile_id',
                                                  'integer',
                                                  null,
+                                                 false,
+                                                 'PRI'),
+                                   new ColumnDef('url',
+                                                 'varchar',
+                                                 255,
                                                  false,
                                                  'PRI'),
                                    new ColumnDef('title',
                                                  'varchar',
                                                  255),
                                    new ColumnDef('description',
-                                                 'text')));
+                                                 'text'),
+                                   new ColumnDef('uri',
+                                                 'varchar',
+                                                 255,
+                                                 false,
+                                                 'UNI'),
+                                   new ColumnDef('url_crc32',
+                                                 'integer',
+                                                 null,
+                                                 false,
+                                                 'MUL'),
+                                   new ColumnDef('created',
+                                                 'datetime',
+                                                 null,
+                                                 false,
+                                                 'MUL')));
+
+        try {
+            $schema->createIndex('bookmark', 
+                                 array('profile_id', 
+                                       'url_crc32'),
+                                 'bookmark_profile_url_idx');
+        } catch (Exception $e) {
+            common_log(LOG_ERR, $e->getMessage());
+        }
 
         return true;
     }
 
     /**
-     * When a notice is deleted, delete the related Notice_bookmark
+     * When a notice is deleted, delete the related Bookmark
      *
      * @param Notice $notice Notice being deleted
      * 
@@ -88,7 +117,7 @@ class BookmarkPlugin extends Plugin
 
     function onNoticeDeleteRelated($notice)
     {
-        $nb = Notice_bookmark::staticGet('notice_id', $notice->id);
+        $nb = Bookmark::getByNotice($notice);
 
         if (!empty($nb)) {
             $nb->delete();
@@ -129,7 +158,7 @@ class BookmarkPlugin extends Plugin
         case 'BookmarkpopupAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
-        case 'Notice_bookmark':
+        case 'Bookmark':
             include_once $dir.'/'.$cls.'.php';
             return false;
         case 'BookmarkForm':
@@ -158,6 +187,12 @@ class BookmarkPlugin extends Plugin
 
         $m->connect('main/bookmark/popup', array('action' => 'bookmarkpopup'));
 
+        $m->connect('bookmark/:user/:created/:crc32',
+                    array('action' => 'showbookmark'),
+                    array('user' => '[0-9]+',
+                          'created' => '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z',
+                          'crc32' => '[0-9A-F]{8}'));
+
         return true;
     }
 
@@ -171,8 +206,7 @@ class BookmarkPlugin extends Plugin
 
     function onStartShowNoticeItem($nli)
     {
-        $nb = Notice_bookmark::staticGet('notice_id',
-                                         $nli->notice->id);
+        $nb = Bookmark::getByNotice($nli->notice);
 
         if (!empty($nb)) {
 
@@ -279,8 +313,7 @@ class BookmarkPlugin extends Plugin
         common_log(LOG_INFO,
                    "Checking {$notice->uri} to see if it's a bookmark.");
 
-        $nb = Notice_bookmark::staticGet('notice_id',
-                                         $notice->id);
+        $nb = Bookmark::getByNotice($notice);
                                          
         if (!empty($nb)) {
 
@@ -485,7 +518,7 @@ class BookmarkPlugin extends Plugin
             }
         }
 
-        Notice_bookmark::saveNew($author->localProfile(),
+        Bookmark::saveNew($author->localProfile(),
                                  $bookmark->title,
                                  $url,
                                  $tags,
