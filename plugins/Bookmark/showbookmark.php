@@ -113,4 +113,20 @@ class ShowbookmarkAction extends ShownoticeAction
 
         return true;
     }
+
+    function title()
+    {
+        return sprintf(_('%s\'s bookmark for "%s"'),
+                       $this->user->nickname,
+                       $this->bookmark->title);
+    }
+
+    function showPageTitle()
+    {
+        $this->elementStart('h1');
+        $this->element('a',
+                       array('href' => $this->bookmark->url),
+                       $this->bookmark->title);
+        $this->elementEnd('h1');
+    }
 }

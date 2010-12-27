@@ -224,11 +224,16 @@ class BookmarkPlugin extends Plugin
 
             $att = $atts[0];
 
-            $out->elementStart('h3');
-            $out->element('a',
-                          array('href' => $att->url),
-                          $nb->title);
-            $out->elementEnd('h3');
+            // XXX: only show the bookmark URL for non-single-page stuff
+
+            if ($out instanceof ShowbookmarkAction) {
+            } else {
+                $out->elementStart('h3');
+                $out->element('a',
+                              array('href' => $att->url),
+                              $nb->title);
+                $out->elementEnd('h3');
+            }
 
             $out->elementStart('ul', array('class' => 'bookmark_tags'));
             
@@ -267,7 +272,10 @@ class BookmarkPlugin extends Plugin
                           array('class' => 'bookmark_description'),
                           $nb->description);
 
-            $nli->showNoticeAttachments();
+            if (common_config('attachments', 'show_thumbs')) {
+                $al = new InlineAttachmentList($notice, $out);
+                $al->show();
+            }
 
             $out->elementStart('p', array('style' => 'float: left'));
 
