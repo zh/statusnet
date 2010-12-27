@@ -85,7 +85,7 @@ class BookmarkPlugin extends Plugin
                                                  false,
                                                  'UNI'),
                                    new ColumnDef('url_crc32',
-                                                 'integer',
+                                                 'integer unsigned',
                                                  null,
                                                  false,
                                                  'MUL'),
@@ -154,6 +154,7 @@ class BookmarkPlugin extends Plugin
 
         switch ($cls)
         {
+        case 'ShowbookmarkAction':
         case 'NewbookmarkAction':
         case 'BookmarkpopupAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
@@ -190,8 +191,8 @@ class BookmarkPlugin extends Plugin
         $m->connect('bookmark/:user/:created/:crc32',
                     array('action' => 'showbookmark'),
                     array('user' => '[0-9]+',
-                          'created' => '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z',
-                          'crc32' => '[0-9A-F]{8}'));
+                          'created' => '[0-9]{14}',
+                          'crc32' => '[0-9a-f]{8}'));
 
         return true;
     }

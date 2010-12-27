@@ -72,6 +72,24 @@ class Bookmark extends Memcached_DataObject
     }
 
     /**
+     * Get an instance by compound key
+     *
+     * This is a utility method to get a single instance with a given set of
+     * key-value pairs. Usually used for the primary key for a compound key; thus
+     * the name.
+     *
+     * @param array $kv array of key-value mappings
+     *
+     * @return Bookmark object found, or null for no hits
+     *
+     */
+
+    function pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('Bookmark', $kv);
+    }
+
+    /**
      * return table definition for DB_DataObject
      *
      * DB_DataObject needs to know something about the table to manipulate
@@ -219,21 +237,32 @@ class Bookmark extends Memcached_DataObject
         $nb->title       = $title;
         $nb->description = $description;
         $nb->url_crc32   = crc32($nb->url);
-        $nb->created     = common_sql_now();
+
+        if (array_key_exists('created', $options)) {
+            $nb->created = $options['created'];
+        } else {
+            $nb->created = common_sql_now();
+        }
 
         if (array_key_exists('uri', $options)) {
             $nb->uri = $options['uri'];
         } else {
-            $dt = new DateTime($nb->created);
+            $dt = new DateTime($nb->created, new DateTimeZone('UTC'));
+
             // I posit that it's sufficiently impossible
             // for the same user to generate two CRC-32-clashing
             // URLs in the same second that this is a safe unique identifier.
             // If you find a real counterexample, contact me at acct:evan@status.net
             // and I will publicly apologize for my hubris.
+
+            $created = $dt->format('YmdHis');
+
+            $crc32   = sprintf('%08x', $nb->url_crc32);
+
             $nb->uri = common_local_url('showbookmark',
                                         array('user' => $profile->id,
-                                              'created' => $dt->format(DateTime::W3C),
-                                              'crc32' => sprintf('%08x', $nb->url_crc32)));
+                                              'created' => $created,
+                                              'crc32' => $crc32));
         }
 
         $nb->insert();
