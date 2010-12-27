@@ -345,7 +345,7 @@ class BookmarkPlugin extends Plugin
                 $attrs['title'] = $target->title;
             }
 
-            $object->extra[] = array('link', $attrs);
+            $object->extra[] = array('link', $attrs, null);
                                                    
             // Attributes of the thumbnail, if any
 
@@ -363,7 +363,7 @@ class BookmarkPlugin extends Plugin
                     $tattrs['media:height'] = $thumbnail->height;
                 }
 
-                $object->extra[] = array('link', $attrs);
+                $object->extra[] = array('link', $attrs, null);
             }
 
             return false;
@@ -487,7 +487,7 @@ class BookmarkPlugin extends Plugin
 
         $options = array('uri' => $bookmark->id,
                          'url' => $bookmark->link,
-                         'created' => common_sql_time($activity->time),
+                         'created' => common_sql_date($activity->time),
                          'is_local' => Notice::REMOTE_OMB,
                          'source' => 'ostatus');
 
