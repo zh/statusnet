@@ -274,11 +274,13 @@ class Bookmark extends Memcached_DataObject
 
         foreach ($rawtags as $tag) {
             if (strtolower(mb_substr($tag, 0, 4)) == 'for:') {
-                $nickname = mb_substr($tag, 4);
-                $other    = common_relative_profile($profile,
-                                                    $nickname);
-                if (!empty($other)) {
-                    $replies[] = $other->getUri();
+                if (!array_key_exists('replies', $options)) { // skip if done by caller
+                    $nickname = mb_substr($tag, 4);
+                    $other    = common_relative_profile($profile,
+                                                        $nickname);
+                    if (!empty($other)) {
+                        $replies[] = $other->getUri();
+                    }
                 }
             } else {
                 $tags[] = common_canonical_tag($tag);
@@ -321,10 +323,11 @@ class Bookmark extends Memcached_DataObject
                             htmlspecialchars($description),
                             implode(' ', $taglinks));
 
-        $options = array_merge($options, array('urls' => array($url),
-                                               'rendered' => $rendered,
-                                               'tags' => $tags,
-                                               'replies' => $replies));
+        $options = array_merge(array('urls' => array($url),
+                                     'rendered' => $rendered,
+                                     'tags' => $tags,
+                                     'replies' => $replies),
+                               $options);
 
         if (!array_key_exists('uri', $options)) {
             $options['uri'] = $nb->uri;
