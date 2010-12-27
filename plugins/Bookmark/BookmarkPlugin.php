@@ -461,6 +461,52 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Handle a posted bookmark from Salmon
+     *
+     * @param Activity $activity activity to handle
+     * @param mixed    $target   user or group targeted
+     *
+     * @return boolean hook value
+     */
+
+    function onStartHandleSalmonTarget($activity, $target) {
+
+        if ($activity->verb == ActivityVerb::POST &&
+            $activity->objects[0]->type == ActivityObject::BOOKMARK) {
+
+            $this->log(LOG_INFO, "Checking {$activity->id} as a valid Salmon slap.");
+
+            if ($target instanceof User_group) {
+                $uri = $target->getUri();
+                if (!in_array($uri, $activity->context->attention)) {
+                    throw new ClientException(_("Bookmark not posted to this group."));
+                }
+            } else if ($target instanceof User) {
+                $uri = $target->uri;
+                $original = null;
+                if (!empty($activity->context->replyToID)) {
+                    $original = Notice::staticGet('uri', $activity->context->replyToID); 
+                }
+                if (!in_array($uri, $activity->context->attention) &&
+                    (empty($original) || $original->profile_id != $target->id)) {
+                    throw new ClientException(_("Bookmark not posted to this user."));
+                }
+            } else {
+                throw new ServerException(_("Don't know how to handle this kind of target."));
+            }
+
+            $author = Ostatus_profile::ensureActivityObjectProfile($activity->actor);
+
+            self::_postRemoteBookmark($author,
+                                      $activity);
+
+            return false;
+        }
+
+        return true;
+    }
+
     static private function _postRemoteBookmark(Ostatus_profile $author, Activity $activity)
     {
         $bookmark = $activity->objects[0];
