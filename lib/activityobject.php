@@ -570,7 +570,7 @@ class ActivityObject
         }
 
         if (!empty($this->poco)) {
-            $xo->raw($this->poco->asString());
+            $this->poco->outputTo($xo);
         }
 
         foreach ($this->extra as $el) {

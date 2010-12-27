@@ -440,7 +440,7 @@ class Activity
         }
 
         foreach ($this->categories as $cat) {
-            $xs->raw($cat->asString());
+            $cat->outputTo($xs);
         }
 
         // can be either URLs or enclosure objects
