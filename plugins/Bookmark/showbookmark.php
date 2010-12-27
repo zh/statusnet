@@ -75,13 +75,13 @@ class ShowbookmarkAction extends ShownoticeAction
 
         $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
 
-        $crc32 = pack("H*", $this->trimmed('crc32'));
+        sscanf($this->trimmed('crc32'), '%08x', $crc32);
 
         if (empty($crc32)) {
             throw new ClientException(_('No such URL.'), 404);
         }
         
-        $dt = DateTime::createFromFormat(DateTime::W3C,
+        $dt = DateTime::createFromFormat('YmdHis',
                                          $this->trimmed('created'),
                                          new DateTimeZone('UTC'));
 
@@ -90,10 +90,10 @@ class ShowbookmarkAction extends ShownoticeAction
         }
 
         $bookmarks = Bookmark::getByCRC32($this->profile,
-                                                 $this->crc32);
+                                          $crc32);
 
         foreach ($bookmarks as $bookmark) {
-            $bdt = new DateTime($bookmark->created);
+            $bdt = new DateTime($bookmark->created, new DateTimeZone('UTC'));
             if ($bdt->getTimestamp() == $dt->getTimestamp()) {
                 $this->bookmark = $bookmark;
                 break;
