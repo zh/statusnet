@@ -85,8 +85,9 @@ class AtomGroupNoticeFeed extends AtomNoticeFeed
         $this->setId($self);
         $this->setSelfLink($self);
 
-        $this->addAuthorRaw($group->asAtomAuthor());
-        $this->setActivitySubject($group->asActivitySubject());
+        $ao = ActivityObject::fromGroup($group);
+
+        $this->addAuthorRaw($ao->asString('author'));
 
         $this->addLink($group->homeUrl());
     }

@@ -145,12 +145,10 @@ class OStatusPlugin extends Plugin
             $user = $feed->getUser();
             $id   = $user->id;
             $profile = $user->getProfile();
-            $feed->setActivitySubject($profile->asActivityNoun('subject'));
         } else if ($feed instanceof AtomGroupNoticeFeed) {
             $salmonAction = 'groupsalmon';
             $group = $feed->getGroup();
             $id = $group->id;
-            $feed->setActivitySubject($group->asActivitySubject());
         } else {
             return true;
         }
