@@ -172,10 +172,39 @@ class ActivityObject
 
     private function _fromAuthor($element)
     {
-        $this->type  = self::PERSON; // XXX: is this fair?
-        $this->title = $this->_childContent($element, self::NAME);
+        $this->type = $this->_childContent($element,
+                                           Activity::OBJECTTYPE,
+                                           Activity::SPEC);
 
-        $this->id = $this->_childContent($element, self::URI);
+        if (empty($this->type)) {
+            $this->type = self::PERSON; // XXX: is this fair?
+        }
+        
+        // start with <atom:title>
+
+        $title = ActivityUtils::childHtmlContent($element, self::TITLE);
+
+        if (!empty($title)) {
+            $this->title = html_entity_decode(strip_tags($title), ENT_QUOTES, 'UTF-8');
+        }
+
+        // fall back to <atom:name>
+
+        if (empty($this->title)) {
+            $this->title = $this->_childContent($element, self::NAME);
+        }
+
+        // start with <atom:id>
+
+        $this->id = $this->_childContent($element, self::ID);
+
+        // fall back to <atom:uri>
+
+        if (empty($this->id)) {
+            $this->id = $this->_childContent($element, self::URI);
+        }
+
+        // fall further back to <atom:email>
 
         if (empty($this->id)) {
             $email = $this->_childContent($element, self::EMAIL);
@@ -183,6 +212,14 @@ class ActivityObject
                 // XXX: acct: ?
                 $this->id = 'mailto:'.$email;
             }
+        }
+
+        $this->link = ActivityUtils::getPermalink($element);
+
+        // fall finally back to <link rel=alternate>
+
+        if (empty($this->id) && !empty($this->link)) { // fallback if there's no ID
+            $this->id = $this->link;
         }
     }
 
