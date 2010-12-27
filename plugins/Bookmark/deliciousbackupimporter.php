@@ -97,7 +97,6 @@ class DeliciousBackupImporter extends QueueHandler
                 if ($child->nodeType != XML_ELEMENT_NODE) {
                     continue;
                 }
-                common_log(LOG_INFO, $child->tagName);
                 switch (strtolower($child->tagName)) {
                 case 'dt':
                     if (!empty($dt)) {
