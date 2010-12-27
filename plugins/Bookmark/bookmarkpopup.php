@@ -103,4 +103,10 @@ class BookmarkpopupAction extends NewbookmarkAction
     function showFooter()
     {
     }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->script(common_path('plugins/Bookmark/bookmarkpopup.js'));
+    }
 }
