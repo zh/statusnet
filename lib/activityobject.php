@@ -498,14 +498,21 @@ class ActivityObject
 
         $xo->element('activity:object-type', null, $this->type);
 
-        $xo->element(self::ID, null, $this->id);
+        // <author> uses URI
+
+        if ($tag == 'author') {
+            $xo->element(self::URI, null, $this->id);
+        } else {
+            $xo->element(self::ID, null, $this->id);
+        }
 
         if (!empty($this->title)) {
-            $xo->element(
-                self::TITLE,
-                null,
-                common_xml_safe_str($this->title)
-            );
+            $name = common_xml_safe_str($this->title);
+            if ($tag == 'author') {
+                $xo->element(self::NAME, null, $name);
+            } else {
+                $xo->element(self::TITLE, null, $name);
+            }
         }
 
         if (!empty($this->summary)) {

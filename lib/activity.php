@@ -377,13 +377,7 @@ class Activity
         $xs->element('updated', null, $published);
             
         if ($author) {
-            $xs->elementStart('author');
-            $xs->element('uri', array(), $this->actor->id);
-            if ($this->actor->title) {
-                $xs->element('name', array(), $this->actor->title);
-            }
-            $xs->elementEnd('author');
-            $this->actor->outputTo($xs, 'activity:actor');
+            $this->actor->outputTo($xs, 'author');
         }
 
         if ($this->verb != ActivityVerb::POST || count($this->objects) != 1) {
