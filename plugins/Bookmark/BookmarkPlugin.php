@@ -505,8 +505,21 @@ class BookmarkPlugin extends Plugin
         }
 
         $replies = $activity->context->attention;
-        $options['groups'] = $author->filterReplies($author, $replies);
-        $options['replies'] = $replies;
+
+        $options['groups'] = array();
+        $options['replies'] = array();
+
+        foreach ($replies as $replyURI) {
+            $profile = Profile::fromURI($replyURI);
+            if (!empty($profile)) {
+                $options['replies'][] = $replyURI;
+            } else {
+                $group = User_group::staticGet('uri', $replyURI);
+                if (!empty($group)) {
+                    $options['groups'][] = $replyURI;
+                }
+            }
+        }
 
         // Maintain direct reply associations
         // @fixme what about conversation ID?
