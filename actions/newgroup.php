@@ -66,6 +66,13 @@ class NewgroupAction extends Action
             return false;
         }
 
+        $user = common_current_user();
+        $profile = $user->getProfile();
+        if (!$profile->hasRight(Right::CREATEGROUP)) {
+            // TRANS: Client exception thrown when a user tries to create a group while banned.
+            throw new ClientException(_('You are not allowed to create groups on this site.'), 403);
+        }
+
         return true;
     }
 
