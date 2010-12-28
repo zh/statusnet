@@ -1026,3 +1026,17 @@ StartActivityObjectFromGroup: When converting a group to an activity:object
 EndActivityObjectFromGroup:  After converting a group to an activity:object
 - $group:  The group being converted
 - &$object: The finished object. Tweak as needed.
+
+StartImportActivity: when we start to import an activity
+- $user: User to make the author import
+- $author: Author of the feed; good for comparisons
+- $activity: The current activity
+- $trusted: How "trusted" the process is
+- &$done: Return value; whether to continue
+
+EndImportActivity: when we finish importing an activity
+- $user: User to make the author import
+- $author: Author of the feed; good for comparisons
+- $activity: The current activity
+- $trusted: How "trusted" the process is
+
