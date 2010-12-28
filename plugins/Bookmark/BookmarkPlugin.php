@@ -449,8 +449,7 @@ class BookmarkPlugin extends Plugin
 
         common_log(LOG_INFO, "BookmarkPlugin called for new feed entry.");
 
-        if ($activity->verb == ActivityVerb::POST &&
-            $activity->objects[0]->type == ActivityObject::BOOKMARK) {
+        if (self::_isPostBookmark($activity)) {
 
             common_log(LOG_INFO, "Importing activity {$activity->id} as a bookmark.");
 
@@ -480,8 +479,7 @@ class BookmarkPlugin extends Plugin
 
     function onStartHandleSalmonTarget($activity, $target) {
 
-        if ($activity->verb == ActivityVerb::POST &&
-            $activity->objects[0]->type == ActivityObject::BOOKMARK) {
+        if (self::_isPostBookmark($activity)) {
 
             $this->log(LOG_INFO, "Checking {$activity->id} as a valid Salmon slap.");
 
@@ -515,7 +513,30 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
+    function onStartAtomPubNewActivity(&$activity, $user)
+    {
+        if (self::_isPostBookmark($activity)) {
+            $options = array('source' => 'atompub');
+            self::_postBookmark($user->getProfile(), $activity, $options);
+            return false;
+        }
+
+        return true;
+    }
+
     static private function _postRemoteBookmark(Ostatus_profile $author, Activity $activity)
+    {
+        $bookmark = $activity->objects[0];
+
+        $options = array('uri' => $bookmark->id,
+                         'url' => $bookmark->link,
+                         'is_local' => Notice::REMOTE_OMB,
+                         'source' => 'ostatus');
+        
+        return self::_postBookmark($author->localProfile(), $activity, $options);
+    }
+
+    static private function _postBookmark(Profile $profile, Activity $activity, $options=array())
     {
         $bookmark = $activity->objects[0];
 
@@ -539,11 +560,9 @@ class BookmarkPlugin extends Plugin
             $tags[] = common_canonical_tag($category->term);
         }
 
-        $options = array('uri' => $bookmark->id,
-                         'url' => $bookmark->link,
-                         'created' => common_sql_date($activity->time),
-                         'is_local' => Notice::REMOTE_OMB,
-                         'source' => 'ostatus');
+        if (!empty($activity->time)) {
+            $options['created'] = common_sql_date($activity->time);
+        }
 
         // Fill in location if available
 
@@ -564,8 +583,8 @@ class BookmarkPlugin extends Plugin
         $options['replies'] = array();
 
         foreach ($replies as $replyURI) {
-            $profile = Profile::fromURI($replyURI);
-            if (!empty($profile)) {
+            $other = Profile::fromURI($replyURI);
+            if (!empty($other)) {
                 $options['replies'][] = $replyURI;
             } else {
                 $group = User_group::staticGet('uri', $replyURI);
@@ -586,12 +605,18 @@ class BookmarkPlugin extends Plugin
             }
         }
 
-        Bookmark::saveNew($author->localProfile(),
+        return Bookmark::saveNew($profile,
                                  $bookmark->title,
                                  $url,
                                  $tags,
                                  $bookmark->summary,
                                  $options);
+    }
+
+    static private function _isPostBookmark($activity)
+    {
+        return ($activity->verb == ActivityVerb::POST &&
+                $activity->objects[0]->type == ActivityObject::BOOKMARK);
     }
 }
 
