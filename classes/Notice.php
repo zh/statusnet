@@ -135,6 +135,7 @@ class Notice extends Memcached_DataObject
             $this->clearFaves();
             $this->clearTags();
             $this->clearGroupInboxes();
+            $this->clearFiles();
 
             // NOTE: we don't clear inboxes
             // NOTE: we don't clear queue items
@@ -1783,6 +1784,21 @@ class Notice extends Memcached_DataObject
         }
 
         $reply->free();
+    }
+
+    function clearFiles()
+    {
+        $f2p = new File_to_post();
+
+        $f2p->post_id = $this->id;
+
+        if ($f2p->find()) {
+            while ($f2p->fetch()) {
+                $f2p->delete();
+            }
+        }
+        // FIXME: decide whether to delete File objects
+        // ...and related (actual) files
     }
 
     function clearRepeats()
