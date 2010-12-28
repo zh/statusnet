@@ -239,6 +239,11 @@ class BookmarkPlugin extends Plugin
                               array('href' => $att->url),
                               $nb->title);
                 $out->elementEnd('h3');
+
+                $out->element('a', array('class' => 'bookmark_notice_count',
+                                         'href' => common_local_url('noticebyurl',
+                                                                    array('id' => $att->id))),
+                              $att->noticeCount());
             }
 
             $out->elementStart('ul', array('class' => 'bookmark_tags'));
