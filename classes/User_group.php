@@ -476,6 +476,16 @@ class User_group extends Memcached_DataObject
     }
 
     static function register($fields) {
+        if (!empty($fields['userid'])) {
+            $profile = Profile::staticGet('id', $fields['userid']);
+            if ($profile && !$profile->hasRight(Right::CREATEGROUP)) {
+                common_log(LOG_WARNING, "Attempted group creation from banned user: " . $profile->nickname);
+
+                // TRANS: Client exception thrown when a user tries to create a group while banned.
+                throw new ClientException(_('You are not allowed to create groups on this site.'), 403);
+            }
+        }
+
         // MAGICALLY put fields into current scope
 
         extract($fields);

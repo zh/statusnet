@@ -324,7 +324,9 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         $activity = new Activity($dom->documentElement);
 
-        if (Event::handle('StartAtomPubNewActivity', array(&$activity))) {
+        $saved = null;
+
+        if (Event::handle('StartAtomPubNewActivity', array(&$activity, $this->user, &$saved))) {
 
             if ($activity->verb != ActivityVerb::POST) {
                 // TRANS: Client error displayed when not using the POST verb.
@@ -347,7 +349,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
             $saved = $this->postNote($activity);
 
-            Event::handle('EndAtomPubNewActivity', array($activity, $saved));
+            Event::handle('EndAtomPubNewActivity', array($activity, $this->user, $saved));
         }
 
         if (!empty($saved)) {

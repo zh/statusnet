@@ -109,6 +109,11 @@ class Notice extends Memcached_DataObject
         // @fixme we have some cases where things get re-run and so the
         // insert fails.
         $deleted = Deleted_notice::staticGet('id', $this->id);
+
+        if (!$deleted) {
+            $deleted = Deleted_notice::staticGet('uri', $this->uri);
+        }
+
         if (!$deleted) {
             $deleted = new Deleted_notice();
 
@@ -2033,7 +2038,7 @@ class Notice extends Memcached_DataObject
      */
     public static function addWhereSinceId(DB_DataObject $obj, $id, $idField='id', $createdField='created')
     {
-        $since = self::whereSinceId($id);
+        $since = self::whereSinceId($id, $idField, $createdField);
         if ($since) {
             $obj->whereAdd($since);
         }
@@ -2072,7 +2077,7 @@ class Notice extends Memcached_DataObject
      */
     public static function addWhereMaxId(DB_DataObject $obj, $id, $idField='id', $createdField='created')
     {
-        $max = self::whereMaxId($id);
+        $max = self::whereMaxId($id, $idField, $createdField);
         if ($max) {
             $obj->whereAdd($max);
         }
