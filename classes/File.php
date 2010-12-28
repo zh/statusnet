@@ -413,6 +413,14 @@ class File extends Memcached_DataObject
         return File_thumbnail::staticGet('file_id', $this->id);
     }
 
+    /**
+     * Blow the cache of notices that link to this URL
+     *
+     * @param boolean $last Whether to blow the "last" cache too
+     *
+     * @return void
+     */
+
     function blowCache($last=false)
     {
         self::blow('file:notice-ids:%s', $this->url);
@@ -435,10 +443,11 @@ class File extends Memcached_DataObject
     function stream($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array($this, '_streamDirect'),
-                              null,
+                              array(),
                               'file:notice-ids:'.$this->url,
                               $offset, $limit, $since_id, $max_id);
-        return $ids;
+
+        return Notice::getStreamByIds($ids);
     }
 
     /**
@@ -456,22 +465,25 @@ class File extends Memcached_DataObject
     {
         $f2p = new File_to_post();
 
+        $f2p->selectAdd();
+        $f2p->selectAdd('post_id');
+
         $f2p->file_id = $this->id;
 
         Notice::addWhereSinceId($f2p, $since_id, 'post_id', 'modified');
         Notice::addWhereMaxId($f2p, $max_id, 'post_id', 'modified');
 
-        $f2p->orderBy('modified DESC, notice_id DESC');
+        $f2p->orderBy('modified DESC, post_id DESC');
 
         if (!is_null($offset)) {
-            $reply->limit($offset, $limit);
+            $f2p->limit($offset, $limit);
         }
 
         $ids = array();
 
         if ($f2p->find()) {
             while ($f2p->fetch()) {
-                $ids[] = $f2p->notice_id;
+                $ids[] = $f2p->post_id;
             }
         }
 
