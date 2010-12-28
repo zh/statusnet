@@ -157,6 +157,7 @@ class BookmarkPlugin extends Plugin
         case 'ShowbookmarkAction':
         case 'NewbookmarkAction':
         case 'BookmarkpopupAction':
+        case 'NoticebyurlAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'Bookmark':
@@ -186,13 +187,18 @@ class BookmarkPlugin extends Plugin
                     array('action' => 'newbookmark'),
                     array('id' => '[0-9]+'));
 
-        $m->connect('main/bookmark/popup', array('action' => 'bookmarkpopup'));
+        $m->connect('main/bookmark/popup',
+                    array('action' => 'bookmarkpopup'));
 
         $m->connect('bookmark/:user/:created/:crc32',
                     array('action' => 'showbookmark'),
                     array('user' => '[0-9]+',
                           'created' => '[0-9]{14}',
                           'crc32' => '[0-9a-f]{8}'));
+
+        $m->connect('notice/by-url/:id',
+                    array('action' => 'noticebyurl'),
+                    array('id' => '[0-9]+'));
 
         return true;
     }
