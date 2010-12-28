@@ -524,6 +524,30 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
+    function onStartImportActivity($user, $author, $activity, $trusted, &$done) {
+
+        if (self::_isPostBookmark($activity)) {
+
+            $bookmark = $activity->objects[0];
+
+            $this->log(LOG_INFO, 'Importing Bookmark ' . $bookmark->id . ' for user ' . $user->nickname);
+
+            $options = array('uri' => $bookmark->id,
+                             'url' => $bookmark->link,
+                             'source' => 'restore');
+
+            $saved = self::_postBookmark($user->getProfile(), $activity, $options);
+
+            if (!empty($saved)) {
+                $done = true;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
     static private function _postRemoteBookmark(Ostatus_profile $author, Activity $activity)
     {
         $bookmark = $activity->objects[0];
