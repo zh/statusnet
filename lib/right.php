@@ -65,5 +65,6 @@ class Right
     const RESTOREACCOUNT     = 'restoreaccount';
     const DELETEACCOUNT      = 'deleteaccount';
     const MOVEACCOUNT        = 'moveaccount';
+    const CREATEGROUP        = 'creategroup';
 }
 
