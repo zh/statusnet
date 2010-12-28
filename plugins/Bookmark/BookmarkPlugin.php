@@ -513,11 +513,11 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
-    function onStartAtomPubNewActivity(&$activity, $user)
+    function onStartAtomPubNewActivity(&$activity, $user, &$notice)
     {
         if (self::_isPostBookmark($activity)) {
             $options = array('source' => 'atompub');
-            self::_postBookmark($user->getProfile(), $activity, $options);
+            $notice = self::_postBookmark($user->getProfile(), $activity, $options);
             return false;
         }
 
