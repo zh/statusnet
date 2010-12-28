@@ -81,9 +81,8 @@ class ShowbookmarkAction extends ShownoticeAction
             throw new ClientException(_('No such URL.'), 404);
         }
         
-        $dt = DateTime::createFromFormat('YmdHis',
-                                         $this->trimmed('created'),
-                                         new DateTimeZone('UTC'));
+        $dt = new DateTime($this->trimmed('created'),
+			   new DateTimeZone('UTC'));
 
         if (empty($dt)) {
             throw new ClientException(_('No such create date.'), 404);
@@ -92,9 +91,9 @@ class ShowbookmarkAction extends ShownoticeAction
         $bookmarks = Bookmark::getByCRC32($this->profile,
                                           $crc32);
 
-        foreach ($bookmarks as $bookmark) {
+	foreach ($bookmarks as $bookmark) {
             $bdt = new DateTime($bookmark->created, new DateTimeZone('UTC'));
-            if ($bdt->getTimestamp() == $dt->getTimestamp()) {
+            if ($bdt->format('U') == $dt->format('U')) {
                 $this->bookmark = $bookmark;
                 break;
             }
