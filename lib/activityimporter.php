@@ -63,31 +63,40 @@ class ActivityImporter extends QueueHandler
 
         $this->trusted = $trusted;
 
-        try {
-            switch ($activity->verb) {
-            case ActivityVerb::FOLLOW:
-                $this->subscribeProfile($user, $author, $activity);
-                break;
-            case ActivityVerb::JOIN:
-                $this->joinGroup($user, $activity);
-                break;
-            case ActivityVerb::POST:
-                $this->postNote($user, $author, $activity);
-                break;
-            default:
-                throw new Exception("Unknown verb: {$activity->verb}");
+        $done = null;
+
+        if (Event::handle('StartImportActivity', 
+                          array($user, $author, $activity, $trusted, &$done))) {
+
+            try {
+                switch ($activity->verb) {
+                case ActivityVerb::FOLLOW:
+                    $this->subscribeProfile($user, $author, $activity);
+                    break;
+                case ActivityVerb::JOIN:
+                    $this->joinGroup($user, $activity);
+                    break;
+                case ActivityVerb::POST:
+                    $this->postNote($user, $author, $activity);
+                    break;
+                default:
+                    throw new ClientException("Unknown verb: {$activity->verb}");
+                }
+                Event::handle('EndImportActivity', 
+                              array($user, $author, $activity, $trusted));
+                $done = true;
+            } catch (ClientException $ce) {
+                common_log(LOG_WARNING, $ce->getMessage());
+                $done = true;
+            } catch (ServerException $se) {
+                common_log(LOG_ERR, $se->getMessage());
+                $done = false;
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                $done = false;
             }
-        } catch (ClientException $ce) {
-            common_log(LOG_WARNING, $ce->getMessage());
-            return true;
-        } catch (ServerException $se) {
-            common_log(LOG_ERR, $se->getMessage());
-            return false;
-        } catch (Exception $e) {
-            common_log(LOG_ERR, $e->getMessage());
-            return false;
         }
-        return true;
+        return $done;
     }
     
     function subscribeProfile($user, $author, $activity)
