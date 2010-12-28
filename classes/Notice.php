@@ -2033,7 +2033,7 @@ class Notice extends Memcached_DataObject
      */
     public static function addWhereSinceId(DB_DataObject $obj, $id, $idField='id', $createdField='created')
     {
-        $since = self::whereSinceId($id);
+        $since = self::whereSinceId($id, $idField, $createdField);
         if ($since) {
             $obj->whereAdd($since);
         }
@@ -2072,7 +2072,7 @@ class Notice extends Memcached_DataObject
      */
     public static function addWhereMaxId(DB_DataObject $obj, $id, $idField='id', $createdField='created')
     {
-        $max = self::whereMaxId($id);
+        $max = self::whereMaxId($id, $idField, $createdField);
         if ($max) {
             $obj->whereAdd($max);
         }
