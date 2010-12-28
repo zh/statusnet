@@ -109,6 +109,11 @@ class Notice extends Memcached_DataObject
         // @fixme we have some cases where things get re-run and so the
         // insert fails.
         $deleted = Deleted_notice::staticGet('id', $this->id);
+
+        if (!$deleted) {
+            $deleted = Deleted_notice::staticGet('uri', $this->uri);
+        }
+
         if (!$deleted) {
             $deleted = new Deleted_notice();
 
