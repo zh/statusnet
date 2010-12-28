@@ -226,6 +226,13 @@ class Bookmark extends Memcached_DataObject
             $options = array();
         }
 
+        if (array_key_exists('uri', $options)) {
+            $other = Bookmark::staticGet('uri', $options['uri']);
+            if (!empty($other)) {
+                throw new ClientException(_('Bookmark already exists.'));
+            }
+        }
+
         if (is_string($rawtags)) {
             $rawtags = preg_split('/[\s,]+/', $rawtags);
         }
@@ -286,8 +293,6 @@ class Bookmark extends Memcached_DataObject
                 $tags[] = common_canonical_tag($tag);
             }
         }
-
-        // 
 
         $hashtags = array();
         $taglinks = array();
