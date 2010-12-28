@@ -427,6 +427,7 @@ class File extends Memcached_DataObject
         if ($last) {
             self::blow('file:notice-ids:%s;last', $this->url);
         }
+        self::blow('file:notice-count:%d', $this->id);
     }
 
     /**
@@ -488,5 +489,25 @@ class File extends Memcached_DataObject
         }
 
         return $ids;
+    }
+
+    function noticeCount()
+    {
+        $cacheKey = sprintf('file:notice-count:%d', $this->id);
+        
+        $count = self::cacheGet($cacheKey);
+
+        if ($count === false) {
+
+            $f2p = new File_to_post();
+
+            $f2p->file_id = $this->id;
+
+            $count = $f2p->count();
+
+            self::cacheSet($cacheKey, $count);
+        } 
+
+        return $count;
     }
 }
