@@ -969,9 +969,12 @@ EndRevokeRole: when a role has been revoked
 
 StartAtomPubNewActivity: When a new activity comes in through Atom Pub API
 - &$activity: received activity
+- $user: user publishing the entry
+- &$notice: notice created; initially null, can be set
 
 EndAtomPubNewActivity: When a new activity comes in through Atom Pub API
 - $activity: received activity
+- $user: user publishing the entry
 - $notice: notice that was created
 
 StartXrdActionAliases: About to set aliases for the XRD object for a user
@@ -1023,3 +1026,22 @@ StartActivityObjectFromGroup: When converting a group to an activity:object
 EndActivityObjectFromGroup:  After converting a group to an activity:object
 - $group:  The group being converted
 - &$object: The finished object. Tweak as needed.
+
+StartImportActivity: when we start to import an activity
+- $user: User to make the author import
+- $author: Author of the feed; good for comparisons
+- $activity: The current activity
+- $trusted: How "trusted" the process is
+- &$done: Return value; whether to continue
+
+EndImportActivity: when we finish importing an activity
+- $user: User to make the author import
+- $author: Author of the feed; good for comparisons
+- $activity: The current activity
+- $trusted: How "trusted" the process is
+
+StartProfileSettingsActions: when we're showing account-management action list
+- $action: Action being shown (use for output)
+
+EndProfileSettingsActions: when we're showing account-management action list
+- $action: Action being shown (use for output)
