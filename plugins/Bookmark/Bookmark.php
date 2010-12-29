@@ -106,7 +106,8 @@ class Bookmark extends Memcached_DataObject
                      'description' => DB_DATAOBJECT_STR,
                      'uri' => DB_DATAOBJECT_STR,
                      'url_crc32' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-                     'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
+                     'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + 
+                     DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
     }
 
     /**
@@ -264,7 +265,7 @@ class Bookmark extends Memcached_DataObject
 
             $created = $dt->format('YmdHis');
 
-            $crc32   = sprintf('%08x', $nb->url_crc32);
+            $crc32 = sprintf('%08x', $nb->url_crc32);
 
             $nb->uri = common_local_url('showbookmark',
                                         array('user' => $profile->id,
@@ -281,7 +282,8 @@ class Bookmark extends Memcached_DataObject
 
         foreach ($rawtags as $tag) {
             if (strtolower(mb_substr($tag, 0, 4)) == 'for:') {
-                if (!array_key_exists('replies', $options)) { // skip if done by caller
+                // skip if done by caller
+                if (!array_key_exists('replies', $options)) {
                     $nickname = mb_substr($tag, 4);
                     $other    = common_relative_profile($profile,
                                                         $nickname);
