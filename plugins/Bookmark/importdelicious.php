@@ -49,6 +49,12 @@ class ImportdeliciousAction extends Action
 {
     protected $success = false;
 
+    /**
+     * Return the title of the page
+     *
+     * @return string page title
+     */
+
     function title()
     {
         return _("Import del.icio.us bookmarks");
@@ -69,7 +75,9 @@ class ImportdeliciousAction extends Action
         $cur = common_current_user();
 
         if (empty($cur)) {
-            throw new ClientException(_('Only logged-in users can import del.icio.us backups.'), 403);
+            throw new ClientException(_('Only logged-in users can '.
+                                        'import del.icio.us backups.'),
+                                      403);
         }
 
         if (!$cur->hasRight(BookmarkPlugin::IMPORTDELICIOUS)) {
@@ -119,7 +127,7 @@ class ImportdeliciousAction extends Action
         case UPLOAD_ERR_OK: // success, jump out
             break;
         case UPLOAD_ERR_INI_SIZE:
-            // TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
+            // TRANS: Client exception thrown when an uploaded file is too large.
             throw new ClientException(_('The uploaded file exceeds the ' .
                 'upload_max_filesize directive in php.ini.'));
             return;
@@ -140,21 +148,21 @@ class ImportdeliciousAction extends Action
             throw new ClientException(_('No uploaded file.'));
             return;
         case UPLOAD_ERR_NO_TMP_DIR:
-            // TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
+            // TRANS: Client exception thrown when a temporary folder is not present
             throw new ClientException(_('Missing a temporary folder.'));
             return;
         case UPLOAD_ERR_CANT_WRITE:
-            // TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
+            // TRANS: Client exception thrown when writing to disk is not possible
             throw new ClientException(_('Failed to write file to disk.'));
             return;
         case UPLOAD_ERR_EXTENSION:
-            // TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
+            // TRANS: Client exception thrown when a file upload has been stopped
             throw new ClientException(_('File upload stopped by extension.'));
             return;
         default:
             common_log(LOG_ERR, __METHOD__ . ": Unknown upload error " .
                 $_FILES[ImportDeliciousForm::FILEINPUT]['error']);
-            // TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
+            // TRANS: Client exception thrown when a file upload operation has failed
             throw new ClientException(_('System error uploading file.'));
             return;
         }
@@ -194,11 +202,18 @@ class ImportdeliciousAction extends Action
         }
     }
 
+    /**
+     * Show the content of the page
+     *
+     * @return void
+     */
+
     function showContent()
     {
         if ($this->success) {
             $this->element('p', null,
-                           _('Feed will be restored. Please wait a few minutes for results.'));
+                           _('Feed will be restored. '.
+                             'Please wait a few minutes for results.'));
         } else {
             $form = new ImportDeliciousForm($this);
             $form->show();
@@ -236,7 +251,18 @@ class ImportDeliciousForm extends Form
 {
     const FILEINPUT = 'deliciousbackupfile';
 
-    function __construct($out=null) {
+    /**
+     * Constructor
+     * 
+     * Set the encoding type, since this is a file upload.
+     *
+     * @param HTMLOutputter $out output channel
+     *
+     * @return ImportDeliciousForm this
+     */
+
+    function __construct($out=null)
+    {
         parent::__construct($out);
         $this->enctype = 'multipart/form-data';
     }
@@ -275,7 +301,8 @@ class ImportDeliciousForm extends Form
     {
         $this->out->elementStart('p', 'instructions');
 
-        $this->out->raw(_('You can upload a backed-up delicious.com bookmarks file.'));
+        $this->out->raw(_('You can upload a backed-up '.
+                          'delicious.com bookmarks file.'));
         
         $this->out->elementEnd('p');
 
