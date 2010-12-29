@@ -47,6 +47,16 @@ if (!defined('STATUSNET')) {
 class BookmarkPlugin extends Plugin
 {
     const VERSION = '0.1';
+    const IMPORTDELICIOUS = 'BookmarkPlugin:IMPORTDELICIOUS';
+
+    function onUserRightsCheck($profile, $right, &$result)
+    {
+        if ($right == self::IMPORTDELICIOUS) {
+            $result = !$profile->isSilenced();
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Database schema setup
@@ -158,6 +168,7 @@ class BookmarkPlugin extends Plugin
         case 'NewbookmarkAction':
         case 'BookmarkpopupAction':
         case 'NoticebyurlAction':
+        case 'ImportdeliciousAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'Bookmark':
@@ -189,6 +200,9 @@ class BookmarkPlugin extends Plugin
 
         $m->connect('main/bookmark/popup',
                     array('action' => 'bookmarkpopup'));
+
+        $m->connect('main/bookmark/import',
+                    array('action' => 'importdelicious'));
 
         $m->connect('bookmark/:user/:created/:crc32',
                     array('action' => 'showbookmark'),
