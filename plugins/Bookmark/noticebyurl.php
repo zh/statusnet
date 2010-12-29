@@ -80,6 +80,12 @@ class NoticebyurlAction extends Action
         return true;
     }
 
+    /**
+     * Title of the page
+     *
+     * @return string page title
+     */
+
     function title()
     {
         if ($this->page == 1) {
@@ -103,6 +109,14 @@ class NoticebyurlAction extends Action
     {
         $this->showPage();
     }
+
+    /**
+     * Show main page content.
+     *
+     * Shows a list of the notices that link to the given URL
+     *
+     * @return void
+     */
 
     function showContent()
     {
