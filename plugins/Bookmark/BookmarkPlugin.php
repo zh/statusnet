@@ -573,6 +573,21 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
+    function onEndProfileSettingsActions($action)
+    {
+        $user = common_current_user();
+        
+        if (!empty($user) && $user->hasRight(self::IMPORTDELICIOUS)) {
+            $action->elementStart('li');
+            $action->element('a',
+                             array('href' => common_local_url('importdelicious')),
+                             _('Import del.icio.us bookmarks'));
+            $action->elementEnd('li');
+        }
+
+        return true;
+    }
+
     static private function _postRemoteBookmark(Ostatus_profile $author, Activity $activity)
     {
         $bookmark = $activity->objects[0];
