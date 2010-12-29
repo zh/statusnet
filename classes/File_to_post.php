@@ -56,7 +56,7 @@ class File_to_post extends Memcached_DataObject
                 $f = File::staticGet($file_id);
 
                 if (!empty($f)) {
-                    $f->blowNoticeCache();
+                    $f->blowCache();
                 }
             }
 
@@ -77,7 +77,7 @@ class File_to_post extends Memcached_DataObject
     {
         $f = File::staticGet('id', $this->file_id);
         if (!empty($f)) {
-            $f->blowNoticeCache();
+            $f->blowCache();
         }
         return parent::delete();
     }
