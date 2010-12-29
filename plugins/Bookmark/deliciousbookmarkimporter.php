@@ -97,11 +97,12 @@ class DeliciousBookmarkImporter extends QueueHandler
         $created = common_sql_date(intval($addDate));
 
         $saved = Bookmark::saveNew($user->getProfile(),
-                                          $title,
-                                          $url,
-                                          $tags,
-                                          $description,
-                                          array('created' => $created));
+                                   $title,
+                                   $url,
+                                   $tags,
+                                   $description,
+                                   array('created' => $created,
+                                         'distribute' => false));
 
         return true;
     }
