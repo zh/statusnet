@@ -46,8 +46,20 @@ if (!defined('STATUSNET')) {
 
 class BookmarkPlugin extends Plugin
 {
-    const VERSION = '0.1';
+    const VERSION         = '0.1';
     const IMPORTDELICIOUS = 'BookmarkPlugin:IMPORTDELICIOUS';
+
+    /**
+     * Authorization for importing delicious bookmarks
+     *
+     * By default, everyone can import bookmarks except silenced people.
+     *
+     * @param Profile $profile Person whose rights to check
+     * @param string  $right   Right to check; const value
+     * @param boolean &$result Result of the check, writeable
+     *
+     * @return boolean hook value
+     */
 
     function onUserRightsCheck($profile, $right, &$result)
     {
@@ -254,9 +266,11 @@ class BookmarkPlugin extends Plugin
                               $nb->title);
                 $out->elementEnd('h3');
 
+                $countUrl = common_local_url('noticebyurl',
+                                             array('id' => $att->id));
+
                 $out->element('a', array('class' => 'bookmark_notice_count',
-                                         'href' => common_local_url('noticebyurl',
-                                                                    array('id' => $att->id))),
+                                         'href' => $countUrl),
                               $att->noticeCount());
             }
 
@@ -470,13 +484,14 @@ class BookmarkPlugin extends Plugin
      * @return boolean hook value
      */
 
-    function onStartHandleFeedEntryWithProfile($activity, $oprofile) {
-
+    function onStartHandleFeedEntryWithProfile($activity, $oprofile)
+    {
         common_log(LOG_INFO, "BookmarkPlugin called for new feed entry.");
 
         if (self::_isPostBookmark($activity)) {
 
-            common_log(LOG_INFO, "Importing activity {$activity->id} as a bookmark.");
+            common_log(LOG_INFO, 
+                       "Importing activity {$activity->id} as a bookmark.");
 
             $author = $oprofile->checkAuthorship($activity);
 
@@ -502,8 +517,8 @@ class BookmarkPlugin extends Plugin
      * @return boolean hook value
      */
 
-    function onStartHandleSalmonTarget($activity, $target) {
-
+    function onStartHandleSalmonTarget($activity, $target)
+    {
         if (self::_isPostBookmark($activity)) {
 
             $this->log(LOG_INFO, "Checking {$activity->id} as a valid Salmon slap.");
@@ -511,20 +526,25 @@ class BookmarkPlugin extends Plugin
             if ($target instanceof User_group) {
                 $uri = $target->getUri();
                 if (!in_array($uri, $activity->context->attention)) {
-                    throw new ClientException(_("Bookmark not posted to this group."));
+                    throw new ClientException(_("Bookmark not posted ".
+                                                "to this group."));
                 }
             } else if ($target instanceof User) {
-                $uri = $target->uri;
+                $uri      = $target->uri;
                 $original = null;
                 if (!empty($activity->context->replyToID)) {
-                    $original = Notice::staticGet('uri', $activity->context->replyToID); 
+                    $original = Notice::staticGet('uri', 
+                                                  $activity->context->replyToID); 
                 }
                 if (!in_array($uri, $activity->context->attention) &&
-                    (empty($original) || $original->profile_id != $target->id)) {
-                    throw new ClientException(_("Bookmark not posted to this user."));
+                    (empty($original) ||
+                     $original->profile_id != $target->id)) {
+                    throw new ClientException(_("Bookmark not posted ".
+                                                "to this user."));
                 }
             } else {
-                throw new ServerException(_("Don't know how to handle this kind of target."));
+                throw new ServerException(_("Don't know how to handle ".
+                                            "this kind of target."));
             }
 
             $author = Ostatus_profile::ensureActivityObjectProfile($activity->actor);
@@ -538,24 +558,50 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Handle bookmark posted via AtomPub
+     *
+     * @param Activity &$activity Activity that was posted
+     * @param User     $user      User that posted it
+     * @param Notice   &$notice   Resulting notice
+     *
+     * @return boolean hook value
+     */
+
     function onStartAtomPubNewActivity(&$activity, $user, &$notice)
     {
         if (self::_isPostBookmark($activity)) {
             $options = array('source' => 'atompub');
-            $notice = self::_postBookmark($user->getProfile(), $activity, $options);
+            $notice  = self::_postBookmark($user->getProfile(),
+                                           $activity,
+                                           $options);
             return false;
         }
 
         return true;
     }
 
-    function onStartImportActivity($user, $author, $activity, $trusted, &$done) {
+    /**
+     * Handle bookmark imported from a backup file
+     *
+     * @param User           $user     User to import for
+     * @param ActivityObject $author   Original author per import file
+     * @param Activity       $activity Activity to import
+     * @param boolean        $trusted  Is this a trusted user?
+     * @param boolean        &$done    Is this done (success or unrecoverable error)
+     *
+     * @return boolean hook value
+     */
 
+    function onStartImportActivity($user, $author, $activity, $trusted, &$done)
+    {
         if (self::_isPostBookmark($activity)) {
 
             $bookmark = $activity->objects[0];
 
-            $this->log(LOG_INFO, 'Importing Bookmark ' . $bookmark->id . ' for user ' . $user->nickname);
+            $this->log(LOG_INFO,
+                       'Importing Bookmark ' . $bookmark->id . 
+                       ' for user ' . $user->nickname);
 
             $options = array('uri' => $bookmark->id,
                              'url' => $bookmark->link,
@@ -573,6 +619,14 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Show a link to our delicious import page on profile settings form
+     *
+     * @param Action $action Profile settings action being shown
+     *
+     * @return boolean hook value
+     */
+
     function onEndProfileSettingsActions($action)
     {
         $user = common_current_user();
@@ -588,7 +642,17 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
-    static private function _postRemoteBookmark(Ostatus_profile $author, Activity $activity)
+    /**
+     * Save a remote bookmark (from Salmon or PuSH)
+     *
+     * @param Ostatus_profile $author   Author of the bookmark
+     * @param Activity        $activity Activity to save
+     *
+     * @return Notice resulting notice.
+     */
+
+    static private function _postRemoteBookmark(Ostatus_profile $author,
+                                                Activity $activity)
     {
         $bookmark = $activity->objects[0];
 
@@ -600,18 +664,32 @@ class BookmarkPlugin extends Plugin
         return self::_postBookmark($author->localProfile(), $activity, $options);
     }
 
-    static private function _postBookmark(Profile $profile, Activity $activity, $options=array())
+    /**
+     * Save a bookmark from an activity
+     *
+     * @param Profile  $profile  Profile to use as author
+     * @param Activity $activity Activity to save
+     * @param array    $options  Options to pass to bookmark-saving code
+     *
+     * @return Notice resulting notice
+     */
+
+    static private function _postBookmark(Profile $profile,
+                                          Activity $activity,
+                                          $options=array())
     {
         $bookmark = $activity->objects[0];
 
         $relLinkEls = ActivityUtils::getLinks($bookmark->element, 'related');
 
         if (count($relLinkEls) < 1) {
-            throw new ClientException(_('Expected exactly 1 link rel=related in a Bookmark.'));
+            throw new ClientException(_('Expected exactly 1 link '.
+                                        'rel=related in a Bookmark.'));
         }
 
         if (count($relLinkEls) > 1) {
-            common_log(LOG_WARNING, "Got too many link rel=related in a Bookmark.");
+            common_log(LOG_WARNING,
+                       "Got too many link rel=related in a Bookmark.");
         }
 
         $linkEl = $relLinkEls[0];
@@ -643,7 +721,7 @@ class BookmarkPlugin extends Plugin
 
         $replies = $activity->context->attention;
 
-        $options['groups'] = array();
+        $options['groups']  = array();
         $options['replies'] = array();
 
         foreach ($replies as $replyURI) {
@@ -676,6 +754,14 @@ class BookmarkPlugin extends Plugin
                                  $bookmark->summary,
                                  $options);
     }
+
+    /**
+     * Test if an activity represents posting a bookmark
+     *
+     * @param Activity $activity Activity to test
+     *
+     * @return true if it's a Post of a Bookmark, else false
+     */
 
     static private function _isPostBookmark($activity)
     {
