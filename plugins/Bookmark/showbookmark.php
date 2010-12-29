@@ -82,7 +82,7 @@ class ShowbookmarkAction extends ShownoticeAction
         }
         
         $dt = new DateTime($this->trimmed('created'),
-			   new DateTimeZone('UTC'));
+                           new DateTimeZone('UTC'));
 
         if (empty($dt)) {
             throw new ClientException(_('No such create date.'), 404);
@@ -91,7 +91,7 @@ class ShowbookmarkAction extends ShownoticeAction
         $bookmarks = Bookmark::getByCRC32($this->profile,
                                           $crc32);
 
-	foreach ($bookmarks as $bookmark) {
+        foreach ($bookmarks as $bookmark) {
             $bdt = new DateTime($bookmark->created, new DateTimeZone('UTC'));
             if ($bdt->format('U') == $dt->format('U')) {
                 $this->bookmark = $bookmark;
@@ -113,12 +113,26 @@ class ShowbookmarkAction extends ShownoticeAction
         return true;
     }
 
+    /**
+     * Title of the page
+     *
+     * Used by Action class for layout.
+     *
+     * @return string page tile
+     */
+
     function title()
     {
         return sprintf(_('%s\'s bookmark for "%s"'),
                        $this->user->nickname,
                        $this->bookmark->title);
     }
+
+    /**
+     * Overload page title display to show bookmark link
+     *
+     * @return void
+     */
 
     function showPageTitle()
     {
