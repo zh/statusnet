@@ -850,6 +850,7 @@ class Profile extends Memcached_DataObject
             case Right::NEWNOTICE:
             case Right::NEWMESSAGE:
             case Right::SUBSCRIBE:
+            case Right::CREATEGROUP:
                 $result = !$this->isSilenced();
                 break;
             case Right::PUBLICNOTICE:
