@@ -86,16 +86,21 @@ class BookmarkPlugin extends Plugin
         // For storing user-submitted flags on profiles
 
         $schema->ensureTable('bookmark',
-                             array(new ColumnDef('profile_id',
+                             array(new ColumnDef('id',
+                                                 'char',
+                                                 36,
+                                                 false,
+                                                 'PRI'),
+                                   new ColumnDef('profile_id',
                                                  'integer',
                                                  null,
                                                  false,
-                                                 'PRI'),
+                                                 'MUL'),
                                    new ColumnDef('url',
                                                  'varchar',
                                                  255,
                                                  false,
-                                                 'PRI'),
+                                                 'MUL'),
                                    new ColumnDef('title',
                                                  'varchar',
                                                  255),
@@ -106,25 +111,11 @@ class BookmarkPlugin extends Plugin
                                                  255,
                                                  false,
                                                  'UNI'),
-                                   new ColumnDef('url_crc32',
-                                                 'integer unsigned',
-                                                 null,
-                                                 false,
-                                                 'MUL'),
                                    new ColumnDef('created',
                                                  'datetime',
                                                  null,
                                                  false,
                                                  'MUL')));
-
-        try {
-            $schema->createIndex('bookmark', 
-                                 array('profile_id', 
-                                       'url_crc32'),
-                                 'bookmark_profile_url_idx');
-        } catch (Exception $e) {
-            common_log(LOG_ERR, $e->getMessage());
-        }
 
         return true;
     }
@@ -216,11 +207,9 @@ class BookmarkPlugin extends Plugin
         $m->connect('main/bookmark/import',
                     array('action' => 'importdelicious'));
 
-        $m->connect('bookmark/:user/:created/:crc32',
+        $m->connect('bookmark/:id',
                     array('action' => 'showbookmark'),
-                    array('user' => '[0-9]+',
-                          'created' => '[0-9]{14}',
-                          'crc32' => '[0-9a-f]{8}'));
+                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
         $m->connect('notice/by-url/:id',
                     array('action' => 'noticebyurl'),
