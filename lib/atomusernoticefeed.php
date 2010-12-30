@@ -60,8 +60,8 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
         $this->user = $user;
         if (!empty($user)) {
             $profile = $user->getProfile();
-            $this->addAuthor($profile->nickname, $user->uri);
-            $this->setActivitySubject($profile->asActivityNoun('subject'));
+            $ao = ActivityObject::fromProfile($profile);
+            $this->addAuthorRaw($ao->asString('author'));
         }
 
         // TRANS: Title in atom user notice feed. %s is a user name.

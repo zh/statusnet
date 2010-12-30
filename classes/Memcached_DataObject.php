@@ -74,7 +74,7 @@ class Memcached_DataObject extends Safe_DataObject
             return $i;
         } else {
             $i = DB_DataObject::factory($cls);
-            if (empty($i)) {
+            if (empty($i) || PEAR::isError($i)) {
                 return false;
             }
             foreach ($kv as $k => $v) {

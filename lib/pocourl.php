@@ -53,13 +53,18 @@ class PoCoURL
     function asString()
     {
         $xs = new XMLStringer(true);
-        $xs->elementStart('poco:urls');
-        $xs->element('poco:type', null, $this->type);
-        $xs->element('poco:value', null, $this->value);
-        if (!empty($this->primary)) {
-            $xs->element('poco:primary', null, 'true');
-        }
-        $xs->elementEnd('poco:urls');
+        $this->outputTo($xs);
         return $xs->getString();
+    }
+
+    function outputTo($xo)
+    {
+        $xo->elementStart('poco:urls');
+        $xo->element('poco:type', null, $this->type);
+        $xo->element('poco:value', null, $this->value);
+        if (!empty($this->primary)) {
+            $xo->element('poco:primary', null, 'true');
+        }
+        $xo->elementEnd('poco:urls');
     }
 }

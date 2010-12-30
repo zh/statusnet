@@ -146,15 +146,16 @@ class Atom10Feed extends XMLStringer
     }
 
     /**
-     * Add a activity feed subject via raw XML string
+     * Deprecated <activity:subject>; ignored
      *
      * @param string $xmlSubject An XML string representation of the subject
      *
      * @return void
      */
+
     function setActivitySubject($xmlSubject)
     {
-        $this->subject = $xmlSubject;
+        throw new ServerException(_('Don\'t use this method!'));
     }
 
     function getNamespaces()

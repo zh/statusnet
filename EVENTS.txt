@@ -1058,3 +1058,8 @@ EndImportActivity: when we finish importing an activity
 - $activity: The current activity
 - $trusted: How "trusted" the process is
 
+StartProfileSettingsActions: when we're showing account-management action list
+- $action: Action being shown (use for output)
+
+EndProfileSettingsActions: when we're showing account-management action list
+- $action: Action being shown (use for output)

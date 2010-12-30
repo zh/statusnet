@@ -419,7 +419,8 @@ class Ostatus_profile extends Managed_DataObject
     {
         $activity = new Activity($entry, $feed);
 
-        if (Event::handle('StartHandleFeedEntry', array($activity))) {
+        if (Event::handle('StartHandleFeedEntryWithProfile', array($activity, $this)) &&
+            Event::handle('StartHandleFeedEntry', array($activity))) {
 
             // @todo process all activity objects
             switch ($activity->objects[0]->type) {
@@ -441,6 +442,7 @@ class Ostatus_profile extends Managed_DataObject
             }
 
             Event::handle('EndHandleFeedEntry', array($activity));
+            Event::handle('EndHandleFeedEntryWithProfile', array($activity, $this));
         }
     }
 
@@ -453,36 +455,10 @@ class Ostatus_profile extends Managed_DataObject
      */
     public function processPost($activity, $method)
     {
-        if ($this->isGroup()) {
-            // A group feed will contain posts from multiple authors.
-            // @fixme validate these profiles in some way!
-            $oprofile = self::ensureActorProfile($activity);
-            if ($oprofile->isGroup()) {
-                // Groups can't post notices in StatusNet.
-                common_log(LOG_WARNING, "OStatus: skipping post with group listed as author: $oprofile->uri in feed from $this->uri");
-                return false;
-            }
-        } else {
-            $actor = $activity->actor;
+        $oprofile = $this->checkAuthorship($activity);
 
-            if (empty($actor)) {
-                // OK here! assume the default
-            } else if ($actor->id == $this->uri || $actor->link == $this->uri) {
-                $this->updateFromActivityObject($actor);
-            } else if ($actor->id) {
-                // We have an ActivityStreams actor with an explicit ID that doesn't match the feed owner.
-                // This isn't what we expect from mainline OStatus person feeds!
-                // Group feeds go down another path, with different validation...
-                // Most likely this is a plain ol' blog feed of some kind which
-                // doesn't match our expectations. We'll take the entry, but ignore
-                // the <author> info.
-                common_log(LOG_WARNING, "Got an actor '{$actor->title}' ({$actor->id}) on single-user feed for {$this->uri}");
-            } else {
-                // Plain <author> without ActivityStreams actor info.
-                // We'll just ignore this info for now and save the update under the feed's identity.
-            }
-
-            $oprofile = $this;
+        if (empty($oprofile)) {
+            return false;
         }
 
         // It's not always an ActivityObject::NOTE, but... let's just say it is.
@@ -1770,6 +1746,45 @@ class Ostatus_profile extends Managed_DataObject
                 }
             }
         }
+        return $oprofile;
+    }
+
+    function checkAuthorship($activity)
+    {
+        if ($this->isGroup()) {
+            // A group feed will contain posts from multiple authors.
+            // @fixme validate these profiles in some way!
+            $oprofile = self::ensureActorProfile($activity);
+            if ($oprofile->isGroup()) {
+                // Groups can't post notices in StatusNet.
+                common_log(LOG_WARNING, 
+                           "OStatus: skipping post with group listed as author: ".
+                           "$oprofile->uri in feed from $this->uri");
+                return false;
+            }
+        } else {
+            $actor = $activity->actor;
+
+            if (empty($actor)) {
+                // OK here! assume the default
+            } else if ($actor->id == $this->uri || $actor->link == $this->uri) {
+                $this->updateFromActivityObject($actor);
+            } else if ($actor->id) {
+                // We have an ActivityStreams actor with an explicit ID that doesn't match the feed owner.
+                // This isn't what we expect from mainline OStatus person feeds!
+                // Group feeds go down another path, with different validation...
+                // Most likely this is a plain ol' blog feed of some kind which
+                // doesn't match our expectations. We'll take the entry, but ignore
+                // the <author> info.
+                common_log(LOG_WARNING, "Got an actor '{$actor->title}' ({$actor->id}) on single-user feed for {$this->uri}");
+            } else {
+                // Plain <author> without ActivityStreams actor info.
+                // We'll just ignore this info for now and save the update under the feed's identity.
+            }
+
+            $oprofile = $this;
+        }
+
         return $oprofile;
     }
 }
