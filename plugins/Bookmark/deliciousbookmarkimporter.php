@@ -96,13 +96,19 @@ class DeliciousBookmarkImporter extends QueueHandler
         $addDate = $a->getAttribute('add_date');
         $created = common_sql_date(intval($addDate));
 
-        $saved = Bookmark::saveNew($user->getProfile(),
-                                   $title,
-                                   $url,
-                                   $tags,
-                                   $description,
-                                   array('created' => $created,
-                                         'distribute' => false));
+        try {
+            $saved = Bookmark::saveNew($user->getProfile(),
+                                       $title,
+                                       $url,
+                                       $tags,
+                                       $description,
+                                       array('created' => $created,
+                                             'distribute' => false));
+        } catch (ClientException $e) {
+            // Most likely a duplicate -- continue on with the rest!
+            common_log(LOG_ERR, "Error importing delicious bookmark to $url: " . $e->getMessage());
+            return true;
+        }
 
         return true;
     }
