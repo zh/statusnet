@@ -162,9 +162,38 @@ class DeliciousBackupImporter extends QueueHandler
 
     function importBookmark($user, $dt, $dd = null)
     {
+        $as = $dt->getElementsByTagName('a');
+
+        if ($as->length == 0) {
+            throw new ClientException(_("No <A> tag in a <DT>."));
+        }
+
+        $a = $as->item(0);
+
+        $private = $a->getAttribute('private');
+
+        if ($private != 0) {
+            throw new ClientException(_('Skipping private bookmark.'));
+        }
+
+        if (!empty($dd)) {
+            $description = $dd->nodeValue;
+        } else {
+            $description = null;
+        }
+        $addDate = $a->getAttribute('add_date');
+
+        $data = array(
+            'profile_id' => $user->id,
+            'title' => $a->nodeValue,
+            'description' => $description,
+            'url' => $a->getAttribute('href'),
+            'tags' => $a->getAttribute('tags'),
+            'created' => common_sql_date(intval($addDate))
+        );
+
         $qm = QueueManager::get();
-        
-        $qm->enqueue(array($user, $dt, $dd), 'dlcsbkmk');
+        $qm->enqueue($data, 'dlcsbkmk');
     }
 
     /**
