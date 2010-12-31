@@ -251,14 +251,15 @@ class BookmarkPlugin extends Plugin
             } else {
                 $out->elementStart('h3');
                 $out->element('a',
-                              array('href' => $att->url),
+                              array('href' => $att->url,
+                                    'class' => 'bookmark-title entry-title'),
                               $nb->title);
                 $out->elementEnd('h3');
 
                 $countUrl = common_local_url('noticebyurl',
                                              array('id' => $att->id));
 
-                $out->element('a', array('class' => 'bookmark_notice_count',
+                $out->element('a', array('class' => 'bookmark-notice-count',
                                          'href' => $countUrl),
                               $att->noticeCount());
             }
@@ -270,7 +271,7 @@ class BookmarkPlugin extends Plugin
 
             if (!empty($replies) || !empty($tags)) {
 
-                $out->elementStart('ul', array('class' => 'bookmark_tags'));
+                $out->elementStart('ul', array('class' => 'bookmark-tags'));
             
                 foreach ($replies as $reply) {
                     $other = Profile::staticGet('id', $reply);
@@ -298,7 +299,7 @@ class BookmarkPlugin extends Plugin
 
             if (!empty($nb->description)) {
                 $out->element('p',
-                              array('class' => 'bookmark_description'),
+                              array('class' => 'bookmark-description'),
                               $nb->description);
             }
 
@@ -317,7 +318,7 @@ class BookmarkPlugin extends Plugin
                 }
             }
 
-            $out->elementStart('p', array('class' => 'bookmark_info'));
+            $out->elementStart('p', array('class' => 'bookmark-info'));
 
             $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
 
@@ -325,7 +326,7 @@ class BookmarkPlugin extends Plugin
                           array('src' => ($avatar) ?
                                 $avatar->displayUrl() :
                                 Avatar::defaultImage(AVATAR_MINI_SIZE),
-                                'class' => 'avatar photo bookmark_avatar',
+                                'class' => 'avatar photo bookmark-avatar',
                                 'width' => AVATAR_MINI_SIZE,
                                 'height' => AVATAR_MINI_SIZE,
                                 'alt' => $profile->getBestName()));
