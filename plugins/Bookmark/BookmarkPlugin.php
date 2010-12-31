@@ -649,6 +649,27 @@ class BookmarkPlugin extends Plugin
     }
 
     /**
+     * Output our CSS class for bookmark notice list elements
+     *
+     * @param NoticeListItem $nli The item being shown
+     *
+     * @return boolean hook value
+     */
+
+    function onStartOpenNoticeListItemElement($nli)
+    {
+        $nb = Bookmark::getByNotice($nli->notice);
+        if (!empty($nb)) {
+            $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
+            $nli->out->elementStart('li', array('class' => 'hentry notice bookmark',
+                                                 'id' => 'notice-' . $id));
+            Event::handle('EndOpenNoticeListItemElement', array($nli));
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Save a remote bookmark (from Salmon or PuSH)
      *
      * @param Ostatus_profile $author   Author of the bookmark
