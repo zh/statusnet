@@ -65,7 +65,7 @@ class DeliciousBackupImporter extends QueueHandler
      * and import to StatusNet as Bookmark activities.
      *
      * The document format is terrible. It consists of a <dl> with
-     * a bunch of <dt>'s, occasionally with <dd>'s.
+     * a bunch of <dt>'s, occasionally with <dd>'s adding descriptions.
      * There are sometimes <p>'s lost inside.
      *
      * @param array $data pair of user, text
@@ -99,6 +99,9 @@ class DeliciousBackupImporter extends QueueHandler
                 }
                 switch (strtolower($child->tagName)) {
                 case 'dt':
+                    // <dt> nodes contain primary information about a bookmark.
+                    // We can't import the current one just yet though, since
+                    // it may be followed by a <dd>.
                     if (!empty($dt)) {
                         // No DD provided
                         $this->importBookmark($user, $dt);
@@ -109,10 +112,13 @@ class DeliciousBackupImporter extends QueueHandler
                 case 'dd':
                     $dd = $child;
 
+                    // This <dd> contains a description for the bookmark in
+                    // the preceding <dt> node.
                     $saved = $this->importBookmark($user, $dt, $dd);
 
                     $dt = null;
                     $dd = null;
+                    break;
                 case 'p':
                     common_log(LOG_INFO, 'Skipping the <p> in the <dl>.');
                     break;
@@ -124,6 +130,14 @@ class DeliciousBackupImporter extends QueueHandler
             } catch (Exception $e) {
                 common_log(LOG_ERR, $e->getMessage());
                 $dt = $dd = null;
+            }
+        }
+        if (!empty($dt)) {
+            // There was a final bookmark without a description.
+            try {
+                $this->importBookmark($user, $dt);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
             }
         }
 
@@ -148,21 +162,6 @@ class DeliciousBackupImporter extends QueueHandler
 
     function importBookmark($user, $dt, $dd = null)
     {
-        // We have to go squirrelling around in the child nodes
-        // on the off chance that we've received another <dt>
-        // as a child.
-
-        for ($i = 0; $i < $dt->childNodes->length; $i++) {
-            $child = $dt->childNodes->item($i);
-            if ($child->nodeType == XML_ELEMENT_NODE) {
-                if ($child->tagName == 'dt' && !is_null($dd)) {
-                    $this->importBookmark($user, $dt);
-                    $this->importBookmark($user, $child, $dd);
-                    return;
-                }
-            }
-        }
-
         $qm = QueueManager::get();
         
         $qm->enqueue(array($user, $dt, $dd), 'dlcsbkmk');
@@ -188,9 +187,95 @@ class DeliciousBackupImporter extends QueueHandler
         error_reporting($old);
 
         if ($ok) {
+            foreach ($dom->getElementsByTagName('body') as $node) {
+                $this->fixListsIn($node);
+            }
             return $dom;
         } else {
             return null;
         }
     }
+
+
+    function fixListsIn(DOMNode $body) {
+        $toFix = array();
+
+        foreach ($body->childNodes as $node) {
+            if ($node->nodeType == XML_ELEMENT_NODE) {
+                $el = strtolower($node->nodeName);
+                if ($el == 'dl') {
+                    $toFix[] = $node;
+                }
+            }
+        }
+
+        foreach ($toFix as $node) {
+            $this->fixList($node);
+        }
+    }
+
+    function fixList(DOMNode $list) {
+        $toFix = array();
+
+        foreach ($list->childNodes as $node) {
+            if ($node->nodeType == XML_ELEMENT_NODE) {
+                $el = strtolower($node->nodeName);
+                if ($el == 'dt' || $el == 'dd') {
+                    $toFix[] = $node;
+                }
+                if ($el == 'dl') {
+                    // Sublist.
+                    // Technically, these can only appear inside a <dd>...
+                    $this->fixList($node);
+                }
+            }
+        }
+
+        foreach ($toFix as $node) {
+            $this->fixListItem($node);
+        }
+    }
+
+    function fixListItem(DOMNode $item) {
+        // The HTML parser in libxml2 doesn't seem to properly handle
+        // many cases of implied close tags, apparently because it doesn't
+        // understand the nesting rules specified in the HTML DTD.
+        //
+        // This leads to sequences of adjacent <dt>s or <dd>s being incorrectly
+        // interpreted as parent->child trees instead of siblings:
+        //
+        // When parsing this input: "<dt>aaa <dt>bbb"
+        // should be equivalent to: "<dt>aaa </dt><dt>bbb</dt>"
+        // but we're seeing instead: "<dt>aaa <dt>bbb</dt></dt>"
+        //
+        // It does at least know that going from dt to dd, or dd to dt,
+        // should make a break.
+
+        $toMove = array();
+
+        foreach ($item->childNodes as $node) {
+            if ($node->nodeType == XML_ELEMENT_NODE) {
+                $el = strtolower($node->nodeName);
+                if ($el == 'dt' || $el == 'dd') {
+                    // dt & dd cannot contain each other;
+                    // This node was incorrectly placed; move it up a level!
+                    $toMove[] = $node;
+                }
+                if ($el == 'dl') {
+                    // Sublist.
+                    // Technically, these can only appear inside a <dd>.
+                    $this->fixList($node);
+                }
+            }
+        }
+
+        $parent = $item->parentNode;
+        $next = $item->nextSibling;
+        foreach ($toMove as $node) {
+            $item->removeChild($node);
+            $parent->insertBefore($node, $next);
+            $this->fixListItem($node);
+        }
+    }
+
 }
