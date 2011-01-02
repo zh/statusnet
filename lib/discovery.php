@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2010, StatusNet, Inc.
  *
- * A sample module to show best practices for StatusNet plugins
+ * Use Hammer discovery stack to find out interesting things about an URI
  *
  * PHP version 5
  *
@@ -20,6 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * @category  Discovery
  * @package   StatusNet
  * @author    James Walker <james@status.net>
  * @copyright 2010 StatusNet, Inc.
@@ -31,17 +32,32 @@
  * This class implements LRDD-based service discovery based on the "Hammer Draft"
  * (including webfinger)
  *
- * @see http://groups.google.com/group/webfinger/browse_thread/thread/9f3d93a479e91bbf
+ * @category  Discovery
+ * @package   StatusNet
+ * @author    James Walker <james@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ *
+ * @see       http://groups.google.com/group/webfinger/browse_thread/thread/9f3d93a479e91bbf
  */
+
 class Discovery
 {
-
-    const LRDD_REL = 'lrdd';
+    const LRDD_REL    = 'lrdd';
     const PROFILEPAGE = 'http://webfinger.net/rel/profile-page';
     const UPDATESFROM = 'http://schemas.google.com/g/2010#updates-from';
-    const HCARD = 'http://microformats.org/profile/hcard';
+    const HCARD       = 'http://microformats.org/profile/hcard';
 
     public $methods = array();
+
+    /**
+     * Constructor for a discovery object
+     *
+     * Registers different discovery methods.
+     *
+     * @return Discovery this
+     */
 
     public function __construct()
     {
@@ -49,6 +65,14 @@ class Discovery
         $this->registerMethod('Discovery_LRDD_Link_Header');
         $this->registerMethod('Discovery_LRDD_Link_HTML');
     }
+
+    /**
+     * Register a discovery class
+     * 
+     * @param string $class Class name
+     *
+     * @return void
+     */
 
     public function registerMethod($class)
     {
@@ -58,7 +82,12 @@ class Discovery
     /**
      * Given a "user id" make sure it's normalized to either a webfinger
      * acct: uri or a profile HTTP URL.
+     *
+     * @param string $user_id User ID to normalize
+     *
+     * @return string normalized acct: or http(s)?: URI
      */
+
     public static function normalize($user_id)
     {
         if (substr($user_id, 0, 5) == 'http:' ||
@@ -67,13 +96,23 @@ class Discovery
             return $user_id;
         }
 
-        if (strpos($user_id, '@') !== FALSE) {
+        if (strpos($user_id, '@') !== false) {
             return 'acct:' . $user_id;
         }
 
         return 'http://' . $user_id;
     }
 
+    /**
+     * Determine if a string is a Webfinger ID
+     *
+     * Webfinger IDs look like foo@example.com or acct:foo@example.com
+     *
+     * @param string $user_id ID to check
+     *
+     * @return boolean true if $user_id is a Webfinger, else false
+     */
+     
     public static function isWebfinger($user_id)
     {
         $uri = Discovery::normalize($user_id);
@@ -82,8 +121,13 @@ class Discovery
     }
 
     /**
-     * This implements the actual lookup procedure
+     * Given a user ID, return the first available XRD
+     *
+     * @param string $id User ID URI
+     *
+     * @return XRD XRD object for the user
      */
+
     public function lookup($id)
     {
         // Normalize the incoming $id to make sure we have a uri
@@ -107,10 +151,20 @@ class Discovery
         }
 
         // TRANS: Exception.
-        throw new Exception(sprintf(_m('Unable to find services for %s.'),$id));
+        throw new Exception(sprintf(_('Unable to find services for %s.'), $id));
     }
 
-    public static function getService($links, $service) {
+    /**
+     * Given an array of links, returns the matching service
+     *
+     * @param array  $links   Links to check
+     * @param string $service Service to find
+     *
+     * @return array $link assoc array representing the link
+     */
+
+    public static function getService($links, $service)
+    {
         if (!is_array($links)) {
             return false;
         }
@@ -122,6 +176,17 @@ class Discovery
         }
     }
 
+    /**
+     * Apply a template using an ID
+     *
+     * Replaces {uri} in template string with the ID given.
+     *
+     * @param string $template Template to match
+     * @param string $id       User ID to replace with
+     *
+     * @return string replaced values
+     */
+
     public static function applyTemplate($template, $id)
     {
         $template = str_replace('{uri}', urlencode($id), $template);
@@ -129,10 +194,18 @@ class Discovery
         return $template;
     }
 
+    /**
+     * Fetch an XRD file and parse
+     *
+     * @param string $url URL of the XRD
+     * 
+     * @return XRD object representing the XRD file
+     */
+
     public static function fetchXrd($url)
     {
         try {
-            $client = new HTTPClient();
+            $client   = new HTTPClient();
             $response = $client->get($url);
         } catch (HTTP_Request2_Exception $e) {
             return false;
@@ -146,13 +219,60 @@ class Discovery
     }
 }
 
+/**
+ * Abstract interface for discovery
+ *
+ * Objects that implement this interface can retrieve an array of
+ * XRD links for the URI.
+ *
+ * @category  Discovery
+ * @package   StatusNet
+ * @author    James Walker <james@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
+
 interface Discovery_LRDD
 {
+    /**
+     * Discover interesting info about the URI
+     *
+     * @param string $uri URI to inquire about
+     *
+     * @return array Links in the XRD file
+     */
+
     public function discover($uri);
 }
 
+/**
+ * Implementation of discovery using host-meta file
+ *
+ * Discovers XRD file for a user by going to the organization's
+ * host-meta file and trying to find a template for LRDD.
+ *
+ * @category  Discovery
+ * @package   StatusNet
+ * @author    James Walker <james@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
+
 class Discovery_LRDD_Host_Meta implements Discovery_LRDD
 {
+    /**
+     * Discovery core method
+     *
+     * For Webfinger and HTTP URIs, fetch the host-meta file
+     * and look for LRDD templates
+     *
+     * @param string $uri URI to inquire about
+     *
+     * @return array Links in the XRD file
+     */
+
     public function discover($uri)
     {
         if (Discovery::isWebfinger($uri)) {
@@ -176,12 +296,38 @@ class Discovery_LRDD_Host_Meta implements Discovery_LRDD
     }
 }
 
+/**
+ * Implementation of discovery using HTTP Link header
+ *
+ * Discovers XRD file for a user by fetching the URL and reading any
+ * Link: headers in the HTTP response.
+ *
+ * @category  Discovery
+ * @package   StatusNet
+ * @author    James Walker <james@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
+
 class Discovery_LRDD_Link_Header implements Discovery_LRDD
 {
+    /**
+     * Discovery core method
+     *
+     * For HTTP IDs fetch the URL and look for Link headers.
+     *
+     * @param string $uri URI to inquire about
+     *
+     * @return array Links in the XRD file
+     *
+     * @todo fail out of Webfinger URIs faster 
+     */
+
     public function discover($uri)
     {
         try {
-            $client = new HTTPClient();
+            $client   = new HTTPClient();
             $response = $client->get($uri);
         } catch (HTTP_Request2_Exception $e) {
             return false;
@@ -199,6 +345,14 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
         return array(Discovery_LRDD_Link_Header::parseHeader($link_header));
     }
 
+    /**
+     * Given a string or array of headers, returns XRD-like assoc array
+     *
+     * @param string|array $header string or array of strings for headers
+     * 
+     * @return array Link header in XRD-like format
+     */
+
     protected static function parseHeader($header)
     {
         $lh = new LinkHeader($header);
@@ -209,12 +363,39 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
     }
 }
 
+/**
+ * Implementation of discovery using HTML <link> element
+ *
+ * Discovers XRD file for a user by fetching the URL and reading any
+ * <link> elements in the HTML response.
+ *
+ * @category  Discovery
+ * @package   StatusNet
+ * @author    James Walker <james@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
+
 class Discovery_LRDD_Link_HTML implements Discovery_LRDD
 {
+    /**
+     * Discovery core method
+     *
+     * For HTTP IDs, fetch the URL and look for <link> elements
+     * in the HTML response.
+     *
+     * @param string $uri URI to inquire about
+     *
+     * @return array Links in XRD-ish assoc array
+     *
+     * @todo fail out of Webfinger URIs faster 
+     */
+
     public function discover($uri)
     {
         try {
-            $client = new HTTPClient();
+            $client   = new HTTPClient();
             $response = $client->get($uri);
         } catch (HTTP_Request2_Exception $e) {
             return false;
@@ -227,6 +408,16 @@ class Discovery_LRDD_Link_HTML implements Discovery_LRDD
         return Discovery_LRDD_Link_HTML::parse($response->getBody());
     }
 
+    /**
+     * Parse HTML and return <link> elements
+     *
+     * Given an HTML string, scans the string for <link> elements
+     *
+     * @param string $html HTML to scan
+     *
+     * @return array array of associative arrays in XRD-ish format
+     */
+
     public function parse($html)
     {
         $links = array();
@@ -237,8 +428,8 @@ class Discovery_LRDD_Link_HTML implements Discovery_LRDD
         preg_match_all('/<link\s[^>]*>/i', $head_html, $link_matches);
 
         foreach ($link_matches[0] as $link_html) {
-            $link_url = null;
-            $link_rel = null;
+            $link_url  = null;
+            $link_rel  = null;
             $link_type = null;
 
             preg_match('/\srel=(("|\')([^\\2]*?)\\2|[^"\'\s]+)/i', $link_html, $rel_matches);
