@@ -28,6 +28,10 @@
  * @link      http://status.net/
  */
 
+if (!defined('STATUSNET')) {
+    exit(1);
+}
+
 /**
  * This class implements LRDD-based service discovery based on the "Hammer Draft"
  * (including webfinger)
