@@ -322,6 +322,7 @@ class Activity
      *
      * @return DOMElement Atom entry
      */
+
     function toAtomEntry()
     {
         return null;
@@ -330,7 +331,12 @@ class Activity
     function asString($namespace=false, $author=true, $source=false)
     {
         $xs = new XMLStringer(true);
+        $this->outputTo($xs, $namespace, $author, $source);
+        return $xs->getString();
+    }
 
+    function outputTo($xs, $namespace=false, $author=true, $source=false)
+    {
         if ($namespace) {
             $attrs = array('xmlns' => 'http://www.w3.org/2005/Atom',
                            'xmlns:thr' => 'http://purl.org/syndication/thread/1.0',
@@ -518,9 +524,7 @@ class Activity
 
         $xs->elementEnd('entry');
 
-        $str = $xs->getString();
-	
-        return $str;
+        return;
     }
 
     private function _child($element, $tag, $namespace=self::SPEC)
