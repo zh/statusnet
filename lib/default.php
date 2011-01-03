@@ -331,6 +331,11 @@ $default =
         'http' => // HTTP client settings when contacting other sites
         array('ssl_cafile' => false, // To enable SSL cert validation, point to a CA bundle (eg '/usr/lib/ssl/certs/ca-certificates.crt')
               'curl' => false, // Use CURL backend for HTTP fetches if available. (If not, PHP's socket streams will be used.)
+              'proxy_host' => null,
+              'proxy_port' => null,
+              'proxy_user' => null,
+              'proxy_password' => null,
+              'proxy_auth_scheme' => null,
               ),
 	'router' =>
 	array('cache' => true), // whether to cache the router object. Defaults to true, turn off for devel

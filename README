@@ -1556,6 +1556,22 @@ cache: whether to cache the router in memcache (or another caching
     router cached) or others who see strange behavior. You're unlikely
     to need this unless you're a developer.
 
+http
+----
+
+Settings for the HTTP client.
+
+ssl_cafile: location of the CA file for SSL. If not set, won't verify
+	    SSL peers. Default unset.
+curl: Use cURL <http://curl.haxx.se/> for doing HTTP calls. You must
+      have the PHP curl extension installed for this to work.
+proxy_host: Host to use for proxying HTTP requests. If unset, doesn't
+	    do any HTTP proxy stuff. Default unset.
+proxy_port: Port to use to connect to HTTP proxy host. Default null.
+proxy_user: Username to use for authenticating to the HTTP proxy. Default null.
+proxy_password: Password to use for authenticating to the HTTP proxy. Default null.
+proxy_auth_scheme: Scheme to use for authenticating to the HTTP proxy. Default null.
+
 Plugins
 =======
 
