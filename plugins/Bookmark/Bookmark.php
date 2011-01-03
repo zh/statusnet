@@ -46,13 +46,13 @@ if (!defined('STATUSNET')) {
 class Bookmark extends Memcached_DataObject
 {
     public $__table = 'bookmark'; // table name
-    public $profile_id;           // int(4)  primary_key not_null
-    public $url;                  // varchar(255) primary_key not_null
-    public $title;                // varchar(255)
-    public $description;          // text
-    public $uri;                  // varchar(255)
-    public $url_crc32;            // int(4) not_null
-    public $created;              // datetime
+    public $id;          // char(36) primary_key not_null
+    public $profile_id;  // int(4) not_null
+    public $url;         // varchar(255) not_null
+    public $title;       // varchar(255)
+    public $description; // text
+    public $uri;         // varchar(255)
+    public $created;     // datetime
 
     /**
      * Get an instance by key
@@ -100,12 +100,12 @@ class Bookmark extends Memcached_DataObject
 
     function table()
     {
-        return array('profile_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+        return array('id' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'profile_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'url' => DB_DATAOBJECT_STR,
                      'title' => DB_DATAOBJECT_STR,
                      'description' => DB_DATAOBJECT_STR,
                      'uri' => DB_DATAOBJECT_STR,
-                     'url_crc32' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + 
                      DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
     }
@@ -129,8 +129,7 @@ class Bookmark extends Memcached_DataObject
 
     function keyTypes()
     {
-        return array('profile_id' => 'K',
-                     'url' => 'K',
+        return array('id' => 'K',
                      'uri' => 'U');
     }
 
@@ -169,36 +168,16 @@ class Bookmark extends Memcached_DataObject
      
     static function getByURL($profile, $url)
     {
-        return self::pkeyGet(array('profile_id' => $profile->id,
-                                   'url' => $url));
-        return null;
-    }
-
-    /**
-     * Get the bookmark that a user made for an URL
-     *
-     * @param Profile $profile Profile to check for
-     * @param integer $crc32   CRC-32 of URL to check for
-     *
-     * @return array Bookmark objects found (usually 1 or 0)
-     */
-     
-    static function getByCRC32($profile, $crc32)
-    {
-        $bookmarks = array();
-
         $nb = new Bookmark();
         
         $nb->profile_id = $profile->id;
-        $nb->url_crc32  = $crc32;
+        $nb->url        = $url;
 
-        if ($nb->find()) {
-            while ($nb->fetch()) {
-                $bookmarks[] = clone($nb);
-            }
+        if ($nb->find(true)) {
+            return $nb;
+        } else {
+            return null;
         }
-
-        return $bookmarks;
     }
 
     /**
@@ -240,11 +219,11 @@ class Bookmark extends Memcached_DataObject
 
         $nb = new Bookmark();
 
+        $nb->id          = UUID::gen();
         $nb->profile_id  = $profile->id;
         $nb->url         = $url;
         $nb->title       = $title;
         $nb->description = $description;
-        $nb->url_crc32   = crc32($nb->url);
 
         if (array_key_exists('created', $options)) {
             $nb->created = $options['created'];
@@ -255,22 +234,8 @@ class Bookmark extends Memcached_DataObject
         if (array_key_exists('uri', $options)) {
             $nb->uri = $options['uri'];
         } else {
-            $dt = new DateTime($nb->created, new DateTimeZone('UTC'));
-
-            // I posit that it's sufficiently impossible
-            // for the same user to generate two CRC-32-clashing
-            // URLs in the same second that this is a safe unique identifier.
-            // If you find a real counterexample, contact me at acct:evan@status.net
-            // and I will publicly apologize for my hubris.
-
-            $created = $dt->format('YmdHis');
-
-            $crc32 = sprintf('%08x', $nb->url_crc32);
-
             $nb->uri = common_local_url('showbookmark',
-                                        array('user' => $profile->id,
-                                              'created' => $created,
-                                              'crc32' => $crc32));
+                                        array('id' => $nb->id));
         }
 
         $nb->insert();

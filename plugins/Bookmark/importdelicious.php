@@ -48,6 +48,7 @@ if (!defined('STATUSNET')) {
 class ImportdeliciousAction extends Action
 {
     protected $success = false;
+    private $inprogress = false;
 
     /**
      * Return the title of the page
@@ -191,7 +192,13 @@ class ImportdeliciousAction extends Action
             $qm = QueueManager::get();
             $qm->enqueue(array(common_current_user(), $html), 'dlcsback');
 
-            $this->success = true;
+            if ($qm instanceof UnQueueManager) {
+                // No active queuing means we've actually just completed the job!
+                $this->success = true;
+            } else {
+                // We've fed data into background queues, and it's probably still running.
+                $this->inprogress = true;
+            }
 
             $this->showPage();
 
@@ -212,8 +219,10 @@ class ImportdeliciousAction extends Action
     {
         if ($this->success) {
             $this->element('p', null,
-                           _('Feed will be restored. '.
-                             'Please wait a few minutes for results.'));
+                           _('Bookmarks have been imported. Your bookmarks should now appear in search and your profile page.'));
+        } else if ($this->inprogress) {
+            $this->element('p', null,
+                           _('Bookmarks are being imported. Please wait a few minutes for results.'));
         } else {
             $form = new ImportDeliciousForm($this);
             $form->show();
