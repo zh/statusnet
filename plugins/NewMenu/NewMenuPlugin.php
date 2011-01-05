@@ -159,6 +159,131 @@ class NewMenuPlugin extends Plugin
         return false;
     }
 
+    function onStartPersonalGroupNav($menu)
+    {
+        $user = null;
+
+        // FIXME: we should probably pass this in
+
+        $action = $menu->action->trimmed('action');
+        $nickname = $menu->action->trimmed('nickname');
+
+        if ($nickname) {
+            $user = User::staticGet('nickname', $nickname);
+            $user_profile = $user->getProfile();
+            $name = $user_profile->getBestName();
+        } else {
+            // @fixme can this happen? is this valid?
+            $user_profile = false;
+            $name = $nickname;
+        }
+
+        $menu->out->menuItem(common_local_url('all', array('nickname' =>
+                                                           $nickname)),
+                             _('Home'),
+                             sprintf(_('%s and friends'), $name),
+                             $action == 'all', 'nav_timeline_personal');
+        $menu->out->menuItem(common_local_url('replies', array('nickname' =>
+                                                               $nickname)),
+                             _('Replies'),
+                             sprintf(_('Replies to %s'), $name),
+                             $action == 'replies', 'nav_timeline_replies');
+        $menu->out->menuItem(common_local_url('showfavorites', array('nickname' =>
+                                                                     $nickname)),
+                             _('Favorites'),
+                             sprintf(_('%s\'s favorite notices'), ($user_profile) ? $name : _('User')),
+                             $action == 'showfavorites', 'nav_timeline_favorites');
+
+        $cur = common_current_user();
+
+        if ($cur && $cur->id == $user->id &&
+            !common_config('singleuser', 'enabled')) {
+
+            $menu->out->menuItem(common_local_url('inbox', array('nickname' =>
+                                                                 $nickname)),
+                                 _('Inbox'),
+                                 _('Your incoming messages'),
+                                 $action == 'inbox');
+            $menu->out->menuItem(common_local_url('outbox', array('nickname' =>
+                                                                  $nickname)),
+                                 _('Outbox'),
+                                 _('Your sent messages'),
+                                 $action == 'outbox');
+        }
+        Event::handle('EndPersonalGroupNav', array($menu));
+        return false;
+    }
+
+    function onStartSubGroupNav($menu)
+    {
+        $cur = common_current_user();
+        $action = $menu->action->trimmed('action');
+
+        $profile = $menu->user->getProfile();
+
+        $menu->out->menuItem(common_local_url('showstream', array('nickname' =>
+                                                                  $menu->user->nickname)),
+                             _('Profile'),
+                             (empty($profile)) ? $menu->user->nickname : $profile->getBestName(),
+                             $action == 'showstream',
+                             'nav_profile');
+        $menu->out->menuItem(common_local_url('subscriptions',
+                                              array('nickname' =>
+                                                    $menu->user->nickname)),
+                             _('Subscriptions'),
+                             sprintf(_('People %s subscribes to'),
+                                     $menu->user->nickname),
+                             $action == 'subscriptions',
+                             'nav_subscriptions');
+        $menu->out->menuItem(common_local_url('subscribers',
+                                              array('nickname' =>
+                                                    $menu->user->nickname)),
+                             _('Subscribers'),
+                             sprintf(_('People subscribed to %s'),
+                                     $menu->user->nickname),
+                             $action == 'subscribers',
+                             'nav_subscribers');
+        $menu->out->menuItem(common_local_url('usergroups',
+                                              array('nickname' =>
+                                                    $menu->user->nickname)),
+                             _('Groups'),
+                             sprintf(_('Groups %s is a member of'),
+                                     $menu->user->nickname),
+                             $action == 'usergroups',
+                             'nav_usergroups');
+        if (common_config('invite', 'enabled') && !is_null($cur) && $menu->user->id === $cur->id) {
+            $menu->out->menuItem(common_local_url('invite'),
+                                 _('Invite'),
+                                 sprintf(_('Invite friends and colleagues to join you on %s'),
+                                         common_config('site', 'name')),
+                                 $action == 'invite',
+                                 'nav_invite');
+        }
+
+        Event::handle('EndSubGroupNav', array($menu));
+        return false;
+    }
+
+    function onStartShowLocalNavBlock($action)
+    {
+        $actionName = $action->trimmed('action');
+        
+        if ($actionName == 'showstream') {
+            $action->elementStart('dl', array('id' => 'site_nav_local_views'));
+            // TRANS: DT element for local views block. String is hidden in default CSS.
+            $action->element('dt', null, _('Local views'));
+            $action->elementStart('dd');
+            $nav = new SubGroupNav($action, $action->user);
+            $nav->show();
+            $action->elementEnd('dd');
+            $action->elementEnd('dl');
+            Event::handle('EndShowLocalNavBlock', array($action));
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Return version information for this plugin
      *
