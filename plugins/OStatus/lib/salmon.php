@@ -52,29 +52,35 @@ class Salmon
             return false;
         }
 
-        try {
-            $xml = $this->createMagicEnv($xml, $actor);
-        } catch (Exception $e) {
-            common_log(LOG_ERR, "Salmon unable to sign: " . $e->getMessage());
-            return false;
-        }
+        $classes = array('MagicEnvelope', 'MagicEnvelopeCompat');
+        foreach ($classes as $class) {
+            try {
+                $envelope = $this->createMagicEnv($xml, $actor, $class);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, "Salmon unable to sign: " . $e->getMessage());
+                return false;
+            }
+    
+            $headers = array('Content-Type: application/magic-envelope+xml');
+    
+            try {
+                $client = new HTTPClient();
+                $client->setBody($envelope);
+                $response = $client->post($endpoint_uri, $headers);
+            } catch (HTTP_Request2_Exception $e) {
+                common_log(LOG_ERR, "Salmon ($class) post to $endpoint_uri failed: " . $e->getMessage());
+                continue;
+            }
+            if ($response->getStatus() != 200) {
+                common_log(LOG_ERR, "Salmon ($class) at $endpoint_uri returned status " .
+                    $response->getStatus() . ': ' . $response->getBody());
+                continue;
+            }
 
-        $headers = array('Content-Type: application/magic-envelope+xml');
-
-        try {
-            $client = new HTTPClient();
-            $client->setBody($xml);
-            $response = $client->post($endpoint_uri, $headers);
-        } catch (HTTP_Request2_Exception $e) {
-            common_log(LOG_ERR, "Salmon post to $endpoint_uri failed: " . $e->getMessage());
-            return false;
+            // Success!
+            return true;
         }
-        if ($response->getStatus() != 200) {
-            common_log(LOG_ERR, "Salmon at $endpoint_uri returned status " .
-                $response->getStatus() . ': ' . $response->getBody());
-            return false;
-        }
-        return true;
+        return false;
     }
 
     /**
@@ -87,14 +93,16 @@ class Salmon
      *
      * @param string $text XML fragment to sign, assumed to be Atom
      * @param Profile $actor Profile of a local user to use as signer
+     * @param string $class to override the magic envelope signature version, pass a MagicEnvelope subclass here
+     *
      * @return string XML string representation of magic envelope
      *
      * @throws Exception on bad profile input or key generation problems
      * @fixme if signing fails, this seems to return the original text without warning. Is there a reason for this?
      */
-    public function createMagicEnv($text, $actor)
+    public function createMagicEnv($text, $actor, $class='MagicEnvelope')
     {
-        $magic_env = new MagicEnvelope();
+        $magic_env = new $class();
 
         $user = User::staticGet('id', $actor->id);
         if ($user->id) {
