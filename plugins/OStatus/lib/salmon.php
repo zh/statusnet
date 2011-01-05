@@ -38,10 +38,12 @@ class Salmon
     /**
      * Sign and post the given Atom entry as a Salmon message.
      *
-     * @fixme pass through the actor for signing?
+     * Side effects: may generate a keypair on-demand for the given user,
+     * which can be very slow on some systems.
      *
      * @param string $endpoint_uri
-     * @param string $xml
+     * @param string $xml string representation of payload
+     * @param Profile $actor local user profile whose keys to sign with
      * @return boolean success
      */
     public function post($endpoint_uri, $xml, $actor)
@@ -75,6 +77,21 @@ class Salmon
         return true;
     }
 
+    /**
+     * Encode the given string as a signed MagicEnvelope XML document,
+     * using the keypair for the given local user profile.
+     *
+     * Side effects: will create and store a keypair on-demand if one
+     * hasn't already been generated for this user. This can be very slow
+     * on some systems.
+     *
+     * @param string $text XML fragment to sign, assumed to be Atom
+     * @param Profile $actor Profile of a local user to use as signer
+     * @return string XML string representation of magic envelope
+     *
+     * @throws Exception on bad profile input or key generation problems
+     * @fixme if signing fails, this seems to return the original text without warning. Is there a reason for this?
+     */
     public function createMagicEnv($text, $actor)
     {
         $magic_env = new MagicEnvelope();
@@ -101,6 +118,19 @@ class Salmon
         return $magic_env->toXML($env);
     }
 
+    /**
+     * Check if the given magic envelope is well-formed and correctly signed.
+     * Needs to have network access to fetch public keys over the web.
+     *
+     * Side effects: exceptions and caching updates may occur during network
+     * fetches.
+     *
+     * @param string $text XML fragment of magic envelope
+     * @return boolean
+     *
+     * @throws Exception on bad profile input or key generation problems
+     * @fixme could hit fatal errors or spew output on invalid XML
+     */
     public function verifyMagicEnv($text)
     {
         $magic_env = new MagicEnvelope();
