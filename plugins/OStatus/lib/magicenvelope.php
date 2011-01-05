@@ -80,6 +80,20 @@ class MagicEnvelope
         throw new Exception(_m('Unable to locate signer public key.'));
     }
 
+    /**
+     * The current MagicEnvelope spec as used in StatusNet 0.9.7 and later
+     * includes both the original data and some signing metadata fields as
+     * the input plaintext for the signature hash.
+     *
+     * @param array $env
+     * @return string
+     */
+    public function signingText($env) {
+        return implode('.', array($env['data'], // this field is pre-base64'd
+                            Magicsig::base64_url_encode($env['data_type']),
+                            Magicsig::base64_url_encode($env['encoding']),
+                            Magicsig::base64_url_encode($env['alg'])));
+    }
 
     /**
      *
@@ -93,14 +107,17 @@ class MagicEnvelope
     {
         $signature_alg = Magicsig::fromString($keypair);
         $armored_text = Magicsig::base64_url_encode($text);
-
-        return array(
+        $env = array(
             'data' => $armored_text,
             'encoding' => MagicEnvelope::ENCODING,
             'data_type' => $mimetype,
-            'sig' => $signature_alg->sign($armored_text),
+            'sig' => '',
             'alg' => $signature_alg->getName()
         );
+
+        $env['sig'] = $signature_alg->sign($this->signingText($env));
+
+        return $env;
     }
 
     /**
@@ -239,7 +256,7 @@ class MagicEnvelope
             return false;
         }
 
-        return $verifier->verify($env['data'], $env['sig']);
+        return $verifier->verify($this->signingText($env), $env['sig']);
     }
 
     /**
@@ -290,3 +307,24 @@ class MagicEnvelope
         );
     }
 }
+
+/**
+ * Variant of MagicEnvelope using the earlier signature form listed in the MagicEnvelope
+ * spec in early 2010; this was used in StatusNet up through 0.9.6, so for backwards compatiblity
+ * we still need to accept and sometimes send this format.
+ */
+class MagicEnvelopeCompat extends MagicEnvelope {
+
+    /**
+     * StatusNet through 0.9.6 used an earlier version of the MagicEnvelope spec
+     * which used only the input data, without the additional fields, as the plaintext
+     * for signing.
+     *
+     * @param array $env
+     * @return string
+     */
+    public function signingText($env) {
+        return $env['data'];
+    }
+}
+
