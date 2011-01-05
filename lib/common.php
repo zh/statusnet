@@ -95,7 +95,11 @@ function _have_config()
     return StatusNet::haveConfig();
 }
 
-function __autoload($cls)
+/**
+ * Wrapper for class autoloaders.
+ * This used to be the special function name __autoload(), but that causes bugs with PHPUnit 3.5+
+ */
+function autoload_sn($cls)
 {
     if (file_exists(INSTALLDIR.'/classes/' . $cls . '.php')) {
         require_once(INSTALLDIR.'/classes/' . $cls . '.php');
@@ -110,6 +114,8 @@ function __autoload($cls)
         Event::handle('Autoload', array(&$cls));
     }
 }
+
+spl_autoload_register('autoload_sn');
 
 // XXX: how many of these could be auto-loaded on use?
 // XXX: note that these files should not use config options
