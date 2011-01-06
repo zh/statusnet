@@ -52,8 +52,7 @@ class Salmon
             return false;
         }
 
-        $classes = array('MagicEnvelope', 'MagicEnvelopeCompat');
-        foreach ($classes as $class) {
+        foreach ($this->formatClasses() as $class) {
             try {
                 $envelope = $this->createMagicEnv($xml, $actor, $class);
             } catch (Exception $e) {
@@ -81,6 +80,15 @@ class Salmon
             return true;
         }
         return false;
+    }
+
+    /**
+     * List the magic envelope signature class variants in the order we try them.
+     * Multiples are needed for backwards-compat with StatusNet prior to 0.9.7,
+     * which used a draft version of the magic envelope spec.
+     */
+    protected function formatClasses() {
+        return array('MagicEnvelope', 'MagicEnvelopeCompat');
     }
 
     /**
@@ -129,6 +137,7 @@ class Salmon
     /**
      * Check if the given magic envelope is well-formed and correctly signed.
      * Needs to have network access to fetch public keys over the web.
+     * Both current and back-compat signature formats will be checked.
      *
      * Side effects: exceptions and caching updates may occur during network
      * fetches.
@@ -141,10 +150,16 @@ class Salmon
      */
     public function verifyMagicEnv($text)
     {
-        $magic_env = new MagicEnvelope();
+        foreach ($this->formatClasses() as $class) {
+            $magic_env = new $class();
 
-        $env = $magic_env->parse($text);
+            $env = $magic_env->parse($text);
 
-        return $magic_env->verify($env);
+            if ($magic_env->verify($env)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
