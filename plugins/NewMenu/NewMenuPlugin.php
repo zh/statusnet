@@ -105,7 +105,7 @@ class NewMenuPlugin extends Plugin
                               false,
                               'nav_profile');
             $action->menuItem(common_local_url('public'),
-                              _m('Everyone'),
+                              _m('Public'),
                               _m('Everyone on this site'),
                               false,
                               'nav_public');
