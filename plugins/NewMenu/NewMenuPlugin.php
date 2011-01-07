@@ -284,6 +284,76 @@ class NewMenuPlugin extends Plugin
         return true;
     }
 
+    function onStartAccountSettingsNav(&$action)
+    {
+        $this->_settingsMenu($action);
+        return false;
+    }
+
+    function onStartConnectSettingsNav(&$action)
+    {
+        $this->_settingsMenu($action);
+        return false;
+    }
+
+    private function _settingsMenu(&$action)
+    {
+        $actionName = $action->trimmed('action');
+
+        $action->menuItem(common_local_url('profilesettings'),
+                          _('Profile'),
+                          _('Change your profile settings'),
+                          $actionName == 'profilesettings');
+
+        $action->menuItem(common_local_url('avatarsettings'),
+                          _('Avatar'),
+                          _('Upload an avatar'),
+                          $actionName == 'avatarsettings');
+
+        $action->menuItem(common_local_url('passwordsettings'),
+                          _('Password'),
+                          _('Change your password'),
+                          $actionName == 'passwordsettings');
+
+        $action->menuItem(common_local_url('emailsettings'),
+                          _('Email'),
+                          _('Change email handling'),
+                          $actionName == 'emailsettings');
+
+        $action->menuItem(common_local_url('userdesignsettings'),
+                          _('Design'),
+                          _('Design your profile'),
+                          $actionName == 'userdesignsettings');
+
+        $action->menuItem(common_local_url('othersettings'),
+                          _('Other'),
+                          _('Other options'),
+                          $actionName == 'othersettings');
+
+        Event::handle('EndAccountSettingsNav', array(&$action));
+        
+        if (common_config('xmpp', 'enabled')) {
+            $action->menuItem(common_local_url('imsettings'),
+                              _m('IM'),
+                              _('Updates by instant messenger (IM)'),
+                              $actionName == 'imsettings');
+        }
+
+        if (common_config('sms', 'enabled')) {
+            $action->menuItem(common_local_url('smssettings'),
+                              _m('SMS'),
+                              _('Updates by SMS'),
+                              $actionName == 'smssettings');
+        }
+
+        $action->menuItem(common_local_url('oauthconnectionssettings'),
+                          _('Connections'),
+                          _('Authorized connected applications'),
+                          $actionName == 'oauthconnectionsettings');
+
+        Event::handle('EndConnectSettingsNav', array(&$action));
+    }
+
     /**
      * Return version information for this plugin
      *
