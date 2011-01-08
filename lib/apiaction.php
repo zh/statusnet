@@ -1437,41 +1437,23 @@ class ApiAction extends Action
     {
         if (empty($id)) {
             if (self::is_decimal($this->arg('id'))) {
-                return User_group::staticGet($this->arg('id'));
+                return User_group::staticGet('id', $this->arg('id'));
             } else if ($this->arg('id')) {
-                $nickname = common_canonical_nickname($this->arg('id'));
-                $local = Local_group::staticGet('nickname', $nickname);
-                if (empty($local)) {
-                    return null;
-                } else {
-                    return User_group::staticGet('id', $local->id);
-                }
+                return User_group::getForNickname($this->arg('id'));
             } else if ($this->arg('group_id')) {
-                // This is to ensure that a non-numeric user_id still
-                // overrides screen_name even if it doesn't get used
+                // This is to ensure that a non-numeric group_id still
+                // overrides group_name even if it doesn't get used
                 if (self::is_decimal($this->arg('group_id'))) {
                     return User_group::staticGet('id', $this->arg('group_id'));
                 }
             } else if ($this->arg('group_name')) {
-                $nickname = common_canonical_nickname($this->arg('group_name'));
-                $local = Local_group::staticGet('nickname', $nickname);
-                if (empty($local)) {
-                    return null;
-                } else {
-                    return User_group::staticGet('id', $local->group_id);
-                }
+                return User_group::getForNickname($this->arg('group_name'));
             }
 
         } else if (self::is_decimal($id)) {
-            return User_group::staticGet($id);
+            return User_group::staticGet('id', $id);
         } else {
-            $nickname = common_canonical_nickname($id);
-            $local = Local_group::staticGet('nickname', $nickname);
-            if (empty($local)) {
-                return null;
-            } else {
-                return User_group::staticGet('id', $local->group_id);
-            }
+            return User_group::getForNickname($id);
         }
     }
 
