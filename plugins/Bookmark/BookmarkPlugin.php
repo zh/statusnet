@@ -318,7 +318,7 @@ class BookmarkPlugin extends Plugin
                 }
             }
 
-            $out->elementStart('p', array('class' => 'bookmark-info'));
+            $out->elementStart('div', array('class' => 'bookmark-info entry-content'));
 
             $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
 
@@ -344,7 +344,7 @@ class BookmarkPlugin extends Plugin
             $nli->showContext();
             $nli->showRepeat();
 
-            $out->elementEnd('p');
+            $out->elementEnd('div');
 
             $nli->showNoticeOptions();
 
