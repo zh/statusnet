@@ -51,6 +51,8 @@ if (!defined('STATUSNET')) {
  */
 class NewMenuPlugin extends Plugin
 {
+    public $loadCSS = false;
+
     /**
      * Load related modules when needed
      *
@@ -352,6 +354,18 @@ class NewMenuPlugin extends Plugin
                           $actionName == 'oauthconnectionsettings');
 
         Event::handle('EndConnectSettingsNav', array(&$action));
+    }
+
+    function onEndShowStyles($action)
+    {
+        if (($this->showCSS ||
+             in_array(common_config('site', 'theme'),
+                      array('default', 'identica', 'h4ck3r'))) &&
+            ($action instanceof AccountSettingsAction ||
+             $action instanceof ConnectSettingsAction)) {
+            $action->cssLink(common_path('plugins/NewMenu/newmenu.css'));
+        }
+        return true;
     }
 
     /**
