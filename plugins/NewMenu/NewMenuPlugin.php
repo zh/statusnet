@@ -130,7 +130,7 @@ class NewMenuPlugin extends Plugin
                               'nav_logout');
         } else {
             $action->menuItem(common_local_url('public'),
-                              _m('Everyone'),
+                              _m('Public'),
                               _m('Everyone on this site'),
                               false,
                               'nav_public');
@@ -140,13 +140,6 @@ class NewMenuPlugin extends Plugin
                               false,
                               'nav_login');
         }
-
-        $action->menuItem(common_local_url('doc', 
-                                           array('title' => 'help')),
-                          _m('Help'),
-                          _m('Help using this site'),
-                          false,
-                          'nav_help');
 
         if (!empty($user) || !common_config('site', 'private')) {
             $action->menuItem(common_local_url('noticesearch'),
@@ -366,6 +359,58 @@ class NewMenuPlugin extends Plugin
             $action->cssLink(common_path('plugins/NewMenu/newmenu.css'));
         }
         return true;
+    }
+
+    function onStartAddressData($action)
+    {
+        if (common_config('singleuser', 'enabled')) {
+            $user = User::singleUser();
+            $url = common_local_url('showstream',
+                                    array('nickname' => $user->nickname));
+        } else if (common_logged_in()) {
+            $cur = common_current_user();
+            $url = common_local_url('all', array('nickname' => $cur->nickname));
+        } else {
+            $url = common_local_url('public');
+        }
+
+        $action->elementStart('a', array('class' => 'url home bookmark',
+                                         'href' => $url));
+
+        if (StatusNet::isHTTPS()) {
+            $logoUrl = common_config('site', 'ssllogo');
+            if (empty($logoUrl)) {
+                // if logo is an uploaded file, try to fall back to HTTPS file URL
+                $httpUrl = common_config('site', 'logo');
+                if (!empty($httpUrl)) {
+                    $f = File::staticGet('url', $httpUrl);
+                    if (!empty($f) && !empty($f->filename)) {
+                        // this will handle the HTTPS case
+                        $logoUrl = File::url($f->filename);
+                    }
+                }
+            }
+        } else {
+            $logoUrl = common_config('site', 'logo');
+        }
+
+        if (empty($logoUrl) && file_exists(Theme::file('logo.png'))) {
+            // This should handle the HTTPS case internally
+            $logoUrl = Theme::path('logo.png');
+        }
+
+        if (!empty($logoUrl)) {
+            $action->element('img', array('class' => 'logo photo',
+                                          'src' => $logoUrl,
+                                          'alt' => common_config('site', 'name')));
+        }
+
+        $action->text(' ');
+        $action->element('span', array('class' => 'fn org'), common_config('site', 'name'));
+        $action->elementEnd('a');
+
+        Event::handle('EndAddressData', array($action));
+        return false;
     }
 
     /**
