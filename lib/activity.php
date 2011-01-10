@@ -182,6 +182,9 @@ class Activity
         $actorEl = $this->_child($entry, self::ACTOR);
 
         if (!empty($actorEl)) {
+            // Standalone <activity:actor> elements are a holdover from older
+            // versions of ActivityStreams. Newer feeds should have this data
+            // integrated straight into <atom:author>.
 
             $this->actor = new ActivityObject($actorEl);
 
@@ -196,19 +199,24 @@ class Activity
                     $this->actor->id = $authorObj->id;
                 }
             }
-        } else if (!empty($feed) &&
-                   $subjectEl = $this->_child($feed, self::SUBJECT)) {
-
-            $this->actor = new ActivityObject($subjectEl);
-
         } else if ($authorEl = $this->_child($entry, self::AUTHOR, self::ATOM)) {
 
+            // An <atom:author> in the entry overrides any author info on
+            // the surrounding feed.
             $this->actor = new ActivityObject($authorEl);
 
         } else if (!empty($feed) && $authorEl = $this->_child($feed, self::AUTHOR,
                                                               self::ATOM)) {
 
+            // If there's no <atom:author> on the entry, it's safe to assume
+            // the containing feed's authorship info applies.
             $this->actor = new ActivityObject($authorEl);
+        } else if (!empty($feed) &&
+                   $subjectEl = $this->_child($feed, self::SUBJECT)) {
+
+            // Feed subject is used for things like groups.
+            // Should actually possibly not be interpreted as an actor...?
+            $this->actor = new ActivityObject($subjectEl);
         }
 
         $contextEl = $this->_child($entry, self::CONTEXT);

@@ -331,6 +331,7 @@ class Ostatus_profile extends Memcached_DataObject
      * an acceptable response from the remote site.
      *
      * @param mixed $entry XML string, Notice, or Activity
+     * @param Profile $actor
      * @return boolean success
      */
     public function notifyActivity($entry, $actor)
