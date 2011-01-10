@@ -151,5 +151,19 @@ class ActivitySink
         $client->setBody($activity->asString(true, true, true));
 
         $response = $client->send();
+
+        $status = $response->getStatus();
+        $reason = $response->getReasonPhrase();
+
+        if ($status >= 200 && $status < 300) {
+            return true;
+        } else if ($status >= 400 && $status < 500) {
+            throw new ClientException("{$url} {$status} {$reason}");
+        } else if ($status >= 500 && $status < 600) {
+            throw new ServerException("{$url} {$status} {$reason}");
+        } else {
+            // That's unexpected.
+            throw new Exception("{$url} {$status} {$reason}");
+        }
     }
 }

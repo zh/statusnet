@@ -57,6 +57,8 @@ class AccountMover
         $this->_user    = $user;
         $this->_profile = $user->getProfile();
 
+        $remote = Discovery::normalize($remote);
+
         $oprofile = Ostatus_profile::ensureProfileURI($remote);
 
         if (empty($oprofile)) {
