@@ -299,6 +299,10 @@ class FacebookfinishloginAction extends Action
 
     function createNewUser()
     {
+        if (!Event::handle('StartRegistrationTry', array($this))) {
+            return;
+        }
+
         if (common_config('site', 'closed')) {
             // TRANS: Client error trying to register with registrations not allowed.
             $this->clientError(_m('Registration not allowed.'));
@@ -388,6 +392,8 @@ class FacebookfinishloginAction extends Action
             ),
             __FILE__
         );
+
+        Event::handle('EndRegistrationTry', array($this));
 
         $this->goHome($user->nickname);
     }
