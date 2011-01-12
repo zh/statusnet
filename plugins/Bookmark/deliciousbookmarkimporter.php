@@ -61,48 +61,28 @@ class DeliciousBookmarkImporter extends QueueHandler
     /**
      * Handle the data
      * 
-     * @param array $data array of user, dt, dd
+     * @param array $data associative array of user & bookmark info from DeliciousBackupImporter::importBookmark()
      *
      * @return boolean success value
      */
 
     function handle($data)
     {
-        list($user, $dt, $dd) = $data;
+        $profile = Profile::staticGet('id', $data['profile_id']);
 
-        $as = $dt->getElementsByTagName('a');
-
-        if ($as->length == 0) {
-            throw new ClientException(_("No <A> tag in a <DT>."));
+        try {
+            $saved = Bookmark::saveNew($profile,
+                                       $data['title'],
+                                       $data['url'],
+                                       $data['tags'],
+                                       $data['description'],
+                                       array('created' => $data['created'],
+                                             'distribute' => false));
+        } catch (ClientException $e) {
+            // Most likely a duplicate -- continue on with the rest!
+            common_log(LOG_ERR, "Error importing delicious bookmark to $data[url]: " . $e->getMessage());
+            return true;
         }
-
-        $a = $as->item(0);
-                    
-        $private = $a->getAttribute('private');
-
-        if ($private != 0) {
-            throw new ClientException(_('Skipping private bookmark.'));
-        }
-
-        if (!empty($dd)) {
-            $description = $dd->nodeValue;
-        } else {
-            $description = null;
-        }
-
-        $title   = $a->nodeValue;
-        $url     = $a->getAttribute('href');
-        $tags    = $a->getAttribute('tags');
-        $addDate = $a->getAttribute('add_date');
-        $created = common_sql_date(intval($addDate));
-
-        $saved = Bookmark::saveNew($user->getProfile(),
-                                   $title,
-                                   $url,
-                                   $tags,
-                                   $description,
-                                   array('created' => $created,
-                                         'distribute' => false));
 
         return true;
     }

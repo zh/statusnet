@@ -263,11 +263,12 @@ class NoticeListItem extends Widget
 
     function showStart()
     {
-        // XXX: RDFa
-        // TODO: add notice_type class e.g., notice_video, notice_image
-        $id = (empty($this->repeat)) ? $this->notice->id : $this->repeat->id;
-        $this->out->elementStart('li', array('class' => 'hentry notice',
-                                             'id' => 'notice-' . $id));
+        if (Event::handle('StartOpenNoticeListItemElement', array($this))) {
+            $id = (empty($this->repeat)) ? $this->notice->id : $this->repeat->id;
+            $this->out->elementStart('li', array('class' => 'hentry notice',
+                                                 'id' => 'notice-' . $id));
+            Event::handle('EndOpenNoticeListItemElement', array($this));
+        }
     }
 
     /**
@@ -706,6 +707,9 @@ class NoticeListItem extends Widget
 
     function showEnd()
     {
-        $this->out->elementEnd('li');
+        if (Event::handle('StartCloseNoticeListItemElement', array($this))) {
+            $this->out->elementEnd('li');
+            Event::handle('EndCloseNoticeListItemElement', array($this));
+        }
     }
 }

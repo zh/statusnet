@@ -1063,3 +1063,15 @@ StartProfileSettingsActions: when we're showing account-management action list
 
 EndProfileSettingsActions: when we're showing account-management action list
 - $action: Action being shown (use for output)
+
+StartOpenNoticeListItemElement: Before the opening <li> of a notice list element
+- $nli: The notice list item being shown
+
+EndOpenNoticeListItemElement: After the opening <li> of a notice list element
+- $nli: The notice list item being shown
+
+StartCloseNoticeListItemElement: Before the closing </li> of a notice list element
+- $nli: The notice list item being shown
+
+EndCloseNoticeListItemElement: After the closing </li> of a notice list element
+- $nli: The notice list item being shown

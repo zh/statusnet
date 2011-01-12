@@ -219,7 +219,7 @@ function main()
 {
     // fake HTTP redirects using lighttpd's 404 redirects
     if (strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') !== false) {
-        $_lighty_url = $base_url.$_SERVER['REQUEST_URI'];
+        $_lighty_url = $_SERVER['REQUEST_URI'];
         $_lighty_url = @parse_url($_lighty_url);
 
         if ($_lighty_url['path'] != '/index.php' && $_lighty_url['path'] != '/') {

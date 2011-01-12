@@ -86,16 +86,21 @@ class BookmarkPlugin extends Plugin
         // For storing user-submitted flags on profiles
 
         $schema->ensureTable('bookmark',
-                             array(new ColumnDef('profile_id',
+                             array(new ColumnDef('id',
+                                                 'char',
+                                                 36,
+                                                 false,
+                                                 'PRI'),
+                                   new ColumnDef('profile_id',
                                                  'integer',
                                                  null,
                                                  false,
-                                                 'PRI'),
+                                                 'MUL'),
                                    new ColumnDef('url',
                                                  'varchar',
                                                  255,
                                                  false,
-                                                 'PRI'),
+                                                 'MUL'),
                                    new ColumnDef('title',
                                                  'varchar',
                                                  255),
@@ -106,25 +111,11 @@ class BookmarkPlugin extends Plugin
                                                  255,
                                                  false,
                                                  'UNI'),
-                                   new ColumnDef('url_crc32',
-                                                 'integer unsigned',
-                                                 null,
-                                                 false,
-                                                 'MUL'),
                                    new ColumnDef('created',
                                                  'datetime',
                                                  null,
                                                  false,
                                                  'MUL')));
-
-        try {
-            $schema->createIndex('bookmark', 
-                                 array('profile_id', 
-                                       'url_crc32'),
-                                 'bookmark_profile_url_idx');
-        } catch (Exception $e) {
-            common_log(LOG_ERR, $e->getMessage());
-        }
 
         return true;
     }
@@ -216,11 +207,9 @@ class BookmarkPlugin extends Plugin
         $m->connect('main/bookmark/import',
                     array('action' => 'importdelicious'));
 
-        $m->connect('bookmark/:user/:created/:crc32',
+        $m->connect('bookmark/:id',
                     array('action' => 'showbookmark'),
-                    array('user' => '[0-9]+',
-                          'created' => '[0-9]{14}',
-                          'crc32' => '[0-9a-f]{8}'));
+                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
         $m->connect('notice/by-url/:id',
                     array('action' => 'noticebyurl'),
@@ -262,25 +251,28 @@ class BookmarkPlugin extends Plugin
             } else {
                 $out->elementStart('h3');
                 $out->element('a',
-                              array('href' => $att->url),
+                              array('href' => $att->url,
+                                    'class' => 'bookmark-title entry-title'),
                               $nb->title);
                 $out->elementEnd('h3');
 
                 $countUrl = common_local_url('noticebyurl',
                                              array('id' => $att->id));
 
-                $out->element('a', array('class' => 'bookmark_notice_count',
+                $out->element('a', array('class' => 'bookmark-notice-count',
                                          'href' => $countUrl),
                               $att->noticeCount());
             }
 
-            $out->elementStart('ul', array('class' => 'bookmark_tags'));
-            
             // Replies look like "for:" tags
 
             $replies = $nli->notice->getReplies();
+            $tags = $nli->notice->getTags();
 
-            if (!empty($replies)) {
+            if (!empty($replies) || !empty($tags)) {
+
+                $out->elementStart('ul', array('class' => 'bookmark-tags'));
+            
                 foreach ($replies as $reply) {
                     $other = Profile::staticGet('id', $reply);
                     $out->elementStart('li');
@@ -291,45 +283,59 @@ class BookmarkPlugin extends Plugin
                     $out->elementEnd('li');
                     $out->text(' ');
                 }
+
+                foreach ($tags as $tag) {
+                    $out->elementStart('li');
+                    $out->element('a', 
+                                  array('rel' => 'tag',
+                                        'href' => Notice_tag::url($tag)),
+                                  $tag);
+                    $out->elementEnd('li');
+                    $out->text(' ');
+                }
+
+                $out->elementEnd('ul');
             }
 
-            $tags = $nli->notice->getTags();
-
-            foreach ($tags as $tag) {
-                $out->elementStart('li');
-                $out->element('a', 
-                              array('rel' => 'tag',
-                                    'href' => Notice_tag::url($tag)),
-                              $tag);
-                $out->elementEnd('li');
-                $out->text(' ');
+            if (!empty($nb->description)) {
+                $out->element('p',
+                              array('class' => 'bookmark-description'),
+                              $nb->description);
             }
-
-            $out->elementEnd('ul');
-
-            $out->element('p',
-                          array('class' => 'bookmark_description'),
-                          $nb->description);
 
             if (common_config('attachments', 'show_thumbs')) {
-                $al = new InlineAttachmentList($notice, $out);
-                $al->show();
+                $haveThumbs = false;
+                foreach ($atts as $check) {
+                    $thumbnail = File_thumbnail::staticGet('file_id', $check->id);
+                    if (!empty($thumbnail)) {
+                        $haveThumbs = true;
+                        break;
+                    }
+                }
+                if ($haveThumbs) {
+                    $al = new InlineAttachmentList($notice, $out);
+                    $al->show();
+                }
             }
 
-            $out->elementStart('p', array('style' => 'float: left'));
+            $out->elementStart('div', array('class' => 'bookmark-info entry-content'));
 
             $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
 
-            $out->element('img', array('src' => ($avatar) ?
-                                       $avatar->displayUrl() :
-                                       Avatar::defaultImage(AVATAR_MINI_SIZE),
-                                       'class' => 'avatar photo bookmark_avatar',
-                                       'width' => AVATAR_MINI_SIZE,
-                                       'height' => AVATAR_MINI_SIZE,
-                                       'alt' => $profile->getBestName()));
+            $out->element('img', 
+                          array('src' => ($avatar) ?
+                                $avatar->displayUrl() :
+                                Avatar::defaultImage(AVATAR_MINI_SIZE),
+                                'class' => 'avatar photo bookmark-avatar',
+                                'width' => AVATAR_MINI_SIZE,
+                                'height' => AVATAR_MINI_SIZE,
+                                'alt' => $profile->getBestName()));
+
             $out->raw('&nbsp;');
-            $out->element('a', array('href' => $profile->profileurl,
-                                     'title' => $profile->getBestName()),
+
+            $out->element('a', 
+                          array('href' => $profile->profileurl,
+                                'title' => $profile->getBestName()),
                           $profile->nickname);
 
             $nli->showNoticeLink();
@@ -338,7 +344,7 @@ class BookmarkPlugin extends Plugin
             $nli->showContext();
             $nli->showRepeat();
 
-            $out->elementEnd('p');
+            $out->elementEnd('div');
 
             $nli->showNoticeOptions();
 
@@ -643,6 +649,27 @@ class BookmarkPlugin extends Plugin
     }
 
     /**
+     * Output our CSS class for bookmark notice list elements
+     *
+     * @param NoticeListItem $nli The item being shown
+     *
+     * @return boolean hook value
+     */
+
+    function onStartOpenNoticeListItemElement($nli)
+    {
+        $nb = Bookmark::getByNotice($nli->notice);
+        if (!empty($nb)) {
+            $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
+            $nli->out->elementStart('li', array('class' => 'hentry notice bookmark',
+                                                 'id' => 'notice-' . $id));
+            Event::handle('EndOpenNoticeListItemElement', array($nli));
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Save a remote bookmark (from Salmon or PuSH)
      *
      * @param Ostatus_profile $author   Author of the bookmark
@@ -769,4 +796,3 @@ class BookmarkPlugin extends Plugin
                 $activity->objects[0]->type == ActivityObject::BOOKMARK);
     }
 }
-
