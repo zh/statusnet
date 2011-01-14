@@ -895,9 +895,6 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showStatusNetLicense()
     {
-        // TRANS: DT element for StatusNet software license.
-        $this->element('dt', array('id' => 'site_statusnet_license'), _('StatusNet software license'));
-        $this->elementStart('dd', null);
         if (common_config('site', 'broughtby')) {
             // TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
             // TRANS: Text between [] is a link description, text between () is the link itself.
@@ -916,7 +913,6 @@ class Action extends HTMLOutputter // lawsuit
         $instr .= sprintf(_('It runs the [StatusNet](http://status.net/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), STATUSNET_VERSION);
         $output = common_markup_to_html($instr);
         $this->raw($output);
-        $this->elementEnd('dd');
         // do it
     }
 
@@ -928,10 +924,6 @@ class Action extends HTMLOutputter // lawsuit
     function showContentLicense()
     {
         if (Event::handle('StartShowContentLicense', array($this))) {
-            // TRANS: DT element for StatusNet site content license.
-            $this->element('dt', array('id' => 'site_content_license'), _('Site content license'));
-            $this->elementStart('dd', array('id' => 'site_content_license_cc'));
-
             switch (common_config('license', 'type')) {
             case 'private':
                 // TRANS: Content license displayed when license is set to 'private'.
@@ -992,7 +984,6 @@ class Action extends HTMLOutputter // lawsuit
                 break;
             }
 
-            $this->elementEnd('dd');
             Event::handle('EndShowContentLicense', array($this));
         }
     }
