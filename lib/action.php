@@ -526,11 +526,7 @@ class Action extends HTMLOutputter // lawsuit
     function showPrimaryNav()
     {
         $user = common_current_user();
-        $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
-        // TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-        $this->element('dt', null, _('Primary site navigation'));
-        $this->elementStart('dd');
-        $this->elementStart('ul', array('class' => 'nav'));
+        $this->elementStart('ul', array('class' => 'nav site_nav_global_primary'));
         if (Event::handle('StartPrimaryNav', array($this))) {
             if ($user) {
                 // TRANS: Tooltip for main menu option "Personal"
@@ -600,8 +596,6 @@ class Action extends HTMLOutputter // lawsuit
             Event::handle('EndPrimaryNav', array($this));
         }
         $this->elementEnd('ul');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
     }
 
     /**
@@ -614,14 +608,10 @@ class Action extends HTMLOutputter // lawsuit
         // Revist. Should probably do an hAtom pattern here
         $text = common_config('site', 'notice');
         if ($text) {
-            $this->elementStart('dl', array('id' => 'site_notice',
+            $this->elementStart('div', array('id' => 'site_notice',
                                             'class' => 'system_notice'));
-            // TRANS: DT element for site notice. String is hidden in default CSS.
-            $this->element('dt', null, _('Site notice'));
-            $this->elementStart('dd', null);
             $this->raw($text);
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
+            $this->elementEnd('div');
         }
     }
 
@@ -682,13 +672,7 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showLocalNavBlock()
     {
-        $this->elementStart('dl', array('id' => 'site_nav_local_views'));
-        // TRANS: DT element for local views block. String is hidden in default CSS.
-        $this->element('dt', null, _('Local views'));
-        $this->elementStart('dd');
         $this->showLocalNav();
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
     }
 
     /**
@@ -751,17 +735,13 @@ class Action extends HTMLOutputter // lawsuit
 
         if ($dclass != 'Action' || Event::hasHandler('StartShowPageNotice')) {
 
-            $this->elementStart('dl', array('id' => 'page_notice',
+            $this->elementStart('div', array('id' => 'page_notice',
                                             'class' => 'system_notice'));
-            // TRANS: DT element for page notice. String is hidden in default CSS.
-            $this->element('dt', null, _('Page notice'));
-            $this->elementStart('dd');
             if (Event::handle('StartShowPageNotice', array($this))) {
                 $this->showPageNotice();
                 Event::handle('EndShowPageNotice', array($this));
             }
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
+            $this->elementEnd('div');
         }
     }
 
@@ -853,11 +833,7 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showSecondaryNav()
     {
-        $this->elementStart('dl', array('id' => 'site_nav_global_secondary'));
-        // TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-        $this->element('dt', null, _('Secondary site navigation'));
-        $this->elementStart('dd', null);
-        $this->elementStart('ul', array('class' => 'nav'));
+        $this->elementStart('ul', array('class' => 'nav site_nav_global_secondary'));
         if (Event::handle('StartSecondaryNav', array($this))) {
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
                             // TRANS: Secondary navigation menu option leading to help on StatusNet.
@@ -893,8 +869,6 @@ class Action extends HTMLOutputter // lawsuit
             Event::handle('EndSecondaryNav', array($this));
         }
         $this->elementEnd('ul');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
     }
 
     /**
@@ -904,10 +878,8 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showLicenses()
     {
-        $this->elementStart('dl', array('id' => 'licenses'));
         $this->showStatusNetLicense();
         $this->showContentLicense();
-        $this->elementEnd('dl');
     }
 
     /**
@@ -1335,11 +1307,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         // Does a little before-after block for next/prev page
         if ($have_before || $have_after) {
-            $this->elementStart('dl', 'pagination');
-            // TRANS: DT element for pagination (previous/next, etc.).
-            $this->element('dt', null, _('Pagination'));
-            $this->elementStart('dd', null);
-            $this->elementStart('ul', array('class' => 'nav'));
+            $this->elementStart('ul', array('class' => 'nav pagination'));
         }
         if ($have_before) {
             $pargs   = array('page' => $page-1);
@@ -1363,8 +1331,6 @@ class Action extends HTMLOutputter // lawsuit
         }
         if ($have_before || $have_after) {
             $this->elementEnd('ul');
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
         }
     }
 

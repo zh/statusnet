@@ -142,9 +142,6 @@ class PublictagcloudAction extends Action
 
             ksort($tw);
 
-            $this->elementStart('dl');
-            $this->element('dt', null, _('Tag cloud'));
-            $this->elementStart('dd');
             $this->elementStart('ul', 'tags xoxo tag-cloud');
             foreach ($tw as $tag => $weight) {
                 if ($sum) {
@@ -155,8 +152,7 @@ class PublictagcloudAction extends Action
                 $this->showTag($tag, $weight, $weightedSum);
             }
             $this->elementEnd('ul');
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
+
             $this->elementEnd('div');
         } else {
             $this->showEmptyList();

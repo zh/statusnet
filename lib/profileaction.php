@@ -187,53 +187,42 @@ class ProfileAction extends OwnerDesignAction
         $this->element('h2', null, _('Statistics'));
 
         // Other stats...?
-        $this->elementStart('dl', 'entity_user-id');
+        $this->elementStart('dl');
         $this->element('dt', null, _('User ID'));
-        $this->element('dd', null, $this->profile->id);
-        $this->elementEnd('dl');
+        $this->element('dd', 'entity_user-id', $this->profile->id);
 
-        $this->elementStart('dl', 'entity_member-since');
         $this->element('dt', null, _('Member since'));
-        $this->element('dd', null, date('j M Y',
+        $this->element('dd', 'entity_member-since', date('j M Y',
                                         strtotime($this->profile->created)));
-        $this->elementEnd('dl');
 
-        $this->elementStart('dl', 'entity_subscriptions');
         $this->elementStart('dt');
         $this->element('a', array('href' => common_local_url('subscriptions',
                                                              array('nickname' => $this->profile->nickname))),
                        _('Subscriptions'));
         $this->elementEnd('dt');
-        $this->element('dd', null, $subs_count);
-        $this->elementEnd('dl');
+        $this->element('dd', 'entity_subscriptions', $subs_count);
 
-        $this->elementStart('dl', 'entity_subscribers');
         $this->elementStart('dt');
         $this->element('a', array('href' => common_local_url('subscribers',
                                                              array('nickname' => $this->profile->nickname))),
                        _('Subscribers'));
         $this->elementEnd('dt');
-        $this->element('dd', 'subscribers', $subbed_count);
-        $this->elementEnd('dl');
+        $this->element('dd', 'subscribers entity_subscribers', $subbed_count);
 
-        $this->elementStart('dl', 'entity_groups');
         $this->elementStart('dt');
         $this->element('a', array('href' => common_local_url('usergroups',
                                                              array('nickname' => $this->profile->nickname))),
                        _('Groups'));
         $this->elementEnd('dt');
-        $this->element('dd', 'groups', $group_count);
-        $this->elementEnd('dl');
+        $this->element('dd', 'groups entity_groups', $group_count);
 
-        $this->elementStart('dl', 'entity_notices');
         $this->element('dt', null, _('Notices'));
-        $this->element('dd', null, $notice_count);
-        $this->elementEnd('dl');
+        $this->element('dd', 'entity_notices', $notice_count);
 
-        $this->elementStart('dl', 'entity_daily_notices');
         // TRANS: Average count of posts made per day since account registration
         $this->element('dt', null, _('Daily average'));
-        $this->element('dd', null, $daily_count);
+        $this->element('dd', 'entity_daily_notices', $daily_count);
+
         $this->elementEnd('dl');
 
         $this->elementEnd('div');

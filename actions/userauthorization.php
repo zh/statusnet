@@ -128,79 +128,56 @@ class UserauthorizationAction extends Action
         $avatar   = $params->getAvatarURL();
 
         $this->elementStart('div', 'entity_profile vcard');
-        $this->elementStart('dl', 'entity_depiction');
-        $this->element('dt', null, _('Photo'));
-        $this->elementStart('dd');
+
         if ($avatar) {
             $this->element('img', array('src' => $avatar,
-                                        'class' => 'photo avatar',
+                                        'class' => 'photo avatar entity_depiction',
                                         'width' => AVATAR_PROFILE_SIZE,
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $nickname));
         }
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
 
-        $this->elementStart('dl', 'entity_nickname');
-        $this->element('dt', null, _('Nickname'));
-        $this->elementStart('dd');
+        $this->element('div', 'entity_nickname', _('Nickname'));
+
         $hasFN = ($fullname !== '') ? 'nickname' : 'fn nickname';
+
+        // XXX: why are these raw() instead of escaped...?
+
         $this->elementStart('a', array('href' => $profile,
                                        'class' => 'url '.$hasFN));
         $this->raw($nickname);
         $this->elementEnd('a');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
 
         if (!is_null($fullname)) {
-            $this->elementStart('dl', 'entity_fn');
-            $this->elementStart('dd');
-            $this->elementStart('span', 'fn');
+            $this->elementStart('div', 'fn entity_fn');
             $this->raw($fullname);
-            $this->elementEnd('span');
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
+            $this->elementEnd('div');
         }
+
         if (!is_null($location)) {
-            $this->elementStart('dl', 'entity_location');
-            $this->element('dt', null, _('Location'));
-            $this->elementStart('dd', 'label');
+            $this->elementStart('div', 'label entity_location');
             $this->raw($location);
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
         }
 
         if (!is_null($homepage)) {
-            $this->elementStart('dl', 'entity_url');
-            $this->element('dt', null, _('URL'));
-            $this->elementStart('dd');
             $this->elementStart('a', array('href' => $homepage,
-                                                'class' => 'url'));
+                                           'class' => 'url entity_url'));
             $this->raw($homepage);
             $this->elementEnd('a');
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
         }
 
         if (!is_null($bio)) {
-            $this->elementStart('dl', 'entity_note');
-            $this->element('dt', null, _('Note'));
-            $this->elementStart('dd', 'note');
+            $this->elementStart('div', 'note entity_note');
             $this->raw($bio);
             $this->elementEnd('dd');
-            $this->elementEnd('dl');
         }
 
         if (!is_null($license)) {
-            $this->elementStart('dl', 'entity_license');
-            $this->element('dt', null, _('License'));
-            $this->elementStart('dd', 'license');
             $this->element('a', array('href' => $license,
-                                      'class' => 'license'),
+                                      'class' => 'license entity_license'),
                            $license);
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
         }
+
         $this->elementEnd('div');
 
         $this->elementStart('div', 'entity_actions');

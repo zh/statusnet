@@ -162,11 +162,10 @@ class MessageForm extends Form
         $contentLimit = Message::maxContent();
 
         if ($contentLimit > 0) {
-            $this->out->elementStart('dl', 'form_note');
-            $this->out->element('dt', null, _('Available characters'));
-            $this->out->element('dd', array('id' => 'notice_text-count'),
+            $this->out->element('span',
+                                array('id' => 'notice_text-count',
+                                      'class' => 'form_note'),
                                 $contentLimit);
-            $this->out->elementEnd('dl');
         }
     }
 

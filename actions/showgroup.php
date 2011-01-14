@@ -216,83 +216,47 @@ class ShowgroupAction extends GroupDesignAction
         $this->elementStart('div', array('id' => 'i',
                                          'class' => 'entity_profile vcard author'));
 
-        // TRANS: Group profile header (h2). Text hidden by default.
-        $this->element('h2', null, _('Group profile'));
-
-        $this->elementStart('dl', 'entity_depiction');
-        // TRANS: Label for group avatar (dt). Text hidden by default.
-        $this->element('dt', null, _('Avatar'));
-        $this->elementStart('dd');
-
         $logo = ($this->group->homepage_logo) ?
           $this->group->homepage_logo : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
 
         $this->element('img', array('src' => $logo,
-                                    'class' => 'photo avatar',
+                                    'class' => 'photo avatar entity_depiction',
                                     'width' => AVATAR_PROFILE_SIZE,
                                     'height' => AVATAR_PROFILE_SIZE,
                                     'alt' => $this->group->nickname));
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
 
-        $this->elementStart('dl', 'entity_nickname');
-        // TRANS: Label for group nickname (dt). Text hidden by default.
-        $this->element('dt', null, _('Nickname'));
-        $this->elementStart('dd');
-        $hasFN = ($this->group->fullname) ? 'nickname url uid' : 'fn org nickname url uid';
+        $hasFN = ($this->group->fullname) ? 'entity_nickname nickname url uid' :
+            'entity_nickname fn org nickname url uid';
         $this->element('a', array('href' => $this->group->homeUrl(),
                                   'rel' => 'me', 'class' => $hasFN),
                             $this->group->nickname);
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
 
         if ($this->group->fullname) {
-            $this->elementStart('dl', 'entity_fn');
-            // TRANS: Label for full group name (dt). Text hidden by default.
-            $this->element('dt', null, _('Full name'));
-            $this->elementStart('dd');
-            $this->element('span', 'fn org', $this->group->fullname);
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
+            $this->element('div', 'entity_fn fn org', $this->group->fullname);
         }
 
         if ($this->group->location) {
-            $this->elementStart('dl', 'entity_location');
-            // TRANS: Label for group location (dt). Text hidden by default.
-            $this->element('dt', null, _('Location'));
-            $this->element('dd', 'label', $this->group->location);
-            $this->elementEnd('dl');
+            $this->element('div', 'entity_location label', $this->group->location);
         }
 
         if ($this->group->homepage) {
-            $this->elementStart('dl', 'entity_url');
-            // TRANS: Label for group URL (dt). Text hidden by default.
-            $this->element('dt', null, _('URL'));
-            $this->elementStart('dd');
             $this->element('a', array('href' => $this->group->homepage,
-                                      'rel' => 'me', 'class' => 'url'),
+                                      'rel' => 'me',
+                                      'class' => 'url entity_url'),
                            $this->group->homepage);
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
         }
 
         if ($this->group->description) {
-            $this->elementStart('dl', 'entity_note');
-            // TRANS: Label for group description or group note (dt). Text hidden by default.
-            $this->element('dt', null, _('Note'));
-            $this->element('dd', 'note', $this->group->description);
-            $this->elementEnd('dl');
+            $this->element('div', 'note entity_note', $this->group->description);
         }
 
         if (common_config('group', 'maxaliases') > 0) {
             $aliases = $this->group->getAliases();
 
             if (!empty($aliases)) {
-                $this->elementStart('dl', 'entity_aliases');
-                // TRANS: Label for group aliases (dt). Text hidden by default.
-                $this->element('dt', null, _('Aliases'));
-                $this->element('dd', 'aliases', implode(' ', $aliases));
-                $this->elementEnd('dl');
+                $this->element('div',
+                               'aliases entity_aliases',
+                               implode(' ', $aliases));
             }
         }
 
@@ -447,15 +411,10 @@ class ShowgroupAction extends GroupDesignAction
         // TRANS: Header for group statistics on a group page (h2).
         $this->element('h2', null, _('Statistics'));
 
-        $this->elementStart('dl', 'entity_created');
-        // @todo FIXME: i18n issue. This label gets a colon added from somewhere. Should be part of the message.
-        // TRANS: Label for creation date in statistics on group page.
-        $this->element('dt', null, _m('LABEL','Created'));
-        $this->element('dd', null, date('j M Y',
-                                                 strtotime($this->group->created)));
         $this->elementEnd('dl');
-
-        $this->elementStart('dl', 'entity_members');
+        $this->element('dt', null, _m('LABEL','Created'));
+        $this->element('dd', 'entity_created', date('j M Y',
+                                                 strtotime($this->group->created)));
         // @todo FIXME: i18n issue. This label gets a colon added from somewhere. Should be part of the message.
         // TRANS: Label for member count in statistics on group page.
         $this->element('dt', null, _m('LABEL','Members'));
