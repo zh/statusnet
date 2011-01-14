@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-16 15:08+0000\n"
-"PO-Revision-Date: 2010-12-16 15:10:39+0000\n"
+"POT-Creation-Date: 2011-01-14 10:29+0000\n"
+"PO-Revision-Date: 2011-01-14 10:32:00+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian <http://translatewiki.net/wiki/Portal:fa>\n"
 "MIME-Version: 1.0\n"
@@ -25,9 +25,9 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r80246); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
-"X-POT-Import-Date: 2010-11-30 20:43:14+0000\n"
+"X-POT-Import-Date: 2011-01-12 17:31:48+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -283,7 +283,7 @@ msgstr "به روز رسانی از %1$s و دوستان در %2$s"
 #: actions/apistatusesshow.php:105 actions/apistatusnetconfig.php:138
 #: actions/apistatusnetversion.php:91 actions/apisubscriptions.php:109
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:268
-#: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
+#: actions/apitimelinegroup.php:147 actions/apitimelinehome.php:173
 #: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:239
 #: actions/apitimelineretweetedtome.php:118
 #: actions/apitimelineretweetsofme.php:150 actions/apitimelinetag.php:159
@@ -329,7 +329,8 @@ msgstr "نمی‌توان کاربر را به‌هنگام‌سازی کرد."
 #: actions/apiaccountupdateprofile.php:111
 #: actions/apiaccountupdateprofilebackgroundimage.php:199
 #: actions/apiaccountupdateprofilecolors.php:183
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiuserprofileimage.php:88 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:85 actions/foaf.php:65 actions/hcard.php:74
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
 #: lib/profileaction.php:84
@@ -556,7 +557,7 @@ msgstr "نمی‌توان کاربر هدف را پیدا کرد."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:156 actions/editgroup.php:189
-#: actions/newgroup.php:129 actions/profilesettings.php:277
+#: actions/newgroup.php:136 actions/profilesettings.php:277
 #: actions/register.php:214
 msgid "Nickname already in use. Try another one."
 msgstr "این لقب در حال حاضر ثبت شده است. لطفا یکی دیگر انتخاب کنید."
@@ -566,7 +567,7 @@ msgstr "این لقب در حال حاضر ثبت شده است. لطفا یکی
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:164 actions/editgroup.php:193
-#: actions/newgroup.php:133 actions/profilesettings.php:247
+#: actions/newgroup.php:140 actions/profilesettings.php:247
 #: actions/register.php:216
 msgid "Not a valid nickname."
 msgstr "لقب نا معتبر."
@@ -578,7 +579,7 @@ msgstr "لقب نا معتبر."
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:181 actions/editapplication.php:233
 #: actions/editgroup.php:200 actions/newapplication.php:211
-#: actions/newgroup.php:140 actions/profilesettings.php:252
+#: actions/newgroup.php:147 actions/profilesettings.php:252
 #: actions/register.php:223
 msgid "Homepage is not a valid URL."
 msgstr "صفحهٔ خانگی یک نشانی معتبر نیست."
@@ -588,7 +589,7 @@ msgstr "صفحهٔ خانگی یک نشانی معتبر نیست."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:191 actions/editgroup.php:204
-#: actions/newgroup.php:144 actions/profilesettings.php:256
+#: actions/newgroup.php:151 actions/profilesettings.php:256
 #: actions/register.php:226
 #, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
@@ -604,7 +605,7 @@ msgstr "نام کامل خیلی طولانی است (حداکثر ۲۵۵ نوی
 #. TRANS: %d is the maximum number of allowed characters.
 #: actions/apigroupcreate.php:201 actions/editapplication.php:201
 #: actions/editgroup.php:209 actions/newapplication.php:178
-#: actions/newgroup.php:149
+#: actions/newgroup.php:156
 #, fuzzy, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
@@ -615,7 +616,7 @@ msgstr[0] "توصیف خیلی طولانی است (حداکثر %d نویسه)"
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:215 actions/editgroup.php:216
-#: actions/newgroup.php:156 actions/profilesettings.php:269
+#: actions/newgroup.php:163 actions/profilesettings.php:269
 #: actions/register.php:235
 #, fuzzy
 msgid "Location is too long (maximum 255 characters)."
@@ -628,7 +629,7 @@ msgstr "نام مکان خیلی طولانی است (حداکثر ۲۵۵ نوی
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:236 actions/editgroup.php:229
-#: actions/newgroup.php:169
+#: actions/newgroup.php:176
 #, fuzzy, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
@@ -646,7 +647,7 @@ msgstr "نام مستعار نامعتبر است: «%s»."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #: actions/apigroupcreate.php:264 actions/editgroup.php:244
-#: actions/newgroup.php:184
+#: actions/newgroup.php:191
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "نام‌مستعار «%s» ازپیش گرفته‌شده‌است. یکی دیگر را امتحان کنید."
@@ -655,7 +656,7 @@ msgstr "نام‌مستعار «%s» ازپیش گرفته‌شده‌است. ی
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #: actions/apigroupcreate.php:278 actions/editgroup.php:251
-#: actions/newgroup.php:191
+#: actions/newgroup.php:198
 msgid "Alias can't be the same as nickname."
 msgstr "نام و نام مستعار شما نمی تواند یکی باشد ."
 
@@ -1059,7 +1060,7 @@ msgstr "به‌روزرسانی‌های %1$s که توسط %2$s برگزیده 
 
 #. TRANS: Server error displayed when generating an Atom feed fails.
 #. TRANS: %s is the error.
-#: actions/apitimelinegroup.php:138
+#: actions/apitimelinegroup.php:134
 #, fuzzy, php-format
 msgid "Could not generate feed for group - %s"
 msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
@@ -1152,30 +1153,30 @@ msgstr ""
 
 #. TRANS: Client error displayed when not using the POST verb.
 #. TRANS: Do not translate POST.
-#: actions/apitimelineuser.php:332
+#: actions/apitimelineuser.php:334
 msgid "Can only handle POST activities."
 msgstr ""
 
 #. TRANS: Client error displayed when using an unsupported activity object type.
 #. TRANS: %s is the unsupported activity object type.
-#: actions/apitimelineuser.php:343
+#: actions/apitimelineuser.php:345
 #, php-format
 msgid "Cannot handle activity object type \"%s\"."
 msgstr ""
 
 #. TRANS: Client error displayed when posting a notice without content through the API.
-#: actions/apitimelineuser.php:376
+#: actions/apitimelineuser.php:378
 #, fuzzy, php-format
 msgid "No content for notice %d."
 msgstr "پیدا کردن محتوای پیام‌ها"
 
 #. TRANS: Client error displayed when using another format than AtomPub.
-#: actions/apitimelineuser.php:404
+#: actions/apitimelineuser.php:406
 #, fuzzy, php-format
 msgid "Notice with URI \"%s\" already exists."
 msgstr "پیامی با آن شناسه وجود ندارد."
 
-#: actions/apitimelineuser.php:435
+#: actions/apitimelineuser.php:437
 #, php-format
 msgid "AtomPub post with unknown attention URI %s"
 msgstr ""
@@ -1186,7 +1187,7 @@ msgid "API method under construction."
 msgstr "روش API در دست ساخت."
 
 #. TRANS: Client error displayed when requesting user information for a non-existing user.
-#: actions/apiusershow.php:94
+#: actions/apiuserprofileimage.php:80 actions/apiusershow.php:94
 #, fuzzy
 msgid "User not found."
 msgstr "رابط مورد نظر پیدا نشد."
@@ -1277,7 +1278,6 @@ msgid "Can't delete someone else's favorite"
 msgstr "نمی‌توان پیام برگزیده را حذف کرد."
 
 #: actions/atompubshowmembership.php:81
-#, fuzzy
 msgid "No such group"
 msgstr "چنین گروهی وجود ندارد."
 
@@ -1403,14 +1403,14 @@ msgid "Preview"
 msgstr "پیش‌نمایش"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
-#: actions/avatarsettings.php:155
+#: actions/avatarsettings.php:155 actions/deleteaccount.php:314
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "حذف"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
-#: actions/avatarsettings.php:173
+#: actions/avatarsettings.php:173 actions/restoreaccount.php:371
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Upload"
@@ -1453,6 +1453,38 @@ msgstr "به روز رسانی چهره موفقیت آمیر نبود."
 #: actions/avatarsettings.php:413
 msgid "Avatar deleted."
 msgstr "چهره پاک شد."
+
+#: actions/backupaccount.php:62 actions/profilesettings.php:467
+msgid "Backup account"
+msgstr ""
+
+#: actions/backupaccount.php:80
+#, fuzzy
+msgid "Only logged-in users can backup their account."
+msgstr "تنها کاربران وارد شده می توانند پیام‌ها را تکرار کنند."
+
+#: actions/backupaccount.php:84
+msgid "You may not backup your account."
+msgstr ""
+
+#: actions/backupaccount.php:232
+msgid ""
+"You can backup your account data in <a href=\"http://activitystrea.ms/"
+"\">Activity Streams</a> format.  This is an experimental feature and "
+"provides an incomplete backup; private account information like email and IM "
+"addresses is not backed up. Additionally, uploaded files and direct messages "
+"are not backed up."
+msgstr ""
+
+#: actions/backupaccount.php:255
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Backup"
+msgstr "پیش‌زمینه"
+
+#: actions/backupaccount.php:258
+msgid "Backup your account"
+msgstr ""
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 #: actions/block.php:68
@@ -1662,6 +1694,60 @@ msgstr "مکالمه"
 msgid "Notices"
 msgstr "پیام‌ها"
 
+#: actions/deleteaccount.php:72
+#, fuzzy
+msgid "Only logged-in users can delete their account."
+msgstr "تنها کاربران وارد شده می توانند پیام‌ها را تکرار کنند."
+
+#: actions/deleteaccount.php:77
+#, fuzzy
+msgid "You cannot delete your account."
+msgstr "شما نمی‌توانید کاربران را پاک کنید."
+
+#: actions/deleteaccount.php:164
+msgid "I am sure."
+msgstr ""
+
+#: actions/deleteaccount.php:165
+msgid "You must write  \"I am sure.\" exactly in the box."
+msgstr ""
+
+#: actions/deleteaccount.php:207
+#, fuzzy
+msgid "Account deleted."
+msgstr "چهره پاک شد."
+
+#: actions/deleteaccount.php:228 actions/profilesettings.php:474
+#, fuzzy
+msgid "Delete account"
+msgstr "ساختن یک جساب‌کاربری"
+
+#: actions/deleteaccount.php:282
+msgid ""
+"<p>This will <strong>permanently delete</strong> your account data from this "
+"server. </p>"
+msgstr ""
+
+#: actions/deleteaccount.php:286
+#, php-format
+msgid ""
+"<p>You are strongly advised to <a href=\"%s\">back up your data</a> before "
+"deletion.</p>"
+msgstr ""
+
+#: actions/deleteaccount.php:297 actions/passwordsettings.php:112
+#: actions/recoverpassword.php:239 actions/register.php:441
+msgid "Confirm"
+msgstr "تایید"
+
+#: actions/deleteaccount.php:299
+msgid "Enter \"I am sure.\" to confirm that you want to delete your account."
+msgstr ""
+
+#: actions/deleteaccount.php:317
+msgid "Permanently your account"
+msgstr ""
+
 #. TRANS: Client error displayed trying to delete an application while not logged in.
 #: actions/deleteapplication.php:62
 msgid "You must be logged in to delete an application."
@@ -1815,7 +1901,7 @@ msgid "Do not delete this notice"
 msgstr "این پیام را پاک نکن"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:166 lib/noticelist.php:672
+#: actions/deletenotice.php:166 lib/noticelist.php:673
 msgid "Delete this notice"
 msgstr "این پیام را پاک کن"
 
@@ -2127,7 +2213,7 @@ msgstr "از این روش برای ویرایش گروه استفاده کنی�
 
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/editgroup.php:239 actions/newgroup.php:179
+#: actions/editgroup.php:239 actions/newgroup.php:186
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "نام‌مستعار غیر مجاز: «%s»"
@@ -2139,7 +2225,7 @@ msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
 
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:279 classes/User_group.php:529
+#: actions/editgroup.php:279 classes/User_group.php:534
 msgid "Could not create aliases."
 msgstr "نمی‌توان نام‌های مستعار را ساخت."
 
@@ -3362,8 +3448,14 @@ msgstr "نمی‌توان برنامه را ساخت."
 msgid "New group"
 msgstr "گروه جدید"
 
+#. TRANS: Client exception thrown when a user tries to create a group while banned.
+#: actions/newgroup.php:73 classes/User_group.php:485
+#, fuzzy
+msgid "You are not allowed to create groups on this site."
+msgstr "شما یک عضو این گروه نیستید."
+
 #. TRANS: Form instructions for group create form.
-#: actions/newgroup.php:110
+#: actions/newgroup.php:117
 msgid "Use this form to create a new group."
 msgstr "از این فرم برای ساختن یک گروه جدید استفاده کنید"
 
@@ -3682,11 +3774,6 @@ msgstr "گذرواژهٔ تازه"
 #: actions/passwordsettings.php:109
 msgid "6 or more characters"
 msgstr "۶ نویسه یا بیش‌تر"
-
-#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:441
-msgid "Confirm"
-msgstr "تایید"
 
 #: actions/passwordsettings.php:113 actions/recoverpassword.php:240
 msgid "Same as password above"
@@ -4219,6 +4306,11 @@ msgstr "نمی‌توان نشان را ذخیره کرد."
 msgid "Settings saved."
 msgstr "تنظیمات ذخیره شد."
 
+#: actions/profilesettings.php:481 actions/restoreaccount.php:61
+#, fuzzy
+msgid "Restore account"
+msgstr "ساختن یک جساب‌کاربری"
+
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)."
@@ -4679,7 +4771,7 @@ msgstr "شما نمی‌توانید پیام خودتان را تکرار کن�
 msgid "You already repeated that notice."
 msgstr "شما قبلا آن پیام را تکرار کرده‌اید."
 
-#: actions/repeat.php:114 lib/noticelist.php:691
+#: actions/repeat.php:114 lib/noticelist.php:692
 msgid "Repeated"
 msgstr "تکرار شده"
 
@@ -4742,6 +4834,90 @@ msgstr ""
 #, php-format
 msgid "Replies to %1$s on %2$s!"
 msgstr "پاسخ‌های به %1$s در %2$s!"
+
+#: actions/restoreaccount.php:79
+#, fuzzy
+msgid "Only logged-in users can restore their account."
+msgstr "تنها کاربران وارد شده می توانند پیام‌ها را تکرار کنند."
+
+#: actions/restoreaccount.php:83
+#, fuzzy
+msgid "You may not restore your account."
+msgstr "شما هنوز هیچ برنامه‌ای را ثبت نکرده‌اید."
+
+#: actions/restoreaccount.php:122 actions/restoreaccount.php:147
+#, fuzzy
+msgid "No uploaded file."
+msgstr "بارگذاری پرونده"
+
+#. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
+#: actions/restoreaccount.php:130 lib/mediafile.php:194
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr ""
+
+#. TRANS: Client exception.
+#: actions/restoreaccount.php:136 lib/mediafile.php:200
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form."
+msgstr ""
+
+#. TRANS: Client exception.
+#: actions/restoreaccount.php:142 lib/mediafile.php:206
+msgid "The uploaded file was only partially uploaded."
+msgstr "نتها اندکی از فایل بارگذاری‌شده فرستاده شد."
+
+#. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
+#: actions/restoreaccount.php:151 lib/mediafile.php:214
+msgid "Missing a temporary folder."
+msgstr "گم شدن یک پوشه ی موقتی."
+
+#. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
+#: actions/restoreaccount.php:155 lib/mediafile.php:218
+msgid "Failed to write file to disk."
+msgstr "شکست خوردن در نوشتن فایل روی دیسک."
+
+#. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
+#: actions/restoreaccount.php:159 lib/mediafile.php:222
+msgid "File upload stopped by extension."
+msgstr "بارگذاری پرونده توسط افزونه متوقف شد."
+
+#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
+#: actions/restoreaccount.php:165 lib/imagefile.php:103 lib/mediafile.php:228
+msgid "System error uploading file."
+msgstr "هنگام بارگذاری پرونده خطای سیستمی رخ داد."
+
+#. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
+#: actions/restoreaccount.php:184 scripts/restoreuser.php:62
+#, php-format
+msgid "Getting backup from file '%s'."
+msgstr ""
+
+#: actions/restoreaccount.php:204 lib/feedimporter.php:75
+#, fuzzy
+msgid "Not an atom feed."
+msgstr "همهٔ اعضا"
+
+#: actions/restoreaccount.php:238
+msgid ""
+"Feed has been restored. Your old posts should now appear in search and your "
+"profile page."
+msgstr ""
+
+#: actions/restoreaccount.php:241
+msgid "Feed will be restored. Please wait a few minutes for results."
+msgstr ""
+
+#: actions/restoreaccount.php:344
+msgid ""
+"You can upload a backed-up stream in <a href=\"http://activitystrea.ms/"
+"\">Activity Streams</a> format."
+msgstr ""
+
+#: actions/restoreaccount.php:374
+#, fuzzy
+msgid "Upload the file"
+msgstr "بارگذاری پرونده"
 
 #: actions/revokerole.php:75
 msgid "You cannot revoke user roles on this site."
@@ -4846,7 +5022,7 @@ msgid "Reset key & secret"
 msgstr ""
 
 #: actions/showapplication.php:252 lib/deletegroupform.php:121
-#: lib/deleteuserform.php:66 lib/noticelist.php:672
+#: lib/deleteuserform.php:66 lib/noticelist.php:673
 msgid "Delete"
 msgstr "حذف"
 
@@ -6122,13 +6298,13 @@ msgid "Author(s)"
 msgstr "مؤلف(ها)"
 
 #. TRANS: Activity title when marking a notice as favorite.
-#: classes/Fave.php:151 lib/favorform.php:143
+#: classes/Fave.php:164 lib/favorform.php:143
 msgid "Favor"
 msgstr "برگزیده‌کردن"
 
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
-#: classes/Fave.php:154
+#: classes/Fave.php:167
 #, fuzzy, php-format
 msgid "%1$s marked notice %2$s as a favorite."
 msgstr "پیام شما را به برگزیده‌های خود اضافه کرد %s (@%s)"
@@ -6237,7 +6413,7 @@ msgid "Could not create login token for %s"
 msgstr "نمی‌توان رمز ورود را برای %s ایجاد کرد"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
-#: classes/Memcached_DataObject.php:533
+#: classes/Memcached_DataObject.php:537
 msgid "No database name or DSN found anywhere."
 msgstr "هیچ پایگاه‌داده یا DSN هیچ‌جا پیدا نشد."
 
@@ -6265,23 +6441,23 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr "چنین نمایه‌ای (%1$d) برای پیام (%2$d) وجود ندارد."
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:193
+#: classes/Notice.php:199
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "هنگام افزودن برچسب خطا در پایگاه داده رخ داد: %s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:270
+#: classes/Notice.php:279
 msgid "Problem saving notice. Too long."
 msgstr "مشکل در ذخیره کردن پیام. بسیار طولانی."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:275
+#: classes/Notice.php:284
 msgid "Problem saving notice. Unknown user."
 msgstr "مشکل در ذخیره کردن پیام. کاربر نا شناخته."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:281
+#: classes/Notice.php:290
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
@@ -6289,7 +6465,7 @@ msgstr ""
 "دوباره بفرستید."
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:288
+#: classes/Notice.php:297
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -6298,42 +6474,42 @@ msgstr ""
 "ارسال کنید."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:296
+#: classes/Notice.php:305
 msgid "You are banned from posting notices on this site."
 msgstr "شما از فرستادن پیام در این وب‌گاه منع شده‌اید."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:363 classes/Notice.php:390
+#: classes/Notice.php:372 classes/Notice.php:399
 msgid "Problem saving notice."
 msgstr "هنگام ذخیرهٔ پیام مشکلی ایجاد شد."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:913
+#: classes/Notice.php:914
 msgid "Bad type provided to saveKnownGroups."
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1012
+#: classes/Notice.php:1013
 msgid "Problem saving group inbox."
 msgstr "هنگام ذخیرهٔ صندوق ورودی گروه مشکلی رخ داد."
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1126
+#: classes/Notice.php:1127
 #, fuzzy, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr "نمی‌توان اطلاعات گروه محلی را ذخیره کرد."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1645
+#: classes/Notice.php:1646
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
 #. TRANS: Full name of a profile or group followed by nickname in parens
-#: classes/Profile.php:172 classes/User_group.php:247
+#: classes/Profile.php:172 classes/User_group.php:242
 #, fuzzy, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
@@ -6341,14 +6517,14 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:798
+#: classes/Profile.php:765
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr "نمی‌توان نقش «%1$s» را از کاربر  #%2$d گرفت، وجود ندارد."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:807
+#: classes/Profile.php:774
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -6420,33 +6596,33 @@ msgid "Welcome to %1$s, @%2$s!"
 msgstr "@%2$s، به %1$s خوش آمدید!"
 
 #. TRANS: Server exception.
-#: classes/User.php:923
+#: classes/User.php:918
 msgid "No single user defined for single-user mode."
 msgstr "هیچ کاربر تنهایی برای حالت تک کاربره مشخص نشده است."
 
 #. TRANS: Server exception.
-#: classes/User.php:927
+#: classes/User.php:922
 msgid "Single-user mode code called when not enabled."
 msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:511
+#: classes/User_group.php:516
 msgid "Could not create group."
 msgstr "نمیتوان گروه را تشکیل داد"
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:521
+#: classes/User_group.php:526
 #, fuzzy
 msgid "Could not set group URI."
 msgstr "نمیتوان گروه را تشکیل داد"
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:544
+#: classes/User_group.php:549
 msgid "Could not set group membership."
 msgstr "نمی‌توان عضویت گروه را تعیین کرد."
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:559
+#: classes/User_group.php:564
 msgid "Could not save local group info."
 msgstr "نمی‌توان اطلاعات گروه محلی را ذخیره کرد."
 
@@ -6782,10 +6958,19 @@ msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 "در حال انتظار برای یک عامل خوراک ریشه‌ای، اما یک سند XML کامل دریافت شد."
 
-#: lib/activity.php:360
+#: lib/activityimporter.php:109
+msgid "Can't force subscription for untrusted user."
+msgstr ""
+
+#: lib/activityimporter.php:133
 #, fuzzy
-msgid "Post"
-msgstr "تصویر"
+msgid "Unknown profile."
+msgstr "نوع فایل پشتیبانی نشده"
+
+#: lib/activityimporter.php:197
+#, php-format
+msgid "Already know about notice %s and  it's got a different author %s."
+msgstr ""
 
 #. TRANS: Client exception thrown when there is no source attribute.
 #: lib/activityutils.php:200
@@ -7071,6 +7256,10 @@ msgstr "لغو کردن"
 
 #: lib/atom10feed.php:112
 msgid "author element must contain a name element."
+msgstr ""
+
+#: lib/atom10feed.php:158
+msgid "Don't use this method!"
 msgstr ""
 
 #. TRANS: DT element label in attachment list item.
@@ -7503,26 +7692,26 @@ msgstr ""
 "tracking - هنوز پیاده نشده است.\n"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:147
+#: lib/common.php:150
 #, fuzzy
 msgid "No configuration file found."
 msgstr "بدون کد تصدیق."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
-#: lib/common.php:150
+#: lib/common.php:153
 #, fuzzy
 msgid "I looked for configuration files in the following places:"
 msgstr "من به دنبال پرونده‌های پیکربندی در مکان‌های زیر بودم: "
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:153
+#: lib/common.php:156
 msgid "You may wish to run the installer to fix this."
 msgstr "شما ممکن است بخواهید نصاب را اجرا کنید تا این را تعمیر کند."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: The text is link text that leads to the installer page.
-#: lib/common.php:157
+#: lib/common.php:160
 msgid "Go to the installer."
 msgstr "برو به نصاب."
 
@@ -7629,6 +7818,14 @@ msgstr "مؤلف"
 
 #: lib/feed.php:90
 msgid "FOAF"
+msgstr ""
+
+#: lib/feedimporter.php:82
+msgid "No author in the feed."
+msgstr ""
+
+#: lib/feedimporter.php:89
+msgid "Can't import without a user."
 msgstr ""
 
 #. TRANS: Header for feed links (h2).
@@ -7810,11 +8007,6 @@ msgstr "این پرونده خیلی بزرگ است. بیشینهٔ انداز�
 #, fuzzy
 msgid "Partial upload."
 msgstr "هیچ پرونده‌ای بارگذاری نشد."
-
-#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
-#: lib/imagefile.php:103 lib/mediafile.php:228
-msgid "System error uploading file."
-msgstr "هنگام بارگذاری پرونده خطای سیستمی رخ داد."
 
 #: lib/imagefile.php:111
 msgid "Not an image or corrupt file."
@@ -8230,7 +8422,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:228 lib/noticelist.php:521
+#: lib/mailbox.php:228 lib/noticelist.php:522
 msgid "from"
 msgstr "از"
 
@@ -8261,38 +8453,6 @@ msgid "There was a database error while saving your file. Please try again."
 msgstr ""
 "یک خطای پایگاه داده هنگام ذخیره کردن فایل شما رخ داد. لطفا بعدا سعی کنید."
 
-#. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
-#: lib/mediafile.php:194
-msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
-msgstr ""
-
-#. TRANS: Client exception.
-#: lib/mediafile.php:200
-msgid ""
-"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
-"the HTML form."
-msgstr ""
-
-#. TRANS: Client exception.
-#: lib/mediafile.php:206
-msgid "The uploaded file was only partially uploaded."
-msgstr "نتها اندکی از فایل بارگذاری‌شده فرستاده شد."
-
-#. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
-#: lib/mediafile.php:214
-msgid "Missing a temporary folder."
-msgstr "گم شدن یک پوشه ی موقتی."
-
-#. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
-#: lib/mediafile.php:218
-msgid "Failed to write file to disk."
-msgstr "شکست خوردن در نوشتن فایل روی دیسک."
-
-#. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
-#: lib/mediafile.php:222
-msgid "File upload stopped by extension."
-msgstr "بارگذاری پرونده توسط افزونه متوقف شد."
-
 #. TRANS: Client exception thrown when a file upload operation would cause a user to exceed a set quota.
 #: lib/mediafile.php:238 lib/mediafile.php:281
 msgid "File exceeds user's quota."
@@ -8313,7 +8473,7 @@ msgstr "نمی‌توان فرمت پرونده را تعیین کرد."
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %1$s is the file type that was denied, %2$s is the application part of
 #. TRANS: the MIME type that was denied.
-#: lib/mediafile.php:394
+#: lib/mediafile.php:396
 #, php-format
 msgid ""
 "\"%1$s\" is not a supported file type on this server. Try using another %2$s "
@@ -8322,7 +8482,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %s is the file type that was denied.
-#: lib/mediafile.php:399
+#: lib/mediafile.php:401
 #, php-format
 msgid "\"%s\" is not a supported file type on this server."
 msgstr ""
@@ -8357,17 +8517,17 @@ msgid "Send"
 msgstr "فرستادن"
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:163
+#: lib/nickname.php:165
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "لقب باید شامل حروف کوچک و اعداد و بدون فاصله باشد."
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:176
+#: lib/nickname.php:178
 msgid "Nickname cannot be empty."
 msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:189
+#: lib/nickname.php:191
 #, php-format
 msgid "Nickname cannot be more than %d character long."
 msgid_plural "Nickname cannot be more than %d characters long."
@@ -8407,56 +8567,56 @@ msgstr ""
 "دوباره تلاش کنید."
 
 #. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:451
+#: lib/noticelist.php:452
 #, fuzzy
 msgid "N"
 msgstr "خیر"
 
 #. TRANS: Used in coordinates as abbreviation of south
-#: lib/noticelist.php:453
+#: lib/noticelist.php:454
 msgid "S"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of east
-#: lib/noticelist.php:455
+#: lib/noticelist.php:456
 msgid "E"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of west
-#: lib/noticelist.php:457
+#: lib/noticelist.php:458
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:459
+#: lib/noticelist.php:460
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:468
+#: lib/noticelist.php:469
 msgid "at"
 msgstr "در"
 
-#: lib/noticelist.php:517
+#: lib/noticelist.php:518
 msgid "web"
 msgstr ""
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:584
 msgid "in context"
 msgstr "در زمینه"
 
-#: lib/noticelist.php:618
+#: lib/noticelist.php:619
 msgid "Repeated by"
 msgstr "تکرار از"
 
-#: lib/noticelist.php:645
+#: lib/noticelist.php:646
 msgid "Reply to this notice"
 msgstr "به این پیام پاسخ دهید"
 
-#: lib/noticelist.php:646
+#: lib/noticelist.php:647
 msgid "Reply"
 msgstr "پاسخ"
 
-#: lib/noticelist.php:690
+#: lib/noticelist.php:691
 msgid "Notice repeated"
 msgstr "پیام تکرار شد"
 
@@ -8611,7 +8771,7 @@ msgid "Revoke the \"%s\" role from this user"
 msgstr "دسترسی کاربر به گروه مسدود شود"
 
 #. TRANS: Client error on action trying to visit a non-existing page.
-#: lib/router.php:957
+#: lib/router.php:974
 #, fuzzy
 msgid "Page not found."
 msgstr "رابط مورد نظر پیدا نشد."
@@ -8960,21 +9120,10 @@ msgstr "اندازه نادرست است."
 msgid "Invalid XML, missing XRD root."
 msgstr ""
 
-#. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
-#: scripts/restoreuser.php:61
-#, php-format
-msgid "Getting backup from file '%s'."
-msgstr ""
-
-#. TRANS: Commandline script output.
-#: scripts/restoreuser.php:91
 #, fuzzy
-msgid "No user specified; using backup user."
-msgstr "هیچ شناسهٔ کاربری مشخص نشده است."
+#~ msgid "Post"
+#~ msgstr "تصویر"
 
-#. TRANS: Commandline script output. %d is the number of entries in the activity stream in backup; used for plural.
-#: scripts/restoreuser.php:98
-#, php-format
-msgid "%d entry in backup."
-msgid_plural "%d entries in backup."
-msgstr[0] ""
+#, fuzzy
+#~ msgid "No user specified; using backup user."
+#~ msgstr "هیچ شناسهٔ کاربری مشخص نشده است."

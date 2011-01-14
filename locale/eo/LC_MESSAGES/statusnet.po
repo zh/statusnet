@@ -7,6 +7,7 @@
 # Author: Ianmcorvidae
 # Author: Kris10
 # Author: LyzTyphone
+# Author: Mihxil
 # Author: Petrus Adamus
 # Author: Yekrats
 # --
@@ -16,17 +17,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-16 15:08+0000\n"
-"PO-Revision-Date: 2010-12-16 15:10:36+0000\n"
+"POT-Creation-Date: 2011-01-14 10:29+0000\n"
+"PO-Revision-Date: 2011-01-14 10:31:57+0000\n"
 "Language-Team: Esperanto <http://translatewiki.net/wiki/Portal:eo>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r80246); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: eo\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-11-30 20:43:14+0000\n"
+"X-POT-Import-Date: 2011-01-12 17:31:48+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -283,7 +284,7 @@ msgstr "Ĝisdatiĝoj de %1$s kaj amikoj ĉe %2$s!"
 #: actions/apistatusesshow.php:105 actions/apistatusnetconfig.php:138
 #: actions/apistatusnetversion.php:91 actions/apisubscriptions.php:109
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:268
-#: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
+#: actions/apitimelinegroup.php:147 actions/apitimelinehome.php:173
 #: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:239
 #: actions/apitimelineretweetedtome.php:118
 #: actions/apitimelineretweetsofme.php:150 actions/apitimelinetag.php:159
@@ -330,7 +331,8 @@ msgstr "Malsukcesis ĝisdatigi uzanton"
 #: actions/apiaccountupdateprofile.php:111
 #: actions/apiaccountupdateprofilebackgroundimage.php:199
 #: actions/apiaccountupdateprofilecolors.php:183
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiuserprofileimage.php:88 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:85 actions/foaf.php:65 actions/hcard.php:74
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
 #: lib/profileaction.php:84
@@ -351,7 +353,7 @@ msgstr "Malsukcesis konservi la profilon."
 #: actions/designadminpanel.php:125 actions/editapplication.php:121
 #: actions/newapplication.php:104 actions/newnotice.php:95
 #: lib/designsettings.php:298
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s byte) due to its "
 "current configuration."
@@ -359,10 +361,10 @@ msgid_plural ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
 msgstr[0] ""
-"La servilo ne povis trakti tiom da POST-datumo (% bajtoj) pro ĝia nuna "
+"La servilo ne povis trakti tiom da POST-datumo (%s bajto) pro ĝia nuna "
 "agordo."
 msgstr[1] ""
-"La servilo ne povis trakti tiom da POST-datumo (% bajtoj) pro ĝia nuna "
+"La servilo ne povis trakti tiom da POST-datumo (%s bajtoj) pro ĝia nuna "
 "agordo."
 
 #. TRANS: Client error displayed when saving design settings fails because of an empty id.
@@ -388,7 +390,7 @@ msgstr "Malsukcesis ĝisdatigi vian desegnon."
 
 #: actions/apiatomservice.php:86
 msgid "Main"
-msgstr ""
+msgstr "Ĉefa"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -409,12 +411,12 @@ msgid "%s subscriptions"
 msgstr "%s abonatoj"
 
 #: actions/apiatomservice.php:113 actions/atompubfavoritefeed.php:142
-#, fuzzy, php-format
+#, php-format
 msgid "%s favorites"
-msgstr "Ŝatolisto"
+msgstr "%s da ŝatolisteroj"
 
 #: actions/apiatomservice.php:123
-#, fuzzy, php-format
+#, php-format
 msgid "%s memberships"
 msgstr "%s grupanoj"
 
@@ -467,10 +469,10 @@ msgstr "Sen mesaĝteksto!"
 #. TRANS: Form validation error displayed when message content is too long.
 #. TRANS: %d is the maximum number of characters for a message.
 #: actions/apidirectmessagenew.php:127 actions/newmessage.php:152
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Maximum message size is %d character."
 msgid_plural "That's too long. Maximum message size is %d characters."
-msgstr[0] "Tro longas. Mesaĝa longlimo estas %d signoj."
+msgstr[0] "Tro longas. Mesaĝa longlimo estas %d signo."
 msgstr[1] "Tro longas. Mesaĝa longlimo estas %d signoj."
 
 #. TRANS: Client error displayed if a recipient user could not be found (403).
@@ -485,10 +487,9 @@ msgstr "Vi ne povas sendi rektan mesaĝon al uzanto kiu ne estas via amiko."
 
 #. TRANS: Client error displayed trying to direct message self (403).
 #: actions/apidirectmessagenew.php:154
-#, fuzzy
 msgid ""
 "Do not send a message to yourself; just say it to yourself quietly instead."
-msgstr "Ne sendu mesaĝon al vi mem! Simple suspiru anstataŭ."
+msgstr "Ne sendu mesaĝon al vi mem! Simple diru al vi mem anstataŭe."
 
 #. TRANS: Client error displayed when requesting a status with a non-existing ID.
 #. TRANS: Client error displayed when trying to remove a favourite with an invalid ID.
@@ -543,9 +544,8 @@ msgstr "Vi ne povas malaboni vin mem."
 
 #. TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
 #: actions/apifriendshipsexists.php:88
-#, fuzzy
 msgid "Two valid IDs or nick names must be supplied."
-msgstr "Du uzantajn IDojn aŭ montronomojn vi devas specifi."
+msgstr "Du validajn IDojn aŭ montronomojn vi devas havigi."
 
 #. TRANS: Client error displayed when a source user could not be determined showing friendship.
 #: actions/apifriendshipsshow.php:131
@@ -562,7 +562,7 @@ msgstr "Malsukcesis trovi celan uzanton."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:156 actions/editgroup.php:189
-#: actions/newgroup.php:129 actions/profilesettings.php:277
+#: actions/newgroup.php:136 actions/profilesettings.php:277
 #: actions/register.php:214
 msgid "Nickname already in use. Try another one."
 msgstr "La uzantnomo jam uziĝis. Provu ion alian."
@@ -572,7 +572,7 @@ msgstr "La uzantnomo jam uziĝis. Provu ion alian."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:164 actions/editgroup.php:193
-#: actions/newgroup.php:133 actions/profilesettings.php:247
+#: actions/newgroup.php:140 actions/profilesettings.php:247
 #: actions/register.php:216
 msgid "Not a valid nickname."
 msgstr "Ne valida kromnomo."
@@ -584,7 +584,7 @@ msgstr "Ne valida kromnomo."
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:181 actions/editapplication.php:233
 #: actions/editgroup.php:200 actions/newapplication.php:211
-#: actions/newgroup.php:140 actions/profilesettings.php:252
+#: actions/newgroup.php:147 actions/profilesettings.php:252
 #: actions/register.php:223
 msgid "Homepage is not a valid URL."
 msgstr "Ĉefpaĝo ne estas valida URL."
@@ -594,11 +594,10 @@ msgstr "Ĉefpaĝo ne estas valida URL."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:191 actions/editgroup.php:204
-#: actions/newgroup.php:144 actions/profilesettings.php:256
+#: actions/newgroup.php:151 actions/profilesettings.php:256
 #: actions/register.php:226
-#, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
-msgstr "Plennomo estas tro longa (maksimume 255 literoj)"
+msgstr "Kompleta nomo tro longas (maksimume 255 signoj)"
 
 #. TRANS: Client error shown when providing too long a description during group creation.
 #. TRANS: %d is the maximum number of allowed characters.
@@ -610,11 +609,11 @@ msgstr "Plennomo estas tro longa (maksimume 255 literoj)"
 #. TRANS: %d is the maximum number of allowed characters.
 #: actions/apigroupcreate.php:201 actions/editapplication.php:201
 #: actions/editgroup.php:209 actions/newapplication.php:178
-#: actions/newgroup.php:149
-#, fuzzy, php-format
+#: actions/newgroup.php:156
+#, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
-msgstr[0] "Priskribo estas tro longa (maksimume %d signoj)."
+msgstr[0] "Priskribo estas tro longa (maksimume %d signo)."
 msgstr[1] "Priskribo estas tro longa (maksimume %d signoj)."
 
 #. TRANS: Client error shown when providing too long a location during group creation.
@@ -622,11 +621,10 @@ msgstr[1] "Priskribo estas tro longa (maksimume %d signoj)."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:215 actions/editgroup.php:216
-#: actions/newgroup.php:156 actions/profilesettings.php:269
+#: actions/newgroup.php:163 actions/profilesettings.php:269
 #: actions/register.php:235
-#, fuzzy
 msgid "Location is too long (maximum 255 characters)."
-msgstr "lokonomo estas tro longa (maksimume 255 literoj)"
+msgstr "Lokonomo tro longas (maksimume 255 signoj)"
 
 #. TRANS: Client error shown when providing too many aliases during group creation.
 #. TRANS: %d is the maximum number of allowed aliases.
@@ -635,8 +633,8 @@ msgstr "lokonomo estas tro longa (maksimume 255 literoj)"
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:236 actions/editgroup.php:229
-#: actions/newgroup.php:169
-#, fuzzy, php-format
+#: actions/newgroup.php:176
+#, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
 msgstr[0] "Tro da alinomoj! Maksimume %d."
@@ -654,7 +652,7 @@ msgstr "La alinomo estas nevalida: \"%*s\"."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #: actions/apigroupcreate.php:264 actions/editgroup.php:244
-#: actions/newgroup.php:184
+#: actions/newgroup.php:191
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "La alinomo \"%s\" estas jam okupita. Provu ion alian."
@@ -663,7 +661,7 @@ msgstr "La alinomo \"%s\" estas jam okupita. Provu ion alian."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #: actions/apigroupcreate.php:278 actions/editgroup.php:251
-#: actions/newgroup.php:191
+#: actions/newgroup.php:198
 msgid "Alias can't be the same as nickname."
 msgstr "La alinomo devas ne esti sama al la kromnomo."
 
@@ -762,9 +760,8 @@ msgstr "Nevalida peto-ĵetono."
 
 #. TRANS: Client error given when an invalid request token was passed to the OAuth API.
 #: actions/apioauthauthorize.php:121
-#, fuzzy
 msgid "Request token already authorized."
-msgstr "Vi ne estas rajtigita."
+msgstr ""
 
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
@@ -1066,7 +1063,7 @@ msgstr "%1$*s ĝisdatigoj ŝatataj de %2$*s / %2$*s."
 
 #. TRANS: Server error displayed when generating an Atom feed fails.
 #. TRANS: %s is the error.
-#: actions/apitimelinegroup.php:138
+#: actions/apitimelinegroup.php:134
 #, fuzzy, php-format
 msgid "Could not generate feed for group - %s"
 msgstr "Malsukcesis ĝisdatigi grupon."
@@ -1159,30 +1156,30 @@ msgstr ""
 
 #. TRANS: Client error displayed when not using the POST verb.
 #. TRANS: Do not translate POST.
-#: actions/apitimelineuser.php:332
+#: actions/apitimelineuser.php:334
 msgid "Can only handle POST activities."
 msgstr ""
 
 #. TRANS: Client error displayed when using an unsupported activity object type.
 #. TRANS: %s is the unsupported activity object type.
-#: actions/apitimelineuser.php:343
+#: actions/apitimelineuser.php:345
 #, php-format
 msgid "Cannot handle activity object type \"%s\"."
 msgstr ""
 
 #. TRANS: Client error displayed when posting a notice without content through the API.
-#: actions/apitimelineuser.php:376
+#: actions/apitimelineuser.php:378
 #, fuzzy, php-format
 msgid "No content for notice %d."
 msgstr "Serĉi enhavon ĉe la retejo"
 
 #. TRANS: Client error displayed when using another format than AtomPub.
-#: actions/apitimelineuser.php:404
+#: actions/apitimelineuser.php:406
 #, fuzzy, php-format
 msgid "Notice with URI \"%s\" already exists."
 msgstr "Avizo kun tiu identigaĵo ne ekzistas."
 
-#: actions/apitimelineuser.php:435
+#: actions/apitimelineuser.php:437
 #, php-format
 msgid "AtomPub post with unknown attention URI %s"
 msgstr ""
@@ -1193,7 +1190,7 @@ msgid "API method under construction."
 msgstr "API-metodo farata."
 
 #. TRANS: Client error displayed when requesting user information for a non-existing user.
-#: actions/apiusershow.php:94
+#: actions/apiuserprofileimage.php:80 actions/apiusershow.php:94
 #, fuzzy
 msgid "User not found."
 msgstr "Metodo de API ne troviĝas."
@@ -1409,14 +1406,14 @@ msgid "Preview"
 msgstr "Antaŭrigardo"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
-#: actions/avatarsettings.php:155
+#: actions/avatarsettings.php:155 actions/deleteaccount.php:314
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "Forigi"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
-#: actions/avatarsettings.php:173
+#: actions/avatarsettings.php:173 actions/restoreaccount.php:371
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Upload"
@@ -1458,6 +1455,38 @@ msgstr "Eraris ĝisdatigi vizaĝbildon."
 #: actions/avatarsettings.php:413
 msgid "Avatar deleted."
 msgstr "Vizaĝbildo forigita."
+
+#: actions/backupaccount.php:62 actions/profilesettings.php:467
+msgid "Backup account"
+msgstr ""
+
+#: actions/backupaccount.php:80
+#, fuzzy
+msgid "Only logged-in users can backup their account."
+msgstr "Nur ensalutinto rajtas ripeti avizon."
+
+#: actions/backupaccount.php:84
+msgid "You may not backup your account."
+msgstr ""
+
+#: actions/backupaccount.php:232
+msgid ""
+"You can backup your account data in <a href=\"http://activitystrea.ms/"
+"\">Activity Streams</a> format.  This is an experimental feature and "
+"provides an incomplete backup; private account information like email and IM "
+"addresses is not backed up. Additionally, uploaded files and direct messages "
+"are not backed up."
+msgstr ""
+
+#: actions/backupaccount.php:255
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Backup"
+msgstr "Fono"
+
+#: actions/backupaccount.php:258
+msgid "Backup your account"
+msgstr ""
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 #: actions/block.php:68
@@ -1665,6 +1694,60 @@ msgstr "Konversacio"
 msgid "Notices"
 msgstr "Avizoj"
 
+#: actions/deleteaccount.php:72
+#, fuzzy
+msgid "Only logged-in users can delete their account."
+msgstr "Nur ensalutinto rajtas ripeti avizon."
+
+#: actions/deleteaccount.php:77
+#, fuzzy
+msgid "You cannot delete your account."
+msgstr "Vi ne povas forigi uzantojn."
+
+#: actions/deleteaccount.php:164
+msgid "I am sure."
+msgstr ""
+
+#: actions/deleteaccount.php:165
+msgid "You must write  \"I am sure.\" exactly in the box."
+msgstr ""
+
+#: actions/deleteaccount.php:207
+#, fuzzy
+msgid "Account deleted."
+msgstr "Vizaĝbildo forigita."
+
+#: actions/deleteaccount.php:228 actions/profilesettings.php:474
+#, fuzzy
+msgid "Delete account"
+msgstr "Krei konton"
+
+#: actions/deleteaccount.php:282
+msgid ""
+"<p>This will <strong>permanently delete</strong> your account data from this "
+"server. </p>"
+msgstr ""
+
+#: actions/deleteaccount.php:286
+#, php-format
+msgid ""
+"<p>You are strongly advised to <a href=\"%s\">back up your data</a> before "
+"deletion.</p>"
+msgstr ""
+
+#: actions/deleteaccount.php:297 actions/passwordsettings.php:112
+#: actions/recoverpassword.php:239 actions/register.php:441
+msgid "Confirm"
+msgstr "Konfirmi"
+
+#: actions/deleteaccount.php:299
+msgid "Enter \"I am sure.\" to confirm that you want to delete your account."
+msgstr ""
+
+#: actions/deleteaccount.php:317
+msgid "Permanently your account"
+msgstr ""
+
 #. TRANS: Client error displayed trying to delete an application while not logged in.
 #: actions/deleteapplication.php:62
 msgid "You must be logged in to delete an application."
@@ -1816,7 +1899,7 @@ msgid "Do not delete this notice"
 msgstr "Ne forigi la avizon"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:166 lib/noticelist.php:672
+#: actions/deletenotice.php:166 lib/noticelist.php:673
 msgid "Delete this notice"
 msgstr "Forigi la avizon"
 
@@ -2122,7 +2205,7 @@ msgstr "Uzas ĉi tiun formularon por redakti la grupon."
 
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/editgroup.php:239 actions/newgroup.php:179
+#: actions/editgroup.php:239 actions/newgroup.php:186
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "Nevalida alinomo: \"%s\""
@@ -2134,7 +2217,7 @@ msgstr "Malsukcesis ĝisdatigi grupon."
 
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:279 classes/User_group.php:529
+#: actions/editgroup.php:279 classes/User_group.php:534
 msgid "Could not create aliases."
 msgstr "Malsukcesis krei alinomon."
 
@@ -3353,8 +3436,14 @@ msgstr "Malsukcesis krei aplikaĵon."
 msgid "New group"
 msgstr "Nova grupo"
 
+#. TRANS: Client exception thrown when a user tries to create a group while banned.
+#: actions/newgroup.php:73 classes/User_group.php:485
+#, fuzzy
+msgid "You are not allowed to create groups on this site."
+msgstr "Vi ne estas grupano."
+
 #. TRANS: Form instructions for group create form.
-#: actions/newgroup.php:110
+#: actions/newgroup.php:117
 msgid "Use this form to create a new group."
 msgstr "Uzas ĉi tiun formularon por krei novan grupon."
 
@@ -3672,11 +3761,6 @@ msgstr "Nova pasvorto"
 #: actions/passwordsettings.php:109
 msgid "6 or more characters"
 msgstr "6 aŭ pli da literoj"
-
-#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:441
-msgid "Confirm"
-msgstr "Konfirmi"
 
 #: actions/passwordsettings.php:113 actions/recoverpassword.php:240
 msgid "Same as password above"
@@ -4194,6 +4278,11 @@ msgstr "Malsukcesis konservi markilojn."
 msgid "Settings saved."
 msgstr "Agordo konservitas."
 
+#: actions/profilesettings.php:481 actions/restoreaccount.php:61
+#, fuzzy
+msgid "Restore account"
+msgstr "Krei konton"
+
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)."
@@ -4649,7 +4738,7 @@ msgstr "Vi ne povas ripeti vian propran avizon."
 msgid "You already repeated that notice."
 msgstr "La avizo jam ripetiĝis."
 
-#: actions/repeat.php:114 lib/noticelist.php:691
+#: actions/repeat.php:114 lib/noticelist.php:692
 msgid "Repeated"
 msgstr "Ripetita"
 
@@ -4714,6 +4803,94 @@ msgstr ""
 #, php-format
 msgid "Replies to %1$s on %2$s!"
 msgstr "Respondoj al %1$s ĉe %2$s!"
+
+#: actions/restoreaccount.php:79
+#, fuzzy
+msgid "Only logged-in users can restore their account."
+msgstr "Nur ensalutinto rajtas ripeti avizon."
+
+#: actions/restoreaccount.php:83
+#, fuzzy
+msgid "You may not restore your account."
+msgstr "Vi ankoraŭ neniun aplikaĵon registris."
+
+#: actions/restoreaccount.php:122 actions/restoreaccount.php:147
+#, fuzzy
+msgid "No uploaded file."
+msgstr "Alŝuti dosieron"
+
+#. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
+#: actions/restoreaccount.php:130 lib/mediafile.php:194
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr ""
+"Alŝutata dosiero superas la dosierujon upload_max_filesize (alŝuta "
+"grandlimo) en php.ini."
+
+#. TRANS: Client exception.
+#: actions/restoreaccount.php:136 lib/mediafile.php:200
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form."
+msgstr ""
+"Alŝutata dosiero superas la dosierujon MAX_FILE_SIZE (Alŝuta grandlimo) "
+"difinitan per HTML formo."
+
+#. TRANS: Client exception.
+#: actions/restoreaccount.php:142 lib/mediafile.php:206
+msgid "The uploaded file was only partially uploaded."
+msgstr "Alŝutata dosiero venas nur parte."
+
+#. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
+#: actions/restoreaccount.php:151 lib/mediafile.php:214
+msgid "Missing a temporary folder."
+msgstr "Mankas labora dosierujo."
+
+#. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
+#: actions/restoreaccount.php:155 lib/mediafile.php:218
+msgid "Failed to write file to disk."
+msgstr "Malsukcesis skribi dosieron al disko."
+
+#. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
+#: actions/restoreaccount.php:159 lib/mediafile.php:222
+msgid "File upload stopped by extension."
+msgstr ""
+
+#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
+#: actions/restoreaccount.php:165 lib/imagefile.php:103 lib/mediafile.php:228
+msgid "System error uploading file."
+msgstr "Sisteme eraris alŝuti dosieron."
+
+#. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
+#: actions/restoreaccount.php:184 scripts/restoreuser.php:62
+#, php-format
+msgid "Getting backup from file '%s'."
+msgstr ""
+
+#: actions/restoreaccount.php:204 lib/feedimporter.php:75
+#, fuzzy
+msgid "Not an atom feed."
+msgstr "Ĉiuj grupanoj"
+
+#: actions/restoreaccount.php:238
+msgid ""
+"Feed has been restored. Your old posts should now appear in search and your "
+"profile page."
+msgstr ""
+
+#: actions/restoreaccount.php:241
+msgid "Feed will be restored. Please wait a few minutes for results."
+msgstr ""
+
+#: actions/restoreaccount.php:344
+msgid ""
+"You can upload a backed-up stream in <a href=\"http://activitystrea.ms/"
+"\">Activity Streams</a> format."
+msgstr ""
+
+#: actions/restoreaccount.php:374
+#, fuzzy
+msgid "Upload the file"
+msgstr "Alŝuti dosieron"
 
 #: actions/revokerole.php:75
 msgid "You cannot revoke user roles on this site."
@@ -4815,7 +4992,7 @@ msgid "Reset key & secret"
 msgstr "Rekomencigi ŝlosilon & sekreton"
 
 #: actions/showapplication.php:252 lib/deletegroupform.php:121
-#: lib/deleteuserform.php:66 lib/noticelist.php:672
+#: lib/deleteuserform.php:66 lib/noticelist.php:673
 msgid "Delete"
 msgstr "Forigi"
 
@@ -6075,13 +6252,13 @@ msgid "Author(s)"
 msgstr "Aŭtoro(j)"
 
 #. TRANS: Activity title when marking a notice as favorite.
-#: classes/Fave.php:151 lib/favorform.php:143
+#: classes/Fave.php:164 lib/favorform.php:143
 msgid "Favor"
 msgstr "Ŝati"
 
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
-#: classes/Fave.php:154
+#: classes/Fave.php:167
 #, fuzzy, php-format
 msgid "%1$s marked notice %2$s as a favorite."
 msgstr "%s (@%s) ŝatis vian avizon"
@@ -6192,7 +6369,7 @@ msgid "Could not create login token for %s"
 msgstr "Malsukcesis krei ensalut-ĵetonon por %s"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
-#: classes/Memcached_DataObject.php:533
+#: classes/Memcached_DataObject.php:537
 msgid "No database name or DSN found anywhere."
 msgstr "Ne troviĝas datumbaza nomo aŭ DSN ie ajn."
 
@@ -6219,30 +6396,30 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr "Ne estas tia profilo(%1$d) rilate al avizo (%2$d)."
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:193
+#: classes/Notice.php:199
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Datumbaze eraris enmeti heketetikedo: %s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:270
+#: classes/Notice.php:279
 msgid "Problem saving notice. Too long."
 msgstr "Malsukcesis konservi avizon. Ĝi tro longas."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:275
+#: classes/Notice.php:284
 msgid "Problem saving notice. Unknown user."
 msgstr "Malsukcesis konservi avizon. Uzanto ne kontata."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:281
+#: classes/Notice.php:290
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Tro da avizoj tro rapide; pace spiru kaj reafiŝu post kelke da minutoj."
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:288
+#: classes/Notice.php:297
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -6250,43 +6427,43 @@ msgstr ""
 "Tro da refojado tro rapide; pace spiru kaj reafiŝu post kelke da minutoj."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:296
+#: classes/Notice.php:305
 msgid "You are banned from posting notices on this site."
 msgstr "Vi estas blokita de afiŝi ĉe tiu ĉi retejo."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:363 classes/Notice.php:390
+#: classes/Notice.php:372 classes/Notice.php:399
 msgid "Problem saving notice."
 msgstr "Malsukcesis konservi avizon."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:913
+#: classes/Notice.php:914
 #, fuzzy
 msgid "Bad type provided to saveKnownGroups."
 msgstr "Fuŝa tipo donita al saveKnownGroups"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1012
+#: classes/Notice.php:1013
 msgid "Problem saving group inbox."
 msgstr "Malsukcesis konservi grupan alvenkeston."
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1126
+#: classes/Notice.php:1127
 #, fuzzy, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr "Malsukcesis lokan grupan informon."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1645
+#: classes/Notice.php:1646
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
 #. TRANS: Full name of a profile or group followed by nickname in parens
-#: classes/Profile.php:172 classes/User_group.php:247
+#: classes/Profile.php:172 classes/User_group.php:242
 #, fuzzy, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
@@ -6294,14 +6471,14 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:798
+#: classes/Profile.php:765
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr "Malsukcesis revoki rolon \"%1$s\" de uzanto #%2$d; ĝi ne ekzistas."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:807
+#: classes/Profile.php:774
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr "Malsukcesis revoki rolon \"%1$s\" de uzanto #%2$d; datumbaza eraro."
@@ -6371,32 +6548,32 @@ msgid "Welcome to %1$s, @%2$s!"
 msgstr "Bonvenon al %1$s, @%2$s!"
 
 #. TRANS: Server exception.
-#: classes/User.php:923
+#: classes/User.php:918
 msgid "No single user defined for single-user mode."
 msgstr "Neniu difinata uzanto por sol-uzanta reĝimo."
 
 #. TRANS: Server exception.
-#: classes/User.php:927
+#: classes/User.php:922
 msgid "Single-user mode code called when not enabled."
 msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:511
+#: classes/User_group.php:516
 msgid "Could not create group."
 msgstr "Malsukcesis krei grupon."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:521
+#: classes/User_group.php:526
 msgid "Could not set group URI."
 msgstr "Malsukcesis ĝisdatigi grupan URI."
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:544
+#: classes/User_group.php:549
 msgid "Could not set group membership."
 msgstr "Malsukcesis ĝisdatigi grupan anecon."
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:559
+#: classes/User_group.php:564
 msgid "Could not save local group info."
 msgstr "Malsukcesis lokan grupan informon."
 
@@ -6734,10 +6911,19 @@ msgstr "Antaŭe"
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
-#: lib/activity.php:360
+#: lib/activityimporter.php:109
+msgid "Can't force subscription for untrusted user."
+msgstr ""
+
+#: lib/activityimporter.php:133
 #, fuzzy
-msgid "Post"
-msgstr "Foto"
+msgid "Unknown profile."
+msgstr "Nekonata dosiertipo"
+
+#: lib/activityimporter.php:197
+#, php-format
+msgid "Already know about notice %s and  it's got a different author %s."
+msgstr ""
 
 #. TRANS: Client exception thrown when there is no source attribute.
 #: lib/activityutils.php:200
@@ -7022,6 +7208,10 @@ msgstr "Revoki"
 
 #: lib/atom10feed.php:112
 msgid "author element must contain a name element."
+msgstr ""
+
+#: lib/atom10feed.php:158
+msgid "Don't use this method!"
 msgstr ""
 
 #. TRANS: DT element label in attachment list item.
@@ -7457,26 +7647,26 @@ msgstr ""
 "tracking -ankoraŭ ne realigita.\n"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:147
+#: lib/common.php:150
 #, fuzzy
 msgid "No configuration file found."
 msgstr "Ne troviĝas agorda dosiero. "
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
-#: lib/common.php:150
+#: lib/common.php:153
 #, fuzzy
 msgid "I looked for configuration files in the following places:"
 msgstr "Mi serĉis agordan dosieron je jenaj lokoj: "
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:153
+#: lib/common.php:156
 msgid "You may wish to run the installer to fix this."
 msgstr "Vi eble volas uzi instalilon por ripari tiun ĉi."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: The text is link text that leads to the installer page.
-#: lib/common.php:157
+#: lib/common.php:160
 msgid "Go to the installer."
 msgstr "Al la instalilo."
 
@@ -7582,6 +7772,14 @@ msgstr "Atom"
 #: lib/feed.php:90
 msgid "FOAF"
 msgstr "FOAF"
+
+#: lib/feedimporter.php:82
+msgid "No author in the feed."
+msgstr ""
+
+#: lib/feedimporter.php:89
+msgid "Can't import without a user."
+msgstr ""
 
 #. TRANS: Header for feed links (h2).
 #: lib/feedlist.php:66
@@ -7766,11 +7964,6 @@ msgstr "La dosiero tro grandas. Dosiera grandlimo estas %s."
 #: lib/imagefile.php:95
 msgid "Partial upload."
 msgstr "Parta alŝuto."
-
-#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
-#: lib/imagefile.php:103 lib/mediafile.php:228
-msgid "System error uploading file."
-msgstr "Sisteme eraris alŝuti dosieron."
 
 #: lib/imagefile.php:111
 msgid "Not an image or corrupt file."
@@ -8188,7 +8381,7 @@ msgstr ""
 "Vi ne ricevis privatan mesaĝon. Vi povas sendi privatan mesaĝon al iu kaj "
 "interparoli kun ili. Homo sendas al vi mesaĝon al vi sole."
 
-#: lib/mailbox.php:228 lib/noticelist.php:521
+#: lib/mailbox.php:228 lib/noticelist.php:522
 msgid "from"
 msgstr "de"
 
@@ -8219,42 +8412,6 @@ msgstr "Nesubtenata mesaĝo-tipo: %s"
 msgid "There was a database error while saving your file. Please try again."
 msgstr "Databaze eraris konservi vian dosieron. Bonvole reprovu."
 
-#. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
-#: lib/mediafile.php:194
-msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
-msgstr ""
-"Alŝutata dosiero superas la dosierujon upload_max_filesize (alŝuta "
-"grandlimo) en php.ini."
-
-#. TRANS: Client exception.
-#: lib/mediafile.php:200
-msgid ""
-"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
-"the HTML form."
-msgstr ""
-"Alŝutata dosiero superas la dosierujon MAX_FILE_SIZE (Alŝuta grandlimo) "
-"difinitan per HTML formo."
-
-#. TRANS: Client exception.
-#: lib/mediafile.php:206
-msgid "The uploaded file was only partially uploaded."
-msgstr "Alŝutata dosiero venas nur parte."
-
-#. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
-#: lib/mediafile.php:214
-msgid "Missing a temporary folder."
-msgstr "Mankas labora dosierujo."
-
-#. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
-#: lib/mediafile.php:218
-msgid "Failed to write file to disk."
-msgstr "Malsukcesis skribi dosieron al disko."
-
-#. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
-#: lib/mediafile.php:222
-msgid "File upload stopped by extension."
-msgstr ""
-
 #. TRANS: Client exception thrown when a file upload operation would cause a user to exceed a set quota.
 #: lib/mediafile.php:238 lib/mediafile.php:281
 msgid "File exceeds user's quota."
@@ -8275,7 +8432,7 @@ msgstr "Malsukcesis decidi dosieran MIME-tipon."
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %1$s is the file type that was denied, %2$s is the application part of
 #. TRANS: the MIME type that was denied.
-#: lib/mediafile.php:394
+#: lib/mediafile.php:396
 #, php-format
 msgid ""
 "\"%1$s\" is not a supported file type on this server. Try using another %2$s "
@@ -8286,7 +8443,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %s is the file type that was denied.
-#: lib/mediafile.php:399
+#: lib/mediafile.php:401
 #, php-format
 msgid "\"%s\" is not a supported file type on this server."
 msgstr "\"%s\" ne estas subtenata tipo ĉe tiu ĉi servilo."
@@ -8321,18 +8478,18 @@ msgid "Send"
 msgstr "Sendi"
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:163
+#: lib/nickname.php:165
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
 "Kromnomo devas havi nur minuskulajn literojn kaj numerojn sed neniun spacon."
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:176
+#: lib/nickname.php:178
 msgid "Nickname cannot be empty."
 msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:189
+#: lib/nickname.php:191
 #, php-format
 msgid "Nickname cannot be more than %d character long."
 msgid_plural "Nickname cannot be more than %d characters long."
@@ -8373,55 +8530,55 @@ msgstr ""
 "poste."
 
 #. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:451
+#: lib/noticelist.php:452
 msgid "N"
 msgstr "N"
 
 #. TRANS: Used in coordinates as abbreviation of south
-#: lib/noticelist.php:453
+#: lib/noticelist.php:454
 msgid "S"
 msgstr "S"
 
 #. TRANS: Used in coordinates as abbreviation of east
-#: lib/noticelist.php:455
+#: lib/noticelist.php:456
 msgid "E"
 msgstr "E"
 
 #. TRANS: Used in coordinates as abbreviation of west
-#: lib/noticelist.php:457
+#: lib/noticelist.php:458
 msgid "W"
 msgstr "W"
 
-#: lib/noticelist.php:459
+#: lib/noticelist.php:460
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
-#: lib/noticelist.php:468
+#: lib/noticelist.php:469
 msgid "at"
 msgstr "al"
 
-#: lib/noticelist.php:517
+#: lib/noticelist.php:518
 msgid "web"
 msgstr "TTT"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:584
 msgid "in context"
 msgstr "kuntekste"
 
-#: lib/noticelist.php:618
+#: lib/noticelist.php:619
 msgid "Repeated by"
 msgstr "Ripetita de"
 
-#: lib/noticelist.php:645
+#: lib/noticelist.php:646
 msgid "Reply to this notice"
 msgstr "Respondi ĉi tiun avizon"
 
-#: lib/noticelist.php:646
+#: lib/noticelist.php:647
 msgid "Reply"
 msgstr "Respondi"
 
-#: lib/noticelist.php:690
+#: lib/noticelist.php:691
 msgid "Notice repeated"
 msgstr "Avizo ripetiĝas"
 
@@ -8576,7 +8733,7 @@ msgid "Revoke the \"%s\" role from this user"
 msgstr "Revoki rolon %s de la uzanto"
 
 #. TRANS: Client error on action trying to visit a non-existing page.
-#: lib/router.php:957
+#: lib/router.php:974
 #, fuzzy
 msgid "Page not found."
 msgstr "Metodo de API ne troviĝas."
@@ -8928,22 +9085,10 @@ msgstr "Grando nevalida."
 msgid "Invalid XML, missing XRD root."
 msgstr ""
 
-#. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
-#: scripts/restoreuser.php:61
-#, php-format
-msgid "Getting backup from file '%s'."
-msgstr ""
-
-#. TRANS: Commandline script output.
-#: scripts/restoreuser.php:91
 #, fuzzy
-msgid "No user specified; using backup user."
-msgstr "Neniu uzanto-ID specifiĝas."
+#~ msgid "Post"
+#~ msgstr "Foto"
 
-#. TRANS: Commandline script output. %d is the number of entries in the activity stream in backup; used for plural.
-#: scripts/restoreuser.php:98
-#, php-format
-msgid "%d entry in backup."
-msgid_plural "%d entries in backup."
-msgstr[0] ""
-msgstr[1] ""
+#, fuzzy
+#~ msgid "No user specified; using backup user."
+#~ msgstr "Neniu uzanto-ID specifiĝas."
