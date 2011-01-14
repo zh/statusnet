@@ -526,7 +526,8 @@ class Action extends HTMLOutputter // lawsuit
     function showPrimaryNav()
     {
         $user = common_current_user();
-        $this->elementStart('ul', array('class' => 'nav site_nav_global_primary'));
+        $this->elementStart('ul', array('class' => 'nav',
+                                        'id' => 'site_nav_global_primary'));
         if (Event::handle('StartPrimaryNav', array($this))) {
             if ($user) {
                 // TRANS: Tooltip for main menu option "Personal"
@@ -672,7 +673,11 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showLocalNavBlock()
     {
+        // Need to have this ID for CSS; I'm too lazy to add it to
+        // all menus
+        $this->elementStart('div', array('id' => 'site_nav_local_views'));
         $this->showLocalNav();
+        $this->elementEnd('div');
     }
 
     /**
@@ -833,7 +838,8 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showSecondaryNav()
     {
-        $this->elementStart('ul', array('class' => 'nav site_nav_global_secondary'));
+        $this->elementStart('ul', array('class' => 'nav',
+                                        'id' => 'site_nav_global_secondary'));
         if (Event::handle('StartSecondaryNav', array($this))) {
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
                             // TRANS: Secondary navigation menu option leading to help on StatusNet.
@@ -1307,7 +1313,8 @@ class Action extends HTMLOutputter // lawsuit
     {
         // Does a little before-after block for next/prev page
         if ($have_before || $have_after) {
-            $this->elementStart('ul', array('class' => 'nav pagination'));
+            $this->elementStart('ul', array('class' => 'nav',
+                                            'id' => 'pagination'));
         }
         if ($have_before) {
             $pargs   = array('page' => $page-1);
