@@ -16,18 +16,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-14 10:29+0000\n"
-"PO-Revision-Date: 2011-01-14 10:32:29+0000\n"
+"POT-Creation-Date: 2011-01-14 23:32+0000\n"
+"PO-Revision-Date: 2011-01-14 23:35:20+0000\n"
 "Language-Team: Russian <http://translatewiki.net/wiki/Portal:ru>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r80246); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r80343); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2011-01-12 17:31:48+0000\n"
+"X-POT-Import-Date: 2011-01-14 13:22:39+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -981,9 +981,10 @@ msgstr "Невозможно повторить собственную запи�
 msgid "Already repeated that notice."
 msgstr "Запись уже повторена."
 
+#. TRANS: Client error shown when using a non-supported HTTP method.
 #: actions/apistatusesshow.php:117 actions/atompubfavoritefeed.php:104
 #: actions/atompubmembershipfeed.php:106 actions/atompubshowfavorite.php:116
-#: actions/atompubshowsubscription.php:118
+#: actions/atompubshowsubscription.php:122
 #: actions/atompubsubscriptionfeed.php:109
 msgid "HTTP method not supported."
 msgstr "HTTP-метод не поддерживается."
@@ -1309,21 +1310,26 @@ msgstr "HTTP-метод не поддерживается."
 msgid "Can't delete someone else's membership"
 msgstr ""
 
+#. TRANS: Client exception thrown when trying to display a subscription for a non-existing profile ID.
+#. TRANS: %d is the non-existing profile ID number.
 #: actions/atompubshowsubscription.php:72
-#: actions/atompubshowsubscription.php:81
+#: actions/atompubshowsubscription.php:83
 #: actions/atompubsubscriptionfeed.php:74
 #, fuzzy, php-format
 msgid "No such profile id: %d"
 msgstr "Нет такого профиля."
 
-#: actions/atompubshowsubscription.php:90
+#. TRANS: Client exception thrown when trying to display a subscription for a non-subscribed profile ID.
+#. TRANS: %1$d is the non-existing subscriber ID number, $2$d is the ID of the profile that was not subscribed to.
+#: actions/atompubshowsubscription.php:94
 #, fuzzy, php-format
-msgid "Profile %d not subscribed to profile %d"
+msgid "Profile %1$d not subscribed to profile %2$d"
 msgstr "Вы не подписаны на этот профиль."
 
-#: actions/atompubshowsubscription.php:154
+#. TRANS: Client exception thrown when trying to delete a subscription of another user.
+#: actions/atompubshowsubscription.php:157
 #, fuzzy
-msgid "Can't delete someone else's subscription"
+msgid "Cannot delete someone else's subscription"
 msgstr "Невозможно удалить подписку на самого себя."
 
 #: actions/atompubsubscriptionfeed.php:150
@@ -1418,13 +1424,15 @@ msgid "Preview"
 msgstr "Просмотр"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
-#: actions/avatarsettings.php:155 actions/deleteaccount.php:314
+#. TRANS: Button text for user account deletion.
+#: actions/avatarsettings.php:155 actions/deleteaccount.php:319
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "Удалить"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
-#: actions/avatarsettings.php:173 actions/restoreaccount.php:371
+#. TRANS: Submit button to confirm upload of a user backup file for account restore.
+#: actions/avatarsettings.php:173 actions/restoreaccount.php:369
 msgctxt "BUTTON"
 msgid "Upload"
 msgstr "Загрузить"
@@ -1702,59 +1710,76 @@ msgstr "Дискуссия"
 msgid "Notices"
 msgstr "Записи"
 
-#: actions/deleteaccount.php:72
+#. TRANS: Client exception displayed trying to delete a user account while not logged in.
+#: actions/deleteaccount.php:71
 #, fuzzy
 msgid "Only logged-in users can delete their account."
 msgstr "Повторять записи могут только вошедшие пользователи."
 
+#. TRANS: Client exception displayed trying to delete a user account without have the rights to do that.
 #: actions/deleteaccount.php:77
 #, fuzzy
 msgid "You cannot delete your account."
 msgstr "Вы не можете удалять пользователей."
 
-#: actions/deleteaccount.php:164
+#. TRANS: Confirmation text for user deletion. The user has to type this exactly the same, including punctuation.
+#: actions/deleteaccount.php:160 actions/deleteaccount.php:297
 msgid "I am sure."
 msgstr ""
 
-#: actions/deleteaccount.php:165
-msgid "You must write  \"I am sure.\" exactly in the box."
+#. TRANS: Notification for user about the text that must be input to be able to delete a user account.
+#. TRANS: %s is the text that needs to be input.
+#: actions/deleteaccount.php:164
+#, php-format
+msgid "You must write  \"%s\" exactly in the box."
 msgstr ""
 
-#: actions/deleteaccount.php:207
+#. TRANS: Confirmation that a user account has been deleted.
+#: actions/deleteaccount.php:206
 #, fuzzy
 msgid "Account deleted."
 msgstr "Аватар удалён."
 
+#. TRANS: Page title for page on which a user account can be deleted.
 #: actions/deleteaccount.php:228 actions/profilesettings.php:474
 #, fuzzy
 msgid "Delete account"
 msgstr "Создать новый аккаунт"
 
-#: actions/deleteaccount.php:282
+#. TRANS: Form text for user deletion form.
+#: actions/deleteaccount.php:279
 msgid ""
-"<p>This will <strong>permanently delete</strong> your account data from this "
-"server. </p>"
+"This will <strong>permanently delete</strong> your account data from this "
+"server."
 msgstr ""
 
-#: actions/deleteaccount.php:286
+#. TRANS: Additional form text for user deletion form shown if a user has account backup rights.
+#. TRANS: %s is a URL to the backup page.
+#: actions/deleteaccount.php:285
 #, php-format
 msgid ""
-"<p>You are strongly advised to <a href=\"%s\">back up your data</a> before "
-"deletion.</p>"
+"You are strongly advised to <a href=\"%s\">back up your data</a> before "
+"deletion."
 msgstr ""
 
-#: actions/deleteaccount.php:297 actions/passwordsettings.php:112
+#. TRANS: Field label for delete account confirmation entry.
+#: actions/deleteaccount.php:300 actions/passwordsettings.php:112
 #: actions/recoverpassword.php:239 actions/register.php:441
 msgid "Confirm"
 msgstr "Подтверждение"
 
-#: actions/deleteaccount.php:299
-msgid "Enter \"I am sure.\" to confirm that you want to delete your account."
-msgstr ""
+#. TRANS: Input title for the delete account field.
+#. TRANS: %s is the text that needs to be input.
+#: actions/deleteaccount.php:304
+#, fuzzy, php-format
+msgid "Enter \"%s\" to confirm that you want to delete your account."
+msgstr "Вы не можете удалять пользователей."
 
-#: actions/deleteaccount.php:317
-msgid "Permanently your account"
-msgstr ""
+#. TRANS: Button title for user account deletion.
+#: actions/deleteaccount.php:323
+#, fuzzy
+msgid "Permanently delete your account"
+msgstr "Вы не можете удалять пользователей."
 
 #. TRANS: Client error displayed trying to delete an application while not logged in.
 #: actions/deleteapplication.php:62
@@ -4313,7 +4338,8 @@ msgstr "Не удаётся сохранить теги."
 msgid "Settings saved."
 msgstr "Настройки сохранены."
 
-#: actions/profilesettings.php:481 actions/restoreaccount.php:61
+#. TRANS: Page title for page where a user account can be restored from backup.
+#: actions/profilesettings.php:481 actions/restoreaccount.php:60
 #, fuzzy
 msgid "Restore account"
 msgstr "Создать новый аккаунт"
@@ -4846,28 +4872,32 @@ msgstr ""
 msgid "Replies to %1$s on %2$s!"
 msgstr "Ответы на записи %1$s на %2$s!"
 
-#: actions/restoreaccount.php:79
+#. TRANS: Client exception displayed when trying to restore an account while not logged in.
+#: actions/restoreaccount.php:78
 #, fuzzy
 msgid "Only logged-in users can restore their account."
 msgstr "Повторять записи могут только вошедшие пользователи."
 
+#. TRANS: Client exception displayed when trying to restore an account without having restore rights.
 #: actions/restoreaccount.php:83
 #, fuzzy
 msgid "You may not restore your account."
 msgstr "Вы пока не зарегистрировали ни одного приложения."
 
-#: actions/restoreaccount.php:122 actions/restoreaccount.php:147
+#. TRANS: Client exception displayed trying to restore an account while something went wrong uploading a file.
+#. TRANS: Client exception. No file; probably just a non-AJAX submission.
+#: actions/restoreaccount.php:121 actions/restoreaccount.php:146
 #, fuzzy
 msgid "No uploaded file."
 msgstr "Загрузить файл"
 
 #. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
-#: actions/restoreaccount.php:130 lib/mediafile.php:194
+#: actions/restoreaccount.php:129 lib/mediafile.php:194
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
 msgstr "Загружаемый файл превышает директиву upload_max_filesize в php.ini."
 
 #. TRANS: Client exception.
-#: actions/restoreaccount.php:136 lib/mediafile.php:200
+#: actions/restoreaccount.php:135 lib/mediafile.php:200
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form."
@@ -4875,58 +4905,57 @@ msgstr ""
 "Загружаемый файл превышает директиву MAX_FILE_SIZE, указанную в HTML-форме."
 
 #. TRANS: Client exception.
-#: actions/restoreaccount.php:142 lib/mediafile.php:206
+#: actions/restoreaccount.php:141 lib/mediafile.php:206
 msgid "The uploaded file was only partially uploaded."
 msgstr "Загружаемый файл загружен только частично."
 
 #. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
-#: actions/restoreaccount.php:151 lib/mediafile.php:214
+#: actions/restoreaccount.php:150 lib/mediafile.php:214
 msgid "Missing a temporary folder."
 msgstr "Отсутствует временной каталог."
 
 #. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
-#: actions/restoreaccount.php:155 lib/mediafile.php:218
+#: actions/restoreaccount.php:154 lib/mediafile.php:218
 msgid "Failed to write file to disk."
 msgstr "Не удаётся записать файл на диск."
 
 #. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
-#: actions/restoreaccount.php:159 lib/mediafile.php:222
+#: actions/restoreaccount.php:158 lib/mediafile.php:222
 msgid "File upload stopped by extension."
 msgstr "Загрузка файла остановлена по расширению."
 
 #. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
-#: actions/restoreaccount.php:165 lib/imagefile.php:103 lib/mediafile.php:228
+#: actions/restoreaccount.php:164 lib/imagefile.php:103 lib/mediafile.php:228
 msgid "System error uploading file."
 msgstr "Системная ошибка при загрузке файла."
 
-#. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
-#: actions/restoreaccount.php:184 scripts/restoreuser.php:62
-#, php-format
-msgid "Getting backup from file '%s'."
-msgstr "Получение резервной копии из файла «%s»."
-
-#: actions/restoreaccount.php:204 lib/feedimporter.php:75
+#. TRANS: Client exception thrown when a feed is not an Atom feed.
+#: actions/restoreaccount.php:207
 #, fuzzy
-msgid "Not an atom feed."
+msgid "Not an Atom feed."
 msgstr "Все участники"
 
-#: actions/restoreaccount.php:238
+#. TRANS: Success message when a feed has been restored.
+#: actions/restoreaccount.php:241
 msgid ""
 "Feed has been restored. Your old posts should now appear in search and your "
 "profile page."
 msgstr ""
 
-#: actions/restoreaccount.php:241
+#. TRANS: Message when a feed restore is in progress.
+#: actions/restoreaccount.php:245
 msgid "Feed will be restored. Please wait a few minutes for results."
 msgstr ""
 
-#: actions/restoreaccount.php:344
+#. TRANS: Form instructions for feed restore.
+#: actions/restoreaccount.php:342
 msgid ""
 "You can upload a backed-up stream in <a href=\"http://activitystrea.ms/"
 "\">Activity Streams</a> format."
 msgstr ""
 
-#: actions/restoreaccount.php:374
+#. TRANS: Title for submit button to confirm upload of a user backup file for account restore.
+#: actions/restoreaccount.php:373
 #, fuzzy
 msgid "Upload the file"
 msgstr "Загрузить файл"
@@ -6985,19 +7014,56 @@ msgstr "Туда"
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr "Ожидался корневой элемент потока, а получен XML-документ целиком."
 
-#: lib/activityimporter.php:109
-msgid "Can't force subscription for untrusted user."
+#. TRANS: Client exception thrown when using an unknown verb for the activity importer.
+#: lib/activityimporter.php:81
+#, fuzzy, php-format
+msgid "Unknown verb: \"%s\"."
+msgstr "Неизвестный язык «%s»."
+
+#. TRANS: Client exception thrown when trying to force a subscription for an untrusted user.
+#: lib/activityimporter.php:107
+msgid "Cannot force subscription for untrusted user."
 msgstr ""
 
-#: lib/activityimporter.php:133
+#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#: lib/activityimporter.php:117
+#, fuzzy
+msgid "Cannot force remote user to subscribe."
+msgstr "Укажите имя пользователя для подписки."
+
+#. TRANS: Client exception thrown when trying to subscribe to an unknown profile.
+#: lib/activityimporter.php:132
 #, fuzzy
 msgid "Unknown profile."
 msgstr "Неподдерживаемый тип файла"
 
-#: lib/activityimporter.php:197
-#, php-format
-msgid "Already know about notice %s and  it's got a different author %s."
+#. TRANS: Client exception thrown when trying to import an event not related to the importing user.
+#: lib/activityimporter.php:138
+msgid "This activity seems unrelated to our user."
 msgstr ""
+
+#. TRANS: Client exception thrown when trying to join a remote group that is not a group.
+#: lib/activityimporter.php:154
+msgid "Remote profile is not a group!"
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to join a group the importing user is already a member of.
+#: lib/activityimporter.php:163
+#, fuzzy
+msgid "User is already a member of this group."
+msgstr "Вы уже являетесь членом этой группы."
+
+#. TRANS: Client exception thrown when trying to overwrite the author information for a non-trusted user during import.
+#: lib/activityimporter.php:207
+msgid "Not overwriting author info for non-trusted user."
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to import a notice without content.
+#. TRANS: %s is the notice URI.
+#: lib/activityimporter.php:223
+#, fuzzy, php-format
+msgid "No content for notice %s."
+msgstr "Найти запись по содержимому"
 
 #. TRANS: Client exception thrown when there is no source attribute.
 #: lib/activityutils.php:200
@@ -7281,13 +7347,16 @@ msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Отозвать"
 
-#: lib/atom10feed.php:112
-msgid "author element must contain a name element."
+#: lib/atom10feed.php:113
+#, fuzzy
+msgid "Author element must contain a name element."
 msgstr "Элемент author должен содержать элемент name."
 
-#: lib/atom10feed.php:158
-msgid "Don't use this method!"
-msgstr ""
+#. TRANS: Server exception thrown when using the method setActivitySubject() in the class Atom10Feed.
+#: lib/atom10feed.php:160
+#, fuzzy
+msgid "Do not use this method!"
+msgstr "Не удаляйте эту группу"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:294
@@ -7845,6 +7914,11 @@ msgstr "Atom"
 #: lib/feed.php:90
 msgid "FOAF"
 msgstr "FOAF"
+
+#: lib/feedimporter.php:75
+#, fuzzy
+msgid "Not an atom feed."
+msgstr "Все участники"
 
 #: lib/feedimporter.php:82
 msgid "No author in the feed."
@@ -9180,16 +9254,8 @@ msgstr "Неверный XML."
 msgid "Invalid XML, missing XRD root."
 msgstr "Неверный XML, отсутствует корень XRD."
 
-#, fuzzy
-#~ msgid "Post"
-#~ msgstr "Фото"
-
-#~ msgid "No user specified; using backup user."
-#~ msgstr ""
-#~ "Не указан пользователь; используется пользователь из резервной копии."
-
-#~ msgid "%d entry in backup."
-#~ msgid_plural "%d entries in backup."
-#~ msgstr[0] "%d запись в резервной копии."
-#~ msgstr[1] "%d записи в резервной копии."
-#~ msgstr[2] "%d записей в резервной копии."
+#. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
+#: scripts/restoreuser.php:62
+#, php-format
+msgid "Getting backup from file '%s'."
+msgstr "Получение резервной копии из файла «%s»."

@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-14 10:29+0000\n"
-"PO-Revision-Date: 2011-01-14 10:32:17+0000\n"
+"POT-Creation-Date: 2011-01-14 23:32+0000\n"
+"PO-Revision-Date: 2011-01-14 23:35:05+0000\n"
 "Language-Team: Malayalam <http://translatewiki.net/wiki/Portal:ml>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-01-12 17:31:48+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r80246); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-14 13:22:39+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r80343); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ml\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -939,9 +939,10 @@ msgstr "താങ്കൾക്ക് താങ്കളുടെ തന്ന�
 msgid "Already repeated that notice."
 msgstr "ആ അറിയിപ്പ് മുമ്പേ തന്നെ ആവർത്തിച്ചിരിക്കുന്നു."
 
+#. TRANS: Client error shown when using a non-supported HTTP method.
 #: actions/apistatusesshow.php:117 actions/atompubfavoritefeed.php:104
 #: actions/atompubmembershipfeed.php:106 actions/atompubshowfavorite.php:116
-#: actions/atompubshowsubscription.php:118
+#: actions/atompubshowsubscription.php:122
 #: actions/atompubsubscriptionfeed.php:109
 msgid "HTTP method not supported."
 msgstr "എച്ച്.റ്റി.റ്റി.പി. രീതി പിന്തുണയ്ക്കുന്നില്ല."
@@ -1248,21 +1249,27 @@ msgstr "പിന്തുണയില്ലാത്ത മാർഗ്ഗമ�
 msgid "Can't delete someone else's membership"
 msgstr "മറ്റൊരാളുടെ അംഗത്വം മായ്ക്കാനാവില്ല."
 
+#. TRANS: Client exception thrown when trying to display a subscription for a non-existing profile ID.
+#. TRANS: %d is the non-existing profile ID number.
 #: actions/atompubshowsubscription.php:72
-#: actions/atompubshowsubscription.php:81
+#: actions/atompubshowsubscription.php:83
 #: actions/atompubsubscriptionfeed.php:74
 #, php-format
 msgid "No such profile id: %d"
 msgstr ""
 
-#: actions/atompubshowsubscription.php:90
+#. TRANS: Client exception thrown when trying to display a subscription for a non-subscribed profile ID.
+#. TRANS: %1$d is the non-existing subscriber ID number, $2$d is the ID of the profile that was not subscribed to.
+#: actions/atompubshowsubscription.php:94
 #, php-format
-msgid "Profile %d not subscribed to profile %d"
+msgid "Profile %1$d not subscribed to profile %2$d"
 msgstr ""
 
-#: actions/atompubshowsubscription.php:154
-msgid "Can't delete someone else's subscription"
-msgstr ""
+#. TRANS: Client exception thrown when trying to delete a subscription of another user.
+#: actions/atompubshowsubscription.php:157
+#, fuzzy
+msgid "Cannot delete someone else's subscription"
+msgstr "മറ്റൊരാളുടെ അംഗത്വം മായ്ക്കാനാവില്ല."
 
 #: actions/atompubsubscriptionfeed.php:150
 #, php-format
@@ -1354,13 +1361,15 @@ msgid "Preview"
 msgstr "എങ്ങനെയുണ്ടെന്നു കാണുക"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
-#: actions/avatarsettings.php:155 actions/deleteaccount.php:314
+#. TRANS: Button text for user account deletion.
+#: actions/avatarsettings.php:155 actions/deleteaccount.php:319
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "മായ്ക്കുക"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
-#: actions/avatarsettings.php:173 actions/restoreaccount.php:371
+#. TRANS: Submit button to confirm upload of a user backup file for account restore.
+#: actions/avatarsettings.php:173 actions/restoreaccount.php:369
 msgctxt "BUTTON"
 msgid "Upload"
 msgstr "അപ്‌ലോഡ്"
@@ -1635,59 +1644,76 @@ msgstr "സംഭാഷണം"
 msgid "Notices"
 msgstr "അറിയിപ്പുകൾ"
 
-#: actions/deleteaccount.php:72
+#. TRANS: Client exception displayed trying to delete a user account while not logged in.
+#: actions/deleteaccount.php:71
 #, fuzzy
 msgid "Only logged-in users can delete their account."
 msgstr "ഉപയോക്താവിനു മാത്രമേ അദ്ദേഹത്തിന്റെ സ്വന്തം സമയരേഖ ചേർക്കാൻ കഴിയൂ."
 
+#. TRANS: Client exception displayed trying to delete a user account without have the rights to do that.
 #: actions/deleteaccount.php:77
 #, fuzzy
 msgid "You cannot delete your account."
 msgstr "താങ്കൾക്ക് ഉപയോക്താക്കളെ നീക്കം ചെയ്യാൻ കഴിയില്ല."
 
-#: actions/deleteaccount.php:164
+#. TRANS: Confirmation text for user deletion. The user has to type this exactly the same, including punctuation.
+#: actions/deleteaccount.php:160 actions/deleteaccount.php:297
 msgid "I am sure."
 msgstr ""
 
-#: actions/deleteaccount.php:165
-msgid "You must write  \"I am sure.\" exactly in the box."
+#. TRANS: Notification for user about the text that must be input to be able to delete a user account.
+#. TRANS: %s is the text that needs to be input.
+#: actions/deleteaccount.php:164
+#, php-format
+msgid "You must write  \"%s\" exactly in the box."
 msgstr ""
 
-#: actions/deleteaccount.php:207
+#. TRANS: Confirmation that a user account has been deleted.
+#: actions/deleteaccount.php:206
 #, fuzzy
 msgid "Account deleted."
 msgstr "സ്ഥിതിവിവരക്കുറിപ്പ് മായ്ച്ചിരിക്കുന്നു."
 
+#. TRANS: Page title for page on which a user account can be deleted.
 #: actions/deleteaccount.php:228 actions/profilesettings.php:474
 #, fuzzy
 msgid "Delete account"
 msgstr "ഒരംഗത്വമെടുക്കുക"
 
-#: actions/deleteaccount.php:282
+#. TRANS: Form text for user deletion form.
+#: actions/deleteaccount.php:279
 msgid ""
-"<p>This will <strong>permanently delete</strong> your account data from this "
-"server. </p>"
+"This will <strong>permanently delete</strong> your account data from this "
+"server."
 msgstr ""
 
-#: actions/deleteaccount.php:286
+#. TRANS: Additional form text for user deletion form shown if a user has account backup rights.
+#. TRANS: %s is a URL to the backup page.
+#: actions/deleteaccount.php:285
 #, php-format
 msgid ""
-"<p>You are strongly advised to <a href=\"%s\">back up your data</a> before "
-"deletion.</p>"
+"You are strongly advised to <a href=\"%s\">back up your data</a> before "
+"deletion."
 msgstr ""
 
-#: actions/deleteaccount.php:297 actions/passwordsettings.php:112
+#. TRANS: Field label for delete account confirmation entry.
+#: actions/deleteaccount.php:300 actions/passwordsettings.php:112
 #: actions/recoverpassword.php:239 actions/register.php:441
 msgid "Confirm"
 msgstr "സ്ഥിരീകരിക്കുക"
 
-#: actions/deleteaccount.php:299
-msgid "Enter \"I am sure.\" to confirm that you want to delete your account."
-msgstr ""
+#. TRANS: Input title for the delete account field.
+#. TRANS: %s is the text that needs to be input.
+#: actions/deleteaccount.php:304
+#, fuzzy, php-format
+msgid "Enter \"%s\" to confirm that you want to delete your account."
+msgstr "താങ്കൾക്ക് ഉപയോക്താക്കളെ നീക്കം ചെയ്യാൻ കഴിയില്ല."
 
-#: actions/deleteaccount.php:317
-msgid "Permanently your account"
-msgstr ""
+#. TRANS: Button title for user account deletion.
+#: actions/deleteaccount.php:323
+#, fuzzy
+msgid "Permanently delete your account"
+msgstr "താങ്കൾക്ക് ഉപയോക്താക്കളെ നീക്കം ചെയ്യാൻ കഴിയില്ല."
 
 #. TRANS: Client error displayed trying to delete an application while not logged in.
 #: actions/deleteapplication.php:62
@@ -1969,7 +1995,7 @@ msgstr "ഉള്ളടക്കം"
 #. TRANS: Label on profile design page for setting a profile page sidebar colour.
 #: actions/designadminpanel.php:626 lib/designsettings.php:211
 msgid "Sidebar"
-msgstr ""
+msgstr "പാർശ്വഭിത്തി"
 
 #. TRANS: Label on profile design page for setting a profile page text colour.
 #: actions/designadminpanel.php:639 lib/designsettings.php:225
@@ -1987,7 +2013,7 @@ msgstr "വിപുലം"
 
 #: actions/designadminpanel.php:681
 msgid "Custom CSS"
-msgstr ""
+msgstr "സ്വന്തം സി.എസ്.എസ്."
 
 #. TRANS: Button text on profile design page to immediately reset all colour settings to default.
 #: actions/designadminpanel.php:702 lib/designsettings.php:257
@@ -2093,7 +2119,7 @@ msgstr ""
 
 #: actions/editapplication.php:226 actions/newapplication.php:202
 msgid "Organization homepage is required."
-msgstr ""
+msgstr "സംഘടനയുടെ പ്രധാനതാൾ ആവശ്യമാണ്."
 
 #. TRANS: Validation error shown when providing too long a callback URL in the "Edit application" form.
 #: actions/editapplication.php:237 actions/newapplication.php:214
@@ -2238,7 +2264,7 @@ msgstr "പുതിയ അറിയിപ്പുകൾ പ്രസിദ്�
 #. TRANS: Instructions for incoming SMS e-mail address input form.
 #: actions/emailsettings.php:189 actions/smssettings.php:186
 msgid "Make a new email address for posting to; cancels the old one."
-msgstr ""
+msgstr "പ്രസിദ്ധീകരിക്കാനായി പുതിയൊരു ഇമെയിൽ വിലാസം സൃഷ്ടിക്കുക; പഴയതു റദ്ദാക്കപ്പെടും."
 
 #. TRANS: Instructions for incoming e-mail address input form.
 #: actions/emailsettings.php:193
@@ -2246,6 +2272,8 @@ msgid ""
 "To send notices via email, we need to create a unique email address for you "
 "on this server:"
 msgstr ""
+"ഇമെയിൽ വഴി അറിയിപ്പുകൾ അയയ്ക്കാൻ, ഈ സെർവറിൽ താങ്കൾക്കായി ഒരു അനന്യ ഇമെയിൽ വിലാസം "
+"സൃഷ്ടിക്കേണ്ടതുണ്ട്:"
 
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
@@ -2272,12 +2300,12 @@ msgstr ""
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:229
 msgid "Send me email when someone sends me a private message."
-msgstr ""
+msgstr "ആരെങ്കിലും എനിക്കൊരു സ്വകാര്യ സന്ദേശമയച്ചാൽ എനിക്ക് ഇമെയിൽ അയയ്ക്കുക."
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:235
 msgid "Send me email when someone sends me an \"@-reply\"."
-msgstr ""
+msgstr "ആരെങ്കിലും എനിക്കൊരു \"@-reply\" അയച്ചാൽ എനിക്ക് ഇമെയിൽ അയയ്ക്കുക."
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:241
@@ -3229,7 +3257,7 @@ msgstr "ഉപയോക്തൃനാമമോ രഹസ്യവാക്ക�
 
 #: actions/login.php:154 actions/otp.php:120
 msgid "Error setting user. You are probably not authorized."
-msgstr ""
+msgstr "ഉപയോക്തൃ സജ്ജീകരണത്തിൽ പിഴവുണ്ടായി. താങ്കൾക്ക് മിക്കവാറും അനുമതിയുണ്ടാവില്ല."
 
 #: actions/login.php:210 actions/login.php:263 lib/logingroupnav.php:79
 msgid "Login"
@@ -3271,12 +3299,12 @@ msgstr "ഇതുവരെ ഒരു ഉപയോക്തൃനാമം ഇല
 
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
-msgstr ""
+msgstr "ഒരു കാര്യനിർവ്വാഹകനു മാത്രമേ മറ്റൊരുപയോക്താവിനെ കാര്യനിർവ്വാഹകനാക്കാൻ കഴിയൂ."
 
 #: actions/makeadmin.php:96
 #, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
-msgstr ""
+msgstr "%1$s എന്ന ഉപയോക്താവ് \"%2$s\" എന്ന സംഘത്തിൽ മുമ്പേ തന്നെ കാര്യനിർവ്വാഹകനാണ്."
 
 #: actions/makeadmin.php:133
 #, php-format
@@ -3286,7 +3314,7 @@ msgstr ""
 #: actions/makeadmin.php:146
 #, php-format
 msgid "Can't make %1$s an admin for group %2$s."
-msgstr ""
+msgstr "%1$s എന്ന ഉപയോക്താവിനെ %2$s എന്ന സംഘത്തിലെ കാര്യനിർവ്വാഹകനാക്കാൻ കഴിയില്ല."
 
 #: actions/microsummary.php:69
 msgid "No current status."
@@ -3328,7 +3356,7 @@ msgstr "ഈ സൈറ്റിലെ ഉപയോക്താക്കളെ ത
 #. TRANS: Form instructions for group create form.
 #: actions/newgroup.php:117
 msgid "Use this form to create a new group."
-msgstr ""
+msgstr "പുതിയൊരു സംഘം സൃഷ്ടിക്കാൻ ഈ ഫോം ഉപയോഗിക്കുക."
 
 #: actions/newmessage.php:71 actions/newmessage.php:234
 msgid "New message"
@@ -3348,7 +3376,7 @@ msgstr "ഉള്ളടക്കമില്ല!"
 
 #: actions/newmessage.php:161
 msgid "No recipient specified."
-msgstr ""
+msgstr "സ്വീകർത്താവിനെ വ്യക്തമാക്കിയിട്ടില്ല."
 
 #. TRANS: Error text shown when trying to send a direct message to self.
 #: actions/newmessage.php:167 lib/command.php:505
@@ -3365,7 +3393,7 @@ msgstr "സന്ദേശം അയച്ചു"
 #: actions/newmessage.php:188 lib/command.php:513
 #, php-format
 msgid "Direct message to %s sent."
-msgstr ""
+msgstr "%s എന്ന ഉപയോക്താവിന് നേരിട്ട് അയച്ച സന്ദേശങ്ങൾ."
 
 #: actions/newmessage.php:213 actions/newnotice.php:264
 msgid "Ajax Error"
@@ -4140,7 +4168,8 @@ msgstr ""
 msgid "Settings saved."
 msgstr "സജ്ജീകരണങ്ങൾ സേവ് ചെയ്തിരിക്കുന്നു."
 
-#: actions/profilesettings.php:481 actions/restoreaccount.php:61
+#. TRANS: Page title for page where a user account can be restored from backup.
+#: actions/profilesettings.php:481 actions/restoreaccount.php:60
 #, fuzzy
 msgid "Restore account"
 msgstr "ഒരംഗത്വമെടുക്കുക"
@@ -4625,86 +4654,89 @@ msgstr ""
 msgid "Replies to %1$s on %2$s!"
 msgstr ""
 
-#: actions/restoreaccount.php:79
+#. TRANS: Client exception displayed when trying to restore an account while not logged in.
+#: actions/restoreaccount.php:78
 #, fuzzy
 msgid "Only logged-in users can restore their account."
 msgstr "ഉപയോക്താവിനു മാത്രമേ അദ്ദേഹത്തിന്റെ സ്വന്തം സമയരേഖ ചേർക്കാൻ കഴിയൂ."
 
+#. TRANS: Client exception displayed when trying to restore an account without having restore rights.
 #: actions/restoreaccount.php:83
 #, fuzzy
 msgid "You may not restore your account."
 msgstr "താങ്കൾക്ക് താങ്കളുടെ തന്നെ അറിയിപ്പ് ആവർത്തിക്കാനാവില്ല."
 
-#: actions/restoreaccount.php:122 actions/restoreaccount.php:147
+#. TRANS: Client exception displayed trying to restore an account while something went wrong uploading a file.
+#. TRANS: Client exception. No file; probably just a non-AJAX submission.
+#: actions/restoreaccount.php:121 actions/restoreaccount.php:146
 #, fuzzy
 msgid "No uploaded file."
 msgstr "പ്രമാണം അപ്‌ലോഡ് ചെയ്യുക"
 
 #. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
-#: actions/restoreaccount.php:130 lib/mediafile.php:194
+#: actions/restoreaccount.php:129 lib/mediafile.php:194
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
 msgstr ""
 
 #. TRANS: Client exception.
-#: actions/restoreaccount.php:136 lib/mediafile.php:200
+#: actions/restoreaccount.php:135 lib/mediafile.php:200
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form."
 msgstr ""
 
 #. TRANS: Client exception.
-#: actions/restoreaccount.php:142 lib/mediafile.php:206
+#: actions/restoreaccount.php:141 lib/mediafile.php:206
 msgid "The uploaded file was only partially uploaded."
 msgstr ""
 
 #. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
-#: actions/restoreaccount.php:151 lib/mediafile.php:214
+#: actions/restoreaccount.php:150 lib/mediafile.php:214
 msgid "Missing a temporary folder."
 msgstr ""
 
 #. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
-#: actions/restoreaccount.php:155 lib/mediafile.php:218
+#: actions/restoreaccount.php:154 lib/mediafile.php:218
 msgid "Failed to write file to disk."
 msgstr ""
 
 #. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
-#: actions/restoreaccount.php:159 lib/mediafile.php:222
+#: actions/restoreaccount.php:158 lib/mediafile.php:222
 msgid "File upload stopped by extension."
 msgstr ""
 
 #. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
-#: actions/restoreaccount.php:165 lib/imagefile.php:103 lib/mediafile.php:228
+#: actions/restoreaccount.php:164 lib/imagefile.php:103 lib/mediafile.php:228
 msgid "System error uploading file."
 msgstr ""
 
-#. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
-#: actions/restoreaccount.php:184 scripts/restoreuser.php:62
-#, php-format
-msgid "Getting backup from file '%s'."
-msgstr ""
-
-#: actions/restoreaccount.php:204 lib/feedimporter.php:75
+#. TRANS: Client exception thrown when a feed is not an Atom feed.
+#: actions/restoreaccount.php:207
 #, fuzzy
-msgid "Not an atom feed."
+msgid "Not an Atom feed."
 msgstr "അംഗം അല്ല"
 
-#: actions/restoreaccount.php:238
+#. TRANS: Success message when a feed has been restored.
+#: actions/restoreaccount.php:241
 msgid ""
 "Feed has been restored. Your old posts should now appear in search and your "
 "profile page."
 msgstr ""
 
-#: actions/restoreaccount.php:241
+#. TRANS: Message when a feed restore is in progress.
+#: actions/restoreaccount.php:245
 msgid "Feed will be restored. Please wait a few minutes for results."
 msgstr ""
 
-#: actions/restoreaccount.php:344
+#. TRANS: Form instructions for feed restore.
+#: actions/restoreaccount.php:342
 msgid ""
 "You can upload a backed-up stream in <a href=\"http://activitystrea.ms/"
 "\">Activity Streams</a> format."
 msgstr ""
 
-#: actions/restoreaccount.php:374
+#. TRANS: Title for submit button to confirm upload of a user backup file for account restore.
+#: actions/restoreaccount.php:373
 #, fuzzy
 msgid "Upload the file"
 msgstr "പ്രമാണം അപ്‌ലോഡ് ചെയ്യുക"
@@ -6648,19 +6680,55 @@ msgstr "മുമ്പ്"
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
-#: lib/activityimporter.php:109
-msgid "Can't force subscription for untrusted user."
+#. TRANS: Client exception thrown when using an unknown verb for the activity importer.
+#: lib/activityimporter.php:81
+#, fuzzy, php-format
+msgid "Unknown verb: \"%s\"."
+msgstr "അപരിചിതമായ ഭാഷ \"%s\"."
+
+#. TRANS: Client exception thrown when trying to force a subscription for an untrusted user.
+#: lib/activityimporter.php:107
+msgid "Cannot force subscription for untrusted user."
 msgstr ""
 
-#: lib/activityimporter.php:133
+#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#: lib/activityimporter.php:117
+msgid "Cannot force remote user to subscribe."
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to subscribe to an unknown profile.
+#: lib/activityimporter.php:132
 #, fuzzy
 msgid "Unknown profile."
 msgstr "അജ്ഞാതമായ കുറിപ്പ്."
 
-#: lib/activityimporter.php:197
-#, php-format
-msgid "Already know about notice %s and  it's got a different author %s."
+#. TRANS: Client exception thrown when trying to import an event not related to the importing user.
+#: lib/activityimporter.php:138
+msgid "This activity seems unrelated to our user."
 msgstr ""
+
+#. TRANS: Client exception thrown when trying to join a remote group that is not a group.
+#: lib/activityimporter.php:154
+msgid "Remote profile is not a group!"
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to join a group the importing user is already a member of.
+#: lib/activityimporter.php:163
+#, fuzzy
+msgid "User is already a member of this group."
+msgstr "താങ്കൾ ആ സംഘത്തിൽ മുമ്പേ തന്നെ അംഗമാണ്."
+
+#. TRANS: Client exception thrown when trying to overwrite the author information for a non-trusted user during import.
+#: lib/activityimporter.php:207
+msgid "Not overwriting author info for non-trusted user."
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to import a notice without content.
+#. TRANS: %s is the notice URI.
+#: lib/activityimporter.php:223
+#, fuzzy, php-format
+msgid "No content for notice %s."
+msgstr "താങ്കൾക്ക് താങ്കളുടെ തന്നെ അറിയിപ്പ് ആവർത്തിക്കാനാവില്ല."
 
 #. TRANS: Client exception thrown when there is no source attribute.
 #: lib/activityutils.php:200
@@ -6940,13 +7008,15 @@ msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "തിരിച്ചെടുക്കുക"
 
-#: lib/atom10feed.php:112
-msgid "author element must contain a name element."
+#: lib/atom10feed.php:113
+msgid "Author element must contain a name element."
 msgstr ""
 
-#: lib/atom10feed.php:158
-msgid "Don't use this method!"
-msgstr ""
+#. TRANS: Server exception thrown when using the method setActivitySubject() in the class Atom10Feed.
+#: lib/atom10feed.php:160
+#, fuzzy
+msgid "Do not use this method!"
+msgstr "ഈ സംഘത്തെ മായ്ക്കരുത്"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:294
@@ -7447,6 +7517,11 @@ msgstr "ആറ്റം"
 #: lib/feed.php:90
 msgid "FOAF"
 msgstr ""
+
+#: lib/feedimporter.php:75
+#, fuzzy
+msgid "Not an atom feed."
+msgstr "അംഗം അല്ല"
 
 #: lib/feedimporter.php:82
 msgid "No author in the feed."
@@ -8638,4 +8713,10 @@ msgstr "അസാധുവായ എക്സ്.എം.എൽ.."
 #. TRANS: Exception.
 #: lib/xrd.php:69
 msgid "Invalid XML, missing XRD root."
+msgstr ""
+
+#. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
+#: scripts/restoreuser.php:62
+#, php-format
+msgid "Getting backup from file '%s'."
 msgstr ""
