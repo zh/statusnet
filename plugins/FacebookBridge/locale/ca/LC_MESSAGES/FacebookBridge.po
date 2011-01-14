@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-16 15:08+0000\n"
-"PO-Revision-Date: 2010-12-16 15:11:55+0000\n"
+"POT-Creation-Date: 2011-01-14 10:29+0000\n"
+"PO-Revision-Date: 2011-01-14 10:33:10+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-30 20:40:35+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-10 18:26:01+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r80246); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -62,22 +62,24 @@ msgstr "Contacteu amb l'administrador de %s per recuperar el vostre compte"
 msgid ""
 "You must be logged into Facebook to register a local account using Facebook."
 msgstr ""
+"Heu d'haver iniciat una sessió al Facebook per registrar un compte local "
+"fent servir el Facebook."
 
 #: actions/facebookfinishlogin.php:118
 msgid "There is already a local account linked with that Facebook account."
-msgstr ""
+msgstr "Ja hi ha un compte local enllaçat amb aquest compte del Facebook."
 
 #: actions/facebookfinishlogin.php:141 actions/facebooksettings.php:86
 msgid "There was a problem with your session token. Try again, please."
-msgstr ""
+msgstr "S'ha produït un problema amb el testimoni de sessió. Proveu-ho de nou."
 
 #: actions/facebookfinishlogin.php:150
 msgid "You can't register if you don't agree to the license."
-msgstr ""
+msgstr "No podeu registrar-vos-hi si no accepteu la llicència."
 
 #: actions/facebookfinishlogin.php:167
 msgid "An unknown error has occured."
-msgstr ""
+msgstr "S'ha produït un error desconegut."
 
 #: actions/facebookfinishlogin.php:185
 #, php-format
@@ -86,16 +88,19 @@ msgid ""
 "Facebook to a local account. You can either create a new local account, or "
 "connect with an existing local account."
 msgstr ""
+"És la primera vegada que inicieu una sessió a %s, per tant, hem de connectar "
+"el vostre Facebook a un compte local. Podeu crear un compte local nou, o bé "
+"connectar-vos amb un compte ja existent."
 
 #. TRANS: Page title.
 #: actions/facebookfinishlogin.php:195
 msgid "Facebook Setup"
-msgstr ""
+msgstr "Configuració del Facebook"
 
 #. TRANS: Legend.
 #: actions/facebookfinishlogin.php:229
 msgid "Connection options"
-msgstr ""
+msgstr "Opcions de connexió"
 
 #. TRANS: %s is the name of the license used by the user for their status updates.
 #: actions/facebookfinishlogin.php:239
@@ -104,24 +109,27 @@ msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
+"El meu text i fitxers es troben disponibles sota %s excepte pel que fa a les "
+"dades privades: contrasenya, adreça electrònica, adreça de MI i número de "
+"telèfon."
 
 #. TRANS: Legend.
 #: actions/facebookfinishlogin.php:256
 msgid "Create new account"
-msgstr ""
+msgstr "Crea un compte nou"
 
 #: actions/facebookfinishlogin.php:258
 msgid "Create a new user with this nickname."
-msgstr ""
+msgstr "Crea un usuari nou amb aquest sobrenom"
 
 #. TRANS: Field label.
 #: actions/facebookfinishlogin.php:262
 msgid "New nickname"
-msgstr ""
+msgstr "Nou sobrenom"
 
 #: actions/facebookfinishlogin.php:264
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr ""
+msgstr "1-64 lletres en minúscules o nombres, sense puntuacions o espais"
 
 #. TRANS: Submit button.
 #: actions/facebookfinishlogin.php:268
@@ -138,11 +146,13 @@ msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your Facebook."
 msgstr ""
+"Si ja teniu un compte, inicieu una sessió amb el vostre nom d'usuari i "
+"contrasenya per connectar-lo al Facebook."
 
 #. TRANS: Field label.
 #: actions/facebookfinishlogin.php:280
 msgid "Existing nickname"
-msgstr ""
+msgstr "ja existeix el sobrenom"
 
 #: actions/facebookfinishlogin.php:283
 msgid "Password"
@@ -156,84 +166,86 @@ msgstr "Connecta"
 
 #. TRANS: Client error trying to register with registrations not allowed.
 #. TRANS: Client error trying to register with registrations 'invite only'.
-#: actions/facebookfinishlogin.php:304 actions/facebookfinishlogin.php:314
+#: actions/facebookfinishlogin.php:308 actions/facebookfinishlogin.php:318
 msgid "Registration not allowed."
 msgstr "El registre no està permès"
 
 #. TRANS: Client error trying to register with an invalid invitation code.
-#: actions/facebookfinishlogin.php:322
+#: actions/facebookfinishlogin.php:326
 msgid "Not a valid invitation code."
 msgstr "No és un codi d'invitació vàlid"
 
-#: actions/facebookfinishlogin.php:335
+#: actions/facebookfinishlogin.php:339
 msgid "Nickname not allowed."
 msgstr "No es permet el sobrenom."
 
-#: actions/facebookfinishlogin.php:340
+#: actions/facebookfinishlogin.php:344
 msgid "Nickname already in use. Try another one."
 msgstr "El sobrenom ja és en ús. Trieu-ne un altre."
 
-#: actions/facebookfinishlogin.php:368 actions/facebookfinishlogin.php:505
+#: actions/facebookfinishlogin.php:372 actions/facebookfinishlogin.php:511
 msgid "Error connecting user to Facebook."
-msgstr ""
+msgstr "S'ha produït un error en connectar l'usuari al Facebook."
 
-#: actions/facebookfinishlogin.php:468
+#: actions/facebookfinishlogin.php:474
 msgid "Invalid username or password."
-msgstr ""
+msgstr "Nom d'usuari o contrasenya no vàlids"
 
 #: actions/facebooklogin.php:43
 msgid "Already logged in."
-msgstr ""
+msgstr "Ja heu iniciat una sessió."
 
 #. TRANS: Instructions.
 #: actions/facebooklogin.php:52
 msgid "Login with your Facebook Account"
-msgstr ""
+msgstr "Inicieu una sessió amb el compte del Facebook"
 
 #. TRANS: Page title.
 #: actions/facebooklogin.php:67
 msgid "Login with Facebook"
-msgstr ""
+msgstr "Inicia una sessió amb el Facebook"
 
 #: actions/facebookadminpanel.php:52
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #: actions/facebookadminpanel.php:62
 msgid "Facebook integration settings"
-msgstr ""
+msgstr "Paràmetres d'integració del Facebook"
 
 #: actions/facebookadminpanel.php:123
 msgid "Invalid Facebook ID. Max length is 255 characters."
-msgstr ""
+msgstr "L'ID del Facebook no és vàlid. La longitud màxima són 255 caràcters."
 
 #: actions/facebookadminpanel.php:129
 msgid "Invalid Facebook secret. Max length is 255 characters."
 msgstr ""
+"La clau secreta del Facebook no és vàlida. La longitud màxima són 255 "
+"caràcters."
 
 #: actions/facebookadminpanel.php:178
 msgid "Facebook application settings"
-msgstr ""
+msgstr "Paràmetres d'aplicació del Facebook"
 
 #: actions/facebookadminpanel.php:184
 msgid "Application ID"
-msgstr ""
+msgstr "ID de l'aplicació"
 
 #: actions/facebookadminpanel.php:185
 msgid "ID of your Facebook application"
-msgstr ""
+msgstr "ID de la vostra aplicació de Facebook"
 
 #: actions/facebookadminpanel.php:193
 msgid "Secret"
-msgstr ""
+msgstr "Clau secreta"
 
 #: actions/facebookadminpanel.php:194
 msgid "Application secret"
-msgstr ""
+msgstr "Clau secreta de l'aplicació"
 
 #: actions/facebookadminpanel.php:210
 msgid "Save"
-msgstr ""
+msgstr "Desa"
 
 #: actions/facebookadminpanel.php:210
 msgid "Save Facebook settings"
@@ -241,15 +253,15 @@ msgstr "Desa els paràmetres del Facebook"
 
 #: actions/facebooksettings.php:137
 msgid "Connected Facebook user"
-msgstr ""
+msgstr "Usuari del Facebook connectat"
 
 #: actions/facebooksettings.php:164
 msgid "Publish my notices to Facebook."
-msgstr ""
+msgstr "Publica els meus avisos al Facebook."
 
 #: actions/facebooksettings.php:174
 msgid "Send \"@\" replies to Facebook."
-msgstr ""
+msgstr "Envia respostes amb «@» al Facebook."
 
 #. TRANS: Submit button to save synchronisation settings.
 #: actions/facebooksettings.php:183
@@ -260,7 +272,7 @@ msgstr "Desa"
 #. TRANS: Legend.
 #: actions/facebooksettings.php:192
 msgid "Disconnect my account from Facebook"
-msgstr ""
+msgstr "Desconnecta el meu compte del Facebook"
 
 #: actions/facebooksettings.php:199
 #, php-format
@@ -268,6 +280,8 @@ msgid ""
 "Disconnecting your Faceboook would make it impossible to log in! Please [set "
 "a password](%s) first."
 msgstr ""
+"En desconnectar el Facebook serà impossible que inicieu una sessió! [set a "
+"password](%s) primer."
 
 #: actions/facebooksettings.php:213
 #, php-format
@@ -275,6 +289,8 @@ msgid ""
 "Keep your %1$s account but disconnect from Facebook. You'll use your %1$s "
 "password to log in."
 msgstr ""
+"Mantingueu el vostre compte %1$s però desconnecteu-vos del Facebook. Fareu "
+"servir la vostra contrasenya de %1$s per iniciar una sessió."
 
 #. TRANS: Submit button.
 #: actions/facebooksettings.php:220
@@ -284,17 +300,17 @@ msgstr "Desconnecta"
 
 #: actions/facebooksettings.php:243
 msgid "There was a problem saving your sync preferences."
-msgstr ""
+msgstr "S'ha produït un problema en desar les preferències de sincronització."
 
 #. TRANS: Confirmation that synchronisation settings have been saved into the system.
 #: actions/facebooksettings.php:246
 msgid "Sync preferences saved."
-msgstr ""
+msgstr "S'han desat les preferències de sincronització."
 
 #: actions/facebooksettings.php:260
 msgid "Couldn't delete link to Facebook."
-msgstr ""
+msgstr "No s'ha pogut eliminar l'enllaç al Facebook."
 
 #: actions/facebooksettings.php:264
 msgid "You have disconnected from Facebook."
-msgstr ""
+msgstr "Us heu desconnectat del Facebook."
