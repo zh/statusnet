@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-14 23:32+0000\n"
-"PO-Revision-Date: 2011-01-14 23:35:11+0000\n"
+"POT-Creation-Date: 2011-01-15 00:20+0000\n"
+"PO-Revision-Date: 2011-01-15 00:22:50+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r80343); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r80364); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-01-14 13:22:39+0000\n"
+"X-POT-Import-Date: 2011-01-15 00:06:50+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1308,15 +1308,15 @@ msgstr "Het profielnummer bestaat niet: %d."
 #. TRANS: Client exception thrown when trying to display a subscription for a non-subscribed profile ID.
 #. TRANS: %1$d is the non-existing subscriber ID number, $2$d is the ID of the profile that was not subscribed to.
 #: actions/atompubshowsubscription.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "Profile %1$d not subscribed to profile %2$d"
-msgstr "Profiel %d is niet geabonneerd op profiel %d."
+msgstr "Profiel %1$d is niet geabonneerd op profiel %2$d."
 
 #. TRANS: Client exception thrown when trying to delete a subscription of another user.
 #: actions/atompubshowsubscription.php:157
-#, fuzzy
 msgid "Cannot delete someone else's subscription"
-msgstr "Het is niet mogelijk het abonnement van iemand anders te verwijderen"
+msgstr ""
+"Het is niet mogelijk het abonnement van een andere gebruiker op te zeggen."
 
 #: actions/atompubsubscriptionfeed.php:150
 #, php-format
@@ -1481,17 +1481,16 @@ msgid ""
 "addresses is not backed up. Additionally, uploaded files and direct messages "
 "are not backed up."
 msgstr ""
-"U kunt een back-up van uw gebruikersgegevens maken in de indeling <a href="
-"\"http://activitystrea.ms/\">Activity Streams</a>. Dit is een experimentele "
-"functie en deze lervert een onvolledige back-up; privégegevens van de "
-"gebruiker zoals e-mailadres en IM-adres worden niet in de back-up "
-"meegenomen. Daarnaast maken geüploade bestanden en directe berichten geen "
-"onderdeel van de back-up uit."
+"U kunt een reservekopie van uw gebruikersgegevens maken in de indeling <a "
+"href=\"http://activitystrea.ms/\">Activity Streams</a>. Dit is een "
+"experimentele functie en levert een onvolledige reservekopie op; "
+"privégegevens van de gebruiker zoals e-mailadres en IM-adres worden niet "
+"meegenomen. Hetzelfde geldt voor geüploade bestanden en directe berichten."
 
 #: actions/backupaccount.php:255
 msgctxt "BUTTON"
 msgid "Backup"
-msgstr "Back-up"
+msgstr "Reservekopie"
 
 #: actions/backupaccount.php:258
 msgid "Backup your account"
@@ -1720,9 +1719,9 @@ msgstr "Ik weet het zeker."
 #. TRANS: Notification for user about the text that must be input to be able to delete a user account.
 #. TRANS: %s is the text that needs to be input.
 #: actions/deleteaccount.php:164
-#, fuzzy, php-format
+#, php-format
 msgid "You must write  \"%s\" exactly in the box."
-msgstr "U moet \"Ik weet het zeker\" in het veld invoeren."
+msgstr "U moet de tekst \"%s\" precies in het veld overnemen."
 
 #. TRANS: Confirmation that a user account has been deleted.
 #: actions/deleteaccount.php:206
@@ -1736,23 +1735,22 @@ msgstr "Gebruiker verwijderen"
 
 #. TRANS: Form text for user deletion form.
 #: actions/deleteaccount.php:279
-#, fuzzy
 msgid ""
 "This will <strong>permanently delete</strong> your account data from this "
 "server."
 msgstr ""
-"<p>Hiermee wordt uw gebruiker <strong>permanent verwijderd</strong> van deze "
-"server.</p>"
+"Hiermee wordt uw gebruiker <strong>permanent verwijderd</strong> van deze "
+"server."
 
 #. TRANS: Additional form text for user deletion form shown if a user has account backup rights.
 #. TRANS: %s is a URL to the backup page.
 #: actions/deleteaccount.php:285
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You are strongly advised to <a href=\"%s\">back up your data</a> before "
 "deletion."
 msgstr ""
-"We adviseren u om een <a href=\"%s\">back-up van uw gegevens te maken</a> "
+"We raden u aan een <a href=\"%s\">reservekopie van uw gegevens te maken</a> "
 "alvorens uw gebruiker te verwijderen."
 
 #. TRANS: Field label for delete account confirmation entry.
@@ -1764,17 +1762,16 @@ msgstr "Bevestigen"
 #. TRANS: Input title for the delete account field.
 #. TRANS: %s is the text that needs to be input.
 #: actions/deleteaccount.php:304
-#, fuzzy, php-format
+#, php-format
 msgid "Enter \"%s\" to confirm that you want to delete your account."
 msgstr ""
-"Voer \"Ik weet het zeker.\" in om te bevestigen dat u uw gebruiker wilt "
-"verwijderen."
+"Voer de volgende tekst in om aan te geven dat u uw gebruiker wilt "
+"verwijderen: \"%s\"."
 
 #. TRANS: Button title for user account deletion.
 #: actions/deleteaccount.php:323
-#, fuzzy
 msgid "Permanently delete your account"
-msgstr "Uw gebruikers permanent verwijderen"
+msgstr "Uw gebruiker permanent verwijderen"
 
 #. TRANS: Client error displayed trying to delete an application while not logged in.
 #: actions/deleteapplication.php:62
@@ -4939,7 +4936,6 @@ msgstr "Er is een systeemfout opgetreden tijdens het uploaden van het bestand."
 
 #. TRANS: Client exception thrown when a feed is not an Atom feed.
 #: actions/restoreaccount.php:207
-#, fuzzy
 msgid "Not an Atom feed."
 msgstr "Dit is geen Atomfeed."
 
@@ -7045,22 +7041,22 @@ msgstr "Verwachtte een root-feed element maar kreeg een heel XML-document."
 
 #. TRANS: Client exception thrown when using an unknown verb for the activity importer.
 #: lib/activityimporter.php:81
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown verb: \"%s\"."
-msgstr "De taal \"%s\" is niet bekend."
+msgstr "Onbekend werkwoord: \"%s\"."
 
 #. TRANS: Client exception thrown when trying to force a subscription for an untrusted user.
 #: lib/activityimporter.php:107
-#, fuzzy
 msgid "Cannot force subscription for untrusted user."
 msgstr ""
-"Het is niet mogelijk een niet-vertrouwde gebruiker te dwingen te abonneren."
+"Het is niet mogelijk een niet-vertrouwde gebruiker gedwongen te abonneren."
 
 #. TRANS: Client exception thrown when trying to for a remote user to subscribe.
 #: lib/activityimporter.php:117
-#, fuzzy
 msgid "Cannot force remote user to subscribe."
-msgstr "Geef de naam op van de gebruiker waarop u zich wilt abonneren."
+msgstr ""
+"Het is niet mogelijk een gebruiker op een andere server te verplichten te "
+"abonneren."
 
 #. TRANS: Client exception thrown when trying to subscribe to an unknown profile.
 #: lib/activityimporter.php:132
@@ -7070,32 +7066,31 @@ msgstr "Onbekende profiel."
 #. TRANS: Client exception thrown when trying to import an event not related to the importing user.
 #: lib/activityimporter.php:138
 msgid "This activity seems unrelated to our user."
-msgstr ""
+msgstr "Deze activiteit lijkt geen relatie te hebben met onze gebruiker."
 
 #. TRANS: Client exception thrown when trying to join a remote group that is not a group.
 #: lib/activityimporter.php:154
 msgid "Remote profile is not a group!"
-msgstr ""
+msgstr "Het profiel op de andere server is geen groep!"
 
 #. TRANS: Client exception thrown when trying to join a group the importing user is already a member of.
 #: lib/activityimporter.php:163
-#, fuzzy
 msgid "User is already a member of this group."
-msgstr "U bent al lid van die groep."
+msgstr "De gebruiker is al lid van deze groep."
 
 #. TRANS: Client exception thrown when trying to overwrite the author information for a non-trusted user during import.
 #: lib/activityimporter.php:207
-#, fuzzy
 msgid "Not overwriting author info for non-trusted user."
 msgstr ""
-"Het is niet mogelijk een niet-vertrouwde gebruiker te dwingen te abonneren."
+"De auteursgegevens voor de niet-vertrouwde gebruiker worden niet "
+"overschreven."
 
 #. TRANS: Client exception thrown when trying to import a notice without content.
 #. TRANS: %s is the notice URI.
 #: lib/activityimporter.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "No content for notice %s."
-msgstr "Geen inhoud voor mededeling %d."
+msgstr "Geen inhoud voor mededeling %s."
 
 #. TRANS: Client exception thrown when there is no source attribute.
 #: lib/activityutils.php:200
@@ -7383,13 +7378,11 @@ msgid "Revoke"
 msgstr "Intrekken"
 
 #: lib/atom10feed.php:113
-#, fuzzy
 msgid "Author element must contain a name element."
 msgstr "Het element author moet een element name bevatten."
 
 #. TRANS: Server exception thrown when using the method setActivitySubject() in the class Atom10Feed.
 #: lib/atom10feed.php:160
-#, fuzzy
 msgid "Do not use this method!"
 msgstr "Gebruik deze methode niet!"
 
@@ -9283,7 +9276,3 @@ msgstr "Ongeldige XML. De XRD-root mist."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "De back-up wordt uit het bestand \"%s\" geladen."
-
-#, fuzzy
-#~ msgid "Already know about notice %s and  it's got a different author %s."
-#~ msgstr "De mededeling %1$s is al bekend en heeft een andere auteur %2$s."

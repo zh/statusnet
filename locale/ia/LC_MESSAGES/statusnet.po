@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-14 23:32+0000\n"
-"PO-Revision-Date: 2011-01-14 23:34:53+0000\n"
+"POT-Creation-Date: 2011-01-15 00:20+0000\n"
+"PO-Revision-Date: 2011-01-15 00:22:41+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r80343); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r80364); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-01-14 13:22:39+0000\n"
+"X-POT-Import-Date: 2011-01-15 00:06:50+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1448,13 +1448,13 @@ msgid "Backup account"
 msgstr "Facer un copia de reserva del conto"
 
 #: actions/backupaccount.php:80
-#, fuzzy
 msgid "Only logged-in users can backup their account."
-msgstr "Solmente usatores authenticate pote repeter notas."
+msgstr ""
+"Solmente usatores authenticate pote facer un copia de reserva de lor conto."
 
 #: actions/backupaccount.php:84
 msgid "You may not backup your account."
-msgstr ""
+msgstr "Tu non pote facer un copia de reserva de tu conto."
 
 #: actions/backupaccount.php:232
 msgid ""
@@ -1464,16 +1464,20 @@ msgid ""
 "addresses is not backed up. Additionally, uploaded files and direct messages "
 "are not backed up."
 msgstr ""
+"Tu pote facer un copia de reserva de tu conto in le formato <a href=\"http://"
+"activitystrea.ms/\">Activity Streams</a>. Isto es un function experimental "
+"que forni un copia de reserva incomplete; le informationes private del conto "
+"como adresses de e-mail e de messageria instantanee non es copiate. In "
+"addition, le files incargate e le messages directe non es copiate."
 
 #: actions/backupaccount.php:255
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Backup"
-msgstr "Fundo"
+msgstr "Copia de reserva"
 
 #: actions/backupaccount.php:258
 msgid "Backup your account"
-msgstr ""
+msgstr "Facer un copia de reserva de tu conto"
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 #: actions/block.php:68
@@ -1682,20 +1686,18 @@ msgstr "Notas"
 
 #. TRANS: Client exception displayed trying to delete a user account while not logged in.
 #: actions/deleteaccount.php:71
-#, fuzzy
 msgid "Only logged-in users can delete their account."
-msgstr "Solmente usatores authenticate pote repeter notas."
+msgstr "Solmente usatores authenticate pote deler lor conto."
 
 #. TRANS: Client exception displayed trying to delete a user account without have the rights to do that.
 #: actions/deleteaccount.php:77
-#, fuzzy
 msgid "You cannot delete your account."
-msgstr "Tu non pote deler usatores."
+msgstr "Tu non pote deler tu conto."
 
 #. TRANS: Confirmation text for user deletion. The user has to type this exactly the same, including punctuation.
 #: actions/deleteaccount.php:160 actions/deleteaccount.php:297
 msgid "I am sure."
-msgstr ""
+msgstr "Io es secur."
 
 #. TRANS: Notification for user about the text that must be input to be able to delete a user account.
 #. TRANS: %s is the text that needs to be input.
@@ -1706,15 +1708,13 @@ msgstr ""
 
 #. TRANS: Confirmation that a user account has been deleted.
 #: actions/deleteaccount.php:206
-#, fuzzy
 msgid "Account deleted."
-msgstr "Avatar delite."
+msgstr "Conto delite."
 
 #. TRANS: Page title for page on which a user account can be deleted.
 #: actions/deleteaccount.php:228 actions/profilesettings.php:474
-#, fuzzy
 msgid "Delete account"
-msgstr "Crear un conto"
+msgstr "Deler conto"
 
 #. TRANS: Form text for user deletion form.
 #: actions/deleteaccount.php:279
