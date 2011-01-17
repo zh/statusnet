@@ -110,21 +110,42 @@ class AccountMover
 
     function move()
     {
+        $this->log(LOG_INFO, 
+                   "Moving user {$this->_user->nickname} to {$this->_remote->nickname}");
+
         $stream = new UserActivityStream($this->_user);
 
         $acts = array_reverse($stream->activities);
 
+        $this->log(LOG_INFO,
+                   "Got {count($acts)} activities ".
+                   "for {$this->_user->nickname}");
+
         // Reverse activities to run in correct chron order
 
         foreach ($acts as $act) {
-            $this->_moveActivity($act);
+            try {
+                $this->_moveActivity($act);
+            } catch (Exception $e) {
+                $this->log(LOG_ERR,
+                           "Error moving activity {$act->id} {$act->verb}: " .
+                           $e->getMessage());
+                continue;
+            }
         }
+
+        $this->log(LOG_INFO,
+                   "Finished moving user {$this->_user->nickname} ".
+                   "to {$this->_remote->nickname}");
     }
 
     private function _moveActivity($act)
     {
         switch ($act->verb) {
         case ActivityVerb::FAVORITE:
+            $this->log(LOG_INFO,
+                       "Moving favorite of {$act->objects[0]->id} by ".
+                       "{$act->actor->id} to {$this->_remote->nickname}.");
             // push it, then delete local
             $this->_sink->postActivity($act);
             $notice = Notice::staticGet('uri', $act->objects[0]->id);
@@ -135,8 +156,10 @@ class AccountMover
             }
             break;
         case ActivityVerb::POST:
+            $this->log(LOG_INFO,
+                       "Moving notice {$act->objects[0]->id} by ".
+                       "{$act->actor->id} to {$this->_remote->nickname}.");
             // XXX: send a reshare, not a post
-            common_log(LOG_INFO, "Pushing notice {$act->objects[0]->id} to {$this->_remote->getURI()}");
             $this->_sink->postActivity($act);
             $notice = Notice::staticGet('uri', $act->objects[0]->id);
             if (!empty($notice)) {
@@ -144,6 +167,9 @@ class AccountMover
             }
             break;
         case ActivityVerb::JOIN:
+            $this->log(LOG_INFO,
+                       "Moving group join of {$act->objects[0]->id} by ".
+                       "{$act->actor->id} to {$this->_remote->nickname}.");
             $this->_sink->postActivity($act);
             $group = User_group::staticGet('uri', $act->objects[0]->id);
             if (!empty($group)) {
@@ -152,6 +178,9 @@ class AccountMover
             break;
         case ActivityVerb::FOLLOW:
             if ($act->actor->id == $this->_user->uri) {
+                $this->log(LOG_INFO,
+                           "Moving subscription to {$act->objects[0]->id} by ".
+                           "{$act->actor->id} to {$this->_remote->nickname}.");
                 $this->_sink->postActivity($act);
                 $other = Profile::fromURI($act->objects[0]->id);
                 if (!empty($other)) {
@@ -160,11 +189,17 @@ class AccountMover
             } else {
                 $otherUser = User::staticGet('uri', $act->actor->id);
                 if (!empty($otherUser)) {
+                    $this->log(LOG_INFO,
+                               "Changing sub to {$act->objects[0]->id}".
+                               "by {$act->actor->id} to {$this->_remote->nickname}.");
                     $otherProfile = $otherUser->getProfile();
                     Subscription::start($otherProfile, $this->_remote);
                     Subscription::cancel($otherProfile, $this->_user->getProfile());
                 } else {
-                    // It's a remote subscription. Do something here!
+                    $this->log(LOG_NOTICE,
+                               "Not changing sub to {$act->objects[0]->id}".
+                               "by remote {$act->actor->id} ".
+                               "to {$this->_remote->nickname}.");
                 }
             }
             break;
