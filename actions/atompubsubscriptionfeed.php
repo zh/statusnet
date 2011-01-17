@@ -263,6 +263,14 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
                 return;
             }
 
+            if (Subscription::exists($this->_profile, $profile)) {
+                // 409 Conflict
+                $this->clientError(sprintf(_('Already subscribed to %s'),
+                                           $person->id), 
+                                   409);
+                return;
+            }
+
             if (Subscription::start($this->_profile, $profile)) {
                 $sub = Subscription::pkeyGet(array('subscriber' => $this->_profile->id,
                                                    'subscribed' => $profile->id));
