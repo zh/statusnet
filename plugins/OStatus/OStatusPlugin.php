@@ -992,16 +992,28 @@ class OStatusPlugin extends Plugin
         return false;
     }
 
-    function onStartGetProfileFromURI($uri, &$profile) {
+    function onStartGetProfileFromURI($uri, &$profile)
+    {
+        // Don't want to do Web-based discovery on our own server,
+        // so we check locally first.
 
-        // XXX: do discovery here instead (OStatus_profile::ensureProfileURI($uri))
+        $user = User::staticGet('uri', $uri);
+        
+        if (!empty($user)) {
+            $profile = $user->getProfile();
+            return false;
+        }
 
-        $oprofile = Ostatus_profile::staticGet('uri', $uri);
+        // Now, check remotely
 
-        if (!empty($oprofile) && !$oprofile->isGroup()) {
+        $oprofile = Ostatus_profile::ensureProfileURI($uri);
+
+        if (!empty($oprofile)) {
             $profile = $oprofile->localProfile();
             return false;
         }
+
+        // Still not a hit, so give up.
 
         return true;
     }
