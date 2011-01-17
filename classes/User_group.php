@@ -487,6 +487,7 @@ class User_group extends Memcached_DataObject
         }
 
         // MAGICALLY put fields into current scope
+        // @fixme kill extract(); it makes debugging absurdly hard
 
         extract($fields);
 
@@ -497,6 +498,9 @@ class User_group extends Memcached_DataObject
         if (empty($uri)) {
             // fill in later...
             $uri = null;
+        }
+        if (empty($mainpage)) {
+            $mainpage = common_local_url('showgroup', array('nickname' => $nickname));
         }
 
         $group->nickname    = $nickname;
