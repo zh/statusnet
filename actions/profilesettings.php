@@ -458,6 +458,9 @@ class ProfilesettingsAction extends AccountSettingsAction
 
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
+
+        $this->elementStart('div', array('id' => 'account_actions',
+                                         'class' => 'section'));
         $this->elementStart('ul');
         if (Event::handle('StartProfileSettingsActions', array($this))) {
             if ($user->hasRight(Right::BACKUPACCOUNT)) {
@@ -484,6 +487,7 @@ class ProfilesettingsAction extends AccountSettingsAction
             Event::handle('EndProfileSettingsActions', array($this));
         }
         $this->elementEnd('ul');
+        $this->elementEnd('div');
         $this->elementEnd('div');
     }
 }
