@@ -1779,8 +1779,10 @@ class Ostatus_profile extends Memcached_DataObject
                 case 'mailto':
                     $rest = $match[2];
                     $oprofile = Ostatus_profile::ensureWebfinger($rest);
+                    break;
                 default:
-                    common_log("Unrecognized URI protocol for profile: $protocol ($uri)");
+                    common_log(LOG_WARNING,
+                               "Unrecognized URI protocol for profile: $protocol ($uri)");
                     break;
                 }
             }
