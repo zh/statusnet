@@ -170,4 +170,20 @@ class AccountMover
             break;
         }
     }
+
+    /**
+     * Log some data
+     * 
+     * Add a header for our class so we know who did it.
+     *
+     * @param int    $level   Log level, like LOG_ERR or LOG_INFO
+     * @param string $message Message to log
+     *
+     * @return void
+     */
+
+    protected function log($level, $message)
+    {
+        common_log($level, "AccountMover: " . $message);
+    }
 }
