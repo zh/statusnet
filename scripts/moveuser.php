@@ -51,9 +51,9 @@ try {
 
     $password = get_option_value('w', 'password');
 
-    $mover = new AccountMover($user, $remote, $password);
+    $qm = QueueManager::get();
 
-    $mover->move();
+    $qm->enqueue(array($user, $remote, $password), 'acctmove');
 
 } catch (Exception $e) {
     print $e->getMessage()."\n";

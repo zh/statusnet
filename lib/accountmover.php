@@ -45,17 +45,16 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class AccountMover
+class AccountMover extends QueueHandler
 {
-    private $_user    = null;
-    private $_profile = null;
-    private $_remote  = null;
-    private $_sink    = null;
-    
-    function __construct($user, $remote, $password)
+    function transport()
     {
-        $this->_user    = $user;
-        $this->_profile = $user->getProfile();
+        return 'acctmove';
+    }
+
+    function handle($object)
+    {
+        list($user, $remote, $password) = $object;
 
         $remote = Discovery::normalize($remote);
 
@@ -65,11 +64,33 @@ class AccountMover
             throw new Exception("Can't locate account {$remote}");
         }
 
-        $this->_remote = $oprofile->localProfile();
-
         list($svcDocUrl, $username) = self::getServiceDocument($remote);
 
-        $this->_sink = new ActivitySink($svcDocUrl, $username, $password);
+        $sink = new ActivitySink($svcDocUrl, $username, $password);
+
+        $this->log(LOG_INFO, 
+                   "Moving user {$user->nickname} ".
+                   "to {$remote}.");
+
+        $stream = new UserActivityStream($user);
+
+        // Reverse activities to run in correct chron order
+
+        $acts = array_reverse($stream->activities);
+
+        $this->log(LOG_INFO,
+                   "Got ".count($acts)." activities ".
+                   "for {$user->nickname}.");
+
+        $qm = QueueManager::get();
+
+        foreach ($acts as $act) {
+            $qm->enqueue(array($act, $sink, $user->uri, $remote), 'actmove');
+        }
+
+        $this->log(LOG_INFO,
+                   "Finished moving user {$user->nickname} ".
+                   "to {$remote}.");
     }
 
     static function getServiceDocument($remote)
@@ -106,104 +127,6 @@ class AccountMover
         }
 
         return array($svcDocUrl, $username);
-    }
-
-    function move()
-    {
-        $this->log(LOG_INFO, 
-                   "Moving user {$this->_user->nickname} to {$this->_remote->nickname}");
-
-        $stream = new UserActivityStream($this->_user);
-
-        $acts = array_reverse($stream->activities);
-
-        $this->log(LOG_INFO,
-                   "Got {count($acts)} activities ".
-                   "for {$this->_user->nickname}");
-
-        // Reverse activities to run in correct chron order
-
-        foreach ($acts as $act) {
-            try {
-                $this->_moveActivity($act);
-            } catch (Exception $e) {
-                $this->log(LOG_ERR,
-                           "Error moving activity {$act->id} {$act->verb}: " .
-                           $e->getMessage());
-                continue;
-            }
-        }
-
-        $this->log(LOG_INFO,
-                   "Finished moving user {$this->_user->nickname} ".
-                   "to {$this->_remote->nickname}");
-    }
-
-    private function _moveActivity($act)
-    {
-        switch ($act->verb) {
-        case ActivityVerb::FAVORITE:
-            $this->log(LOG_INFO,
-                       "Moving favorite of {$act->objects[0]->id} by ".
-                       "{$act->actor->id} to {$this->_remote->nickname}.");
-            // push it, then delete local
-            $this->_sink->postActivity($act);
-            $notice = Notice::staticGet('uri', $act->objects[0]->id);
-            if (!empty($notice)) {
-                $fave = Fave::pkeyGet(array('user_id' => $this->_user->id,
-                                            'notice_id' => $notice->id));
-                $fave->delete();
-            }
-            break;
-        case ActivityVerb::POST:
-            $this->log(LOG_INFO,
-                       "Moving notice {$act->objects[0]->id} by ".
-                       "{$act->actor->id} to {$this->_remote->nickname}.");
-            // XXX: send a reshare, not a post
-            $this->_sink->postActivity($act);
-            $notice = Notice::staticGet('uri', $act->objects[0]->id);
-            if (!empty($notice)) {
-                $notice->delete();
-            }
-            break;
-        case ActivityVerb::JOIN:
-            $this->log(LOG_INFO,
-                       "Moving group join of {$act->objects[0]->id} by ".
-                       "{$act->actor->id} to {$this->_remote->nickname}.");
-            $this->_sink->postActivity($act);
-            $group = User_group::staticGet('uri', $act->objects[0]->id);
-            if (!empty($group)) {
-                Group_member::leave($group->id, $this->_user->id);
-            }
-            break;
-        case ActivityVerb::FOLLOW:
-            if ($act->actor->id == $this->_user->uri) {
-                $this->log(LOG_INFO,
-                           "Moving subscription to {$act->objects[0]->id} by ".
-                           "{$act->actor->id} to {$this->_remote->nickname}.");
-                $this->_sink->postActivity($act);
-                $other = Profile::fromURI($act->objects[0]->id);
-                if (!empty($other)) {
-                    Subscription::cancel($this->_profile, $other);
-                }
-            } else {
-                $otherUser = User::staticGet('uri', $act->actor->id);
-                if (!empty($otherUser)) {
-                    $this->log(LOG_INFO,
-                               "Changing sub to {$act->objects[0]->id}".
-                               "by {$act->actor->id} to {$this->_remote->nickname}.");
-                    $otherProfile = $otherUser->getProfile();
-                    Subscription::start($otherProfile, $this->_remote);
-                    Subscription::cancel($otherProfile, $this->_user->getProfile());
-                } else {
-                    $this->log(LOG_NOTICE,
-                               "Not changing sub to {$act->objects[0]->id}".
-                               "by remote {$act->actor->id} ".
-                               "to {$this->_remote->nickname}.");
-                }
-            }
-            break;
-        }
     }
 
     /**
