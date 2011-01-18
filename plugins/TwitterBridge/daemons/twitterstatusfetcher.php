@@ -200,7 +200,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
             if (preg_match("/$source/", mb_strtolower($status->source))) {
                 common_debug($this->name() . ' - Skipping import of status ' .
-                             $status->id . ' with source ' . $source);
+                             twitter_id($status) . ' with source ' . $source);
                 continue;
             }
 
@@ -238,23 +238,24 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             return null;
         }
 
-        $statusUri = $this->makeStatusURI($status->user->screen_name, $status->id);
+        $statusId = twitter_id($status);
+        $statusUri = $this->makeStatusURI($status->user->screen_name, $statusId);
 
         // check to see if we've already imported the status
-        $n2s = Notice_to_status::staticGet('status_id', $status->id);
+        $n2s = Notice_to_status::staticGet('status_id', $statusId);
 
         if (!empty($n2s)) {
             common_log(
                 LOG_INFO,
                 $this->name() .
-                " - Ignoring duplicate import: {$status->id}"
+                " - Ignoring duplicate import: {$statusId}"
             );
             return Notice::staticGet('id', $n2s->notice_id);
         }
 
         // If it's a retweet, save it as a repeat!
         if (!empty($status->retweeted_status)) {
-            common_log(LOG_INFO, "Status {$status->id} is a retweet of {$status->retweeted_status->id}.");
+            common_log(LOG_INFO, "Status {$statusId} is a retweet of " . twitter_id($status->retweeted_status) . ".");
             $original = $this->saveStatus($status->retweeted_status);
             if (empty($original)) {
                 return null;
@@ -278,7 +279,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                                                 'uri' => $statusUri,
                                                 'is_local' => Notice::GATEWAY));
                 common_log(LOG_INFO, "Saved {$repeat->id} as a repeat of {$original->id}");
-                Notice_to_status::saveNew($repeat->id, $status->id);
+                Notice_to_status::saveNew($repeat->id, $statusId);
                 return $repeat;
             }
         }
@@ -297,17 +298,18 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         $notice->reply_to   = null;
 
-        if (!empty($status->in_reply_to_status_id)) {
-            common_log(LOG_INFO, "Status {$status->id} is a reply to status {$status->in_reply_to_status_id}");
-            $n2s = Notice_to_status::staticGet('status_id', $status->in_reply_to_status_id);
+        $replyTo = twitter_id($status, 'in_reply_to_status_id');
+        if (!empty($replyTo)) {
+            common_log(LOG_INFO, "Status {$statusId} is a reply to status {$replyTo}");
+            $n2s = Notice_to_status::staticGet('status_id', $replyTo);
             if (empty($n2s)) {
-                common_log(LOG_INFO, "Couldn't find local notice for status {$status->in_reply_to_status_id}");
+                common_log(LOG_INFO, "Couldn't find local notice for status {$replyTo}");
             } else {
                 $reply = Notice::staticGet('id', $n2s->notice_id);
                 if (empty($reply)) {
-                    common_log(LOG_INFO, "Couldn't find local notice for status {$status->in_reply_to_status_id}");
+                    common_log(LOG_INFO, "Couldn't find local notice for status {$replyTo}");
                 } else {
-                    common_log(LOG_INFO, "Found local notice {$reply->id} for status {$status->in_reply_to_status_id}");
+                    common_log(LOG_INFO, "Found local notice {$reply->id} for status {$replyTo}");
                     $notice->reply_to     = $reply->id;
                     $notice->conversation = $reply->conversation;
                 }
@@ -317,7 +319,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         if (empty($notice->conversation)) {
             $conv = Conversation::create();
             $notice->conversation = $conv->id;
-            common_log(LOG_INFO, "No known conversation for status {$status->id} so making a new one {$conv->id}.");
+            common_log(LOG_INFO, "No known conversation for status {$statusId} so making a new one {$conv->id}.");
         }
 
         $notice->is_local   = Notice::GATEWAY;
@@ -338,7 +340,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             Event::handle('EndNoticeSave', array($notice));
         }
 
-        Notice_to_status::saveNew($notice->id, $status->id);
+        Notice_to_status::saveNew($notice->id, $statusId);
 
         $this->saveStatusMentions($notice, $status);
 
