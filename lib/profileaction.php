@@ -200,50 +200,37 @@ class ProfileAction extends OwnerDesignAction
         $this->element('h2', null, _('Statistics'));
 
         // Other stats...?
-        $this->elementStart('dl', 'entity_user-id');
-        $this->element('dt', null, _('User ID'));
-        $this->element('dd', null, $this->profile->id);
-        $this->elementEnd('dl');
+        $this->showStatsRow('user-id', _('User ID'), $this->profile->id);
 
-        $this->elementStart('dl', 'entity_member-since');
-        $this->element('dt', null, _('Member since'));
-        $this->element('dd', null, date('j M Y',
+        $this->showStatsRow('member-since', _('Member since'), date('j M Y',
                                         strtotime($this->profile->created)));
-        $this->elementEnd('dl');
 
-        $this->elementStart('dl', 'entity_subscriptions');
-        $this->elementStart('dt');
-        $this->statsSectionLink('subscriptions', _('Subscriptions'));
-        $this->elementEnd('dt');
-        $this->element('dd', null, $subs_count);
-        $this->elementEnd('dl');
+        $this->showStatsRow('subscriptions', _('Subscriptions'), $subs_count, 'subscriptions');
 
-        $this->elementStart('dl', 'entity_subscribers');
-        $this->elementStart('dt');
-        $this->statsSectionLink('subscribers', _('Subscribers'));
-        $this->elementEnd('dt');
-        $this->element('dd', 'subscribers', $subbed_count);
-        $this->elementEnd('dl');
+        $this->showStatsRow('subscribers', _('Subscribers'), $subbed_count, 'subscribed');
 
-        $this->elementStart('dl', 'entity_groups');
-        $this->elementStart('dt');
-        $this->statsSectionLink('usergroups', _('Groups'));
-        $this->elementEnd('dt');
-        $this->element('dd', 'groups', $group_count);
-        $this->elementEnd('dl');
+        $this->showStatsRow('groups', _('Groups'), $group_count, 'usergroup');
 
-        $this->elementStart('dl', 'entity_notices');
-        $this->element('dt', null, _('Notices'));
-        $this->element('dd', null, $notice_count);
-        $this->elementEnd('dl');
+        $this->showStatsRow('notices', _('Notices'), $notice_count);
 
-        $this->elementStart('dl', 'entity_daily_notices');
         // TRANS: Average count of posts made per day since account registration
-        $this->element('dt', null, _('Daily average'));
-        $this->element('dd', null, $daily_count);
-        $this->elementEnd('dl');
+        $this->showStatsRow('daily_notices', _('Daily average'), $daily_count);
 
         $this->elementEnd('div');
+    }
+
+    function showStatsRow($id, $label, $content, $labelAction=false)
+    {
+        $this->elementStart('dl', 'entity_' . $id);
+        $this->elementStart('dt');
+        if ($labelAction) {
+            $this->statsSectionLink($labelAction, $label);
+        } else {
+            $this->text($label);
+        }
+        $this->elementEnd('dt');
+        $this->element('dd', null, $content);
+        $this->elementEnd('dl');
     }
 
     function showGroups()
