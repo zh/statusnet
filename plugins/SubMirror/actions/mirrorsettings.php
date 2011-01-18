@@ -102,4 +102,10 @@ class MirrorSettingsAction extends AccountSettingsAction
     function handlePost()
     {
     }
+
+    function showLocalNav()
+    {
+        $nav = new SubGroupNav($this, common_current_user());
+        $nav->show();
+    }
 }

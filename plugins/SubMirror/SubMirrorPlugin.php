@@ -93,15 +93,16 @@ class SubMirrorPlugin extends Plugin
     }
 
     /**
-     * Menu item for settings
+     * Menu item for personal subscriptions/groups area
      *
-     * @param Action &$action Action being executed
+     * @param Widget $widget Widget being executed
      *
      * @return boolean hook return
      */
 
-    function onEndAccountSettingsNav(&$action)
+    function onEndSubGroupNav($widget)
     {
+        $action = $widget->out;
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('mirrorsettings'),
