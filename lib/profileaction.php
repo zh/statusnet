@@ -99,6 +99,21 @@ class ProfileAction extends OwnerDesignAction
         $this->showStatistics();
     }
 
+    /**
+     * Convenience function for common pattern of links to subscription/groups sections.
+     *
+     * @param string $actionClass
+     * @param string $title
+     * @param string $cssClass
+     */
+    private function statsSectionLink($actionClass, $title, $cssClass='')
+    {
+        $this->element('a', array('href' => common_local_url($actionClass,
+                                                             array('nickname' => $this->profile->nickname)),
+                                  'class' => $cssClass),
+                       $title);
+    }
+
     function showSubscriptions()
     {
         $profile = $this->profile->getSubscriptions(0, PROFILES_PER_MINILIST + 1);
@@ -106,7 +121,9 @@ class ProfileAction extends OwnerDesignAction
         $this->elementStart('div', array('id' => 'entity_subscriptions',
                                          'class' => 'section'));
         if (Event::handle('StartShowSubscriptionsMiniList', array($this))) {
-            $this->element('h2', null, _('Subscriptions'));
+            $this->elementStart('h2');
+            $this->statsSectionLink('subscriptions', _('Subscriptions'));
+            $this->elementEnd('h2');
 
             $cnt = 0;
 
@@ -120,10 +137,7 @@ class ProfileAction extends OwnerDesignAction
 
             if ($cnt > PROFILES_PER_MINILIST) {
                 $this->elementStart('p');
-                $this->element('a', array('href' => common_local_url('subscriptions',
-                                                                     array('nickname' => $this->profile->nickname)),
-                                          'class' => 'more'),
-                               _('All subscriptions'));
+                $this->statsSectionLink('subscriptions', _('All subscriptions'), 'more');
                 $this->elementEnd('p');
             }
 
@@ -141,7 +155,9 @@ class ProfileAction extends OwnerDesignAction
 
         if (Event::handle('StartShowSubscribersMiniList', array($this))) {
 
-            $this->element('h2', null, _('Subscribers'));
+            $this->elementStart('h2');
+            $this->statsSectionLink('subscribers', _('Subscribers'));
+            $this->elementEnd('h2');
 
             $cnt = 0;
 
@@ -155,10 +171,7 @@ class ProfileAction extends OwnerDesignAction
 
             if ($cnt > PROFILES_PER_MINILIST) {
                 $this->elementStart('p');
-                $this->element('a', array('href' => common_local_url('subscribers',
-                                                                     array('nickname' => $this->profile->nickname)),
-                                          'class' => 'more'),
-                               _('All subscribers'));
+                $this->statsSectionLink('subscribers', _('All subscribers'), 'more');
                 $this->elementEnd('p');
             }
 
@@ -200,27 +213,21 @@ class ProfileAction extends OwnerDesignAction
 
         $this->elementStart('dl', 'entity_subscriptions');
         $this->elementStart('dt');
-        $this->element('a', array('href' => common_local_url('subscriptions',
-                                                             array('nickname' => $this->profile->nickname))),
-                       _('Subscriptions'));
+        $this->statsSectionLink('subscriptions', _('Subscriptions'));
         $this->elementEnd('dt');
         $this->element('dd', null, $subs_count);
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_subscribers');
         $this->elementStart('dt');
-        $this->element('a', array('href' => common_local_url('subscribers',
-                                                             array('nickname' => $this->profile->nickname))),
-                       _('Subscribers'));
+        $this->statsSectionLink('subscribers', _('Subscribers'));
         $this->elementEnd('dt');
         $this->element('dd', 'subscribers', $subbed_count);
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_groups');
         $this->elementStart('dt');
-        $this->element('a', array('href' => common_local_url('usergroups',
-                                                             array('nickname' => $this->profile->nickname))),
-                       _('Groups'));
+        $this->statsSectionLink('usergroups', _('Groups'));
         $this->elementEnd('dt');
         $this->element('dd', 'groups', $group_count);
         $this->elementEnd('dl');
@@ -246,7 +253,9 @@ class ProfileAction extends OwnerDesignAction
         $this->elementStart('div', array('id' => 'entity_groups',
                                          'class' => 'section'));
         if (Event::handle('StartShowGroupsMiniList', array($this))) {
-            $this->element('h2', null, _('Groups'));
+            $this->elementStart('h2');
+            $this->statsSectionLink('usergroups', _('Groups'));
+            $this->elementEnd('h2');
 
             if ($groups) {
                 $gml = new GroupMiniList($groups, $this->profile, $this);
@@ -258,10 +267,7 @@ class ProfileAction extends OwnerDesignAction
 
             if ($cnt > GROUPS_PER_MINILIST) {
                 $this->elementStart('p');
-                $this->element('a', array('href' => common_local_url('usergroups',
-                                                                     array('nickname' => $this->profile->nickname)),
-                                          'class' => 'more'),
-                               _('All groups'));
+                $this->statsSectionLink('usergroups', _('All groups'), 'more');
                 $this->elementEnd('p');
             }
 
