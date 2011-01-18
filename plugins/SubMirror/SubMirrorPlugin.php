@@ -164,4 +164,37 @@ class SubMirrorPlugin extends Plugin
         }
         return true;
     }
+
+    /**
+     * Add a count of mirrored feeds into a user's profile sidebar stats.
+     *
+     * @param Profile $profile
+     * @param array $stats
+     * @return boolean hook return value
+     */
+    function onProfileStats($profile, &$stats)
+    {
+        $cur = common_current_user();
+        if (!empty($cur) && $cur->id == $profile->id) {
+            $mirror = new SubMirror();
+            $mirror->subscriber = $profile->id;
+            $entry = array(
+                'id' => 'mirrors',
+                'label' => _m('Mirrored feeds'),
+                'link' => common_local_url('mirrorsettings'),
+                'value' => $mirror->count(),
+            );
+
+            $insertAt = count($stats);
+            foreach ($stats as $i => $row) {
+                if ($row['id'] == 'groups') {
+                    // Slip us in after them.
+                    $insertAt = $i + 1;
+                    break;
+                }
+            }
+            array_splice($stats, $insertAt, 0, array($entry));
+        }
+        return true;
+    }
 }
