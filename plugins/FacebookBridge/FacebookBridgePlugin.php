@@ -186,11 +186,11 @@ class FacebookBridgePlugin extends Plugin
      * Add a login tab for Facebook, but only if there's a Facebook
      * application defined for the plugin to use.
      *
-     * @param Action &action the current action
+     * @param Action $action the current action
      *
      * @return void
      */
-    function onEndLoginGroupNav(&$action)
+    function onEndLoginGroupNav($action)
     {
         $action_name = $action->trimmed('action');
 
@@ -252,11 +252,11 @@ class FacebookBridgePlugin extends Plugin
      * Add a tab for user-level Facebook settings if the user
      * has a link to Facebook
      *
-     * @param Action &action the current action
+     * @param Action $action the current action
      *
      * @return void
      */
-    function onEndConnectSettingsNav(&$action)
+    function onEndConnectSettingsNav($action)
     {
         if ($this->hasApplication()) {
             $action_name = $action->trimmed('action');
