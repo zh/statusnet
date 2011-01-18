@@ -183,10 +183,7 @@ class ProfileAction extends OwnerDesignAction
 
     function showStatistics()
     {
-        $subs_count   = $this->profile->subscriptionCount();
-        $subbed_count = $this->profile->subscriberCount();
         $notice_count = $this->profile->noticeCount();
-        $group_count  = $this->profile->getGroups()->N;
         $age_days     = (time() - strtotime($this->profile->created)) / 86400;
         if ($age_days < 1) {
             // Rather than extrapolating out to a bajillion...
@@ -199,37 +196,70 @@ class ProfileAction extends OwnerDesignAction
 
         $this->element('h2', null, _('Statistics'));
 
-        // Other stats...?
-        $this->showStatsRow('user-id', _('User ID'), $this->profile->id);
+        $profile = $this->profile;
+        $actionParams = array('nickname' => $profile->nickname);
+        $stats = array(
+            array(
+                'id' => 'user-id',
+                'label' => _('User ID'),
+                'value' => $profile->id,
+            ),
+            array(
+                'id' => 'member-since',
+                'label' => _('Member since'),
+                'value' => date('j M Y', strtotime($profile->created))
+            ),
+            array(
+                'id' => 'subscriptions',
+                'label' => _('Subscriptions'),
+                'link' => common_local_url('subscriptions', $actionParams),
+                'value' => $profile->subscriptionCount(),
+            ),
+            array(
+                'id' => 'subscribers',
+                'label' => _('Subscribers'),
+                'link' => common_local_url('subscribers', $actionParams),
+                'value' => $profile->subscriberCount(),
+            ),
+            array(
+                'id' => 'groups',
+                'label' => _('Groups'),
+                'link' => common_local_url('usergroups', $actionParams),
+                'value' => $profile->getGroups()->N,
+            ),
+            array(
+                'id' => 'notices',
+                'label' => _('Notices'),
+                'value' => $notice_count,
+            ),
+            array(
+                'id' => 'daily_notices',
+                // TRANS: Average count of posts made per day since account registration
+                'label' => _('Daily average'),
+                'value' => $daily_count
+            )
+        );
 
-        $this->showStatsRow('member-since', _('Member since'), date('j M Y',
-                                        strtotime($this->profile->created)));
+        // Give plugins a chance to add stats entries
+        Event::handle('ProfileStats', array($profile, &$stats));
 
-        $this->showStatsRow('subscriptions', _('Subscriptions'), $subs_count, 'subscriptions');
-
-        $this->showStatsRow('subscribers', _('Subscribers'), $subbed_count, 'subscribed');
-
-        $this->showStatsRow('groups', _('Groups'), $group_count, 'usergroup');
-
-        $this->showStatsRow('notices', _('Notices'), $notice_count);
-
-        // TRANS: Average count of posts made per day since account registration
-        $this->showStatsRow('daily_notices', _('Daily average'), $daily_count);
-
+        foreach ($stats as $row) {
+            $this->showStatsRow($row);
+        }
         $this->elementEnd('div');
     }
 
-    function showStatsRow($id, $label, $content, $labelAction=false)
+    private function showStatsRow($row)
     {
-        $this->elementStart('dl', 'entity_' . $id);
+        $this->elementStart('dl', 'entity_' . $row['id']);
         $this->elementStart('dt');
-        if ($labelAction) {
-            $this->statsSectionLink($labelAction, $label);
+        if (!empty($row['link'])) {
+            $this->element('a', array('href' => $row['link']), $row['label']);
         } else {
-            $this->text($label);
+            $this->text($row['label']);
         }
         $this->elementEnd('dt');
-        $this->element('dd', null, $content);
+        $this->element('dd', null, $row['value']);
         $this->elementEnd('dl');
     }
 
