@@ -88,6 +88,8 @@ class MirrorSettingsAction extends AccountSettingsAction
 
     function showAddFeedForm()
     {
+        $form = new AddMirrorWizard($this);
+        $form->show();
         $form = new AddMirrorForm($this);
         $form->show();
     }
