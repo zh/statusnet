@@ -26,7 +26,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-class AddMirrorWizard extends Form
+class AddMirrorWizard extends Widget
 {
     /**
      * Name of the form
@@ -47,14 +47,14 @@ class AddMirrorWizard extends Form
      *
      * @return void
      */
-    function formData()
+    function show()
     {
-        $this->out->elementStart('fieldset');
+        $this->out->elementStart('div', array('id' => 'add-mirror-wizard'));
 
         $providers = $this->providers();
         $this->showProviders($providers);
 
-        $this->out->elementEnd('fieldset');
+        $this->out->elementEnd('div');
     }
 
     function providers()

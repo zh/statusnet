@@ -26,13 +26,15 @@ $(function() {
                 function showNew() {
                     var detail = $('<div class="provider-detail" style="display: none"></div>').insertAfter(node);
                     detail.load(ajaxize(targetUrl), function(responseText, testStatus, xhr) {
-                        detail.slideDown();
+                        detail.slideDown('fast', function() {
+                            detail.find('input[type="text"]').focus();
+                        });
                     });
                 }
 
                 var old = addMirror.find('.provider-detail');
                 if (old.length) {
-                    old.slideUp(function() {
+                    old.slideUp('fast', function() {
                         old.remove();
                         showNew();
                     });
