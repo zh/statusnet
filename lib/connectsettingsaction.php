@@ -96,7 +96,7 @@ class ConnectSettingsNav extends Widget
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        if (Event::handle('StartConnectSettingsNav', array(&$this->action))) {
+        if (Event::handle('StartConnectSettingsNav', array($this->action))) {
 
             # action => array('prompt', 'title')
             $menu = array();
@@ -129,7 +129,7 @@ class ConnectSettingsNav extends Widget
                         $action_name === $menuaction);
             }
 
-            Event::handle('EndConnectSettingsNav', array(&$this->action));
+            Event::handle('EndConnectSettingsNav', array($this->action));
         }
 
         $this->action->elementEnd('ul');
