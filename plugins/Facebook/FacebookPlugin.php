@@ -446,11 +446,11 @@ class FacebookPlugin extends Plugin
     /*
      * Add a login tab for Facebook Connect
      *
-     * @param Action &action the current action
+     * @param Action $action the current action
      *
      * @return void
      */
-    function onEndLoginGroupNav(&$action)
+    function onEndLoginGroupNav($action)
     {
         if (self::hasKeys()) {
             $action_name = $action->trimmed('action');
@@ -470,11 +470,11 @@ class FacebookPlugin extends Plugin
     /*
      * Add a tab for managing Facebook Connect settings
      *
-     * @param Action &action the current action
+     * @param Action $action the current action
      *
      * @return void
      */
-    function onEndConnectSettingsNav(&$action)
+    function onEndConnectSettingsNav($action)
     {
         if (self::hasKeys()) {
             $action_name = $action->trimmed('action');

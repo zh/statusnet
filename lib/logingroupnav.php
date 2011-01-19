@@ -73,7 +73,7 @@ class LoginGroupNav extends Widget
 
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        if (Event::handle('StartLoginGroupNav', array(&$this->action))) {
+        if (Event::handle('StartLoginGroupNav', array($this->action))) {
 
             $this->action->menuItem(common_local_url('login'),
                                     _('Login'),
@@ -87,7 +87,7 @@ class LoginGroupNav extends Widget
                                         $action_name === 'register');
             }
 
-            Event::handle('EndLoginGroupNav', array(&$this->action));
+            Event::handle('EndLoginGroupNav', array($this->action));
         }
 
         $this->action->elementEnd('ul');
