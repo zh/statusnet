@@ -229,7 +229,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                 // insert a new Oauth_application_user record w/access token
                 $appUser = new Oauth_application_user();
 
-                $appUser->profile_id     = $tokenAssoc->profile_id;;
+                $appUser->profile_id     = $tokenAssoc->profile_id;
                 $appUser->application_id = $app->id;
                 $appUser->access_type    = $app->access_type;
                 $appUser->token          = $at->tok;
