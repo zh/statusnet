@@ -1,6 +1,6 @@
 <?php
 /**
- * Data class for counting greetings
+ * Data class for group privacy settings
  *
  * PHP version 5
  *
@@ -11,7 +11,7 @@
  * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2011, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -31,18 +31,10 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
-
 /**
- * Data class for counting greetings
+ * Data class for group privacy
  *
- * We use the DB_DataObject framework for data classes in StatusNet. Each
- * table maps to a particular data class, making it easier to manipulate
- * data.
- *
- * Data classes should extend Memcached_DataObject, the (slightly misnamed)
- * extension of DB_DataObject that provides caching, internationalization,
- * and other bits of good functionality to StatusNet-specific data classes.
+ * Stores admin preferences about the group.
  *
  * @category Action
  * @package  StatusNet
@@ -53,11 +45,31 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
  * @see      DB_DataObject
  */
 
-class User_greeting_count extends Memcached_DataObject
+class Group_privacy_settings extends Memcached_DataObject
 {
-    public $__table = 'user_greeting_count'; // table name
-    public $user_id;                         // int(4)  primary_key not_null
-    public $greeting_count;                  // int(4)
+    public $__table = 'group_privacy_settings';
+    /** ID of the group. */
+    public $group_id;      
+    /** When to allow privacy: always, sometimes, or never. */
+    public $allow_privacy;
+    /** Who can send private messages: everyone, member, admin */
+    public $allow_sender; 
+    /** row creation timestamp */
+    public $created;
+    /** Last-modified timestamp */
+    public $modified;
+
+    /** NEVER is */
+
+    const SOMETIMES = -1;
+    const NEVER  = 0;
+    const ALWAYS = 1;
+
+    /** These are bit-mappy, as a hedge against the future. */
+
+    const EVERYONE = 1;
+    const MEMBER   = 2;
+    const ADMIN    = 4;
 
     /**
      * Get an instance by key
@@ -68,11 +80,11 @@ class User_greeting_count extends Memcached_DataObject
      * @param mixed  $v Value to lookup
      *
      * @return User_greeting_count object found, or null for no hits
-     *
      */
+
     function staticGet($k, $v=null)
     {
-        return Memcached_DataObject::staticGet('User_greeting_count', $k, $v);
+        return Memcached_DataObject::staticGet('Group_privacy_settings', $k, $v);
     }
 
     /**
@@ -83,10 +95,15 @@ class User_greeting_count extends Memcached_DataObject
      *
      * @return array array of column definitions
      */
+
     function table()
     {
-        return array('user_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-                     'greeting_count' => DB_DATAOBJECT_INT);
+        return array('group_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'allow_privacy' => DB_DATAOBJECT_INT,
+                     'allow_sender' => DB_DATAOBJECT_INT,
+                     'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
+                     'modified' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
+                     
     }
 
     /**
@@ -98,6 +115,7 @@ class User_greeting_count extends Memcached_DataObject
      *
      * @return array list of key field names
      */
+
     function keys()
     {
         return array_keys($this->keyTypes());
@@ -106,79 +124,24 @@ class User_greeting_count extends Memcached_DataObject
     /**
      * return key definitions for Memcached_DataObject
      *
-     * Our caching system uses the same key definitions, but uses a different
-     * method to get them. This key information is used to store and clear
-     * cached data, so be sure to list any key that will be used for static
-     * lookups.
-     *
      * @return array associative array of key definitions, field name to type:
      *         'K' for primary key: for compound keys, add an entry for each component;
      *         'U' for unique keys: compound keys are not well supported here.
      */
+
     function keyTypes()
     {
-        return array('user_id' => 'K');
+        return array('group_id' => 'K');
     }
 
     /**
      * Magic formula for non-autoincrementing integer primary keys
      *
-     * If a table has a single integer column as its primary key, DB_DataObject
-     * assumes that the column is auto-incrementing and makes a sequence table
-     * to do this incrementation. Since we don't need this for our class, we
-     * overload this method and return the magic formula that DB_DataObject needs.
-     *
      * @return array magic three-false array that stops auto-incrementing.
      */
+
     function sequenceKey()
     {
         return array(false, false, false);
-    }
-
-    /**
-     * Increment a user's greeting count and return instance
-     *
-     * This method handles the ins and outs of creating a new greeting_count for a
-     * user or fetching the existing greeting count and incrementing its value.
-     *
-     * @param integer $user_id ID of the user to get a count for
-     *
-     * @return User_greeting_count instance for this user, with count already incremented.
-     */
-    static function inc($user_id)
-    {
-        $gc = User_greeting_count::staticGet('user_id', $user_id);
-
-        if (empty($gc)) {
-
-            $gc = new User_greeting_count();
-
-            $gc->user_id        = $user_id;
-            $gc->greeting_count = 1;
-
-            $result = $gc->insert();
-
-            if (!$result) {
-                // TRANS: Exception thrown when the user greeting count could not be saved in the database.
-                // TRANS: %d is a user ID (number).
-                throw Exception(sprintf(_m("Could not save new greeting count for %d."),
-                                        $user_id));
-            }
-        } else {
-            $orig = clone($gc);
-
-            $gc->greeting_count++;
-
-            $result = $gc->update($orig);
-
-            if (!$result) {
-                // TRANS: Exception thrown when the user greeting count could not be saved in the database.
-                // TRANS: %d is a user ID (number).
-                throw Exception(sprintf(_m("Could not increment greeting count for %d."),
-                                        $user_id));
-            }
-        }
-
-        return $gc;
     }
 }

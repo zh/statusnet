@@ -1,6 +1,6 @@
 <?php
 /**
- * Data class for counting greetings
+ * Data class for group inbox info
  *
  * PHP version 5
  *
