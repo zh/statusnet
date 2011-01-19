@@ -1,0 +1,17 @@
+/* undo insane stuff from core styles */
+#add-mirror-wizard img {
+    display: inline;
+}
+
+/* we need #something to override most of the #content crap */
+
+#add-mirror-wizard .provider-list table {
+    width: 100%;
+}
+
+#add-mirror-wizard .provider-heading img {
+    vertical-align: middle;
+}
+#add-mirror-wizard .provider-heading {
+    cursor: pointer;
+}

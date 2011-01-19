@@ -65,16 +65,28 @@ class MirrorSettingsAction extends AccountSettingsAction
     function showContent()
     {
         $user = common_current_user();
+        $provider = $this->trimmed('provider');
+        if ($provider) {
+            $this->showAddFeedForm($provider);
+        } else {
+            $this->elementStart('div', array('id' => 'add-mirror'));
+            $this->showAddWizard();
+            $this->elementEnd('div');
 
-        $this->showAddFeedForm();
-
-        $mirror = new SubMirror();
-        $mirror->subscriber = $user->id;
-        if ($mirror->find()) {
-            while ($mirror->fetch()) {
-                $this->showFeedForm($mirror);
+            $mirror = new SubMirror();
+            $mirror->subscriber = $user->id;
+            if ($mirror->find()) {
+                while ($mirror->fetch()) {
+                    $this->showFeedForm($mirror);
+                }
             }
         }
+    }
+
+    function showAddWizard()
+    {
+        $form = new AddMirrorWizard($this);
+        $form->show();
     }
 
     function showFeedForm($mirror)
@@ -88,12 +100,34 @@ class MirrorSettingsAction extends AccountSettingsAction
 
     function showAddFeedForm()
     {
-        $form = new AddMirrorWizard($this);
-        $form->show();
         $form = new AddMirrorForm($this);
         $form->show();
     }
 
+    /**
+     *
+     * @param array $args
+     *
+     * @todo move the ajax display handling to common code
+     */
+    function handle($args)
+    {
+        if ($this->boolean('ajax')) {
+            header('Content-Type: text/html;charset=utf-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            $this->element('title', null, _('Provider add'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+
+            $this->showAddFeedForm();
+
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            return parent::handle($args);
+        }
+    }
     /**
      * Handle a POST request
      *
@@ -109,5 +143,17 @@ class MirrorSettingsAction extends AccountSettingsAction
     {
         $nav = new SubGroupNav($this, common_current_user());
         $nav->show();
+    }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->script('plugins/SubMirror/js/mirrorsettings.js');
+    }
+
+    function showStylesheets()
+    {
+        parent::showStylesheets();
+        $this->cssLink('plugins/SubMirror/css/mirrorsettings.css');
     }
 }

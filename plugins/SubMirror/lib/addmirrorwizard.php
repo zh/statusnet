@@ -87,22 +87,26 @@ class AddMirrorWizard extends Form
     {
         $out = $this->out;
 
-        $out->elementStart('table', array('width' => '100%'));
+        $out->elementStart('div', 'provider-list');
+        $out->element('h2', null, _m('Select a feed provider'));
+        $out->elementStart('table');
         foreach ($providers as $provider) {
             $icon = common_path('plugins/SubMirror/images/providers/' . $provider['id'] . '.png');
-            $out->elementStart('tr');
+            $targetUrl = common_local_url('mirrorsettings', array('provider' => $provider['id']));
 
-            $out->elementStart('td', array('style' => 'text-align: right; vertical-align: middle'));
+            $out->elementStart('tr', array('class' => 'provider'));
+            $out->elementStart('td');
+
+            $out->elementStart('div', 'provider-heading');
             $out->element('img', array('src' => $icon));
-            $out->elementEnd('td');
+            $out->element('a', array('href' => $targetUrl), $provider['name']);
+            $out->elementEnd('div');
 
-            $out->elementStart('td', array('style' => 'text-align: left; vertical-align: middle'));
-            $out->text($provider['name']);
             $out->elementEnd('td');
-
             $out->elementEnd('tr');
         }
         $out->elementEnd('table');
+        $out->elementEnd('div');
     }
 
     /**
