@@ -980,7 +980,7 @@ class User extends Memcached_DataObject
     }
 
     /*
-     * Get a list of OAuth client application that have access to this
+     * Get a list of OAuth client applications that have access to this
      * user's account.
      */
     function getConnectedApps($offset = 0, $limit = null)
