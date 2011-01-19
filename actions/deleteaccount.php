@@ -161,7 +161,7 @@ class DeleteaccountAction extends Action
         if ($this->trimmed('iamsure') != $iamsure ) {
             // TRANS: Notification for user about the text that must be input to be able to delete a user account.
             // TRANS: %s is the text that needs to be input.
-            $this->_error = sprintf(_('You must write  "%s" exactly in the box.', $iamsure));
+            $this->_error = sprintf(_('You must write "%s" exactly in the box.'), $iamsure);
             $this->showPage();
             return;
         }

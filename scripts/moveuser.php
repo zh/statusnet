@@ -19,7 +19,7 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'i:n:r:w:';
+$shortoptions = 'i:n:r:w:y';
 $longoptions = array('id=', 'nickname=', 'remote=', 'password=');
 
 $helptext = <<<END_OF_MOVEUSER_HELP
@@ -30,6 +30,7 @@ Move a local user to a remote account.
   -n --nickname nickname of the user to move
   -r --remote   Full ID of remote users
   -w --password Password of remote user
+  -y --yes      do not wait for confirmation
 
 Remote user identity must be a Webfinger (nickname@example.com) or 
 an HTTP or HTTPS URL (http://example.com/social/site/user/nickname).
@@ -50,6 +51,17 @@ try {
     }
 
     $password = get_option_value('w', 'password');
+
+    if (!have_option('y', 'yes')) {
+        print "WARNING: EXPERIMENTAL FEATURE! Moving accounts will delete data from the source site.\n";
+        print "\n";
+        print "About to PERMANENTLY move user '{$user->nickname}' to $remote. Are you sure? [y/N] ";
+        $response = fgets(STDIN);
+        if (strtolower(trim($response)) != 'y') {
+            print "Aborting.\n";
+            exit(0);
+        }
+    }
 
     $qm = QueueManager::get();
 
