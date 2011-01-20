@@ -84,6 +84,7 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
             common_debug(var_export($req, true));
             $code = $e->getCode();
             $this->clientError($e->getMessage(), empty($code) ? 401 : $code, 'text');
+            return;
         }
 
         if (empty($atok)) {
