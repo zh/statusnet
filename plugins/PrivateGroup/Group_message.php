@@ -53,7 +53,7 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
  * @see      DB_DataObject
  */
 
-class User_greeting_count extends Memcached_DataObject
+class Group_message extends Memcached_DataObject
 {
     public $__table = 'user_greeting_count'; // table name
     public $user_id;                         // int(4)  primary_key not_null
@@ -67,12 +67,12 @@ class User_greeting_count extends Memcached_DataObject
      * @param string $k Key to use to lookup (usually 'user_id' for this class)
      * @param mixed  $v Value to lookup
      *
-     * @return User_greeting_count object found, or null for no hits
+     * @return Group_message object found, or null for no hits
      *
      */
     function staticGet($k, $v=null)
     {
-        return Memcached_DataObject::staticGet('User_greeting_count', $k, $v);
+        return Memcached_DataObject::staticGet('Group_message', $k, $v);
     }
 
     /**
@@ -143,15 +143,15 @@ class User_greeting_count extends Memcached_DataObject
      *
      * @param integer $user_id ID of the user to get a count for
      *
-     * @return User_greeting_count instance for this user, with count already incremented.
+     * @return Group_message instance for this user, with count already incremented.
      */
     static function inc($user_id)
     {
-        $gc = User_greeting_count::staticGet('user_id', $user_id);
+        $gc = Group_message::staticGet('user_id', $user_id);
 
         if (empty($gc)) {
 
-            $gc = new User_greeting_count();
+            $gc = new Group_message();
 
             $gc->user_id        = $user_id;
             $gc->greeting_count = 1;
