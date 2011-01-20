@@ -4,7 +4,7 @@
  * Copyright (C) 2010, StatusNet, Inc.
  *
  * Restore a backup of your own account from the browser
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class RestoreaccountAction extends Action
 {
     private $success = false;
@@ -52,12 +51,12 @@ class RestoreaccountAction extends Action
 
     /**
      * Returns the title of the page
-     * 
+     *
      * @return string page title
      */
-
     function title()
     {
+        // TRANS: Page title for page where a user account can be restored from backup.
         return _("Restore account");
     }
 
@@ -68,7 +67,6 @@ class RestoreaccountAction extends Action
      *
      * @return boolean true
      */
-
     function prepare($argarray)
     {
         parent::prepare($argarray);
@@ -76,10 +74,12 @@ class RestoreaccountAction extends Action
         $cur = common_current_user();
 
         if (empty($cur)) {
+            // TRANS: Client exception displayed when trying to restore an account while not logged in.
             throw new ClientException(_('Only logged-in users can restore their account.'), 403);
         }
 
         if (!$cur->hasRight(Right::RESTOREACCOUNT)) {
+            // TRANS: Client exception displayed when trying to restore an account without having restore rights.
             throw new ClientException(_('You may not restore your account.'), 403);
         }
 
@@ -93,7 +93,6 @@ class RestoreaccountAction extends Action
      *
      * @return void
      */
-
     function handle($argarray=null)
     {
         parent::handle($argarray);
@@ -108,17 +107,17 @@ class RestoreaccountAction extends Action
 
     /**
      * Queue a file for restoration
-     * 
+     *
      * Uses the UserActivityStream class; may take a long time!
      *
      * @return void
      */
-
     function restoreAccount()
     {
         $this->checkSessionToken();
 
         if (!isset($_FILES['restorefile']['error'])) {
+            // TRANS: Client exception displayed trying to restore an account while something went wrong uploading a file.
             throw new ClientException(_('No uploaded file.'));
         }
 
@@ -143,7 +142,7 @@ class RestoreaccountAction extends Action
                 ' partially uploaded.'));
             return;
         case UPLOAD_ERR_NO_FILE:
-            // No file; probably just a non-AJAX submission.
+            // TRANS: Client exception. No file; probably just a non-AJAX submission.
             throw new ClientException(_('No uploaded file.'));
             return;
         case UPLOAD_ERR_NO_TMP_DIR:
@@ -170,18 +169,21 @@ class RestoreaccountAction extends Action
 
         try {
             if (!file_exists($filename)) {
-                throw new ServerException("No such file '$filename'.");
+                // TRANS: Server exception thrown when an expected file upload could not be found.
+                throw new ServerException(_("No such file '$filename'."));
             }
-        
+
             if (!is_file($filename)) {
-                throw new ServerException("Not a regular file: '$filename'.");
+                // TRANS: Server exception thrown when an expected file upload is not an actual file.
+                throw new ServerException(_("Not a regular file: '$filename'."));
             }
-        
+
             if (!is_readable($filename)) {
-                throw new ServerException("File '$filename' not readable.");
+                // TRANS: Server exception thrown when an expected file upload could not be read.
+                throw new ServerException(_("File '$filename' not readable."));
             }
-        
-            common_debug(sprintf(_("Getting backup from file '%s'."), $filename));
+
+            common_debug(sprintf("Getting backup from file '%s'.", $filename));
 
             $xml = file_get_contents($filename);
 
@@ -201,7 +203,8 @@ class RestoreaccountAction extends Action
             if (!$feed ||
                 $feed->namespaceURI != Activity::ATOM ||
                 $feed->localName != 'feed') {
-                throw new ClientException(_("Not an atom feed."));
+                // TRANS: Client exception thrown when a feed is not an Atom feed.
+                throw new ClientException(_("Not an Atom feed."));
             }
 
             // Enqueue for processing.
@@ -230,21 +233,22 @@ class RestoreaccountAction extends Action
      *
      * @return void
      */
-    
     function showContent()
     {
         if ($this->success) {
             $this->element('p', null,
+                           // TRANS: Success message when a feed has been restored.
                            _('Feed has been restored. Your old posts should now appear in search and your profile page.'));
         } else if ($this->inprogress) {
             $this->element('p', null,
+                           // TRANS: Message when a feed restore is in progress.
                            _('Feed will be restored. Please wait a few minutes for results.'));
         } else {
             $form = new RestoreAccountForm($this);
             $form->show();
         }
     }
- 
+
     /**
      * Return true if read only.
      *
@@ -254,7 +258,6 @@ class RestoreaccountAction extends Action
      *
      * @return boolean is read only action?
      */
-
     function isReadOnly($args)
     {
         return false;
@@ -267,7 +270,6 @@ class RestoreaccountAction extends Action
      *
      * @return string last modified http header
      */
-
     function lastModified()
     {
         // For comparison with If-Last-Modified
@@ -282,7 +284,6 @@ class RestoreaccountAction extends Action
      *
      * @return string etag http header
      */
-
     function etag()
     {
         return null;
@@ -299,7 +300,6 @@ class RestoreaccountAction extends Action
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class RestoreAccountForm extends Form
 {
     function __construct($out=null) {
@@ -312,7 +312,6 @@ class RestoreAccountForm extends Form
      *
      * @return string the form's class
      */
-
     function formClass()
     {
         return 'form_profile_restore';
@@ -323,7 +322,6 @@ class RestoreAccountForm extends Form
      *
      * @return string the form's action URL
      */
-
     function action()
     {
         return common_local_url('restoreaccount');
@@ -331,19 +329,19 @@ class RestoreAccountForm extends Form
 
     /**
      * Output form data
-     * 
+     *
      * Really, just instructions for doing a backup.
      *
      * @return void
      */
-
     function formData()
     {
         $this->out->elementStart('p', 'instructions');
 
+        // TRANS: Form instructions for feed restore.
         $this->out->raw(_('You can upload a backed-up stream in '.
                           '<a href="http://activitystrea.ms/">Activity Streams</a> format.'));
-        
+
         $this->out->elementEnd('p');
 
         $this->out->elementStart('ul', 'form_data');
@@ -359,18 +357,19 @@ class RestoreAccountForm extends Form
 
     /**
      * Buttons for the form
-     * 
+     *
      * In this case, a single submit button
      *
      * @return void
      */
-
     function formActions()
     {
         $this->out->submit('submit',
+                           // TRANS: Submit button to confirm upload of a user backup file for account restore.
                            _m('BUTTON', 'Upload'),
                            'submit',
                            null,
+                           // TRANS: Title for submit button to confirm upload of a user backup file for account restore.
                            _('Upload the file'));
     }
 }

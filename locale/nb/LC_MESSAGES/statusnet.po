@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-16 15:08+0000\n"
-"PO-Revision-Date: 2010-12-16 15:11:07+0000\n"
+"POT-Creation-Date: 2011-01-14 23:32+0000\n"
+"PO-Revision-Date: 2011-01-14 23:35:14+0000\n"
 "Language-Team: Norwegian (bokmål)‬ <http://translatewiki.net/wiki/Portal:no>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r80343); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-11-30 20:43:14+0000\n"
+"X-POT-Import-Date: 2011-01-14 13:22:39+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -277,14 +277,13 @@ msgstr "Oppdateringer fra %1$s og venner på %2$s!"
 #: actions/apistatusesshow.php:105 actions/apistatusnetconfig.php:138
 #: actions/apistatusnetversion.php:91 actions/apisubscriptions.php:109
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:268
-#: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
+#: actions/apitimelinegroup.php:147 actions/apitimelinehome.php:173
 #: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:239
 #: actions/apitimelineretweetedtome.php:118
 #: actions/apitimelineretweetsofme.php:150 actions/apitimelinetag.php:159
 #: actions/apitimelineuser.php:206 actions/apiusershow.php:100
-#, fuzzy
 msgid "API method not found."
-msgstr "API-metode ikke funnet!"
+msgstr "API-metode ikke funnet."
 
 #. TRANS: Client error message. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
@@ -311,9 +310,8 @@ msgstr "Du må angi en verdi for parameteren 'device' med en av: sms, im, none."
 
 #. TRANS: Server error displayed when a user's delivery device cannot be updated.
 #: actions/apiaccountupdatedeliverydevice.php:130
-#, fuzzy
 msgid "Could not update user."
-msgstr "Klarte ikke å oppdatere bruker."
+msgstr "Kunne ikke oppdatere bruker."
 
 #. TRANS: Client error displayed if a user profile could not be found.
 #. TRANS: Client error displayed when a user has no profile.
@@ -324,7 +322,8 @@ msgstr "Klarte ikke å oppdatere bruker."
 #: actions/apiaccountupdateprofile.php:111
 #: actions/apiaccountupdateprofilebackgroundimage.php:199
 #: actions/apiaccountupdateprofilecolors.php:183
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiuserprofileimage.php:88 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:85 actions/foaf.php:65 actions/hcard.php:74
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
 #: lib/profileaction.php:84
@@ -333,9 +332,8 @@ msgstr "Brukeren har ingen profil."
 
 #. TRANS: Server error displayed if a user profile could not be saved.
 #: actions/apiaccountupdateprofile.php:147
-#, fuzzy
 msgid "Could not save profile."
-msgstr "Klarte ikke å lagre profil."
+msgstr "Kunne ikke lagre profil."
 
 #. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
 #. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
@@ -378,13 +376,12 @@ msgstr "Kunne ikke lagre dine innstillinger for utseende."
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
 #: actions/apiaccountupdateprofilebackgroundimage.php:191
 #: actions/apiaccountupdateprofilecolors.php:139
-#, fuzzy
 msgid "Could not update your design."
-msgstr "Klarte ikke å oppdatere bruker."
+msgstr "Kunne ikke oppdatere din profils utseende."
 
 #: actions/apiatomservice.php:86
 msgid "Main"
-msgstr ""
+msgstr "Hoved"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -400,19 +397,19 @@ msgstr "%s tidslinje"
 #. TRANS: %s is a user nickname.
 #: actions/apiatomservice.php:103 actions/atompubsubscriptionfeed.php:147
 #: actions/subscriptions.php:51
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscriptions"
-msgstr "Alle abonnementer"
+msgstr "%s abonnementer"
 
 #: actions/apiatomservice.php:113 actions/atompubfavoritefeed.php:142
-#, fuzzy, php-format
+#, php-format
 msgid "%s favorites"
-msgstr "Favoritter"
+msgstr "%s favoritter"
 
 #: actions/apiatomservice.php:123
-#, fuzzy, php-format
+#, php-format
 msgid "%s memberships"
-msgstr "%s gruppemedlemmer"
+msgstr "%s medlemsskap"
 
 #. TRANS: Client error displayed when users try to block themselves.
 #: actions/apiblockcreate.php:104
@@ -539,9 +536,8 @@ msgstr "Du kan ikke slutte å følge deg selv."
 
 #. TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
 #: actions/apifriendshipsexists.php:88
-#, fuzzy
 msgid "Two valid IDs or nick names must be supplied."
-msgstr "To gyldige ID-er eller screen_names må oppgis."
+msgstr "To gyldige ID-er eller kallenavn må oppgis."
 
 #. TRANS: Client error displayed when a source user could not be determined showing friendship.
 #: actions/apifriendshipsshow.php:131
@@ -558,7 +554,7 @@ msgstr "Kunne ikke finne målbruker."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:156 actions/editgroup.php:189
-#: actions/newgroup.php:129 actions/profilesettings.php:277
+#: actions/newgroup.php:136 actions/profilesettings.php:277
 #: actions/register.php:214
 msgid "Nickname already in use. Try another one."
 msgstr "Det nicket er allerede i bruk. Prøv et annet."
@@ -568,7 +564,7 @@ msgstr "Det nicket er allerede i bruk. Prøv et annet."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:164 actions/editgroup.php:193
-#: actions/newgroup.php:133 actions/profilesettings.php:247
+#: actions/newgroup.php:140 actions/profilesettings.php:247
 #: actions/register.php:216
 msgid "Not a valid nickname."
 msgstr "Ugyldig nick."
@@ -580,7 +576,7 @@ msgstr "Ugyldig nick."
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:181 actions/editapplication.php:233
 #: actions/editgroup.php:200 actions/newapplication.php:211
-#: actions/newgroup.php:140 actions/profilesettings.php:252
+#: actions/newgroup.php:147 actions/profilesettings.php:252
 #: actions/register.php:223
 msgid "Homepage is not a valid URL."
 msgstr "Hjemmesiden er ikke en gyldig URL."
@@ -590,7 +586,7 @@ msgstr "Hjemmesiden er ikke en gyldig URL."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:191 actions/editgroup.php:204
-#: actions/newgroup.php:144 actions/profilesettings.php:256
+#: actions/newgroup.php:151 actions/profilesettings.php:256
 #: actions/register.php:226
 msgid "Full name is too long (maximum 255 characters)."
 msgstr "Fullt navn er for langt (maks 255 tegn)."
@@ -605,7 +601,7 @@ msgstr "Fullt navn er for langt (maks 255 tegn)."
 #. TRANS: %d is the maximum number of allowed characters.
 #: actions/apigroupcreate.php:201 actions/editapplication.php:201
 #: actions/editgroup.php:209 actions/newapplication.php:178
-#: actions/newgroup.php:149
+#: actions/newgroup.php:156
 #, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
@@ -617,7 +613,7 @@ msgstr[1] "Beskrivelsen er for lang (maks %d tegn)."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:215 actions/editgroup.php:216
-#: actions/newgroup.php:156 actions/profilesettings.php:269
+#: actions/newgroup.php:163 actions/profilesettings.php:269
 #: actions/register.php:235
 msgid "Location is too long (maximum 255 characters)."
 msgstr "Plasseringen er for lang (maks 255 tegn)."
@@ -629,7 +625,7 @@ msgstr "Plasseringen er for lang (maks 255 tegn)."
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:236 actions/editgroup.php:229
-#: actions/newgroup.php:169
+#: actions/newgroup.php:176
 #, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
@@ -648,7 +644,7 @@ msgstr "Ugyldig alias: «%s»."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #: actions/apigroupcreate.php:264 actions/editgroup.php:244
-#: actions/newgroup.php:184
+#: actions/newgroup.php:191
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "Aliaset «%s» er allerede i bruk. Prøv et annet."
@@ -657,7 +653,7 @@ msgstr "Aliaset «%s» er allerede i bruk. Prøv et annet."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #: actions/apigroupcreate.php:278 actions/editgroup.php:251
-#: actions/newgroup.php:191
+#: actions/newgroup.php:198
 msgid "Alias can't be the same as nickname."
 msgstr "Alias kan ikke være det samme som kallenavn."
 
@@ -969,18 +965,18 @@ msgstr "Kan ikke gjenta din egen notis."
 msgid "Already repeated that notice."
 msgstr "Allerede gjentatt den notisen."
 
+#. TRANS: Client error shown when using a non-supported HTTP method.
 #: actions/apistatusesshow.php:117 actions/atompubfavoritefeed.php:104
 #: actions/atompubmembershipfeed.php:106 actions/atompubshowfavorite.php:116
-#: actions/atompubshowsubscription.php:118
+#: actions/atompubshowsubscription.php:122
 #: actions/atompubsubscriptionfeed.php:109
-#, fuzzy
 msgid "HTTP method not supported."
-msgstr "API-metode ikke funnet!"
+msgstr "HTTP-metoden støttes ikke."
 
 #: actions/apistatusesshow.php:141
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported format: %s"
-msgstr "Formatet støttes ikke."
+msgstr "Formatet støttes ikke: %s"
 
 #. TRANS: Client error displayed requesting a deleted status.
 #: actions/apistatusesshow.php:152
@@ -994,7 +990,7 @@ msgstr "Ingen status med den ID-en funnet."
 
 #: actions/apistatusesshow.php:223
 msgid "Can only delete using the Atom format."
-msgstr ""
+msgstr "Kan bare slette med Atom-formatet."
 
 #. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
 #: actions/apistatusesshow.php:230 actions/deletenotice.php:78
@@ -1002,9 +998,9 @@ msgid "Can't delete this notice."
 msgstr "Kan ikke slette notisen."
 
 #: actions/apistatusesshow.php:243
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted notice %d"
-msgstr "Slett notis"
+msgstr "Slettet notis %d"
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:221
@@ -1058,7 +1054,7 @@ msgstr "%1$s-oppdateringer markert som favoritt av %2$s / %3$s."
 
 #. TRANS: Server error displayed when generating an Atom feed fails.
 #. TRANS: %s is the error.
-#: actions/apitimelinegroup.php:138
+#: actions/apitimelinegroup.php:134
 #, php-format
 msgid "Could not generate feed for group - %s"
 msgstr "Kunne ikke generere mating for gruppe - %s"
@@ -1124,59 +1120,58 @@ msgstr "Oppdateringer merket med %1$s på %2$s!"
 
 #. TRANS: Client error displayed trying to add a notice to another user's timeline.
 #: actions/apitimelineuser.php:297
-#, fuzzy
 msgid "Only the user can add to their own timeline."
-msgstr "Bare brukeren kan lese sine egne postbokser."
+msgstr "Bare brukeren kan legge til sin egen tidslinje."
 
 #. TRANS: Client error displayed when using another format than AtomPub.
 #: actions/apitimelineuser.php:304
 msgid "Only accept AtomPub for Atom feeds."
-msgstr ""
+msgstr "Aksepterer kun AtomPub for Atom-matinger."
 
 #: actions/apitimelineuser.php:310
 msgid "Atom post must not be empty."
-msgstr ""
+msgstr "Atom-innlegget kan ikke være tomt."
 
 #: actions/apitimelineuser.php:315
 msgid "Atom post must be well-formed XML."
-msgstr ""
+msgstr "Atom-innlegget må være velformatert XML."
 
 #. TRANS: Client error displayed when not using an Atom entry.
 #: actions/apitimelineuser.php:321 actions/atompubfavoritefeed.php:226
 #: actions/atompubmembershipfeed.php:228
 #: actions/atompubsubscriptionfeed.php:233
 msgid "Atom post must be an Atom entry."
-msgstr ""
+msgstr "Atom-innlegget må være en Atom-oppføring."
 
 #. TRANS: Client error displayed when not using the POST verb.
 #. TRANS: Do not translate POST.
-#: actions/apitimelineuser.php:332
+#: actions/apitimelineuser.php:334
 msgid "Can only handle POST activities."
-msgstr ""
+msgstr "Kan bare håndtere POST-handlinger."
 
 #. TRANS: Client error displayed when using an unsupported activity object type.
 #. TRANS: %s is the unsupported activity object type.
-#: actions/apitimelineuser.php:343
+#: actions/apitimelineuser.php:345
 #, php-format
 msgid "Cannot handle activity object type \"%s\"."
-msgstr ""
+msgstr "Kan ikke håndtere handlingsobjekttype «%s»."
 
 #. TRANS: Client error displayed when posting a notice without content through the API.
-#: actions/apitimelineuser.php:376
-#, fuzzy, php-format
+#: actions/apitimelineuser.php:378
+#, php-format
 msgid "No content for notice %d."
-msgstr "Finn innhold i notiser"
+msgstr "Inget innhold for notis %d."
 
 #. TRANS: Client error displayed when using another format than AtomPub.
-#: actions/apitimelineuser.php:404
+#: actions/apitimelineuser.php:406
 #, php-format
 msgid "Notice with URI \"%s\" already exists."
-msgstr ""
+msgstr "Notis med URI «%s» finnes allerede."
 
-#: actions/apitimelineuser.php:435
+#: actions/apitimelineuser.php:437
 #, php-format
 msgid "AtomPub post with unknown attention URI %s"
-msgstr ""
+msgstr "AtomPub-innlegg med ukjent oppmerksomhets-URI %s"
 
 #. TRANS: Server error for unfinished API method showTrends.
 #: actions/apitrends.php:85
@@ -1184,24 +1179,22 @@ msgid "API method under construction."
 msgstr "API-metode under utvikling."
 
 #. TRANS: Client error displayed when requesting user information for a non-existing user.
-#: actions/apiusershow.php:94
+#: actions/apiuserprofileimage.php:80 actions/apiusershow.php:94
 msgid "User not found."
 msgstr "Bruker ikke funnet."
 
 #: actions/atompubfavoritefeed.php:70
-#, fuzzy
 msgid "No such profile"
-msgstr "Ingen slik profil."
+msgstr "Ingen slik profil"
 
 #: actions/atompubfavoritefeed.php:145
 #, php-format
 msgid "Notices %s has favorited to on %s"
-msgstr ""
+msgstr "Notiser som %s har lagt til som favoritt på %s"
 
 #: actions/atompubfavoritefeed.php:215 actions/atompubsubscriptionfeed.php:222
-#, fuzzy
 msgid "Can't add someone else's subscription"
-msgstr "Kunne ikke sette inn bekreftelseskode."
+msgstr "Kan ikke legge til noen andres abonnement"
 
 #. TRANS: Client error displayed when not using the POST verb.
 #. TRANS: Do not translate POST.
@@ -1215,9 +1208,8 @@ msgid "Can only fave notices."
 msgstr "Finn innhold i notiser"
 
 #: actions/atompubfavoritefeed.php:256
-#, fuzzy
 msgid "Unknown note."
-msgstr "Ukjent"
+msgstr "Ukjent notat."
 
 #: actions/atompubfavoritefeed.php:263
 #, fuzzy
@@ -1274,7 +1266,6 @@ msgid "Can't delete someone else's favorite"
 msgstr "Kunne ikke slette favoritt."
 
 #: actions/atompubshowmembership.php:81
-#, fuzzy
 msgid "No such group"
 msgstr "Ingen slik gruppe."
 
@@ -1292,21 +1283,26 @@ msgstr "API-metode ikke funnet!"
 msgid "Can't delete someone else's membership"
 msgstr ""
 
+#. TRANS: Client exception thrown when trying to display a subscription for a non-existing profile ID.
+#. TRANS: %d is the non-existing profile ID number.
 #: actions/atompubshowsubscription.php:72
-#: actions/atompubshowsubscription.php:81
+#: actions/atompubshowsubscription.php:83
 #: actions/atompubsubscriptionfeed.php:74
 #, fuzzy, php-format
 msgid "No such profile id: %d"
 msgstr "Ingen slik profil."
 
-#: actions/atompubshowsubscription.php:90
+#. TRANS: Client exception thrown when trying to display a subscription for a non-subscribed profile ID.
+#. TRANS: %1$d is the non-existing subscriber ID number, $2$d is the ID of the profile that was not subscribed to.
+#: actions/atompubshowsubscription.php:94
 #, fuzzy, php-format
-msgid "Profile %d not subscribed to profile %d"
+msgid "Profile %1$d not subscribed to profile %2$d"
 msgstr "Ikke autorisert."
 
-#: actions/atompubshowsubscription.php:154
+#. TRANS: Client exception thrown when trying to delete a subscription of another user.
+#: actions/atompubshowsubscription.php:157
 #, fuzzy
-msgid "Can't delete someone else's subscription"
+msgid "Cannot delete someone else's subscription"
 msgstr "Kunne ikke slette favoritt."
 
 #: actions/atompubsubscriptionfeed.php:150
@@ -1399,13 +1395,15 @@ msgid "Preview"
 msgstr "Forhåndsvis"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
-#: actions/avatarsettings.php:155
+#. TRANS: Button text for user account deletion.
+#: actions/avatarsettings.php:155 actions/deleteaccount.php:319
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "Slett"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
-#: actions/avatarsettings.php:173
+#. TRANS: Submit button to confirm upload of a user backup file for account restore.
+#: actions/avatarsettings.php:173 actions/restoreaccount.php:369
 msgctxt "BUTTON"
 msgid "Upload"
 msgstr "Last opp"
@@ -1445,6 +1443,38 @@ msgstr "Oppdatering av avatar mislyktes."
 #: actions/avatarsettings.php:413
 msgid "Avatar deleted."
 msgstr "Avatar slettet."
+
+#: actions/backupaccount.php:62 actions/profilesettings.php:467
+msgid "Backup account"
+msgstr ""
+
+#: actions/backupaccount.php:80
+#, fuzzy
+msgid "Only logged-in users can backup their account."
+msgstr "Bare innloggede brukere kan repetere notiser."
+
+#: actions/backupaccount.php:84
+msgid "You may not backup your account."
+msgstr ""
+
+#: actions/backupaccount.php:232
+msgid ""
+"You can backup your account data in <a href=\"http://activitystrea.ms/"
+"\">Activity Streams</a> format.  This is an experimental feature and "
+"provides an incomplete backup; private account information like email and IM "
+"addresses is not backed up. Additionally, uploaded files and direct messages "
+"are not backed up."
+msgstr ""
+
+#: actions/backupaccount.php:255
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Backup"
+msgstr "Bakgrunn"
+
+#: actions/backupaccount.php:258
+msgid "Backup your account"
+msgstr ""
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 #: actions/block.php:68
@@ -1651,6 +1681,77 @@ msgstr "Samtale"
 msgid "Notices"
 msgstr "Notiser"
 
+#. TRANS: Client exception displayed trying to delete a user account while not logged in.
+#: actions/deleteaccount.php:71
+#, fuzzy
+msgid "Only logged-in users can delete their account."
+msgstr "Bare innloggede brukere kan repetere notiser."
+
+#. TRANS: Client exception displayed trying to delete a user account without have the rights to do that.
+#: actions/deleteaccount.php:77
+#, fuzzy
+msgid "You cannot delete your account."
+msgstr "Du kan ikke slette brukere."
+
+#. TRANS: Confirmation text for user deletion. The user has to type this exactly the same, including punctuation.
+#: actions/deleteaccount.php:160 actions/deleteaccount.php:297
+msgid "I am sure."
+msgstr ""
+
+#. TRANS: Notification for user about the text that must be input to be able to delete a user account.
+#. TRANS: %s is the text that needs to be input.
+#: actions/deleteaccount.php:164
+#, php-format
+msgid "You must write  \"%s\" exactly in the box."
+msgstr ""
+
+#. TRANS: Confirmation that a user account has been deleted.
+#: actions/deleteaccount.php:206
+#, fuzzy
+msgid "Account deleted."
+msgstr "Avatar slettet."
+
+#. TRANS: Page title for page on which a user account can be deleted.
+#: actions/deleteaccount.php:228 actions/profilesettings.php:474
+#, fuzzy
+msgid "Delete account"
+msgstr "Opprett en konto"
+
+#. TRANS: Form text for user deletion form.
+#: actions/deleteaccount.php:279
+msgid ""
+"This will <strong>permanently delete</strong> your account data from this "
+"server."
+msgstr ""
+
+#. TRANS: Additional form text for user deletion form shown if a user has account backup rights.
+#. TRANS: %s is a URL to the backup page.
+#: actions/deleteaccount.php:285
+#, php-format
+msgid ""
+"You are strongly advised to <a href=\"%s\">back up your data</a> before "
+"deletion."
+msgstr ""
+
+#. TRANS: Field label for delete account confirmation entry.
+#: actions/deleteaccount.php:300 actions/passwordsettings.php:112
+#: actions/recoverpassword.php:239 actions/register.php:441
+msgid "Confirm"
+msgstr "Bekreft"
+
+#. TRANS: Input title for the delete account field.
+#. TRANS: %s is the text that needs to be input.
+#: actions/deleteaccount.php:304
+#, fuzzy, php-format
+msgid "Enter \"%s\" to confirm that you want to delete your account."
+msgstr "Du kan ikke slette brukere."
+
+#. TRANS: Button title for user account deletion.
+#: actions/deleteaccount.php:323
+#, fuzzy
+msgid "Permanently delete your account"
+msgstr "Du kan ikke slette brukere."
+
 #. TRANS: Client error displayed trying to delete an application while not logged in.
 #: actions/deleteapplication.php:62
 msgid "You must be logged in to delete an application."
@@ -1752,15 +1853,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a group.
 #: actions/deletegroup.php:224
-#, fuzzy
 msgid "Do not delete this group"
-msgstr "Ikke slett denne notisen"
+msgstr "Ikke slett denne gruppen"
 
 #. TRANS: Submit button title for 'Yes' when deleting a group.
 #: actions/deletegroup.php:231
-#, fuzzy
 msgid "Delete this group"
-msgstr "Slett denne brukeren"
+msgstr "Slett denne gruppen"
 
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
 #. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
@@ -1802,7 +1901,7 @@ msgid "Do not delete this notice"
 msgstr "Ikke slett denne notisen"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:166 lib/noticelist.php:672
+#: actions/deletenotice.php:166 lib/noticelist.php:673
 msgid "Delete this notice"
 msgstr "Slett denne notisen"
 
@@ -1846,9 +1945,8 @@ msgid "Invalid logo URL."
 msgstr "Ugyldig logo-URL."
 
 #: actions/designadminpanel.php:340
-#, fuzzy
 msgid "Invalid SSL logo URL."
-msgstr "Ugyldig logo-URL."
+msgstr "Ugyldig SSL-logo-URL."
 
 #: actions/designadminpanel.php:344
 #, php-format
@@ -1864,9 +1962,8 @@ msgid "Site logo"
 msgstr "Nettstedslogo"
 
 #: actions/designadminpanel.php:457
-#, fuzzy
 msgid "SSL logo"
-msgstr "Nettstedslogo"
+msgstr "SSL-logo"
 
 #: actions/designadminpanel.php:469
 msgid "Change theme"
@@ -2030,9 +2127,8 @@ msgstr "Navn kreves."
 
 #. TRANS: Validation error shown when providing too long a name in the "Edit application" form.
 #: actions/editapplication.php:188 actions/newapplication.php:169
-#, fuzzy
 msgid "Name is too long (maximum 255 characters)."
-msgstr "Navn er for langt (maks 250 tegn)."
+msgstr "Navnet er for langt (maks 255 tegn)."
 
 #. TRANS: Validation error shown when providing a name for an application that already exists in the "Edit application" form.
 #: actions/editapplication.php:192 actions/newapplication.php:166
@@ -2061,7 +2157,6 @@ msgstr "Organisasjon kreves."
 
 #. TRANS: Validation error shown when providing too long an arganisation name in the "Edit application" form.
 #: actions/editapplication.php:223 actions/newapplication.php:199
-#, fuzzy
 msgid "Organization is too long (maximum 255 characters)."
 msgstr "Organisasjon er for lang (maks 255 tegn)."
 
@@ -2109,7 +2204,7 @@ msgstr "Bruk dette skjemaet for å redigere gruppen."
 
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/editgroup.php:239 actions/newgroup.php:179
+#: actions/editgroup.php:239 actions/newgroup.php:186
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "Ugyldig alias: «%s»"
@@ -2121,7 +2216,7 @@ msgstr "Kunne ikke oppdatere gruppe."
 
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:279 classes/User_group.php:529
+#: actions/editgroup.php:279 classes/User_group.php:534
 msgid "Could not create aliases."
 msgstr "Kunne ikke opprette alias."
 
@@ -2948,7 +3043,7 @@ msgstr "Du må være innlogget for å invitere andre brukere til å bruke %s."
 #. TRANS: Form validation message when providing an e-mail address that does not validate.
 #. TRANS: %s is an invalid e-mail address.
 #: actions/invite.php:77
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid email address: %s."
 msgstr "Ugyldig e-postadresse: %s."
 
@@ -2975,7 +3070,7 @@ msgstr[1] "Du abonnerer allerede på disse brukerne:"
 #. TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
 #. TRANS: Used as list item for already registered people (%1$s is nickname, %2$s is e-mail address).
 #: actions/invite.php:145 actions/invite.php:159
-#, fuzzy, php-format
+#, php-format
 msgctxt "INVITE"
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -3340,8 +3435,14 @@ msgstr "Kunne ikke opprette program."
 msgid "New group"
 msgstr "Ny gruppe"
 
+#. TRANS: Client exception thrown when a user tries to create a group while banned.
+#: actions/newgroup.php:73 classes/User_group.php:485
+#, fuzzy
+msgid "You are not allowed to create groups on this site."
+msgstr "Du har ikke tillatelse til å slette denne gruppen."
+
 #. TRANS: Form instructions for group create form.
-#: actions/newgroup.php:110
+#: actions/newgroup.php:117
 msgid "Use this form to create a new group."
 msgstr "Bruk dette skjemaet for å opprette en ny gruppe."
 
@@ -3660,11 +3761,6 @@ msgstr "Nytt passord"
 #: actions/passwordsettings.php:109
 msgid "6 or more characters"
 msgstr "6 eller flere tegn"
-
-#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:441
-msgid "Confirm"
-msgstr "Bekreft"
 
 #: actions/passwordsettings.php:113 actions/recoverpassword.php:240
 msgid "Same as password above"
@@ -4181,6 +4277,12 @@ msgstr "Kunne ikke lagre merkelapper."
 msgid "Settings saved."
 msgstr "Innstillinger lagret."
 
+#. TRANS: Page title for page where a user account can be restored from backup.
+#: actions/profilesettings.php:481 actions/restoreaccount.php:60
+#, fuzzy
+msgid "Restore account"
+msgstr "Opprett en konto"
+
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)."
@@ -4409,7 +4511,6 @@ msgid "Unexpected password reset."
 msgstr "Uventet tilbakestilling av passord."
 
 #: actions/recoverpassword.php:365
-#, fuzzy
 msgid "Password must be 6 characters or more."
 msgstr "Passordet må bestå av 6 eller flere tegn."
 
@@ -4643,7 +4744,7 @@ msgstr "Du kan ikke gjenta din egen notis."
 msgid "You already repeated that notice."
 msgstr "Du har allerede gjentatt den notisen."
 
-#: actions/repeat.php:114 lib/noticelist.php:691
+#: actions/repeat.php:114 lib/noticelist.php:692
 msgid "Repeated"
 msgstr "Gjentatt"
 
@@ -4706,6 +4807,93 @@ msgstr ""
 #, php-format
 msgid "Replies to %1$s on %2$s!"
 msgstr "Svar til %1$s på %2$s!"
+
+#. TRANS: Client exception displayed when trying to restore an account while not logged in.
+#: actions/restoreaccount.php:78
+#, fuzzy
+msgid "Only logged-in users can restore their account."
+msgstr "Bare innloggede brukere kan repetere notiser."
+
+#. TRANS: Client exception displayed when trying to restore an account without having restore rights.
+#: actions/restoreaccount.php:83
+#, fuzzy
+msgid "You may not restore your account."
+msgstr "Du har ikke registrert noen program ennå."
+
+#. TRANS: Client exception displayed trying to restore an account while something went wrong uploading a file.
+#. TRANS: Client exception. No file; probably just a non-AJAX submission.
+#: actions/restoreaccount.php:121 actions/restoreaccount.php:146
+#, fuzzy
+msgid "No uploaded file."
+msgstr "Last opp fil"
+
+#. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
+#: actions/restoreaccount.php:129 lib/mediafile.php:194
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr ""
+
+#. TRANS: Client exception.
+#: actions/restoreaccount.php:135 lib/mediafile.php:200
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form."
+msgstr ""
+
+#. TRANS: Client exception.
+#: actions/restoreaccount.php:141 lib/mediafile.php:206
+msgid "The uploaded file was only partially uploaded."
+msgstr ""
+
+#. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
+#: actions/restoreaccount.php:150 lib/mediafile.php:214
+msgid "Missing a temporary folder."
+msgstr ""
+
+#. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
+#: actions/restoreaccount.php:154 lib/mediafile.php:218
+msgid "Failed to write file to disk."
+msgstr ""
+
+#. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
+#: actions/restoreaccount.php:158 lib/mediafile.php:222
+msgid "File upload stopped by extension."
+msgstr "Filopplasting stoppet grunnet filendelse."
+
+#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
+#: actions/restoreaccount.php:164 lib/imagefile.php:103 lib/mediafile.php:228
+msgid "System error uploading file."
+msgstr "Systemfeil ved opplasting av fil."
+
+#. TRANS: Client exception thrown when a feed is not an Atom feed.
+#: actions/restoreaccount.php:207
+#, fuzzy
+msgid "Not an Atom feed."
+msgstr "Alle medlemmer"
+
+#. TRANS: Success message when a feed has been restored.
+#: actions/restoreaccount.php:241
+msgid ""
+"Feed has been restored. Your old posts should now appear in search and your "
+"profile page."
+msgstr ""
+
+#. TRANS: Message when a feed restore is in progress.
+#: actions/restoreaccount.php:245
+msgid "Feed will be restored. Please wait a few minutes for results."
+msgstr ""
+
+#. TRANS: Form instructions for feed restore.
+#: actions/restoreaccount.php:342
+msgid ""
+"You can upload a backed-up stream in <a href=\"http://activitystrea.ms/"
+"\">Activity Streams</a> format."
+msgstr ""
+
+#. TRANS: Title for submit button to confirm upload of a user backup file for account restore.
+#: actions/restoreaccount.php:373
+#, fuzzy
+msgid "Upload the file"
+msgstr "Last opp fil"
 
 #: actions/revokerole.php:75
 msgid "You cannot revoke user roles on this site."
@@ -4807,7 +4995,7 @@ msgid "Reset key & secret"
 msgstr "Tilbakestill nøkkel & hemmelighet"
 
 #: actions/showapplication.php:252 lib/deletegroupform.php:121
-#: lib/deleteuserform.php:66 lib/noticelist.php:672
+#: lib/deleteuserform.php:66 lib/noticelist.php:673
 msgid "Delete"
 msgstr "Slett"
 
@@ -4988,14 +5176,12 @@ msgstr "Alle medlemmer"
 
 #. TRANS: Label for creation date in statistics on group page.
 #: actions/showgroup.php:453
-#, fuzzy
 msgctxt "LABEL"
 msgid "Created"
 msgstr "Opprettet"
 
 #. TRANS: Label for member count in statistics on group page.
 #: actions/showgroup.php:461
-#, fuzzy
 msgctxt "LABEL"
 msgid "Members"
 msgstr "Medlemmer"
@@ -6073,14 +6259,14 @@ msgid "Author(s)"
 msgstr "Forfatter(e)"
 
 #. TRANS: Activity title when marking a notice as favorite.
-#: classes/Fave.php:151 lib/favorform.php:143
+#: classes/Fave.php:164 lib/favorform.php:143
 #, fuzzy
 msgid "Favor"
 msgstr "Favoritter"
 
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
-#: classes/Fave.php:154
+#: classes/Fave.php:167
 #, fuzzy, php-format
 msgid "%1$s marked notice %2$s as a favorite."
 msgstr "%s /@%s) la din notis til som en favoritt"
@@ -6187,7 +6373,7 @@ msgid "Could not create login token for %s"
 msgstr "Kunne ikke opprette alias."
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
-#: classes/Memcached_DataObject.php:533
+#: classes/Memcached_DataObject.php:537
 msgid "No database name or DSN found anywhere."
 msgstr ""
 
@@ -6215,72 +6401,72 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:193
+#: classes/Notice.php:199
 #, fuzzy, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Databasefeil ved innsetting av bruker i programmet OAuth."
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:270
+#: classes/Notice.php:279
 msgid "Problem saving notice. Too long."
 msgstr "Problem ved lagring av notis. For lang."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:275
+#: classes/Notice.php:284
 msgid "Problem saving notice. Unknown user."
 msgstr "Problem ved lagring av notis. Ukjent bruker."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:281
+#: classes/Notice.php:290
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:288
+#: classes/Notice.php:297
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:296
+#: classes/Notice.php:305
 #, fuzzy
 msgid "You are banned from posting notices on this site."
 msgstr "Du kan ikke bringe brukere til taushet på dette nettstedet."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:363 classes/Notice.php:390
+#: classes/Notice.php:372 classes/Notice.php:399
 msgid "Problem saving notice."
 msgstr "Problem ved lagring av notis."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:913
+#: classes/Notice.php:914
 msgid "Bad type provided to saveKnownGroups."
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1012
+#: classes/Notice.php:1013
 msgid "Problem saving group inbox."
 msgstr "Problem ved lagring av gruppeinnboks."
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1126
+#: classes/Notice.php:1127
 #, fuzzy, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr "Kunne ikke lagre lokal gruppeinformasjon."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1645
+#: classes/Notice.php:1646
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
 #. TRANS: Full name of a profile or group followed by nickname in parens
-#: classes/Profile.php:172 classes/User_group.php:247
+#: classes/Profile.php:172 classes/User_group.php:242
 #, fuzzy, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
@@ -6288,14 +6474,14 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:798
+#: classes/Profile.php:765
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:807
+#: classes/Profile.php:774
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -6369,32 +6555,32 @@ msgid "Welcome to %1$s, @%2$s!"
 msgstr "Velkommen til %1$s, @%2$s."
 
 #. TRANS: Server exception.
-#: classes/User.php:923
+#: classes/User.php:918
 msgid "No single user defined for single-user mode."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/User.php:927
+#: classes/User.php:922
 msgid "Single-user mode code called when not enabled."
 msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:511
+#: classes/User_group.php:516
 msgid "Could not create group."
 msgstr "Kunne ikke opprette gruppe."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:521
+#: classes/User_group.php:526
 msgid "Could not set group URI."
 msgstr "Kunne ikke stille inn gruppe-URI."
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:544
+#: classes/User_group.php:549
 msgid "Could not set group membership."
 msgstr "Kunne ikke stille inn gruppemedlemskap."
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:559
+#: classes/User_group.php:564
 msgid "Could not save local group info."
 msgstr "Kunne ikke lagre lokal gruppeinformasjon."
 
@@ -6731,10 +6917,56 @@ msgstr "Før"
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
-#: lib/activity.php:360
+#. TRANS: Client exception thrown when using an unknown verb for the activity importer.
+#: lib/activityimporter.php:81
+#, fuzzy, php-format
+msgid "Unknown verb: \"%s\"."
+msgstr "Ukjent språk «%s»."
+
+#. TRANS: Client exception thrown when trying to force a subscription for an untrusted user.
+#: lib/activityimporter.php:107
+msgid "Cannot force subscription for untrusted user."
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#: lib/activityimporter.php:117
 #, fuzzy
-msgid "Post"
-msgstr "Foto"
+msgid "Cannot force remote user to subscribe."
+msgstr "Kunne ikke oppdatere bruker for autoabonnering."
+
+#. TRANS: Client exception thrown when trying to subscribe to an unknown profile.
+#: lib/activityimporter.php:132
+#, fuzzy
+msgid "Unknown profile."
+msgstr "Ukjent filtype"
+
+#. TRANS: Client exception thrown when trying to import an event not related to the importing user.
+#: lib/activityimporter.php:138
+msgid "This activity seems unrelated to our user."
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to join a remote group that is not a group.
+#: lib/activityimporter.php:154
+msgid "Remote profile is not a group!"
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to join a group the importing user is already a member of.
+#: lib/activityimporter.php:163
+#, fuzzy
+msgid "User is already a member of this group."
+msgstr "Du er allerede medlem av den gruppen."
+
+#. TRANS: Client exception thrown when trying to overwrite the author information for a non-trusted user during import.
+#: lib/activityimporter.php:207
+msgid "Not overwriting author info for non-trusted user."
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to import a notice without content.
+#. TRANS: %s is the notice URI.
+#: lib/activityimporter.php:223
+#, fuzzy, php-format
+msgid "No content for notice %s."
+msgstr "Inget innhold for notis %d."
 
 #. TRANS: Client exception thrown when there is no source attribute.
 #: lib/activityutils.php:200
@@ -7026,9 +7258,15 @@ msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Tilbakekall"
 
-#: lib/atom10feed.php:112
-msgid "author element must contain a name element."
+#: lib/atom10feed.php:113
+msgid "Author element must contain a name element."
 msgstr ""
+
+#. TRANS: Server exception thrown when using the method setActivitySubject() in the class Atom10Feed.
+#: lib/atom10feed.php:160
+#, fuzzy
+msgid "Do not use this method!"
+msgstr "Ikke slett denne gruppen"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:294
@@ -7427,26 +7665,26 @@ msgid ""
 msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:147
+#: lib/common.php:150
 #, fuzzy
 msgid "No configuration file found."
 msgstr "Ingen konfigurasjonsfil funnet. "
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
-#: lib/common.php:150
+#: lib/common.php:153
 #, fuzzy
 msgid "I looked for configuration files in the following places:"
 msgstr "Jeg så etter konfigurasjonfiler på følgende seter: "
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:153
+#: lib/common.php:156
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: The text is link text that leads to the installer page.
-#: lib/common.php:157
+#: lib/common.php:160
 #, fuzzy
 msgid "Go to the installer."
 msgstr "Log inn på nettstedet"
@@ -7556,6 +7794,19 @@ msgstr "Atom"
 #: lib/feed.php:90
 msgid "FOAF"
 msgstr "Venn av en venn"
+
+#: lib/feedimporter.php:75
+#, fuzzy
+msgid "Not an atom feed."
+msgstr "Alle medlemmer"
+
+#: lib/feedimporter.php:82
+msgid "No author in the feed."
+msgstr ""
+
+#: lib/feedimporter.php:89
+msgid "Can't import without a user."
+msgstr ""
 
 #. TRANS: Header for feed links (h2).
 #: lib/feedlist.php:66
@@ -7739,11 +7990,6 @@ msgstr "Filen er for stor. Maks filstørrelse er %s."
 #: lib/imagefile.php:95
 msgid "Partial upload."
 msgstr "Delvis opplasting."
-
-#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
-#: lib/imagefile.php:103 lib/mediafile.php:228
-msgid "System error uploading file."
-msgstr "Systemfeil ved opplasting av fil."
 
 #: lib/imagefile.php:111
 msgid "Not an image or corrupt file."
@@ -8161,7 +8407,7 @@ msgstr ""
 "engasjere andre brukere i en samtale. Personer kan sende deg meldinger som "
 "bare du kan se."
 
-#: lib/mailbox.php:228 lib/noticelist.php:521
+#: lib/mailbox.php:228 lib/noticelist.php:522
 msgid "from"
 msgstr "fra"
 
@@ -8193,38 +8439,6 @@ msgstr "Meldingstypen støttes ikke: %s"
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
 
-#. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
-#: lib/mediafile.php:194
-msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
-msgstr ""
-
-#. TRANS: Client exception.
-#: lib/mediafile.php:200
-msgid ""
-"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
-"the HTML form."
-msgstr ""
-
-#. TRANS: Client exception.
-#: lib/mediafile.php:206
-msgid "The uploaded file was only partially uploaded."
-msgstr ""
-
-#. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
-#: lib/mediafile.php:214
-msgid "Missing a temporary folder."
-msgstr ""
-
-#. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
-#: lib/mediafile.php:218
-msgid "Failed to write file to disk."
-msgstr ""
-
-#. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
-#: lib/mediafile.php:222
-msgid "File upload stopped by extension."
-msgstr "Filopplasting stoppet grunnet filendelse."
-
 #. TRANS: Client exception thrown when a file upload operation would cause a user to exceed a set quota.
 #: lib/mediafile.php:238 lib/mediafile.php:281
 msgid "File exceeds user's quota."
@@ -8245,7 +8459,7 @@ msgstr "Kunne ikke avgjøre filens MIME-type."
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %1$s is the file type that was denied, %2$s is the application part of
 #. TRANS: the MIME type that was denied.
-#: lib/mediafile.php:394
+#: lib/mediafile.php:396
 #, php-format
 msgid ""
 "\"%1$s\" is not a supported file type on this server. Try using another %2$s "
@@ -8254,7 +8468,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %s is the file type that was denied.
-#: lib/mediafile.php:399
+#: lib/mediafile.php:401
 #, php-format
 msgid "\"%s\" is not a supported file type on this server."
 msgstr ""
@@ -8289,17 +8503,17 @@ msgid "Send"
 msgstr "Send"
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:163
+#: lib/nickname.php:165
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "Kallenavn kan kun ha små bokstaver og tall og ingen mellomrom."
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:176
+#: lib/nickname.php:178
 msgid "Nickname cannot be empty."
 msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:189
+#: lib/nickname.php:191
 #, php-format
 msgid "Nickname cannot be more than %d character long."
 msgid_plural "Nickname cannot be more than %d characters long."
@@ -8340,56 +8554,56 @@ msgstr ""
 "igjen senere"
 
 #. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:451
+#: lib/noticelist.php:452
 msgid "N"
 msgstr "N"
 
 #. TRANS: Used in coordinates as abbreviation of south
-#: lib/noticelist.php:453
+#: lib/noticelist.php:454
 msgid "S"
 msgstr "S"
 
 #. TRANS: Used in coordinates as abbreviation of east
-#: lib/noticelist.php:455
+#: lib/noticelist.php:456
 msgid "E"
 msgstr "Ø"
 
 #. TRANS: Used in coordinates as abbreviation of west
-#: lib/noticelist.php:457
+#: lib/noticelist.php:458
 msgid "W"
 msgstr "V"
 
-#: lib/noticelist.php:459
+#: lib/noticelist.php:460
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
-#: lib/noticelist.php:468
+#: lib/noticelist.php:469
 msgid "at"
 msgstr "på"
 
-#: lib/noticelist.php:517
+#: lib/noticelist.php:518
 msgid "web"
 msgstr ""
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:584
 #, fuzzy
 msgid "in context"
 msgstr "Inget innhold."
 
-#: lib/noticelist.php:618
+#: lib/noticelist.php:619
 msgid "Repeated by"
 msgstr "Repetert av"
 
-#: lib/noticelist.php:645
+#: lib/noticelist.php:646
 msgid "Reply to this notice"
 msgstr "Svar på denne notisen"
 
-#: lib/noticelist.php:646
+#: lib/noticelist.php:647
 msgid "Reply"
 msgstr "Svar"
 
-#: lib/noticelist.php:690
+#: lib/noticelist.php:691
 msgid "Notice repeated"
 msgstr "Notis repetert"
 
@@ -8548,7 +8762,7 @@ msgid "Revoke the \"%s\" role from this user"
 msgstr "Blokker denne brukeren fra denne gruppen"
 
 #. TRANS: Client error on action trying to visit a non-existing page.
-#: lib/router.php:957
+#: lib/router.php:974
 #, fuzzy
 msgid "Page not found."
 msgstr "API-metode ikke funnet!"
@@ -8906,21 +9120,7 @@ msgid "Invalid XML, missing XRD root."
 msgstr ""
 
 #. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
-#: scripts/restoreuser.php:61
+#: scripts/restoreuser.php:62
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#. TRANS: Commandline script output.
-#: scripts/restoreuser.php:91
-#, fuzzy
-msgid "No user specified; using backup user."
-msgstr "Ingen bruker-ID spesifisert."
-
-#. TRANS: Commandline script output. %d is the number of entries in the activity stream in backup; used for plural.
-#: scripts/restoreuser.php:98
-#, php-format
-msgid "%d entry in backup."
-msgid_plural "%d entries in backup."
-msgstr[0] ""
-msgstr[1] ""
