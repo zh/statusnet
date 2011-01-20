@@ -241,7 +241,7 @@ class TwitterauthorizationAction extends Action
 
             $this->twuid = $twitter_user->id;
             $this->tw_fields = array("screen_name" => $twitter_user->screen_name,
-                                     "name" => $twitter_user->name);
+                                     "fullname" => $twitter_user->name);
             $this->access_token = $atok;
             $this->tryLogin();
         }
@@ -373,7 +373,7 @@ class TwitterauthorizationAction extends Action
         $this->hidden('access_token_secret', $this->access_token->secret);
         $this->hidden('twuid', $this->twuid);
         $this->hidden('tw_fields_screen_name', $this->tw_fields['screen_name']);
-        $this->hidden('tw_fields_name', $this->tw_fields['name']);
+        $this->hidden('tw_fields_name', $this->tw_fields['fullname']);
 
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
@@ -462,7 +462,7 @@ class TwitterauthorizationAction extends Action
             return;
         }
 
-        $fullname = trim($this->tw_fields['name']);
+        $fullname = trim($this->tw_fields['fullname']);
 
         $args = array('nickname' => $nickname, 'fullname' => $fullname);
 
@@ -602,8 +602,8 @@ class TwitterauthorizationAction extends Action
 
     function bestNewNickname()
     {
-        if (!empty($this->tw_fields['name'])) {
-            $nickname = $this->nicknamize($this->tw_fields['name']);
+        if (!empty($this->tw_fields['fullname'])) {
+            $nickname = $this->nicknamize($this->tw_fields['fullname']);
             if ($this->isNewNickname($nickname)) {
                 return $nickname;
             }
