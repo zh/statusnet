@@ -419,6 +419,10 @@ class TwitterauthorizationAction extends Action
 
     function createNewUser()
     {
+        if (!Event::handle('StartRegistrationTry', array($this))) {
+            return;
+        }
+
         if (common_config('site', 'closed')) {
             $this->clientError(_m('Registration not allowed.'));
             return;
@@ -489,6 +493,8 @@ class TwitterauthorizationAction extends Action
 
         common_debug('TwitterBridge Plugin - ' .
                      "Registered new user $user->id from Twitter user $this->twuid");
+
+        Event::handle('EndRegistrationTry', array($this));
 
         common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)),
                         303);

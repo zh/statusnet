@@ -356,7 +356,7 @@ class EmailsettingsAction extends AccountSettingsAction
 	    if ($result === false) {
 		common_log_db_error($user, 'UPDATE', __FILE__);
 		// TRANS: Server error thrown on database error updating e-mail preferences.
-		$this->serverError(_('Couldn\'t update user.'));
+		$this->serverError(_('Could not update user.'));
 		return;
 	    }
 	    
@@ -423,7 +423,7 @@ class EmailsettingsAction extends AccountSettingsAction
         if ($result === false) {
             common_log_db_error($confirm, 'INSERT', __FILE__);
             // TRANS: Server error thrown on database error adding e-mail confirmation code.
-            $this->serverError(_('Couldn\'t insert confirmation code.'));
+            $this->serverError(_('Could not insert confirmation code.'));
             return;
         }
 
@@ -465,7 +465,7 @@ class EmailsettingsAction extends AccountSettingsAction
         if (!$result) {
             common_log_db_error($confirm, 'DELETE', __FILE__);
             // TRANS: Server error thrown on database error canceling e-mail address confirmation.
-            $this->serverError(_('Couldn\'t delete email confirmation.'));
+            $this->serverError(_('Could not delete email confirmation.'));
             return;
         }
 
@@ -505,7 +505,7 @@ class EmailsettingsAction extends AccountSettingsAction
         if (!$result) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             // TRANS: Server error thrown on database error removing a registered e-mail address.
-            $this->serverError(_('Couldn\'t update user.'));
+            $this->serverError(_('Could not update user.'));
             return;
         }
         $user->query('COMMIT');
@@ -537,7 +537,7 @@ class EmailsettingsAction extends AccountSettingsAction
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             // TRANS: Server error thrown on database error removing incoming e-mail address.
-            $this->serverError(_("Couldn't update user record."));
+            $this->serverError(_("Could not update user record."));
         }
 
         // TRANS: Message given after successfully removing an incoming e-mail address.
@@ -562,7 +562,7 @@ class EmailsettingsAction extends AccountSettingsAction
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             // TRANS: Server error thrown on database error adding incoming e-mail address.
-            $this->serverError(_("Couldn't update user record."));
+            $this->serverError(_("Could not update user record."));
         }
 
         // TRANS: Message given after successfully adding an incoming e-mail address.

@@ -262,6 +262,10 @@ class FinishopenidloginAction extends Action
     {
         # FIXME: save invite code before redirect, and check here
 
+        if (!Event::handle('StartRegistrationTry', array($this))) {
+            return;
+        }
+
         if (common_config('site', 'closed')) {
             // TRANS: OpenID plugin message. No new user registration is allowed on the site.
             $this->clientError(_m('Registration not allowed.'));
@@ -374,6 +378,9 @@ class FinishopenidloginAction extends Action
             common_rememberme($user);
         }
         unset($_SESSION['openid_rememberme']);
+
+        Event::handle('EndRegistrationTry', array($this));
+
         common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)),
                         303);
     }
