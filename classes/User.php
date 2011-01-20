@@ -116,6 +116,16 @@ class User extends Memcached_DataObject
         return $result;
     }
 
+    /**
+     * Check whether the given nickname is potentially usable, or if it's
+     * excluded by any blacklists on this system.
+     *
+     * WARNING: INPUT IS NOT VALIDATED OR NORMALIZED. NON-NORMALIZED INPUT
+     * OR INVALID INPUT MAY LEAD TO FALSE RESULTS.
+     *
+     * @param string $nickname
+     * @return boolean true if clear, false if blacklisted
+     */
     static function allowed_nickname($nickname)
     {
         // XXX: should already be validated for size, content, etc.
@@ -949,4 +959,53 @@ class User extends Memcached_DataObject
             throw $e;
         }
     }
+
+    /**
+     * Find and shorten links in the given text using this user's URL shortening
+     * settings.
+     *
+     * By default, links will be left untouched if the text is shorter than the
+     * configured maximum notice length. Pass true for the $always parameter
+     * to force all links to be shortened regardless.
+     *
+     * Side effects: may save file and file_redirection records for referenced URLs.
+     *
+     * @param string $text
+     * @param boolean $always
+     * @return string
+     */
+    public function shortenLinks($text, $always=false)
+    {
+        return common_shorten_links($text, $always, $this);
+    }
+
+    /*
+     * Get a list of OAuth client application that have access to this
+     * user's account.
+     */
+    function getConnectedApps($offset = 0, $limit = null)
+    {
+        $qry =
+          'SELECT u.* ' .
+          'FROM oauth_application_user u, oauth_application a ' .
+          'WHERE u.profile_id = %d ' .
+          'AND a.id = u.application_id ' .
+          'AND u.access_type > 0 ' .
+          'ORDER BY u.created DESC ';
+
+        if ($offset > 0) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $apps = new Oauth_application_user();
+
+        $cnt = $apps->query(sprintf($qry, $this->id));
+
+        return $apps;
+    }
+
 }
