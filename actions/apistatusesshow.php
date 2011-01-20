@@ -114,6 +114,7 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
             $this->deleteNotice();
             break;
         default:
+            // TRANS: Client error displayed calling an unsupported HTTP error in API status show.
             $this->clientError(_('HTTP method not supported.'), 405);
             return;
         }
@@ -138,6 +139,8 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
                 $this->showSingleAtomStatus($this->notice);
                 break;
             default:
+                // TRANS: Exception thrown requesting an unsupported notice output format.
+                // TRANS: %s is the requested output format.
                 throw new Exception(sprintf(_("Unsupported format: %s"), $this->format));
             }
         } else {
@@ -171,7 +174,7 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
      *
      * @return boolean true
      */
-    
+
     function isReadOnly($args)
     {
         return ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'HEAD');
@@ -220,6 +223,7 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     function deleteNotice()
     {
         if ($this->format != 'atom') {
+            // TRANS: Client error displayed when trying to delete a notice not using the Atom format.
             $this->clientError(_("Can only delete using the Atom format."));
             return;
         }
@@ -227,7 +231,8 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
         if (empty($this->auth_user) ||
             ($this->notice->profile_id != $this->auth_user->id &&
              !$this->auth_user->hasRight(Right::DELETEOTHERSNOTICE))) {
-            $this->clientError(_('Can\'t delete this notice.'), 403);
+            // TRANS: Client error displayed when a user has no rights to delete notices of other users.
+            $this->clientError(_('Cannot delete this notice.'), 403);
             return;
         }
 
@@ -240,6 +245,7 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
 
         header('HTTP/1.1 200 OK');
         header('Content-Type: text/plain');
+        // TRANS: Confirmation of notice deletion in API. %d is the ID (number) of the deleted notice.
         print(sprintf(_('Deleted notice %d'), $this->notice->id));
         print("\n");
     }
