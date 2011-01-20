@@ -382,11 +382,19 @@ class TwitterauthorizationAction extends Action
         $this->element('p', null,
                        _m('Create a new user with this nickname.'));
         $this->elementStart('ul', 'form_data');
+
+        // Hook point for captcha etc
+        Event::handle('StartRegistrationFormData', array($this));
+
         $this->elementStart('li');
         $this->input('newname', _m('New nickname'),
                      ($this->username) ? $this->username : '',
                      _m('1-64 lowercase letters or numbers, no punctuation or spaces'));
         $this->elementEnd('li');
+
+        // Hook point for captcha etc
+        Event::handle('EndRegistrationFormData', array($this));
+
         $this->elementEnd('ul');
         $this->submit('create', _m('Create'));
         $this->elementEnd('fieldset');
