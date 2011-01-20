@@ -44,7 +44,6 @@ require_once INSTALLDIR.'/lib/connectsettingsaction.php';
  *
  * @see      SettingsAction
  */
-
 class SmssettingsAction extends ConnectSettingsAction
 {
     /**
@@ -52,7 +51,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return string Title of the page
      */
-
     function title()
     {
         // TRANS: Title for SMS settings.
@@ -64,7 +62,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return instructions for use
      */
-
     function getInstructions()
     {
         // XXX: For consistency of parameters in messages, this should be a
@@ -88,7 +85,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function showContent()
     {
         if (!common_config('sms', 'enabled')) {
@@ -219,7 +215,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @todo very similar to EmailsettingsAction::getConfirmation(); refactor?
      */
-
     function getConfirmation()
     {
         $user = common_current_user();
@@ -246,7 +241,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function handlePost()
     {
         // CSRF protection
@@ -285,7 +279,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function savePreferences()
     {
         $smsnotify = $this->boolean('smsnotify');
@@ -305,7 +298,7 @@ class SmssettingsAction extends ConnectSettingsAction
         if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             // TRANS: Server error thrown on database error updating SMS preferences.
-            $this->serverError(_('Couldn\'t update user.'));
+            $this->serverError(_('Could not update user.'));
             return;
         }
 
@@ -323,7 +316,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function addAddress()
     {
         $user = common_current_user();
@@ -370,7 +362,7 @@ class SmssettingsAction extends ConnectSettingsAction
         if ($result === false) {
             common_log_db_error($confirm, 'INSERT', __FILE__);
             // TRANS: Server error thrown on database error adding SMS confirmation code.
-            $this->serverError(_('Couldn\'t insert confirmation code.'));
+            $this->serverError(_('Could not insert confirmation code.'));
             return;
         }
 
@@ -395,7 +387,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function cancelConfirmation()
     {
         $sms     = $this->trimmed('sms');
@@ -419,7 +410,7 @@ class SmssettingsAction extends ConnectSettingsAction
         if (!$result) {
             common_log_db_error($confirm, 'DELETE', __FILE__);
             // TRANS: Server error thrown on database error canceling SMS phone number confirmation.
-            $this->serverError(_('Couldn\'t delete email confirmation.'));
+            $this->serverError(_('Could not delete email confirmation.'));
             return;
         }
 
@@ -432,7 +423,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function removeAddress()
     {
         $user = common_current_user();
@@ -461,7 +451,7 @@ class SmssettingsAction extends ConnectSettingsAction
         if (!$result) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             // TRANS: Server error thrown on database error removing a registered SMS phone number.
-            $this->serverError(_('Couldn\'t update user.'));
+            $this->serverError(_('Could not update user.'));
             return;
         }
         $user->query('COMMIT');
@@ -479,7 +469,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return boolean does the number exist
      */
-
     function smsExists($sms)
     {
         $user = common_current_user();
@@ -498,7 +487,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function carrierSelect()
     {
         $carrier = new Sms_carrier();
@@ -538,7 +526,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function confirmCode()
     {
         $code = $this->trimmed('code');
@@ -559,7 +546,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function removeIncoming()
     {
         $user = common_current_user();
@@ -575,7 +561,7 @@ class SmssettingsAction extends ConnectSettingsAction
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            $this->serverError(_("Couldn't update user record."));
+            $this->serverError(_("Could not update user record."));
         }
 
         $this->showForm(_('Incoming email address removed.'), true);
@@ -588,7 +574,6 @@ class SmssettingsAction extends ConnectSettingsAction
      *
      * @see Emailsettings::newIncoming
      */
-
     function newIncoming()
     {
         $user = common_current_user();
@@ -599,7 +584,7 @@ class SmssettingsAction extends ConnectSettingsAction
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            $this->serverError(_("Couldn't update user record."));
+            $this->serverError(_("Could not update user record."));
         }
 
         $this->showForm(_('New incoming email address added.'), true);

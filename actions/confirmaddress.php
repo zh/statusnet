@@ -115,7 +115,7 @@ class ConfirmaddressAction extends Action
         if (!$result) {
             common_log_db_error($cur, 'UPDATE', __FILE__);
             // TRANS: Server error displayed when a user update to the database fails in the contact address confirmation action.
-            $this->serverError(_('Couldn\'t update user.'));
+            $this->serverError(_('Could not update user.'));
             return;
         }
 
