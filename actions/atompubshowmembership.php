@@ -78,7 +78,7 @@ class AtompubshowmembershipAction extends ApiAuthAction
 
         if (empty($this->_group)) {
             // TRANS: Client exception thrown when referencing a non-existing group.
-            throw new ClientException(_('No such group'), 404);
+            throw new ClientException(_('No such group.'), 404);
         }
 
         $kv = array('group_id' => $groupId,
@@ -88,7 +88,7 @@ class AtompubshowmembershipAction extends ApiAuthAction
 
         if (empty($this->_membership)) {
             // TRANS: Client exception thrown when trying to show membership of a non-subscribed group
-            throw new ClientException(_('Not a member'), 404);
+            throw new ClientException(_('Not a member.'), 404);
         }
 
         return true;
@@ -113,7 +113,7 @@ class AtompubshowmembershipAction extends ApiAuthAction
             break;
         default:
             // TRANS: Client exception thrown when using an unsupported HTTP method.
-            throw new ClientException(_('HTTP method not supported'), 405);
+            throw new ClientException(_('HTTP method not supported.'), 405);
             break;
         }
         return;
@@ -149,7 +149,7 @@ class AtompubshowmembershipAction extends ApiAuthAction
             $this->auth_user->id != $this->_profile->id) {
             // TRANS: Client exception thrown when deleting someone else's membership.
             throw new ClientException(_("Cannot delete someone else's".
-                                        " membership"), 403);
+                                        " membership."), 403);
         }
 
         if (Event::handle('StartLeaveGroup', array($this->_group, $this->auth_user))) {
