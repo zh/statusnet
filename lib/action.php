@@ -100,10 +100,12 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowHTML', array($this))) {
             $this->startHTML();
+            $this->flush();
             Event::handle('EndShowHTML', array($this));
         }
         if (Event::handle('StartShowHead', array($this))) {
             $this->showHead();
+            $this->flush();
             Event::handle('EndShowHead', array($this));
         }
         if (Event::handle('StartShowBody', array($this))) {
@@ -471,11 +473,14 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'wrap'));
         if (Event::handle('StartShowHeader', array($this))) {
             $this->showHeader();
+            $this->flush();
             Event::handle('EndShowHeader', array($this));
         }
         $this->showCore();
+        $this->flush();
         if (Event::handle('StartShowFooter', array($this))) {
             $this->showFooter();
+            $this->flush();
             Event::handle('EndShowFooter', array($this));
         }
         $this->elementEnd('div');
@@ -695,14 +700,17 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'site_nav_local_views_wrapper'));
         if (Event::handle('StartShowLocalNavBlock', array($this))) {
             $this->showLocalNavBlock();
+            $this->flush();
             Event::handle('EndShowLocalNavBlock', array($this));
         }
         if (Event::handle('StartShowContentBlock', array($this))) {
             $this->showContentBlock();
+            $this->flush();
             Event::handle('EndShowContentBlock', array($this));
         }
         if (Event::handle('StartShowAside', array($this))) {
             $this->showAside();
+            $this->flush();
             Event::handle('EndShowAside', array($this));
         }
         $this->elementEnd('div');
