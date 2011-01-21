@@ -217,7 +217,7 @@ class AtompubmembershipfeedAction extends ApiAuthAction
             $this->auth_user->id != $this->_profile->id) {
             // TRANS: Client exception thrown when trying subscribe someone else to a group.
             throw new ClientException(_("Cannot add someone else's".
-                                        " membership"), 403);
+                                        " membership."), 403);
         }
 
         $xml = file_get_contents('php://input');
