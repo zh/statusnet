@@ -391,6 +391,11 @@ class TwitterauthorizationAction extends Action
                      ($this->username) ? $this->username : '',
                      _m('1-64 lowercase letters or numbers, no punctuation or spaces'));
         $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->input('email', _('Email'), $this->getEmail(),
+                     _('Used only for updates, announcements, '.
+                       'and password recovery'));
+        $this->elementEnd('li');
 
         // Hook point for captcha etc
         Event::handle('EndRegistrationFormData', array($this));
@@ -417,6 +422,32 @@ class TwitterauthorizationAction extends Action
 
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
+    }
+
+    /**
+     * Get specified e-mail from the form, or the invite code.
+     *
+     * @return string
+     */
+    function getEmail()
+    {
+        $email = $this->trimmed('email');
+        if (!empty($email)) {
+            return $email;
+        }
+
+        // Terrible hack for invites...
+        if (common_config('site', 'inviteonly')) {
+            $code = $_SESSION['invitecode'];
+            if ($code) {
+                $invite = Invitation::staticGet($code);
+
+                if ($invite && $invite->address_type == 'email') {
+                    return $invite->address;
+                }
+            }
+        }
+        return '';
     }
 
     function message($msg)
@@ -476,6 +507,11 @@ class TwitterauthorizationAction extends Action
 
         if (!empty($invite)) {
             $args['code'] = $invite->code;
+        }
+
+        $email = $this->getEmail();
+        if (!empty($email)) {
+            $args['email'] = $email;
         }
 
         $user = User::register($args);
