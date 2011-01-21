@@ -213,6 +213,7 @@ class ProfilesettingsAction extends AccountSettingsAction
         // CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
+            // TRANS: Form validation error.
             $this->showForm(_('There was a problem with your session token. '.
                               'Try again, please.'));
             return;
@@ -459,6 +460,7 @@ class ProfilesettingsAction extends AccountSettingsAction
                 $this->elementStart('li');
                 $this->element('a',
                                array('href' => common_local_url('backupaccount')),
+                               // TRANS: Option in profile settings to create a backup of the account of the currently logged in user.
                                _('Backup account'));
                 $this->elementEnd('li');
             }
@@ -466,6 +468,7 @@ class ProfilesettingsAction extends AccountSettingsAction
                 $this->elementStart('li');
                 $this->element('a',
                                array('href' => common_local_url('deleteaccount')),
+                               // TRANS: Option in profile settings to delete the account of the currently logged in user.
                                _('Delete account'));
                 $this->elementEnd('li');
             }
@@ -473,6 +476,7 @@ class ProfilesettingsAction extends AccountSettingsAction
                 $this->elementStart('li');
                 $this->element('a',
                                array('href' => common_local_url('restoreaccount')),
+                               // TRANS: Option in profile settings to restore the account of the currently logged in user from a backup.
                                _('Restore account'));
                 $this->elementEnd('li');
             }

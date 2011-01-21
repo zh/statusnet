@@ -58,6 +58,7 @@ class DisfavorAction extends Action
     {
         parent::handle($args);
         if (!common_logged_in()) {
+            // TRANS: Client error displayed when trying to remove a favorite while not logged in.
             $this->clientError(_('Not logged in.'));
             return;
         }
@@ -71,6 +72,7 @@ class DisfavorAction extends Action
         $notice = Notice::staticGet($id);
         $token  = $this->trimmed('token-'.$notice->id);
         if (!$token || $token != common_session_token()) {
+            // TRANS: Client error displayed when the session token does not match or is not given.
             $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
@@ -78,12 +80,14 @@ class DisfavorAction extends Action
         $fave->user_id   = $user->id;
         $fave->notice_id = $notice->id;
         if (!$fave->find(true)) {
+            // TRANS: Client error displayed when trying to remove favorite status for a notice that is not a favorite.
             $this->clientError(_('This notice is not a favorite!'));
             return;
         }
         $result = $fave->delete();
         if (!$result) {
             common_log_db_error($fave, 'DELETE', __FILE__);
+            // TRANS: Server error displayed when removing a favorite from the database fails.
             $this->serverError(_('Could not delete favorite.'));
             return;
         }
@@ -91,6 +95,7 @@ class DisfavorAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
+            // TRANS: Title for page on which favorites can be added.
             $this->element('title', null, _('Add to favorites'));
             $this->elementEnd('head');
             $this->elementStart('body');
@@ -105,4 +110,3 @@ class DisfavorAction extends Action
         }
     }
 }
-
