@@ -737,6 +737,12 @@ statusnet.ini (since this is the recommended database name). If you
 have a line in your config.php pointing to the old name, you'll need
 to update it.
 
+NOTE: the 1.0.0 version of StatusNet changed the URLs for all admin
+panels from /admin/* to /panel/*. This now allows the (popular)
+username 'admin', but blocks the considerably less popular username
+'panel'. If you have an existing user named 'panel', you should rename
+them before upgrading.
+
 Notice inboxes
 --------------
 
