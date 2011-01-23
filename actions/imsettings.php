@@ -43,7 +43,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @see      SettingsAction
  */
 
-class ImsettingsAction extends ConnectSettingsAction
+class ImsettingsAction extends SettingsAction
 {
     /**
      * Title of the page

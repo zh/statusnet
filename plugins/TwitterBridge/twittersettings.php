@@ -45,7 +45,7 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
  *
  * @see      SettingsAction
  */
-class TwittersettingsAction extends ConnectSettingsAction
+class TwittersettingsAction extends SettingsAction
 {
     /**
      * Title of the page

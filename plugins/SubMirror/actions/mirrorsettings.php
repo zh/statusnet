@@ -29,7 +29,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-class MirrorSettingsAction extends AccountSettingsAction
+class MirrorSettingsAction extends SettingsAction
 {
     /**
      * Title of the page

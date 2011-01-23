@@ -31,8 +31,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/connectsettingsaction.php';
-
 /**
  * Settings for SMS
  *
@@ -45,7 +43,7 @@ require_once INSTALLDIR.'/lib/connectsettingsaction.php';
  * @see      SettingsAction
  */
 
-class SmssettingsAction extends ConnectSettingsAction
+class SmssettingsAction extends SettingsAction
 {
     /**
      * Title of the page

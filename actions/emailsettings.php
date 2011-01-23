@@ -32,7 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/accountsettingsaction.php';
+
 
 /**
  * Settings for email
@@ -47,7 +47,7 @@ require_once INSTALLDIR.'/lib/accountsettingsaction.php';
  * @see      Widget
  */
 
-class EmailsettingsAction extends AccountSettingsAction
+class EmailsettingsAction extends SettingsAction
 {
     /**
      * Title of the page

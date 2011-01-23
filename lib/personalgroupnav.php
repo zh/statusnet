@@ -79,7 +79,7 @@ class PersonalGroupNav extends Widget
     {
         $user = null;
 
-	// FIXME: we should probably pass this in
+        // FIXME: we should probably pass this in
 
         $action = $this->action->trimmed('action');
         $nickname = $this->action->trimmed('nickname');
@@ -98,25 +98,20 @@ class PersonalGroupNav extends Widget
 
         if (Event::handle('StartPersonalGroupNav', array($this))) {
             $this->out->menuItem(common_local_url('all', array('nickname' =>
-                                                           $nickname)),
-                             _('Personal'),
-                             sprintf(_('%s and friends'), $name),
-                             $action == 'all', 'nav_timeline_personal');
+                                                               $nickname)),
+                                 _('Home'),
+                                 sprintf(_('%s and friends'), $name),
+                                 $action == 'all', 'nav_timeline_personal');
             $this->out->menuItem(common_local_url('replies', array('nickname' =>
-                                                                  $nickname)),
-                             _('Replies'),
-                             sprintf(_('Replies to %s'), $name),
-                             $action == 'replies', 'nav_timeline_replies');
-            $this->out->menuItem(common_local_url('showstream', array('nickname' =>
-                                                                  $nickname)),
-                             _('Profile'),
-                             $name,
-                             $action == 'showstream', 'nav_profile');
+                                                                   $nickname)),
+                                 _('Replies'),
+                                 sprintf(_('Replies to %s'), $name),
+                                 $action == 'replies', 'nav_timeline_replies');
             $this->out->menuItem(common_local_url('showfavorites', array('nickname' =>
-                                                                  $nickname)),
-                             _('Favorites'),
-                             sprintf(_('%s\'s favorite notices'), ($user_profile) ? $name : _('User')),
-                             $action == 'showfavorites', 'nav_timeline_favorites');
+                                                                         $nickname)),
+                                 _('Favorites'),
+                                 sprintf(_('%s\'s favorite notices'), ($user_profile) ? $name : _('User')),
+                                 $action == 'showfavorites', 'nav_timeline_favorites');
 
             $cur = common_current_user();
 
@@ -124,15 +119,15 @@ class PersonalGroupNav extends Widget
                 !common_config('singleuser', 'enabled')) {
 
                 $this->out->menuItem(common_local_url('inbox', array('nickname' =>
-                                                                         $nickname)),
-                                 _('Inbox'),
-                                 _('Your incoming messages'),
-                                 $action == 'inbox');
+                                                                     $nickname)),
+                                     _('Inbox'),
+                                     _('Your incoming messages'),
+                                     $action == 'inbox');
                 $this->out->menuItem(common_local_url('outbox', array('nickname' =>
-                                                                         $nickname)),
-                                 _('Outbox'),
-                                 _('Your sent messages'),
-                                 $action == 'outbox');
+                                                                      $nickname)),
+                                     _('Outbox'),
+                                     _('Your sent messages'),
+                                     $action == 'outbox');
             }
             Event::handle('EndPersonalGroupNav', array($this));
         }

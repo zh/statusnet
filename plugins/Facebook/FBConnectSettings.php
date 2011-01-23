@@ -42,7 +42,7 @@ require_once INSTALLDIR.'/lib/connectsettingsaction.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class FBConnectSettingsAction extends ConnectSettingsAction
+class FBSettingsAction extends ConnectSettingsAction
 {
     /**
      * Title of the page

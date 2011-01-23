@@ -150,7 +150,7 @@ class FacebookPlugin extends Plugin
             return false;
         case 'FBConnectAuthAction':
         case 'FBConnectLoginAction':
-        case 'FBConnectSettingsAction':
+        case 'FBSettingsAction':
         case 'FBC_XDReceiverAction':
             include_once INSTALLDIR . '/plugins/Facebook/' .
               mb_substr($cls, 0, -6) . '.php';
@@ -357,7 +357,7 @@ class FacebookPlugin extends Plugin
         // List of actions that require FB stuff
         $needy = array('FBConnectLoginAction',
                        'FBConnectauthAction',
-                       'FBConnectSettingsAction');
+                       'FBSettingsAction');
 
         if (in_array(get_class($action), $needy)) {
             return true;

@@ -150,4 +150,17 @@ class SettingsAction extends CurrentUserDesignAction
         return '';
     }
 
+    /**
+     * Show the local navigation menu
+     *
+     * This is the same for all settings, so we show it here.
+     *
+     * @return void
+     */
+
+    function showLocalNav()
+    {
+        $menu = new SettingsNav($this);
+        $menu->show();
+    }
 }

@@ -32,7 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/accountsettingsaction.php';
+
 
 define('MAX_ORIGINAL', 480);
 
@@ -49,7 +49,7 @@ define('MAX_ORIGINAL', 480);
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class AvatarsettingsAction extends AccountSettingsAction
+class AvatarsettingsAction extends SettingsAction
 {
     var $mode = null;
     var $imagefile = null;

@@ -32,7 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/accountsettingsaction.php';
+
 
 define('MAX_ORIGINAL', 480);
 

@@ -76,6 +76,12 @@ class SubGroupNav extends Widget
 
         if (Event::handle('StartSubGroupNav', array($this))) {
 
+            $this->out->menuItem(common_local_url('showstream', array('nickname' =>
+                                                                      $this->user->nickname)),
+                                 _('Profile'),
+                                 (empty($profile)) ? $this->user->nickname : $profile->getBestName(),
+                                 $action == 'showstream',
+                                 'nav_profile');
             $this->out->menuItem(common_local_url('subscriptions',
                                                   array('nickname' =>
                                                         $this->user->nickname)),

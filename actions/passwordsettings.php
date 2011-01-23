@@ -32,7 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/accountsettingsaction.php';
+
 
 /**
  * Change password
@@ -45,7 +45,7 @@ require_once INSTALLDIR.'/lib/accountsettingsaction.php';
  * @link     http://status.net/
  */
 
-class PasswordsettingsAction extends AccountSettingsAction
+class PasswordsettingsAction extends SettingsAction
 {
     /**
      * Title of the page

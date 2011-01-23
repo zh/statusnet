@@ -32,7 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/accountsettingsaction.php';
+
 
 /**
  * Miscellaneous settings actions
@@ -47,7 +47,7 @@ require_once INSTALLDIR.'/lib/accountsettingsaction.php';
  * @link     http://status.net/
  */
 
-class UrlsettingsAction extends AccountSettingsAction
+class UrlsettingsAction extends SettingsAction
 {
     /**
      * Title of the page
