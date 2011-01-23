@@ -105,7 +105,7 @@ class FacebookPlugin extends Plugin
      */
     function onStartInitializeRouter($m)
     {
-        $m->connect('admin/facebook', array('action' => 'facebookadminpanel'));
+        $m->connect('panel/facebook', array('action' => 'facebookadminpanel'));
 
         if (self::hasKeys()) {
             // Facebook App stuff

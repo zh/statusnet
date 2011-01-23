@@ -85,7 +85,7 @@ class UserFlagPlugin extends Plugin
     {
         $m->connect('main/flag/profile', array('action' => 'flagprofile'));
         $m->connect('main/flag/clear', array('action' => 'clearflag'));
-        $m->connect('admin/profile/flag', array('action' => 'adminprofileflag'));
+        $m->connect('panel/profile/flag', array('action' => 'adminprofileflag'));
         return true;
     }
 

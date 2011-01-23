@@ -791,21 +791,21 @@ class Router
 
             // Admin
 
-            $m->connect('admin/site', array('action' => 'siteadminpanel'));
-            $m->connect('admin/design', array('action' => 'designadminpanel'));
-            $m->connect('admin/user', array('action' => 'useradminpanel'));
-	        $m->connect('admin/access', array('action' => 'accessadminpanel'));
-            $m->connect('admin/paths', array('action' => 'pathsadminpanel'));
-            $m->connect('admin/sessions', array('action' => 'sessionsadminpanel'));
-            $m->connect('admin/sitenotice', array('action' => 'sitenoticeadminpanel'));
-            $m->connect('admin/snapshot', array('action' => 'snapshotadminpanel'));
-            $m->connect('admin/license', array('action' => 'licenseadminpanel'));
+            $m->connect('panel/site', array('action' => 'siteadminpanel'));
+            $m->connect('panel/design', array('action' => 'designadminpanel'));
+            $m->connect('panel/user', array('action' => 'useradminpanel'));
+	        $m->connect('panel/access', array('action' => 'accessadminpanel'));
+            $m->connect('panel/paths', array('action' => 'pathsadminpanel'));
+            $m->connect('panel/sessions', array('action' => 'sessionsadminpanel'));
+            $m->connect('panel/sitenotice', array('action' => 'sitenoticeadminpanel'));
+            $m->connect('panel/snapshot', array('action' => 'snapshotadminpanel'));
+            $m->connect('panel/license', array('action' => 'licenseadminpanel'));
 
-            $m->connect('admin/plugins', array('action' => 'pluginsadminpanel'));
-            $m->connect('admin/plugins/enable/:plugin',
+            $m->connect('panel/plugins', array('action' => 'pluginsadminpanel'));
+            $m->connect('panel/plugins/enable/:plugin',
                         array('action' => 'pluginenable'),
                         array('plugin' => '[A-Za-z0-9_]+'));
-            $m->connect('admin/plugins/disable/:plugin',
+            $m->connect('panel/plugins/disable/:plugin',
                         array('action' => 'plugindisable'),
                         array('plugin' => '[A-Za-z0-9_]+'));
 

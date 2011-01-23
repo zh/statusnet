@@ -80,7 +80,7 @@ class OpenIDPlugin extends Plugin
         $m->connect('index.php?action=finishaddopenid',
                     array('action' => 'finishaddopenid'));
         $m->connect('main/openidserver', array('action' => 'openidserver'));
-        $m->connect('admin/openid', array('action' => 'openidadminpanel'));
+        $m->connect('panel/openid', array('action' => 'openidadminpanel'));
 
         return true;
     }
