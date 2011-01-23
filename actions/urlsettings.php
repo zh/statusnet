@@ -99,23 +99,28 @@ class UrlsettingsAction extends SettingsAction
         $this->hidden('token', common_session_token());
         $this->elementStart('ul', 'form_data');
 
-        $shorteners = array(_('[none]') => array('freeService' => false));
-
         Event::handle('GetUrlShorteners', array(&$shorteners));
 
         $services = array();
-        foreach($shorteners as $name=>$value)
+
+        foreach ($shorteners as $name => $value)
         {
-            $services[$name]=$name;
-            if($value['freeService']){
+            $services[$name] = $name;
+            if ($value['freeService']) {
                 // TRANS: Used as a suffix for free URL shorteners in a dropdown list in the tab "Other" of a
                 // TRANS: user's profile settings. This message has one space at the beginning. Use your
                 // TRANS: language's word separator here if it has one (most likely a single space).
-                $services[$name].=_(' (free service)');
+                $services[$name] .= _(' (free service)');
             }
         }
-        if($services)
-        {
+
+        // Include default values
+
+        $services['none']     = _('[none]');
+        $services['internal'] = _('[internal]');
+
+        if ($services) {
+
             asort($services);
 
             $this->elementStart('li');

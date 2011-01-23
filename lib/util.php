@@ -2073,6 +2073,7 @@ function common_shorten_url($long_url, User $user=null, $force = false)
     common_debug("maxUrlLength = $maxUrlLength");
 
     // $force forces shortening even if it's not strictly needed
+    // I doubt URL shortening is ever 'strictly' needed. - ESP
 
     if (mb_strlen($long_url) < $maxUrlLength && !$force) {
         common_debug("Skipped shortening URL.");
@@ -2083,9 +2084,20 @@ function common_shorten_url($long_url, User $user=null, $force = false)
 
     common_debug("Shortener name = '$shortenerName'");
 
-    if (Event::handle('StartShortenUrl', array($long_url, $shortenerName, &$shortenedUrl))) {
-        //URL wasn't shortened, so return the long url
-        return $long_url;
+    if (Event::handle('StartShortenUrl', 
+                      array($long_url, $shortenerName, &$shortenedUrl))) {
+        if ($shortenerName == 'internal') {
+            $f = File::processNew($long_url);
+            if (empty($f)) {
+                return $long_url;
+            } else {
+                $shortenedUrl = common_local_url('redirecturl',
+                                                 array('id' => $f->id));
+                return $shortenedUrl;
+            }
+        } else {
+            return $long_url;
+        }
     } else {
         //URL was shortened, so return the result
         return trim($shortenedUrl);

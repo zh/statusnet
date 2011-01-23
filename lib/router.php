@@ -974,6 +974,12 @@ class Router
                         array('action' => 'AtomPubMembershipFeed'),
                         array('profile' => '[0-9]+'));
 
+            // URL shortening
+
+            $m->connect('url/:id',
+                        array('action' => 'redirecturl',
+                              'id' => '[0-9]+'));
+
             // user stuff
 
             Event::handle('RouterInitialized', array($m));

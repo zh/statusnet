@@ -295,17 +295,7 @@ $default =
         'logincommand' =>
         array('disabled' => true),
         'plugins' =>
-        array('default' => array('LilUrl' => array('shortenerName'=>'ur1.ca',
-                                                   'freeService' => true,
-                                                   'serviceUrl'=>'http://ur1.ca/'),
-                                 'PtitUrl' => array('shortenerName' => 'ptiturl.com',
-                                                    'serviceUrl' => 'http://ptiturl.com/?creer=oui&action=Reduire&url=%1$s'),
-                                 'SimpleUrl' => array(array('shortenerName' => 'is.gd', 'serviceUrl' => 'http://is.gd/api.php?longurl=%1$s'),
-                                                      array('shortenerName' => 'snipr.com', 'serviceUrl' => 'http://snipr.com/site/snip?r=simple&link=%1$s'),
-                                                      array('shortenerName' => 'metamark.net', 'serviceUrl' => 'http://metamark.net/api/rest/simple?long_url=%1$s'),
-                                                      array('shortenerName' => 'tinyurl.com', 'serviceUrl' => 'http://tinyurl.com/api-create.php?url=%1$s')),
-                                 'TightUrl' => array('shortenerName' => '2tu.us', 'freeService' => true,'serviceUrl'=>'http://2tu.us/?save=y&url=%1$s'),
-                                 'Geonames' => null,
+        array('default' => array('Geonames' => null,
                                  'Mapstraction' => null,
                                  'OStatus' => null,
                                  'WikiHashtags' => null,
