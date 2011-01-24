@@ -235,4 +235,24 @@ class RequireValidatedEmailPlugin extends Plugin
         }
         return true;
     }
+
+    /**
+     * Prevent unvalidated folks from creating spam groups.
+     *
+     * @param Profile $profile User profile we're checking
+     * @param string $right rights key
+     * @param boolean $result if overriding, set to true/false has right
+     * @return boolean hook result value
+     */
+    function onUserRightsCheck(Profile $profile, $right, &$result)
+    {
+        if ($right == Right::CREATEGROUP) {
+            $user = User::staticGet('id', $profile->id);
+            if ($user && !$this->validated($user)) {
+                $result = false;
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -99,7 +99,9 @@ class XrdAction extends Action
 	    
             $xrd->links[] = array('rel' => 'http://apinamespace.org/atom',
                                   'type' => 'application/atomsvc+xml',
-                                  'href' => common_local_url('ApiAtomService', array('id' => $nick)));
+                                  'href' => common_local_url('ApiAtomService', array('id' => $nick)),
+                                  'property' => array(array('type' => 'http://apinamespace.org/atom/username',
+                                                            'value' => $nick)));
 
             if (common_config('site', 'fancy')) {
                 $apiRoot = common_path('api/', true);

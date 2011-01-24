@@ -28,6 +28,8 @@
 
 class UserActivityStream extends AtomUserNoticeFeed
 {
+    public $activities = array();
+
     function __construct($user, $indent = true)
     {
         parent::__construct($user, null, $indent);
@@ -45,10 +47,15 @@ class UserActivityStream extends AtomUserNoticeFeed
         usort($objs, 'UserActivityStream::compareObject');
 
         foreach ($objs as $obj) {
-            $act = $obj->asActivity();
+            $this->activities[] = $obj->asActivity();
+        }
+    }
+    
+    function renderEntries()
+    {
+        foreach ($this->activities as $act) {
             // Only show the author sub-element if it's different from default user
-            $str = $act->asString(false, ($act->actor->id != $this->user->uri));
-            $this->addEntryRaw($str);
+            $act->outputTo($this, false, ($act->actor->id != $this->user->uri));
         }
     }
 

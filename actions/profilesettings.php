@@ -46,7 +46,6 @@ require_once INSTALLDIR.'/lib/accountsettingsaction.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ProfilesettingsAction extends AccountSettingsAction
 {
     /**
@@ -54,7 +53,6 @@ class ProfilesettingsAction extends AccountSettingsAction
      *
      * @return string Title of the page
      */
-
     function title()
     {
         // TRANS: Page title for profile settings.
@@ -66,7 +64,6 @@ class ProfilesettingsAction extends AccountSettingsAction
      *
      * @return instructions for use
      */
-
     function getInstructions()
     {
         // TRANS: Usage instructions for profile settings.
@@ -87,7 +84,6 @@ class ProfilesettingsAction extends AccountSettingsAction
      *
      * @return void
      */
-
     function showContent()
     {
         $user = common_current_user();
@@ -212,7 +208,6 @@ class ProfilesettingsAction extends AccountSettingsAction
      *
      * @return void
      */
-
     function handlePost()
     {
         // CSRF protection
@@ -323,7 +318,7 @@ class ProfilesettingsAction extends AccountSettingsAction
                 if ($result === false) {
                     common_log_db_error($user, 'UPDATE', __FILE__);
                     // TRANS: Server error thrown when user profile settings could not be updated.
-                    $this->serverError(_('Couldn\'t update user.'));
+                    $this->serverError(_('Could not update user.'));
                     return;
                 } else {
                     // Re-initialize language environment if it changed
@@ -348,7 +343,7 @@ class ProfilesettingsAction extends AccountSettingsAction
                     common_log_db_error($user, 'UPDATE', __FILE__);
                     // TRANS: Server error thrown when user profile settings could not be updated to
                     // TRANS: automatically subscribe to any subscriber.
-                    $this->serverError(_('Couldn\'t update user for autosubscribe.'));
+                    $this->serverError(_('Could not update user for autosubscribe.'));
                     return;
                 }
             }
@@ -406,7 +401,7 @@ class ProfilesettingsAction extends AccountSettingsAction
                 if ($result === false) {
                     common_log_db_error($prefs, ($exists) ? 'UPDATE' : 'INSERT', __FILE__);
                     // TRANS: Server error thrown when user profile location preference settings could not be updated.
-                    $this->serverError(_('Couldn\'t save location prefs.'));
+                    $this->serverError(_('Could not save location prefs.'));
                     return;
                 }
             }
@@ -419,7 +414,7 @@ class ProfilesettingsAction extends AccountSettingsAction
             if ($result === false) {
                 common_log_db_error($profile, 'UPDATE', __FILE__);
                 // TRANS: Server error thrown when user profile settings could not be saved.
-                $this->serverError(_('Couldn\'t save profile.'));
+                $this->serverError(_('Could not save profile.'));
                 return;
             }
 
@@ -428,7 +423,7 @@ class ProfilesettingsAction extends AccountSettingsAction
 
             if (!$result) {
                 // TRANS: Server error thrown when user profile settings tags could not be saved.
-                $this->serverError(_('Couldn\'t save tags.'));
+                $this->serverError(_('Could not save tags.'));
                 return;
             }
 

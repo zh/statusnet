@@ -242,7 +242,7 @@ class UserProfile extends Widget
             $this->out->elementEnd('div');
             return;
         }
-        if (Event::handle('StartProfilePageActionsSection', array(&$this->out, $this->profile))) {
+        if (Event::handle('StartProfilePageActionsSection', array($this->out, $this->profile))) {
 
             $cur = common_current_user();
 
@@ -250,13 +250,13 @@ class UserProfile extends Widget
             $this->out->element('h2', null, _('User actions'));
             $this->out->elementStart('ul');
 
-            if (Event::handle('StartProfilePageActionsElements', array(&$this->out, $this->profile))) {
+            if (Event::handle('StartProfilePageActionsElements', array($this->out, $this->profile))) {
                 if (empty($cur)) { // not logged in
-                    if (Event::handle('StartProfileRemoteSubscribe', array(&$this->out, $this->profile))) {
+                    if (Event::handle('StartProfileRemoteSubscribe', array($this->out, $this->profile))) {
                         $this->out->elementStart('li', 'entity_subscribe');
                         $this->showRemoteSubscribeLink();
                         $this->out->elementEnd('li');
-                        Event::handle('EndProfileRemoteSubscribe', array(&$this->out, $this->profile));
+                        Event::handle('EndProfileRemoteSubscribe', array($this->out, $this->profile));
                     }
                 } else {
                     if ($cur->id == $this->profile->id) { // your own page
@@ -376,13 +376,13 @@ class UserProfile extends Widget
                     }
                 }
 
-                Event::handle('EndProfilePageActionsElements', array(&$this->out, $this->profile));
+                Event::handle('EndProfilePageActionsElements', array($this->out, $this->profile));
             }
 
             $this->out->elementEnd('ul');
             $this->out->elementEnd('div');
 
-            Event::handle('EndProfilePageActionsSection', array(&$this->out, $this->profile));
+            Event::handle('EndProfilePageActionsSection', array($this->out, $this->profile));
         }
     }
 

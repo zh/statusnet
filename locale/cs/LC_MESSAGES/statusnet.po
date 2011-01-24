@@ -11,18 +11,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-16 15:08+0000\n"
-"PO-Revision-Date: 2010-12-16 15:10:30+0000\n"
+"POT-Creation-Date: 2011-01-20 19:02+0000\n"
+"PO-Revision-Date: 2011-01-20 19:05:17+0000\n"
 "Language-Team: Czech <http://translatewiki.net/wiki/Portal:cs>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r80631); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ( (n >= 2 && n <= 4) ? 1 : "
 "2 );\n"
-"X-POT-Import-Date: 2010-11-30 20:43:14+0000\n"
+"X-POT-Import-Date: 2011-01-15 11:03:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -89,9 +89,9 @@ msgstr "uložit nastavení přístupu"
 #. TRANS: Button label in the "Edit application" form.
 #. TRANS: Button text on profile design page to save settings.
 #: actions/accessadminpanel.php:193 actions/emailsettings.php:254
-#: actions/imsettings.php:187 actions/othersettings.php:134
-#: actions/pathsadminpanel.php:512 actions/profilesettings.php:201
-#: actions/sitenoticeadminpanel.php:197 actions/smssettings.php:209
+#: actions/imsettings.php:183 actions/othersettings.php:134
+#: actions/pathsadminpanel.php:512 actions/profilesettings.php:197
+#: actions/sitenoticeadminpanel.php:197 actions/smssettings.php:205
 #: actions/subscriptions.php:262 actions/useradminpanel.php:298
 #: lib/applicationeditform.php:355 lib/designsettings.php:270
 #: lib/groupeditform.php:207
@@ -112,6 +112,8 @@ msgstr "Tady žádná taková stránka není."
 #. TRANS: Client error displayed if a user could not be found.
 #. TRANS: Client error when user not found updating a profile background image.
 #. TRANS: Client error displayed updating profile image without having a user object.
+#. TRANS: Client error displayed when making an Atom API request for an unknown user.
+#. TRANS: Client error displayed when trying to block a non-existing user or a user from another site.
 #. TRANS: Client error when user not found for an API action to remove a block for a user.
 #. TRANS: Client error given when a user was not found (404).
 #. TRANS: Client error when user not found for an API direct message action.
@@ -132,8 +134,8 @@ msgstr "Tady žádná taková stránka není."
 #: actions/apiaccountupdatedeliverydevice.php:110
 #: actions/apiaccountupdateprofile.php:103
 #: actions/apiaccountupdateprofilebackgroundimage.php:118
-#: actions/apiaccountupdateprofileimage.php:104 actions/apiatomservice.php:60
-#: actions/apiblockcreate.php:95 actions/apiblockdestroy.php:94
+#: actions/apiaccountupdateprofileimage.php:104 actions/apiatomservice.php:59
+#: actions/apiblockcreate.php:96 actions/apiblockdestroy.php:94
 #: actions/apidirectmessage.php:75 actions/apidirectmessagenew.php:72
 #: actions/apigroupcreate.php:111 actions/apigroupismember.php:89
 #: actions/apigroupjoin.php:98 actions/apigroupleave.php:98
@@ -144,7 +146,7 @@ msgstr "Tady žádná taková stránka není."
 #: actions/avatarbynickname.php:79 actions/favoritesrss.php:74
 #: actions/foaf.php:40 actions/foaf.php:58 actions/hcard.php:67
 #: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
-#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
+#: actions/remotesubscribe.php:144 actions/remotesubscribe.php:153
 #: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
 #: actions/showfavorites.php:105 actions/userbyid.php:74
 #: actions/usergroups.php:93 actions/userrss.php:40 actions/userxrd.php:59
@@ -280,7 +282,7 @@ msgstr "Novinky od uživatele %1$s a přátel na %2$s!"
 #: actions/apistatusesshow.php:105 actions/apistatusnetconfig.php:138
 #: actions/apistatusnetversion.php:91 actions/apisubscriptions.php:109
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:268
-#: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
+#: actions/apitimelinegroup.php:147 actions/apitimelinehome.php:173
 #: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:239
 #: actions/apitimelineretweetedtome.php:118
 #: actions/apitimelineretweetsofme.php:150 actions/apitimelinetag.php:159
@@ -313,7 +315,21 @@ msgstr ""
 "Je nutné zadat parametr s názvem 'device' s jednou z hodnot: sms, im, none."
 
 #. TRANS: Server error displayed when a user's delivery device cannot be updated.
+#. TRANS: Server error displayed when a user update to the database fails in the contact address confirmation action.
+#. TRANS: Server error thrown on database error updating e-mail preferences.
+#. TRANS: Server error thrown on database error removing a registered e-mail address.
+#. TRANS: Server error thrown on database error updating IM preferences.
+#. TRANS: Server error thrown on database error removing a registered IM address.
+#. TRANS: Server error displayed when "Other" settings in user profile could not be updated on the server.
+#. TRANS: Server error thrown when user profile settings could not be updated.
+#. TRANS: Server error thrown on database error updating SMS preferences.
+#. TRANS: Server error thrown on database error removing a registered SMS phone number.
 #: actions/apiaccountupdatedeliverydevice.php:130
+#: actions/confirmaddress.php:118 actions/emailsettings.php:359
+#: actions/emailsettings.php:508 actions/imsettings.php:276
+#: actions/imsettings.php:432 actions/othersettings.php:184
+#: actions/profilesettings.php:321 actions/smssettings.php:301
+#: actions/smssettings.php:454
 msgid "Could not update user."
 msgstr "Nepodařilo se aktualizovat nastavení uživatele"
 
@@ -326,7 +342,8 @@ msgstr "Nepodařilo se aktualizovat nastavení uživatele"
 #: actions/apiaccountupdateprofile.php:111
 #: actions/apiaccountupdateprofilebackgroundimage.php:199
 #: actions/apiaccountupdateprofilecolors.php:183
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiuserprofileimage.php:88 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:85 actions/foaf.php:65 actions/hcard.php:74
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
 #: lib/profileaction.php:84
@@ -334,7 +351,8 @@ msgid "User has no profile."
 msgstr "Uživatel nemá profil."
 
 #. TRANS: Server error displayed if a user profile could not be saved.
-#: actions/apiaccountupdateprofile.php:147
+#. TRANS: Server error thrown when user profile settings could not be saved.
+#: actions/apiaccountupdateprofile.php:147 actions/profilesettings.php:417
 msgid "Could not save profile."
 msgstr "Nepodařilo se uložit profil."
 
@@ -373,8 +391,8 @@ msgstr[2] ""
 #: actions/apiaccountupdateprofilecolors.php:160
 #: actions/apiaccountupdateprofilecolors.php:171
 #: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
-#: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
-#: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
+#: actions/userdesignsettings.php:201 actions/userdesignsettings.php:211
+#: actions/userdesignsettings.php:253 actions/userdesignsettings.php:263
 msgid "Unable to save your design settings."
 msgstr "Nelze uložit vaše nastavení designu."
 
@@ -382,13 +400,17 @@ msgstr "Nelze uložit vaše nastavení designu."
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
 #: actions/apiaccountupdateprofilebackgroundimage.php:191
 #: actions/apiaccountupdateprofilecolors.php:139
+#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:179
 msgid "Could not update your design."
 msgstr "Nelze uložit design."
 
-#: actions/apiatomservice.php:86
+#. TRANS: Title for Atom feed.
+#: actions/apiatomservice.php:85
+msgctxt "ATOM"
 msgid "Main"
 msgstr ""
 
+#. TRANS: Title for Atom feed. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
 #. TRANS: Title in atom user notice feed. %s is a user name.
@@ -399,31 +421,38 @@ msgstr ""
 msgid "%s timeline"
 msgstr "časová osa %s"
 
+#. TRANS: Title for Atom feed with a user's subscriptions. %s is a user nickname.
+#. TRANS: Title for Atom subscription feed.
+#. TRANS: %s is a user nickname.
 #. TRANS: Header for subscriptions overview for a user (first page).
 #. TRANS: %s is a user nickname.
-#: actions/apiatomservice.php:103 actions/atompubsubscriptionfeed.php:147
+#: actions/apiatomservice.php:104 actions/atompubsubscriptionfeed.php:148
 #: actions/subscriptions.php:51
 #, php-format
 msgid "%s subscriptions"
 msgstr "Odběry uživatele %s"
 
-#: actions/apiatomservice.php:113 actions/atompubfavoritefeed.php:142
+#. TRANS: Title for Atom feed with a user's favorite notices. %s is a user nickname.
+#. TRANS: Title for Atom favorites feed.
+#. TRANS: %s is a user nickname.
+#: actions/apiatomservice.php:115 actions/atompubfavoritefeed.php:142
 #, fuzzy, php-format
 msgid "%s favorites"
 msgstr "Oblíbené"
 
-#: actions/apiatomservice.php:123
+#. TRANS: Title for Atom feed with a user's memberships. %s is a user nickname.
+#: actions/apiatomservice.php:126
 #, fuzzy, php-format
 msgid "%s memberships"
 msgstr "členové skupiny %s"
 
 #. TRANS: Client error displayed when users try to block themselves.
-#: actions/apiblockcreate.php:104
+#: actions/apiblockcreate.php:105
 msgid "You cannot block yourself!"
 msgstr "Nemůžete zablokovat sami sebe!"
 
 #. TRANS: Server error displayed when blocking a user has failed.
-#: actions/apiblockcreate.php:126
+#: actions/apiblockcreate.php:127
 msgid "Block user failed."
 msgstr "Zablokovat uživatele se nezdařilo."
 
@@ -562,7 +591,7 @@ msgstr "Nepodařilo se najít cílového uživatele."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:156 actions/editgroup.php:189
-#: actions/newgroup.php:129 actions/profilesettings.php:277
+#: actions/newgroup.php:136 actions/profilesettings.php:272
 #: actions/register.php:214
 msgid "Nickname already in use. Try another one."
 msgstr "Přezdívku již někdo používá. Zkuste jinou."
@@ -572,7 +601,7 @@ msgstr "Přezdívku již někdo používá. Zkuste jinou."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:164 actions/editgroup.php:193
-#: actions/newgroup.php:133 actions/profilesettings.php:247
+#: actions/newgroup.php:140 actions/profilesettings.php:242
 #: actions/register.php:216
 msgid "Not a valid nickname."
 msgstr "Není platnou přezdívkou."
@@ -584,7 +613,7 @@ msgstr "Není platnou přezdívkou."
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:181 actions/editapplication.php:233
 #: actions/editgroup.php:200 actions/newapplication.php:211
-#: actions/newgroup.php:140 actions/profilesettings.php:252
+#: actions/newgroup.php:147 actions/profilesettings.php:247
 #: actions/register.php:223
 msgid "Homepage is not a valid URL."
 msgstr "Domovská stránka není platná URL."
@@ -594,7 +623,7 @@ msgstr "Domovská stránka není platná URL."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:191 actions/editgroup.php:204
-#: actions/newgroup.php:144 actions/profilesettings.php:256
+#: actions/newgroup.php:151 actions/profilesettings.php:251
 #: actions/register.php:226
 #, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
@@ -610,7 +639,7 @@ msgstr "Celé jméno je moc dlouhé (maximální délka je 255 znaků)."
 #. TRANS: %d is the maximum number of allowed characters.
 #: actions/apigroupcreate.php:201 actions/editapplication.php:201
 #: actions/editgroup.php:209 actions/newapplication.php:178
-#: actions/newgroup.php:149
+#: actions/newgroup.php:156
 #, fuzzy, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
@@ -623,7 +652,7 @@ msgstr[2] "Popis je příliš dlouhý (maximálně %d znaků)."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:215 actions/editgroup.php:216
-#: actions/newgroup.php:156 actions/profilesettings.php:269
+#: actions/newgroup.php:163 actions/profilesettings.php:264
 #: actions/register.php:235
 #, fuzzy
 msgid "Location is too long (maximum 255 characters)."
@@ -636,7 +665,7 @@ msgstr "Umístění je příliš dlouhé (maximálně 255 znaků)."
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:236 actions/editgroup.php:229
-#: actions/newgroup.php:169
+#: actions/newgroup.php:176
 #, fuzzy, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
@@ -656,7 +685,7 @@ msgstr "Neplatný alias: \"%s\"."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #: actions/apigroupcreate.php:264 actions/editgroup.php:244
-#: actions/newgroup.php:184
+#: actions/newgroup.php:191
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "Alias \"%s\" se již používá. Zkuste jiný."
@@ -665,7 +694,7 @@ msgstr "Alias \"%s\" se již používá. Zkuste jiný."
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #: actions/apigroupcreate.php:278 actions/editgroup.php:251
-#: actions/newgroup.php:191
+#: actions/newgroup.php:198
 msgid "Alias can't be the same as nickname."
 msgstr "Alias nemůže být stejný jako přezdívka."
 
@@ -748,7 +777,7 @@ msgid "Upload failed."
 msgstr "Nahrání se nezdařilo."
 
 #. TRANS: Client error given from the OAuth API when the request token or verifier is invalid.
-#: actions/apioauthaccesstoken.php:101
+#: actions/apioauthaccesstoken.php:102
 #, fuzzy
 msgid "Invalid request token or verifier."
 msgstr "Neplatný přihlašovací token."
@@ -771,18 +800,19 @@ msgid "Request token already authorized."
 msgstr "Nejste autorizován."
 
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
+#. TRANS: Form validation error message.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
 #: actions/deletenotice.php:177 actions/disfavor.php:74
 #: actions/emailsettings.php:297 actions/favor.php:75 actions/geocode.php:55
-#: actions/groupblock.php:66 actions/grouplogo.php:312
-#: actions/groupunblock.php:65 actions/imsettings.php:230
+#: actions/groupblock.php:66 actions/grouplogo.php:324
+#: actions/groupunblock.php:65 actions/imsettings.php:224
 #: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:105 actions/nudge.php:80
 #: actions/oauthappssettings.php:165 actions/oauthconnectionssettings.php:138
 #: actions/othersettings.php:153 actions/passwordsettings.php:138
-#: actions/profilesettings.php:221 actions/recoverpassword.php:350
-#: actions/register.php:172 actions/remotesubscribe.php:77
-#: actions/repeat.php:83 actions/smssettings.php:256 actions/subedit.php:40
+#: actions/profilesettings.php:216 actions/recoverpassword.php:350
+#: actions/register.php:172 actions/remotesubscribe.php:76
+#: actions/repeat.php:82 actions/smssettings.php:250 actions/subedit.php:40
 #: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:310
@@ -804,16 +834,17 @@ msgstr "Chyba databáze při vkládání uživatele aplikace OAuth."
 #. TRANS: Unexpected validation error on avatar upload form.
 #. TRANS: Client error displayed submitting invalid form data for edit application.
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
+#. TRANS: Form validation error message when an unsupported argument is used.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
 #. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
 #. TRANS: Unknown form validation error in design settings form.
 #: actions/apioauthauthorize.php:294 actions/avatarsettings.php:294
 #: actions/designadminpanel.php:104 actions/editapplication.php:144
-#: actions/emailsettings.php:316 actions/grouplogo.php:322
-#: actions/imsettings.php:245 actions/newapplication.php:125
+#: actions/emailsettings.php:316 actions/grouplogo.php:335
+#: actions/imsettings.php:239 actions/newapplication.php:125
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
-#: actions/smssettings.php:277 lib/designsettings.php:321
+#: actions/smssettings.php:271 lib/designsettings.php:321
 msgid "Unexpected form submission."
 msgstr "Nečekaný požadavek."
 
@@ -865,7 +896,7 @@ msgstr "Účet"
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group nickname (dt). Text hidden by default.
 #: actions/apioauthauthorize.php:459 actions/login.php:252
-#: actions/profilesettings.php:110 actions/register.php:432
+#: actions/profilesettings.php:106 actions/register.php:432
 #: actions/showgroup.php:240 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:134
@@ -886,7 +917,7 @@ msgstr "Heslo"
 #. TRANS: Button label to cancel a SMS address confirmation procedure.
 #. TRANS: Button label in the "Edit application" form.
 #: actions/apioauthauthorize.php:478 actions/emailsettings.php:128
-#: actions/imsettings.php:131 actions/smssettings.php:137
+#: actions/imsettings.php:127 actions/smssettings.php:133
 #: lib/applicationeditform.php:351
 msgctxt "BUTTON"
 msgid "Cancel"
@@ -960,6 +991,7 @@ msgstr "Nesmíte odstraňovat status jiného uživatele."
 
 #. TRANS: Client error displayed trying to repeat a non-existing notice through the API.
 #. TRANS: Client error displayed trying to display redents of a non-exiting notice.
+#. TRANS: Client exception thrown when referencing a non-existing notice.
 #. TRANS: Error message displayed trying to delete a non-existing notice.
 #: actions/apistatusesretweet.php:74 actions/apistatusesretweets.php:70
 #: actions/atompubshowfavorite.php:82 actions/deletenotice.php:61
@@ -979,39 +1011,50 @@ msgstr "Nelze opakovat své vlastní oznámení."
 msgid "Already repeated that notice."
 msgstr "Již jste zopakoval toto oznámení."
 
-#: actions/apistatusesshow.php:117 actions/atompubfavoritefeed.php:104
-#: actions/atompubmembershipfeed.php:106 actions/atompubshowfavorite.php:116
-#: actions/atompubshowsubscription.php:118
+#. TRANS: Client error displayed calling an unsupported HTTP error in API status show.
+#. TRANS: Client exception thrown when using an unsupported HTTP method.
+#. TRANS: Client exception thrown using an unsupported HTTP method.
+#. TRANS: Client error shown when using a non-supported HTTP method.
+#. TRANS: Client exception thrown when using an unsupported HTTP method.
+#: actions/apistatusesshow.php:118 actions/atompubfavoritefeed.php:103
+#: actions/atompubmembershipfeed.php:105 actions/atompubshowfavorite.php:117
+#: actions/atompubshowsubscription.php:122
 #: actions/atompubsubscriptionfeed.php:109
 #, fuzzy
 msgid "HTTP method not supported."
 msgstr " API metoda nebyla nalezena."
 
-#: actions/apistatusesshow.php:141
+#. TRANS: Exception thrown requesting an unsupported notice output format.
+#. TRANS: %s is the requested output format.
+#: actions/apistatusesshow.php:144
 #, fuzzy, php-format
 msgid "Unsupported format: %s"
 msgstr "Nepodporovaný formát."
 
 #. TRANS: Client error displayed requesting a deleted status.
-#: actions/apistatusesshow.php:152
+#: actions/apistatusesshow.php:155
 msgid "Status deleted."
 msgstr "Status smazán."
 
 #. TRANS: Client error displayed requesting a status with an invalid ID.
-#: actions/apistatusesshow.php:159
+#: actions/apistatusesshow.php:162
 msgid "No status with that ID found."
 msgstr "Nenalezen status s tímto ID."
 
-#: actions/apistatusesshow.php:223
+#. TRANS: Client error displayed when trying to delete a notice not using the Atom format.
+#: actions/apistatusesshow.php:227
 msgid "Can only delete using the Atom format."
 msgstr ""
 
+#. TRANS: Client error displayed when a user has no rights to delete notices of other users.
 #. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
-#: actions/apistatusesshow.php:230 actions/deletenotice.php:78
-msgid "Can't delete this notice."
+#: actions/apistatusesshow.php:235 actions/deletenotice.php:78
+#, fuzzy
+msgid "Cannot delete this notice."
 msgstr "Toto oznámení nelze odstranit."
 
-#: actions/apistatusesshow.php:243
+#. TRANS: Confirmation of notice deletion in API. %d is the ID (number) of the deleted notice.
+#: actions/apistatusesshow.php:249
 #, fuzzy, php-format
 msgid "Deleted notice %d"
 msgstr "Odstranit oznámení"
@@ -1071,7 +1114,7 @@ msgstr "Updaty na %1$s od %2$s / %2$s."
 
 #. TRANS: Server error displayed when generating an Atom feed fails.
 #. TRANS: %s is the error.
-#: actions/apitimelinegroup.php:138
+#: actions/apitimelinegroup.php:134
 #, fuzzy, php-format
 msgid "Could not generate feed for group - %s"
 msgstr "Nelze aktualizovat skupinu."
@@ -1147,50 +1190,48 @@ msgstr "Pouze uživatel může přečíst své vlastní schránky."
 msgid "Only accept AtomPub for Atom feeds."
 msgstr ""
 
-#: actions/apitimelineuser.php:310
+#. TRANS: Client error displayed attempting to post an empty API notice.
+#: actions/apitimelineuser.php:311
 msgid "Atom post must not be empty."
 msgstr ""
 
-#: actions/apitimelineuser.php:315
+#. TRANS: Client error displayed attempting to post an API that is not well-formed XML.
+#: actions/apitimelineuser.php:317
 msgid "Atom post must be well-formed XML."
 msgstr ""
 
 #. TRANS: Client error displayed when not using an Atom entry.
-#: actions/apitimelineuser.php:321 actions/atompubfavoritefeed.php:226
-#: actions/atompubmembershipfeed.php:228
-#: actions/atompubsubscriptionfeed.php:233
+#: actions/apitimelineuser.php:323 actions/atompubfavoritefeed.php:228
+#: actions/atompubmembershipfeed.php:230
+#: actions/atompubsubscriptionfeed.php:236
 msgid "Atom post must be an Atom entry."
 msgstr ""
 
 #. TRANS: Client error displayed when not using the POST verb.
 #. TRANS: Do not translate POST.
-#: actions/apitimelineuser.php:332
+#: actions/apitimelineuser.php:336
 msgid "Can only handle POST activities."
 msgstr ""
 
 #. TRANS: Client error displayed when using an unsupported activity object type.
 #. TRANS: %s is the unsupported activity object type.
-#: actions/apitimelineuser.php:343
+#: actions/apitimelineuser.php:347
 #, php-format
 msgid "Cannot handle activity object type \"%s\"."
 msgstr ""
 
 #. TRANS: Client error displayed when posting a notice without content through the API.
-#: actions/apitimelineuser.php:376
+#. TRANS: %d is the notice ID (number).
+#: actions/apitimelineuser.php:381
 #, fuzzy, php-format
 msgid "No content for notice %d."
 msgstr "Najít v obsahu oznámení"
 
 #. TRANS: Client error displayed when using another format than AtomPub.
-#: actions/apitimelineuser.php:404
+#: actions/apitimelineuser.php:409
 #, fuzzy, php-format
 msgid "Notice with URI \"%s\" already exists."
 msgstr "Oznámení s tímto id neexistuje."
-
-#: actions/apitimelineuser.php:435
-#, php-format
-msgid "AtomPub post with unknown attention URI %s"
-msgstr ""
 
 #. TRANS: Server error for unfinished API method showTrends.
 #: actions/apitrends.php:85
@@ -1198,150 +1239,159 @@ msgid "API method under construction."
 msgstr "API metoda ve výstavbě."
 
 #. TRANS: Client error displayed when requesting user information for a non-existing user.
-#: actions/apiusershow.php:94
+#: actions/apiuserprofileimage.php:80 actions/apiusershow.php:94
 #, fuzzy
 msgid "User not found."
 msgstr " API metoda nebyla nalezena."
 
-#: actions/atompubfavoritefeed.php:70
-#, fuzzy
-msgid "No such profile"
+#. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
+#. TRANS: Client exception.
+#: actions/atompubfavoritefeed.php:69 actions/atompubmembershipfeed.php:71
+#: actions/atompubshowfavorite.php:75 actions/atompubshowmembership.php:72
+#: actions/subscribe.php:107
+msgid "No such profile."
 msgstr "Žádný takový profil."
 
-#: actions/atompubfavoritefeed.php:145
-#, php-format
-msgid "Notices %s has favorited to on %s"
-msgstr ""
-
-#: actions/atompubfavoritefeed.php:215 actions/atompubsubscriptionfeed.php:222
+#. TRANS: Client exception thrown when trying to set a favorite for another user.
+#. TRANS: Client exception thrown when trying to subscribe another user.
+#: actions/atompubfavoritefeed.php:217 actions/atompubsubscriptionfeed.php:225
 #, fuzzy
-msgid "Can't add someone else's subscription"
+msgid "Cannot add someone else's subscription."
 msgstr "Nelze vložit odebírání"
 
-#. TRANS: Client error displayed when not using the POST verb.
-#. TRANS: Do not translate POST.
-#: actions/atompubfavoritefeed.php:239
-msgid "Can only handle Favorite activities."
-msgstr ""
+#. TRANS: Client exception thrown when trying use an incorrect activity verb for the Atom pub method.
+#: actions/atompubfavoritefeed.php:240
+#, fuzzy
+msgid "Can only handle favorite activities."
+msgstr "Najít v obsahu oznámení"
 
-#: actions/atompubfavoritefeed.php:248 actions/atompubmembershipfeed.php:248
+#. TRANS: Client exception thrown when trying favorite an object that is not a notice.
+#: actions/atompubfavoritefeed.php:250 actions/atompubmembershipfeed.php:250
 #, fuzzy
 msgid "Can only fave notices."
 msgstr "Najít v obsahu oznámení"
 
-#: actions/atompubfavoritefeed.php:256
+#. TRANS: Client exception thrown when trying favorite a notice without content.
+#: actions/atompubfavoritefeed.php:259
 #, fuzzy
 msgid "Unknown note."
 msgstr "Neznámé"
 
-#: actions/atompubfavoritefeed.php:263
+#. TRANS: Client exception thrown when trying favorite an already favorited notice.
+#: actions/atompubfavoritefeed.php:267
 #, fuzzy
 msgid "Already a favorite."
 msgstr "Přidat do oblíbených"
 
-#: actions/atompubmembershipfeed.php:72 actions/atompubshowfavorite.php:76
-#: actions/atompubshowmembership.php:73 actions/subscribe.php:107
-msgid "No such profile."
-msgstr "Žádný takový profil."
-
+#. TRANS: Title for group membership feed.
+#. TRANS: %s is a username.
 #: actions/atompubmembershipfeed.php:144
 #, fuzzy, php-format
 msgid "%s group memberships"
 msgstr "členové skupiny %s"
 
-#: actions/atompubmembershipfeed.php:147
-#, fuzzy, php-format
-msgid "Groups %s is a member of on %s"
-msgstr "Skupiny kterých je %s členem"
-
-#: actions/atompubmembershipfeed.php:217
-msgid "Can't add someone else's membership"
-msgstr ""
+#. TRANS: Client exception thrown when trying subscribe someone else to a group.
+#: actions/atompubmembershipfeed.php:219
+#, fuzzy
+msgid "Cannot add someone else's membership"
+msgstr "Nelze vložit odebírání"
 
 #. TRANS: Client error displayed when not using the POST verb.
 #. TRANS: Do not translate POST.
-#: actions/atompubmembershipfeed.php:241
-msgid "Can only handle Join activities."
-msgstr ""
+#: actions/atompubmembershipfeed.php:242
+#, fuzzy
+msgid "Can only handle join activities."
+msgstr "Najít v obsahu oznámení"
 
-#: actions/atompubmembershipfeed.php:256
+#. TRANS: Client exception thrown when trying to subscribe to a non-existing group.
+#: actions/atompubmembershipfeed.php:259
 #, fuzzy
 msgid "Unknown group."
 msgstr "Neznámé"
 
-#: actions/atompubmembershipfeed.php:263
+#. TRANS: Client exception thrown when trying to subscribe to an already subscribed group.
+#: actions/atompubmembershipfeed.php:267
 #, fuzzy
 msgid "Already a member."
 msgstr "Všichni členové"
 
-#: actions/atompubmembershipfeed.php:270
+#. TRANS: Client exception thrown when trying to subscribe to group while blocked from that group.
+#: actions/atompubmembershipfeed.php:275
 msgid "Blocked by admin."
 msgstr ""
 
-#: actions/atompubshowfavorite.php:89
+#. TRANS: Client exception thrown when referencing a non-existing favorite.
+#: actions/atompubshowfavorite.php:90
 #, fuzzy
 msgid "No such favorite."
 msgstr "Žádný takový soubor."
 
+#. TRANS: Client exception thrown when trying to remove a favorite notice of another user.
 #: actions/atompubshowfavorite.php:151
 #, fuzzy
-msgid "Can't delete someone else's favorite"
+msgid "Cannot delete someone else's favorite"
 msgstr "Nelze smazat oblíbenou položku."
 
+#. TRANS: Client exception thrown when referencing a non-existing group.
 #: actions/atompubshowmembership.php:81
-#, fuzzy
 msgid "No such group"
-msgstr "Žádný takový uživatel."
+msgstr "Žádná taková skupina"
 
-#: actions/atompubshowmembership.php:90
+#. TRANS: Client exception thrown when trying to show membership of a non-subscribed group
+#: actions/atompubshowmembership.php:91
 #, fuzzy
 msgid "Not a member"
 msgstr "Všichni členové"
 
-#: actions/atompubshowmembership.php:115
+#. TRANS: Client exception thrown when using an unsupported HTTP method.
+#: actions/atompubshowmembership.php:116
 #, fuzzy
-msgid "Method not supported"
+msgid "HTTP method not supported"
 msgstr " API metoda nebyla nalezena."
 
-#: actions/atompubshowmembership.php:150
-msgid "Can't delete someone else's membership"
-msgstr ""
-
-#: actions/atompubshowsubscription.php:72
-#: actions/atompubshowsubscription.php:81
-#: actions/atompubsubscriptionfeed.php:74
-#, fuzzy, php-format
-msgid "No such profile id: %d"
-msgstr "Žádný takový profil."
-
-#: actions/atompubshowsubscription.php:90
-#, fuzzy, php-format
-msgid "Profile %d not subscribed to profile %d"
-msgstr "Nejste přihlášen k tomuto profilu."
-
-#: actions/atompubshowsubscription.php:154
+#. TRANS: Client exception thrown when deleting someone else's membership.
+#: actions/atompubshowmembership.php:151
 #, fuzzy
-msgid "Can't delete someone else's subscription"
+msgid "Cannot delete someone else's membership"
 msgstr "Nelze smazat odebírání sebe sama"
 
-#: actions/atompubsubscriptionfeed.php:150
+#. TRANS: Client exception thrown when trying to display a subscription for a non-existing profile ID.
+#. TRANS: %d is the non-existing profile ID number.
+#: actions/atompubshowsubscription.php:72
+#: actions/atompubshowsubscription.php:83
+#: actions/atompubsubscriptionfeed.php:74
 #, fuzzy, php-format
-msgid "People %s has subscribed to on %s"
-msgstr "Lidé přihlášení k %s"
+msgid "No such profile id: %d."
+msgstr "Žádný takový profil."
+
+#. TRANS: Client exception thrown when trying to display a subscription for a non-subscribed profile ID.
+#. TRANS: %1$d is the non-existing subscriber ID number, $2$d is the ID of the profile that was not subscribed to.
+#: actions/atompubshowsubscription.php:94
+#, fuzzy, php-format
+msgid "Profile %1$d not subscribed to profile %2$d."
+msgstr "Nejste přihlášen k tomuto profilu."
+
+#. TRANS: Client exception thrown when trying to delete a subscription of another user.
+#: actions/atompubshowsubscription.php:157
+#, fuzzy
+msgid "Cannot delete someone else's subscription."
+msgstr "Nelze smazat odebírání sebe sama"
 
 #. TRANS: Client error displayed when not using the POST verb.
 #. TRANS: Do not translate POST.
-#: actions/atompubsubscriptionfeed.php:246
+#: actions/atompubsubscriptionfeed.php:249
 msgid "Can only handle Follow activities."
 msgstr ""
 
-#: actions/atompubsubscriptionfeed.php:253
+#. TRANS: Client exception thrown when subscribing to an object that is not a person.
+#: actions/atompubsubscriptionfeed.php:257
 msgid "Can only follow people."
 msgstr ""
 
-#: actions/atompubsubscriptionfeed.php:262
+#. TRANS: Client exception thrown when subscribing to a non-existing profile.
+#: actions/atompubsubscriptionfeed.php:267
 #, fuzzy, php-format
-msgid "Unknown profile %s"
+msgid "Unknown profile %s."
 msgstr "Neznámý typ souboru"
 
 #. TRANS: Client error displayed trying to get a non-existing attachment.
@@ -1352,10 +1402,11 @@ msgstr "Žádná taková příloha."
 #. TRANS: Client error displayed trying to get an avatar without providing a nickname.
 #. TRANS: Client error displayed when requesting a list of blocked users for a group without providing a group nickname.
 #. TRANS: Client error displayed trying to edit a group while not proving a nickname for the group to edit.
+#. TRANS: Client error displayed when trying to change group logo settings without having a nickname.
 #. TRANS: Client error displayed if no nickname argument was given requesting a group page.
 #: actions/avatarbynickname.php:60 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:85 actions/groupdesignsettings.php:84
-#: actions/grouplogo.php:86 actions/groupmembers.php:76
+#: actions/grouplogo.php:87 actions/groupmembers.php:76
 #: actions/grouprss.php:91 actions/showgroup.php:116
 msgid "No nickname."
 msgstr "Žádná přezdívka."
@@ -1386,42 +1437,50 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "Můžete nahrát váš osobní avatar. Maximální velikost souboru je %s."
 
 #. TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
+#. TRANS: Server error displayed coming across a request from a user without a profile.
 #: actions/avatarsettings.php:108 actions/avatarsettings.php:192
-#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/grouplogo.php:185 actions/remotesubscribe.php:190
 #: actions/userauthorization.php:72 actions/userrss.php:108
 msgid "User without matching profile."
 msgstr "Uživatel bez odpovídajícího profilu."
 
 #. TRANS: Avatar upload page form legend.
 #. TRANS: Avatar upload page crop form legend.
+#. TRANS: Legend for group logo settings fieldset.
 #: actions/avatarsettings.php:122 actions/avatarsettings.php:205
-#: actions/grouplogo.php:254
+#: actions/grouplogo.php:263
 msgid "Avatar settings"
 msgstr "Nastavené Profilu"
 
 #. TRANS: Header on avatar upload page for thumbnail of originally uploaded avatar (h2).
 #. TRANS: Header on avatar upload crop form for thumbnail of originally uploaded avatar (h2).
+#. TRANS: Uploaded original file in group logo form.
+#. TRANS: Header for originally uploaded file before a crop on the group logo page.
 #: actions/avatarsettings.php:131 actions/avatarsettings.php:214
-#: actions/grouplogo.php:202 actions/grouplogo.php:262
+#: actions/grouplogo.php:208 actions/grouplogo.php:272
 msgid "Original"
 msgstr "Originál"
 
 #. TRANS: Header on avatar upload page for thumbnail of to be used rendition of uploaded avatar (h2).
 #. TRANS: Header on avatar upload crop form for thumbnail of to be used rendition of uploaded avatar (h2).
+#. TRANS: Header for preview of to be displayed group logo.
+#. TRANS: Header for the cropped group logo on the group logo page.
 #: actions/avatarsettings.php:147 actions/avatarsettings.php:227
-#: actions/grouplogo.php:213 actions/grouplogo.php:274
+#: actions/grouplogo.php:220 actions/grouplogo.php:285
 msgid "Preview"
 msgstr "Náhled"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
-#: actions/avatarsettings.php:155
+#. TRANS: Button text for user account deletion.
+#: actions/avatarsettings.php:155 actions/deleteaccount.php:319
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "Odstranit"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
-#: actions/avatarsettings.php:173
+#. TRANS: Submit button to confirm upload of a user backup file for account restore.
+#: actions/avatarsettings.php:173 actions/restoreaccount.php:369
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Upload"
@@ -1445,7 +1504,8 @@ msgid "Pick a square area of the image to be your avatar"
 msgstr "Vyberte čtvercovou plochu obrázku, která bude váš avatar"
 
 #. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
-#: actions/avatarsettings.php:361 actions/grouplogo.php:380
+#. TRANS: Server error displayed trying to crop an uploaded group logo that is no longer present.
+#: actions/avatarsettings.php:361 actions/grouplogo.php:393
 msgid "Lost our file data."
 msgstr "Ztratili jsme údaje souboru."
 
@@ -1463,6 +1523,38 @@ msgstr "Nahrávání obrázku selhalo."
 #: actions/avatarsettings.php:413
 msgid "Avatar deleted."
 msgstr "Avatar smazán."
+
+#: actions/backupaccount.php:62 actions/profilesettings.php:462
+msgid "Backup account"
+msgstr ""
+
+#: actions/backupaccount.php:80
+#, fuzzy
+msgid "Only logged-in users can backup their account."
+msgstr "Pouze přihlášení uživatelé mohou opakovat oznámení."
+
+#: actions/backupaccount.php:84
+msgid "You may not backup your account."
+msgstr ""
+
+#: actions/backupaccount.php:232
+msgid ""
+"You can backup your account data in <a href=\"http://activitystrea.ms/"
+"\">Activity Streams</a> format.  This is an experimental feature and "
+"provides an incomplete backup; private account information like email and IM "
+"addresses is not backed up. Additionally, uploaded files and direct messages "
+"are not backed up."
+msgstr ""
+
+#: actions/backupaccount.php:255
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Backup"
+msgstr "Pozadí"
+
+#: actions/backupaccount.php:258
+msgid "Backup your account"
+msgstr ""
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 #: actions/block.php:68
@@ -1534,6 +1626,7 @@ msgstr "Nepodařilo se uložit blokování."
 #. TRANS: Client error when trying to delete a non-local group.
 #. TRANS: Client error when trying to delete a non-existing group.
 #. TRANS: Client error displayed trying to edit a non-existing group.
+#. TRANS: Client error displayed when trying to update logo settings for a non-existing group.
 #. TRANS: Client error displayed when trying to unblock a user from a non-existing group.
 #. TRANS: Client error displayed if no remote group with a given name was found requesting group page.
 #. TRANS: Client error displayed if no local group with a given name was found requesting group page.
@@ -1543,7 +1636,7 @@ msgstr "Nepodařilo se uložit blokování."
 #: actions/deletegroup.php:87 actions/deletegroup.php:100
 #: actions/editgroup.php:102 actions/foafgroup.php:44 actions/foafgroup.php:62
 #: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
-#: actions/groupdesignsettings.php:100 actions/grouplogo.php:102
+#: actions/groupdesignsettings.php:100 actions/grouplogo.php:104
 #: actions/groupmembers.php:83 actions/groupmembers.php:90
 #: actions/grouprss.php:98 actions/grouprss.php:105
 #: actions/groupunblock.php:88 actions/joingroup.php:82
@@ -1624,23 +1717,6 @@ msgstr "Neznámý typ adresy %s."
 msgid "That address has already been confirmed."
 msgstr "Adresa již byla potvrzena"
 
-#. TRANS: Server error displayed when a user update to the database fails in the contact address confirmation action.
-#. TRANS: Server error thrown on database error updating e-mail preferences.
-#. TRANS: Server error thrown on database error removing a registered e-mail address.
-#. TRANS: Server error thrown on database error updating IM preferences.
-#. TRANS: Server error thrown on database error removing a registered IM address.
-#. TRANS: Server error displayed when "Other" settings in user profile could not be updated on the server.
-#. TRANS: Server error thrown when user profile settings could not be updated.
-#. TRANS: Server error thrown on database error updating SMS preferences.
-#. TRANS: Server error thrown on database error removing a registered SMS phone number.
-#: actions/confirmaddress.php:118 actions/emailsettings.php:359
-#: actions/emailsettings.php:508 actions/imsettings.php:283
-#: actions/imsettings.php:442 actions/othersettings.php:184
-#: actions/profilesettings.php:326 actions/smssettings.php:308
-#: actions/smssettings.php:464
-msgid "Couldn't update user."
-msgstr "Nelze aktualizovat uživatele"
-
 #. TRANS: Server error displayed when an address confirmation code deletion from the
 #. TRANS: database fails in the contact address confirmation action.
 #: actions/confirmaddress.php:132
@@ -1670,6 +1746,77 @@ msgstr "Konverzace"
 #: lib/profileaction.php:229 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Sdělení"
+
+#. TRANS: Client exception displayed trying to delete a user account while not logged in.
+#: actions/deleteaccount.php:71
+#, fuzzy
+msgid "Only logged-in users can delete their account."
+msgstr "Pouze přihlášení uživatelé mohou opakovat oznámení."
+
+#. TRANS: Client exception displayed trying to delete a user account without have the rights to do that.
+#: actions/deleteaccount.php:77
+#, fuzzy
+msgid "You cannot delete your account."
+msgstr "Nemůžete odstranit uživatele."
+
+#. TRANS: Confirmation text for user deletion. The user has to type this exactly the same, including punctuation.
+#: actions/deleteaccount.php:160 actions/deleteaccount.php:297
+msgid "I am sure."
+msgstr ""
+
+#. TRANS: Notification for user about the text that must be input to be able to delete a user account.
+#. TRANS: %s is the text that needs to be input.
+#: actions/deleteaccount.php:164
+#, php-format
+msgid "You must write  \"%s\" exactly in the box."
+msgstr ""
+
+#. TRANS: Confirmation that a user account has been deleted.
+#: actions/deleteaccount.php:206
+#, fuzzy
+msgid "Account deleted."
+msgstr "Avatar smazán."
+
+#. TRANS: Page title for page on which a user account can be deleted.
+#: actions/deleteaccount.php:228 actions/profilesettings.php:469
+#, fuzzy
+msgid "Delete account"
+msgstr "Zaregistrujte se"
+
+#. TRANS: Form text for user deletion form.
+#: actions/deleteaccount.php:279
+msgid ""
+"This will <strong>permanently delete</strong> your account data from this "
+"server."
+msgstr ""
+
+#. TRANS: Additional form text for user deletion form shown if a user has account backup rights.
+#. TRANS: %s is a URL to the backup page.
+#: actions/deleteaccount.php:285
+#, php-format
+msgid ""
+"You are strongly advised to <a href=\"%s\">back up your data</a> before "
+"deletion."
+msgstr ""
+
+#. TRANS: Field label for delete account confirmation entry.
+#: actions/deleteaccount.php:300 actions/passwordsettings.php:112
+#: actions/recoverpassword.php:239 actions/register.php:441
+msgid "Confirm"
+msgstr "Potvrdit"
+
+#. TRANS: Input title for the delete account field.
+#. TRANS: %s is the text that needs to be input.
+#: actions/deleteaccount.php:304
+#, fuzzy, php-format
+msgid "Enter \"%s\" to confirm that you want to delete your account."
+msgstr "Nemůžete odstranit uživatele."
+
+#. TRANS: Button title for user account deletion.
+#: actions/deleteaccount.php:323
+#, fuzzy
+msgid "Permanently delete your account"
+msgstr "Nemůžete odstranit uživatele."
 
 #. TRANS: Client error displayed trying to delete an application while not logged in.
 #: actions/deleteapplication.php:62
@@ -1823,7 +1970,7 @@ msgid "Do not delete this notice"
 msgstr "Neodstraňujte toto oznámení"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:166 lib/noticelist.php:672
+#: actions/deletenotice.php:166 lib/noticelist.php:673
 msgid "Delete this notice"
 msgstr "Odstranit toto oznámení"
 
@@ -1998,7 +2145,7 @@ msgid "Reset back to default"
 msgstr "Reset zpět do výchozího"
 
 #. TRANS: Submit button title.
-#: actions/designadminpanel.php:711 actions/licenseadminpanel.php:319
+#: actions/designadminpanel.php:711 actions/licenseadminpanel.php:311
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/snapshotadminpanel.php:245 actions/tagother.php:154
 #: lib/applicationeditform.php:357
@@ -2112,14 +2259,16 @@ msgid "Edit %s group"
 msgstr "Upravit skupinu %s"
 
 #. TRANS: Client error displayed trying to edit a group while not logged in.
+#. TRANS: Client error displayed when trying to create a group while not logged in.
 #. TRANS: Client error displayed trying to create a group while not logged in.
 #: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
 msgid "You must be logged in to create a group."
 msgstr "K vytvoření skupiny musíte být přihlášen."
 
 #. TRANS: Client error displayed trying to edit a group while not being a group admin.
+#. TRANS: Client error displayed when trying to change group logo settings while not being a group admin.
 #: actions/editgroup.php:110 actions/editgroup.php:176
-#: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
+#: actions/groupdesignsettings.php:107 actions/grouplogo.php:112
 msgid "You must be an admin to edit the group."
 msgstr "K úpravě skupiny musíte být admin."
 
@@ -2130,7 +2279,7 @@ msgstr "Použijte tento formulář k úpravám skupiny."
 
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/editgroup.php:239 actions/newgroup.php:179
+#: actions/editgroup.php:239 actions/newgroup.php:186
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "Neplatný alias: \"%s\""
@@ -2142,7 +2291,7 @@ msgstr "Nelze aktualizovat skupinu."
 
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:279 classes/User_group.php:529
+#: actions/editgroup.php:279 classes/User_group.php:534
 msgid "Could not create aliases."
 msgstr "Nelze vytvořit aliasy."
 
@@ -2180,8 +2329,8 @@ msgstr "Aktuální potvrzená e-mailová adresa."
 #. TRANS: Button label to remove a confirmed SMS address.
 #. TRANS: Button label for removing a set sender SMS e-mail address to post notices from.
 #: actions/emailsettings.php:116 actions/emailsettings.php:183
-#: actions/imsettings.php:116 actions/smssettings.php:124
-#: actions/smssettings.php:180
+#: actions/imsettings.php:112 actions/smssettings.php:120
+#: actions/smssettings.php:176
 msgctxt "BUTTON"
 msgid "Remove"
 msgstr "Odstranit"
@@ -2206,15 +2355,15 @@ msgstr "E-mailová adresa, ve stylu \"UzivatelskeJmeno@example.org\""
 #. TRANS: Button label for adding an e-mail address in e-mail settings form.
 #. TRANS: Button label for adding an IM address in IM settings form.
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
-#: actions/emailsettings.php:144 actions/imsettings.php:151
-#: actions/smssettings.php:162
+#: actions/emailsettings.php:144 actions/imsettings.php:147
+#: actions/smssettings.php:158
 msgctxt "BUTTON"
 msgid "Add"
 msgstr "Přidat"
 
 #. TRANS: Form legend for incoming e-mail settings form.
 #. TRANS: Form legend for incoming SMS settings form.
-#: actions/emailsettings.php:152 actions/smssettings.php:171
+#: actions/emailsettings.php:152 actions/smssettings.php:167
 msgid "Incoming email"
 msgstr "Příchozí e-mail"
 
@@ -2225,13 +2374,13 @@ msgstr "Chci posílat oznámení e-mailem."
 
 #. TRANS: Form instructions for incoming e-mail form in e-mail settings.
 #. TRANS: Form instructions for incoming SMS e-mail address form in SMS settings.
-#: actions/emailsettings.php:180 actions/smssettings.php:178
+#: actions/emailsettings.php:180 actions/smssettings.php:174
 msgid "Send email to this address to post new notices."
 msgstr "Pošlete e-mail na tuto adresu pro poslání nového oznámení."
 
 #. TRANS: Instructions for incoming e-mail address input form, when an address has already been assigned.
 #. TRANS: Instructions for incoming SMS e-mail address input form.
-#: actions/emailsettings.php:189 actions/smssettings.php:186
+#: actions/emailsettings.php:189 actions/smssettings.php:182
 msgid "Make a new email address for posting to; cancels the old one."
 msgstr "Vytvoření nové e-mailové adresy pro zasílání, ruší starou."
 
@@ -2244,7 +2393,7 @@ msgstr ""
 
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
-#: actions/emailsettings.php:199 actions/smssettings.php:189
+#: actions/emailsettings.php:199 actions/smssettings.php:185
 msgctxt "BUTTON"
 msgid "New"
 msgstr "Nová"
@@ -2318,9 +2467,10 @@ msgstr "Tato e-mailová adresa již patří jinému uživateli."
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
 #. TRANS: Server error thrown on database error adding SMS confirmation code.
-#: actions/emailsettings.php:426 actions/imsettings.php:351
-#: actions/smssettings.php:373
-msgid "Couldn't insert confirmation code."
+#: actions/emailsettings.php:426 actions/imsettings.php:343
+#: actions/smssettings.php:365
+#, fuzzy
+msgid "Could not insert confirmation code."
 msgstr "Nelze vložit potvrzující kód."
 
 #. TRANS: Message given saving valid e-mail address that is to be confirmed.
@@ -2336,8 +2486,8 @@ msgstr ""
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
 #. TRANS: Message given canceling IM address confirmation that is not pending.
 #. TRANS: Message given canceling SMS phone number confirmation that is not pending.
-#: actions/emailsettings.php:454 actions/imsettings.php:386
-#: actions/smssettings.php:408
+#: actions/emailsettings.php:454 actions/imsettings.php:377
+#: actions/smssettings.php:399
 msgid "No pending confirmation to cancel."
 msgstr "Žádné potvrzení ke zrušení."
 
@@ -2348,8 +2498,9 @@ msgstr "Toto je špatná e-mailová adresa."
 
 #. TRANS: Server error thrown on database error canceling e-mail address confirmation.
 #. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
-#: actions/emailsettings.php:468 actions/smssettings.php:422
-msgid "Couldn't delete email confirmation."
+#: actions/emailsettings.php:468 actions/smssettings.php:413
+#, fuzzy
+msgid "Could not delete email confirmation."
 msgstr "Nelze smazat potvrzení emailu"
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
@@ -2368,24 +2519,25 @@ msgstr "To není vaše e-mailová adresa."
 msgid "The email address was removed."
 msgstr "E-mailová adresa byla odstraněna."
 
-#: actions/emailsettings.php:528 actions/smssettings.php:568
+#: actions/emailsettings.php:528 actions/smssettings.php:554
 msgid "No incoming email address."
 msgstr "Nemáte příchozí e-mailovou adresu."
 
 #. TRANS: Server error thrown on database error removing incoming e-mail address.
 #. TRANS: Server error thrown on database error adding incoming e-mail address.
 #: actions/emailsettings.php:540 actions/emailsettings.php:565
-#: actions/smssettings.php:578 actions/smssettings.php:602
-msgid "Couldn't update user record."
+#: actions/smssettings.php:564 actions/smssettings.php:587
+#, fuzzy
+msgid "Could not update user record."
 msgstr "Nelze aktualizovat záznam uživatele."
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
-#: actions/emailsettings.php:544 actions/smssettings.php:581
+#: actions/emailsettings.php:544 actions/smssettings.php:567
 msgid "Incoming email address removed."
 msgstr "Příchozí e-mailová adresa odstraněna."
 
 #. TRANS: Message given after successfully adding an incoming e-mail address.
-#: actions/emailsettings.php:569 actions/smssettings.php:605
+#: actions/emailsettings.php:569 actions/smssettings.php:590
 msgid "New incoming email address added."
 msgstr "Přidána nová příchozí e-mailová adresa."
 
@@ -2484,7 +2636,7 @@ msgstr "Nečekaná odpověď!"
 msgid "User being listened to does not exist."
 msgstr "Úživatel, kterému nasloucháte neexistuje."
 
-#: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
+#: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:58
 msgid "You can use the local subscription!"
 msgstr "Můžete použít místní odebírání."
 
@@ -2613,22 +2765,19 @@ msgstr ""
 "Přizpůsobit vzhled skupiny obrázkem na pozadí a barevnou paletou vašeho "
 "výběru."
 
-#. TRANS: Error message displayed if design settings could not be saved.
-#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
-#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
-#: lib/designsettings.php:405 lib/designsettings.php:427
-msgid "Couldn't update your design."
-msgstr "Nelze uložit vzhled."
-
-#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:222
 msgid "Design preferences saved."
 msgstr "Nastavení vzhledu uloženo."
 
-#: actions/grouplogo.php:142 actions/grouplogo.php:195
+#. TRANS: Title for group logo settings page.
+#. TRANS: Group logo form legend.
+#: actions/grouplogo.php:145 actions/grouplogo.php:200
 msgid "Group logo"
 msgstr "Logo skupiny"
 
-#: actions/grouplogo.php:153
+#. TRANS: Instructions for group logo page.
+#. TRANS: %s is the maximum file size for that site.
+#: actions/grouplogo.php:157
 #, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
@@ -2636,23 +2785,28 @@ msgstr ""
 "Můžete nahrát obrázek loga pro vaši skupinu. Maximální velikost souboru je %"
 "s."
 
-#: actions/grouplogo.php:236
+#. TRANS: Submit button for uploading a group logo.
+#: actions/grouplogo.php:244
 msgid "Upload"
 msgstr "Upload"
 
-#: actions/grouplogo.php:289
+#. TRANS: Button text for cropping an uploaded group logo.
+#: actions/grouplogo.php:301
 msgid "Crop"
 msgstr "Oříznout"
 
-#: actions/grouplogo.php:365
+#. TRANS: Form instructions on the group logo page.
+#: actions/grouplogo.php:378
 msgid "Pick a square area of the image to be the logo."
 msgstr "Vyberte čtvercovou oblast obrázku, která bude vaše logo."
 
-#: actions/grouplogo.php:399
+#. TRANS: Form success message after updating a group logo.
+#: actions/grouplogo.php:413
 msgid "Logo updated."
 msgstr "Logo aktualizováno."
 
-#: actions/grouplogo.php:401
+#. TRANS: Form failure message after failing to update a group logo.
+#: actions/grouplogo.php:416
 msgid "Failed updating logo."
 msgstr "Nepodařilo se aktualizovat logo."
 
@@ -2793,14 +2947,14 @@ msgid "Error removing the block."
 msgstr "Chyba při odstraňování bloku."
 
 #. TRANS: Title for instance messaging settings.
-#: actions/imsettings.php:60
+#: actions/imsettings.php:58
 msgid "IM settings"
 msgstr "Nastavení IM"
 
 #. TRANS: Instant messaging settings page instructions.
 #. TRANS: [instant messages] is link text, "(%%doc.im%%)" is the link.
 #. TRANS: the order and formatting of link text and link should remain unchanged.
-#: actions/imsettings.php:74
+#: actions/imsettings.php:71
 #, php-format
 msgid ""
 "You can send and receive notices through Jabber/GTalk [instant messages](%%"
@@ -2810,23 +2964,23 @@ msgstr ""
 "%) .Zadejte svou adresu a nastavení níže."
 
 #. TRANS: Message given in the IM settings if XMPP is not enabled on the site.
-#: actions/imsettings.php:94
+#: actions/imsettings.php:90
 msgid "IM is not available."
 msgstr "IM není k dispozici."
 
 #. TRANS: Form legend for IM settings form.
 #. TRANS: Field label for IM address input in IM settings form.
-#: actions/imsettings.php:106 actions/imsettings.php:136
+#: actions/imsettings.php:102 actions/imsettings.php:132
 msgid "IM address"
 msgstr "IM adresa"
 
-#: actions/imsettings.php:113
+#: actions/imsettings.php:109
 msgid "Current confirmed Jabber/GTalk address."
 msgstr "Aktuální potvrzená Jabber / GTalk adresa."
 
 #. TRANS: Form note in IM settings form.
 #. TRANS: %s is the IM address set for the site.
-#: actions/imsettings.php:124
+#: actions/imsettings.php:120
 #, php-format
 msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
@@ -2840,7 +2994,7 @@ msgstr ""
 #. TRANS: Do not translate "example.org". It is one of the domain names reserved for use in examples by
 #. TRANS: http://www.rfc-editor.org/rfc/rfc2606.txt. Any other domain may be owned by a legitimate
 #. TRANS: person or organization.
-#: actions/imsettings.php:143
+#: actions/imsettings.php:139
 #, php-format
 msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
@@ -2851,64 +3005,64 @@ msgstr ""
 "nebo na GTalku."
 
 #. TRANS: Form legend for IM preferences form.
-#: actions/imsettings.php:158
+#: actions/imsettings.php:154
 msgid "IM preferences"
 msgstr "Nastavení IM"
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:163
+#: actions/imsettings.php:159
 msgid "Send me notices through Jabber/GTalk."
 msgstr "Zasílat oznámení pomocí Jabber/GTalk"
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:169
+#: actions/imsettings.php:165
 msgid "Post a notice when my Jabber/GTalk status changes."
 msgstr "Poslat oznámení, když se změní můj Jabber/Gtalk status."
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:175
+#: actions/imsettings.php:171
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
 "Pošlete mi odpovědi přes Jabber / GTalk od lidí, ke kterým nejsem přihlášen."
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:182
+#: actions/imsettings.php:178
 msgid "Publish a MicroID for my Jabber/GTalk address."
 msgstr "Publikovat MicroID pro mou Jabber / GTalk adresu."
 
 #. TRANS: Confirmation message for successful IM preferences save.
-#: actions/imsettings.php:290 actions/othersettings.php:190
+#: actions/imsettings.php:283 actions/othersettings.php:190
 msgid "Preferences saved."
 msgstr "Nastavení uloženo"
 
 #. TRANS: Message given saving IM address without having provided one.
-#: actions/imsettings.php:312
+#: actions/imsettings.php:304
 msgid "No Jabber ID."
 msgstr "Chybí Jabber ID."
 
 #. TRANS: Message given saving IM address that cannot be normalised.
-#: actions/imsettings.php:320
+#: actions/imsettings.php:312
 msgid "Cannot normalize that Jabber ID"
 msgstr "Nelze normalizovat tento JabberID"
 
 #. TRANS: Message given saving IM address that not valid.
-#: actions/imsettings.php:325
+#: actions/imsettings.php:317
 msgid "Not a valid Jabber ID"
 msgstr "Není platným Jabber ID"
 
 #. TRANS: Message given saving IM address that is already set.
-#: actions/imsettings.php:329
+#: actions/imsettings.php:321
 msgid "That is already your Jabber ID."
 msgstr "Toto je již vaše Jabber ID"
 
 #. TRANS: Message given saving IM address that is already set for another user.
-#: actions/imsettings.php:333
+#: actions/imsettings.php:325
 msgid "Jabber ID already belongs to another user."
 msgstr "Jabber ID již patří jinému uživateli"
 
 #. TRANS: Message given saving valid IM address that is to be confirmed.
 #. TRANS: %s is the IM address set for the site.
-#: actions/imsettings.php:361
+#: actions/imsettings.php:353
 #, php-format
 msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
@@ -2918,28 +3072,29 @@ msgstr ""
 "posílal zprávy."
 
 #. TRANS: Message given canceling IM address confirmation for the wrong IM address.
-#: actions/imsettings.php:391
+#: actions/imsettings.php:382
 msgid "That is the wrong IM address."
 msgstr "Toto je špatná IM adresa"
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
-#: actions/imsettings.php:400
-msgid "Couldn't delete IM confirmation."
+#: actions/imsettings.php:391
+#, fuzzy
+msgid "Could not delete IM confirmation."
 msgstr "Nelze smazat potvrzení IM"
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
-#: actions/imsettings.php:405
+#: actions/imsettings.php:396
 msgid "IM confirmation cancelled."
 msgstr "IM potvrzení zrušeno."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
-#: actions/imsettings.php:427
+#: actions/imsettings.php:417
 msgid "That is not your Jabber ID."
 msgstr "Toto není váš Jabber ID"
 
 #. TRANS: Message given after successfully removing a registered IM address.
-#: actions/imsettings.php:450
+#: actions/imsettings.php:440
 msgid "The IM address was removed."
 msgstr "IM adresa byla odstraněna."
 
@@ -3167,108 +3322,108 @@ msgid "%1$s left group %2$s"
 msgstr "%1$s opustil(a) skupinu %2$s"
 
 #. TRANS: User admin panel title
-#: actions/licenseadminpanel.php:56
+#: actions/licenseadminpanel.php:55
 msgctxt "TITLE"
 msgid "License"
 msgstr ""
 
-#: actions/licenseadminpanel.php:67
+#: actions/licenseadminpanel.php:65
 msgid "License for this StatusNet site"
 msgstr ""
 
-#: actions/licenseadminpanel.php:139
+#: actions/licenseadminpanel.php:134
 msgid "Invalid license selection."
 msgstr ""
 
-#: actions/licenseadminpanel.php:149
+#: actions/licenseadminpanel.php:144
 msgid ""
 "You must specify the owner of the content when using the All Rights Reserved "
 "license."
 msgstr ""
 
-#: actions/licenseadminpanel.php:156
+#: actions/licenseadminpanel.php:151
 #, fuzzy
 msgid "Invalid license title. Maximum length is 255 characters."
 msgstr "Neplatné uvítací text. Max délka je 255 znaků."
 
-#: actions/licenseadminpanel.php:168
+#: actions/licenseadminpanel.php:163
 msgid "Invalid license URL."
 msgstr ""
 
-#: actions/licenseadminpanel.php:171
+#: actions/licenseadminpanel.php:166
 msgid "Invalid license image URL."
 msgstr ""
 
-#: actions/licenseadminpanel.php:179
+#: actions/licenseadminpanel.php:174
 msgid "License URL must be blank or a valid URL."
 msgstr ""
 
-#: actions/licenseadminpanel.php:187
+#: actions/licenseadminpanel.php:182
 msgid "License image must be blank or valid URL."
 msgstr ""
 
-#: actions/licenseadminpanel.php:239
+#: actions/licenseadminpanel.php:232
 msgid "License selection"
 msgstr ""
 
-#: actions/licenseadminpanel.php:245
+#: actions/licenseadminpanel.php:238
 #, fuzzy
 msgid "Private"
 msgstr "Soukromí"
 
-#: actions/licenseadminpanel.php:246
+#: actions/licenseadminpanel.php:239
 msgid "All Rights Reserved"
 msgstr ""
 
-#: actions/licenseadminpanel.php:247
+#: actions/licenseadminpanel.php:240
 msgid "Creative Commons"
 msgstr ""
 
-#: actions/licenseadminpanel.php:252
+#: actions/licenseadminpanel.php:245
 msgid "Type"
 msgstr ""
 
-#: actions/licenseadminpanel.php:254
+#: actions/licenseadminpanel.php:247
 msgid "Select license"
 msgstr ""
 
-#: actions/licenseadminpanel.php:268
+#: actions/licenseadminpanel.php:261
 msgid "License details"
 msgstr ""
 
-#: actions/licenseadminpanel.php:274
+#: actions/licenseadminpanel.php:267
 msgid "Owner"
 msgstr ""
 
-#: actions/licenseadminpanel.php:275
+#: actions/licenseadminpanel.php:268
 msgid "Name of the owner of the site's content (if applicable)."
 msgstr ""
 
-#: actions/licenseadminpanel.php:283
+#: actions/licenseadminpanel.php:276
 msgid "License Title"
 msgstr ""
 
-#: actions/licenseadminpanel.php:284
+#: actions/licenseadminpanel.php:277
 msgid "The title of the license."
 msgstr ""
 
-#: actions/licenseadminpanel.php:292
+#: actions/licenseadminpanel.php:285
 msgid "License URL"
 msgstr ""
 
-#: actions/licenseadminpanel.php:293
+#: actions/licenseadminpanel.php:286
 msgid "URL for more information about the license."
 msgstr ""
 
-#: actions/licenseadminpanel.php:300
+#: actions/licenseadminpanel.php:293
 msgid "License Image URL"
 msgstr ""
 
-#: actions/licenseadminpanel.php:301
+#: actions/licenseadminpanel.php:294
 msgid "URL for an image to display with the license."
 msgstr ""
 
-#: actions/licenseadminpanel.php:319
+#: actions/licenseadminpanel.php:311
 msgid "Save license settings"
 msgstr ""
 
@@ -3375,8 +3530,14 @@ msgstr "Nelze vytvořit aplikaci."
 msgid "New group"
 msgstr "Nová skupina"
 
+#. TRANS: Client exception thrown when a user tries to create a group while banned.
+#: actions/newgroup.php:73 classes/User_group.php:485
+#, fuzzy
+msgid "You are not allowed to create groups on this site."
+msgstr "Nejste členem této skupiny."
+
 #. TRANS: Form instructions for group create form.
-#: actions/newgroup.php:110
+#: actions/newgroup.php:117
 msgid "Use this form to create a new group."
 msgstr "Použijte tento formulář k vytvoření nové skupiny."
 
@@ -3696,11 +3857,6 @@ msgstr "Nové heslo"
 #: actions/passwordsettings.php:109
 msgid "6 or more characters"
 msgstr "6 a více znaků"
-
-#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:441
-msgid "Confirm"
-msgstr "Potvrdit"
 
 #: actions/passwordsettings.php:113 actions/recoverpassword.php:240
 msgid "Same as password above"
@@ -4055,12 +4211,12 @@ msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’.
 msgstr "Licence hlášky ‘%1$s’ není kompatibilní s licencí webu ‘%2$s’."
 
 #. TRANS: Page title for profile settings.
-#: actions/profilesettings.php:61
+#: actions/profilesettings.php:59
 msgid "Profile settings"
 msgstr "Nastavené Profilu"
 
 #. TRANS: Usage instructions for profile settings.
-#: actions/profilesettings.php:73
+#: actions/profilesettings.php:70
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr ""
@@ -4068,19 +4224,19 @@ msgstr ""
 "více dozvědět."
 
 #. TRANS: Profile settings form legend.
-#: actions/profilesettings.php:102
+#: actions/profilesettings.php:98
 msgid "Profile information"
 msgstr "Nastavené Profilu"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:113
+#: actions/profilesettings.php:109
 #, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1-64 znaků nebo čísel, bez teček, čárek a mezer"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for full group name (dt). Text hidden by default.
-#: actions/profilesettings.php:117 actions/register.php:456
+#: actions/profilesettings.php:113 actions/register.php:456
 #: actions/showgroup.php:252 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:152
 msgid "Full name"
@@ -4088,13 +4244,13 @@ msgstr "Celé jméno"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:122 actions/register.php:461
+#: actions/profilesettings.php:118 actions/register.php:461
 #: lib/applicationeditform.php:236 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Moje stránky"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:125
+#: actions/profilesettings.php:121
 #, fuzzy
 msgid "URL of your homepage, blog, or profile on another site."
 msgstr "Adresa vašich stránek, blogu nebo profilu na jiných stránkách."
@@ -4102,7 +4258,7 @@ msgstr "Adresa vašich stránek, blogu nebo profilu na jiných stránkách."
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#: actions/profilesettings.php:133 actions/register.php:472
+#: actions/profilesettings.php:129 actions/register.php:472
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
@@ -4111,19 +4267,19 @@ msgstr[1] "Popište sebe a své zájmy"
 msgstr[2] "Popište sebe a své zájmy"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:139 actions/register.php:477
+#: actions/profilesettings.php:135 actions/register.php:477
 msgid "Describe yourself and your interests"
 msgstr "Popište sebe a své zájmy"
 
 #. TRANS: Text area label in form for profile settings where users can provide.
 #. TRANS: their biography.
-#: actions/profilesettings.php:143 actions/register.php:479
+#: actions/profilesettings.php:139 actions/register.php:479
 msgid "Bio"
 msgstr "O mě"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group location (dt). Text hidden by default.
-#: actions/profilesettings.php:149 actions/register.php:484
+#: actions/profilesettings.php:145 actions/register.php:484
 #: actions/showgroup.php:262 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:180
 #: lib/userprofile.php:167
@@ -4131,50 +4287,50 @@ msgid "Location"
 msgstr "Umístění"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:152 actions/register.php:486
+#: actions/profilesettings.php:148 actions/register.php:486
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "Místo. Město, stát."
 
 #. TRANS: Checkbox label in form for profile settings.
-#: actions/profilesettings.php:157
+#: actions/profilesettings.php:153
 msgid "Share my current location when posting notices"
 msgstr "Sdělit mou aktuální polohu při posílání hlášek"
 
 #. TRANS: Field label in form for profile settings.
-#: actions/profilesettings.php:165 actions/tagother.php:149
+#: actions/profilesettings.php:161 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
 #: lib/subscriptionlist.php:108 lib/userprofile.php:212
 msgid "Tags"
 msgstr "Tagy"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:168
+#: actions/profilesettings.php:164
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr "Otagujte se (písmena, čísla, -, . a _), oddělené čárkami nebo mezerami"
 
 #. TRANS: Dropdownlist label in form for profile settings.
-#: actions/profilesettings.php:173
+#: actions/profilesettings.php:169
 msgid "Language"
 msgstr "Jazyk"
 
 #. TRANS: Tooltip for dropdown list label in form for profile settings.
-#: actions/profilesettings.php:175
+#: actions/profilesettings.php:171
 msgid "Preferred language"
 msgstr "Preferovaný jazyk"
 
 #. TRANS: Dropdownlist label in form for profile settings.
-#: actions/profilesettings.php:185
+#: actions/profilesettings.php:181
 msgid "Timezone"
 msgstr "Časové pásmo"
 
 #. TRANS: Tooltip for dropdown list label in form for profile settings.
-#: actions/profilesettings.php:187
+#: actions/profilesettings.php:183
 msgid "What timezone are you normally in?"
 msgstr "V jaké časové zóně se obyčejně nacházíte?"
 
 #. TRANS: Checkbox label in form for profile settings.
-#: actions/profilesettings.php:193
+#: actions/profilesettings.php:189
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr ""
@@ -4184,7 +4340,7 @@ msgstr ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
-#: actions/profilesettings.php:262 actions/register.php:229
+#: actions/profilesettings.php:257 actions/register.php:229
 #, fuzzy, php-format
 msgid "Bio is too long (maximum %d character)."
 msgid_plural "Bio is too long (maximum %d characters)."
@@ -4193,49 +4349,52 @@ msgstr[1] "Umístění příliš dlouhé (maximálně %d znaků)"
 msgstr[2] "Umístění příliš dlouhé (maximálně %d znaků)"
 
 #. TRANS: Validation error in form for profile settings.
-#: actions/profilesettings.php:273 actions/siteadminpanel.php:151
+#: actions/profilesettings.php:268 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
 msgstr "Časové pásmo není vybráno."
 
 #. TRANS: Validation error in form for profile settings.
-#: actions/profilesettings.php:281
+#: actions/profilesettings.php:276
 #, fuzzy
 msgid "Language is too long (maximum 50 characters)."
 msgstr "Jazyk je příliš dlouhý (max. 50 znaků)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
-#: actions/profilesettings.php:295 actions/tagother.php:178
+#: actions/profilesettings.php:290 actions/tagother.php:178
 #, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "Neplatná velikost"
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
-#: actions/profilesettings.php:351
-msgid "Couldn't update user for autosubscribe."
+#: actions/profilesettings.php:346
+#, fuzzy
+msgid "Could not update user for autosubscribe."
 msgstr "Nelze aktualizovat nastavení automatického přihlašování."
 
 #. TRANS: Server error thrown when user profile location preference settings could not be updated.
-#: actions/profilesettings.php:409
-msgid "Couldn't save location prefs."
+#: actions/profilesettings.php:404
+#, fuzzy
+msgid "Could not save location prefs."
 msgstr "Nelze uložit nastavení umístění."
 
-#. TRANS: Server error thrown when user profile settings could not be saved.
-#: actions/profilesettings.php:422
-msgid "Couldn't save profile."
-msgstr "Nelze uložit profil"
-
 #. TRANS: Server error thrown when user profile settings tags could not be saved.
-#: actions/profilesettings.php:431
-msgid "Couldn't save tags."
-msgstr "Nelze uložit tagy."
+#: actions/profilesettings.php:426 actions/tagother.php:200
+msgid "Could not save tags."
+msgstr "Nelze uložit nálepky"
 
 #. TRANS: Confirmation shown when user profile settings are saved.
 #. TRANS: Message after successful saving of administrative settings.
-#: actions/profilesettings.php:440 lib/adminpanelaction.php:138
+#: actions/profilesettings.php:435 lib/adminpanelaction.php:138
 msgid "Settings saved."
 msgstr "Nastavení uloženo"
+
+#. TRANS: Page title for page where a user account can be restored from backup.
+#: actions/profilesettings.php:476 actions/restoreaccount.php:60
+#, fuzzy
+msgid "Restore account"
+msgstr "Zaregistrujte se"
 
 #: actions/public.php:83
 #, php-format
@@ -4620,7 +4779,7 @@ msgstr ""
 "(Měli byste za okamžik obdržet e-mailem zprávu s instrukcemi, jak potvrdit "
 "svou e-mailovou adresu.)"
 
-#: actions/remotesubscribe.php:98
+#: actions/remotesubscribe.php:97
 #, php-format
 msgid ""
 "To subscribe, you can [login](%%action.login%%), or [register](%%action."
@@ -4631,74 +4790,77 @@ msgstr ""
 "action.register%%) nový účet. Pokud již máte účet na [kompatibilních "
 "mikroblozích](%%doc.openmublog%%), vložte níže adresu."
 
-#: actions/remotesubscribe.php:112
+#: actions/remotesubscribe.php:111
 msgid "Remote subscribe"
 msgstr "Vzdálený odběr"
 
-#: actions/remotesubscribe.php:124
+#: actions/remotesubscribe.php:123
 msgid "Subscribe to a remote user"
 msgstr "Přihlásit se ke vzdálenému uživateli"
 
-#: actions/remotesubscribe.php:129
+#: actions/remotesubscribe.php:128
 msgid "User nickname"
 msgstr "Přezdívka uživatele"
 
-#: actions/remotesubscribe.php:130
+#: actions/remotesubscribe.php:129
 msgid "Nickname of the user you want to follow"
 msgstr "Přezdívka uživatele, kterého chcete sledovat"
 
-#: actions/remotesubscribe.php:133
+#: actions/remotesubscribe.php:132
 msgid "Profile URL"
 msgstr "Adresa Profilu"
 
-#: actions/remotesubscribe.php:134
+#: actions/remotesubscribe.php:133
 msgid "URL of your profile on another compatible microblogging service"
 msgstr "Adresa profilu na jiných kompatibilních mikroblozích."
 
-#: actions/remotesubscribe.php:137 lib/subscribeform.php:139
+#: actions/remotesubscribe.php:136 lib/subscribeform.php:139
 #: lib/userprofile.php:411
 msgid "Subscribe"
 msgstr "Odebírat"
 
-#: actions/remotesubscribe.php:159
+#: actions/remotesubscribe.php:158
 msgid "Invalid profile URL (bad format)"
 msgstr "Neplatná adresa profilu (špatný formát)"
 
-#: actions/remotesubscribe.php:168
+#: actions/remotesubscribe.php:167
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
 "Není platnou adresou profilu (není YADIS dokumentem nebo definováno neplatné "
 "XRDS)."
 
-#: actions/remotesubscribe.php:176
-msgid "That’s a local profile! Login to subscribe."
+#: actions/remotesubscribe.php:175
+#, fuzzy
+msgid "That is a local profile! Login to subscribe."
 msgstr "To je místní profil! Pro přihlášení k odběru se přihlášte."
 
-#: actions/remotesubscribe.php:183
-msgid "Couldn’t get a request token."
+#: actions/remotesubscribe.php:182
+#, fuzzy
+msgid "Could not get a request token."
 msgstr "Nelze získat řetězec požadavku."
 
-#: actions/repeat.php:57
+#: actions/repeat.php:56
 msgid "Only logged-in users can repeat notices."
 msgstr "Pouze přihlášení uživatelé mohou opakovat oznámení."
 
-#: actions/repeat.php:64 actions/repeat.php:71
+#: actions/repeat.php:63 actions/repeat.php:70
 msgid "No notice specified."
 msgstr "Oznámení neuvedeno."
 
-#: actions/repeat.php:76
-msgid "You can't repeat your own notice."
+#: actions/repeat.php:75
+#, fuzzy
+msgid "You cannot repeat your own notice."
 msgstr "Nemůžete opakovat své vlastní oznámení."
 
-#: actions/repeat.php:90
+#: actions/repeat.php:89
 msgid "You already repeated that notice."
 msgstr "Již jste zopakoval toto oznámení."
 
-#: actions/repeat.php:114 lib/noticelist.php:691
+#: actions/repeat.php:112 lib/noticelist.php:692
 msgid "Repeated"
 msgstr "Opakované"
 
-#: actions/repeat.php:119
+#: actions/repeat.php:117
 msgid "Repeated!"
 msgstr "Opakované!"
 
@@ -4759,6 +4921,96 @@ msgstr ""
 #, php-format
 msgid "Replies to %1$s on %2$s!"
 msgstr "Odpovědi na %1$s na %2$s!"
+
+#. TRANS: Client exception displayed when trying to restore an account while not logged in.
+#: actions/restoreaccount.php:78
+#, fuzzy
+msgid "Only logged-in users can restore their account."
+msgstr "Pouze přihlášení uživatelé mohou opakovat oznámení."
+
+#. TRANS: Client exception displayed when trying to restore an account without having restore rights.
+#: actions/restoreaccount.php:83
+#, fuzzy
+msgid "You may not restore your account."
+msgstr "Ještě jste nezaregistrovali žádné aplikace."
+
+#. TRANS: Client exception displayed trying to restore an account while something went wrong uploading a file.
+#. TRANS: Client exception. No file; probably just a non-AJAX submission.
+#: actions/restoreaccount.php:121 actions/restoreaccount.php:146
+#, fuzzy
+msgid "No uploaded file."
+msgstr "Nahrát soubor"
+
+#. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
+#: actions/restoreaccount.php:129 lib/mediafile.php:194
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr ""
+"Velkost uploadovaného souboru překračuje upload_max_filesize limit v php.ini."
+
+#. TRANS: Client exception.
+#: actions/restoreaccount.php:135 lib/mediafile.php:200
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form."
+msgstr ""
+"Velkost uploadovaného souboru překračuje MAX_FILE_SIZE limit, které bylo "
+"uvedeno v HTML formuláři."
+
+#. TRANS: Client exception.
+#: actions/restoreaccount.php:141 lib/mediafile.php:206
+msgid "The uploaded file was only partially uploaded."
+msgstr "Nahrávaný soubor byl nahrán pouze částečně."
+
+#. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
+#: actions/restoreaccount.php:150 lib/mediafile.php:214
+msgid "Missing a temporary folder."
+msgstr "Chybí dočasný adresář."
+
+#. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
+#: actions/restoreaccount.php:154 lib/mediafile.php:218
+msgid "Failed to write file to disk."
+msgstr "Nepodařilo se zapsat soubor na disk."
+
+#. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
+#: actions/restoreaccount.php:158 lib/mediafile.php:222
+msgid "File upload stopped by extension."
+msgstr "Nahrávání souboru zastaveno rozšířením PHP."
+
+#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
+#: actions/restoreaccount.php:164 lib/imagefile.php:103 lib/mediafile.php:228
+msgid "System error uploading file."
+msgstr "Chyba systému při nahrávání souboru"
+
+#. TRANS: Client exception thrown when a feed is not an Atom feed.
+#: actions/restoreaccount.php:207
+#, fuzzy
+msgid "Not an Atom feed."
+msgstr "Všichni členové"
+
+#. TRANS: Success message when a feed has been restored.
+#: actions/restoreaccount.php:241
+msgid ""
+"Feed has been restored. Your old posts should now appear in search and your "
+"profile page."
+msgstr ""
+
+#. TRANS: Message when a feed restore is in progress.
+#: actions/restoreaccount.php:245
+msgid "Feed will be restored. Please wait a few minutes for results."
+msgstr ""
+
+#. TRANS: Form instructions for feed restore.
+#: actions/restoreaccount.php:342
+msgid ""
+"You can upload a backed-up stream in <a href=\"http://activitystrea.ms/"
+"\">Activity Streams</a> format."
+msgstr ""
+
+#. TRANS: Title for submit button to confirm upload of a user backup file for account restore.
+#: actions/restoreaccount.php:373
+#, fuzzy
+msgid "Upload the file"
+msgstr "Nahrát soubor"
 
 #: actions/revokerole.php:75
 msgid "You cannot revoke user roles on this site."
@@ -4861,7 +5113,7 @@ msgid "Reset key & secret"
 msgstr "Resetovat klíč a tajemství"
 
 #: actions/showapplication.php:252 lib/deletegroupform.php:121
-#: lib/deleteuserform.php:66 lib/noticelist.php:672
+#: lib/deleteuserform.php:66 lib/noticelist.php:673
 msgid "Delete"
 msgstr "Odstranit"
 
@@ -5376,70 +5628,70 @@ msgid "Save site notice"
 msgstr "Uložit oznámení stránky"
 
 #. TRANS: Title for SMS settings.
-#: actions/smssettings.php:59
+#: actions/smssettings.php:57
 msgid "SMS settings"
 msgstr "nastavení SMS"
 
 #. TRANS: SMS settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
-#: actions/smssettings.php:74
+#: actions/smssettings.php:71
 #, php-format
 msgid "You can receive SMS messages through email from %%site.name%%."
 msgstr "Z %%site.name%% můžete přijímat SMS e-mailem."
 
 #. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
-#: actions/smssettings.php:97
+#: actions/smssettings.php:93
 msgid "SMS is not available."
 msgstr "SMS není k dispozici."
 
 #. TRANS: Form legend for SMS settings form.
-#: actions/smssettings.php:111
+#: actions/smssettings.php:107
 msgid "SMS address"
 msgstr "SMS adresa"
 
 #. TRANS: Form guide in SMS settings form.
-#: actions/smssettings.php:120
+#: actions/smssettings.php:116
 msgid "Current confirmed SMS-enabled phone number."
 msgstr "Aktuální potvrzené SMS-schopné telefonní číslo."
 
 #. TRANS: Form guide in IM settings form.
-#: actions/smssettings.php:133
+#: actions/smssettings.php:129
 msgid "Awaiting confirmation on this phone number."
 msgstr "Čeká na potvrzení na tomto telefonním čísle."
 
 #. TRANS: Field label for SMS address input in SMS settings form.
-#: actions/smssettings.php:142
+#: actions/smssettings.php:138
 msgid "Confirmation code"
 msgstr "Potvrzovací kód"
 
 #. TRANS: Form field instructions in SMS settings form.
-#: actions/smssettings.php:144
+#: actions/smssettings.php:140
 msgid "Enter the code you received on your phone."
 msgstr "Zadejte kód, který jste obdrželi na telefonu."
 
 #. TRANS: Button label to confirm SMS confirmation code in SMS settings.
-#: actions/smssettings.php:148
+#: actions/smssettings.php:144
 msgctxt "BUTTON"
 msgid "Confirm"
 msgstr "Potvrdit"
 
 #. TRANS: Field label for SMS phone number input in SMS settings form.
-#: actions/smssettings.php:153
+#: actions/smssettings.php:149
 msgid "SMS phone number"
 msgstr "SMS telefonní číslo"
 
 #. TRANS: SMS phone number input field instructions in SMS settings form.
-#: actions/smssettings.php:156
+#: actions/smssettings.php:152
 msgid "Phone number, no punctuation or spaces, with area code"
 msgstr "Telefonní číslo, Nepoužívej interpunkci nebo mezery, s předčíslím"
 
 #. TRANS: Form legend for SMS preferences form.
-#: actions/smssettings.php:195
+#: actions/smssettings.php:191
 msgid "SMS preferences"
 msgstr "Nastavení SMS"
 
 #. TRANS: Checkbox label in SMS preferences form.
-#: actions/smssettings.php:201
+#: actions/smssettings.php:197
 msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
@@ -5448,32 +5700,32 @@ msgstr ""
 "provider může naůčtovat nesmyslně vysoké částky."
 
 #. TRANS: Confirmation message for successful SMS preferences save.
-#: actions/smssettings.php:315
+#: actions/smssettings.php:308
 msgid "SMS preferences saved."
 msgstr "Nastavení SMS uloženo."
 
 #. TRANS: Message given saving SMS phone number without having provided one.
-#: actions/smssettings.php:338
+#: actions/smssettings.php:330
 msgid "No phone number."
 msgstr "Žádné telefonní číslo."
 
 #. TRANS: Message given saving SMS phone number without having selected a carrier.
-#: actions/smssettings.php:344
+#: actions/smssettings.php:336
 msgid "No carrier selected."
 msgstr "Nevybrán poskytovatel."
 
 #. TRANS: Message given saving SMS phone number that is already set.
-#: actions/smssettings.php:352
+#: actions/smssettings.php:344
 msgid "That is already your phone number."
 msgstr "Toto je již vaše telefonní číslo."
 
 #. TRANS: Message given saving SMS phone number that is already set for another user.
-#: actions/smssettings.php:356
+#: actions/smssettings.php:348
 msgid "That phone number already belongs to another user."
 msgstr "Toto telefonní číslo již patří jinému uživateli"
 
 #. TRANS: Message given saving valid SMS phone number that is to be confirmed.
-#: actions/smssettings.php:384
+#: actions/smssettings.php:376
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your phone "
 "for the code and instructions on how to use it."
@@ -5482,39 +5734,39 @@ msgstr ""
 "použít."
 
 #. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
-#: actions/smssettings.php:413
+#: actions/smssettings.php:404
 msgid "That is the wrong confirmation number."
 msgstr "Toto je špatné ověřovací číslo."
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
-#: actions/smssettings.php:427
+#: actions/smssettings.php:418
 msgid "SMS confirmation cancelled."
 msgstr "SMS potvrzení zrušeno."
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
-#: actions/smssettings.php:448
+#: actions/smssettings.php:438
 msgid "That is not your phone number."
 msgstr "To není vaše telefonní číslo."
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
-#: actions/smssettings.php:470
+#: actions/smssettings.php:460
 msgid "The SMS phone number was removed."
 msgstr "SMS Telefonní číslo bylo odstraněno."
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
-#: actions/smssettings.php:511
+#: actions/smssettings.php:499
 msgid "Mobile carrier"
 msgstr "Mobilní operátor"
 
 #. TRANS: Default option for mobile carrier dropdown menu in SMS settings.
-#: actions/smssettings.php:516
+#: actions/smssettings.php:504
 msgid "Select a carrier"
 msgstr "Vyberte operátora"
 
 #. TRANS: Form instructions for mobile carrier dropdown menu in SMS settings.
 #. TRANS: %s is an administrative contact's e-mail address.
-#: actions/smssettings.php:525
+#: actions/smssettings.php:513
 #, php-format
 msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
@@ -5524,7 +5776,7 @@ msgstr ""
 "přes e-mail, ale zde není uveden, pošlete e-mail a dejte nám vědět na% s."
 
 #. TRANS: Message given saving SMS phone number confirmation code without having provided one.
-#: actions/smssettings.php:548
+#: actions/smssettings.php:535
 msgid "No code entered"
 msgstr "Nezadán kód"
 
@@ -5788,10 +6040,6 @@ msgstr ""
 "Můžete označovat pouze lidi, ke kterým jste přihlášen nebo kteří jsou "
 "přihlášeni k vám."
 
-#: actions/tagother.php:200
-msgid "Could not save tags."
-msgstr "Nelze uložit nálepky"
-
 #: actions/tagother.php:236
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
@@ -6024,12 +6272,12 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Špatný typ obrázku na URL '%s'"
 
 #. TRANS: Page title for profile design page.
-#: actions/userdesignsettings.php:76 lib/designsettings.php:63
+#: actions/userdesignsettings.php:74 lib/designsettings.php:63
 msgid "Profile design"
 msgstr "Vzhled profilu"
 
 #. TRANS: Instructions for profile design page.
-#: actions/userdesignsettings.php:87 lib/designsettings.php:74
+#: actions/userdesignsettings.php:84 lib/designsettings.php:74
 msgid ""
 "Customize the way your profile looks with a background image and a colour "
 "palette of your choice."
@@ -6037,7 +6285,7 @@ msgstr ""
 "Přizpůsobit vzhled vašeho profilu obrázkem na pozadí a barevnou paletou "
 "vašeho výběru."
 
-#: actions/userdesignsettings.php:282
+#: actions/userdesignsettings.php:272
 msgid "Enjoy your hotdog!"
 msgstr "Užijte si svůj párek v rohlíku!"
 
@@ -6138,13 +6386,13 @@ msgid "Author(s)"
 msgstr "Autoři"
 
 #. TRANS: Activity title when marking a notice as favorite.
-#: classes/Fave.php:151 lib/favorform.php:143
+#: classes/Fave.php:164 lib/favorform.php:143
 msgid "Favor"
 msgstr "Oblíbit"
 
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
-#: classes/Fave.php:154
+#: classes/Fave.php:167
 #, fuzzy, php-format
 msgid "%1$s marked notice %2$s as a favorite."
 msgstr "%s (@%s) přidal vaše oznámení jako oblíbené"
@@ -6260,7 +6508,7 @@ msgid "Could not create login token for %s"
 msgstr "Nelze vytvořit přihlašovací token pro %s"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
-#: classes/Memcached_DataObject.php:533
+#: classes/Memcached_DataObject.php:537
 msgid "No database name or DSN found anywhere."
 msgstr "Nenalezeno jméno databáze ani DSN."
 
@@ -6287,23 +6535,23 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr "Nenalezen profil (%1$d) pro oznámení (%2$d)."
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:193
+#: classes/Notice.php:199
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Chyba databáze při vkládání nálepky: %s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:270
+#: classes/Notice.php:279
 msgid "Problem saving notice. Too long."
 msgstr "Problém ukládání sdělení. Příliš dlouhé."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:275
+#: classes/Notice.php:284
 msgid "Problem saving notice. Unknown user."
 msgstr "Problém při ukládání sdělení. Neznámý uživatel."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:281
+#: classes/Notice.php:290
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
@@ -6311,7 +6559,7 @@ msgstr ""
 "několik minut."
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:288
+#: classes/Notice.php:297
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -6320,43 +6568,43 @@ msgstr ""
 "několik minut."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:296
+#: classes/Notice.php:305
 msgid "You are banned from posting notices on this site."
 msgstr "Máte zakázáno (banned) posílat upozornění na tomto webu."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:363 classes/Notice.php:390
+#: classes/Notice.php:372 classes/Notice.php:399
 msgid "Problem saving notice."
 msgstr "Problém při ukládání sdělení"
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:913
+#: classes/Notice.php:914
 #, fuzzy
 msgid "Bad type provided to saveKnownGroups."
 msgstr "saveKnownGroups obdrželo špatný typ."
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1012
+#: classes/Notice.php:1013
 msgid "Problem saving group inbox."
 msgstr "Problém při ukládání skupinového inboxu"
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1126
+#: classes/Notice.php:1127
 #, fuzzy, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr "Nelze uložit místní info skupiny."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1645
+#: classes/Notice.php:1646
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
 #. TRANS: Full name of a profile or group followed by nickname in parens
-#: classes/Profile.php:172 classes/User_group.php:247
+#: classes/Profile.php:172 classes/User_group.php:242
 #, fuzzy, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
@@ -6364,14 +6612,14 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:798
+#: classes/Profile.php:765
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr "Nelze zrušit roli \"%1$s\" pro uživatele #%2$d, neexistuje."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:807
+#: classes/Profile.php:774
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr "Nelze zrušit roli \"%1$s\" pro uživatele #%2$d, chyba databáze."
@@ -6441,32 +6689,32 @@ msgid "Welcome to %1$s, @%2$s!"
 msgstr "Vítejte na %1$s, @%2$s!"
 
 #. TRANS: Server exception.
-#: classes/User.php:923
+#: classes/User.php:918
 msgid "No single user defined for single-user mode."
 msgstr "Nenastaven uživatel pro jednouživatelský mód"
 
 #. TRANS: Server exception.
-#: classes/User.php:927
+#: classes/User.php:922
 msgid "Single-user mode code called when not enabled."
 msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:511
+#: classes/User_group.php:516
 msgid "Could not create group."
 msgstr "Nelze vytvořit skupinu."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:521
+#: classes/User_group.php:526
 msgid "Could not set group URI."
 msgstr "Nelze nastavit URI skupiny."
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:544
+#: classes/User_group.php:549
 msgid "Could not set group membership."
 msgstr "Nelze nastavit členství ve skupině."
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:559
+#: classes/User_group.php:564
 msgid "Could not save local group info."
 msgstr "Nelze uložit místní info skupiny."
 
@@ -6801,10 +7049,56 @@ msgstr "Před"
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr "Očekávám kořenový element feedu, ale dostal jsem celý XML dokument."
 
-#: lib/activity.php:360
+#. TRANS: Client exception thrown when using an unknown verb for the activity importer.
+#: lib/activityimporter.php:81
+#, fuzzy, php-format
+msgid "Unknown verb: \"%s\"."
+msgstr "Neznámý jazyk \"%s\"."
+
+#. TRANS: Client exception thrown when trying to force a subscription for an untrusted user.
+#: lib/activityimporter.php:107
+msgid "Cannot force subscription for untrusted user."
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#: lib/activityimporter.php:117
 #, fuzzy
-msgid "Post"
-msgstr "Fotka"
+msgid "Cannot force remote user to subscribe."
+msgstr "Uveďte jméno uživatele ke kterému se přihlásit."
+
+#. TRANS: Client exception thrown when trying to subscribe to an unknown profile.
+#: lib/activityimporter.php:132
+#, fuzzy
+msgid "Unknown profile."
+msgstr "Neznámý typ souboru"
+
+#. TRANS: Client exception thrown when trying to import an event not related to the importing user.
+#: lib/activityimporter.php:138
+msgid "This activity seems unrelated to our user."
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to join a remote group that is not a group.
+#: lib/activityimporter.php:154
+msgid "Remote profile is not a group!"
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to join a group the importing user is already a member of.
+#: lib/activityimporter.php:163
+#, fuzzy
+msgid "User is already a member of this group."
+msgstr "Jste již členem této skupiny."
+
+#. TRANS: Client exception thrown when trying to overwrite the author information for a non-trusted user during import.
+#: lib/activityimporter.php:207
+msgid "Not overwriting author info for non-trusted user."
+msgstr ""
+
+#. TRANS: Client exception thrown when trying to import a notice without content.
+#. TRANS: %s is the notice URI.
+#: lib/activityimporter.php:223
+#, fuzzy, php-format
+msgid "No content for notice %s."
+msgstr "Najít v obsahu oznámení"
 
 #. TRANS: Client exception thrown when there is no source attribute.
 #: lib/activityutils.php:200
@@ -6957,23 +7251,27 @@ msgid ""
 msgstr ""
 
 #. TRANS: Exception thrown when no access token can be issued.
-#: lib/apioauthstore.php:186
+#: lib/apioauthstore.php:209
 #, fuzzy
 msgid "Could not issue access token."
 msgstr "Nemohu vložit zprávu."
 
-#. TRANS: Server error displayed when a database error occurs.
-#: lib/apioauthstore.php:243
+#: lib/apioauthstore.php:317
 msgid "Database error inserting OAuth application user."
 msgstr "Chyba databáze při vkládání uživatele aplikace OAuth."
 
+#: lib/apioauthstore.php:345
+#, fuzzy
+msgid "Database error updating OAuth application user."
+msgstr "Chyba databáze při vkládání uživatele aplikace OAuth."
+
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:285
+#: lib/apioauthstore.php:371
 msgid "Tried to revoke unknown token."
 msgstr ""
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
-#: lib/apioauthstore.php:290
+#: lib/apioauthstore.php:376
 msgid "Failed to delete revoked token."
 msgstr ""
 
@@ -7090,9 +7388,15 @@ msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Obnovit"
 
-#: lib/atom10feed.php:112
-msgid "author element must contain a name element."
+#: lib/atom10feed.php:113
+msgid "Author element must contain a name element."
 msgstr ""
+
+#. TRANS: Server exception thrown when using the method setActivitySubject() in the class Atom10Feed.
+#: lib/atom10feed.php:160
+#, fuzzy
+msgid "Do not use this method!"
+msgstr "Neodstraňujte toto oznámení"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:294
@@ -7528,26 +7832,26 @@ msgstr ""
 "tracking - Dosud neimplementován.\n"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:147
+#: lib/common.php:150
 #, fuzzy
 msgid "No configuration file found."
 msgstr "Žádný konfigurační soubor nalezen. "
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
-#: lib/common.php:150
+#: lib/common.php:153
 #, fuzzy
 msgid "I looked for configuration files in the following places:"
 msgstr "Díval jsem se po konfiguračních souborech na těchto místech: "
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:153
+#: lib/common.php:156
 msgid "You may wish to run the installer to fix this."
 msgstr "Možná budete chtít spustit instalační program abyste to vyřešili."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: The text is link text that leads to the installer page.
-#: lib/common.php:157
+#: lib/common.php:160
 msgid "Go to the installer."
 msgstr "Jdi na instalaci."
 
@@ -7626,6 +7930,12 @@ msgctxt "BUTTON"
 msgid "Reset"
 msgstr "Reset"
 
+#. TRANS: Error message displayed if design settings could not be saved.
+#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
+#: lib/designsettings.php:405 lib/designsettings.php:427
+msgid "Couldn't update your design."
+msgstr "Nelze uložit vzhled."
+
 #. TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
 #: lib/designsettings.php:433
 msgid "Design defaults restored."
@@ -7654,6 +7964,19 @@ msgstr "Atom"
 #: lib/feed.php:90
 msgid "FOAF"
 msgstr "FOAF"
+
+#: lib/feedimporter.php:75
+#, fuzzy
+msgid "Not an atom feed."
+msgstr "Všichni členové"
+
+#: lib/feedimporter.php:82
+msgid "No author in the feed."
+msgstr ""
+
+#: lib/feedimporter.php:89
+msgid "Can't import without a user."
+msgstr ""
 
 #. TRANS: Header for feed links (h2).
 #: lib/feedlist.php:66
@@ -7838,11 +8161,6 @@ msgstr "Ten soubor je příliš velký. Maximální velikost souboru je %s."
 #: lib/imagefile.php:95
 msgid "Partial upload."
 msgstr "Částečné náhrání."
-
-#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
-#: lib/imagefile.php:103 lib/mediafile.php:228
-msgid "System error uploading file."
-msgstr "Chyba systému při nahrávání souboru"
 
 #: lib/imagefile.php:111
 msgid "Not an image or corrupt file."
@@ -8267,7 +8585,7 @@ msgstr ""
 "zapojili ostatní uživatelé v rozhovoru. Lidé mohou posílat zprávy jen pro "
 "vaše oči."
 
-#: lib/mailbox.php:228 lib/noticelist.php:521
+#: lib/mailbox.php:228 lib/noticelist.php:522
 msgid "from"
 msgstr "od"
 
@@ -8297,41 +8615,6 @@ msgstr "Nepodporovaný typ zprávy: %s"
 msgid "There was a database error while saving your file. Please try again."
 msgstr "Nastala chyba v databázi při ukládání souboru. Prosím zkuste to znovu."
 
-#. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
-#: lib/mediafile.php:194
-msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
-msgstr ""
-"Velkost uploadovaného souboru překračuje upload_max_filesize limit v php.ini."
-
-#. TRANS: Client exception.
-#: lib/mediafile.php:200
-msgid ""
-"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
-"the HTML form."
-msgstr ""
-"Velkost uploadovaného souboru překračuje MAX_FILE_SIZE limit, které bylo "
-"uvedeno v HTML formuláři."
-
-#. TRANS: Client exception.
-#: lib/mediafile.php:206
-msgid "The uploaded file was only partially uploaded."
-msgstr "Nahrávaný soubor byl nahrán pouze částečně."
-
-#. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
-#: lib/mediafile.php:214
-msgid "Missing a temporary folder."
-msgstr "Chybí dočasný adresář."
-
-#. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
-#: lib/mediafile.php:218
-msgid "Failed to write file to disk."
-msgstr "Nepodařilo se zapsat soubor na disk."
-
-#. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
-#: lib/mediafile.php:222
-msgid "File upload stopped by extension."
-msgstr "Nahrávání souboru zastaveno rozšířením PHP."
-
 #. TRANS: Client exception thrown when a file upload operation would cause a user to exceed a set quota.
 #: lib/mediafile.php:238 lib/mediafile.php:281
 msgid "File exceeds user's quota."
@@ -8352,7 +8635,7 @@ msgstr "Nelze určit typ MIME souboru."
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %1$s is the file type that was denied, %2$s is the application part of
 #. TRANS: the MIME type that was denied.
-#: lib/mediafile.php:394
+#: lib/mediafile.php:396
 #, php-format
 msgid ""
 "\"%1$s\" is not a supported file type on this server. Try using another %2$s "
@@ -8361,7 +8644,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %s is the file type that was denied.
-#: lib/mediafile.php:399
+#: lib/mediafile.php:401
 #, php-format
 msgid "\"%s\" is not a supported file type on this server."
 msgstr ""
@@ -8396,17 +8679,17 @@ msgid "Send"
 msgstr "Odeslat"
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:163
+#: lib/nickname.php:165
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "Přezdívka může obsahovat pouze malá písmena a čísla a žádné mezery."
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:176
+#: lib/nickname.php:178
 msgid "Nickname cannot be empty."
 msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: lib/nickname.php:189
+#: lib/nickname.php:191
 #, php-format
 msgid "Nickname cannot be more than %d character long."
 msgid_plural "Nickname cannot be more than %d characters long."
@@ -8448,55 +8731,55 @@ msgstr ""
 "prosím znovu později"
 
 #. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:451
+#: lib/noticelist.php:452
 msgid "N"
 msgstr "S"
 
 #. TRANS: Used in coordinates as abbreviation of south
-#: lib/noticelist.php:453
+#: lib/noticelist.php:454
 msgid "S"
 msgstr "J"
 
 #. TRANS: Used in coordinates as abbreviation of east
-#: lib/noticelist.php:455
+#: lib/noticelist.php:456
 msgid "E"
 msgstr "V"
 
 #. TRANS: Used in coordinates as abbreviation of west
-#: lib/noticelist.php:457
+#: lib/noticelist.php:458
 msgid "W"
 msgstr "Z"
 
-#: lib/noticelist.php:459
+#: lib/noticelist.php:460
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
-#: lib/noticelist.php:468
+#: lib/noticelist.php:469
 msgid "at"
 msgstr "v"
 
-#: lib/noticelist.php:517
+#: lib/noticelist.php:518
 msgid "web"
 msgstr "web"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:584
 msgid "in context"
 msgstr "v kontextu"
 
-#: lib/noticelist.php:618
+#: lib/noticelist.php:619
 msgid "Repeated by"
 msgstr "Opakováno"
 
-#: lib/noticelist.php:645
+#: lib/noticelist.php:646
 msgid "Reply to this notice"
 msgstr "Odpovědět na toto oznámení"
 
-#: lib/noticelist.php:646
+#: lib/noticelist.php:647
 msgid "Reply"
 msgstr "Odpovědět"
 
-#: lib/noticelist.php:690
+#: lib/noticelist.php:691
 msgid "Notice repeated"
 msgstr "Sdělení opakováno"
 
@@ -8650,7 +8933,7 @@ msgid "Revoke the \"%s\" role from this user"
 msgstr "Odebrat uživateli roli \"%s\""
 
 #. TRANS: Client error on action trying to visit a non-existing page.
-#: lib/router.php:957
+#: lib/router.php:974
 #, fuzzy
 msgid "Page not found."
 msgstr " API metoda nebyla nalezena."
@@ -9010,22 +9293,32 @@ msgid "Invalid XML, missing XRD root."
 msgstr ""
 
 #. TRANS: Commandline script output. %s is the filename that contains a backup for a user.
-#: scripts/restoreuser.php:61
+#: scripts/restoreuser.php:62
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#. TRANS: Commandline script output.
-#: scripts/restoreuser.php:91
 #, fuzzy
-msgid "No user specified; using backup user."
-msgstr "Nebylo zadáno uživatelské ID."
+#~ msgid "No such profile"
+#~ msgstr "Žádný takový profil."
 
-#. TRANS: Commandline script output. %d is the number of entries in the activity stream in backup; used for plural.
-#: scripts/restoreuser.php:98
-#, php-format
-msgid "%d entry in backup."
-msgid_plural "%d entries in backup."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+#, fuzzy
+#~ msgid "Groups %s is a member of on %s"
+#~ msgstr "Skupiny kterých je %s členem"
+
+#, fuzzy
+#~ msgid "Method not supported"
+#~ msgstr " API metoda nebyla nalezena."
+
+#, fuzzy
+#~ msgid "People %s has subscribed to on %s"
+#~ msgstr "Lidé přihlášení k %s"
+
+#~ msgid "Couldn't update user."
+#~ msgstr "Nelze aktualizovat uživatele"
+
+#~ msgid "Couldn't save profile."
+#~ msgstr "Nelze uložit profil"
+
+#~ msgid "Couldn't save tags."
+#~ msgstr "Nelze uložit tagy."

@@ -121,12 +121,12 @@ class UserFlagPlugin extends Plugin
     /**
      * Add a 'flag' button to profile page
      *
-     * @param Action  &$action The action being called
+     * @param Action  $action The action being called
      * @param Profile $profile Profile being shown
      *
      * @return boolean hook result
      */
-    function onEndProfilePageActionsElements(&$action, $profile)
+    function onEndProfilePageActionsElements($action, $profile)
     {
         $this->showFlagButton($action, $profile,
                               array('action' => 'showstream',

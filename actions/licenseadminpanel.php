@@ -40,7 +40,6 @@ if (!defined('STATUSNET')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class LicenseadminpanelAction extends AdminPanelAction
 {
 
@@ -61,7 +60,6 @@ class LicenseadminpanelAction extends AdminPanelAction
      *
      * @return string instructions
      */
-
     function getInstructions()
     {
         return _('License for this StatusNet site');
@@ -72,7 +70,6 @@ class LicenseadminpanelAction extends AdminPanelAction
      *
      * @return void
      */
-
     function showForm()
     {
         $form = new LicenseAdminPanelForm($this);
@@ -85,7 +82,6 @@ class LicenseadminpanelAction extends AdminPanelAction
      *
      * @return void
      */
-
     function saveSettings()
     {
         static $settings = array(
@@ -128,7 +124,6 @@ class LicenseadminpanelAction extends AdminPanelAction
      *
      * @return nothing
      */
-
     function validate(&$values)
     {
         // Validate license type (shouldn't have to do it, but just in case)
@@ -197,7 +192,6 @@ class LicenseAdminPanelForm extends AdminForm
      *
      * @return int ID of the form
      */
-
     function id()
     {
         return 'licenseadminpanel';
@@ -208,7 +202,6 @@ class LicenseAdminPanelForm extends AdminForm
      *
      * @return string class of the form
      */
-
     function formClass()
     {
         return 'form_settings';
@@ -312,7 +305,6 @@ class LicenseAdminPanelForm extends AdminForm
      *
      * @return void
      */
-
     function formActions()
     {
         $this->out->submit(

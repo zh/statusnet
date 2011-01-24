@@ -254,19 +254,19 @@ class NewMenuPlugin extends Plugin
         return true;
     }
 
-    function onStartAccountSettingsNav(&$action)
+    function onStartAccountSettingsNav($action)
     {
         $this->_settingsMenu($action);
         return false;
     }
 
-    function onStartConnectSettingsNav(&$action)
+    function onStartConnectSettingsNav($action)
     {
         $this->_settingsMenu($action);
         return false;
     }
 
-    private function _settingsMenu(&$action)
+    private function _settingsMenu($action)
     {
         $actionName = $action->trimmed('action');
 
@@ -300,7 +300,7 @@ class NewMenuPlugin extends Plugin
                           _('Other options'),
                           $actionName == 'othersettings');
 
-        Event::handle('EndAccountSettingsNav', array(&$action));
+        Event::handle('EndAccountSettingsNav', array($action));
         
         if (common_config('xmpp', 'enabled')) {
             $action->menuItem(common_local_url('imsettings'),
@@ -321,7 +321,7 @@ class NewMenuPlugin extends Plugin
                           _('Authorized connected applications'),
                           $actionName == 'oauthconnectionsettings');
 
-        Event::handle('EndConnectSettingsNav', array(&$action));
+        Event::handle('EndConnectSettingsNav', array($action));
     }
 
     function onEndShowStyles($action)

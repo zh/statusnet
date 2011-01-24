@@ -99,6 +99,21 @@ class ProfileAction extends OwnerDesignAction
         $this->showStatistics();
     }
 
+    /**
+     * Convenience function for common pattern of links to subscription/groups sections.
+     *
+     * @param string $actionClass
+     * @param string $title
+     * @param string $cssClass
+     */
+    private function statsSectionLink($actionClass, $title, $cssClass='')
+    {
+        $this->element('a', array('href' => common_local_url($actionClass,
+                                                             array('nickname' => $this->profile->nickname)),
+                                  'class' => $cssClass),
+                       $title);
+    }
+
     function showSubscriptions()
     {
         $profile = $this->profile->getSubscriptions(0, PROFILES_PER_MINILIST + 1);
@@ -106,7 +121,9 @@ class ProfileAction extends OwnerDesignAction
         $this->elementStart('div', array('id' => 'entity_subscriptions',
                                          'class' => 'section'));
         if (Event::handle('StartShowSubscriptionsMiniList', array($this))) {
-            $this->element('h2', null, _('Subscriptions'));
+            $this->elementStart('h2');
+            $this->statsSectionLink('subscriptions', _('Subscriptions'));
+            $this->elementEnd('h2');
 
             $cnt = 0;
 
@@ -120,10 +137,7 @@ class ProfileAction extends OwnerDesignAction
 
             if ($cnt > PROFILES_PER_MINILIST) {
                 $this->elementStart('p');
-                $this->element('a', array('href' => common_local_url('subscriptions',
-                                                                     array('nickname' => $this->profile->nickname)),
-                                          'class' => 'more'),
-                               _('All subscriptions'));
+                $this->statsSectionLink('subscriptions', _('All subscriptions'), 'more');
                 $this->elementEnd('p');
             }
 
@@ -141,7 +155,9 @@ class ProfileAction extends OwnerDesignAction
 
         if (Event::handle('StartShowSubscribersMiniList', array($this))) {
 
-            $this->element('h2', null, _('Subscribers'));
+            $this->elementStart('h2');
+            $this->statsSectionLink('subscribers', _('Subscribers'));
+            $this->elementEnd('h2');
 
             $cnt = 0;
 
@@ -155,10 +171,7 @@ class ProfileAction extends OwnerDesignAction
 
             if ($cnt > PROFILES_PER_MINILIST) {
                 $this->elementStart('p');
-                $this->element('a', array('href' => common_local_url('subscribers',
-                                                                     array('nickname' => $this->profile->nickname)),
-                                          'class' => 'more'),
-                               _('All subscribers'));
+                $this->statsSectionLink('subscribers', _('All subscribers'), 'more');
                 $this->elementEnd('p');
             }
 
@@ -170,10 +183,7 @@ class ProfileAction extends OwnerDesignAction
 
     function showStatistics()
     {
-        $subs_count   = $this->profile->subscriptionCount();
-        $subbed_count = $this->profile->subscriberCount();
         $notice_count = $this->profile->noticeCount();
-        $group_count  = $this->profile->getGroups()->N;
         $age_days     = (time() - strtotime($this->profile->created)) / 86400;
         if ($age_days < 1) {
             // Rather than extrapolating out to a bajillion...
@@ -186,57 +196,71 @@ class ProfileAction extends OwnerDesignAction
 
         $this->element('h2', null, _('Statistics'));
 
-        // Other stats...?
-        $this->elementStart('dl', 'entity_user-id');
-        $this->element('dt', null, _('User ID'));
-        $this->element('dd', null, $this->profile->id);
-        $this->elementEnd('dl');
+        $profile = $this->profile;
+        $actionParams = array('nickname' => $profile->nickname);
+        $stats = array(
+            array(
+                'id' => 'user-id',
+                'label' => _('User ID'),
+                'value' => $profile->id,
+            ),
+            array(
+                'id' => 'member-since',
+                'label' => _('Member since'),
+                'value' => date('j M Y', strtotime($profile->created))
+            ),
+            array(
+                'id' => 'subscriptions',
+                'label' => _('Subscriptions'),
+                'link' => common_local_url('subscriptions', $actionParams),
+                'value' => $profile->subscriptionCount(),
+            ),
+            array(
+                'id' => 'subscribers',
+                'label' => _('Subscribers'),
+                'link' => common_local_url('subscribers', $actionParams),
+                'value' => $profile->subscriberCount(),
+            ),
+            array(
+                'id' => 'groups',
+                'label' => _('Groups'),
+                'link' => common_local_url('usergroups', $actionParams),
+                'value' => $profile->getGroups()->N,
+            ),
+            array(
+                'id' => 'notices',
+                'label' => _('Notices'),
+                'value' => $notice_count,
+            ),
+            array(
+                'id' => 'daily_notices',
+                // TRANS: Average count of posts made per day since account registration
+                'label' => _('Daily average'),
+                'value' => $daily_count
+            )
+        );
 
-        $this->elementStart('dl', 'entity_member-since');
-        $this->element('dt', null, _('Member since'));
-        $this->element('dd', null, date('j M Y',
-                                        strtotime($this->profile->created)));
-        $this->elementEnd('dl');
+        // Give plugins a chance to add stats entries
+        Event::handle('ProfileStats', array($profile, &$stats));
 
-        $this->elementStart('dl', 'entity_subscriptions');
-        $this->elementStart('dt');
-        $this->element('a', array('href' => common_local_url('subscriptions',
-                                                             array('nickname' => $this->profile->nickname))),
-                       _('Subscriptions'));
-        $this->elementEnd('dt');
-        $this->element('dd', null, $subs_count);
-        $this->elementEnd('dl');
-
-        $this->elementStart('dl', 'entity_subscribers');
-        $this->elementStart('dt');
-        $this->element('a', array('href' => common_local_url('subscribers',
-                                                             array('nickname' => $this->profile->nickname))),
-                       _('Subscribers'));
-        $this->elementEnd('dt');
-        $this->element('dd', 'subscribers', $subbed_count);
-        $this->elementEnd('dl');
-
-        $this->elementStart('dl', 'entity_groups');
-        $this->elementStart('dt');
-        $this->element('a', array('href' => common_local_url('usergroups',
-                                                             array('nickname' => $this->profile->nickname))),
-                       _('Groups'));
-        $this->elementEnd('dt');
-        $this->element('dd', 'groups', $group_count);
-        $this->elementEnd('dl');
-
-        $this->elementStart('dl', 'entity_notices');
-        $this->element('dt', null, _('Notices'));
-        $this->element('dd', null, $notice_count);
-        $this->elementEnd('dl');
-
-        $this->elementStart('dl', 'entity_daily_notices');
-        // TRANS: Average count of posts made per day since account registration
-        $this->element('dt', null, _('Daily average'));
-        $this->element('dd', null, $daily_count);
-        $this->elementEnd('dl');
-
+        foreach ($stats as $row) {
+            $this->showStatsRow($row);
+        }
         $this->elementEnd('div');
+    }
+
+    private function showStatsRow($row)
+    {
+        $this->elementStart('dl', 'entity_' . $row['id']);
+        $this->elementStart('dt');
+        if (!empty($row['link'])) {
+            $this->element('a', array('href' => $row['link']), $row['label']);
+        } else {
+            $this->text($row['label']);
+        }
+        $this->elementEnd('dt');
+        $this->element('dd', null, $row['value']);
+        $this->elementEnd('dl');
     }
 
     function showGroups()
@@ -246,7 +270,9 @@ class ProfileAction extends OwnerDesignAction
         $this->elementStart('div', array('id' => 'entity_groups',
                                          'class' => 'section'));
         if (Event::handle('StartShowGroupsMiniList', array($this))) {
-            $this->element('h2', null, _('Groups'));
+            $this->elementStart('h2');
+            $this->statsSectionLink('usergroups', _('Groups'));
+            $this->elementEnd('h2');
 
             if ($groups) {
                 $gml = new GroupMiniList($groups, $this->profile, $this);
@@ -258,10 +284,7 @@ class ProfileAction extends OwnerDesignAction
 
             if ($cnt > GROUPS_PER_MINILIST) {
                 $this->elementStart('p');
-                $this->element('a', array('href' => common_local_url('usergroups',
-                                                                     array('nickname' => $this->profile->nickname)),
-                                          'class' => 'more'),
-                               _('All groups'));
+                $this->statsSectionLink('usergroups', _('All groups'), 'more');
                 $this->elementEnd('p');
             }
 

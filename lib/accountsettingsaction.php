@@ -96,7 +96,7 @@ class AccountSettingsNav extends Widget
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        if (Event::handle('StartAccountSettingsNav', array(&$this->action))) {
+        if (Event::handle('StartAccountSettingsNav', array($this->action))) {
             $user = common_current_user();
 
             if(Event::handle('StartAccountSettingsProfileMenuItem', array($this, &$menu))){
@@ -142,7 +142,7 @@ class AccountSettingsNav extends Widget
                 Event::handle('EndAccountSettingsOtherMenuItem', array($this, &$menu));
             }
 
-            Event::handle('EndAccountSettingsNav', array(&$this->action));
+            Event::handle('EndAccountSettingsNav', array($this->action));
         }
 
         $this->action->elementEnd('ul');

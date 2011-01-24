@@ -63,8 +63,13 @@ if (!function_exists('dl')) {
     // Fortunately trying to call the disabled one will only trigger
     // a warning, not a fatal, so it's safe to leave it for our case.
     // Callers will be suppressing warnings anyway.
-    $disabled = array_filter(array_map('trim', explode(',', ini_get('disable_functions'))));
-    if (!in_array('dl', $disabled)) {
+    try {
+        // Reading the ini setting is hard as we don't know PHP's parsing,
+        // but we can check if it is disabled through reflection.
+        $dl = new ReflectionFunction('dl');
+        // $disabled = $dl->isDisabled(); // don't need to check this now
+    } catch (ReflectionException $e) {
+        // Ok, it *really* doesn't exist!
         function dl($library) {
             return false;
         }
