@@ -819,9 +819,18 @@ class Notice extends Memcached_DataObject
 
         // Exclude any deleted, non-local, or blocking recipients.
         $profile = $this->getProfile();
+        $originalProfile = null;
+        if ($this->repeat_of) {
+            // Check blocks against the original notice's poster as well.
+            $original = Notice::staticGet('id', $this->repeat_of);
+            if ($original) {
+                $originalProfile = $original->getProfile();
+            }
+        }
         foreach ($ni as $id => $source) {
             $user = User::staticGet('id', $id);
-            if (empty($user) || $user->hasBlocked($profile)) {
+            if (empty($user) || $user->hasBlocked($profile) ||
+                ($originalProfile && $user->hasBlocked($originalProfile))) {
                 unset($ni[$id]);
             }
         }
