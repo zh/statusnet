@@ -353,20 +353,21 @@ class GrouplogoAction extends GroupDesignAction
             return;
         }
 
+        $type = $imagefile->preferredType();
         $filename = Avatar::filename($this->group->id,
-                                     image_type_to_extension($imagefile->type),
+                                     image_type_to_extension($type),
                                      null,
                                      'group-temp-'.common_timestamp());
 
         $filepath = Avatar::path($filename);
 
-        move_uploaded_file($imagefile->filepath, $filepath);
+        $imagefile->copyTo($filepath);
 
         $filedata = array('filename' => $filename,
                           'filepath' => $filepath,
                           'width' => $imagefile->width,
                           'height' => $imagefile->height,
-                          'type' => $imagefile->type);
+                          'type' => $type);
 
         $_SESSION['FILEDATA'] = $filedata;
 
