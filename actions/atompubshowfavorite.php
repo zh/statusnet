@@ -149,7 +149,7 @@ class AtompubshowfavoriteAction extends ApiAuthAction
             $this->auth_user->id != $this->_profile->id) {
             // TRANS: Client exception thrown when trying to remove a favorite notice of another user.
             throw new ClientException(_("Cannot delete someone else's".
-                                        " favorite"), 403);
+                                        " favorite."), 403);
         }
 
         $this->_fave->delete();

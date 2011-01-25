@@ -430,16 +430,15 @@ class RegisterAction extends Action
         if (Event::handle('StartRegistrationFormData', array($this))) {
             $this->elementStart('li');
             $this->input('nickname', _('Nickname'), $this->trimmed('nickname'),
-                         _('1-64 lowercase letters or numbers, '.
-                           'no punctuation or spaces. Required.'));
+                         _('1-64 lowercase letters or numbers, no punctuation or spaces.'));
             $this->elementEnd('li');
             $this->elementStart('li');
             $this->password('password', _('Password'),
-                            _('6 or more characters. Required.'));
+                            _('6 or more characters.'));
             $this->elementEnd('li');
             $this->elementStart('li');
             $this->password('confirm', _('Confirm'),
-                            _('Same as password above. Required.'));
+                            _('Same as password above.'));
             $this->elementEnd('li');
             $this->elementStart('li');
             if ($this->invite && $this->invite->address_type == 'email') {

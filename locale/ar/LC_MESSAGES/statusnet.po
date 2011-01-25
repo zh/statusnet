@@ -11,19 +11,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 19:02+0000\n"
-"PO-Revision-Date: 2011-01-20 19:04:58+0000\n"
+"POT-Creation-Date: 2011-01-22 14:49+0000\n"
+"PO-Revision-Date: 2011-01-22 14:55:43+0000\n"
 "Language-Team: Arabic <http://translatewiki.net/wiki/Portal:ar>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r80631); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r80746); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == "
 "2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= "
 "99) ? 4 : 5 ) ) ) );\n"
-"X-POT-Import-Date: 2011-01-15 11:03:27+0000\n"
+"X-POT-Import-Date: 2011-01-20 20:41:25+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -78,6 +78,7 @@ msgid "Save access settings"
 msgstr "حفظ إعدادت الوصول"
 
 #. TRANS: Tooltip for button to save access settings in site admin panel.
+#. TRANS: Button text for saving theme settings.
 #. TRANS: Button label to save e-mail preferences.
 #. TRANS: Button label to save IM preferences.
 #. TRANS: Button text for saving "Other settings" in profile.
@@ -89,13 +90,13 @@ msgstr "حفظ إعدادت الوصول"
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
 #. TRANS: Button text on profile design page to save settings.
-#: actions/accessadminpanel.php:193 actions/emailsettings.php:254
-#: actions/imsettings.php:183 actions/othersettings.php:134
-#: actions/pathsadminpanel.php:512 actions/profilesettings.php:197
-#: actions/sitenoticeadminpanel.php:197 actions/smssettings.php:205
-#: actions/subscriptions.php:262 actions/useradminpanel.php:298
-#: lib/applicationeditform.php:355 lib/designsettings.php:270
-#: lib/groupeditform.php:207
+#: actions/accessadminpanel.php:193 actions/designadminpanel.php:732
+#: actions/emailsettings.php:254 actions/imsettings.php:183
+#: actions/othersettings.php:134 actions/pathsadminpanel.php:512
+#: actions/profilesettings.php:197 actions/sitenoticeadminpanel.php:197
+#: actions/smssettings.php:205 actions/subscriptions.php:262
+#: actions/useradminpanel.php:298 lib/applicationeditform.php:355
+#: lib/designsettings.php:270 lib/groupeditform.php:198
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "احفظ"
@@ -322,7 +323,7 @@ msgstr ""
 #: actions/confirmaddress.php:118 actions/emailsettings.php:359
 #: actions/emailsettings.php:508 actions/imsettings.php:276
 #: actions/imsettings.php:432 actions/othersettings.php:184
-#: actions/profilesettings.php:321 actions/smssettings.php:301
+#: actions/profilesettings.php:322 actions/smssettings.php:301
 #: actions/smssettings.php:454
 msgid "Could not update user."
 msgstr "تعذّر تحديث المستخدم."
@@ -346,7 +347,7 @@ msgstr "ليس للمستخدم ملف شخصي."
 
 #. TRANS: Server error displayed if a user profile could not be saved.
 #. TRANS: Server error thrown when user profile settings could not be saved.
-#: actions/apiaccountupdateprofile.php:147 actions/profilesettings.php:417
+#: actions/apiaccountupdateprofile.php:147 actions/profilesettings.php:418
 msgid "Could not save profile."
 msgstr "لم يمكن حفظ الملف."
 
@@ -356,7 +357,7 @@ msgstr "لم يمكن حفظ الملف."
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:95 actions/apimediaupload.php:81
 #: actions/apistatusesupdate.php:210 actions/avatarsettings.php:269
-#: actions/designadminpanel.php:125 actions/editapplication.php:121
+#: actions/designadminpanel.php:120 actions/editapplication.php:121
 #: actions/newapplication.php:104 actions/newnotice.php:95
 #: lib/designsettings.php:298
 #, php-format
@@ -538,7 +539,8 @@ msgid "That status is not a favorite."
 msgstr "تلك الحالة ليست مفضلة."
 
 #. TRANS: Client error displayed when removing a favourite has failed.
-#: actions/apifavoritedestroy.php:135 actions/disfavor.php:87
+#. TRANS: Server error displayed when removing a favorite from the database fails.
+#: actions/apifavoritedestroy.php:135 actions/disfavor.php:91
 msgid "Could not delete favorite."
 msgstr "تعذّر حذف المفضلة."
 
@@ -586,7 +588,7 @@ msgstr "تعذّر إيجاد المستخدم الهدف."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:156 actions/editgroup.php:189
-#: actions/newgroup.php:136 actions/profilesettings.php:272
+#: actions/newgroup.php:136 actions/profilesettings.php:273
 #: actions/register.php:214
 msgid "Nickname already in use. Try another one."
 msgstr "الاسم المستعار مستخدم بالفعل. جرّب اسمًا آخرًا."
@@ -596,7 +598,7 @@ msgstr "الاسم المستعار مستخدم بالفعل. جرّب اسمً
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:164 actions/editgroup.php:193
-#: actions/newgroup.php:140 actions/profilesettings.php:242
+#: actions/newgroup.php:140 actions/profilesettings.php:243
 #: actions/register.php:216
 msgid "Not a valid nickname."
 msgstr "ليس اسمًا مستعارًا صحيحًا."
@@ -608,7 +610,7 @@ msgstr "ليس اسمًا مستعارًا صحيحًا."
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:181 actions/editapplication.php:233
 #: actions/editgroup.php:200 actions/newapplication.php:211
-#: actions/newgroup.php:147 actions/profilesettings.php:247
+#: actions/newgroup.php:147 actions/profilesettings.php:248
 #: actions/register.php:223
 msgid "Homepage is not a valid URL."
 msgstr "الصفحة الرئيسية ليست عنونًا صالحًا."
@@ -618,7 +620,7 @@ msgstr "الصفحة الرئيسية ليست عنونًا صالحًا."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:191 actions/editgroup.php:204
-#: actions/newgroup.php:151 actions/profilesettings.php:251
+#: actions/newgroup.php:151 actions/profilesettings.php:252
 #: actions/register.php:226
 #, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
@@ -650,7 +652,7 @@ msgstr[5] "المنظمة طويلة جدا (الأقصى %d حرفا)."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:215 actions/editgroup.php:216
-#: actions/newgroup.php:163 actions/profilesettings.php:264
+#: actions/newgroup.php:163 actions/profilesettings.php:265
 #: actions/register.php:235
 #, fuzzy
 msgid "Location is too long (maximum 255 characters)."
@@ -712,24 +714,28 @@ msgid "Group not found."
 msgstr "المجموعة غير موجودة."
 
 #. TRANS: Server error displayed when trying to join a group the user is already a member of.
+#. TRANS: Client error displayed when trying to join a group while already a member.
 #. TRANS: Error text shown a user tries to join a group they already are a member of.
-#: actions/apigroupjoin.php:111 actions/joingroup.php:100 lib/command.php:333
+#: actions/apigroupjoin.php:111 actions/joingroup.php:103 lib/command.php:333
 #, fuzzy
 msgid "You are already a member of that group."
 msgstr "أنت بالفعل عضو في هذه المجموعة"
 
 #. TRANS: Server error displayed when trying to join a group the user is blocked from joining.
+#. TRANS: Client error displayed when trying to join a group while being blocked form joining it.
 #. TRANS: Error text shown when a user tries to join a group they are blocked from joining.
-#: actions/apigroupjoin.php:121 actions/joingroup.php:105 lib/command.php:338
+#: actions/apigroupjoin.php:121 actions/joingroup.php:109 lib/command.php:338
 #, fuzzy
 msgid "You have been blocked from that group by the admin."
 msgstr "لم تمنع هذا المستخدم."
 
 #. TRANS: Server error displayed when joining a group fails.
 #. TRANS: %1$s is a user nickname, $2$s is a group nickname.
+#. TRANS: Server error displayed when joining a group failed in the database.
+#. TRANS: %1$s is the joining user's nickname, $2$s is the group nickname for which the join failed.
 #. TRANS: Message given having failed to add a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/apigroupjoin.php:142 actions/joingroup.php:134 lib/command.php:350
+#: actions/apigroupjoin.php:142 actions/joingroup.php:139 lib/command.php:350
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "لم يمكن ضم المستخدم %1$s إلى المجموعة %2$s."
@@ -741,9 +747,11 @@ msgstr "لست عضوًا في هذه المجموعة"
 
 #. TRANS: Server error displayed when leaving a group fails.
 #. TRANS: %1$s is a user nickname, $2$s is a group nickname.
+#. TRANS: Server error displayed when leaving a group failed in the database.
+#. TRANS: %1$s is the leaving user's nickname, $2$s is the group nickname for which the leave failed.
 #. TRANS: Message given having failed to remove a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/apigroupleave.php:127 actions/leavegroup.php:129
+#: actions/apigroupleave.php:127 actions/leavegroup.php:133
 #: lib/command.php:398
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
@@ -804,9 +812,12 @@ msgid "Request token already authorized."
 msgstr "لا تملك تصريحًا."
 
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
+#. TRANS: Client error displayed when the session token does not match or is not given.
+#. TRANS: Form validation error message.
+#. TRANS: Form validation error.
 #. TRANS: Form validation error message.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
-#: actions/deletenotice.php:177 actions/disfavor.php:74
+#: actions/deletenotice.php:177 actions/disfavor.php:76
 #: actions/emailsettings.php:297 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:324
 #: actions/groupunblock.php:65 actions/imsettings.php:224
@@ -814,7 +825,7 @@ msgstr "لا تملك تصريحًا."
 #: actions/newmessage.php:135 actions/newnotice.php:105 actions/nudge.php:80
 #: actions/oauthappssettings.php:165 actions/oauthconnectionssettings.php:138
 #: actions/othersettings.php:153 actions/passwordsettings.php:138
-#: actions/profilesettings.php:216 actions/recoverpassword.php:350
+#: actions/profilesettings.php:217 actions/recoverpassword.php:383
 #: actions/register.php:172 actions/remotesubscribe.php:76
 #: actions/repeat.php:82 actions/smssettings.php:250 actions/subedit.php:40
 #: actions/subscribe.php:86 actions/tagother.php:166
@@ -836,18 +847,20 @@ msgstr "خطأ في قاعدة البيانات أثناء حذف مستخدم �
 
 #. TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
 #. TRANS: Unexpected validation error on avatar upload form.
+#. TRANS: Client error displayed when the submitted form contains unexpected data.
 #. TRANS: Client error displayed submitting invalid form data for edit application.
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Form validation error message when an unsupported argument is used.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
 #. TRANS: Client error when submitting a form with unexpected information.
+#. TRANS: Client error displayed when unexpected data is posted in the password recovery form.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
 #. TRANS: Unknown form validation error in design settings form.
 #: actions/apioauthauthorize.php:294 actions/avatarsettings.php:294
-#: actions/designadminpanel.php:104 actions/editapplication.php:144
+#: actions/designadminpanel.php:100 actions/editapplication.php:144
 #: actions/emailsettings.php:316 actions/grouplogo.php:335
 #: actions/imsettings.php:239 actions/newapplication.php:125
-#: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
+#: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:46
 #: actions/smssettings.php:271 lib/designsettings.php:321
 msgid "Unexpected form submission."
 msgstr ""
@@ -896,7 +909,7 @@ msgstr "الحساب"
 #: actions/apioauthauthorize.php:459 actions/login.php:252
 #: actions/profilesettings.php:106 actions/register.php:432
 #: actions/showgroup.php:240 actions/tagother.php:94
-#: actions/userauthorization.php:145 lib/groupeditform.php:152
+#: actions/userauthorization.php:145 lib/groupeditform.php:144
 #: lib/userprofile.php:134
 msgid "Nickname"
 msgstr "الاسم المستعار"
@@ -904,7 +917,7 @@ msgstr "الاسم المستعار"
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
 #: actions/apioauthauthorize.php:463 actions/login.php:255
-#: actions/register.php:437 lib/accountsettingsaction.php:120
+#: actions/register.php:436 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "كلمة السر"
 
@@ -1013,10 +1026,12 @@ msgstr "كرر بالفعل هذه الملاحظة."
 #. TRANS: Client error displayed calling an unsupported HTTP error in API status show.
 #. TRANS: Client exception thrown when using an unsupported HTTP method.
 #. TRANS: Client exception thrown using an unsupported HTTP method.
+#. TRANS: Client exception thrown when using an unsupported HTTP method.
 #. TRANS: Client error shown when using a non-supported HTTP method.
 #. TRANS: Client exception thrown when using an unsupported HTTP method.
 #: actions/apistatusesshow.php:118 actions/atompubfavoritefeed.php:103
 #: actions/atompubmembershipfeed.php:105 actions/atompubshowfavorite.php:117
+#: actions/atompubshowmembership.php:116
 #: actions/atompubshowsubscription.php:122
 #: actions/atompubsubscriptionfeed.php:109
 #, fuzzy
@@ -1298,7 +1313,7 @@ msgstr "أعضاء مجموعة %s"
 #. TRANS: Client exception thrown when trying subscribe someone else to a group.
 #: actions/atompubmembershipfeed.php:219
 #, fuzzy
-msgid "Cannot add someone else's membership"
+msgid "Cannot add someone else's membership."
 msgstr "تعذّر إدراج اشتراك جديد."
 
 #. TRANS: Client error displayed when not using the POST verb.
@@ -1334,30 +1349,51 @@ msgstr "لا ملف كهذا."
 #. TRANS: Client exception thrown when trying to remove a favorite notice of another user.
 #: actions/atompubshowfavorite.php:151
 #, fuzzy
-msgid "Cannot delete someone else's favorite"
+msgid "Cannot delete someone else's favorite."
 msgstr "تعذّر حذف المفضلة."
 
 #. TRANS: Client exception thrown when referencing a non-existing group.
-#: actions/atompubshowmembership.php:81
-msgid "No such group"
-msgstr "لا مجموعة كهذه"
+#. TRANS: Client error displayed when requesting a list of blocked users for a non-local group.
+#. TRANS: Client error displayed when requesting a list of blocked users for a non-existing group.
+#. TRANS: Client error when trying to delete a non-local group.
+#. TRANS: Client error when trying to delete a non-existing group.
+#. TRANS: Client error displayed trying to edit a non-existing group.
+#. TRANS: Client error displayed when trying to update logo settings for a non-existing group.
+#. TRANS: Client error displayed when trying to unblock a user from a non-existing group.
+#. TRANS: Client error displayed when trying to join a non-local group.
+#. TRANS: Client error displayed when trying to join a non-existing group.
+#. TRANS: Client error displayed when trying to leave a non-local group.
+#. TRANS: Client error displayed when trying to leave a non-existing group.
+#. TRANS: Client error displayed if no remote group with a given name was found requesting group page.
+#. TRANS: Client error displayed if no local group with a given name was found requesting group page.
+#. TRANS: Command exception text shown when a group is requested that does not exist.
+#. TRANS: Error text shown when trying to leave a group that does not exist.
+#: actions/atompubshowmembership.php:81 actions/blockedfromgroup.php:81
+#: actions/blockedfromgroup.php:89 actions/deletegroup.php:87
+#: actions/deletegroup.php:100 actions/editgroup.php:102
+#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/foafgroup.php:69
+#: actions/groupblock.php:86 actions/groupbyid.php:83
+#: actions/groupdesignsettings.php:100 actions/grouplogo.php:104
+#: actions/groupmembers.php:83 actions/groupmembers.php:90
+#: actions/grouprss.php:98 actions/grouprss.php:105
+#: actions/groupunblock.php:88 actions/joingroup.php:82
+#: actions/joingroup.php:95 actions/leavegroup.php:82
+#: actions/leavegroup.php:95 actions/makeadmin.php:86
+#: actions/showgroup.php:134 actions/showgroup.php:143 lib/command.php:168
+#: lib/command.php:380
+msgid "No such group."
+msgstr "لا مجموعة كهذه."
 
 #. TRANS: Client exception thrown when trying to show membership of a non-subscribed group
 #: actions/atompubshowmembership.php:91
 #, fuzzy
-msgid "Not a member"
+msgid "Not a member."
 msgstr "جميع الأعضاء"
-
-#. TRANS: Client exception thrown when using an unsupported HTTP method.
-#: actions/atompubshowmembership.php:116
-#, fuzzy
-msgid "HTTP method not supported"
-msgstr "لم يتم العثور على وسيلة API."
 
 #. TRANS: Client exception thrown when deleting someone else's membership.
 #: actions/atompubshowmembership.php:151
 #, fuzzy
-msgid "Cannot delete someone else's membership"
+msgid "Cannot delete someone else's membership."
 msgstr "تعذّر حفظ الاشتراك."
 
 #. TRANS: Client exception thrown when trying to display a subscription for a non-existing profile ID.
@@ -1529,35 +1565,42 @@ msgstr "فشل تحديث الأفتار."
 msgid "Avatar deleted."
 msgstr "حُذف الأفتار."
 
-#: actions/backupaccount.php:62 actions/profilesettings.php:462
+#. TRANS: Title for backup account page.
+#. TRANS: Option in profile settings to create a backup of the account of the currently logged in user.
+#: actions/backupaccount.php:61 actions/profilesettings.php:464
 msgid "Backup account"
 msgstr ""
 
-#: actions/backupaccount.php:80
+#. TRANS: Client exception thrown when trying to backup an account while not logged in.
+#: actions/backupaccount.php:79
 #, fuzzy
 msgid "Only logged-in users can backup their account."
 msgstr "يستطيع المستخدمون الوالجون وحدهم تكرار الإشعارات."
 
+#. TRANS: Client exception thrown when trying to backup an account without having backup rights.
 #: actions/backupaccount.php:84
 msgid "You may not backup your account."
 msgstr ""
 
-#: actions/backupaccount.php:232
+#. TRANS: Information displayed on the backup account page.
+#: actions/backupaccount.php:225
 msgid ""
 "You can backup your account data in <a href=\"http://activitystrea.ms/"
-"\">Activity Streams</a> format.  This is an experimental feature and "
-"provides an incomplete backup; private account information like email and IM "
+"\">Activity Streams</a> format. This is an experimental feature and provides "
+"an incomplete backup; private account information like email and IM "
 "addresses is not backed up. Additionally, uploaded files and direct messages "
 "are not backed up."
 msgstr ""
 
-#: actions/backupaccount.php:255
+#. TRANS: Submit button to backup an account on the backup account page.
+#: actions/backupaccount.php:248
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Backup"
 msgstr "الخلفية"
 
-#: actions/backupaccount.php:258
+#. TRANS: Title for submit button to backup an account on the backup account page.
+#: actions/backupaccount.php:252
 msgid "Backup your account"
 msgstr ""
 
@@ -1588,14 +1631,13 @@ msgstr ""
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:154 actions/deleteapplication.php:157
 #: actions/deletegroup.php:220 actions/deletenotice.php:155
-#: actions/deleteuser.php:152 actions/groupblock.php:178
+#: actions/deleteuser.php:154 actions/groupblock.php:178
 msgctxt "BUTTON"
 msgid "No"
 msgstr "لا"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
-#. TRANS: Submit button title for 'No' when deleting a user.
-#: actions/block.php:158 actions/deleteuser.php:156
+#: actions/block.php:158
 msgid "Do not block this user"
 msgstr "لا تمنع هذا المستخدم"
 
@@ -1607,7 +1649,7 @@ msgstr "لا تمنع هذا المستخدم"
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:161 actions/deleteapplication.php:164
 #: actions/deletegroup.php:227 actions/deletenotice.php:162
-#: actions/deleteuser.php:159 actions/groupblock.php:185
+#: actions/deleteuser.php:161 actions/groupblock.php:185
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "نعم"
@@ -1622,32 +1664,6 @@ msgstr "امنع هذا المستخدم"
 #: actions/block.php:189
 msgid "Failed to save block information."
 msgstr "فشل حفظ معلومات المنع."
-
-#. TRANS: Client error displayed when requesting a list of blocked users for a non-local group.
-#. TRANS: Client error displayed when requesting a list of blocked users for a non-existing group.
-#. TRANS: Client error when trying to delete a non-local group.
-#. TRANS: Client error when trying to delete a non-existing group.
-#. TRANS: Client error displayed trying to edit a non-existing group.
-#. TRANS: Client error displayed when trying to update logo settings for a non-existing group.
-#. TRANS: Client error displayed when trying to unblock a user from a non-existing group.
-#. TRANS: Client error displayed if no remote group with a given name was found requesting group page.
-#. TRANS: Client error displayed if no local group with a given name was found requesting group page.
-#. TRANS: Command exception text shown when a group is requested that does not exist.
-#. TRANS: Error text shown when trying to leave a group that does not exist.
-#: actions/blockedfromgroup.php:81 actions/blockedfromgroup.php:89
-#: actions/deletegroup.php:87 actions/deletegroup.php:100
-#: actions/editgroup.php:102 actions/foafgroup.php:44 actions/foafgroup.php:62
-#: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
-#: actions/groupdesignsettings.php:100 actions/grouplogo.php:104
-#: actions/groupmembers.php:83 actions/groupmembers.php:90
-#: actions/grouprss.php:98 actions/grouprss.php:105
-#: actions/groupunblock.php:88 actions/joingroup.php:82
-#: actions/joingroup.php:93 actions/leavegroup.php:82
-#: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:134 actions/showgroup.php:143 lib/command.php:168
-#: lib/command.php:380
-msgid "No such group."
-msgstr "لا مجموعة كهذه."
 
 #. TRANS: Title for first page with list of users blocked from a group.
 #. TRANS: %s is a group nickname.
@@ -1781,7 +1797,8 @@ msgid "Account deleted."
 msgstr "حُذف الأفتار."
 
 #. TRANS: Page title for page on which a user account can be deleted.
-#: actions/deleteaccount.php:228 actions/profilesettings.php:469
+#. TRANS: Option in profile settings to delete the account of the currently logged in user.
+#: actions/deleteaccount.php:228 actions/profilesettings.php:472
 #, fuzzy
 msgid "Delete account"
 msgstr "أنشئ حسابًا"
@@ -1803,8 +1820,9 @@ msgid ""
 msgstr ""
 
 #. TRANS: Field label for delete account confirmation entry.
+#. TRANS: Field label for password reset form where the password has to be typed again.
 #: actions/deleteaccount.php:300 actions/passwordsettings.php:112
-#: actions/recoverpassword.php:239 actions/register.php:441
+#: actions/recoverpassword.php:262 actions/register.php:440
 msgid "Confirm"
 msgstr "أكّد"
 
@@ -1876,8 +1894,10 @@ msgid "You must be logged in to delete a group."
 msgstr "يجب أن تلج لتغادر مجموعة."
 
 #. TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
-#: actions/deletegroup.php:94 actions/joingroup.php:88
-#: actions/leavegroup.php:88
+#. TRANS: Client error displayed when trying to join a group without providing a group name or group ID.
+#. TRANS: Client error displayed when trying to leave a group without providing a group name or group ID.
+#: actions/deletegroup.php:94 actions/joingroup.php:89
+#: actions/leavegroup.php:89
 #, fuzzy
 msgid "No nickname or ID."
 msgstr "لا اسم مستعار."
@@ -1930,10 +1950,11 @@ msgid "Delete this group"
 msgstr "احذف هذا المستخدم"
 
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
+#. TRANS: Client error displayed when trying to remove a favorite while not logged in.
 #. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#: actions/deletenotice.php:52 actions/disfavor.php:61 actions/favor.php:62
+#: actions/deletenotice.php:52 actions/disfavor.php:62 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:60 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:88
 #: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:96
@@ -1971,98 +1992,133 @@ msgstr "لا تحذف هذا الإشعار"
 msgid "Delete this notice"
 msgstr "احذف هذا الإشعار"
 
-#: actions/deleteuser.php:67
+#. TRANS: Client error displayed when trying to delete a user without having the right to delete users.
+#: actions/deleteuser.php:66
 msgid "You cannot delete users."
 msgstr "لا يمكنك حذف المستخدمين."
 
+#. TRANS: Client error displayed when trying to delete a non-local user.
 #: actions/deleteuser.php:74
 msgid "You can only delete local users."
 msgstr "يمكنك حذف المستخدمين المحليين فقط."
 
-#: actions/deleteuser.php:110 actions/deleteuser.php:133
+#. TRANS: Title of delete user page.
+#: actions/deleteuser.php:110
+#, fuzzy
+msgctxt "TITLE"
 msgid "Delete user"
 msgstr "احذف المستخدم"
 
-#: actions/deleteuser.php:136
+#. TRANS: Fieldset legend on delete user page.
+#: actions/deleteuser.php:134
+msgid "Delete user"
+msgstr "احذف المستخدم"
+
+#. TRANS: Information text to request if a user is certain that the described action has to be performed.
+#: actions/deleteuser.php:138
 msgid ""
 "Are you sure you want to delete this user? This will clear all data about "
 "the user from the database, without a backup."
 msgstr ""
 
+#. TRANS: Submit button title for 'No' when deleting a user.
+#: actions/deleteuser.php:158
+#, fuzzy
+msgid "Do not delete this user"
+msgstr "لا تحذف هذا الإشعار"
+
 #. TRANS: Submit button title for 'Yes' when deleting a user.
-#: actions/deleteuser.php:163 lib/deleteuserform.php:77
+#. TRANS: Description of form for deleting a user.
+#: actions/deleteuser.php:165 lib/deleteuserform.php:75
 msgid "Delete this user"
 msgstr "احذف هذا المستخدم"
 
 #. TRANS: Message used as title for design settings for the site.
 #. TRANS: Link description in user account settings menu.
-#: actions/designadminpanel.php:63 lib/accountsettingsaction.php:134
+#: actions/designadminpanel.php:60 lib/accountsettingsaction.php:134
 msgid "Design"
 msgstr "التصميم"
 
-#: actions/designadminpanel.php:74
+#. TRANS: Instructions for design adminsitration panel.
+#: actions/designadminpanel.php:71
 msgid "Design settings for this StatusNet site"
 msgstr ""
 
-#: actions/designadminpanel.php:335
+#. TRANS: Client error displayed when a logo URL does is not valid.
+#: actions/designadminpanel.php:327
 msgid "Invalid logo URL."
 msgstr "مسار شعار غير صالح."
 
-#: actions/designadminpanel.php:340
+#. TRANS: Client error displayed when an SSL logo URL is invalid.
+#: actions/designadminpanel.php:333
 #, fuzzy
 msgid "Invalid SSL logo URL."
 msgstr "مسار شعار غير صالح."
 
-#: actions/designadminpanel.php:344
+#. TRANS: Client error displayed when a theme is submitted through the form that is not in the theme list.
+#. TRANS: %s is the chosen unavailable theme.
+#: actions/designadminpanel.php:339
 #, php-format
 msgid "Theme not available: %s."
 msgstr "السمة غير متوفرة: %s"
 
-#: actions/designadminpanel.php:448
+#. TRANS: Fieldset legend for form to change logo.
+#: actions/designadminpanel.php:437
 msgid "Change logo"
 msgstr "غيّر الشعار"
 
-#: actions/designadminpanel.php:453
+#. TRANS: Field label for StatusNet site logo.
+#: actions/designadminpanel.php:444
 msgid "Site logo"
 msgstr "شعار الموقع"
 
-#: actions/designadminpanel.php:457
+#. TRANS: Field label for SSL StatusNet site logo.
+#: actions/designadminpanel.php:452
 #, fuzzy
 msgid "SSL logo"
 msgstr "شعار الموقع"
 
-#: actions/designadminpanel.php:469
+#. TRANS: Fieldset legend for form change StatusNet site's theme.
+#: actions/designadminpanel.php:467
 msgid "Change theme"
 msgstr "غيّر السمة"
 
-#: actions/designadminpanel.php:486
+#. TRANS: Field label for dropdown to choose site theme.
+#: actions/designadminpanel.php:485
 msgid "Site theme"
 msgstr "سمة الموقع"
 
+#. TRANS: Title for field label for dropdown to choose site theme.
 #: actions/designadminpanel.php:487
 msgid "Theme for the site."
 msgstr "سمة الموقع."
 
-#: actions/designadminpanel.php:493
+#. TRANS: Field label for uploading a cutom theme.
+#: actions/designadminpanel.php:494
 msgid "Custom theme"
 msgstr "سمة مخصصة"
 
-#: actions/designadminpanel.php:497
+#. TRANS: Form instructions for uploading a cutom StatusNet theme.
+#: actions/designadminpanel.php:499
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
 
+#. TRANS: Fieldset legend for theme background image.
 #. TRANS: Fieldset legend on profile design page.
-#: actions/designadminpanel.php:512 lib/designsettings.php:98
+#: actions/designadminpanel.php:515 lib/designsettings.php:98
 msgid "Change background image"
 msgstr "تغيير صورة الخلفية"
 
+#. TRANS: Field label for background image on theme designer page.
+#. TRANS: Field label for background color selector.
 #. TRANS: Label on profile design page for setting a profile page background colour.
-#: actions/designadminpanel.php:517 actions/designadminpanel.php:600
+#: actions/designadminpanel.php:521 actions/designadminpanel.php:609
 #: lib/designsettings.php:183
 msgid "Background"
 msgstr "الخلفية"
 
-#: actions/designadminpanel.php:522
+#. TRANS: Form guide for background image upload form on theme designer page.
+#: actions/designadminpanel.php:527
 #, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
@@ -2070,99 +2126,109 @@ msgid ""
 msgstr "بإمكانك رفع صورة خلفية للموقع. أقصى حجم للملف هو %1$s."
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:553
+#: actions/designadminpanel.php:558
 msgid "On"
 msgstr "مكّن"
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:570
+#: actions/designadminpanel.php:575
 msgid "Off"
 msgstr "عطّل"
 
+#. TRANS: Form guide for turning background image on or off on theme designer page.
 #. TRANS: Form guide for a set of radio buttons on the profile design page that will enable or disable
 #. TRANS: use of the uploaded profile image.
-#: actions/designadminpanel.php:571 lib/designsettings.php:159
+#: actions/designadminpanel.php:577 lib/designsettings.php:159
 msgid "Turn background image on or off."
 msgstr "مكّن صورة الخلفية أو عطّلها."
 
+#. TRANS: Checkbox label to title background image on theme designer page.
 #. TRANS: Checkbox label on profile design page that will cause the profile image to be tiled.
-#: actions/designadminpanel.php:576 lib/designsettings.php:165
+#: actions/designadminpanel.php:583 lib/designsettings.php:165
 #, fuzzy
 msgid "Tile background image"
 msgstr "تغيير صورة الخلفية"
 
-#. TRANS: Fieldset legend on profile design page to change profile page colours.
-#: actions/designadminpanel.php:590 lib/designsettings.php:175
-msgid "Change colours"
+#. TRANS: Fieldset legend for theme colors.
+#: actions/designadminpanel.php:598
+#, fuzzy
+msgid "Change colors"
 msgstr "تغيير الألوان"
 
+#. TRANS: Field label for content color selector.
 #. TRANS: Label on profile design page for setting a profile page content colour.
-#: actions/designadminpanel.php:613 lib/designsettings.php:197
+#: actions/designadminpanel.php:623 lib/designsettings.php:197
 msgid "Content"
 msgstr "المحتوى"
 
+#. TRANS: Field label for sidebar color selector.
 #. TRANS: Label on profile design page for setting a profile page sidebar colour.
-#: actions/designadminpanel.php:626 lib/designsettings.php:211
+#: actions/designadminpanel.php:637 lib/designsettings.php:211
 msgid "Sidebar"
 msgstr "الشريط الجانبي"
 
+#. TRANS: Field label for text color selector.
 #. TRANS: Label on profile design page for setting a profile page text colour.
-#: actions/designadminpanel.php:639 lib/designsettings.php:225
+#: actions/designadminpanel.php:651 lib/designsettings.php:225
 msgid "Text"
 msgstr "النص"
 
+#. TRANS: Field label for link color selector.
 #. TRANS: Label on profile design page for setting a profile page links colour.
-#: actions/designadminpanel.php:652 lib/designsettings.php:239
+#: actions/designadminpanel.php:665 lib/designsettings.php:239
 msgid "Links"
 msgstr "وصلات"
 
-#: actions/designadminpanel.php:677
+#. TRANS: Fieldset legend for advanced theme design settings.
+#: actions/designadminpanel.php:691
 msgid "Advanced"
 msgstr "متقدم"
 
-#: actions/designadminpanel.php:681
+#. TRANS: Field label for custom CSS.
+#: actions/designadminpanel.php:696
 msgid "Custom CSS"
 msgstr "CSS مخصصة"
 
-#. TRANS: Button text on profile design page to immediately reset all colour settings to default.
-#: actions/designadminpanel.php:702 lib/designsettings.php:257
+#. TRANS: Button text for resetting theme settings.
+#: actions/designadminpanel.php:718
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Use defaults"
 msgstr "استخدم المبدئيات"
 
+#. TRANS: Title for button for resetting theme settings.
 #. TRANS: Title for button on profile design page to reset all colour settings to default.
-#: actions/designadminpanel.php:703 lib/designsettings.php:259
+#: actions/designadminpanel.php:720 lib/designsettings.php:259
 msgid "Restore default designs"
 msgstr "استعد التصميمات المبدئية"
 
+#. TRANS: Title for button for resetting theme settings.
 #. TRANS: Title for button on profile design page to reset all colour settings to default without saving.
-#: actions/designadminpanel.php:709 lib/designsettings.php:267
+#: actions/designadminpanel.php:728 lib/designsettings.php:267
 msgid "Reset back to default"
 msgstr "ارجع إلى المبدئي"
 
-#. TRANS: Submit button title.
-#: actions/designadminpanel.php:711 actions/licenseadminpanel.php:311
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/snapshotadminpanel.php:245 actions/tagother.php:154
-#: lib/applicationeditform.php:357
-msgid "Save"
-msgstr "أرسل"
-
+#. TRANS: Title for button for saving theme settings.
 #. TRANS: Title for button on profile design page to save settings.
-#: actions/designadminpanel.php:712 lib/designsettings.php:272
+#: actions/designadminpanel.php:736 lib/designsettings.php:272
 msgid "Save design"
 msgstr "احفظ التصميم"
 
-#: actions/disfavor.php:81
+#. TRANS: Client error displayed when trying to remove favorite status for a notice that is not a favorite.
+#: actions/disfavor.php:84
 msgid "This notice is not a favorite!"
 msgstr "هذا الشعار ليس مفضلًا!"
 
-#: actions/disfavor.php:94
+#. TRANS: Title for page on which favorites can be added.
+#: actions/disfavor.php:99
 msgid "Add to favorites"
 msgstr "أضف إلى المفضلات"
 
-#: actions/doc.php:158
-#, php-format
-msgid "No such document \"%s\""
+#. TRANS: Client exception thrown when requesting a document from the documentation that does not exist.
+#. TRANS: %s is the non-existing document.
+#: actions/doc.php:155
+#, fuzzy, php-format
+msgid "No such document \"%s\"."
 msgstr "لا مستند باسم \"%s\""
 
 #. TRANS: Title for "Edit application" form.
@@ -2880,7 +2946,7 @@ msgstr ""
 "عبر الصياغة \"!اسم_المجموعة\". ألا ترى مجموعة تعجبك؟ جرّب [البحث عن مجموعة](%%"
 "%%action.groupsearch%%%%) أو [ابدأ مجموعتك!](%%%%action.newgroup%%%%)"
 
-#: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
+#: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:115
 msgid "Create a new group"
 msgstr "أنشئ مجموعة جديدة"
 
@@ -3256,26 +3322,33 @@ msgid ""
 "Sincerely, %2$s\n"
 msgstr ""
 
-#: actions/joingroup.php:60
+#. TRANS: Client error displayed when trying to join a group while not logged in.
+#: actions/joingroup.php:59
 msgid "You must be logged in to join a group."
 msgstr "يجب أن تلج لتنضم إلى مجموعة."
 
-#: actions/joingroup.php:141
-#, php-format
+#. TRANS: Title for join group page after joining.
+#: actions/joingroup.php:147
+#, fuzzy, php-format
+msgctxt "TITLE"
 msgid "%1$s joined group %2$s"
 msgstr "%1$s انضم للمجموعة %2$s"
 
-#: actions/leavegroup.php:60
+#. TRANS: Client error displayed when trying to leave a group while not logged in.
+#: actions/leavegroup.php:59
 msgid "You must be logged in to leave a group."
 msgstr "يجب أن تلج لتغادر مجموعة."
 
+#. TRANS: Client error displayed when trying to join a group while already a member.
 #. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
-#: actions/leavegroup.php:100 lib/command.php:386
+#: actions/leavegroup.php:103 lib/command.php:386
 msgid "You are not a member of that group."
 msgstr "لست عضوا في تلك المجموعة."
 
-#: actions/leavegroup.php:137
-#, php-format
+#. TRANS: Title for leave group page after leaving.
+#: actions/leavegroup.php:142
+#, fuzzy, php-format
+msgctxt "TITLE"
 msgid "%1$s left group %2$s"
 msgstr "%1$s ترك المجموعة %2$s"
 
@@ -3380,6 +3453,13 @@ msgstr ""
 msgid "URL for an image to display with the license."
 msgstr ""
 
+#. TRANS: Submit button title.
+#: actions/licenseadminpanel.php:311 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:292 actions/snapshotadminpanel.php:245
+#: actions/tagother.php:154 lib/applicationeditform.php:357
+msgid "Save"
+msgstr "أرسل"
+
 #: actions/licenseadminpanel.php:311
 msgid "Save license settings"
 msgstr ""
@@ -3404,11 +3484,11 @@ msgstr "لُج"
 msgid "Login to site"
 msgstr "لُج إلى الموقع"
 
-#: actions/login.php:258 actions/register.php:491
+#: actions/login.php:258 actions/register.php:490
 msgid "Remember me"
 msgstr "تذكّرني"
 
-#: actions/login.php:259 actions/register.php:493
+#: actions/login.php:259 actions/register.php:492
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "لُج تلقائيًا في المستقبل؛ هذا الخيار ليس مُعدًا للحواسيب المشتركة!"
 
@@ -3789,7 +3869,8 @@ msgstr "تغيير كلمة السر"
 msgid "Change your password."
 msgstr "غيّر كلمة سرك."
 
-#: actions/passwordsettings.php:96 actions/recoverpassword.php:231
+#. TRANS: Fieldset legend for password reset form.
+#: actions/passwordsettings.php:96 actions/recoverpassword.php:251
 msgid "Password change"
 msgstr "تغيير كلمة السر"
 
@@ -3797,7 +3878,8 @@ msgstr "تغيير كلمة السر"
 msgid "Old password"
 msgstr "كلمة السر القديمة"
 
-#: actions/passwordsettings.php:108 actions/recoverpassword.php:235
+#. TRANS: Field label for password reset form.
+#: actions/passwordsettings.php:108 actions/recoverpassword.php:256
 msgid "New password"
 msgstr "كلمة السر الجديدة"
 
@@ -3805,7 +3887,7 @@ msgstr "كلمة السر الجديدة"
 msgid "6 or more characters"
 msgstr "6 أحرف أو أكثر"
 
-#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
+#: actions/passwordsettings.php:113
 msgid "Same as password above"
 msgstr "نفس كلمة السر أعلاه"
 
@@ -3829,11 +3911,12 @@ msgstr "كلمة السر القديمة غير صحيحة"
 msgid "Error saving user; invalid."
 msgstr "خطأ أثناء حفظ المستخدم؛ غير صالح."
 
-#: actions/passwordsettings.php:186 actions/recoverpassword.php:381
+#: actions/passwordsettings.php:186
 msgid "Can't save new password."
 msgstr "تعذّر حفظ كلمة السر الجديدة."
 
-#: actions/passwordsettings.php:192 actions/recoverpassword.php:211
+#. TRANS: Title for password recovery page in password saved mode.
+#: actions/passwordsettings.php:192 actions/recoverpassword.php:229
 msgid "Password saved."
 msgstr "حُفظت كلمة السر."
 
@@ -4173,23 +4256,24 @@ msgid "Profile information"
 msgstr "معلومات الملف الشخصي"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:109
+#: actions/profilesettings.php:109 actions/register.php:433
+#: lib/groupeditform.php:146
 #, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1-64 حرفًا إنجليزيًا أو رقمًا بدون نقاط أو مسافات"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for full group name (dt). Text hidden by default.
-#: actions/profilesettings.php:113 actions/register.php:456
+#: actions/profilesettings.php:113 actions/register.php:455
 #: actions/showgroup.php:252 actions/tagother.php:104
-#: lib/groupeditform.php:157 lib/userprofile.php:152
+#: lib/groupeditform.php:149 lib/userprofile.php:152
 msgid "Full name"
 msgstr "الاسم الكامل"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:118 actions/register.php:461
-#: lib/applicationeditform.php:236 lib/groupeditform.php:161
+#: actions/profilesettings.php:118 actions/register.php:460
+#: lib/applicationeditform.php:236 lib/groupeditform.php:153
 msgid "Homepage"
 msgstr "الصفحة الرئيسية"
 
@@ -4202,7 +4286,7 @@ msgstr "مسار صفحتك الرئيسية أو مدونتك أو ملفك ا�
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#: actions/profilesettings.php:129 actions/register.php:472
+#: actions/profilesettings.php:129 actions/register.php:471
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
@@ -4214,27 +4298,27 @@ msgstr[4] "تكلم عن نفسك واهتمامتك في %d حرف"
 msgstr[5] "تكلم عن نفسك واهتمامتك في %d حرف"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:135 actions/register.php:477
+#: actions/profilesettings.php:135 actions/register.php:476
 msgid "Describe yourself and your interests"
 msgstr "صِف نفسك واهتماماتك"
 
 #. TRANS: Text area label in form for profile settings where users can provide.
 #. TRANS: their biography.
-#: actions/profilesettings.php:139 actions/register.php:479
+#: actions/profilesettings.php:139 actions/register.php:478
 msgid "Bio"
 msgstr "السيرة"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group location (dt). Text hidden by default.
-#: actions/profilesettings.php:145 actions/register.php:484
+#: actions/profilesettings.php:145 actions/register.php:483
 #: actions/showgroup.php:262 actions/tagother.php:112
-#: actions/userauthorization.php:166 lib/groupeditform.php:180
+#: actions/userauthorization.php:166 lib/groupeditform.php:172
 #: lib/userprofile.php:167
 msgid "Location"
 msgstr "الموقع"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:148 actions/register.php:486
+#: actions/profilesettings.php:148 actions/register.php:485
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "مكان تواجدك، على سبيل المثال \"المدينة، الولاية (أو المنطقة)، الدولة\""
 
@@ -4286,7 +4370,7 @@ msgstr "اشترك تلقائيًا بأي شخص يشترك بي (يفضل أن
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
-#: actions/profilesettings.php:257 actions/register.php:229
+#: actions/profilesettings.php:258 actions/register.php:229
 #, fuzzy, php-format
 msgid "Bio is too long (maximum %d character)."
 msgid_plural "Bio is too long (maximum %d characters)."
@@ -4298,49 +4382,50 @@ msgstr[4] "الاسم طويل جدا (الأقصى %d حرفا)."
 msgstr[5] "الاسم طويل جدا (الأقصى %d حرفا)."
 
 #. TRANS: Validation error in form for profile settings.
-#: actions/profilesettings.php:268 actions/siteadminpanel.php:151
+#: actions/profilesettings.php:269 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
 msgstr "لم تُختر المنطقة الزمنية."
 
 #. TRANS: Validation error in form for profile settings.
-#: actions/profilesettings.php:276
+#: actions/profilesettings.php:277
 #, fuzzy
 msgid "Language is too long (maximum 50 characters)."
 msgstr "الاسم طويل جدا (الأقصى 255 حرفا)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
-#: actions/profilesettings.php:290 actions/tagother.php:178
+#: actions/profilesettings.php:291 actions/tagother.php:178
 #, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "وسم غير صالح: \"%s\""
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
-#: actions/profilesettings.php:346
+#: actions/profilesettings.php:347
 #, fuzzy
 msgid "Could not update user for autosubscribe."
 msgstr "تعذّر تحديث سجل المستخدم."
 
 #. TRANS: Server error thrown when user profile location preference settings could not be updated.
-#: actions/profilesettings.php:404
+#: actions/profilesettings.php:405
 #, fuzzy
 msgid "Could not save location prefs."
 msgstr "لم يمكن حفظ تفضيلات الموقع."
 
 #. TRANS: Server error thrown when user profile settings tags could not be saved.
-#: actions/profilesettings.php:426 actions/tagother.php:200
+#: actions/profilesettings.php:427 actions/tagother.php:200
 msgid "Could not save tags."
 msgstr "تعذّر حفظ الوسوم."
 
 #. TRANS: Confirmation shown when user profile settings are saved.
 #. TRANS: Message after successful saving of administrative settings.
-#: actions/profilesettings.php:435 lib/adminpanelaction.php:138
+#: actions/profilesettings.php:436 lib/adminpanelaction.php:138
 msgid "Settings saved."
 msgstr "حُفظت الإعدادات."
 
+#. TRANS: Option in profile settings to restore the account of the currently logged in user from a backup.
 #. TRANS: Page title for page where a user account can be restored from backup.
-#: actions/profilesettings.php:476 actions/restoreaccount.php:60
+#: actions/profilesettings.php:480 actions/restoreaccount.php:60
 #, fuzzy
 msgid "Restore account"
 msgstr "أنشئ حسابًا"
@@ -4458,129 +4543,180 @@ msgstr ""
 msgid "Tag cloud"
 msgstr "سحابة الوسوم"
 
-#: actions/recoverpassword.php:36
+#. TRANS: Client error displayed trying to recover password while already logged in.
+#: actions/recoverpassword.php:37
 msgid "You are already logged in!"
 msgstr "أنت والج بالفعل!"
 
-#: actions/recoverpassword.php:62
+#. TRANS: Client error displayed when password recovery code is not correct.
+#: actions/recoverpassword.php:64
 msgid "No such recovery code."
 msgstr "لا رمز استعادة كهذا."
 
-#: actions/recoverpassword.php:66
+#. TRANS: Client error displayed when no proper password recovery code was submitted.
+#: actions/recoverpassword.php:69
 msgid "Not a recovery code."
 msgstr "ليس رمز استعادة."
 
-#: actions/recoverpassword.php:73
+#. TRANS: Server error displayed trying to recover password without providing a user.
+#: actions/recoverpassword.php:77
 msgid "Recovery code for unknown user."
 msgstr "رمز استعادة لمستخدم غير معروف."
 
-#: actions/recoverpassword.php:86
+#. TRANS: Server error displayed removing a password recovery code from the database.
+#: actions/recoverpassword.php:91
 msgid "Error with confirmation code."
 msgstr "خطأ في رمز التأكيد."
 
-#: actions/recoverpassword.php:97
+#. TRANS: Client error displayed trying to recover password with too old a recovery code.
+#: actions/recoverpassword.php:103
 msgid "This confirmation code is too old. Please start again."
 msgstr "رمز التأكيد هذا قديم جدًا. من فضلك ابدأ من جديد."
 
-#: actions/recoverpassword.php:111
+#. TRANS: Server error displayed when updating a user's e-mail address in the database fails while recovering a password.
+#: actions/recoverpassword.php:118
 #, fuzzy
 msgid "Could not update user with confirmed email address."
 msgstr "عنوان البريد الإلكتروني المُؤكد الحالي."
 
-#: actions/recoverpassword.php:152
+#. TRANS: Page notice for password recovery page.
+#: actions/recoverpassword.php:160
 msgid ""
 "If you have forgotten or lost your password, you can get a new one sent to "
 "the email address you have stored in your account."
 msgstr ""
 
-#: actions/recoverpassword.php:158
-msgid "You have been identified. Enter a new password below. "
+#: actions/recoverpassword.php:167
+msgid "You have been identified. Enter a new password below."
 msgstr ""
 
-#: actions/recoverpassword.php:188
+#. TRANS: Fieldset legend for password recovery page.
+#: actions/recoverpassword.php:198
 msgid "Password recovery"
 msgstr "استعادة كلمة السر"
 
-#: actions/recoverpassword.php:191
+#. TRANS: Field label on password recovery page.
+#: actions/recoverpassword.php:202
 msgid "Nickname or email address"
 msgstr "الاسم المستعار أو البريد الإلكتروني"
 
-#: actions/recoverpassword.php:193
+#. TRANS: Title for field label on password recovery page.
+#: actions/recoverpassword.php:205
 msgid "Your nickname on this server, or your registered email address."
 msgstr ""
 
-#: actions/recoverpassword.php:199 actions/recoverpassword.php:200
+#. TRANS: Field label on password recovery page.
+#: actions/recoverpassword.php:212
 msgid "Recover"
 msgstr "استرجع"
 
-#: actions/recoverpassword.php:208
+#. TRANS: Button text on password recovery page.
+#: actions/recoverpassword.php:214
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Recover"
+msgstr "استرجع"
+
+#. TRANS: Title for password recovery page in password reset mode.
+#: actions/recoverpassword.php:223
 msgid "Reset password"
 msgstr "أعد ضبط كلمة السر"
 
-#: actions/recoverpassword.php:209
+#. TRANS: Title for password recovery page in password recover mode.
+#: actions/recoverpassword.php:225
 msgid "Recover password"
 msgstr "استعد كلمة السر"
 
-#: actions/recoverpassword.php:210 actions/recoverpassword.php:335
+#. TRANS: Title for password recovery page in email sent mode.
+#. TRANS: Subject for password recovery e-mail.
+#: actions/recoverpassword.php:227 actions/recoverpassword.php:366
 msgid "Password recovery requested"
 msgstr "طُلبت استعادة كلمة السر"
 
-#: actions/recoverpassword.php:213
+#. TRANS: Title for password recovery page when an unknown action has been specified.
+#: actions/recoverpassword.php:232
 msgid "Unknown action"
 msgstr "إجراء غير معروف"
 
-#: actions/recoverpassword.php:236
+#. TRANS: Title for field label for password reset form.
+#: actions/recoverpassword.php:258
 #, fuzzy
-msgid "6 or more characters, and don't forget it!"
+msgid "6 or more characters, and do not forget it!"
 msgstr "6 أحرف أو أكثر"
 
-#: actions/recoverpassword.php:243
+#. TRANS: Ttile for field label for password reset form where the password has to be typed again.
+#: actions/recoverpassword.php:264 actions/register.php:441
+#, fuzzy
+msgid "Same as password above."
+msgstr "نفس كلمة السر أعلاه"
+
+#. TRANS: Button text for password reset form.
+#. TRANS: Button text on profile design page to reset all colour settings to default without saving.
+#: actions/recoverpassword.php:268 lib/designsettings.php:264
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Reset"
 msgstr "أعد الضبط"
 
-#: actions/recoverpassword.php:252
+#. TRANS: Form instructions for password recovery form.
+#: actions/recoverpassword.php:278
 msgid "Enter a nickname or email address."
 msgstr "أدخل اسمًا مستعارًا أو عنوان بريد إلكتروني."
 
-#: actions/recoverpassword.php:282
+#. TRANS: Information on password recovery form if no known username or e-mail address was specified.
+#: actions/recoverpassword.php:309
 #, fuzzy
 msgid "No user with that email address or username."
 msgstr "لا يوجد عنوان بريد إلكتروني مُسجّل لهذا المستخدم."
 
-#: actions/recoverpassword.php:299
+#. TRANS: Client error displayed on password recovery form if a user does not have a registered e-mail address.
+#: actions/recoverpassword.php:327
 msgid "No registered email address for that user."
 msgstr "لا يوجد عنوان بريد إلكتروني مُسجّل لهذا المستخدم."
 
-#: actions/recoverpassword.php:313
+#. TRANS: Server error displayed if e-mail address confirmation fails in the database on the password recovery form.
+#: actions/recoverpassword.php:342
 msgid "Error saving address confirmation."
 msgstr "خطأ أثناء حفظ تأكيد العنوان."
 
-#: actions/recoverpassword.php:338
+#. TRANS: User notification after an e-mail with instructions was sent from the password recovery form.
+#: actions/recoverpassword.php:370
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
 
-#: actions/recoverpassword.php:357
+#. TRANS: Client error displayed when trying to reset as password without providing a user.
+#: actions/recoverpassword.php:391
 #, fuzzy
 msgid "Unexpected password reset."
 msgstr "أعد ضبط كلمة السر"
 
-#: actions/recoverpassword.php:365
+#. TRANS: Reset password form validation error message.
+#: actions/recoverpassword.php:400
 #, fuzzy
 msgid "Password must be 6 characters or more."
 msgstr "يجب أن تكون كلمة السر 6 محارف أو أكثر."
 
-#: actions/recoverpassword.php:369
+#. TRANS: Reset password form validation error message.
+#: actions/recoverpassword.php:405
 #, fuzzy
 msgid "Password and confirmation do not match."
 msgstr "كلمتا السر غير متطابقتين."
 
-#: actions/recoverpassword.php:388 actions/register.php:256
+#. TRANS: Reset password form validation error message.
+#: actions/recoverpassword.php:418
+#, fuzzy
+msgid "Cannot save new password."
+msgstr "تعذّر حفظ كلمة السر الجديدة."
+
+#. TRANS: Server error displayed when something does wrong with the user object during password reset.
+#: actions/recoverpassword.php:426 actions/register.php:256
 msgid "Error setting user."
 msgstr "خطأ أثناء ضبط المستخدم."
 
-#: actions/recoverpassword.php:395
+#. TRANS: Success message for user after password reset.
+#: actions/recoverpassword.php:434
 msgid "New password successfully saved. You are now logged in."
 msgstr ""
 
@@ -4596,7 +4732,7 @@ msgstr "عذرا، رمز دعوة غير صالح."
 msgid "Registration successful"
 msgstr "نجح التسجيل"
 
-#: actions/register.php:121 actions/register.php:512 lib/logingroupnav.php:85
+#: actions/register.php:121 actions/register.php:511 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "سجّل"
 
@@ -4623,67 +4759,59 @@ msgid ""
 "link up to friends and colleagues. "
 msgstr ""
 
-#: actions/register.php:433
+#: actions/register.php:437
 #, fuzzy
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
-msgstr "1-64 حرفًا إنجليزيًا أو رقمًا بدون نقاط أو مسافات"
-
-#: actions/register.php:438
-msgid "6 or more characters. Required."
-msgstr "6 حروف أو أكثر. مطلوب."
-
-#: actions/register.php:442
-msgid "Same as password above. Required."
-msgstr "نفس كلمة السر أعلاه. مطلوب."
+msgid "6 or more characters."
+msgstr "6 أحرف أو أكثر"
 
 #. TRANS: Link description in user account settings menu.
-#: actions/register.php:446 actions/register.php:450
+#: actions/register.php:445 actions/register.php:449
 #: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:127
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
-#: actions/register.php:447 actions/register.php:451
+#: actions/register.php:446 actions/register.php:450
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
 
-#: actions/register.php:458
+#: actions/register.php:457
 msgid "Longer name, preferably your \"real\" name"
 msgstr ""
 
-#: actions/register.php:463
+#: actions/register.php:462
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "مسار صفحتك الرئيسية أو مدونتك أو ملفك الشخصي على موقع آخر"
 
-#: actions/register.php:524
+#: actions/register.php:523
 #, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
 msgstr ""
 
-#: actions/register.php:534
+#: actions/register.php:533
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
-#: actions/register.php:538
+#: actions/register.php:537
 msgid "My text and files remain under my own copyright."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
-#: actions/register.php:541
+#: actions/register.php:540
 msgid "All rights reserved."
 msgstr "جميع الحقوق محفوظة."
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:546
+#: actions/register.php:545
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
 
-#: actions/register.php:589
+#: actions/register.php:588
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -4702,7 +4830,7 @@ msgid ""
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
 
-#: actions/register.php:613
+#: actions/register.php:612
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -5007,7 +5135,7 @@ msgstr "المنظمة"
 
 #. TRANS: Form input field label.
 #: actions/showapplication.php:187 actions/version.php:200
-#: lib/applicationeditform.php:208 lib/groupeditform.php:175
+#: lib/applicationeditform.php:208 lib/groupeditform.php:167
 msgid "Description"
 msgstr "الوصف"
 
@@ -5031,8 +5159,9 @@ msgstr "معلومات التطبيق"
 msgid "Reset key & secret"
 msgstr ""
 
+#. TRANS: Title of form for deleting a user.
 #: actions/showapplication.php:252 lib/deletegroupform.php:121
-#: lib/deleteuserform.php:66 lib/noticelist.php:673
+#: lib/deleteuserform.php:64 lib/noticelist.php:673
 msgid "Delete"
 msgstr "احذف"
 
@@ -5155,7 +5284,7 @@ msgid "Note"
 msgstr "ملاحظة"
 
 #. TRANS: Label for group aliases (dt). Text hidden by default.
-#: actions/showgroup.php:293 lib/groupeditform.php:187
+#: actions/showgroup.php:293 lib/groupeditform.php:179
 msgid "Aliases"
 msgstr "الكنى"
 
@@ -7748,25 +7877,25 @@ msgstr ""
 "tracking - لم يطبق بعد.\n"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:150
+#: lib/common.php:155
 #, fuzzy
 msgid "No configuration file found."
 msgstr "لا رمز تأكيد."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
-#: lib/common.php:153
+#: lib/common.php:158
 msgid "I looked for configuration files in the following places:"
 msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:156
+#: lib/common.php:161
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: The text is link text that leads to the installer page.
-#: lib/common.php:160
+#: lib/common.php:165
 msgid "Go to the installer."
 msgstr "اذهب إلى المُثبّت."
 
@@ -7837,12 +7966,15 @@ msgctxt "RADIO"
 msgid "Off"
 msgstr "عطّل"
 
-#. TRANS: Button text on profile design page to reset all colour settings to default without saving.
-#: lib/designsettings.php:264
-#, fuzzy
-msgctxt "BUTTON"
-msgid "Reset"
-msgstr "أعد الضبط"
+#. TRANS: Fieldset legend on profile design page to change profile page colours.
+#: lib/designsettings.php:175
+msgid "Change colours"
+msgstr "تغيير الألوان"
+
+#. TRANS: Button text on profile design page to immediately reset all colour settings to default.
+#: lib/designsettings.php:257
+msgid "Use defaults"
+msgstr "استخدم المبدئيات"
 
 #. TRANS: Error message displayed if design settings could not be saved.
 #. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
@@ -7926,23 +8058,19 @@ msgstr "اذهب"
 msgid "Grant this user the \"%s\" role"
 msgstr ""
 
-#: lib/groupeditform.php:154
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr "1-64 حرفًا إنجليزيًا أو رقمًا بدون نقاط أو مسافات"
-
-#: lib/groupeditform.php:163
+#: lib/groupeditform.php:155
 #, fuzzy
 msgid "URL of the homepage or blog of the group or topic."
 msgstr "مسار صفحة هذا التطبيق"
 
-#: lib/groupeditform.php:168
+#: lib/groupeditform.php:160
 msgid "Describe the group or topic"
 msgstr "صِف المجموعة أو الموضوع"
 
-#: lib/groupeditform.php:170
+#: lib/groupeditform.php:162
 #, fuzzy, php-format
-msgid "Describe the group or topic in %d character or less"
-msgid_plural "Describe the group or topic in %d characters or less"
+msgid "Describe the group or topic in %d character or less."
+msgid_plural "Describe the group or topic in %d characters or less."
 msgstr[0] "صِف المجموعة أو الموضوع"
 msgstr[1] "صِف المجموعة أو الموضوع"
 msgstr[2] "صِف المجموعة أو الموضوع"
@@ -7950,13 +8078,13 @@ msgstr[3] "صِف المجموعة أو الموضوع"
 msgstr[4] "صِف المجموعة أو الموضوع"
 msgstr[5] "صِف المجموعة أو الموضوع"
 
-#: lib/groupeditform.php:182
+#: lib/groupeditform.php:174
 #, fuzzy
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\"."
 msgstr "مكان تواجدك، على سبيل المثال \"المدينة، الولاية (أو المنطقة)، الدولة\""
 
-#: lib/groupeditform.php:190
+#: lib/groupeditform.php:182
 #, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
@@ -9119,14 +9247,9 @@ msgstr[5] ""
 msgid "about a year ago"
 msgstr "قبل سنة تقريبًا"
 
-#: lib/webcolor.php:80
-#, php-format
-msgid "%s is not a valid color!"
-msgstr "%s ليس لونًا صحيحًا!"
-
-#. TRANS: Validation error for a web colour.
-#. TRANS: %s is the provided (invalid) text for colour.
-#: lib/webcolor.php:120
+#. TRANS: Web color exception thrown when a hexadecimal color code does not validate.
+#. TRANS: %s is the provided (invalid) color code.
+#: lib/webcolor.php:81 lib/webcolor.php:121
 #, fuzzy, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex characters."
 msgstr "%s ليس لونًا صحيحًا!"
@@ -9167,27 +9290,29 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#, fuzzy
-#~ msgid "No such profile"
-#~ msgstr "لا ملف كهذا."
+#~ msgid "No such group"
+#~ msgstr "لا مجموعة كهذه"
 
 #, fuzzy
-#~ msgid "Groups %s is a member of on %s"
-#~ msgstr "المجموعات التي %s عضو فيها"
-
-#, fuzzy
-#~ msgid "Method not supported"
+#~ msgid "HTTP method not supported"
 #~ msgstr "لم يتم العثور على وسيلة API."
 
+#~ msgid "Reset"
+#~ msgstr "أعد الضبط"
+
 #, fuzzy
-#~ msgid "People %s has subscribed to on %s"
-#~ msgstr "الأشخاص المشتركون ب%s"
+#~ msgid ""
+#~ "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
+#~ msgstr "1-64 حرفًا إنجليزيًا أو رقمًا بدون نقاط أو مسافات"
 
-#~ msgid "Couldn't update user."
-#~ msgstr "تعذّر تحديث المستخدم."
+#~ msgid "6 or more characters. Required."
+#~ msgstr "6 حروف أو أكثر. مطلوب."
 
-#~ msgid "Couldn't save profile."
-#~ msgstr "تعذّر حفظ الملف الشخصي."
+#~ msgid "Same as password above. Required."
+#~ msgstr "نفس كلمة السر أعلاه. مطلوب."
 
-#~ msgid "Couldn't save tags."
-#~ msgstr "تعذّر حفظ الوسوم."
+#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#~ msgstr "1-64 حرفًا إنجليزيًا أو رقمًا بدون نقاط أو مسافات"
+
+#~ msgid "%s is not a valid color!"
+#~ msgstr "%s ليس لونًا صحيحًا!"
