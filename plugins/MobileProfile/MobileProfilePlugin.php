@@ -358,12 +358,12 @@ class MobileProfilePlugin extends WAP20Plugin
 
         if (common_config('attachments', 'uploads')) {
             if ($this->mobileFeatures['inputfiletype']) {
+                $form->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
                 $form->out->element('label', array('for' => 'notice_data-attach'), _m('Attach'));
                 $form->out->element('input', array('id' => 'notice_data-attach',
                                                    'type' => 'file',
                                                    'name' => 'attach',
                                                    'title' => _m('Attach a file')));
-                $form->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
             }
         }
         if ($form->action) {

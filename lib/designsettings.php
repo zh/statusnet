@@ -98,6 +98,10 @@ class DesignSettingsAction extends AccountSettingsAction
         $this->element('legend', null, _('Change background image'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
+        $this->element('input', array('name' => 'MAX_FILE_SIZE',
+                                      'type' => 'hidden',
+                                      'id' => 'MAX_FILE_SIZE',
+                                      'value' => ImageFile::maxFileSizeInt()));
         $this->element('label', array('for' => 'design_background-image_file'),
                                 // TRANS: Label in form on profile design page.
                                 // TRANS: Field contains file name on user's computer that could be that user's custom profile background image.
@@ -108,10 +112,6 @@ class DesignSettingsAction extends AccountSettingsAction
         // TRANS: Instructions for form on profile design page.
         $this->element('p', 'form_guide', _('You can upload your personal ' .
             'background image. The maximum file size is 2MB.'));
-        $this->element('input', array('name' => 'MAX_FILE_SIZE',
-                                      'type' => 'hidden',
-                                      'id' => 'MAX_FILE_SIZE',
-                                      'value' => ImageFile::maxFileSizeInt()));
         $this->elementEnd('li');
 
         if (!empty($design->backgroundimage)) {
