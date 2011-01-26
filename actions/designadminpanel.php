@@ -516,6 +516,10 @@ class DesignAdminPanelForm extends AdminForm
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
+        $this->out->element('input', array('name' => 'MAX_FILE_SIZE',
+                                          'type' => 'hidden',
+                                          'id' => 'MAX_FILE_SIZE',
+                                          'value' => ImageFile::maxFileSizeInt()));
         $this->out->element('label', array('for' => 'design_background-image_file'),
                                // TRANS: Field label for background image on theme designer page.
                                 _('Background'));
@@ -526,10 +530,6 @@ class DesignAdminPanelForm extends AdminForm
             // TRANS: Form guide for background image upload form on theme designer page.
             sprintf(_('You can upload a background image for the site. ' .
               'The maximum file size is %1$s.'), ImageFile::maxFileSize()));
-        $this->out->element('input', array('name' => 'MAX_FILE_SIZE',
-                                          'type' => 'hidden',
-                                          'id' => 'MAX_FILE_SIZE',
-                                          'value' => ImageFile::maxFileSizeInt()));
         $this->unli();
 
         if (!empty($design->backgroundimage)) {

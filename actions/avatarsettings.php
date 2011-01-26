@@ -157,13 +157,13 @@ class AvatarsettingsAction extends AccountSettingsAction
             }
 
             $this->elementStart('li', array ('id' => 'settings_attach'));
-            $this->element('input', array('name' => 'avatarfile',
-                                          'type' => 'file',
-                                          'id' => 'avatarfile'));
             $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                           'type' => 'hidden',
                                           'id' => 'MAX_FILE_SIZE',
                                           'value' => ImageFile::maxFileSizeInt()));
+            $this->element('input', array('name' => 'avatarfile',
+                                          'type' => 'file',
+                                          'id' => 'avatarfile'));
             $this->elementEnd('li');
             $this->elementEnd('ul');
 
