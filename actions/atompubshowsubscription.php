@@ -69,7 +69,7 @@ class AtompubshowsubscriptionAction extends ApiAuthAction
         if (empty($this->_subscriber)) {
             // TRANS: Client exception thrown when trying to display a subscription for a non-existing profile ID.
             // TRANS: %d is the non-existing profile ID number.
-            throw new ClientException(sprintf(_('No such profile id: %d'),
+            throw new ClientException(sprintf(_('No such profile id: %d.'),
                                               $subscriberId), 404);
         }
 
@@ -80,7 +80,7 @@ class AtompubshowsubscriptionAction extends ApiAuthAction
         if (empty($this->_subscribed)) {
             // TRANS: Client exception thrown when trying to display a subscription for a non-existing profile ID.
             // TRANS: %d is the non-existing profile ID number.
-            throw new ClientException(sprintf(_('No such profile id: %d'),
+            throw new ClientException(sprintf(_('No such profile id: %d.'),
                                               $subscribedId), 404);
         }
 
@@ -91,7 +91,7 @@ class AtompubshowsubscriptionAction extends ApiAuthAction
         if (empty($this->_subscription)) {
             // TRANS: Client exception thrown when trying to display a subscription for a non-subscribed profile ID.
             // TRANS: %1$d is the non-existing subscriber ID number, $2$d is the ID of the profile that was not subscribed to.
-            $msg = sprintf(_('Profile %1$d not subscribed to profile %2$d'),
+            $msg = sprintf(_('Profile %1$d not subscribed to profile %2$d.'),
                            $subscriberId, $subscribedId);
             throw new ClientException($msg, 404);
         }
@@ -155,7 +155,7 @@ class AtompubshowsubscriptionAction extends ApiAuthAction
             $this->auth_user->id != $this->_subscriber->id) {
             // TRANS: Client exception thrown when trying to delete a subscription of another user.
             throw new ClientException(_("Cannot delete someone else's ".
-                                        "subscription"), 403);
+                                        "subscription."), 403);
         }
 
         Subscription::cancel($this->_subscriber,

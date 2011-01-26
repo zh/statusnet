@@ -331,6 +331,7 @@ class Ostatus_profile extends Memcached_DataObject
      * an acceptable response from the remote site.
      *
      * @param mixed $entry XML string, Notice, or Activity
+     * @param Profile $actor
      * @return boolean success
      */
     public function notifyActivity($entry, $actor)
@@ -1778,8 +1779,10 @@ class Ostatus_profile extends Memcached_DataObject
                 case 'mailto':
                     $rest = $match[2];
                     $oprofile = Ostatus_profile::ensureWebfinger($rest);
+                    break;
                 default:
-                    common_log("Unrecognized URI protocol for profile: $protocol ($uri)");
+                    common_log(LOG_WARNING,
+                               "Unrecognized URI protocol for profile: $protocol ($uri)");
                     break;
                 }
             }

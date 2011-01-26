@@ -214,7 +214,11 @@ class Bookmark extends Memcached_DataObject
         }
 
         if (is_string($rawtags)) {
-            $rawtags = preg_split('/[\s,]+/', $rawtags);
+            if (empty($rawtags)) {
+                $rawtags = array();
+            } else {
+                $rawtags = preg_split('/[\s,]+/', $rawtags);
+            }
         }
 
         $nb = new Bookmark();
@@ -274,10 +278,15 @@ class Bookmark extends Memcached_DataObject
 
         // Use user's preferences for short URLs, if possible
 
-        $user = User::staticGet('id', $profile->id);
+        try {
+            $user = User::staticGet('id', $profile->id);
 
-        $shortUrl = File_redirection::makeShort($url, 
-                                                empty($user) ? null : $user);
+            $shortUrl = File_redirection::makeShort($url, 
+                                                    empty($user) ? null : $user);
+        } catch (Exception $e) {
+            // Don't let this stop us.
+            $shortUrl = $url;
+        }
 
         $content = sprintf(_('"%s" %s %s %s'),
                            $title,

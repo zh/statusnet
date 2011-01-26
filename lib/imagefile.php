@@ -128,7 +128,7 @@ class ImageFile
      */
     function resize($size, $x = 0, $y = 0, $w = null, $h = null)
     {
-        $targetType = $this->preferredType($this->type);
+        $targetType = $this->preferredType();
         $outname = Avatar::filename($this->id,
                                     image_type_to_extension($targetType),
                                     $size,
@@ -136,6 +136,19 @@ class ImageFile
         $outpath = Avatar::path($outname);
         $this->resizeTo($outpath, $size, $size, $x, $y, $w, $h);
         return $outname;
+    }
+
+    /**
+     * Copy the image file to the given destination.
+     * For obscure formats, this will automatically convert to PNG;
+     * otherwise the original file will be copied as-is.
+     *
+     * @param string $outpath
+     * @return string filename
+     */
+    function copyTo($outpath)
+    {
+        return $this->resizeTo($outpath, $this->width, $this->height);
     }
 
     /**
@@ -154,7 +167,7 @@ class ImageFile
     {
         $w = ($w === null) ? $this->width:$w;
         $h = ($h === null) ? $this->height:$h;
-        $targetType = $this->preferredType($this->type);
+        $targetType = $this->preferredType();
 
         if (!file_exists($this->filepath)) {
             throw new Exception(_('Lost our file.'));
@@ -247,25 +260,25 @@ class ImageFile
     /**
      * Several obscure file types should be normalized to PNG on resize.
      *
-     * @param int $type
+     * @fixme consider flattening anything not GIF or JPEG to PNG
      * @return int
      */
-    function preferredType($type)
+    function preferredType()
     {
-        if($type == IMAGETYPE_BMP) {
+        if($this->type == IMAGETYPE_BMP) {
             //we don't want to save BMP... it's an inefficient, rare, antiquated format
             //save png instead
             return IMAGETYPE_PNG;
-        } else if($type == IMAGETYPE_WBMP) {
+        } else if($this->type == IMAGETYPE_WBMP) {
             //we don't want to save WBMP... it's a rare format that we can't guarantee clients will support
             //save png instead
             return IMAGETYPE_PNG;
-        } else if($type == IMAGETYPE_XBM) {
+        } else if($this->type == IMAGETYPE_XBM) {
             //we don't want to save XBM... it's a rare format that we can't guarantee clients will support
             //save png instead
             return IMAGETYPE_PNG;
         }
-        return $type;
+        return $this->type;
     }
 
     function unlink()

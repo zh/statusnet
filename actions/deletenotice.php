@@ -75,7 +75,7 @@ class DeletenoticeAction extends Action
         if ($this->notice->profile_id != $this->user_profile->id &&
                    !$this->user->hasRight(Right::DELETEOTHERSNOTICE)) {
             // TRANS: Error message displayed trying to delete a notice that was not made by the current user.
-            common_user_error(_('Can\'t delete this notice.'));
+            common_user_error(_('Cannot delete this notice.'));
             exit;
         }
         // XXX: Ajax!

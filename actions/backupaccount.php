@@ -4,7 +4,7 @@
  * Copyright (C) 2010, StatusNet, Inc.
  *
  * Download a backup of your own account to the browser
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -48,17 +48,16 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class BackupaccountAction extends Action
 {
     /**
      * Returns the title of the page
-     * 
+     *
      * @return string page title
      */
-
     function title()
     {
+        // TRANS: Title for backup account page.
         return _("Backup account");
     }
 
@@ -69,7 +68,6 @@ class BackupaccountAction extends Action
      *
      * @return boolean true
      */
-
     function prepare($argarray)
     {
         parent::prepare($argarray);
@@ -77,10 +75,12 @@ class BackupaccountAction extends Action
         $cur = common_current_user();
 
         if (empty($cur)) {
+            // TRANS: Client exception thrown when trying to backup an account while not logged in.
             throw new ClientException(_('Only logged-in users can backup their account.'), 403);
         }
 
         if (!$cur->hasRight(Right::BACKUPACCOUNT)) {
+            // TRANS: Client exception thrown when trying to backup an account without having backup rights.
             throw new ClientException(_('You may not backup your account.'), 403);
         }
 
@@ -94,7 +94,6 @@ class BackupaccountAction extends Action
      *
      * @return void
      */
-
     function handle($argarray=null)
     {
         parent::handle($argarray);
@@ -109,7 +108,7 @@ class BackupaccountAction extends Action
 
     /**
      * Send a feed of the user's activities to the browser
-     * 
+     *
      * Uses the UserActivityStream class; may take a long time!
      *
      * @return void
@@ -118,7 +117,7 @@ class BackupaccountAction extends Action
     function sendFeed()
     {
         $cur = common_current_user();
-        
+
         $stream = new UserActivityStream($cur);
 
         header('Content-Disposition: attachment; filename='.$cur->nickname.'.atom');
@@ -132,13 +131,13 @@ class BackupaccountAction extends Action
      *
      * @return void
      */
-    
+
     function showContent()
     {
         $form = new BackupAccountForm($this);
         $form->show();
     }
- 
+
     /**
      * Return true if read only.
      *
@@ -148,7 +147,6 @@ class BackupaccountAction extends Action
      *
      * @return boolean is read only action?
      */
-
     function isReadOnly($args)
     {
         return false;
@@ -161,7 +159,6 @@ class BackupaccountAction extends Action
      *
      * @return string last modified http header
      */
-
     function lastModified()
     {
         // For comparison with If-Last-Modified
@@ -176,7 +173,6 @@ class BackupaccountAction extends Action
      *
      * @return string etag http header
      */
-
     function etag()
     {
         return null;
@@ -193,7 +189,6 @@ class BackupaccountAction extends Action
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class BackupAccountForm extends Form
 {
     /**
@@ -201,7 +196,6 @@ class BackupAccountForm extends Form
      *
      * @return string the form's class
      */
-
     function formClass()
     {
         return 'form_profile_backup';
@@ -212,7 +206,6 @@ class BackupAccountForm extends Form
      *
      * @return string the form's action URL
      */
-
     function action()
     {
         return common_local_url('backupaccount');
@@ -220,18 +213,18 @@ class BackupAccountForm extends Form
 
     /**
      * Output form data
-     * 
+     *
      * Really, just instructions for doing a backup.
      *
      * @return void
      */
-
     function formData()
     {
         $msg =
+            // TRANS: Information displayed on the backup account page.
             _('You can backup your account data in '.
               '<a href="http://activitystrea.ms/">Activity Streams</a> '.
-              'format.  This is an experimental feature and provides an '.
+              'format. This is an experimental feature and provides an '.
               'incomplete backup; private account '.
               'information like email and IM addresses is not backed up. '.
               'Additionally, uploaded files and direct messages are not '.
@@ -243,18 +236,19 @@ class BackupAccountForm extends Form
 
     /**
      * Buttons for the form
-     * 
+     *
      * In this case, a single submit button
      *
      * @return void
      */
-
     function formActions()
     {
         $this->out->submit('submit',
+                           // TRANS: Submit button to backup an account on the backup account page.
                            _m('BUTTON', 'Backup'),
                            'submit',
                            null,
+                           // TRANS: Title for submit button to backup an account on the backup account page.
                            _('Backup your account'));
     }
 }

@@ -200,8 +200,6 @@ class NewgroupAction extends Action
             }
         }
 
-        $mainpage = common_local_url('showgroup', array('nickname' => $nickname));
-
         $cur = common_current_user();
 
         // Checked in prepare() above
@@ -215,7 +213,6 @@ class NewgroupAction extends Action
                                             'location' => $location,
                                             'aliases'  => $aliases,
                                             'userid'   => $cur->id,
-                                            'mainpage' => $mainpage,
                                             'local'    => true));
 
         common_redirect($group->homeUrl(), 303);

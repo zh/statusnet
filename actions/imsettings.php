@@ -45,7 +45,6 @@ require_once INSTALLDIR.'/lib/jabber.php';
  *
  * @see      SettingsAction
  */
-
 class ImsettingsAction extends ConnectSettingsAction
 {
     /**
@@ -53,7 +52,6 @@ class ImsettingsAction extends ConnectSettingsAction
      *
      * @return string Title of the page
      */
-
     function title()
     {
         // TRANS: Title for instance messaging settings.
@@ -65,7 +63,6 @@ class ImsettingsAction extends ConnectSettingsAction
      *
      * @return instructions for use
      */
-
     function getInstructions()
     {
         // TRANS: Instant messaging settings page instructions.
@@ -85,7 +82,6 @@ class ImsettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function showContent()
     {
         if (!common_config('xmpp', 'enabled')) {
@@ -152,7 +148,7 @@ class ImsettingsAction extends ConnectSettingsAction
             }
         }
         $this->elementEnd('fieldset');
-        
+
         $this->elementStart('fieldset', array('id' => 'settings_im_preferences'));
         // TRANS: Form legend for IM preferences form.
         $this->element('legend', null, _('IM preferences'));
@@ -194,7 +190,6 @@ class ImsettingsAction extends ConnectSettingsAction
      *
      * @return Confirm_address address object for this user
      */
-
     function getConfirmation()
     {
         $user = common_current_user();
@@ -221,7 +216,6 @@ class ImsettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function handlePost()
     {
         // CSRF protection
@@ -254,7 +248,6 @@ class ImsettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function savePreferences()
     {
         $jabbernotify       = $this->boolean('jabbernotify');
@@ -280,7 +273,7 @@ class ImsettingsAction extends ConnectSettingsAction
         if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             // TRANS: Server error thrown on database error updating IM preferences.
-            $this->serverError(_('Couldn\'t update user.'));
+            $this->serverError(_('Could not update user.'));
             return;
         }
 
@@ -298,7 +291,6 @@ class ImsettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function addAddress()
     {
         $user = common_current_user();
@@ -348,7 +340,7 @@ class ImsettingsAction extends ConnectSettingsAction
         if ($result === false) {
             common_log_db_error($confirm, 'INSERT', __FILE__);
             // TRANS: Server error thrown on database error adding IM confirmation code.
-            $this->serverError(_('Couldn\'t insert confirmation code.'));
+            $this->serverError(_('Could not insert confirmation code.'));
             return;
         }
 
@@ -374,7 +366,6 @@ class ImsettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function cancelConfirmation()
     {
         $jabber = $this->arg('jabber');
@@ -397,7 +388,7 @@ class ImsettingsAction extends ConnectSettingsAction
         if (!$result) {
             common_log_db_error($confirm, 'DELETE', __FILE__);
             // TRANS: Server error thrown on database error canceling IM address confirmation.
-            $this->serverError(_('Couldn\'t delete IM confirmation.'));
+            $this->serverError(_('Could not delete IM confirmation.'));
             return;
         }
 
@@ -412,7 +403,6 @@ class ImsettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function removeAddress()
     {
         $user = common_current_user();
@@ -439,7 +429,7 @@ class ImsettingsAction extends ConnectSettingsAction
         if (!$result) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             // TRANS: Server error thrown on database error removing a registered IM address.
-            $this->serverError(_('Couldn\'t update user.'));
+            $this->serverError(_('Could not update user.'));
             return;
         }
         $user->query('COMMIT');
@@ -459,7 +449,6 @@ class ImsettingsAction extends ConnectSettingsAction
      *
      * @return boolean whether the Jabber ID exists
      */
-
     function jabberExists($jabber)
     {
         $user = common_current_user();

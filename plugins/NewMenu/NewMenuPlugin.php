@@ -54,31 +54,6 @@ class NewMenuPlugin extends Plugin
     public $loadCSS = false;
 
     /**
-     * Load related modules when needed
-     *
-     * @param string $cls Name of the class to be loaded
-     *
-     * @return boolean hook value; true means continue processing, false means stop.
-     */
-
-    function onAutoload($cls)
-    {
-        $dir = dirname(__FILE__);
-
-        switch ($cls)
-        {
-        case 'HelloAction':
-            include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
-            return false;
-        case 'User_greeting_count':
-            include_once $dir . '/'.$cls.'.php';
-            return false;
-        default:
-            return true;
-        }
-    }
-
-    /**
      * Modify the default menu
      *
      * @param Action $action The current action handler. Use this to
@@ -279,19 +254,19 @@ class NewMenuPlugin extends Plugin
         return true;
     }
 
-    function onStartAccountSettingsNav(&$action)
+    function onStartAccountSettingsNav($action)
     {
         $this->_settingsMenu($action);
         return false;
     }
 
-    function onStartConnectSettingsNav(&$action)
+    function onStartConnectSettingsNav($action)
     {
         $this->_settingsMenu($action);
         return false;
     }
 
-    private function _settingsMenu(&$action)
+    private function _settingsMenu($action)
     {
         $actionName = $action->trimmed('action');
 
@@ -325,7 +300,7 @@ class NewMenuPlugin extends Plugin
                           _('Other options'),
                           $actionName == 'othersettings');
 
-        Event::handle('EndAccountSettingsNav', array(&$action));
+        Event::handle('EndAccountSettingsNav', array($action));
         
         if (common_config('xmpp', 'enabled')) {
             $action->menuItem(common_local_url('imsettings'),
@@ -346,7 +321,7 @@ class NewMenuPlugin extends Plugin
                           _('Authorized connected applications'),
                           $actionName == 'oauthconnectionsettings');
 
-        Event::handle('EndConnectSettingsNav', array(&$action));
+        Event::handle('EndConnectSettingsNav', array($action));
     }
 
     function onEndShowStyles($action)

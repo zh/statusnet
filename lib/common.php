@@ -22,13 +22,13 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 //exit with 200 response, if this is checking fancy from the installer
 if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 
-define('STATUSNET_BASE_VERSION', '0.9.8');
-define('STATUSNET_LIFECYCLE', 'dev'); // 'dev', 'alpha[0-9]+', 'beta[0-9]+', 'rc[0-9]+', 'release'
+define('STATUSNET_BASE_VERSION', '0.9.7');
+define('STATUSNET_LIFECYCLE', 'alpha1'); // 'dev', 'alpha[0-9]+', 'beta[0-9]+', 'rc[0-9]+', 'release'
 define('STATUSNET_VERSION', STATUSNET_BASE_VERSION . STATUSNET_LIFECYCLE);
 
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
-define('STATUSNET_CODENAME', 'Letter Never Sent');
+define('STATUSNET_CODENAME', 'World Leader Pretend');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -63,8 +63,13 @@ if (!function_exists('dl')) {
     // Fortunately trying to call the disabled one will only trigger
     // a warning, not a fatal, so it's safe to leave it for our case.
     // Callers will be suppressing warnings anyway.
-    $disabled = array_filter(array_map('trim', explode(',', ini_get('disable_functions'))));
-    if (!in_array('dl', $disabled)) {
+    try {
+        // Reading the ini setting is hard as we don't know PHP's parsing,
+        // but we can check if it is disabled through reflection.
+        $dl = new ReflectionFunction('dl');
+        // $disabled = $dl->isDisabled(); // don't need to check this now
+    } catch (ReflectionException $e) {
+        // Ok, it *really* doesn't exist!
         function dl($library) {
             return false;
         }
@@ -95,7 +100,11 @@ function _have_config()
     return StatusNet::haveConfig();
 }
 
-function __autoload($cls)
+/**
+ * Wrapper for class autoloaders.
+ * This used to be the special function name __autoload(), but that causes bugs with PHPUnit 3.5+
+ */
+function autoload_sn($cls)
 {
     if (file_exists(INSTALLDIR.'/classes/' . $cls . '.php')) {
         require_once(INSTALLDIR.'/classes/' . $cls . '.php');
@@ -110,6 +119,8 @@ function __autoload($cls)
         Event::handle('Autoload', array(&$cls));
     }
 }
+
+spl_autoload_register('autoload_sn');
 
 // XXX: how many of these could be auto-loaded on use?
 // XXX: note that these files should not use config options

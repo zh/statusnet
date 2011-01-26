@@ -173,6 +173,13 @@ class XRD
                 switch($node->tagName) {
                 case 'Title':
                     $link['title'][] = $node->nodeValue;
+                    break;
+                case 'Property':
+                    $link['property'][] = array('type' => $node->getAttribute('type'),
+                                                'value' => $node->nodeValue);
+                    break;
+                default:
+                    common_log(LOG_NOTICE, "Unexpected tag name {$node->tagName} found in XRD file.");
                 }
             }
         }

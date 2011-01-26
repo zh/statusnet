@@ -263,7 +263,7 @@ class GroupDesignSettingsAction extends DesignSettingsAction
 
             if ($result === false) {
                 common_log_db_error($design, 'UPDATE', __FILE__);
-                $this->showForm(_('Couldn\'t update your design.'));
+                $this->showForm(_('Could not update your design.'));
                 return;
             }
 

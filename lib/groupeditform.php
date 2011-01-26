@@ -46,13 +46,11 @@ require_once INSTALLDIR.'/lib/form.php';
  *
  * @see      UnsubscribeForm
  */
-
 class GroupEditForm extends Form
 {
     /**
      * group for user to join
      */
-
     var $group = null;
 
     /**
@@ -61,7 +59,6 @@ class GroupEditForm extends Form
      * @param Action     $out   output channel
      * @param User_group $group group to join
      */
-
     function __construct($out=null, $group=null)
     {
         parent::__construct($out);
@@ -74,7 +71,6 @@ class GroupEditForm extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
         if ($this->group) {
@@ -89,7 +85,6 @@ class GroupEditForm extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
         return 'form_settings';
@@ -100,7 +95,6 @@ class GroupEditForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         if ($this->group) {
@@ -116,7 +110,6 @@ class GroupEditForm extends Form
      *
      * @return void
      */
-
     function formLegend()
     {
         $this->out->element('legend', null, _('Create a new group'));
@@ -127,7 +120,6 @@ class GroupEditForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         if ($this->group) {
@@ -151,7 +143,7 @@ class GroupEditForm extends Form
         $this->out->hidden('groupid', $id);
         $this->out->input('nickname', _('Nickname'),
                           ($this->out->arg('nickname')) ? $this->out->arg('nickname') : $nickname,
-                          _('1-64 lowercase letters or numbers, no punctuation or spaces'));
+                          _('1-64 lowercase letters or numbers, no punctuation or spaces.'));
         $this->out->elementEnd('li');
         $this->out->elementStart('li');
         $this->out->input('fullname', _('Full name'),
@@ -167,8 +159,8 @@ class GroupEditForm extends Form
         if ($desclimit == 0) {
             $descinstr = _('Describe the group or topic');
         } else {
-            $descinstr = sprintf(_m('Describe the group or topic in %d character or less',
-                                    'Describe the group or topic in %d characters or less',
+            $descinstr = sprintf(_m('Describe the group or topic in %d character or less.',
+                                    'Describe the group or topic in %d characters or less.',
                                     $desclimit),
                                  $desclimit);
         }
@@ -201,7 +193,6 @@ class GroupEditForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
         $this->out->submit('submit', _m('BUTTON','Save'));

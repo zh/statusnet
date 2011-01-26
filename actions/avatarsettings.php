@@ -320,21 +320,20 @@ class AvatarsettingsAction extends AccountSettingsAction
         }
 
         $cur = common_current_user();
-
+        $type = $imagefile->preferredType();
         $filename = Avatar::filename($cur->id,
-                                     image_type_to_extension($imagefile->type),
+                                     image_type_to_extension($type),
                                      null,
                                      'tmp'.common_timestamp());
 
         $filepath = Avatar::path($filename);
-
-        move_uploaded_file($imagefile->filepath, $filepath);
+        $imagefile->copyTo($filepath);
 
         $filedata = array('filename' => $filename,
                           'filepath' => $filepath,
                           'width' => $imagefile->width,
                           'height' => $imagefile->height,
-                          'type' => $imagefile->type);
+                          'type' => $type);
 
         $_SESSION['FILEDATA'] = $filedata;
 
