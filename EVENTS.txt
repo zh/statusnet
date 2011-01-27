@@ -1063,3 +1063,9 @@ StartGroupEditFormData: Beginning the group edit form entries
 
 EndGroupEditFormData: Ending the group edit form entries
 - $form: The form widget being shown
+
+StartGroupSave: After initializing but before saving a group
+- &$group: group about to be saved
+
+EndGroupSave: After saving a group, aliases, and first member
+- $group: group that was saved
