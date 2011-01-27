@@ -87,6 +87,7 @@ class Session extends Memcached_DataObject
             $session->id           = $id;
             $session->session_data = $session_data;
             $session->created      = common_sql_now();
+            $session->modified     = common_sql_now();
 
             $result = $session->insert();
 
@@ -108,6 +109,7 @@ class Session extends Memcached_DataObject
                 $orig = clone($session);
 
                 $session->session_data = $session_data;
+                $session->modified     = common_sql_now();
 
                 $result = $session->update($orig);
 
