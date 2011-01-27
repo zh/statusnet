@@ -147,51 +147,54 @@ class GroupEditForm extends Form
         }
 
         $this->out->elementStart('ul', 'form_data');
-        $this->out->elementStart('li');
-        $this->out->hidden('groupid', $id);
-        $this->out->input('nickname', _('Nickname'),
-                          ($this->out->arg('nickname')) ? $this->out->arg('nickname') : $nickname,
-                          _('1-64 lowercase letters or numbers, no punctuation or spaces'));
-        $this->out->elementEnd('li');
-        $this->out->elementStart('li');
-        $this->out->input('fullname', _('Full name'),
-                          ($this->out->arg('fullname')) ? $this->out->arg('fullname') : $fullname);
-        $this->out->elementEnd('li');
-        $this->out->elementStart('li');
-        $this->out->input('homepage', _('Homepage'),
-                          ($this->out->arg('homepage')) ? $this->out->arg('homepage') : $homepage,
-                          _('URL of the homepage or blog of the group or topic.'));
-        $this->out->elementEnd('li');
-        $this->out->elementStart('li');
-        $desclimit = User_group::maxDescription();
-        if ($desclimit == 0) {
-            $descinstr = _('Describe the group or topic');
-        } else {
-            $descinstr = sprintf(_m('Describe the group or topic in %d character or less',
-                                    'Describe the group or topic in %d characters or less',
-                                    $desclimit),
-                                 $desclimit);
-        }
-        $this->out->textarea('description', _('Description'),
-                             ($this->out->arg('description')) ? $this->out->arg('description') : $description,
-                             $descinstr);
-        $this->out->elementEnd('li');
-        $this->out->elementStart('li');
-        $this->out->input('location', _('Location'),
-                          ($this->out->arg('location')) ? $this->out->arg('location') : $location,
-                          _('Location for the group, if any, like "City, State (or Region), Country".'));
-        $this->out->elementEnd('li');
-        if (common_config('group', 'maxaliases') > 0) {
-            $aliases = (empty($this->group)) ? array() : $this->group->getAliases();
+        if (Event::handle('StartGroupEditFormData', array($this))) {
             $this->out->elementStart('li');
-            $this->out->input('aliases', _('Aliases'),
-                              ($this->out->arg('aliases')) ? $this->out->arg('aliases') :
-                              (!empty($aliases)) ? implode(' ', $aliases) : '',
-                              sprintf(_m('Extra nicknames for the group, separated with commas or spaces. Maximum %d alias allowed.',
-                                         'Extra nicknames for the group, separated with commas or spaces. Maximum %d aliases allowed.',
-                                         common_config('group', 'maxaliases')),
-                                      common_config('group', 'maxaliases')));;
+            $this->out->hidden('groupid', $id);
+            $this->out->input('nickname', _('Nickname'),
+                              ($this->out->arg('nickname')) ? $this->out->arg('nickname') : $nickname,
+                              _('1-64 lowercase letters or numbers, no punctuation or spaces'));
             $this->out->elementEnd('li');
+            $this->out->elementStart('li');
+            $this->out->input('fullname', _('Full name'),
+                              ($this->out->arg('fullname')) ? $this->out->arg('fullname') : $fullname);
+            $this->out->elementEnd('li');
+            $this->out->elementStart('li');
+            $this->out->input('homepage', _('Homepage'),
+                              ($this->out->arg('homepage')) ? $this->out->arg('homepage') : $homepage,
+                              _('URL of the homepage or blog of the group or topic.'));
+            $this->out->elementEnd('li');
+            $this->out->elementStart('li');
+            $desclimit = User_group::maxDescription();
+            if ($desclimit == 0) {
+                $descinstr = _('Describe the group or topic');
+            } else {
+                $descinstr = sprintf(_m('Describe the group or topic in %d character or less',
+                                        'Describe the group or topic in %d characters or less',
+                                        $desclimit),
+                                     $desclimit);
+            }
+            $this->out->textarea('description', _('Description'),
+                                 ($this->out->arg('description')) ? $this->out->arg('description') : $description,
+                                 $descinstr);
+            $this->out->elementEnd('li');
+            $this->out->elementStart('li');
+            $this->out->input('location', _('Location'),
+                              ($this->out->arg('location')) ? $this->out->arg('location') : $location,
+                              _('Location for the group, if any, like "City, State (or Region), Country".'));
+            $this->out->elementEnd('li');
+            if (common_config('group', 'maxaliases') > 0) {
+                $aliases = (empty($this->group)) ? array() : $this->group->getAliases();
+                $this->out->elementStart('li');
+                $this->out->input('aliases', _('Aliases'),
+                                  ($this->out->arg('aliases')) ? $this->out->arg('aliases') :
+                                  (!empty($aliases)) ? implode(' ', $aliases) : '',
+                                  sprintf(_m('Extra nicknames for the group, separated with commas or spaces. Maximum %d alias allowed.',
+                                             'Extra nicknames for the group, separated with commas or spaces. Maximum %d aliases allowed.',
+                                             common_config('group', 'maxaliases')),
+                                          common_config('group', 'maxaliases')));;
+                $this->out->elementEnd('li');
+            }
+            Event::handle('EndGroupEditFormData', array($this));
         }
         $this->out->elementEnd('ul');
     }
