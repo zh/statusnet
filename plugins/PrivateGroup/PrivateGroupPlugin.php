@@ -202,6 +202,31 @@ class PrivateGroupPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Create default group privacy settings at group create time
+     *
+     * @param $group Group that was just created
+     *
+     * @result boolean hook value
+     */
+
+    function onEndGroupSave($group)
+    {
+        $gps = new Group_privacy_settings();
+
+        $gps->group_id      = $group->id;
+        $gps->allow_privacy = Group_privacy_settings::SOMETIMES;
+        $gps->allow_sender  = Group_privacy_settings::MEMBER;
+        $gps->created       = common_sql_now();
+        $gps->modified      = $gps->created;
+
+        // This will throw an exception on error
+
+        $gps->insert();
+
+        return true;
+    }
+
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'PrivateGroup',
