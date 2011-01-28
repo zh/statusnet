@@ -4,7 +4,7 @@
  * Copyright (C) 2010, StatusNet, Inc.
  *
  * A class for moving an account to a new server
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class AccountMover extends QueueHandler
 {
     function transport()
@@ -61,14 +60,16 @@ class AccountMover extends QueueHandler
         $oprofile = Ostatus_profile::ensureProfileURI($remote);
 
         if (empty($oprofile)) {
-            throw new Exception("Can't locate account {$remote}");
+            // TRANS: Exception thrown when an account could not be located when it should be moved.
+            // TRANS: %s is the remote site.
+            throw new Exception(sprintf(_("Cannot locate account %s."),$remote));
         }
 
         list($svcDocUrl, $username) = self::getServiceDocument($remote);
 
         $sink = new ActivitySink($svcDocUrl, $username, $password);
 
-        $this->log(LOG_INFO, 
+        $this->log(LOG_INFO,
                    "Moving user {$user->nickname} ".
                    "to {$remote}.");
 
@@ -100,8 +101,10 @@ class AccountMover extends QueueHandler
         $xrd = $discovery->lookup($remote);
 
         if (empty($xrd)) {
-            throw new Exception("Can't find XRD for $remote");
-        } 
+            // TRANS: Exception thrown when a service document could not be located account move.
+            // TRANS: %s is the remote site.
+            throw new Exception(sprintf(_("Cannot find XRD for %s."),$remote));
+        }
 
         $svcDocUrl = null;
         $username  = null;
@@ -123,7 +126,9 @@ class AccountMover extends QueueHandler
         }
 
         if (empty($svcDocUrl)) {
-            throw new Exception("No AtomPub API service for $remote.");
+            // TRANS: Exception thrown when an account could not be located when it should be moved.
+            // TRANS: %s is the remote site.
+            throw new Exception(sprintf(_("No AtomPub API service for %s."),$remote));
         }
 
         return array($svcDocUrl, $username);
@@ -131,7 +136,7 @@ class AccountMover extends QueueHandler
 
     /**
      * Log some data
-     * 
+     *
      * Add a header for our class so we know who did it.
      *
      * @param int    $level   Log level, like LOG_ERR or LOG_INFO
@@ -139,7 +144,6 @@ class AccountMover extends QueueHandler
      *
      * @return void
      */
-
     protected function log($level, $message)
     {
         common_log($level, "AccountMover: " . $message);

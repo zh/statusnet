@@ -4,7 +4,7 @@
  * Copyright (C) 2010, StatusNet, Inc.
  *
  * A remote, atompub-receiving service
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class ActivitySink
 {
     protected $svcDocUrl   = null;
@@ -104,6 +103,7 @@ class ActivitySink
                     break;
                 }
             }
+
             if (!$takesEntries) {
                 continue;
             }
@@ -158,12 +158,18 @@ class ActivitySink
         if ($status >= 200 && $status < 300) {
             return true;
         } else if ($status >= 400 && $status < 500) {
-            throw new ClientException("{$url} {$status} {$reason}");
+            // TRANS: Client exception thrown when post to collection fails with a 400 status.
+            // TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
+            throw new ClientException(sprintf(_m('URLSTATUSREASON','%1$s %2$s %3$s'), $url, $status, $reason));
         } else if ($status >= 500 && $status < 600) {
-            throw new ServerException("{$url} {$status} {$reason}");
+            // TRANS: Server exception thrown when post to collection fails with a 500 status.
+            // TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
+            throw new ServerException(sprintf(_m('URLSTATUSREASON','%1$s %2$s %3$s'), $url, $status, $reason));
         } else {
             // That's unexpected.
-            throw new Exception("{$url} {$status} {$reason}");
+            // TRANS: Exception thrown when post to collection fails with a status that is not handled.
+            // TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
+            throw new Exception(sprintf(_m('URLSTATUSREASON','%1$s %2$s %3$s'), $url, $status, $reason));
         }
     }
 }

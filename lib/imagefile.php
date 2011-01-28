@@ -69,6 +69,7 @@ class ImageFile
             ($info[2] == IMAGETYPE_XBM && function_exists('imagecreatefromxbm')) ||
             ($info[2] == IMAGETYPE_PNG && function_exists('imagecreatefrompng')))) {
 
+            // TRANS: Exception thrown when trying to upload an unsupported image file format.
             throw new Exception(_('Unsupported image file format.'));
             return;
         }
@@ -92,6 +93,7 @@ class ImageFile
             return;
          case UPLOAD_ERR_PARTIAL:
             @unlink($_FILES[$param]['tmp_name']);
+            // TRANS: Exception thrown when uploading an image and that action could not be completed.
             throw new Exception(_('Partial upload.'));
             return;
          case UPLOAD_ERR_NO_FILE:
@@ -100,6 +102,7 @@ class ImageFile
          default:
             common_log(LOG_ERR, __METHOD__ . ": Unknown upload error " .
                 $_FILES[$param]['error']);
+            // TRANS: Exception thrown when uploading an image fails for an unknown reason.
             throw new Exception(_('System error uploading file.'));
             return;
         }
@@ -108,6 +111,7 @@ class ImageFile
 
         if (!$info) {
             @unlink($_FILES[$param]['tmp_name']);
+            // TRANS: Exception thrown when uploading a file as image that is not an image or is a corrupt file.
             throw new Exception(_('Not an image or corrupt file.'));
             return;
         }
@@ -170,6 +174,7 @@ class ImageFile
         $targetType = $this->preferredType();
 
         if (!file_exists($this->filepath)) {
+            // TRANS: Exception thrown during resize when image has been registered as present, but is no longer there.
             throw new Exception(_('Lost our file.'));
             return;
         }
@@ -207,6 +212,7 @@ class ImageFile
             $image_src = imagecreatefromxbm($this->filepath);
             break;
          default:
+            // TRANS: Exception thrown when trying to resize an unknown file type.
             throw new Exception(_('Unknown file type'));
             return;
         }
@@ -247,6 +253,7 @@ class ImageFile
             imagepng($image_dest, $outpath);
             break;
          default:
+            // TRANS: Exception thrown when trying resize an unknown file type.
             throw new Exception(_('Unknown file type'));
             return;
         }

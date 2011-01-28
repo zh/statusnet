@@ -244,8 +244,7 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
         if (Event::handle('StartAtomPubNewActivity', array(&$activity))) {
 
             if ($activity->verb != ActivityVerb::FOLLOW) {
-                // TRANS: Client error displayed when not using the POST verb.
-                // TRANS: Do not translate POST.
+                // TRANS: Client error displayed when not using the follow verb.
                 $this->clientError(_('Can only handle Follow activities.'));
                 return;
             }
@@ -264,14 +263,17 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
 
             if (empty($profile)) {
                 // TRANS: Client exception thrown when subscribing to a non-existing profile.
+                // TRANS: %s is the unknown profile ID.
                 $this->clientError(sprintf(_('Unknown profile %s.'), $person->id));
                 return;
             }
 
             if (Subscription::exists($this->_profile, $profile)) {
                 // 409 Conflict
-                $this->clientError(sprintf(_('Already subscribed to %s'),
-                                           $person->id), 
+                // TRANS: Client error displayed trying to subscribe to an already subscribed profile.
+                // TRANS: %s is the profile the user already has a subscription on.
+                $this->clientError(sprintf(_('Already subscribed to %s.'),
+                                           $person->id),
                                    409);
                 return;
             }

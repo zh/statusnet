@@ -46,7 +46,6 @@ require_once INSTALLDIR.'/lib/groupminilist.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ProfileAction extends OwnerDesignAction
 {
     var $page    = null;
@@ -74,6 +73,7 @@ class ProfileAction extends OwnerDesignAction
         $this->user = User::staticGet('nickname', $nickname);
 
         if (!$this->user) {
+            // TRANS: Client error displayed when calling a profile action without specifying a user.
             $this->clientError(_('No such user.'), 404);
             return false;
         }
@@ -81,6 +81,7 @@ class ProfileAction extends OwnerDesignAction
         $this->profile = $this->user->getProfile();
 
         if (!$this->profile) {
+            // TRANS: Server error displayed when calling a profile action while the specified user does not have a profile.
             $this->serverError(_('User has no profile.'));
             return false;
         }
@@ -122,6 +123,7 @@ class ProfileAction extends OwnerDesignAction
                                          'class' => 'section'));
         if (Event::handle('StartShowSubscriptionsMiniList', array($this))) {
             $this->elementStart('h2');
+            // TRANS: H2 text for user subscription statistics.
             $this->statsSectionLink('subscriptions', _('Subscriptions'));
             $this->elementEnd('h2');
 
@@ -131,12 +133,14 @@ class ProfileAction extends OwnerDesignAction
                 $pml = new ProfileMiniList($profile, $this);
                 $cnt = $pml->show();
                 if ($cnt == 0) {
+                    // TRANS: Text for user subscription statistics if the user has no subscriptions.
                     $this->element('p', null, _('(None)'));
                 }
             }
 
             if ($cnt > PROFILES_PER_MINILIST) {
                 $this->elementStart('p');
+                // TRANS: Text for user subscription statistics if user has more subscriptions than displayed.
                 $this->statsSectionLink('subscriptions', _('All subscriptions'), 'more');
                 $this->elementEnd('p');
             }
@@ -156,6 +160,7 @@ class ProfileAction extends OwnerDesignAction
         if (Event::handle('StartShowSubscribersMiniList', array($this))) {
 
             $this->elementStart('h2');
+            // TRANS: H2 text for user subscriber statistics.
             $this->statsSectionLink('subscribers', _('Subscribers'));
             $this->elementEnd('h2');
 
@@ -165,12 +170,14 @@ class ProfileAction extends OwnerDesignAction
                 $sml = new SubscribersMiniList($profile, $this);
                 $cnt = $sml->show();
                 if ($cnt == 0) {
+                    // TRANS: Text for user subscriber statistics if user has no subscribers.
                     $this->element('p', null, _('(None)'));
                 }
             }
 
             if ($cnt > PROFILES_PER_MINILIST) {
                 $this->elementStart('p');
+                // TRANS: Text for user subscription statistics if user has more subscribers than displayed.
                 $this->statsSectionLink('subscribers', _('All subscribers'), 'more');
                 $this->elementEnd('p');
             }
@@ -194,6 +201,7 @@ class ProfileAction extends OwnerDesignAction
         $this->elementStart('div', array('id' => 'entity_statistics',
                                          'class' => 'section'));
 
+        // TRANS: H2 text for user statistics.
         $this->element('h2', null, _('Statistics'));
 
         $profile = $this->profile;
@@ -201,40 +209,47 @@ class ProfileAction extends OwnerDesignAction
         $stats = array(
             array(
                 'id' => 'user-id',
+                // TRANS: Label for user statistics.
                 'label' => _('User ID'),
                 'value' => $profile->id,
             ),
             array(
                 'id' => 'member-since',
+                // TRANS: Label for user statistics.
                 'label' => _('Member since'),
                 'value' => date('j M Y', strtotime($profile->created))
             ),
             array(
                 'id' => 'subscriptions',
+                // TRANS: Label for user statistics.
                 'label' => _('Subscriptions'),
                 'link' => common_local_url('subscriptions', $actionParams),
                 'value' => $profile->subscriptionCount(),
             ),
             array(
                 'id' => 'subscribers',
+                // TRANS: Label for user statistics.
                 'label' => _('Subscribers'),
                 'link' => common_local_url('subscribers', $actionParams),
                 'value' => $profile->subscriberCount(),
             ),
             array(
                 'id' => 'groups',
+                // TRANS: Label for user statistics.
                 'label' => _('Groups'),
                 'link' => common_local_url('usergroups', $actionParams),
                 'value' => $profile->getGroups()->N,
             ),
             array(
                 'id' => 'notices',
+                // TRANS: Label for user statistics.
                 'label' => _('Notices'),
                 'value' => $notice_count,
             ),
             array(
                 'id' => 'daily_notices',
-                // TRANS: Average count of posts made per day since account registration
+                // TRANS: Label for user statistics.
+                // TRANS: Average count of posts made per day since account registration.
                 'label' => _('Daily average'),
                 'value' => $daily_count
             )
@@ -271,6 +286,7 @@ class ProfileAction extends OwnerDesignAction
                                          'class' => 'section'));
         if (Event::handle('StartShowGroupsMiniList', array($this))) {
             $this->elementStart('h2');
+            // TRANS: H2 text for user group membership statistics.
             $this->statsSectionLink('usergroups', _('Groups'));
             $this->elementEnd('h2');
 
@@ -278,12 +294,14 @@ class ProfileAction extends OwnerDesignAction
                 $gml = new GroupMiniList($groups, $this->profile, $this);
                 $cnt = $gml->show();
                 if ($cnt == 0) {
+                    // TRANS: Text for user user group membership statistics if user is not a member of any group.
                     $this->element('p', null, _('(None)'));
                 }
             }
 
             if ($cnt > GROUPS_PER_MINILIST) {
                 $this->elementStart('p');
+                // TRANS: Text for user group membership statistics if user has more subscriptions than displayed.
                 $this->statsSectionLink('usergroups', _('All groups'), 'more');
                 $this->elementEnd('p');
             }
@@ -313,4 +331,3 @@ class SubscribersMiniListItem extends ProfileMiniListItem
         return $aAttrs;
     }
 }
-

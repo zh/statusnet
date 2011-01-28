@@ -45,7 +45,6 @@ if (!defined('STATUSNET')) {
  *
  * @see       http://groups.google.com/group/webfinger/browse_thread/thread/9f3d93a479e91bbf
  */
-
 class Discovery
 {
     const LRDD_REL    = 'lrdd';
@@ -72,12 +71,11 @@ class Discovery
 
     /**
      * Register a discovery class
-     * 
+     *
      * @param string $class Class name
      *
      * @return void
      */
-
     public function registerMethod($class)
     {
         $this->methods[] = $class;
@@ -91,7 +89,6 @@ class Discovery
      *
      * @return string normalized acct: or http(s)?: URI
      */
-
     public static function normalize($user_id)
     {
         if (substr($user_id, 0, 5) == 'http:' ||
@@ -116,7 +113,6 @@ class Discovery
      *
      * @return boolean true if $user_id is a Webfinger, else false
      */
-     
     public static function isWebfinger($user_id)
     {
         $uri = Discovery::normalize($user_id);
@@ -131,7 +127,6 @@ class Discovery
      *
      * @return XRD XRD object for the user
      */
-
     public function lookup($id)
     {
         // Normalize the incoming $id to make sure we have a uri
@@ -154,7 +149,7 @@ class Discovery
             }
         }
 
-        // TRANS: Exception.
+        // TRANS: Exception. %s is an ID.
         throw new Exception(sprintf(_('Unable to find services for %s.'), $id));
     }
 
@@ -166,7 +161,6 @@ class Discovery
      *
      * @return array $link assoc array representing the link
      */
-
     public static function getService($links, $service)
     {
         if (!is_array($links)) {
@@ -190,7 +184,6 @@ class Discovery
      *
      * @return string replaced values
      */
-
     public static function applyTemplate($template, $id)
     {
         $template = str_replace('{uri}', urlencode($id), $template);
@@ -202,10 +195,9 @@ class Discovery
      * Fetch an XRD file and parse
      *
      * @param string $url URL of the XRD
-     * 
+     *
      * @return XRD object representing the XRD file
      */
-
     public static function fetchXrd($url)
     {
         try {
@@ -236,7 +228,6 @@ class Discovery
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 interface Discovery_LRDD
 {
     /**
@@ -246,7 +237,6 @@ interface Discovery_LRDD
      *
      * @return array Links in the XRD file
      */
-
     public function discover($uri);
 }
 
@@ -263,7 +253,6 @@ interface Discovery_LRDD
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class Discovery_LRDD_Host_Meta implements Discovery_LRDD
 {
     /**
@@ -276,7 +265,6 @@ class Discovery_LRDD_Host_Meta implements Discovery_LRDD
      *
      * @return array Links in the XRD file
      */
-
     public function discover($uri)
     {
         if (Discovery::isWebfinger($uri)) {
@@ -313,7 +301,6 @@ class Discovery_LRDD_Host_Meta implements Discovery_LRDD
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class Discovery_LRDD_Link_Header implements Discovery_LRDD
 {
     /**
@@ -325,9 +312,8 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
      *
      * @return array Links in the XRD file
      *
-     * @todo fail out of Webfinger URIs faster 
+     * @todo fail out of Webfinger URIs faster
      */
-
     public function discover($uri)
     {
         try {
@@ -353,10 +339,9 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
      * Given a string or array of headers, returns XRD-like assoc array
      *
      * @param string|array $header string or array of strings for headers
-     * 
+     *
      * @return array Link header in XRD-like format
      */
-
     protected static function parseHeader($header)
     {
         $lh = new LinkHeader($header);
@@ -380,7 +365,6 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class Discovery_LRDD_Link_HTML implements Discovery_LRDD
 {
     /**
@@ -393,9 +377,8 @@ class Discovery_LRDD_Link_HTML implements Discovery_LRDD
      *
      * @return array Links in XRD-ish assoc array
      *
-     * @todo fail out of Webfinger URIs faster 
+     * @todo fail out of Webfinger URIs faster
      */
-
     public function discover($uri)
     {
         try {
@@ -421,7 +404,6 @@ class Discovery_LRDD_Link_HTML implements Discovery_LRDD
      *
      * @return array array of associative arrays in XRD-ish format
      */
-
     public function parse($html)
     {
         $links = array();
