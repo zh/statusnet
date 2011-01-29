@@ -1,5 +1,5 @@
 # Translation of StatusNet - Core to Georgian (ქართული)
-# Expored from translatewiki.net
+# Exported from translatewiki.net
 #
 # Author: Zaal
 # --
@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-22 14:49+0000\n"
-"PO-Revision-Date: 2011-01-22 14:57:20+0000\n"
+"POT-Creation-Date: 2011-01-29 21:45+0000\n"
+"PO-Revision-Date: 2011-01-29 21:48:25+0000\n"
 "Language-Team: Georgian <http://translatewiki.net/wiki/Portal:ka>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r80746); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r81195); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ka\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-01-20 20:41:25+0000\n"
+"X-POT-Import-Date: 2011-01-22 19:49:58+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -90,7 +90,7 @@ msgstr "შეინახე შესვლის პარამეტრე�
 #: actions/emailsettings.php:254 actions/imsettings.php:183
 #: actions/othersettings.php:134 actions/pathsadminpanel.php:512
 #: actions/profilesettings.php:197 actions/sitenoticeadminpanel.php:197
-#: actions/smssettings.php:205 actions/subscriptions.php:262
+#: actions/smssettings.php:205 actions/subscriptions.php:259
 #: actions/useradminpanel.php:298 lib/applicationeditform.php:355
 #: lib/designsettings.php:270 lib/groupeditform.php:198
 msgctxt "BUTTON"
@@ -128,6 +128,7 @@ msgstr "ასეთი გვერდი არ არსებობს."
 #. TRANS: Client error displayed requesting most recent notices for a non-existing user.
 #. TRANS: Client error displayed trying to get an avatar for a non-existing user.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
+#. TRANS: Client error displayed when calling a profile action without specifying a user.
 #: actions/all.php:80 actions/allrss.php:69
 #: actions/apiaccountupdatedeliverydevice.php:110
 #: actions/apiaccountupdateprofile.php:103
@@ -336,14 +337,15 @@ msgstr "მომხმარებლის განახლება ვე�
 #. TRANS: Client error displayed if a user profile could not be found updating a profile image.
 #. TRANS: Client error displayed when requesting user information for a user without a profile.
 #. TRANS: Client error displayed trying to get an avatar for a user without a profile.
+#. TRANS: Server error displayed when calling a profile action while the specified user does not have a profile.
 #: actions/apiaccountupdateprofile.php:111
 #: actions/apiaccountupdateprofilebackgroundimage.php:199
 #: actions/apiaccountupdateprofilecolors.php:183
-#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiaccountupdateprofileimage.php:131
 #: actions/apiuserprofileimage.php:88 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:85 actions/foaf.php:65 actions/hcard.php:74
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
-#: lib/profileaction.php:84
+#: lib/profileaction.php:85
 msgid "User has no profile."
 msgstr "მომხმარებელს პროფილი არ გააჩნია."
 
@@ -669,18 +671,16 @@ msgstr ""
 #. TRANS: Client error displayed when trying to use an alias during group creation that is already in use.
 #. TRANS: %s is the alias that is already in use.
 #. TRANS: Group edit form validation error.
-#. TRANS: Group create form validation error.
+#. TRANS: Group create form validation error. %s is the already used alias.
 #: actions/apigroupcreate.php:264 actions/editgroup.php:244
-#: actions/newgroup.php:191
+#: actions/newgroup.php:192
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to use an alias during group creation that is the same as the group's nickname.
 #. TRANS: Group edit form validation error.
-#. TRANS: Group create form validation error.
 #: actions/apigroupcreate.php:278 actions/editgroup.php:251
-#: actions/newgroup.php:198
 msgid "Alias can't be the same as nickname."
 msgstr ""
 
@@ -691,7 +691,7 @@ msgstr ""
 #. TRANS: Client error displayed when trying to show a group that could not be found.
 #. TRANS: Client error displayed requesting most recent notices to a group for a non-existing group.
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
-#: actions/apigroupleave.php:104 actions/apigroupmembership.php:89
+#: actions/apigroupleave.php:104 actions/apigroupmembership.php:71
 #: actions/apigroupshow.php:81 actions/apitimelinegroup.php:89
 msgid "Group not found."
 msgstr "ჯგუფი ვერ მოიძებნა."
@@ -885,11 +885,12 @@ msgstr "ანგარიში"
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group nickname (dt). Text hidden by default.
+#. TRANS: DT for nick name in a profile.
 #: actions/apioauthauthorize.php:459 actions/login.php:252
 #: actions/profilesettings.php:106 actions/register.php:432
 #: actions/showgroup.php:240 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:144
-#: lib/userprofile.php:134
+#: lib/userprofile.php:137
 msgid "Nickname"
 msgstr "მეტსახელი"
 
@@ -1195,28 +1196,27 @@ msgstr ""
 msgid "Atom post must be an Atom entry."
 msgstr ""
 
-#. TRANS: Client error displayed when not using the POST verb.
-#. TRANS: Do not translate POST.
-#: actions/apitimelineuser.php:336
+#. TRANS: Client error displayed when not using the POST verb. Do not translate POST.
+#: actions/apitimelineuser.php:335
 msgid "Can only handle POST activities."
 msgstr ""
 
 #. TRANS: Client error displayed when using an unsupported activity object type.
 #. TRANS: %s is the unsupported activity object type.
-#: actions/apitimelineuser.php:347
+#: actions/apitimelineuser.php:346
 #, php-format
 msgid "Cannot handle activity object type \"%s\"."
 msgstr ""
 
 #. TRANS: Client error displayed when posting a notice without content through the API.
 #. TRANS: %d is the notice ID (number).
-#: actions/apitimelineuser.php:381
+#: actions/apitimelineuser.php:380
 #, fuzzy, php-format
 msgid "No content for notice %d."
 msgstr "მოძებნე შეტყობინებებში"
 
 #. TRANS: Client error displayed when using another format than AtomPub.
-#: actions/apitimelineuser.php:409
+#: actions/apitimelineuser.php:408
 #, fuzzy, php-format
 msgid "Notice with URI \"%s\" already exists."
 msgstr "შეტყობინებები ამ ID-თ არ არსებობს."
@@ -1385,22 +1385,29 @@ msgstr "თქვენ არ გაქვთ გამოწერილი �
 msgid "Cannot delete someone else's subscription."
 msgstr "საკუთარი გამოწერის წაშლა ვერ ხერხდება."
 
-#. TRANS: Client error displayed when not using the POST verb.
-#. TRANS: Do not translate POST.
-#: actions/atompubsubscriptionfeed.php:249
+#. TRANS: Client error displayed when not using the follow verb.
+#: actions/atompubsubscriptionfeed.php:248
 msgid "Can only handle Follow activities."
 msgstr ""
 
 #. TRANS: Client exception thrown when subscribing to an object that is not a person.
-#: actions/atompubsubscriptionfeed.php:257
+#: actions/atompubsubscriptionfeed.php:256
 msgid "Can only follow people."
 msgstr ""
 
 #. TRANS: Client exception thrown when subscribing to a non-existing profile.
+#. TRANS: %s is the unknown profile ID.
 #: actions/atompubsubscriptionfeed.php:267
 #, fuzzy, php-format
 msgid "Unknown profile %s."
 msgstr "ფაილის ტიპი უცნობია"
+
+#. TRANS: Client error displayed trying to subscribe to an already subscribed profile.
+#. TRANS: %s is the profile the user already has a subscription on.
+#: actions/atompubsubscriptionfeed.php:275
+#, fuzzy, php-format
+msgid "Already subscribed to %s."
+msgstr "უკვე გამოწერილია!"
 
 #. TRANS: Client error displayed trying to get a non-existing attachment.
 #: actions/attachment.php:73
@@ -1508,34 +1515,34 @@ msgid "No file uploaded."
 msgstr "არცერთი ფაილი არ ატვირთულა"
 
 #. TRANS: Avatar upload form unstruction after uploading a file.
-#: actions/avatarsettings.php:346
+#: actions/avatarsettings.php:345
 msgid "Pick a square area of the image to be your avatar"
 msgstr "აირჩიეთ სურათის კვადრატული მონაკვეთი თქვენი ავატარისთვის"
 
 #. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
 #. TRANS: Server error displayed trying to crop an uploaded group logo that is no longer present.
-#: actions/avatarsettings.php:361 actions/grouplogo.php:393
+#: actions/avatarsettings.php:360 actions/grouplogo.php:394
 msgid "Lost our file data."
 msgstr ""
 
 #. TRANS: Success message for having updated a user avatar.
-#: actions/avatarsettings.php:385
+#: actions/avatarsettings.php:384
 msgid "Avatar updated."
 msgstr "ავატარი განახლდა."
 
 #. TRANS: Error displayed on the avatar upload page if the avatar could not be updated for an unknown reason.
-#: actions/avatarsettings.php:389
+#: actions/avatarsettings.php:388
 msgid "Failed updating avatar."
 msgstr "ავატარის განახლება ვერ მოხერხდა."
 
 #. TRANS: Success message for deleting a user avatar.
-#: actions/avatarsettings.php:413
+#: actions/avatarsettings.php:412
 msgid "Avatar deleted."
 msgstr "ავატარი წაიშალა."
 
 #. TRANS: Title for backup account page.
 #. TRANS: Option in profile settings to create a backup of the account of the currently logged in user.
-#: actions/backupaccount.php:61 actions/profilesettings.php:464
+#: actions/backupaccount.php:61 actions/profilesettings.php:467
 msgid "Backup account"
 msgstr ""
 
@@ -1728,8 +1735,9 @@ msgid "Conversation"
 msgstr "საუბარი"
 
 #. TRANS: Header on conversation page. Hidden by default (h2).
+#. TRANS: Label for user statistics.
 #: actions/conversation.php:149 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:229 lib/searchgroupnav.php:82
+#: lib/profileaction.php:246 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "შეტყობინებები"
 
@@ -1754,7 +1762,7 @@ msgstr ""
 #. TRANS: %s is the text that needs to be input.
 #: actions/deleteaccount.php:164
 #, php-format
-msgid "You must write  \"%s\" exactly in the box."
+msgid "You must write \"%s\" exactly in the box."
 msgstr ""
 
 #. TRANS: Confirmation that a user account has been deleted.
@@ -1765,7 +1773,7 @@ msgstr "ავატარი წაიშალა."
 
 #. TRANS: Page title for page on which a user account can be deleted.
 #. TRANS: Option in profile settings to delete the account of the currently logged in user.
-#: actions/deleteaccount.php:228 actions/profilesettings.php:472
+#: actions/deleteaccount.php:228 actions/profilesettings.php:475
 #, fuzzy
 msgid "Delete account"
 msgstr "გახსენი ანგარიში"
@@ -2315,7 +2323,8 @@ msgstr "ჯგუფის რედაქტირებისათვის �
 
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/editgroup.php:239 actions/newgroup.php:186
+#. TRANS: %s is the invalid alias.
+#: actions/editgroup.php:239 actions/newgroup.php:187
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr ""
@@ -2327,7 +2336,7 @@ msgstr "ჯგუფის განახლება ვერ მოხერ
 
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:279 classes/User_group.php:534
+#: actions/editgroup.php:279 classes/User_group.php:538
 msgid "Could not create aliases."
 msgstr ""
 
@@ -2833,17 +2842,17 @@ msgid "Crop"
 msgstr "მოჭრა"
 
 #. TRANS: Form instructions on the group logo page.
-#: actions/grouplogo.php:378
+#: actions/grouplogo.php:379
 msgid "Pick a square area of the image to be the logo."
 msgstr "აირჩიეთ სურათის კვადრატული მონაკვეთი ლოგოსათვის."
 
 #. TRANS: Form success message after updating a group logo.
-#: actions/grouplogo.php:413
+#: actions/grouplogo.php:414
 msgid "Logo updated."
 msgstr "ლოგო განახლდა."
 
 #. TRANS: Form failure message after failing to update a group logo.
-#: actions/grouplogo.php:416
+#: actions/grouplogo.php:417
 msgid "Failed updating logo."
 msgstr "ლოგოს განახლება ვერ მოხერხდა."
 
@@ -2903,7 +2912,9 @@ msgstr ""
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "%1$s-ის წევრების განახლებები %2$s-ზე!"
 
-#: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
+#. TRANS: Label for user statistics.
+#. TRANS: H2 text for user group membership statistics.
+#: actions/groups.php:62 lib/profileaction.php:239 lib/profileaction.php:290
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "ჯგუფები"
@@ -3488,7 +3499,7 @@ msgstr "არასწორი მომხმარებლის სახ�
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
 
-#: actions/login.php:210 actions/login.php:263 lib/logingroupnav.php:79
+#: actions/login.php:210 actions/login.php:263
 msgid "Login"
 msgstr "შესვლა"
 
@@ -3589,6 +3600,11 @@ msgstr "თვენ არ ხართ ამ ჯგუფის წევრ�
 #: actions/newgroup.php:117
 msgid "Use this form to create a new group."
 msgstr "ახალი ჯგუფის შესაქმნელად გამოიყენეთ ეს ფორმა."
+
+#. TRANS: Group create form validation error.
+#: actions/newgroup.php:199
+msgid "Alias cannot be the same as nickname."
+msgstr ""
 
 #: actions/newmessage.php:71 actions/newmessage.php:234
 msgid "New message"
@@ -4282,9 +4298,10 @@ msgstr "1–64 პატარა ასოები ან ციფრებ�
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for full group name (dt). Text hidden by default.
+#. TRANS: DT for full name in a profile.
 #: actions/profilesettings.php:113 actions/register.php:455
 #: actions/showgroup.php:252 actions/tagother.php:104
-#: lib/groupeditform.php:149 lib/userprofile.php:152
+#: lib/groupeditform.php:149 lib/userprofile.php:156
 msgid "Full name"
 msgstr "სრული სახელი"
 
@@ -4323,10 +4340,11 @@ msgstr "ბიოგრაფია"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group location (dt). Text hidden by default.
+#. TRANS: DT for location in a profile.
 #: actions/profilesettings.php:145 actions/register.php:483
 #: actions/showgroup.php:262 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:172
-#: lib/userprofile.php:167
+#: lib/userprofile.php:172
 msgid "Location"
 msgstr "მდებარეობა"
 
@@ -4341,9 +4359,10 @@ msgid "Share my current location when posting notices"
 msgstr "გააზიარე ჩემი მდებარეობა შეტყობინებების დაპოსტვისას"
 
 #. TRANS: Field label in form for profile settings.
+#. TRANS: DT for tags in a profile.
 #: actions/profilesettings.php:161 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
-#: lib/subscriptionlist.php:108 lib/userprofile.php:212
+#: lib/subscriptionlist.php:108 lib/userprofile.php:220
 msgid "Tags"
 msgstr "სანიშნეები"
 
@@ -4435,7 +4454,7 @@ msgstr "პარამეტრები შენახულია."
 
 #. TRANS: Option in profile settings to restore the account of the currently logged in user from a backup.
 #. TRANS: Page title for page where a user account can be restored from backup.
-#: actions/profilesettings.php:480 actions/restoreaccount.php:60
+#: actions/profilesettings.php:483 actions/restoreaccount.php:60
 #, fuzzy
 msgid "Restore account"
 msgstr "გახსენი ანგარიში"
@@ -4599,9 +4618,8 @@ msgstr ""
 "ანგარიშში მითითებულ ელ. ფოსტის მისამართზე."
 
 #: actions/recoverpassword.php:167
-#, fuzzy
 msgid "You have been identified. Enter a new password below."
-msgstr "თქვენ იდენტიფიცირებული ხართ, შეიყვანეთ ახალი პაროლი ქვევით. "
+msgstr "თქვენ იდენტიფიცირებული ხართ, შეიყვანეთ ახალი პაროლი ქვევით."
 
 #. TRANS: Fieldset legend for password recovery page.
 #: actions/recoverpassword.php:198
@@ -4744,7 +4762,7 @@ msgstr "ბოდიშს გიხდით, მოსაწვევი კ�
 msgid "Registration successful"
 msgstr "რეგისტრაცია წარმატებით დასრულდა"
 
-#: actions/register.php:121 actions/register.php:511 lib/logingroupnav.php:85
+#: actions/register.php:121 actions/register.php:511
 msgid "Register"
 msgstr "რეგისტრაცია"
 
@@ -4906,8 +4924,9 @@ msgstr "პროფილის URL"
 msgid "URL of your profile on another compatible microblogging service"
 msgstr "თქვენი პროფილის URL სხვა თავსებად მიკრობლოგინგის სერვისზე"
 
+#. TRANS: Link text for link that will subscribe to a remote profile.
 #: actions/remotesubscribe.php:136 lib/subscribeform.php:139
-#: lib/userprofile.php:411
+#: lib/userprofile.php:431
 msgid "Subscribe"
 msgstr "გამოწერა"
 
@@ -5068,7 +5087,9 @@ msgid "File upload stopped by extension."
 msgstr "ფაილის არვირთვა გაჩერდა გაფართოების გამო."
 
 #. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
-#: actions/restoreaccount.php:164 lib/imagefile.php:103 lib/mediafile.php:228
+#. TRANS: Exception thrown when uploading an image fails for an unknown reason.
+#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
+#: actions/restoreaccount.php:164 lib/imagefile.php:106 lib/mediafile.php:228
 msgid "System error uploading file."
 msgstr "სისტემური შეცდომა ფაილის ატვირთვისას."
 
@@ -5183,8 +5204,9 @@ msgid "Description"
 msgstr "აღწერა"
 
 #. TRANS: Header for group statistics on a group page (h2).
+#. TRANS: H2 text for user statistics.
 #: actions/showapplication.php:192 actions/showgroup.php:448
-#: lib/profileaction.php:187
+#: lib/profileaction.php:205
 msgid "Statistics"
 msgstr "სტატისტიკა"
 
@@ -5315,14 +5337,16 @@ msgid "Group profile"
 msgstr ""
 
 #. TRANS: Label for group URL (dt). Text hidden by default.
+#. TRANS: DT for URL in a profile.
 #: actions/showgroup.php:270 actions/tagother.php:118
-#: actions/userauthorization.php:175 lib/userprofile.php:180
+#: actions/userauthorization.php:175 lib/userprofile.php:186
 msgid "URL"
 msgstr ""
 
 #. TRANS: Label for group description or group note (dt). Text hidden by default.
+#. TRANS: DT for note in a profile.
 #: actions/showgroup.php:282 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:197
+#: actions/userauthorization.php:187 lib/userprofile.php:204
 msgid "Note"
 msgstr "შენიშვნა"
 
@@ -5366,8 +5390,11 @@ msgid "Members"
 msgstr "წევრები"
 
 #. TRANS: Description for mini list of group members on a group page when the group has no members.
-#: actions/showgroup.php:408 lib/profileaction.php:117
-#: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
+#. TRANS: Text for user subscription statistics if the user has no subscriptions.
+#. TRANS: Text for user subscriber statistics if user has no subscribers.
+#. TRANS: Text for user user group membership statistics if user is not a member of any group.
+#: actions/showgroup.php:408 lib/profileaction.php:137
+#: lib/profileaction.php:174 lib/profileaction.php:298 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(არცერთი)"
@@ -5964,7 +5991,7 @@ msgid "These are the people who listen to %s's notices."
 msgstr "არის ხალხი, ვინც %s-ს შეტყობინებებს თვალ-ყურს ადევნებს."
 
 #. TRANS: Subscriber list text when the logged in user has no subscribers.
-#: actions/subscribers.php:116
+#: actions/subscribers.php:114
 #, fuzzy
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
@@ -5975,7 +6002,7 @@ msgstr ""
 
 #. TRANS: Subscriber list text when looking at the subscribers for a of a user other
 #. TRANS: than the logged in user that has no subscribers. %s is the user nickname.
-#: actions/subscribers.php:120
+#: actions/subscribers.php:118
 #, php-format
 msgid "%s has no subscribers. Want to be the first?"
 msgstr "%s არ ჰყავს გამომწერები. გინდა გახდე პირველი?"
@@ -5985,7 +6012,7 @@ msgstr "%s არ ჰყავს გამომწერები. გინ�
 #. TRANS: This message contains a Markdown URL. The link description is between
 #. TRANS: square brackets, and the link between parentheses. Do not separate "]("
 #. TRANS: and do not change the URL part.
-#: actions/subscribers.php:129
+#: actions/subscribers.php:127
 #, php-format
 msgid ""
 "%s has no subscribers. Why not [register an account](%%%%action.register%%%"
@@ -6018,7 +6045,7 @@ msgstr "ეს არის ხალხი ვის შეტყობინ�
 #. TRANS: This message contains Markdown URLs. The link description is between
 #. TRANS: square brackets, and the link between parentheses. Do not separate "]("
 #. TRANS: and do not change the URL part.
-#: actions/subscriptions.php:135
+#: actions/subscriptions.php:133
 #, php-format
 msgid ""
 "You're not listening to anyone's notices right now, try subscribing to "
@@ -6038,23 +6065,24 @@ msgstr ""
 #. TRANS: than the logged in user that has no subscriptions. %s is the user nickname.
 #. TRANS: Subscription list text when looking at the subscriptions for a of a user that has none
 #. TRANS: as an anonymous user. %s is the user nickname.
-#: actions/subscriptions.php:143 actions/subscriptions.php:149
+#: actions/subscriptions.php:141 actions/subscriptions.php:147
 #, php-format
 msgid "%s is not listening to anyone."
 msgstr "%s არავის უსმენს."
 
-#: actions/subscriptions.php:178
+#. TRANS: Atom feed title. %s is a profile nickname.
+#: actions/subscriptions.php:176
 #, fuzzy, php-format
 msgid "Subscription feed for %s (Atom)"
 msgstr "შეტყობინებების RSS მონიშნული %s-თ (Atom)"
 
 #. TRANS: Checkbox label for enabling Jabber messages for a profile in a subscriptions list.
-#: actions/subscriptions.php:242
+#: actions/subscriptions.php:239
 msgid "Jabber"
 msgstr "Jabber"
 
 #. TRANS: Checkbox label for enabling SMS messages for a profile in a subscriptions list.
-#: actions/subscriptions.php:257
+#: actions/subscriptions.php:254
 msgid "SMS"
 msgstr "SMS"
 
@@ -6087,12 +6115,14 @@ msgstr ""
 msgid "Tag %s"
 msgstr "სანიშნე %s"
 
+#. TRANS: H2 for user profile information.
 #: actions/tagother.php:77 lib/userprofile.php:76
 msgid "User profile"
 msgstr "მომხმარებლის პროფილი"
 
+#. TRANS: DT element in area for user avatar.
 #: actions/tagother.php:81 actions/userauthorization.php:132
-#: lib/userprofile.php:107
+#: lib/userprofile.php:108
 msgid "Photo"
 msgstr "ფოტო"
 
@@ -6648,26 +6678,26 @@ msgid "Problem saving notice."
 msgstr "პრობლემა შეტყობინების შენახვისას."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:914
+#: classes/Notice.php:923
 #, fuzzy
 msgid "Bad type provided to saveKnownGroups."
 msgstr "saveKnownGroups-სათვის არასწორი ტიპია მოწოდებული"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1013
+#: classes/Notice.php:1022
 msgid "Problem saving group inbox."
 msgstr "პრობლემა ჯგუფის ინდექსის შენახვისას."
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1127
+#: classes/Notice.php:1136
 #, fuzzy, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr "ჯგუფის ლოკალური ინფორმაციის დამახსოვრება ვერ მოხერხდა."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1646
+#: classes/Notice.php:1655
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -6771,24 +6801,45 @@ msgid "Single-user mode code called when not enabled."
 msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:516
+#: classes/User_group.php:520
 msgid "Could not create group."
 msgstr "ჯგუფის შექმნა ვერ მოხერხდა."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:526
+#: classes/User_group.php:530
 msgid "Could not set group URI."
 msgstr "ჯგუფის URI-ს მინიჭება ვერ მოხერხდა."
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:549
+#: classes/User_group.php:553
 msgid "Could not set group membership."
 msgstr "ჯგუფის წევრობის მინიჭება ვერ მოხერხდა."
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:564
+#: classes/User_group.php:568
 msgid "Could not save local group info."
 msgstr "ჯგუფის ლოკალური ინფორმაციის დამახსოვრება ვერ მოხერხდა."
+
+#. TRANS: Exception thrown when an account could not be located when it should be moved.
+#. TRANS: %s is the remote site.
+#: lib/accountmover.php:65
+#, fuzzy, php-format
+msgid "Cannot locate account %s."
+msgstr "თქვენ ვერ შეძლებთ მომხმარებლების წაშლას."
+
+#. TRANS: Exception thrown when a service document could not be located account move.
+#. TRANS: %s is the remote site.
+#: lib/accountmover.php:106
+#, php-format
+msgid "Cannot find XRD for %s."
+msgstr ""
+
+#. TRANS: Exception thrown when an account could not be located when it should be moved.
+#. TRANS: %s is the remote site.
+#: lib/accountmover.php:131
+#, php-format
+msgid "No AtomPub API service for %s."
+msgstr ""
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:104
@@ -6926,7 +6977,8 @@ msgid "Create an account"
 msgstr "გახსენი ანგარიში"
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:580
+#. TRANS: Menu item for registering with the StatusNet site.
+#: lib/action.php:580 lib/logingroupnav.php:85
 msgctxt "MENU"
 msgid "Register"
 msgstr "რეგისტრაცია"
@@ -6938,7 +6990,8 @@ msgid "Login to the site"
 msgstr "საიტზე შესვლა"
 
 #. TRANS: Main menu option when not logged in to log in
-#: lib/action.php:586
+#. TRANS: Menu item for logging in to the StatusNet site.
+#: lib/action.php:586 lib/logingroupnav.php:77
 msgctxt "MENU"
 msgid "Login"
 msgstr "შესვლა"
@@ -7172,6 +7225,23 @@ msgstr ""
 #, fuzzy, php-format
 msgid "No content for notice %s."
 msgstr "მოძებნე შეტყობინებებში"
+
+#: lib/activitymover.php:84
+#, fuzzy, php-format
+msgid "No such user %s."
+msgstr "ასეთი მომხმარებელი არ არსებობს."
+
+#. TRANS: Client exception thrown when post to collection fails with a 400 status.
+#. TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
+#. TRANS: Server exception thrown when post to collection fails with a 500 status.
+#. TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
+#. TRANS: Exception thrown when post to collection fails with a status that is not handled.
+#. TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
+#: lib/activitysink.php:163 lib/activitysink.php:167 lib/activitysink.php:172
+#, fuzzy, php-format
+msgctxt "URLSTATUSREASON"
+msgid "%1$s %2$s %3$s"
+msgstr "%1$s - %2$s"
 
 #. TRANS: Client exception thrown when there is no source attribute.
 #: lib/activityutils.php:200
@@ -7622,7 +7692,7 @@ msgstr "სრული სახელი: %s"
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail.
 #. TRANS: %s is a location.
-#: lib/command.php:434 lib/mail.php:278
+#: lib/command.php:434 lib/mail.php:270
 #, php-format
 msgid "Location: %s"
 msgstr "მდებარეობა: %s"
@@ -7630,7 +7700,7 @@ msgstr "მდებარეობა: %s"
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail.
 #. TRANS: %s is a homepage.
-#: lib/command.php:438 lib/mail.php:282
+#: lib/command.php:438 lib/mail.php:274
 #, php-format
 msgid "Homepage: %s"
 msgstr "გვერდი: %s"
@@ -7861,26 +7931,26 @@ msgid ""
 msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:155
+#: lib/common.php:161
 #, fuzzy
 msgid "No configuration file found."
 msgstr "კონფიგურაციის ფაილი ვერ მოიძებნა. "
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
-#: lib/common.php:158
+#: lib/common.php:164
 #, fuzzy
 msgid "I looked for configuration files in the following places:"
 msgstr "კონფიგურაციის ფაილები შემდეგ ადგილებში ვეძებე: "
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:161
+#: lib/common.php:167
 msgid "You may wish to run the installer to fix this."
 msgstr "თუ გინდათ ინსტალატორი გაუშვით ამის გასასწორებლად."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: The text is link text that leads to the installer page.
-#: lib/common.php:165
+#: lib/common.php:171
 msgid "Go to the installer."
 msgstr "გადადი ამ ინსტალატორზე."
 
@@ -7972,6 +8042,12 @@ msgstr "დიზაინის განახლება ვერ მოხ
 #: lib/designsettings.php:433
 msgid "Design defaults restored."
 msgstr "დიზაინის პირველადი პარამეტრები დაბრუნებულია."
+
+#. TRANS: Exception. %s is an ID.
+#: lib/discovery.php:153
+#, fuzzy, php-format
+msgid "Unable to find services for %s."
+msgstr "%s აპლიკაციის მიერ ზვდომის გაუქმება ვერ ხერხდება."
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:144
 msgid "Disfavor this notice"
@@ -8172,49 +8248,55 @@ msgstr "%s ჯგუფის შეტყობინებებში გა�
 msgid "This page is not available in a media type you accept"
 msgstr "ეს გვერდი მიუწვდომელია იმ მედია ფორმატში რომელსაც თქვენ იღებთ"
 
-#: lib/imagefile.php:72
+#. TRANS: Exception thrown when trying to upload an unsupported image file format.
+#: lib/imagefile.php:73
 msgid "Unsupported image file format."
 msgstr "სურათის ფორმატი მხარდაჭერილი არ არის."
 
 #. TRANS: Exception thrown when too large a file is uploaded.
 #. TRANS: %s is the maximum file size, for example "500b", "10kB" or "2MB".
-#: lib/imagefile.php:90
+#: lib/imagefile.php:91
 #, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr "ეს ფაილი ძალიან დიდია. ფაილის მაქს. ზომაა %s."
 
-#: lib/imagefile.php:95
+#. TRANS: Exception thrown when uploading an image and that action could not be completed.
+#: lib/imagefile.php:97
 msgid "Partial upload."
 msgstr "ნაწილობრივი ატვირთვა."
 
-#: lib/imagefile.php:111
+#. TRANS: Exception thrown when uploading a file as image that is not an image or is a corrupt file.
+#: lib/imagefile.php:115
 msgid "Not an image or corrupt file."
 msgstr "სურათი არ არის, ან ფაილი დაზიანებულია."
 
-#: lib/imagefile.php:160
+#. TRANS: Exception thrown during resize when image has been registered as present, but is no longer there.
+#: lib/imagefile.php:178
 msgid "Lost our file."
 msgstr "ფაილი დაიკარგა."
 
-#: lib/imagefile.php:197 lib/imagefile.php:237
+#. TRANS: Exception thrown when trying to resize an unknown file type.
+#. TRANS: Exception thrown when trying resize an unknown file type.
+#: lib/imagefile.php:216 lib/imagefile.php:257
 msgid "Unknown file type"
 msgstr "ფაილის ტიპი უცნობია"
 
 #. TRANS: Number of megabytes. %d is the number.
-#: lib/imagefile.php:283
+#: lib/imagefile.php:303
 #, fuzzy, php-format
 msgid "%dMB"
 msgid_plural "%dMB"
 msgstr[0] "მბ"
 
 #. TRANS: Number of kilobytes. %d is the number.
-#: lib/imagefile.php:287
+#: lib/imagefile.php:307
 #, fuzzy, php-format
 msgid "%dkB"
 msgid_plural "%dkB"
 msgstr[0] "კბ"
 
 #. TRANS: Number of bytes. %d is the number.
-#: lib/imagefile.php:290
+#: lib/imagefile.php:310
 #, php-format
 msgid "%dB"
 msgid_plural "%dB"
@@ -8234,23 +8316,25 @@ msgstr ""
 msgid "Leave"
 msgstr "დატოვება"
 
-#: lib/logingroupnav.php:80
+#. TRANS: Title for menu item for logging in to the StatusNet site.
+#: lib/logingroupnav.php:79
 msgid "Login with a username and password"
 msgstr "შედი მომხ. სახელით და პაროლით."
 
-#: lib/logingroupnav.php:86
+#. TRANS: Title for menu item for registering with the StatusNet site.
+#: lib/logingroupnav.php:87
 msgid "Sign up for a new account"
 msgstr "ახალი ანგარიშის გერისტრაცია"
 
 #. TRANS: Subject for address confirmation email.
-#: lib/mail.php:174
+#: lib/mail.php:168
 msgid "Email address confirmation"
 msgstr "ელ. ფოსტის მისამართის დადასტურება"
 
 #. TRANS: Body for address confirmation email.
 #. TRANS: %1$s is the addressed user's nickname, %2$s is the StatusNet sitename,
 #. TRANS: %3$s is the URL to confirm at.
-#: lib/mail.php:179
+#: lib/mail.php:173
 #, fuzzy, php-format
 msgid ""
 "Hey, %1$s.\n"
@@ -8281,14 +8365,14 @@ msgstr ""
 
 #. TRANS: Subject of new-subscriber notification e-mail.
 #. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
-#: lib/mail.php:246
+#: lib/mail.php:238
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s ამიერიდან ყურს უგდებს თქვენს შეტყობინებებს %2$s-ზე."
 
 #. TRANS: This is a paragraph in a new-subscriber e-mail.
 #. TRANS: %s is a URL where the subscriber can be reported as abusive.
-#: lib/mail.php:253
+#: lib/mail.php:245
 #, php-format
 msgid ""
 "If you believe this account is being used abusively, you can block them from "
@@ -8303,7 +8387,7 @@ msgstr ""
 #. TRANS: %3$s is the subscriber's profile URL, %4$s is the subscriber's location (or empty)
 #. TRANS: %5$s is the subscriber's homepage URL (or empty), %6%s is the subscriber's bio (or empty)
 #. TRANS: %7$s is a link to the addressed user's e-mail settings.
-#: lib/mail.php:263
+#: lib/mail.php:255
 #, fuzzy, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -8330,14 +8414,14 @@ msgstr ""
 
 #. TRANS: Profile info line in new-subscriber notification e-mail.
 #. TRANS: %s is biographical information.
-#: lib/mail.php:286
+#: lib/mail.php:278
 #, php-format
 msgid "Bio: %s"
 msgstr "ბიოგრაფია: %s"
 
 #. TRANS: Subject of notification mail for new posting email address.
 #. TRANS: %s is the StatusNet sitename.
-#: lib/mail.php:315
+#: lib/mail.php:307
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "%s-ზე დასაპოსტი ახალი ელ. ფოსტის მისამართი"
@@ -8345,7 +8429,7 @@ msgstr "%s-ზე დასაპოსტი ახალი ელ. ფოს�
 #. TRANS: Body of notification mail for new posting email address.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is the e-mail address to send
 #. TRANS: to to post by e-mail, %3$s is a URL to more instructions.
-#: lib/mail.php:321
+#: lib/mail.php:313
 #, fuzzy, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -8368,19 +8452,19 @@ msgstr ""
 
 #. TRANS: Subject line for SMS-by-email notification messages.
 #. TRANS: %s is the posting user's nickname.
-#: lib/mail.php:442
+#: lib/mail.php:434
 #, php-format
 msgid "%s status"
 msgstr "%s სტატუსი"
 
 #. TRANS: Subject line for SMS-by-email address confirmation message.
-#: lib/mail.php:468
+#: lib/mail.php:460
 msgid "SMS confirmation"
 msgstr "SMS დადასტურება"
 
 #. TRANS: Main body heading for SMS-by-email address confirmation message.
 #. TRANS: %s is the addressed user's nickname.
-#: lib/mail.php:472
+#: lib/mail.php:464
 #, php-format
 msgid "%s: confirm you own this phone number with this code:"
 msgstr ""
@@ -8388,15 +8472,15 @@ msgstr ""
 
 #. TRANS: Subject for 'nudge' notification email.
 #. TRANS: %s is the nudging user.
-#: lib/mail.php:493
-#, php-format
-msgid "You've been nudged by %s"
-msgstr ""
+#: lib/mail.php:485
+#, fuzzy, php-format
+msgid "You have been nudged by %s"
+msgstr "თქვენ აგეკრძალათ გამოწერა."
 
 #. TRANS: Body for 'nudge' notification email.
 #. TRANS: %1$s is the nuding user's long name, $2$s is the nudging user's nickname,
 #. TRANS: %3$s is a URL to post notices at, %4$s is the StatusNet sitename.
-#: lib/mail.php:500
+#: lib/mail.php:492
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -8425,7 +8509,7 @@ msgstr ""
 
 #. TRANS: Subject for direct-message notification email.
 #. TRANS: %s is the sending user's nickname.
-#: lib/mail.php:547
+#: lib/mail.php:539
 #, php-format
 msgid "New private message from %s"
 msgstr "ახალი პირადი შეტყობინება %s-სგან"
@@ -8434,7 +8518,7 @@ msgstr "ახალი პირადი შეტყობინება %s-
 #. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
 #. TRANS: %3$s is the message content, %4$s a URL to the message,
 #. TRANS: %5$s is the StatusNet sitename.
-#: lib/mail.php:555
+#: lib/mail.php:547
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -8469,7 +8553,7 @@ msgstr ""
 
 #. TRANS: Subject for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
-#: lib/mail.php:607
+#: lib/mail.php:599
 #, fuzzy, php-format
 msgid "%1$s (@%2$s) added your notice as a favorite"
 msgstr "%s-მა (@%s) დაამატა თქვენი შეტყობინება თავის რჩეულებში"
@@ -8479,7 +8563,7 @@ msgstr "%s-მა (@%s) დაამატა თქვენი შეტყო
 #. TRANS: %3$s is a URL to the faved notice, %4$s is the faved notice text,
 #. TRANS: %5$s is a URL to all faves of the adding user, %6$s is the StatusNet sitename,
 #. TRANS: %7$s is the adding user's nickname.
-#: lib/mail.php:614
+#: lib/mail.php:606
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -8518,7 +8602,7 @@ msgstr ""
 "%6$s\n"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
-#: lib/mail.php:672
+#: lib/mail.php:664
 #, php-format
 msgid ""
 "The full conversation can be read here:\n"
@@ -8531,7 +8615,7 @@ msgstr ""
 
 #. TRANS: E-mail subject for notice notification.
 #. TRANS: %1$s is the sending user's long name, %2$s is the adding user's nickname.
-#: lib/mail.php:680
+#: lib/mail.php:672
 #, fuzzy, php-format
 msgid "%1$s (@%2$s) sent a notice to your attention"
 msgstr "%s-მა (@%s) გამოაგზავნა შეტყობინება თქვენს საყურადღებოდ"
@@ -8542,7 +8626,7 @@ msgstr "%s-მა (@%s) გამოაგზავნა შეტყობი�
 #. TRANS: %5$s is a URL to the full conversion if it exists (otherwise empty),
 #. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replied for the addressed user,
 #. TRANS: %8$s is a URL to the addressed user's e-mail settings, %9$s is the sender's nickname.
-#: lib/mail.php:688
+#: lib/mail.php:680
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -8851,36 +8935,46 @@ msgstr "%s-ს შეტყობინებებში გამოყენ�
 msgid "Unknown"
 msgstr "უცნობი"
 
-#: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
+#. TRANS: H2 text for user subscription statistics.
+#. TRANS: Label for user statistics.
+#: lib/profileaction.php:127 lib/profileaction.php:225 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "გამოწერები"
 
-#: lib/profileaction.php:126
+#. TRANS: Text for user subscription statistics if user has more subscriptions than displayed.
+#: lib/profileaction.php:144
 msgid "All subscriptions"
 msgstr "ყველა გამოწერა"
 
-#: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
+#. TRANS: H2 text for user subscriber statistics.
+#. TRANS: Label for user statistics.
+#: lib/profileaction.php:164 lib/profileaction.php:232 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "გამომწერები"
 
-#: lib/profileaction.php:161
+#. TRANS: Text for user subscription statistics if user has more subscribers than displayed.
+#: lib/profileaction.php:181
 msgid "All subscribers"
 msgstr "ყველა გამომწერი"
 
-#: lib/profileaction.php:191
+#. TRANS: Label for user statistics.
+#: lib/profileaction.php:213
 msgid "User ID"
 msgstr "მომხმარებლის იდ"
 
-#: lib/profileaction.php:196
+#. TRANS: Label for user statistics.
+#: lib/profileaction.php:219
 msgid "Member since"
 msgstr ""
 
-#. TRANS: Average count of posts made per day since account registration
-#: lib/profileaction.php:235
+#. TRANS: Label for user statistics.
+#. TRANS: Average count of posts made per day since account registration.
+#: lib/profileaction.php:253
 msgid "Daily average"
 msgstr "დღიური საშუალო"
 
-#: lib/profileaction.php:264
+#. TRANS: Text for user group membership statistics if user has more subscriptions than displayed.
+#: lib/profileaction.php:305
 msgid "All groups"
 msgstr "ყველა ჯგუფი"
 
@@ -9135,48 +9229,60 @@ msgstr "გამოწერის გაუქმება"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "მომხმარებელს პროფილი არ გააჩნია."
 
-#: lib/userprofile.php:119
+#. TRANS: Link text for changeing the avatar of the logged in user.
+#: lib/userprofile.php:121
 msgid "Edit Avatar"
 msgstr "ავატარის რედაქტირება"
 
-#: lib/userprofile.php:236 lib/userprofile.php:250
+#. TRANS: H2 for user actions in a profile.
+#. TRANS: H2 for entity actions in a profile.
+#: lib/userprofile.php:245 lib/userprofile.php:261
 msgid "User actions"
 msgstr "მომხმარებლის მოქმედებები"
 
-#: lib/userprofile.php:239
+#. TRANS: Text shown in user profile of not yet compeltely deleted users.
+#: lib/userprofile.php:249
 msgid "User deletion in progress..."
 msgstr "მომხმარებლის წაშლა პროგრესშია..."
 
-#: lib/userprofile.php:265
+#. TRANS: Link title for link on user profile.
+#: lib/userprofile.php:277
 msgid "Edit profile settings"
 msgstr "პროფილის პარამეტრების რედაქტირება"
 
-#: lib/userprofile.php:266
+#. TRANS: Link text for link on user profile.
+#: lib/userprofile.php:279
 msgid "Edit"
 msgstr "რედაქტირება"
 
-#: lib/userprofile.php:289
+#. TRANS: Link title for link on user profile.
+#: lib/userprofile.php:303
 msgid "Send a direct message to this user"
 msgstr "გაუგზავნე პირდაპირი შეტყობინება ამ მომხმარებელს"
 
-#: lib/userprofile.php:290
+#. TRANS: Link text for link on user profile.
+#: lib/userprofile.php:305
 msgid "Message"
 msgstr "შეტყობინება"
 
-#: lib/userprofile.php:331
+#. TRANS: Label text on user profile to select a user role.
+#: lib/userprofile.php:347
 msgid "Moderate"
 msgstr "მოდერაცია"
 
-#: lib/userprofile.php:369
+#. TRANS: Label text on user profile to select a user role.
+#: lib/userprofile.php:386
 msgid "User role"
 msgstr "მომხმარებლის როლი"
 
-#: lib/userprofile.php:371
+#. TRANS: Role that can be set for a user profile.
+#: lib/userprofile.php:389
 msgctxt "role"
 msgid "Administrator"
 msgstr "ადმინისტრატორი"
 
-#: lib/userprofile.php:372
+#. TRANS: Role that can be set for a user profile.
+#: lib/userprofile.php:391
 msgctxt "role"
 msgid "Moderator"
 msgstr "მოდერატორი"
@@ -9264,13 +9370,13 @@ msgstr[0] ""
 "გააგზავნეთ %2$d."
 
 #. TRANS: Exception.
-#: lib/xrd.php:64
+#: lib/xrd.php:63
 #, fuzzy
 msgid "Invalid XML."
 msgstr "ზომა არასწორია."
 
 #. TRANS: Exception.
-#: lib/xrd.php:69
+#: lib/xrd.php:68
 msgid "Invalid XML, missing XRD root."
 msgstr ""
 
@@ -9279,33 +9385,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#, fuzzy
-#~ msgid "No such group"
-#~ msgstr "ასეთი ჯგუფი ვერ მოიძებნა."
-
-#, fuzzy
-#~ msgid "HTTP method not supported"
-#~ msgstr "API მეთოდი ვერ მოიძებნა."
-
-#~ msgid "Reset"
-#~ msgstr "გადაყენება"
-
-#~ msgid ""
-#~ "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
-#~ msgstr ""
-#~ "1–64 პატარა ასოები ან ციფრები. პუნქტუაციები ან სივრცეები დაუშვებელია. "
-#~ "სავალდებულო."
-
-#~ msgid "6 or more characters. Required."
-#~ msgstr "6 ან მეტი სიმბოლო. სავალდებულო."
-
-#~ msgid "Same as password above. Required."
-#~ msgstr "იგივე, რაც პაროლი ზევით. სავალდებულო."
-
-#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-#~ msgstr ""
-#~ "1–64 პატარა ასოები ან ციფრები. პუნქტუაციები ან სივრცეები დაუშვებელია"
-
-#~ msgid "%s is not a valid color!"
-#~ msgstr "%s არ არის სწორი ფერი!"

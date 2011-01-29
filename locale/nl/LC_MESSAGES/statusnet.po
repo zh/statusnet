@@ -1,5 +1,5 @@
 # Translation of StatusNet - Core to Dutch (Nederlands)
-# Expored from translatewiki.net
+# Exported from translatewiki.net
 #
 # Author: Brion
 # Author: Itavero
@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-22 14:49+0000\n"
-"PO-Revision-Date: 2011-01-22 14:57:32+0000\n"
+"POT-Creation-Date: 2011-01-29 21:45+0000\n"
+"PO-Revision-Date: 2011-01-29 21:48:50+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r80746); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r81195); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-01-20 20:41:25+0000\n"
+"X-POT-Import-Date: 2011-01-22 19:49:58+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -93,7 +93,7 @@ msgstr "Toegangsinstellingen opslaan"
 #: actions/emailsettings.php:254 actions/imsettings.php:183
 #: actions/othersettings.php:134 actions/pathsadminpanel.php:512
 #: actions/profilesettings.php:197 actions/sitenoticeadminpanel.php:197
-#: actions/smssettings.php:205 actions/subscriptions.php:262
+#: actions/smssettings.php:205 actions/subscriptions.php:259
 #: actions/useradminpanel.php:298 lib/applicationeditform.php:355
 #: lib/designsettings.php:270 lib/groupeditform.php:198
 msgctxt "BUTTON"
@@ -131,6 +131,7 @@ msgstr "Deze pagina bestaat niet."
 #. TRANS: Client error displayed requesting most recent notices for a non-existing user.
 #. TRANS: Client error displayed trying to get an avatar for a non-existing user.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
+#. TRANS: Client error displayed when calling a profile action without specifying a user.
 #: actions/all.php:80 actions/allrss.php:69
 #: actions/apiaccountupdatedeliverydevice.php:110
 #: actions/apiaccountupdateprofile.php:103
@@ -342,14 +343,15 @@ msgstr "Het was niet mogelijk de gebruiker bij te werken."
 #. TRANS: Client error displayed if a user profile could not be found updating a profile image.
 #. TRANS: Client error displayed when requesting user information for a user without a profile.
 #. TRANS: Client error displayed trying to get an avatar for a user without a profile.
+#. TRANS: Server error displayed when calling a profile action while the specified user does not have a profile.
 #: actions/apiaccountupdateprofile.php:111
 #: actions/apiaccountupdateprofilebackgroundimage.php:199
 #: actions/apiaccountupdateprofilecolors.php:183
-#: actions/apiaccountupdateprofileimage.php:130
+#: actions/apiaccountupdateprofileimage.php:131
 #: actions/apiuserprofileimage.php:88 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:85 actions/foaf.php:65 actions/hcard.php:74
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
-#: lib/profileaction.php:84
+#: lib/profileaction.php:85
 msgid "User has no profile."
 msgstr "Deze gebruiker heeft geen profiel."
 
@@ -683,18 +685,16 @@ msgstr "Ongeldige alias: \"%s\"."
 #. TRANS: Client error displayed when trying to use an alias during group creation that is already in use.
 #. TRANS: %s is the alias that is already in use.
 #. TRANS: Group edit form validation error.
-#. TRANS: Group create form validation error.
+#. TRANS: Group create form validation error. %s is the already used alias.
 #: actions/apigroupcreate.php:264 actions/editgroup.php:244
-#: actions/newgroup.php:191
+#: actions/newgroup.php:192
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "De alias \"%s\" wordt al gebruikt. Geef een andere alias op."
 
 #. TRANS: Client error displayed when trying to use an alias during group creation that is the same as the group's nickname.
 #. TRANS: Group edit form validation error.
-#. TRANS: Group create form validation error.
 #: actions/apigroupcreate.php:278 actions/editgroup.php:251
-#: actions/newgroup.php:198
 msgid "Alias can't be the same as nickname."
 msgstr "Een alias kan niet hetzelfde zijn als de gebruikersnaam."
 
@@ -705,7 +705,7 @@ msgstr "Een alias kan niet hetzelfde zijn als de gebruikersnaam."
 #. TRANS: Client error displayed when trying to show a group that could not be found.
 #. TRANS: Client error displayed requesting most recent notices to a group for a non-existing group.
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
-#: actions/apigroupleave.php:104 actions/apigroupmembership.php:89
+#: actions/apigroupleave.php:104 actions/apigroupmembership.php:71
 #: actions/apigroupshow.php:81 actions/apitimelinegroup.php:89
 msgid "Group not found."
 msgstr "De groep is niet aangetroffen."
@@ -905,11 +905,12 @@ msgstr "Gebruikersgegevens"
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group nickname (dt). Text hidden by default.
+#. TRANS: DT for nick name in a profile.
 #: actions/apioauthauthorize.php:459 actions/login.php:252
 #: actions/profilesettings.php:106 actions/register.php:432
 #: actions/showgroup.php:240 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:144
-#: lib/userprofile.php:134
+#: lib/userprofile.php:137
 msgid "Nickname"
 msgstr "Gebruikersnaam"
 
@@ -1217,28 +1218,27 @@ msgstr "Het Atombericht moet correct opgemaakte XML zijn."
 msgid "Atom post must be an Atom entry."
 msgstr "Het Atombericht moet een Atomopmaak hebben."
 
-#. TRANS: Client error displayed when not using the POST verb.
-#. TRANS: Do not translate POST.
-#: actions/apitimelineuser.php:336
+#. TRANS: Client error displayed when not using the POST verb. Do not translate POST.
+#: actions/apitimelineuser.php:335
 msgid "Can only handle POST activities."
 msgstr "Het is alleen mogelijk om POST-activiteiten af te handelen."
 
 #. TRANS: Client error displayed when using an unsupported activity object type.
 #. TRANS: %s is the unsupported activity object type.
-#: actions/apitimelineuser.php:347
+#: actions/apitimelineuser.php:346
 #, php-format
 msgid "Cannot handle activity object type \"%s\"."
 msgstr "Het is niet mogelijk om het activiteitobjecttype \"%s\" te verwerken."
 
 #. TRANS: Client error displayed when posting a notice without content through the API.
 #. TRANS: %d is the notice ID (number).
-#: actions/apitimelineuser.php:381
+#: actions/apitimelineuser.php:380
 #, php-format
 msgid "No content for notice %d."
 msgstr "Geen inhoud voor mededeling %d."
 
 #. TRANS: Client error displayed when using another format than AtomPub.
-#: actions/apitimelineuser.php:409
+#: actions/apitimelineuser.php:408
 #, php-format
 msgid "Notice with URI \"%s\" already exists."
 msgstr "De mededeling met URI \"%s\" bestaat al."
@@ -1298,7 +1298,6 @@ msgstr "groepslidmaatschappen van %s"
 
 #. TRANS: Client exception thrown when trying subscribe someone else to a group.
 #: actions/atompubmembershipfeed.php:219
-#, fuzzy
 msgid "Cannot add someone else's membership."
 msgstr "Het is niet mogelijk om een lidmaatschap van een ander toe te voegen."
 
@@ -1332,7 +1331,6 @@ msgstr "De favoriet bestaat niet."
 
 #. TRANS: Client exception thrown when trying to remove a favorite notice of another user.
 #: actions/atompubshowfavorite.php:151
-#, fuzzy
 msgid "Cannot delete someone else's favorite."
 msgstr "Het is niet mogelijk om een favoriet van een ander te verwijderen."
 
@@ -1370,13 +1368,11 @@ msgstr "De opgegeven groep bestaat niet."
 
 #. TRANS: Client exception thrown when trying to show membership of a non-subscribed group
 #: actions/atompubshowmembership.php:91
-#, fuzzy
 msgid "Not a member."
-msgstr "Geen lid"
+msgstr "Geen lid."
 
 #. TRANS: Client exception thrown when deleting someone else's membership.
 #: actions/atompubshowmembership.php:151
-#, fuzzy
 msgid "Cannot delete someone else's membership."
 msgstr "Het is niet mogelijk om een lidmaatschap van een ander te verwijderen."
 
@@ -1402,24 +1398,31 @@ msgid "Cannot delete someone else's subscription."
 msgstr ""
 "Het is niet mogelijk het abonnement van een andere gebruiker op te zeggen."
 
-#. TRANS: Client error displayed when not using the POST verb.
-#. TRANS: Do not translate POST.
-#: actions/atompubsubscriptionfeed.php:249
+#. TRANS: Client error displayed when not using the follow verb.
+#: actions/atompubsubscriptionfeed.php:248
 msgid "Can only handle Follow activities."
 msgstr ""
 "Het is alleen mogelijk om activiteiten met betrekking tot volgen af te "
 "handelen."
 
 #. TRANS: Client exception thrown when subscribing to an object that is not a person.
-#: actions/atompubsubscriptionfeed.php:257
+#: actions/atompubsubscriptionfeed.php:256
 msgid "Can only follow people."
 msgstr "Het is alleen mogelijk om mensen te volgen."
 
 #. TRANS: Client exception thrown when subscribing to a non-existing profile.
+#. TRANS: %s is the unknown profile ID.
 #: actions/atompubsubscriptionfeed.php:267
 #, php-format
 msgid "Unknown profile %s."
 msgstr "Onbekend profiel %s."
+
+#. TRANS: Client error displayed trying to subscribe to an already subscribed profile.
+#. TRANS: %s is the profile the user already has a subscription on.
+#: actions/atompubsubscriptionfeed.php:275
+#, fuzzy, php-format
+msgid "Already subscribed to %s."
+msgstr "U bent al gebonneerd!"
 
 #. TRANS: Client error displayed trying to get a non-existing attachment.
 #: actions/attachment.php:73
@@ -1524,35 +1527,35 @@ msgid "No file uploaded."
 msgstr "Er is geen bestand geüpload."
 
 #. TRANS: Avatar upload form unstruction after uploading a file.
-#: actions/avatarsettings.php:346
+#: actions/avatarsettings.php:345
 msgid "Pick a square area of the image to be your avatar"
 msgstr ""
 "Selecteer een vierkant in de afbeelding om deze als uw avatar in te stellen"
 
 #. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
 #. TRANS: Server error displayed trying to crop an uploaded group logo that is no longer present.
-#: actions/avatarsettings.php:361 actions/grouplogo.php:393
+#: actions/avatarsettings.php:360 actions/grouplogo.php:394
 msgid "Lost our file data."
 msgstr "Ons bestand is verloren gegaan."
 
 #. TRANS: Success message for having updated a user avatar.
-#: actions/avatarsettings.php:385
+#: actions/avatarsettings.php:384
 msgid "Avatar updated."
 msgstr "De avatar is bijgewerkt."
 
 #. TRANS: Error displayed on the avatar upload page if the avatar could not be updated for an unknown reason.
-#: actions/avatarsettings.php:389
+#: actions/avatarsettings.php:388
 msgid "Failed updating avatar."
 msgstr "Het bijwerken van de avatar is mislukt."
 
 #. TRANS: Success message for deleting a user avatar.
-#: actions/avatarsettings.php:413
+#: actions/avatarsettings.php:412
 msgid "Avatar deleted."
 msgstr "De avatar is verwijderd."
 
 #. TRANS: Title for backup account page.
 #. TRANS: Option in profile settings to create a backup of the account of the currently logged in user.
-#: actions/backupaccount.php:61 actions/profilesettings.php:464
+#: actions/backupaccount.php:61 actions/profilesettings.php:467
 msgid "Backup account"
 msgstr "Reservekopie van gebruiker maken"
 
@@ -1568,7 +1571,6 @@ msgstr "U kunt geen back-up van uw gebruiker maken."
 
 #. TRANS: Information displayed on the backup account page.
 #: actions/backupaccount.php:225
-#, fuzzy
 msgid ""
 "You can backup your account data in <a href=\"http://activitystrea.ms/"
 "\">Activity Streams</a> format. This is an experimental feature and provides "
@@ -1750,8 +1752,9 @@ msgid "Conversation"
 msgstr "Dialoog"
 
 #. TRANS: Header on conversation page. Hidden by default (h2).
+#. TRANS: Label for user statistics.
 #: actions/conversation.php:149 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:229 lib/searchgroupnav.php:82
+#: lib/profileaction.php:246 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Mededelingen"
 
@@ -1773,8 +1776,8 @@ msgstr "Ik weet het zeker."
 #. TRANS: Notification for user about the text that must be input to be able to delete a user account.
 #. TRANS: %s is the text that needs to be input.
 #: actions/deleteaccount.php:164
-#, php-format
-msgid "You must write  \"%s\" exactly in the box."
+#, fuzzy, php-format
+msgid "You must write \"%s\" exactly in the box."
 msgstr "U moet de tekst \"%s\" precies in het veld overnemen."
 
 #. TRANS: Confirmation that a user account has been deleted.
@@ -1784,7 +1787,7 @@ msgstr "De gebruiker is verwijderd."
 
 #. TRANS: Page title for page on which a user account can be deleted.
 #. TRANS: Option in profile settings to delete the account of the currently logged in user.
-#: actions/deleteaccount.php:228 actions/profilesettings.php:472
+#: actions/deleteaccount.php:228 actions/profilesettings.php:475
 msgid "Delete account"
 msgstr "Gebruiker verwijderen"
 
@@ -1997,7 +2000,6 @@ msgstr "U kunt alleen lokale gebruikers verwijderen."
 
 #. TRANS: Title of delete user page.
 #: actions/deleteuser.php:110
-#, fuzzy
 msgctxt "TITLE"
 msgid "Delete user"
 msgstr "Gebruiker verwijderen"
@@ -2019,9 +2021,8 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a user.
 #: actions/deleteuser.php:158
-#, fuzzy
 msgid "Do not delete this user"
-msgstr "Verwijder deze groep niet"
+msgstr "Deze gebruiker niet verwijderen"
 
 #. TRANS: Submit button title for 'Yes' when deleting a user.
 #. TRANS: Description of form for deleting a user.
@@ -2146,7 +2147,6 @@ msgstr "Achtergrondafbeelding naast elkaar"
 
 #. TRANS: Fieldset legend for theme colors.
 #: actions/designadminpanel.php:598
-#, fuzzy
 msgid "Change colors"
 msgstr "Kleuren wijzigen"
 
@@ -2186,7 +2186,6 @@ msgstr "Aangepaste CSS"
 
 #. TRANS: Button text for resetting theme settings.
 #: actions/designadminpanel.php:718
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Use defaults"
 msgstr "Standaardinstellingen gebruiken"
@@ -2222,9 +2221,9 @@ msgstr "Aan favorieten toevoegen"
 #. TRANS: Client exception thrown when requesting a document from the documentation that does not exist.
 #. TRANS: %s is the non-existing document.
 #: actions/doc.php:155
-#, fuzzy, php-format
+#, php-format
 msgid "No such document \"%s\"."
-msgstr "Onbekend document \"%s\""
+msgstr "Onbekend document \"%s\"."
 
 #. TRANS: Title for "Edit application" form.
 #. TRANS: Form legend.
@@ -2333,7 +2332,8 @@ msgstr "Gebruik dit formulier om de groep te bewerken."
 
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
-#: actions/editgroup.php:239 actions/newgroup.php:186
+#. TRANS: %s is the invalid alias.
+#: actions/editgroup.php:239 actions/newgroup.php:187
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "Ongeldige alias: \"%s\""
@@ -2345,7 +2345,7 @@ msgstr "Het was niet mogelijk de groep bij te werken."
 
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:279 classes/User_group.php:534
+#: actions/editgroup.php:279 classes/User_group.php:538
 msgid "Could not create aliases."
 msgstr "Het was niet mogelijk de aliassen aan te maken."
 
@@ -2859,17 +2859,17 @@ msgid "Crop"
 msgstr "Uitsnijden"
 
 #. TRANS: Form instructions on the group logo page.
-#: actions/grouplogo.php:378
+#: actions/grouplogo.php:379
 msgid "Pick a square area of the image to be the logo."
 msgstr "Selecteer een vierkant uit de afbeelding die het logo wordt."
 
 #. TRANS: Form success message after updating a group logo.
-#: actions/grouplogo.php:413
+#: actions/grouplogo.php:414
 msgid "Logo updated."
 msgstr "Logo geactualiseerd."
 
 #. TRANS: Form failure message after failing to update a group logo.
-#: actions/grouplogo.php:416
+#: actions/grouplogo.php:417
 msgid "Failed updating logo."
 msgstr "Het bijwerken van het logo is mislukt."
 
@@ -2929,7 +2929,9 @@ msgstr "Deze gebruiker beheerder maken"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Updates voor leden van %1$s op %2$s."
 
-#: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
+#. TRANS: Label for user statistics.
+#. TRANS: H2 text for user group membership statistics.
+#: actions/groups.php:62 lib/profileaction.php:239 lib/profileaction.php:290
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Groepen"
@@ -3368,7 +3370,7 @@ msgstr "U moet aangemeld zijn om lid te worden van een groep."
 
 #. TRANS: Title for join group page after joining.
 #: actions/joingroup.php:147
-#, fuzzy, php-format
+#, php-format
 msgctxt "TITLE"
 msgid "%1$s joined group %2$s"
 msgstr "%1$s is lid geworden van de groep %2$s"
@@ -3386,7 +3388,7 @@ msgstr "U bent geen lid van deze groep"
 
 #. TRANS: Title for leave group page after leaving.
 #: actions/leavegroup.php:142
-#, fuzzy, php-format
+#, php-format
 msgctxt "TITLE"
 msgid "%1$s left group %2$s"
 msgstr "%1$s heeft de groep %2$s verlaten"
@@ -3518,7 +3520,7 @@ msgstr ""
 "Er is een fout opgetreden bij het maken van de instellingen. U hebt "
 "waarschijnlijk niet de juiste rechten."
 
-#: actions/login.php:210 actions/login.php:263 lib/logingroupnav.php:79
+#: actions/login.php:210 actions/login.php:263
 msgid "Login"
 msgstr "Aanmelden"
 
@@ -3617,6 +3619,12 @@ msgstr "U mag geen groepen aanmaken op deze site."
 #: actions/newgroup.php:117
 msgid "Use this form to create a new group."
 msgstr "Gebruik dit formulier om een nieuwe groep aan te maken."
+
+#. TRANS: Group create form validation error.
+#: actions/newgroup.php:199
+#, fuzzy
+msgid "Alias cannot be the same as nickname."
+msgstr "Een alias kan niet hetzelfde zijn als de gebruikersnaam."
 
 #: actions/newmessage.php:71 actions/newmessage.php:234
 msgid "New message"
@@ -4306,9 +4314,10 @@ msgstr "1-64 kleine letters of cijfers, geen leestekens of spaties."
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for full group name (dt). Text hidden by default.
+#. TRANS: DT for full name in a profile.
 #: actions/profilesettings.php:113 actions/register.php:455
 #: actions/showgroup.php:252 actions/tagother.php:104
-#: lib/groupeditform.php:149 lib/userprofile.php:152
+#: lib/groupeditform.php:149 lib/userprofile.php:156
 msgid "Full name"
 msgstr "Volledige naam"
 
@@ -4347,10 +4356,11 @@ msgstr "Beschrijving"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group location (dt). Text hidden by default.
+#. TRANS: DT for location in a profile.
 #: actions/profilesettings.php:145 actions/register.php:483
 #: actions/showgroup.php:262 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:172
-#: lib/userprofile.php:167
+#: lib/userprofile.php:172
 msgid "Location"
 msgstr "Locatie"
 
@@ -4365,9 +4375,10 @@ msgid "Share my current location when posting notices"
 msgstr "Mijn huidige locatie weergeven bij het plaatsen van mededelingen"
 
 #. TRANS: Field label in form for profile settings.
+#. TRANS: DT for tags in a profile.
 #: actions/profilesettings.php:161 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
-#: lib/subscriptionlist.php:108 lib/userprofile.php:212
+#: lib/subscriptionlist.php:108 lib/userprofile.php:220
 msgid "Tags"
 msgstr "Labels"
 
@@ -4460,7 +4471,7 @@ msgstr "De instellingen zijn opgeslagen."
 
 #. TRANS: Option in profile settings to restore the account of the currently logged in user from a backup.
 #. TRANS: Page title for page where a user account can be restored from backup.
-#: actions/profilesettings.php:480 actions/restoreaccount.php:60
+#: actions/profilesettings.php:483 actions/restoreaccount.php:60
 msgid "Restore account"
 msgstr "Gebruiker terugladen van back-up"
 
@@ -4632,9 +4643,8 @@ msgstr ""
 "gebruiker staat opgeslagen."
 
 #: actions/recoverpassword.php:167
-#, fuzzy
 msgid "You have been identified. Enter a new password below."
-msgstr "U bent geïdentificeerd. Voer hieronder een nieuw wachtwoord in. "
+msgstr "U bent geïdentificeerd. Voer hieronder een nieuw wachtwoord in."
 
 #. TRANS: Fieldset legend for password recovery page.
 #: actions/recoverpassword.php:198
@@ -4658,7 +4668,6 @@ msgstr "Herstellen"
 
 #. TRANS: Button text on password recovery page.
 #: actions/recoverpassword.php:214
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Recover"
 msgstr "Herstellen"
@@ -4686,15 +4695,13 @@ msgstr "Onbekende handeling"
 
 #. TRANS: Title for field label for password reset form.
 #: actions/recoverpassword.php:258
-#, fuzzy
 msgid "6 or more characters, and do not forget it!"
 msgstr "Zes of meer tekens, en vergeet uw wachtwoord niet!"
 
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
 #: actions/recoverpassword.php:264 actions/register.php:441
-#, fuzzy
 msgid "Same as password above."
-msgstr "Gelijk aan het wachtwoord hierboven"
+msgstr "Gelijk aan het wachtwoord hierboven."
 
 #. TRANS: Button text for password reset form.
 #. TRANS: Button text on profile design page to reset all colour settings to default without saving.
@@ -4751,7 +4758,6 @@ msgstr "Het wachtwoord en de bevestiging komen niet overeen."
 
 #. TRANS: Reset password form validation error message.
 #: actions/recoverpassword.php:418
-#, fuzzy
 msgid "Cannot save new password."
 msgstr "Het was niet mogelijk het nieuwe wachtwoord op te slaan."
 
@@ -4777,7 +4783,7 @@ msgstr "Sorry. De uitnodigingscode is ongeldig."
 msgid "Registration successful"
 msgstr "De registratie is voltooid"
 
-#: actions/register.php:121 actions/register.php:511 lib/logingroupnav.php:85
+#: actions/register.php:121 actions/register.php:511
 msgid "Register"
 msgstr "Registreren"
 
@@ -4806,7 +4812,6 @@ msgstr ""
 "mededelingen uitsturen en contact maken met vrienden en collega's. "
 
 #: actions/register.php:437
-#, fuzzy
 msgid "6 or more characters."
 msgstr "Zes of meer tekens"
 
@@ -4938,8 +4943,9 @@ msgstr "Profiel-URL"
 msgid "URL of your profile on another compatible microblogging service"
 msgstr "De URL van uw profiel bij een andere, compatibele microblogdienst"
 
+#. TRANS: Link text for link that will subscribe to a remote profile.
 #: actions/remotesubscribe.php:136 lib/subscribeform.php:139
-#: lib/userprofile.php:411
+#: lib/userprofile.php:431
 msgid "Subscribe"
 msgstr "Abonneren"
 
@@ -5097,7 +5103,9 @@ msgid "File upload stopped by extension."
 msgstr "Het uploaden van het bestand is tegengehouden door een uitbreiding."
 
 #. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
-#: actions/restoreaccount.php:164 lib/imagefile.php:103 lib/mediafile.php:228
+#. TRANS: Exception thrown when uploading an image fails for an unknown reason.
+#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
+#: actions/restoreaccount.php:164 lib/imagefile.php:106 lib/mediafile.php:228
 msgid "System error uploading file."
 msgstr "Er is een systeemfout opgetreden tijdens het uploaden van het bestand."
 
@@ -5215,8 +5223,9 @@ msgid "Description"
 msgstr "Beschrijving"
 
 #. TRANS: Header for group statistics on a group page (h2).
+#. TRANS: H2 text for user statistics.
 #: actions/showapplication.php:192 actions/showgroup.php:448
-#: lib/profileaction.php:187
+#: lib/profileaction.php:205
 msgid "Statistics"
 msgstr "Statistieken"
 
@@ -5353,14 +5362,16 @@ msgid "Group profile"
 msgstr "Groepsprofiel"
 
 #. TRANS: Label for group URL (dt). Text hidden by default.
+#. TRANS: DT for URL in a profile.
 #: actions/showgroup.php:270 actions/tagother.php:118
-#: actions/userauthorization.php:175 lib/userprofile.php:180
+#: actions/userauthorization.php:175 lib/userprofile.php:186
 msgid "URL"
 msgstr "URL"
 
 #. TRANS: Label for group description or group note (dt). Text hidden by default.
+#. TRANS: DT for note in a profile.
 #: actions/showgroup.php:282 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:197
+#: actions/userauthorization.php:187 lib/userprofile.php:204
 msgid "Note"
 msgstr "Opmerking"
 
@@ -5404,8 +5415,11 @@ msgid "Members"
 msgstr "Leden"
 
 #. TRANS: Description for mini list of group members on a group page when the group has no members.
-#: actions/showgroup.php:408 lib/profileaction.php:117
-#: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
+#. TRANS: Text for user subscription statistics if the user has no subscriptions.
+#. TRANS: Text for user subscriber statistics if user has no subscribers.
+#. TRANS: Text for user user group membership statistics if user is not a member of any group.
+#: actions/showgroup.php:408 lib/profileaction.php:137
+#: lib/profileaction.php:174 lib/profileaction.php:298 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(geen)"
@@ -6028,7 +6042,7 @@ msgid "These are the people who listen to %s's notices."
 msgstr "Dit zijn de gebruikers die de mededelingen van %s volgen."
 
 #. TRANS: Subscriber list text when the logged in user has no subscribers.
-#: actions/subscribers.php:116
+#: actions/subscribers.php:114
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor."
@@ -6038,7 +6052,7 @@ msgstr ""
 
 #. TRANS: Subscriber list text when looking at the subscribers for a of a user other
 #. TRANS: than the logged in user that has no subscribers. %s is the user nickname.
-#: actions/subscribers.php:120
+#: actions/subscribers.php:118
 #, php-format
 msgid "%s has no subscribers. Want to be the first?"
 msgstr "%s heeft geen abonnees. Wilt u de eerste zijn?"
@@ -6048,7 +6062,7 @@ msgstr "%s heeft geen abonnees. Wilt u de eerste zijn?"
 #. TRANS: This message contains a Markdown URL. The link description is between
 #. TRANS: square brackets, and the link between parentheses. Do not separate "]("
 #. TRANS: and do not change the URL part.
-#: actions/subscribers.php:129
+#: actions/subscribers.php:127
 #, php-format
 msgid ""
 "%s has no subscribers. Why not [register an account](%%%%action.register%%%"
@@ -6081,7 +6095,7 @@ msgstr "Dit zijn de gebruikers waarvan %s de mededelingen volgt."
 #. TRANS: This message contains Markdown URLs. The link description is between
 #. TRANS: square brackets, and the link between parentheses. Do not separate "]("
 #. TRANS: and do not change the URL part.
-#: actions/subscriptions.php:135
+#: actions/subscriptions.php:133
 #, php-format
 msgid ""
 "You're not listening to anyone's notices right now, try subscribing to "
@@ -6101,23 +6115,24 @@ msgstr ""
 #. TRANS: than the logged in user that has no subscriptions. %s is the user nickname.
 #. TRANS: Subscription list text when looking at the subscriptions for a of a user that has none
 #. TRANS: as an anonymous user. %s is the user nickname.
-#: actions/subscriptions.php:143 actions/subscriptions.php:149
+#: actions/subscriptions.php:141 actions/subscriptions.php:147
 #, php-format
 msgid "%s is not listening to anyone."
 msgstr "%s volgt niemand."
 
-#: actions/subscriptions.php:178
+#. TRANS: Atom feed title. %s is a profile nickname.
+#: actions/subscriptions.php:176
 #, php-format
 msgid "Subscription feed for %s (Atom)"
 msgstr "Abonneefeed voor %s (Atom)"
 
 #. TRANS: Checkbox label for enabling Jabber messages for a profile in a subscriptions list.
-#: actions/subscriptions.php:242
+#: actions/subscriptions.php:239
 msgid "Jabber"
 msgstr "Jabber"
 
 #. TRANS: Checkbox label for enabling SMS messages for a profile in a subscriptions list.
-#: actions/subscriptions.php:257
+#: actions/subscriptions.php:254
 msgid "SMS"
 msgstr "SMS"
 
@@ -6150,12 +6165,14 @@ msgstr "Geen ID-argument."
 msgid "Tag %s"
 msgstr "Label %s"
 
+#. TRANS: H2 for user profile information.
 #: actions/tagother.php:77 lib/userprofile.php:76
 msgid "User profile"
 msgstr "Gebruikersprofiel"
 
+#. TRANS: DT element in area for user avatar.
 #: actions/tagother.php:81 actions/userauthorization.php:132
-#: lib/userprofile.php:107
+#: lib/userprofile.php:108
 msgid "Photo"
 msgstr "Foto"
 
@@ -6721,12 +6738,12 @@ msgid "Problem saving notice."
 msgstr "Er is een probleem opgetreden bij het opslaan van de mededeling."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:914
+#: classes/Notice.php:923
 msgid "Bad type provided to saveKnownGroups."
 msgstr "Het gegevenstype dat is opgegeven aan saveKnownGroups is onjuist"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1013
+#: classes/Notice.php:1022
 msgid "Problem saving group inbox."
 msgstr ""
 "Er is een probleem opgetreden bij het opslaan van het Postvak IN van de "
@@ -6734,14 +6751,14 @@ msgstr ""
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1127
+#: classes/Notice.php:1136
 #, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr "Het was niet mogelijk antwoord %1$d voor %2$d op te slaan."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1646
+#: classes/Notice.php:1655
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -6848,24 +6865,45 @@ msgstr ""
 "De \"single-user\"-modus is aangeroepen terwijl deze niet is ingeschakeld."
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:516
+#: classes/User_group.php:520
 msgid "Could not create group."
 msgstr "Het was niet mogelijk de groep aan te maken."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:526
+#: classes/User_group.php:530
 msgid "Could not set group URI."
 msgstr "Het was niet mogelijk de groeps-URI in te stellen."
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:549
+#: classes/User_group.php:553
 msgid "Could not set group membership."
 msgstr "Het was niet mogelijk het groepslidmaatschap in te stellen."
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:564
+#: classes/User_group.php:568
 msgid "Could not save local group info."
 msgstr "Het was niet mogelijk de lokale groepsinformatie op te slaan."
+
+#. TRANS: Exception thrown when an account could not be located when it should be moved.
+#. TRANS: %s is the remote site.
+#: lib/accountmover.php:65
+#, fuzzy, php-format
+msgid "Cannot locate account %s."
+msgstr "U kunt uw gebruiker niet verwijderen."
+
+#. TRANS: Exception thrown when a service document could not be located account move.
+#. TRANS: %s is the remote site.
+#: lib/accountmover.php:106
+#, php-format
+msgid "Cannot find XRD for %s."
+msgstr ""
+
+#. TRANS: Exception thrown when an account could not be located when it should be moved.
+#. TRANS: %s is the remote site.
+#: lib/accountmover.php:131
+#, php-format
+msgid "No AtomPub API service for %s."
+msgstr ""
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:104
@@ -7003,7 +7041,8 @@ msgid "Create an account"
 msgstr "Gebruiker aanmaken"
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:580
+#. TRANS: Menu item for registering with the StatusNet site.
+#: lib/action.php:580 lib/logingroupnav.php:85
 msgctxt "MENU"
 msgid "Register"
 msgstr "Registreren"
@@ -7015,7 +7054,8 @@ msgid "Login to the site"
 msgstr "Gebruiker aanmelden"
 
 #. TRANS: Main menu option when not logged in to log in
-#: lib/action.php:586
+#. TRANS: Menu item for logging in to the StatusNet site.
+#: lib/action.php:586 lib/logingroupnav.php:77
 msgctxt "MENU"
 msgid "Login"
 msgstr "Aanmelden"
@@ -7255,6 +7295,23 @@ msgstr ""
 #, php-format
 msgid "No content for notice %s."
 msgstr "Geen inhoud voor mededeling %s."
+
+#: lib/activitymover.php:84
+#, fuzzy, php-format
+msgid "No such user %s."
+msgstr "Onbekende gebruiker."
+
+#. TRANS: Client exception thrown when post to collection fails with a 400 status.
+#. TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
+#. TRANS: Server exception thrown when post to collection fails with a 500 status.
+#. TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
+#. TRANS: Exception thrown when post to collection fails with a status that is not handled.
+#. TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
+#: lib/activitysink.php:163 lib/activitysink.php:167 lib/activitysink.php:172
+#, fuzzy, php-format
+msgctxt "URLSTATUSREASON"
+msgid "%1$s %2$s %3$s"
+msgstr "%1$s - %2$s"
 
 #. TRANS: Client exception thrown when there is no source attribute.
 #: lib/activityutils.php:200
@@ -7703,7 +7760,7 @@ msgstr "Volledige naam: %s"
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail.
 #. TRANS: %s is a location.
-#: lib/command.php:434 lib/mail.php:278
+#: lib/command.php:434 lib/mail.php:270
 #, php-format
 msgid "Location: %s"
 msgstr "Locatie: %s"
@@ -7711,7 +7768,7 @@ msgstr "Locatie: %s"
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail.
 #. TRANS: %s is a homepage.
-#: lib/command.php:438 lib/mail.php:282
+#: lib/command.php:438 lib/mail.php:274
 #, php-format
 msgid "Homepage: %s"
 msgstr "Thuispagina: %s"
@@ -7994,25 +8051,25 @@ msgstr ""
 "tracking - nog niet beschikbaar\n"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:155
+#: lib/common.php:161
 msgid "No configuration file found."
 msgstr "Er is geen instellingenbestand aangetroffen."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
-#: lib/common.php:158
+#: lib/common.php:164
 msgid "I looked for configuration files in the following places:"
 msgstr "Er is gezocht naar instellingenbestanden op de volgende plaatsen:"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-#: lib/common.php:161
+#: lib/common.php:167
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 "U kunt proberen de installer uit te voeren om dit probleem op te lossen."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: The text is link text that leads to the installer page.
-#: lib/common.php:165
+#: lib/common.php:171
 msgid "Go to the installer."
 msgstr "Naar het installatieprogramma gaan."
 
@@ -8100,6 +8157,14 @@ msgstr "Het was niet mogelijk uw ontwerp bij te werken."
 msgid "Design defaults restored."
 msgstr "Het standaardontwerp is weer ingesteld."
 
+#. TRANS: Exception. %s is an ID.
+#: lib/discovery.php:153
+#, fuzzy, php-format
+msgid "Unable to find services for %s."
+msgstr ""
+"Het was niet mogelijk de toegang te ontzeggen voor de volgende applicatie: %"
+"s."
+
 #: lib/disfavorform.php:114 lib/disfavorform.php:144
 msgid "Disfavor this notice"
 msgstr "Uit de favorietenlijst verwijderen"
@@ -8179,11 +8244,11 @@ msgid "Describe the group or topic"
 msgstr "Beschrijf de groep of het onderwerp"
 
 #: lib/groupeditform.php:162
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the group or topic in %d character or less."
 msgid_plural "Describe the group or topic in %d characters or less."
-msgstr[0] "Beschrijf de group in %d teken of minder"
-msgstr[1] "Beschrijf de group in %d tekens of minder"
+msgstr[0] "Beschrijf de groep in %d teken of minder."
+msgstr[1] "Beschrijf de groep in %d tekens of minder."
 
 #: lib/groupeditform.php:174
 msgid ""
@@ -8298,35 +8363,41 @@ msgstr "Labels in de groepsmededelingen van %s"
 msgid "This page is not available in a media type you accept"
 msgstr "Deze pagina is niet beschikbaar in een mediatype dat u accepteert"
 
-#: lib/imagefile.php:72
+#. TRANS: Exception thrown when trying to upload an unsupported image file format.
+#: lib/imagefile.php:73
 msgid "Unsupported image file format."
 msgstr "Niet ondersteund beeldbestandsformaat."
 
 #. TRANS: Exception thrown when too large a file is uploaded.
 #. TRANS: %s is the maximum file size, for example "500b", "10kB" or "2MB".
-#: lib/imagefile.php:90
+#: lib/imagefile.php:91
 #, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr "Dat bestand is te groot. De maximale bestandsgrootte is %s."
 
-#: lib/imagefile.php:95
+#. TRANS: Exception thrown when uploading an image and that action could not be completed.
+#: lib/imagefile.php:97
 msgid "Partial upload."
 msgstr "Gedeeltelijke upload."
 
-#: lib/imagefile.php:111
+#. TRANS: Exception thrown when uploading a file as image that is not an image or is a corrupt file.
+#: lib/imagefile.php:115
 msgid "Not an image or corrupt file."
 msgstr "Het bestand is geen afbeelding of het bestand is beschadigd."
 
-#: lib/imagefile.php:160
+#. TRANS: Exception thrown during resize when image has been registered as present, but is no longer there.
+#: lib/imagefile.php:178
 msgid "Lost our file."
 msgstr "Het bestand is zoekgeraakt."
 
-#: lib/imagefile.php:197 lib/imagefile.php:237
+#. TRANS: Exception thrown when trying to resize an unknown file type.
+#. TRANS: Exception thrown when trying resize an unknown file type.
+#: lib/imagefile.php:216 lib/imagefile.php:257
 msgid "Unknown file type"
 msgstr "Onbekend bestandstype"
 
 #. TRANS: Number of megabytes. %d is the number.
-#: lib/imagefile.php:283
+#: lib/imagefile.php:303
 #, php-format
 msgid "%dMB"
 msgid_plural "%dMB"
@@ -8334,7 +8405,7 @@ msgstr[0] "%d MB"
 msgstr[1] "%d MB"
 
 #. TRANS: Number of kilobytes. %d is the number.
-#: lib/imagefile.php:287
+#: lib/imagefile.php:307
 #, php-format
 msgid "%dkB"
 msgid_plural "%dkB"
@@ -8342,7 +8413,7 @@ msgstr[0] "%d kB"
 msgstr[1] "%d kB"
 
 #. TRANS: Number of bytes. %d is the number.
-#: lib/imagefile.php:290
+#: lib/imagefile.php:310
 #, php-format
 msgid "%dB"
 msgid_plural "%dB"
@@ -8363,23 +8434,25 @@ msgstr "Onbekende bron Postvak IN %d."
 msgid "Leave"
 msgstr "Verlaten"
 
-#: lib/logingroupnav.php:80
+#. TRANS: Title for menu item for logging in to the StatusNet site.
+#: lib/logingroupnav.php:79
 msgid "Login with a username and password"
 msgstr "Aanmelden met gebruikersnaam en wachtwoord"
 
-#: lib/logingroupnav.php:86
+#. TRANS: Title for menu item for registering with the StatusNet site.
+#: lib/logingroupnav.php:87
 msgid "Sign up for a new account"
 msgstr "Nieuwe gebruiker aanmaken"
 
 #. TRANS: Subject for address confirmation email.
-#: lib/mail.php:174
+#: lib/mail.php:168
 msgid "Email address confirmation"
 msgstr "E-mailadresbevestiging"
 
 #. TRANS: Body for address confirmation email.
 #. TRANS: %1$s is the addressed user's nickname, %2$s is the StatusNet sitename,
 #. TRANS: %3$s is the URL to confirm at.
-#: lib/mail.php:179
+#: lib/mail.php:173
 #, php-format
 msgid ""
 "Hey, %1$s.\n"
@@ -8411,14 +8484,14 @@ msgstr ""
 
 #. TRANS: Subject of new-subscriber notification e-mail.
 #. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
-#: lib/mail.php:246
+#: lib/mail.php:238
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s volgt nu uw berichten %2$s."
 
 #. TRANS: This is a paragraph in a new-subscriber e-mail.
 #. TRANS: %s is a URL where the subscriber can be reported as abusive.
-#: lib/mail.php:253
+#: lib/mail.php:245
 #, php-format
 msgid ""
 "If you believe this account is being used abusively, you can block them from "
@@ -8432,7 +8505,7 @@ msgstr ""
 #. TRANS: %3$s is the subscriber's profile URL, %4$s is the subscriber's location (or empty)
 #. TRANS: %5$s is the subscriber's homepage URL (or empty), %6%s is the subscriber's bio (or empty)
 #. TRANS: %7$s is a link to the addressed user's e-mail settings.
-#: lib/mail.php:263
+#: lib/mail.php:255
 #, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -8459,14 +8532,14 @@ msgstr ""
 
 #. TRANS: Profile info line in new-subscriber notification e-mail.
 #. TRANS: %s is biographical information.
-#: lib/mail.php:286
+#: lib/mail.php:278
 #, php-format
 msgid "Bio: %s"
 msgstr "Beschrijving: %s"
 
 #. TRANS: Subject of notification mail for new posting email address.
 #. TRANS: %s is the StatusNet sitename.
-#: lib/mail.php:315
+#: lib/mail.php:307
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "Nieuw e-mailadres om e-mail te versturen aan %s"
@@ -8474,7 +8547,7 @@ msgstr "Nieuw e-mailadres om e-mail te versturen aan %s"
 #. TRANS: Body of notification mail for new posting email address.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is the e-mail address to send
 #. TRANS: to to post by e-mail, %3$s is a URL to more instructions.
-#: lib/mail.php:321
+#: lib/mail.php:313
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -8497,34 +8570,34 @@ msgstr ""
 
 #. TRANS: Subject line for SMS-by-email notification messages.
 #. TRANS: %s is the posting user's nickname.
-#: lib/mail.php:442
+#: lib/mail.php:434
 #, php-format
 msgid "%s status"
 msgstr "%s status"
 
 #. TRANS: Subject line for SMS-by-email address confirmation message.
-#: lib/mail.php:468
+#: lib/mail.php:460
 msgid "SMS confirmation"
 msgstr "SMS-bevestiging"
 
 #. TRANS: Main body heading for SMS-by-email address confirmation message.
 #. TRANS: %s is the addressed user's nickname.
-#: lib/mail.php:472
+#: lib/mail.php:464
 #, php-format
 msgid "%s: confirm you own this phone number with this code:"
 msgstr "%s: bevestig dat u deze telefoon bezit met deze code:"
 
 #. TRANS: Subject for 'nudge' notification email.
 #. TRANS: %s is the nudging user.
-#: lib/mail.php:493
-#, php-format
-msgid "You've been nudged by %s"
+#: lib/mail.php:485
+#, fuzzy, php-format
+msgid "You have been nudged by %s"
 msgstr "%s heeft u gepord"
 
 #. TRANS: Body for 'nudge' notification email.
 #. TRANS: %1$s is the nuding user's long name, $2$s is the nudging user's nickname,
 #. TRANS: %3$s is a URL to post notices at, %4$s is the StatusNet sitename.
-#: lib/mail.php:500
+#: lib/mail.php:492
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -8554,7 +8627,7 @@ msgstr ""
 
 #. TRANS: Subject for direct-message notification email.
 #. TRANS: %s is the sending user's nickname.
-#: lib/mail.php:547
+#: lib/mail.php:539
 #, php-format
 msgid "New private message from %s"
 msgstr "U hebt een nieuw privébericht van %s."
@@ -8563,7 +8636,7 @@ msgstr "U hebt een nieuw privébericht van %s."
 #. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
 #. TRANS: %3$s is the message content, %4$s a URL to the message,
 #. TRANS: %5$s is the StatusNet sitename.
-#: lib/mail.php:555
+#: lib/mail.php:547
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -8599,7 +8672,7 @@ msgstr ""
 
 #. TRANS: Subject for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
-#: lib/mail.php:607
+#: lib/mail.php:599
 #, php-format
 msgid "%1$s (@%2$s) added your notice as a favorite"
 msgstr "%1$s (@%2$s) heeft uw mededeling als favoriet toegevoegd"
@@ -8609,7 +8682,7 @@ msgstr "%1$s (@%2$s) heeft uw mededeling als favoriet toegevoegd"
 #. TRANS: %3$s is a URL to the faved notice, %4$s is the faved notice text,
 #. TRANS: %5$s is a URL to all faves of the adding user, %6$s is the StatusNet sitename,
 #. TRANS: %7$s is the adding user's nickname.
-#: lib/mail.php:614
+#: lib/mail.php:606
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -8648,7 +8721,7 @@ msgstr ""
 "%6$s\n"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
-#: lib/mail.php:672
+#: lib/mail.php:664
 #, php-format
 msgid ""
 "The full conversation can be read here:\n"
@@ -8661,7 +8734,7 @@ msgstr ""
 
 #. TRANS: E-mail subject for notice notification.
 #. TRANS: %1$s is the sending user's long name, %2$s is the adding user's nickname.
-#: lib/mail.php:680
+#: lib/mail.php:672
 #, php-format
 msgid "%1$s (@%2$s) sent a notice to your attention"
 msgstr "%1$s (@%2$s) heeft u een mededeling gestuurd"
@@ -8672,7 +8745,7 @@ msgstr "%1$s (@%2$s) heeft u een mededeling gestuurd"
 #. TRANS: %5$s is a URL to the full conversion if it exists (otherwise empty),
 #. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replied for the addressed user,
 #. TRANS: %8$s is a URL to the addressed user's e-mail settings, %9$s is the sender's nickname.
-#: lib/mail.php:688
+#: lib/mail.php:680
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -9006,36 +9079,46 @@ msgstr "Labels in de mededelingen van %s"
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
+#. TRANS: H2 text for user subscription statistics.
+#. TRANS: Label for user statistics.
+#: lib/profileaction.php:127 lib/profileaction.php:225 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Abonnementen"
 
-#: lib/profileaction.php:126
+#. TRANS: Text for user subscription statistics if user has more subscriptions than displayed.
+#: lib/profileaction.php:144
 msgid "All subscriptions"
 msgstr "Alle abonnementen"
 
-#: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
+#. TRANS: H2 text for user subscriber statistics.
+#. TRANS: Label for user statistics.
+#: lib/profileaction.php:164 lib/profileaction.php:232 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Abonnees"
 
-#: lib/profileaction.php:161
+#. TRANS: Text for user subscription statistics if user has more subscribers than displayed.
+#: lib/profileaction.php:181
 msgid "All subscribers"
 msgstr "Alle abonnees"
 
-#: lib/profileaction.php:191
+#. TRANS: Label for user statistics.
+#: lib/profileaction.php:213
 msgid "User ID"
 msgstr "Gebruikers-ID"
 
-#: lib/profileaction.php:196
+#. TRANS: Label for user statistics.
+#: lib/profileaction.php:219
 msgid "Member since"
 msgstr "Lid sinds"
 
-#. TRANS: Average count of posts made per day since account registration
-#: lib/profileaction.php:235
+#. TRANS: Label for user statistics.
+#. TRANS: Average count of posts made per day since account registration.
+#: lib/profileaction.php:253
 msgid "Daily average"
 msgstr "Dagelijks gemiddelde"
 
-#: lib/profileaction.php:264
+#. TRANS: Text for user group membership statistics if user has more subscriptions than displayed.
+#: lib/profileaction.php:305
 msgid "All groups"
 msgstr "Alle groepen"
 
@@ -9296,48 +9379,60 @@ msgstr "Abonnement opheffen"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "Gebruiker %1$s (%2$d) heeft geen profielrecord."
 
-#: lib/userprofile.php:119
+#. TRANS: Link text for changeing the avatar of the logged in user.
+#: lib/userprofile.php:121
 msgid "Edit Avatar"
 msgstr "Avatar bewerken"
 
-#: lib/userprofile.php:236 lib/userprofile.php:250
+#. TRANS: H2 for user actions in a profile.
+#. TRANS: H2 for entity actions in a profile.
+#: lib/userprofile.php:245 lib/userprofile.php:261
 msgid "User actions"
 msgstr "Gebruikershandelingen"
 
-#: lib/userprofile.php:239
+#. TRANS: Text shown in user profile of not yet compeltely deleted users.
+#: lib/userprofile.php:249
 msgid "User deletion in progress..."
 msgstr "Bezig met het verwijderen van de gebruiker..."
 
-#: lib/userprofile.php:265
+#. TRANS: Link title for link on user profile.
+#: lib/userprofile.php:277
 msgid "Edit profile settings"
 msgstr "Profielinstellingen bewerken"
 
-#: lib/userprofile.php:266
+#. TRANS: Link text for link on user profile.
+#: lib/userprofile.php:279
 msgid "Edit"
 msgstr "Bewerken"
 
-#: lib/userprofile.php:289
+#. TRANS: Link title for link on user profile.
+#: lib/userprofile.php:303
 msgid "Send a direct message to this user"
 msgstr "Deze gebruiker een direct bericht zenden"
 
-#: lib/userprofile.php:290
+#. TRANS: Link text for link on user profile.
+#: lib/userprofile.php:305
 msgid "Message"
 msgstr "Bericht"
 
-#: lib/userprofile.php:331
+#. TRANS: Label text on user profile to select a user role.
+#: lib/userprofile.php:347
 msgid "Moderate"
 msgstr "Modereren"
 
-#: lib/userprofile.php:369
+#. TRANS: Label text on user profile to select a user role.
+#: lib/userprofile.php:386
 msgid "User role"
 msgstr "Gebruikersrol"
 
-#: lib/userprofile.php:371
+#. TRANS: Role that can be set for a user profile.
+#: lib/userprofile.php:389
 msgctxt "role"
 msgid "Administrator"
 msgstr "Beheerder"
 
-#: lib/userprofile.php:372
+#. TRANS: Role that can be set for a user profile.
+#: lib/userprofile.php:391
 msgctxt "role"
 msgid "Moderator"
 msgstr "Moderator"
@@ -9432,12 +9527,12 @@ msgstr[1] ""
 "bericht was %2$d."
 
 #. TRANS: Exception.
-#: lib/xrd.php:64
+#: lib/xrd.php:63
 msgid "Invalid XML."
 msgstr "Ongeldige XML."
 
 #. TRANS: Exception.
-#: lib/xrd.php:69
+#: lib/xrd.php:68
 msgid "Invalid XML, missing XRD root."
 msgstr "Ongeldige XML. De XRD-root mist."
 
@@ -9446,29 +9541,3 @@ msgstr "Ongeldige XML. De XRD-root mist."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "De back-up wordt uit het bestand \"%s\" geladen."
-
-#~ msgid "No such group"
-#~ msgstr "Deze groep bestaat niet"
-
-#~ msgid "HTTP method not supported"
-#~ msgstr "HTTP-methode wordt niet ondersteund."
-
-#~ msgid "Reset"
-#~ msgstr "Herstellen"
-
-#~ msgid ""
-#~ "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
-#~ msgstr ""
-#~ "1-64 kleine letters of cijfers, geen leestekens of spaties. Verplicht."
-
-#~ msgid "6 or more characters. Required."
-#~ msgstr "Zes of meer tekens. Verplicht"
-
-#~ msgid "Same as password above. Required."
-#~ msgstr "Gelijk aan het wachtwoord hierboven. Verplicht"
-
-#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-#~ msgstr "1-64 kleine letters of cijfers, geen leestekens of spaties"
-
-#~ msgid "%s is not a valid color!"
-#~ msgstr "%s is geen geldige kleur."

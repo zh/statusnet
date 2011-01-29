@@ -1,5 +1,5 @@
 # Translation of StatusNet - OStatus to Dutch (Nederlands)
-# Expored from translatewiki.net
+# Exported from translatewiki.net
 #
 # Author: McDutchie
 # Author: Siebrand
@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-14 10:29+0000\n"
-"PO-Revision-Date: 2011-01-14 10:33:51+0000\n"
+"POT-Creation-Date: 2011-01-29 21:45+0000\n"
+"PO-Revision-Date: 2011-01-29 21:50:59+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-01-10 18:26:06+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r80246); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-15 11:02:38+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r81195); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -157,7 +157,7 @@ msgid "Invalid actor passed to %1$s: %2$s."
 msgstr "Ongeldige actor doorgegeven aan %1$s: %2$s."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:378
+#: classes/Ostatus_profile.php:379
 msgid ""
 "Invalid type passed to Ostatus_profile::notify. It must be XML string or "
 "Activity entry."
@@ -166,119 +166,119 @@ msgstr ""
 "string of Activity zijn."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:409
+#: classes/Ostatus_profile.php:410
 msgid "Unknown feed format."
 msgstr "Onbekend feedformaat"
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:433
+#: classes/Ostatus_profile.php:434
 msgid "RSS feed without a channel."
 msgstr "RSS-feed zonder kanaal."
 
 #. TRANS: Client exception.
-#: classes/Ostatus_profile.php:479
+#: classes/Ostatus_profile.php:480
 msgid "Can't handle that kind of post."
 msgstr "Dat type post kan niet verwerkt worden."
 
 #. TRANS: Client exception. %s is a source URI.
-#: classes/Ostatus_profile.php:537
+#: classes/Ostatus_profile.php:538
 #, php-format
 msgid "No content for notice %s."
 msgstr "Geen inhoud voor mededeling %s."
 
 #. TRANS: Shown when a notice is longer than supported and/or when attachments are present. At runtime
 #. TRANS: this will usually be replaced with localised text from StatusNet core messages.
-#: classes/Ostatus_profile.php:572
+#: classes/Ostatus_profile.php:573
 msgid "Show more"
 msgstr "Meer weergeven"
 
 #. TRANS: Exception. %s is a profile URL.
-#: classes/Ostatus_profile.php:765
+#: classes/Ostatus_profile.php:766
 #, php-format
 msgid "Could not reach profile page %s."
 msgstr "Het was niet mogelijk de profielpagina %s te bereiken."
 
 #. TRANS: Exception. %s is a URL.
-#: classes/Ostatus_profile.php:823
+#: classes/Ostatus_profile.php:824
 #, php-format
 msgid "Could not find a feed URL for profile page %s."
 msgstr "Het was niet mogelijk de feed-URL voor de profielpagina %s te vinden."
 
 #. TRANS: Feed sub exception.
-#: classes/Ostatus_profile.php:922
+#: classes/Ostatus_profile.php:923
 msgid "Can't find enough profile information to make a feed."
 msgstr ""
 "Het was niet mogelijk voldoende profielinformatie te vinden om een feed te "
 "maken."
 
 #. TRANS: Server exception. %s is a URL.
-#: classes/Ostatus_profile.php:986
+#: classes/Ostatus_profile.php:987
 #, php-format
 msgid "Invalid avatar URL %s."
 msgstr "Ongeldige avatar-URL %s."
 
 #. TRANS: Server exception. %s is a URI.
-#: classes/Ostatus_profile.php:997
+#: classes/Ostatus_profile.php:998
 #, php-format
 msgid "Tried to update avatar for unsaved remote profile %s."
 msgstr ""
 "Geprobeerd om een avatar bij te werken voor het niet opgeslagen profiel %s."
 
 #. TRANS: Server exception. %s is a URL.
-#: classes/Ostatus_profile.php:1007
+#: classes/Ostatus_profile.php:1008
 #, php-format
 msgid "Unable to fetch avatar from %s."
 msgstr "Het was niet mogelijk de avatar op te halen van %s."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1233
+#: classes/Ostatus_profile.php:1234
 msgid "Local user can't be referenced as remote."
 msgstr ""
 "Naar een lokale gebruiker kan niet verwezen worden alsof die zich bij een "
 "andere dienst bevindt."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1238
+#: classes/Ostatus_profile.php:1239
 msgid "Local group can't be referenced as remote."
 msgstr ""
 "Naar een lokale groep kan niet verwezen worden alsof die zich bij een andere "
 "dienst bevindt."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1290 classes/Ostatus_profile.php:1301
+#: classes/Ostatus_profile.php:1291 classes/Ostatus_profile.php:1302
 msgid "Can't save local profile."
 msgstr "Het was niet mogelijk het lokale profiel op te slaan."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1309
+#: classes/Ostatus_profile.php:1310
 msgid "Can't save OStatus profile."
 msgstr "Het was niet mogelijk het Ostatusprofiel op te slaan."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1573 classes/Ostatus_profile.php:1601
+#: classes/Ostatus_profile.php:1574 classes/Ostatus_profile.php:1602
 msgid "Not a valid webfinger address."
 msgstr "Geen geldig webfingeradres."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1683
+#: classes/Ostatus_profile.php:1684
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr "Het was niet mogelijk het profiel voor \"%s\" op te slaan."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1702
+#: classes/Ostatus_profile.php:1703
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr "Het was niet mogelijk het ostatus_profile voor \"%s\" op te slaan."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1710
+#: classes/Ostatus_profile.php:1711
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr "Er is geen geldig profiel voor \"%s\" gevonden."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1753
+#: classes/Ostatus_profile.php:1754
 msgid "Could not store HTML content of long post as file."
 msgstr ""
 "Het was niet mogelijk de HTML-inhoud van het lange bericht als bestand op te "
@@ -367,19 +367,13 @@ msgid "Received a salmon slap from unidentified actor."
 msgstr "Er is een Salmonslap ontvangen van een niet-geïdentificeerde actor."
 
 #. TRANS: Exception.
-#: lib/discovery.php:110
-#, php-format
-msgid "Unable to find services for %s."
-msgstr "Het was niet mogelijk diensten te vinden voor %s."
-
-#. TRANS: Exception.
 #: lib/magicenvelope.php:80
 msgid "Unable to locate signer public key."
 msgstr ""
 "Het was niet mogelijk de publieke sleutel van de ondertekenaar te vinden."
 
 #. TRANS: Exception.
-#: lib/salmon.php:93
+#: lib/salmon.php:126
 msgid "Salmon invalid actor for signing."
 msgstr "Ongeldige actor voor het ondertekenen van Salmon."
 
@@ -810,3 +804,6 @@ msgstr "Onverwacht abonneringsverzoek voor %s."
 #, php-format
 msgid "Unexpected unsubscribe request for %s."
 msgstr "Onverwacht verzoek om abonnement op te hebben voor %s."
+
+#~ msgid "Unable to find services for %s."
+#~ msgstr "Het was niet mogelijk diensten te vinden voor %s."
