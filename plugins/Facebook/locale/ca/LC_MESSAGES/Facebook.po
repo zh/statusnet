@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Facebook\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-29 21:45+0000\n"
-"PO-Revision-Date: 2011-01-29 21:49:42+0000\n"
+"POT-Creation-Date: 2011-01-30 22:50+0000\n"
+"PO-Revision-Date: 2011-01-30 22:53:17+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-01-22 19:30:29+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r81195); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-29 22:24:12+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r81224); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-plugin-facebook\n"
@@ -35,22 +35,36 @@ msgid ""
 "\n"
 "%2$s"
 msgstr ""
+"Hola, %1$s. lamentem informar-vos que no podem actualitzar l'estat del "
+"vostre Facebook des de %2$s, i hem inhabilitat l'aplicació del Facebook del "
+"vostre compte. Això pot ser perquè hagiu eliminat l'autorització de "
+"l'aplicació al Facebook, o perquè hàgiu eliminat el vostre compte del "
+"Facebook. Podeu tornar a habilitar l'aplicació del Facebook i "
+"l'actualització automàtica d'estat reinstal·lant l'aplicació de Facebook de %"
+"2$s.\n"
+"\n"
+"Atentament,\n"
+"\n"
+"%2$s"
 
 #: FBConnectAuth.php:55
 msgid "You must be logged into Facebook to use Facebook Connect."
 msgstr ""
+"Heu d'iniciar una sessió al Facebook per fer servir el Facebook Connect."
 
 #: FBConnectAuth.php:79
 msgid "There is already a local user linked with this Facebook account."
-msgstr ""
+msgstr "Ja hi ha un usuari local enllaçat amb aquest compte del Facebook."
 
 #: FBConnectAuth.php:91 FBConnectSettings.php:166
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
+"S'ha produït un problema amb el testimoni de la vostre sessió. Torneu-ho a "
+"provar."
 
 #: FBConnectAuth.php:96
 msgid "You can't register if you don't agree to the license."
-msgstr ""
+msgstr "No us podeu registrar si no accepteu la llicència."
 
 #: FBConnectAuth.php:106
 msgid "An unknown error has occured."
@@ -64,6 +78,9 @@ msgid ""
 "Facebook to a local account. You can either create a new account, or connect "
 "with your existing account, if you have one."
 msgstr ""
+"És la primera vegada que inicieu una sessió a %s, per tant hem de connectar "
+"el vostre Facebook a un compte local. Podeu crear un compte nou, o bé "
+"connectar-vos amb un ja existent si ja en teniu un."
 
 #. TRANS: Page title.
 #: FBConnectAuth.php:128
@@ -82,6 +99,9 @@ msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
+"El meu text i fitxers es troben disponibles sota %s, excepte les dades "
+"privades següents: contrasenya, adreça electrònica, adreça de MI i número de "
+"telèfon."
 
 #. TRANS: Legend.
 #: FBConnectAuth.php:189
@@ -100,6 +120,7 @@ msgstr "Nou sobrenom"
 #: FBConnectAuth.php:197
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr ""
+"1-64 lletres en minúscules o nombres, sense signes de puntuació o espais"
 
 #. TRANS: Submit button.
 #: FBConnectAuth.php:201
@@ -216,10 +237,12 @@ msgid ""
 "If you would like the %s app to automatically update your Facebook status "
 "with your latest notice, you need to give it permission."
 msgstr ""
+"Si voleu que l'aplicació %s actualitzi automàticament el vostre estat del "
+"Facebook amb el darrer avís, cal que li doneu permisos."
 
 #: facebookhome.php:210
 msgid "Okay, do it!"
-msgstr ""
+msgstr "Endavant, fes-ho!"
 
 #. TRANS: Button text. Clicking the button will skip updating Facebook permissions.
 #: facebookhome.php:217
@@ -250,24 +273,24 @@ msgstr "Gràcies per convidar els vostres amics perquè facin servir el %s."
 #. TRANS: Followed by an unordered list with invited friends.
 #: facebookinvite.php:72
 msgid "Invitations have been sent to the following users:"
-msgstr ""
+msgstr "S'han enviat invitacions als usuaris següents:"
 
 #: facebookinvite.php:91
 #, php-format
 msgid "You have been invited to %s"
-msgstr ""
+msgstr "Us han convidat a %s"
 
 #. TRANS: %s is the name of the site.
 #: facebookinvite.php:101
 #, php-format
 msgid "Invite your friends to use %s"
-msgstr ""
+msgstr "Convideu els vostres amics a fer servir %s"
 
 #. TRANS: %s is the name of the site.
 #: facebookinvite.php:124
 #, php-format
 msgid "Friends already using %s:"
-msgstr ""
+msgstr "Amics que ja fan servir %s:"
 
 #. TRANS: Page title.
 #: facebookinvite.php:143
@@ -299,22 +322,24 @@ msgstr "Inicieu una sessió o registreu-vos fent servir el Facebook"
 #. TRANS: Page title.
 #: FacebookPlugin.php:487 FBConnectSettings.php:55
 msgid "Facebook Connect Settings"
-msgstr ""
+msgstr "Paràmetres de connexió del Facebook"
 
 #: FacebookPlugin.php:591
 msgid ""
 "The Facebook plugin allows integrating StatusNet instances with <a href="
 "\"http://facebook.com/\">Facebook</a> and Facebook Connect."
 msgstr ""
+"El connector del Facebook permet integrar instàncies de l'StatusNet amb el "
+"<a href=\"http://facebook.com/\">Facebook</a> i el Facebook Connect."
 
 #: FBConnectLogin.php:33
 msgid "Already logged in."
-msgstr ""
+msgstr "Ja heu iniciat una sessió."
 
 #. TRANS: Instructions.
 #: FBConnectLogin.php:42
 msgid "Login with your Facebook Account"
-msgstr ""
+msgstr "Inicieu una sessió amb el compte del Facebook"
 
 #. TRANS: Page title.
 #: FBConnectLogin.php:57
@@ -323,11 +348,11 @@ msgstr "Inici de sessió del Facebook"
 
 #: facebookremove.php:53
 msgid "Couldn't remove Facebook user: already deleted."
-msgstr ""
+msgstr "No s'ha pogut eliminar l'usuari del Facebook: ja s'ha eliminat."
 
 #: facebookremove.php:63
 msgid "Couldn't remove Facebook user."
-msgstr ""
+msgstr "No s'ha pogut eliminar l'usuari del Facebook."
 
 #. TRANS: Link description for 'Home' link that leads to a start page.
 #: facebookaction.php:169
@@ -368,10 +393,12 @@ msgid ""
 "To use the %s Facebook Application you need to login with your username and "
 "password. Don't have a username yet?"
 msgstr ""
+"Per fer servir l'aplicació del Facebook %s cal que inicieu una sessió amb el "
+"vostre usuari i contrasenya. No teniu cap nom d'usuari encara?"
 
 #: facebookaction.php:235
 msgid " a new account."
-msgstr ""
+msgstr " un compte nou."
 
 #: facebookaction.php:242
 msgid "Register"
@@ -419,6 +446,8 @@ msgstr "Clau API del Facebook no vàlida. La longitud màxima són 255 caràcter
 #: facebookadminpanel.php:129
 msgid "Invalid Facebook API secret. Max length is 255 characters."
 msgstr ""
+"Clau secreta API del Facebook no vàlida. La longitud màxima són 255 "
+"caràcters."
 
 #: facebookadminpanel.php:178
 msgid "Facebook application settings"
@@ -438,7 +467,7 @@ msgstr "Clau secreta"
 
 #: facebookadminpanel.php:194
 msgid "API secret provided by Facebook"
-msgstr ""
+msgstr "Clau secreta API proporcionada pel Facebook"
 
 #: facebookadminpanel.php:210
 msgid "Save"
@@ -491,7 +520,7 @@ msgstr "Desconnecta"
 
 #: FBConnectSettings.php:180
 msgid "Couldn't delete link to Facebook."
-msgstr ""
+msgstr "No s'ha pogut eliminar l'enllaç al Facebook."
 
 #: FBConnectSettings.php:196
 msgid "You have disconnected from Facebook."

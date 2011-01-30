@@ -11,19 +11,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-29 21:45+0000\n"
-"PO-Revision-Date: 2011-01-29 21:47:38+0000\n"
+"POT-Creation-Date: 2011-01-30 22:50+0000\n"
+"PO-Revision-Date: 2011-01-30 22:52:04+0000\n"
 "Language-Team: Egyptian Spoken Arabic <http://translatewiki.net/wiki/Portal:"
 "arz>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r81195); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r81224); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: arz\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=6; plural= n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-POT-Import-Date: 2011-01-22 19:49:58+0000\n"
+"X-POT-Import-Date: 2011-01-29 22:24:50+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -94,7 +94,7 @@ msgstr "اذف إعدادت الموقع"
 #. TRANS: Button label in the "Edit application" form.
 #. TRANS: Button text on profile design page to save settings.
 #: actions/accessadminpanel.php:193 actions/designadminpanel.php:732
-#: actions/emailsettings.php:254 actions/imsettings.php:183
+#: actions/emailsettings.php:250 actions/imsettings.php:183
 #: actions/othersettings.php:134 actions/pathsadminpanel.php:512
 #: actions/profilesettings.php:197 actions/sitenoticeadminpanel.php:197
 #: actions/smssettings.php:205 actions/subscriptions.php:259
@@ -108,7 +108,7 @@ msgstr "أرسل"
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:68 actions/public.php:98 actions/replies.php:93
-#: actions/showfavorites.php:138 actions/tag.php:52
+#: actions/showfavorites.php:140 actions/tag.php:52
 msgid "No such page."
 msgstr "لا وسم كهذا."
 
@@ -135,6 +135,8 @@ msgstr "لا وسم كهذا."
 #. TRANS: Client error displayed when requesting most recent mentions for a non-existing user.
 #. TRANS: Client error displayed requesting most recent notices for a non-existing user.
 #. TRANS: Client error displayed trying to get an avatar for a non-existing user.
+#. TRANS: Client error displayed when trying to get the RSS feed with favorites of a user that does not exist.
+#. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when calling a profile action without specifying a user.
 #: actions/all.php:80 actions/allrss.php:69
@@ -150,12 +152,12 @@ msgstr "لا وسم كهذا."
 #: actions/apisubscriptions.php:85 actions/apitimelinefavorites.php:70
 #: actions/apitimelinefriends.php:173 actions/apitimelinehome.php:78
 #: actions/apitimelinementions.php:77 actions/apitimelineuser.php:79
-#: actions/avatarbynickname.php:79 actions/favoritesrss.php:74
+#: actions/avatarbynickname.php:79 actions/favoritesrss.php:72
 #: actions/foaf.php:40 actions/foaf.php:58 actions/hcard.php:67
 #: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:144 actions/remotesubscribe.php:153
 #: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
-#: actions/showfavorites.php:105 actions/userbyid.php:74
+#: actions/showfavorites.php:106 actions/userbyid.php:74
 #: actions/usergroups.php:93 actions/userrss.php:40 actions/userxrd.php:59
 #: actions/xrds.php:71 lib/command.php:497 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
@@ -172,9 +174,10 @@ msgstr "%1$s و الصحاب, صفحه %2$d"
 #. TRANS: H1 text for page. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Timeline title for user and friends. %s is a user nickname.
+#. TRANS: Tooltop for personal group navigation menu option when logged in for viewing timeline of self and friends.
 #: actions/all.php:94 actions/all.php:191 actions/allrss.php:117
 #: actions/apitimelinefriends.php:207 actions/apitimelinehome.php:113
-#: lib/personalgroupnav.php:103
+#: lib/personalgroupnav.php:102
 #, php-format
 msgid "%s and friends"
 msgstr "%s والأصدقاء"
@@ -325,8 +328,8 @@ msgstr ""
 #. TRANS: Server error thrown on database error updating SMS preferences.
 #. TRANS: Server error thrown on database error removing a registered SMS phone number.
 #: actions/apiaccountupdatedeliverydevice.php:130
-#: actions/confirmaddress.php:118 actions/emailsettings.php:359
-#: actions/emailsettings.php:508 actions/imsettings.php:276
+#: actions/confirmaddress.php:118 actions/emailsettings.php:352
+#: actions/emailsettings.php:498 actions/imsettings.php:276
 #: actions/imsettings.php:432 actions/othersettings.php:184
 #: actions/profilesettings.php:322 actions/smssettings.php:301
 #: actions/smssettings.php:454
@@ -364,7 +367,7 @@ msgstr "لم يمكن حفظ الملف."
 #: actions/apiaccountupdateprofileimage.php:95 actions/apimediaupload.php:81
 #: actions/apistatusesupdate.php:210 actions/avatarsettings.php:269
 #: actions/designadminpanel.php:120 actions/editapplication.php:121
-#: actions/newapplication.php:104 actions/newnotice.php:95
+#: actions/newapplication.php:102 actions/newnotice.php:95
 #: lib/designsettings.php:298
 #, php-format
 msgid ""
@@ -535,8 +538,9 @@ msgid "This status is already a favorite."
 msgstr "الحاله دى موجوده فعلا فى التفضيلات."
 
 #. TRANS: Client error displayed when marking a notice as favourite fails.
+#. TRANS: Server error displayed when trying to mark a notice as favorite fails in the database.
 #. TRANS: Error message text shown when a favorite could not be set.
-#: actions/apifavoritecreate.php:132 actions/favor.php:84 lib/command.php:294
+#: actions/apifavoritecreate.php:132 actions/favor.php:86 lib/command.php:294
 msgid "Could not create favorite."
 msgstr "تعذّر إنشاء مفضله."
 
@@ -547,7 +551,7 @@ msgstr "الحاله دى مش محطوطه فى التفضيلات."
 
 #. TRANS: Client error displayed when removing a favourite has failed.
 #. TRANS: Server error displayed when removing a favorite from the database fails.
-#: actions/apifavoritedestroy.php:135 actions/disfavor.php:91
+#: actions/apifavoritedestroy.php:135 actions/disfavor.php:90
 msgid "Could not delete favorite."
 msgstr "تعذّر حذف المفضله."
 
@@ -614,10 +618,11 @@ msgstr "ليس اسمًا مستعارًا صحيحًا."
 #. TRANS: Client error in form for group creation.
 #. TRANS: Validation error shown when providing an invalid homepage URL in the "Edit application" form.
 #. TRANS: Group edit form validation error.
+#. TRANS: Validation error shown when providing an invalid homepage URL in the "New application" form.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:181 actions/editapplication.php:233
-#: actions/editgroup.php:200 actions/newapplication.php:211
+#: actions/apigroupcreate.php:181 actions/editapplication.php:235
+#: actions/editgroup.php:200 actions/newapplication.php:221
 #: actions/newgroup.php:147 actions/profilesettings.php:248
 #: actions/register.php:223
 msgid "Homepage is not a valid URL."
@@ -637,13 +642,14 @@ msgstr "الاسم الكامل طويل جدا (الأقصى 255 حرفًا)"
 #. TRANS: Client error shown when providing too long a description during group creation.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
+#. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Group edit form validation error.
 #. TRANS: Form validation error in New application form.
 #. TRANS: %d is the maximum number of characters for the description.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed characters.
-#: actions/apigroupcreate.php:201 actions/editapplication.php:201
-#: actions/editgroup.php:209 actions/newapplication.php:178
+#: actions/apigroupcreate.php:201 actions/editapplication.php:202
+#: actions/editgroup.php:209 actions/newapplication.php:182
 #: actions/newgroup.php:156
 #, fuzzy, php-format
 msgid "Description is too long (maximum %d character)."
@@ -824,8 +830,8 @@ msgstr "لا تملك تصريحًا."
 #. TRANS: Form validation error.
 #. TRANS: Form validation error message.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
-#: actions/deletenotice.php:177 actions/disfavor.php:76
-#: actions/emailsettings.php:297 actions/favor.php:75 actions/geocode.php:55
+#: actions/deletenotice.php:177 actions/disfavor.php:75
+#: actions/emailsettings.php:291 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:324
 #: actions/groupunblock.php:65 actions/imsettings.php:224
 #: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
@@ -859,14 +865,15 @@ msgstr "خطأ قاعده البيانات أثناء إدخال المستخد�
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Form validation error message when an unsupported argument is used.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
+#. TRANS: Client error displayed when encountering an unexpected action on form submission.
 #. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Client error displayed when unexpected data is posted in the password recovery form.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
 #. TRANS: Unknown form validation error in design settings form.
 #: actions/apioauthauthorize.php:294 actions/avatarsettings.php:294
 #: actions/designadminpanel.php:100 actions/editapplication.php:144
-#: actions/emailsettings.php:316 actions/grouplogo.php:335
-#: actions/imsettings.php:239 actions/newapplication.php:125
+#: actions/emailsettings.php:310 actions/grouplogo.php:335
+#: actions/imsettings.php:239 actions/newapplication.php:124
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:46
 #: actions/smssettings.php:271 lib/designsettings.php:321
 msgid "Unexpected form submission."
@@ -935,7 +942,7 @@ msgstr "كلمه السر"
 #. TRANS: Button label to cancel an IM address confirmation procedure.
 #. TRANS: Button label to cancel a SMS address confirmation procedure.
 #. TRANS: Button label in the "Edit application" form.
-#: actions/apioauthauthorize.php:478 actions/emailsettings.php:128
+#: actions/apioauthauthorize.php:478 actions/emailsettings.php:124
 #: actions/imsettings.php:127 actions/smssettings.php:133
 #: lib/applicationeditform.php:351
 #, fuzzy
@@ -1881,7 +1888,7 @@ msgstr "انت مش بتملك الapplication دى."
 
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:131
-#: actions/newapplication.php:114 actions/showapplication.php:118
+#: actions/newapplication.php:112 actions/showapplication.php:118
 #: lib/action.php:1409
 msgid "There was a problem with your session token."
 msgstr ""
@@ -1976,15 +1983,17 @@ msgstr "احذف هذا المستخدم"
 
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
 #. TRANS: Client error displayed when trying to remove a favorite while not logged in.
+#. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
 #. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#: actions/deletenotice.php:52 actions/disfavor.php:62 actions/favor.php:62
+#. TRANS: Client error displayed when trying to change user options while not logged in.
+#: actions/deletenotice.php:52 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:60 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:88
 #: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
-#: lib/adminpanelaction.php:71 lib/profileformaction.php:64
+#: lib/adminpanelaction.php:71 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "لست والجًا."
@@ -2241,12 +2250,12 @@ msgid "Save design"
 msgstr "احفظ التصميم"
 
 #. TRANS: Client error displayed when trying to remove favorite status for a notice that is not a favorite.
-#: actions/disfavor.php:84
+#: actions/disfavor.php:83
 msgid "This notice is not a favorite!"
 msgstr "هذا الشعار ليس مفضلًا!"
 
 #. TRANS: Title for page on which favorites can be added.
-#: actions/disfavor.php:99
+#: actions/disfavor.php:98
 msgid "Add to favorites"
 msgstr "أضف إلى المفضلات"
 
@@ -2280,67 +2289,77 @@ msgid "Use this form to edit your application."
 msgstr "استعمل الفورمه دى علشان تعدّل الapplication بتاعتك."
 
 #. TRANS: Validation error shown when not providing a name in the "Edit application" form.
-#: actions/editapplication.php:184 actions/newapplication.php:163
+#. TRANS: Validation error shown when not providing a name in the "New application" form.
+#: actions/editapplication.php:184 actions/newapplication.php:164
 msgid "Name is required."
 msgstr "الاسم مطلوب."
 
 #. TRANS: Validation error shown when providing too long a name in the "Edit application" form.
-#: actions/editapplication.php:188 actions/newapplication.php:169
+#. TRANS: Validation error shown when providing too long a name in the "New application" form.
+#: actions/editapplication.php:188 actions/newapplication.php:172
 #, fuzzy
 msgid "Name is too long (maximum 255 characters)."
 msgstr "الاسم طويل جدا (اكتر حاجه 255 رمز)."
 
 #. TRANS: Validation error shown when providing a name for an application that already exists in the "Edit application" form.
-#: actions/editapplication.php:192 actions/newapplication.php:166
+#. TRANS: Validation error shown when providing a name for an application that already exists in the "New application" form.
+#: actions/editapplication.php:192 actions/newapplication.php:168
 msgid "Name already in use. Try another one."
 msgstr ""
 
 #. TRANS: Validation error shown when not providing a description in the "Edit application" form.
-#: actions/editapplication.php:196 actions/newapplication.php:172
+#. TRANS: Validation error shown when not providing a description in the "New application" form.
+#: actions/editapplication.php:196 actions/newapplication.php:176
 msgid "Description is required."
 msgstr "الوصف مطلوب."
 
 #. TRANS: Validation error shown when providing too long a source URL in the "Edit application" form.
-#: actions/editapplication.php:208
+#: actions/editapplication.php:209
 #, fuzzy
 msgid "Source URL is too long."
 msgstr "الSource URL مش مظبوط."
 
 #. TRANS: Validation error shown when providing an invalid source URL in the "Edit application" form.
-#: actions/editapplication.php:215 actions/newapplication.php:193
+#. TRANS: Validation error shown when providing an invalid source URL in the "New application" form.
+#: actions/editapplication.php:216 actions/newapplication.php:199
 msgid "Source URL is not valid."
 msgstr "الSource URL مش مظبوط."
 
 #. TRANS: Validation error shown when not providing an organisation in the "Edit application" form.
-#: actions/editapplication.php:219 actions/newapplication.php:196
+#. TRANS: Validation error shown when not providing an organisation in the "New application" form.
+#: actions/editapplication.php:220 actions/newapplication.php:203
 #, fuzzy
 msgid "Organization is required."
 msgstr "الوصف مطلوب."
 
 #. TRANS: Validation error shown when providing too long an arganisation name in the "Edit application" form.
-#: actions/editapplication.php:223 actions/newapplication.php:199
+#: actions/editapplication.php:224 actions/newapplication.php:207
 #, fuzzy
 msgid "Organization is too long (maximum 255 characters)."
 msgstr "المنظمه طويله جدا (اكتر حاجه 255 رمز)."
 
-#: actions/editapplication.php:226 actions/newapplication.php:202
+#. TRANS: Form validation error show when an organisation name has not been provided in the edit application form.
+#. TRANS: Form validation error show when an organisation name has not been provided in the new application form.
+#: actions/editapplication.php:228 actions/newapplication.php:211
 #, fuzzy
 msgid "Organization homepage is required."
 msgstr "الوصف مطلوب."
 
 #. TRANS: Validation error shown when providing too long a callback URL in the "Edit application" form.
-#: actions/editapplication.php:237 actions/newapplication.php:214
+#. TRANS: Validation error shown when providing too long a callback URL in the "New application" form.
+#: actions/editapplication.php:239 actions/newapplication.php:225
 msgid "Callback is too long."
 msgstr ""
 
 #. TRANS: Validation error shown when providing an invalid callback URL in the "Edit application" form.
-#: actions/editapplication.php:245 actions/newapplication.php:223
+#. TRANS: Validation error shown when providing an invalid callback URL in the "New application" form.
+#: actions/editapplication.php:247 actions/newapplication.php:235
 #, fuzzy
 msgid "Callback URL is not valid."
 msgstr "الSource URL مش مظبوط."
 
 #. TRANS: Server error occuring when an application could not be updated from the "Edit application" form.
-#: actions/editapplication.php:282
+#: actions/editapplication.php:284
 msgid "Could not update application."
 msgstr "ما نفعش تحديث الapplication."
 
@@ -2394,25 +2413,25 @@ msgid "Options saved."
 msgstr "حُفظت الخيارات."
 
 #. TRANS: Title for e-mail settings.
-#: actions/emailsettings.php:61
+#: actions/emailsettings.php:59
 msgid "Email settings"
 msgstr "تظبيطات الايميل"
 
 #. TRANS: E-mail settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
-#: actions/emailsettings.php:76
+#: actions/emailsettings.php:73
 #, php-format
 msgid "Manage how you get email from %%site.name%%."
 msgstr "أدر كيف تستلم البريد الإلكترونى من %%site.name%%."
 
 #. TRANS: Form legend for e-mail settings form.
 #. TRANS: Field label for e-mail address input in e-mail settings form.
-#: actions/emailsettings.php:107 actions/emailsettings.php:133
+#: actions/emailsettings.php:103 actions/emailsettings.php:129
 msgid "Email address"
 msgstr "عنوان الايميل"
 
 #. TRANS: Form note in e-mail settings form.
-#: actions/emailsettings.php:113
+#: actions/emailsettings.php:109
 msgid "Current confirmed email address."
 msgstr "عنوان البريد الإلكترونى المُؤكد الحالى."
 
@@ -2421,14 +2440,15 @@ msgstr "عنوان البريد الإلكترونى المُؤكد الحالى
 #. TRANS: Button label to remove a confirmed IM address.
 #. TRANS: Button label to remove a confirmed SMS address.
 #. TRANS: Button label for removing a set sender SMS e-mail address to post notices from.
-#: actions/emailsettings.php:116 actions/emailsettings.php:183
+#: actions/emailsettings.php:112 actions/emailsettings.php:179
 #: actions/imsettings.php:112 actions/smssettings.php:120
 #: actions/smssettings.php:176
 msgctxt "BUTTON"
 msgid "Remove"
 msgstr "استرجع"
 
-#: actions/emailsettings.php:123
+#. TRANS: Form note in e-mail settings form.
+#: actions/emailsettings.php:119
 msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
@@ -2439,14 +2459,14 @@ msgstr ""
 #. TRANS: use in examples by http://www.rfc-editor.org/rfc/rfc2606.txt.
 #. TRANS: Any other domain may be owned by a legitimate person or
 #. TRANS: organization.
-#: actions/emailsettings.php:140
+#: actions/emailsettings.php:136
 msgid "Email address, like \"UserName@example.org\""
 msgstr "عنوان البريد الإلكترونى، مثل \"UserName@example.org\""
 
 #. TRANS: Button label for adding an e-mail address in e-mail settings form.
 #. TRANS: Button label for adding an IM address in IM settings form.
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
-#: actions/emailsettings.php:144 actions/imsettings.php:147
+#: actions/emailsettings.php:140 actions/imsettings.php:147
 #: actions/smssettings.php:158
 #, fuzzy
 msgctxt "BUTTON"
@@ -2455,29 +2475,29 @@ msgstr "أضف"
 
 #. TRANS: Form legend for incoming e-mail settings form.
 #. TRANS: Form legend for incoming SMS settings form.
-#: actions/emailsettings.php:152 actions/smssettings.php:167
+#: actions/emailsettings.php:148 actions/smssettings.php:167
 msgid "Incoming email"
 msgstr "البريد الإلكترونى الوارد"
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:158
+#: actions/emailsettings.php:154
 msgid "I want to post notices by email."
 msgstr "أريد أن أرسل الملاحظات عبر البريد الإلكترونى."
 
 #. TRANS: Form instructions for incoming e-mail form in e-mail settings.
 #. TRANS: Form instructions for incoming SMS e-mail address form in SMS settings.
-#: actions/emailsettings.php:180 actions/smssettings.php:174
+#: actions/emailsettings.php:176 actions/smssettings.php:174
 msgid "Send email to this address to post new notices."
 msgstr "أرسل بريدًا إلكترونيًا إلى هذا العنوان لترسل إشعارات جديده."
 
 #. TRANS: Instructions for incoming e-mail address input form, when an address has already been assigned.
 #. TRANS: Instructions for incoming SMS e-mail address input form.
-#: actions/emailsettings.php:189 actions/smssettings.php:182
+#: actions/emailsettings.php:185 actions/smssettings.php:182
 msgid "Make a new email address for posting to; cancels the old one."
 msgstr "أنشئ عنوان بريد إلكترونى لترسل إليه؛ ألغِ القديم."
 
 #. TRANS: Instructions for incoming e-mail address input form.
-#: actions/emailsettings.php:193
+#: actions/emailsettings.php:189
 msgid ""
 "To send notices via email, we need to create a unique email address for you "
 "on this server:"
@@ -2485,93 +2505,93 @@ msgstr ""
 
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
-#: actions/emailsettings.php:199 actions/smssettings.php:185
+#: actions/emailsettings.php:195 actions/smssettings.php:185
 #, fuzzy
 msgctxt "BUTTON"
 msgid "New"
 msgstr "جديد"
 
 #. TRANS: Form legend for e-mail preferences form.
-#: actions/emailsettings.php:208
+#: actions/emailsettings.php:204
 msgid "Email preferences"
 msgstr "عناوين البريد الإلكتروني"
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:216
+#: actions/emailsettings.php:212
 msgid "Send me notices of new subscriptions through email."
 msgstr "أرسل لى إشعارات بالاشتراكات الجديده عبر البريد الإلكترونى."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:222
+#: actions/emailsettings.php:218
 msgid "Send me email when someone adds my notice as a favorite."
 msgstr "أرسل لى بريدًا إلكرتونيًا عندما يضيف أحدهم إشعارى مفضله."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:229
+#: actions/emailsettings.php:225
 #, fuzzy
 msgid "Send me email when someone sends me a private message."
 msgstr "أرسل لى بريدًا إلكترونيًا عندما يرسل لى أحدهم \"@-رد\"."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:235
+#: actions/emailsettings.php:231
 msgid "Send me email when someone sends me an \"@-reply\"."
 msgstr "أرسل لى بريدًا إلكترونيًا عندما يرسل لى أحدهم \"@-رد\"."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:241
+#: actions/emailsettings.php:237
 msgid "Allow friends to nudge me and send me an email."
 msgstr ""
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:247
+#: actions/emailsettings.php:243
 #, fuzzy
 msgid "Publish a MicroID for my email address."
 msgstr "هذا ليس عنوان بريدك الإلكترونى."
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
-#: actions/emailsettings.php:368
+#: actions/emailsettings.php:361
 #, fuzzy
 msgid "Email preferences saved."
 msgstr "حُفِظت التفضيلات."
 
 #. TRANS: Message given saving e-mail address without having provided one.
-#: actions/emailsettings.php:388
+#: actions/emailsettings.php:380
 msgid "No email address."
 msgstr "لا عنوان بريد إلكترونى."
 
 #. TRANS: Message given saving e-mail address that cannot be normalised.
-#: actions/emailsettings.php:396
+#: actions/emailsettings.php:388
 #, fuzzy
-msgid "Cannot normalize that email address"
+msgid "Cannot normalize that email address."
 msgstr "عنوان البريد الإلكترونى المُؤكد الحالى."
 
 #. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:401 actions/register.php:212
+#: actions/emailsettings.php:393 actions/register.php:212
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "ليس عنوان بريد صالح."
 
 #. TRANS: Message given saving e-mail address that is already set.
-#: actions/emailsettings.php:405
+#: actions/emailsettings.php:397
 msgid "That is already your email address."
 msgstr "هذا هو عنوان بريدك الإكترونى سابقًا."
 
 #. TRANS: Message given saving e-mail address that is already set for another user.
-#: actions/emailsettings.php:409
+#: actions/emailsettings.php:401
 msgid "That email address already belongs to another user."
 msgstr "هذا البريد الإلكترونى ملك مستخدم آخر بالفعل."
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
 #. TRANS: Server error thrown on database error adding SMS confirmation code.
-#: actions/emailsettings.php:426 actions/imsettings.php:343
+#: actions/emailsettings.php:418 actions/imsettings.php:343
 #: actions/smssettings.php:365
 #, fuzzy
 msgid "Could not insert confirmation code."
 msgstr "تعذّر إدراج رمز التأكيد."
 
 #. TRANS: Message given saving valid e-mail address that is to be confirmed.
-#: actions/emailsettings.php:433
+#: actions/emailsettings.php:425
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
@@ -2580,144 +2600,173 @@ msgstr ""
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
 #. TRANS: Message given canceling IM address confirmation that is not pending.
 #. TRANS: Message given canceling SMS phone number confirmation that is not pending.
-#: actions/emailsettings.php:454 actions/imsettings.php:377
+#: actions/emailsettings.php:445 actions/imsettings.php:377
 #: actions/smssettings.php:399
 #, fuzzy
 msgid "No pending confirmation to cancel."
 msgstr "لا رمز تأكيد."
 
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
-#: actions/emailsettings.php:459
+#: actions/emailsettings.php:450
 #, fuzzy
 msgid "That is the wrong email address."
 msgstr "هذا عنوان محادثه فوريه خاطئ."
 
 #. TRANS: Server error thrown on database error canceling e-mail address confirmation.
 #. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
-#: actions/emailsettings.php:468 actions/smssettings.php:413
+#: actions/emailsettings.php:459 actions/smssettings.php:413
 #, fuzzy
 msgid "Could not delete email confirmation."
 msgstr "تعذّر حذف تأكيد البريد الإلكترونى."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
-#: actions/emailsettings.php:473
+#: actions/emailsettings.php:464
 msgid "Email confirmation cancelled."
 msgstr "لا رمز تأكيد."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
-#: actions/emailsettings.php:493
+#: actions/emailsettings.php:483
 msgid "That is not your email address."
 msgstr "هذا ليس عنوان بريدك الإلكترونى."
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
-#: actions/emailsettings.php:514
+#: actions/emailsettings.php:504
 msgid "The email address was removed."
 msgstr "لا عنوان بريد إلكترونى."
 
-#: actions/emailsettings.php:528 actions/smssettings.php:554
+#. TRANS: Form validation error displayed when trying to remove an incoming e-mail address while no address has been set.
+#: actions/emailsettings.php:518 actions/smssettings.php:555
 #, fuzzy
 msgid "No incoming email address."
 msgstr "لا عنوان بريد إلكترونى."
 
 #. TRANS: Server error thrown on database error removing incoming e-mail address.
 #. TRANS: Server error thrown on database error adding incoming e-mail address.
-#: actions/emailsettings.php:540 actions/emailsettings.php:565
-#: actions/smssettings.php:564 actions/smssettings.php:587
+#: actions/emailsettings.php:530 actions/emailsettings.php:554
+#: actions/smssettings.php:565 actions/smssettings.php:588
 #, fuzzy
 msgid "Could not update user record."
 msgstr "تعذّر تحديث المستخدم."
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
-#: actions/emailsettings.php:544 actions/smssettings.php:567
+#: actions/emailsettings.php:534 actions/smssettings.php:568
 #, fuzzy
 msgid "Incoming email address removed."
 msgstr "لا عنوان بريد إلكترونى."
 
 #. TRANS: Message given after successfully adding an incoming e-mail address.
-#: actions/emailsettings.php:569 actions/smssettings.php:590
+#: actions/emailsettings.php:558 actions/smssettings.php:591
 #, fuzzy
 msgid "New incoming email address added."
 msgstr "لا عنوان بريد إلكترونى."
 
-#: actions/favor.php:79
+#. TRANS: Client error displayed when trying to mark a notice as favorite that already is a favorite.
+#: actions/favor.php:80
 msgid "This notice is already a favorite!"
 msgstr "هذا الإشعار مفضله مسبقًا!"
 
-#: actions/favor.php:92 lib/disfavorform.php:144
+#. TRANS: Page title for page on which favorite notices can be unfavourited.
+#: actions/favor.php:95
 msgid "Disfavor favorite"
 msgstr "ألغِ تفضيل المفضلة"
 
+#. TRANS: Page title for first page of favorited notices.
+#. TRANS: Title for favourited notices section.
 #: actions/favorited.php:65 lib/popularnoticesection.php:62
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "إشعارات مشهورة"
 
-#: actions/favorited.php:67
+#. TRANS: Page title for all but first page of favorited notices.
+#. TRANS: %d is the page number being displayed.
+#: actions/favorited.php:69
 #, php-format
 msgid "Popular notices, page %d"
 msgstr "إشعارات مشهوره، الصفحه %d"
 
-#: actions/favorited.php:79
+#. TRANS: Description on page displaying favorited notices.
+#: actions/favorited.php:81
 msgid "The most popular notices on the site right now."
 msgstr "أشهر الإشعارات على الموقع حاليًا."
 
-#: actions/favorited.php:150
+#. TRANS: Text displayed instead of a list when a site does not yet have any favourited notices.
+#: actions/favorited.php:149
 msgid "Favorite notices appear on this page but no one has favorited one yet."
 msgstr ""
 
+#. TRANS: Additional text displayed instead of a list when a site does not yet have any favourited notices for logged in users.
 #: actions/favorited.php:153
 msgid ""
 "Be the first to add a notice to your favorites by clicking the fave button "
 "next to any notice you like."
 msgstr ""
 
-#: actions/favorited.php:156
+#. TRANS: Additional text displayed instead of a list when a site does not yet have any favourited notices for not logged in users.
+#. TRANS: %%action.register%% is a registration link. "[link text](link)" is Mark Down. Do not change the formatting.
+#: actions/favorited.php:158
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to add a "
 "notice to your favorites!"
 msgstr ""
 
-#: actions/favoritesrss.php:111 actions/showfavorites.php:77
-#: lib/personalgroupnav.php:118
+#. TRANS: Title of RSS feed with favourite notices of a user.
+#. TRANS: %s is a user's nickname.
+#. TRANS: Title for first page of favourite notices of a user.
+#. TRANS: %s is the user for whom the favourite notices are displayed.
+#. TRANS: Tooltip for personal group navigation menu option when logged in for viewing own favourited notices.
+#: actions/favoritesrss.php:111 actions/showfavorites.php:76
+#: lib/personalgroupnav.php:122
 #, php-format
 msgid "%s's favorite notices"
 msgstr "إشعارات %s المُفضلة"
 
-#: actions/favoritesrss.php:115
+#. TRANS: Desciption of RSS feed with favourite notices of a user.
+#. TRANS: %1$s is a user's nickname, %2$s is the name of the StatusNet site.
+#: actions/favoritesrss.php:117
 #, fuzzy, php-format
 msgid "Updates favored by %1$s on %2$s!"
 msgstr "نتايج التدوير لـ\"%1$s\" على %2$s"
 
+#. TRANS: Page title for first page of featured users.
+#. TRANS: Title for featured users section.
 #: actions/featured.php:69 lib/featureduserssection.php:87
 #: lib/publicgroupnav.php:89
 msgid "Featured users"
 msgstr "مستخدمون مختارون"
 
-#: actions/featured.php:71
+#. TRANS: Page title for all but first page of featured users.
+#. TRANS: %d is the page number being displayed.
+#: actions/featured.php:73
 #, php-format
 msgid "Featured users, page %d"
 msgstr "مستخدمون مختارون، صفحه %d"
 
-#: actions/featured.php:99
-#, php-format
-msgid "A selection of some great users on %s"
+#. TRANS: Description on page displaying featured users.
+#: actions/featured.php:102
+#, fuzzy, php-format
+msgid "A selection of some great users on %s."
 msgstr "اختيار لبعض المستخدمين المتميزين على %s"
 
-#: actions/file.php:34
+#. TRANS: Client error displayed when no notice ID was given trying do display a file.
+#: actions/file.php:36
 msgid "No notice ID."
 msgstr "ما فيش ملاحظة ID."
 
-#: actions/file.php:38
+#. TRANS: Client error displayed when an invalid notice ID was given trying do display a file.
+#: actions/file.php:41
 msgid "No notice."
 msgstr "ما فيش ملاحظه."
 
-#: actions/file.php:42
+#. TRANS: Client error displayed when trying do display a file for a notice without a file attachement.
+#: actions/file.php:46
 msgid "No attachments."
 msgstr "لا مرفقات."
 
-#: actions/file.php:51
+#. TRANS: Client error displayed when trying do display a file for a notice with file attachements
+#. TRANS: that could not be found.
+#: actions/file.php:58
 msgid "No uploaded attachments."
 msgstr "ما فيش فايلات اتعمللها upload."
 
@@ -2785,6 +2834,7 @@ msgstr "المستخدم مسكت من قبل."
 
 #. TRANS: Client error displayed when trying to unblock a user from a group without providing a profile.
 #. TRANS: Client error displayed trying a change a subscription without providing a profile.
+#. TRANS: Client error displayed when trying to change user options without specifying a user to work on.
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:49
 #: lib/profileformaction.php:79
@@ -2793,9 +2843,10 @@ msgstr "لا ملف شخصى مُحدّد."
 
 #. TRANS: Client error displayed when trying to unblock a user from a group without providing an existing profile.
 #. TRANS: Client error displayed trying a change a subscription for a non-existant profile ID.
+#. TRANS: Client error displayed when trying to change user options without specifying an existing user to work on.
 #: actions/groupblock.php:76 actions/groupunblock.php:77
 #: actions/makeadmin.php:76 actions/subedit.php:57 actions/tagother.php:46
-#: actions/unsubscribe.php:84 lib/profileformaction.php:86
+#: actions/unsubscribe.php:84 lib/profileformaction.php:87
 msgid "No profile with that ID."
 msgstr "لا ملف شخصى بهذه الهويه."
 
@@ -3585,20 +3636,23 @@ msgid "New application"
 msgstr "ما فيش application زى كده."
 
 #. TRANS: Client error displayed trying to add a new application while not logged in.
-#: actions/newapplication.php:65
+#: actions/newapplication.php:64
 msgid "You must be logged in to register an application."
 msgstr "لازم تكون مسجل دخوللك علشان تسجل application."
 
+#. TRANS: Form instructions for registering a new application.
 #: actions/newapplication.php:147
 msgid "Use this form to register a new application."
 msgstr "استعمل الفورمه دى علشان تسجل application جديد."
 
-#: actions/newapplication.php:184
+#. TRANS: Validation error shown when not providing a source URL in the "New application" form.
+#: actions/newapplication.php:189
 #, fuzzy
 msgid "Source URL is required."
 msgstr "الSource URL مش مظبوط."
 
-#: actions/newapplication.php:266 actions/newapplication.php:275
+#. TRANS: Server error displayed when an application could not be registered in the database through the "New application" form.
+#: actions/newapplication.php:279 actions/newapplication.php:289
 msgid "Could not create application."
 msgstr "مش ممكن إنشاء الapplication."
 
@@ -4964,8 +5018,9 @@ msgstr "مكرر"
 msgid "Repeated!"
 msgstr "مكرر!"
 
+#. TRANS: Tooltip for personal group navigation menu option when logged in for viewing @-replies.
 #: actions/replies.php:126 actions/repliesrss.php:68
-#: lib/personalgroupnav.php:108
+#: lib/personalgroupnav.php:109
 #, php-format
 msgid "Replies to %s"
 msgstr "الردود على %s"
@@ -5253,38 +5308,47 @@ msgstr ""
 msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr "أمتأكد من أنك تريد حذف هذا الإشعار؟"
 
-#: actions/showfavorites.php:79
+#. TRANS: Title for all but the first page of favourite notices of a user.
+#. TRANS: %1$s is the user for whom the favourite notices are displayed, %2$d is the page number.
+#: actions/showfavorites.php:80
 #, fuzzy, php-format
 msgid "%1$s's favorite notices, page %2$d"
 msgstr "إشعارات %s المُفضلة"
 
-#: actions/showfavorites.php:132
+#. TRANS: Server error displayed when favourite notices could not be retrieved from the database.
+#: actions/showfavorites.php:134
 #, fuzzy
 msgid "Could not retrieve favorite notices."
 msgstr "تعذّر إنشاء مفضله."
 
-#: actions/showfavorites.php:171
+#. TRANS: Feed link text. %s is a username.
+#: actions/showfavorites.php:172
 #, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
 msgstr ""
 
-#: actions/showfavorites.php:178
+#. TRANS: Feed link text. %s is a username.
+#: actions/showfavorites.php:180
 #, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
 msgstr ""
 
-#: actions/showfavorites.php:185
+#. TRANS: Feed link text. %s is a username.
+#: actions/showfavorites.php:188
 #, php-format
 msgid "Feed for favorites of %s (Atom)"
 msgstr ""
 
-#: actions/showfavorites.php:206
+#. TRANS: Text displayed instead of favourite notices for the current logged in user that has no favourites.
+#: actions/showfavorites.php:209
 msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
 "notices you like to bookmark them for later or shed a spotlight on them."
 msgstr ""
 
-#: actions/showfavorites.php:208
+#. TRANS: Text displayed instead of favourite notices for a user that has no favourites while logged in.
+#. TRANS: %s is a username.
+#: actions/showfavorites.php:213
 #, fuzzy, php-format
 msgid ""
 "%s hasn't added any favorite notices yet. Post something interesting they "
@@ -5293,7 +5357,10 @@ msgstr ""
 "%s لم يضف أى إشعارات إلى مفضلته إلى الآن. أرسل شيئًا شيقًا ليضيفه إلى "
 "مفضلته. :)"
 
-#: actions/showfavorites.php:212
+#. TRANS: Text displayed instead of favourite notices for a user that has no favourites while not logged in.
+#. TRANS: %s is a username, %%%%action.register%%%% is a link to the user registration page.
+#. TRANS: (link text)[link] is a Mark Down link.
+#: actions/showfavorites.php:220
 #, fuzzy, php-format
 msgid ""
 "%s hasn't added any favorite notices yet. Why not [register an account](%%%%"
@@ -5303,7 +5370,8 @@ msgstr ""
 "%s لم يضف أى إشعارات إلى مفضلته إلى الآن. لمّ لا [تسجل حسابًا](%%%%action."
 "register%%%%) وترسل شيئًا شيقًا ليضيفه إلى مفضلته. :)"
 
-#: actions/showfavorites.php:243
+#. TRANS: Page notice for show favourites page.
+#: actions/showfavorites.php:251
 msgid "This is a way to share what you like."
 msgstr "إنها إحدى وسائل مشاركه ما تحب."
 
@@ -5885,7 +5953,7 @@ msgstr ""
 #. TRANS: Message given saving SMS phone number confirmation code without having provided one.
 #: actions/smssettings.php:535
 #, fuzzy
-msgid "No code entered"
+msgid "No code entered."
 msgstr "لا محتوى!"
 
 #. TRANS: Menu item for site administration
@@ -6208,7 +6276,6 @@ msgstr ""
 
 #. TRANS: Link description in user account settings menu.
 #: actions/useradminpanel.php:215 lib/accountsettingsaction.php:106
-#: lib/personalgroupnav.php:112
 msgid "Profile"
 msgstr "الملف الشخصي"
 
@@ -6466,7 +6533,7 @@ msgid "Author(s)"
 msgstr "المؤلف/ين"
 
 #. TRANS: Activity title when marking a notice as favorite.
-#: classes/Fave.php:164 lib/favorform.php:143
+#: classes/Fave.php:164
 msgid "Favor"
 msgstr "فضّل"
 
@@ -6882,51 +6949,52 @@ msgstr ""
 msgid "Primary site navigation"
 msgstr "ضبط الموقع الأساسي"
 
-#. TRANS: Tooltip for main menu option "Personal"
+#. TRANS: Tooltip for main menu option "Personal".
 #: lib/action.php:537
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "الملف الشخصى ومسار الأصدقاء الزمني"
 
-#. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:540
+#. TRANS: Main menu option when logged in for access to personal profile and friends timeline.
+#. TRANS: Personal group navigation menu option when logged in for viewing timeline of self and friends.
+#: lib/action.php:540 lib/personalgroupnav.php:100
 #, fuzzy
 msgctxt "MENU"
 msgid "Personal"
 msgstr "شخصية"
 
-#. TRANS: Tooltip for main menu option "Account"
+#. TRANS: Tooltip for main menu option "Account".
 #: lib/action.php:542
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "غير كلمه سرّك"
 
-#. TRANS: Main menu option when logged in for access to user settings
+#. TRANS: Main menu option when logged in for access to user settings.
 #: lib/action.php:545
 msgid "Account"
 msgstr "الحساب"
 
-#. TRANS: Tooltip for main menu option "Services"
+#. TRANS: Tooltip for main menu option "Services".
 #: lib/action.php:547
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "كونيكشونات (Connections)"
 
-#. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
+#. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services.
 #: lib/action.php:550
 msgid "Connect"
 msgstr "اتصل"
 
-#. TRANS: Tooltip for menu option "Admin"
+#. TRANS: Tooltip for menu option "Admin".
 #: lib/action.php:553
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "ضبط الموقع الأساسي"
 
-#. TRANS: Main menu option when logged in and site admin for access to site configuration
+#. TRANS: Main menu option when logged in and site admin for access to site configuration.
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 #: lib/action.php:556 lib/groupnav.php:117
 #, fuzzy
@@ -6934,14 +7002,14 @@ msgctxt "MENU"
 msgid "Admin"
 msgstr "إداري"
 
-#. TRANS: Tooltip for main menu option "Invite"
+#. TRANS: Tooltip for main menu option "Invite".
 #: lib/action.php:560
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
-#. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
+#. TRANS: Main menu option when logged in and invitations are allowed for inviting new users.
 #: lib/action.php:563
 #, fuzzy
 msgctxt "MENU"
@@ -6954,19 +7022,19 @@ msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "سمه الموقع."
 
-#. TRANS: Main menu option when logged in to log out the current user
+#. TRANS: Main menu option when logged in to log out the current user.
 #: lib/action.php:572
 msgctxt "MENU"
 msgid "Logout"
 msgstr "الشعار"
 
-#. TRANS: Tooltip for main menu option "Register"
+#. TRANS: Tooltip for main menu option "Register".
 #: lib/action.php:577
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "أنشئ مجموعه جديدة"
 
-#. TRANS: Main menu option when not logged in to register a new account
+#. TRANS: Main menu option when not logged in to register a new account.
 #. TRANS: Menu item for registering with the StatusNet site.
 #: lib/action.php:580 lib/logingroupnav.php:85
 #, fuzzy
@@ -6974,14 +7042,14 @@ msgctxt "MENU"
 msgid "Register"
 msgstr "سجّل"
 
-#. TRANS: Tooltip for main menu option "Login"
+#. TRANS: Tooltip for main menu option "Login".
 #: lib/action.php:583
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "لُج إلى الموقع"
 
-#. TRANS: Main menu option when not logged in to log in
+#. TRANS: Main menu option when not logged in to log in.
 #. TRANS: Menu item for logging in to the StatusNet site.
 #: lib/action.php:586 lib/logingroupnav.php:77
 #, fuzzy
@@ -6989,27 +7057,27 @@ msgctxt "MENU"
 msgid "Login"
 msgstr "لُج"
 
-#. TRANS: Tooltip for main menu option "Help"
+#. TRANS: Tooltip for main menu option "Help".
 #: lib/action.php:589
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "مساعدة"
 
-#. TRANS: Main menu option for help on the StatusNet site
+#. TRANS: Main menu option for help on the StatusNet site.
 #: lib/action.php:592
 #, fuzzy
 msgctxt "MENU"
 msgid "Help"
 msgstr "مساعدة"
 
-#. TRANS: Tooltip for main menu option "Search"
+#. TRANS: Tooltip for main menu option "Search".
 #: lib/action.php:595
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "ابحث عن أشخاص أو نص"
 
-#. TRANS: Main menu option when logged in or when the StatusNet instance is not private
+#. TRANS: Main menu option when logged in or when the StatusNet instance is not private.
 #: lib/action.php:598
 #, fuzzy
 msgctxt "MENU"
@@ -7317,7 +7385,7 @@ msgid "User configuration"
 msgstr "ضبط المسارات"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:355 lib/personalgroupnav.php:118
+#: lib/adminpanelaction.php:355 lib/personalgroupnav.php:122
 msgid "User"
 msgstr "المستخدم"
 
@@ -8088,13 +8156,31 @@ msgstr "استعيدت مبدئيات التصميم."
 msgid "Unable to find services for %s."
 msgstr "استعمل الفورمه دى علشان تعدّل الapplication بتاعتك."
 
-#: lib/disfavorform.php:114 lib/disfavorform.php:144
+#. TRANS: Form legend for removing the favourite status for a favourite notice.
+#. TRANS: Title for button text for removing the favourite status for a favourite notice.
+#: lib/disfavorform.php:108 lib/disfavorform.php:140
 msgid "Disfavor this notice"
 msgstr "ألغِ تفضيل هذا الإشعار"
 
-#: lib/favorform.php:114 lib/favorform.php:143
+#. TRANS: Button text for removing the favourite status for a favourite notice.
+#: lib/disfavorform.php:136
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Disfavor favorite"
+msgstr "ألغِ تفضيل المفضلة"
+
+#. TRANS: Form legend for adding the favourite status to a notice.
+#. TRANS: Title for button text for adding the favourite status to a notice.
+#: lib/favorform.php:108 lib/favorform.php:139
 msgid "Favor this notice"
 msgstr "فضّل هذا الإشعار"
+
+#. TRANS: Button text for adding the favourite status to a notice.
+#: lib/favorform.php:135
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Favor"
+msgstr "فضّل"
 
 #: lib/feed.php:84
 msgid "RSS 1.0"
@@ -8886,34 +8972,52 @@ msgstr ""
 msgid "Couldn't insert new subscription."
 msgstr "تعذّر إدراج اشتراك جديد."
 
-#: lib/personalgroupnav.php:102
-msgid "Personal"
-msgstr "شخصية"
-
+#. TRANS: Personal group navigation menu option when logged in for viewing @-replies.
 #: lib/personalgroupnav.php:107
+#, fuzzy
+msgctxt "MENU"
 msgid "Replies"
 msgstr "الردود"
 
-#: lib/personalgroupnav.php:117
+#. TRANS: Personal group navigation menu option when logged in for seeing own profile.
+#: lib/personalgroupnav.php:114
+#, fuzzy
+msgctxt "MENU"
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+#. TRANS: Personal group navigation menu option when logged in for viewing own favourited notices.
+#: lib/personalgroupnav.php:120
+#, fuzzy
+msgctxt "MENU"
 msgid "Favorites"
 msgstr "المفضلات"
 
-#: lib/personalgroupnav.php:128
+#. TRANS: Personal group navigation menu option when logged in for viewing recieved personal messages.
+#: lib/personalgroupnav.php:133
+#, fuzzy
+msgctxt "MENU"
 msgid "Inbox"
 msgstr "صندوق الوارد"
 
-#: lib/personalgroupnav.php:129
+#. TRANS: Tooltip for personal group navigation menu option when logged in for viewing recieved personal messages.
+#: lib/personalgroupnav.php:135
 msgid "Your incoming messages"
 msgstr "رسائلك الواردة"
 
-#: lib/personalgroupnav.php:133
+#. TRANS: Personal group navigation menu option when logged in for viewing senet personal messages.
+#: lib/personalgroupnav.php:140
+#, fuzzy
+msgctxt "MENU"
 msgid "Outbox"
 msgstr "صندوق الصادر"
 
-#: lib/personalgroupnav.php:134
+#. TRANS: Tooltip for personal group navigation menu option when logged in for viewing senet personal messages.
+#: lib/personalgroupnav.php:142
 msgid "Your sent messages"
 msgstr "رسائلك المُرسلة"
 
+#. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #: lib/personaltagcloudsection.php:56
 #, fuzzy, php-format
 msgid "Tags in %s's notices"
@@ -8967,6 +9071,7 @@ msgstr ""
 msgid "All groups"
 msgstr "كل المجموعات"
 
+#. TRANS: Server error displayed when using an unimplemented method.
 #: lib/profileformaction.php:123
 msgid "Unimplemented method."
 msgstr ""
@@ -9402,3 +9507,6 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
+
+#~ msgid "Personal"
+#~ msgstr "شخصية"
