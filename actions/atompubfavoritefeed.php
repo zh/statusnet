@@ -144,7 +144,7 @@ class AtompubfavoritefeedAction extends ApiAuthAction
 
         // TRANS: Subtitle for Atom favorites feed.
         // TRANS: %1$s is a user nickname, %2$s is the StatusNet sitename.
-        $feed->setSubtitle(sprintf(_("Notices %1$s has favorited on %2$s"),
+        $feed->setSubtitle(sprintf(_('Notices %1$s has favorited on %2$s'),
                                    $this->_profile->getBestName(),
                                    common_config('site', 'name')));
 

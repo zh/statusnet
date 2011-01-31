@@ -150,7 +150,7 @@ class AtompubsubscriptionfeedAction extends ApiAuthAction
 
         // TRANS: Subtitle for Atom subscription feed.
         // TRANS: %1$s is a user nickname, %s$s is the StatusNet sitename.
-        $feed->setSubtitle(sprintf(_("People %1$s has subscribed to on %2$s"),
+        $feed->setSubtitle(sprintf(_("People %1\$s has subscribed to on %2\$s"),
                                    $this->_profile->getBestName(),
                                    common_config('site', 'name')));
 

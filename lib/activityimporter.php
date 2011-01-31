@@ -198,8 +198,8 @@ class ActivityImporter extends QueueHandler
                 } else {
                     // TRANS: Client exception thrown when trying to import a notice by another user.
                     // TRANS: %1$s is the source URI of the notice, %2$s is the URI of the author.
-                    throw new ClientException(sprintf(_("Already know about notice %1$s and ".
-                                                        " it has a different author %2$s."),
+                    throw new ClientException(sprintf(_('Already know about notice %1$s and '.
+                                                        ' it has a different author %2$s.'),
                                                       $sourceUri, $uri));
                 }
             } else {

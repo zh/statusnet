@@ -146,7 +146,7 @@ class AtompubmembershipfeedAction extends ApiAuthAction
 
         // TRANS: Subtitle for group membership feed.
         // TRANS: %1$s is a username, %2$s is the StatusNet sitename.
-        $feed->setSubtitle(sprintf(_("Groups %1$s is a member of on %2$s"),
+        $feed->setSubtitle(sprintf(_('Groups %1$s is a member of on %2$s'),
                                    $this->_profile->getBestName(),
                                    common_config('site', 'name')));
 
