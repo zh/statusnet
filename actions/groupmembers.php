@@ -183,12 +183,10 @@ class GroupMemberListItem extends ProfileListItem
 
     function showFullName()
     {
-        // @todo FIXME: i18n issue. Message should be "%s (Admin)" instead of patchwork.
         parent::showFullName();
         if ($this->profile->isAdmin($this->group)) {
-            $this->out->text(' ');
-            // TRANS: Suffix for group members that are group administrators. Separated from user name with a space.
-            // TRANS: This is a to be addressed i18n issue.
+            $this->out->text(' '); // for separating the classes.
+            // TRANS: Indicator in group members list that this user is a group administrator.
             $this->out->element('span', 'role', _('Admin'));
         }
     }
