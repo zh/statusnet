@@ -50,6 +50,7 @@ function getFacebook()
 
 function isFacebookBound($notice, $flink) {
     if (empty($flink)) {
+	common_debug("QQQQQ empty flink");
         return false;
     }
 
@@ -155,11 +156,6 @@ function facebookBroadcastNotice($notice)
                   "because user $user->nickname has not given the " .
                   'Facebook app \'status_update\' or \'publish_stream\' permission.';
                 common_log(LOG_WARNING, $msg);
-            }
-
-            // Finally, attempt to update the user's profile box
-            if ($canPublish == 1 || $canUpdate == 1) {
-                updateProfileBox($facebook, $flink, $notice, $user);
             }
 
         } catch (FacebookRestClientException $e) {
@@ -291,33 +287,6 @@ function publishStream($notice, $user, $fbuid)
         . "item with attachment for $user->nickname ($user->id), "
         . "Facebook UID: $fbuid"
     );
-}
-
-function updateProfileBox($facebook, $flink, $notice, $user) {
-
-    $facebook = getFacebook();
-    $fbaction = new FacebookAction(
-        $output = 'php://output',
-        $indent = null,
-        $facebook,
-        $flink
-    );
-
-    $fbuid = $flink->foreign_id;
-
-    common_debug(
-          'FacebookPlugin - Attempting to update profile box with '
-          . "content from notice $notice->id for $user->nickname ($user->id), "
-          . "Facebook UID: $fbuid"
-    );
-
-    $fbaction->updateProfileBox($notice);
-
-    common_debug(
-        'FacebookPlugin - finished updating profile box for '
-        . "$user->nickname ($user->id) Facebook UID: $fbuid"
-    );
-
 }
 
 function format_attachments($attachments)
