@@ -37,6 +37,8 @@
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
 
+$_startTime = microtime(true);
+
 define('INSTALLDIR', dirname(__FILE__));
 define('STATUSNET', true);
 define('LACONICA', true); // compatibility
