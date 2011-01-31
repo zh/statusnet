@@ -87,6 +87,7 @@ class Session extends Memcached_DataObject
             $session->id           = $id;
             $session->session_data = $session_data;
             $session->created      = common_sql_now();
+            $session->modified     = common_sql_now();
 
             $result = $session->insert();
 
@@ -108,6 +109,7 @@ class Session extends Memcached_DataObject
                 $orig = clone($session);
 
                 $session->session_data = $session_data;
+                $session->modified     = common_sql_now();
 
                 $result = $session->update($orig);
 
@@ -155,6 +157,13 @@ class Session extends Memcached_DataObject
         $session->whereAdd('modified < "'.$epoch.'"');
         $session->selectAdd();
         $session->selectAdd('id');
+
+        $limit = common_config('sessions', 'gc_limit');
+        if ($limit > 0) {
+            // On large sites, too many sessions to expire
+            // at once will just result in failure.
+            $session->limit($limit);
+        }
 
         $session->find();
 
