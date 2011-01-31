@@ -111,6 +111,19 @@ class Action extends HTMLOutputter // lawsuit
         }
     }
 
+    function endHTML()
+    {
+        global $_startTime;
+
+        if (isset($_startTime)) {
+            $endTime = microtime(true);
+            $diff = round(($endTime - $_startTime) * 1000);
+            $this->raw("<!-- ${diff}ms -->");
+        }
+
+        return parent::endHTML();
+    }
+
     /**
      * Show head, a template method.
      *
