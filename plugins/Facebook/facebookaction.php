@@ -81,9 +81,20 @@ class FacebookAction extends Action
 
     function showStylesheets()
     {
+        // Loading CSS via files in Facebook FBML Canvas apps is still busted as of 1/31/11
+        // See: http://bugs.developers.facebook.net/show_bug.cgi?id=10052
         $this->cssLink('css/display.css', 'base');
         $this->cssLink('css/display.css', null, 'screen, projection, tv');
         $this->cssLink('plugins/Facebook/facebookapp.css');
+
+	// Also, Facebook refuses to let me do this... gar!
+/*
+	$baseCss = file_get_contents(INSTALLDIR . '/theme/base/css/display.css');
+	$this->style($baseCss);
+
+        $facebookCss = file_get_contents(INSTALLDIR . '/plugins/Facebook/facebookapp.css');
+        $this->style($facebookCss);
+*/
     }
 
     function showScripts()
@@ -290,31 +301,6 @@ class FacebookAction extends Action
 
         $this->elementEnd('div');
         $this->elementEnd('div');
-    }
-
-    function updateProfileBox($notice)
-    {
-
-        // Need to include inline CSS for styling the Profile box
-
-        $app_props = $this->facebook->api_client->Admin_getAppProperties(array('icon_url'));
-        $icon_url = $app_props['icon_url'];
-
-        $style = '<style> .entry-title *, .entry-content * { font-size:14px; font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif; } .entry-title a, .entry-content a { color:#002E6E; } .entry-title .vcard .photo { float:left; display:inline; margin-right:11px; margin-bottom:11px } .entry-title { margin-bottom:11px; } .entry-title p.entry-content { display:inline; margin-left:5px; } div.entry-content { clear:both; } div.entry-content dl, div.entry-content dt, div.entry-content dd { display:inline; text-transform:lowercase; } div.entry-content dd, div.entry-content .device dt { margin-left:0; margin-right:5px; } div.entry-content dl.timestamp dt, div.entry-content dl.response dt { display:none; } div.entry-content dd a { display:inline-block; } #facebook_statusnet_app { text-indent:-9999px; height:16px; width:16px; display:block; background:url('.$icon_url.') no-repeat 0 0; float:right; } </style>';
-
-        $this->xw->openMemory();
-
-        $item = new FacebookProfileBoxNotice($notice, $this);
-        $item->show();
-
-        $fbml = "<fb:wide>$style " . $this->xw->outputMemory(false) . "</fb:wide>";
-        $fbml .= "<fb:narrow>$style " . $this->xw->outputMemory(false) . "</fb:narrow>";
-
-        $fbml_main = "<fb:narrow>$style " . $this->xw->outputMemory(false) . "</fb:narrow>";
-
-        $this->facebook->api_client->profile_setFBML(null, $this->fbuid, $fbml, null, null, $fbml_main);
-
-        $this->xw->openURI('php://output');
     }
 
     /**
