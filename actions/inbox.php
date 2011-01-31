@@ -43,7 +43,6 @@ require_once INSTALLDIR.'/lib/mailbox.php';
  * @link     http://status.net/
  * @see      MailboxAction
  */
-
 class InboxAction extends MailboxAction
 {
 
@@ -52,13 +51,16 @@ class InboxAction extends MailboxAction
      *
      * @return string page title
      */
-
     function title()
     {
         if ($this->page > 1) {
+            // TRANS: Title for all but the first page of the inbox page.
+            // TRANS: %1$s is the user's nickname, %2$s is the page number.
             return sprintf(_('Inbox for %1$s - page %2$d'), $this->user->nickname,
                 $this->page);
         } else {
+            // TRANS: Title for the first page of the inbox page.
+            // TRANS: %s is the user's nickname.
             return sprintf(_('Inbox for %s'), $this->user->nickname);
         }
     }
@@ -72,7 +74,6 @@ class InboxAction extends MailboxAction
      *
      * @see MailboxAction::getMessages()
      */
-
     function getMessages()
     {
         $message = new Message();
@@ -98,7 +99,6 @@ class InboxAction extends MailboxAction
      *
      * @return Profile The profile that matches the message
      */
-
     function getMessageProfile($message)
     {
         return $message->getFrom();
@@ -109,9 +109,9 @@ class InboxAction extends MailboxAction
      *
      * @return string localised instructions for using the page
      */
-
     function getInstructions()
     {
+        // TRANS: Instructions for user inbox page.
         return _('This is your inbox, which lists your incoming private messages.');
     }
 }
