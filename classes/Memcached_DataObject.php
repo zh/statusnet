@@ -480,6 +480,10 @@ class Memcached_DataObject extends Safe_DataObject
                     }
                 }
             }
+            // Needed to make timestamp values usefully comparable.
+            if (common_config('db', 'type') == 'mysql') {
+                parent::_query("set time_zone='+0:00'");
+            }
         }
 
         return $result;
