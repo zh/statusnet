@@ -44,33 +44,15 @@ class FacebookhomeAction extends FacebookAction
     {
         parent::handle($args);
 
-        // If the user has opted not to initially allow the app to have
-        // Facebook status update permission, store that preference. Only
-        // promt the user the first time she uses the app
-        if ($this->arg('skip') || $args['fb_sig_request_method'] == 'GET') {
-            $this->facebook->api_client->data_setUserPreference(
-                FACEBOOK_PROMPTED_UPDATE_PREF, 'true');
-        }
-
-        if ($this->flink) {
+        if (!empty($this->flink)) {
             $this->user = $this->flink->getUser();
 
             // If this is the first time the user has started the app
             // prompt for Facebook status update permission
             if (!$this->facebook->api_client->users_hasAppPermission('publish_stream')) {
-
-                 if ($this->facebook->api_client->data_getUserPreference(
-                    FACEBOOK_PROMPTED_UPDATE_PREF) != 'true') {
-                        $this->getUpdatePermission();
-                        return;
-                 }
-             }
-
-             // Make sure the user's profile box has the lastest notice
-             $notice = $this->user->getCurrentNotice();
-             if ($notice) {
-                 $this->updateProfileBox($notice);
-             }
+                $this->getUpdatePermission();
+		return;
+            }
 
              if ($this->arg('status_submit') == 'Send') {
                 $this->saveNewNotice();
@@ -114,8 +96,6 @@ class FacebookhomeAction extends FacebookAction
 
                 // XXX: Do some error handling here
 
-                $this->setDefaults();
-
                 $this->getUpdatePermission();
                 return;
             } else {
@@ -125,12 +105,6 @@ class FacebookhomeAction extends FacebookAction
 
         $this->showLoginForm($msg);
         $this->showFooter();
-    }
-
-    function setDefaults()
-    {
-        $this->facebook->api_client->data_setUserPreference(
-            FACEBOOK_PROMPTED_UPDATE_PREF, 'false');
     }
 
     function showNoticeForm()
