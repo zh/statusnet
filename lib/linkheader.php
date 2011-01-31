@@ -47,7 +47,6 @@ if (!defined('STATUSNET')) {
  *
  * @see       Discovery
  */
-
 class LinkHeader
 {
     var $href;
@@ -61,7 +60,6 @@ class LinkHeader
      *
      * @return LinkHeader self
      */
-
     function __construct($str)
     {
         preg_match('/^<[^>]+>/', $str, $uri_reference);
@@ -78,7 +76,7 @@ class LinkHeader
         $params = explode(';', $str);
 
         foreach ($params as $param) {
-            if (empty($param)) { 
+            if (empty($param)) {
                 continue;
             }
             list($param_name, $param_value) = explode('=', $param, 2);
@@ -108,7 +106,6 @@ class LinkHeader
      *
      * @return LinkHeader discovered header, or null on failure
      */
-
     static function getLink($response, $rel=null, $type=null)
     {
         $headers = $response->getHeader('Link');

@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Change user password
+ * Saves a design for a given group.
  *
  * PHP version 5
  *
@@ -46,7 +46,6 @@ require_once INSTALLDIR . '/lib/designsettings.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class GroupDesignSettingsAction extends DesignSettingsAction
 {
     var $group = null;
@@ -59,12 +58,12 @@ class GroupDesignSettingsAction extends DesignSettingsAction
      *
      * @return boolean true
      */
-
     function prepare($args)
     {
         parent::prepare($args);
 
         if (!common_logged_in()) {
+            // TRANS: Client error displayed trying to change group design settings while not logged in.
             $this->clientError(_('You must be logged in to edit a group.'));
             return false;
         }
@@ -81,6 +80,7 @@ class GroupDesignSettingsAction extends DesignSettingsAction
         }
 
         if (!$nickname) {
+            // TRANS: Client error displayed trying to change group design settings without providing a group nickname.
             $this->clientError(_('No nickname.'), 404);
             return false;
         }
@@ -97,6 +97,7 @@ class GroupDesignSettingsAction extends DesignSettingsAction
         }
 
         if (!$this->group) {
+            // TRANS: Client error displayed trying to change group design settings while providing a nickname for a non-existing group.
             $this->clientError(_('No such group.'), 404);
             return false;
         }
@@ -104,6 +105,7 @@ class GroupDesignSettingsAction extends DesignSettingsAction
         $cur = common_current_user();
 
         if (!$cur->isAdmin($this->group)) {
+            // TRANS: Client error displayed trying to change group design settings without being a (group) admin.
             $this->clientError(_('You must be an admin to edit the group.'), 403);
             return false;
         }
@@ -122,7 +124,6 @@ class GroupDesignSettingsAction extends DesignSettingsAction
      *
      * @return Design a design object to use
      */
-
     function getDesign()
     {
 
@@ -141,6 +142,7 @@ class GroupDesignSettingsAction extends DesignSettingsAction
 
     function title()
     {
+        // TRANS: Title group design settings page.
         return _('Group design');
     }
 
@@ -149,9 +151,9 @@ class GroupDesignSettingsAction extends DesignSettingsAction
      *
      * @return instructions for use
      */
-
     function getInstructions()
     {
+        // TRANS: Instructions for group design settings page.
         return _('Customize the way your group looks ' .
         'with a background image and a colour palette of your choice.');
     }
@@ -161,7 +163,6 @@ class GroupDesignSettingsAction extends DesignSettingsAction
      *
      * @return nothing
      */
-
     function showLocalNav()
     {
         $nav = new GroupNav($this, $this->group);
@@ -173,7 +174,6 @@ class GroupDesignSettingsAction extends DesignSettingsAction
      *
      * @return Design
      */
-
     function getWorkingDesign()
     {
         $design = null;
@@ -192,7 +192,6 @@ class GroupDesignSettingsAction extends DesignSettingsAction
      *
      * @return void
      */
-
     function showContent()
     {
         $design = $this->getWorkingDesign();
@@ -209,17 +208,14 @@ class GroupDesignSettingsAction extends DesignSettingsAction
      *
      * @return void
      */
-
     function saveDesign()
     {
         try {
-
             $bgcolor = new WebColor($this->trimmed('design_background'));
             $ccolor  = new WebColor($this->trimmed('design_content'));
             $sbcolor = new WebColor($this->trimmed('design_sidebar'));
             $tcolor  = new WebColor($this->trimmed('design_text'));
             $lcolor  = new WebColor($this->trimmed('design_links'));
-
         } catch (WebColorException $e) {
             $this->showForm($e->getMessage());
             return;
@@ -246,7 +242,6 @@ class GroupDesignSettingsAction extends DesignSettingsAction
         $design = $this->group->getDesign();
 
         if (!empty($design)) {
-
             // update design
 
             $original = clone($design);
@@ -263,12 +258,11 @@ class GroupDesignSettingsAction extends DesignSettingsAction
 
             if ($result === false) {
                 common_log_db_error($design, 'UPDATE', __FILE__);
-                $this->showForm(_('Could not update your design.'));
+                // TRANS: Form validation error displayed when group design settings could not be updated because of an application issue.
+                $this->showForm(_('Unable to update your design settings.'));
                 return;
             }
-
         } else {
-
             $this->group->query('BEGIN');
 
             // save new design
@@ -287,6 +281,7 @@ class GroupDesignSettingsAction extends DesignSettingsAction
 
             if (empty($id)) {
                 common_log_db_error($id, 'INSERT', __FILE__);
+                // TRANS: Form validation error displayed when group design settings could not be saved because of an application issue.
                 $this->showForm(_('Unable to save your design settings.'));
                 return;
             }
@@ -297,18 +292,18 @@ class GroupDesignSettingsAction extends DesignSettingsAction
 
             if (empty($result)) {
                 common_log_db_error($original, 'UPDATE', __FILE__);
+                // TRANS: Form validation error displayed when group design settings could not be saved because of an application issue.
                 $this->showForm(_('Unable to save your design settings.'));
                 $this->group->query('ROLLBACK');
                 return;
             }
 
             $this->group->query('COMMIT');
-
         }
 
         $this->saveBackgroundImage($design);
 
+        // TRANS: Form text to confirm saved group design settings.
         $this->showForm(_('Design preferences saved.'), true);
     }
-
 }

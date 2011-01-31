@@ -370,11 +370,11 @@ class Activity
             $xs->element('title', null, $this->title);
 
             $xs->element('content', array('type' => 'html'), $this->content);
-            
+
             if (!empty($this->summary)) {
                 $xs->element('summary', null, $this->summary);
             }
-            
+
             if (!empty($this->link)) {
                 $xs->element('link', array('rel' => 'alternate',
                                            'type' => 'text/html'),
@@ -386,10 +386,10 @@ class Activity
         $xs->element('activity:verb', null, $this->verb);
 
         $published = self::iso8601Date($this->time);
-            
+
         $xs->element('published', null, $published);
         $xs->element('updated', null, $published);
-            
+
         if ($author) {
             $this->actor->outputTo($xs, 'author');
         }
@@ -458,7 +458,7 @@ class Activity
         }
 
         // can be either URLs or enclosure objects
-        
+
         foreach ($this->enclosures as $enclosure) {
             if (is_string($enclosure)) {
                 $xs->element('link', array('rel' => 'enclosure',
@@ -479,7 +479,7 @@ class Activity
 
         if ($source && !empty($this->source)) {
             $xs->elementStart('source');
-	    
+
             $xs->element('id', null, $this->source->id);
             $xs->element('title', null, $this->source->title);
 
@@ -488,7 +488,7 @@ class Activity
                                            'type' => 'text/html',
                                            'href' => $this->source->links['alternate']));
             }
-	    
+
             if (array_key_exists('self', $this->source->links)) {
                 $xs->element('link', array('rel' => 'self',
                                            'type' => 'application/atom+xml',
@@ -507,7 +507,7 @@ class Activity
             if (!empty($this->source->updated)) {
                 $xs->element('updated', null, $this->source->updated);
             }
-	    
+
             $xs->elementEnd('source');
         }
 
@@ -524,7 +524,7 @@ class Activity
         }
 
         // For throwing in extra elements; used for statusnet:notice_info
-	
+
         foreach ($this->extra as $el) {
             list($tag, $attrs, $content) = $el;
             $xs->element($tag, $attrs, $content);

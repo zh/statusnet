@@ -167,15 +167,14 @@ class SubscriptionsAction extends GalleryAction
      *
      * @return array of Feed objects
      */
-
     function getFeeds()
     {
         return array(new Feed(Feed::ATOM,
                               common_local_url('AtomPubSubscriptionFeed',
                                                array('subscriber' => $this->profile->id)),
+                              // TRANS: Atom feed title. %s is a profile nickname.
                               sprintf(_('Subscription feed for %s (Atom)'),
                                       $this->profile->nickname)));
-
     }
 }
 
@@ -261,5 +260,4 @@ class SubscriptionsListItem extends SubscriptionListItem
         $this->out->elementEnd('form');
         return;
     }
-
 }

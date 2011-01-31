@@ -4,7 +4,7 @@
  * Copyright (C) 2010, StatusNet, Inc.
  *
  * Title of module
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,14 +44,13 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class ActivityMover extends QueueHandler
 {
     function transport()
     {
         return 'actmove';
     }
-    
+
     function handle($data)
     {
         list ($act, $sink, $userURI, $remoteURI) = $data;
@@ -82,7 +81,7 @@ class ActivityMover extends QueueHandler
     function moveActivity($act, $sink, $user, $remote)
     {
         if (empty($user)) {
-            throw new Exception("No such user {$act->actor->id}");
+            throw new Exception(sprintf(_("No such user %s."),$act->actor->id));
         }
 
         switch ($act->verb) {
@@ -152,7 +151,7 @@ class ActivityMover extends QueueHandler
 
     /**
      * Log some data
-     * 
+     *
      * Add a header for our class so we know who did it.
      *
      * @param int    $level   Log level, like LOG_ERR or LOG_INFO
@@ -160,7 +159,6 @@ class ActivityMover extends QueueHandler
      *
      * @return void
      */
-
     protected function log($level, $message)
     {
         common_log($level, "ActivityMover: " . $message);

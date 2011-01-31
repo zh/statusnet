@@ -532,7 +532,7 @@ class SmssettingsAction extends ConnectSettingsAction
 
         if (!$code) {
             // TRANS: Message given saving SMS phone number confirmation code without having provided one.
-            $this->showForm(_('No code entered'));
+            $this->showForm(_('No code entered.'));
             return;
         }
 
@@ -551,6 +551,7 @@ class SmssettingsAction extends ConnectSettingsAction
         $user = common_current_user();
 
         if (!$user->incomingemail) {
+            // TRANS: Form validation error displayed when trying to remove an incoming e-mail address while no address has been set.
             $this->showForm(_('No incoming email address.'));
             return;
         }

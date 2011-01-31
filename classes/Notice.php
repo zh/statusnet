@@ -241,7 +241,7 @@ class Notice extends Memcached_DataObject
      *              array 'urls' list of attached/referred URLs to save with the
      *                           notice in place of extracting links from content
      *              boolean 'distribute' whether to distribute the notice, default true
-     *                    
+     *
      * @fixme tag override
      *
      * @return Notice
@@ -1240,7 +1240,7 @@ class Notice extends Memcached_DataObject
      * Convert a notice into an activity for export.
      *
      * @param User $cur Current user
-     * 
+     *
      * @return Activity activity object representing this Notice.
      */
 
@@ -1253,11 +1253,11 @@ class Notice extends Memcached_DataObject
         }
 
         $act = new Activity();
-	
+
         if (Event::handle('StartNoticeAsActivity', array($this, &$act))) {
 
             $profile = $this->getProfile();
-	    
+
             $act->actor     = ActivityObject::fromProfile($profile);
             $act->verb      = ActivityVerb::POST;
             $act->objects[] = ActivityObject::fromNotice($this);
@@ -1266,7 +1266,7 @@ class Notice extends Memcached_DataObject
 
             $act->time    = strtotime($this->created);
             $act->link    = $this->bestUrl();
-	    
+
             $act->content = common_xml_safe_str($this->rendered);
             $act->id      = $this->uri;
             $act->title   = common_xml_safe_str($this->content);
@@ -1293,9 +1293,9 @@ class Notice extends Memcached_DataObject
                     $act->enclosures[] = $enclosure;
                 }
             }
-            
+
             $ctx = new ActivityContext();
-	    
+
             if (!empty($this->reply_to)) {
                 $reply = Notice::staticGet('id', $this->reply_to);
                 if (!empty($reply)) {
@@ -1303,29 +1303,29 @@ class Notice extends Memcached_DataObject
                     $ctx->replyToUrl = $reply->bestUrl();
                 }
             }
-	    
+
             $ctx->location = $this->getLocation();
-	    
+
             $conv = null;
-	    
+
             if (!empty($this->conversation)) {
                 $conv = Conversation::staticGet('id', $this->conversation);
                 if (!empty($conv)) {
                     $ctx->conversation = $conv->uri;
                 }
             }
-	    
+
             $reply_ids = $this->getReplies();
-	    
+
             foreach ($reply_ids as $id) {
                 $profile = Profile::staticGet('id', $id);
                 if (!empty($profile)) {
                     $ctx->attention[] = $profile->getUri();
                 }
             }
-	    
+
             $groups = $this->getGroups();
-	    
+
             foreach ($groups as $group) {
                 $ctx->attention[] = $group->uri;
             }
@@ -1339,7 +1339,7 @@ class Notice extends Memcached_DataObject
                 $ctx->forwardID  = $repeat->uri;
                 $ctx->forwardUrl = $repeat->bestUrl();
             }
-	    
+
             $act->context = $ctx;
 
             // Source
@@ -1349,7 +1349,7 @@ class Notice extends Memcached_DataObject
             if (!empty($atom_feed)) {
 
                 $act->source = new ActivitySource();
-		    
+
                 // XXX: we should store the actual feed ID
 
                 $act->source->id = $atom_feed;
@@ -1362,7 +1362,7 @@ class Notice extends Memcached_DataObject
                 $act->source->links['self']      = $atom_feed;
 
                 $act->source->icon = $profile->avatarUrl(AVATAR_PROFILE_SIZE);
-		    
+
                 $notice = $profile->getCurrentNotice();
 
                 if (!empty($notice)) {
@@ -1384,7 +1384,7 @@ class Notice extends Memcached_DataObject
 
             Event::handle('EndNoticeAsActivity', array($this, &$act));
         }
-	
+
         self::cacheSet(Cache::codeKey('notice:as-activity:'.$this->id), $act);
 
         return $act;
@@ -1395,7 +1395,7 @@ class Notice extends Memcached_DataObject
 
     function asAtomEntry($namespace=false,
                          $source=false,
-                         $author=true, 
+                         $author=true,
                          $cur=null)
     {
         $act = $this->asActivity();
@@ -1405,7 +1405,7 @@ class Notice extends Memcached_DataObject
 
     /**
      * Extra notice info for atom entries
-     * 
+     *
      * Clients use some extra notice info in the atom stream.
      * This gives it to them.
      *

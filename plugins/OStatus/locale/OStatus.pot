@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-14 10:29+0000\n"
+"POT-Creation-Date: 2011-01-29 21:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,119 +139,119 @@ msgid "Invalid actor passed to %1$s: %2$s."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:378
+#: classes/Ostatus_profile.php:379
 msgid ""
 "Invalid type passed to Ostatus_profile::notify. It must be XML string or "
 "Activity entry."
 msgstr ""
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:409
+#: classes/Ostatus_profile.php:410
 msgid "Unknown feed format."
 msgstr ""
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:433
+#: classes/Ostatus_profile.php:434
 msgid "RSS feed without a channel."
 msgstr ""
 
 #. TRANS: Client exception.
-#: classes/Ostatus_profile.php:479
+#: classes/Ostatus_profile.php:480
 msgid "Can't handle that kind of post."
 msgstr ""
 
 #. TRANS: Client exception. %s is a source URI.
-#: classes/Ostatus_profile.php:537
+#: classes/Ostatus_profile.php:538
 #, php-format
 msgid "No content for notice %s."
 msgstr ""
 
 #. TRANS: Shown when a notice is longer than supported and/or when attachments are present. At runtime
 #. TRANS: this will usually be replaced with localised text from StatusNet core messages.
-#: classes/Ostatus_profile.php:572
+#: classes/Ostatus_profile.php:573
 msgid "Show more"
 msgstr ""
 
 #. TRANS: Exception. %s is a profile URL.
-#: classes/Ostatus_profile.php:765
+#: classes/Ostatus_profile.php:766
 #, php-format
 msgid "Could not reach profile page %s."
 msgstr ""
 
 #. TRANS: Exception. %s is a URL.
-#: classes/Ostatus_profile.php:823
+#: classes/Ostatus_profile.php:824
 #, php-format
 msgid "Could not find a feed URL for profile page %s."
 msgstr ""
 
 #. TRANS: Feed sub exception.
-#: classes/Ostatus_profile.php:922
+#: classes/Ostatus_profile.php:923
 msgid "Can't find enough profile information to make a feed."
 msgstr ""
 
 #. TRANS: Server exception. %s is a URL.
-#: classes/Ostatus_profile.php:986
+#: classes/Ostatus_profile.php:987
 #, php-format
 msgid "Invalid avatar URL %s."
 msgstr ""
 
 #. TRANS: Server exception. %s is a URI.
-#: classes/Ostatus_profile.php:997
+#: classes/Ostatus_profile.php:998
 #, php-format
 msgid "Tried to update avatar for unsaved remote profile %s."
 msgstr ""
 
 #. TRANS: Server exception. %s is a URL.
-#: classes/Ostatus_profile.php:1007
+#: classes/Ostatus_profile.php:1008
 #, php-format
 msgid "Unable to fetch avatar from %s."
 msgstr ""
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1233
+#: classes/Ostatus_profile.php:1234
 msgid "Local user can't be referenced as remote."
 msgstr ""
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1238
+#: classes/Ostatus_profile.php:1239
 msgid "Local group can't be referenced as remote."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1290 classes/Ostatus_profile.php:1301
+#: classes/Ostatus_profile.php:1291 classes/Ostatus_profile.php:1302
 msgid "Can't save local profile."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1309
+#: classes/Ostatus_profile.php:1310
 msgid "Can't save OStatus profile."
 msgstr ""
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1573 classes/Ostatus_profile.php:1601
+#: classes/Ostatus_profile.php:1574 classes/Ostatus_profile.php:1602
 msgid "Not a valid webfinger address."
 msgstr ""
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1683
+#: classes/Ostatus_profile.php:1684
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr ""
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1702
+#: classes/Ostatus_profile.php:1703
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr ""
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1710
+#: classes/Ostatus_profile.php:1711
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1753
+#: classes/Ostatus_profile.php:1754
 msgid "Could not store HTML content of long post as file."
 msgstr ""
 
@@ -338,18 +338,12 @@ msgid "Received a salmon slap from unidentified actor."
 msgstr ""
 
 #. TRANS: Exception.
-#: lib/discovery.php:110
-#, php-format
-msgid "Unable to find services for %s."
-msgstr ""
-
-#. TRANS: Exception.
 #: lib/magicenvelope.php:80
 msgid "Unable to locate signer public key."
 msgstr ""
 
 #. TRANS: Exception.
-#: lib/salmon.php:93
+#: lib/salmon.php:126
 msgid "Salmon invalid actor for signing."
 msgstr ""
 

@@ -60,7 +60,6 @@ class GrouplogoAction extends GroupDesignAction
     /**
      * Prepare to run
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -83,7 +82,7 @@ class GrouplogoAction extends GroupDesignAction
         }
 
         if (!$nickname) {
-            // TRANS: Client error displayed when trying to change group logo settings without having a nickname.
+            // TRANS: Client error displayed when trying to change group logo settings without providing a nickname.
             $this->clientError(_('No nickname.'), 404);
             return false;
         }
@@ -247,7 +246,6 @@ class GrouplogoAction extends GroupDesignAction
 
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
-
     }
 
     function showCropForm()
@@ -304,7 +302,6 @@ class GrouplogoAction extends GroupDesignAction
         $this->elementEnd('ul');
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
-
     }
 
     /**
@@ -438,7 +435,6 @@ class GrouplogoAction extends GroupDesignAction
      *
      * @return void
      */
-
     function showStylesheets()
     {
         parent::showStylesheets();
@@ -450,7 +446,6 @@ class GrouplogoAction extends GroupDesignAction
      *
      * @return void
      */
-
     function showScripts()
     {
         parent::showScripts();

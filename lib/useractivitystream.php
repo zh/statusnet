@@ -25,7 +25,6 @@
  * We extend atomusernoticefeed since it does some nice setup for us.
  *
  */
-
 class UserActivityStream extends AtomUserNoticeFeed
 {
     public $activities = array();
@@ -50,7 +49,7 @@ class UserActivityStream extends AtomUserNoticeFeed
             $this->activities[] = $obj->asActivity();
         }
     }
-    
+
     function renderEntries()
     {
         foreach ($this->activities as $act) {
