@@ -1236,9 +1236,12 @@ class ApiAction extends Action
         return;
     }
 
-    function clientError($msg, $code = 400, $format = 'xml')
+    function clientError($msg, $code = 400, $format = null)
     {
         $action = $this->trimmed('action');
+        if ($format === null) {
+            $format = $this->format;
+        }
 
         common_debug("User error '$code' on '$action': $msg", __FILE__);
 
@@ -1278,9 +1281,12 @@ class ApiAction extends Action
         }
     }
 
-    function serverError($msg, $code = 500, $content_type = 'xml')
+    function serverError($msg, $code = 500, $content_type = null)
     {
         $action = $this->trimmed('action');
+        if ($content_type === null) {
+            $content_type = $this->format;
+        }
 
         common_debug("Server error '$code' on '$action': $msg", __FILE__);
 
