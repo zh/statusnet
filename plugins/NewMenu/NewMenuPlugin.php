@@ -326,7 +326,7 @@ class NewMenuPlugin extends Plugin
 
     function onEndShowStyles($action)
     {
-        if (($this->showCSS ||
+        if (($this->loadCSS ||
              in_array(common_config('site', 'theme'),
                       array('default', 'identica', 'h4ck3r'))) &&
             ($action instanceof AccountSettingsAction ||
