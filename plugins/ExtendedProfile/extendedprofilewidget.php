@@ -63,10 +63,40 @@ class ExtendedProfileWidget extends Widget
         $this->out->element('th', null, $field['label']);
 
         $this->out->elementStart('td');
-        // @fixme field value
-        $this->out->text($name);
+        if ($this->editable) {
+            $this->showEditableField($name, $field);
+        } else {
+            $this->showFieldValue($name, $field);
+        }
         $this->out->elementEnd('td');
 
         $this->out->elementEnd('tr');
+    }
+
+    protected function showFieldValue($name, $field)
+    {
+        $this->out->text($name);
+    }
+
+    protected function showEditableField($name, $field)
+    {
+        $out = $this->out;
+        //$out = new HTMLOutputter();
+        // @fixme
+        $type = strval(@$field['type']);
+        $id = "extprofile-" . $name;
+        $value = 'placeholder';
+
+        switch ($type) {
+            case '':
+            case 'text':
+                $out->input($id, null, $value);
+                break;
+            case 'textarea':
+                $out->textarea($id, null, $value);
+                break;
+            default:
+                $out->input($id, null, "TYPE: $type");
+        }
     }
 }

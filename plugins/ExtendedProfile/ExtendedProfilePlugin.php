@@ -95,4 +95,14 @@ class ExtendedProfilePlugin extends Plugin
         $widget->showMenuItem('profiledetailsettings',_m('Details'),$title);
         return true;
     }
+
+    function onEndProfilePageProfileElements(HTMLOutputter $out, Profile $profile) {
+        $user = User::staticGet('id', $profile->id);
+        if ($user) {
+            $url = common_local_url('profiledetail', array('nickname' => $user->nickname));
+            $out->element('a', array('href' => $url), _m('More details...'));
+        }
+        return;
+    }
+
 }

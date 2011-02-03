@@ -65,7 +65,7 @@ class ProfileDetailAction extends ProfileAction
             $this->elementEnd('div');
         }
 
-        $widget = new ExtendedProfileWidget($this, $this->profile, ExtendedProfileWidget::EDITABLE);
+        $widget = new ExtendedProfileWidget($this, $this->profile);
         $widget->show();
     }
 }
