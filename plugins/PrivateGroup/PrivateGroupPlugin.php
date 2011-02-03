@@ -147,7 +147,8 @@ class PrivateGroupPlugin extends Plugin
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'Group_privacy_settings':
-        case 'Group_private_inbox':
+        case 'Group_message':
+        case 'Group_message_profile':
             include_once $dir . '/'.$cls.'.php';
             return false;
         default:
