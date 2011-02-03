@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-30 22:50+0000\n"
-"PO-Revision-Date: 2011-01-30 22:54:06+0000\n"
+"POT-Creation-Date: 2011-02-02 23:30+0000\n"
+"PO-Revision-Date: 2011-02-02 23:37:58+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-01-29 22:28:11+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r81224); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-30 23:08:42+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r81409); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -704,41 +704,52 @@ msgid "Subscribe"
 msgstr "Претплати се"
 
 #. TRANS: Field label.
-#: actions/ostatusinit.php:118
+#: actions/ostatusinit.php:119
+#, fuzzy
+msgid "Group nickname"
+msgstr "Прекар на корисникот"
+
+#: actions/ostatusinit.php:120
+#, fuzzy
+msgid "Nickname of the group you want to join."
+msgstr "Прекарот на корисникот што сакате да го следите."
+
+#. TRANS: Field label.
+#: actions/ostatusinit.php:123
 msgid "User nickname"
 msgstr "Прекар на корисникот"
 
-#: actions/ostatusinit.php:119
+#: actions/ostatusinit.php:124
 msgid "Nickname of the user you want to follow."
 msgstr "Прекарот на корисникот што сакате да го следите."
 
 #. TRANS: Field label.
-#: actions/ostatusinit.php:124
+#: actions/ostatusinit.php:129
 msgid "Profile Account"
 msgstr "Профилна сметка"
 
 #. TRANS: Tooltip for field label "Profile Account".
-#: actions/ostatusinit.php:126
+#: actions/ostatusinit.php:131
 msgid "Your account id (e.g. user@identi.ca)."
 msgstr "Вашата назнака (ID) на сметката (на пр. korisnik@identi.ca)."
 
 #. TRANS: Client error.
-#: actions/ostatusinit.php:148
+#: actions/ostatusinit.php:153
 msgid "Must provide a remote profile."
 msgstr "Мора да наведете далечински профил."
 
 #. TRANS: Client error.
-#: actions/ostatusinit.php:160
+#: actions/ostatusinit.php:165
 msgid "Couldn't look up OStatus account profile."
 msgstr "Не можев да го проверам профилот на OStatus-сметката."
 
 #. TRANS: Client error.
-#: actions/ostatusinit.php:173
+#: actions/ostatusinit.php:178
 msgid "Couldn't confirm remote profile address."
 msgstr "Не можев да ја потврдам адресата на далечинскиот профил."
 
 #. TRANS: Page title.
-#: actions/ostatusinit.php:218
+#: actions/ostatusinit.php:223
 msgid "OStatus Connect"
 msgstr "OStatus - Поврзување"
 
