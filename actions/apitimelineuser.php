@@ -241,7 +241,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
      *
      * @return boolean true
      */
-    
+
     function isReadOnly($args)
     {
         return ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'HEAD');
@@ -307,11 +307,13 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         $xml = trim(file_get_contents('php://input'));
         if (empty($xml)) {
+            // TRANS: Client error displayed attempting to post an empty API notice.
             $this->clientError(_('Atom post must not be empty.'));
         }
 
         $dom = DOMDocument::loadXML($xml);
         if (!$dom) {
+            // TRANS: Client error displayed attempting to post an API that is not well-formed XML.
             $this->clientError(_('Atom post must be well-formed XML.'));
         }
 
@@ -329,8 +331,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         if (Event::handle('StartAtomPubNewActivity', array(&$activity, $this->user, &$saved))) {
 
             if ($activity->verb != ActivityVerb::POST) {
-                // TRANS: Client error displayed when not using the POST verb.
-                // TRANS: Do not translate POST.
+                // TRANS: Client error displayed when not using the POST verb. Do not translate POST.
                 $this->clientError(_('Can only handle POST activities.'));
                 return;
             }
@@ -375,6 +376,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         } else {
             // @fixme fetch from $sourceUrl?
             // TRANS: Client error displayed when posting a notice without content through the API.
+            // TRANS: %d is the notice ID (number).
             $this->clientError(sprintf(_('No content for notice %d.'),
                                        $note->id));
             return;
@@ -427,14 +429,14 @@ class ApiTimelineUserAction extends ApiBareAuthAction
                 $profile = Profile::fromURI($uri);
 
                 if (!empty($profile)) {
-                    $options['replies'] = $uri;
+                    $options['replies'][] = $uri;
                 } else {
                     $group = User_group::staticGet('uri', $uri);
                     if (!empty($group)) {
-                        $options['groups'] = $uri;
+                        $options['groups'][] = $uri;
                     } else {
                         // @fixme: hook for discovery here
-                        common_log(LOG_WARNING, sprintf(_('AtomPub post with unknown attention URI %s'), $uri));
+                        common_log(LOG_WARNING, sprintf('AtomPub post with unknown attention URI %s', $uri));
                     }
                 }
             }

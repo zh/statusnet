@@ -1,5 +1,5 @@
 # Translation of StatusNet - FacebookBridge to Dutch (Nederlands)
-# Expored from translatewiki.net
+# Exported from translatewiki.net
 #
 # Author: Siebrand
 # --
@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-16 15:08+0000\n"
-"PO-Revision-Date: 2010-12-16 15:11:56+0000\n"
+"POT-Creation-Date: 2011-01-29 21:45+0000\n"
+"PO-Revision-Date: 2011-01-29 21:49:48+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-30 20:40:35+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-14 13:21:17+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r81195); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -126,25 +126,25 @@ msgid "Create a new user with this nickname."
 msgstr "Nieuwe gebruiker aanmaken met deze gebruikersnaam."
 
 #. TRANS: Field label.
-#: actions/facebookfinishlogin.php:262
+#: actions/facebookfinishlogin.php:266
 msgid "New nickname"
 msgstr "Nieuwe gebruikersnaam"
 
-#: actions/facebookfinishlogin.php:264
+#: actions/facebookfinishlogin.php:268
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 kleine letters of cijfers, geen leestekens of spaties"
 
 #. TRANS: Submit button.
-#: actions/facebookfinishlogin.php:268
+#: actions/facebookfinishlogin.php:276
 msgctxt "BUTTON"
 msgid "Create"
 msgstr "Aanmaken"
 
-#: actions/facebookfinishlogin.php:274
+#: actions/facebookfinishlogin.php:282
 msgid "Connect existing account"
 msgstr "Verbinden met een bestaande gebruiker"
 
-#: actions/facebookfinishlogin.php:276
+#: actions/facebookfinishlogin.php:284
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your Facebook."
@@ -153,45 +153,45 @@ msgstr ""
 "wachtwoord om deze daarna te koppelen met uw Facebookgebruiker."
 
 #. TRANS: Field label.
-#: actions/facebookfinishlogin.php:280
+#: actions/facebookfinishlogin.php:288
 msgid "Existing nickname"
 msgstr "Bestaande gebruikersnaam"
 
-#: actions/facebookfinishlogin.php:283
+#: actions/facebookfinishlogin.php:291
 msgid "Password"
 msgstr "Wachtwoord"
 
 #. TRANS: Submit button.
-#: actions/facebookfinishlogin.php:287
+#: actions/facebookfinishlogin.php:295
 msgctxt "BUTTON"
 msgid "Connect"
 msgstr "Koppelen"
 
 #. TRANS: Client error trying to register with registrations not allowed.
 #. TRANS: Client error trying to register with registrations 'invite only'.
-#: actions/facebookfinishlogin.php:304 actions/facebookfinishlogin.php:314
+#: actions/facebookfinishlogin.php:316 actions/facebookfinishlogin.php:326
 msgid "Registration not allowed."
 msgstr "Registratie is niet toegestaan."
 
 #. TRANS: Client error trying to register with an invalid invitation code.
-#: actions/facebookfinishlogin.php:322
+#: actions/facebookfinishlogin.php:334
 msgid "Not a valid invitation code."
 msgstr "De uitnodigingscode is ongeldig."
 
-#: actions/facebookfinishlogin.php:335
+#: actions/facebookfinishlogin.php:347
 msgid "Nickname not allowed."
 msgstr "Gebruikersnaam niet toegestaan."
 
-#: actions/facebookfinishlogin.php:340
+#: actions/facebookfinishlogin.php:352
 msgid "Nickname already in use. Try another one."
 msgstr ""
 "De opgegeven gebruikersnaam is al in gebruik. Kies een andere gebruikersnaam."
 
-#: actions/facebookfinishlogin.php:368 actions/facebookfinishlogin.php:505
+#: actions/facebookfinishlogin.php:380 actions/facebookfinishlogin.php:519
 msgid "Error connecting user to Facebook."
 msgstr "Fout bij het verbinden van de gebruiker met Facebook."
 
-#: actions/facebookfinishlogin.php:468
+#: actions/facebookfinishlogin.php:482
 msgid "Invalid username or password."
 msgstr "Ongeldige gebruikersnaam of wachtwoord."
 
@@ -286,7 +286,7 @@ msgstr ""
 "eerst een wachtwoord in](%s)."
 
 #: actions/facebooksettings.php:213
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Keep your %1$s account but disconnect from Facebook. You'll use your %1$s "
 "password to log in."

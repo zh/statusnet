@@ -48,7 +48,6 @@ require_once INSTALLDIR.'/lib/widget.php';
  *
  * @see      HTMLOutputter
  */
-
 class UserProfile extends Widget
 {
     var $user = null;
@@ -73,6 +72,7 @@ class UserProfile extends Widget
 
             $this->out->elementStart('div', array('id' => 'i',
                                                   'class' => 'entity_profile vcard author'));
+            // TRANS: H2 for user profile information.
             $this->out->element('h2', null, _('User profile'));
 
             if (Event::handle('StartProfilePageProfileElements', array(&$this->out, $this->profile))) {
@@ -104,6 +104,7 @@ class UserProfile extends Widget
             }
 
             $this->out->elementStart('dl', 'entity_depiction');
+            // TRANS: DT element in area for user avatar.
             $this->out->element('dt', null, _('Photo'));
             $this->out->elementStart('dd');
             $this->out->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE),
@@ -116,6 +117,7 @@ class UserProfile extends Widget
             $cur = common_current_user();
             if ($cur && $cur->id == $this->profile->id) {
                 $this->out->elementStart('dd');
+                // TRANS: Link text for changeing the avatar of the logged in user.
                 $this->out->element('a', array('href' => common_local_url('avatarsettings')), _('Edit Avatar'));
                 $this->out->elementEnd('dd');
             }
@@ -131,6 +133,7 @@ class UserProfile extends Widget
         if (Event::handle('StartProfilePageNickname', array($this->out, $this->profile))) {
 
             $this->out->elementStart('dl', 'entity_nickname');
+            // TRANS: DT for nick name in a profile.
             $this->out->element('dt', null, _('Nickname'));
             $this->out->elementStart('dd');
             $hasFN = ($this->profile->fullname) ? 'nickname url uid' : 'fn nickname url uid';
@@ -149,6 +152,7 @@ class UserProfile extends Widget
         if (Event::handle('StartProfilePageFullName', array($this->out, $this->profile))) {
             if ($this->profile->fullname) {
                 $this->out->elementStart('dl', 'entity_fn');
+                // TRANS: DT for full name in a profile.
                 $this->out->element('dt', null, _('Full name'));
                 $this->out->elementStart('dd');
                 $this->out->element('span', 'fn', $this->profile->fullname);
@@ -164,6 +168,7 @@ class UserProfile extends Widget
         if (Event::handle('StartProfilePageLocation', array($this->out, $this->profile))) {
             if ($this->profile->location) {
                 $this->out->elementStart('dl', 'entity_location');
+                // TRANS: DT for location in a profile.
                 $this->out->element('dt', null, _('Location'));
                 $this->out->element('dd', 'label', $this->profile->location);
                 $this->out->elementEnd('dl');
@@ -177,6 +182,7 @@ class UserProfile extends Widget
         if (Event::handle('StartProfilePageHomepage', array($this->out, $this->profile))) {
             if ($this->profile->homepage) {
                 $this->out->elementStart('dl', 'entity_url');
+                // TRANS: DT for URL in a profile.
                 $this->out->element('dt', null, _('URL'));
                 $this->out->elementStart('dd');
                 $this->out->element('a', array('href' => $this->profile->homepage,
@@ -194,6 +200,7 @@ class UserProfile extends Widget
         if (Event::handle('StartProfilePageBio', array($this->out, $this->profile))) {
             if ($this->profile->bio) {
                 $this->out->elementStart('dl', 'entity_note');
+                // TRANS: DT for note in a profile.
                 $this->out->element('dt', null, _('Note'));
                 $this->out->element('dd', 'note', $this->profile->bio);
                 $this->out->elementEnd('dl');
@@ -209,6 +216,7 @@ class UserProfile extends Widget
 
             if (count($tags) > 0) {
                 $this->out->elementStart('dl', 'entity_tags');
+                // TRANS: DT for tags in a profile.
                 $this->out->element('dt', null, _('Tags'));
                 $this->out->elementStart('dd');
                 $this->out->elementStart('ul', 'tags xoxo');
@@ -233,9 +241,11 @@ class UserProfile extends Widget
     {
         if ($this->profile->hasRole(Profile_role::DELETED)) {
             $this->out->elementStart('div', 'entity_actions');
+            // TRANS: H2 for user actions in a profile.
             $this->out->element('h2', null, _('User actions'));
             $this->out->elementStart('ul');
             $this->out->elementStart('p', array('class' => 'profile_deleted'));
+            // TRANS: Text shown in user profile of not yet compeltely deleted users.
             $this->out->text(_('User deletion in progress...'));
             $this->out->elementEnd('p');
             $this->out->elementEnd('ul');
@@ -247,6 +257,7 @@ class UserProfile extends Widget
             $cur = common_current_user();
 
             $this->out->elementStart('div', 'entity_actions');
+            // TRANS: H2 for entity actions in a profile.
             $this->out->element('h2', null, _('User actions'));
             $this->out->elementStart('ul');
 
@@ -262,7 +273,9 @@ class UserProfile extends Widget
                     if ($cur->id == $this->profile->id) { // your own page
                         $this->out->elementStart('li', 'entity_edit');
                         $this->out->element('a', array('href' => common_local_url('profilesettings'),
+                                                  // TRANS: Link title for link on user profile.
                                                   'title' => _('Edit profile settings')),
+                                       // TRANS: Link text for link on user profile.
                                        _('Edit'));
                         $this->out->elementEnd('li');
                     } else { // someone else's page
@@ -286,7 +299,9 @@ class UserProfile extends Widget
 
                             $this->out->elementStart('li', 'entity_send-a-message');
                             $this->out->element('a', array('href' => common_local_url('newmessage', array('to' => $this->user->id)),
+                                                      // TRANS: Link title for link on user profile.
                                                       'title' => _('Send a direct message to this user')),
+                                           // TRANS: Link text for link on user profile.
                                            _('Message'));
                             $this->out->elementEnd('li');
 
@@ -328,6 +343,7 @@ class UserProfile extends Widget
                             $cur->hasRight(Right::SILENCEUSER) ||
                             $cur->hasRight(Right::DELETEUSER)) {
                             $this->out->elementStart('li', 'entity_moderation');
+                            // TRANS: Label text on user profile to select a user role.
                             $this->out->element('p', null, _('Moderate'));
                             $this->out->elementStart('ul');
                             if ($cur->hasRight(Right::SANDBOXUSER)) {
@@ -363,12 +379,15 @@ class UserProfile extends Widget
                             $this->out->elementEnd('ul');
                             $this->out->elementEnd('li');
                         }
-                        
+
                         if ($isLocal && $cur->hasRight(Right::GRANTROLE)) {
                             $this->out->elementStart('li', 'entity_role');
+                            // TRANS: Label text on user profile to select a user role.
                             $this->out->element('p', null, _('User role'));
                             $this->out->elementStart('ul');
+                            // TRANS: Role that can be set for a user profile.
                             $this->roleButton('administrator', _m('role', 'Administrator'));
+                            // TRANS: Role that can be set for a user profile.
                             $this->roleButton('moderator', _m('role', 'Moderator'));
                             $this->out->elementEnd('ul');
                             $this->out->elementEnd('li');
@@ -408,6 +427,7 @@ class UserProfile extends Widget
                                 array('nickname' => $this->profile->nickname));
         $this->out->element('a', array('href' => $url,
                                   'class' => 'entity_remote_subscribe'),
+                       // TRANS: Link text for link that will subscribe to a remote profile.
                        _('Subscribe'));
     }
 }

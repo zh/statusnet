@@ -337,7 +337,7 @@ class ApiAuthAction extends ApiAction
     }
 
     /**
-     * Log an API authentication failer. Collect the proxy and IP
+     * Log an API authentication failure. Collect the proxy and IP
      * and log them
      *
      * @param string $logMsg additional log message

@@ -183,11 +183,12 @@ class NewgroupAction extends Action
         foreach ($aliases as $alias) {
             if (!Nickname::isValid($alias)) {
                 // TRANS: Group create form validation error.
+                // TRANS: %s is the invalid alias.
                 $this->showForm(sprintf(_('Invalid alias: "%s"'), $alias));
                 return;
             }
             if ($this->nicknameExists($alias)) {
-                // TRANS: Group create form validation error.
+                // TRANS: Group create form validation error. %s is the already used alias.
                 $this->showForm(sprintf(_('Alias "%s" already in use. Try another one.'),
                                         $alias));
                 return;
@@ -195,7 +196,7 @@ class NewgroupAction extends Action
             // XXX assumes alphanum nicknames
             if (strcmp($alias, $nickname) == 0) {
                 // TRANS: Group create form validation error.
-                $this->showForm(_('Alias can\'t be the same as nickname.'));
+                $this->showForm(_('Alias cannot be the same as nickname.'));
                 return;
             }
         }

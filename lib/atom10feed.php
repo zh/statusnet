@@ -108,8 +108,9 @@ class Atom10Feed extends XMLStringer
         if (!empty($name)) {
             $xs->element('name', null, $name);
         } else {
+            // TRANS: Atom feed exception thrown when an author element does not contain a name element.
             throw new Atom10FeedException(
-                _('author element must contain a name element.')
+                _('Author element must contain a name element.')
             );
         }
 
@@ -155,7 +156,8 @@ class Atom10Feed extends XMLStringer
 
     function setActivitySubject($xmlSubject)
     {
-        throw new ServerException(_('Don\'t use this method!'));
+        // TRANS: Server exception thrown when using the method setActivitySubject() in the class Atom10Feed.
+        throw new ServerException(_('Do not use this method!'));
     }
 
     function getNamespaces()

@@ -4,7 +4,7 @@
  * Copyright (C) 2010, StatusNet, Inc.
  *
  * Delete your own account
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -36,7 +36,7 @@ if (!defined('STATUSNET')) {
 
 /**
  * Action to delete your own account
- * 
+ *
  * Note that this is distinct from DeleteuserAction, which see. I thought
  * that making that action do both things (delete another user and delete the
  * current user) would open a lot of holes. I'm open to refactoring, however.
@@ -48,7 +48,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class DeleteaccountAction extends Action
 {
     private $_complete = false;
@@ -61,19 +60,20 @@ class DeleteaccountAction extends Action
      *
      * @return boolean true
      */
-
     function prepare($argarray)
     {
         parent::prepare($argarray);
-        
+
         $cur = common_current_user();
 
         if (empty($cur)) {
+            // TRANS: Client exception displayed trying to delete a user account while not logged in.
             throw new ClientException(_("Only logged-in users ".
                                         "can delete their account."), 403);
         }
 
         if (!$cur->hasRight(Right::DELETEACCOUNT)) {
+            // TRANS: Client exception displayed trying to delete a user account without have the rights to do that.
             throw new ClientException(_("You cannot delete your account."), 403);
         }
 
@@ -87,7 +87,6 @@ class DeleteaccountAction extends Action
      *
      * @return void
      */
-
     function handle($argarray=null)
     {
         parent::handle($argarray);
@@ -109,7 +108,6 @@ class DeleteaccountAction extends Action
      *
      * @return boolean is read only action?
      */
-
     function isReadOnly($args)
     {
         return false;
@@ -122,7 +120,6 @@ class DeleteaccountAction extends Action
      *
      * @return string last modified http header
      */
-
     function lastModified()
     {
         // For comparison with If-Last-Modified
@@ -137,7 +134,6 @@ class DeleteaccountAction extends Action
      *
      * @return string etag http header
      */
-
     function etag()
     {
         return null;
@@ -145,7 +141,7 @@ class DeleteaccountAction extends Action
 
     /**
      * Delete the current user's account
-     * 
+     *
      * Checks for the "I am sure." string to make sure the user really
      * wants to delete their account.
      *
@@ -156,13 +152,16 @@ class DeleteaccountAction extends Action
      *
      * @return void
      */
-
     function deleteAccount()
     {
         $this->checkSessionToken();
-
-        if ($this->trimmed('iamsure') != _('I am sure.')) {
-            $this->_error = _('You must write  "I am sure." exactly in the box.');
+        // !!! If this string is changed, it also needs to be changed in DeleteAccountForm::formData()
+        // TRANS: Confirmation text for user deletion. The user has to type this exactly the same, including punctuation.
+        $iamsure = _('I am sure.');
+        if ($this->trimmed('iamsure') != $iamsure ) {
+            // TRANS: Notification for user about the text that must be input to be able to delete a user account.
+            // TRANS: %s is the text that needs to be input.
+            $this->_error = sprintf(_('You must write "%s" exactly in the box.'), $iamsure);
             $this->showPage();
             return;
         }
@@ -191,7 +190,7 @@ class DeleteaccountAction extends Action
 
     /**
      * Shows the page content.
-     * 
+     *
      * If the deletion is complete, just shows a completion message.
      *
      * Otherwise, shows the deletion form.
@@ -199,11 +198,11 @@ class DeleteaccountAction extends Action
      * @return void
      *
      */
-
     function showContent()
     {
         if ($this->_complete) {
-            $this->element('p', 'confirmation', 
+            $this->element('p', 'confirmation',
+                           // TRANS: Confirmation that a user account has been deleted.
                            _('Account deleted.'));
             return;
         }
@@ -216,7 +215,7 @@ class DeleteaccountAction extends Action
         $form = new DeleteAccountForm($this);
         $form->show();
     }
-    
+
     /**
      * Show the title of the page
      *
@@ -225,13 +224,14 @@ class DeleteaccountAction extends Action
 
     function title()
     {
+        // TRANS: Page title for page on which a user account can be deleted.
         return _('Delete account');
     }
 }
 
 /**
  * Form for deleting your account
- * 
+ *
  * Note that this mostly is here to keep you from accidentally deleting your
  * account.
  *
@@ -242,7 +242,6 @@ class DeleteaccountAction extends Action
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class DeleteAccountForm extends Form
 {
     /**
@@ -250,7 +249,6 @@ class DeleteAccountForm extends Form
      *
      * @return string the form's class
      */
-
     function formClass()
     {
         return 'form_profile_delete';
@@ -261,7 +259,6 @@ class DeleteAccountForm extends Form
      *
      * @return string the form's action URL
      */
-
     function action()
     {
         return common_local_url('deleteaccount');
@@ -269,51 +266,60 @@ class DeleteAccountForm extends Form
 
     /**
      * Output form data
-     * 
+     *
      * Instructions plus an 'i am sure' entry box.
      *
      * @return void
      */
-
     function formData()
     {
         $cur = common_current_user();
 
-        $msg = _('<p>This will <strong>permanently delete</strong> '.
-                 'your account data from this server. </p>');
+        // TRANS: Form text for user deletion form.
+        $msg = '<p>' . _('This will <strong>permanently delete</strong> '.
+                 'your account data from this server.') . '</p>';
 
         if ($cur->hasRight(Right::BACKUPACCOUNT)) {
-            $msg .= sprintf(_('<p>You are strongly advised to '.
+            // TRANS: Additional form text for user deletion form shown if a user has account backup rights.
+            // TRANS: %s is a URL to the backup page.
+            $msg .= '<p>' . sprintf(_('You are strongly advised to '.
                               '<a href="%s">back up your data</a>'.
-                              ' before deletion.</p>'),
-                           common_local_url('backupaccount'));
+                              ' before deletion.'),
+                           common_local_url('backupaccount')) . '</p>';
         }
 
         $this->out->elementStart('p');
         $this->out->raw($msg);
         $this->out->elementEnd('p');
 
+        // !!! If this string is changed, it also needs to be changed in class DeleteaccountAction.
+        // TRANS: Confirmation text for user deletion. The user has to type this exactly the same, including punctuation.
+        $iamsure = _("I am sure.");
         $this->out->input('iamsure',
+                          // TRANS: Field label for delete account confirmation entry.
                           _('Confirm'),
                           null,
-                          _('Enter "I am sure." to confirm that '.
-                            'you want to delete your account.'));
+                          // TRANS: Input title for the delete account field.
+                          // TRANS: %s is the text that needs to be input.
+                          sprintf(_('Enter "%s" to confirm that '.
+                            'you want to delete your account.'),$iamsure ));
     }
 
     /**
      * Buttons for the form
-     * 
+     *
      * In this case, a single submit button
      *
      * @return void
      */
-
     function formActions()
     {
         $this->out->submit('submit',
+                           // TRANS: Button text for user account deletion.
                            _m('BUTTON', 'Delete'),
                            'submit',
                            null,
-                           _('Permanently your account'));
+                           // TRANS: Button title for user account deletion.
+                           _('Permanently delete your account'));
     }
 }

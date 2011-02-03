@@ -718,8 +718,16 @@ var SN = { // StatusNet
          */
         NoticeDataAttach: function() {
             NDA = $('#'+SN.C.S.NoticeDataAttach);
-            NDA.change(function() {
-                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+$(this).val()+'</code> <button class="close">&#215;</button></div>';
+            NDA.change(function(event) {
+                var filename = $(this).val();
+                if (!filename) {
+                    // No file -- we've been tricked!
+                    $('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                    return false;
+                }
+
+                // @fixme appending filename straight in is potentially unsafe
+                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+filename+'</code> <button class="close">&#215;</button></div>';
                 NDAS = $('#'+SN.C.S.NoticeDataAttachSelected);
                 if (NDAS.length > 0) {
                     NDAS.replaceWith(S);
@@ -740,6 +748,22 @@ var SN = { // StatusNet
                     }
                 }
             });
+        },
+
+        /**
+         * Get PHP's MAX_FILE_SIZE setting for this form;
+         * used to apply client-side file size limit checks.
+         *
+         * @param {jQuery} form
+         * @return int max size in bytes; 0 or negative means no limit
+         */
+        maxFileSize: function(form) {
+            var max = $(form).find('input[name=MAX_FILE_SIZE]').attr('value');
+            if (max) {
+                return parseInt(max);
+            } else {
+                return 0;
+            }
         },
 
         /**
@@ -1217,6 +1241,32 @@ var SN = { // StatusNet
                 SN.U.StatusNetInstance.Set({Nickname: $('#form_login #nickname').val()});
                 return true;
             });
+        },
+
+        /**
+         * Add logic to any file upload forms to handle file size limits,
+         * on browsers that support basic FileAPI.
+         */
+        UploadForms: function () {
+            $('input[type=file]').change(function(event) {
+                if (typeof this.files == "object" && this.files.length > 0) {
+                    var size = 0;
+                    for (var i = 0; i < this.files.length; i++) {
+                        size += this.files[i].size;
+                    }
+
+                    var max = SN.U.maxFileSize($(this.form));
+                    if (max > 0 && size > max) {
+                        var msg = 'File too large: maximum upload size is %d bytes.';
+                        alert(msg.replace('%d', max));
+
+                        // Clear the files.
+                        $(this).val('');
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+            });
         }
     }
 };
@@ -1229,6 +1279,7 @@ var SN = { // StatusNet
  * don't start them loading until after DOM-ready time!
  */
 $(document).ready(function(){
+    SN.Init.UploadForms();
     if ($('.'+SN.C.S.FormNotice).length > 0) {
         SN.Init.NoticeForm();
     }

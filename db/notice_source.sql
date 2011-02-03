@@ -24,6 +24,7 @@ VALUES
     ('HelloTxt','HelloTxt','http://hellotxt.com/', now()),
     ('identicatools','Laconica Tools','http://bitbucketlabs.net/laconica-tools/', now()),
     ('identichat','identichat','http://identichat.prosody.im/', now()),
+    ('IdentiCurse','IdentiCurse','http://identicurse.net/', now()),
     ('IdentiFox','IdentiFox','http://www.bitbucket.org/uncryptic/identifox/', now()),
     ('identitwitch','IdentiTwitch','http://richfish.org/identitwitch/', now()),
     ('Jiminy','Jiminy','http://code.google.com/p/jiminy/', now()),

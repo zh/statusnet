@@ -46,13 +46,11 @@ require_once INSTALLDIR.'/lib/form.php';
  *
  * @see      UnsubscribeForm
  */
-
 class GroupEditForm extends Form
 {
     /**
      * group for user to join
      */
-
     var $group = null;
 
     /**
@@ -61,7 +59,6 @@ class GroupEditForm extends Form
      * @param Action     $out   output channel
      * @param User_group $group group to join
      */
-
     function __construct($out=null, $group=null)
     {
         parent::__construct($out);
@@ -74,7 +71,6 @@ class GroupEditForm extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
         if ($this->group) {
@@ -89,7 +85,6 @@ class GroupEditForm extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
         return 'form_settings';
@@ -100,7 +95,6 @@ class GroupEditForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         if ($this->group) {
@@ -116,7 +110,6 @@ class GroupEditForm extends Form
      *
      * @return void
      */
-
     function formLegend()
     {
         $this->out->element('legend', null, _('Create a new group'));
@@ -127,7 +120,6 @@ class GroupEditForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         if ($this->group) {
@@ -204,7 +196,6 @@ class GroupEditForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
         $this->out->submit('submit', _m('BUTTON','Save'));

@@ -340,6 +340,7 @@ class Memcached_DataObject extends Safe_DataObject
         $start = microtime(true);
         $result = null;
         if (Event::handle('StartDBQuery', array($this, $string, &$result))) {
+            common_perf_counter('query', $string);
             $result = parent::_query($string);
             Event::handle('EndDBQuery', array($this, $string, &$result));
         }
@@ -479,6 +480,10 @@ class Memcached_DataObject extends Safe_DataObject
                         mysql_set_charset('utf8', $conn);
                     }
                 }
+            }
+            // Needed to make timestamp values usefully comparable.
+            if (common_config('db', 'type') == 'mysql') {
+                parent::_query("set time_zone='+0:00'");
             }
         }
 

@@ -157,13 +157,13 @@ class AvatarsettingsAction extends AccountSettingsAction
             }
 
             $this->elementStart('li', array ('id' => 'settings_attach'));
-            $this->element('input', array('name' => 'avatarfile',
-                                          'type' => 'file',
-                                          'id' => 'avatarfile'));
             $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                           'type' => 'hidden',
                                           'id' => 'MAX_FILE_SIZE',
                                           'value' => ImageFile::maxFileSizeInt()));
+            $this->element('input', array('name' => 'avatarfile',
+                                          'type' => 'file',
+                                          'id' => 'avatarfile'));
             $this->elementEnd('li');
             $this->elementEnd('ul');
 
@@ -320,21 +320,20 @@ class AvatarsettingsAction extends AccountSettingsAction
         }
 
         $cur = common_current_user();
-
+        $type = $imagefile->preferredType();
         $filename = Avatar::filename($cur->id,
-                                     image_type_to_extension($imagefile->type),
+                                     image_type_to_extension($type),
                                      null,
                                      'tmp'.common_timestamp());
 
         $filepath = Avatar::path($filename);
-
-        move_uploaded_file($imagefile->filepath, $filepath);
+        $imagefile->copyTo($filepath);
 
         $filedata = array('filename' => $filename,
                           'filepath' => $filepath,
                           'width' => $imagefile->width,
                           'height' => $imagefile->height,
-                          'type' => $imagefile->type);
+                          'type' => $type);
 
         $_SESSION['FILEDATA'] = $filedata;
 
