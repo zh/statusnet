@@ -23,6 +23,25 @@ if (!defined('STATUSNET')) {
 
 class ExtendedProfile
 {
+    function __construct(Profile $profile)
+    {
+        $this->profile = $profile;
+        $this->sections = $this->getSections();
+        $this->fields = $this->loadFields();
+    }
+
+    function loadFields()
+    {
+        $detail = new Profile_detail();
+        $detail->profile_id = $this->profile->id;
+        $detail->find();
+        
+        while ($detail->get()) {
+            $fields[$detail->field][] = clone($detail);
+        }
+        return $fields;
+    }
+
     function getSections()
     {
         return array(
