@@ -149,7 +149,7 @@ class BookmarkPlugin extends Plugin
 
     function onEndShowStyles($action)
     {
-        $action->cssLink('plugins/Bookmark/bookmark.css');
+        $action->cssLink($this->path('bookmark.css'));
         return true;
     }
 
