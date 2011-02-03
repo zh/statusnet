@@ -116,8 +116,9 @@ class RealtimePlugin extends Plugin
 
     function onEndShowStatusNetStyles($action)
     {
-        $action->cssLink('plugins/Realtime/realtimeupdate.css',
-                         null, 'screen, projection, tv');
+        $action->cssLink($this->path('realtimeupdate.css'),
+                         null,
+                         'screen, projection, tv');
         return true;
     }
 
@@ -322,7 +323,7 @@ class RealtimePlugin extends Plugin
 
     function _getScripts()
     {
-        return array('plugins/Realtime/realtimeupdate.min.js');
+        return array($this->path('realtimeupdate.min.js'));
     }
 
     /**
