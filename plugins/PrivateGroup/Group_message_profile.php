@@ -1,6 +1,6 @@
 <?php
 /**
- * Data class for group direct messages
+ * Who received a group message
  *
  * PHP version 5
  *
@@ -11,7 +11,7 @@
  * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
 
 /**
- * Data class for group direct messages
+ * Data class for group direct messages for users
  *
  * @category PrivateGroup
  * @package  StatusNet
@@ -45,16 +45,11 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
  * @see      DB_DataObject
  */
 
-class Group_message extends Memcached_DataObject
+class Group_message_profile extends Memcached_DataObject
 {
-    public $__table = 'group_message'; // table name
-    public $id;                        // char(36)  primary_key not_null
-    public $uri;                       // varchar(255)
-    public $from_profile;              // int
-    public $to_group;                  // int
-    public $content;
-    public $rendered;
-    public $url;
+    public $__table = 'group_message_profile'; // table name
+    public $to_profile;                        // int
+    public $group_message_id;                  // char(36)  primary_key not_null
     public $created;
 
     /**
@@ -70,7 +65,7 @@ class Group_message extends Memcached_DataObject
      */
     function staticGet($k, $v=null)
     {
-        return Memcached_DataObject::staticGet('Group_message', $k, $v);
+        return Memcached_DataObject::staticGet('Group_message_profile', $k, $v);
     }
 
     /**
@@ -83,13 +78,8 @@ class Group_message extends Memcached_DataObject
      */
     function table()
     {
-        return array('id' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
-                     'uri' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
-                     'from_profile' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-                     'to_group' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-                     'content' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
-                     'rendered' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
-                     'url' => DB_DATAOBJECT_STR,
+        return array('to_profile' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'group_message_id' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
     }
 
@@ -116,6 +106,6 @@ class Group_message extends Memcached_DataObject
      */
     function keyTypes()
     {
-        return array('id' => 'K', 'uri' => 'U');
+        return array('to_profile' => 'K', 'group_message_id' => 'K');
     }
 }

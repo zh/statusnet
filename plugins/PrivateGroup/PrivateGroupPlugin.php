@@ -110,26 +110,21 @@ class PrivateGroupPlugin extends Plugin
                                                  false,
                                                  'UNI'),
                                    new ColumnDef('created',
-                                                 'datetime'),
-                                   new ColumnDef('modified',
-                                                 'timestamp')));
+                                                 'datetime')));
 
-
-        $schema->ensureTable('group_message_copy',
-                             array(new ColumnDef('group_message_id',
+        $schema->ensureTable('group_message_profile',
+                             array(new ColumnDef('to_profile',
+                                                 'integer',
+                                                 null,
+                                                 false,
+                                                 'PRI'),
+                                   new ColumnDef('group_message_id',
                                                  'char',
                                                  36,
                                                  false,
                                                  'PRI'),
-                                   new ColumnDef('message_uri',
-                                                 'varchar',
-                                                 255,
-                                                 false,
-                                                 'PRI'),
                                    new ColumnDef('created',
-                                                 'datetime'),
-                                   new ColumnDef('modified',
-                                                 'timestamp')));
+                                                 'datetime')));
 
         return true;
     }
@@ -205,7 +200,7 @@ class PrivateGroupPlugin extends Plugin
     /**
      * Create default group privacy settings at group create time
      *
-     * @param $group Group that was just created
+     * @param User_group $group Group that was just created
      *
      * @result boolean hook value
      */
@@ -227,6 +222,14 @@ class PrivateGroupPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Show group privacy controls on group edit form
+     *
+     * @param Action $action EditgroupAction being executed
+     *
+     * 
+     */
+ 
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'PrivateGroup',
