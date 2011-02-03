@@ -1069,3 +1069,16 @@ StartGroupSave: After initializing but before saving a group
 
 EndGroupSave: After saving a group, aliases, and first member
 - $group: group that was saved
+
+StartInterpretCommand: Before running a command
+- $cmd: First word in the string, 'foo' in 'foo argument' 
+- $arg: Argument, if any, like 'argument' in 'foo argument'
+- $user: User who issued the command
+- &$result: Resulting command; you can set this!
+
+EndInterpretCommand: Before running a command
+- $cmd: First word in the string, 'foo' in 'foo argument' 
+- $arg: Argument, if any, like 'argument' in 'foo argument'
+- $user: User who issued the command
+- $result: Resulting command
+
