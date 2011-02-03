@@ -35,8 +35,10 @@ class CommandInterpreter
         // There are a few compatibility commands from earlier versions of
         // StatusNet
 
+        $cmd = strtolower($cmd);
+
         if (Event::handle('StartIntepretCommand', array($cmd, $arg, $user, &$result))) {
-            switch(strtolower($cmd)) {
+            switch($cmd) {
             case 'help':
                 if ($arg) {
                     $result = null;
