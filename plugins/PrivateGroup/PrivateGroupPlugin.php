@@ -226,10 +226,69 @@ class PrivateGroupPlugin extends Plugin
     /**
      * Show group privacy controls on group edit form
      *
-     * @param Action $action EditgroupAction being executed
-     *
-     * 
+     * @param GroupEditForm $form form being shown
      */
+
+    function onEndGroupEditFormData($form)
+    {
+        $gps = null;
+
+        if (!empty($form->group)) {
+            $gps = Group_privacy_settings::staticGet('group_id', $form->group->id);
+        }
+
+        $form->out->elementStart('li');
+        $form->out->dropdown('allow_privacy',
+                             _('Private messages'),
+                             array(Group_privacy_settings::SOMETIMES => _('Sometimes'),
+                                   Group_privacy_settings::ALWAYS => _('Always'),
+                                   Group_privacy_settings::NEVER => _('Never')),
+                             _('Whether to allow private messages to this group'),
+                             false,
+                             (empty($gps)) ? Group_privacy_settings::SOMETIMES : $gps->allow_privacy);
+        $form->out->elementEnd('li');
+        $form->out->elementStart('li');
+        $form->out->dropdown('allow_sender',
+                             _('Private sender'),
+                             array(Group_privacy_settings::EVERYONE => _('Everyone'),
+                                   Group_privacy_settings::MEMBER => _('Member'),
+                                   Group_privacy_settings::ADMIN => _('Admin')),
+                             _('Who can send private messages to the group'),
+                             false,
+                             (empty($gps)) ? Group_privacy_settings::MEMBER : $gps->allow_sender);
+        $form->out->elementEnd('li');
+        return true;
+    }
+
+    function onEndGroupSaveForm($action)
+    {
+        $gps = null;
+
+        if (!empty($action->group)) {
+            $gps = Group_privacy_settings::staticGet('group_id', $action->group->id);
+        }
+
+        $orig = null;
+
+        if (empty($gps)) {
+            $gps = new Group_privacy_settings();
+            $gps->group_id = $action->group->id;
+        } else {
+            $orig = clone($gps);
+        }
+        
+        $gps->allow_privacy = $action->trimmed('allow_privacy');
+        $gps->allow_sender  = $action->trimmed('allow_sender');
+
+        if (empty($orig)) {
+            $gps->created = common_sql_now();
+            $gps->insert();
+        } else {
+            $gps->update($orig);
+        }
+        
+        return true;
+    }
  
     function onPluginVersion(&$versions)
     {
