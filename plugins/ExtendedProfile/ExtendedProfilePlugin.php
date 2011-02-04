@@ -62,6 +62,9 @@ class ExtendedProfilePlugin extends Plugin
         case 'profiledetailsettingsaction':
             require_once dirname(__FILE__) . '/' . $lower . '.php';
             return false;
+        case 'profile_detail':
+            require_once dirname(__FILE__) . '/' . ucfirst($lower) . '.php';
+            return false;
         default:
             return true;
         }
@@ -84,6 +87,16 @@ class ExtendedProfilePlugin extends Plugin
         $m->connect('settings/profile/detail',
                 array('action' => 'profiledetailsettings'));
 
+        return true;
+    }
+
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
+        $schema->ensureTable('profile_detail', Profile_detail::schemaDef());
+
+        // @hack until key definition support is merged
+        Profile_detail::fixIndexes($schema);
         return true;
     }
 
