@@ -118,4 +118,98 @@ class Group_message extends Memcached_DataObject
     {
         return array('id' => 'K', 'uri' => 'U');
     }
+
+    static function send($user, $group, $text)
+    {
+        if (!$user->hasRight(Right::NEWMESSAGE)) {
+            // XXX: maybe break this out into a separate right
+            throw new Exception(sprintf(_('User %s not allowed to send private messages.'),
+                                        $user->nickname));
+        }
+
+        $gps = Group_privacy_settings::staticGet('group_id', $group->id);
+
+        if (empty($gps)) {
+            // make a fake one with defaults
+            $gps = new Group_privacy_settings();
+            $gps->allow_privacy = Group_privacy_settings::SOMETIMES;
+            $gps->allow_sender  = Group_privacy_settings::MEMBER;
+        }
+
+        if ($gps->allow_privacy == Group_privacy_settings::NEVER) {
+            throw new Exception(sprintf(_('Group %s does not allow private messages.'),
+                                        $group->nickname));
+        }
+
+        switch ($gps->allow_sender) {
+        case Group_privacy_settings::EVERYONE:
+            $profile = $user->getProfile();
+            if (Group_block::isBlocked($group, $profile)) {
+                throw new Exception(sprintf(_('User %s is blocked from group %s.'),
+                                            $user->nickname,
+                                            $group->nickname));
+            }
+            break;
+        case Group_privacy_settings::MEMBER:
+            if (!$user->isMember($group)) {
+                throw new Exception(sprintf(_('User %s is not a member of group %s.'),
+                                            $user->nickname,
+                                            $group->nickname));
+            }
+            break;
+        case Group_privacy_settings::ADMIN:
+            if (!$user->isAdmin($group)) {
+                throw new Exception(sprintf(_('User %s is not an administrator of group %s.'),
+                                            $user->nickname,
+                                            $group->nickname));
+            }
+            break;
+        default:
+            throw new Exception(sprintf(_('Unknown privacy settings for group %s.'),
+                                        $group->nickname));
+        }
+        
+        $text = $user->shortenLinks($text);
+
+        // We use the same limits as for 'regular' private messages.
+
+        if (Message::contentTooLong($text)) {
+            throw new Exception(sprintf(_m('That\'s too long. Maximum message size is %d character.',
+                                           'That\'s too long. Maximum message size is %d characters.',
+                                           Message::maxContent()),
+                                        Message::maxContent()));
+        }
+
+        // Valid! Let's do this thing!
+
+        $gm = new Group_message();
+        
+        $gm->id           = UUID::gen();
+        $gm->uri          = common_local_url('showgroupmessage', array('id' => $gm->id));
+        $gm->from_profile = $user->id;
+        $gm->to_group     = $group->id;
+        $gm->content      = $text; // XXX: is this cool?!
+        $gm->rendered     = common_render_text($text);
+        $gm->url          = $gm->uri;
+        $gm->created      = common_sql_now();
+
+        // This throws a conniption if there's a problem
+
+        $gm->insert();
+
+        $gm->distribute();
+
+        return $gm;
+    }
+
+    function distribute()
+    {
+        $group = User_group::staticGet('id', $this->to_group);
+        
+        $member = $group->getMembers();
+
+        while ($member->fetch()) {
+            Group_message_profile::send($this, $member);
+        }
+    }
 }

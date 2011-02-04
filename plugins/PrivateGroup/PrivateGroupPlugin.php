@@ -144,12 +144,16 @@ class PrivateGroupPlugin extends Plugin
         switch ($cls)
         {
         case 'GroupinboxAction':
+        case 'ShowgroupmessageAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'Group_privacy_settings':
         case 'Group_message':
         case 'Group_message_profile':
             include_once $dir . '/'.$cls.'.php';
+            return false;
+        case 'GroupMessageCommand':
+            include_once $dir . '/'.strtolower($cls).'.php';
             return false;
         default:
             return true;
@@ -169,6 +173,10 @@ class PrivateGroupPlugin extends Plugin
         $m->connect('group/:nickname/inbox',
                     array('action' => 'groupinbox'),
                     array('nickname' => Nickname::DISPLAY_FMT));
+
+        $m->connect('group/message/:id',
+                    array('action' => 'showgroupmessage'),
+                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
         return true;
     }
@@ -289,7 +297,46 @@ class PrivateGroupPlugin extends Plugin
         
         return true;
     }
- 
+
+    /**
+     * Overload 'd' command to send private messages to groups.
+     * 
+     * 'd !group word word word' will send the private message
+     * 'word word word' to the group 'group'.
+     * 
+     * @param string  $cmd     Command being run
+     * @param string  $arg     Rest of the message (including address)
+     * @param User    $user    User sending the message
+     * @param Command &$result The resulting command object to be run.
+     * 
+     * @return boolean hook value
+     */
+    function onStartIntepretCommand($cmd, $arg, $user, &$result)
+    {
+        if ($cmd == 'd' || $cmd == 'dm') {
+
+            $this->debug('Got a d command');
+
+            // Break off the first word as the address
+
+            $pieces = explode(' ', $arg, 2);
+
+            if (count($pieces) == 1) {
+                $pieces[] = null;
+            }
+
+            list($addr, $msg) = $pieces;
+
+            if (!empty($addr) && $addr[0] == '!') {
+                $result = new GroupMessageCommand($user, substr($addr, 1), $msg);
+                Event::handle('EndInterpretCommand', array($cmd, $arg, $user, $result));
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'PrivateGroup',
