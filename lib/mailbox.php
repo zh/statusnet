@@ -31,8 +31,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-define('MESSAGES_PER_PAGE', 20);
-
 /**
  * common superclass for direct messages inbox and outbox
  *
