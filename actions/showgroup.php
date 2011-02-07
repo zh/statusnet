@@ -303,25 +303,28 @@ class ShowgroupAction extends GroupDesignAction
         // TRANS: Group actions header (h2). Text hidden by default.
         $this->element('h2', null, _('Group actions'));
         $this->elementStart('ul');
-        $this->elementStart('li', 'entity_subscribe');
-        if (Event::handle('StartGroupSubscribe', array($this, $this->group))) {
-            if ($cur) {
-                if ($cur->isMember($this->group)) {
-                    $lf = new LeaveForm($this, $this->group);
-                    $lf->show();
-                } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
-                    $jf = new JoinForm($this, $this->group);
-                    $jf->show();
+        if (Event::handle('StartGroupActionsList', array($this, $this->group))) {
+            $this->elementStart('li', 'entity_subscribe');
+            if (Event::handle('StartGroupSubscribe', array($this, $this->group))) {
+                if ($cur) {
+                    if ($cur->isMember($this->group)) {
+                        $lf = new LeaveForm($this, $this->group);
+                        $lf->show();
+                    } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
+                        $jf = new JoinForm($this, $this->group);
+                        $jf->show();
+                    }
                 }
+                Event::handle('EndGroupSubscribe', array($this, $this->group));
             }
-            Event::handle('EndGroupSubscribe', array($this, $this->group));
-        }
-        $this->elementEnd('li');
-        if ($cur && $cur->hasRight(Right::DELETEGROUP)) {
-            $this->elementStart('li', 'entity_delete');
-            $df = new DeleteGroupForm($this, $this->group);
-            $df->show();
             $this->elementEnd('li');
+            if ($cur && $cur->hasRight(Right::DELETEGROUP)) {
+                $this->elementStart('li', 'entity_delete');
+                $df = new DeleteGroupForm($this, $this->group);
+                $df->show();
+                $this->elementEnd('li');
+            }
+            Event::handle('EndGroupActionsList', array($this, $this->group));
         }
         $this->elementEnd('ul');
         $this->elementEnd('div');

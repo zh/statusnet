@@ -1082,3 +1082,11 @@ EndInterpretCommand: Before running a command
 - $user: User who issued the command
 - $result: Resulting command
 
+StartGroupActionsList: Start the list of actions on a group profile page (after <ul>, before first <li>)
+- $action: action being executed (for output and params)
+- $group: group for the page
+
+EndGroupActionsList: End the list of actions on a group profile page (before </ul>, after last </li>)
+- $action: action being executed (for output and params)
+- $group: group for the page
+
