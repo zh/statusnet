@@ -36,7 +36,7 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
 /**
  * Data class for group direct messages
  *
- * @category PrivateGroup
+ * @category GroupPrivateMessage
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3

@@ -1,7 +1,7 @@
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2010, StatusNet, Inc.
+ * Copyright (C) 2011, StatusNet, Inc.
  *
  * Private groups for StatusNet 0.9.x
  *
@@ -23,7 +23,7 @@
  * @category  Privacy
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
- * @copyright 2010 StatusNet, Inc.
+ * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
@@ -42,7 +42,7 @@ if (!defined('STATUSNET')) {
  * @category  Privacy
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
- * @copyright 2010 StatusNet, Inc.
+ * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */

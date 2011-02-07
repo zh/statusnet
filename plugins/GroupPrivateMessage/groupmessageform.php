@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  PrivateGroup
+ * @category  GroupPrivateMessage
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -37,7 +37,7 @@ if (!defined('STATUSNET')) {
 /**
  * Form for posting a group message
  *
- * @category  PrivateGroup
+ * @category  GroupPrivateMessage
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.

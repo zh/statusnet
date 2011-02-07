@@ -11,7 +11,7 @@
  * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2010, StatusNet, Inc.
+ * Copyright (C) 2011, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -36,7 +36,7 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
 /**
  * Data class for group direct messages for users
  *
- * @category PrivateGroup
+ * @category GroupPrivateMessage
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
