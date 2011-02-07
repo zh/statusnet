@@ -121,6 +121,9 @@ class GroupinboxAction extends GroupDesignAction
         $gml = new GroupMessageList($this, $this->gm);
         $cnt = $gml->show();
 
+        if ($cnt == 0) {
+            $this->element('p', 'guide', _m('This group has not received any private messages.'));
+        }
         $this->pagination($this->page > 1,
                           $cnt > MESSAGES_PER_PAGE,
                           $this->page,
@@ -172,5 +175,34 @@ class GroupinboxAction extends GroupDesignAction
                            $base,
                            $this->page);
         }
+    }
+
+    /**
+     * Show the page notice
+     *
+     * Shows instructions for the page
+     *
+     * @return void
+     */
+
+    function showPageNotice()
+    {
+        $instr  = $this->getInstructions();
+        $output = common_markup_to_html($instr);
+
+        $this->elementStart('div', 'instructions');
+        $this->raw($output);
+        $this->elementEnd('div');
+    }
+
+    /**
+     * Instructions for using this page
+     *
+     * @return string localised instructions for using the page
+     */
+    function getInstructions()
+    {
+        // TRANS: Instructions for user inbox page.
+        return _m('This is the group inbox, which lists all incoming private messages for this group.');
     }
 }
