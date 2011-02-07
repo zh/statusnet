@@ -478,6 +478,18 @@ class GroupPrivateMessagePlugin extends Plugin
         return true;
     }
 
+    function onStartShowExportData($action)
+    {
+        if ($action instanceof ShowgroupAction) {
+            $gps = Group_privacy_settings::forGroup($action->group);
+        
+            if ($gps->allow_privacy == Group_privacy_settings::ALWAYS) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'GroupPrivateMessage',
