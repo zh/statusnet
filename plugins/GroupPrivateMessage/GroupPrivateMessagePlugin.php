@@ -391,8 +391,10 @@ class GroupPrivateMessagePlugin extends Plugin
 
         // Look for group tags
         // FIXME: won't work for remote groups
+        // @fixme if Notice::saveNew is refactored so we can just pull its list
+        // of groups between processing and saving, make use of it
 
-        $count = preg_match_all('/(?:^|\s)!([A-Za-z0-9]{1,64})/',
+        $count = preg_match_all('/(?:^|\s)!(' . Nickname::DISPLAY_FMT . ')/',
                                 strtolower($notice->content),
                                 $match);
 

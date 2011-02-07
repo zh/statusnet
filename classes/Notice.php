@@ -964,7 +964,7 @@ class Notice extends Memcached_DataObject
         $groups = array();
 
         /* extract all !group */
-        $count = preg_match_all('/(?:^|\s)!([A-Za-z0-9]{1,64})/',
+        $count = preg_match_all('/(?:^|\s)!(' . Nickname::DISPLAY_FMT . ')/',
                                 strtolower($this->content),
                                 $match);
         if (!$count) {
