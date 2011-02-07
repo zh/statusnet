@@ -104,6 +104,12 @@ class GroupinboxAction extends GroupDesignAction
         return true;
     }
 
+    function showLocalNav()
+    {
+        $nav = new GroupNav($this, $this->group);
+        $nav->show();
+    }
+
     function showContent()
     {
         $gml = new GroupMessageList($this, $this->gm);
