@@ -119,7 +119,13 @@ class GroupinboxAction extends GroupDesignAction
     function showContent()
     {
         $gml = new GroupMessageList($this, $this->gm);
-        $gml->show();
+        $cnt = $gml->show();
+
+        $this->pagination($this->page > 1,
+                          $cnt > MESSAGES_PER_PAGE,
+                          $this->page,
+                          'groupinbox',
+                          array('nickname' => $this->group->nickname));
     }
 
     /**

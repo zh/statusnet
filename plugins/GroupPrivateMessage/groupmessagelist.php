@@ -68,10 +68,23 @@ class GroupMessageList extends Widget
     function show()
     {
         $this->out->elementStart('ul', 'notices messages group-messages');
-        while ($this->gm->fetch()) {
+
+        $cnt = 0;
+
+        while ($this->gm->fetch() && $cnt <= MESSAGES_PER_PAGE) {
+
+            $cnt++;
+
+            if ($cnt > MESSAGES_PER_PAGE) {
+                break;
+            }
+
             $gmli = new GroupMessageListItem($this->out, $this->gm);
             $gmli->show();
         }
+
         $this->out->elementEnd('ul');
+
+        return $cnt;
     }
 }
