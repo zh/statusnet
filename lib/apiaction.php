@@ -263,8 +263,7 @@ class ApiAction extends Action
             ? Design::url($design->backgroundimage) : '';
 
         $twitter_user['profile_background_tile']
-            = empty($design->disposition)
-            ? '' : ($design->disposition & BACKGROUND_TILE) ? 'true' : 'false';
+            = (bool)($design->disposition & BACKGROUND_TILE);
 
         $twitter_user['statuses_count'] = $profile->noticeCount();
 
