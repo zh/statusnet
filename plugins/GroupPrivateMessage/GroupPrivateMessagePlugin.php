@@ -457,7 +457,27 @@ class GroupPrivateMessagePlugin extends Plugin
         
         return true;
     }
- 
+
+    /**
+     * Show an indicator that the group is (essentially) private on the group page
+     *
+     * @param Action     $action The action being shown
+     * @param User_group $group  The group being shown
+     *
+     * @return boolean hook value
+     */
+
+    function onEndGroupProfileElements($action, $group)
+    {
+        $gps = Group_privacy_settings::forGroup($group);
+        
+        if ($gps->allow_privacy == Group_privacy_settings::ALWAYS) {
+            $action->element('p', 'privategroupindicator', _('Private'));
+        }
+
+        return true;
+    }
+
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'GroupPrivateMessage',
