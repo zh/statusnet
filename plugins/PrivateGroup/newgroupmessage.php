@@ -127,6 +127,12 @@ class NewgroupmessageAction extends Action
         }
     }
 
+    function showNoticeForm()
+    {
+        $form = new GroupMessageForm($this, $this->group);
+        $form->show();
+    }
+
     function sendNewMessage()
     {
         $gm = Group_message::send($this->user, $this->group, $this->text);

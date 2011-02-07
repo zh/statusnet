@@ -345,6 +345,39 @@ class PrivateGroupPlugin extends Plugin
         return true;
     }
 
+    /**
+     * To add a "Message" button to the group profile page
+     *
+     * @param Action     $action The showgroup action being shown
+     * @param User_group $group  The current group
+     * 
+     * @return boolean hook value
+     */
+    function onEndGroupActionsList($action, $group)
+    {
+        $cur = common_current_user();
+
+        if (empty($cur)) {
+            return true;
+        }
+
+        try {
+            Group_privacy_settings::ensurePost($cur, $group);
+        } catch (Exception $e) {
+            return true;
+        }
+
+        $action->elementStart('li', 'entity_send-a-message');
+        $action->element('a', array('href' => common_local_url('newgroupmessage', array('nickname' => $group->nickname)),
+                                    'title' => _('Send a direct message to this group')),
+                         _('Message'));
+        // $form = new GroupMessageForm($action, $group);
+        // $form->hidden = true;
+        // $form->show();
+        $action->elementEnd('li');
+        return true;
+    }
+ 
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'PrivateGroup',
