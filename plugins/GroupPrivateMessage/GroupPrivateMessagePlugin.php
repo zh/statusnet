@@ -47,7 +47,7 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class PrivateGroupPlugin extends Plugin
+class GroupPrivateMessagePlugin extends Plugin
 {
     /**
      * Database schema setup
@@ -380,10 +380,10 @@ class PrivateGroupPlugin extends Plugin
  
     function onPluginVersion(&$versions)
     {
-        $versions[] = array('name' => 'PrivateGroup',
+        $versions[] = array('name' => 'GroupPrivateMessage',
                             'version' => STATUSNET_VERSION,
                             'author' => 'Evan Prodromou',
-                            'homepage' => 'http://status.net/wiki/Plugin:PrivateGroup',
+                            'homepage' => 'http://status.net/wiki/Plugin:GroupPrivateMessage',
                             'rawdescription' =>
                             _m('Allow posting DMs to a group.'));
         return true;
