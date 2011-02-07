@@ -1,17 +1,11 @@
 <?php
 /**
- * Give a warm greeting to our friendly user
- *
- * PHP version 5
- *
- * @category Sample
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://status.net/
- *
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2010, StatusNet, Inc.
+ *
+ * List of private messages to this group
+ * 
+ * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,140 +19,140 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  PrivateGroup
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
 
 if (!defined('STATUSNET')) {
+    // This check helps protect against security problems;
+    // your code file can't be executed directly from the web.
     exit(1);
 }
 
 /**
- * Give a warm greeting to our friendly user
+ * Show a list of private messages to this group
  *
- * This sample action shows some basic ways of doing output in an action
- * class.
- *
- * Action classes have several output methods that they override from
- * the parent class.
- *
- * @category Sample
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://status.net/
+ * @category  PrivateGroup
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
-class HelloAction extends Action
+
+class GroupinboxAction extends GroupDesignAction
 {
-    var $user = null;
-    var $gc   = null;
+    var $gm;
 
     /**
-     * Take arguments for running
+     * For initializing members of the class.
      *
-     * This method is called first, and it lets the action class get
-     * all its arguments and validate them. It's also the time
-     * to fetch any relevant data from the database.
+     * @param array $argarray misc. arguments
      *
-     * Action classes should run parent::prepare($args) as the first
-     * line of this method to make sure the default argument-processing
-     * happens.
-     *
-     * @param array $args $_REQUEST args
-     *
-     * @return boolean success flag
+     * @return boolean true
      */
-    function prepare($args)
+    function prepare($argarray)
     {
-        parent::prepare($args);
+        parent::prepare($argarray);
 
-        $this->user = common_current_user();
+        $cur = common_current_user();
 
-        if (!empty($this->user)) {
-            $this->gc = User_greeting_count::inc($this->user->id);
+        if (empty($cur)) {
+            throw new ClientException(_('Only for logged-in users'), 403);
         }
 
+        $nicknameArg = $this->trimmed('nickname');
+
+        $nickname = common_canonical_nickname($nicknameArg);
+
+        if ($nickname != $nicknameArg) {
+            $url = common_local_url('groupinbox', array('nickname' => $nickname));
+            common_redirect($url);
+            return false;
+        }
+
+        $localGroup = Local_group::staticGet('nickname', $nickname);
+
+        if (empty($localGroup)) {
+            throw new ClientException(_('No such group'), 404);
+        }
+
+        $this->group = User_group::staticGet('id', $localGroup->group_id);
+
+        if (empty($this->group)) {
+            throw new ClientException(_('No such group'), 404);
+        }
+
+        if (!$cur->isMember($this->group)) {
+            throw new ClientException(_('Only for members'), 403);
+        }
+
+        $this->page = $this->trimmed('page');
+
+        if (!$this->page) {
+            $this->page = 1;
+        }
+        
+        $this->gm = Group_message::forGroup($this->group, 
+                                            ($this->page - 1) * MESSAGES_PER_PAGE,
+                                            MESSAGES_PER_PAGE + 1);
         return true;
     }
 
-    /**
-     * Handle request
-     *
-     * This is the main method for handling a request. Note that
-     * most preparation should be done in the prepare() method;
-     * by the time handle() is called the action should be
-     * more or less ready to go.
-     *
-     * @param array $args $_REQUEST args; handled in prepare()
-     *
-     * @return void
-     */
-    function handle($args)
-    {
-        parent::handle($args);
-
-        $this->showPage();
-    }
-
-    /**
-     * Title of this page
-     *
-     * Override this method to show a custom title.
-     *
-     * @return string Title of the page
-     */
-    function title()
-    {
-        if (empty($this->user)) {
-            return _m('Hello');
-        } else {
-            return sprintf(_m('Hello, %s!'), $this->user->nickname);
-        }
-    }
-
-    /**
-     * Show content in the content area
-     *
-     * The default StatusNet page has a lot of decorations: menus,
-     * logos, tabs, all that jazz. This method is used to show
-     * content in the content area of the page; it's the main
-     * thing you want to overload.
-     *
-     * This method also demonstrates use of a plural localized string.
-     *
-     * @return void
-     */
     function showContent()
     {
-        if (empty($this->user)) {
-            $this->element('p', array('class' => 'greeting'),
-                           _m('Hello, stranger!'));
-        } else {
-            $this->element('p', array('class' => 'greeting'),
-                           sprintf(_m('Hello, %s'), $this->user->nickname));
-            $this->element('p', array('class' => 'greeting_count'),
-                           sprintf(_m('I have greeted you %d time.',
-                                      'I have greeted you %d times.',
-                                      $this->gc->greeting_count),
-                                   $this->gc->greeting_count));
-        }
+        $gml = new GroupMessageList($this, $this->gm);
+        $gml->show();
+    }
+
+    /**
+     * Handler method
+     *
+     * @param array $argarray is ignored since it's now passed in in prepare()
+     *
+     * @return void
+     */
+    function handle($argarray=null)
+    {
+        $this->showPage();
     }
 
     /**
      * Return true if read only.
      *
-     * Some actions only read from the database; others read and write.
-     * The simple database load-balancer built into StatusNet will
-     * direct read-only actions to database mirrors (if they are configured),
-     * and read-write actions to the master database.
+     * MAY override
      *
-     * This defaults to false to avoid data integrity issues, but you
-     * should make sure to overload it for performance gains.
-     *
-     * @param array $args other arguments, if RO/RW status depends on them.
+     * @param array $args other arguments
      *
      * @return boolean is read only action?
      */
     function isReadOnly($args)
     {
-        return false;
+        return true;
+    }
+
+    /**
+     * Title of the page
+     *
+     * @return string page title, with page number
+     */
+    function title()
+    {
+        $base = $this->group->getFancyName();
+
+        if ($this->page == 1) {
+            return sprintf(_('%s group inbox'), $base);
+        } else {
+            // TRANS: Page title for any but first group page.
+            // TRANS: %1$s is a group name, $2$s is a page number.
+            return sprintf(_('%1$s group inbox, page %2$d'),
+                           $base,
+                           $this->page);
+        }
     }
 }

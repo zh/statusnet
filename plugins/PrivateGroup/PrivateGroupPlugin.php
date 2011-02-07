@@ -153,6 +153,8 @@ class PrivateGroupPlugin extends Plugin
             include_once $dir . '/'.$cls.'.php';
             return false;
         case 'GroupMessageCommand':
+        case 'GroupMessageList':
+        case 'GroupMessageListItem':
             include_once $dir . '/'.strtolower($cls).'.php';
             return false;
         default:

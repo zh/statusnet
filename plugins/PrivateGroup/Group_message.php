@@ -212,4 +212,36 @@ class Group_message extends Memcached_DataObject
             Group_message_profile::send($this, $member);
         }
     }
+
+    function getGroup()
+    {
+        $group = User_group::staticGet('id', $this->to_group);
+        if (empty($group)) {
+            throw new ServerException(_('No group for group message'));
+        }
+        return $group;
+    }
+
+    function getSender()
+    {
+        $sender = Profile::staticGet('id', $this->from_profile);
+        if (empty($sender)) {
+            throw new ServerException(_('No sender for group message'));
+        }
+        return $sender;
+    }
+
+    static function forGroup($group, $offset, $limit)
+    {
+        // XXX: cache
+        $gm = new Group_message();
+
+        $gm->to_group = $group->id;
+        $gm->orderBy('created DESC');
+        $gm->limit($offset, $limit);
+
+        $gm->find();
+
+        return $gm;
+    }
 }
