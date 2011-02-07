@@ -150,11 +150,13 @@ class Group_message_profile extends Memcached_DataObject
 
         $from_profile = Profile::staticGet('id', $gm->from_profile);
 
+        $group = $gm->getGroup();
+
         common_switch_locale($to->language);
 
         // TRANS: Subject for direct-message notification email.
         // TRANS: %s is the sending user's nickname.
-        $subject = sprintf(_('New private message from %s'), $from->nickname);
+        $subject = sprintf(_('New private message from %s to group %s'), $from->nickname, $group->nickname);
 
         $from_profile = $from->getProfile();
 
@@ -162,17 +164,18 @@ class Group_message_profile extends Memcached_DataObject
         // TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
         // TRANS: %3$s is the message content, %4$s a URL to the message,
         // TRANS: %5$s is the StatusNet sitename.
-        $body = sprintf(_("%1\$s (%2\$s) sent you a private message:\n\n".
+        $body = sprintf(_("%1\$s (%2\$s) sent a private message to group %3\$s:\n\n".
                           "------------------------------------------------------\n".
-                          "%3\$s\n".
+                          "%4\$s\n".
                           "------------------------------------------------------\n\n".
                           "You can reply to their message here:\n\n".
-                          "%4\$s\n\n".
+                          "%5\$s\n\n".
                           "Don't reply to this email; it won't get to them.\n\n".
                           "With kind regards,\n".
-                          "%5\$s\n"),
+                          "%6\$s\n"),
                         $from_profile->getBestName(),
                         $from->nickname,
+                        $group->nickname,
                         $this->content,
                         common_local_url('newmessage', array('to' => $from->id)),
                         common_config('site', 'name'));
