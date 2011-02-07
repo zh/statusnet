@@ -377,6 +377,86 @@ class GroupPrivateMessagePlugin extends Plugin
         $action->elementEnd('li');
         return true;
     }
+
+    /**
+     * When saving a notice, check its groups. If any of them has
+     * privacy == always, force a group private message to all mentioned groups.
+     * If any of the groups disallows private messages, skip it.
+     *
+     * @param 
+     *
+     */
+
+    function onStartNoticeSave(&$notice) {
+
+        // Look for group tags
+        // FIXME: won't work for remote groups
+
+        $count = preg_match_all('/(?:^|\s)!([A-Za-z0-9]{1,64})/',
+                                strtolower($notice->content),
+                                $match);
+
+        $groups = array();
+        $ignored = array();
+
+        $forcePrivate = false;
+
+        if ($count > 0) {
+
+            /* Add them to the database */
+
+            foreach (array_unique($match[1]) as $nickname) {
+
+                $group = User_group::getForNickname($nickname, $profile);
+
+                if (empty($group)) {
+                    continue;
+                }
+
+                $gps = Group_privacy_settings::forGroup($group);
+
+                switch ($gps->allow_privacy) {
+                case Group_privacy_settings::ALWAYS:
+                    $forcePrivate = true;
+                    // fall through
+                case Group_privacy_settings::SOMETIMES:
+                    $groups[] = $group;
+                    break;
+                case Group_privacy_settings::NEVER:
+                    $ignored[] = $group;
+                    break;
+                }
+            }
+
+            if ($forcePrivate) {
+
+                foreach ($ignored as $group) {
+                    common_log(LOG_NOTICE,
+                               "Notice forced to group direct message ".
+                               "but group ".$group->nickname." does not allow them.");
+                }
+
+                $user = User::staticGet('id', $notice->profile_id);
+
+                if (empty($user)) {
+                    common_log(LOG_WARNING,
+                               "Notice forced to group direct message ".
+                               "but profile ".$notice->profile_id." is not a local user.");
+                } else {
+                    foreach ($groups as $group) {
+                        Group_message::send($user, $group, $notice->content);
+                    }
+                }
+
+                // Don't save the notice!
+                // FIXME: this is probably cheating.
+                throw new ClientException(sprintf(_('Forced notice to private group message.')),
+                                          200);
+            }
+        }
+        
+        return true;
+    }
  
     function onPluginVersion(&$versions)
     {

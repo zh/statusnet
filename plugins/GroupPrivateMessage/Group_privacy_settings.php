@@ -145,7 +145,7 @@ class Group_privacy_settings extends Memcached_DataObject
         return array(false, false, false);
     }
 
-    function ensurePost($user, $group)
+    function forGroup($group)
     {
         $gps = Group_privacy_settings::staticGet('group_id', $group->id);
 
@@ -155,6 +155,13 @@ class Group_privacy_settings extends Memcached_DataObject
             $gps->allow_privacy = Group_privacy_settings::SOMETIMES;
             $gps->allow_sender  = Group_privacy_settings::MEMBER;
         }
+
+        return $gps;
+    }
+
+    function ensurePost($user, $group)
+    {
+        $gps = self::forGroup($group);
 
         if ($gps->allow_privacy == Group_privacy_settings::NEVER) {
             throw new Exception(sprintf(_('Group %s does not allow private messages.'),
