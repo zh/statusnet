@@ -145,6 +145,7 @@ class PrivateGroupPlugin extends Plugin
         {
         case 'GroupinboxAction':
         case 'ShowgroupmessageAction':
+        case 'NewgroupmessageAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'Group_privacy_settings':
@@ -155,6 +156,7 @@ class PrivateGroupPlugin extends Plugin
         case 'GroupMessageCommand':
         case 'GroupMessageList':
         case 'GroupMessageListItem':
+        case 'GroupMessageForm':
             include_once $dir . '/'.strtolower($cls).'.php';
             return false;
         default:
@@ -179,6 +181,10 @@ class PrivateGroupPlugin extends Plugin
         $m->connect('group/message/:id',
                     array('action' => 'showgroupmessage'),
                     array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
+
+        $m->connect('group/:nickname/message/new',
+                    array('action' => 'newgroupmessage'),
+                    array('nickname' => Nickname::DISPLAY_FMT));
 
         return true;
     }

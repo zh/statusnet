@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2010, StatusNet, Inc.
  *
- * List of private messages to this group
+ * Action for adding a new group message
  * 
  * PHP version 5
  *
@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  PrivateGroup
+ * @category  Cache
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2010 StatusNet, Inc.
@@ -35,9 +35,9 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Show a list of private messages to this group
+ * Action for adding a new group message
  *
- * @category  PrivateGroup
+ * @category  Action
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2010 StatusNet, Inc.
@@ -45,9 +45,11 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class GroupinboxAction extends GroupDesignAction
+class NewgroupmessageAction extends Action
 {
-    var $gm;
+    var $group;
+    var $user;
+    var $text;
 
     /**
      * For initializing members of the class.
@@ -56,14 +58,20 @@ class GroupinboxAction extends GroupDesignAction
      *
      * @return boolean true
      */
+
     function prepare($argarray)
     {
         parent::prepare($argarray);
 
-        $cur = common_current_user();
+        $this->user = common_current_user();
 
-        if (empty($cur)) {
-            throw new ClientException(_('Only for logged-in users'), 403);
+        if (empty($this->user)) {
+            throw new ClientException(_('Must be logged in.'), 403);
+        }
+
+        if (!$this->user->hasRight(Right::NEWMESSAGE)) {
+            throw new Exception(sprintf(_('User %s not allowed to send private messages.'),
+                                        $this->user->nickname));
         }
 
         $nicknameArg = $this->trimmed('nickname');
@@ -71,8 +79,8 @@ class GroupinboxAction extends GroupDesignAction
         $nickname = common_canonical_nickname($nicknameArg);
 
         if ($nickname != $nicknameArg) {
-            $url = common_local_url('groupinbox', array('nickname' => $nickname));
-            common_redirect($url);
+            $url = common_local_url('newgroupmessage', array('nickname' => $nickname));
+            common_redirect($url, 301);
             return false;
         }
 
@@ -88,38 +96,18 @@ class GroupinboxAction extends GroupDesignAction
             throw new ClientException(_('No such group'), 404);
         }
 
-        if (!$cur->isMember($this->group)) {
-            throw new ClientException(_('Only for members'), 403);
+        // This throws an exception on error
+
+        Group_privacy_settings::ensurePost($this->user, $this->group);
+
+        // If we're posted to, check session token and get text
+
+        if ($this->isPost()) {
+            $this->checkSessionToken();
+            $this->text = $this->trimmed('content');
         }
 
-        $this->page = $this->trimmed('page');
-
-        if (!$this->page) {
-            $this->page = 1;
-        }
-        
-        $this->gm = Group_message::forGroup($this->group, 
-                                            ($this->page - 1) * MESSAGES_PER_PAGE,
-                                            MESSAGES_PER_PAGE + 1);
         return true;
-    }
-
-    function showLocalNav()
-    {
-        $nav = new GroupNav($this, $this->group);
-        $nav->show();
-    }
-
-    function showNoticeForm()
-    {
-        $form = new GroupMessageForm($this, $this->group);
-        $form->show();
-    }
-
-    function showContent()
-    {
-        $gml = new GroupMessageList($this, $this->gm);
-        $gml->show();
     }
 
     /**
@@ -129,42 +117,39 @@ class GroupinboxAction extends GroupDesignAction
      *
      * @return void
      */
+
     function handle($argarray=null)
     {
-        $this->showPage();
+        if ($this->isPost()) {
+            $this->sendNewMessage();
+        } else {
+            $this->showPage();
+        }
     }
 
-    /**
-     * Return true if read only.
-     *
-     * MAY override
-     *
-     * @param array $args other arguments
-     *
-     * @return boolean is read only action?
-     */
-    function isReadOnly($args)
+    function sendNewMessage()
     {
-        return true;
+        $gm = Group_message::send($this->user, $this->group, $this->text);
+
+        if ($this->boolean('ajax')) {
+            $this->startHTML('text/xml;charset=utf-8');
+            $this->elementStart('head');
+            $this->element('title', null, _('Message sent'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->element('p',
+                           array('id' => 'command_result'),
+                           sprintf(_('Direct message to %s sent.'),
+                                   $this->group->nickname));
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            common_redirect($gm->url, 303);
+        }
     }
 
-    /**
-     * Title of the page
-     *
-     * @return string page title, with page number
-     */
     function title()
     {
-        $base = $this->group->getFancyName();
-
-        if ($this->page == 1) {
-            return sprintf(_('%s group inbox'), $base);
-        } else {
-            // TRANS: Page title for any but first group page.
-            // TRANS: %1$s is a group name, $2$s is a page number.
-            return sprintf(_('%1$s group inbox, page %2$d'),
-                           $base,
-                           $this->page);
-        }
+        return sprintf(_('New message to group %s'), $this->group->nickname);
     }
 }

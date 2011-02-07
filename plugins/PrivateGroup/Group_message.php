@@ -127,48 +127,8 @@ class Group_message extends Memcached_DataObject
                                         $user->nickname));
         }
 
-        $gps = Group_privacy_settings::staticGet('group_id', $group->id);
+        Group_privacy_settings::ensurePost($user, $group);
 
-        if (empty($gps)) {
-            // make a fake one with defaults
-            $gps = new Group_privacy_settings();
-            $gps->allow_privacy = Group_privacy_settings::SOMETIMES;
-            $gps->allow_sender  = Group_privacy_settings::MEMBER;
-        }
-
-        if ($gps->allow_privacy == Group_privacy_settings::NEVER) {
-            throw new Exception(sprintf(_('Group %s does not allow private messages.'),
-                                        $group->nickname));
-        }
-
-        switch ($gps->allow_sender) {
-        case Group_privacy_settings::EVERYONE:
-            $profile = $user->getProfile();
-            if (Group_block::isBlocked($group, $profile)) {
-                throw new Exception(sprintf(_('User %s is blocked from group %s.'),
-                                            $user->nickname,
-                                            $group->nickname));
-            }
-            break;
-        case Group_privacy_settings::MEMBER:
-            if (!$user->isMember($group)) {
-                throw new Exception(sprintf(_('User %s is not a member of group %s.'),
-                                            $user->nickname,
-                                            $group->nickname));
-            }
-            break;
-        case Group_privacy_settings::ADMIN:
-            if (!$user->isAdmin($group)) {
-                throw new Exception(sprintf(_('User %s is not an administrator of group %s.'),
-                                            $user->nickname,
-                                            $group->nickname));
-            }
-            break;
-        default:
-            throw new Exception(sprintf(_('Unknown privacy settings for group %s.'),
-                                        $group->nickname));
-        }
-        
         $text = $user->shortenLinks($text);
 
         // We use the same limits as for 'regular' private messages.
@@ -244,4 +204,5 @@ class Group_message extends Memcached_DataObject
 
         return $gm;
     }
+
 }
