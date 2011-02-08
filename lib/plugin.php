@@ -110,16 +110,55 @@ class Plugin
     {
         $this->log(LOG_DEBUG, $msg);
     }
+    
+    function name()
+    {
+        $cls = get_class($this);
+        return mb_substr($cls, 0, -6);
+    }
 
     function onPluginVersion(&$versions)
     {
-        $cls = get_class($this);
-        $name = mb_substr($cls, 0, -6);
+        $name = $this->name();
 
         $versions[] = array('name' => $name,
                             // TRANS: Displayed as version information for a plugin if no version information was found.
                             'version' => _('Unknown'));
 
         return true;
+    }
+
+    function path($relative)
+    {
+        return self::staticPath($this->name(), $relative);
+    }
+
+    static function staticPath($plugin, $relative)
+    {
+        $isHTTPS = StatusNet::isHTTPS();
+
+        if ($isHTTPS) {
+            $server = common_config('plugins', 'sslserver');
+        } else {
+            $server = common_config('plugins', 'server');
+        }
+
+        if (is_null($server)) {
+            if ($isHTTPS) {
+                $server = common_config('site', 'sslserver');
+            } else {
+                $server = common_config('site', 'server');
+            }
+        }
+
+        $path = common_config('plugins', 'path');
+
+        if (is_null($path)) {
+            $path = common_config('site', 'path') . '/plugins/';
+        }
+
+        $protocol = ($isHTTPS) ? 'https' : 'http';
+
+        return $protocol.'://'.$server.$path.$plugin.'/'.$relative;
     }
 }

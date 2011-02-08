@@ -38,6 +38,10 @@ if (!defined('STATUSNET')) {
  * Use TinyMCE library to allow rich text editing in the browser
  *
  * Converts the notice form in browser to a rich-text editor.
+ * 
+ * FIXME: this plugin DOES NOT load its static files from the configured
+ * plugin server if one exists. There are cross-server permissions errors
+ * if you try to do that (something about window.tinymce).
  *
  * @category  WYSIWYG
  * @package   StatusNet
