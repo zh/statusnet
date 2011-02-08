@@ -88,21 +88,9 @@ class OutboxAction extends MailboxAction
         }
     }
 
-    /**
-     * returns the profile we want to show with the message
-     *
-     * For outboxes, we show the recipient.
-     *
-     * @param Message $message The message to get the profile for
-     *
-     * @return Profile The profile of the message recipient
-     *
-     * @see MailboxAction::getMessageProfile()
-     */
-
-    function getMessageProfile($message)
+    function getMessageList($message)
     {
-        return $message->getTo();
+        return new OutboxMessageList($this, $message);
     }
 
     /**
@@ -114,5 +102,26 @@ class OutboxAction extends MailboxAction
     function getInstructions()
     {
         return _('This is your outbox, which lists private messages you have sent.');
+    }
+}
+
+class OutboxMessageList extends MessageList
+{
+    function newItem($message)
+    {
+        return new OutboxMessageListItem($this->out, $message);
+    }
+}
+
+class OutboxMessageListItem extends MessageListItem
+{
+    /**
+     * Returns the profile we want to show with the message
+     *
+     * @return Profile The profile that matches the message
+     */
+    function getMessageProfile()
+    {
+        return $this->message->getTo();
     }
 }

@@ -109,32 +109,22 @@ class MailboxAction extends CurrentUserDesignAction
         $message = $this->getMessages();
 
         if ($message) {
-            $cnt = 0;
-            $this->elementStart('div', array('id' =>'notices_primary'));
-            $this->element('h2', null, _('Notices'));
-            $this->elementStart('ul', 'notices');
 
-            while ($message->fetch() && $cnt <= MESSAGES_PER_PAGE) {
-                $cnt++;
+            $ml = $this->getMessageList($message);
 
-                if ($cnt > MESSAGES_PER_PAGE) {
-                    break;
-                }
+            $cnt = $ml->show();
 
-                $this->showMessage($message);
-            }
-
-            $this->elementEnd('ul');
-
-            $this->pagination($this->page > 1, $cnt > MESSAGES_PER_PAGE,
-                              $this->page, $this->trimmed('action'),
+            $this->pagination($this->page > 1,
+                              $cnt > MESSAGES_PER_PAGE,
+                              $this->page,
+                              $this->trimmed('action'),
                               array('nickname' => $this->user->nickname));
-            $this->elementEnd('div');
-            $message->free();
-            unset($message);
-        }
-        else {
-            $this->element('p', 'guide', _('You have no private messages. You can send private message to engage other users in conversation. People can send you messages for your eyes only.'));
+        } else {
+            $this->element('p', 
+                           'guide', 
+                           _('You have no private messages. '.
+                             'You can send private message to engage other users in conversation. '.
+                             'People can send you messages for your eyes only.'));
         }
     }
 
@@ -143,93 +133,9 @@ class MailboxAction extends CurrentUserDesignAction
         return null;
     }
 
-    /**
-     * returns the profile we want to show with the message
-     *
-     * For inboxes, we show the sender; for outboxes, the recipient.
-     *
-     * @param Message $message The message to get the profile for
-     *
-     * @return Profile The profile that matches the message
-     */
-
-    function getMessageProfile($message)
+    function getMessageList($message)
     {
         return null;
-    }
-
-    /**
-     * show a single message in the list format
-     *
-     * XXX: This needs to be extracted out into a MessageList similar
-     * to NoticeList.
-     *
-     * @param Message $message the message to show
-     *
-     * @return void
-     */
-
-    function showMessage($message)
-    {
-        $this->elementStart('li', array('class' => 'hentry notice',
-                                         'id' => 'message-' . $message->id));
-
-        $profile = $this->getMessageProfile($message);
-
-        $this->elementStart('div', 'entry-title');
-        $this->elementStart('span', 'vcard author');
-        $this->elementStart('a', array('href' => $profile->profileurl,
-                                       'class' => 'url'));
-        $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-        $this->element('img', array('src' => ($avatar) ?
-                                    $avatar->displayUrl() :
-                                    Avatar::defaultImage(AVATAR_STREAM_SIZE),
-                                    'class' => 'photo avatar',
-                                    'width' => AVATAR_STREAM_SIZE,
-                                    'height' => AVATAR_STREAM_SIZE,
-                                    'alt' =>
-                                    ($profile->fullname) ? $profile->fullname :
-                                    $profile->nickname));
-        $this->element('span', array('class' => 'nickname fn'),
-                            $profile->nickname);
-        $this->elementEnd('a');
-        $this->elementEnd('span');
-
-        // FIXME: URL, image, video, audio
-        $this->elementStart('p', array('class' => 'entry-content'));
-        $this->raw($message->rendered);
-        $this->elementEnd('p');
-        $this->elementEnd('div');
-
-        $messageurl = common_local_url('showmessage',
-                                       array('message' => $message->id));
-
-        // XXX: we need to figure this out better. Is this right?
-        if (strcmp($message->uri, $messageurl) != 0 &&
-            preg_match('/^http/', $message->uri)) {
-            $messageurl = $message->uri;
-        }
-
-        $this->elementStart('div', 'entry-content');
-        $this->elementStart('a', array('rel' => 'bookmark',
-                                       'class' => 'timestamp',
-                                       'href' => $messageurl));
-        $dt = common_date_iso8601($message->created);
-        $this->element('abbr', array('class' => 'published',
-                                     'title' => $dt),
-                               common_date_string($message->created));
-        $this->elementEnd('a');
-
-        if ($message->source) {
-            $this->elementStart('span', 'source');
-            // FIXME: bad i18n. Device should be a parameter (from %s).
-            $this->text(_('from'));
-            $this->element('span', 'device', $this->showSource($message->source));
-            $this->elementEnd('span');
-        }
-        $this->elementEnd('div');
-
-        $this->elementEnd('li');
     }
 
     /**
@@ -300,5 +206,4 @@ class MailboxAction extends CurrentUserDesignAction
     {
          return true;
     }
-
 }

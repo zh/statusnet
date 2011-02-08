@@ -90,18 +90,9 @@ class InboxAction extends MailboxAction
         }
     }
 
-    /**
-     * Returns the profile we want to show with the message
-     *
-     * For inboxes, we show the sender; for outboxes, the recipient.
-     *
-     * @param Message $message The message to get the profile for
-     *
-     * @return Profile The profile that matches the message
-     */
-    function getMessageProfile($message)
+    function getMessageList($message)
     {
-        return $message->getFrom();
+        return new InboxMessageList($this, $message);
     }
 
     /**
@@ -113,5 +104,26 @@ class InboxAction extends MailboxAction
     {
         // TRANS: Instructions for user inbox page.
         return _('This is your inbox, which lists your incoming private messages.');
+    }
+}
+
+class InboxMessageList extends MessageList
+{
+    function newItem($message)
+    {
+        return new InboxMessageListItem($this->out, $message);
+    }
+}
+
+class InboxMessageListItem extends MessageListItem
+{
+    /**
+     * Returns the profile we want to show with the message
+     *
+     * @return Profile The profile that matches the message
+     */
+    function getMessageProfile()
+    {
+        return $this->message->getFrom();
     }
 }
