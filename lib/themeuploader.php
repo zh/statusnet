@@ -163,9 +163,10 @@ class ThemeUploader
             $estSize = $blockSize * max(1, intval(ceil($size / $blockSize)));
             $totalSize += $estSize;
             if ($totalSize > $sizeLimit) {
-                $msg = sprintf(_("Uploaded theme is too large; " .
-                                 "must be less than %d bytes uncompressed."),
-                                 $sizeLimit);
+                $msg = sprintf(_m('Uploaded theme is too large; must be less than %d byte uncompressed.',
+                                  'Uploaded theme is too large; must be less than %d bytes uncompressed.',
+                                  $sizeLimit),
+                               $sizeLimit);
                 throw new ClientException($msg);
             }
 

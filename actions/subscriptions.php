@@ -106,8 +106,6 @@ class SubscriptionsAction extends GalleryAction
                 }
             }
 
-            $subscriptions->free();
-
             $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
                               $this->page, 'subscriptions',
                               array('nickname' => $this->user->nickname));
@@ -162,6 +160,21 @@ class SubscriptionsAction extends GalleryAction
 
         $cloud2 = new SubscriptionsPeopleSelfTagCloudSection($this);
         $cloud2->show();
+    }
+
+    /**
+     * Link to feeds of subscriptions
+     *
+     * @return array of Feed objects
+     */
+    function getFeeds()
+    {
+        return array(new Feed(Feed::ATOM,
+                              common_local_url('AtomPubSubscriptionFeed',
+                                               array('subscriber' => $this->profile->id)),
+                              // TRANS: Atom feed title. %s is a profile nickname.
+                              sprintf(_('Subscription feed for %s (Atom)'),
+                                      $this->profile->nickname)));
     }
 }
 

@@ -100,8 +100,15 @@ class FinishopenidloginAction extends Action
             return;
         }
 
+        // We don't recognize this OpenID, so we're going to give the user
+        // two options, each in its own mini-form.
+        //
+        // First, they can create a new account using their OpenID auth
+        // info. The profile will be pre-populated with whatever name,
+        // email, and location we can get from the OpenID provider, so
+        // all we ask for is the license confirmation.
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'account_connect',
+                                          'id' => 'account_create',
                                           'class' => 'form_settings',
                                           'action' => common_local_url('finishopenidlogin')));
         $this->hidden('token', common_session_token());
@@ -111,11 +118,24 @@ class FinishopenidloginAction extends Action
         $this->element('p', null,
                        _m('Create a new user with this nickname.'));
         $this->elementStart('ul', 'form_data');
+
+        // Hook point for captcha etc
+        Event::handle('StartRegistrationFormData', array($this));
+
         $this->elementStart('li');
         $this->input('newname', _m('New nickname'),
                      ($this->username) ? $this->username : '',
                      _m('1-64 lowercase letters or numbers, no punctuation or spaces'));
         $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->input('email', _('Email'), $this->getEmail(),
+                     _('Used only for updates, announcements, '.
+                       'and password recovery'));
+        $this->elementEnd('li');
+
+        // Hook point for captcha etc
+        Event::handle('EndRegistrationFormData', array($this));
+
         $this->elementStart('li');
         $this->element('input', array('type' => 'checkbox',
                                       'id' => 'license',
@@ -141,7 +161,15 @@ class FinishopenidloginAction extends Action
         // TRANS: Button label in form in which to create a new user on the site for an OpenID.
         $this->submit('create', _m('BUTTON', 'Create'));
         $this->elementEnd('fieldset');
+        $this->elementEnd('form');
 
+        // The second option is to attach this OpenID to an existing account
+        // on the local system, which they need to provide a password for.
+        $this->elementStart('form', array('method' => 'post',
+                                          'id' => 'account_connect',
+                                          'class' => 'form_settings',
+                                          'action' => common_local_url('finishopenidlogin')));
+        $this->hidden('token', common_session_token());
         $this->elementStart('fieldset', array('id' => 'form_openid_createaccount'));
         $this->element('legend', null,
                        // TRANS: Used as form legend for form in which to connect an OpenID to an existing user on the site.
@@ -163,6 +191,39 @@ class FinishopenidloginAction extends Action
         $this->submit('connect', _m('BUTTON', 'Connect'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
+    }
+
+    /**
+     * Get specified e-mail from the form, or the OpenID sreg info, or the
+     * invite code.
+     *
+     * @return string
+     */
+    function getEmail()
+    {
+        $email = $this->trimmed('email');
+        if (!empty($email)) {
+            return $email;
+        }
+
+        // Pull from openid thingy
+        list($display, $canonical, $sreg) = $this->getSavedValues();
+        if (!empty($sreg['email'])) {
+            return $sreg['email'];
+        }
+
+        // Terrible hack for invites...
+        if (common_config('site', 'inviteonly')) {
+            $code = $_SESSION['invitecode'];
+            if ($code) {
+                $invite = Invitation::staticGet($code);
+
+                if ($invite && $invite->address_type == 'email') {
+                    return $invite->address;
+                }
+            }
+        }
+        return '';
     }
 
     function tryLogin()
@@ -276,13 +337,10 @@ class FinishopenidloginAction extends Action
             }
         }
 
-        $nickname = $this->trimmed('newname');
-
-        if (!Validate::string($nickname, array('min_length' => 1,
-                                               'max_length' => 64,
-                                               'format' => NICKNAME_FMT))) {
-            // TRANS: OpenID plugin message. The entered new user name did not conform to the requirements.
-            $this->showForm(_m('Nickname must have only lowercase letters and numbers and no spaces.'));
+        try {
+            $nickname = Nickname::normalize($this->trimmed('newname'));
+        } catch (NicknameException $e) {
+            $this->showForm($e->getMessage());
             return;
         }
 
@@ -335,11 +393,7 @@ class FinishopenidloginAction extends Action
             $fullname = '';
         }
 
-        if (!empty($sreg['email']) && Validate::email($sreg['email'], common_config('email', 'check_domain'))) {
-            $email = $sreg['email'];
-        } else {
-            $email = '';
-        }
+        $email = $this->getEmail();
 
         # XXX: add language
         # XXX: add timezone
@@ -470,9 +524,7 @@ class FinishopenidloginAction extends Action
 
     function isNewNickname($str)
     {
-        if (!Validate::string($str, array('min_length' => 1,
-                                          'max_length' => 64,
-                                          'format' => NICKNAME_FMT))) {
+        if (!Nickname::isValid($str)) {
             return false;
         }
         if (!User::allowed_nickname($str)) {

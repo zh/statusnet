@@ -52,10 +52,6 @@ class OStatusPlugin extends Plugin
     function onRouterInitialized($m)
     {
         // Discovery actions
-        $m->connect('.well-known/host-meta',
-                    array('action' => 'hostmeta'));
-        $m->connect('main/xrd',
-                    array('action' => 'userxrd'));
         $m->connect('main/ownerxrd',
                     array('action' => 'ownerxrd'));
         $m->connect('main/ostatus',
@@ -149,12 +145,10 @@ class OStatusPlugin extends Plugin
             $user = $feed->getUser();
             $id   = $user->id;
             $profile = $user->getProfile();
-            $feed->setActivitySubject($profile->asActivityNoun('subject'));
         } else if ($feed instanceof AtomGroupNoticeFeed) {
             $salmonAction = 'groupsalmon';
             $group = $feed->getGroup();
             $id = $group->id;
-            $feed->setActivitySubject($group->asActivitySubject());
         } else {
             return true;
         }
@@ -998,17 +992,69 @@ class OStatusPlugin extends Plugin
         return false;
     }
 
-    function onStartGetProfileFromURI($uri, &$profile) {
+    function onStartGetProfileFromURI($uri, &$profile)
+    {
+        // Don't want to do Web-based discovery on our own server,
+        // so we check locally first.
 
-        // XXX: do discovery here instead (OStatus_profile::ensureProfileURI($uri))
+        $user = User::staticGet('uri', $uri);
+        
+        if (!empty($user)) {
+            $profile = $user->getProfile();
+            return false;
+        }
 
-        $oprofile = Ostatus_profile::staticGet('uri', $uri);
+        // Now, check remotely
 
-        if (!empty($oprofile) && !$oprofile->isGroup()) {
+        $oprofile = Ostatus_profile::ensureProfileURI($uri);
+
+        if (!empty($oprofile)) {
             $profile = $oprofile->localProfile();
             return false;
         }
 
+        // Still not a hit, so give up.
+
         return true;
+    }
+
+    function onEndXrdActionLinks(&$xrd, $user)
+    {
+	$xrd->links[] = array('rel' => Discovery::UPDATESFROM,
+			      'href' => common_local_url('ApiTimelineUser',
+							 array('id' => $user->id,
+							       'format' => 'atom')),
+			      'type' => 'application/atom+xml');
+	
+	            // Salmon
+        $salmon_url = common_local_url('usersalmon',
+                                       array('id' => $user->id));
+
+        $xrd->links[] = array('rel' => Salmon::REL_SALMON,
+                              'href' => $salmon_url);
+        // XXX : Deprecated - to be removed.
+        $xrd->links[] = array('rel' => Salmon::NS_REPLIES,
+                              'href' => $salmon_url);
+
+        $xrd->links[] = array('rel' => Salmon::NS_MENTIONS,
+                              'href' => $salmon_url);
+
+        // Get this user's keypair
+        $magickey = Magicsig::staticGet('user_id', $user->id);
+        if (!$magickey) {
+            // No keypair yet, let's generate one.
+            $magickey = new Magicsig();
+            $magickey->generate($user->id);
+        }
+
+        $xrd->links[] = array('rel' => Magicsig::PUBLICKEYREL,
+                              'href' => 'data:application/magic-public-key,'. $magickey->toString(false));
+
+        // TODO - finalize where the redirect should go on the publisher
+        $url = common_local_url('ostatussub') . '?profile={uri}';
+        $xrd->links[] = array('rel' => 'http://ostatus.org/schema/1.0/subscribe',
+                              'template' => $url );
+	
+	return true;
     }
 }

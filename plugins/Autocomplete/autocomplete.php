@@ -59,7 +59,7 @@ class AutocompleteAction extends Action
     {
         $max=0;
         foreach($this->users as $user){
-            $max = max($max,strtotime($user->modified),strtotime($user->profile->modified));
+            $max = max($max,strtotime($user->modified),strtotime($user->getProfile()->modified));
         }
         foreach($this->groups as $group){
             $max = max($max,strtotime($group->modified));
@@ -87,7 +87,15 @@ class AutocompleteAction extends Action
 
     function prepare($args)
     {
+        // If we die, show short error messages.
+        StatusNet::setApi(true);
+
         parent::prepare($args);
+
+        $cur = common_current_user();
+        if (!$cur) {
+            throw new ClientException('Access forbidden', true);
+        }
         $this->groups=array();
         $this->users=array();
         $q = $this->arg('q');
@@ -126,13 +134,47 @@ class AutocompleteAction extends Action
         $results = array();
         foreach($this->users as $user){
             $profile = $user->getProfile();
-            $results[]=array('nickname' => $user->nickname, 'fullname'=> $profile->fullname, 'type'=>'user');
+            $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
+            // sigh.... encapsulate this upstream!
+            if ($avatar) {
+                $avatar = $avatar->displayUrl();
+            } else {
+                $avatar = Avatar::defaultImage(AVATAR_MINI_SIZE);
+            }
+            $results[] = array(
+                'nickname' => $user->nickname,
+                'fullname'=> $profile->fullname,
+                'avatar' => $avatar,
+                'type' => 'user'
+            );
         }
         foreach($this->groups as $group){
-            $results[]=array('nickname' => $group->nickname, 'fullname'=> $group->fullname, 'type'=>'group');
+            // sigh.... encapsulate this upstream!
+            if ($group->mini_logo) {
+                $avatar = $group->mini_logo;
+            } else {
+                $avatar = User_group::defaultLogo(AVATAR_MINI_SIZE);
+            }
+            $results[] = array(
+                'nickname' => $group->nickname,
+                'fullname'=> $group->fullname,
+                'avatar' => $avatar,
+                'type' => 'group');
         }
         foreach($results as $result) {
             print json_encode($result) . "\n";
         }
+    }
+
+    /**
+     * Is this action read-only?
+     *
+     * @param array $args other arguments
+     *
+     * @return boolean is read only action?
+     */
+    function isReadOnly($args)
+    {
+        return true;
     }
 }

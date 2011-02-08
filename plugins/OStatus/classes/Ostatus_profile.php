@@ -188,10 +188,10 @@ class Ostatus_profile extends Memcached_DataObject
         } else if ($this->group_id && !$this->profile_id) {
             return true;
         } else if ($this->group_id && $this->profile_id) {
-            // TRANS: Server exception.
+            // TRANS: Server exception. %s is a URI.
             throw new ServerException(sprintf(_m('Invalid ostatus_profile state: both group and profile IDs set for %s.'),$this->uri));
         } else {
-            // TRANS: Server exception.
+            // TRANS: Server exception. %s is a URI.
             throw new ServerException(sprintf(_m('Invalid ostatus_profile state: both group and profile IDs empty for %s.'),$this->uri));
         }
     }
@@ -331,6 +331,7 @@ class Ostatus_profile extends Memcached_DataObject
      * an acceptable response from the remote site.
      *
      * @param mixed $entry XML string, Notice, or Activity
+     * @param Profile $actor
      * @return boolean success
      */
     public function notifyActivity($entry, $actor)
@@ -405,6 +406,7 @@ class Ostatus_profile extends Memcached_DataObject
         } else if ($feed->localName == 'rss') { // @fixme check namespace
             $this->processRssFeed($feed, $source);
         } else {
+            // TRANS: Exception.
             throw new Exception(_m('Unknown feed format.'));
         }
     }
@@ -428,6 +430,7 @@ class Ostatus_profile extends Memcached_DataObject
         $channels = $rss->getElementsByTagName('channel');
 
         if ($channels->length == 0) {
+            // TRANS: Exception.
             throw new Exception(_m('RSS feed without a channel.'));
         } else if ($channels->length > 1) {
             common_log(LOG_WARNING, __METHOD__ . ": more than one channel in an RSS feed");
@@ -455,7 +458,8 @@ class Ostatus_profile extends Memcached_DataObject
     {
         $activity = new Activity($entry, $feed);
 
-        if (Event::handle('StartHandleFeedEntry', array($activity))) {
+        if (Event::handle('StartHandleFeedEntryWithProfile', array($activity, $this)) &&
+            Event::handle('StartHandleFeedEntry', array($activity))) {
 
             // @todo process all activity objects
             switch ($activity->objects[0]->type) {
@@ -477,6 +481,7 @@ class Ostatus_profile extends Memcached_DataObject
             }
 
             Event::handle('EndHandleFeedEntry', array($activity));
+            Event::handle('EndHandleFeedEntryWithProfile', array($activity, $this));
         }
     }
 
@@ -489,36 +494,10 @@ class Ostatus_profile extends Memcached_DataObject
      */
     public function processPost($activity, $method)
     {
-        if ($this->isGroup()) {
-            // A group feed will contain posts from multiple authors.
-            // @fixme validate these profiles in some way!
-            $oprofile = self::ensureActorProfile($activity);
-            if ($oprofile->isGroup()) {
-                // Groups can't post notices in StatusNet.
-                common_log(LOG_WARNING, "OStatus: skipping post with group listed as author: $oprofile->uri in feed from $this->uri");
-                return false;
-            }
-        } else {
-            $actor = $activity->actor;
+        $oprofile = $this->checkAuthorship($activity);
 
-            if (empty($actor)) {
-                // OK here! assume the default
-            } else if ($actor->id == $this->uri || $actor->link == $this->uri) {
-                $this->updateFromActivityObject($actor);
-            } else if ($actor->id) {
-                // We have an ActivityStreams actor with an explicit ID that doesn't match the feed owner.
-                // This isn't what we expect from mainline OStatus person feeds!
-                // Group feeds go down another path, with different validation...
-                // Most likely this is a plain ol' blog feed of some kind which
-                // doesn't match our expectations. We'll take the entry, but ignore
-                // the <author> info.
-                common_log(LOG_WARNING, "Got an actor '{$actor->title}' ({$actor->id}) on single-user feed for {$this->uri}");
-            } else {
-                // Plain <author> without ActivityStreams actor info.
-                // We'll just ignore this info for now and save the update under the feed's identity.
-            }
-
-            $oprofile = $this;
+        if (empty($oprofile)) {
+            return false;
         }
 
         // It's not always an ActivityObject::NOTE, but... let's just say it is.
@@ -555,7 +534,7 @@ class Ostatus_profile extends Memcached_DataObject
             $sourceContent = $note->title;
         } else {
             // @fixme fetch from $sourceUrl?
-            // TRANS: Client exception. %s is a source URL.
+            // TRANS: Client exception. %s is a source URI.
             throw new ClientException(sprintf(_m('No content for notice %s.'),$sourceUri));
         }
 
@@ -588,7 +567,9 @@ class Ostatus_profile extends Memcached_DataObject
                 // We mark up the attachment link specially for the HTML output
                 // so we can fold-out the full version inline.
 
-                // TRANS: Shown when a notice is longer than supported and/or when attachments are present.
+                // @fixme I18N this tooltip will be saved with the site's default language
+                // TRANS: Shown when a notice is longer than supported and/or when attachments are present. At runtime
+                // TRANS: this will usually be replaced with localised text from StatusNet core messages.
                 $showMoreText = _m('Show more');
                 $attachUrl = common_local_url('attachment',
                                               array('attachment' => $attachment->id));
@@ -839,7 +820,7 @@ class Ostatus_profile extends Memcached_DataObject
             return self::ensureFeedURL($feedurl, $hints);
         }
 
-        // TRANS: Exception.
+        // TRANS: Exception. %s is a URL.
         throw new Exception(sprintf(_m('Could not find a feed URL for profile page %s.'),$finalUrl));
     }
 
@@ -931,53 +912,19 @@ class Ostatus_profile extends Memcached_DataObject
      * @return Ostatus_profile
      * @throws Exception
      */
+
     public static function ensureAtomFeed($feedEl, $hints)
     {
-        // Try to get a profile from the feed activity:subject
+        $author = ActivityUtils::getFeedAuthor($feedEl);
 
-        $subject = ActivityUtils::child($feedEl, Activity::SUBJECT, Activity::SPEC);
-
-        if (!empty($subject)) {
-            $subjObject = new ActivityObject($subject);
-            return self::ensureActivityObjectProfile($subjObject, $hints);
+        if (empty($author)) {
+            // XXX: make some educated guesses here
+            // TRANS: Feed sub exception.
+            throw new FeedSubException(_m('Can\'t find enough profile '.
+                                          'information to make a feed.'));
         }
 
-        // Otherwise, try the feed author
-
-        $author = ActivityUtils::child($feedEl, Activity::AUTHOR, Activity::ATOM);
-
-        if (!empty($author)) {
-            $authorObject = new ActivityObject($author);
-            return self::ensureActivityObjectProfile($authorObject, $hints);
-        }
-
-        // Sheesh. Not a very nice feed! Let's try fingerpoken in the
-        // entries.
-
-        $entries = $feedEl->getElementsByTagNameNS(Activity::ATOM, 'entry');
-
-        if (!empty($entries) && $entries->length > 0) {
-
-            $entry = $entries->item(0);
-
-            $actor = ActivityUtils::child($entry, Activity::ACTOR, Activity::SPEC);
-
-            if (!empty($actor)) {
-                $actorObject = new ActivityObject($actor);
-                return self::ensureActivityObjectProfile($actorObject, $hints);
-
-            }
-
-            $author = ActivityUtils::child($entry, Activity::AUTHOR, Activity::ATOM);
-
-            if (!empty($author)) {
-                $authorObject = new ActivityObject($author);
-                return self::ensureActivityObjectProfile($authorObject, $hints);
-            }
-        }
-
-        // XXX: make some educated guesses here
-        throw new FeedSubException(_m('Can\'t find enough profile information to make a feed.'));
+        return self::ensureActivityObjectProfile($author, $hints);
     }
 
     /**
@@ -1036,6 +983,7 @@ class Ostatus_profile extends Memcached_DataObject
             return;
         }
         if (!common_valid_http_url($url)) {
+            // TRANS: Server exception. %s is a URL.
             throw new ServerException(sprintf(_m("Invalid avatar URL %s."), $url));
         }
 
@@ -1046,6 +994,7 @@ class Ostatus_profile extends Memcached_DataObject
         }
         if (!$self) {
             throw new ServerException(sprintf(
+                // TRANS: Server exception. %s is a URI.
                 _m("Tried to update avatar for unsaved remote profile %s."),
                 $this->uri));
         }
@@ -1055,6 +1004,7 @@ class Ostatus_profile extends Memcached_DataObject
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
         try {
             if (!copy($url, $temp_filename)) {
+                // TRANS: Server exception. %s is a URL.
                 throw new ServerException(sprintf(_m("Unable to fetch avatar from %s."), $url));
             }
 
@@ -1337,7 +1287,7 @@ class Ostatus_profile extends Memcached_DataObject
 
             $oprofile->profile_id = $profile->insert();
             if (!$oprofile->profile_id) {
-            // TRANS: Exception.
+            // TRANS: Server exception.
                 throw new ServerException(_m('Can\'t save local profile.'));
             }
         } else {
@@ -1348,7 +1298,7 @@ class Ostatus_profile extends Memcached_DataObject
 
             $oprofile->group_id = $group->insert();
             if (!$oprofile->group_id) {
-                // TRANS: Exception.
+                // TRANS: Server exception.
                 throw new ServerException(_m('Can\'t save local profile.'));
             }
         }
@@ -1356,7 +1306,7 @@ class Ostatus_profile extends Memcached_DataObject
         $ok = $oprofile->insert();
 
         if (!$ok) {
-            // TRANS: Exception.
+            // TRANS: Server exception.
             throw new ServerException(_m('Can\'t save OStatus profile.'));
         }
 
@@ -1544,8 +1494,11 @@ class Ostatus_profile extends Memcached_DataObject
         }
 
         // Try the profile url (like foo.example.com or example.com/user/foo)
-
-        $profileUrl = ($object->link) ? $object->link : $hints['profileurl'];
+        if (!empty($object->link)) {
+            $profileUrl = $object->link;
+        } else if (!empty($hints['profileurl'])) {
+            $profileUrl = $hints['profileurl'];
+        }
 
         if (!empty($profileUrl)) {
             $nickname = self::nicknameFromURI($profileUrl);
@@ -1576,9 +1529,11 @@ class Ostatus_profile extends Memcached_DataObject
 
     protected static function nicknameFromURI($uri)
     {
-        preg_match('/(\w+):/', $uri, $matches);
-
-        $protocol = $matches[1];
+        if (preg_match('/(\w+):/', $uri, $matches)) {
+            $protocol = $matches[1];
+        } else {
+            return null;
+        }
 
         switch ($protocol) {
         case 'acct':
@@ -1795,6 +1750,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if ($file_id === false) {
             common_log_db_error($file, "INSERT", __FILE__);
+            // TRANS: Server exception.
             throw new ServerException(_m('Could not store HTML content of long post as file.'));
         }
 
@@ -1823,12 +1779,53 @@ class Ostatus_profile extends Memcached_DataObject
                 case 'mailto':
                     $rest = $match[2];
                     $oprofile = Ostatus_profile::ensureWebfinger($rest);
+                    break;
                 default:
-                    common_log("Unrecognized URI protocol for profile: $protocol ($uri)");
+                    common_log(LOG_WARNING,
+                               "Unrecognized URI protocol for profile: $protocol ($uri)");
                     break;
                 }
             }
         }
+        return $oprofile;
+    }
+
+    function checkAuthorship($activity)
+    {
+        if ($this->isGroup()) {
+            // A group feed will contain posts from multiple authors.
+            // @fixme validate these profiles in some way!
+            $oprofile = self::ensureActorProfile($activity);
+            if ($oprofile->isGroup()) {
+                // Groups can't post notices in StatusNet.
+                common_log(LOG_WARNING, 
+                           "OStatus: skipping post with group listed as author: ".
+                           "$oprofile->uri in feed from $this->uri");
+                return false;
+            }
+        } else {
+            $actor = $activity->actor;
+
+            if (empty($actor)) {
+                // OK here! assume the default
+            } else if ($actor->id == $this->uri || $actor->link == $this->uri) {
+                $this->updateFromActivityObject($actor);
+            } else if ($actor->id) {
+                // We have an ActivityStreams actor with an explicit ID that doesn't match the feed owner.
+                // This isn't what we expect from mainline OStatus person feeds!
+                // Group feeds go down another path, with different validation...
+                // Most likely this is a plain ol' blog feed of some kind which
+                // doesn't match our expectations. We'll take the entry, but ignore
+                // the <author> info.
+                common_log(LOG_WARNING, "Got an actor '{$actor->title}' ({$actor->id}) on single-user feed for {$this->uri}");
+            } else {
+                // Plain <author> without ActivityStreams actor info.
+                // We'll just ignore this info for now and save the update under the feed's identity.
+            }
+
+            $oprofile = $this;
+        }
+
         return $oprofile;
     }
 }

@@ -220,14 +220,12 @@ and the URLs are listed here for your convenience.
   version may render your StatusNet site unable to send or receive XMPP
   messages.
 - Facebook library. Used for the Facebook application.
-- PEAR Services_oEmbed. Used for some multimedia integration.
-- PEAR HTTP_Request is an oEmbed dependency.
-- PEAR Validate is an oEmbed dependency.
-- PEAR Net_URL2 is an oEmbed dependency.
+- PEAR Validate is used for URL and email validation.
 - Console_GetOpt for parsing command-line options.
 - libomb. a library for implementing OpenMicroBlogging 0.1, the
   predecessor to OStatus.
 - HTTP_Request2, a library for making HTTP requests.
+- PEAR Net_URL2 is an HTTP_Request2 dependency.
 
 A design goal of StatusNet is that the basic Web functionality should
 work on even the most restrictive commercial hosting services.
@@ -1278,6 +1276,12 @@ Profile management.
 
 biolimit: max character length of bio; 0 means no limit; null means to use
     the site text limit default.
+backup: whether users can backup their own profiles. Defaults to true.
+restore: whether users can restore their profiles from backup files. Defaults
+	 to true.
+delete: whether users can delete their own accounts. Defaults to true.
+move: whether users can move their accounts to another server. Defaults
+      to true.	 
 
 newuser
 -------
@@ -1551,6 +1555,22 @@ cache: whether to cache the router in memcache (or another caching
     developers (who might be actively adding pages, so won't want the
     router cached) or others who see strange behavior. You're unlikely
     to need this unless you're a developer.
+
+http
+----
+
+Settings for the HTTP client.
+
+ssl_cafile: location of the CA file for SSL. If not set, won't verify
+	    SSL peers. Default unset.
+curl: Use cURL <http://curl.haxx.se/> for doing HTTP calls. You must
+      have the PHP curl extension installed for this to work.
+proxy_host: Host to use for proxying HTTP requests. If unset, doesn't
+	    do any HTTP proxy stuff. Default unset.
+proxy_port: Port to use to connect to HTTP proxy host. Default null.
+proxy_user: Username to use for authenticating to the HTTP proxy. Default null.
+proxy_password: Password to use for authenticating to the HTTP proxy. Default null.
+proxy_auth_scheme: Scheme to use for authenticating to the HTTP proxy. Default null.
 
 Plugins
 =======

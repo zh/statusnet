@@ -755,19 +755,14 @@ class User extends Memcached_DataObject
         $notice->profile_id = $this->id;
         $notice->whereAdd('repeat_of IS NOT NULL');
 
-        $notice->orderBy('id DESC');
+        $notice->orderBy('created DESC, id DESC');
 
         if (!is_null($offset)) {
             $notice->limit($offset, $limit);
         }
 
-        if ($since_id != 0) {
-            $notice->whereAdd('id > ' . $since_id);
-        }
-
-        if ($max_id != 0) {
-            $notice->whereAdd('id <= ' . $max_id);
-        }
+        Notice::addWhereSinceId($notice, $since_id);
+        Notice::addWhereMaxId($notice, $max_id);
 
         $ids = array();
 
@@ -800,17 +795,17 @@ class User extends Memcached_DataObject
           'FROM notice original JOIN notice rept ON original.id = rept.repeat_of ' .
           'WHERE original.profile_id = ' . $this->id . ' ';
 
-        if ($since_id != 0) {
-            $qry .= 'AND original.id > ' . $since_id . ' ';
+        $since = Notice::whereSinceId($since_id, 'original.id', 'original.created');
+        if ($since) {
+            $qry .= "AND ($since) ";
         }
 
-        if ($max_id != 0) {
-            $qry .= 'AND original.id <= ' . $max_id . ' ';
+        $max = Notice::whereMaxId($max_id, 'original.id', 'original.created');
+        if ($max) {
+            $qry .= "AND ($max) ";
         }
 
-        // NOTE: we sort by fave time, not by notice time!
-
-        $qry .= 'ORDER BY original.id DESC ';
+        $qry .= 'ORDER BY original.created, original.id DESC ';
 
         if (!is_null($offset)) {
             $qry .= "LIMIT $limit OFFSET $offset";

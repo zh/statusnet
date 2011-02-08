@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Plugin to add adittional awesomenss to StatusNet
+ * Plugin to add additional awesomenss to StatusNet
  *
  * PHP version 5
  *
@@ -42,9 +42,8 @@ if (!defined('STATUSNET')) {
 
 class AwesomenessPlugin extends Plugin
 {
-	
 	const VERSION = '0.0.42';
-	
+
     public function onPluginVersion(&$versions)
     {
         $versions[] = array(
@@ -52,14 +51,15 @@ class AwesomenessPlugin extends Plugin
             'version' => self::VERSION,
             'author' => 'Jeroen De Dauw',
             'homepage' => 'http://status.net/wiki/Plugin:Awesomeness',
+            // TRANS: Plugin description for a sample plugin.
             'rawdescription' => _m(
-                'The Awesomeness plugin adds adittional awesomeness ' .
-                'to your StatusNet install. '
+                'The Awesomeness plugin adds additional awesomeness ' .
+                'to a StatusNet installation.'
             )
         );
         return true;
     }
-    
+
     /**
      * Add the conrnify button
      *
@@ -67,12 +67,11 @@ class AwesomenessPlugin extends Plugin
      *
      * @return void
      */
-
     function onEndShowSections(Action $action)
-    {   
+    {
         $action->elementStart('div', array('id' => 'cornify_section',
-                                         'class' => 'section'));    	
-    	
+                                         'class' => 'section'));
+
     	$action->raw(
     	<<<EOT
     		<a href="http://www.cornify.com" onclick="cornify_add();return false;">
@@ -86,15 +85,15 @@ class AwesomenessPlugin extends Plugin
 	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(js);
 })();</script>
 EOT
-    	);    
-    	
+    	);
+
     	$action->elementEnd('div');
     }
-    
+
     /**
      * Hook for new-notice form processing to take our HTML goodies;
      * won't affect API posting etc.
-     * 
+     *
      * @param NewNoticeAction $action
      * @param User $user
      * @param string $content
@@ -106,5 +105,4 @@ EOT
     	$content = htmlspecialchars($content);
     	$options['rendered'] = preg_replace("/(^|\s|-)((?:awesome|awesomeness)[\?!\.\,]?)(\s|$)/i", " <b>$2</b> ", $content);
     }
-	
 }

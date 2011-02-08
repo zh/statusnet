@@ -101,6 +101,11 @@ class Activity
     public $categories = array(); // list of AtomCategory objects
     public $enclosures = array(); // list of enclosure URL references
 
+    public $extra = array(); // extra elements as array(tag, attrs, content)
+    public $source;  // ActivitySource object representing 'home feed'
+    public $selfLink; // <link rel='self' type='application/atom+xml'>
+    public $editLink; // <link rel='edit' type='application/atom+xml'>
+
     /**
      * Turns a regular old Atom <entry> into a magical activity
      *
@@ -177,6 +182,9 @@ class Activity
         $actorEl = $this->_child($entry, self::ACTOR);
 
         if (!empty($actorEl)) {
+            // Standalone <activity:actor> elements are a holdover from older
+            // versions of ActivityStreams. Newer feeds should have this data
+            // integrated straight into <atom:author>.
 
             $this->actor = new ActivityObject($actorEl);
 
@@ -191,19 +199,24 @@ class Activity
                     $this->actor->id = $authorObj->id;
                 }
             }
-        } else if (!empty($feed) &&
-                   $subjectEl = $this->_child($feed, self::SUBJECT)) {
-
-            $this->actor = new ActivityObject($subjectEl);
-
         } else if ($authorEl = $this->_child($entry, self::AUTHOR, self::ATOM)) {
 
+            // An <atom:author> in the entry overrides any author info on
+            // the surrounding feed.
             $this->actor = new ActivityObject($authorEl);
 
         } else if (!empty($feed) && $authorEl = $this->_child($feed, self::AUTHOR,
                                                               self::ATOM)) {
 
+            // If there's no <atom:author> on the entry, it's safe to assume
+            // the containing feed's authorship info applies.
             $this->actor = new ActivityObject($authorEl);
+        } else if (!empty($feed) &&
+                   $subjectEl = $this->_child($feed, self::SUBJECT)) {
+
+            // Feed subject is used for things like groups.
+            // Should actually possibly not be interpreted as an actor...?
+            $this->actor = new ActivityObject($subjectEl);
         }
 
         $contextEl = $this->_child($entry, self::CONTEXT);
@@ -235,6 +248,11 @@ class Activity
         foreach (ActivityUtils::getLinks($entry, 'enclosure') as $link) {
             $this->enclosures[] = $link->getAttribute('href');
         }
+
+        // From APP. Might be useful.
+
+        $this->selfLink = ActivityUtils::getLink($entry, 'self', 'application/atom+xml');
+        $this->editLink = ActivityUtils::getLink($entry, 'edit', 'application/atom+xml');
     }
 
     function _fromRssItem($item, $channel)
@@ -312,74 +330,209 @@ class Activity
      *
      * @return DOMElement Atom entry
      */
+
     function toAtomEntry()
     {
         return null;
     }
 
-    function asString($namespace=false, $author=true)
+    function asString($namespace=false, $author=true, $source=false)
     {
         $xs = new XMLStringer(true);
+        $this->outputTo($xs, $namespace, $author, $source);
+        return $xs->getString();
+    }
 
+    function outputTo($xs, $namespace=false, $author=true, $source=false)
+    {
         if ($namespace) {
             $attrs = array('xmlns' => 'http://www.w3.org/2005/Atom',
+                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0',
                            'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
                            'xmlns:georss' => 'http://www.georss.org/georss',
                            'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
                            'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
-                           'xmlns:media' => 'http://purl.org/syndication/atommedia');
+                           'xmlns:media' => 'http://purl.org/syndication/atommedia',
+                           'xmlns:statusnet' => 'http://status.net/schema/api/1/');
         } else {
             $attrs = array();
         }
 
         $xs->elementStart('entry', $attrs);
 
-        $xs->element('id', null, $this->id);
-        $xs->element('title', null, $this->title);
-        $xs->element('published', null, self::iso8601Date($this->time));
-        $xs->element('content', array('type' => 'html'), $this->content);
+        if ($this->verb == ActivityVerb::POST && count($this->objects) == 1) {
 
-        if (!empty($this->summary)) {
-            $xs->element('summary', null, $this->summary);
-        }
+            $obj = $this->objects[0];
+			$obj->outputTo($xs, null);
 
-        if (!empty($this->link)) {
-            $xs->element('link', array('rel' => 'alternate',
-                                       'type' => 'text/html'),
-                         $this->link);
-        }
+        } else {
+            $xs->element('id', null, $this->id);
+            $xs->element('title', null, $this->title);
 
-        // XXX: add context
+            $xs->element('content', array('type' => 'html'), $this->content);
 
-        if ($author) {
-            $xs->elementStart('author');
-            $xs->element('uri', array(), $this->actor->id);
-            if ($this->actor->title) {
-                $xs->element('name', array(), $this->actor->title);
+            if (!empty($this->summary)) {
+                $xs->element('summary', null, $this->summary);
             }
-            $xs->elementEnd('author');
-            $xs->raw($this->actor->asString('activity:actor'));
+
+            if (!empty($this->link)) {
+                $xs->element('link', array('rel' => 'alternate',
+                                           'type' => 'text/html'),
+                             $this->link);
+            }
+
         }
 
         $xs->element('activity:verb', null, $this->verb);
 
-        if (!empty($this->objects)) {
+        $published = self::iso8601Date($this->time);
+
+        $xs->element('published', null, $published);
+        $xs->element('updated', null, $published);
+
+        if ($author) {
+            $this->actor->outputTo($xs, 'author');
+        }
+
+        if ($this->verb != ActivityVerb::POST || count($this->objects) != 1) {
             foreach($this->objects as $object) {
-                $xs->raw($object->asString());
+                $object->outputTo($xs, 'activity:object');
+            }
+        }
+
+        if (!empty($this->context)) {
+
+            if (!empty($this->context->replyToID)) {
+                if (!empty($this->context->replyToUrl)) {
+                    $xs->element('thr:in-reply-to',
+                                 array('ref' => $this->context->replyToID,
+                                       'href' => $this->context->replyToUrl));
+                } else {
+                    $xs->element('thr:in-reply-to',
+                                 array('ref' => $this->context->replyToID));
+                }
+            }
+
+            if (!empty($this->context->replyToUrl)) {
+                $xs->element('link', array('rel' => 'related',
+                                           'href' => $this->context->replyToUrl));
+            }
+
+            if (!empty($this->context->conversation)) {
+                $xs->element('link', array('rel' => 'ostatus:conversation',
+                                           'href' => $this->context->conversation));
+            }
+
+            foreach ($this->context->attention as $attnURI) {
+                $xs->element('link', array('rel' => 'ostatus:attention',
+                                           'href' => $attnURI));
+                $xs->element('link', array('rel' => 'mentioned',
+                                           'href' => $attnURI));
+            }
+
+            // XXX: shoulda used ActivityVerb::SHARE
+
+            if (!empty($this->context->forwardID)) {
+                if (!empty($this->context->forwardUrl)) {
+                    $xs->element('ostatus:forward',
+                                 array('ref' => $this->context->forwardID,
+                                       'href' => $this->context->forwardUrl));
+                } else {
+                    $xs->element('ostatus:forward',
+                                 array('ref' => $this->context->forwardID));
+                }
+            }
+
+            if (!empty($this->context->location)) {
+                $loc = $this->context->location;
+                $xs->element('georss:point', null, $loc->lat . ' ' . $loc->lon);
             }
         }
 
         if ($this->target) {
-            $xs->raw($this->target->asString('activity:target'));
+            $this->target->outputTo($xs, 'activity:target');
         }
 
         foreach ($this->categories as $cat) {
-            $xs->raw($cat->asString());
+            $cat->outputTo($xs);
+        }
+
+        // can be either URLs or enclosure objects
+
+        foreach ($this->enclosures as $enclosure) {
+            if (is_string($enclosure)) {
+                $xs->element('link', array('rel' => 'enclosure',
+                                           'href' => $enclosure));
+            } else {
+                $attributes = array('rel' => 'enclosure',
+                                    'href' => $enclosure->url,
+                                    'type' => $enclosure->mimetype,
+                                    'length' => $enclosure->size);
+                if ($enclosure->title) {
+                    $attributes['title'] = $enclosure->title;
+                }
+                $xs->element('link', $attributes);
+            }
+        }
+
+        // Info on the source feed
+
+        if ($source && !empty($this->source)) {
+            $xs->elementStart('source');
+
+            $xs->element('id', null, $this->source->id);
+            $xs->element('title', null, $this->source->title);
+
+            if (array_key_exists('alternate', $this->source->links)) {
+                $xs->element('link', array('rel' => 'alternate',
+                                           'type' => 'text/html',
+                                           'href' => $this->source->links['alternate']));
+            }
+
+            if (array_key_exists('self', $this->source->links)) {
+                $xs->element('link', array('rel' => 'self',
+                                           'type' => 'application/atom+xml',
+                                           'href' => $this->source->links['self']));
+            }
+
+            if (array_key_exists('license', $this->source->links)) {
+                $xs->element('link', array('rel' => 'license',
+                                           'href' => $this->source->links['license']));
+            }
+
+            if (!empty($this->source->icon)) {
+                $xs->element('icon', null, $this->source->icon);
+            }
+
+            if (!empty($this->source->updated)) {
+                $xs->element('updated', null, $this->source->updated);
+            }
+
+            $xs->elementEnd('source');
+        }
+
+        if (!empty($this->selfLink)) {
+            $xs->element('link', array('rel' => 'self',
+                                       'type' => 'application/atom+xml',
+                                       'href' => $this->selfLink));
+        }
+
+        if (!empty($this->editLink)) {
+            $xs->element('link', array('rel' => 'edit',
+                                       'type' => 'application/atom+xml',
+                                       'href' => $this->editLink));
+        }
+
+        // For throwing in extra elements; used for statusnet:notice_info
+
+        foreach ($this->extra as $el) {
+            list($tag, $attrs, $content) = $el;
+            $xs->element($tag, $attrs, $content);
         }
 
         $xs->elementEnd('entry');
 
-        return $xs->getString();
+        return;
     }
 
     private function _child($element, $tag, $namespace=self::SPEC)

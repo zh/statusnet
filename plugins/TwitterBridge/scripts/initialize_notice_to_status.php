@@ -44,7 +44,7 @@ $n->query('SELECT notice.id, notice.uri ' .
           'AND notice_to_status.status_id IS NULL');
 
 while ($n->fetch()) {
-    if (preg_match('#^http://twitter.com/[\w_.]+/status/(\d+)$#', $n->uri, $match)) {
+    if (preg_match('/^http://twitter.com(/#!)?/[\w_.]+/status/(\d+)$/', $n->uri, $match)) {
         $status_id = $match[1];
         Notice_to_status::saveNew($n->id, $status_id);
     }

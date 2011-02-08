@@ -79,21 +79,36 @@ class User_flag_profile extends Memcached_DataObject
     /**
      * return key definitions for DB_DataObject
      *
-     * @return array key definitions
+     * @return array of key names
      */
     function keys()
     {
-        return array('profile_id' => 'K', 'user_id' => 'K');
+        return array_keys($this->keyTypes());
     }
 
     /**
      * return key definitions for DB_DataObject
      *
-     * @return array key definitions
+     * @return array map of key definitions
      */
     function keyTypes()
     {
-        return $this->keys();
+        return array('profile_id' => 'K', 'user_id' => 'K');
+    }
+
+    /**
+     * Magic formula for non-autoincrementing integer primary keys
+     *
+     * If a table has a single integer column as its primary key, DB_DataObject
+     * assumes that the column is auto-incrementing and makes a sequence table
+     * to do this incrementation. Since we don't need this for our class, we
+     * overload this method and return the magic formula that DB_DataObject needs.
+     *
+     * @return array magic three-false array that stops auto-incrementing.
+     */
+    function sequenceKey()
+    {
+        return array(false, false, false);
     }
 
     /**

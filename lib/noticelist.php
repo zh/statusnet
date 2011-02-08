@@ -208,6 +208,7 @@ class NoticeListItem extends Widget
         $this->showStart();
         if (Event::handle('StartShowNoticeItem', array($this))) {
             $this->showNotice();
+            $this->showNoticeAttachments();
             $this->showNoticeInfo();
             $this->showNoticeOptions();
             Event::handle('EndShowNoticeItem', array($this));
@@ -262,11 +263,12 @@ class NoticeListItem extends Widget
 
     function showStart()
     {
-        // XXX: RDFa
-        // TODO: add notice_type class e.g., notice_video, notice_image
-        $id = (empty($this->repeat)) ? $this->notice->id : $this->repeat->id;
-        $this->out->elementStart('li', array('class' => 'hentry notice',
-                                             'id' => 'notice-' . $id));
+        if (Event::handle('StartOpenNoticeListItemElement', array($this))) {
+            $id = (empty($this->repeat)) ? $this->notice->id : $this->repeat->id;
+            $this->out->elementStart('li', array('class' => 'hentry notice',
+                                                 'id' => 'notice-' . $id));
+            Event::handle('EndOpenNoticeListItemElement', array($this));
+        }
     }
 
     /**
@@ -306,7 +308,7 @@ class NoticeListItem extends Widget
         $attrs = array('href' => $this->profile->profileurl,
                        'class' => 'url');
         if (!empty($this->profile->fullname)) {
-            $attrs['title'] = $this->profile->fullname . ' (' . $this->profile->nickname . ')';
+            $attrs['title'] = $this->profile->getFancyName();
         }
         $this->out->elementStart('a', $attrs);
         $this->showAvatar();
@@ -327,11 +329,8 @@ class NoticeListItem extends Widget
 
     function showAvatar()
     {
-        if ('shownotice' === $this->out->trimmed('action')) {
-            $avatar_size = AVATAR_PROFILE_SIZE;
-        } else {
-            $avatar_size = AVATAR_STREAM_SIZE;
-        }
+	$avatar_size = AVATAR_STREAM_SIZE;
+
         $avatar = $this->profile->getAvatar($avatar_size);
 
         $this->out->element('img', array('src' => ($avatar) ?
@@ -384,6 +383,13 @@ class NoticeListItem extends Widget
             $this->out->raw(common_render_content($this->notice->content, $this->notice));
         }
         $this->out->elementEnd('p');
+    }
+
+    function showNoticeAttachments() {
+        if (common_config('attachments', 'show_thumbs')) {
+            $al = new InlineAttachmentList($this->notice, $this->out);
+            $al->show();
+        }
     }
 
     /**
@@ -701,6 +707,9 @@ class NoticeListItem extends Widget
 
     function showEnd()
     {
-        $this->out->elementEnd('li');
+        if (Event::handle('StartCloseNoticeListItemElement', array($this))) {
+            $this->out->elementEnd('li');
+            Event::handle('EndCloseNoticeListItemElement', array($this));
+        }
     }
 }

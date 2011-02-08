@@ -144,7 +144,7 @@ class NewmessageAction extends Action
             $this->showForm(_('No content!'));
             return;
         } else {
-            $content_shortened = common_shorten_links($this->content);
+            $content_shortened = $user->shortenLinks($this->content);
 
             if (Message::contentTooLong($content_shortened)) {
                 // TRANS: Form validation error displayed when message content is too long.

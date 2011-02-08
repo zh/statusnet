@@ -44,7 +44,6 @@ require_once 'Mail.php';
  *
  * @return Mail backend
  */
-
 function mail_backend()
 {
     static $backend = null;
@@ -70,7 +69,6 @@ function mail_backend()
  *
  * @return boolean success flag
  */
-
 function mail_send($recipients, $headers, $body)
 {
     // XXX: use Mail_Queue... maybe
@@ -94,7 +92,6 @@ function mail_send($recipients, $headers, $body)
  *
  * @return string mail domain, suitable for making email addresses.
  */
-
 function mail_domain()
 {
     $maildomain = common_config('mail', 'domain');
@@ -112,7 +109,6 @@ function mail_domain()
  *
  * @return string notify from address
  */
-
 function mail_notify_from()
 {
     $notifyfrom = common_config('mail', 'notifyfrom');
@@ -121,7 +117,7 @@ function mail_notify_from()
 
         $domain = mail_domain();
 
-        $notifyfrom = '"'.common_config('site', 'name') .'" <noreply@'.$domain.'>';
+        $notifyfrom = '"'. str_replace('"', '\\"', common_config('site', 'name')) .'" <noreply@'.$domain.'>';
     }
 
     return $notifyfrom;
@@ -138,7 +134,6 @@ function mail_notify_from()
  *
  * @return boolean success flag
  */
-
 function mail_to_user(&$user, $subject, $body, $headers=array(), $address=null)
 {
     if (!$address) {
@@ -167,7 +162,6 @@ function mail_to_user(&$user, $subject, $body, $headers=array(), $address=null)
  *
  * @return success flag
  */
-
 function mail_confirm_address($user, $code, $nickname, $address)
 {
     // TRANS: Subject for address confirmation email.
@@ -202,7 +196,6 @@ function mail_confirm_address($user, $code, $nickname, $address)
  *
  * @return void
  */
-
 function mail_subscribe_notify($listenee, $listener)
 {
     $other = $listener->getProfile();
@@ -220,7 +213,6 @@ function mail_subscribe_notify($listenee, $listener)
  *
  * @return void
  */
-
 function mail_subscribe_notify_profile($listenee, $other)
 {
     if ($other->hasRight(Right::EMAILONSUBSCRIBE) &&
@@ -490,7 +482,7 @@ function mail_notify_nudge($from, $to)
     common_switch_locale($to->language);
     // TRANS: Subject for 'nudge' notification email.
     // TRANS: %s is the nudging user.
-    $subject = sprintf(_('You\'ve been nudged by %s'), $from->nickname);
+    $subject = sprintf(_('You have been nudged by %s'), $from->nickname);
 
     $from_profile = $from->getProfile();
 
@@ -593,6 +585,10 @@ function mail_notify_fave($other, $user, $notice)
     }
 
     $profile = $user->getProfile();
+    if ($other->hasBlocked($profile)) {
+        // If the author has blocked us, don't spam them with a notification.
+        return;
+    }
 
     $bestname = $profile->getBestName();
 

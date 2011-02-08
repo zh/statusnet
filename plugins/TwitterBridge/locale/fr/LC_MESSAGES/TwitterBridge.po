@@ -1,5 +1,5 @@
 # Translation of StatusNet - TwitterBridge to French (Français)
-# Expored from translatewiki.net
+# Exported from translatewiki.net
 #
 # Author: Peter17
 # Author: Verdy p
@@ -10,23 +10,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - TwitterBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:47:52+0000\n"
+"POT-Creation-Date: 2011-01-29 21:45+0000\n"
+"PO-Revision-Date: 2011-01-29 21:51:36+0000\n"
 "Language-Team: French <http://translatewiki.net/wiki/Portal:fr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-23 19:01:06+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r75596); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-22 19:30:56+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r81195); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: #out-statusnet-plugin-twitterbridge\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: twitter.php:349
+#. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
+#. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
+#: twitterimport.php:114
+#, php-format
+msgid "RT @%1$s %2$s"
+msgstr "RT @%1$s %2$s"
+
+#: twitter.php:407
 msgid "Your Twitter bridge has been disabled."
 msgstr "Votre passerelle Twitter a été désactivée."
 
-#: twitter.php:353
+#: twitter.php:411
 #, php-format
 msgid ""
 "Hi, %1$s. We're sorry to inform you that your link to Twitter has been "
@@ -55,7 +62,7 @@ msgstr ""
 "%3$s"
 
 #: TwitterBridgePlugin.php:151 TwitterBridgePlugin.php:174
-#: TwitterBridgePlugin.php:291 twitteradminpanel.php:52
+#: TwitterBridgePlugin.php:302 twitteradminpanel.php:52
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -67,11 +74,11 @@ msgstr "Se connecter ou s’inscrire via Twitter"
 msgid "Twitter integration options"
 msgstr "Options d’intégration de Twitter"
 
-#: TwitterBridgePlugin.php:292
+#: TwitterBridgePlugin.php:303
 msgid "Twitter bridge configuration"
 msgstr "Configuration de la passerelle Twitter"
 
-#: TwitterBridgePlugin.php:316
+#: TwitterBridgePlugin.php:327
 msgid ""
 "The Twitter \"bridge\" plugin allows integration of a StatusNet instance "
 "with <a href=\"http://twitter.com/\">Twitter</a>."
@@ -83,65 +90,65 @@ msgstr ""
 msgid "Twitter bridge settings"
 msgstr "Paramètres de la passerelle Twitter"
 
-#: twitteradminpanel.php:145
+#: twitteradminpanel.php:150
 msgid "Invalid consumer key. Max length is 255 characters."
 msgstr "Clé de client invalide. La longueur maximum est de 255 caractères."
 
-#: twitteradminpanel.php:151
+#: twitteradminpanel.php:156
 msgid "Invalid consumer secret. Max length is 255 characters."
 msgstr ""
 "Code secret du client invalide. La longueur maximum est de 255 caractères."
 
-#: twitteradminpanel.php:207
+#: twitteradminpanel.php:212
 msgid "Twitter application settings"
 msgstr "Paramètres de l’application Twitter"
 
-#: twitteradminpanel.php:213
+#: twitteradminpanel.php:218
 msgid "Consumer key"
 msgstr "Clé du client"
 
-#: twitteradminpanel.php:214
+#: twitteradminpanel.php:219
 msgid "Consumer key assigned by Twitter"
 msgstr "Clé du client assignée par Twitter"
 
-#: twitteradminpanel.php:222
+#: twitteradminpanel.php:227
 msgid "Consumer secret"
 msgstr "Code secret du client"
 
-#: twitteradminpanel.php:223
+#: twitteradminpanel.php:228
 msgid "Consumer secret assigned by Twitter"
 msgstr "Code secret du client assigné par Twitter"
 
-#: twitteradminpanel.php:233
+#: twitteradminpanel.php:238
 msgid "Note: a global consumer key and secret are set."
 msgstr "Note : une clé et un code secret de client global sont définis."
 
-#: twitteradminpanel.php:240
+#: twitteradminpanel.php:245
 msgid "Integration source"
 msgstr "Source d’intégration"
 
-#: twitteradminpanel.php:241
+#: twitteradminpanel.php:246
 msgid "Name of your Twitter application"
 msgstr "Nom de votre application Twitter"
 
-#: twitteradminpanel.php:253
+#: twitteradminpanel.php:258
 msgid "Options"
 msgstr "Options"
 
-#: twitteradminpanel.php:260
+#: twitteradminpanel.php:265
 msgid "Enable \"Sign-in with Twitter\""
 msgstr "Activer « S’inscrire avec Twitter »"
 
-#: twitteradminpanel.php:262
+#: twitteradminpanel.php:267
 msgid "Allow users to login with their Twitter credentials"
 msgstr ""
 "Permet aux utilisateurs de se connecter avec leurs identifiants Twitter"
 
-#: twitteradminpanel.php:269
+#: twitteradminpanel.php:274
 msgid "Enable Twitter import"
 msgstr "Activer l’importation Twitter"
 
-#: twitteradminpanel.php:271
+#: twitteradminpanel.php:276
 msgid ""
 "Allow users to import their Twitter friends' timelines. Requires daemons to "
 "be manually configured."
@@ -149,11 +156,11 @@ msgstr ""
 "Permettre aux utilisateurs d’importer les agendas de leurs amis Twitter. "
 "Exige que les démons soient configurés manuellement."
 
-#: twitteradminpanel.php:288 twittersettings.php:200
+#: twitteradminpanel.php:293 twittersettings.php:200
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: twitteradminpanel.php:288
+#: twitteradminpanel.php:293
 msgid "Save Twitter settings"
 msgstr "Sauvegarder les paramètres Twitter"
 
@@ -236,23 +243,23 @@ msgstr "Créer un nouveau compte"
 msgid "Create a new user with this nickname."
 msgstr "Créer un nouvel utilisateur avec ce pseudonyme."
 
-#: twitterauthorization.php:386
+#: twitterauthorization.php:390
 msgid "New nickname"
 msgstr "Nouveau pseudonyme"
 
-#: twitterauthorization.php:388
+#: twitterauthorization.php:392
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1 à 64 lettres minuscules ou chiffres, sans ponctuation ni espaces"
 
-#: twitterauthorization.php:391
+#: twitterauthorization.php:404
 msgid "Create"
 msgstr "Créer"
 
-#: twitterauthorization.php:396
+#: twitterauthorization.php:409
 msgid "Connect existing account"
 msgstr "Se connecter à un compte existant"
 
-#: twitterauthorization.php:398
+#: twitterauthorization.php:411
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your Twitter account."
@@ -260,50 +267,44 @@ msgstr ""
 "Si vous avez déjà un compte ici, connectez-vous avec votre nom d’utilisateur "
 "et mot de passe pour l’associer à votre compte Twitter."
 
-#: twitterauthorization.php:401
+#: twitterauthorization.php:414
 msgid "Existing nickname"
 msgstr "Pseudonyme existant"
 
-#: twitterauthorization.php:404
+#: twitterauthorization.php:417
 msgid "Password"
 msgstr "Mot de passe"
 
-#: twitterauthorization.php:407
+#: twitterauthorization.php:420
 msgid "Connect"
 msgstr "Connexion"
 
-#: twitterauthorization.php:423 twitterauthorization.php:432
+#: twitterauthorization.php:466 twitterauthorization.php:475
 msgid "Registration not allowed."
 msgstr "Inscription non autorisée."
 
-#: twitterauthorization.php:439
+#: twitterauthorization.php:482
 msgid "Not a valid invitation code."
 msgstr "Le code d’invitation n’est pas valide."
 
-#: twitterauthorization.php:449
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
-"Les pseudonymes ne peuvent contenir que des lettres minuscules et des "
-"chiffres, sans espaces."
-
-#: twitterauthorization.php:454
+#: twitterauthorization.php:495
 msgid "Nickname not allowed."
 msgstr "Pseudonyme non autorisé."
 
-#: twitterauthorization.php:459
+#: twitterauthorization.php:500
 msgid "Nickname already in use. Try another one."
 msgstr "Pseudonyme déjà utilisé. Essayez-en un autre."
 
-#: twitterauthorization.php:474
+#: twitterauthorization.php:520
 msgid "Error registering user."
 msgstr "Erreur lors de l’inscription de l’utilisateur."
 
-#: twitterauthorization.php:485 twitterauthorization.php:523
-#: twitterauthorization.php:543
+#: twitterauthorization.php:531 twitterauthorization.php:571
+#: twitterauthorization.php:591
 msgid "Error connecting user to Twitter."
 msgstr "Erreur de connexion de l’utilisateur à Twitter."
 
-#: twitterauthorization.php:505
+#: twitterauthorization.php:553
 msgid "Invalid username or password."
 msgstr "Nom d’utilisateur ou mot de passe incorrect."
 
@@ -399,17 +400,10 @@ msgstr "Impossible de supprimer l’utilisateur Twitter."
 msgid "Twitter account disconnected."
 msgstr "Compte Twitter déconnecté."
 
-#: twittersettings.php:283 twittersettings.php:293
+#: twittersettings.php:283 twittersettings.php:294
 msgid "Couldn't save Twitter preferences."
 msgstr "Impossible de sauvegarder les préférences Twitter."
 
-#: twittersettings.php:297
+#: twittersettings.php:302
 msgid "Twitter preferences saved."
 msgstr "Préférences Twitter enregistrées."
-
-#. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
-#. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: daemons/twitterstatusfetcher.php:264
-#, php-format
-msgid "RT @%1$s %2$s"
-msgstr "RT @%1$s %2$s"

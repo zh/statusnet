@@ -52,7 +52,6 @@ require_once INSTALLDIR.'/lib/widget.php';
  *
  * @see      HTMLOutputter
  */
-
 class PersonalGroupNav extends Widget
 {
     var $action = null;
@@ -62,7 +61,6 @@ class PersonalGroupNav extends Widget
      *
      * @param Action $action current action, used for output
      */
-
     function __construct($action=null)
     {
         parent::__construct($action);
@@ -74,7 +72,6 @@ class PersonalGroupNav extends Widget
      *
      * @return void
      */
-
     function show()
     {
         $user = null;
@@ -87,8 +84,11 @@ class PersonalGroupNav extends Widget
         if ($nickname) {
             $user = User::staticGet('nickname', $nickname);
             $user_profile = $user->getProfile();
+            $name = $user_profile->getBestName();
         } else {
+            // @fixme can this happen? is this valid?
             $user_profile = false;
+            $name = $nickname;
         }
 
         $this->out->elementStart('ul', array('class' => 'nav'));
@@ -96,23 +96,30 @@ class PersonalGroupNav extends Widget
         if (Event::handle('StartPersonalGroupNav', array($this))) {
             $this->out->menuItem(common_local_url('all', array('nickname' =>
                                                            $nickname)),
-                             _('Personal'),
-                             sprintf(_('%s and friends'), (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
+                             // TRANS: Personal group navigation menu option when logged in for viewing timeline of self and friends.
+                             _m('MENU','Personal'),
+                             // TRANS: Tooltop for personal group navigation menu option when logged in for viewing timeline of self and friends.
+                             sprintf(_('%s and friends'), $name),
                              $action == 'all', 'nav_timeline_personal');
             $this->out->menuItem(common_local_url('replies', array('nickname' =>
                                                                   $nickname)),
-                             _('Replies'),
-                             sprintf(_('Replies to %s'), (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
+                             // TRANS: Personal group navigation menu option when logged in for viewing @-replies.
+                             _m('MENU','Replies'),
+                             // TRANS: Tooltip for personal group navigation menu option when logged in for viewing @-replies.
+                             sprintf(_('Replies to %s'), $name),
                              $action == 'replies', 'nav_timeline_replies');
             $this->out->menuItem(common_local_url('showstream', array('nickname' =>
                                                                   $nickname)),
-                             _('Profile'),
-                             ($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname,
+                             // TRANS: Personal group navigation menu option when logged in for seeing own profile.
+                             _m('MENU','Profile'),
+                             $name,
                              $action == 'showstream', 'nav_profile');
             $this->out->menuItem(common_local_url('showfavorites', array('nickname' =>
                                                                   $nickname)),
-                             _('Favorites'),
-                             sprintf(_('%s\'s favorite notices'), ($user_profile) ? $user_profile->getBestName() : _('User')),
+                             // TRANS: Personal group navigation menu option when logged in for viewing own favourited notices.
+                             _m('MENU','Favorites'),
+                             // TRANS: Tooltip for personal group navigation menu option when logged in for viewing own favourited notices.
+                             sprintf(_('%s\'s favorite notices'), ($user_profile) ? $name : _('User')),
                              $action == 'showfavorites', 'nav_timeline_favorites');
 
             $cur = common_current_user();
@@ -122,12 +129,16 @@ class PersonalGroupNav extends Widget
 
                 $this->out->menuItem(common_local_url('inbox', array('nickname' =>
                                                                          $nickname)),
-                                 _('Inbox'),
+                                 // TRANS: Personal group navigation menu option when logged in for viewing recieved personal messages.
+                                 _m('MENU','Inbox'),
+                                 // TRANS: Tooltip for personal group navigation menu option when logged in for viewing recieved personal messages.
                                  _('Your incoming messages'),
                                  $action == 'inbox');
                 $this->out->menuItem(common_local_url('outbox', array('nickname' =>
                                                                          $nickname)),
-                                 _('Outbox'),
+                                 // TRANS: Personal group navigation menu option when logged in for viewing senet personal messages.
+                                 _m('MENU','Outbox'),
+                                 // TRANS: Tooltip for personal group navigation menu option when logged in for viewing senet personal messages.
                                  _('Your sent messages'),
                                  $action == 'outbox');
             }

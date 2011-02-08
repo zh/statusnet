@@ -248,11 +248,11 @@ class OpenIDPlugin extends Plugin
      *
      * If we're in openidOnly mode, we disable the menu for all other login.
      *
-     * @param Action &$action Action being executed
+     * @param Action $action Action being executed
      *
      * @return boolean hook return
      */
-    function onStartLoginGroupNav(&$action)
+    function onStartLoginGroupNav($action)
     {
         if (common_config('site', 'openidonly')) {
             $this->showOpenIDLoginTab($action);
@@ -268,11 +268,11 @@ class OpenIDPlugin extends Plugin
     /**
      * Menu item for login
      *
-     * @param Action &$action Action being executed
+     * @param Action $action Action being executed
      *
      * @return boolean hook return
      */
-    function onEndLoginGroupNav(&$action)
+    function onEndLoginGroupNav($action)
     {
         $this->showOpenIDLoginTab($action);
 
@@ -318,11 +318,11 @@ class OpenIDPlugin extends Plugin
     /**
      * Menu item for OpenID settings
      *
-     * @param Action &$action Action being executed
+     * @param Action $action Action being executed
      *
      * @return boolean hook return
      */
-    function onEndAccountSettingsNav(&$action)
+    function onEndAccountSettingsNav($action)
     {
         $action_name = $action->trimmed('action');
 
@@ -733,6 +733,31 @@ class OpenIDPlugin extends Plugin
             }
         }
 
+        return true;
+    }
+
+    /**
+     * Add link in user's XRD file to allow OpenID login.
+     * 
+     * This link in the XRD should let users log in with their
+     * Webfinger identity to services that support it. See
+     * http://webfinger.org/login for an example.
+     *
+     * @param XRD  &$xrd Currently-displaying XRD object
+     * @param User $user The user that it's for
+     * 
+     * @return boolean hook value (always true)
+     */
+
+    function onEndXrdActionLinks(&$xrd, $user)
+    {
+        $profile = $user->getProfile();
+	
+        if (!empty($profile)) {
+            $xrd->links[] = array('rel' => 'http://specs.openid.net/auth/2.0/provider',
+                                  'href' => $profile->profileurl);
+        }
+	
         return true;
     }
 }

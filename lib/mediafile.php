@@ -48,11 +48,14 @@ class MediaFile
     {
         if ($user == null) {
             $this->user = common_current_user();
+        } else {
+            $this->user = $user;
         }
 
         $this->filename   = $filename;
         $this->mimetype   = $mimetype;
         $this->fileRecord = $this->storeFile();
+        $this->thumbnailRecord = $this->storeThumbnail();
 
         $this->fileurl = common_local_url('attachment',
                                     array('attachment' => $this->fileRecord->id));
@@ -100,6 +103,52 @@ class MediaFile
         }
 
         return $file;
+    }
+
+    /**
+     * Generate and store a thumbnail image for the uploaded file, if applicable.
+     *
+     * @return File_thumbnail or null
+     */
+    function storeThumbnail()
+    {
+        if (substr($this->mimetype, 0, strlen('image/')) != 'image/') {
+            // @fixme video thumbs would be nice!
+            return null;
+        }
+        try {
+            $image = new ImageFile($this->fileRecord->id,
+                                   File::path($this->filename));
+        } catch (Exception $e) {
+            // Unsupported image type.
+            return null;
+        }
+
+        $outname = File::filename($this->user->getProfile(), 'thumb-' . $this->filename, $this->mimetype);
+        $outpath = File::path($outname);
+
+        $maxWidth = common_config('attachments', 'thumb_width');
+        $maxHeight = common_config('attachments', 'thumb_height');
+        list($width, $height) = $this->scaleToFit($image->width, $image->height, $maxWidth, $maxHeight);
+
+        $image->resizeTo($outpath, $width, $height);
+        File_thumbnail::saveThumbnail($this->fileRecord->id,
+                                      File::url($outname),
+                                      $width,
+                                      $height);
+    }
+
+    function scaleToFit($width, $height, $maxWidth, $maxHeight)
+    {
+        $aspect = $maxWidth / $maxHeight;
+        $w1 = $maxWidth;
+        $h1 = intval($height * $maxWidth / $width);
+        if ($h1 > $maxHeight) {
+            $w2 = intval($width * $maxHeight / $height);
+            $h2 = $maxHeight;
+            return array($w2, $h2);
+        }
+        return array($w1, $h1);
     }
 
     function rememberFile($file, $short)
@@ -278,6 +327,9 @@ class MediaFile
     static function getUploadedFileType($f, $originalFilename=false) {
         require_once 'MIME/Type.php';
         require_once 'MIME/Type/Extension.php';
+
+        // We have to disable auto handling of PEAR errors
+        PEAR::staticPushErrorHandling(PEAR_ERROR_RETURN);
         $mte = new MIME_Type_Extension();
 
         $cmd = &PEAR::getStaticProperty('MIME_Type', 'fileCmd');
@@ -310,7 +362,9 @@ class MediaFile
         // we'll try detecting a type from its extension...
         $unclearTypes = array('application/octet-stream',
                               'application/vnd.ms-office',
-                              'application/zip');
+                              'application/zip',
+                              // TODO: for XML we could do better content-based sniffing too
+                              'text/xml');
 
         if ($originalFilename && (!$filetype || in_array($filetype, $unclearTypes))) {
             $type = $mte->getMIMEType($originalFilename);
@@ -330,6 +384,8 @@ class MediaFile
             }
         }
         if ($supported === true || in_array($filetype, $supported)) {
+            // Restore PEAR error handlers for our DB code...
+            PEAR::staticPopErrorHandling();
             return $filetype;
         }
         $media = MIME_Type::getMedia($filetype);
@@ -344,6 +400,8 @@ class MediaFile
             // TRANS: %s is the file type that was denied.
             $hint = sprintf(_('"%s" is not a supported file type on this server.'), $filetype);
         }
+        // Restore PEAR error handlers for our DB code...
+        PEAR::staticPopErrorHandling();
         throw new ClientException($hint);
     }
 

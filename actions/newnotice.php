@@ -154,10 +154,13 @@ class NewnoticeAction extends Action
             return;
         }
 
-        $content_shortened = common_shorten_links($content);
+        $content_shortened = $user->shortenLinks($content);
         if (Notice::contentTooLong($content_shortened)) {
-            $this->clientError(sprintf(_('That\'s too long. '.
-                                         'Max notice size is %d chars.'),
+            // TRANS: Client error displayed when the parameter "status" is missing.
+            // TRANS: %d is the maximum number of character for a notice.
+            $this->clientError(sprintf(_m('That\'s too long. Maximum notice size is %d character.',
+                                          'That\'s too long. Maximum notice size is %d characters.',
+                                          Notice::maxContent()),
                                        Notice::maxContent()));
         }
 
@@ -178,12 +181,10 @@ class NewnoticeAction extends Action
 
             if (Notice::contentTooLong($content_shortened)) {
                 $upload->delete();
-                $this->clientError(
-                    sprintf(
-                        _('Max notice size is %d chars, including attachment URL.'),
-                          Notice::maxContent()
-                    )
-                );
+                $this->clientError(sprintf(_m('Maximum notice size is %d character, including attachment URL.',
+                                              'Maximum notice size is %d characters, including attachment URL.',
+                                              Notice::maxContent()),
+                                           Notice::maxContent()));
             }
         }
 

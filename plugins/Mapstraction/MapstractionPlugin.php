@@ -67,10 +67,10 @@ class MapstractionPlugin extends Plugin
     {
         $m->connect(':nickname/all/map',
                     array('action' => 'allmap'),
-                    array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                    array('nickname' => Nickname::DISPLAY_FMT));
         $m->connect(':nickname/map',
                     array('action' => 'usermap'),
-                    array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                    array('nickname' => Nickname::DISPLAY_FMT));
         return true;
     }
 

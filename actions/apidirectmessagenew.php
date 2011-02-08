@@ -119,7 +119,7 @@ class ApiDirectMessageNewAction extends ApiAuthAction
                 $this->format
             );
         } else {
-            $content_shortened = common_shorten_links($this->content);
+            $content_shortened = $this->auth_user->shortenLinks($this->content);
             if (Message::contentTooLong($content_shortened)) {
                 $this->clientError(
                     // TRANS: Client error displayed when message content is too long.

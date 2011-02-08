@@ -140,7 +140,7 @@ class LdapCommon
 
     function checkPassword($username, $password)
     {
-        $entry = $this->get_user($username);
+        $entry = $this->get_user($username,array('dn' => 'dn'));
         if(!$entry){
             return false;
         }else{
@@ -168,7 +168,7 @@ class LdapCommon
             //throw new Exception(_('Sorry, changing LDAP passwords is not supported at this time'));
             return false;
         }
-        $entry = $this->get_user($username);
+        $entry = $this->get_user($username,array('dn' => 'dn'));
         if(!$entry){
             return false;
         }else{

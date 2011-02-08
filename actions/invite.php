@@ -19,6 +19,7 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
+// @todo XXX: Add documentation.
 class InviteAction extends CurrentUserDesignAction
 {
     var $mode = null;
@@ -142,7 +143,7 @@ class InviteAction extends CurrentUserDesignAction
             $this->elementStart('ul');
             foreach ($this->already as $other) {
                 // TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
-                $this->element('li', null, sprintf(_('%1$s (%2$s)'), $other->nickname, $other->email));
+                $this->element('li', null, sprintf(_m('INVITE','%1$s (%2$s)'), $other->nickname, $other->email));
             }
             $this->elementEnd('ul');
         }
@@ -156,7 +157,7 @@ class InviteAction extends CurrentUserDesignAction
             $this->elementStart('ul');
             foreach ($this->subbed as $other) {
                 // TRANS: Used as list item for already registered people (%1$s is nickname, %2$s is e-mail address).
-                $this->element('li', null, sprintf(_('%1$s (%2$s)'), $other->nickname, $other->email));
+                $this->element('li', null, sprintf(_m('INVITE','%1$s (%2$s)'), $other->nickname, $other->email));
             }
             $this->elementEnd('ul');
         }
@@ -217,7 +218,7 @@ class InviteAction extends CurrentUserDesignAction
         $this->textarea('addresses', _('Email addresses'),
                         $this->trimmed('addresses'),
                         // TRANS: Tooltip for field label for a list of e-mail addresses.
-                        _('Addresses of friends to invite (one per line)'));
+                        _('Addresses of friends to invite (one per line).'));
         $this->elementEnd('li');
         $this->elementStart('li');
         // TRANS: Field label for a personal message to send to invitees.
