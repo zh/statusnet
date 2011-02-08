@@ -157,44 +157,6 @@ class MailboxAction extends CurrentUserDesignAction
     }
 
     /**
-     * Show the source of the message
-     *
-     * Returns either the name (and link) of the API client that posted the notice,
-     * or one of other other channels.
-     *
-     * @param string $source the source of the message
-     *
-     * @return void
-     */
-
-    function showSource($source)
-    {
-        $source_name = _($source);
-        switch ($source) {
-        case 'web':
-        case 'xmpp':
-        case 'mail':
-        case 'omb':
-        case 'api':
-            $this->element('span', 'device', $source_name);
-            break;
-        default:
-            $ns = Notice_source::staticGet($source);
-            if ($ns) {
-                $this->elementStart('span', 'device');
-                $this->element('a', array('href' => $ns->url,
-                                               'rel' => 'external'),
-                                    $ns->name);
-                $this->elementEnd('span');
-            } else {
-                $this->element('span', 'device', $source_name);
-            }
-            break;
-        }
-        return;
-    }
-
-    /**
      * Mailbox actions are read only
      *
      * @param array $args other arguments

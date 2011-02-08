@@ -121,12 +121,50 @@ abstract class MessageListItem extends Widget
             $this->out->elementStart('span', 'source');
             // FIXME: bad i18n. Device should be a parameter (from %s).
             $this->out->text(_('from'));
-            $this->out->element('span', 'device', $this->out->showSource($this->message->source));
+            $this->showSource($this->message->source);
             $this->out->elementEnd('span');
         }
         $this->out->elementEnd('div');
 
         $this->out->elementEnd('li');
+    }
+
+
+    /**
+     * Show the source of the message
+     *
+     * Returns either the name (and link) of the API client that posted the notice,
+     * or one of other other channels.
+     *
+     * @param string $source the source of the message
+     *
+     * @return void
+     */
+    function showSource($source)
+    {
+        $source_name = _($source);
+        switch ($source) {
+        case 'web':
+        case 'xmpp':
+        case 'mail':
+        case 'omb':
+        case 'api':
+            $this->out->element('span', 'device', $source_name);
+            break;
+        default:
+            $ns = Notice_source::staticGet($source);
+            if ($ns) {
+                $this->out->elementStart('span', 'device');
+                $this->out->element('a', array('href' => $ns->url,
+                                               'rel' => 'external'),
+                                    $ns->name);
+                $this->out->elementEnd('span');
+            } else {
+                $this->out->element('span', 'device', $source_name);
+            }
+            break;
+        }
+        return;
     }
 
     /**
