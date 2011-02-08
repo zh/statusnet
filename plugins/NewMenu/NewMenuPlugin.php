@@ -331,7 +331,7 @@ class NewMenuPlugin extends Plugin
                       array('default', 'identica', 'h4ck3r'))) &&
             ($action instanceof AccountSettingsAction ||
              $action instanceof ConnectSettingsAction)) {
-            $action->cssLink(common_path('plugins/NewMenu/newmenu.css'));
+            $action->cssLink($this->path('newmenu.css'));
         }
         return true;
     }

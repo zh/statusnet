@@ -1112,7 +1112,8 @@ class Ostatus_profile extends Memcached_DataObject
                 return $url;
             }
         }
-        return common_path('plugins/OStatus/images/96px-Feed-icon.svg.png');
+
+        return Plugin::staticPath('OStatus', 'images/96px-Feed-icon.svg.png');
     }
 
     /**
