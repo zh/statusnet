@@ -116,7 +116,7 @@ class Facebookclient
 
         if (empty($this->flink)) {
             common_log(
-                LOG_WARN,
+                LOG_WARNING,
                 sprintf(
                     "No Foreign_link to Facebook for the author of notice %d.",
                     $this->notice->id
