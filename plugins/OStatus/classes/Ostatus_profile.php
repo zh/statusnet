@@ -1782,12 +1782,14 @@ class Ostatus_profile extends Memcached_DataObject
                     $oprofile = Ostatus_profile::ensureWebfinger($rest);
                     break;
                 default:
-                    common_log(LOG_WARNING,
-                               "Unrecognized URI protocol for profile: $protocol ($uri)");
+                    throw new ServerException("Unrecognized URI protocol for profile: $protocol ($uri)");
                     break;
                 }
+            } else {
+                throw new ServerException("No URI protocol for profile: ($uri)");
             }
         }
+
         return $oprofile;
     }
 
