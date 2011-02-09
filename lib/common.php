@@ -22,10 +22,13 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 //exit with 200 response, if this is checking fancy from the installer
 if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 
-define('STATUSNET_VERSION', '0.9.6');
+define('STATUSNET_BASE_VERSION', '0.9.7');
+define('STATUSNET_LIFECYCLE', 'beta1'); // 'dev', 'alpha[0-9]+', 'beta[0-9]+', 'rc[0-9]+', 'release'
+define('STATUSNET_VERSION', STATUSNET_BASE_VERSION . STATUSNET_LIFECYCLE);
+
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
-define('STATUSNET_CODENAME', 'Man on the Moon');
+define('STATUSNET_CODENAME', 'World Leader Pretend');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -33,6 +36,7 @@ define('AVATAR_MINI_SIZE', 24);
 
 define('NOTICES_PER_PAGE', 20);
 define('PROFILES_PER_PAGE', 20);
+define('MESSAGES_PER_PAGE', 20);
 
 define('FOREIGN_NOTICE_SEND', 1);
 define('FOREIGN_NOTICE_RECV', 2);
@@ -97,7 +101,11 @@ function _have_config()
     return StatusNet::haveConfig();
 }
 
-function __autoload($cls)
+/**
+ * Wrapper for class autoloaders.
+ * This used to be the special function name __autoload(), but that causes bugs with PHPUnit 3.5+
+ */
+function autoload_sn($cls)
 {
     if (file_exists(INSTALLDIR.'/classes/' . $cls . '.php')) {
         require_once(INSTALLDIR.'/classes/' . $cls . '.php');
@@ -113,6 +121,8 @@ function __autoload($cls)
     }
 }
 
+spl_autoload_register('autoload_sn');
+
 // XXX: how many of these could be auto-loaded on use?
 // XXX: note that these files should not use config options
 // at compile time since DB config options are not yet loaded.
@@ -122,6 +132,17 @@ require_once 'markdown.php';
 
 // XXX: other formats here
 
+/**
+ * Avoid the NICKNAME_FMT constant; use the Nickname class instead.
+ *
+ * Nickname::DISPLAY_FMT is more suitable for inserting into regexes;
+ * note that it includes the [] and repeating bits, so should be wrapped
+ * directly in a capture paren usually.
+ *
+ * For validation, use Nickname::normalize(), Nickname::isValid() etc.
+ *
+ * @deprecated
+ */
 define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
 
 require_once INSTALLDIR.'/lib/util.php';

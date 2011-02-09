@@ -67,10 +67,10 @@ class MapstractionPlugin extends Plugin
     {
         $m->connect(':nickname/all/map',
                     array('action' => 'allmap'),
-                    array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                    array('nickname' => Nickname::DISPLAY_FMT));
         $m->connect(':nickname/map',
                     array('action' => 'usermap'),
-                    array('nickname' => '['.NICKNAME_FMT.']{1,64}'));
+                    array('nickname' => Nickname::DISPLAY_FMT));
         return true;
     }
 
@@ -129,7 +129,7 @@ class MapstractionPlugin extends Plugin
             break;
         case 'openlayers':
             // Use our included stripped & minified OpenLayers.
-            $action->script(common_path('plugins/Mapstraction/OpenLayers/OpenLayers.js'));
+            $action->script($this->path('OpenLayers/OpenLayers.js'));
             break;
         case 'yahoo':
             $action->script(sprintf('http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=%s',
@@ -145,13 +145,13 @@ class MapstractionPlugin extends Plugin
             //
             // Note that OpenLayers.js needs to be separate, or it won't
             // be able to find its UI images and styles.
-            $action->script(common_path('plugins/Mapstraction/usermap-mxn-openlayers.min.js'));
+            $action->script($this->path('usermap-mxn-openlayers.min.js'));
         } else {
             $action->script(sprintf('%s?(%s)',
-                                    common_path('plugins/Mapstraction/js/mxn.js'),
+                                    $this->path('js/mxn.js'),
                                     $this->provider));
 
-            $action->script(common_path('plugins/Mapstraction/usermap.js'));
+            $action->script($this->path('usermap.js'));
         }
 
         $action->inlineScript(sprintf('var _provider = "%s";', $this->provider));

@@ -55,15 +55,10 @@ class Notice_tag extends Memcached_DataObject
         $nt->selectAdd();
         $nt->selectAdd('notice_id');
 
-        if ($since_id != 0) {
-            $nt->whereAdd('notice_id > ' . $since_id);
-        }
+        Notice::addWhereSinceId($nt, $since_id, 'notice_id');
+        Notice::addWhereMaxId($nt, $max_id, 'notice_id');
 
-        if ($max_id != 0) {
-            $nt->whereAdd('notice_id <= ' . $max_id);
-        }
-
-        $nt->orderBy('notice_id DESC');
+        $nt->orderBy('created DESC, notice_id DESC');
 
         if (!is_null($offset)) {
             $nt->limit($offset, $limit);
@@ -92,4 +87,19 @@ class Notice_tag extends Memcached_DataObject
     {
         return Memcached_DataObject::pkeyGet('Notice_tag', $kv);
     }
+
+	static function url($tag)
+	{
+		if (common_config('singleuser', 'enabled')) {
+			// regular TagAction isn't set up in 1user mode
+			$nickname = User::singleUserNickname();
+			$url = common_local_url('showstream',
+									array('nickname' => $nickname,
+										  'tag' => $tag));
+		} else {
+			$url = common_local_url('tag', array('tag' => $tag));
+		}
+
+		return $url;
+	}
 }

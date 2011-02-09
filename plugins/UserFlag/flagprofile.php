@@ -60,13 +60,6 @@ class FlagprofileAction extends ProfileFormAction
         assert(!empty($user)); // checked above
         assert(!empty($this->profile)); // checked above
 
-        if (User_flag_profile::exists($this->profile->id,
-                                      $user->id)) {
-            // TRANS: Client error when setting flag that has already been set for a profile.
-            $this->clientError(_m('Flag already exists.'));
-            return false;
-        }
-
         return true;
     }
 
@@ -104,7 +97,13 @@ class FlagprofileAction extends ProfileFormAction
 
         // throws an exception on error
 
-        User_flag_profile::create($user->id, $this->profile->id);
+        if (User_flag_profile::exists($this->profile->id,
+                                      $user->id)) {
+            // We'll return to the profile page (or return the updated AJAX form)
+            // showing the current state, so no harm done.
+        } else {
+            User_flag_profile::create($user->id, $this->profile->id);
+        }
 
         if ($this->boolean('ajax')) {
             $this->ajaxResults();

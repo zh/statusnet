@@ -55,14 +55,20 @@ class File extends Memcached_DataObject
         return 'http://www.facebook.com/login.php' === $url;
     }
 
-    function getAttachments($post_id) {
-        $query = "select file.* from file join file_to_post on (file_id = file.id) join notice on (post_id = notice.id) where post_id = " . $this->escape($post_id);
-        $this->query($query);
+    /**
+     * Get the attachments for a particlar notice.
+     *
+     * @param int $post_id
+     * @return array of File objects
+     */
+    static function getAttachments($post_id) {
+        $file = new File();
+        $query = "select file.* from file join file_to_post on (file_id = file.id) where post_id = " . $file->escape($post_id);
+        $file = Memcached_DataObject::cachedQuery('File', $query);
         $att = array();
-        while ($this->fetch()) {
-            $att[] = clone($this);
+        while ($file->fetch()) {
+            $att[] = clone($file);
         }
-        $this->free();
         return $att;
     }
 
@@ -116,10 +122,24 @@ class File extends Memcached_DataObject
     }
 
     /**
+     * Go look at a URL and possibly save data about it if it's new:
+     * - follow redirect chains and store them in file_redirection
+     * - look up oEmbed data and save it in file_oembed
+     * - if a thumbnail is available, save it in file_thumbnail
+     * - save file record with basic info
+     * - optionally save a file_to_post record
+     * - return the File object with the full reference
+     *
      * @fixme refactor this mess, it's gotten pretty scary.
-     * @param bool $followRedirects
+     * @param string $given_url the URL we're looking at
+     * @param int $notice_id (optional)
+     * @param bool $followRedirects defaults to true
+     *
+     * @return mixed File on success, -1 on some errors
+     *
+     * @throws ServerException on some errors
      */
-    function processNew($given_url, $notice_id=null, $followRedirects=true) {
+    public function processNew($given_url, $notice_id=null, $followRedirects=true) {
         if (empty($given_url)) return -1;   // error, no url to process
         $given_url = File_redirection::_canonUrl($given_url);
         if (empty($given_url)) return -1;   // error, no url to process
@@ -169,9 +189,9 @@ class File extends Memcached_DataObject
         if (empty($x)) {
             $x = File::staticGet($file_id);
             if (empty($x)) {
-                // FIXME: This could possibly be a clearer message :)
+                // @todo FIXME: This could possibly be a clearer message :)
                 // TRANS: Server exception thrown when... Robin thinks something is impossible!
-                throw new ServerException(_("Robin thinks something is impossible."));
+                throw new ServerException(_('Robin thinks something is impossible.'));
             }
         }
 
@@ -186,8 +206,10 @@ class File extends Memcached_DataObject
         if ($fileSize > common_config('attachments', 'file_quota')) {
             // TRANS: Message given if an upload is larger than the configured maximum.
             // TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
-            return sprintf(_('No file may be larger than %1$d bytes ' .
-                             'and the file you sent was %2$d bytes. Try to upload a smaller version.'),
+            // TRANS: %1$s is used for plural.
+            return sprintf(_m('No file may be larger than %1$d byte and the file you sent was %2$d bytes. Try to upload a smaller version.',
+                              'No file may be larger than %1$d bytes and the file you sent was %2$d bytes. Try to upload a smaller version.',
+                              common_config('attachments', 'file_quota')),
                            common_config('attachments', 'file_quota'), $fileSize);
         }
 
@@ -197,8 +219,11 @@ class File extends Memcached_DataObject
         $total = $this->total + $fileSize;
         if ($total > common_config('attachments', 'user_quota')) {
             // TRANS: Message given if an upload would exceed user quota.
-            // TRANS: %d (number) is the user quota in bytes.
-            return sprintf(_('A file this large would exceed your user quota of %d bytes.'), common_config('attachments', 'user_quota'));
+            // TRANS: %d (number) is the user quota in bytes and is used for plural.
+            return sprintf(_m('A file this large would exceed your user quota of %d byte.',
+                              'A file this large would exceed your user quota of %d bytes.',
+                              common_config('attachments', 'user_quota')),
+                           common_config('attachments', 'user_quota'));
         }
         $query .= ' AND EXTRACT(month FROM file.modified) = EXTRACT(month FROM now()) and EXTRACT(year FROM file.modified) = EXTRACT(year FROM now())';
         $this->query($query);
@@ -206,8 +231,11 @@ class File extends Memcached_DataObject
         $total = $this->total + $fileSize;
         if ($total > common_config('attachments', 'monthly_quota')) {
             // TRANS: Message given id an upload would exceed a user's monthly quota.
-            // TRANS: $d (number) is the monthly user quota in bytes.
-            return sprintf(_('A file this large would exceed your monthly quota of %d bytes.'), common_config('attachments', 'monthly_quota'));
+            // TRANS: $d (number) is the monthly user quota in bytes and is used for plural.
+            return sprintf(_m('A file this large would exceed your monthly quota of %d byte.',
+                              'A file this large would exceed your monthly quota of %d bytes.',
+                              common_config('attachments', 'monthly_quota')),
+                           common_config('attachments', 'monthly_quota'));
         }
         return true;
     }
@@ -217,12 +245,19 @@ class File extends Memcached_DataObject
     static function filename($profile, $basename, $mimetype)
     {
         require_once 'MIME/Type/Extension.php';
+
+        // We have to temporarily disable auto handling of PEAR errors...
+        PEAR::staticPushErrorHandling(PEAR_ERROR_RETURN);
+
         $mte = new MIME_Type_Extension();
-        try {
-            $ext = $mte->getExtension($mimetype);
-        } catch ( Exception $e) {
+        $ext = $mte->getExtension($mimetype);
+        if (PEAR::isError($ext)) {
             $ext = strtolower(preg_replace('/\W/', '', $mimetype));
         }
+
+        // Restore error handling.
+        PEAR::staticPopErrorHandling();
+
         $nickname = $profile->nickname;
         $datestamp = strftime('%Y%m%dT%H%M%S', time());
         $random = strtolower(common_confirmation_code(32));
@@ -292,9 +327,7 @@ class File extends Memcached_DataObject
             }
 
             $protocol = 'https';
-
         } else {
-
             $path = common_config('attachments', 'path');
             $server = common_config('attachments', 'server');
 
@@ -339,22 +372,28 @@ class File extends Memcached_DataObject
                 $mimetype = substr($mimetype,0,$semicolon);
             }
             if(in_array($mimetype,$notEnclosureMimeTypes)){
+                // Never treat generic HTML links as an enclosure type!
+                // But if we have oEmbed info, we'll consider it golden.
                 $oembed = File_oembed::staticGet('file_id',$this->id);
-                if($oembed){
+                if($oembed && in_array($oembed->type, array('photo', 'video'))){
                     $mimetype = strtolower($oembed->mimetype);
                     $semicolon = strpos($mimetype,';');
                     if($semicolon){
                         $mimetype = substr($mimetype,0,$semicolon);
                     }
-                    if(in_array($mimetype,$notEnclosureMimeTypes)){
-                        return false;
-                    }else{
+                    // @fixme uncertain if this is right.
+                    // we want to expose things like YouTube videos as
+                    // viewable attachments, but don't expose them as
+                    // downloadable enclosures.....?
+                    //if (in_array($mimetype, $notEnclosureMimeTypes)) {
+                    //    return false;
+                    //} else {
                         if($oembed->mimetype) $enclosure->mimetype=$oembed->mimetype;
                         if($oembed->url) $enclosure->url=$oembed->url;
                         if($oembed->title) $enclosure->title=$oembed->title;
                         if($oembed->modified) $enclosure->modified=$oembed->modified;
                         unset($oembed->size);
-                    }
+                    //}
                 } else {
                     return false;
                 }
@@ -368,5 +407,113 @@ class File extends Memcached_DataObject
     {
         $enclosure = $this->getEnclosure();
         return !empty($enclosure);
+    }
+
+    /**
+     * Get the attachment's thumbnail record, if any.
+     *
+     * @return File_thumbnail
+     */
+    function getThumbnail()
+    {
+        return File_thumbnail::staticGet('file_id', $this->id);
+    }
+
+    /**
+     * Blow the cache of notices that link to this URL
+     *
+     * @param boolean $last Whether to blow the "last" cache too
+     *
+     * @return void
+     */
+
+    function blowCache($last=false)
+    {
+        self::blow('file:notice-ids:%s', $this->url);
+        if ($last) {
+            self::blow('file:notice-ids:%s;last', $this->url);
+        }
+        self::blow('file:notice-count:%d', $this->id);
+    }
+
+    /**
+     * Stream of notices linking to this URL
+     *
+     * @param integer $offset   Offset to show; default is 0
+     * @param integer $limit    Limit of notices to show
+     * @param integer $since_id Since this notice
+     * @param integer $max_id   Before this notice
+     *
+     * @return array ids of notices that link to this file
+     */
+
+    function stream($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
+    {
+        $ids = Notice::stream(array($this, '_streamDirect'),
+                              array(),
+                              'file:notice-ids:'.$this->url,
+                              $offset, $limit, $since_id, $max_id);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    /**
+     * Stream of notices linking to this URL
+     *
+     * @param integer $offset   Offset to show; default is 0
+     * @param integer $limit    Limit of notices to show
+     * @param integer $since_id Since this notice
+     * @param integer $max_id   Before this notice
+     *
+     * @return array ids of notices that link to this file
+     */
+
+    function _streamDirect($offset, $limit, $since_id, $max_id)
+    {
+        $f2p = new File_to_post();
+
+        $f2p->selectAdd();
+        $f2p->selectAdd('post_id');
+
+        $f2p->file_id = $this->id;
+
+        Notice::addWhereSinceId($f2p, $since_id, 'post_id', 'modified');
+        Notice::addWhereMaxId($f2p, $max_id, 'post_id', 'modified');
+
+        $f2p->orderBy('modified DESC, post_id DESC');
+
+        if (!is_null($offset)) {
+            $f2p->limit($offset, $limit);
+        }
+
+        $ids = array();
+
+        if ($f2p->find()) {
+            while ($f2p->fetch()) {
+                $ids[] = $f2p->post_id;
+            }
+        }
+
+        return $ids;
+    }
+
+    function noticeCount()
+    {
+        $cacheKey = sprintf('file:notice-count:%d', $this->id);
+        
+        $count = self::cacheGet($cacheKey);
+
+        if ($count === false) {
+
+            $f2p = new File_to_post();
+
+            $f2p->file_id = $this->id;
+
+            $count = $f2p->count();
+
+            self::cacheSet($cacheKey, $count);
+        } 
+
+        return $count;
     }
 }

@@ -1,5 +1,5 @@
 # Translation of StatusNet - OpenID to French (Français)
-# Expored from translatewiki.net
+# Exported from translatewiki.net
 #
 # Author: Peter17
 # Author: Verdy p
@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:46:59+0000\n"
+"POT-Creation-Date: 2011-01-29 21:45+0000\n"
+"PO-Revision-Date: 2011-01-29 21:50:40+0000\n"
 "Language-Team: French <http://translatewiki.net/wiki/Portal:fr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-23 18:59:08+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r75590); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-22 19:30:33+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r81195); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -425,35 +425,35 @@ msgstr ""
 msgid "OpenID Account Setup"
 msgstr "Configuration du compte OpenID"
 
-#: finishopenidlogin.php:110
+#: finishopenidlogin.php:117
 msgid "Create new account"
 msgstr "Créer un nouveau compte"
 
-#: finishopenidlogin.php:112
+#: finishopenidlogin.php:119
 msgid "Create a new user with this nickname."
 msgstr "Créer un nouvel utilisateur avec ce pseudonyme."
 
-#: finishopenidlogin.php:115
+#: finishopenidlogin.php:126
 msgid "New nickname"
 msgstr "Nouveau pseudonyme"
 
-#: finishopenidlogin.php:117
+#: finishopenidlogin.php:128
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1 à 64 lettres minuscules ou chiffres, sans ponctuation ni espaces"
 
 #. TRANS: Button label in form in which to create a new user on the site for an OpenID.
-#: finishopenidlogin.php:142
+#: finishopenidlogin.php:162
 msgctxt "BUTTON"
 msgid "Create"
 msgstr "Créer"
 
 #. TRANS: Used as form legend for form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:148
+#: finishopenidlogin.php:176
 msgid "Connect existing account"
 msgstr "Se connecter à un compte existant"
 
 #. TRANS: User instructions for form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:151
+#: finishopenidlogin.php:179
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
@@ -462,35 +462,35 @@ msgstr ""
 "et mot de passe pour l’associer à votre compte OpenID."
 
 #. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:155
+#: finishopenidlogin.php:183
 msgid "Existing nickname"
 msgstr "Pseudonyme existant"
 
 #. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:159
+#: finishopenidlogin.php:187
 msgid "Password"
 msgstr "Mot de passe"
 
 #. TRANS: Button label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:163
+#: finishopenidlogin.php:191
 msgctxt "BUTTON"
 msgid "Connect"
 msgstr "Connexion"
 
 #. TRANS: Status message in case the response from the OpenID provider is that the logon attempt was cancelled.
-#: finishopenidlogin.php:176 finishaddopenid.php:90
+#: finishopenidlogin.php:237 finishaddopenid.php:90
 msgid "OpenID authentication cancelled."
 msgstr "Authentification OpenID annulée."
 
 #. TRANS: OpenID authentication failed; display the error message. %s is the error message.
 #. TRANS: OpenID authentication failed; display the error message.
 #. TRANS: %s is the error message.
-#: finishopenidlogin.php:180 finishaddopenid.php:95
+#: finishopenidlogin.php:241 finishaddopenid.php:95
 #, php-format
 msgid "OpenID authentication failed: %s"
 msgstr "L’authentification OpenID a échoué : %s"
 
-#: finishopenidlogin.php:200 finishaddopenid.php:111
+#: finishopenidlogin.php:261 finishaddopenid.php:111
 msgid ""
 "OpenID authentication aborted: you are not allowed to login to this site."
 msgstr ""
@@ -499,50 +499,43 @@ msgstr ""
 
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site.
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and none was provided.
-#: finishopenidlogin.php:252 finishopenidlogin.php:262
+#: finishopenidlogin.php:317 finishopenidlogin.php:327
 msgid "Registration not allowed."
 msgstr "Inscription non autorisée."
 
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and the one provided was not valid.
-#: finishopenidlogin.php:270
+#: finishopenidlogin.php:335
 msgid "Not a valid invitation code."
 msgstr "Le code d’invitation n’est pas valide."
 
-#. TRANS: OpenID plugin message. The entered new user name did not conform to the requirements.
-#: finishopenidlogin.php:281
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr ""
-"Les pseudonymes ne peuvent contenir que des lettres minuscules et des "
-"chiffres, sans espaces."
-
 #. TRANS: OpenID plugin message. The entered new user name is blacklisted.
-#: finishopenidlogin.php:287
+#: finishopenidlogin.php:349
 msgid "Nickname not allowed."
 msgstr "Pseudonyme non autorisé."
 
 #. TRANS: OpenID plugin message. The entered new user name is already used.
-#: finishopenidlogin.php:293
+#: finishopenidlogin.php:355
 msgid "Nickname already in use. Try another one."
 msgstr "Pseudonyme déjà utilisé. Essayez-en un autre."
 
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
-#: finishopenidlogin.php:301 finishopenidlogin.php:388
+#: finishopenidlogin.php:363 finishopenidlogin.php:449
 msgid "Stored OpenID not found."
 msgstr "OpenID stocké non trouvé."
 
 #. TRANS: OpenID plugin server error.
-#: finishopenidlogin.php:311
+#: finishopenidlogin.php:373
 msgid "Creating new account for OpenID that already has a user."
 msgstr "Créer un nouveau compte pour OpenID qui a déjà un utilisateur."
 
 #. TRANS: OpenID plugin message.
-#: finishopenidlogin.php:376
+#: finishopenidlogin.php:437
 msgid "Invalid username or password."
 msgstr "Nom d’utilisateur ou mot de passe incorrect."
 
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
-#: finishopenidlogin.php:396
+#: finishopenidlogin.php:457
 msgid "Error connecting user to OpenID."
 msgstr "Erreur de connexion de l’utilisateur à OpenID."
 

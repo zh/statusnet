@@ -167,11 +167,7 @@ class ShownoticeAction extends OwnerDesignAction
 
     function title()
     {
-        if (!empty($this->profile->fullname)) {
-            $base = $this->profile->fullname . ' (' . $this->profile->nickname . ')';
-        } else {
-            $base = $this->profile->nickname;
-        }
+        $base = $this->profile->getFancyName();
 
         return sprintf(_('%1$s\'s status on %2$s'),
                        $base,
@@ -335,8 +331,38 @@ class SingleNoticeItem extends DoFollowListItem
         $this->showEnd();
     }
 
+    /**
+     * For our zoomed-in special case we'll use a fuller list
+     * for the attachment info.
+     */
     function showNoticeAttachments() {
         $al = new AttachmentList($this->notice, $this->out);
         $al->show();
+    }
+
+    /**
+     * show the avatar of the notice's author
+     *
+     * We use the larger size for single notice page.
+     * 
+     * @return void
+     */
+
+    function showAvatar()
+    {
+	$avatar_size = AVATAR_PROFILE_SIZE;
+
+        $avatar = $this->profile->getAvatar($avatar_size);
+
+        $this->out->element('img', array('src' => ($avatar) ?
+                                         $avatar->displayUrl() :
+                                         Avatar::defaultImage($avatar_size),
+                                         'class' => 'avatar photo',
+                                         'width' => $avatar_size,
+                                         'height' => $avatar_size,
+                                         'alt' =>
+                                         ($this->profile->fullname) ?
+                                         $this->profile->fullname :
+                                         $this->profile->nickname));
     }
 }

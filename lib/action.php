@@ -111,6 +111,19 @@ class Action extends HTMLOutputter // lawsuit
         }
     }
 
+    function endHTML()
+    {
+        global $_startTime;
+
+        if (isset($_startTime)) {
+            $endTime = microtime(true);
+            $diff = round(($endTime - $_startTime) * 1000);
+            $this->raw("<!-- ${diff}ms -->");
+        }
+
+        return parent::endHTML();
+    }
+
     /**
      * Show head, a template method.
      *
@@ -274,15 +287,16 @@ class Action extends HTMLOutputter // lawsuit
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
                 $this->script('jquery.min.js');
-                $this->script('jquery.form.js');
-                $this->script('jquery.cookie.js');
-                $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.js').'"); }');
+                $this->script('jquery.form.min.js');
+                $this->script('jquery.cookie.min.js');
+                $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
                 $this->script('jquery.joverlay.min.js');
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
                 Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->script('util.js');
+                $this->script('util.min.js');
+                $this->showScriptMessages();
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
                 Event::handle('EndShowStatusNetScripts', array($this));
@@ -290,6 +304,59 @@ class Action extends HTMLOutputter // lawsuit
             }
             Event::handle('EndShowScripts', array($this));
         }
+    }
+
+    /**
+     * Exports a map of localized text strings to JavaScript code.
+     *
+     * Plugins can add to what's exported by hooking the StartScriptMessages or EndScriptMessages
+     * events and appending to the array. Try to avoid adding strings that won't be used, as
+     * they'll be added to HTML output.
+     */
+
+    function showScriptMessages()
+    {
+        $messages = array();
+
+        if (Event::handle('StartScriptMessages', array($this, &$messages))) {
+            // Common messages needed for timeline views etc...
+
+            // TRANS: Localized tooltip for '...' expansion button on overlong remote messages.
+            $messages['showmore_tooltip'] = _m('TOOLTIP', 'Show more');
+
+            $messages = array_merge($messages, $this->getScriptMessages());
+
+	    Event::handle('EndScriptMessages', array($this, &$messages));
+        }
+
+        if (!empty($messages)) {
+            $this->inlineScript('SN.messages=' . json_encode($messages));
+        }
+
+        return $messages;
+    }
+
+    /**
+     * If the action will need localizable text strings, export them here like so:
+     *
+     * return array('pool_deepend' => _('Deep end'),
+     *              'pool_shallow' => _('Shallow end'));
+     *
+     * The exported map will be available via SN.msg() to JS code:
+     *
+     *   $('#pool').html('<div class="deepend"></div><div class="shallow"></div>');
+     *   $('#pool .deepend').text(SN.msg('pool_deepend'));
+     *   $('#pool .shallow').text(SN.msg('pool_shallow'));
+     *
+     * Exports a map of localized text strings to JavaScript code.
+     *
+     * Plugins can add to what's exported on any action by hooking the StartScriptMessages or
+     * EndScriptMessages events and appending to the array. Try to avoid adding strings that won't
+     * be used, as they'll be added to HTML output.
+     */
+    function getScriptMessages()
+    {
+        return array();
     }
 
     /**
@@ -479,33 +546,33 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('ul', array('class' => 'nav'));
         if (Event::handle('StartPrimaryNav', array($this))) {
             if ($user) {
-                // TRANS: Tooltip for main menu option "Personal"
+                // TRANS: Tooltip for main menu option "Personal".
                 $tooltip = _m('TOOLTIP', 'Personal profile and friends timeline');
                 $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
-                                // TRANS: Main menu option when logged in for access to personal profile and friends timeline
+                                // TRANS: Main menu option when logged in for access to personal profile and friends timeline.
                                 _m('MENU', 'Personal'), $tooltip, false, 'nav_home');
-                // TRANS: Tooltip for main menu option "Account"
+                // TRANS: Tooltip for main menu option "Account".
                 $tooltip = _m('TOOLTIP', 'Change your email, avatar, password, profile');
                 $this->menuItem(common_local_url('profilesettings'),
-                                // TRANS: Main menu option when logged in for access to user settings
+                                // TRANS: Main menu option when logged in for access to user settings.
                                 _('Account'), $tooltip, false, 'nav_account');
-                // TRANS: Tooltip for main menu option "Services"
+                // TRANS: Tooltip for main menu option "Services".
                 $tooltip = _m('TOOLTIP', 'Connect to services');
                 $this->menuItem(common_local_url('oauthconnectionssettings'),
-                                // TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
+                                // TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services.
                                 _('Connect'), $tooltip, false, 'nav_connect');
                 if ($user->hasRight(Right::CONFIGURESITE)) {
-                    // TRANS: Tooltip for menu option "Admin"
+                    // TRANS: Tooltip for menu option "Admin".
                     $tooltip = _m('TOOLTIP', 'Change site configuration');
                     $this->menuItem(common_local_url('siteadminpanel'),
-                                    // TRANS: Main menu option when logged in and site admin for access to site configuration
+                                    // TRANS: Main menu option when logged in and site admin for access to site configuration.
                                     _m('MENU', 'Admin'), $tooltip, false, 'nav_admin');
                 }
                 if (common_config('invite', 'enabled')) {
-                    // TRANS: Tooltip for main menu option "Invite"
+                    // TRANS: Tooltip for main menu option "Invite".
                     $tooltip = _m('TOOLTIP', 'Invite friends and colleagues to join you on %s');
                     $this->menuItem(common_local_url('invite'),
-                                    // TRANS: Main menu option when logged in and invitations are allowed for inviting new users
+                                    // TRANS: Main menu option when logged in and invitations are allowed for inviting new users.
                                     _m('MENU', 'Invite'),
                                     sprintf($tooltip,
                                             common_config('site', 'name')),
@@ -514,33 +581,33 @@ class Action extends HTMLOutputter // lawsuit
                 // TRANS: Tooltip for main menu option "Logout"
                 $tooltip = _m('TOOLTIP', 'Logout from the site');
                 $this->menuItem(common_local_url('logout'),
-                                // TRANS: Main menu option when logged in to log out the current user
+                                // TRANS: Main menu option when logged in to log out the current user.
                                 _m('MENU', 'Logout'), $tooltip, false, 'nav_logout');
             }
             else {
                 if (!common_config('site', 'closed') && !common_config('site', 'inviteonly')) {
-                    // TRANS: Tooltip for main menu option "Register"
+                    // TRANS: Tooltip for main menu option "Register".
                     $tooltip = _m('TOOLTIP', 'Create an account');
                     $this->menuItem(common_local_url('register'),
-                                    // TRANS: Main menu option when not logged in to register a new account
+                                    // TRANS: Main menu option when not logged in to register a new account.
                                     _m('MENU', 'Register'), $tooltip, false, 'nav_register');
                 }
-                // TRANS: Tooltip for main menu option "Login"
+                // TRANS: Tooltip for main menu option "Login".
                 $tooltip = _m('TOOLTIP', 'Login to the site');
                 $this->menuItem(common_local_url('login'),
-                                // TRANS: Main menu option when not logged in to log in
+                                // TRANS: Main menu option when not logged in to log in.
                                 _m('MENU', 'Login'), $tooltip, false, 'nav_login');
             }
-            // TRANS: Tooltip for main menu option "Help"
+            // TRANS: Tooltip for main menu option "Help".
             $tooltip = _m('TOOLTIP', 'Help me!');
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
-                            // TRANS: Main menu option for help on the StatusNet site
+                            // TRANS: Main menu option for help on the StatusNet site.
                             _m('MENU', 'Help'), $tooltip, false, 'nav_help');
             if ($user || !common_config('site', 'private')) {
-                // TRANS: Tooltip for main menu option "Search"
+                // TRANS: Tooltip for main menu option "Search".
                 $tooltip = _m('TOOLTIP', 'Search for people or text');
                 $this->menuItem(common_local_url('peoplesearch'),
-                                // TRANS: Main menu option when logged in or when the StatusNet instance is not private
+                                // TRANS: Main menu option when logged in or when the StatusNet instance is not private.
                                 _m('MENU', 'Search'), $tooltip, false, 'nav_search');
             }
             Event::handle('EndPrimaryNav', array($this));
@@ -824,16 +891,17 @@ class Action extends HTMLOutputter // lawsuit
                             // TRANS: Secondary navigation menu option leading to privacy policy.
                             _('Privacy'));
             $this->menuItem(common_local_url('doc', array('title' => 'source')),
-                            // TRANS: Secondary navigation menu option.
+                            // TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
                             _('Source'));
             $this->menuItem(common_local_url('version'),
                             // TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
                             _('Version'));
             $this->menuItem(common_local_url('doc', array('title' => 'contact')),
-                            // TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
+                            // TRANS: Secondary navigation menu option leading to e-mail contact information on the
+                            // TRANS: StatusNet site, where to report bugs, ...
                             _('Contact'));
             $this->menuItem(common_local_url('doc', array('title' => 'badge')),
-                            // TRANS: Secondary navigation menu option.
+                            // TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
                             _('Badge'));
             Event::handle('EndSecondaryNav', array($this));
         }
@@ -1353,5 +1421,16 @@ class Action extends HTMLOutputter // lawsuit
             // TRANS: Client error text when there is a problem with the session token.
             $this->clientError(_('There was a problem with your session token.'));
         }
+    }
+
+    /**
+     * Check if the current request is a POST
+     *
+     * @return boolean true if POST; otherwise false.
+     */
+
+    function isPost()
+    {
+        return ($_SERVER['REQUEST_METHOD'] == 'POST');
     }
 }

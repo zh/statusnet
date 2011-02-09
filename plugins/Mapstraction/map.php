@@ -53,7 +53,7 @@ class MapAction extends OwnerDesignAction
         parent::prepare($args);
 
         $nickname_arg = $this->arg('nickname');
-        $nickname     = common_canonical_nickname($nickname_arg);
+        $nickname     = Nickname::normalize($nickname_arg);
 
         // Permanent redirect on non-canonical nickname
 

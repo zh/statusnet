@@ -55,7 +55,7 @@
     Yes
 
     @param status (Required) The URL-encoded text of the status update.
-    @param source (Optional) The source of the status.
+    @param source (Optional) The source application name, if using HTTP authentication or an anonymous OAuth consumer.
     @param in_reply_to_status_id (Optional) The ID of an existing status that the update is in reply to.
     @param lat (Optional) The latitude the status refers to.
     @param long (Optional) The longitude the status refers to.
@@ -67,7 +67,7 @@
     @subsection usagenotes Usage notes
 
     @li The URL pattern is relative to the @ref apiroot.
-    @li If the @e source parameter is not supplied the source of the status will default to 'api'.
+    @li If the @e source parameter is not supplied the source of the status will default to 'api'. When authenticated via a registered OAuth application, the application's registered name and URL will always override the source parameter.
     @li The XML response uses <a href="http://georss.org/Main_Page">GeoRSS</a>
     to encode the latitude and longitude (see example response below <georss:point>).
     @li Data uploaded via the @e media parameter should be multipart/form-data encoded.
@@ -231,7 +231,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             return;
         }
 
-        $status_shortened = common_shorten_links($this->status);
+        $status_shortened = $this->auth_user->shortenlinks($this->status);
 
         if (Notice::contentTooLong($status_shortened)) {
             // Note: Twitter truncates anything over 140, flags the status
@@ -377,7 +377,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
     function supported($cmd)
     {
         static $cmdlist = array('MessageCommand', 'SubCommand', 'UnsubCommand',
-            'FavCommand', 'OnCommand', 'OffCommand');
+            'FavCommand', 'OnCommand', 'OffCommand', 'JoinCommand', 'LeaveCommand');
 
         if (in_array(get_class($cmd), $cmdlist)) {
             return true;

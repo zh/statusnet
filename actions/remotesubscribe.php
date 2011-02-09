@@ -44,7 +44,6 @@ require_once INSTALLDIR.'/extlib/libomb/profile.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */
-
 class RemotesubscribeAction extends Action
 {
     var $nickname;
@@ -173,14 +172,14 @@ class RemotesubscribeAction extends Action
         if ($service->getServiceURI(OAUTH_ENDPOINT_REQUEST) ==
             common_local_url('requesttoken') ||
             User::staticGet('uri', $service->getRemoteUserURI())) {
-            $this->showForm(_('That’s a local profile! Login to subscribe.'));
+            $this->showForm(_('That is a local profile! Login to subscribe.'));
             return;
         }
 
         try {
             $service->requestToken();
         } catch (OMB_RemoteServiceException $e) {
-            $this->showForm(_('Couldn’t get a request token.'));
+            $this->showForm(_('Could not get a request token.'));
             return;
         }
 
@@ -204,4 +203,3 @@ class RemotesubscribeAction extends Action
         common_redirect($target_url, 303);
     }
 }
-?>

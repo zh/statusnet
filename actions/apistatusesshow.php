@@ -100,13 +100,24 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     {
         parent::handle($args);
 
-        if (!in_array($this->format, array('xml', 'json'))) {
+        if (!in_array($this->format, array('xml', 'json', 'atom'))) {
             // TRANS: Client error displayed when trying to handle an unknown API method.
-            $this->clientError(_('API method not found.'), $code = 404);
+            $this->clientError(_('API method not found.'), 404);
             return;
         }
 
-        $this->showNotice();
+        switch ($_SERVER['REQUEST_METHOD']) {
+        case 'GET':
+            $this->showNotice();
+            break;
+        case 'DELETE':
+            $this->deleteNotice();
+            break;
+        default:
+            // TRANS: Client error displayed calling an unsupported HTTP error in API status show.
+            $this->clientError(_('HTTP method not supported.'), 405);
+            return;
+        }
     }
 
     /**
@@ -117,10 +128,20 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     function showNotice()
     {
         if (!empty($this->notice)) {
-            if ($this->format == 'xml') {
+            switch ($this->format) {
+            case 'xml':
                 $this->showSingleXmlStatus($this->notice);
-            } elseif ($this->format == 'json') {
+                break;
+            case 'json':
                 $this->show_single_json_status($this->notice);
+                break;
+            case 'atom':
+                $this->showSingleAtomStatus($this->notice);
+                break;
+            default:
+                // TRANS: Exception thrown requesting an unsupported notice output format.
+                // TRANS: %s is the requested output format.
+                throw new Exception(sprintf(_("Unsupported format: %s"), $this->format));
             }
         } else {
             // XXX: Twitter just sets a 404 header and doens't bother
@@ -147,15 +168,16 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     }
 
     /**
-     * Is this action read only?
+     * We expose AtomPub here, so non-GET/HEAD reqs must be read/write.
      *
      * @param array $args other arguments
      *
      * @return boolean true
      */
+
     function isReadOnly($args)
     {
-        return true;
+        return ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'HEAD');
     }
 
     /**
@@ -196,5 +218,35 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
         }
 
         return null;
+    }
+
+    function deleteNotice()
+    {
+        if ($this->format != 'atom') {
+            // TRANS: Client error displayed when trying to delete a notice not using the Atom format.
+            $this->clientError(_("Can only delete using the Atom format."));
+            return;
+        }
+
+        if (empty($this->auth_user) ||
+            ($this->notice->profile_id != $this->auth_user->id &&
+             !$this->auth_user->hasRight(Right::DELETEOTHERSNOTICE))) {
+            // TRANS: Client error displayed when a user has no rights to delete notices of other users.
+            $this->clientError(_('Cannot delete this notice.'), 403);
+            return;
+        }
+
+        if (Event::handle('StartDeleteOwnNotice', array($this->auth_user, $this->notice))) {
+            $this->notice->delete();
+            Event::handle('EndDeleteOwnNotice', array($this->auth_user, $this->notice));
+        }
+
+        // @fixme is there better output we could do here?
+
+        header('HTTP/1.1 200 OK');
+        header('Content-Type: text/plain');
+        // TRANS: Confirmation of notice deletion in API. %d is the ID (number) of the deleted notice.
+        print(sprintf(_('Deleted notice %d'), $this->notice->id));
+        print("\n");
     }
 }

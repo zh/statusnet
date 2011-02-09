@@ -37,11 +37,16 @@
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
 
+$_startTime = microtime(true);
+$_perfCounters = array();
+
 define('INSTALLDIR', dirname(__FILE__));
 define('STATUSNET', true);
 define('LACONICA', true); // compatibility
 
 require_once INSTALLDIR . '/lib/common.php';
+
+register_shutdown_function('common_log_perf_counters');
 
 $user = null;
 $action = null;
@@ -189,7 +194,7 @@ function checkMirror($action_obj, $args)
 
 function isLoginAction($action)
 {
-    static $loginActions =  array('login', 'recoverpassword', 'api', 'doc', 'register', 'publicxrds', 'otp', 'opensearch', 'rsd');
+    static $loginActions =  array('login', 'recoverpassword', 'api', 'doc', 'register', 'publicxrds', 'otp', 'opensearch', 'rsd', 'hostmeta');
 
     $login = null;
 

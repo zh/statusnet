@@ -172,7 +172,7 @@ class DeletegroupAction extends RedirectingAction
     }
 
     function title() {
-        // TRANS: Title.
+        // TRANS: Title of delete group page.
         return _('Delete group');
     }
 
@@ -201,8 +201,8 @@ class DeletegroupAction extends RedirectingAction
         // TRANS: Form legend for deleting a group.
         $this->element('legend', _('Delete group'));
         if (Event::handle('StartDeleteGroupForm', array($this, $this->group))) {
-            // TRANS: Warning in form for deleleting a group.
             $this->element('p', null,
+                           // TRANS: Warning in form for deleleting a group.
                            _('Are you sure you want to delete this group? '.
                              'This will clear all data about the group from the '.
                              'database, without a backup. ' .

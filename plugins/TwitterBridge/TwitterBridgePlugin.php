@@ -137,11 +137,11 @@ class TwitterBridgePlugin extends Plugin
     /*
      * Add a login tab for 'Sign in with Twitter'
      *
-     * @param Action &action the current action
+     * @param Action $action the current action
      *
      * @return void
      */
-    function onEndLoginGroupNav(&$action)
+    function onEndLoginGroupNav($action)
     {
         $action_name = $action->trimmed('action');
 
@@ -160,11 +160,11 @@ class TwitterBridgePlugin extends Plugin
     /**
      * Add the Twitter Settings page to the Connect Settings menu
      *
-     * @param Action &$action The calling page
+     * @param Action $action The calling page
      *
      * @return boolean hook return
      */
-    function onEndConnectSettingsNav(&$action)
+    function onEndConnectSettingsNav($action)
     {
         if (self::hasKeys()) {
             $action_name = $action->trimmed('action');
@@ -200,7 +200,14 @@ class TwitterBridgePlugin extends Plugin
             return false;
         case 'TwitterOAuthClient':
         case 'TwitterQueueHandler':
+        case 'TwitterImport':
+        case 'JsonStreamReader':
+        case 'TwitterStreamReader':
             include_once $dir . '/' . strtolower($cls) . '.php';
+            return false;
+        case 'TwitterSiteStream':
+        case 'TwitterUserStream':
+            include_once $dir . '/twitterstreamreader.php';
             return false;
         case 'Notice_to_status':
         case 'Twitter_synch_status':
@@ -267,7 +274,11 @@ class TwitterBridgePlugin extends Plugin
     function onEndInitializeQueueManager($manager)
     {
         if (self::hasKeys()) {
+            // Outgoing notices -> twitter
             $manager->connect('twitter', 'TwitterQueueHandler');
+
+            // Incoming statuses <- twitter
+            $manager->connect('tweetin', 'TweetInQueueHandler');
         }
         return true;
     }

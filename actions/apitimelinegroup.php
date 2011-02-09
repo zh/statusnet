@@ -125,10 +125,6 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
             header('Content-Type: application/atom+xml; charset=utf-8');
 
             try {
-                $atom->addAuthorRaw($this->group->asAtomAuthor());
-                $atom->setActivitySubject($this->group->asActivitySubject());
-                $atom->setId($self);
-                $atom->setSelfLink($self);
                 $atom->addEntryFromNotices($this->notices);
                 $this->raw($atom->getString());
             } catch (Atom10FeedException $e) {

@@ -26,17 +26,13 @@
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
-if (!defined('STATUSNET') && !defined('LACONICA')) { 
-    exit(1); 
+if (!defined('STATUSNET') && !defined('LACONICA')) {
+    exit(1);
 }
-
-require_once INSTALLDIR.'/lib/mailbox.php';
 
 /**
  * Show a single message
  *
- * // XXX: It is totally weird how this works!
- * 
  * @category Personal
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
@@ -44,18 +40,17 @@ require_once INSTALLDIR.'/lib/mailbox.php';
  * @link     http://status.net/
  */
 
-class ShowmessageAction extends MailboxAction
+class ShowmessageAction extends Action
 {
     /**
      * Message object to show
      */
-
     var $message = null;
-    
+
     /**
      * The current user
      */
-    
+
     var $user = null;
 
     /**
@@ -67,63 +62,94 @@ class ShowmessageAction extends MailboxAction
      *
      * @return success flag
      */
-
     function prepare($args)
     {
         parent::prepare($args);
-        
+
         $this->page = 1;
-        
+
         $id            = $this->trimmed('message');
         $this->message = Message::staticGet('id', $id);
 
         if (!$this->message) {
+            // TRANS: Client error displayed requesting a single message that does not exist.
             $this->clientError(_('No such message.'), 404);
             return false;
         }
 
         $this->user = common_current_user();
 
+        if (empty($this->user) ||
+            ($this->user->id != $this->message->from_profile &&
+             $this->user->id != $this->message->to_profile)) {
+            // TRANS: Client error displayed requesting a single direct message the requesting user was not a party in.
+            throw new ClientException(_('Only the sender and recipient ' .
+                                        'may read this message.'), 403);
+        }
+
         return true;
     }
 
     function handle($args)
     {
-        Action::handle($args);
-                        
-        if ($this->user && ($this->user->id == $this->message->from_profile || 
-            $this->user->id == $this->message->to_profile)) {
-                $this->showPage();
-        } else {
-            $this->clientError(_('Only the sender and recipient ' .
-                'may read this message.'), 403);
-            return;
-        }
+        $this->showPage();
     }
-    
+
     function title()
-    {                        
+    {
         if ($this->user->id == $this->message->from_profile) {
             $to = $this->message->getTo();
-            return sprintf(_("Message to %1\$s on %2\$s"),
+            // @todo FIXME: Might be nice if the timestamp could be localised.
+            // TRANS: Page title for single direct message display when viewing user is the sender.
+            // TRANS: %1$s is the addressed user's nickname, $2$s is a timestamp.
+            return sprintf(_('Message to %1$s on %2$s'),
                              $to->nickname,
                              common_exact_date($this->message->created));
         } else if ($this->user->id == $this->message->to_profile) {
             $from = $this->message->getFrom();
-            return sprintf(_("Message from %1\$s on %2\$s"),
+            // @todo FIXME: Might be nice if the timestamp could be localised.
+            // TRANS: Page title for single message display.
+            // TRANS: %1$s is the sending user's nickname, $2$s is a timestamp.
+            return sprintf(_('Message from %1$s on %2$s'),
                              $from->nickname,
                              common_exact_date($this->message->created));
         }
     }
-        
-    function getMessages() 
-    {    
-        $message     = new Message();
-        $message->id = $this->message->id;
-        $message->find();
-        return $message;
+
+
+    function showContent()
+    {
+        $this->elementStart('ul', 'notices messages');
+        $ml = new ShowMessageListItem($this, $this->message, $this->user);
+        $ml->show();
+        $this->elementEnd('ul');
     }
-    
+
+    function isReadOnly($args)
+    {
+        return true;
+    }
+
+    /**
+     * Don't show aside
+     *
+     * @return void
+     */
+
+    function showAside() {
+    }
+}
+
+class ShowMessageListItem extends MessageListItem
+{
+    var $user;
+
+    function __construct($out, $message, $user)
+    {
+        parent::__construct($out, $message);
+        $this->user = $user;
+    }
+
     function getMessageProfile()
     {
         if ($this->user->id == $this->message->from_profile) {
@@ -134,51 +160,5 @@ class ShowmessageAction extends MailboxAction
             // This shouldn't happen
             return null;
         }
-    }
-    
-    /**
-     * Don't show local navigation
-     *
-     * @return void
-     */
-
-    function showLocalNavBlock()
-    {
-    }
-    
-    /**
-     * Don't show page notice
-     *
-     * @return void
-     */
-
-    function showPageNoticeBlock()
-    {
-    }
-
-    /**
-     * Don't show aside
-     *
-     * @return void
-     */
-
-    function showAside() 
-    {
-    }
- 
-    /**
-     * Don't show any instructions
-     *
-     * @return string
-     */
-     
-    function getInstructions()
-    {
-        return '';
-    }
-
-    function isReadOnly($args)
-    {
-        return true;
     }
 }

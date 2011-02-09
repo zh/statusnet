@@ -1,5 +1,5 @@
 # Translation of StatusNet - OStatus to Dutch (Nederlands)
-# Expored from translatewiki.net
+# Exported from translatewiki.net
 #
 # Author: McDutchie
 # Author: Siebrand
@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:47:16+0000\n"
+"POT-Creation-Date: 2011-01-30 22:50+0000\n"
+"PO-Revision-Date: 2011-01-30 22:54:06+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-23 19:00:35+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r75596); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-29 22:28:11+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r81224); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -24,39 +24,39 @@ msgstr ""
 
 #. TRANS: Link description for link to subscribe to a remote user.
 #. TRANS: Link text for a user to subscribe to an OStatus user.
-#: OStatusPlugin.php:229 OStatusPlugin.php:939
+#: OStatusPlugin.php:223 OStatusPlugin.php:933
 msgid "Subscribe"
 msgstr "Abonneren"
 
 #. TRANS: Link description for link to join a remote group.
-#: OStatusPlugin.php:248 OStatusPlugin.php:657 actions/ostatussub.php:109
+#: OStatusPlugin.php:242 OStatusPlugin.php:651 actions/ostatussub.php:109
 msgid "Join"
 msgstr "Toetreden"
 
 #. TRANSLATE: %s is a domain.
-#: OStatusPlugin.php:461
+#: OStatusPlugin.php:455
 #, php-format
 msgid "Sent from %s via OStatus"
 msgstr "Verzonden vanaf %s via OStatus"
 
 #. TRANS: Exception.
-#: OStatusPlugin.php:533
+#: OStatusPlugin.php:527
 msgid "Could not set up remote subscription."
 msgstr ""
 "Het was niet mogelijk het abonnement via een andere dienst in te stellen."
 
-#: OStatusPlugin.php:607
+#: OStatusPlugin.php:601
 msgid "Unfollow"
 msgstr "Niet langer volgen"
 
 #. TRANS: Success message for unsubscribe from user attempt through OStatus.
 #. TRANS: %1$s is the unsubscriber's name, %2$s is the unsubscribed user's name.
-#: OStatusPlugin.php:610
+#: OStatusPlugin.php:604
 #, php-format
 msgid "%1$s stopped following %2$s."
 msgstr "%1$s volgt %2$s niet langer."
 
-#: OStatusPlugin.php:638
+#: OStatusPlugin.php:632
 msgid "Could not set up remote group membership."
 msgstr ""
 "Het was niet mogelijk het groepslidmaatschap via een andere dienst in te "
@@ -64,58 +64,58 @@ msgstr ""
 
 #. TRANS: Success message for subscribe to group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
-#: OStatusPlugin.php:660
+#: OStatusPlugin.php:654
 #, php-format
 msgid "%1$s has joined group %2$s."
 msgstr "%1$s is lid geworden van de groep %2$s."
 
 #. TRANS: Exception.
-#: OStatusPlugin.php:669
+#: OStatusPlugin.php:663
 msgid "Failed joining remote group."
 msgstr ""
 "Het was niet mogelijk toe te streden to de groep van een andere dienst."
 
-#: OStatusPlugin.php:709
+#: OStatusPlugin.php:703
 msgid "Leave"
 msgstr "Verlaten"
 
 #. TRANS: Success message for unsubscribe from group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the unsubscribed group's name.
-#: OStatusPlugin.php:712
+#: OStatusPlugin.php:706
 #, php-format
 msgid "%1$s has left group %2$s."
 msgstr "%1$s heeft de groep %2$s verlaten"
 
-#: OStatusPlugin.php:787
+#: OStatusPlugin.php:781
 msgid "Disfavor"
 msgstr "Uit favorieten verwijderen"
 
 #. TRANS: Success message for remove a favorite notice through OStatus.
 #. TRANS: %1$s is the unfavoring user's name, %2$s is URI to the no longer favored notice.
-#: OStatusPlugin.php:790
+#: OStatusPlugin.php:784
 #, php-format
 msgid "%1$s marked notice %2$s as no longer a favorite."
 msgstr "%1$s heeft de mededeling %2$s als favoriet verwijderd."
 
 #. TRANS: Link text for link to remote subscribe.
-#: OStatusPlugin.php:866
+#: OStatusPlugin.php:860
 msgid "Remote"
 msgstr "Via andere dienst"
 
 #. TRANS: Title for activity.
-#: OStatusPlugin.php:906
+#: OStatusPlugin.php:900
 msgid "Profile update"
 msgstr "Profielupdate"
 
 #. TRANS: Ping text for remote profile update through OStatus.
 #. TRANS: %s is user that updated their profile.
-#: OStatusPlugin.php:909
+#: OStatusPlugin.php:903
 #, php-format
 msgid "%s has updated their profile page."
 msgstr "Het profiel van %s is bijgewerkt."
 
 #. TRANS: Plugin description.
-#: OStatusPlugin.php:954
+#: OStatusPlugin.php:948
 msgid ""
 "Follow people across social networks that implement <a href=\"http://ostatus."
 "org/\">OStatus</a>."
@@ -133,7 +133,7 @@ msgid "Attempting to end PuSH subscription for feed with no hub."
 msgstr ""
 "Aan het proberen een PuSH-abonnement te verwijderen voor een feed zonder hub."
 
-#. TRANS: Server exception.
+#. TRANS: Server exception. %s is a URI.
 #: classes/Ostatus_profile.php:192
 #, php-format
 msgid "Invalid ostatus_profile state: both group and profile IDs set for %s."
@@ -141,7 +141,7 @@ msgstr ""
 "Ongeldige ostatus_profile status: het ID voor zowel de groep als het profiel "
 "voor %s is ingesteld."
 
-#. TRANS: Server exception.
+#. TRANS: Server exception. %s is a URI.
 #: classes/Ostatus_profile.php:195
 #, php-format
 msgid "Invalid ostatus_profile state: both group and profile IDs empty for %s."
@@ -157,7 +157,7 @@ msgid "Invalid actor passed to %1$s: %2$s."
 msgstr "Ongeldige actor doorgegeven aan %1$s: %2$s."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:378
+#: classes/Ostatus_profile.php:379
 msgid ""
 "Invalid type passed to Ostatus_profile::notify. It must be XML string or "
 "Activity entry."
@@ -165,112 +165,120 @@ msgstr ""
 "Ongeldig type doorgegeven aan Ostatus_profile::notify. Het moet een XML-"
 "string of Activity zijn."
 
-#: classes/Ostatus_profile.php:408
+#. TRANS: Exception.
+#: classes/Ostatus_profile.php:410
 msgid "Unknown feed format."
 msgstr "Onbekend feedformaat"
 
-#: classes/Ostatus_profile.php:431
+#. TRANS: Exception.
+#: classes/Ostatus_profile.php:434
 msgid "RSS feed without a channel."
 msgstr "RSS-feed zonder kanaal."
 
 #. TRANS: Client exception.
-#: classes/Ostatus_profile.php:476
+#: classes/Ostatus_profile.php:480
 msgid "Can't handle that kind of post."
 msgstr "Dat type post kan niet verwerkt worden."
 
-#. TRANS: Client exception. %s is a source URL.
-#: classes/Ostatus_profile.php:559
+#. TRANS: Client exception. %s is a source URI.
+#: classes/Ostatus_profile.php:538
 #, php-format
 msgid "No content for notice %s."
 msgstr "Geen inhoud voor mededeling %s."
 
-#. TRANS: Shown when a notice is longer than supported and/or when attachments are present.
-#: classes/Ostatus_profile.php:592
+#. TRANS: Shown when a notice is longer than supported and/or when attachments are present. At runtime
+#. TRANS: this will usually be replaced with localised text from StatusNet core messages.
+#: classes/Ostatus_profile.php:573
 msgid "Show more"
 msgstr "Meer weergeven"
 
 #. TRANS: Exception. %s is a profile URL.
-#: classes/Ostatus_profile.php:785
+#: classes/Ostatus_profile.php:766
 #, php-format
 msgid "Could not reach profile page %s."
 msgstr "Het was niet mogelijk de profielpagina %s te bereiken."
 
-#. TRANS: Exception.
-#: classes/Ostatus_profile.php:843
+#. TRANS: Exception. %s is a URL.
+#: classes/Ostatus_profile.php:824
 #, php-format
 msgid "Could not find a feed URL for profile page %s."
 msgstr "Het was niet mogelijk de feed-URL voor de profielpagina %s te vinden."
 
-#: classes/Ostatus_profile.php:980
+#. TRANS: Feed sub exception.
+#: classes/Ostatus_profile.php:923
 msgid "Can't find enough profile information to make a feed."
 msgstr ""
 "Het was niet mogelijk voldoende profielinformatie te vinden om een feed te "
 "maken."
 
-#: classes/Ostatus_profile.php:1039
+#. TRANS: Server exception. %s is a URL.
+#: classes/Ostatus_profile.php:987
 #, php-format
 msgid "Invalid avatar URL %s."
 msgstr "Ongeldige avatar-URL %s."
 
-#: classes/Ostatus_profile.php:1049
+#. TRANS: Server exception. %s is a URI.
+#: classes/Ostatus_profile.php:998
 #, php-format
 msgid "Tried to update avatar for unsaved remote profile %s."
 msgstr ""
 "Geprobeerd om een avatar bij te werken voor het niet opgeslagen profiel %s."
 
-#: classes/Ostatus_profile.php:1058
+#. TRANS: Server exception. %s is a URL.
+#: classes/Ostatus_profile.php:1008
 #, php-format
 msgid "Unable to fetch avatar from %s."
 msgstr "Het was niet mogelijk de avatar op te halen van %s."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1284
+#: classes/Ostatus_profile.php:1234
 msgid "Local user can't be referenced as remote."
 msgstr ""
 "Naar een lokale gebruiker kan niet verwezen worden alsof die zich bij een "
 "andere dienst bevindt."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1289
+#: classes/Ostatus_profile.php:1239
 msgid "Local group can't be referenced as remote."
 msgstr ""
 "Naar een lokale groep kan niet verwezen worden alsof die zich bij een andere "
 "dienst bevindt."
 
-#. TRANS: Exception.
-#: classes/Ostatus_profile.php:1341 classes/Ostatus_profile.php:1352
+#. TRANS: Server exception.
+#: classes/Ostatus_profile.php:1291 classes/Ostatus_profile.php:1302
 msgid "Can't save local profile."
 msgstr "Het was niet mogelijk het lokale profiel op te slaan."
 
-#. TRANS: Exception.
-#: classes/Ostatus_profile.php:1360
+#. TRANS: Server exception.
+#: classes/Ostatus_profile.php:1310
 msgid "Can't save OStatus profile."
 msgstr "Het was niet mogelijk het Ostatusprofiel op te slaan."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1619 classes/Ostatus_profile.php:1647
+#: classes/Ostatus_profile.php:1574 classes/Ostatus_profile.php:1602
 msgid "Not a valid webfinger address."
 msgstr "Geen geldig webfingeradres."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1729
+#: classes/Ostatus_profile.php:1684
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr "Het was niet mogelijk het profiel voor \"%s\" op te slaan."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1748
+#: classes/Ostatus_profile.php:1703
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr "Het was niet mogelijk het ostatus_profile voor \"%s\" op te slaan."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1756
+#: classes/Ostatus_profile.php:1711
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr "Er is geen geldig profiel voor \"%s\" gevonden."
 
-#: classes/Ostatus_profile.php:1798
+#. TRANS: Server exception.
+#: classes/Ostatus_profile.php:1754
 msgid "Could not store HTML content of long post as file."
 msgstr ""
 "Het was niet mogelijk de HTML-inhoud van het lange bericht als bestand op te "
@@ -289,90 +297,74 @@ msgid "Callback returned status: %1$s. Body: %2$s"
 msgstr "De callback heeft de status %1$s teruggegeven. Inhoud: %2$s."
 
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
-#: lib/salmonaction.php:42
+#: lib/salmonaction.php:43
 msgid "This method requires a POST."
 msgstr "Deze methode vereist een POST."
 
 #. TRANS: Client error. Do not translate "application/magic-envelope+xml"
-#: lib/salmonaction.php:47
+#: lib/salmonaction.php:48
 msgid "Salmon requires \"application/magic-envelope+xml\"."
 msgstr "Salmon vereist \"application/magic-envelope+xml\"."
 
 #. TRANS: Client error.
-#: lib/salmonaction.php:57
+#: lib/salmonaction.php:58
 msgid "Salmon signature verification failed."
 msgstr "De controle voor Salmon is mislukt."
 
 #. TRANS: Client error.
-#: lib/salmonaction.php:69
+#: lib/salmonaction.php:70
 msgid "Salmon post must be an Atom entry."
 msgstr "Een Salmonbericht moet in Atomopmaak gemaakt zijn."
 
 #. TRANS: Client exception.
-#: lib/salmonaction.php:118
+#: lib/salmonaction.php:120
 msgid "Unrecognized activity type."
 msgstr "Onbekend activiteitentype."
 
 #. TRANS: Client exception.
-#: lib/salmonaction.php:127
+#: lib/salmonaction.php:130
 msgid "This target doesn't understand posts."
 msgstr "Deze bestemming begrijpt berichten niet."
 
 #. TRANS: Client exception.
-#: lib/salmonaction.php:133
+#: lib/salmonaction.php:136
 msgid "This target doesn't understand follows."
 msgstr "Deze bestemming begrijpt volgen niet."
 
 #. TRANS: Client exception.
-#: lib/salmonaction.php:139
+#: lib/salmonaction.php:142
 msgid "This target doesn't understand unfollows."
 msgstr "Deze bestemming begrijpt niet langer volgen niet."
 
 #. TRANS: Client exception.
-#: lib/salmonaction.php:145
+#: lib/salmonaction.php:148
 msgid "This target doesn't understand favorites."
 msgstr "Deze bestemming begrijpt favorieten niet."
 
 #. TRANS: Client exception.
-#: lib/salmonaction.php:151
+#: lib/salmonaction.php:154
 msgid "This target doesn't understand unfavorites."
 msgstr "Deze bestemming begrijpt favorieten verwijderen niet."
 
 #. TRANS: Client exception.
-#: lib/salmonaction.php:157
+#: lib/salmonaction.php:160
 msgid "This target doesn't understand share events."
 msgstr "Deze bestemming begrijpt gebeurtenissen delen niet."
 
 #. TRANS: Client exception.
-#: lib/salmonaction.php:163
+#: lib/salmonaction.php:166
 msgid "This target doesn't understand joins."
 msgstr "Deze bestemming begrijpt lid worden niet."
 
 #. TRANS: Client exception.
-#: lib/salmonaction.php:169
+#: lib/salmonaction.php:172
 msgid "This target doesn't understand leave events."
 msgstr "Deze bestemming begrijpt uitschrijven van gebeurtenissen niet."
 
 #. TRANS: Exception.
-#: lib/salmonaction.php:197
+#: lib/salmonaction.php:200
 msgid "Received a salmon slap from unidentified actor."
 msgstr "Er is een Salmonslap ontvangen van een niet-geïdentificeerde actor."
-
-#. TRANS: Exception.
-#: lib/discovery.php:110
-#, php-format
-msgid "Unable to find services for %s."
-msgstr "Het was niet mogelijk diensten te vinden voor %s."
-
-#. TRANS: Exception.
-#: lib/xrd.php:64
-msgid "Invalid XML."
-msgstr "Ongeldige XML."
-
-#. TRANS: Exception.
-#: lib/xrd.php:69
-msgid "Invalid XML, missing XRD root."
-msgstr "Ongeldige XML. De XRD-root mist."
 
 #. TRANS: Exception.
 #: lib/magicenvelope.php:80
@@ -381,7 +373,7 @@ msgstr ""
 "Het was niet mogelijk de publieke sleutel van de ondertekenaar te vinden."
 
 #. TRANS: Exception.
-#: lib/salmon.php:93
+#: lib/salmon.php:126
 msgid "Salmon invalid actor for signing."
 msgstr "Ongeldige actor voor het ondertekenen van Salmon."
 
@@ -451,7 +443,7 @@ msgstr "Ongeldig hub.topic \"%s\". De groep bestaat niet."
 msgid "Invalid URL passed for %1$s: \"%2$s\""
 msgstr "Er is een ongeldige URL doorgegeven voor %1$s: \"%2$s\""
 
-#: actions/userxrd.php:59 actions/ownerxrd.php:39 actions/usersalmon.php:43
+#: actions/ownerxrd.php:39 actions/usersalmon.php:43
 msgid "No such user."
 msgstr "Onbekende gebruiker."
 
@@ -461,42 +453,42 @@ msgid "No ID."
 msgstr "Geen ID."
 
 #. TRANS: Client exception.
-#: actions/usersalmon.php:81
+#: actions/usersalmon.php:83
 msgid "In reply to unknown notice."
 msgstr "In antwoord op een onbekende mededeling."
 
 #. TRANS: Client exception.
-#: actions/usersalmon.php:86
+#: actions/usersalmon.php:88
 msgid "In reply to a notice not by this user and not mentioning this user."
 msgstr ""
 "In antwoord op een mededeling niet door deze gebruiker en niet over of aan "
 "deze gebruiker."
 
 #. TRANS: Client exception.
-#: actions/usersalmon.php:163
+#: actions/usersalmon.php:165
 msgid "Could not save new favorite."
 msgstr "Het was niet mogelijk de nieuwe favoriet op te slaan."
 
 #. TRANS: Client exception.
-#: actions/usersalmon.php:195
+#: actions/usersalmon.php:197
 msgid "Can't favorite/unfavorite without an object."
 msgstr ""
 "Het is niet mogelijk (niet langer) als favoriet te markeren zonder object."
 
 #. TRANS: Client exception.
-#: actions/usersalmon.php:207
+#: actions/usersalmon.php:209
 msgid "Can't handle that kind of object for liking/faving."
 msgstr ""
 "Dat object is niet beschikbaar voor (niet langer) als favoriet aanmerken."
 
 #. TRANS: Client exception. %s is an object ID.
-#: actions/usersalmon.php:214
+#: actions/usersalmon.php:216
 #, php-format
 msgid "Notice with ID %s unknown."
 msgstr "De mededeling met ID %s is onbekend."
 
 #. TRANS: Client exception. %1$s is a notice ID, %2$s is a user ID.
-#: actions/usersalmon.php:219
+#: actions/usersalmon.php:221
 #, php-format
 msgid "Notice with ID %1$s not posted by %2$s."
 msgstr "De mededeling met ID %1$s is niet geplaatst foor %2$s."
@@ -558,41 +550,41 @@ msgid "No such group."
 msgstr "De opgegeven groep bestaat niet."
 
 #. TRANS: Client error.
-#: actions/groupsalmon.php:53
+#: actions/groupsalmon.php:56
 msgid "Can't accept remote posts for a remote group."
 msgstr ""
 "Berichten van andere diensten voor groepen bij andere diensten worden niet "
 "geaccepteerd."
 
 #. TRANS: Client error.
-#: actions/groupsalmon.php:127
+#: actions/groupsalmon.php:130
 msgid "Can't read profile to set up group membership."
 msgstr "Het profiel om lid te worden van een groep kon niet gelezen worden."
 
 #. TRANS: Client error.
-#: actions/groupsalmon.php:131 actions/groupsalmon.php:174
+#: actions/groupsalmon.php:134 actions/groupsalmon.php:177
 msgid "Groups can't join groups."
 msgstr "Groepen kunnen geen lid worden van groepen."
 
-#: actions/groupsalmon.php:144
+#: actions/groupsalmon.php:147
 msgid "You have been blocked from that group by the admin."
 msgstr "Een beheerder heeft ingesteld dat u geen lid mag worden van die groep."
 
 #. TRANS: Server error. %1$s is a profile URI, %2$s is a group nickname.
-#: actions/groupsalmon.php:159
+#: actions/groupsalmon.php:162
 #, php-format
 msgid "Could not join remote user %1$s to group %2$s."
 msgstr ""
 "De gebruiker %1$s van een andere dienst kon niet lid worden van de groep %2"
 "$s."
 
-#: actions/groupsalmon.php:171
+#: actions/groupsalmon.php:174
 msgid "Can't read profile to cancel group membership."
 msgstr ""
 "Het profiel om groepslidmaatschap te annuleren kon niet gelezen worden."
 
 #. TRANS: Server error. %1$s is a profile URI, %2$s is a group nickname.
-#: actions/groupsalmon.php:188
+#: actions/groupsalmon.php:191
 #, php-format
 msgid "Could not remove remote user %1$s from group %2$s."
 msgstr ""

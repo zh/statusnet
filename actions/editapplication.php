@@ -185,7 +185,7 @@ class EditApplicationAction extends OwnerDesignAction
             return;
         } elseif (mb_strlen($name) > 255) {
             // TRANS: Validation error shown when providing too long a name in the "Edit application" form.
-            $this->showForm(_('Name is too long (max 255 characters).'));
+            $this->showForm(_('Name is too long (maximum 255 characters).'));
             return;
         } else if ($this->nameExists($name)) {
             // TRANS: Validation error shown when providing a name for an application that already exists in the "Edit application" form.
@@ -198,6 +198,7 @@ class EditApplicationAction extends OwnerDesignAction
         } elseif (Oauth_application::descriptionTooLong($description)) {
             $this->showForm(sprintf(
                 // TRANS: Validation error shown when providing too long a description in the "Edit application" form.
+                // TRANS: %d is the maximum number of allowed characters.
                 _m('Description is too long (maximum %d character).',
                   'Description is too long (maximum %d characters).',
                   Oauth_application::maxDesc()),
@@ -223,6 +224,7 @@ class EditApplicationAction extends OwnerDesignAction
             $this->showForm(_('Organization is too long (maximum 255 characters).'));
             return;
         } elseif (empty($homepage)) {
+            // TRANS: Form validation error show when an organisation name has not been provided in the edit application form.
             $this->showForm(_('Organization homepage is required.'));
             return;
         } elseif ((mb_strlen($homepage) > 0)

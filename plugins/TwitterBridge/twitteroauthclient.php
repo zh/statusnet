@@ -43,10 +43,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 class TwitterOAuthClient extends OAuthClient
 {
-    public static $requestTokenURL = 'https://twitter.com/oauth/request_token';
-    public static $authorizeURL    = 'https://twitter.com/oauth/authorize';
-    public static $signinUrl       = 'https://twitter.com/oauth/authenticate';
-    public static $accessTokenURL  = 'https://twitter.com/oauth/access_token';
+    public static $requestTokenURL = 'https://api.twitter.com/oauth/request_token';
+    public static $authorizeURL    = 'https://api.twitter.com/oauth/authorize';
+    public static $signinUrl       = 'https://api.twitter.com/oauth/authenticate';
+    public static $accessTokenURL  = 'https://api.twitter.com/oauth/access_token';
 
     /**
      * Constructor
@@ -157,7 +157,7 @@ class TwitterOAuthClient extends OAuthClient
      */
     function verifyCredentials()
     {
-        $url          = 'https://twitter.com/account/verify_credentials.json';
+        $url          = 'https://api.twitter.com/1/account/verify_credentials.json';
         $response     = $this->oAuthGet($url);
         $twitter_user = json_decode($response);
         return $twitter_user;
@@ -175,7 +175,7 @@ class TwitterOAuthClient extends OAuthClient
      */
     function statusesUpdate($status, $params=array())
     {
-        $url      = 'https://twitter.com/statuses/update.json';
+        $url      = 'https://api.twitter.com/1/statuses/update.json';
         if (is_numeric($params)) {
             $params = array('in_reply_to_status_id' => intval($params));
         }
@@ -200,7 +200,7 @@ class TwitterOAuthClient extends OAuthClient
     function statusesHomeTimeline($since_id = null, $max_id = null,
                                   $cnt = null, $page = null)
     {
-        $url    = 'https://twitter.com/statuses/home_timeline.json';
+        $url    = 'https://api.twitter.com/1/statuses/home_timeline.json';
 
         $params = array('include_entities' => 'true');
 
@@ -235,7 +235,7 @@ class TwitterOAuthClient extends OAuthClient
     function statusesFriends($id = null, $user_id = null, $screen_name = null,
                              $page = null)
     {
-        $url = "https://twitter.com/statuses/friends.json";
+        $url = "https://api.twitter.com/1/statuses/friends.json";
 
         $params = array();
 
@@ -273,7 +273,7 @@ class TwitterOAuthClient extends OAuthClient
     function friendsIds($id = null, $user_id = null, $screen_name = null,
                          $page = null)
     {
-        $url = "https://twitter.com/friends/ids.json";
+        $url = "https://api.twitter.com/1/friends/ids.json";
 
         $params = array();
 
