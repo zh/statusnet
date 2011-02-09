@@ -146,7 +146,8 @@ class Plugin
         if (is_null($server)) {
             if ($isHTTPS) {
                 $server = common_config('site', 'sslserver');
-            } else {
+            }
+            if (is_null($server)) {
                 $server = common_config('site', 'server');
             }
         }
