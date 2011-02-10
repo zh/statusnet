@@ -2184,3 +2184,40 @@ function common_nicknamize($str)
     $str = preg_replace('/\W/', '', $str);
     return strtolower($str);
 }
+
+function common_perf_counter($key, $val=null)
+{
+    global $_perfCounters;
+    if (isset($_perfCounters)) {
+        if (common_config('site', 'logperf')) {
+            if (array_key_exists($key, $_perfCounters)) {
+                $_perfCounters[$key][] = $val;
+            } else {
+                $_perfCounters[$key] = array($val);
+            }
+            if (common_config('site', 'logperf_detail')) {
+                common_log(LOG_DEBUG, "PERF COUNTER HIT: $key $val");
+            }
+        }
+    }
+}
+
+function common_log_perf_counters()
+{
+    if (common_config('site', 'logperf')) {
+        global $_startTime, $_perfCounters;
+
+        if (isset($_startTime)) {
+            $endTime = microtime(true);
+            $diff = round(($endTime - $_startTime) * 1000);
+            common_log(LOG_DEBUG, "PERF runtime: ${diff}ms");
+        }
+        $counters = $_perfCounters;
+        ksort($counters);
+        foreach ($counters as $key => $values) {
+            $count = count($values);
+            $unique = count(array_unique($values));
+            common_log(LOG_DEBUG, "PERF COUNTER: $key $count ($unique unique)");
+        }
+    }
+}

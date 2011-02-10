@@ -446,7 +446,10 @@ class Notice extends Memcached_DataObject
     function blowOnInsert($conversation = false)
     {
         self::blow('profile:notice_ids:%d', $this->profile_id);
-        self::blow('public');
+
+        if ($this->isPublic()) {
+            self::blow('public');
+        }
 
         // XXX: Before we were blowing the casche only if the notice id
         // was not the root of the conversation.  What to do now?
@@ -481,7 +484,10 @@ class Notice extends Memcached_DataObject
         $this->blowOnInsert();
 
         self::blow('profile:notice_ids:%d;last', $this->profile_id);
-        self::blow('public;last');
+
+        if ($this->isPublic()) {
+            self::blow('public;last');
+        }
     }
 
     /** save all urls in the notice to the db
@@ -958,7 +964,7 @@ class Notice extends Memcached_DataObject
         $groups = array();
 
         /* extract all !group */
-        $count = preg_match_all('/(?:^|\s)!([A-Za-z0-9]{1,64})/',
+        $count = preg_match_all('/(?:^|\s)!(' . Nickname::DISPLAY_FMT . ')/',
                                 strtolower($this->content),
                                 $match);
         if (!$count) {
@@ -2105,6 +2111,16 @@ class Notice extends Memcached_DataObject
         $max = self::whereMaxId($id, $idField, $createdField);
         if ($max) {
             $obj->whereAdd($max);
+        }
+    }
+
+    function isPublic()
+    {
+        if (common_config('public', 'localonly')) {
+            return ($this->is_local == Notice::LOCAL_PUBLIC);
+        } else {
+            return (($this->is_local != Notice::LOCAL_NONPUBLIC) &&
+                    ($this->is_local != Notice::GATEWAY));
         }
     }
 }

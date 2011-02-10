@@ -24,7 +24,7 @@
  * @category  Pugin
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2010 StatusNet, Inc.
+ * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
@@ -47,8 +47,9 @@ define("FACEBOOK_SERVICE", 2);
  */
 class FacebookBridgePlugin extends Plugin
 {
-    public $appId    = null; // Facebook application ID
-    public $secret   = null; // Facebook application secret
+    public $appId;  // Facebook application ID
+    public $secret; // Facebook application secret
+
     public $facebook = null; // Facebook application instance
     public $dir      = null; // Facebook plugin dir
 
@@ -61,6 +62,28 @@ class FacebookBridgePlugin extends Plugin
      */
     function initialize()
     {
+
+        // Allow the id and key to be passed in
+        // Control panel will override
+
+        if (isset($this->appId)) {
+            $appId = common_config('facebook', 'appid');
+            if (empty($appId)) {
+                Config::save(
+                    'facebook',
+                    'appid',
+                    $this->appId
+                );
+            }
+        }
+
+        if (isset($this->secret)) {
+            $secret = common_config('facebook', 'secret');
+            if (empty($secret)) {
+                Config::save('facebook', 'secret', $this->secret);
+            }
+        }
+
         $this->facebook = Facebookclient::getFacebook(
             $this->appId,
             $this->secret

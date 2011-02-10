@@ -419,12 +419,12 @@ class OStatusPlugin extends Plugin
     }
 
     function onEndShowStatusNetStyles($action) {
-        $action->cssLink('plugins/OStatus/theme/base/css/ostatus.css');
+        $action->cssLink($this->path('theme/base/css/ostatus.css'));
         return true;
     }
 
     function onEndShowStatusNetScripts($action) {
-        $action->script('plugins/OStatus/js/ostatus.js');
+        $action->script($this->path('js/ostatus.js'));
         return true;
     }
 

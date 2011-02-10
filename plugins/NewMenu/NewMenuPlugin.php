@@ -326,12 +326,12 @@ class NewMenuPlugin extends Plugin
 
     function onEndShowStyles($action)
     {
-        if (($this->showCSS ||
+        if (($this->loadCSS ||
              in_array(common_config('site', 'theme'),
                       array('default', 'identica', 'h4ck3r'))) &&
             ($action instanceof AccountSettingsAction ||
              $action instanceof ConnectSettingsAction)) {
-            $action->cssLink(common_path('plugins/NewMenu/newmenu.css'));
+            $action->cssLink($this->path('newmenu.css'));
         }
         return true;
     }

@@ -1279,7 +1279,7 @@ biolimit: max character length of bio; 0 means no limit; null means to use
 backup: whether users can backup their own profiles. Defaults to true.
 restore: whether users can restore their profiles from backup files. Defaults
 	 to true.
-delete: whether users can delete their own accounts. Defaults to true.
+delete: whether users can delete their own accounts. Defaults to false.
 move: whether users can move their accounts to another server. Defaults
       to true.	 
 
@@ -1571,6 +1571,23 @@ proxy_port: Port to use to connect to HTTP proxy host. Default null.
 proxy_user: Username to use for authenticating to the HTTP proxy. Default null.
 proxy_password: Password to use for authenticating to the HTTP proxy. Default null.
 proxy_auth_scheme: Scheme to use for authenticating to the HTTP proxy. Default null.
+
+plugins
+-------
+
+default: associative array mapping plugin name to array of arguments. To disable
+	 a default plugin, unset its value in this array.
+locale_path: path for finding plugin locale files. In the plugin's directory
+	     by default.
+server: Server to find static files for a plugin when the page is plain old HTTP.
+	Defaults to site/server (same as pages). Use this to move plugin CSS and
+	JS files to a CDN.
+sslserver: Server to find static files for a plugin when the page is HTTPS. Defaults
+	   to site/server (same as pages). Use this to move plugin CSS and JS files
+	   to a CDN.
+path: Path to the plugin files. defaults to site/path + '/plugins/'. Expects that
+      each plugin will have a subdirectory at plugins/NameOfPlugin. Change this
+      if you're using a CDN.
 
 Plugins
 =======

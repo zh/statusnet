@@ -340,6 +340,7 @@ class Memcached_DataObject extends Safe_DataObject
         $start = microtime(true);
         $result = null;
         if (Event::handle('StartDBQuery', array($this, $string, &$result))) {
+            common_perf_counter('query', $string);
             $result = parent::_query($string);
             Event::handle('EndDBQuery', array($this, $string, &$result));
         }

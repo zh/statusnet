@@ -1112,7 +1112,8 @@ class Ostatus_profile extends Memcached_DataObject
                 return $url;
             }
         }
-        return common_path('plugins/OStatus/images/96px-Feed-icon.svg.png');
+
+        return Plugin::staticPath('OStatus', 'images/96px-Feed-icon.svg.png');
     }
 
     /**
@@ -1781,12 +1782,14 @@ class Ostatus_profile extends Memcached_DataObject
                     $oprofile = Ostatus_profile::ensureWebfinger($rest);
                     break;
                 default:
-                    common_log(LOG_WARNING,
-                               "Unrecognized URI protocol for profile: $protocol ($uri)");
+                    throw new ServerException("Unrecognized URI protocol for profile: $protocol ($uri)");
                     break;
                 }
+            } else {
+                throw new ServerException("No URI protocol for profile: ($uri)");
             }
         }
+
         return $oprofile;
     }
 
