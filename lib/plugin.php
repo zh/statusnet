@@ -152,7 +152,11 @@ class Plugin
             }
         }
 
-        $path = common_config('plugins', 'path');
+        if ($isHTTPS) {
+            $path = common_config('plugins', 'sslpath');
+        } else {
+            $path = common_config('plugins', 'path');
+        }
 
         if (empty($path)) {
             $path = common_config('site', 'path') . '/plugins/';

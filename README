@@ -1588,6 +1588,7 @@ sslserver: Server to find static files for a plugin when the page is HTTPS. Defa
 path: Path to the plugin files. defaults to site/path + '/plugins/'. Expects that
       each plugin will have a subdirectory at plugins/NameOfPlugin. Change this
       if you're using a CDN.
+sslpath: Path to use on the SSL server. Same as plugins/path.
 
 Plugins
 =======
