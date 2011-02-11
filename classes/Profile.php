@@ -354,7 +354,10 @@ class Profile extends Memcached_DataObject
         $profiles = array();
 
         while ($subs->fetch()) {
-            $profiles[] = Profile::staticGet($subs->subscribed);
+            $profile = Profile::staticGet($subs->subscribed);
+            if ($profile) {
+                $profiles[] = $profile;
+            }
         }
 
         return new ArrayWrapper($profiles);
@@ -369,7 +372,10 @@ class Profile extends Memcached_DataObject
         $profiles = array();
 
         while ($subs->fetch()) {
-            $profiles[] = Profile::staticGet($subs->subscriber);
+            $profile = Profile::staticGet($subs->subscriber);
+            if ($profile) {
+                $profiles[] = $profile;
+            }
         }
 
         return new ArrayWrapper($profiles);
