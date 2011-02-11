@@ -205,18 +205,19 @@ class Activity
             // the surrounding feed.
             $this->actor = new ActivityObject($authorEl);
 
-        } else if (!empty($feed) && $authorEl = $this->_child($feed, self::AUTHOR,
-                                                              self::ATOM)) {
-
-            // If there's no <atom:author> on the entry, it's safe to assume
-            // the containing feed's authorship info applies.
-            $this->actor = new ActivityObject($authorEl);
         } else if (!empty($feed) &&
                    $subjectEl = $this->_child($feed, self::SUBJECT)) {
 
             // Feed subject is used for things like groups.
             // Should actually possibly not be interpreted as an actor...?
             $this->actor = new ActivityObject($subjectEl);
+
+        } else if (!empty($feed) && $authorEl = $this->_child($feed, self::AUTHOR,
+                                                              self::ATOM)) {
+
+            // If there's no <atom:author> on the entry, it's safe to assume
+            // the containing feed's authorship info applies.
+            $this->actor = new ActivityObject($authorEl);
         }
 
         $contextEl = $this->_child($entry, self::CONTEXT);
