@@ -68,6 +68,7 @@ if ($response->isOk()) {
     echo "Updating profile from feed: $feedurl\n";
     $dom = new DOMDocument();
     if ($dom->loadXML($response->getBody())) {
+        $feed = $dom->documentElement;
         $entries = $dom->getElementsByTagNameNS(Activity::ATOM, 'entry');
         if ($entries->length) {
             $entry = $entries->item(0);
