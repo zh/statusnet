@@ -20,12 +20,19 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
+$longoptions = array('all', 'suspicious', 'quiet');
+
 $helptext = <<<END_OF_HELP
-update-profile-data.php [options] http://example.com/profile/url
+update-profile-data.php [options] [http://example.com/profile/url]
 
 Rerun profile discovery for the given OStatus remote profile, and save the
 updated profile data (nickname, avatar, bio, etc). Doesn't touch feed state.
 Can be used to clean up after breakages.
+
+Options:
+  --all        Run for all known OStatus profiles
+  --suspicious Run for OStatus profiles with all-numeric nicknames
+               (fixes 0.9.7 prerelease back-compatibility bug)
 
 END_OF_HELP;
 
@@ -86,10 +93,29 @@ function fixProfile($uri) {
     return true;
 }
 
-if (empty($args[0]) || !Validate::uri($args[0])) {
+$ok = true;
+if (have_option('all')) {
+    $oprofile = new Ostatus_profile();
+    $oprofile->find();
+    echo "Found $oprofile->N profiles:\n\n";
+    while ($oprofile->fetch()) {
+        $ok = fixProfile($oprofile->uri) && $ok;
+    }
+} else if (have_option('suspicious')) {
+    $oprofile = new Ostatus_profile();
+    $oprofile->joinAdd(array('profile_id', 'profile:id'));
+    $oprofile->whereAdd("nickname rlike '^[0-9]$'");
+    $oprofile->find();
+    echo "Found $oprofile->N matching profiles:\n\n";
+    while ($oprofile->fetch()) {
+        $ok = fixProfile($oprofile->uri) && $ok;
+    }
+} else if (!empty($args[0]) && Validate::uri($args[0])) {
+    $uri = $args[0];
+    $ok = fixProfile($uri);
+} else {
     print "$helptext";
-    exit(1);
+    $ok = false;
 }
 
-$uri = $args[0];
-fixProfile($uri);
+exit($ok ? 0 : 1);
