@@ -115,14 +115,7 @@ class Facebookclient
     function isFacebookBound() {
 
         if (empty($this->flink)) {
-            common_log(
-                LOG_WARNING,
-                sprintf(
-                    "No Foreign_link to Facebook for the author of notice %d.",
-                    $this->notice->id
-                ),
-                __FILE__
-            );
+            // User hasn't setup bridging
             return false;
         }
 
@@ -180,15 +173,6 @@ class Facebookclient
                 // Otherwise we most likely have an access token
                 return $this->sendGraph();
             }
-
-        } else {
-            common_debug(
-                sprintf(
-                    "Skipping notice %d - not bound for Facebook",
-                    $this->notice->id,
-                    __FILE__
-                )
-            );
         }
     }
 

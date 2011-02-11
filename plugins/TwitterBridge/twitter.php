@@ -173,18 +173,20 @@ function broadcast_twitter($notice)
 
     // Don't bother with basic auth, since it's no longer allowed
     if (!empty($flink) && TwitterOAuthClient::isPackedToken($flink->credentials)) {
-        if (!empty($notice->repeat_of) && is_twitter_notice($notice->repeat_of)) {
-            $retweet = retweet_notice($flink, Notice::staticGet('id', $notice->repeat_of));
-            if (is_object($retweet)) {
-                Notice_to_status::saveNew($notice->id, twitter_id($retweet));
-                return true;
+        if (is_twitter_bound($notice, $flink)) {
+            if (!empty($notice->repeat_of) && is_twitter_notice($notice->repeat_of)) {
+                $retweet = retweet_notice($flink, Notice::staticGet('id', $notice->repeat_of));
+                if (is_object($retweet)) {
+                    Notice_to_status::saveNew($notice->id, twitter_id($retweet));
+                    return true;
+                } else {
+                    // Our error processing will have decided if we need to requeue
+                    // this or can discard safely.
+                    return $retweet;
+                }
             } else {
-                // Our error processing will have decided if we need to requeue
-                // this or can discard safely.
-                return $retweet;
+                return broadcast_oauth($notice, $flink);
             }
-        } else if (is_twitter_bound($notice, $flink)) {
-            return broadcast_oauth($notice, $flink);
         }
     }
 
