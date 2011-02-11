@@ -31,21 +31,6 @@ END_OF_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-if (empty($args[0]) || !Validate::uri($args[0])) {
-    print "$helptext";
-    exit(1);
-}
-
-$uri = $args[0];
-
-
-$oprofile = Ostatus_profile::staticGet('uri', $uri);
-
-if (!$oprofile) {
-    print "No OStatus remote profile known for URI $uri\n";
-    exit(1);
-}
-
 function showProfileInfo($oprofile) {
     if ($oprofile->isGroup()) {
         echo "group\n";
@@ -58,32 +43,53 @@ function showProfileInfo($oprofile) {
     echo "\n";
 }
 
-echo "Before:\n";
-showProfileInfo($oprofile);
+function fixProfile($uri) {
+    $oprofile = Ostatus_profile::staticGet('uri', $uri);
 
-$feedurl = $oprofile->feeduri;
-$client = new HttpClient();
-$response = $client->get($feedurl);
-if ($response->isOk()) {
-    echo "Updating profile from feed: $feedurl\n";
-    $dom = new DOMDocument();
-    if ($dom->loadXML($response->getBody())) {
-        $feed = $dom->documentElement;
-        $entries = $dom->getElementsByTagNameNS(Activity::ATOM, 'entry');
-        if ($entries->length) {
-            $entry = $entries->item(0);
-            $activity = new Activity($entry, $feed);
-            $oprofile->checkAuthorship($activity);
-            echo "  (ok)\n";
+    if (!$oprofile) {
+        print "No OStatus remote profile known for URI $uri\n";
+        return false;
+    }
+
+    echo "Before:\n";
+    showProfileInfo($oprofile);
+
+    $feedurl = $oprofile->feeduri;
+    $client = new HttpClient();
+    $response = $client->get($feedurl);
+    if ($response->isOk()) {
+        echo "Updating profile from feed: $feedurl\n";
+        $dom = new DOMDocument();
+        if ($dom->loadXML($response->getBody())) {
+            $feed = $dom->documentElement;
+            $entries = $dom->getElementsByTagNameNS(Activity::ATOM, 'entry');
+            if ($entries->length) {
+                $entry = $entries->item(0);
+                $activity = new Activity($entry, $feed);
+                $oprofile->checkAuthorship($activity);
+                echo "  (ok)\n";
+            } else {
+                echo "  (no entry; skipping)\n";
+                return false;
+            }
         } else {
-            echo "  (no entry; skipping)\n";
+            echo "  (bad feed; skipping)\n";
+            return false;
         }
     } else {
-        echo "  (bad feed; skipping)\n";
+        echo "Failed feed fetch: {$response->getStatus()} for $feedurl\n";
+        return false;
     }
-} else {
-    echo "Failed feed fetch: {$response->getStatus()} for $feedurl\n";
+
+    echo "After:\n";
+    showProfileInfo($oprofile);
+    return true;
 }
 
-echo "After:\n";
-showProfileInfo($oprofile);
+if (empty($args[0]) || !Validate::uri($args[0])) {
+    print "$helptext";
+    exit(1);
+}
+
+$uri = $args[0];
+fixProfile($uri);
