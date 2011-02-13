@@ -546,7 +546,10 @@ class ActivityObject
         if (!empty($this->title)) {
             $name = common_xml_safe_str($this->title);
             if ($tag == 'author') {
-                $xo->element(self::NAME, null, $name);
+                // XXX: Backward compatibility hack -- atom:name should contain
+                // full name here, instead of nickname, i.e.: $name. Change
+                // this in the next version.
+                $xo->element(self::NAME, null, $this->poco->preferredUsername);
             } else {
                 $xo->element(self::TITLE, null, $name);
             }
