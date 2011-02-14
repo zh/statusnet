@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-02 23:30+0000\n"
-"PO-Revision-Date: 2011-02-02 23:37:59+0000\n"
+"POT-Creation-Date: 2011-02-14 16:01+0000\n"
+"PO-Revision-Date: 2011-02-14 16:09:39+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-01-30 23:08:42+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r81409); Translate extension (2011-02-01)\n"
+"X-POT-Import-Date: 2011-02-03 00:48:00+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r82114); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -226,50 +226,50 @@ msgid "Unable to fetch avatar from %s."
 msgstr "Неможливо завантажити аватару з %s."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1234
+#: classes/Ostatus_profile.php:1235
 msgid "Local user can't be referenced as remote."
 msgstr "Місцевий користувач не може бути зазначеним у якості віддаленого."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1239
+#: classes/Ostatus_profile.php:1240
 msgid "Local group can't be referenced as remote."
 msgstr "Локальну спільноту не можна зазначити у якості віддаленої."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1291 classes/Ostatus_profile.php:1302
+#: classes/Ostatus_profile.php:1292 classes/Ostatus_profile.php:1303
 msgid "Can't save local profile."
 msgstr "Не вдається зберегти місцевий профіль."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1310
+#: classes/Ostatus_profile.php:1311
 msgid "Can't save OStatus profile."
 msgstr "Не вдається зберегти профіль OStatus."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1574 classes/Ostatus_profile.php:1602
+#: classes/Ostatus_profile.php:1599 classes/Ostatus_profile.php:1627
 msgid "Not a valid webfinger address."
 msgstr "Це недійсна адреса для протоколу WebFinger."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1684
+#: classes/Ostatus_profile.php:1709
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr "Не можу зберегти профіль для «%s»."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1703
+#: classes/Ostatus_profile.php:1728
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr "Не можу зберегти профіль OStatus для «%s»."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1711
+#: classes/Ostatus_profile.php:1736
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr "не можу знайти відповідний й профіль для «%s»."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1754
+#: classes/Ostatus_profile.php:1779
 msgid "Could not store HTML content of long post as file."
 msgstr "Не можу зберегти HTML місткого допису у якості файлу."
 
@@ -716,14 +716,12 @@ msgstr "Підписатись"
 
 #. TRANS: Field label.
 #: actions/ostatusinit.php:119
-#, fuzzy
 msgid "Group nickname"
-msgstr "Ім’я користувача"
+msgstr "Назва спільноти"
 
 #: actions/ostatusinit.php:120
-#, fuzzy
 msgid "Nickname of the group you want to join."
-msgstr "Ім’я користувача, дописи якого ви хотіли б читати."
+msgstr "Назва спільноти, до якої ви хотіли б приєднатися."
 
 #. TRANS: Field label.
 #: actions/ostatusinit.php:123

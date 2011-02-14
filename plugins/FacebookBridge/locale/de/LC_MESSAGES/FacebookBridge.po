@@ -1,0 +1,318 @@
+# Translation of StatusNet - FacebookBridge to German (Deutsch)
+# Exported from translatewiki.net
+#
+# Author: Fujnky
+# --
+# This file is distributed under the same license as the StatusNet package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: StatusNet - FacebookBridge\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-14 16:01+0000\n"
+"PO-Revision-Date: 2011-02-14 16:07:53+0000\n"
+"Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-POT-Import-Date: 2011-01-29 22:24:13+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r82114); Translate extension (2011-02-01)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: de\n"
+"X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. TRANS: Menu item.
+#. TRANS: Menu item tab.
+#: FacebookBridgePlugin.php:224 FacebookBridgePlugin.php:263
+#: FacebookBridgePlugin.php:304
+msgctxt "MENU"
+msgid "Facebook"
+msgstr "Facebook"
+
+#. TRANS: Tooltip for menu item "Facebook".
+#: FacebookBridgePlugin.php:226
+msgid "Login or register using Facebook"
+msgstr "Über Facebook anmelden oder registrieren"
+
+#. TRANS: Tooltip for menu item "Facebook".
+#: FacebookBridgePlugin.php:265
+msgid "Facebook integration configuration"
+msgstr "Konfiguration der Facebook-Integration"
+
+#. TRANS: Tooltip for menu item "Facebook".
+#. TRANS: Page title for Facebook settings.
+#: FacebookBridgePlugin.php:306 actions/facebooksettings.php:105
+msgid "Facebook settings"
+msgstr "Facebook-Einstellungen"
+
+#: FacebookBridgePlugin.php:570
+msgid "A plugin for integrating StatusNet with Facebook."
+msgstr "Ein Plugin zur Integration von StatusNet mit Facebook."
+
+#: lib/facebookclient.php:760
+msgid "Your Facebook connection has been removed"
+msgstr "Ihre Facebook-Verbindung wurde entfernt"
+
+#: lib/facebookclient.php:819
+#, php-format
+msgid "Contact the %s administrator to retrieve your account"
+msgstr "Kontaktiere den %s-Administrator um dein Konto zurück zu bekommen"
+
+#: actions/facebookfinishlogin.php:88
+msgid ""
+"You must be logged into Facebook to register a local account using Facebook."
+msgstr ""
+"Du musst bei Facebook angemeldet sein, um ein lokales Konto mit Facebook zu "
+"registrieren."
+
+#: actions/facebookfinishlogin.php:118
+msgid "There is already a local account linked with that Facebook account."
+msgstr ""
+"Es gibt bereits ein lokales Konto, das mit diesem Facebook-Konto verbunden "
+"ist."
+
+#: actions/facebookfinishlogin.php:141 actions/facebooksettings.php:86
+msgid "There was a problem with your session token. Try again, please."
+msgstr "Es gab ein Problem mit deinem Sitzungstoken. Versuche es bitte erneut."
+
+#: actions/facebookfinishlogin.php:150
+msgid "You can't register if you don't agree to the license."
+msgstr ""
+"Du kannst dich nicht registrieren, falls du die Lizenz nicht akzeptierst."
+
+#: actions/facebookfinishlogin.php:167
+msgid "An unknown error has occured."
+msgstr "Ein unbekannter Fehler ist aufgetreten."
+
+#: actions/facebookfinishlogin.php:185
+#, php-format
+msgid ""
+"This is the first time you've logged into %s so we must connect your "
+"Facebook to a local account. You can either create a new local account, or "
+"connect with an existing local account."
+msgstr ""
+"Dies ist das erste Mal, dass du dich bei %s angemeldet hast, also müssen wir "
+"Facebook mit deinem lokalen Konto verbinden. Du kannst entweder ein neues "
+"lokales Konto erstellen, oder mit einem bestehenden verbinden."
+
+#. TRANS: Page title.
+#: actions/facebookfinishlogin.php:195
+msgid "Facebook Setup"
+msgstr "Facebook-Einrichtung"
+
+#. TRANS: Legend.
+#: actions/facebookfinishlogin.php:229
+msgid "Connection options"
+msgstr "Verbindungsoptionen"
+
+#. TRANS: %s is the name of the license used by the user for their status updates.
+#: actions/facebookfinishlogin.php:239
+#, php-format
+msgid ""
+"My text and files are available under %s except this private data: password, "
+"email address, IM address, and phone number."
+msgstr ""
+"Mein Text und meine Dateien sind mit Ausnahme dieser privaten Daten unter %s "
+"verfügbar: Passwort, E-Mail-Adresse, IM-Adresse und Telefonnummer."
+
+#. TRANS: Legend.
+#: actions/facebookfinishlogin.php:256
+msgid "Create new account"
+msgstr "Neues Konto erstellen"
+
+#: actions/facebookfinishlogin.php:258
+msgid "Create a new user with this nickname."
+msgstr "Einen neuen Benutzer mit diesem Spitznamen erstellen."
+
+#. TRANS: Field label.
+#: actions/facebookfinishlogin.php:266
+msgid "New nickname"
+msgstr "Neuer Spitzname"
+
+#: actions/facebookfinishlogin.php:268
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr "1–64 Kleinbuchstaben oder Zahlen, keine Satz- oder Leerzeichen"
+
+#. TRANS: Submit button.
+#: actions/facebookfinishlogin.php:276
+msgctxt "BUTTON"
+msgid "Create"
+msgstr "Erstellen"
+
+#: actions/facebookfinishlogin.php:282
+msgid "Connect existing account"
+msgstr "Verbinde vorhandenes Konto"
+
+#: actions/facebookfinishlogin.php:284
+msgid ""
+"If you already have an account, login with your username and password to "
+"connect it to your Facebook."
+msgstr ""
+"Falls de bereits ein Konto hast, melde dich mit deinem Benutzernamen und "
+"Passwort an, um es mit deinem Facebook zu verbinden."
+
+#. TRANS: Field label.
+#: actions/facebookfinishlogin.php:288
+msgid "Existing nickname"
+msgstr "Vorhandener Spitzname"
+
+#: actions/facebookfinishlogin.php:291
+msgid "Password"
+msgstr "Passwort"
+
+#. TRANS: Submit button.
+#: actions/facebookfinishlogin.php:295
+msgctxt "BUTTON"
+msgid "Connect"
+msgstr "Verbinden"
+
+#. TRANS: Client error trying to register with registrations not allowed.
+#. TRANS: Client error trying to register with registrations 'invite only'.
+#: actions/facebookfinishlogin.php:316 actions/facebookfinishlogin.php:326
+msgid "Registration not allowed."
+msgstr "Registrierung nicht erlaubt."
+
+#. TRANS: Client error trying to register with an invalid invitation code.
+#: actions/facebookfinishlogin.php:334
+msgid "Not a valid invitation code."
+msgstr "Ungültiger Einladungs-Code."
+
+#: actions/facebookfinishlogin.php:347
+msgid "Nickname not allowed."
+msgstr "Spitzname nicht erlaubt."
+
+#: actions/facebookfinishlogin.php:352
+msgid "Nickname already in use. Try another one."
+msgstr "Spitzname bereits vergeben. Versuche einen anderen."
+
+#: actions/facebookfinishlogin.php:380 actions/facebookfinishlogin.php:519
+msgid "Error connecting user to Facebook."
+msgstr "Fehler bei der Verbindung des Benutzers zu Facebook."
+
+#: actions/facebookfinishlogin.php:482
+msgid "Invalid username or password."
+msgstr "Benutzername oder Kennwort ungültig."
+
+#: actions/facebooklogin.php:43
+msgid "Already logged in."
+msgstr "Bereits angemeldet."
+
+#. TRANS: Instructions.
+#: actions/facebooklogin.php:52
+msgid "Login with your Facebook Account"
+msgstr "Mit ihrem Facebook-Konto anmelden"
+
+#. TRANS: Page title.
+#: actions/facebooklogin.php:67
+msgid "Login with Facebook"
+msgstr "Mit Facebook anmelden"
+
+#: actions/facebookadminpanel.php:52
+msgid "Facebook"
+msgstr "Facebook"
+
+#: actions/facebookadminpanel.php:62
+msgid "Facebook integration settings"
+msgstr "Einstellungen der Facebook-Integration"
+
+#: actions/facebookadminpanel.php:123
+msgid "Invalid Facebook ID. Max length is 255 characters."
+msgstr "Ungültige Facebook-ID. Die maximale Länge beträgt 255 Zeichen."
+
+#: actions/facebookadminpanel.php:129
+msgid "Invalid Facebook secret. Max length is 255 characters."
+msgstr "Ungültiges Facebook-Geheimnis. Die maximale Länge beträgt 255 Zeichen."
+
+#: actions/facebookadminpanel.php:178
+msgid "Facebook application settings"
+msgstr "Einstellungen der Facebook-Anwendung"
+
+#: actions/facebookadminpanel.php:184
+msgid "Application ID"
+msgstr "Anwendungs-ID"
+
+#: actions/facebookadminpanel.php:185
+msgid "ID of your Facebook application"
+msgstr "ID ihrer Facebook-Anwendung"
+
+#: actions/facebookadminpanel.php:193
+msgid "Secret"
+msgstr "Geheimnis"
+
+#: actions/facebookadminpanel.php:194
+msgid "Application secret"
+msgstr "Anwendungs-Geheimnis"
+
+#: actions/facebookadminpanel.php:210
+msgid "Save"
+msgstr "Speichern"
+
+#: actions/facebookadminpanel.php:210
+msgid "Save Facebook settings"
+msgstr "Facebook-Einstellungen speichern"
+
+#: actions/facebooksettings.php:137
+msgid "Connected Facebook user"
+msgstr "Verbundene Facebook-Benuter"
+
+#: actions/facebooksettings.php:164
+msgid "Publish my notices to Facebook."
+msgstr "Meine Nachrichten auf Facebook veröffentlichen."
+
+#: actions/facebooksettings.php:174
+msgid "Send \"@\" replies to Facebook."
+msgstr "\"@\"-Antworten zu Facebook senden."
+
+#. TRANS: Submit button to save synchronisation settings.
+#: actions/facebooksettings.php:183
+msgctxt "BUTTON"
+msgid "Save"
+msgstr "Speichern"
+
+#. TRANS: Legend.
+#: actions/facebooksettings.php:192
+msgid "Disconnect my account from Facebook"
+msgstr "Mein Konto von Facebook trennen"
+
+#: actions/facebooksettings.php:199
+#, php-format
+msgid ""
+"Disconnecting your Faceboook would make it impossible to log in! Please [set "
+"a password](%s) first."
+msgstr ""
+"Die Trennung von Facebook würde es unmöglich machen, sich anzumelden! Bitte "
+"zuerst ein [Passwort setzen](%s)."
+
+#: actions/facebooksettings.php:213
+#, php-format
+msgid ""
+"Keep your %1$s account but disconnect from Facebook. You'll use your %1$s "
+"password to log in."
+msgstr ""
+"Du behältst dein %1$s-Konto, trennst es aber von Facebook. Du wirst dein %1"
+"$s-Passwort benutzen, um dich anzumelden."
+
+#. TRANS: Submit button.
+#: actions/facebooksettings.php:220
+msgctxt "BUTTON"
+msgid "Disconnect"
+msgstr "Trennen"
+
+#: actions/facebooksettings.php:243
+msgid "There was a problem saving your sync preferences."
+msgstr ""
+"Es ist ein Problem beim Speichern ihrer Synchronisations-Einstellungen "
+"aufgetreten."
+
+#. TRANS: Confirmation that synchronisation settings have been saved into the system.
+#: actions/facebooksettings.php:246
+msgid "Sync preferences saved."
+msgstr "Synchronisations-Einstellungen gespeichert."
+
+#: actions/facebooksettings.php:260
+msgid "Couldn't delete link to Facebook."
+msgstr "Konnte die Verbindung zu Facebook nicht löschen."
+
+#: actions/facebooksettings.php:264
+msgid "You have disconnected from Facebook."
+msgstr "Du bist nun nicht mehr mit Facebook verbunden."
