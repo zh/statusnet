@@ -317,6 +317,7 @@ $default =
               'server' => null,
               'sslserver' => null,
               'path' => null,
+              'sslpath' => null,
               ),
         'admin' =>
         array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice', 'license')),

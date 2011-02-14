@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-30 22:50+0000\n"
-"PO-Revision-Date: 2011-01-30 22:52:25+0000\n"
+"POT-Creation-Date: 2011-02-02 23:29+0000\n"
+"PO-Revision-Date: 2011-02-02 23:34:40+0000\n"
 "Language-Team: Icelandic <http://translatewiki.net/wiki/Portal:is>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r81224); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.18alpha (r81409); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: is\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-01-29 22:24:50+0000\n"
+"X-POT-Import-Date: 2011-01-30 23:06:54+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -82,7 +82,7 @@ msgstr "Stillingar fyrir mynd"
 #. TRANS: Tooltip for button to save access settings in site admin panel.
 #. TRANS: Button text for saving theme settings.
 #. TRANS: Button label to save e-mail preferences.
-#. TRANS: Button label to save IM preferences.
+#. TRANS: Button label to save Instant Messaging preferences.
 #. TRANS: Button text for saving "Other settings" in profile.
 #. TRANS: Button text to store form data in the Paths admin panel.
 #. TRANS: Button to save input in profile settings.
@@ -136,6 +136,9 @@ msgstr "Ekkert þannig merki."
 #. TRANS: Client error displayed requesting most recent notices for a non-existing user.
 #. TRANS: Client error displayed trying to get an avatar for a non-existing user.
 #. TRANS: Client error displayed when trying to get the RSS feed with favorites of a user that does not exist.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed without providing a user nickname.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed for an object that is not a user.
+#. TRANS: Client error displayed when trying to get a user hCard for a non-existing user.
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when calling a profile action without specifying a user.
@@ -153,7 +156,7 @@ msgstr "Ekkert þannig merki."
 #: actions/apitimelinefriends.php:173 actions/apitimelinehome.php:78
 #: actions/apitimelinementions.php:77 actions/apitimelineuser.php:79
 #: actions/avatarbynickname.php:79 actions/favoritesrss.php:72
-#: actions/foaf.php:40 actions/foaf.php:58 actions/hcard.php:67
+#: actions/foaf.php:42 actions/foaf.php:61 actions/hcard.php:67
 #: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:144 actions/remotesubscribe.php:153
 #: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
@@ -321,8 +324,8 @@ msgstr ""
 #. TRANS: Server error displayed when a user update to the database fails in the contact address confirmation action.
 #. TRANS: Server error thrown on database error updating e-mail preferences.
 #. TRANS: Server error thrown on database error removing a registered e-mail address.
-#. TRANS: Server error thrown on database error updating IM preferences.
-#. TRANS: Server error thrown on database error removing a registered IM address.
+#. TRANS: Server error thrown on database error updating Instant Messaging preferences.
+#. TRANS: Server error thrown on database error removing a registered Instant Messaging address.
 #. TRANS: Server error displayed when "Other" settings in user profile could not be updated on the server.
 #. TRANS: Server error thrown when user profile settings could not be updated.
 #. TRANS: Server error thrown on database error updating SMS preferences.
@@ -343,13 +346,15 @@ msgstr "Gat ekki uppfært notanda."
 #. TRANS: Client error displayed if a user profile could not be found updating a profile image.
 #. TRANS: Client error displayed when requesting user information for a user without a profile.
 #. TRANS: Client error displayed trying to get an avatar for a user without a profile.
+#. TRANS: Server error displayed when requesting Friends of a Friend feed for a user for which the profile could not be found.
+#. TRANS: Server error displayed when trying to get a user hCard for a user without a profile.
 #. TRANS: Server error displayed when calling a profile action while the specified user does not have a profile.
 #: actions/apiaccountupdateprofile.php:111
 #: actions/apiaccountupdateprofilebackgroundimage.php:199
 #: actions/apiaccountupdateprofilecolors.php:183
 #: actions/apiaccountupdateprofileimage.php:131
 #: actions/apiuserprofileimage.php:88 actions/apiusershow.php:108
-#: actions/avatarbynickname.php:85 actions/foaf.php:65 actions/hcard.php:74
+#: actions/avatarbynickname.php:85 actions/foaf.php:69 actions/hcard.php:75
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
 #: lib/profileaction.php:85
 msgid "User has no profile."
@@ -385,11 +390,12 @@ msgstr[1] ""
 #. TRANS: Client error displayed when saving design settings fails because of an empty result.
 #. TRANS: Client error displayed when a database error occurs inserting profile colours.
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
+#. TRANS: Form validation error displayed when group design settings could not be saved because of an application issue.
 #: actions/apiaccountupdateprofilebackgroundimage.php:138
 #: actions/apiaccountupdateprofilebackgroundimage.php:149
 #: actions/apiaccountupdateprofilecolors.php:160
 #: actions/apiaccountupdateprofilecolors.php:171
-#: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
+#: actions/groupdesignsettings.php:285 actions/groupdesignsettings.php:296
 #: actions/userdesignsettings.php:201 actions/userdesignsettings.php:211
 #: actions/userdesignsettings.php:253 actions/userdesignsettings.php:263
 msgid "Unable to save your design settings."
@@ -399,7 +405,7 @@ msgstr ""
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
 #: actions/apiaccountupdateprofilebackgroundimage.php:191
 #: actions/apiaccountupdateprofilecolors.php:139
-#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:179
+#: actions/userdesignsettings.php:179
 #, fuzzy
 msgid "Could not update your design."
 msgstr "Gat ekki uppfært hóp."
@@ -414,7 +420,7 @@ msgstr ""
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
 #. TRANS: Title in atom user notice feed. %s is a user name.
-#: actions/apiatomservice.php:93 actions/grouprss.php:139
+#: actions/apiatomservice.php:93 actions/grouprss.php:138
 #: actions/userrss.php:94 lib/atomgroupnoticefeed.php:63
 #: lib/atomusernoticefeed.php:68
 #, php-format
@@ -826,9 +832,9 @@ msgstr "Þú ert ekki áskrifandi."
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
 #: actions/deletenotice.php:177 actions/disfavor.php:75
 #: actions/emailsettings.php:291 actions/favor.php:75 actions/geocode.php:55
-#: actions/groupblock.php:66 actions/grouplogo.php:324
+#: actions/groupblock.php:65 actions/grouplogo.php:321
 #: actions/groupunblock.php:65 actions/imsettings.php:224
-#: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
+#: actions/invite.php:60 actions/login.php:137 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:105 actions/nudge.php:80
 #: actions/oauthappssettings.php:165 actions/oauthconnectionssettings.php:138
 #: actions/othersettings.php:153 actions/passwordsettings.php:138
@@ -859,7 +865,7 @@ msgstr "Gagnagrunnsvilla við innsetningu myllumerkis: %s"
 #. TRANS: Client error displayed submitting invalid form data for edit application.
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Form validation error message when an unsupported argument is used.
-#. TRANS: Message given submitting a form with an unknown action in IM settings.
+#. TRANS: Message given submitting a form with an unknown action in Instant Messaging settings.
 #. TRANS: Client error displayed when encountering an unexpected action on form submission.
 #. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Client error displayed when unexpected data is posted in the password recovery form.
@@ -867,7 +873,7 @@ msgstr "Gagnagrunnsvilla við innsetningu myllumerkis: %s"
 #. TRANS: Unknown form validation error in design settings form.
 #: actions/apioauthauthorize.php:294 actions/avatarsettings.php:294
 #: actions/designadminpanel.php:100 actions/editapplication.php:144
-#: actions/emailsettings.php:310 actions/grouplogo.php:335
+#: actions/emailsettings.php:310 actions/grouplogo.php:332
 #: actions/imsettings.php:239 actions/newapplication.php:124
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:46
 #: actions/smssettings.php:271 lib/designsettings.php:321
@@ -934,7 +940,7 @@ msgstr "Lykilorð"
 #. TRANS: Button text that when clicked will cancel the process of allowing access to an account
 #. TRANS: by an external application.
 #. TRANS: Button label to cancel an e-mail address confirmation procedure.
-#. TRANS: Button label to cancel an IM address confirmation procedure.
+#. TRANS: Button label to cancel an Instant Messaging address confirmation procedure.
 #. TRANS: Button label to cancel a SMS address confirmation procedure.
 #. TRANS: Button label in the "Edit application" form.
 #: actions/apioauthauthorize.php:478 actions/emailsettings.php:124
@@ -1274,6 +1280,13 @@ msgstr "Aðferð í forritsskilum fannst ekki!"
 msgid "No such profile."
 msgstr "Ekkert svoleiðis babl."
 
+#. TRANS: Subtitle for Atom favorites feed.
+#. TRANS: %1$s is a user nickname, %2$s is the StatusNet sitename.
+#: actions/atompubfavoritefeed.php:147
+#, fuzzy, php-format
+msgid "Notices %1$s has favorited on %2$s"
+msgstr "Færslur frá %1$s og vinum á %2$s!"
+
 #. TRANS: Client exception thrown when trying to set a favorite for another user.
 #. TRANS: Client exception thrown when trying to subscribe another user.
 #: actions/atompubfavoritefeed.php:217 actions/atompubsubscriptionfeed.php:225
@@ -1311,6 +1324,13 @@ msgstr "Bæta við sem uppáhaldsbabli"
 #, fuzzy, php-format
 msgid "%s group memberships"
 msgstr "Hópmeðlimir %s"
+
+#. TRANS: Subtitle for group membership feed.
+#. TRANS: %1$s is a username, %2$s is the StatusNet sitename.
+#: actions/atompubmembershipfeed.php:149
+#, fuzzy, php-format
+msgid "Groups %1$s is a member of on %2$s"
+msgstr "Hópar sem %s er meðlimur í"
 
 #. TRANS: Client exception thrown when trying subscribe someone else to a group.
 #: actions/atompubmembershipfeed.php:219
@@ -1360,7 +1380,17 @@ msgstr "Gat ekki eytt uppáhaldi."
 #. TRANS: Client error when trying to delete a non-local group.
 #. TRANS: Client error when trying to delete a non-existing group.
 #. TRANS: Client error displayed trying to edit a non-existing group.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed without providing a group nickname.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed for a non-local group.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed for a nickname that is not a group.
+#. TRANS: Client error displayed trying to block a user from a group while specifying a non-existing group.
+#. TRANS: Client error displayed referring to a group's permalink for a non-existing group ID.
+#. TRANS: Client error displayed trying to change group design settings while providing a nickname for a non-existing group.
 #. TRANS: Client error displayed when trying to update logo settings for a non-existing group.
+#. TRANS: Client error displayed when trying to view group members for a non-existing group.
+#. TRANS: Client error displayed when trying to view group members for an object that is not a group.
+#. TRANS: Client error displayed when requesting a group RSS feed for group that does not exist.
+#. TRANS: Client error displayed when requesting a group RSS feed for an object that is not a group.
 #. TRANS: Client error displayed when trying to unblock a user from a non-existing group.
 #. TRANS: Client error displayed when trying to join a non-local group.
 #. TRANS: Client error displayed when trying to join a non-existing group.
@@ -1373,12 +1403,12 @@ msgstr "Gat ekki eytt uppáhaldi."
 #: actions/atompubshowmembership.php:81 actions/blockedfromgroup.php:81
 #: actions/blockedfromgroup.php:89 actions/deletegroup.php:87
 #: actions/deletegroup.php:100 actions/editgroup.php:102
-#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/foafgroup.php:69
-#: actions/groupblock.php:86 actions/groupbyid.php:83
-#: actions/groupdesignsettings.php:100 actions/grouplogo.php:104
-#: actions/groupmembers.php:83 actions/groupmembers.php:90
-#: actions/grouprss.php:98 actions/grouprss.php:105
-#: actions/groupunblock.php:88 actions/joingroup.php:82
+#: actions/foafgroup.php:46 actions/foafgroup.php:65 actions/foafgroup.php:73
+#: actions/groupblock.php:89 actions/groupbyid.php:83
+#: actions/groupdesignsettings.php:101 actions/grouplogo.php:103
+#: actions/groupmembers.php:84 actions/groupmembers.php:92
+#: actions/grouprss.php:97 actions/grouprss.php:105
+#: actions/groupunblock.php:89 actions/joingroup.php:82
 #: actions/joingroup.php:95 actions/leavegroup.php:82
 #: actions/leavegroup.php:95 actions/makeadmin.php:86
 #: actions/showgroup.php:134 actions/showgroup.php:143 lib/command.php:168
@@ -1420,6 +1450,13 @@ msgstr "Þú ert ekki áskrifandi."
 msgid "Cannot delete someone else's subscription."
 msgstr "Gat ekki vistað áskrift."
 
+#. TRANS: Subtitle for Atom subscription feed.
+#. TRANS: %1$s is a user nickname, %s$s is the StatusNet sitename.
+#: actions/atompubsubscriptionfeed.php:153
+#, fuzzy, php-format
+msgid "People %1$s has subscribed to on %2$s"
+msgstr "Fólk sem eru áskrifendur að %s"
+
 #. TRANS: Client error displayed when not using the follow verb.
 #: actions/atompubsubscriptionfeed.php:248
 msgid "Can only handle Follow activities."
@@ -1453,12 +1490,15 @@ msgstr "Ekkert þannig merki."
 #. TRANS: Client error displayed trying to get an avatar without providing a nickname.
 #. TRANS: Client error displayed when requesting a list of blocked users for a group without providing a group nickname.
 #. TRANS: Client error displayed trying to edit a group while not proving a nickname for the group to edit.
-#. TRANS: Client error displayed when trying to change group logo settings without having a nickname.
+#. TRANS: Client error displayed trying to change group design settings without providing a group nickname.
+#. TRANS: Client error displayed when trying to change group logo settings without providing a nickname.
+#. TRANS: Client error displayed when trying to view group members without providing a group nickname.
+#. TRANS: Client error displayed when requesting a group RSS feed without providing a group nickname.
 #. TRANS: Client error displayed if no nickname argument was given requesting a group page.
 #: actions/avatarbynickname.php:60 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:85 actions/groupdesignsettings.php:84
-#: actions/grouplogo.php:87 actions/groupmembers.php:76
-#: actions/grouprss.php:91 actions/showgroup.php:116
+#: actions/grouplogo.php:86 actions/groupmembers.php:76
+#: actions/grouprss.php:89 actions/showgroup.php:116
 msgid "No nickname."
 msgstr "Ekkert stuttnefni."
 
@@ -1490,7 +1530,7 @@ msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
 #. TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
 #. TRANS: Server error displayed coming across a request from a user without a profile.
 #: actions/avatarsettings.php:108 actions/avatarsettings.php:192
-#: actions/grouplogo.php:185 actions/remotesubscribe.php:190
+#: actions/grouplogo.php:184 actions/remotesubscribe.php:190
 #: actions/userauthorization.php:72 actions/userrss.php:108
 msgid "User without matching profile."
 msgstr "Notandi hefur enga persónulega síðu."
@@ -1499,7 +1539,7 @@ msgstr "Notandi hefur enga persónulega síðu."
 #. TRANS: Avatar upload page crop form legend.
 #. TRANS: Legend for group logo settings fieldset.
 #: actions/avatarsettings.php:122 actions/avatarsettings.php:205
-#: actions/grouplogo.php:263
+#: actions/grouplogo.php:261
 msgid "Avatar settings"
 msgstr "Stillingar fyrir mynd"
 
@@ -1508,7 +1548,7 @@ msgstr "Stillingar fyrir mynd"
 #. TRANS: Uploaded original file in group logo form.
 #. TRANS: Header for originally uploaded file before a crop on the group logo page.
 #: actions/avatarsettings.php:131 actions/avatarsettings.php:214
-#: actions/grouplogo.php:208 actions/grouplogo.php:272
+#: actions/grouplogo.php:207 actions/grouplogo.php:270
 msgid "Original"
 msgstr "Upphafleg mynd"
 
@@ -1517,7 +1557,7 @@ msgstr "Upphafleg mynd"
 #. TRANS: Header for preview of to be displayed group logo.
 #. TRANS: Header for the cropped group logo on the group logo page.
 #: actions/avatarsettings.php:147 actions/avatarsettings.php:227
-#: actions/grouplogo.php:220 actions/grouplogo.php:285
+#: actions/grouplogo.php:219 actions/grouplogo.php:283
 msgid "Preview"
 msgstr "Forsýn"
 
@@ -1558,7 +1598,7 @@ msgstr ""
 
 #. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
 #. TRANS: Server error displayed trying to crop an uploaded group logo that is no longer present.
-#: actions/avatarsettings.php:360 actions/grouplogo.php:394
+#: actions/avatarsettings.php:360 actions/grouplogo.php:391
 msgid "Lost our file data."
 msgstr "Týndum skráargögnunum okkar"
 
@@ -1623,7 +1663,8 @@ msgstr "Þú ert nú þegar í áskrift að þessum notendum:"
 
 #. TRANS: Title for block user page.
 #. TRANS: Legend for block user form.
-#: actions/block.php:106 actions/block.php:136 actions/groupblock.php:158
+#. TRANS: Fieldset legend for block user from group form.
+#: actions/block.php:106 actions/block.php:136 actions/groupblock.php:165
 msgid "Block user"
 msgstr "Loka á notanda"
 
@@ -1643,7 +1684,7 @@ msgstr ""
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:154 actions/deleteapplication.php:157
 #: actions/deletegroup.php:220 actions/deletenotice.php:155
-#: actions/deleteuser.php:154 actions/groupblock.php:178
+#: actions/deleteuser.php:154 actions/groupblock.php:187
 msgctxt "BUTTON"
 msgid "No"
 msgstr "Athugasemd"
@@ -1662,7 +1703,7 @@ msgstr "Opna á þennan notanda"
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:161 actions/deleteapplication.php:164
 #: actions/deletegroup.php:227 actions/deletenotice.php:162
-#: actions/deleteuser.php:161 actions/groupblock.php:185
+#: actions/deleteuser.php:161 actions/groupblock.php:194
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Yes"
@@ -1878,7 +1919,7 @@ msgstr "Þú ert ekki meðlimur í þessum hópi."
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:131
 #: actions/newapplication.php:112 actions/showapplication.php:118
-#: lib/action.php:1409
+#: lib/action.php:1422
 msgid "There was a problem with your session token."
 msgstr "Það komu upp vandamál varðandi setutókann þinn."
 
@@ -1973,12 +2014,13 @@ msgstr "Eyða þessu babli"
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
 #. TRANS: Client error displayed when trying to remove a favorite while not logged in.
 #. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
+#. TRANS: Client error displayed trying to block a user from a group while not logged in.
 #. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #. TRANS: Client error displayed when trying to change user options while not logged in.
 #: actions/deletenotice.php:52 actions/disfavor.php:61 actions/favor.php:62
-#: actions/groupblock.php:61 actions/groupunblock.php:60 actions/logout.php:69
+#: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:88
 #: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
@@ -2146,13 +2188,13 @@ msgstr ""
 #. TRANS: Field label for background image on theme designer page.
 #. TRANS: Field label for background color selector.
 #. TRANS: Label on profile design page for setting a profile page background colour.
-#: actions/designadminpanel.php:521 actions/designadminpanel.php:609
+#: actions/designadminpanel.php:525 actions/designadminpanel.php:609
 #: lib/designsettings.php:183
 msgid "Background"
 msgstr ""
 
 #. TRANS: Form guide for background image upload form on theme designer page.
-#: actions/designadminpanel.php:527
+#: actions/designadminpanel.php:531
 #, fuzzy, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
@@ -2375,14 +2417,15 @@ msgstr "Breyta hópnum %s"
 #. TRANS: Client error displayed trying to edit a group while not logged in.
 #. TRANS: Client error displayed when trying to create a group while not logged in.
 #. TRANS: Client error displayed trying to create a group while not logged in.
-#: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
+#: actions/editgroup.php:68 actions/grouplogo.php:69 actions/newgroup.php:65
 msgid "You must be logged in to create a group."
 msgstr "Þú verður að hafa skráð þig inn til að búa til hóp."
 
 #. TRANS: Client error displayed trying to edit a group while not being a group admin.
+#. TRANS: Client error displayed trying to change group design settings without being a (group) admin.
 #. TRANS: Client error displayed when trying to change group logo settings while not being a group admin.
 #: actions/editgroup.php:110 actions/editgroup.php:176
-#: actions/groupdesignsettings.php:107 actions/grouplogo.php:112
+#: actions/groupdesignsettings.php:109 actions/grouplogo.php:111
 msgid "You must be an admin to edit the group."
 msgstr "Þú verður að hafa skráð þig inn til að búa til hóp."
 
@@ -2442,7 +2485,7 @@ msgstr "Núverandi staðfesta tölvupóstfangið."
 
 #. TRANS: Button label to remove a confirmed e-mail address.
 #. TRANS: Button label for removing a set sender e-mail address to post notices from.
-#. TRANS: Button label to remove a confirmed IM address.
+#. TRANS: Button label to remove a confirmed Instant Messaging address.
 #. TRANS: Button label to remove a confirmed SMS address.
 #. TRANS: Button label for removing a set sender SMS e-mail address to post notices from.
 #: actions/emailsettings.php:112 actions/emailsettings.php:179
@@ -2471,7 +2514,7 @@ msgid "Email address, like \"UserName@example.org\""
 msgstr "Tölvupóstfang eins og \"notandi@example.org\""
 
 #. TRANS: Button label for adding an e-mail address in e-mail settings form.
-#. TRANS: Button label for adding an IM address in IM settings form.
+#. TRANS: Button label for adding an Instant Messaging address in Instant Messaging settings form.
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:140 actions/imsettings.php:147
 #: actions/smssettings.php:158
@@ -2588,7 +2631,7 @@ msgid "That email address already belongs to another user."
 msgstr "Þetta tölvupóstfang tilheyrir öðrum notanda."
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
-#. TRANS: Server error thrown on database error adding IM confirmation code.
+#. TRANS: Server error thrown on database error adding Instant Messaging confirmation code.
 #. TRANS: Server error thrown on database error adding SMS confirmation code.
 #: actions/emailsettings.php:418 actions/imsettings.php:343
 #: actions/smssettings.php:365
@@ -2607,7 +2650,7 @@ msgstr ""
 "staðfestingarlykillinn að vera og leiðbeingar um hvernig eigi að nota hann. "
 
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
-#. TRANS: Message given canceling IM address confirmation that is not pending.
+#. TRANS: Message given canceling Instant Messaging address confirmation that is not pending.
 #. TRANS: Message given canceling SMS phone number confirmation that is not pending.
 #: actions/emailsettings.php:445 actions/imsettings.php:377
 #: actions/smssettings.php:399
@@ -2778,70 +2821,85 @@ msgstr "Ekkert svoleiðis skjal."
 msgid "No uploaded attachments."
 msgstr ""
 
+#. TRANS: Client error displayed when subscribing to a remote profile and an unexpected response is received.
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
 msgstr "Bjóst ekki við þessu svari!"
 
-#: actions/finishremotesubscribe.php:80
+#. TRANS: Client error displayed when subscribing to a remote profile that does not exist.
+#: actions/finishremotesubscribe.php:81
 #, fuzzy
 msgid "User being listened to does not exist."
 msgstr "Notandi sem verið er að hlusta á er ekki til."
 
-#: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:58
+#. TRANS: Client error displayed when subscribing to a remote profile that is a local profile.
+#: actions/finishremotesubscribe.php:89 actions/remotesubscribe.php:58
 msgid "You can use the local subscription!"
 msgstr "Þú getur notað staðbundna áskrift!"
 
-#: actions/finishremotesubscribe.php:99
+#. TRANS: Client error displayed when subscribing to a remote profile that is blocked form subscribing to.
+#: actions/finishremotesubscribe.php:102
 msgid "That user has blocked you from subscribing."
 msgstr "Þessi notandi hefur bannað þér að gerast áskrifandi"
 
-#: actions/finishremotesubscribe.php:110
+#. TRANS: Client error displayed when subscribing to a remote profile without providing an authorised token.
+#: actions/finishremotesubscribe.php:114
 msgid "You are not authorized."
 msgstr "Þú ert ekki áskrifandi."
 
-#: actions/finishremotesubscribe.php:113
+#. TRANS: Client error displayed when subscribing to a remote profile and conversion of the request token to access token fails.
+#: actions/finishremotesubscribe.php:118
 #, fuzzy
 msgid "Could not convert request token to access token."
 msgstr "Gat ekki breytt beiðnistókum í aðgangstóka."
 
-#: actions/finishremotesubscribe.php:118
+#. TRANS: Client error displayed when subscribing to a remote profile fails because of an unsupported version of the OMB protocol.
+#: actions/finishremotesubscribe.php:124
 #, fuzzy
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Óþekkt útgáfa OMB samskiptamátans."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:317
+#. TRANS: Server error displayed when subscribing to a remote profile fails because the remote profile could not be updated.
+#: actions/finishremotesubscribe.php:145 lib/oauthstore.php:317
 #, fuzzy
 msgid "Error updating remote profile."
 msgstr "Villa kom upp í uppfærslu persónulegrar fjarsíðu"
 
-#: actions/getfile.php:79
+#. TRANS: Client error displayed when requesting a non-existent file.
+#: actions/getfile.php:77
 #, fuzzy
 msgid "No such file."
 msgstr "Ekkert svoleiðis babl."
 
-#: actions/getfile.php:83
+#. TRANS: Client error displayed when requesting a file without having read access to it.
+#: actions/getfile.php:82
 #, fuzzy
 msgid "Cannot read file."
 msgstr "Týndum skránni okkar"
 
-#: actions/grantrole.php:62 actions/revokerole.php:62
+#. TRANS: Client error displayed when trying to assign an invalid role to a user.
+#: actions/grantrole.php:61 actions/revokerole.php:62
 #, fuzzy
 msgid "Invalid role."
 msgstr "Ótæk stærð."
 
+#. TRANS: Client error displayed when trying to assign an reserved role to a user.
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
 msgstr ""
 
-#: actions/grantrole.php:75
+#. TRANS: Client error displayed when trying to assign a role to a user while not being allowed to set roles.
+#: actions/grantrole.php:76
 msgid "You cannot grant user roles on this site."
 msgstr "Það hefur verið lagt bann við babli frá þér á þessari síðu."
 
-#: actions/grantrole.php:82
+#. TRANS: Client error displayed when trying to assign a role to a user that already has that role.
+#: actions/grantrole.php:84
 #, fuzzy
 msgid "User already has this role."
 msgstr "Notandi hefur enga persónulega síðu."
 
+#. TRANS: Client error displayed trying to block a user from a group while not specifying a to be blocked user profile.
 #. TRANS: Client error displayed when trying to unblock a user from a group without providing a profile.
 #. TRANS: Client error displayed trying a change a subscription without providing a profile.
 #. TRANS: Client error displayed when trying to change user options without specifying a user to work on.
@@ -2851,41 +2909,51 @@ msgstr "Notandi hefur enga persónulega síðu."
 msgid "No profile specified."
 msgstr "Engin persónuleg síða tilgreind"
 
+#. TRANS: Client error displayed trying to block a user from a group while specifying a non-existing profile.
 #. TRANS: Client error displayed when trying to unblock a user from a group without providing an existing profile.
 #. TRANS: Client error displayed trying a change a subscription for a non-existant profile ID.
 #. TRANS: Client error displayed when trying to change user options without specifying an existing user to work on.
-#: actions/groupblock.php:76 actions/groupunblock.php:77
+#: actions/groupblock.php:77 actions/groupunblock.php:77
 #: actions/makeadmin.php:76 actions/subedit.php:57 actions/tagother.php:46
 #: actions/unsubscribe.php:84 lib/profileformaction.php:87
 msgid "No profile with that ID."
 msgstr "Engin persónulega síða með þessu einkenni"
 
-#: actions/groupblock.php:81 actions/groupunblock.php:82
+#. TRANS: Client error displayed trying to block a user from a group while not specifying a group to block a profile from.
+#. TRANS: Client error displayed when trying to unblock a user from a group without providing a group.
+#: actions/groupblock.php:83 actions/groupunblock.php:83
 #: actions/makeadmin.php:81
 #, fuzzy
 msgid "No group specified."
 msgstr "Engin persónuleg síða tilgreind"
 
-#: actions/groupblock.php:91
+#. TRANS: Client error displayed trying to block a user from a group while not being an admin user.
+#: actions/groupblock.php:95
 msgid "Only an admin can block group members."
 msgstr ""
 
-#: actions/groupblock.php:95
+#. TRANS: Client error displayed trying to block a user from a group while user is already blocked from the given group.
+#: actions/groupblock.php:100
 #, fuzzy
 msgid "User is already blocked from group."
 msgstr "Notandinn hefur lokað á þig."
 
-#: actions/groupblock.php:100
+#. TRANS: Client error displayed trying to block a user from a group while user is not a member of given group.
+#: actions/groupblock.php:106
 #, fuzzy
 msgid "User is not a member of group."
 msgstr "Þú ert ekki meðlimur í þessum hópi."
 
-#: actions/groupblock.php:134 actions/groupmembers.php:364
+#. TRANS: Title for block user from group page.
+#. TRANS: Form legend for form to block user from a group.
+#: actions/groupblock.php:141 actions/groupmembers.php:364
 #, fuzzy
 msgid "Block user from group"
 msgstr "Loka á notanda"
 
-#: actions/groupblock.php:160
+#. TRANS: Explanatory text for block user from group form before setting the block.
+#. TRANS: %1$s is that to be blocked user, %2$s is the group the user will be blocked from.
+#: actions/groupblock.php:169
 #, php-format
 msgid ""
 "Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
@@ -2894,170 +2962,193 @@ msgid ""
 msgstr ""
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
-#: actions/groupblock.php:182
+#: actions/groupblock.php:191
 #, fuzzy
 msgid "Do not block this user from this group"
 msgstr "Listi yfir notendur í þessum hóp."
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
-#: actions/groupblock.php:189
+#: actions/groupblock.php:198
 #, fuzzy
 msgid "Block this user from this group"
 msgstr "Listi yfir notendur í þessum hóp."
 
-#: actions/groupblock.php:206
+#. TRANS: Server error displayed when trying to block a user from a group fails because of an application error.
+#: actions/groupblock.php:215
 msgid "Database error blocking user from group."
 msgstr ""
 
-#: actions/groupbyid.php:74 actions/userbyid.php:70
+#. TRANS: Client error displayed referring to a group's permalink without providing a group ID.
+#: actions/groupbyid.php:73 actions/userbyid.php:70
 msgid "No ID."
 msgstr "Ekkert Jabber-kenni"
 
-#: actions/groupdesignsettings.php:68
+#. TRANS: Client error displayed trying to change group design settings while not logged in.
+#: actions/groupdesignsettings.php:67
 #, fuzzy
 msgid "You must be logged in to edit a group."
 msgstr "Þú verður að hafa skráð þig inn til að búa til hóp."
 
-#: actions/groupdesignsettings.php:144
+#. TRANS: Title group design settings page.
+#: actions/groupdesignsettings.php:146
 #, fuzzy
 msgid "Group design"
 msgstr "Hópar"
 
-#: actions/groupdesignsettings.php:155
+#. TRANS: Instructions for group design settings page.
+#: actions/groupdesignsettings.php:157
 msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
 
-#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:222
+#. TRANS: Form validation error displayed when group design settings could not be updated because of an application issue.
+#: actions/groupdesignsettings.php:262
+#, fuzzy
+msgid "Unable to update your design settings."
+msgstr "Gat ekki uppfært hóp."
+
+#. TRANS: Form text to confirm saved group design settings.
+#: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:222
 #, fuzzy
 msgid "Design preferences saved."
 msgstr "Stillingar vistaðar."
 
 #. TRANS: Title for group logo settings page.
 #. TRANS: Group logo form legend.
-#: actions/grouplogo.php:145 actions/grouplogo.php:200
+#: actions/grouplogo.php:144 actions/grouplogo.php:199
 msgid "Group logo"
 msgstr "Einkennismynd hópsins"
 
 #. TRANS: Instructions for group logo page.
 #. TRANS: %s is the maximum file size for that site.
-#: actions/grouplogo.php:157
+#: actions/grouplogo.php:156
 #, fuzzy, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
 
 #. TRANS: Submit button for uploading a group logo.
-#: actions/grouplogo.php:244
+#: actions/grouplogo.php:243
 msgid "Upload"
 msgstr "Hlaða upp"
 
 #. TRANS: Button text for cropping an uploaded group logo.
-#: actions/grouplogo.php:301
+#: actions/grouplogo.php:299
 msgid "Crop"
 msgstr "Skera af"
 
 #. TRANS: Form instructions on the group logo page.
-#: actions/grouplogo.php:379
+#: actions/grouplogo.php:376
 #, fuzzy
 msgid "Pick a square area of the image to be the logo."
 msgstr ""
 "Veldu ferningslaga svæði á upphaflegu myndinni sem einkennismyndina þína"
 
 #. TRANS: Form success message after updating a group logo.
-#: actions/grouplogo.php:414
+#: actions/grouplogo.php:411
 msgid "Logo updated."
 msgstr "Einkennismynd uppfærð."
 
 #. TRANS: Form failure message after failing to update a group logo.
-#: actions/grouplogo.php:417
+#: actions/grouplogo.php:414
 msgid "Failed updating logo."
 msgstr "Tókst ekki að uppfæra einkennismynd"
 
 #. TRANS: Title of the page showing group members.
 #. TRANS: %s is the name of the group.
-#: actions/groupmembers.php:102
+#: actions/groupmembers.php:104
 #, php-format
 msgid "%s group members"
 msgstr "Hópmeðlimir %s"
 
 #. TRANS: Title of the page showing group members.
 #. TRANS: %1$s is the name of the group, %2$d is the page number of the members list.
-#: actions/groupmembers.php:107
+#: actions/groupmembers.php:109
 #, php-format
 msgid "%1$s group members, page %2$d"
 msgstr "Hópmeðlimir %s"
 
-#: actions/groupmembers.php:122
+#. TRANS: Page notice for group members page.
+#: actions/groupmembers.php:125
 msgid "A list of the users in this group."
 msgstr "Listi yfir notendur í þessum hóp."
 
-#: actions/groupmembers.php:186
+#. TRANS: Indicator in group members list that this user is a group administrator.
+#: actions/groupmembers.php:190
 msgid "Admin"
 msgstr "Stjórnandi"
 
 #. TRANS: Button text for the form that will block a user from a group.
-#: actions/groupmembers.php:399
+#: actions/groupmembers.php:397
 msgctxt "BUTTON"
 msgid "Block"
 msgstr ""
 
 #. TRANS: Submit button title.
-#: actions/groupmembers.php:403
+#: actions/groupmembers.php:401
 msgctxt "TOOLTIP"
 msgid "Block this user"
 msgstr ""
 
-#: actions/groupmembers.php:498
+#. TRANS: Form legend for form to make a user a group admin.
+#: actions/groupmembers.php:488
 msgid "Make user an admin of the group"
 msgstr ""
 
 #. TRANS: Button text for the form that will make a user administrator.
-#: actions/groupmembers.php:533
+#: actions/groupmembers.php:521
 msgctxt "BUTTON"
 msgid "Make Admin"
 msgstr ""
 
 #. TRANS: Submit button title.
-#: actions/groupmembers.php:537
+#: actions/groupmembers.php:525
 msgctxt "TOOLTIP"
 msgid "Make this user an admin"
 msgstr ""
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
-#: actions/grouprss.php:142
+#: actions/grouprss.php:141
 #, fuzzy, php-format
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Færslur frá %1$s á %2$s!"
 
-#. TRANS: Label for user statistics.
-#. TRANS: H2 text for user group membership statistics.
-#: actions/groups.php:62 lib/profileaction.php:239 lib/profileaction.php:290
-#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+#. TRANS: Title for first page of the groups list.
+#: actions/groups.php:62
+#, fuzzy
+msgctxt "TITLE"
 msgid "Groups"
 msgstr "Hópar"
 
-#: actions/groups.php:64
-#, php-format
+#. TRANS: Title for all but the first page of the groups list.
+#. TRANS: %d is the page number.
+#: actions/groups.php:66
+#, fuzzy, php-format
+msgctxt "TITLE"
 msgid "Groups, page %d"
 msgstr "Hópar, síða %d"
 
-#: actions/groups.php:90
+#. TRANS: Page notice of group list. %%%%site.name%%%% is the StatusNet site name,
+#. TRANS: %%%%action.groupsearch%%%% and %%%%action.newgroup%%%% are URLs. Do not change them.
+#. TRANS: This message contains Markdown links in the form [link text](link).
+#: actions/groups.php:95
 #, php-format
 msgid ""
 "%%%%site.name%%%% groups let you find and talk with people of similar "
 "interests. After you join a group you can send messages to all other members "
 "using the syntax \"!groupname\". Don't see a group you like? Try [searching "
-"for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
-"%%%%)"
+"for one](%%%%action.groupsearch%%%%) or [start your own](%%%%action.newgroup%"
+"%%%)!"
 msgstr ""
 
-#: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:115
+#. TRANS: Link to create a new group on the group list page.
+#: actions/groups.php:113 actions/usergroups.php:126 lib/groupeditform.php:115
 msgid "Create a new group"
 msgstr "Búa til nýjan hóp"
 
-#: actions/groupsearch.php:52
+#. TRANS: Instructions for page where groups can be searched. %%site.name%% is the name of the StatusNet site.
+#: actions/groupsearch.php:53
 #, fuzzy, php-format
 msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
@@ -3066,24 +3157,30 @@ msgstr ""
 "Leita að fólki á %%site.name%% eftir nafni, staðsetningu eða áhugamáli. "
 "Leitarorð eru aðskilin með bili og verða að vera að minnsta kosti 3 tákn."
 
-#: actions/groupsearch.php:58
+#. TRANS: Title for page where groups can be searched.
+#: actions/groupsearch.php:60
 msgid "Group search"
 msgstr "Hópleit"
 
-#: actions/groupsearch.php:79 actions/noticesearch.php:117
+#. TRANS: Text on page where groups can be searched if no results were found for a query.
+#: actions/groupsearch.php:82 actions/noticesearch.php:117
 #: actions/peoplesearch.php:83
 #, fuzzy
 msgid "No results."
 msgstr "Niðurstöður skipunar"
 
-#: actions/groupsearch.php:82
+#. TRANS: Additional text on page where groups can be searched if no results were found for a query for a logged in user.
+#. TRANS: This message contains Markdown links in the form [link text](link).
+#: actions/groupsearch.php:87
 #, php-format
 msgid ""
-"If you can't find the group you're looking for, you can [create it](%%action."
-"newgroup%%) yourself."
+"If you cannot find the group you're looking for, you can [create it](%%"
+"action.newgroup%%) yourself."
 msgstr ""
 
-#: actions/groupsearch.php:85
+#. TRANS: Additional text on page where groups can be searched if no results were found for a query for a not logged in user.
+#. TRANS: This message contains Markdown links in the form [link text](link).
+#: actions/groupsearch.php:92
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and [create the group](%%"
@@ -3091,22 +3188,22 @@ msgid ""
 msgstr ""
 
 #. TRANS: Client error displayed when trying to unblock a user from a group without being an administrator for the group.
-#: actions/groupunblock.php:94
+#: actions/groupunblock.php:95
 msgid "Only an admin can unblock group members."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to unblock a non-blocked user from a group.
-#: actions/groupunblock.php:99
+#: actions/groupunblock.php:100
 #, fuzzy
 msgid "User is not blocked from group."
 msgstr "Notandinn hefur lokað á þig."
 
 #. TRANS: Server error displayed when unblocking a user from a group fails because of an unknown error.
-#: actions/groupunblock.php:131 actions/unblock.php:86
+#: actions/groupunblock.php:132 actions/unblock.php:86
 msgid "Error removing the block."
 msgstr "Vill kom upp við að aflétta notendalokun."
 
-#. TRANS: Title for instance messaging settings.
+#. TRANS: Title for Instant Messaging settings.
 #: actions/imsettings.php:58
 msgid "IM settings"
 msgstr "Stillingar fyrir mynd"
@@ -3115,116 +3212,124 @@ msgstr "Stillingar fyrir mynd"
 #. TRANS: [instant messages] is link text, "(%%doc.im%%)" is the link.
 #. TRANS: the order and formatting of link text and link should remain unchanged.
 #: actions/imsettings.php:71
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can send and receive notices through Jabber/GTalk [instant messages](%%"
-"doc.im%%). Configure your address and settings below."
+"You can send and receive notices through Jabber/Google Talk [instant "
+"messages](%%doc.im%%). Configure your address and settings below."
 msgstr ""
 "Þú getur sent og tekið á móti babli í gegnum Jabber/GTalk "
 "[snarskilaboðaþjónustuna](%%doc.im%%). Settu upp netfangið þitt hér fyrir "
 "neðan og stilltu notkunina."
 
-#. TRANS: Message given in the IM settings if XMPP is not enabled on the site.
+#. TRANS: Message given in the Instant Messaging settings if XMPP is not enabled on the site.
 #: actions/imsettings.php:90
 #, fuzzy
 msgid "IM is not available."
 msgstr "Þessi síða er ekki aðgengileg í "
 
-#. TRANS: Form legend for IM settings form.
-#. TRANS: Field label for IM address input in IM settings form.
+#. TRANS: Form legend for Instant Messaging settings form.
+#. TRANS: Field label for Instant Messaging address input in Instant Messaging settings form.
 #: actions/imsettings.php:102 actions/imsettings.php:132
 msgid "IM address"
 msgstr "Tölvupóstföng"
 
 #: actions/imsettings.php:109
-msgid "Current confirmed Jabber/GTalk address."
+#, fuzzy
+msgid "Current confirmed Jabber/Google Talk address."
 msgstr "Núverandi staðfesta Jabber/GTalk snarskilaboðafangið."
 
-#. TRANS: Form note in IM settings form.
-#. TRANS: %s is the IM address set for the site.
+#. TRANS: Form note in Instant Messaging settings form.
+#. TRANS: %s is the Instant Messaging address set for the site.
 #: actions/imsettings.php:120
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
-"message with further instructions. (Did you add %s to your buddy list?)"
+"Awaiting confirmation on this address. Check your Jabber/Google Talk account "
+"for a message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
 "Býð eftir staðfestingu frá þessu netfangi. Athugaðu Jabber/GTalk aðganginn "
 "þinn. Þar ættu að vera skilaboð með ítarlegri leiðbeiningum. (Hefurðu bætt %"
 "s við í vinalistann þinn?)"
 
-#. TRANS: IM address input field instructions in IM settings form.
-#. TRANS: %s is the IM address set for the site.
+#. TRANS: IM address input field instructions in Instant Messaging settings form.
+#. TRANS: %s is the Instant Messaging address set for the site.
 #. TRANS: Do not translate "example.org". It is one of the domain names reserved for use in examples by
 #. TRANS: http://www.rfc-editor.org/rfc/rfc2606.txt. Any other domain may be owned by a legitimate
 #. TRANS: person or organization.
 #: actions/imsettings.php:139
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
-"add %s to your buddy list in your IM client or on GTalk."
+"Jabber or Google Talk address, like \"UserName@example.org\". First, make "
+"sure to add %s to your buddy list in your IM client or on Google Talk."
 msgstr ""
 "Jabber eða GTalk netfang eins og \"notandi@example.org\". Fyrst skaltu vera "
 "viss um að bæta %s við í vinalistann þinn í snarskilaboðaforritinu þínu eða "
 "á GTalk."
 
-#. TRANS: Form legend for IM preferences form.
+#. TRANS: Form legend for Instant Messaging preferences form.
 #: actions/imsettings.php:154
 msgid "IM preferences"
 msgstr "Stillingar vistaðar."
 
-#. TRANS: Checkbox label in IM preferences form.
+#. TRANS: Checkbox label in Instant Messaging preferences form.
 #: actions/imsettings.php:159
-msgid "Send me notices through Jabber/GTalk."
+#, fuzzy
+msgid "Send me notices through Jabber/Google Talk."
 msgstr "Sendur mér babl í gegnum Jabber/GTalk."
 
-#. TRANS: Checkbox label in IM preferences form.
+#. TRANS: Checkbox label in Instant Messaging preferences form.
 #: actions/imsettings.php:165
-msgid "Post a notice when my Jabber/GTalk status changes."
+#, fuzzy
+msgid "Post a notice when my Jabber/Google Talk status changes."
 msgstr "Senda inn babl þegar Jabber/GTalk staðan breytist."
 
-#. TRANS: Checkbox label in IM preferences form.
+#. TRANS: Checkbox label in Instant Messaging preferences form.
 #: actions/imsettings.php:171
-msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
+#, fuzzy
+msgid ""
+"Send me replies through Jabber/Google Talk from people I'm not subscribed to."
 msgstr ""
 "Sendu mér svör í gegnum Jabber/GTalk frá fólki sem ég er ekki áskrifandi að."
 
-#. TRANS: Checkbox label in IM preferences form.
+#. TRANS: Checkbox label in Instant Messaging preferences form.
 #: actions/imsettings.php:178
-msgid "Publish a MicroID for my Jabber/GTalk address."
+#, fuzzy
+msgid "Publish a MicroID for my Jabber/Google Talk address."
 msgstr "Birta MicroID fyrir Jabber/GTalk netfangið mitt."
 
-#. TRANS: Confirmation message for successful IM preferences save.
+#. TRANS: Confirmation message for successful Instant Messaging preferences save.
 #: actions/imsettings.php:283 actions/othersettings.php:190
 msgid "Preferences saved."
 msgstr "Stillingar vistaðar."
 
-#. TRANS: Message given saving IM address without having provided one.
+#. TRANS: Message given saving Instant Messaging address without having provided one.
 #: actions/imsettings.php:304
 msgid "No Jabber ID."
 msgstr "Ekkert Jabber-kenni"
 
-#. TRANS: Message given saving IM address that cannot be normalised.
+#. TRANS: Message given saving Instant Messaging address that cannot be normalised.
 #: actions/imsettings.php:312
-msgid "Cannot normalize that Jabber ID"
+#, fuzzy
+msgid "Cannot normalize that Jabber ID."
 msgstr "Get ekki staðlað þetta Jabber kenni"
 
-#. TRANS: Message given saving IM address that not valid.
+#. TRANS: Message given saving Instant Messaging address that not valid.
 #: actions/imsettings.php:317
-msgid "Not a valid Jabber ID"
+#, fuzzy
+msgid "Not a valid Jabber ID."
 msgstr "Ekki tækt Jabber-kenni"
 
-#. TRANS: Message given saving IM address that is already set.
+#. TRANS: Message given saving Instant Messaging address that is already set.
 #: actions/imsettings.php:321
 msgid "That is already your Jabber ID."
 msgstr "Þetta er nú þegar Jabber-kennið þitt."
 
-#. TRANS: Message given saving IM address that is already set for another user.
+#. TRANS: Message given saving Instant Messaging address that is already set for another user.
 #: actions/imsettings.php:325
 msgid "Jabber ID already belongs to another user."
 msgstr "Jabber-kennið tilheyrir öðrum notanda."
 
-#. TRANS: Message given saving valid IM address that is to be confirmed.
-#. TRANS: %s is the IM address set for the site.
+#. TRANS: Message given saving valid Instant Messaging address that is to be confirmed.
+#. TRANS: %s is the Instant Messaging address set for the site.
 #: actions/imsettings.php:353
 #, php-format
 msgid ""
@@ -3234,75 +3339,80 @@ msgstr ""
 "Staðfestingarlykill var sendur á snarskilaboðafangið sem þú varst að bæta "
 "við. Þú verður að leyfa %s að senda snarskilaboð til þín."
 
-#. TRANS: Message given canceling IM address confirmation for the wrong IM address.
+#. TRANS: Message given canceling Instant Messaging address confirmation for the wrong IM address.
 #: actions/imsettings.php:382
 msgid "That is the wrong IM address."
 msgstr "Þetta er rangt snarskilaboðafang."
 
-#. TRANS: Server error thrown on database error canceling IM address confirmation.
+#. TRANS: Server error thrown on database error canceling Instant Messaging address confirmation.
 #: actions/imsettings.php:391
 #, fuzzy
 msgid "Could not delete IM confirmation."
 msgstr "Gat ekki eytt tölvupóstsstaðfestingu."
 
-#. TRANS: Message given after successfully canceling IM address confirmation.
+#. TRANS: Message given after successfully canceling Instant Messaging address confirmation.
 #: actions/imsettings.php:396
 msgid "IM confirmation cancelled."
 msgstr "Enginn staðfestingarlykill."
 
-#. TRANS: Message given trying to remove an IM address that is not
+#. TRANS: Message given trying to remove an Instant Messaging address that is not
 #. TRANS: registered for the active user.
 #: actions/imsettings.php:417
 msgid "That is not your Jabber ID."
 msgstr "Þetta er ekki Jabber-kennið þitt."
 
-#. TRANS: Message given after successfully removing a registered IM address.
+#. TRANS: Message given after successfully removing a registered Instant Messaging address.
 #: actions/imsettings.php:440
 msgid "The IM address was removed."
 msgstr "Móttökutölvupóstfang fjarlægt."
 
+#. TRANS: Title for all but the first page of the inbox page.
+#. TRANS: %1$s is the user's nickname, %2$s is the page number.
 #: actions/inbox.php:59
 #, fuzzy, php-format
 msgid "Inbox for %1$s - page %2$d"
 msgstr "Innhólf %s"
 
-#: actions/inbox.php:62
+#. TRANS: Title for the first page of the inbox page.
+#. TRANS: %s is the user's nickname.
+#: actions/inbox.php:64
 #, php-format
 msgid "Inbox for %s"
 msgstr "Innhólf %s"
 
+#. TRANS: Instructions for user inbox page.
 #: actions/inbox.php:115
 msgid "This is your inbox, which lists your incoming private messages."
 msgstr ""
 "Þetta er innhólfið þitt sem sýnir persónuleg skilaboð sem voru send til þín."
 
 #. TRANS: Client error displayed when trying to sent invites while they have been disabled.
-#: actions/invite.php:40
+#: actions/invite.php:41
 msgid "Invites have been disabled."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to sent invites while not logged in.
 #. TRANS: %s is the StatusNet site name.
-#: actions/invite.php:44
+#: actions/invite.php:45
 #, php-format
 msgid "You must be logged in to invite other users to use %s."
 msgstr "Þú verður að hafa skráð þig inn til að bæta þér í hóp."
 
 #. TRANS: Form validation message when providing an e-mail address that does not validate.
 #. TRANS: %s is an invalid e-mail address.
-#: actions/invite.php:77
+#: actions/invite.php:78
 #, fuzzy, php-format
 msgid "Invalid email address: %s."
 msgstr "Ótækt tölvupóstfang: %s"
 
 #. TRANS: Page title when invitations have been sent.
-#: actions/invite.php:116
+#: actions/invite.php:117
 #, fuzzy
 msgid "Invitations sent"
 msgstr "Boðskort hefur verið sent út"
 
 #. TRANS: Page title when inviting potential users.
-#: actions/invite.php:119
+#: actions/invite.php:120
 msgid "Invite new users"
 msgstr "Bjóða nýjum notendum að vera með"
 
@@ -3310,7 +3420,7 @@ msgstr "Bjóða nýjum notendum að vera með"
 #. TRANS: is already subscribed to one or more users with the given e-mail address(es).
 #. TRANS: Plural form is based on the number of reported already subscribed e-mail addresses.
 #. TRANS: Followed by a bullet list.
-#: actions/invite.php:139
+#: actions/invite.php:140
 #, fuzzy
 msgid "You are already subscribed to this user:"
 msgid_plural "You are already subscribed to these users:"
@@ -3319,7 +3429,7 @@ msgstr[1] "Þú ert nú þegar í áskrift að þessum notendum:"
 
 #. TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
 #. TRANS: Used as list item for already registered people (%1$s is nickname, %2$s is e-mail address).
-#: actions/invite.php:145 actions/invite.php:159
+#: actions/invite.php:146 actions/invite.php:160
 #, fuzzy, php-format
 msgctxt "INVITE"
 msgid "%1$s (%2$s)"
@@ -3328,7 +3438,7 @@ msgstr "%1$s (%2$s)"
 #. TRANS: Message displayed inviting users to use a StatusNet site while the invited user
 #. TRANS: already uses a this StatusNet site. Plural form is based on the number of
 #. TRANS: reported already present people. Followed by a bullet list.
-#: actions/invite.php:153
+#: actions/invite.php:154
 #, fuzzy
 msgid "This person is already a user and you were automatically subscribed:"
 msgid_plural ""
@@ -3341,7 +3451,7 @@ msgstr[1] ""
 #. TRANS: Message displayed inviting users to use a StatusNet site. Plural form is
 #. TRANS: based on the number of invitations sent. Followed by a bullet list of
 #. TRANS: e-mail addresses to which invitations were sent.
-#: actions/invite.php:167
+#: actions/invite.php:168
 #, fuzzy
 msgid "Invitation sent to the following person:"
 msgid_plural "Invitations sent to the following people:"
@@ -3350,7 +3460,7 @@ msgstr[1] "Boðskort sent á eftirfarandi aðila:"
 
 #. TRANS: Generic message displayed after sending out one or more invitations to
 #. TRANS: people to join a StatusNet site.
-#: actions/invite.php:177
+#: actions/invite.php:178
 msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
@@ -3359,7 +3469,7 @@ msgstr ""
 "skrá sig á síðuna. Takk fyrir að stækka samfélagið!"
 
 #. TRANS: Form instructions.
-#: actions/invite.php:190
+#: actions/invite.php:191
 msgid ""
 "Use this form to invite your friends and colleagues to use this service."
 msgstr ""
@@ -3367,27 +3477,28 @@ msgstr ""
 "þessa örbloggsþjónustu."
 
 #. TRANS: Field label for a list of e-mail addresses.
-#: actions/invite.php:217
+#: actions/invite.php:218
 msgid "Email addresses"
 msgstr "Tölvupóstföng"
 
 #. TRANS: Tooltip for field label for a list of e-mail addresses.
-#: actions/invite.php:220
-msgid "Addresses of friends to invite (one per line)"
+#: actions/invite.php:221
+#, fuzzy
+msgid "Addresses of friends to invite (one per line)."
 msgstr "Tölvupóstfang vina sem þú vilt bjóða (eitt póstfang í hverja línu)"
 
 #. TRANS: Field label for a personal message to send to invitees.
-#: actions/invite.php:224
+#: actions/invite.php:225
 msgid "Personal message"
 msgstr "Persónuleg skilaboð"
 
 #. TRANS: Tooltip for field label for a personal message to send to invitees.
-#: actions/invite.php:227
+#: actions/invite.php:228
 msgid "Optionally add a personal message to the invitation."
 msgstr "Bættu persónulegum skilaboðum við boðskortið ef þú vilt."
 
 #. TRANS: Send button for inviting friends
-#: actions/invite.php:231
+#: actions/invite.php:232
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Send"
@@ -3396,7 +3507,7 @@ msgstr "Senda"
 #. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral
 #. TRANS: singular 3rd-person pronoun in English. %1$s is the inviting user, $2$s is
 #. TRANS: the StatusNet sitename.
-#: actions/invite.php:263
+#: actions/invite.php:264
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr "%1$s hefur boðið þér að slást í hópinn með þeim á %2$s"
@@ -3406,7 +3517,7 @@ msgstr "%1$s hefur boðið þér að slást í hópinn með þeim á %2$s"
 #. TRANS: StatusNet sitename, %3$s is the site URL, %4$s is the personal message from the
 #. TRANS: inviting user, %s%5 a link to the timeline for the inviting user, %s$6 is a link
 #. TRANS: to register with the StatusNet site.
-#: actions/invite.php:270
+#: actions/invite.php:271
 #, php-format
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
@@ -5334,7 +5445,7 @@ msgid "Application profile"
 msgstr "Babl hefur enga persónulega síðu"
 
 #. TRANS: Form input field label for application icon.
-#: actions/showapplication.php:159 lib/applicationeditform.php:173
+#: actions/showapplication.php:159 lib/applicationeditform.php:177
 msgid "Icon"
 msgstr ""
 
@@ -6643,7 +6754,7 @@ msgid "Plugins"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:885
+#: actions/version.php:198 lib/action.php:898
 #, fuzzy
 msgid "Version"
 msgstr "Persónulegt"
@@ -6771,7 +6882,7 @@ msgid "Could not create login token for %s"
 msgstr "Gat ekki búið til uppáhald."
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
-#: classes/Memcached_DataObject.php:537
+#: classes/Memcached_DataObject.php:541
 msgid "No database name or DSN found anywhere."
 msgstr ""
 
@@ -7047,29 +7158,29 @@ msgid "Other"
 msgstr "Annað"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
-#: lib/action.php:148
+#: lib/action.php:161
 #, fuzzy, php-format
 msgid "%1$s - %2$s"
 msgstr "%1$s (%2$s)"
 
 #. TRANS: Page title for a page without a title set.
-#: lib/action.php:164
+#: lib/action.php:177
 msgid "Untitled page"
 msgstr "Ónafngreind síða"
 
 #. TRANS: Localized tooltip for '...' expansion button on overlong remote messages.
-#: lib/action.php:312
+#: lib/action.php:325
 msgctxt "TOOLTIP"
 msgid "Show more"
 msgstr ""
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:531
+#: lib/action.php:544
 msgid "Primary site navigation"
 msgstr "Stikl aðalsíðu"
 
 #. TRANS: Tooltip for main menu option "Personal".
-#: lib/action.php:537
+#: lib/action.php:550
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
@@ -7077,37 +7188,37 @@ msgstr "Persónuleg síða og vinarás"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline.
 #. TRANS: Personal group navigation menu option when logged in for viewing timeline of self and friends.
-#: lib/action.php:540 lib/personalgroupnav.php:100
+#: lib/action.php:553 lib/personalgroupnav.php:100
 #, fuzzy
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Persónulegt"
 
 #. TRANS: Tooltip for main menu option "Account".
-#: lib/action.php:542
+#: lib/action.php:555
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Breyta lykilorðinu þínu"
 
 #. TRANS: Main menu option when logged in for access to user settings.
-#: lib/action.php:545
+#: lib/action.php:558
 msgid "Account"
 msgstr "Aðgangur"
 
 #. TRANS: Tooltip for main menu option "Services".
-#: lib/action.php:547
+#: lib/action.php:560
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Gat ekki framsent til vefþjóns: %s"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services.
-#: lib/action.php:550
+#: lib/action.php:563
 msgid "Connect"
 msgstr "Tengjast"
 
 #. TRANS: Tooltip for menu option "Admin".
-#: lib/action.php:553
+#: lib/action.php:566
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
@@ -7115,54 +7226,54 @@ msgstr "Stikl aðalsíðu"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration.
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
-#: lib/action.php:556 lib/groupnav.php:117
+#: lib/action.php:569 lib/groupnav.php:117
 #, fuzzy
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Stjórnandi"
 
 #. TRANS: Tooltip for main menu option "Invite".
-#: lib/action.php:560
+#: lib/action.php:573
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Bjóða vinum og vandamönnum að slást í hópinn á %s"
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users.
-#: lib/action.php:563
+#: lib/action.php:576
 #, fuzzy
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Bjóða"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:569
+#: lib/action.php:582
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Skrá þig inn á síðuna"
 
 #. TRANS: Main menu option when logged in to log out the current user.
-#: lib/action.php:572
+#: lib/action.php:585
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Einkennismerki"
 
 #. TRANS: Tooltip for main menu option "Register".
-#: lib/action.php:577
+#: lib/action.php:590
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Búa til nýjan hóp"
 
 #. TRANS: Main menu option when not logged in to register a new account.
 #. TRANS: Menu item for registering with the StatusNet site.
-#: lib/action.php:580 lib/logingroupnav.php:85
+#: lib/action.php:593 lib/logingroupnav.php:85
 #, fuzzy
 msgctxt "MENU"
 msgid "Register"
 msgstr "Nýskrá"
 
 #. TRANS: Tooltip for main menu option "Login".
-#: lib/action.php:583
+#: lib/action.php:596
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Login to the site"
@@ -7170,34 +7281,34 @@ msgstr "Skrá þig inn á síðuna"
 
 #. TRANS: Main menu option when not logged in to log in.
 #. TRANS: Menu item for logging in to the StatusNet site.
-#: lib/action.php:586 lib/logingroupnav.php:77
+#: lib/action.php:599 lib/logingroupnav.php:77
 #, fuzzy
 msgctxt "MENU"
 msgid "Login"
 msgstr "Innskráning"
 
 #. TRANS: Tooltip for main menu option "Help".
-#: lib/action.php:589
+#: lib/action.php:602
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Hjálp"
 
 #. TRANS: Main menu option for help on the StatusNet site.
-#: lib/action.php:592
+#: lib/action.php:605
 #, fuzzy
 msgctxt "MENU"
 msgid "Help"
 msgstr "Hjálp"
 
 #. TRANS: Tooltip for main menu option "Search".
-#: lib/action.php:595
+#: lib/action.php:608
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Leita að fólki eða texta"
 
 #. TRANS: Main menu option when logged in or when the StatusNet instance is not private.
-#: lib/action.php:598
+#: lib/action.php:611
 #, fuzzy
 msgctxt "MENU"
 msgid "Search"
@@ -7205,69 +7316,69 @@ msgstr "Leita"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:620 lib/adminpanelaction.php:387
+#: lib/action.php:633 lib/adminpanelaction.php:387
 msgid "Site notice"
 msgstr "Babl vefsíðunnar"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:687
+#: lib/action.php:700
 msgid "Local views"
 msgstr "Staðbundin sýn"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:757
+#: lib/action.php:770
 msgid "Page notice"
 msgstr "Babl síðunnar"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:858
+#: lib/action.php:871
 msgid "Secondary site navigation"
 msgstr "Stikl undirsíðu"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:864
+#: lib/action.php:877
 msgid "Help"
 msgstr "Hjálp"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:867
+#: lib/action.php:880
 msgid "About"
 msgstr "Um"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:870
+#: lib/action.php:883
 msgid "FAQ"
 msgstr "Spurt og svarað"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:875
+#: lib/action.php:888
 msgid "TOS"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:879
+#: lib/action.php:892
 msgid "Privacy"
 msgstr "Friðhelgi"
 
 #. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-#: lib/action.php:882
+#: lib/action.php:895
 msgid "Source"
 msgstr "Frumþula"
 
 #. TRANS: Secondary navigation menu option leading to e-mail contact information on the
 #. TRANS: StatusNet site, where to report bugs, ...
-#: lib/action.php:889
+#: lib/action.php:902
 msgid "Contact"
 msgstr "Tengiliður"
 
 #. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-#: lib/action.php:892
+#: lib/action.php:905
 #, fuzzy
 msgid "Badge"
 msgstr "Pot"
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:921
+#: lib/action.php:934
 msgid "StatusNet software license"
 msgstr "Hugbúnaðarleyfi StatusNet"
 
@@ -7275,7 +7386,7 @@ msgstr "Hugbúnaðarleyfi StatusNet"
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
-#: lib/action.php:928
+#: lib/action.php:941
 #, fuzzy, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -7285,7 +7396,7 @@ msgstr ""
 "broughtbyurl%%). "
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:931
+#: lib/action.php:944
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** er örbloggsþjónusta."
@@ -7294,7 +7405,7 @@ msgstr "**%%site.name%%** er örbloggsþjónusta."
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: %s is the version of StatusNet that is being used.
-#: lib/action.php:938
+#: lib/action.php:951
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -7306,51 +7417,51 @@ msgstr ""
 "licensing/licenses/agpl-3.0.html)."
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:954
+#: lib/action.php:967
 #, fuzzy
 msgid "Site content license"
 msgstr "Hugbúnaðarleyfi StatusNet"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:961
+#: lib/action.php:974
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:968
+#: lib/action.php:981
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:972
+#: lib/action.php:985
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
 #. TRANS: license message in footer.
 #. TRANS: %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:1004
+#: lib/action.php:1017
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1340
+#: lib/action.php:1353
 msgid "Pagination"
 msgstr "Uppröðun"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1351
+#: lib/action.php:1364
 msgid "After"
 msgstr "Eftir"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1361
+#: lib/action.php:1374
 msgid "Before"
 msgstr "Áður"
 
@@ -7397,6 +7508,13 @@ msgstr ""
 #, fuzzy
 msgid "User is already a member of this group."
 msgstr "Þú ert nú þegar meðlimur í þessum hópi"
+
+#. TRANS: Client exception thrown when trying to import a notice by another user.
+#. TRANS: %1$s is the source URI of the notice, %2$s is the URI of the author.
+#: lib/activityimporter.php:201
+#, php-format
+msgid "Already know about notice %1$s and  it has a different author %2$s."
+msgstr ""
 
 #. TRANS: Client exception thrown when trying to overwrite the author information for a non-trusted user during import.
 #: lib/activityimporter.php:207
@@ -7616,7 +7734,7 @@ msgid "Failed to delete revoked token."
 msgstr ""
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:178
+#: lib/applicationeditform.php:182
 msgid "Icon for this application"
 msgstr ""
 
@@ -8206,13 +8324,13 @@ msgstr ""
 
 #. TRANS: Label in form on profile design page.
 #. TRANS: Field contains file name on user's computer that could be that user's custom profile background image.
-#: lib/designsettings.php:104
+#: lib/designsettings.php:108
 #, fuzzy
 msgid "Upload file"
 msgstr "Hlaða upp"
 
 #. TRANS: Instructions for form on profile design page.
-#: lib/designsettings.php:109
+#: lib/designsettings.php:113
 #, fuzzy
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
@@ -8948,11 +9066,11 @@ msgstr "Senda babl"
 msgid "What's up, %s?"
 msgstr "Hvað er að frétta %s?"
 
-#: lib/noticeform.php:193
+#: lib/noticeform.php:194
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:197
+#: lib/noticeform.php:198
 msgid "Attach a file"
 msgstr ""
 
@@ -9151,6 +9269,13 @@ msgstr "Notandi"
 #: lib/profileaction.php:219
 msgid "Member since"
 msgstr "Meðlimur síðan"
+
+#. TRANS: Label for user statistics.
+#. TRANS: H2 text for user group membership statistics.
+#: lib/profileaction.php:239 lib/profileaction.php:290
+#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
+msgid "Groups"
+msgstr "Hópar"
 
 #. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
@@ -9587,6 +9712,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#~ msgid "Personal"
-#~ msgstr "Persónulegt"

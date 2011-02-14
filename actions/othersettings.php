@@ -106,8 +106,10 @@ class OthersettingsAction extends AccountSettingsAction
             $services[$name]=$name;
             if($value['freeService']){
                 // TRANS: Used as a suffix for free URL shorteners in a dropdown list in the tab "Other" of a
-                // TRANS: user's profile settings. This message has one space at the beginning. Use your
-                // TRANS: language's word separator here if it has one (most likely a single space).
+                // TRANS: user's profile settings. Use of "free" is as in "open", indicating that the
+                // TRANS: information on the shortener site is freely distributable.
+                // TRANS: This message has one space at the beginning. Use your language's word separator
+                // TRANS: here if it has one (most likely a single space).
                 $services[$name].=_(' (free service)');
             }
         }

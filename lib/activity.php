@@ -205,18 +205,19 @@ class Activity
             // the surrounding feed.
             $this->actor = new ActivityObject($authorEl);
 
-        } else if (!empty($feed) && $authorEl = $this->_child($feed, self::AUTHOR,
-                                                              self::ATOM)) {
-
-            // If there's no <atom:author> on the entry, it's safe to assume
-            // the containing feed's authorship info applies.
-            $this->actor = new ActivityObject($authorEl);
         } else if (!empty($feed) &&
                    $subjectEl = $this->_child($feed, self::SUBJECT)) {
 
             // Feed subject is used for things like groups.
             // Should actually possibly not be interpreted as an actor...?
             $this->actor = new ActivityObject($subjectEl);
+
+        } else if (!empty($feed) && $authorEl = $this->_child($feed, self::AUTHOR,
+                                                              self::ATOM)) {
+
+            // If there's no <atom:author> on the entry, it's safe to assume
+            // the containing feed's authorship info applies.
+            $this->actor = new ActivityObject($authorEl);
         }
 
         $contextEl = $this->_child($entry, self::CONTEXT);
@@ -392,6 +393,18 @@ class Activity
 
         if ($author) {
             $this->actor->outputTo($xs, 'author');
+
+            // XXX: Remove <activity:actor> ASAP! Author information
+            // has been moved to the author element in the Activity
+            // Streams spec. We're outputting actor only for backward
+            // compatibility with clients that can only parse
+            // activities based on older versions of the spec.
+
+            $depMsg = 'Deprecation warning: activity:actor is present '
+                . 'only for backward compatibility. It will be '
+                . 'removed in the next version of StatusNet.';
+            $xs->comment($depMsg);
+            $this->actor->outputTo($xs, 'activity:actor');
         }
 
         if ($this->verb != ActivityVerb::POST || count($this->objects) != 1) {

@@ -1279,7 +1279,7 @@ biolimit: max character length of bio; 0 means no limit; null means to use
 backup: whether users can backup their own profiles. Defaults to true.
 restore: whether users can restore their profiles from backup files. Defaults
 	 to true.
-delete: whether users can delete their own accounts. Defaults to true.
+delete: whether users can delete their own accounts. Defaults to false.
 move: whether users can move their accounts to another server. Defaults
       to true.	 
 
@@ -1588,6 +1588,7 @@ sslserver: Server to find static files for a plugin when the page is HTTPS. Defa
 path: Path to the plugin files. defaults to site/path + '/plugins/'. Expects that
       each plugin will have a subdirectory at plugins/NameOfPlugin. Change this
       if you're using a CDN.
+sslpath: Path to use on the SSL server. Same as plugins/path.
 
 Plugins
 =======

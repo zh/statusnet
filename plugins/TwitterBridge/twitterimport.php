@@ -264,7 +264,7 @@ class TwitterImport
     function ensureProfile($user)
     {
         // check to see if there's already a profile for this user
-        $profileurl = 'http://twitter.com/#!/' . $user->screen_name;
+        $profileurl = 'http://twitter.com/' . $user->screen_name;
         $profile = $this->getProfileByUrl($user->screen_name, $profileurl);
 
         if (!empty($profile)) {

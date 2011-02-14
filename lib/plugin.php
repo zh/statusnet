@@ -143,17 +143,22 @@ class Plugin
             $server = common_config('plugins', 'server');
         }
 
-        if (is_null($server)) {
+        if (empty($server)) {
             if ($isHTTPS) {
                 $server = common_config('site', 'sslserver');
-            } else {
+            }
+            if (empty($server)) {
                 $server = common_config('site', 'server');
             }
         }
 
-        $path = common_config('plugins', 'path');
+        if ($isHTTPS) {
+            $path = common_config('plugins', 'sslpath');
+        } else {
+            $path = common_config('plugins', 'path');
+        }
 
-        if (is_null($path)) {
+        if (empty($path)) {
             $path = common_config('site', 'path') . '/plugins/';
         }
 

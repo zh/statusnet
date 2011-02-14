@@ -354,7 +354,10 @@ class Profile extends Memcached_DataObject
         $profiles = array();
 
         while ($subs->fetch()) {
-            $profiles[] = Profile::staticGet($subs->subscribed);
+            $profile = Profile::staticGet($subs->subscribed);
+            if ($profile) {
+                $profiles[] = $profile;
+            }
         }
 
         return new ArrayWrapper($profiles);
@@ -369,7 +372,10 @@ class Profile extends Memcached_DataObject
         $profiles = array();
 
         while ($subs->fetch()) {
-            $profiles[] = Profile::staticGet($subs->subscriber);
+            $profile = Profile::staticGet($subs->subscriber);
+            if ($profile) {
+                $profiles[] = $profile;
+            }
         }
 
         return new ArrayWrapper($profiles);
@@ -916,6 +922,31 @@ class Profile extends Memcached_DataObject
         $xs->elementEnd('author');
 
         return $xs->getString();
+    }
+
+    /**
+     * Extra profile info for atom entries
+     *
+     * Clients use some extra profile info in the atom stream.
+     * This gives it to them.
+     *
+     * @param User $cur Current user
+     *
+     * @return array representation of <statusnet:profile_info> element
+     */
+
+    function profileInfo($cur)
+    {
+        $profileInfoAttr = array();
+
+        if ($cur != null) {
+            // Whether the current user is a subscribed to this profile
+            $profileInfoAttr['following'] = $cur->isSubscribed($this) ? 'true' : 'false';
+            // Whether the current user is has blocked this profile
+            $profileInfoAttr['blocking']  = $cur->hasBlocked($this) ? 'true' : 'false';
+        }
+
+        return array('statusnet:profile_info', $profileInfoAttr, null);
     }
 
     /**
