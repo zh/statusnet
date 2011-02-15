@@ -148,7 +148,7 @@ class UserEmailSummaryHandler extends QueueHandler
 					   'valign' => 'top'));
 	    $out->element('img', array('src' => ($avatar) ?
 				       $avatar->displayUrl() :
-				       Avatar::defaultImage($avatar_size),
+				       Avatar::defaultImage(AVATAR_STREAM_SIZE),
 				       'class' => 'avatar photo',
 				       'width' => AVATAR_STREAM_SIZE,
 				       'height' => AVATAR_STREAM_SIZE,
