@@ -162,6 +162,14 @@ class Plugin
             $path = common_config('site', 'path') . '/plugins/';
         }
 
+        if ($path[strlen($path)-1] != '/') {
+            $path .= '/';
+        }
+
+        if ($path[0] != '/') {
+            $path = '/'.$path;
+        }
+
         $protocol = ($isHTTPS) ? 'https' : 'http';
 
         return $protocol.'://'.$server.$path.$plugin.'/'.$relative;
