@@ -411,7 +411,7 @@ class Router
 
             $m->connect('api/statuses/friends_timeline.:format',
                         array('action' => 'ApiTimelineFriends',
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/friends_timeline/:id.:format',
                         array('action' => 'ApiTimelineFriends',

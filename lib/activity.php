@@ -337,6 +337,59 @@ class Activity
         return null;
     }
 
+    /**
+     * Returns an array based on this activity suitable
+     * for encoding as a JSON object
+     *
+     * @return array $activity
+     */
+
+    function asArray()
+    {
+        $activity = array();
+
+        // actor
+        $activity['actor'] = $this->actor->asArray();
+
+        // body
+        $activity['body'] = $this->content;
+
+        // generator <--- might be useful; might be too much junk
+
+        // icon <-- should we use this?
+
+        // object
+        if ($this->verb == ActivityVerb::POST && count($this->objects) == 1) {
+            $activity['object'] = $this->objects[0]->asArray();
+        } else {
+            $activity['object'] = array();
+            foreach($this->objects as $object) {
+                $activity['object'][] = $object->asArray();
+            }
+        }
+
+        $activity['postedTime'] = self::iso8601Date($this->time); // Change to exactly be RFC3339?
+
+        // provider <--- again not sure we should use this
+
+        // target
+        if (!empty($this->target)) {
+            $activity['target'] = $this->target->asArray();
+        }
+
+        // title
+        $activity['title'] = $this->title;
+
+        // updatedTime <-- should we use? spec says activity MAY have this
+
+        // verb
+        $activity['verb'] = $this->verb;
+
+        // TODO: extensions (ActivityContext, OStatus stuff, etc.)
+
+        return $activity;
+    }
+
     function asString($namespace=false, $author=true, $source=false)
     {
         $xs = new XMLStringer(true);

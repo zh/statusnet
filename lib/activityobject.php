@@ -179,7 +179,7 @@ class ActivityObject
         if (empty($this->type)) {
             $this->type = self::PERSON; // XXX: is this fair?
         }
-        
+
         // start with <atom:title>
 
         $title = ActivityUtils::childHtmlContent($element, self::TITLE);
@@ -419,7 +419,7 @@ class ActivityObject
     static function fromNotice(Notice $notice)
     {
         $object = new ActivityObject();
-		
+
 		if (Event::handle('StartActivityObjectFromNotice', array($notice, &$object))) {
 
 			$object->type    = ActivityObject::NOTE;
@@ -526,7 +526,7 @@ class ActivityObject
 
         return $object;
     }
-	
+
 	function outputTo($xo, $tag='activity:object')
 	{
 		if (!empty($tag)) {
@@ -632,5 +632,47 @@ class ActivityObject
 		$this->outputTo($xs, $tag);
 
         return $xs->getString();
+    }
+
+    /*
+     * Returns an array based on this Activity Object suitable for
+     * encoding as JSON.
+     *
+     * @return array $object the activity object array
+     */
+
+    function asArray()
+    {
+        $object = array();
+
+        // TODO: attachedObjects
+
+        // displayName
+        $object['displayName'] = $this->title;
+
+
+        // TODO: downstreamDuplicates
+        // TODO: embedCode
+
+        // id
+        $object['id'] = $this->id;
+
+        // TODO: image
+        // Need to make MediaLink serialization
+
+        // objectType
+        $object['type'] = $this->type;
+
+        // summary
+        $object['summary'] = $this->summary;
+
+        // TODO: upstreamDuplicates
+
+        // url (XXX: need to put the right thing here...)
+        $object['url'] = $this->id;
+
+        // TODO: extensions (OStatus stuff, etc.)
+
+        return $object;
     }
 }
