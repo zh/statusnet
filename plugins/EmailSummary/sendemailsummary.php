@@ -20,8 +20,8 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/../..'));
 
-$shortoptions = 'i:n:a';
-$longoptions = array('id=', 'nickname=', 'all');
+$shortoptions = 'i:n:au';
+$longoptions = array('id=', 'nickname=', 'all', 'universe');
 
 $helptext = <<<END_OF_SENDEMAILSUMMARY_HELP
 sendemailsummary.php [options]
@@ -30,19 +30,30 @@ Send an email summary of the inbox to users
  -i --id       ID of user to send summary to
  -n --nickname nickname of the user to send summary to
  -a --all      send summary to all users
+ -u --universe send summary to all users on all sites
 
 END_OF_SENDEMAILSUMMARY_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-$qm = QueueManager::get();
-
-// enqueue summary for user or all users
-
-try {
-    $user = getUser();
-    $qm->enqueue($user->id, 'usersum');
-} catch (NoUserArgumentException $nuae) {
-    $qm->enqueue(null, 'sitesum');
+if (have_option('u', 'universe')) {
+    $sn = new Status_network();
+    if ($sn->find()) {
+        while ($sn->fetch()) {
+            $server = $sn->getServerName();
+            StatusNet::init($server);
+            // Different queue manager, maybe!
+            $qm = QueueManager::get();
+            $qm->enqueue(null, 'sitesum');
+        }
+    }
+} else {
+    $qm = QueueManager::get();
+    // enqueue summary for user or all users
+    try {
+        $user = getUser();
+        $qm->enqueue($user->id, 'usersum');
+    } catch (NoUserArgumentException $nuae) {
+        $qm->enqueue(null, 'sitesum');
+    }
 }
-
