@@ -155,14 +155,14 @@ class DeleteuserAction extends ProfileFormAction
                       'submit form_action-primary',
                       'no',
                       // TRANS: Submit button title for 'No' when deleting a user.
-                      _('Do not delete this user'));
+                      _('Do not delete this user.'));
         $this->submit('form_action-yes',
                       // TRANS: Button label on the delete user form.
                       _m('BUTTON','Yes'),
                       'submit form_action-secondary',
                       'yes',
                       // TRANS: Submit button title for 'Yes' when deleting a user.
-                      _('Delete this user'));
+                      _('Delete this user.'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }

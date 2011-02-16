@@ -99,7 +99,7 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
 
             common_log(LOG_WARNING, $msg);
             // TRANS: Client error given from the OAuth API when the request token or verifier is invalid.
-            $this->clientError(_("Invalid request token or verifier."), 400, 'text');
+            $this->clientError(_('Invalid request token or verifier.'), 400, 'text');
         } else {
             common_log(
                 LOG_INFO,

@@ -58,7 +58,7 @@ class BackupaccountAction extends Action
     function title()
     {
         // TRANS: Title for backup account page.
-        return _("Backup account");
+        return _('Backup account');
     }
 
     /**
@@ -249,6 +249,6 @@ class BackupAccountForm extends Form
                            'submit',
                            null,
                            // TRANS: Title for submit button to backup an account on the backup account page.
-                           _('Backup your account'));
+                           _('Backup your account.'));
     }
 }

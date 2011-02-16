@@ -204,7 +204,7 @@ class GrouplogoAction extends GroupDesignAction
             $this->elementStart('li', array('id' => 'avatar_original',
                                             'class' => 'avatar_view'));
             // TRANS: Uploaded original file in group logo form.
-            $this->element('h2', null, _("Original"));
+            $this->element('h2', null, _('Original'));
             $this->elementStart('div', array('id'=>'avatar_original_view'));
             $this->element('img', array('src' => $this->group->original_logo,
                                         'alt' => $this->group->nickname));
@@ -216,7 +216,7 @@ class GrouplogoAction extends GroupDesignAction
             $this->elementStart('li', array('id' => 'avatar_preview',
                                             'class' => 'avatar_view'));
             // TRANS: Header for preview of to be displayed group logo.
-            $this->element('h2', null, _("Preview"));
+            $this->element('h2', null, _('Preview'));
             $this->elementStart('div', array('id'=>'avatar_preview_view'));
             $this->element('img', array('src' => $this->group->homepage_logo,
                                         'width' => AVATAR_PROFILE_SIZE,
@@ -267,7 +267,7 @@ class GrouplogoAction extends GroupDesignAction
                             array('id' => 'avatar_original',
                                   'class' => 'avatar_view'));
         // TRANS: Header for originally uploaded file before a crop on the group logo page.
-        $this->element('h2', null, _("Original"));
+        $this->element('h2', null, _('Original'));
         $this->elementStart('div', array('id'=>'avatar_original_view'));
         $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => $this->filedata['width'],
@@ -280,7 +280,7 @@ class GrouplogoAction extends GroupDesignAction
                             array('id' => 'avatar_preview',
                                   'class' => 'avatar_view'));
         // TRANS: Header for the cropped group logo on the group logo page.
-        $this->element('h2', null, _("Preview"));
+        $this->element('h2', null, _('Preview'));
         $this->elementStart('div', array('id'=>'avatar_preview_view'));
         $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => AVATAR_PROFILE_SIZE,

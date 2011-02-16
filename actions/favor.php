@@ -92,7 +92,7 @@ class FavorAction extends Action
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
             // TRANS: Page title for page on which favorite notices can be unfavourited.
-            $this->element('title', null, _('Disfavor favorite'));
+            $this->element('title', null, _('Disfavor favorite.'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $disfavor = new DisFavorForm($this, $notice);

@@ -61,7 +61,7 @@ class OembedAction extends Action
             $proxy_args = $r->map($path);
 
             if (!$proxy_args) {
-                $this->serverError(_("$path not found."), 404);
+                $this->serverError(sprintf(_('"%s" not found.'),$path), 404);
             }
             $oembed=array();
             $oembed['version']='1.0';
@@ -73,7 +73,7 @@ class OembedAction extends Action
                     $id = $proxy_args['notice'];
                     $notice = Notice::staticGet($id);
                     if(empty($notice)){
-                        $this->serverError(_("Notice $id not found."), 404);
+                        $this->serverError(sprintf(_("Notice %s not found."),$id), 404);
                     }
                     $profile = $notice->getProfile();
                     if (empty($profile)) {
@@ -92,7 +92,7 @@ class OembedAction extends Action
                     $id = $proxy_args['attachment'];
                     $attachment = File::staticGet($id);
                     if(empty($attachment)){
-                        $this->serverError(_("Attachment $id not found."), 404);
+                        $this->serverError(sprintf(_('Attachment %s not found.'),$id), 404);
                     }
                     if(empty($attachment->filename) && $file_oembed = File_oembed::staticGet('file_id', $attachment->id)){
                         // Proxy the existing oembed information
@@ -133,7 +133,7 @@ class OembedAction extends Action
                     if($attachment->title) $oembed['title']=$attachment->title;
                     break;
                 default:
-                    $this->serverError(_("$path not supported for oembed requests."), 501);
+                    $this->serverError(sprintf(_('"%s" not supported for oembed requests.'),$path), 501);
             }
             switch($args['format']){
                 case 'xml':

@@ -126,11 +126,11 @@ class RemotesubscribeAction extends Action
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->input('nickname', _('User nickname'), $this->nickname,
-                     _('Nickname of the user you want to follow'));
+                     _('Nickname of the user you want to follow.'));
         $this->elementEnd('li');
         $this->elementStart('li');
         $this->input('profile_url', _('Profile URL'), $this->profile_url,
-                     _('URL of your profile on another compatible microblogging service'));
+                     _('URL of your profile on another compatible microblogging service.'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('submit', _('Subscribe'));
@@ -155,7 +155,7 @@ class RemotesubscribeAction extends Action
         }
 
         if (!common_valid_http_url($this->profile_url)) {
-            $this->showForm(_('Invalid profile URL (bad format)'));
+            $this->showForm(_('Invalid profile URL (bad format).'));
             return;
         }
 

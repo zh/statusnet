@@ -329,7 +329,6 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         $saved = null;
 
         if (Event::handle('StartAtomPubNewActivity', array(&$activity, $this->user, &$saved))) {
-
             if ($activity->verb != ActivityVerb::POST) {
                 // TRANS: Client error displayed when not using the POST verb. Do not translate POST.
                 $this->clientError(_('Can only handle POST activities.'));
@@ -405,6 +404,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
             if (!empty($notice)) {
                 // TRANS: Client error displayed when using another format than AtomPub.
+                // TRANS: %s is the notice URI.
                 $this->clientError(sprintf(_('Notice with URI "%s" already exists.'),
                                            $note->id));
                 return;

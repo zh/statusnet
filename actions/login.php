@@ -42,13 +42,11 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class LoginAction extends Action
 {
     /**
      * Has there been an error?
      */
-
     var $error = null;
 
     /**
@@ -56,7 +54,6 @@ class LoginAction extends Action
      *
      * @return boolean false
      */
-
     function isReadOnly($args)
     {
         return false;
@@ -69,7 +66,6 @@ class LoginAction extends Action
      * @param $args
      * @return string title
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -93,7 +89,6 @@ class LoginAction extends Action
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -117,7 +112,6 @@ class LoginAction extends Action
      *
      * @return void
      */
-
     function checkLogin($user_id=null, $token=null)
     {
         // XXX: login throttle
@@ -186,7 +180,6 @@ class LoginAction extends Action
      *
      * @return void
      */
-
     function showForm($error=null)
     {
         $this->error = $error;
@@ -204,7 +197,6 @@ class LoginAction extends Action
      *
      * @return string title of the page
      */
-
     function title()
     {
         return _('Login');
@@ -218,7 +210,6 @@ class LoginAction extends Action
      *
      * @return void
      */
-
     function showPageNotice()
     {
         if ($this->error) {
@@ -238,7 +229,6 @@ class LoginAction extends Action
      *
      * @return void
      */
-
     function showContent()
     {
         $this->elementStart('form', array('method' => 'post',
@@ -278,7 +268,6 @@ class LoginAction extends Action
      *
      * @return void
      */
-
     function getInstructions()
     {
         if (common_logged_in() && !common_is_real_login() &&
@@ -306,7 +295,6 @@ class LoginAction extends Action
      *
      * @return void
      */
-
     function showLocalNav()
     {
         $nav = new LoginGroupNav($this);
