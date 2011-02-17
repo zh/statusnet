@@ -207,7 +207,7 @@ class ActivityStreamsLink
         $this->linkDict = array(
             'url'        => $url,
             'rel'        => $rel,      // extension
-            'media_type' => $mediaType // extension
+            'mediaType'  => $mediaType // extension
        );
     }
 

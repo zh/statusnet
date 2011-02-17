@@ -354,13 +354,58 @@ class Activity
         // body
         $activity['body'] = $this->content;
 
-        // generator <--- might be useful; might be too much junk
+        // generator <-- We should use this when we know a notice is created
+        //               locally
 
-        // icon <-- should we use this?
+        // icon <-- Should we use this? Maybe a little bubble like we have
+        //          on Facebook posts?
 
         // object
         if ($this->verb == ActivityVerb::POST && count($this->objects) == 1) {
             $activity['object'] = $this->objects[0]->asArray();
+
+            // Instead of adding enclosures as an extension to JSON
+            // Activities, it seems like we should be using the
+            // attachedObjects property of ActivityObject
+
+            $attachedObjects = array();
+
+            // XXX: OK, this is kinda cheating. We should probably figure out
+            // what kind of objects these are based on mime-type and then
+            // create specific object types. Right now this rely on
+            // duck-typing.  Also, we should include an embed code for
+            // video attachments.
+
+            foreach ($this->enclosures as $enclosure) {
+
+                if (is_string($enclosure)) {
+
+                    $attachedObjects[]['id']  = $enclosure;
+
+                } else {
+
+                    $attachedObjects[]['id']  = $enclosure->url;
+
+                    $mediaLink = new ActivityStreamsMediaLink(
+                        $enclosure->url,
+                        null,
+                        null,
+                        $enclosure->mimetype
+                        // XXX: Add 'size' as an extension to MediaLink?
+                    );
+
+                    $attachedObjects[]['mediaLink'] = $mediaLink->asArray(); // extension
+
+                    if ($enclosure->title) {
+                        $attachedObjects[]['displayName'] = $enclosure->title;
+                    }
+               }
+            }
+
+            if (!empty($attachedObjects)) {
+                $activity['object']['attachedObjects'] = $attachedObjects;
+            }
+
         } else {
             $activity['object'] = array();
             foreach($this->objects as $object) {
@@ -370,7 +415,8 @@ class Activity
 
         $activity['postedTime'] = self::iso8601Date($this->time); // Change to exactly be RFC3339?
 
-        // provider <--- again not sure we should use this
+        // provider <-- We should probably use this for showing the the source
+        //              of remote notices, if known
 
         // target
         if (!empty($this->target)) {
@@ -380,7 +426,8 @@ class Activity
         // title
         $activity['title'] = $this->title;
 
-        // updatedTime <-- should we use? spec says activity MAY have this
+        // updatedTime <-- Should we use this to indicate the time we received
+        //                 a remote notice? Probably not.
 
         // verb
         //
@@ -388,7 +435,12 @@ class Activity
         // relative simple name is easier to parse
         $activity['verb'] = substr($this->verb, strrpos($this->verb, '/') + 1);
 
-        // TODO: extensions (ActivityContext, OStatus stuff, etc.)
+        /* Purely extensions hereafter */
+
+        if ($this->verb == ActivityVerb::POST) {
+            $activity['noticeInfo'] = $this->noticeInfo;
+        }
+
 
         return array_filter($activity);
     }

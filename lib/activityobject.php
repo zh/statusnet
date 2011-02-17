@@ -645,16 +645,18 @@ class ActivityObject
     {
         $object = array();
 
-        // TODO: attachedObjects
+        // XXX: attachedObjects are added by Activity
 
         // displayName
         $object['displayName'] = $this->title;
 
-
         // TODO: downstreamDuplicates
-        // TODO: embedCode (video)
+
+        // embedCode (used for video)
 
         // id
+        //
+        // XXX: Should we use URL here? or a crazy tag URI?
         $object['id'] = $this->id;
 
         if ($this->type == ActivityObject::PERSON
