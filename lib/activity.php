@@ -437,10 +437,14 @@ class Activity
 
         /* Purely extensions hereafter */
 
-        if ($this->verb == ActivityVerb::POST) {
-            $activity['noticeInfo'] = $this->noticeInfo;
-        }
+        // XXX: a bit of a hack... Since JSON isn't namespaced we probably
+        // shouldn't be using 'statusnet:notice_info', but this will work
+        // for the moment.
 
+        foreach ($this->extra as $e) {
+            list($objectName, $props, $txt) = $e;
+            $activity[$objectName] = $props;
+        }
 
         return array_filter($activity);
     }

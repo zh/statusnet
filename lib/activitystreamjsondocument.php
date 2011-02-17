@@ -77,6 +77,7 @@ class ActivityStreamJSONDocument
      *
      * @param String $title the title
      */
+
     function setTitle($title)
     {
         $this->doc['title'] = $title;
@@ -205,10 +206,10 @@ class ActivityStreamsLink
         }
 
         $this->linkDict = array(
-            'url'        => $url,
-            'rel'        => $rel,      // extension
-            'mediaType'  => $mediaType // extension
-       );
+            'url'   => $url,
+            'rel'   => $rel,      // extension
+            'type'  => $mediaType // extension
+        );
     }
 
     function asArray()

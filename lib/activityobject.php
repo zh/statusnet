@@ -663,24 +663,33 @@ class ActivityObject
             || $this->type == ActivityObject::GROUP) {
 
             // XXX: Not sure what the best avatar is to use for the
-            // author's "image". For now, I'm using the stream size
-            // one, but possibly it should be large
-            $avatarLink = null;
+            // author's "image". For now, I'm using the large size.
+
+            $avatarLarge      = null;
+            $avatarMediaLinks = array();
 
             foreach ($this->avatarLinks as $a) {
-                if ($a->height == AVATAR_STREAM_SIZE) {
-                    $avatarLink = $a;
-                    break;
+
+                // Make a MediaLink for every other Avatar
+                $avatar = new ActivityStreamsMediaLink(
+                    $a->url,
+                    $a->width,
+                    $a->height,
+                    $a->type,
+                    'avatar'
+                );
+
+                // Find the big avatar to use as the "image"
+                if ($a->height == AVATAR_PROFILE_SIZE) {
+                    $imgLink = $avatar;
                 }
+
+                $avatarMediaLinks[] = $avatar->asArray();
             }
 
-            $imgLink = new ActivityStreamsMediaLink(
-                $avatarLink->url,
-                $avatarLink->width,
-                $avatarLink->height,
-                $avatarLink->type
-            );
+            $object['avatars'] = $avatarMediaLinks; // extension
 
+            // image
             $object['image']  = $imgLink->asArray();
         }
 
@@ -698,7 +707,12 @@ class ActivityObject
         // url (XXX: need to put the right thing here...)
         $object['url'] = $this->id;
 
-        // TODO: extensions (OStatus stuff, etc.)
+        /* Extensions */
+
+        foreach ($this->extra as $e) {
+            list($objectName, $props, $txt) = $e;
+            $object[$objectName] = $props;
+        }
 
         return array_filter($object);
     }
