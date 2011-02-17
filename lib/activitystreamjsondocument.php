@@ -43,6 +43,7 @@ if (!defined('STATUSNET'))
  */
 class ActivityStreamJSONDocument
 {
+
     /* Top level array representing the document */
     protected $doc = array();
 
@@ -57,9 +58,28 @@ class ActivityStreamJSONDocument
 
     function __construct($cur = null)
     {
+
         $this->cur = $cur;
 
+        /* Title of the JSON document */
+        $this->doc['title'] = null;
+
+        /* Array of activity items */
         $this->doc['items'] = array();
+
+        /* Array of links associated with the document */
+        $this->doc['links'] = array();
+
+    }
+
+    /**
+     * Set the title of the document
+     *
+     * @param String $title the title
+     */
+    function setTitle($title)
+    {
+        $this->doc['title'] = $title;
     }
 
     /**
@@ -99,6 +119,18 @@ class ActivityStreamJSONDocument
         array_push($this->doc['items'], $act->asArray());
     }
 
+    /**
+     * Add a link to the JSON document
+     *
+     * @param string $url the URL for the link
+     * @param string $rel the link relationship
+     */
+    function addLink($url = null, $rel = null, $mediaType = null)
+    {
+        $link = new ActivityStreamsLink($url, $rel, $mediaType);
+        $this->doc['link'][] = $link->asArray();
+    }
+
     /*
      * Return the entire document as a big string of JSON
      *
@@ -106,7 +138,81 @@ class ActivityStreamJSONDocument
      */
     function asString()
     {
-        return json_encode($this->doc);
+        return json_encode(array_filter($this->doc));
     }
 
+}
+
+/**
+ * A class for representing MediaLinks in JSON Activities
+ *
+ * @category Feed
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
+
+class ActivityStreamsMediaLink extends ActivityStreamsLink
+{
+    private $linkDict;
+
+    function __construct(
+        $url       = null,
+        $width     = null,
+        $height    = null,
+        $mediaType = null,
+        $rel       = null,
+        $duration  = null
+    )
+    {
+        parent::__construct($url, $rel, $mediaType);
+        $this->linkDict = array(
+            'width'      => $width,
+            'height'     => $height,
+            'duration'   => $duration
+        );
+    }
+
+    function asArray()
+    {
+        return array_merge(
+            parent::asArray(),
+            array_filter($this->linkDict)
+        );
+    }
+}
+
+/**
+ * A class for representing links in JSON Activities
+ *
+ * @category Feed
+ * @package  StatusNet
+ * @author   Zach Copley <zach@status.net>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://status.net/
+ */
+
+class ActivityStreamsLink
+{
+    private $linkDict;
+
+    function __construct($url = null, $rel = null, $mediaType = null)
+    {
+        // links MUST have a URL
+        if (empty($url)) {
+            throw new Exception('Links must have a URL.');
+        }
+
+        $this->linkDict = array(
+            'url'        => $url,
+            'rel'        => $rel,      // extension
+            'media_type' => $mediaType // extension
+       );
+    }
+
+    function asArray()
+    {
+        return array_filter($this->linkDict);
+    }
 }

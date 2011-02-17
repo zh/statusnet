@@ -652,13 +652,35 @@ class ActivityObject
 
 
         // TODO: downstreamDuplicates
-        // TODO: embedCode
+        // TODO: embedCode (video)
 
         // id
         $object['id'] = $this->id;
 
-        // TODO: image
-        // Need to make MediaLink serialization
+        if ($this->type == ActivityObject::PERSON
+            || $this->type == ActivityObject::GROUP) {
+
+            // XXX: Not sure what the best avatar is to use for the
+            // author's "image". For now, I'm using the stream size
+            // one, but possibly it should be large
+            $avatarLink = null;
+
+            foreach ($this->avatarLinks as $a) {
+                if ($a->height == AVATAR_STREAM_SIZE) {
+                    $avatarLink = $a;
+                    break;
+                }
+            }
+
+            $imgLink = new ActivityStreamsMediaLink(
+                $avatarLink->url,
+                $avatarLink->width,
+                $avatarLink->height,
+                $avatarLink->type
+            );
+
+            $object['image']  = $imgLink->asArray();
+        }
 
         // objectType
         $object['type'] = $this->type;
@@ -673,6 +695,6 @@ class ActivityObject
 
         // TODO: extensions (OStatus stuff, etc.)
 
-        return $object;
+        return array_filter($object);
     }
 }

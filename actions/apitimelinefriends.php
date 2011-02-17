@@ -266,6 +266,8 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
         case 'as':
             header('Content-Type: application/json; charset=utf-8');
             $doc = new ActivityStreamJSONDocument($this->auth_user);
+            $doc->setTitle($title);
+            $doc->addLink($link,'alternate', 'text/html');
             $doc->addItemsFromNotices($this->notices);
             $this->raw($doc->asString());
             break;

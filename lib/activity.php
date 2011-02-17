@@ -387,7 +387,7 @@ class Activity
 
         // TODO: extensions (ActivityContext, OStatus stuff, etc.)
 
-        return $activity;
+        return array_filter($activity);
     }
 
     function asString($namespace=false, $author=true, $source=false)
