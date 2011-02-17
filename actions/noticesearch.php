@@ -48,7 +48,6 @@ require_once INSTALLDIR.'/lib/searchaction.php';
  */
 class NoticesearchAction extends SearchAction
 {
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -65,6 +64,8 @@ class NoticesearchAction extends SearchAction
      */
     function getInstructions()
     {
+        // TRANS: Instructions for Notice search page.
+        // TRANS: %%site.name%% is the name of the StatusNet site.
         return _('Search for notices on %%site.name%% by their contents. Separate search terms by spaces; they must be 3 characters or more.');
     }
 
@@ -75,6 +76,7 @@ class NoticesearchAction extends SearchAction
      */
     function title()
     {
+        // TRANS: Title of the page where users can search for notices.
         return _('Text search');
     }
 
@@ -88,6 +90,8 @@ class NoticesearchAction extends SearchAction
 
         return array(new Feed(Feed::RSS1, common_local_url('noticesearchrss',
                                                            array('q' => $q)),
+                              // TRANS: Test in RSS notice search.
+                              // TRANS: %1$s is the query, %2$s is the StatusNet site name.
                               sprintf(_('Search results for "%1$s" on %2$s'),
                                       $q, common_config('site', 'name'))));
     }
@@ -114,13 +118,18 @@ class NoticesearchAction extends SearchAction
             $cnt = $notice->find();
         }
         if ($cnt === 0) {
+            // TRANS: Text for notice search results is the query had no results.
             $this->element('p', 'error', _('No results.'));
 
             $this->searchSuggestions($q);
             if (common_logged_in()) {
+                // TRANS: Text for logged in users making a query for notices without results.
+                // TRANS: This message contains a Markdown link.
                 $message = sprintf(_('Be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
             }
             else {
+                // TRANS: Text for not logged in users making a query for notices without results.
+                // TRANS: This message contains Markdown links.
                 $message = sprintf(_('Why not [register an account](%%%%action.register%%%%) and be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
             }
 
@@ -203,4 +212,3 @@ class SearchNoticeListItem extends NoticeListItem {
         return $result;
     }
 }
-

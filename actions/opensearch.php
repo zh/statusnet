@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Opensearch action class.
  *
@@ -51,7 +50,7 @@ class OpensearchAction extends Action
      * Class handler.
      *
      * @param array $args query arguments
-     * 
+     *
      * @return boolean false if user doesn't exist
      */
     function handle($args)
@@ -61,8 +60,10 @@ class OpensearchAction extends Action
         $short_name = '';
         if ($type == 'people') {
             $type       = 'peoplesearch';
+            // TRANS: ShortName in the OpenSearch interface when trying to find users.
             $short_name = _('People Search');
         } else {
+            // TRANS: ShortName in the OpenSearch interface when trying to find notices.
             $type       = 'noticesearch';
             $short_name = _('Notice Search');
         }
@@ -89,4 +90,3 @@ class OpensearchAction extends Action
         return true;
     }
 }
-
