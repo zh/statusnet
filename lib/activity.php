@@ -383,7 +383,10 @@ class Activity
         // updatedTime <-- should we use? spec says activity MAY have this
 
         // verb
-        $activity['verb'] = $this->verb;
+        //
+        // We can probably use the whole schema URL here but probably the
+        // relative simple name is easier to parse
+        $activity['verb'] = substr($this->verb, strrpos($this->verb, '/') + 1);
 
         // TODO: extensions (ActivityContext, OStatus stuff, etc.)
 

@@ -683,7 +683,10 @@ class ActivityObject
         }
 
         // objectType
-        $object['type'] = $this->type;
+        //
+        // We can probably use the whole schema URL here but probably the
+        // relative simple name is easier to parse
+        $object['type'] = substr($this->type, strrpos($this->type, '/') + 1);
 
         // summary
         $object['summary'] = $this->summary;
