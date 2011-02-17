@@ -1252,8 +1252,6 @@ class Notice extends Memcached_DataObject
 
     function asActivity()
     {
-                common_debug("a");
-
         $act = self::cacheGet(Cache::codeKey('notice:as-activity:'.$this->id));
 
         if (!empty($act)) {
@@ -1264,7 +1262,6 @@ class Notice extends Memcached_DataObject
         if (Event::handle('StartNoticeAsActivity', array($this, &$act))) {
 
             $profile = $this->getProfile();
-            common_debug('b');
             $act->actor     = ActivityObject::fromProfile($profile);
             $act->verb      = ActivityVerb::POST;
             $act->objects[] = ActivityObject::fromNotice($this);
