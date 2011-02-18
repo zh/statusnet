@@ -714,6 +714,18 @@ class ActivityObject
             $object[$objectName] = $props;
         }
 
+        // GeoJSON
+
+        if (!empty($this->geopoint)) {
+
+            list($lat, $long) = explode(' ', $this->geopoint);
+
+            $object['geopoint'] = array(
+                'type'        => 'Point',
+                'coordinates' => array($lat, $long)
+            );
+        }
+
         return array_filter($object);
     }
 }

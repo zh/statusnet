@@ -447,6 +447,24 @@ class Activity
                 $activity[$objectName] = $props;
             }
         }
+
+        /* more extensions */
+
+        if (!empty($this->context)) {
+
+            if (!empty($this->context->location)) {
+                $loc = $this->context->location;
+
+                // GeoJSON
+
+                $activity['geopoint'] = array(
+                    'type'        => 'Point',
+                    'coordinates' => array($loc->lat, $loc->lon)
+                );
+            }
+
+        }
+
         return array_filter($activity);
     }
 
