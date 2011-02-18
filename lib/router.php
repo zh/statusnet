@@ -407,7 +407,7 @@ class Router
 
             $m->connect('api/statuses/public_timeline.:format',
                         array('action' => 'ApiTimelinePublic',
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/friends_timeline.:format',
                         array('action' => 'ApiTimelineFriends',
@@ -416,55 +416,55 @@ class Router
             $m->connect('api/statuses/friends_timeline/:id.:format',
                         array('action' => 'ApiTimelineFriends',
                               'id' => Nickname::INPUT_FMT,
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/home_timeline.:format',
                         array('action' => 'ApiTimelineHome',
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/home_timeline/:id.:format',
                         array('action' => 'ApiTimelineHome',
                               'id' => Nickname::INPUT_FMT,
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/user_timeline.:format',
                         array('action' => 'ApiTimelineUser',
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/user_timeline/:id.:format',
                         array('action' => 'ApiTimelineUser',
                               'id' => Nickname::INPUT_FMT,
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/mentions.:format',
                         array('action' => 'ApiTimelineMentions',
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/mentions/:id.:format',
                         array('action' => 'ApiTimelineMentions',
                               'id' => Nickname::INPUT_FMT,
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/replies.:format',
                         array('action' => 'ApiTimelineMentions',
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/replies/:id.:format',
                         array('action' => 'ApiTimelineMentions',
                               'id' => Nickname::INPUT_FMT,
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statuses/retweeted_by_me.:format',
                         array('action' => 'ApiTimelineRetweetedByMe',
-                              'format' => '(xml|json|atom)'));
+                              'format' => '(xml|json|atom|as)'));
 
             $m->connect('api/statuses/retweeted_to_me.:format',
                         array('action' => 'ApiTimelineRetweetedToMe',
-                              'format' => '(xml|json|atom)'));
+                              'format' => '(xml|json|atom|as)'));
 
             $m->connect('api/statuses/retweets_of_me.:format',
                         array('action' => 'ApiTimelineRetweetsOfMe',
-                              'format' => '(xml|json|atom)'));
+                              'format' => '(xml|json|atom|as)'));
 
             $m->connect('api/statuses/friends.:format',
                         array('action' => 'ApiUserFriends',
@@ -625,12 +625,12 @@ class Router
 
             $m->connect('api/favorites.:format',
                         array('action' => 'ApiTimelineFavorites',
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/favorites/:id.:format',
                         array('action' => 'ApiTimelineFavorites',
                               'id' => Nickname::INPUT_FMT,
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/favorites/create/:id.:format',
                         array('action' => 'ApiFavoriteCreate',
@@ -695,7 +695,7 @@ class Router
             $m->connect('api/statusnet/groups/timeline/:id.:format',
                         array('action' => 'ApiTimelineGroup',
                               'id' => Nickname::INPUT_FMT,
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             $m->connect('api/statusnet/groups/show.:format',
                         array('action' => 'ApiGroupShow',
@@ -756,7 +756,7 @@ class Router
             // Tags
             $m->connect('api/statusnet/tags/timeline/:tag.:format',
                         array('action' => 'ApiTimelineTag',
-                              'format' => '(xml|json|rss|atom)'));
+                              'format' => '(xml|json|rss|atom|as)'));
 
             // media related
             $m->connect(
