@@ -16,17 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-14 16:00+0000\n"
-"PO-Revision-Date: 2011-02-14 16:05:23+0000\n"
+"POT-Creation-Date: 2011-02-17 10:25+0000\n"
+"PO-Revision-Date: 2011-02-17 10:27:04+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r82114); Translate extension (2011-02-01)\n"
+"X-Generator: MediaWiki 1.18alpha (r82325); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-02-03 00:48:08+0000\n"
+"X-POT-Import-Date: 2011-02-14 17:20:58+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -160,7 +160,7 @@ msgstr "No existeix la pàgina."
 #: actions/foaf.php:42 actions/foaf.php:61 actions/hcard.php:67
 #: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:144 actions/remotesubscribe.php:153
-#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
+#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:113
 #: actions/showfavorites.php:106 actions/userbyid.php:74
 #: actions/usergroups.php:93 actions/userrss.php:40 actions/userxrd.php:59
 #: actions/xrds.php:71 lib/command.php:497 lib/galleryaction.php:59
@@ -524,7 +524,8 @@ msgstr "No s'ha trobat l'usuari destinatari."
 
 #. TRANS: Client error displayed trying to direct message another user who's not a friend (403).
 #: actions/apidirectmessagenew.php:144
-msgid "Can't send direct messages to users who aren't your friend."
+#, fuzzy
+msgid "Cannot send direct messages to users who aren't your friend."
 msgstr ""
 "No es pot enviar missatges directes a usuaris que no siguin els vostres "
 "amics."
@@ -609,7 +610,7 @@ msgstr "No s'ha pogut trobar l'usuari de destinació."
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:156 actions/editgroup.php:191
 #: actions/newgroup.php:137 actions/profilesettings.php:273
-#: actions/register.php:214
+#: actions/register.php:206
 msgid "Nickname already in use. Try another one."
 msgstr "Aquest sobrenom ja existeix. Prova un altre. "
 
@@ -619,7 +620,7 @@ msgstr "Aquest sobrenom ja existeix. Prova un altre. "
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:164 actions/editgroup.php:195
 #: actions/newgroup.php:141 actions/profilesettings.php:243
-#: actions/register.php:216
+#: actions/register.php:208
 msgid "Not a valid nickname."
 msgstr "Sobrenom no vàlid."
 
@@ -632,7 +633,7 @@ msgstr "Sobrenom no vàlid."
 #: actions/apigroupcreate.php:181 actions/editapplication.php:235
 #: actions/editgroup.php:202 actions/newapplication.php:221
 #: actions/newgroup.php:148 actions/profilesettings.php:248
-#: actions/register.php:223
+#: actions/register.php:215
 msgid "Homepage is not a valid URL."
 msgstr "La pàgina personal no és un URL vàlid."
 
@@ -642,7 +643,7 @@ msgstr "La pàgina personal no és un URL vàlid."
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:191 actions/editgroup.php:206
 #: actions/newgroup.php:152 actions/profilesettings.php:252
-#: actions/register.php:226
+#: actions/register.php:218
 msgid "Full name is too long (maximum 255 characters)."
 msgstr "El vostre nom sencer és massa llarg (màx. 255 caràcters)."
 
@@ -670,7 +671,7 @@ msgstr[1] "La descripció és massa llarga (màx. %d caràcters)."
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:215 actions/editgroup.php:218
 #: actions/newgroup.php:164 actions/profilesettings.php:265
-#: actions/register.php:235
+#: actions/register.php:227
 msgid "Location is too long (maximum 255 characters)."
 msgstr "La localització és massa llarga (màx. 255 caràcters)."
 
@@ -825,15 +826,15 @@ msgstr "El testimoni de sol·licitud ja està autoritzat."
 #: actions/emailsettings.php:291 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:65 actions/grouplogo.php:321
 #: actions/groupunblock.php:65 actions/imsettings.php:224
-#: actions/invite.php:60 actions/login.php:137 actions/makeadmin.php:66
+#: actions/invite.php:60 actions/login.php:131 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:105 actions/nudge.php:80
-#: actions/oauthappssettings.php:165 actions/oauthconnectionssettings.php:138
-#: actions/othersettings.php:155 actions/passwordsettings.php:138
+#: actions/oauthappssettings.php:165 actions/oauthconnectionssettings.php:136
+#: actions/othersettings.php:155 actions/passwordsettings.php:137
 #: actions/profilesettings.php:217 actions/recoverpassword.php:383
-#: actions/register.php:172 actions/remotesubscribe.php:76
+#: actions/register.php:164 actions/remotesubscribe.php:76
 #: actions/repeat.php:82 actions/smssettings.php:250 actions/subedit.php:40
 #: actions/subscribe.php:86 actions/tagother.php:166
-#: actions/unsubscribe.php:69 actions/userauthorization.php:52
+#: actions/unsubscribe.php:69 actions/userauthorization.php:53
 #: lib/designsettings.php:310
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
@@ -866,7 +867,7 @@ msgstr "Error de la base de dades en inserir l'oauth_token_association."
 #: actions/designadminpanel.php:100 actions/editapplication.php:144
 #: actions/emailsettings.php:310 actions/grouplogo.php:332
 #: actions/imsettings.php:239 actions/newapplication.php:124
-#: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:46
+#: actions/oauthconnectionssettings.php:145 actions/recoverpassword.php:46
 #: actions/smssettings.php:271 lib/designsettings.php:321
 msgid "Unexpected form submission."
 msgstr "Enviament de formulari inesperat."
@@ -917,19 +918,20 @@ msgstr "Compte"
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group nickname (dt). Text hidden by default.
+#. TRANS: DT element on Authorise Subscription page.
 #. TRANS: DT for nick name in a profile.
-#: actions/apioauthauthorize.php:459 actions/login.php:252
-#: actions/profilesettings.php:106 actions/register.php:432
+#: actions/apioauthauthorize.php:459 actions/login.php:242
+#: actions/profilesettings.php:106 actions/register.php:418
 #: actions/showgroup.php:243 actions/tagother.php:94
-#: actions/userauthorization.php:145 lib/groupeditform.php:145
+#: actions/userauthorization.php:152 lib/groupeditform.php:145
 #: lib/userprofile.php:137
 msgid "Nickname"
 msgstr "Sobrenom"
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:463 actions/login.php:255
-#: actions/register.php:436 lib/accountsettingsaction.php:120
+#: actions/apioauthauthorize.php:463 actions/login.php:245
+#: actions/register.php:422 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "Contrasenya"
 
@@ -1050,8 +1052,8 @@ msgstr "El mètode HTTP no està implementat."
 #. TRANS: Exception thrown requesting an unsupported notice output format.
 #. TRANS: %s is the requested output format.
 #: actions/apistatusesshow.php:144
-#, php-format
-msgid "Unsupported format: %s"
+#, fuzzy, php-format
+msgid "Unsupported format: %s."
 msgstr "Format no permès: %s"
 
 #. TRANS: Client error displayed requesting a deleted status.
@@ -1227,25 +1229,26 @@ msgid "Atom post must be an Atom entry."
 msgstr "L'enviament Atom ha de ser una entrada Atom."
 
 #. TRANS: Client error displayed when not using the POST verb. Do not translate POST.
-#: actions/apitimelineuser.php:335
+#: actions/apitimelineuser.php:334
 msgid "Can only handle POST activities."
 msgstr "Només es poden gestionar les activitats POST."
 
 #. TRANS: Client error displayed when using an unsupported activity object type.
 #. TRANS: %s is the unsupported activity object type.
-#: actions/apitimelineuser.php:346
+#: actions/apitimelineuser.php:345
 #, php-format
 msgid "Cannot handle activity object type \"%s\"."
 msgstr "No es pot gestionar l'activitat del tipus d'objecte «%s»"
 
 #. TRANS: Client error displayed when posting a notice without content through the API.
 #. TRANS: %d is the notice ID (number).
-#: actions/apitimelineuser.php:380
+#: actions/apitimelineuser.php:379
 #, php-format
 msgid "No content for notice %d."
 msgstr "No hi ha contingut de l'avís %d"
 
 #. TRANS: Client error displayed when using another format than AtomPub.
+#. TRANS: %s is the notice URI.
 #: actions/apitimelineuser.php:408
 #, php-format
 msgid "Notice with URI \"%s\" already exists."
@@ -1400,7 +1403,7 @@ msgid "Not a member."
 msgstr "No és un membre."
 
 #. TRANS: Client exception thrown when deleting someone else's membership.
-#: actions/atompubshowmembership.php:151
+#: actions/atompubshowmembership.php:150
 msgid "Cannot delete someone else's membership."
 msgstr "No es pot eliminar la pertinència d'algú altre."
 
@@ -1428,9 +1431,9 @@ msgstr "No es pot eliminar la subscripció d'algú altre."
 #. TRANS: Subtitle for Atom subscription feed.
 #. TRANS: %1$s is a user nickname, %s$s is the StatusNet sitename.
 #: actions/atompubsubscriptionfeed.php:153
-#, fuzzy, php-format
+#, php-format
 msgid "People %1$s has subscribed to on %2$s"
-msgstr "Gent subscrita a %s"
+msgstr "Gent a qui %1$s ha subscrit a %2$s"
 
 #. TRANS: Client error displayed when not using the follow verb.
 #: actions/atompubsubscriptionfeed.php:248
@@ -1504,9 +1507,11 @@ msgstr ""
 
 #. TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
 #. TRANS: Server error displayed coming across a request from a user without a profile.
+#. TRANS: Server error displayed when trying to authorise a remote subscription request
+#. TRANS: while the user has no profile.
 #: actions/avatarsettings.php:108 actions/avatarsettings.php:192
 #: actions/grouplogo.php:184 actions/remotesubscribe.php:190
-#: actions/userauthorization.php:72 actions/userrss.php:108
+#: actions/userauthorization.php:75 actions/userrss.php:108
 msgid "User without matching profile."
 msgstr "L'usuari que no coincideix amb cap perfil"
 
@@ -1561,9 +1566,10 @@ msgstr "Retalla"
 msgid "No file uploaded."
 msgstr "No s'ha carregat cap fitxer."
 
-#. TRANS: Avatar upload form unstruction after uploading a file.
+#. TRANS: Avatar upload form instruction after uploading a file.
 #: actions/avatarsettings.php:345
-msgid "Pick a square area of the image to be your avatar"
+#, fuzzy
+msgid "Pick a square area of the image to be your avatar."
 msgstr ""
 "Selecciona un quadrat de l'àrea de la imatge que vols que sigui el teu "
 "avatar."
@@ -1631,7 +1637,8 @@ msgstr "Còpia de seguretat"
 
 #. TRANS: Title for submit button to backup an account on the backup account page.
 #: actions/backupaccount.php:252
-msgid "Backup your account"
+#, fuzzy
+msgid "Backup your account."
 msgstr "Fes una còpia de seguretat del compte"
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
@@ -1672,7 +1679,8 @@ msgstr "No"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
 #: actions/block.php:158
-msgid "Do not block this user"
+#, fuzzy
+msgid "Do not block this user."
 msgstr "No bloquis l'usuari"
 
 #. TRANS: Button label on the user block form.
@@ -1689,9 +1697,9 @@ msgid "Yes"
 msgstr "Sí"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
-#. TRANS: Description of the form to block a user.
-#: actions/block.php:165 lib/blockform.php:79
-msgid "Block this user"
+#: actions/block.php:165
+#, fuzzy
+msgid "Block this user."
 msgstr "Bloca aquest usuari"
 
 #. TRANS: Server error displayed when blocking a user fails.
@@ -1854,7 +1862,7 @@ msgstr ""
 #. TRANS: Field label for delete account confirmation entry.
 #. TRANS: Field label for password reset form where the password has to be typed again.
 #: actions/deleteaccount.php:300 actions/passwordsettings.php:112
-#: actions/recoverpassword.php:262 actions/register.php:440
+#: actions/recoverpassword.php:262 actions/register.php:426
 msgid "Confirm"
 msgstr "Confirma"
 
@@ -1883,13 +1891,13 @@ msgstr "No s'ha trobat l'aplicació."
 #. TRANS: Client error displayed trying to delete an application the current user does not own.
 #. TRANS: Client error displayed trying to edit an application while not being its owner.
 #: actions/deleteapplication.php:79 actions/editapplication.php:78
-#: actions/showapplication.php:94
+#: actions/showapplication.php:90
 msgid "You are not the owner of this application."
 msgstr "No sou el propietari d'aquesta aplicació."
 
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:131
-#: actions/newapplication.php:112 actions/showapplication.php:118
+#: actions/newapplication.php:112 actions/showapplication.php:113
 #: lib/action.php:1422
 msgid "There was a problem with your session token."
 msgstr "S'ha produït un problema amb el testimoni de la vostra sessió."
@@ -1913,12 +1921,14 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting an application.
 #: actions/deleteapplication.php:161
-msgid "Do not delete this application"
+#, fuzzy
+msgid "Do not delete this application."
 msgstr "No eliminis l'aplicació"
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:167
-msgid "Delete this application"
+#, fuzzy
+msgid "Delete this application."
 msgstr "Elimina aquesta aplicació"
 
 #. TRANS: Client error when trying to delete group while not logged in.
@@ -1972,12 +1982,14 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a group.
 #: actions/deletegroup.php:224
-msgid "Do not delete this group"
+#, fuzzy
+msgid "Do not delete this group."
 msgstr "No eliminis aquest grup"
 
 #. TRANS: Submit button title for 'Yes' when deleting a group.
 #: actions/deletegroup.php:231
-msgid "Delete this group"
+#, fuzzy
+msgid "Delete this group."
 msgstr "Elimina aquest grup"
 
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
@@ -2020,12 +2032,14 @@ msgstr "Esteu segur que voleu eliminar aquest avís?"
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
 #: actions/deletenotice.php:159
-msgid "Do not delete this notice"
+#, fuzzy
+msgid "Do not delete this notice."
 msgstr "No eliminis aquest avís"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:166 lib/noticelist.php:673
-msgid "Delete this notice"
+#: actions/deletenotice.php:166
+#, fuzzy
+msgid "Delete this notice."
 msgstr "Elimina aquest avís"
 
 #. TRANS: Client error displayed when trying to delete a user without having the right to delete users.
@@ -2060,13 +2074,14 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a user.
 #: actions/deleteuser.php:158
-msgid "Do not delete this user"
+#, fuzzy
+msgid "Do not delete this user."
 msgstr "No eliminis aquest usuari"
 
 #. TRANS: Submit button title for 'Yes' when deleting a user.
-#. TRANS: Description of form for deleting a user.
-#: actions/deleteuser.php:165 lib/deleteuserform.php:75
-msgid "Delete this user"
+#: actions/deleteuser.php:165
+#, fuzzy
+msgid "Delete this user."
 msgstr "Elimina l'usuari"
 
 #. TRANS: Message used as title for design settings for the site.
@@ -2229,21 +2244,21 @@ msgid "Use defaults"
 msgstr "Utilitza els paràmetres per defecte"
 
 #. TRANS: Title for button for resetting theme settings.
-#. TRANS: Title for button on profile design page to reset all colour settings to default.
-#: actions/designadminpanel.php:720 lib/designsettings.php:259
-msgid "Restore default designs"
+#: actions/designadminpanel.php:720
+#, fuzzy
+msgid "Restore default designs."
 msgstr "Restaura els dissenys per defecte"
 
 #. TRANS: Title for button for resetting theme settings.
-#. TRANS: Title for button on profile design page to reset all colour settings to default without saving.
-#: actions/designadminpanel.php:728 lib/designsettings.php:267
-msgid "Reset back to default"
+#: actions/designadminpanel.php:728
+#, fuzzy
+msgid "Reset back to default."
 msgstr "Torna a restaurar al valor per defecte"
 
 #. TRANS: Title for button for saving theme settings.
-#. TRANS: Title for button on profile design page to save settings.
-#: actions/designadminpanel.php:736 lib/designsettings.php:272
-msgid "Save design"
+#: actions/designadminpanel.php:736
+#, fuzzy
+msgid "Save design."
 msgstr "Desa el disseny"
 
 #. TRANS: Client error displayed when trying to remove favorite status for a notice that is not a favorite.
@@ -2275,7 +2290,7 @@ msgid "You must be logged in to edit an application."
 msgstr "Heu d'iniciar una sessió per editar una aplicació."
 
 #. TRANS: Client error displayed trying to edit an application that does not exist.
-#: actions/editapplication.php:83 actions/showapplication.php:87
+#: actions/editapplication.php:83 actions/showapplication.php:83
 msgid "No such application."
 msgstr "No hi ha tal aplicació."
 
@@ -2557,7 +2572,7 @@ msgid "Cannot normalize that email address."
 msgstr "No es pot normalitzar l'adreça electrònica."
 
 #. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:393 actions/register.php:212
+#: actions/emailsettings.php:393 actions/register.php:204
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "Adreça de correu electrònic no vàlida."
@@ -2632,18 +2647,21 @@ msgstr "No hi ha cap direcció de correu electrònic entrant."
 
 #. TRANS: Server error thrown on database error removing incoming e-mail address.
 #. TRANS: Server error thrown on database error adding incoming e-mail address.
+#. TRANS: Server error displayed when the user could not be updated in SMS settings.
 #: actions/emailsettings.php:530 actions/emailsettings.php:554
-#: actions/smssettings.php:565 actions/smssettings.php:588
+#: actions/smssettings.php:566 actions/smssettings.php:591
 msgid "Could not update user record."
 msgstr "No s'ha pogut actualitzar el registre de l'usuari."
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
-#: actions/emailsettings.php:534 actions/smssettings.php:568
+#. TRANS: Confirmation text after updating SMS settings.
+#: actions/emailsettings.php:534 actions/smssettings.php:570
 msgid "Incoming email address removed."
 msgstr "Eliminat el correu electrònic entrant."
 
 #. TRANS: Message given after successfully adding an incoming e-mail address.
-#: actions/emailsettings.php:558 actions/smssettings.php:591
+#. TRANS: Confirmation text after updating SMS settings.
+#: actions/emailsettings.php:558 actions/smssettings.php:595
 msgid "New incoming email address added."
 msgstr "Nou correu electrònic entrant afegit."
 
@@ -2654,7 +2672,8 @@ msgstr "Aquest avís ja és un preferit."
 
 #. TRANS: Page title for page on which favorite notices can be unfavourited.
 #: actions/favor.php:95
-msgid "Disfavor favorite"
+#, fuzzy
+msgid "Disfavor favorite."
 msgstr "Fes que deixi de ser preferit"
 
 #. TRANS: Page title for first page of favorited notices.
@@ -2894,12 +2913,14 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
 #: actions/groupblock.php:191
-msgid "Do not block this user from this group"
+#, fuzzy
+msgid "Do not block this user from this group."
 msgstr "No bloquis l'usuari del grup"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
 #: actions/groupblock.php:198
-msgid "Block this user from this group"
+#, fuzzy
+msgid "Block this user from this group."
 msgstr "Bloca l'usuari del grup"
 
 #. TRANS: Server error displayed when trying to block a user from a group fails because of an application error.
@@ -2933,9 +2954,8 @@ msgstr ""
 
 #. TRANS: Form validation error displayed when group design settings could not be updated because of an application issue.
 #: actions/groupdesignsettings.php:262
-#, fuzzy
 msgid "Unable to update your design settings."
-msgstr "No s'han pogut desar els paràmetres de disseny."
+msgstr "No s'han pogut actualitzar els paràmetres de disseny."
 
 #. TRANS: Form text to confirm saved group design settings.
 #: actions/groupdesignsettings.php:307 actions/userdesignsettings.php:222
@@ -3044,7 +3064,6 @@ msgstr "Actualitzacions dels membres de %1$s el %2$s!"
 
 #. TRANS: Title for first page of the groups list.
 #: actions/groups.php:62
-#, fuzzy
 msgctxt "TITLE"
 msgid "Groups"
 msgstr "Grups"
@@ -3052,7 +3071,7 @@ msgstr "Grups"
 #. TRANS: Title for all but the first page of the groups list.
 #. TRANS: %d is the page number.
 #: actions/groups.php:66
-#, fuzzy, php-format
+#, php-format
 msgctxt "TITLE"
 msgid "Groups, page %d"
 msgstr "Grups, pàgina %d"
@@ -3061,7 +3080,7 @@ msgstr "Grups, pàgina %d"
 #. TRANS: %%%%action.groupsearch%%%% and %%%%action.newgroup%%%% are URLs. Do not change them.
 #. TRANS: This message contains Markdown links in the form [link text](link).
 #: actions/groups.php:95
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%%%%site.name%%%% groups let you find and talk with people of similar "
 "interests. After you join a group you can send messages to all other members "
@@ -3073,7 +3092,7 @@ msgstr ""
 "d'interessos semblants. Després d'unir-vos a un grup, podeu enviar missatges "
 "a altres membres emprant la sintaxi «!groupname». No veieu cap grup que us "
 "agradi? Proveu de [cercar-ne un](%%%%action.groupsearch%%%%) o [comenceu-ne "
-"un de propi!](%%%%action.newgroup%%%%)"
+"un de propi!](%%%%action.newgroup%%%%)!"
 
 #. TRANS: Link to create a new group on the group list page.
 #: actions/groups.php:113 actions/usergroups.php:126 lib/groupeditform.php:115
@@ -3104,7 +3123,7 @@ msgstr "Cap resultat."
 #. TRANS: Additional text on page where groups can be searched if no results were found for a query for a logged in user.
 #. TRANS: This message contains Markdown links in the form [link text](link).
 #: actions/groupsearch.php:87
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "If you cannot find the group you're looking for, you can [create it](%%"
 "action.newgroup%%) yourself."
@@ -3147,7 +3166,7 @@ msgstr "Paràmetres de missatgeria instantània"
 #. TRANS: [instant messages] is link text, "(%%doc.im%%)" is the link.
 #. TRANS: the order and formatting of link text and link should remain unchanged.
 #: actions/imsettings.php:71
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can send and receive notices through Jabber/Google Talk [instant "
 "messages](%%doc.im%%). Configure your address and settings below."
@@ -3167,21 +3186,20 @@ msgid "IM address"
 msgstr "Adreça de missatgeria instantània"
 
 #: actions/imsettings.php:109
-#, fuzzy
 msgid "Current confirmed Jabber/Google Talk address."
 msgstr "Adreça actual Jabber/Gtalk confirmada."
 
 #. TRANS: Form note in Instant Messaging settings form.
 #. TRANS: %s is the Instant Messaging address set for the site.
 #: actions/imsettings.php:120
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Awaiting confirmation on this address. Check your Jabber/Google Talk account "
 "for a message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
-"A l'espera d'una confirmació per a aquesta adreça. Busca al teu compte "
-"Jabber/GTalk un missatge amb més instruccions. (Has afegit a %s a la teva "
-"llista d'amics?)"
+"A l'espera d'una confirmació per a aquesta adreça. Reviseu al vostre compte "
+"de Jabber/GTalk si hi ha un missatge amb més instruccions. (Heu afegit a %s "
+"a la llista d'amics?)"
 
 #. TRANS: IM address input field instructions in Instant Messaging settings form.
 #. TRANS: %s is the Instant Messaging address set for the site.
@@ -3189,7 +3207,7 @@ msgstr ""
 #. TRANS: http://www.rfc-editor.org/rfc/rfc2606.txt. Any other domain may be owned by a legitimate
 #. TRANS: person or organization.
 #: actions/imsettings.php:139
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Jabber or Google Talk address, like \"UserName@example.org\". First, make "
 "sure to add %s to your buddy list in your IM client or on Google Talk."
@@ -3205,19 +3223,16 @@ msgstr "Preferències de MI"
 
 #. TRANS: Checkbox label in Instant Messaging preferences form.
 #: actions/imsettings.php:159
-#, fuzzy
 msgid "Send me notices through Jabber/Google Talk."
 msgstr "Envia'm avisos per Jabber/GTalk."
 
 #. TRANS: Checkbox label in Instant Messaging preferences form.
 #: actions/imsettings.php:165
-#, fuzzy
 msgid "Post a notice when my Jabber/Google Talk status changes."
-msgstr "Envia'm un avís quan el meu estat Jabber/GTalk canvii."
+msgstr "Envia un avís quan el meu estat Jabber/GTalk canviï."
 
 #. TRANS: Checkbox label in Instant Messaging preferences form.
 #: actions/imsettings.php:171
-#, fuzzy
 msgid ""
 "Send me replies through Jabber/Google Talk from people I'm not subscribed to."
 msgstr ""
@@ -3226,12 +3241,12 @@ msgstr ""
 
 #. TRANS: Checkbox label in Instant Messaging preferences form.
 #: actions/imsettings.php:178
-#, fuzzy
 msgid "Publish a MicroID for my Jabber/Google Talk address."
-msgstr "Publica una MicroID per al meu compte de Jabber/GTalk."
+msgstr "Publica una MicroID per a la meva adreça de Jabber/GTalk."
 
 #. TRANS: Confirmation message for successful Instant Messaging preferences save.
-#: actions/imsettings.php:283 actions/othersettings.php:192
+#. TRANS: Confirmation message after saving preferences.
+#: actions/imsettings.php:283 actions/othersettings.php:193
 msgid "Preferences saved."
 msgstr "S'han desat les preferències."
 
@@ -3242,15 +3257,13 @@ msgstr "Cap Jabber ID."
 
 #. TRANS: Message given saving Instant Messaging address that cannot be normalised.
 #: actions/imsettings.php:312
-#, fuzzy
 msgid "Cannot normalize that Jabber ID."
-msgstr "Impossible normalitzar aquest Jabber ID"
+msgstr "No es pot normalitzar aquest Jabber ID."
 
 #. TRANS: Message given saving Instant Messaging address that not valid.
 #: actions/imsettings.php:317
-#, fuzzy
 msgid "Not a valid Jabber ID."
-msgstr "Jabber ID no vàlid"
+msgstr "No és un ID de Jabber vàlid."
 
 #. TRANS: Message given saving Instant Messaging address that is already set.
 #: actions/imsettings.php:321
@@ -3413,9 +3426,8 @@ msgstr "Adreces de correu electrònic"
 
 #. TRANS: Tooltip for field label for a list of e-mail addresses.
 #: actions/invite.php:221
-#, fuzzy
 msgid "Addresses of friends to invite (one per line)."
-msgstr "Adreces d'amics per convidar (una per línia)"
+msgstr "Adreces d'amics per convidar (una per línia)."
 
 #. TRANS: Field label for a personal message to send to invitees.
 #: actions/invite.php:225
@@ -3647,43 +3659,43 @@ msgstr "Desa"
 msgid "Save license settings"
 msgstr "Desa els paràmetres de la llicència"
 
-#: actions/login.php:102 actions/otp.php:62 actions/register.php:144
+#: actions/login.php:97 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "Ja hi heu iniciat una sessió."
 
-#: actions/login.php:148
+#: actions/login.php:142
 msgid "Incorrect username or password."
 msgstr "Nom d'usuari o contrasenya incorrectes."
 
-#: actions/login.php:154 actions/otp.php:120
+#: actions/login.php:148 actions/otp.php:120
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
 "S'ha produït un error en definir l'usuari. Probablement no hi esteu "
 "autoritzat."
 
-#: actions/login.php:210 actions/login.php:263
+#: actions/login.php:202 actions/login.php:253
 msgid "Login"
 msgstr "Inici de sessió"
 
-#: actions/login.php:249
+#: actions/login.php:239
 msgid "Login to site"
 msgstr "Accedir al lloc"
 
-#: actions/login.php:258 actions/register.php:490
+#: actions/login.php:248 actions/register.php:476
 msgid "Remember me"
 msgstr "Recorda'm"
 
-#: actions/login.php:259 actions/register.php:492
+#: actions/login.php:249 actions/register.php:478
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "Inicia la sessió automàticament en el futur; no ho activeu en ordinadors "
 "compartits!"
 
-#: actions/login.php:269
+#: actions/login.php:259
 msgid "Lost or forgotten password?"
 msgstr "Contrasenya oblidada o perduda?"
 
-#: actions/login.php:288
+#: actions/login.php:277
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -3691,11 +3703,11 @@ msgstr ""
 "Per raons de seguretat, torneu a escriure el vostre nom d'usuari i "
 "contrasenya abans de canviar la vostra configuració."
 
-#: actions/login.php:292
+#: actions/login.php:281
 msgid "Login with your username and password."
 msgstr "Inicieu una sessió amb nom d'usuari i contrasenya"
 
-#: actions/login.php:295
+#: actions/login.php:284
 #, php-format
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
@@ -3905,30 +3917,30 @@ msgid "You have not registered any applications yet."
 msgstr "No teniu cap aplicació registrada encara."
 
 #. TRANS: Title for OAuth connection settings.
-#: actions/oauthconnectionssettings.php:71
+#: actions/oauthconnectionssettings.php:70
 msgid "Connected applications"
 msgstr "Aplicacions connectades"
 
 #. TRANS: Instructions for OAuth connection settings.
-#: actions/oauthconnectionssettings.php:83
+#: actions/oauthconnectionssettings.php:81
 msgid "The following connections exist for your account."
 msgstr "Les connexions següents existeixen per al vostre compte."
 
 #. TRANS: Client error when trying to revoke access for an application while not being a user of it.
-#: actions/oauthconnectionssettings.php:168
+#: actions/oauthconnectionssettings.php:166
 msgid "You are not a user of that application."
 msgstr "No sou usuari de l'aplicació."
 
 #. TRANS: Client error when revoking access has failed for some reason.
 #. TRANS: %s is the application ID revoking access failed for.
-#: actions/oauthconnectionssettings.php:183
+#: actions/oauthconnectionssettings.php:181
 #, php-format
 msgid "Unable to revoke access for application: %s."
 msgstr "No s'ha pogut revocar l'accés de l'aplicació: %s"
 
 #. TRANS: Success message after revoking access for an application.
 #. TRANS: %1$s is the application name, %2$s is the first part of the user token.
-#: actions/oauthconnectionssettings.php:202
+#: actions/oauthconnectionssettings.php:200
 #, php-format
 msgid ""
 "You have successfully revoked access for %1$s and the access token starting "
@@ -3938,14 +3950,14 @@ msgstr ""
 "2$s."
 
 #. TRANS: Empty list message when no applications have been authorised yet.
-#: actions/oauthconnectionssettings.php:213
+#: actions/oauthconnectionssettings.php:211
 msgid "You have not authorized any applications to use your account."
 msgstr "No heu autoritzat cap aplicació perquè utilitzi el vostre compte."
 
 #. TRANS: Note for developers in the OAuth connection settings form.
 #. TRANS: This message contains a Markdown link. Do not separate "](".
 #. TRANS: %s is the URL to the OAuth settings.
-#: actions/oauthconnectionssettings.php:233
+#: actions/oauthconnectionssettings.php:231
 #, php-format
 msgid ""
 "Are you a developer? [Register an OAuth client application](%s) to use with "
@@ -3953,6 +3965,16 @@ msgid ""
 msgstr ""
 "Sou un desenvolupador? [Registreu una aplicació de client OAuth](%s) per "
 "utilitzar-la amb una instància de l'StatusNet."
+
+#: actions/oembed.php:64
+#, fuzzy, php-format
+msgid "\"%s\" not found."
+msgstr "No s'ha trobat el mètode API!"
+
+#: actions/oembed.php:76
+#, fuzzy, php-format
+msgid "Notice %s not found."
+msgstr "No s'ha trobat l'avís pare."
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -3962,6 +3984,16 @@ msgstr "L'avís no té cap perfil."
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "estat de %1$s a %2$s"
+
+#: actions/oembed.php:95
+#, fuzzy, php-format
+msgid "Attachment %s not found."
+msgstr "No s'ha trobat l'usuari destinatari."
+
+#: actions/oembed.php:136
+#, php-format
+msgid "\"%s\" not supported for oembed requests."
+msgstr ""
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:168
@@ -4053,17 +4085,21 @@ msgstr "No s'ha especificat un testimoni d'inici de sessió vàlid."
 msgid "Login token expired."
 msgstr "El testimoni d'inici de sessió ha vençut."
 
-#: actions/outbox.php:58
+#. TRANS: Title for outbox for any but the fist page.
+#. TRANS: %1$s is the user nickname, %2$d is the page number.
+#: actions/outbox.php:57
 #, php-format
 msgid "Outbox for %1$s - page %2$d"
 msgstr "Safata de sortida de %1$s - pàgina %2$d"
 
+#. TRANS: Title for first page of outbox.
 #: actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
 msgstr "Safata de sortida per %s"
 
-#: actions/outbox.php:104
+#. TRANS: Instructions for outbox.
+#: actions/outbox.php:103
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr ""
 "Aquesta és la teva safata de sortida, que et mostrarà els missatges privats "
@@ -4091,40 +4127,42 @@ msgstr "Antiga contrasenya"
 msgid "New password"
 msgstr "Nova contrasenya"
 
-#: actions/passwordsettings.php:109
-msgid "6 or more characters"
-msgstr "6 o més caràcters"
+#: actions/passwordsettings.php:109 actions/register.php:423
+msgid "6 or more characters."
+msgstr "6 o més caràcters."
 
-#: actions/passwordsettings.php:113
-msgid "Same as password above"
-msgstr "Igual a la contrasenya de dalt"
+#. TRANS: Ttile for field label for password reset form where the password has to be typed again.
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:264
+#: actions/register.php:427
+msgid "Same as password above."
+msgstr "Igual que la contrasenya de dalt"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
 msgstr "Canvia"
 
-#: actions/passwordsettings.php:154 actions/register.php:238
+#: actions/passwordsettings.php:153 actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr "La contrasenya hauria de ser d'entre 6 a més caràcters."
 
-#: actions/passwordsettings.php:157 actions/register.php:241
+#: actions/passwordsettings.php:156 actions/register.php:233
 msgid "Passwords don't match."
 msgstr "Les contrasenyes no coincideixen."
 
-#: actions/passwordsettings.php:165
+#: actions/passwordsettings.php:164
 msgid "Incorrect old password"
 msgstr "Contrasenya antiga incorrecta"
 
-#: actions/passwordsettings.php:181
+#: actions/passwordsettings.php:180
 msgid "Error saving user; invalid."
 msgstr "S'ha produït un error en desar l'usuari; no és vàlid."
 
-#: actions/passwordsettings.php:186
-msgid "Can't save new password."
+#. TRANS: Reset password form validation error message.
+#: actions/passwordsettings.php:185 actions/recoverpassword.php:418
+msgid "Cannot save new password."
 msgstr "No es pot desar la nova contrasenya."
 
-#. TRANS: Title for password recovery page in password saved mode.
-#: actions/passwordsettings.php:192 actions/recoverpassword.php:229
+#: actions/passwordsettings.php:191
 msgid "Password saved."
 msgstr "Contrasenya guardada."
 
@@ -4451,7 +4489,7 @@ msgid "Profile information"
 msgstr "Informació del perfil"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:109 actions/register.php:433
+#: actions/profilesettings.php:109 actions/register.php:419
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr ""
 "1-64 lletres en minúscula o nombres, sense signes de puntuació o espais."
@@ -4459,7 +4497,7 @@ msgstr ""
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for full group name (dt). Text hidden by default.
 #. TRANS: DT for full name in a profile.
-#: actions/profilesettings.php:113 actions/register.php:455
+#: actions/profilesettings.php:113 actions/register.php:441
 #: actions/showgroup.php:255 actions/tagother.php:104
 #: lib/groupeditform.php:150 lib/userprofile.php:156
 msgid "Full name"
@@ -4467,20 +4505,20 @@ msgstr "Nom complet"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:118 actions/register.php:460
+#: actions/profilesettings.php:118 actions/register.php:446
 #: lib/applicationeditform.php:236 lib/groupeditform.php:154
 msgid "Homepage"
 msgstr "Pàgina personal"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:121
+#: actions/profilesettings.php:121 actions/register.php:448
 msgid "URL of your homepage, blog, or profile on another site."
 msgstr "URL del vostre web, blog o perfil en un altre lloc."
 
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#: actions/profilesettings.php:129 actions/register.php:471
+#: actions/profilesettings.php:129 actions/register.php:457
 #, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
@@ -4488,28 +4526,29 @@ msgstr[0] "Descriviu qui sou i els vostres interessos en %d caràcter"
 msgstr[1] "Descriviu qui sou i els vostres interessos en %d caràcters"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:135 actions/register.php:476
+#: actions/profilesettings.php:135 actions/register.php:462
 msgid "Describe yourself and your interests"
 msgstr "Feu una descripció personal i interessos"
 
 #. TRANS: Text area label in form for profile settings where users can provide.
 #. TRANS: their biography.
-#: actions/profilesettings.php:139 actions/register.php:478
+#: actions/profilesettings.php:139 actions/register.php:464
 msgid "Bio"
 msgstr "Biografia"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group location (dt). Text hidden by default.
+#. TRANS: DT element on Authorise Subscription page.
 #. TRANS: DT for location in a profile.
-#: actions/profilesettings.php:145 actions/register.php:483
+#: actions/profilesettings.php:145 actions/register.php:469
 #: actions/showgroup.php:265 actions/tagother.php:112
-#: actions/userauthorization.php:166 lib/groupeditform.php:173
+#: actions/userauthorization.php:174 lib/groupeditform.php:173
 #: lib/userprofile.php:172
 msgid "Location"
 msgstr "Ubicació"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:148 actions/register.php:485
+#: actions/profilesettings.php:148
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "On us trobeu, per exemple «ciutat, comarca (o illa), país»"
 
@@ -4528,8 +4567,10 @@ msgstr "Etiquetes"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:164
+#, fuzzy
 msgid ""
-"Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
+"Tags for yourself (letters, numbers, -, ., and _), comma- or space- "
+"separated."
 msgstr ""
 "Etiquetes pròpies (lletres, nombres, -, ., i _), per comes o separades amb "
 "espais"
@@ -4541,7 +4582,8 @@ msgstr "Llengua"
 
 #. TRANS: Tooltip for dropdown list label in form for profile settings.
 #: actions/profilesettings.php:171
-msgid "Preferred language"
+#, fuzzy
+msgid "Preferred language."
 msgstr "Llengua preferida"
 
 #. TRANS: Dropdownlist label in form for profile settings.
@@ -4556,8 +4598,9 @@ msgstr "En quin fus horari us trobeu normalment?"
 
 #. TRANS: Checkbox label in form for profile settings.
 #: actions/profilesettings.php:189
+#, fuzzy
 msgid ""
-"Automatically subscribe to whoever subscribes to me (best for non-humans)"
+"Automatically subscribe to whoever subscribes to me (best for non-humans)."
 msgstr ""
 "Subscripció automàtica a qualsevol qui em tingui subscrit (ideal per no-"
 "humans)"
@@ -4565,7 +4608,7 @@ msgstr ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
-#: actions/profilesettings.php:258 actions/register.php:229
+#: actions/profilesettings.php:258 actions/register.php:221
 #, php-format
 msgid "Bio is too long (maximum %d character)."
 msgid_plural "Bio is too long (maximum %d characters)."
@@ -4584,9 +4627,9 @@ msgstr "La llengua és massa llarga (màxim 50 caràcters)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
-#: actions/profilesettings.php:291 actions/tagother.php:178
-#, php-format
-msgid "Invalid tag: \"%s\""
+#: actions/profilesettings.php:291
+#, fuzzy, php-format
+msgid "Invalid tag: \"%s\"."
 msgstr "L'etiqueta no és vàlida: «%s»"
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
@@ -4829,6 +4872,12 @@ msgstr "Recupera la contrasenya"
 msgid "Password recovery requested"
 msgstr "Recuperació de contrasenya sol·licitada"
 
+#. TRANS: Title for password recovery page in password saved mode.
+#: actions/recoverpassword.php:229
+#, fuzzy
+msgid "Password saved"
+msgstr "Contrasenya guardada."
+
 #. TRANS: Title for password recovery page when an unknown action has been specified.
 #: actions/recoverpassword.php:232
 msgid "Unknown action"
@@ -4838,11 +4887,6 @@ msgstr "Acció desconeguda"
 #: actions/recoverpassword.php:258
 msgid "6 or more characters, and do not forget it!"
 msgstr "6 o més caràcters, i no ho oblideu!"
-
-#. TRANS: Ttile for field label for password reset form where the password has to be typed again.
-#: actions/recoverpassword.php:264 actions/register.php:441
-msgid "Same as password above."
-msgstr "Igual que la contrasenya de dalt"
 
 #. TRANS: Button text for password reset form.
 #. TRANS: Button text on profile design page to reset all colour settings to default without saving.
@@ -4895,13 +4939,8 @@ msgstr "La contrasenya ha de tenir 6 o més caràcters."
 msgid "Password and confirmation do not match."
 msgstr "La contrasenya i la confirmació no coincideixen."
 
-#. TRANS: Reset password form validation error message.
-#: actions/recoverpassword.php:418
-msgid "Cannot save new password."
-msgstr "No es pot desar la nova contrasenya."
-
 #. TRANS: Server error displayed when something does wrong with the user object during password reset.
-#: actions/recoverpassword.php:426 actions/register.php:256
+#: actions/recoverpassword.php:426 actions/register.php:248
 msgid "Error setting user."
 msgstr "Error en configurar l'usuari."
 
@@ -4910,93 +4949,94 @@ msgstr "Error en configurar l'usuari."
 msgid "New password successfully saved. You are now logged in."
 msgstr "Nova contrasenya guardada correctament. Has iniciat una sessió."
 
-#: actions/register.php:92 actions/register.php:196 actions/register.php:413
+#: actions/register.php:87 actions/register.php:188 actions/register.php:399
 msgid "Sorry, only invited people can register."
 msgstr "Ho sentim, però només la gent convidada pot registrar-s'hi."
 
-#: actions/register.php:99
+#: actions/register.php:94
 msgid "Sorry, invalid invitation code."
 msgstr "El codi d'invitació no és vàlid."
 
-#: actions/register.php:119
+#: actions/register.php:113
 msgid "Registration successful"
 msgstr "Registre satisfactori"
 
-#: actions/register.php:121 actions/register.php:511
+#: actions/register.php:115 actions/register.php:497
 msgid "Register"
 msgstr "Registre"
 
-#: actions/register.php:142
+#: actions/register.php:135
 msgid "Registration not allowed."
 msgstr "Registre no permès."
 
-#: actions/register.php:209
-msgid "You can't register if you don't agree to the license."
+#: actions/register.php:201
+#, fuzzy
+msgid "You cannot register if you don't agree to the license."
 msgstr "No pots registrar-te si no estàs d'acord amb la llicència."
 
-#: actions/register.php:218
+#: actions/register.php:210
 msgid "Email address already exists."
 msgstr "L'adreça de correu electrònic ja existeix."
 
-#: actions/register.php:251 actions/register.php:273
+#: actions/register.php:243 actions/register.php:265
 msgid "Invalid username or password."
 msgstr "El nom d'usuari o la contrasenya no són vàlids."
 
-#: actions/register.php:351
+#: actions/register.php:340
+#, fuzzy
 msgid ""
 "With this form you can create a new account. You can then post notices and "
-"link up to friends and colleagues. "
+"link up to friends and colleagues."
 msgstr ""
 "Amb aquest formulari, podeu crear un compte nou. Podeu enviar avisos i "
 "enllaçar a amics i col·legues. "
 
-#: actions/register.php:437
-msgid "6 or more characters."
-msgstr "6 o més caràcters."
-
 #. TRANS: Link description in user account settings menu.
-#: actions/register.php:445 actions/register.php:449
+#: actions/register.php:431 actions/register.php:435
 #: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:127
 msgid "Email"
 msgstr "Correu electrònic"
 
-#: actions/register.php:446 actions/register.php:450
-msgid "Used only for updates, announcements, and password recovery"
+#: actions/register.php:432 actions/register.php:436
+#, fuzzy
+msgid "Used only for updates, announcements, and password recovery."
 msgstr ""
 "Utilitzat només per a actualitzacions, anuncis i recuperació de contrasenya"
 
-#: actions/register.php:457
-msgid "Longer name, preferably your \"real\" name"
+#: actions/register.php:443
+#, fuzzy
+msgid "Longer name, preferably your \"real\" name."
 msgstr "Nom llarg, preferiblement el vostre nom «real»"
 
-#: actions/register.php:462
-msgid "URL of your homepage, blog, or profile on another site"
-msgstr "URL del teu web, blog o perfil en un altre lloc"
+#: actions/register.php:471
+#, fuzzy
+msgid "Where you are, like \"City, State (or Region), Country\"."
+msgstr "On us trobeu, per exemple «ciutat, comarca (o illa), país»"
 
-#: actions/register.php:523
+#: actions/register.php:510
 #, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
 msgstr ""
 "Entenc que el contingut i les dades de %1$s són privades i confidencials."
 
-#: actions/register.php:533
+#: actions/register.php:520
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr "El meu text i els meus fitxers són copyright de %1$s."
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
-#: actions/register.php:537
+#: actions/register.php:524
 msgid "My text and files remain under my own copyright."
 msgstr "El meu text i els meus fitxers es troben sota el meu propi copyright."
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
-#: actions/register.php:540
+#: actions/register.php:527
 msgid "All rights reserved."
 msgstr "Tots els drets reservats."
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:545
+#: actions/register.php:532
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -5006,7 +5046,7 @@ msgstr ""
 "les dades privades: contrasenya, adreça de correu electrònic, adreça de "
 "missatgeria instantània i número de telèfon."
 
-#: actions/register.php:588
+#: actions/register.php:573
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -5039,7 +5079,7 @@ msgstr ""
 "\n"
 "Gràcies per registrar-vos-hi i esperem que en gaudiu."
 
-#: actions/register.php:612
+#: actions/register.php:597
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -5072,7 +5112,8 @@ msgid "User nickname"
 msgstr "Sobrenom de l'usuari"
 
 #: actions/remotesubscribe.php:129
-msgid "Nickname of the user you want to follow"
+#, fuzzy
+msgid "Nickname of the user you want to follow."
 msgstr "Sobrenom de l'usuari que vols seguir"
 
 #: actions/remotesubscribe.php:132
@@ -5080,7 +5121,8 @@ msgid "Profile URL"
 msgstr "URL del perfil"
 
 #: actions/remotesubscribe.php:133
-msgid "URL of your profile on another compatible microblogging service"
+#, fuzzy
+msgid "URL of your profile on another compatible microblogging service."
 msgstr "URL del teu perfil en un altre servei de microblogging compatible"
 
 #. TRANS: Link text for link that will subscribe to a remote profile.
@@ -5090,7 +5132,8 @@ msgid "Subscribe"
 msgstr "Subscriu-m'hi"
 
 #: actions/remotesubscribe.php:158
-msgid "Invalid profile URL (bad format)"
+#, fuzzy
+msgid "Invalid profile URL (bad format)."
 msgstr "L'URL del perfil és invàlid (format incorrecte)"
 
 #: actions/remotesubscribe.php:167
@@ -5290,7 +5333,7 @@ msgstr "No podeu revocar els rols d'usuari en aquest lloc."
 msgid "User doesn't have this role."
 msgstr "L'usuari no té aquest rol."
 
-#: actions/rsd.php:146 actions/version.php:159
+#: actions/rsd.php:142 actions/version.php:159
 msgid "StatusNet"
 msgstr "StatusNet"
 
@@ -5332,87 +5375,87 @@ msgstr "Activa la sortida de depuració per a les sessions."
 msgid "Save site settings"
 msgstr "Desa els paràmetres del lloc"
 
-#: actions/showapplication.php:82
+#: actions/showapplication.php:78
 msgid "You must be logged in to view an application."
 msgstr "Heu d'haver iniciat una sessió per visualitzar una aplicació."
 
-#: actions/showapplication.php:157
+#: actions/showapplication.php:151
 msgid "Application profile"
 msgstr "Perfil de l'aplicació"
 
 #. TRANS: Form input field label for application icon.
-#: actions/showapplication.php:159 lib/applicationeditform.php:177
+#: actions/showapplication.php:153 lib/applicationeditform.php:177
 msgid "Icon"
 msgstr "Icona"
 
 #. TRANS: Form input field label for application name.
-#: actions/showapplication.php:169 actions/version.php:197
+#: actions/showapplication.php:163 actions/version.php:197
 #: lib/applicationeditform.php:190
 msgid "Name"
 msgstr "Nom"
 
 #. TRANS: Form input field label.
-#: actions/showapplication.php:178 lib/applicationeditform.php:227
+#: actions/showapplication.php:172 lib/applicationeditform.php:227
 msgid "Organization"
 msgstr "Organització"
 
 #. TRANS: Form input field label.
-#: actions/showapplication.php:187 actions/version.php:200
+#: actions/showapplication.php:181 actions/version.php:200
 #: lib/applicationeditform.php:208 lib/groupeditform.php:168
 msgid "Description"
 msgstr "Descripció"
 
 #. TRANS: Header for group statistics on a group page (h2).
 #. TRANS: H2 text for user statistics.
-#: actions/showapplication.php:192 actions/showgroup.php:460
+#: actions/showapplication.php:186 actions/showgroup.php:460
 #: lib/profileaction.php:205
 msgid "Statistics"
 msgstr "Estadístiques"
 
-#: actions/showapplication.php:203
+#: actions/showapplication.php:197
 #, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d users"
 msgstr "Creat per %1$s - %2$s accés per defecte - %3$d usuaris"
 
-#: actions/showapplication.php:213
+#: actions/showapplication.php:207
 msgid "Application actions"
 msgstr "Accions d'aplicació"
 
-#: actions/showapplication.php:236
+#: actions/showapplication.php:230
 msgid "Reset key & secret"
 msgstr "Reinicialitza la clau i la secreta"
 
 #. TRANS: Title of form for deleting a user.
-#: actions/showapplication.php:252 lib/deletegroupform.php:121
+#: actions/showapplication.php:246 lib/deletegroupform.php:121
 #: lib/deleteuserform.php:64 lib/noticelist.php:673
 msgid "Delete"
 msgstr "Elimina"
 
-#: actions/showapplication.php:261
+#: actions/showapplication.php:255
 msgid "Application info"
 msgstr "Informació de l'aplicació"
 
-#: actions/showapplication.php:263
+#: actions/showapplication.php:257
 msgid "Consumer key"
 msgstr "Clau del consumidor"
 
-#: actions/showapplication.php:268
+#: actions/showapplication.php:262
 msgid "Consumer secret"
 msgstr "Secreta del consumidor"
 
-#: actions/showapplication.php:273
+#: actions/showapplication.php:267
 msgid "Request token URL"
 msgstr "Sol·licita l'URL del testimoni"
 
-#: actions/showapplication.php:278
+#: actions/showapplication.php:272
 msgid "Access token URL"
 msgstr "Accedeix a l'URL del testimoni"
 
-#: actions/showapplication.php:283
+#: actions/showapplication.php:277
 msgid "Authorize URL"
 msgstr "Autoritza l'URL"
 
-#: actions/showapplication.php:288
+#: actions/showapplication.php:282
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
@@ -5420,7 +5463,7 @@ msgstr ""
 "Nota: Les signatures HMAC-SHA1 són vàlides; però no es permet el mètode de "
 "signatures en text net."
 
-#: actions/showapplication.php:309
+#: actions/showapplication.php:302
 msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr ""
 "Esteu segur que voleu reinicialitzar la clau del consumidor i la secreta?"
@@ -5512,16 +5555,18 @@ msgid "Group profile"
 msgstr "Perfil del grup"
 
 #. TRANS: Label for group URL (dt). Text hidden by default.
+#. TRANS: DT element on Authorise Subscription page.
 #. TRANS: DT for URL in a profile.
 #: actions/showgroup.php:273 actions/tagother.php:118
-#: actions/userauthorization.php:175 lib/userprofile.php:186
+#: actions/userauthorization.php:184 lib/userprofile.php:186
 msgid "URL"
 msgstr "URL"
 
 #. TRANS: Label for group description or group note (dt). Text hidden by default.
+#. TRANS: DT element on Authorise Subscription page where bio is displayed.
 #. TRANS: DT for note in a profile.
 #: actions/showgroup.php:285 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:204
+#: actions/userauthorization.php:197 lib/userprofile.php:204
 msgid "Note"
 msgstr "Avisos"
 
@@ -5667,7 +5712,7 @@ msgid "%1$s tagged %2$s"
 msgstr "%1$s etiquetats %2$s"
 
 #. TRANS: Page title showing tagged notices in one user's stream.
-#. TRANS: %1$s is the username, %2$s is the hash tag, %1$d is the page number.
+#. TRANS: %1$s is the username, %2$s is the hash tag, %3$d is the page number.
 #: actions/showstream.php:74
 #, php-format
 msgid "%1$s tagged %2$s, page %3$d"
@@ -5917,7 +5962,8 @@ msgstr "Text d'avís per a tot el lloc (màxim 255 caràcters; es permet l'HTML)
 
 #. TRANS: Title for button to save site notice in admin panel.
 #: actions/sitenoticeadminpanel.php:201
-msgid "Save site notice"
+#, fuzzy
+msgid "Save site notice."
 msgstr "Desa l'avís per a tot el lloc"
 
 #. TRANS: Title for SMS settings.
@@ -5977,7 +6023,8 @@ msgstr "Número de telèfon per als SMS"
 
 #. TRANS: SMS phone number input field instructions in SMS settings form.
 #: actions/smssettings.php:152
-msgid "Phone number, no punctuation or spaces, with area code"
+#, fuzzy
+msgid "Phone number, no punctuation or spaces, with area code."
 msgstr "Número de telèfon, no puntuació ni espais, en l'àrea del codi"
 
 #. TRANS: Form legend for SMS preferences form.
@@ -6314,8 +6361,9 @@ msgstr "Etiqueta %s"
 msgid "User profile"
 msgstr "Perfil de l'usuari"
 
+#. TRANS: DT element on Authorise Subscription page.
 #. TRANS: DT element in area for user avatar.
-#: actions/tagother.php:81 actions/userauthorization.php:132
+#: actions/tagother.php:81 actions/userauthorization.php:138
 #: lib/userprofile.php:108
 msgid "Photo"
 msgstr "Foto"
@@ -6331,6 +6379,11 @@ msgid ""
 msgstr ""
 "Etiquetes d'aquest usuari (lletres, nombres,, -, ., i _), comes o separades "
 "amb espais"
+
+#: actions/tagother.php:178
+#, php-format
+msgid "Invalid tag: \"%s\""
+msgstr "L'etiqueta no és vàlida: «%s»"
 
 #: actions/tagother.php:193
 msgid ""
@@ -6369,7 +6422,7 @@ msgstr "No hi ha cap identificador del perfil en la sol·licitud."
 msgid "Unsubscribed"
 msgstr "No subscrit"
 
-#: actions/updateprofile.php:64 actions/userauthorization.php:337
+#: actions/updateprofile.php:64
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -6402,8 +6455,8 @@ msgstr ""
 #. TRANS: Client error displayed when trying to set a non-existing user as default subscription for new
 #. TRANS: users in user admin panel. %1$s is the invalid nickname.
 #: actions/useradminpanel.php:166
-#, php-format
-msgid "Invalid default subscripton: '%1$s' is not a user."
+#, fuzzy, php-format
+msgid "Invalid default subscripton: \"%1$s\" is not a user."
 msgstr "La subscripció per defecte no és vàlida: «%1$s» no és cap usuari."
 
 #. TRANS: Link description in user account settings menu.
@@ -6463,55 +6516,71 @@ msgstr "Si es permet als usuaris invitar-ne de nous."
 
 #. TRANS: Title for button to save user settings in user admin panel.
 #: actions/useradminpanel.php:302
-msgid "Save user settings"
+#, fuzzy
+msgid "Save user settings."
 msgstr "Desa els paràmetres d'usuari"
 
-#: actions/userauthorization.php:105
+#. TRANS: Page title.
+#: actions/userauthorization.php:109
 msgid "Authorize subscription"
 msgstr "Autoritza la subscripció"
 
-#: actions/userauthorization.php:110
+#. TRANS: Page notice on "Auhtorize subscription" page.
+#: actions/userauthorization.php:115
+#, fuzzy
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
-"click “Reject”."
+"click \"Reject\"."
 msgstr ""
 "Si us plau, reviseu aquests detalls per assegurar-vos que voleu subscriure-"
 "us als avisos d'aquest usuari. Si no heu demanat subscriure-us als avisos de "
 "ningú, feu clic a «Rebutja»."
 
+#. TRANS: DT element on Authorise Subscription page where license is displayed.
 #. TRANS: Menu item for site administration
-#: actions/userauthorization.php:196 actions/version.php:167
+#: actions/userauthorization.php:207 actions/version.php:167
 #: lib/adminpanelaction.php:403
 msgid "License"
 msgstr "Llicència"
 
-#: actions/userauthorization.php:217
+#. TRANS: Button text on Authorise Subscription page.
+#: actions/userauthorization.php:229
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Accept"
 msgstr "Accepta"
 
-#: actions/userauthorization.php:218 lib/subscribeform.php:115
-#: lib/subscribeform.php:139
-msgid "Subscribe to this user"
+#. TRANS: Title for button on Authorise Subscription page.
+#: actions/userauthorization.php:231
+#, fuzzy
+msgid "Subscribe to this user."
 msgstr "Subscriu-me a aquest usuari"
 
-#: actions/userauthorization.php:219
+#. TRANS: Button text on Authorise Subscription page.
+#: actions/userauthorization.php:233
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Reject"
 msgstr "Rebutja"
 
-#: actions/userauthorization.php:220
-msgid "Reject this subscription"
+#. TRANS: Title for button on Authorise Subscription page.
+#: actions/userauthorization.php:235
+#, fuzzy
+msgid "Reject this subscription."
 msgstr "Rebutja la subscripció"
 
-#: actions/userauthorization.php:232
+#. TRANS: Client error displayed for an empty authorisation request.
+#: actions/userauthorization.php:248
 msgid "No authorization request!"
 msgstr "No és una sol·licitud d'autorització!"
 
-#: actions/userauthorization.php:254
+#. TRANS: Accept message header from Authorise subscription page.
+#: actions/userauthorization.php:271
 msgid "Subscription authorized"
 msgstr "Subscripció autoritzada"
 
-#: actions/userauthorization.php:256
+#: actions/userauthorization.php:274
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
@@ -6521,11 +6590,12 @@ msgstr ""
 "retorn. Reviseu les instruccions del lloc per tal de tenir més detalls de "
 "com autoritzar la subscripció. El vostre testimoni de subscripció és:"
 
-#: actions/userauthorization.php:266
+#. TRANS: Reject message header from Authorise subscription page.
+#: actions/userauthorization.php:285
 msgid "Subscription rejected"
 msgstr "Subscripció rebutjada"
 
-#: actions/userauthorization.php:268
+#: actions/userauthorization.php:288
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
@@ -6535,39 +6605,64 @@ msgstr ""
 "retorn. Reviseu les instruccions del lloc per tal de tenir més detalls de "
 "com rebutjar la subscripció completament."
 
-#: actions/userauthorization.php:303
-#, php-format
-msgid "Listener URI ‘%s’ not found here."
+#. TRANS: Exception thrown when no valid user is found for an authorisation request.
+#. TRANS: %s is a listener URI.
+#: actions/userauthorization.php:325
+#, fuzzy, php-format
+msgid "Listener URI \"%s\" not found here."
 msgstr "No s'hi ha trobat l'URI de qui us escolta, «%s»."
 
-#: actions/userauthorization.php:308
-#, php-format
-msgid "Listenee URI ‘%s’ is too long."
+#. TRANS: Exception thrown when listenee URI is too long for an authorisation request.
+#. TRANS: %s is a listenee URI.
+#: actions/userauthorization.php:332
+#, fuzzy, php-format
+msgid "Listenee URI \"%s\" is too long."
 msgstr "L'URI de qui escolteu, «%s», és massa llarga."
 
-#: actions/userauthorization.php:314
-#, php-format
-msgid "Listenee URI ‘%s’ is a local user."
+#. TRANS: Exception thrown when listenee URI is a local user for an authorisation request.
+#. TRANS: %s is a listenee URI.
+#: actions/userauthorization.php:340
+#, fuzzy, php-format
+msgid "Listenee URI \"%s\" is a local user."
 msgstr "L'URI de qui escolteu, «%s», és un usuari local."
 
-#: actions/userauthorization.php:329
-#, php-format
-msgid "Profile URL ‘%s’ is for a local user."
+#. TRANS: Exception thrown when profile URL is a local user for an authorisation request.
+#. TRANS: %s is a profile URL.
+#: actions/userauthorization.php:358
+#, fuzzy, php-format
+msgid "Profile URL \"%s\" is for a local user."
 msgstr "L'URL del perfil «%s» és només per a un usuari local."
 
-#: actions/userauthorization.php:345
-#, php-format
-msgid "Avatar URL ‘%s’ is not valid."
+#. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
+#. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
+#: actions/userauthorization.php:368
+#, fuzzy, php-format
+msgid ""
+"Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
+"\"."
+msgstr ""
+"La llicència del flux de qui escolteu, «%1$s», no és compatible amb la "
+"llicència del lloc, «%2$s»."
+
+#. TRANS: Exception thrown when avatar URL is invalid for an authorisation request.
+#. TRANS: %s is an avatar URL.
+#: actions/userauthorization.php:378
+#, fuzzy, php-format
+msgid "Avatar URL \"%s\" is not valid."
 msgstr "L'URL de l'avatar «%s» no és vàlid."
 
-#: actions/userauthorization.php:350
-#, php-format
-msgid "Can’t read avatar URL ‘%s’."
+#. TRANS: Exception thrown when avatar URL could not be read for an authorisation request.
+#. TRANS: %s is an avatar URL.
+#: actions/userauthorization.php:385
+#, fuzzy, php-format
+msgid "Cannot read avatar URL \"%s\"."
 msgstr "No es pot llegir l'URL de l'avatar «%s»."
 
-#: actions/userauthorization.php:355
-#, php-format
-msgid "Wrong image type for avatar URL ‘%s’."
+#. TRANS: Exception thrown when avatar URL return an invalid image type for an authorisation request.
+#. TRANS: %s is an avatar URL.
+#: actions/userauthorization.php:392
+#, fuzzy, php-format
+msgid "Wrong image type for avatar URL \"%s\"."
 msgstr "Tipus d'imatge incorrecta per a l'URL de l'avatar «%s»."
 
 #. TRANS: Page title for profile design page.
@@ -7421,7 +7516,7 @@ msgstr "L'usuari ja és membre d'aquest grup."
 #: lib/activityimporter.php:201
 #, php-format
 msgid "Already know about notice %1$s and  it has a different author %2$s."
-msgstr ""
+msgstr "Ja es coneix l'avís %1$s i té un autor diferent %2$s."
 
 #. TRANS: Client exception thrown when trying to overwrite the author information for a non-trusted user during import.
 #: lib/activityimporter.php:207
@@ -7783,6 +7878,11 @@ msgstr "No es permet el canvi de contrasenya."
 #: lib/blockform.php:68
 msgid "Block"
 msgstr "Bloca"
+
+#. TRANS: Description of the form to block a user.
+#: lib/blockform.php:79
+msgid "Block this user"
+msgstr "Bloca aquest usuari"
 
 #. TRANS: Title for command results.
 #: lib/channel.php:160 lib/channel.php:181
@@ -8239,6 +8339,11 @@ msgstr "Aplicacions de connexió autoritzades"
 msgid "Database error"
 msgstr "Error de la base de dades"
 
+#. TRANS: Description of form for deleting a user.
+#: lib/deleteuserform.php:75
+msgid "Delete this user"
+msgstr "Elimina l'usuari"
+
 #. TRANS: Label in form on profile design page.
 #. TRANS: Field contains file name on user's computer that could be that user's custom profile background image.
 #: lib/designsettings.php:108
@@ -8274,6 +8379,21 @@ msgstr "Canvia els colors"
 #: lib/designsettings.php:257
 msgid "Use defaults"
 msgstr "Utilitza els paràmetres per defecte"
+
+#. TRANS: Title for button on profile design page to reset all colour settings to default.
+#: lib/designsettings.php:259
+msgid "Restore default designs"
+msgstr "Restaura els dissenys per defecte"
+
+#. TRANS: Title for button on profile design page to reset all colour settings to default without saving.
+#: lib/designsettings.php:267
+msgid "Reset back to default"
+msgstr "Torna a restaurar al valor per defecte"
+
+#. TRANS: Title for button on profile design page to save settings.
+#: lib/designsettings.php:272
+msgid "Save design"
+msgstr "Desa el disseny"
 
 #. TRANS: Error message displayed if design settings could not be saved.
 #. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
@@ -8379,7 +8499,6 @@ msgid "Grant this user the \"%s\" role"
 msgstr "Atorga a l'usuari el rol «%s»"
 
 #: lib/groupeditform.php:147
-#, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr ""
 "1-64 lletres en minúscula o nombres, sense signes de puntuació o espais."
@@ -8393,11 +8512,11 @@ msgid "Describe the group or topic"
 msgstr "Descriviu el grup o la temàtica"
 
 #: lib/groupeditform.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the group or topic in %d character or less"
 msgid_plural "Describe the group or topic in %d characters or less"
-msgstr[0] "Descriviu el grup o la temàtica en %d caràcter o menys."
-msgstr[1] "Descriviu el grup o la temàtica en %d caràcters o menys."
+msgstr[0] "Descriviu el grup o la temàtica en %d caràcter"
+msgstr[1] "Descriviu el grup o la temàtica en %d caràcters"
 
 #: lib/groupeditform.php:175
 msgid ""
@@ -9048,9 +9167,8 @@ msgid "Send"
 msgstr "Envia"
 
 #: lib/messagelist.php:77
-#, fuzzy
 msgid "Messages"
-msgstr "Missatge"
+msgstr "Missatges"
 
 #: lib/messagelistitem.php:123 lib/noticelist.php:522
 msgid "from"
@@ -9157,6 +9275,10 @@ msgstr "Respon a aquest avís"
 #: lib/noticelist.php:647
 msgid "Reply"
 msgstr "Respon"
+
+#: lib/noticelist.php:673
+msgid "Delete this notice"
+msgstr "Elimina aquest avís"
 
 #: lib/noticelist.php:691
 msgid "Notice repeated"
@@ -9433,6 +9555,10 @@ msgstr "Convida"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Convida amics i companys perquè participin a %s"
 
+#: lib/subscribeform.php:115 lib/subscribeform.php:139
+msgid "Subscribe to this user"
+msgstr "Subscriu-me a aquest usuari"
+
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
@@ -9705,3 +9831,15 @@ msgstr "L'XML no és vàlid, hi manca l'arrel XRD."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "Es recupera la còpia de seguretat del fitxer '%s'."
+
+#~ msgid "6 or more characters"
+#~ msgstr "6 o més caràcters"
+
+#~ msgid "Same as password above"
+#~ msgstr "Igual a la contrasenya de dalt"
+
+#~ msgid "Can't save new password."
+#~ msgstr "No es pot desar la nova contrasenya."
+
+#~ msgid "URL of your homepage, blog, or profile on another site"
+#~ msgstr "URL del teu web, blog o perfil en un altre lloc"

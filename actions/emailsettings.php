@@ -527,7 +527,7 @@ class EmailsettingsAction extends AccountSettingsAction
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             // TRANS: Server error thrown on database error removing incoming e-mail address.
-            $this->serverError(_("Could not update user record."));
+            $this->serverError(_('Could not update user record.'));
         }
 
         // TRANS: Message given after successfully removing an incoming e-mail address.
@@ -551,7 +551,7 @@ class EmailsettingsAction extends AccountSettingsAction
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             // TRANS: Server error thrown on database error adding incoming e-mail address.
-            $this->serverError(_("Could not update user record."));
+            $this->serverError(_('Could not update user record.'));
         }
 
         // TRANS: Message given after successfully adding an incoming e-mail address.

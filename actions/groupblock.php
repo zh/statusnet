@@ -188,14 +188,14 @@ class GroupblockAction extends RedirectingAction
                       'submit form_action-primary',
                       'no',
                       // TRANS: Submit button title for 'No' when blocking a user from a group.
-                      _('Do not block this user from this group'));
+                      _('Do not block this user from this group.'));
         $this->submit('form_action-yes',
                       // TRANS: Button label on the form to block a user from a group.
                       _m('BUTTON','Yes'),
                       'submit form_action-secondary',
                       'yes',
                       // TRANS: Submit button title for 'Yes' when blocking a user from a group.
-                      _('Block this user from this group'));
+                      _('Block this user from this group.'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }

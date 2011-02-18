@@ -166,6 +166,5 @@ class OauthappssettingsAction extends SettingsAction
                               'Try again, please.'));
             return;
         }
-
     }
 }

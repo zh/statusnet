@@ -189,6 +189,7 @@ class OthersettingsAction extends AccountSettingsAction
 
         $user->query('COMMIT');
 
+        // TRANS: Confirmation message after saving preferences.
         $this->showForm(_('Preferences saved.'), true);
     }
 }

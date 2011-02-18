@@ -142,7 +142,6 @@ class AtompubshowmembershipAction extends ApiAuthAction
      *
      * @return void
      */
-
     function deleteMembership()
     {
         if (empty($this->auth_user) ||

@@ -211,7 +211,7 @@ class AvatarsettingsAction extends AccountSettingsAction
                             array('id' => 'avatar_original',
                                   'class' => 'avatar_view'));
         // TRANS: Header on avatar upload crop form for thumbnail of originally uploaded avatar (h2).
-        $this->element('h2', null, _("Original"));
+        $this->element('h2', null, _('Original'));
         $this->elementStart('div', array('id'=>'avatar_original_view'));
         $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => $this->filedata['width'],
@@ -224,7 +224,7 @@ class AvatarsettingsAction extends AccountSettingsAction
                             array('id' => 'avatar_preview',
                                   'class' => 'avatar_view'));
         // TRANS: Header on avatar upload crop form for thumbnail of to be used rendition of uploaded avatar (h2).
-        $this->element('h2', null, _("Preview"));
+        $this->element('h2', null, _('Preview'));
         $this->elementStart('div', array('id'=>'avatar_preview_view'));
         $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => AVATAR_PROFILE_SIZE,
@@ -341,8 +341,8 @@ class AvatarsettingsAction extends AccountSettingsAction
 
         $this->mode = 'crop';
 
-        // TRANS: Avatar upload form unstruction after uploading a file.
-        $this->showForm(_('Pick a square area of the image to be your avatar'),
+        // TRANS: Avatar upload form instruction after uploading a file.
+        $this->showForm(_('Pick a square area of the image to be your avatar.'),
                         true);
     }
 

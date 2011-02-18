@@ -64,7 +64,6 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
      *
      * @return string Title of the page
      */
-
     function title()
     {
         // TRANS: Title for OAuth connection settings.
@@ -76,7 +75,6 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
      *
      * @return instructions for use
      */
-
     function getInstructions()
     {
         // TRANS: Instructions for OAuth connection settings.

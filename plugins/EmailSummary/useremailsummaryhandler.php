@@ -72,155 +72,155 @@ class UserEmailSummaryHandler extends QueueHandler
     
     function handle($user_id)
     {
-	// Skip if they've asked not to get summaries
+        // Skip if they've asked not to get summaries
 
-	$ess = Email_summary_status::staticGet('user_id', $user_id);
+        $ess = Email_summary_status::staticGet('user_id', $user_id);
 	
-	if (!empty($ess) && !$ess->send_summary) {
-	    common_log(LOG_INFO, sprintf('Not sending email summary for user %s by request.', $user_id));
-	    return true;
-	}
+        if (!empty($ess) && !$ess->send_summary) {
+            common_log(LOG_INFO, sprintf('Not sending email summary for user %s by request.', $user_id));
+            return true;
+        }
 
-	$since_id = null;
+        $since_id = null;
 	
-	if (!empty($ess)) {
-	    $since_id = $ess->last_summary_id;
-	}
+        if (!empty($ess)) {
+            $since_id = $ess->last_summary_id;
+        }
 	  
-	$user = User::staticGet('id', $user_id);
+        $user = User::staticGet('id', $user_id);
 
-	if (empty($user)) {
-	    common_log(LOG_INFO, sprintf('Not sending email summary for user %s; no such user.', $user_id));
-	    return true;
-	}
+        if (empty($user)) {
+            common_log(LOG_INFO, sprintf('Not sending email summary for user %s; no such user.', $user_id));
+            return true;
+        }
 	
-	if (empty($user->email)) {
-	    common_log(LOG_INFO, sprintf('Not sending email summary for user %s; no email address.', $user_id));
-	    return true;
-	}
+        if (empty($user->email)) {
+            common_log(LOG_INFO, sprintf('Not sending email summary for user %s; no email address.', $user_id));
+            return true;
+        }
 	
-	$profile = $user->getProfile();
+        $profile = $user->getProfile();
 	
-	if (empty($profile)) {
-	    common_log(LOG_WARNING, sprintf('Not sending email summary for user %s; no profile.', $user_id));
-	    return true;
-	}
+        if (empty($profile)) {
+            common_log(LOG_WARNING, sprintf('Not sending email summary for user %s; no profile.', $user_id));
+            return true;
+        }
 	
-	$notice = $user->ownFriendsTimeline(0, self::MAX_NOTICES, $since_id);
+        $notice = $user->ownFriendsTimeline(0, self::MAX_NOTICES, $since_id);
 
-	if (empty($notice) || $notice->N == 0) {
-	    common_log(LOG_WARNING, sprintf('Not sending email summary for user %s; no notices.', $user_id));
-	    return true;
-	}
+        if (empty($notice) || $notice->N == 0) {
+            common_log(LOG_WARNING, sprintf('Not sending email summary for user %s; no notices.', $user_id));
+            return true;
+        }
 
-	// XXX: This is risky fingerpoken in der objektvars, but I didn't feel like
-	// figuring out a better way. -ESP
+        // XXX: This is risky fingerpoken in der objektvars, but I didn't feel like
+        // figuring out a better way. -ESP
 
-	$new_top = null;
+        $new_top = null;
 	
-	if ($notice instanceof ArrayWrapper) {
-	    $new_top = $notice->_items[0]->id;
-	}
+        if ($notice instanceof ArrayWrapper) {
+            $new_top = $notice->_items[0]->id;
+        }
 	
-	$out = new XMLStringer();
+        $out = new XMLStringer();
 
-	$out->raw(sprintf(_('<p>Recent updates from %1s for %2s:</p>'),
-			  common_config('site', 'name'),
-			  $profile->getBestName()));
+        $out->raw(sprintf(_('<p>Recent updates from %1s for %2s:</p>'),
+                          common_config('site', 'name'),
+                          $profile->getBestName()));
 	
 
-	$out->elementStart('table', array('width' => '541px', 'style' => 'border: none'));
+        $out->elementStart('table', array('width' => '541px', 'style' => 'border: none'));
 	
-	while ($notice->fetch()) {
+        while ($notice->fetch()) {
 	    
-	    $profile = Profile::staticGet('id', $notice->profile_id);
+            $profile = Profile::staticGet('id', $notice->profile_id);
 	    
-	    if (empty($profile)) {
-		continue;
-	    }
+            if (empty($profile)) {
+                continue;
+            }
 	    
-	    $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
+            $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 
-	    $out->elementStart('tr');
-	    $out->elementStart('td', array('width' => AVATAR_STREAM_SIZE,
-					   'height' => AVATAR_STREAM_SIZE,
-					   'align' => 'left',
-					   'valign' => 'top'));
-	    $out->element('img', array('src' => ($avatar) ?
-				       $avatar->displayUrl() :
-				       Avatar::defaultImage(AVATAR_STREAM_SIZE),
-				       'class' => 'avatar photo',
-				       'width' => AVATAR_STREAM_SIZE,
-				       'height' => AVATAR_STREAM_SIZE,
-				       'alt' => $profile->getBestName()));
-	    $out->elementEnd('td');
-	    $out->elementStart('td', array('align' => 'left',
-					   'valign' => 'top'));
-	    $out->element('a', array('href' => $profile->profileurl),
-			  $profile->nickname);
-	    $out->text(' ');
-	    $out->raw($notice->rendered);
-	    $out->element('br'); // yeah, you know it. I just wrote a <br> in the middle of my table layout.
-	    $noticeurl = $notice->bestUrl();
-	    // above should always return an URL
-	    assert(!empty($noticeurl));
-	    $out->elementStart('a', array('rel' => 'bookmark',
-					  'class' => 'timestamp',
-					  'href' => $noticeurl));
-	    $dt = common_date_iso8601($notice->created);
-	    $out->element('abbr', array('class' => 'published',
-					'title' => $dt),
-			  common_date_string($notice->created));
-	    $out->elementEnd('a');
-	    if ($notice->hasConversation()) {
-		$conv = Conversation::staticGet('id', $notice->conversation);
-		$convurl = $conv->uri;
-		if (!empty($convurl)) {
-				  $out->text(' ');
-				  $out->element('a',
-						array('href' => $convurl.'#notice-'.$notice->id,
-						      'class' => 'response'),
-						_('in context'));
-		}
-	    }
-	    $out->elementEnd('td');
-	    $out->elementEnd('tr');
-	}
+            $out->elementStart('tr');
+            $out->elementStart('td', array('width' => AVATAR_STREAM_SIZE,
+                                           'height' => AVATAR_STREAM_SIZE,
+                                           'align' => 'left',
+                                           'valign' => 'top'));
+            $out->element('img', array('src' => ($avatar) ?
+                                       $avatar->displayUrl() :
+                                       Avatar::defaultImage(AVATAR_STREAM_SIZE),
+                                       'class' => 'avatar photo',
+                                       'width' => AVATAR_STREAM_SIZE,
+                                       'height' => AVATAR_STREAM_SIZE,
+                                       'alt' => $profile->getBestName()));
+            $out->elementEnd('td');
+            $out->elementStart('td', array('align' => 'left',
+                                           'valign' => 'top'));
+            $out->element('a', array('href' => $profile->profileurl),
+                          $profile->nickname);
+            $out->text(' ');
+            $out->raw($notice->rendered);
+            $out->element('br'); // yeah, you know it. I just wrote a <br> in the middle of my table layout.
+            $noticeurl = $notice->bestUrl();
+            // above should always return an URL
+            assert(!empty($noticeurl));
+            $out->elementStart('a', array('rel' => 'bookmark',
+                                          'class' => 'timestamp',
+                                          'href' => $noticeurl));
+            $dt = common_date_iso8601($notice->created);
+            $out->element('abbr', array('class' => 'published',
+                                        'title' => $dt),
+                          common_date_string($notice->created));
+            $out->elementEnd('a');
+            if ($notice->hasConversation()) {
+                $conv = Conversation::staticGet('id', $notice->conversation);
+                $convurl = $conv->uri;
+                if (!empty($convurl)) {
+                    $out->text(' ');
+                    $out->element('a',
+                                  array('href' => $convurl.'#notice-'.$notice->id,
+                                        'class' => 'response'),
+                                  _('in context'));
+                }
+            }
+            $out->elementEnd('td');
+            $out->elementEnd('tr');
+        }
 	
-	$out->elementEnd('table');
+        $out->elementEnd('table');
 	
-	$out->raw(sprintf(_('<p><a href="%1s">change your email settings for %2s</a></p>'),
-			  common_local_url('emailsettings'),
-			  common_config('site', 'name')));
+        $out->raw(sprintf(_('<p><a href="%1s">change your email settings for %2s</a></p>'),
+                          common_local_url('emailsettings'),
+                          common_config('site', 'name')));
 
-	$body = $out->getString();
+        $body = $out->getString();
 	
-	// FIXME: do something for people who don't like HTML email
+        // FIXME: do something for people who don't like HTML email
 	
-	mail_to_user($user, _('Updates from your network'), $body,
-		     array('Content-Type' => 'text/html; charset=UTF-8'));
+        mail_to_user($user, _('Updates from your network'), $body,
+                     array('Content-Type' => 'text/html; charset=UTF-8'));
 
-	if (empty($ess)) {
+        if (empty($ess)) {
 	    
-	    $ess = new Email_summary_status();
+            $ess = new Email_summary_status();
 	    
-	    $ess->user_id         = $user_id;
-	    $ess->created         = common_sql_now();
-	    $ess->last_summary_id = $new_top;
-	    $ess->modified        = common_sql_now();
+            $ess->user_id         = $user_id;
+            $ess->created         = common_sql_now();
+            $ess->last_summary_id = $new_top;
+            $ess->modified        = common_sql_now();
 
-	    $ess->insert();
+            $ess->insert();
 	    
-	} else {
+        } else {
 	    
-	    $orig = clone($ess);
+            $orig = clone($ess);
 	    
-	    $ess->last_summary_id = $new_top;
-	    $ess->modified        = common_sql_now();
+            $ess->last_summary_id = $new_top;
+            $ess->modified        = common_sql_now();
 
-	    $ess->update($orig);
-	}
+            $ess->update($orig);
+        }
 	
-	return true;
+        return true;
     }
 }

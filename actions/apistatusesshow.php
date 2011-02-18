@@ -141,7 +141,7 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
             default:
                 // TRANS: Exception thrown requesting an unsupported notice output format.
                 // TRANS: %s is the requested output format.
-                throw new Exception(sprintf(_("Unsupported format: %s"), $this->format));
+                throw new Exception(sprintf(_("Unsupported format: %s."), $this->format));
             }
         } else {
             // XXX: Twitter just sets a 404 header and doens't bother
@@ -224,7 +224,7 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     {
         if ($this->format != 'atom') {
             // TRANS: Client error displayed when trying to delete a notice not using the Atom format.
-            $this->clientError(_("Can only delete using the Atom format."));
+            $this->clientError(_('Can only delete using the Atom format.'));
             return;
         }
 

@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-14 16:00+0000\n"
-"PO-Revision-Date: 2011-02-14 16:06:44+0000\n"
+"POT-Creation-Date: 2011-02-17 10:25+0000\n"
+"PO-Revision-Date: 2011-02-17 10:27:47+0000\n"
 "Language-Team: Telugu <http://translatewiki.net/wiki/Portal:te>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r82114); Translate extension (2011-02-01)\n"
+"X-Generator: MediaWiki 1.18alpha (r82325); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-02-03 00:48:08+0000\n"
+"X-POT-Import-Date: 2011-02-14 17:20:58+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -152,7 +152,7 @@ msgstr "అటువంటి పేజీ లేదు."
 #: actions/foaf.php:42 actions/foaf.php:61 actions/hcard.php:67
 #: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:144 actions/remotesubscribe.php:153
-#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
+#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:113
 #: actions/showfavorites.php:106 actions/userbyid.php:74
 #: actions/usergroups.php:93 actions/userrss.php:40 actions/userxrd.php:59
 #: actions/xrds.php:71 lib/command.php:497 lib/galleryaction.php:59
@@ -508,7 +508,8 @@ msgstr "అందుకోవాల్సిన వాడుకరి కనబ�
 
 #. TRANS: Client error displayed trying to direct message another user who's not a friend (403).
 #: actions/apidirectmessagenew.php:144
-msgid "Can't send direct messages to users who aren't your friend."
+#, fuzzy
+msgid "Cannot send direct messages to users who aren't your friend."
 msgstr "మీ స్నేహితులు కాని వాడుకరులకి నేరు సందేశాలు పంపించలేరు."
 
 #. TRANS: Client error displayed trying to direct message self (403).
@@ -592,7 +593,7 @@ msgstr "లక్ష్యిత వాడుకరిని కనుగొన�
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:156 actions/editgroup.php:191
 #: actions/newgroup.php:137 actions/profilesettings.php:273
-#: actions/register.php:214
+#: actions/register.php:206
 msgid "Nickname already in use. Try another one."
 msgstr "ఆ పేరుని ఇప్పటికే వాడుతున్నారు. మరోటి ప్రయత్నించండి."
 
@@ -602,7 +603,7 @@ msgstr "ఆ పేరుని ఇప్పటికే వాడుతున్
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:164 actions/editgroup.php:195
 #: actions/newgroup.php:141 actions/profilesettings.php:243
-#: actions/register.php:216
+#: actions/register.php:208
 msgid "Not a valid nickname."
 msgstr "సరైన పేరు కాదు."
 
@@ -615,7 +616,7 @@ msgstr "సరైన పేరు కాదు."
 #: actions/apigroupcreate.php:181 actions/editapplication.php:235
 #: actions/editgroup.php:202 actions/newapplication.php:221
 #: actions/newgroup.php:148 actions/profilesettings.php:248
-#: actions/register.php:223
+#: actions/register.php:215
 msgid "Homepage is not a valid URL."
 msgstr "హోమ్ పేజీ URL సరైనది కాదు."
 
@@ -625,7 +626,7 @@ msgstr "హోమ్ పేజీ URL సరైనది కాదు."
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:191 actions/editgroup.php:206
 #: actions/newgroup.php:152 actions/profilesettings.php:252
-#: actions/register.php:226
+#: actions/register.php:218
 #, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
 msgstr "పూర్తి పేరు చాలా పెద్దగా ఉంది (గరిష్ఠంగా 255 అక్షరాలు)."
@@ -654,7 +655,7 @@ msgstr[1] "వివరణ చాలా పెద్దగా ఉంది (%d �
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:215 actions/editgroup.php:218
 #: actions/newgroup.php:164 actions/profilesettings.php:265
-#: actions/register.php:235
+#: actions/register.php:227
 #, fuzzy
 msgid "Location is too long (maximum 255 characters)."
 msgstr "ప్రాంతం పేరు మరీ పెద్దగా ఉంది (255 అక్షరాలు గరిష్ఠం)."
@@ -813,15 +814,15 @@ msgstr "మీకు అధీకరణ లేదు."
 #: actions/emailsettings.php:291 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:65 actions/grouplogo.php:321
 #: actions/groupunblock.php:65 actions/imsettings.php:224
-#: actions/invite.php:60 actions/login.php:137 actions/makeadmin.php:66
+#: actions/invite.php:60 actions/login.php:131 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:105 actions/nudge.php:80
-#: actions/oauthappssettings.php:165 actions/oauthconnectionssettings.php:138
-#: actions/othersettings.php:155 actions/passwordsettings.php:138
+#: actions/oauthappssettings.php:165 actions/oauthconnectionssettings.php:136
+#: actions/othersettings.php:155 actions/passwordsettings.php:137
 #: actions/profilesettings.php:217 actions/recoverpassword.php:383
-#: actions/register.php:172 actions/remotesubscribe.php:76
+#: actions/register.php:164 actions/remotesubscribe.php:76
 #: actions/repeat.php:82 actions/smssettings.php:250 actions/subedit.php:40
 #: actions/subscribe.php:86 actions/tagother.php:166
-#: actions/unsubscribe.php:69 actions/userauthorization.php:52
+#: actions/unsubscribe.php:69 actions/userauthorization.php:53
 #: lib/designsettings.php:310
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
@@ -853,7 +854,7 @@ msgstr "అవతారాన్ని పెట్టడంలో పొరప�
 #: actions/designadminpanel.php:100 actions/editapplication.php:144
 #: actions/emailsettings.php:310 actions/grouplogo.php:332
 #: actions/imsettings.php:239 actions/newapplication.php:124
-#: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:46
+#: actions/oauthconnectionssettings.php:145 actions/recoverpassword.php:46
 #: actions/smssettings.php:271 lib/designsettings.php:321
 msgid "Unexpected form submission."
 msgstr ""
@@ -898,19 +899,20 @@ msgstr "ఖాతా"
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group nickname (dt). Text hidden by default.
+#. TRANS: DT element on Authorise Subscription page.
 #. TRANS: DT for nick name in a profile.
-#: actions/apioauthauthorize.php:459 actions/login.php:252
-#: actions/profilesettings.php:106 actions/register.php:432
+#: actions/apioauthauthorize.php:459 actions/login.php:242
+#: actions/profilesettings.php:106 actions/register.php:418
 #: actions/showgroup.php:243 actions/tagother.php:94
-#: actions/userauthorization.php:145 lib/groupeditform.php:145
+#: actions/userauthorization.php:152 lib/groupeditform.php:145
 #: lib/userprofile.php:137
 msgid "Nickname"
 msgstr "పేరు"
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:463 actions/login.php:255
-#: actions/register.php:436 lib/accountsettingsaction.php:120
+#: actions/apioauthauthorize.php:463 actions/login.php:245
+#: actions/register.php:422 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "సంకేతపదం"
 
@@ -1032,7 +1034,7 @@ msgstr "నిర్ధారణ సంకేతం కనబడలేదు."
 #. TRANS: %s is the requested output format.
 #: actions/apistatusesshow.php:144
 #, fuzzy, php-format
-msgid "Unsupported format: %s"
+msgid "Unsupported format: %s."
 msgstr "%s కి నేరు సందేశాలు"
 
 #. TRANS: Client error displayed requesting a deleted status.
@@ -1208,25 +1210,26 @@ msgid "Atom post must be an Atom entry."
 msgstr ""
 
 #. TRANS: Client error displayed when not using the POST verb. Do not translate POST.
-#: actions/apitimelineuser.php:335
+#: actions/apitimelineuser.php:334
 msgid "Can only handle POST activities."
 msgstr ""
 
 #. TRANS: Client error displayed when using an unsupported activity object type.
 #. TRANS: %s is the unsupported activity object type.
-#: actions/apitimelineuser.php:346
+#: actions/apitimelineuser.php:345
 #, php-format
 msgid "Cannot handle activity object type \"%s\"."
 msgstr ""
 
 #. TRANS: Client error displayed when posting a notice without content through the API.
 #. TRANS: %d is the notice ID (number).
-#: actions/apitimelineuser.php:380
+#: actions/apitimelineuser.php:379
 #, fuzzy, php-format
 msgid "No content for notice %d."
 msgstr "మీ నోటీసుని మీరే పునరావృతించలేరు."
 
 #. TRANS: Client error displayed when using another format than AtomPub.
+#. TRANS: %s is the notice URI.
 #: actions/apitimelineuser.php:408
 #, fuzzy, php-format
 msgid "Notice with URI \"%s\" already exists."
@@ -1394,7 +1397,7 @@ msgid "Not a member."
 msgstr "సభ్యులు కాదు."
 
 #. TRANS: Client exception thrown when deleting someone else's membership.
-#: actions/atompubshowmembership.php:151
+#: actions/atompubshowmembership.php:150
 #, fuzzy
 msgid "Cannot delete someone else's membership."
 msgstr "కొత్త చందాని చేర్చలేకపోయాం."
@@ -1499,9 +1502,11 @@ msgstr "మీ వ్యక్తిగత అవతారాన్ని మీ
 
 #. TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
 #. TRANS: Server error displayed coming across a request from a user without a profile.
+#. TRANS: Server error displayed when trying to authorise a remote subscription request
+#. TRANS: while the user has no profile.
 #: actions/avatarsettings.php:108 actions/avatarsettings.php:192
 #: actions/grouplogo.php:184 actions/remotesubscribe.php:190
-#: actions/userauthorization.php:72 actions/userrss.php:108
+#: actions/userauthorization.php:75 actions/userrss.php:108
 #, fuzzy
 msgid "User without matching profile."
 msgstr "వాడుకరికి ప్రొఫైలు లేదు."
@@ -1557,9 +1562,10 @@ msgstr "కత్తిరించు"
 msgid "No file uploaded."
 msgstr "ఏ దస్త్రమూ ఎక్కింపబడలేదు."
 
-#. TRANS: Avatar upload form unstruction after uploading a file.
+#. TRANS: Avatar upload form instruction after uploading a file.
 #: actions/avatarsettings.php:345
-msgid "Pick a square area of the image to be your avatar"
+#, fuzzy
+msgid "Pick a square area of the image to be your avatar."
 msgstr "మీ అవతారానికి గానూ ఈ చిత్రం నుండి ఒక చతురస్రపు ప్రదేశాన్ని ఎంచుకోండి"
 
 #. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
@@ -1619,7 +1625,7 @@ msgstr "నేపథ్యం"
 
 #. TRANS: Title for submit button to backup an account on the backup account page.
 #: actions/backupaccount.php:252
-msgid "Backup your account"
+msgid "Backup your account."
 msgstr ""
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
@@ -1659,7 +1665,8 @@ msgstr "కాదు"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
 #: actions/block.php:158
-msgid "Do not block this user"
+#, fuzzy
+msgid "Do not block this user."
 msgstr "ఈ వాడుకరిని నిరోధించకు"
 
 #. TRANS: Button label on the user block form.
@@ -1676,9 +1683,9 @@ msgid "Yes"
 msgstr "అవును"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
-#. TRANS: Description of the form to block a user.
-#: actions/block.php:165 lib/blockform.php:79
-msgid "Block this user"
+#: actions/block.php:165
+#, fuzzy
+msgid "Block this user."
 msgstr "ఈ వాడుకరిని నిరోధించు"
 
 #. TRANS: Server error displayed when blocking a user fails.
@@ -1843,7 +1850,7 @@ msgstr ""
 #. TRANS: Field label for delete account confirmation entry.
 #. TRANS: Field label for password reset form where the password has to be typed again.
 #: actions/deleteaccount.php:300 actions/passwordsettings.php:112
-#: actions/recoverpassword.php:262 actions/register.php:440
+#: actions/recoverpassword.php:262 actions/register.php:426
 msgid "Confirm"
 msgstr "నిర్థారించు"
 
@@ -1873,13 +1880,13 @@ msgstr "ఉపకరణం కనబడలేదు."
 #. TRANS: Client error displayed trying to delete an application the current user does not own.
 #. TRANS: Client error displayed trying to edit an application while not being its owner.
 #: actions/deleteapplication.php:79 actions/editapplication.php:78
-#: actions/showapplication.php:94
+#: actions/showapplication.php:90
 msgid "You are not the owner of this application."
 msgstr "మీరు ఈ ఉపకరణం యొక్క యజమాని కాదు."
 
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:131
-#: actions/newapplication.php:112 actions/showapplication.php:118
+#: actions/newapplication.php:112 actions/showapplication.php:113
 #: lib/action.php:1422
 msgid "There was a problem with your session token."
 msgstr ""
@@ -1902,12 +1909,14 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting an application.
 #: actions/deleteapplication.php:161
-msgid "Do not delete this application"
+#, fuzzy
+msgid "Do not delete this application."
 msgstr "ఈ ఉపకరణాన్ని తొలగించకు"
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:167
-msgid "Delete this application"
+#, fuzzy
+msgid "Delete this application."
 msgstr "ఈ ఉపకరణాన్ని తొలగించు"
 
 #. TRANS: Client error when trying to delete group while not logged in.
@@ -1961,12 +1970,14 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a group.
 #: actions/deletegroup.php:224
-msgid "Do not delete this group"
+#, fuzzy
+msgid "Do not delete this group."
 msgstr "ఈ గుంపును తొలగించకు"
 
 #. TRANS: Submit button title for 'Yes' when deleting a group.
 #: actions/deletegroup.php:231
-msgid "Delete this group"
+#, fuzzy
+msgid "Delete this group."
 msgstr "ఈ గుంపుని తొలగించు"
 
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
@@ -2007,12 +2018,14 @@ msgstr "మీరు నిజంగానే ఈ నోటీసుని త�
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
 #: actions/deletenotice.php:159
-msgid "Do not delete this notice"
+#, fuzzy
+msgid "Do not delete this notice."
 msgstr "ఈ నోటీసుని తొలగించకు"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:166 lib/noticelist.php:673
-msgid "Delete this notice"
+#: actions/deletenotice.php:166
+#, fuzzy
+msgid "Delete this notice."
 msgstr "ఈ నోటీసుని తొలగించు"
 
 #. TRANS: Client error displayed when trying to delete a user without having the right to delete users.
@@ -2049,13 +2062,13 @@ msgstr ""
 #. TRANS: Submit button title for 'No' when deleting a user.
 #: actions/deleteuser.php:158
 #, fuzzy
-msgid "Do not delete this user"
+msgid "Do not delete this user."
 msgstr "ఈ గుంపును తొలగించకు"
 
 #. TRANS: Submit button title for 'Yes' when deleting a user.
-#. TRANS: Description of form for deleting a user.
-#: actions/deleteuser.php:165 lib/deleteuserform.php:75
-msgid "Delete this user"
+#: actions/deleteuser.php:165
+#, fuzzy
+msgid "Delete this user."
 msgstr "ఈ వాడుకరిని తొలగించు"
 
 #. TRANS: Message used as title for design settings for the site.
@@ -2222,23 +2235,21 @@ msgid "Use defaults"
 msgstr "అప్రమేయాలని ఉపయోగించు"
 
 #. TRANS: Title for button for resetting theme settings.
-#. TRANS: Title for button on profile design page to reset all colour settings to default.
-#: actions/designadminpanel.php:720 lib/designsettings.php:259
+#: actions/designadminpanel.php:720
 #, fuzzy
-msgid "Restore default designs"
+msgid "Restore default designs."
 msgstr "అప్రమేయాలని ఉపయోగించు"
 
 #. TRANS: Title for button for resetting theme settings.
-#. TRANS: Title for button on profile design page to reset all colour settings to default without saving.
-#: actions/designadminpanel.php:728 lib/designsettings.php:267
+#: actions/designadminpanel.php:728
 #, fuzzy
-msgid "Reset back to default"
+msgid "Reset back to default."
 msgstr "అప్రమేయాలని ఉపయోగించు"
 
 #. TRANS: Title for button for saving theme settings.
-#. TRANS: Title for button on profile design page to save settings.
-#: actions/designadminpanel.php:736 lib/designsettings.php:272
-msgid "Save design"
+#: actions/designadminpanel.php:736
+#, fuzzy
+msgid "Save design."
 msgstr "రూపురేఖలని భద్రపరచు"
 
 #. TRANS: Client error displayed when trying to remove favorite status for a notice that is not a favorite.
@@ -2270,7 +2281,7 @@ msgid "You must be logged in to edit an application."
 msgstr "ఉపకరణాలని మార్చడానికి మీరు ప్రవేశించి ఉండాలి."
 
 #. TRANS: Client error displayed trying to edit an application that does not exist.
-#: actions/editapplication.php:83 actions/showapplication.php:87
+#: actions/editapplication.php:83 actions/showapplication.php:83
 msgid "No such application."
 msgstr "అటువంటి ఉపకరణం లేదు."
 
@@ -2557,7 +2568,7 @@ msgid "Cannot normalize that email address."
 msgstr "ప్రస్తుత నిర్ధారిత ఈమెయిలు చిరునామా."
 
 #. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:393 actions/register.php:212
+#: actions/emailsettings.php:393 actions/register.php:204
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "సరైన ఈమెయిల్ చిరునామా కాదు:"
@@ -2635,20 +2646,23 @@ msgstr "ఈమెయిలు చిరునామా లేదు."
 
 #. TRANS: Server error thrown on database error removing incoming e-mail address.
 #. TRANS: Server error thrown on database error adding incoming e-mail address.
+#. TRANS: Server error displayed when the user could not be updated in SMS settings.
 #: actions/emailsettings.php:530 actions/emailsettings.php:554
-#: actions/smssettings.php:565 actions/smssettings.php:588
+#: actions/smssettings.php:566 actions/smssettings.php:591
 #, fuzzy
 msgid "Could not update user record."
 msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
-#: actions/emailsettings.php:534 actions/smssettings.php:568
+#. TRANS: Confirmation text after updating SMS settings.
+#: actions/emailsettings.php:534 actions/smssettings.php:570
 #, fuzzy
 msgid "Incoming email address removed."
 msgstr "ఆ ఈమెయిలు చిరునామాని తొలగించాం."
 
 #. TRANS: Message given after successfully adding an incoming e-mail address.
-#: actions/emailsettings.php:558 actions/smssettings.php:591
+#. TRANS: Confirmation text after updating SMS settings.
+#: actions/emailsettings.php:558 actions/smssettings.php:595
 #, fuzzy
 msgid "New incoming email address added."
 msgstr "ఈమెయిలు చిరునామా లేదు."
@@ -2661,7 +2675,7 @@ msgstr "ఈ నోటీసు ఇప్పటికే మీ ఇష్టా�
 #. TRANS: Page title for page on which favorite notices can be unfavourited.
 #: actions/favor.php:95
 #, fuzzy
-msgid "Disfavor favorite"
+msgid "Disfavor favorite."
 msgstr "ఇష్టాంశాలకు చేర్చు"
 
 #. TRANS: Page title for first page of favorited notices.
@@ -2898,12 +2912,14 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
 #: actions/groupblock.php:191
-msgid "Do not block this user from this group"
+#, fuzzy
+msgid "Do not block this user from this group."
 msgstr "ఈ వాడుకరిని ఈ గుంపు నుండి నిరోధించకు"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
 #: actions/groupblock.php:198
-msgid "Block this user from this group"
+#, fuzzy
+msgid "Block this user from this group."
 msgstr "ఈ గుంపునుండి ఈ వాడుకరిని నిరోధించు"
 
 #. TRANS: Server error displayed when trying to block a user from a group fails because of an application error.
@@ -3219,7 +3235,8 @@ msgid "Publish a MicroID for my Jabber/Google Talk address."
 msgstr "ప్రస్తుతం నిర్ధారించిన Jabber/GTalk చిరునామా"
 
 #. TRANS: Confirmation message for successful Instant Messaging preferences save.
-#: actions/imsettings.php:283 actions/othersettings.php:192
+#. TRANS: Confirmation message after saving preferences.
+#: actions/imsettings.php:283 actions/othersettings.php:193
 msgid "Preferences saved."
 msgstr "అభిరుచులు భద్రమయ్యాయి."
 
@@ -3625,50 +3642,50 @@ msgstr "భద్రపరచు"
 msgid "Save license settings"
 msgstr "లైసెన్సు అమరికలను భద్రపరచు"
 
-#: actions/login.php:102 actions/otp.php:62 actions/register.php:144
+#: actions/login.php:97 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "ఇప్పటికే లోనికి ప్రవేశించారు."
 
-#: actions/login.php:148
+#: actions/login.php:142
 msgid "Incorrect username or password."
 msgstr "వాడుకరిపేరు లేదా సంకేతపదం తప్పు."
 
-#: actions/login.php:154 actions/otp.php:120
+#: actions/login.php:148 actions/otp.php:120
 msgid "Error setting user. You are probably not authorized."
 msgstr "వాడుకరిని అమర్చడంలో పొరపాటు. బహుశా మీకు అధీకరణ లేకపోవచ్చు."
 
-#: actions/login.php:210 actions/login.php:263
+#: actions/login.php:202 actions/login.php:253
 msgid "Login"
 msgstr "ప్రవేశించండి"
 
-#: actions/login.php:249
+#: actions/login.php:239
 msgid "Login to site"
 msgstr "సైటు లోనికి ప్రవేశించు"
 
-#: actions/login.php:258 actions/register.php:490
+#: actions/login.php:248 actions/register.php:476
 msgid "Remember me"
 msgstr "నన్ను గుర్తుంచుకో"
 
-#: actions/login.php:259 actions/register.php:492
+#: actions/login.php:249 actions/register.php:478
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "భవిష్యత్తులో ఆటోమెటిగ్గా లోనికి ప్రవేశించు; బయటి కంప్యూర్ల కొరకు కాదు!"
 
-#: actions/login.php:269
+#: actions/login.php:259
 msgid "Lost or forgotten password?"
 msgstr "మీ సంకేతపదం మర్చిపోయారా?"
 
-#: actions/login.php:288
+#: actions/login.php:277
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr ""
 "భద్రతా కారణాల దృష్ట్యా, అమరికలు మార్చే ముందు మీ వాడుకరి పేరుని మరియు సంకేతపదాన్ని మరోసారి ఇవ్వండి."
 
-#: actions/login.php:292
+#: actions/login.php:281
 msgid "Login with your username and password."
 msgstr "మీ వాడుకరిపేరు మరియు సంకేతపదాలతో ప్రవేశించండి."
 
-#: actions/login.php:295
+#: actions/login.php:284
 #, php-format
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
@@ -3877,30 +3894,30 @@ msgid "You have not registered any applications yet."
 msgstr "మీరు ఇంకా ఏ ఉపకరణాన్నీ నమోదు చేసుకోలేదు."
 
 #. TRANS: Title for OAuth connection settings.
-#: actions/oauthconnectionssettings.php:71
+#: actions/oauthconnectionssettings.php:70
 msgid "Connected applications"
 msgstr "సంధానిత ఉపకరణాలు"
 
 #. TRANS: Instructions for OAuth connection settings.
-#: actions/oauthconnectionssettings.php:83
+#: actions/oauthconnectionssettings.php:81
 msgid "The following connections exist for your account."
 msgstr ""
 
 #. TRANS: Client error when trying to revoke access for an application while not being a user of it.
-#: actions/oauthconnectionssettings.php:168
+#: actions/oauthconnectionssettings.php:166
 msgid "You are not a user of that application."
 msgstr "మీరు ఆ ఉపకరణం యొక్క వాడుకరి కాదు."
 
 #. TRANS: Client error when revoking access has failed for some reason.
 #. TRANS: %s is the application ID revoking access failed for.
-#: actions/oauthconnectionssettings.php:183
+#: actions/oauthconnectionssettings.php:181
 #, fuzzy, php-format
 msgid "Unable to revoke access for application: %s."
 msgstr "మీ ఉపకరణాన్ని మార్చడానికి ఈ ఫారాన్ని ఉపయోగించండి."
 
 #. TRANS: Success message after revoking access for an application.
 #. TRANS: %1$s is the application name, %2$s is the first part of the user token.
-#: actions/oauthconnectionssettings.php:202
+#: actions/oauthconnectionssettings.php:200
 #, php-format
 msgid ""
 "You have successfully revoked access for %1$s and the access token starting "
@@ -3908,19 +3925,29 @@ msgid ""
 msgstr ""
 
 #. TRANS: Empty list message when no applications have been authorised yet.
-#: actions/oauthconnectionssettings.php:213
+#: actions/oauthconnectionssettings.php:211
 msgid "You have not authorized any applications to use your account."
 msgstr "మీ ఖాతాని ఉపయోగించుకోడానికి మీరు ఏ ఉపకరణాన్నీ అధీకరించలేదు."
 
 #. TRANS: Note for developers in the OAuth connection settings form.
 #. TRANS: This message contains a Markdown link. Do not separate "](".
 #. TRANS: %s is the URL to the OAuth settings.
-#: actions/oauthconnectionssettings.php:233
+#: actions/oauthconnectionssettings.php:231
 #, php-format
 msgid ""
 "Are you a developer? [Register an OAuth client application](%s) to use with "
 "this instance of StatusNet."
 msgstr ""
+
+#: actions/oembed.php:64
+#, fuzzy, php-format
+msgid "\"%s\" not found."
+msgstr "వాడుకరి దొరకలేదు."
+
+#: actions/oembed.php:76
+#, fuzzy, php-format
+msgid "Notice %s not found."
+msgstr "నిర్ధారణ సంకేతం కనబడలేదు."
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -3930,6 +3957,16 @@ msgstr "నోటీసుకి ప్రొఫైలు లేదు."
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%2$sలో %1$s యొక్క స్థితి"
+
+#: actions/oembed.php:95
+#, fuzzy, php-format
+msgid "Attachment %s not found."
+msgstr "అందుకోవాల్సిన వాడుకరి కనబడలేదు."
+
+#: actions/oembed.php:136
+#, php-format
+msgid "\"%s\" not supported for oembed requests."
+msgstr ""
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:168
@@ -4025,17 +4062,21 @@ msgstr "సందేశపు విషయం సరైనది కాదు"
 msgid "Login token expired."
 msgstr "సైటు లోనికి ప్రవేశించు"
 
-#: actions/outbox.php:58
+#. TRANS: Title for outbox for any but the fist page.
+#. TRANS: %1$s is the user nickname, %2$d is the page number.
+#: actions/outbox.php:57
 #, fuzzy, php-format
 msgid "Outbox for %1$s - page %2$d"
 msgstr "%1$sకి వచ్చినవి - %2$dవ పేజీ"
 
+#. TRANS: Title for first page of outbox.
 #: actions/outbox.php:61
 #, fuzzy, php-format
 msgid "Outbox for %s"
 msgstr "%sకి వచ్చినవి"
 
-#: actions/outbox.php:104
+#. TRANS: Instructions for outbox.
+#: actions/outbox.php:103
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr "ఇవి మీరు పంపివున్న అంతరంగిక సందేశాలు."
 
@@ -4061,40 +4102,45 @@ msgstr "పాత సంకేతపదం"
 msgid "New password"
 msgstr "కొత్త సంకేతపదం"
 
-#: actions/passwordsettings.php:109
-msgid "6 or more characters"
+#: actions/passwordsettings.php:109 actions/register.php:423
+#, fuzzy
+msgid "6 or more characters."
 msgstr "6 లేదా అంతకంటే ఎక్కువ అక్షరాలు"
 
-#: actions/passwordsettings.php:113
-msgid "Same as password above"
+#. TRANS: Ttile for field label for password reset form where the password has to be typed again.
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:264
+#: actions/register.php:427
+#, fuzzy
+msgid "Same as password above."
 msgstr "పై సంకేతపదం వలెనే"
 
 #: actions/passwordsettings.php:117
 msgid "Change"
 msgstr "మార్చు"
 
-#: actions/passwordsettings.php:154 actions/register.php:238
+#: actions/passwordsettings.php:153 actions/register.php:230
 msgid "Password must be 6 or more characters."
 msgstr "సంకేతపదం తప్పనిసరిగా 6 లేదా అంతకంటే ఎక్కువ అక్షరాలుండాలి."
 
-#: actions/passwordsettings.php:157 actions/register.php:241
+#: actions/passwordsettings.php:156 actions/register.php:233
 msgid "Passwords don't match."
 msgstr "సంకేతపదాలు సరిపోలలేదు."
 
-#: actions/passwordsettings.php:165
+#: actions/passwordsettings.php:164
 msgid "Incorrect old password"
 msgstr "పాత సంకేతపదం తప్పు"
 
-#: actions/passwordsettings.php:181
+#: actions/passwordsettings.php:180
 msgid "Error saving user; invalid."
 msgstr "వాడుకరిని భద్రపరచడంలో పొరపాటు: సరికాదు."
 
-#: actions/passwordsettings.php:186
-msgid "Can't save new password."
+#. TRANS: Reset password form validation error message.
+#: actions/passwordsettings.php:185 actions/recoverpassword.php:418
+#, fuzzy
+msgid "Cannot save new password."
 msgstr "కొత్త సంకేతపదాన్ని భద్రపరచలేము."
 
-#. TRANS: Title for password recovery page in password saved mode.
-#: actions/passwordsettings.php:192 actions/recoverpassword.php:229
+#: actions/passwordsettings.php:191
 msgid "Password saved."
 msgstr "సంకేతపదం భద్రమయ్యింది."
 
@@ -4435,7 +4481,7 @@ msgid "Profile information"
 msgstr "ప్రొఫైలు సమాచారం"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:109 actions/register.php:433
+#: actions/profilesettings.php:109 actions/register.php:419
 #, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1-64 చిన్నబడి అక్షరాలు లేదా అంకెలు, విరామచిహ్నాలు మరియు ఖాళీలు తప్ప"
@@ -4443,7 +4489,7 @@ msgstr "1-64 చిన్నబడి అక్షరాలు లేదా అ�
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for full group name (dt). Text hidden by default.
 #. TRANS: DT for full name in a profile.
-#: actions/profilesettings.php:113 actions/register.php:455
+#: actions/profilesettings.php:113 actions/register.php:441
 #: actions/showgroup.php:255 actions/tagother.php:104
 #: lib/groupeditform.php:150 lib/userprofile.php:156
 msgid "Full name"
@@ -4451,13 +4497,13 @@ msgstr "పూర్తి పేరు"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:118 actions/register.php:460
+#: actions/profilesettings.php:118 actions/register.php:446
 #: lib/applicationeditform.php:236 lib/groupeditform.php:154
 msgid "Homepage"
 msgstr "హోమ్ పేజీ"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:121
+#: actions/profilesettings.php:121 actions/register.php:448
 #, fuzzy
 msgid "URL of your homepage, blog, or profile on another site."
 msgstr "మీ హోమ్ పేజీ, బ్లాగు, లేదా వేరే సేటులోని మీ ప్రొఫైలు యొక్క చిరునామా"
@@ -4465,7 +4511,7 @@ msgstr "మీ హోమ్ పేజీ, బ్లాగు, లేదా వ�
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#: actions/profilesettings.php:129 actions/register.php:471
+#: actions/profilesettings.php:129 actions/register.php:457
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
@@ -4473,28 +4519,29 @@ msgstr[0] "మీ గురించి మరియు మీ ఆసక్త�
 msgstr[1] "మీ గురించి మరియు మీ ఆసక్తుల గురించి %d అక్షరాల్లో చెప్పండి"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:135 actions/register.php:476
+#: actions/profilesettings.php:135 actions/register.php:462
 msgid "Describe yourself and your interests"
 msgstr "మీ గురించి మరియు మీ ఆసక్తుల గురించి చెప్పండి"
 
 #. TRANS: Text area label in form for profile settings where users can provide.
 #. TRANS: their biography.
-#: actions/profilesettings.php:139 actions/register.php:478
+#: actions/profilesettings.php:139 actions/register.php:464
 msgid "Bio"
 msgstr "స్వపరిచయం"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Label for group location (dt). Text hidden by default.
+#. TRANS: DT element on Authorise Subscription page.
 #. TRANS: DT for location in a profile.
-#: actions/profilesettings.php:145 actions/register.php:483
+#: actions/profilesettings.php:145 actions/register.php:469
 #: actions/showgroup.php:265 actions/tagother.php:112
-#: actions/userauthorization.php:166 lib/groupeditform.php:173
+#: actions/userauthorization.php:174 lib/groupeditform.php:173
 #: lib/userprofile.php:172
 msgid "Location"
 msgstr "ప్రాంతం"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:148 actions/register.php:485
+#: actions/profilesettings.php:148
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "మీరు ఎక్కడ నుండి, \"నగరం, రాష్ట్రం (లేదా ప్రాంతం), దేశం\""
 
@@ -4514,7 +4561,8 @@ msgstr "ట్యాగులు"
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:164
 msgid ""
-"Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
+"Tags for yourself (letters, numbers, -, ., and _), comma- or space- "
+"separated."
 msgstr ""
 
 #. TRANS: Dropdownlist label in form for profile settings.
@@ -4524,7 +4572,8 @@ msgstr "భాష"
 
 #. TRANS: Tooltip for dropdown list label in form for profile settings.
 #: actions/profilesettings.php:171
-msgid "Preferred language"
+#, fuzzy
+msgid "Preferred language."
 msgstr "ప్రాథాన్యతా భాష"
 
 #. TRANS: Dropdownlist label in form for profile settings.
@@ -4539,14 +4588,15 @@ msgstr "మీరు సామాన్యంగా ఉండే కాలమం
 
 #. TRANS: Checkbox label in form for profile settings.
 #: actions/profilesettings.php:189
+#, fuzzy
 msgid ""
-"Automatically subscribe to whoever subscribes to me (best for non-humans)"
-msgstr ""
+"Automatically subscribe to whoever subscribes to me (best for non-humans)."
+msgstr "ఉపయోగించాల్సిన యాంత్రిక కుదింపు సేవ."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
-#: actions/profilesettings.php:258 actions/register.php:229
+#: actions/profilesettings.php:258 actions/register.php:221
 #, fuzzy, php-format
 msgid "Bio is too long (maximum %d character)."
 msgid_plural "Bio is too long (maximum %d characters)."
@@ -4566,9 +4616,9 @@ msgstr "భాష మరీ పెద్దగా ఉంది (50 అక్ష�
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
-#: actions/profilesettings.php:291 actions/tagother.php:178
-#, php-format
-msgid "Invalid tag: \"%s\""
+#: actions/profilesettings.php:291
+#, fuzzy, php-format
+msgid "Invalid tag: \"%s\"."
 msgstr "తప్పుడు మారుపేరు: \"%s\""
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
@@ -4813,6 +4863,12 @@ msgstr "కొత్త సంకేతపదం"
 msgid "Password recovery requested"
 msgstr ""
 
+#. TRANS: Title for password recovery page in password saved mode.
+#: actions/recoverpassword.php:229
+#, fuzzy
+msgid "Password saved"
+msgstr "సంకేతపదం భద్రమయ్యింది."
+
 #. TRANS: Title for password recovery page when an unknown action has been specified.
 #: actions/recoverpassword.php:232
 msgid "Unknown action"
@@ -4823,12 +4879,6 @@ msgstr "తెలియని చర్య"
 #, fuzzy
 msgid "6 or more characters, and do not forget it!"
 msgstr "6 లేదా అంతకంటే ఎక్కువ అక్షరాలు, మర్చిపోకండి!"
-
-#. TRANS: Ttile for field label for password reset form where the password has to be typed again.
-#: actions/recoverpassword.php:264 actions/register.php:441
-#, fuzzy
-msgid "Same as password above."
-msgstr "పై సంకేతపదం వలెనే"
 
 #. TRANS: Button text for password reset form.
 #. TRANS: Button text on profile design page to reset all colour settings to default without saving.
@@ -4880,14 +4930,8 @@ msgstr "సంకేతపదం 6 లేదా అంతకంటే ఎక్�
 msgid "Password and confirmation do not match."
 msgstr "సంకేతపదం మరియు నిర్ధారణ సరిపోలేదు."
 
-#. TRANS: Reset password form validation error message.
-#: actions/recoverpassword.php:418
-#, fuzzy
-msgid "Cannot save new password."
-msgstr "కొత్త సంకేతపదాన్ని భద్రపరచలేము."
-
 #. TRANS: Server error displayed when something does wrong with the user object during password reset.
-#: actions/recoverpassword.php:426 actions/register.php:256
+#: actions/recoverpassword.php:426 actions/register.php:248
 #, fuzzy
 msgid "Error setting user."
 msgstr "వాడుకరిని భద్రపరచడంలో పొరపాటు: సరికాదు."
@@ -4897,90 +4941,89 @@ msgstr "వాడుకరిని భద్రపరచడంలో పొర�
 msgid "New password successfully saved. You are now logged in."
 msgstr "మీ కొత్త సంకేతపదం భద్రమైంది. మీరు ఇప్పుడు లోనికి ప్రవేశించారు."
 
-#: actions/register.php:92 actions/register.php:196 actions/register.php:413
+#: actions/register.php:87 actions/register.php:188 actions/register.php:399
 msgid "Sorry, only invited people can register."
 msgstr "క్షమించండి, ఆహ్వానితులు మాత్రమే నమోదుకాగలరు."
 
-#: actions/register.php:99
+#: actions/register.php:94
 msgid "Sorry, invalid invitation code."
 msgstr "క్షమించండి, తప్పు ఆహ్వాన సంకేతం."
 
-#: actions/register.php:119
+#: actions/register.php:113
 msgid "Registration successful"
 msgstr "నమోదు విజయవంతం"
 
-#: actions/register.php:121 actions/register.php:511
+#: actions/register.php:115 actions/register.php:497
 msgid "Register"
 msgstr "నమోదు"
 
-#: actions/register.php:142
+#: actions/register.php:135
 msgid "Registration not allowed."
 msgstr "నమోదు అనుమతించబడదు."
 
-#: actions/register.php:209
-msgid "You can't register if you don't agree to the license."
+#: actions/register.php:201
+#, fuzzy
+msgid "You cannot register if you don't agree to the license."
 msgstr "ఈ లైసెన్సుకి అంగీకరించకపోతే మీరు నమోదుచేసుకోలేరు."
 
-#: actions/register.php:218
+#: actions/register.php:210
 msgid "Email address already exists."
 msgstr "ఈమెయిల్ చిరునామా ఇప్పటికే ఉంది."
 
-#: actions/register.php:251 actions/register.php:273
+#: actions/register.php:243 actions/register.php:265
 msgid "Invalid username or password."
 msgstr "వాడుకరిపేరు లేదా సంకేతపదం తప్పు."
 
-#: actions/register.php:351
+#: actions/register.php:340
 msgid ""
 "With this form you can create a new account. You can then post notices and "
-"link up to friends and colleagues. "
+"link up to friends and colleagues."
 msgstr ""
 
-#: actions/register.php:437
-#, fuzzy
-msgid "6 or more characters."
-msgstr "6 లేదా అంతకంటే ఎక్కువ అక్షరాలు"
-
 #. TRANS: Link description in user account settings menu.
-#: actions/register.php:445 actions/register.php:449
+#: actions/register.php:431 actions/register.php:435
 #: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:127
 msgid "Email"
 msgstr "ఈమెయిల్"
 
-#: actions/register.php:446 actions/register.php:450
-msgid "Used only for updates, announcements, and password recovery"
+#: actions/register.php:432 actions/register.php:436
+#, fuzzy
+msgid "Used only for updates, announcements, and password recovery."
 msgstr "తాజా విశేషాలు, ప్రకటనలు, మరియు సంకేతపదం పోయినప్పుడు మాత్రమే ఉపయోగిస్తాం."
 
-#: actions/register.php:457
-msgid "Longer name, preferably your \"real\" name"
+#: actions/register.php:443
+#, fuzzy
+msgid "Longer name, preferably your \"real\" name."
 msgstr "పొడుగాటి పేరు, మీ \"అసలు\" పేరైతే మంచిది"
 
-#: actions/register.php:462
-msgid "URL of your homepage, blog, or profile on another site"
-msgstr "మీ హోమ్ పేజీ, బ్లాగు, లేదా వేరే సేటులోని మీ ప్రొఫైలు యొక్క చిరునామా"
+#: actions/register.php:471
+#, fuzzy
+msgid "Where you are, like \"City, State (or Region), Country\"."
+msgstr "మీరు ఎక్కడ నుండి, \"నగరం, రాష్ట్రం (లేదా ప్రాంతం), దేశం\""
 
-#: actions/register.php:523
+#: actions/register.php:510
 #, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
 msgstr ""
 
-#: actions/register.php:533
+#: actions/register.php:520
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
-#: actions/register.php:537
+#: actions/register.php:524
 msgid "My text and files remain under my own copyright."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
-#: actions/register.php:540
+#: actions/register.php:527
 msgid "All rights reserved."
 msgstr "సర్వహక్కులూ సురక్షితం."
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:545
+#: actions/register.php:532
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -4989,7 +5032,7 @@ msgstr ""
 "నా పాఠ్యం మరియు దస్త్రాలు %s క్రింద లభ్యం, ఈ అంతరంగిక భోగట్టా తప్ప: సంకేతపదం, ఈమెయిల్ చిరునామా, IM "
 "చిరునామా, మరియు ఫోన్ నంబర్."
 
-#: actions/register.php:588
+#: actions/register.php:573
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -5020,7 +5063,7 @@ msgstr ""
 "\n"
 "నమోదుచేసుకున్నందుకు కృతజ్ఞతలు మరియు ఈ సేవని ఉపయోగిస్తూ మీరు ఆనందిస్తారని మేం ఆశిస్తున్నాం."
 
-#: actions/register.php:612
+#: actions/register.php:597
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -5052,7 +5095,8 @@ msgid "User nickname"
 msgstr "వాడుకరి పేరు"
 
 #: actions/remotesubscribe.php:129
-msgid "Nickname of the user you want to follow"
+#, fuzzy
+msgid "Nickname of the user you want to follow."
 msgstr "మీరు అనుసరించాలనుకుంటున్న వాడుకరి యొక్క ముద్దుపేరు"
 
 #: actions/remotesubscribe.php:132
@@ -5060,7 +5104,7 @@ msgid "Profile URL"
 msgstr "ప్రొఫైలు URL"
 
 #: actions/remotesubscribe.php:133
-msgid "URL of your profile on another compatible microblogging service"
+msgid "URL of your profile on another compatible microblogging service."
 msgstr ""
 
 #. TRANS: Link text for link that will subscribe to a remote profile.
@@ -5070,7 +5114,8 @@ msgid "Subscribe"
 msgstr "చందాచేరు"
 
 #: actions/remotesubscribe.php:158
-msgid "Invalid profile URL (bad format)"
+#, fuzzy
+msgid "Invalid profile URL (bad format)."
 msgstr "ప్రొపైల్ URL తప్పు (చెడు ఫార్మాట్)"
 
 #: actions/remotesubscribe.php:167
@@ -5266,7 +5311,7 @@ msgstr "ఈ సైటులో మీరు వాడుకరలకి పా�
 msgid "User doesn't have this role."
 msgstr "వాడుకరికి ఈ పాత్ర లేదు."
 
-#: actions/rsd.php:146 actions/version.php:159
+#: actions/rsd.php:142 actions/version.php:159
 msgid "StatusNet"
 msgstr "స్టేటస్‌నెట్"
 
@@ -5311,94 +5356,94 @@ msgstr ""
 msgid "Save site settings"
 msgstr "సైటు అమరికలను భద్రపరచు"
 
-#: actions/showapplication.php:82
+#: actions/showapplication.php:78
 msgid "You must be logged in to view an application."
 msgstr "ఉపకరణాలని చూడడానికి మీరు తప్పనిసరిగా ప్రవేశించి ఉండాలి."
 
-#: actions/showapplication.php:157
+#: actions/showapplication.php:151
 msgid "Application profile"
 msgstr "ఉపకరణ ప్రవర"
 
 #. TRANS: Form input field label for application icon.
-#: actions/showapplication.php:159 lib/applicationeditform.php:177
+#: actions/showapplication.php:153 lib/applicationeditform.php:177
 msgid "Icon"
 msgstr "ప్రతీకం"
 
 #. TRANS: Form input field label for application name.
-#: actions/showapplication.php:169 actions/version.php:197
+#: actions/showapplication.php:163 actions/version.php:197
 #: lib/applicationeditform.php:190
 msgid "Name"
 msgstr "పేరు"
 
 #. TRANS: Form input field label.
-#: actions/showapplication.php:178 lib/applicationeditform.php:227
+#: actions/showapplication.php:172 lib/applicationeditform.php:227
 msgid "Organization"
 msgstr "సంస్ధ"
 
 #. TRANS: Form input field label.
-#: actions/showapplication.php:187 actions/version.php:200
+#: actions/showapplication.php:181 actions/version.php:200
 #: lib/applicationeditform.php:208 lib/groupeditform.php:168
 msgid "Description"
 msgstr "వివరణ"
 
 #. TRANS: Header for group statistics on a group page (h2).
 #. TRANS: H2 text for user statistics.
-#: actions/showapplication.php:192 actions/showgroup.php:460
+#: actions/showapplication.php:186 actions/showgroup.php:460
 #: lib/profileaction.php:205
 msgid "Statistics"
 msgstr "గణాంకాలు"
 
-#: actions/showapplication.php:203
+#: actions/showapplication.php:197
 #, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d users"
 msgstr "సృష్టించినది %1$s - అప్రమేయ అందుబాటు %2$s  - %3$d వాడుకరులు"
 
-#: actions/showapplication.php:213
+#: actions/showapplication.php:207
 msgid "Application actions"
 msgstr "ఉపకరణ చర్యలు"
 
-#: actions/showapplication.php:236
+#: actions/showapplication.php:230
 msgid "Reset key & secret"
 msgstr ""
 
 #. TRANS: Title of form for deleting a user.
-#: actions/showapplication.php:252 lib/deletegroupform.php:121
+#: actions/showapplication.php:246 lib/deletegroupform.php:121
 #: lib/deleteuserform.php:64 lib/noticelist.php:673
 msgid "Delete"
 msgstr "తొలగించు"
 
-#: actions/showapplication.php:261
+#: actions/showapplication.php:255
 msgid "Application info"
 msgstr "ఉపకరణ సమాచారం"
 
-#: actions/showapplication.php:263
+#: actions/showapplication.php:257
 msgid "Consumer key"
 msgstr ""
 
-#: actions/showapplication.php:268
+#: actions/showapplication.php:262
 msgid "Consumer secret"
 msgstr ""
 
-#: actions/showapplication.php:273
+#: actions/showapplication.php:267
 msgid "Request token URL"
 msgstr ""
 
-#: actions/showapplication.php:278
+#: actions/showapplication.php:272
 msgid "Access token URL"
 msgstr ""
 
-#: actions/showapplication.php:283
+#: actions/showapplication.php:277
 #, fuzzy
 msgid "Authorize URL"
 msgstr "రచయిత"
 
-#: actions/showapplication.php:288
+#: actions/showapplication.php:282
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
 
-#: actions/showapplication.php:309
+#: actions/showapplication.php:302
 #, fuzzy
 msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr "మీరు నిజంగానే ఈ నోటీసుని తొలగించాలనుకుంటున్నారా?"
@@ -5487,16 +5532,18 @@ msgid "Group profile"
 msgstr "గుంపు ప్రొఫైలు"
 
 #. TRANS: Label for group URL (dt). Text hidden by default.
+#. TRANS: DT element on Authorise Subscription page.
 #. TRANS: DT for URL in a profile.
 #: actions/showgroup.php:273 actions/tagother.php:118
-#: actions/userauthorization.php:175 lib/userprofile.php:186
+#: actions/userauthorization.php:184 lib/userprofile.php:186
 msgid "URL"
 msgstr ""
 
 #. TRANS: Label for group description or group note (dt). Text hidden by default.
+#. TRANS: DT element on Authorise Subscription page where bio is displayed.
 #. TRANS: DT for note in a profile.
 #: actions/showgroup.php:285 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:204
+#: actions/userauthorization.php:197 lib/userprofile.php:204
 msgid "Note"
 msgstr "గమనిక"
 
@@ -5645,7 +5692,7 @@ msgid "%1$s tagged %2$s"
 msgstr "%1$s, %2$dవ పేజీ"
 
 #. TRANS: Page title showing tagged notices in one user's stream.
-#. TRANS: %1$s is the username, %2$s is the hash tag, %1$d is the page number.
+#. TRANS: %1$s is the username, %2$s is the hash tag, %3$d is the page number.
 #: actions/showstream.php:74
 #, fuzzy, php-format
 msgid "%1$s tagged %2$s, page %3$d"
@@ -5893,7 +5940,8 @@ msgstr "సైటు-వారీ నోటీసు పాఠ్యం (255 అ
 
 #. TRANS: Title for button to save site notice in admin panel.
 #: actions/sitenoticeadminpanel.php:201
-msgid "Save site notice"
+#, fuzzy
+msgid "Save site notice."
 msgstr "సైటు గమనికని భద్రపరచు"
 
 #. TRANS: Title for SMS settings.
@@ -5954,7 +6002,7 @@ msgstr "ఫోను నెంబరు లేదు."
 #. TRANS: SMS phone number input field instructions in SMS settings form.
 #: actions/smssettings.php:152
 #, fuzzy
-msgid "Phone number, no punctuation or spaces, with area code"
+msgid "Phone number, no punctuation or spaces, with area code."
 msgstr "1-64 చిన్నబడి అక్షరాలు లేదా అంకెలు, విరామ చిహ్నాలు లేదా ఖాళీలు లేకుండా. తప్పనిసరి."
 
 #. TRANS: Form legend for SMS preferences form.
@@ -6285,8 +6333,9 @@ msgstr "ట్యాగులు"
 msgid "User profile"
 msgstr "వాడుకరి ప్రొఫైలు"
 
+#. TRANS: DT element on Authorise Subscription page.
 #. TRANS: DT element in area for user avatar.
-#: actions/tagother.php:81 actions/userauthorization.php:132
+#: actions/tagother.php:81 actions/userauthorization.php:138
 #: lib/userprofile.php:108
 msgid "Photo"
 msgstr "ఫొటో"
@@ -6301,6 +6350,11 @@ msgid ""
 "Tags for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated"
 msgstr ""
+
+#: actions/tagother.php:178
+#, php-format
+msgid "Invalid tag: \"%s\""
+msgstr "తప్పుడు మారుపేరు: \"%s\""
 
 #: actions/tagother.php:193
 msgid ""
@@ -6338,7 +6392,7 @@ msgstr "అధీకరణ అభ్యర్థన లేదు!"
 msgid "Unsubscribed"
 msgstr "చందామాను"
 
-#: actions/updateprofile.php:64 actions/userauthorization.php:337
+#: actions/updateprofile.php:64
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -6369,7 +6423,7 @@ msgstr "చెల్లని స్వాగత పాఠ్యం. గరి�
 #. TRANS: users in user admin panel. %1$s is the invalid nickname.
 #: actions/useradminpanel.php:166
 #, php-format
-msgid "Invalid default subscripton: '%1$s' is not a user."
+msgid "Invalid default subscripton: \"%1$s\" is not a user."
 msgstr ""
 
 #. TRANS: Link description in user account settings menu.
@@ -6431,102 +6485,141 @@ msgstr "వాడుకరులను కొత్త వారిని ఆహ
 
 #. TRANS: Title for button to save user settings in user admin panel.
 #: actions/useradminpanel.php:302
-msgid "Save user settings"
+#, fuzzy
+msgid "Save user settings."
 msgstr "వాడుకరి అమరికలను భద్రపరచు"
 
-#: actions/userauthorization.php:105
+#. TRANS: Page title.
+#: actions/userauthorization.php:109
 msgid "Authorize subscription"
 msgstr "చందాని అధీకరించండి"
 
-#: actions/userauthorization.php:110
+#. TRANS: Page notice on "Auhtorize subscription" page.
+#: actions/userauthorization.php:115
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
-"click “Reject”."
+"click \"Reject\"."
 msgstr ""
 
+#. TRANS: DT element on Authorise Subscription page where license is displayed.
 #. TRANS: Menu item for site administration
-#: actions/userauthorization.php:196 actions/version.php:167
+#: actions/userauthorization.php:207 actions/version.php:167
 #: lib/adminpanelaction.php:403
 msgid "License"
 msgstr "లైసెన్సు"
 
-#: actions/userauthorization.php:217
+#. TRANS: Button text on Authorise Subscription page.
+#: actions/userauthorization.php:229
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Accept"
 msgstr "అంగీకరించు"
 
-#: actions/userauthorization.php:218 lib/subscribeform.php:115
-#: lib/subscribeform.php:139
-msgid "Subscribe to this user"
+#. TRANS: Title for button on Authorise Subscription page.
+#: actions/userauthorization.php:231
+#, fuzzy
+msgid "Subscribe to this user."
 msgstr "ఈ వాడుకరికి చందాచేరు"
 
-#: actions/userauthorization.php:219
+#. TRANS: Button text on Authorise Subscription page.
+#: actions/userauthorization.php:233
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Reject"
 msgstr "తిరస్కరించు"
 
-#: actions/userauthorization.php:220
-msgid "Reject this subscription"
+#. TRANS: Title for button on Authorise Subscription page.
+#: actions/userauthorization.php:235
+#, fuzzy
+msgid "Reject this subscription."
 msgstr "ఈ చందాని తిరస్కరించు"
 
-#: actions/userauthorization.php:232
+#. TRANS: Client error displayed for an empty authorisation request.
+#: actions/userauthorization.php:248
 msgid "No authorization request!"
 msgstr "అధీకరణ అభ్యర్థన లేదు!"
 
-#: actions/userauthorization.php:254
+#. TRANS: Accept message header from Authorise subscription page.
+#: actions/userauthorization.php:271
 msgid "Subscription authorized"
 msgstr "చందాని అధీకరించారు"
 
-#: actions/userauthorization.php:256
+#: actions/userauthorization.php:274
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
 
-#: actions/userauthorization.php:266
+#. TRANS: Reject message header from Authorise subscription page.
+#: actions/userauthorization.php:285
 msgid "Subscription rejected"
 msgstr "చందాని తిరస్కరించారు."
 
-#: actions/userauthorization.php:268
+#: actions/userauthorization.php:288
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
 
-#: actions/userauthorization.php:303
+#. TRANS: Exception thrown when no valid user is found for an authorisation request.
+#. TRANS: %s is a listener URI.
+#: actions/userauthorization.php:325
 #, php-format
-msgid "Listener URI ‘%s’ not found here."
+msgid "Listener URI \"%s\" not found here."
 msgstr ""
 
-#: actions/userauthorization.php:308
+#. TRANS: Exception thrown when listenee URI is too long for an authorisation request.
+#. TRANS: %s is a listenee URI.
+#: actions/userauthorization.php:332
 #, php-format
-msgid "Listenee URI ‘%s’ is too long."
+msgid "Listenee URI \"%s\" is too long."
 msgstr ""
 
-#: actions/userauthorization.php:314
+#. TRANS: Exception thrown when listenee URI is a local user for an authorisation request.
+#. TRANS: %s is a listenee URI.
+#: actions/userauthorization.php:340
 #, php-format
-msgid "Listenee URI ‘%s’ is a local user."
+msgid "Listenee URI \"%s\" is a local user."
 msgstr ""
 
-#: actions/userauthorization.php:329
+#. TRANS: Exception thrown when profile URL is a local user for an authorisation request.
+#. TRANS: %s is a profile URL.
+#: actions/userauthorization.php:358
 #, php-format
-msgid "Profile URL ‘%s’ is for a local user."
+msgid "Profile URL \"%s\" is for a local user."
 msgstr ""
 
-#: actions/userauthorization.php:345
+#. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
+#. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
+#: actions/userauthorization.php:368
 #, php-format
-msgid "Avatar URL ‘%s’ is not valid."
+msgid ""
+"Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
+"\"."
 msgstr ""
 
-#: actions/userauthorization.php:350
+#. TRANS: Exception thrown when avatar URL is invalid for an authorisation request.
+#. TRANS: %s is an avatar URL.
+#: actions/userauthorization.php:378
 #, fuzzy, php-format
-msgid "Can’t read avatar URL ‘%s’."
+msgid "Avatar URL \"%s\" is not valid."
+msgstr "హోమ్ పేజీ URL సరైనది కాదు."
+
+#. TRANS: Exception thrown when avatar URL could not be read for an authorisation request.
+#. TRANS: %s is an avatar URL.
+#: actions/userauthorization.php:385
+#, fuzzy, php-format
+msgid "Cannot read avatar URL \"%s\"."
 msgstr "'%s' అనే అవతారపు URL తప్పు"
 
-#: actions/userauthorization.php:355
+#. TRANS: Exception thrown when avatar URL return an invalid image type for an authorisation request.
+#. TRANS: %s is an avatar URL.
+#: actions/userauthorization.php:392
 #, fuzzy, php-format
-msgid "Wrong image type for avatar URL ‘%s’."
+msgid "Wrong image type for avatar URL \"%s\"."
 msgstr "'%s' కొరకు తప్పుడు బొమ్మ రకం"
 
 #. TRANS: Page title for profile design page.
@@ -7726,6 +7819,11 @@ msgstr "సంకేతపదం మార్పు"
 msgid "Block"
 msgstr "నిరోధించు"
 
+#. TRANS: Description of the form to block a user.
+#: lib/blockform.php:79
+msgid "Block this user"
+msgstr "ఈ వాడుకరిని నిరోధించు"
+
 #. TRANS: Title for command results.
 #: lib/channel.php:160 lib/channel.php:181
 msgid "Command results"
@@ -8148,6 +8246,11 @@ msgstr "అధీకృత అనుసంధాన ఉపకరణాలు"
 msgid "Database error"
 msgstr ""
 
+#. TRANS: Description of form for deleting a user.
+#: lib/deleteuserform.php:75
+msgid "Delete this user"
+msgstr "ఈ వాడుకరిని తొలగించు"
+
 #. TRANS: Label in form on profile design page.
 #. TRANS: Field contains file name on user's computer that could be that user's custom profile background image.
 #: lib/designsettings.php:108
@@ -8181,6 +8284,23 @@ msgstr "రంగులను మార్చు"
 #: lib/designsettings.php:257
 msgid "Use defaults"
 msgstr "అప్రమేయాలని ఉపయోగించు"
+
+#. TRANS: Title for button on profile design page to reset all colour settings to default.
+#: lib/designsettings.php:259
+#, fuzzy
+msgid "Restore default designs"
+msgstr "అప్రమేయాలని ఉపయోగించు"
+
+#. TRANS: Title for button on profile design page to reset all colour settings to default without saving.
+#: lib/designsettings.php:267
+#, fuzzy
+msgid "Reset back to default"
+msgstr "అప్రమేయాలని ఉపయోగించు"
+
+#. TRANS: Title for button on profile design page to save settings.
+#: lib/designsettings.php:272
+msgid "Save design"
+msgstr "రూపురేఖలని భద్రపరచు"
 
 #. TRANS: Error message displayed if design settings could not be saved.
 #. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
@@ -8291,7 +8411,6 @@ msgid "Grant this user the \"%s\" role"
 msgstr ""
 
 #: lib/groupeditform.php:147
-#, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 చిన్నబడి అక్షరాలు లేదా అంకెలు, విరామచిహ్నాలు మరియు ఖాళీలు తప్ప"
 
@@ -9051,6 +9170,10 @@ msgstr "ఈ నోటీసుపై స్పందించండి"
 msgid "Reply"
 msgstr "స్పందించండి"
 
+#: lib/noticelist.php:673
+msgid "Delete this notice"
+msgstr "ఈ నోటీసుని తొలగించు"
+
 #: lib/noticelist.php:691
 msgid "Notice repeated"
 msgstr "నోటీసుని పునరావృతించారు"
@@ -9337,6 +9460,10 @@ msgstr "ఆహ్వానించు"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "%sలో తోడుకై మీ స్నేహితులని మరియు సహోద్యోగులని ఆహ్వానించండి"
 
+#: lib/subscribeform.php:115 lib/subscribeform.php:139
+msgid "Subscribe to this user"
+msgstr "ఈ వాడుకరికి చందాచేరు"
+
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
@@ -9607,3 +9734,15 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
+
+#~ msgid "6 or more characters"
+#~ msgstr "6 లేదా అంతకంటే ఎక్కువ అక్షరాలు"
+
+#~ msgid "Same as password above"
+#~ msgstr "పై సంకేతపదం వలెనే"
+
+#~ msgid "Can't save new password."
+#~ msgstr "కొత్త సంకేతపదాన్ని భద్రపరచలేము."
+
+#~ msgid "URL of your homepage, blog, or profile on another site"
+#~ msgstr "మీ హోమ్ పేజీ, బ్లాగు, లేదా వేరే సేటులోని మీ ప్రొఫైలు యొక్క చిరునామా"

@@ -150,7 +150,7 @@ class SmssettingsAction extends ConnectSettingsAction
                              ($this->arg('sms')) ? $this->arg('sms') : null,
                              // TRANS: SMS phone number input field instructions in SMS settings form.
                              _('Phone number, no punctuation or spaces, '.
-                               'with area code'));
+                               'with area code.'));
                 $this->elementEnd('li');
                 $this->elementEnd('ul');
                 $this->carrierSelect();
@@ -562,9 +562,11 @@ class SmssettingsAction extends ConnectSettingsAction
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            $this->serverError(_("Could not update user record."));
+            // TRANS: Server error displayed when the user could not be updated in SMS settings.
+            $this->serverError(_('Could not update user record.'));
         }
 
+        // TRANS: Confirmation text after updating SMS settings.
         $this->showForm(_('Incoming email address removed.'), true);
     }
 
@@ -585,9 +587,11 @@ class SmssettingsAction extends ConnectSettingsAction
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            $this->serverError(_("Could not update user record."));
+            // TRANS: Server error displayed when the user could not be updated in SMS settings.
+            $this->serverError(_('Could not update user record.'));
         }
 
+        // TRANS: Confirmation text after updating SMS settings.
         $this->showForm(_('New incoming email address added.'), true);
     }
 }
