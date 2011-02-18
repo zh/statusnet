@@ -115,7 +115,6 @@ class ActivityStreamJSONDocument
 
         $act          = $notice->asActivity($cur);
         $act->extra[] = $notice->noticeInfo($cur);
-
         array_push($this->doc['items'], $act->asArray());
     }
 

@@ -726,6 +726,10 @@ class ActivityObject
             );
         }
 
+        if (!empty($this->poco)) {
+            $object['contact'] = $this->poco->asArray();
+        }
+
         return array_filter($object);
     }
 }
