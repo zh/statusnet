@@ -687,7 +687,7 @@ class ActivityObject
                 $avatarMediaLinks[] = $avatar->asArray();
             }
 
-            $object['avatars'] = $avatarMediaLinks; // extension
+            $object['avatarLinks'] = $avatarMediaLinks; // extension
 
             // image
             $object['image']  = $imgLink->asArray();
