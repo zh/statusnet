@@ -437,6 +437,15 @@ class Activity
 
         /* Purely extensions hereafter */
 
+        $tags = array();
+
+        // Use an Activity Object for term? Which object? Note?
+        foreach ($this->categories as $cat) {
+            $tags[] = $cat->term;
+        }
+
+        $activity['tags'] = $tags;
+
         // XXX: a bit of a hack... Since JSON isn't namespaced we probably
         // shouldn't be using 'statusnet:notice_info', but this will work
         // for the moment.
@@ -448,12 +457,11 @@ class Activity
             }
         }
 
-        /* more extensions */
 
         // Context stuff. For now I'm just sticking most of it
         // in a property called "context"
 
-        if (!empty($this->context)) {
+   if (!empty($this->context)) {
 
             if (!empty($this->context->location)) {
                 $loc = $this->context->location;
