@@ -450,6 +450,9 @@ class Activity
 
         /* more extensions */
 
+        // Context stuff. For now I'm just sticking most of it
+        // in a property called "context"
+
         if (!empty($this->context)) {
 
             if (!empty($this->context->location)) {
@@ -461,8 +464,11 @@ class Activity
                     'type'        => 'Point',
                     'coordinates' => array($loc->lat, $loc->lon)
                 );
+
             }
 
+            $activity['to']      = $this->context->getToArray();
+            $activity['context'] = $this->context->asArray();
         }
 
         return array_filter($activity);

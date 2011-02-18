@@ -130,4 +130,50 @@ class ActivityContext
         common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
         return null;
     }
+
+    /**
+     * Returns context (StatusNet stuff) as an array suitable for serializing
+     * in JSON. Right now context stuff is an extension to Activity.
+     *
+     * @return array the context
+     */
+    function asArray()
+    {
+        $context = array();
+
+        $context['replyToId']    = $this->replyToID;
+        $context['replyToUrl']   = $this->replyToUrl;
+        $context['conversation'] = $this->conversation;
+        $context['forwardId']    = $this->forwardID;
+        $context['forwardUrl']   = $this->forwardUrl;
+
+        // XXX: We might want to have the attention to stuff
+        //      in here like we do with Atom
+
+        return array_filter($context);
+    }
+
+    /**
+     * Returns an array of arrays representing Activity Objects (intended to be
+     * serialized in JSON) that represent WHO the Activity is supposed to
+     * be received by. This is not really specified but appears in an example
+     * of the current spec as an extension. We might want to figure out a JSON
+     * serialization for OStatus and use that to express mentions instead.
+     *
+     * XXX: People's ideas on how to do this are all over the place
+     *
+     * @return array the array of recipients
+     */
+    function getToArray()
+    {
+        $tos = array();
+
+        foreach ($this->attention as $attnUrl) {
+            $to = array('id' => $attnUrl, 'url' => $attnUrl);
+            $tos[] = $to;
+        }
+
+        return $tos;
+    }
+
 }
