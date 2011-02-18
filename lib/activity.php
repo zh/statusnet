@@ -443,9 +443,10 @@ class Activity
 
         foreach ($this->extra as $e) {
             list($objectName, $props, $txt) = $e;
-            $activity[$objectName] = $props;
+            if (!empty($objectName)) {
+                $activity[$objectName] = $props;
+            }
         }
-
         return array_filter($activity);
     }
 

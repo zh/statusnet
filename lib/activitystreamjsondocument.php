@@ -92,7 +92,6 @@ class ActivityStreamJSONDocument
 
     function addItemsFromNotices($notices)
     {
-        common_debug("addItemsFromNotices");
         if (is_array($notices)) {
             foreach ($notices as $notice) {
                 $this->addItemFromNotice($notice);
@@ -114,7 +113,7 @@ class ActivityStreamJSONDocument
     {
         $cur = empty($this->cur) ? common_current_user() : $this->cur;
 
-        $act          = $notice->asActivity();
+        $act          = $notice->asActivity($cur);
         $act->extra[] = $notice->noticeInfo($cur);
 
         array_push($this->doc['items'], $act->asArray());
