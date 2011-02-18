@@ -137,18 +137,15 @@ class ActivityContext
      *
      * @return array the context
      */
+
     function asArray()
     {
         $context = array();
 
-        $context['replyToId']    = $this->replyToID;
-        $context['replyToUrl']   = $this->replyToUrl;
+        $context['replyTo']    =   $this->getInReplyToArray();
         $context['conversation'] = $this->conversation;
         $context['forwardId']    = $this->forwardID;
         $context['forwardUrl']   = $this->forwardUrl;
-
-        // XXX: We might want to have the attention to stuff
-        //      in here like we do with Atom
 
         return array_filter($context);
     }
@@ -164,16 +161,38 @@ class ActivityContext
      *
      * @return array the array of recipients
      */
+
     function getToArray()
     {
         $tos = array();
 
         foreach ($this->attention as $attnUrl) {
-            $to = array('id' => $attnUrl, 'url' => $attnUrl);
+            $to = array(
+                'objectType' => 'person',
+                'id'         => $attnUrl,
+                'url'        => $attnUrl
+            );
             $tos[] = $to;
         }
 
         return $tos;
     }
 
+    /*
+     * Show replyTo
+     */
+
+     function getInReplyToArray()
+     {
+         $replyToObj = array('objectType' => 'note');
+
+         $replyToObj['id'] = $this->replyToID;
+
+         if (!empty($this->replyToUrl)) {
+             $replyToObj['url'] = $this->replyToUrl;
+         }
+
+     }
+
 }
+

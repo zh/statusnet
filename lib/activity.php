@@ -364,6 +364,27 @@ class Activity
         if ($this->verb == ActivityVerb::POST && count($this->objects) == 1) {
             $activity['object'] = $this->objects[0]->asArray();
 
+            // Context stuff. For now I'm just sticking most of it
+            // in a property called "context"
+
+            if (!empty($this->context)) {
+
+                if (!empty($this->context->location)) {
+                    $loc = $this->context->location;
+
+                    // GeoJSON
+
+                    $activity['geopoint'] = array(
+                        'type'        => 'Point',
+                        'coordinates' => array($loc->lat, $loc->lon)
+                    );
+
+                }
+
+                $activity['to']      = $this->context->getToArray();
+                $activity['context'] = $this->context->asArray();
+            }
+
             // Instead of adding enclosures as an extension to JSON
             // Activities, it seems like we should be using the
             // attachedObjects property of ActivityObject
@@ -455,28 +476,6 @@ class Activity
             if (!empty($objectName)) {
                 $activity[$objectName] = $props;
             }
-        }
-
-
-        // Context stuff. For now I'm just sticking most of it
-        // in a property called "context"
-
-   if (!empty($this->context)) {
-
-            if (!empty($this->context->location)) {
-                $loc = $this->context->location;
-
-                // GeoJSON
-
-                $activity['geopoint'] = array(
-                    'type'        => 'Point',
-                    'coordinates' => array($loc->lat, $loc->lon)
-                );
-
-            }
-
-            $activity['to']      = $this->context->getToArray();
-            $activity['context'] = $this->context->asArray();
         }
 
         return array_filter($activity);
