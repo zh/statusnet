@@ -142,7 +142,7 @@ class ActivityContext
     {
         $context = array();
 
-        $context['replyTo']    =   $this->getInReplyToArray();
+        $context['inReplyTo']    = $this->getInReplyToArray();
         $context['conversation'] = $this->conversation;
         $context['forwardId']    = $this->forwardID;
         $context['forwardUrl']   = $this->forwardUrl;
@@ -178,20 +178,31 @@ class ActivityContext
         return $tos;
     }
 
-    /*
-     * Show replyTo
+    /**
+     * Return an array for the notices this notice is a reply to 
+     * suitable for serializing as JSON note objects.
+     *
+     * @return array the array of notes
      */
 
      function getInReplyToArray()
      {
+         if (empty($this->replyToID) && empty($this->replyToUrl)) {
+             return null;
+         }
+
          $replyToObj = array('objectType' => 'note');
 
-         $replyToObj['id'] = $this->replyToID;
-
+         // XXX: Possibly shorten this to just the numeric ID?
+         //      Currently, it's the full URI of the notice.
+         if (!empty($this->replyToID)) {
+             $replyToObj['id'] = $this->replyToID;
+         }
          if (!empty($this->replyToUrl)) {
              $replyToObj['url'] = $this->replyToUrl;
          }
 
+         return $replyToObj;
      }
 
 }
