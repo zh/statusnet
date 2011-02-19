@@ -354,11 +354,12 @@ class Activity
         // body
         $activity['body'] = $this->content;
 
-        // generator <-- We should use this when we know a notice is created
-        //               locally
+        // generator <-- We could use this when we know a notice is created
+        //               locally. Or if we know the upstream Generator.
 
-        // icon <-- Should we use this? Maybe a little bubble like we have
-        //          on Facebook posts?
+        // icon <-- I've decided to use the posting user's stream avatar here
+        //          for now (also included in the avatarLinks extension)
+
 
         // object
         if ($this->verb == ActivityVerb::POST && count($this->objects) == 1) {
@@ -436,8 +437,14 @@ class Activity
 
         $activity['postedTime'] = self::iso8601Date($this->time); // Change to exactly be RFC3339?
 
-        // provider <-- We should probably use this for showing the the source
-        //              of remote notices, if known
+        // provider
+        $provider = array(
+            'objectType' => 'service',
+            'displayName' => common_config('site', 'name'),
+            'url' => common_root_url()
+        );
+
+        $activity['provider'] = $provider;
 
         // target
         if (!empty($this->target)) {
