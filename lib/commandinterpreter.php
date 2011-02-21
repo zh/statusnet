@@ -42,8 +42,9 @@ class CommandInterpreter
             case 'help':
                 if ($arg) {
                     $result = null;
+                } else {
+                    $result = new HelpCommand($user);
                 }
-                $result = new HelpCommand($user);
                 break;
             case 'login':
                 if ($arg) {
@@ -120,49 +121,51 @@ class CommandInterpreter
             case 'join':
                 if (!$arg) {
                     $result = null;
-                }
-                list($other, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
                 } else {
-                    $result = new JoinCommand($user, $other);
+                    list($other, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else {
+                        $result = new JoinCommand($user, $other);
+                    }
                 }
                 break;
             case 'drop':
                 if (!$arg) {
                     $result = null;
-                }
-                list($other, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
                 } else {
-                    $result = new DropCommand($user, $other);
+                    list($other, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else {
+                        $result = new DropCommand($user, $other);
+                    }
                 }
                 break;
             case 'follow':
             case 'sub':
                 if (!$arg) {
                     $result = null;
-                }
-
-                list($other, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
                 } else {
-                    $result = new SubCommand($user, $other);
+                    list($other, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else {
+                        $result = new SubCommand($user, $other);
+                    }
                 }
                 break;
             case 'leave':
             case 'unsub':
                 if (!$arg) {
                     $result = null;
-                }
-
-                list($other, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
                 } else {
-                    $result = new UnsubCommand($user, $other);
+                    list($other, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else {
+                        $result = new UnsubCommand($user, $other);
+                    }
                 }
                 break;
             case 'get':
@@ -207,96 +210,105 @@ class CommandInterpreter
             case 'rd':
                 if (!$arg) {
                     $result = null;
-                }
-                list($other, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
                 } else {
-                    $result = new RepeatCommand($user, $other);
+                    list($other, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else {
+                        $result = new RepeatCommand($user, $other);
+                    }
                 }
                 break;
             case 'whois':
                 if (!$arg) {
                     $result = null;
-                }
-                list($other, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
                 } else {
-                    $result = new WhoisCommand($user, $other);
+                    list($other, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else {
+                        $result = new WhoisCommand($user, $other);
+                    }
                 }
                 break;
             case 'fav':
                 if (!$arg) {
                     $result = null;
-                }
-                list($other, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
                 } else {
-                    $result = new FavCommand($user, $other);
+                    list($other, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else {
+                        $result = new FavCommand($user, $other);
+                    }
                 }
                 break;
             case 'nudge':
                 if (!$arg) {
                     $result = null;
-                }
-                list($other, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
                 } else {
-                    $result = new NudgeCommand($user, $other);
+                    list($other, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else {
+                        $result = new NudgeCommand($user, $other);
+                    }
                 }
                 break;
             case 'stats':
                 if ($arg) {
                     $result = null;
+                } else {
+                    $result = new StatsCommand($user);
                 }
-                $result = new StatsCommand($user);
                 break;
             case 'invite':
                 if (!$arg) {
                     $result = null;
-                }
-                list($other, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
                 } else {
-                    $result = new InviteCommand($user, $other);
+                    list($other, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else {
+                        $result = new InviteCommand($user, $other);
+                    }
                 }
                 break;
             case 'track':
                 if (!$arg) {
                     $result = null;
-                }
-                list($word, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
-                } else if ($word == 'off') {
-                    $result = new TrackOffCommand($user);
                 } else {
-                    $result = new TrackCommand($user, $word);
+                    list($word, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else if ($word == 'off') {
+                        $result = new TrackOffCommand($user);
+                    } else {
+                        $result = new TrackCommand($user, $word);
+                    }
                 }
                 break;
             case 'untrack':
                 if (!$arg) {
                     $result = null;
-                }
-                list($word, $extra) = $this->split_arg($arg);
-                if ($extra) {
-                    $result = null;
-                } else if ($word == 'all') {
-                    $result = new TrackOffCommand($user);
                 } else {
-                    $result = new UntrackCommand($user, $word);
+                    list($word, $extra) = $this->split_arg($arg);
+                    if ($extra) {
+                        $result = null;
+                    } else if ($word == 'all') {
+                        $result = new TrackOffCommand($user);
+                    } else {
+                        $result = new UntrackCommand($user, $word);
+                    }
                 }
                 break;
             case 'tracks':
             case 'tracking':
                 if ($arg) {
                     $result = null;
+                } else {
+                    $result = new TrackingCommand($user);
                 }
-                $result = new TrackingCommand($user);
                 break;
             default:
                 $result = false;
