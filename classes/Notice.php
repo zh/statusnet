@@ -1333,7 +1333,7 @@ class Notice extends Memcached_DataObject
             $groups = $this->getGroups();
 
             foreach ($groups as $group) {
-                $ctx->attention[] = $group->uri;
+                $ctx->attention[] = $group->getUri();
             }
 
             // XXX: deprecated; use ActivityVerb::SHARE instead

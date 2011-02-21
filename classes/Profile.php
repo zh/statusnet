@@ -752,6 +752,10 @@ class Profile extends Memcached_DataObject
                 throw new Exception("Can't save role '$name' for profile '{$this->id}'");
             }
 
+            if ($name == 'owner') {
+                User::blow('user:site_owner');
+            }
+
             Event::handle('EndGrantRole', array($this, $name));
         }
 
@@ -778,6 +782,10 @@ class Profile extends Memcached_DataObject
                 // TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
                 // TRANS: %1$s is the role name, %2$s is the user ID (number).
                 throw new Exception(sprintf(_('Cannot revoke role "%1$s" for user #%2$d; database error.'),$name, $this->id));
+            }
+
+            if ($name == 'owner') {
+                User::blow('user:site_owner');
             }
 
             Event::handle('EndRevokeRole', array($this, $name));
