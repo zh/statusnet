@@ -193,13 +193,20 @@ class SearchNoticeListItem extends NoticeListItem {
         $options = implode('|', array_map('preg_quote', array_map('htmlspecialchars', $terms),
                                                             array_fill(0, sizeof($terms), '/')));
         $pattern = "/($options)/i";
-        $result  = preg_replace($pattern, '<strong>\\1</strong>', $text);
+        $result = '';
 
-        /* Remove highlighting from inside links, loop incase multiple highlights in links */
-        $pattern = '/(\w+="[^"]*)<strong>('.$options.')<\/strong>([^"]*")/iU';
-        do {
-            $result = preg_replace($pattern, '\\1\\2\\3', $result, -1, $count);
-        } while ($count);
+        /* Divide up into text (highlight me) and tags (don't touch) */
+        $chunks = preg_split('/(<[^>]+>)/', $text, 0, PREG_SPLIT_DELIM_CAPTURE);
+        foreach ($chunks as $i => $chunk) {
+            if ($i % 2 == 1) {
+                // odd: delimiter (tag)
+                $result .= $chunk;
+            } else {
+                // even: freetext between tags
+                $result .= preg_replace($pattern, '<strong>\\1</strong>', $chunk);
+            }
+        }
+
         return $result;
     }
 }
