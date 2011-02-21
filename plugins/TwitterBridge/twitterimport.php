@@ -583,15 +583,16 @@ class TwitterImport
 
         foreach ($toReplace as $part) {
             list($type, $object) = $part;
+            $orig = mb_substr($text, $object->indices[0], $object->indices[1] - $object->indices[0]);
             switch($type) {
             case self::URL:
-                $linkText = $this->makeUrlLink($object);
+                $linkText = $this->makeUrlLink($object, $orig);
                 break;
             case self::HASHTAG:
-                $linkText = $this->makeHashtagLink($object);
+                $linkText = $this->makeHashtagLink($object, $orig);
                 break;
             case self::MENTION:
-                $linkText = $this->makeMentionLink($object);
+                $linkText = $this->makeMentionLink($object, $orig);
                 break;
             default:
                 continue;
@@ -601,32 +602,32 @@ class TwitterImport
         return $text;
     }
 
-    function makeUrlLink($object)
+    function makeUrlLink($object, $orig)
     {
-        return "<a href='{$object->url}' class='extlink'>{$object->url}</a>";
+        return "<a href='{$object->url}' class='extlink'>{$orig}</a>";
     }
 
-    function makeHashtagLink($object)
+    function makeHashtagLink($object, $orig)
     {
-        return "#" . self::tagLink($object->text);
+        return "#" . self::tagLink($object->text, substr($orig, 1));
     }
 
-    function makeMentionLink($object)
+    function makeMentionLink($object, $orig)
     {
-        return "@".self::atLink($object->screen_name, $object->name);
+        return "@".self::atLink($object->screen_name, $object->name, substr($orig, 1));
     }
 
-    static function tagLink($tag)
+    static function tagLink($tag, $orig)
     {
-        return "<a href='https://search.twitter.com/search?q=%23{$tag}' class='hashtag'>{$tag}</a>";
+        return "<a href='https://search.twitter.com/search?q=%23{$tag}' class='hashtag'>{$orig}</a>";
     }
 
-    static function atLink($screenName, $fullName=null)
+    static function atLink($screenName, $fullName, $orig)
     {
         if (!empty($fullName)) {
-            return "<a href='http://twitter.com/#!/{$screenName}' title='{$fullName}'>{$screenName}</a>";
+            return "<a href='http://twitter.com/#!/{$screenName}' title='{$fullName}'>{$orig}</a>";
         } else {
-            return "<a href='http://twitter.com/#!/{$screenName}'>{$screenName}</a>";
+            return "<a href='http://twitter.com/#!/{$screenName}'>{$orig}</a>";
         }
     }
 
