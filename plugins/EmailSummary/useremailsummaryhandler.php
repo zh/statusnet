@@ -124,13 +124,18 @@ class UserEmailSummaryHandler extends QueueHandler
 	
         $out = new XMLStringer();
 
-        $out->raw(sprintf(_('<p>Recent updates from %1s for %2s:</p>'),
+        $out->elementStart('div', array('width' => '100%',
+                                        'style' => 'background-color: #ffffff; border: 4px solid #4c609a; padding: 10px;'));
+
+        $out->elementStart('div', array('style' => 'color: #ffffff; background-color: #4c609a; font-weight: bold; margin-bottom: 10px; padding: 4px;'));
+    	$out->raw(sprintf(_('Recent updates from %1s for %2s:'),
                           common_config('site', 'name'),
                           $profile->getBestName()));
-	
+        $out->elementEnd('div');
 
-        $out->elementStart('table', array('width' => '541px', 'style' => 'border: none'));
-	
+        $out->elementStart('table', array('width' => '550px',
+                                          'style' => 'border: none; border-collapse: collapse;', 'cellpadding' => '6'));
+
         while ($notice->fetch()) {
 	    
             $profile = Profile::staticGet('id', $notice->profile_id);
@@ -145,30 +150,30 @@ class UserEmailSummaryHandler extends QueueHandler
             $out->elementStart('td', array('width' => AVATAR_STREAM_SIZE,
                                            'height' => AVATAR_STREAM_SIZE,
                                            'align' => 'left',
-                                           'valign' => 'top'));
+                                           'valign' => 'top',
+                                           'style' => 'border-bottom: 1px dotted #C5CEE3; padding: 10px 6px 10px 6px;'));
             $out->element('img', array('src' => ($avatar) ?
                                        $avatar->displayUrl() :
                                        Avatar::defaultImage(AVATAR_STREAM_SIZE),
-                                       'class' => 'avatar photo',
                                        'width' => AVATAR_STREAM_SIZE,
                                        'height' => AVATAR_STREAM_SIZE,
                                        'alt' => $profile->getBestName()));
             $out->elementEnd('td');
             $out->elementStart('td', array('align' => 'left',
-                                           'valign' => 'top'));
+                                           'valign' => 'top',
+                                           'style' => 'border-bottom: 1px dotted #C5CEE3; padding: 10px 6px 10px 6px;'));
             $out->element('a', array('href' => $profile->profileurl),
                           $profile->nickname);
             $out->text(' ');
             $out->raw($notice->rendered);
-            $out->element('br'); // yeah, you know it. I just wrote a <br> in the middle of my table layout.
+            $out->elementStart('div', array('style' => 'font-size: 0.8em; padding-top: 4px;'));
             $noticeurl = $notice->bestUrl();
             // above should always return an URL
             assert(!empty($noticeurl));
             $out->elementStart('a', array('rel' => 'bookmark',
-                                          'class' => 'timestamp',
                                           'href' => $noticeurl));
             $dt = common_date_iso8601($notice->created);
-            $out->element('abbr', array('class' => 'published',
+            $out->element('abbr', array('style' => 'border-bottom: none;',
                                         'title' => $dt),
                           common_date_string($notice->created));
             $out->elementEnd('a');
@@ -178,21 +183,23 @@ class UserEmailSummaryHandler extends QueueHandler
                 if (!empty($convurl)) {
                     $out->text(' ');
                     $out->element('a',
-                                  array('href' => $convurl.'#notice-'.$notice->id,
-                                        'class' => 'response'),
+                                  array('href' => $convurl.'#notice-'.$notice->id),
                                   _('in context'));
                 }
             }
+            $out->elementEnd('div');
             $out->elementEnd('td');
             $out->elementEnd('tr');
         }
 	
         $out->elementEnd('table');
-	
+
         $out->raw(sprintf(_('<p><a href="%1s">change your email settings for %2s</a></p>'),
                           common_local_url('emailsettings'),
                           common_config('site', 'name')));
 
+        $out->elementEnd('div');
+	
         $body = $out->getString();
 	
         // FIXME: do something for people who don't like HTML email
