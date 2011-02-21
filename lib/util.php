@@ -300,7 +300,10 @@ function common_set_user($user)
 
     if ($user) {
         if (Event::handle('StartSetUser', array(&$user))) {
-            if($user){
+            if (!empty($user)) {
+                if (!$user->hasRight(Right::WEBLOGIN)) {
+                    throw new AuthorizationException(_('Not allowed to log in.'));
+                }
                 common_ensure_session();
                 $_SESSION['userid'] = $user->id;
                 $_cur = $user;

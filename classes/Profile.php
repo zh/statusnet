@@ -865,6 +865,12 @@ class Profile extends Memcached_DataObject
             case Right::EMAILONFAVE:
                 $result = !$this->isSandboxed();
                 break;
+            case Right::WEBLOGIN:
+                $result = !$this->isSilenced();
+                break;
+            case Right::API:
+                $result = !$this->isSilenced();
+                break;
             case Right::BACKUPACCOUNT:
                 $result = common_config('profile', 'backup');
                 break;

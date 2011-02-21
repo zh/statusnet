@@ -196,7 +196,13 @@ class ApiAuthAction extends ApiAction
 
                     // Set the auth user
                     if (Event::handle('StartSetApiUser', array(&$user))) {
-                        $this->auth_user = User::staticGet('id', $appUser->profile_id);
+                        $user = User::staticGet('id', $appUser->profile_id);
+                        if (!empty($user)) {
+                            if (!$user->hasRight(Right::API)) {
+                                throw new AuthorizationException(_('Not allowed to use API.'));
+                            }
+                        }
+                        $this->auth_user = $user;
                         Event::handle('EndSetApiUser', array($user));
                     }
 
@@ -274,6 +280,9 @@ class ApiAuthAction extends ApiAction
             if (Event::handle('StartSetApiUser', array(&$user))) {
 
                 if (!empty($user)) {
+                    if (!$user->hasRight(Right::API)) {
+                        throw new AuthorizationException(_('Not allowed to use API.'));
+                    }
                     $this->auth_user = $user;
                 }
 
