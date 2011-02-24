@@ -153,7 +153,7 @@ class Notice extends Memcached_DataObject
     function saveTags()
     {
         /* extract all #hastags */
-        $count = preg_match_all('/(?:^|\s)#([\pL\pN_\-\.]{1,64})/', strtolower($this->content), $match);
+        $count = preg_match_all('/(?:^|\s)#([\pL\pN_\-\.]{1,64})/u', strtolower($this->content), $match);
         if (!$count) {
             return true;
         }
