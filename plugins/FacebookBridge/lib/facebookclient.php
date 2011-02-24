@@ -208,6 +208,9 @@ class Facebookclient
                 return $this->sendGraph();
             }
         }
+
+        // dequeue
+        return true;
     }
 
     /*
