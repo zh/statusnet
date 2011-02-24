@@ -51,7 +51,14 @@ class Facebookclient
     function __construct($notice)
     {
         $this->facebook = self::getFacebook();
-        $this->notice   = $notice;
+
+        if (empty($this->facebook)) {
+            throw new FacebookApiException(
+                "Could not create Facebook client! Bad application ID or secret?"
+            );
+        }
+
+        $this->notice = $notice;
 
         $this->flink = Foreign_link::getByUserID(
             $notice->profile_id,
@@ -87,6 +94,22 @@ class Facebookclient
         if (empty($appId) || empty($secret)) {
             $appId  = common_config('facebook', 'global_appid');
             $secret = common_config('facebook', 'global_secret');
+        }
+
+        if (empty($appId)) {
+            common_log(
+                LOG_WARNING,
+                "Couldn't find Facebook application ID!",
+                __FILE__
+            );
+        }
+
+        if (empty($secret)) {
+            common_log(
+                LOG_WARNING,
+                "Couldn't find Facebook application ID!",
+                __FILE__
+            );
         }
 
         return new Facebook(
