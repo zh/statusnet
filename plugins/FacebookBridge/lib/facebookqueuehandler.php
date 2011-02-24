@@ -40,9 +40,35 @@ class FacebookQueueHandler extends QueueHandler
 
     function handle($notice)
     {
+        common_debug(
+            sprintf(
+                'ZZZZZ handle() - Looking at notice %d',
+                $notice->id
+            ),
+            __FILE__
+        );
+
         if ($this->_isLocal($notice)) {
+
+            common_debug(
+                sprintf(
+                    'ZZZZZ handle() - notice %d is local; will try sending to Facebook.',
+                    $notice->id
+                ),
+                __FILE__
+            );
+
             return Facebookclient::facebookBroadcastNotice($notice);
         }
+
+        common_debug(
+            sprintf(
+                'ZZZZZ handle() - notice %d was not a local notice, so we wont rebroadcast it.',
+                $notice->id
+            ),
+            __FILE__
+        );
+
         return true;
     }
 

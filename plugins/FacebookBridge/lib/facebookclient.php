@@ -128,6 +128,7 @@ class Facebookclient
      */
     static function facebookBroadcastNotice($notice)
     {
+        common_debug("ZZZZZ facebookBroadcastNotice() - entered ", __FILE__);
         $client = new Facebookclient($notice);
         return $client->sendNotice();
     }
@@ -136,6 +137,8 @@ class Facebookclient
      * Should the notice go to Facebook?
      */
     function isFacebookBound() {
+
+        common_debug("ZZZZZ isFacebookBound() - entered", __FILE__);
 
         if (empty($this->flink)) {
             // User hasn't setup bridging
@@ -174,6 +177,14 @@ class Facebookclient
             ($this->flink->noticesync & FOREIGN_NOTICE_SEND_REPLY)) {
             return true;
         }
+
+        common_debug(
+            sprintf(
+                "ZZZZZ isFacebookBound() - notice %d this notice does not go to Facebook",
+                $this->notice->id
+            ),
+            __FILE__
+        );
 
         return false;
     }
