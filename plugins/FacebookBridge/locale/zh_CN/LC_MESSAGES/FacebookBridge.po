@@ -1,0 +1,301 @@
+# Translation of StatusNet - FacebookBridge to Simplified Chinese (‪中文(简体)‬)
+# Exported from translatewiki.net
+#
+# Author: Hydra
+# --
+# This file is distributed under the same license as the StatusNet package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: StatusNet - FacebookBridge\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 10:32+0000\n"
+"PO-Revision-Date: 2011-02-24 10:38:46+0000\n"
+"Language-Team: Simplified Chinese <http://translatewiki.net/wiki/Portal:zh-"
+"hans>\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-POT-Import-Date: 2011-02-23 21:16:27+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r82712); Translate extension (2011-02-01)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: zh-hans\n"
+"X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. TRANS: Menu item.
+#. TRANS: Menu item tab.
+#: FacebookBridgePlugin.php:224 FacebookBridgePlugin.php:263
+#: FacebookBridgePlugin.php:304
+msgctxt "MENU"
+msgid "Facebook"
+msgstr "Facebook"
+
+#. TRANS: Tooltip for menu item "Facebook".
+#: FacebookBridgePlugin.php:226
+msgid "Login or register using Facebook"
+msgstr "登入或使用 Facebook 的注册"
+
+#. TRANS: Tooltip for menu item "Facebook".
+#: FacebookBridgePlugin.php:265
+msgid "Facebook integration configuration"
+msgstr "Facebook 整合配置"
+
+#. TRANS: Tooltip for menu item "Facebook".
+#. TRANS: Page title for Facebook settings.
+#: FacebookBridgePlugin.php:306 actions/facebooksettings.php:105
+msgid "Facebook settings"
+msgstr "Facebook 的设置"
+
+#: FacebookBridgePlugin.php:570
+msgid "A plugin for integrating StatusNet with Facebook."
+msgstr "StatusNet 与结合 Facebook 的插件。"
+
+#: lib/facebookclient.php:760
+msgid "Your Facebook connection has been removed"
+msgstr "Facebook 的连接已被删除"
+
+#: lib/facebookclient.php:819
+#, php-format
+msgid "Contact the %s administrator to retrieve your account"
+msgstr "与 %s 管理员联系，以检索您的帐户"
+
+#: actions/facebookfinishlogin.php:88
+msgid ""
+"You must be logged into Facebook to register a local account using Facebook."
+msgstr "您必须登录到 Facebook 注册使用 Facebook 的本地帐户。"
+
+#: actions/facebookfinishlogin.php:118
+msgid "There is already a local account linked with that Facebook account."
+msgstr "已存在与该 Facebook 帐户相关的本地帐户。"
+
+#: actions/facebookfinishlogin.php:141 actions/facebooksettings.php:86
+msgid "There was a problem with your session token. Try again, please."
+msgstr "有一个与您的会话令牌的问题。请再次尝试。"
+
+#: actions/facebookfinishlogin.php:150
+msgid "You can't register if you don't agree to the license."
+msgstr "如果您不同意该许可，您不能注册。"
+
+#: actions/facebookfinishlogin.php:167
+msgid "An unknown error has occured."
+msgstr "出现了一个未知的错误。"
+
+#: actions/facebookfinishlogin.php:185
+#, php-format
+msgid ""
+"This is the first time you've logged into %s so we must connect your "
+"Facebook to a local account. You can either create a new local account, or "
+"connect with an existing local account."
+msgstr ""
+
+#. TRANS: Page title.
+#: actions/facebookfinishlogin.php:195
+msgid "Facebook Setup"
+msgstr "Facebook 安装程序"
+
+#. TRANS: Legend.
+#: actions/facebookfinishlogin.php:229
+msgid "Connection options"
+msgstr "连接选项"
+
+#. TRANS: %s is the name of the license used by the user for their status updates.
+#: actions/facebookfinishlogin.php:239
+#, php-format
+msgid ""
+"My text and files are available under %s except this private data: password, "
+"email address, IM address, and phone number."
+msgstr ""
+
+#. TRANS: Legend.
+#: actions/facebookfinishlogin.php:256
+msgid "Create new account"
+msgstr "创建新的帐户"
+
+#: actions/facebookfinishlogin.php:258
+msgid "Create a new user with this nickname."
+msgstr "此别名与创建新用户。"
+
+#. TRANS: Field label.
+#: actions/facebookfinishlogin.php:266
+msgid "New nickname"
+msgstr "新的昵称"
+
+#: actions/facebookfinishlogin.php:268
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr "1-64 个小写字母或没有标点符号或空格的数字"
+
+#. TRANS: Submit button.
+#: actions/facebookfinishlogin.php:276
+msgctxt "BUTTON"
+msgid "Create"
+msgstr "创建"
+
+#: actions/facebookfinishlogin.php:282
+msgid "Connect existing account"
+msgstr "连接现有的帐户"
+
+#: actions/facebookfinishlogin.php:284
+msgid ""
+"If you already have an account, login with your username and password to "
+"connect it to your Facebook."
+msgstr "如果您已经有一个的帐户使用您的用户名和密码以连接到在 Facebook 的登录。"
+
+#. TRANS: Field label.
+#: actions/facebookfinishlogin.php:288
+msgid "Existing nickname"
+msgstr "现有的昵称"
+
+#: actions/facebookfinishlogin.php:291
+msgid "Password"
+msgstr "密码"
+
+#. TRANS: Submit button.
+#: actions/facebookfinishlogin.php:295
+msgctxt "BUTTON"
+msgid "Connect"
+msgstr "连接"
+
+#. TRANS: Client error trying to register with registrations not allowed.
+#. TRANS: Client error trying to register with registrations 'invite only'.
+#: actions/facebookfinishlogin.php:316 actions/facebookfinishlogin.php:326
+msgid "Registration not allowed."
+msgstr "不允许注册。"
+
+#. TRANS: Client error trying to register with an invalid invitation code.
+#: actions/facebookfinishlogin.php:334
+msgid "Not a valid invitation code."
+msgstr "不是一个有效的邀请代码。"
+
+#: actions/facebookfinishlogin.php:347
+msgid "Nickname not allowed."
+msgstr "不允许使用的昵称。"
+
+#: actions/facebookfinishlogin.php:352
+msgid "Nickname already in use. Try another one."
+msgstr "别名已在使用中。请尝试另一个。"
+
+#: actions/facebookfinishlogin.php:380 actions/facebookfinishlogin.php:519
+msgid "Error connecting user to Facebook."
+msgstr "Facebook 中连接用户时出错。"
+
+#: actions/facebookfinishlogin.php:482
+msgid "Invalid username or password."
+msgstr "无效的用户名或密码。"
+
+#: actions/facebooklogin.php:43
+msgid "Already logged in."
+msgstr "已登录。"
+
+#. TRANS: Instructions.
+#: actions/facebooklogin.php:52
+msgid "Login with your Facebook Account"
+msgstr "与您的 Facebook 帐户登录"
+
+#. TRANS: Page title.
+#: actions/facebooklogin.php:67
+msgid "Login with Facebook"
+msgstr "使用 Facebook 登录"
+
+#: actions/facebookadminpanel.php:52
+msgid "Facebook"
+msgstr "Facebook"
+
+#: actions/facebookadminpanel.php:62
+msgid "Facebook integration settings"
+msgstr "Facebook 集成设置"
+
+#: actions/facebookadminpanel.php:123
+msgid "Invalid Facebook ID. Max length is 255 characters."
+msgstr "无效的 Facebook ID。最大长度为 255 个字符。"
+
+#: actions/facebookadminpanel.php:129
+msgid "Invalid Facebook secret. Max length is 255 characters."
+msgstr "无效的 Facebook 秘密。最大长度为 255 个字符。"
+
+#: actions/facebookadminpanel.php:178
+msgid "Facebook application settings"
+msgstr "Facebook 应用程序设置"
+
+#: actions/facebookadminpanel.php:184
+msgid "Application ID"
+msgstr "应用程序 ID"
+
+#: actions/facebookadminpanel.php:185
+msgid "ID of your Facebook application"
+msgstr "Facebook 应用程序的 ID"
+
+#: actions/facebookadminpanel.php:193
+msgid "Secret"
+msgstr "秘密"
+
+#: actions/facebookadminpanel.php:194
+msgid "Application secret"
+msgstr "应用程序的秘密"
+
+#: actions/facebookadminpanel.php:210
+msgid "Save"
+msgstr "保存"
+
+#: actions/facebookadminpanel.php:210
+msgid "Save Facebook settings"
+msgstr "保存的 Facebook 设置"
+
+#: actions/facebooksettings.php:137
+msgid "Connected Facebook user"
+msgstr "已连接的 Facebook 用户"
+
+#: actions/facebooksettings.php:164
+msgid "Publish my notices to Facebook."
+msgstr "将我的通知发布到 Facebook。"
+
+#: actions/facebooksettings.php:174
+msgid "Send \"@\" replies to Facebook."
+msgstr "发送 \"@\" Facebook 的答复。"
+
+#. TRANS: Submit button to save synchronisation settings.
+#: actions/facebooksettings.php:183
+msgctxt "BUTTON"
+msgid "Save"
+msgstr "保存"
+
+#. TRANS: Legend.
+#: actions/facebooksettings.php:192
+msgid "Disconnect my account from Facebook"
+msgstr "从 Facebook 拔下我的账户"
+
+#: actions/facebooksettings.php:199
+#, php-format
+msgid ""
+"Disconnecting your Faceboook would make it impossible to log in! Please [set "
+"a password](%s) first."
+msgstr ""
+
+#: actions/facebooksettings.php:213
+#, php-format
+msgid ""
+"Keep your %1$s account but disconnect from Facebook. You'll use your %1$s "
+"password to log in."
+msgstr ""
+
+#. TRANS: Submit button.
+#: actions/facebooksettings.php:220
+msgctxt "BUTTON"
+msgid "Disconnect"
+msgstr ""
+
+#: actions/facebooksettings.php:243
+msgid "There was a problem saving your sync preferences."
+msgstr ""
+
+#. TRANS: Confirmation that synchronisation settings have been saved into the system.
+#: actions/facebooksettings.php:246
+msgid "Sync preferences saved."
+msgstr ""
+
+#: actions/facebooksettings.php:260
+msgid "Couldn't delete link to Facebook."
+msgstr ""
+
+#: actions/facebooksettings.php:264
+msgid "You have disconnected from Facebook."
+msgstr ""

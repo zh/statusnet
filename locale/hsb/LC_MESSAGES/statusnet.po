@@ -11,18 +11,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-17 10:25+0000\n"
-"PO-Revision-Date: 2011-02-17 10:27:21+0000\n"
+"POT-Creation-Date: 2011-02-24 10:32+0000\n"
+"PO-Revision-Date: 2011-02-24 10:36:47+0000\n"
 "Language-Team: Upper Sorbian <http://translatewiki.net/wiki/Portal:hsb>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r82325); Translate extension (2011-02-01)\n"
+"X-Generator: MediaWiki 1.18alpha (r82712); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hsb\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : (n%100==3 || "
 "n%100==4) ? 2 : 3)\n"
-"X-POT-Import-Date: 2011-02-14 17:20:58+0000\n"
+"X-POT-Import-Date: 2011-02-17 11:39:54+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -134,7 +134,11 @@ msgstr "Strona njeeksistuje."
 #. TRANS: Client error displayed when requesting Friends of a Friend feed without providing a user nickname.
 #. TRANS: Client error displayed when requesting Friends of a Friend feed for an object that is not a user.
 #. TRANS: Client error displayed when trying to get a user hCard for a non-existing user.
+#. TRANS: Client error displayed trying to use "one time password login" without using an existing user.
+#. TRANS: Client error displayed when providing a non-existing nickname in a RSS 1.0 action.
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
+#. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
+#. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when calling a profile action without specifying a user.
 #: actions/all.php:80 actions/allrss.php:69
@@ -152,10 +156,10 @@ msgstr "Strona njeeksistuje."
 #: actions/apitimelinementions.php:77 actions/apitimelineuser.php:79
 #: actions/avatarbynickname.php:79 actions/favoritesrss.php:72
 #: actions/foaf.php:42 actions/foaf.php:61 actions/hcard.php:67
-#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:78
 #: actions/remotesubscribe.php:144 actions/remotesubscribe.php:153
 #: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:113
-#: actions/showfavorites.php:106 actions/userbyid.php:74
+#: actions/showfavorites.php:106 actions/userbyid.php:75
 #: actions/usergroups.php:93 actions/userrss.php:40 actions/userxrd.php:59
 #: actions/xrds.php:71 lib/command.php:497 lib/galleryaction.php:59
 #: lib/mailbox.php:80 lib/profileaction.php:77
@@ -510,7 +514,6 @@ msgstr "Přijimowar njenamakany."
 
 #. TRANS: Client error displayed trying to direct message another user who's not a friend (403).
 #: actions/apidirectmessagenew.php:144
-#, fuzzy
 msgid "Cannot send direct messages to users who aren't your friend."
 msgstr ""
 "Njeje móžno, direktne powěsće wužiwarjam pósłać, kotřiž twoji přećeljo "
@@ -811,6 +814,7 @@ msgstr "Naprašowanski token hižo awtorizowany."
 #. TRANS: Form validation error message.
 #. TRANS: Form validation error.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token is not okay.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
 #: actions/deletenotice.php:177 actions/disfavor.php:75
 #: actions/emailsettings.php:291 actions/favor.php:75 actions/geocode.php:55
@@ -823,7 +827,7 @@ msgstr "Naprašowanski token hižo awtorizowany."
 #: actions/profilesettings.php:217 actions/recoverpassword.php:383
 #: actions/register.php:164 actions/remotesubscribe.php:76
 #: actions/repeat.php:82 actions/smssettings.php:250 actions/subedit.php:40
-#: actions/subscribe.php:86 actions/tagother.php:166
+#: actions/subscribe.php:87 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:53
 #: lib/designsettings.php:310
 msgid "There was a problem with your session token. Try again, please."
@@ -1031,9 +1035,9 @@ msgstr "HTTP-metoda so njepodpěruje."
 #. TRANS: Exception thrown requesting an unsupported notice output format.
 #. TRANS: %s is the requested output format.
 #: actions/apistatusesshow.php:144
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported format: %s."
-msgstr "Njepodpěrany format: %s"
+msgstr "Njepodpěrany format: %s."
 
 #. TRANS: Client error displayed requesting a deleted status.
 #: actions/apistatusesshow.php:155
@@ -1139,13 +1143,14 @@ msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr ""
 
 #. TRANS: Title for site timeline. %s is the StatusNet sitename.
+#. TRANS: Public RSS feed title. %s is the StatusNet site name.
 #: actions/apitimelinepublic.php:193 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr ""
 
 #. TRANS: Subtitle for site timeline. %s is the StatusNet sitename.
-#: actions/apitimelinepublic.php:199 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:199
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s aktualizacijow wote wšěch!"
@@ -1166,14 +1171,14 @@ msgstr "Do %s wospjetowany"
 #: actions/apitimelineretweetsofme.php:112
 #, php-format
 msgid "Repeats of %s"
-msgstr ""
+msgstr "Wospjetowanja wot %s"
 
 #. TRANS: Title for timeline with lastest notices with a given tag.
 #. TRANS: %s is the tag.
 #: actions/apitimelinetag.php:101 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
-msgstr ""
+msgstr "Zdźělenki woznamjenjene z %s"
 
 #. TRANS: Subtitle for timeline with lastest notices with a given tag.
 #. TRANS: %1$s is the tag, $2$s is the StatusNet sitename.
@@ -1247,9 +1252,10 @@ msgstr "Wužiwar njenamakany."
 
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
+#. TRANS: Client error displayed trying to subscribe to a non-existing profile.
 #: actions/atompubfavoritefeed.php:69 actions/atompubmembershipfeed.php:71
 #: actions/atompubshowfavorite.php:75 actions/atompubshowmembership.php:72
-#: actions/subscribe.php:107
+#: actions/subscribe.php:110
 msgid "No such profile."
 msgstr "Profil njeeksistuje."
 
@@ -1424,7 +1430,7 @@ msgstr ""
 #. TRANS: Client exception thrown when subscribing to an object that is not a person.
 #: actions/atompubsubscriptionfeed.php:256
 msgid "Can only follow people."
-msgstr ""
+msgstr "Móžeš jenož wosobam slědować."
 
 #. TRANS: Client exception thrown when subscribing to a non-existing profile.
 #. TRANS: %s is the unknown profile ID.
@@ -1607,9 +1613,8 @@ msgstr "Zawěsćenje"
 
 #. TRANS: Title for submit button to backup an account on the backup account page.
 #: actions/backupaccount.php:252
-#, fuzzy
 msgid "Backup your account."
-msgstr "Twoje konto zawěsćić"
+msgstr "Twoje konto zawěsćić."
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 #: actions/block.php:68
@@ -1646,9 +1651,8 @@ msgstr "Ně"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
 #: actions/block.php:158
-#, fuzzy
 msgid "Do not block this user."
-msgstr "Tutoho wužiwarja njeblokować"
+msgstr "Tutoho wužiwarja njeblokować."
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
@@ -1665,9 +1669,8 @@ msgstr "Haj"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
 #: actions/block.php:165
-#, fuzzy
 msgid "Block this user."
-msgstr "Tutoho wužiwarja blokować"
+msgstr "Tutoho wužiwarja blokować."
 
 #. TRANS: Server error displayed when blocking a user fails.
 #: actions/block.php:189
@@ -1812,6 +1815,8 @@ msgid ""
 "This will <strong>permanently delete</strong> your account data from this "
 "server."
 msgstr ""
+"To budźe twoje kontowe daty <strong>na přeco</strong>z tutoho serwera "
+"<strong>zhašeć</strong>."
 
 #. TRANS: Additional form text for user deletion form shown if a user has account backup rights.
 #. TRANS: %s is a URL to the backup page.
@@ -1881,15 +1886,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting an application.
 #: actions/deleteapplication.php:161
-#, fuzzy
 msgid "Do not delete this application."
-msgstr "Tutu aplikaciju njezničić"
+msgstr "Tutu aplikaciju njezhašeć."
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:167
-#, fuzzy
 msgid "Delete this application."
-msgstr "Tutu aplikaciju zničić"
+msgstr "Tutu aplikaciju zhašeć."
 
 #. TRANS: Client error when trying to delete group while not logged in.
 #: actions/deletegroup.php:64
@@ -1939,28 +1942,28 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a group.
 #: actions/deletegroup.php:224
-#, fuzzy
 msgid "Do not delete this group."
-msgstr "Tuitu skupinu njezhašeć"
+msgstr "Tutu skupinu njezhašeć."
 
 #. TRANS: Submit button title for 'Yes' when deleting a group.
 #: actions/deletegroup.php:231
-#, fuzzy
 msgid "Delete this group."
-msgstr "Tutu skupinu zhašeć"
+msgstr "Tutu skupinu zhašeć."
 
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
 #. TRANS: Client error displayed when trying to remove a favorite while not logged in.
 #. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
 #. TRANS: Client error displayed trying to block a user from a group while not logged in.
 #. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
+#. TRANS: Client error displayed trying to log out when not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
+#. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #. TRANS: Client error displayed when trying to change user options while not logged in.
 #: actions/deletenotice.php:52 actions/disfavor.php:61 actions/favor.php:62
-#: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:69
+#: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:70
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:88
-#: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:96
+#: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:98
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:71 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -1988,15 +1991,13 @@ msgstr "Chceš woprawdźe tutu zdźělenku wušmórnyć?"
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
 #: actions/deletenotice.php:159
-#, fuzzy
 msgid "Do not delete this notice."
-msgstr "Tutu zdźělenku njewušmórnyć"
+msgstr "Tutu zdźělenku njezhašeć."
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
 #: actions/deletenotice.php:166
-#, fuzzy
 msgid "Delete this notice."
-msgstr "Tutu zdźělenku wušmórnyć"
+msgstr "Tutu zdźělenku zhašeć."
 
 #. TRANS: Client error displayed when trying to delete a user without having the right to delete users.
 #: actions/deleteuser.php:66
@@ -2028,15 +2029,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a user.
 #: actions/deleteuser.php:158
-#, fuzzy
 msgid "Do not delete this user."
-msgstr "Tutu skupinu njezhašeć"
+msgstr "Tutoho wužiwarja njezhašeć."
 
 #. TRANS: Submit button title for 'Yes' when deleting a user.
 #: actions/deleteuser.php:165
-#, fuzzy
 msgid "Delete this user."
-msgstr "Tutoho wužiwarja wušmórnyć"
+msgstr "Tutoho wužiwarja zhašeć"
 
 #. TRANS: Message used as title for design settings for the site.
 #. TRANS: Link description in user account settings menu.
@@ -2199,21 +2198,18 @@ msgstr "Standardne hódnoty wužiwać"
 
 #. TRANS: Title for button for resetting theme settings.
 #: actions/designadminpanel.php:720
-#, fuzzy
 msgid "Restore default designs."
-msgstr "Standardne designy wobnowić"
+msgstr "Standardne designy wobnowić."
 
 #. TRANS: Title for button for resetting theme settings.
 #: actions/designadminpanel.php:728
-#, fuzzy
 msgid "Reset back to default."
-msgstr "Na standard wróćo stajić"
+msgstr "Na standard wróćo stajić."
 
 #. TRANS: Title for button for saving theme settings.
 #: actions/designadminpanel.php:736
-#, fuzzy
 msgid "Save design."
-msgstr "Design składować"
+msgstr "Design składować."
 
 #. TRANS: Client error displayed when trying to remove favorite status for a notice that is not a favorite.
 #: actions/disfavor.php:83
@@ -2617,9 +2613,8 @@ msgstr "Tuta zdźělenka je hižo faworit!"
 
 #. TRANS: Page title for page on which favorite notices can be unfavourited.
 #: actions/favor.php:95
-#, fuzzy
 msgid "Disfavor favorite."
-msgstr "Z faworitow wotstronić"
+msgstr "Z faworitow wotstronić."
 
 #. TRANS: Page title for first page of favorited notices.
 #. TRANS: Title for favourited notices section.
@@ -2850,15 +2845,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
 #: actions/groupblock.php:191
-#, fuzzy
 msgid "Do not block this user from this group."
-msgstr "Tutoho wužiwarja za tutu skupinu blokować"
+msgstr "Tutoho wužiwarja za tutu skupinu njeblokować."
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
 #: actions/groupblock.php:198
-#, fuzzy
 msgid "Block this user from this group."
-msgstr "Tutoho wužiwarja za tutu skupinu blokować"
+msgstr "Tutoho wužiwarja za tutu skupinu blokować."
 
 #. TRANS: Server error displayed when trying to block a user from a group fails because of an application error.
 #: actions/groupblock.php:215
@@ -2866,6 +2859,7 @@ msgid "Database error blocking user from group."
 msgstr "Zmylk datoweje banki blokuje wužiwarja za skupinu."
 
 #. TRANS: Client error displayed referring to a group's permalink without providing a group ID.
+#. TRANS: Client error displayed trying to find a user by ID without providing an ID.
 #: actions/groupbyid.php:73 actions/userbyid.php:70
 msgid "No ID."
 msgstr "Žadyn ID."
@@ -3043,8 +3037,10 @@ msgid "Group search"
 msgstr "Skupinske pytanje"
 
 #. TRANS: Text on page where groups can be searched if no results were found for a query.
-#: actions/groupsearch.php:82 actions/noticesearch.php:117
-#: actions/peoplesearch.php:83
+#. TRANS: Text for notice search results is the query had no results.
+#. TRANS: Message on the "People search" page where a query has no results.
+#: actions/groupsearch.php:82 actions/noticesearch.php:122
+#: actions/peoplesearch.php:87
 msgid "No results."
 msgstr "Žane wuslědki."
 
@@ -3079,6 +3075,7 @@ msgid "User is not blocked from group."
 msgstr "Wužiwar njeje zablokowany za skupinu."
 
 #. TRANS: Server error displayed when unblocking a user from a group fails because of an unknown error.
+#. TRANS: Server error displayed when removing a user block.
 #: actions/groupunblock.php:132 actions/unblock.php:86
 msgid "Error removing the block."
 msgstr "Zmylk při wotstronjenju blokowanja."
@@ -3550,6 +3547,7 @@ msgstr "Składować"
 msgid "Save license settings"
 msgstr "Licencne nastajenja składować"
 
+#. TRANS: Client error displayed trying to use "one time password login" when already logged in.
 #: actions/login.php:97 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "Hižo přizjewjeny."
@@ -3558,7 +3556,8 @@ msgstr "Hižo přizjewjeny."
 msgid "Incorrect username or password."
 msgstr "Wopačne wužiwarske mjeno abo hesło."
 
-#: actions/login.php:148 actions/otp.php:120
+#. TRANS: Server error displayed when a user object could not be created trying to login using "one time password login".
+#: actions/login.php:148 actions/otp.php:127
 msgid "Error setting user. You are probably not authorized."
 msgstr "Zmylk při nastajenju wužiwarja. Snano njejsy awtorizowany."
 
@@ -3718,44 +3717,56 @@ msgstr "Nowa zdźělenka"
 msgid "Notice posted"
 msgstr "Zdźělenka wotpósłana"
 
-#: actions/noticesearch.php:68
+#. TRANS: Instructions for Notice search page.
+#. TRANS: %%site.name%% is the name of the StatusNet site.
+#: actions/noticesearch.php:69
 #, php-format
 msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
 msgstr ""
 
-#: actions/noticesearch.php:78
+#. TRANS: Title of the page where users can search for notices.
+#: actions/noticesearch.php:80
 msgid "Text search"
 msgstr "Tekstowe pytanje"
 
-#: actions/noticesearch.php:91
+#. TRANS: Test in RSS notice search.
+#. TRANS: %1$s is the query, %2$s is the StatusNet site name.
+#: actions/noticesearch.php:95
 #, php-format
 msgid "Search results for \"%1$s\" on %2$s"
 msgstr "Pytanske wuslědki za \"%1$s\" na %2$s"
 
-#: actions/noticesearch.php:121
+#. TRANS: Text for logged in users making a query for notices without results.
+#. TRANS: This message contains a Markdown link.
+#: actions/noticesearch.php:128
 #, php-format
 msgid ""
 "Be the first to [post on this topic](%%%%action.newnotice%%%%?"
 "status_textarea=%s)!"
 msgstr ""
 
-#: actions/noticesearch.php:124
+#. TRANS: Text for not logged in users making a query for notices without results.
+#. TRANS: This message contains Markdown links.
+#: actions/noticesearch.php:133
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
-#: actions/noticesearchrss.php:96
+#. TRANS: RSS notice search feed title. %s is the query.
+#: actions/noticesearchrss.php:95
 #, php-format
 msgid "Updates with \"%s\""
 msgstr "Aktualizacije z \"%s\""
 
-#: actions/noticesearchrss.php:98
-#, php-format
-msgid "Updates matching search term \"%1$s\" on %2$s!"
+#. TRANS: RSS notice search feed description.
+#. TRANS: %1$s is the query, %2$s is the StatusNet site name.
+#: actions/noticesearchrss.php:99
+#, fuzzy, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s."
 msgstr "Aktualizacije, kotrež pytanskemu zapřijeću  %1$s na %2$s wotpowěduja!"
 
 #: actions/nudge.php:85
@@ -3840,14 +3851,14 @@ msgid ""
 msgstr ""
 
 #: actions/oembed.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "\"%s\" not found."
-msgstr "Wužiwar njenamakany."
+msgstr "\"%s\" njenamakany."
 
 #: actions/oembed.php:76
-#, fuzzy, php-format
+#, php-format
 msgid "Notice %s not found."
-msgstr "Wotpowědna zdźělenka njenamakana."
+msgstr "Zdźělenka %s njenamakana."
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -3859,9 +3870,9 @@ msgid "%1$s's status on %2$s"
 msgstr "Status %1$s na %2$s"
 
 #: actions/oembed.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "Attachment %s not found."
-msgstr "Přijimowar njenamakany."
+msgstr "Přiwěšk %s njenamakany."
 
 #: actions/oembed.php:136
 #, php-format
@@ -3886,11 +3897,12 @@ msgstr ""
 msgid "Not a supported data format."
 msgstr "Njeje podpěrany datowy format."
 
+#. TRANS: ShortName in the OpenSearch interface when trying to find users.
 #: actions/opensearch.php:64
 msgid "People Search"
 msgstr "Ludźi pytać"
 
-#: actions/opensearch.php:67
+#: actions/opensearch.php:68
 msgid "Notice Search"
 msgstr "Zdźělenku pytać"
 
@@ -3937,23 +3949,28 @@ msgstr "Profilowe designy pokazać abo schować."
 msgid "URL shortening service is too long (maximum 50 characters)."
 msgstr "Krótšenska słužba za URL je předołha (maks. 50 znamješkow)."
 
-#: actions/otp.php:69
+#. TRANS: Client error displayed trying to use "one time password login" without specifying a user.
+#: actions/otp.php:70
 msgid "No user ID specified."
 msgstr "Žadyn wužiwarski ID podaty."
 
-#: actions/otp.php:83
+#. TRANS: Client error displayed trying to use "one time password login" without specifying a login token.
+#: actions/otp.php:86
 msgid "No login token specified."
 msgstr "Žane přizjewjenske znamješko podate."
 
-#: actions/otp.php:90
+#. TRANS: Client error displayed trying to use "one time password login" without requesting a login token.
+#: actions/otp.php:94
 msgid "No login token requested."
 msgstr "Žadyn přizjewjenski token trěbny."
 
-#: actions/otp.php:95
+#. TRANS: Client error displayed trying to use "one time password login" while specifying an invalid login token.
+#: actions/otp.php:100
 msgid "Invalid login token specified."
 msgstr "Njepłaćiwe přizjewjenske znamješko podate."
 
-#: actions/otp.php:104
+#. TRANS: Client error displayed trying to use "one time password login" while specifying an expired login token.
+#: actions/otp.php:110
 msgid "Login token expired."
 msgstr "Přizjewjenske znamješko spadnjene."
 
@@ -4308,14 +4325,17 @@ msgstr ""
 msgid "Save paths"
 msgstr "Šćežki składować"
 
-#: actions/peoplesearch.php:52
+#. TRANS: Instructions for the "People search" page.
+#. TRANS: %%site.name%% is the name of the StatusNet site.
+#: actions/peoplesearch.php:54
 #, php-format
 msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
 
-#: actions/peoplesearch.php:58
+#. TRANS: Title of a page where users can search for other users.
+#: actions/peoplesearch.php:61
 msgid "People search"
 msgstr "Za ludźimi pytać"
 
@@ -4450,9 +4470,8 @@ msgstr "Rěč"
 
 #. TRANS: Tooltip for dropdown list label in form for profile settings.
 #: actions/profilesettings.php:171
-#, fuzzy
 msgid "Preferred language."
-msgstr "Preferowana rěč"
+msgstr "Preferowana rěč."
 
 #. TRANS: Dropdownlist label in form for profile settings.
 #: actions/profilesettings.php:181
@@ -4466,10 +4485,10 @@ msgstr "W kotrym časowym pasmje sy zwjetša?"
 
 #. TRANS: Checkbox label in form for profile settings.
 #: actions/profilesettings.php:189
-#, fuzzy
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)."
-msgstr "Nowych wužiwarjow za tutoho wužiwarja abonować."
+msgstr ""
+"Awtomatisce kóždeho abonować, kotryž  mje abonuje (najlěpše za \"njeludźi\")."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
@@ -4496,9 +4515,9 @@ msgstr "Mjeno rěče je předołhe (maks. 50 znamješkow)."
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
 #: actions/profilesettings.php:291
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\"."
-msgstr "Njepłaćiwa taflička: \"%s\""
+msgstr "Njepłaćiwa taflička: \"%s\"."
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
@@ -4591,6 +4610,12 @@ msgid ""
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
+
+#. TRANS: Public RSS feed description. %s is the StatusNet site name.
+#: actions/publicrss.php:106
+#, fuzzy, php-format
+msgid "%s updates from everyone."
+msgstr "%s aktualizacijow wote wšěch!"
 
 #. TRANS: Title for public tag cloud.
 #: actions/publictagcloud.php:57
@@ -4725,9 +4750,8 @@ msgstr "Wobnowjenje hesła požadane"
 
 #. TRANS: Title for password recovery page in password saved mode.
 #: actions/recoverpassword.php:229
-#, fuzzy
 msgid "Password saved"
-msgstr "Hesło składowane."
+msgstr "Hesło składowane"
 
 #. TRANS: Title for password recovery page when an unknown action has been specified.
 #: actions/recoverpassword.php:232
@@ -4820,7 +4844,6 @@ msgid "Registration not allowed."
 msgstr "Registracija njedowolena."
 
 #: actions/register.php:201
-#, fuzzy
 msgid "You cannot register if you don't agree to the license."
 msgstr "Njemóžeš so registrować, jeli njepřizwoleš do licency."
 
@@ -4849,14 +4872,12 @@ msgid "Used only for updates, announcements, and password recovery."
 msgstr ""
 
 #: actions/register.php:443
-#, fuzzy
 msgid "Longer name, preferably your \"real\" name."
-msgstr "Dlěše mjeno, wosebje twoje \"woprawdźite\" mjeno"
+msgstr "Dlěše mjeno, wosebje twoje \"woprawdźite\" mjeno."
 
 #: actions/register.php:471
-#, fuzzy
 msgid "Where you are, like \"City, State (or Region), Country\"."
-msgstr "Hdźež sy, na př. \"město, zwjazkowy kraj (abo region) , kraj\""
+msgstr "Hdźež sy, na př. \"město, zwjazkowy kraj (abo region) , kraj\"."
 
 #: actions/register.php:510
 #, php-format
@@ -4933,7 +4954,6 @@ msgid "User nickname"
 msgstr "Wužiwarske přimjeno"
 
 #: actions/remotesubscribe.php:129
-#, fuzzy
 msgid "Nickname of the user you want to follow."
 msgstr "Přimjeno wužiwarja, kotremuž chceš slědować."
 
@@ -4944,6 +4964,7 @@ msgstr "URL profila"
 #: actions/remotesubscribe.php:133
 msgid "URL of your profile on another compatible microblogging service."
 msgstr ""
+"URL twojeho profila při druhej kompatibelnej mikroblogowanskej słužbje."
 
 #. TRANS: Link text for link that will subscribe to a remote profile.
 #: actions/remotesubscribe.php:136 lib/subscribeform.php:139
@@ -4952,9 +4973,8 @@ msgid "Subscribe"
 msgstr "Abonować"
 
 #: actions/remotesubscribe.php:158
-#, fuzzy
 msgid "Invalid profile URL (bad format)."
-msgstr "Njepłaćiwy profilowy URL (wopačny format)"
+msgstr "Njepłaćiwy profilowy URL (wopačny format)."
 
 #: actions/remotesubscribe.php:167
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
@@ -4992,6 +5012,7 @@ msgstr "Wospjetowany"
 msgid "Repeated!"
 msgstr "Wospjetowany!"
 
+#. TRANS: RSS reply feed title. %s is a user nickname.
 #. TRANS: Tooltip for personal group navigation menu option when logged in for viewing @-replies.
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:109
@@ -5040,9 +5061,11 @@ msgid ""
 "newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
-#: actions/repliesrss.php:72
-#, php-format
-msgid "Replies to %1$s on %2$s!"
+#. TRANS: RSS reply feed description.
+#. TRANS: %1$s is a user nickname, %2$s is the StatusNet site name.
+#: actions/repliesrss.php:74
+#, fuzzy, php-format
+msgid "Replies to %1$s on %2$s."
 msgstr "Wotmołwy na %1$s na %2$s!"
 
 #. TRANS: Client exception displayed when trying to restore an account while not logged in.
@@ -5731,9 +5754,8 @@ msgstr ""
 
 #. TRANS: Title for button to save site notice in admin panel.
 #: actions/sitenoticeadminpanel.php:201
-#, fuzzy
 msgid "Save site notice."
-msgstr "Sydłowu zdźělenku składować"
+msgstr "Sydłowu zdźělenku składować."
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:57
@@ -5790,9 +5812,8 @@ msgstr "SMS telefonowe čisło"
 
 #. TRANS: SMS phone number input field instructions in SMS settings form.
 #: actions/smssettings.php:152
-#, fuzzy
 msgid "Phone number, no punctuation or spaces, with area code."
-msgstr "Telefonowe čisło, bjez interpunkcije abo mjezerow, z předwolenjom"
+msgstr "Telefonowe čisło, bjez interpunkcije abo mjezerow, z předwolenjom."
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:191
@@ -5952,15 +5973,19 @@ msgstr "Njejsy tón profil abonował."
 msgid "Could not save subscription."
 msgstr "Abonement njeda so składować."
 
+#. TRANS: Client error displayed trying to perform any request method other than POST.
+#. TRANS: Do not translate POST.
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr ""
 
-#: actions/subscribe.php:117
+#. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
+#: actions/subscribe.php:121
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr "Njemóžeš zdaleny profil OMB 0.1 z tutej akciju abonować."
 
-#: actions/subscribe.php:145
+#. TRANS: Page title when subscription succeeded.
+#: actions/subscribe.php:149
 msgid "Subscribed"
 msgstr "Abonowany"
 
@@ -6148,6 +6173,7 @@ msgstr ""
 msgid "No such tag."
 msgstr "Taflička njeeksistuje."
 
+#. TRANS: Client error displayed when trying to unblock a non-blocked user.
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
 msgstr "Njejsy toho wužiwarja zablokował."
@@ -6198,9 +6224,9 @@ msgstr "Njepłaćiwy powitanski tekst. Maksimalna dołhosć je 255 znamješkow."
 #. TRANS: Client error displayed when trying to set a non-existing user as default subscription for new
 #. TRANS: users in user admin panel. %1$s is the invalid nickname.
 #: actions/useradminpanel.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid default subscripton: \"%1$s\" is not a user."
-msgstr "Njepłaćiwy standardny abonement: '%1$s' wužiwar njeje."
+msgstr "Njepłaćiwy standardny abonement: \"%1$s\" wužiwar njeje."
 
 #. TRANS: Link description in user account settings menu.
 #: actions/useradminpanel.php:215 lib/accountsettingsaction.php:106
@@ -6259,9 +6285,8 @@ msgstr ""
 
 #. TRANS: Title for button to save user settings in user admin panel.
 #: actions/useradminpanel.php:302
-#, fuzzy
 msgid "Save user settings."
-msgstr "Wužiwarske nastajenja składować"
+msgstr "Wužiwarske nastajenja składować."
 
 #. TRANS: Page title.
 #: actions/userauthorization.php:109
@@ -6285,29 +6310,25 @@ msgstr "Licenca"
 
 #. TRANS: Button text on Authorise Subscription page.
 #: actions/userauthorization.php:229
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Accept"
 msgstr "Akceptować"
 
 #. TRANS: Title for button on Authorise Subscription page.
 #: actions/userauthorization.php:231
-#, fuzzy
 msgid "Subscribe to this user."
-msgstr "Tutoho wužiwarja abonować"
+msgstr "Tutoho wužiwarja abonować."
 
 #. TRANS: Button text on Authorise Subscription page.
 #: actions/userauthorization.php:233
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Reject"
 msgstr "Wotpokazać"
 
 #. TRANS: Title for button on Authorise Subscription page.
 #: actions/userauthorization.php:235
-#, fuzzy
 msgid "Reject this subscription."
-msgstr "Tutón abonement wotpokazać"
+msgstr "Tutón abonement wotpokazać."
 
 #. TRANS: Client error displayed for an empty authorisation request.
 #: actions/userauthorization.php:248
@@ -6341,30 +6362,30 @@ msgstr ""
 #. TRANS: Exception thrown when no valid user is found for an authorisation request.
 #. TRANS: %s is a listener URI.
 #: actions/userauthorization.php:325
-#, fuzzy, php-format
+#, php-format
 msgid "Listener URI \"%s\" not found here."
-msgstr "URI posłucharja'%s' njebu tu namakany"
+msgstr "URI posłucharja \"%s\" njebu tu namakany."
 
 #. TRANS: Exception thrown when listenee URI is too long for an authorisation request.
 #. TRANS: %s is a listenee URI.
 #: actions/userauthorization.php:332
-#, fuzzy, php-format
+#, php-format
 msgid "Listenee URI \"%s\" is too long."
-msgstr "URI posłucharki '%s' je předołhi."
+msgstr "URI posłucharki \"%s\" je předołhi."
 
 #. TRANS: Exception thrown when listenee URI is a local user for an authorisation request.
 #. TRANS: %s is a listenee URI.
 #: actions/userauthorization.php:340
-#, fuzzy, php-format
+#, php-format
 msgid "Listenee URI \"%s\" is a local user."
-msgstr "URI posłucharki '%s' je předołhi."
+msgstr "URI posłucharki \"%s\" je lokalny wužiwar.."
 
 #. TRANS: Exception thrown when profile URL is a local user for an authorisation request.
 #. TRANS: %s is a profile URL.
 #: actions/userauthorization.php:358
-#, fuzzy, php-format
+#, php-format
 msgid "Profile URL \"%s\" is for a local user."
-msgstr "Profilowy URL '%s' je za lokalneho wužiwarja."
+msgstr "Profilowy URL \"%s\" je za lokalneho wužiwarja."
 
 #. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
 #. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
@@ -6378,23 +6399,23 @@ msgstr ""
 #. TRANS: Exception thrown when avatar URL is invalid for an authorisation request.
 #. TRANS: %s is an avatar URL.
 #: actions/userauthorization.php:378
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar URL \"%s\" is not valid."
-msgstr "URL awatara '%s' njeje płaćiwy"
+msgstr "URL awatara \"%s\" njeje płaćiwy."
 
 #. TRANS: Exception thrown when avatar URL could not be read for an authorisation request.
 #. TRANS: %s is an avatar URL.
 #: actions/userauthorization.php:385
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot read avatar URL \"%s\"."
-msgstr "Awatarowy URL '%s' njeda so čitać."
+msgstr "Awatarowy URL \"%s\" njeda so čitać."
 
 #. TRANS: Exception thrown when avatar URL return an invalid image type for an authorisation request.
 #. TRANS: %s is an avatar URL.
 #: actions/userauthorization.php:392
-#, fuzzy, php-format
+#, php-format
 msgid "Wrong image type for avatar URL \"%s\"."
-msgstr "Wopačny wobrazowy typ za awatarowy URL '%s'."
+msgstr "Wopačny wobrazowy typ za awatarowy URL \"%s\"."
 
 #. TRANS: Page title for profile design page.
 #: actions/userdesignsettings.php:74 lib/designsettings.php:63
@@ -6714,14 +6735,14 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:771
+#: classes/Profile.php:775
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:780
+#: classes/Profile.php:784
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -6839,7 +6860,7 @@ msgstr "XRD za %s njeda so namakać."
 #: lib/accountmover.php:131
 #, php-format
 msgid "No AtomPub API service for %s."
-msgstr ""
+msgstr "Žana słužba AtomPub API za %s."
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:104
@@ -7356,19 +7377,23 @@ msgstr ""
 msgid "No application for that consumer key."
 msgstr "Žana aplikacija za tón kluč přetrjebowarja."
 
+#: lib/apiauth.php:202 lib/apiauth.php:284
+msgid "Not allowed to use API."
+msgstr ""
+
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
-#: lib/apiauth.php:219
+#: lib/apiauth.php:225
 msgid "Bad access token."
 msgstr ""
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
-#: lib/apiauth.php:224
+#: lib/apiauth.php:230
 msgid "No user for that token."
 msgstr ""
 
 #. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
 #. TRANS: Client error thrown when authentication fails.
-#: lib/apiauth.php:266 lib/apiauth.php:293
+#: lib/apiauth.php:272 lib/apiauth.php:302
 msgid "Could not authenticate you."
 msgstr "Njebě móžno će awtentifikować."
 
@@ -8422,7 +8447,7 @@ msgstr ""
 #: lib/mail.php:238
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr ""
+msgstr "%1$s slěduje twoje zdźělenki na %2$s."
 
 #. TRANS: This is a paragraph in a new-subscriber e-mail.
 #. TRANS: %s is a URL where the subscriber can be reported as abusive.
@@ -9195,7 +9220,7 @@ msgstr ""
 
 #: lib/themeuploader.php:225
 msgid "Theme contains unsafe file extension names; may be unsafe."
-msgstr ""
+msgstr "Šat wobsahuje njewěste datajowe sufiksy; to móhło njewěste być."
 
 #: lib/themeuploader.php:242
 #, php-format
@@ -9305,18 +9330,23 @@ msgctxt "role"
 msgid "Moderator"
 msgstr "Moderator"
 
+#: lib/util.php:305
+#, fuzzy
+msgid "Not allowed to log in."
+msgstr "Njepřizjewjeny."
+
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1306
+#: lib/util.php:1309
 msgid "a few seconds ago"
 msgstr "před něšto sekundami"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1309
+#: lib/util.php:1312
 msgid "about a minute ago"
 msgstr "před něhdźe jednej mjeńšinu"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1313
+#: lib/util.php:1316
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -9326,12 +9356,12 @@ msgstr[2] "před něhdźe %d mjeńšinami"
 msgstr[3] "před něhdźe %d mjeńšinami"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1316
+#: lib/util.php:1319
 msgid "about an hour ago"
 msgstr "před něhdźe jednej hodźinu"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1320
+#: lib/util.php:1323
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -9341,12 +9371,12 @@ msgstr[2] "před něhdźe %d hodźinami"
 msgstr[3] "před něhdźe %d hodźinami"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1323
+#: lib/util.php:1326
 msgid "about a day ago"
 msgstr "před něhdźe jednym dnjom"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1327
+#: lib/util.php:1330
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -9356,12 +9386,12 @@ msgstr[2] "před něhdźe %d dnjemi"
 msgstr[3] "před něhdźe %d dnjemi"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1330
+#: lib/util.php:1333
 msgid "about a month ago"
 msgstr "před něhdźe jednym měsacom"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1334
+#: lib/util.php:1337
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -9371,7 +9401,7 @@ msgstr[2] "před něhdźe %d měsacami"
 msgstr[3] "před něhdźe %d měacami"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1337
+#: lib/util.php:1340
 msgid "about a year ago"
 msgstr "před něhdźe jednym lětom"
 
@@ -9420,15 +9450,3 @@ msgstr "Njepłaćiwy XML, korjeń XRD faluje."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "Wobstaruje so zawěsćenje z dataje \"%s\"-"
-
-#~ msgid "6 or more characters"
-#~ msgstr "6 abo wjace znamješkow"
-
-#~ msgid "Same as password above"
-#~ msgstr "Samsne hesło kaž horjeka"
-
-#~ msgid "Can't save new password."
-#~ msgstr "Nowe hesło njeda so składować."
-
-#~ msgid "URL of your homepage, blog, or profile on another site"
-#~ msgstr "URL twojeje startoweje strony, bloga abo profila na druhim sydle"

@@ -17,17 +17,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-17 10:25+0000\n"
-"PO-Revision-Date: 2011-02-17 10:27:11+0000\n"
+"POT-Creation-Date: 2011-02-24 10:32+0000\n"
+"PO-Revision-Date: 2011-02-24 10:36:28+0000\n"
 "Language-Team: Esperanto <http://translatewiki.net/wiki/Portal:eo>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r82325); Translate extension (2011-02-01)\n"
+"X-Generator: MediaWiki 1.18alpha (r82712); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: eo\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-02-14 17:20:58+0000\n"
+"X-POT-Import-Date: 2011-02-17 11:39:54+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -139,7 +139,11 @@ msgstr "Ne estas tiu paĝo."
 #. TRANS: Client error displayed when requesting Friends of a Friend feed without providing a user nickname.
 #. TRANS: Client error displayed when requesting Friends of a Friend feed for an object that is not a user.
 #. TRANS: Client error displayed when trying to get a user hCard for a non-existing user.
+#. TRANS: Client error displayed trying to use "one time password login" without using an existing user.
+#. TRANS: Client error displayed when providing a non-existing nickname in a RSS 1.0 action.
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
+#. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
+#. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when calling a profile action without specifying a user.
 #: actions/all.php:80 actions/allrss.php:69
@@ -157,10 +161,10 @@ msgstr "Ne estas tiu paĝo."
 #: actions/apitimelinementions.php:77 actions/apitimelineuser.php:79
 #: actions/avatarbynickname.php:79 actions/favoritesrss.php:72
 #: actions/foaf.php:42 actions/foaf.php:61 actions/hcard.php:67
-#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:78
 #: actions/remotesubscribe.php:144 actions/remotesubscribe.php:153
 #: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:113
-#: actions/showfavorites.php:106 actions/userbyid.php:74
+#: actions/showfavorites.php:106 actions/userbyid.php:75
 #: actions/usergroups.php:93 actions/userrss.php:40 actions/userxrd.php:59
 #: actions/xrds.php:71 lib/command.php:497 lib/galleryaction.php:59
 #: lib/mailbox.php:80 lib/profileaction.php:77
@@ -818,6 +822,7 @@ msgstr ""
 #. TRANS: Form validation error message.
 #. TRANS: Form validation error.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token is not okay.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
 #: actions/deletenotice.php:177 actions/disfavor.php:75
 #: actions/emailsettings.php:291 actions/favor.php:75 actions/geocode.php:55
@@ -830,7 +835,7 @@ msgstr ""
 #: actions/profilesettings.php:217 actions/recoverpassword.php:383
 #: actions/register.php:164 actions/remotesubscribe.php:76
 #: actions/repeat.php:82 actions/smssettings.php:250 actions/subedit.php:40
-#: actions/subscribe.php:86 actions/tagother.php:166
+#: actions/subscribe.php:87 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:53
 #: lib/designsettings.php:310
 msgid "There was a problem with your session token. Try again, please."
@@ -1158,13 +1163,14 @@ msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s ĝisdatigoj kiuj respondas al ĝisdatigoj de %2$s / %3$s."
 
 #. TRANS: Title for site timeline. %s is the StatusNet sitename.
+#. TRANS: Public RSS feed title. %s is the StatusNet site name.
 #: actions/apitimelinepublic.php:193 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "%s publika tempstrio"
 
 #. TRANS: Subtitle for site timeline. %s is the StatusNet sitename.
-#: actions/apitimelinepublic.php:199 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:199
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s ĝisdatigoj de ĉiuj!"
@@ -1269,9 +1275,10 @@ msgstr "Metodo de API ne troviĝas."
 
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
+#. TRANS: Client error displayed trying to subscribe to a non-existing profile.
 #: actions/atompubfavoritefeed.php:69 actions/atompubmembershipfeed.php:71
 #: actions/atompubshowfavorite.php:75 actions/atompubshowmembership.php:72
-#: actions/subscribe.php:107
+#: actions/subscribe.php:110
 msgid "No such profile."
 msgstr "Ne ekzistas tia profilo."
 
@@ -2011,13 +2018,15 @@ msgstr "Forigi la uzanton"
 #. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
 #. TRANS: Client error displayed trying to block a user from a group while not logged in.
 #. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
+#. TRANS: Client error displayed trying to log out when not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
+#. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #. TRANS: Client error displayed when trying to change user options while not logged in.
 #: actions/deletenotice.php:52 actions/disfavor.php:61 actions/favor.php:62
-#: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:69
+#: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:70
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:88
-#: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:96
+#: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:98
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:71 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -2945,6 +2954,7 @@ msgid "Database error blocking user from group."
 msgstr "Malsukcesis forbari uzanton de la grupo pro datumbaza eraro."
 
 #. TRANS: Client error displayed referring to a group's permalink without providing a group ID.
+#. TRANS: Client error displayed trying to find a user by ID without providing an ID.
 #: actions/groupbyid.php:73 actions/userbyid.php:70
 msgid "No ID."
 msgstr "Neniu ID."
@@ -3130,8 +3140,10 @@ msgid "Group search"
 msgstr "Grup-serĉo"
 
 #. TRANS: Text on page where groups can be searched if no results were found for a query.
-#: actions/groupsearch.php:82 actions/noticesearch.php:117
-#: actions/peoplesearch.php:83
+#. TRANS: Text for notice search results is the query had no results.
+#. TRANS: Message on the "People search" page where a query has no results.
+#: actions/groupsearch.php:82 actions/noticesearch.php:122
+#: actions/peoplesearch.php:87
 msgid "No results."
 msgstr "Neniu rezulto."
 
@@ -3168,6 +3180,7 @@ msgid "User is not blocked from group."
 msgstr "La uzanto ne estas blokita de grupo."
 
 #. TRANS: Server error displayed when unblocking a user from a group fails because of an unknown error.
+#. TRANS: Server error displayed when removing a user block.
 #: actions/groupunblock.php:132 actions/unblock.php:86
 msgid "Error removing the block."
 msgstr "Eraro ĉe provo malbloki."
@@ -3676,6 +3689,7 @@ msgstr "Konservi"
 msgid "Save license settings"
 msgstr ""
 
+#. TRANS: Client error displayed trying to use "one time password login" when already logged in.
 #: actions/login.php:97 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "Vi jam ensalutis."
@@ -3684,7 +3698,8 @@ msgstr "Vi jam ensalutis."
 msgid "Incorrect username or password."
 msgstr "Malĝusta uzantnomo aŭ pasvorto."
 
-#: actions/login.php:148 actions/otp.php:120
+#. TRANS: Server error displayed when a user object could not be created trying to login using "one time password login".
+#: actions/login.php:148 actions/otp.php:127
 msgid "Error setting user. You are probably not authorized."
 msgstr "Eraras agordi uzanton. Vi verŝajne ne rajtiĝas."
 
@@ -3846,7 +3861,9 @@ msgstr "Nova avizo"
 msgid "Notice posted"
 msgstr "Avizo afiŝiĝas"
 
-#: actions/noticesearch.php:68
+#. TRANS: Instructions for Notice search page.
+#. TRANS: %%site.name%% is the name of the StatusNet site.
+#: actions/noticesearch.php:69
 #, php-format
 msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
@@ -3855,16 +3872,21 @@ msgstr ""
 "Serĉi avizon ĉe %%site.name%% per ĝia enhavo. Dividu serĉvortojn per spaco; "
 "ili estu almenaŭ 3 literojn longaj."
 
-#: actions/noticesearch.php:78
+#. TRANS: Title of the page where users can search for notices.
+#: actions/noticesearch.php:80
 msgid "Text search"
 msgstr "Teksta serĉado"
 
-#: actions/noticesearch.php:91
+#. TRANS: Test in RSS notice search.
+#. TRANS: %1$s is the query, %2$s is the StatusNet site name.
+#: actions/noticesearch.php:95
 #, php-format
 msgid "Search results for \"%1$s\" on %2$s"
 msgstr "Trovito per \"%1$s\" ĉe %2$s"
 
-#: actions/noticesearch.php:121
+#. TRANS: Text for logged in users making a query for notices without results.
+#. TRANS: This message contains a Markdown link.
+#: actions/noticesearch.php:128
 #, php-format
 msgid ""
 "Be the first to [post on this topic](%%%%action.newnotice%%%%?"
@@ -3873,7 +3895,9 @@ msgstr ""
 "Estu la unua [afiŝi pri la temo](%%%%action.newnotice%%%%?status_textarea=%"
 "s)!"
 
-#: actions/noticesearch.php:124
+#. TRANS: Text for not logged in users making a query for notices without results.
+#. TRANS: This message contains Markdown links.
+#: actions/noticesearch.php:133
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and be the first to "
@@ -3882,14 +3906,17 @@ msgstr ""
 "Kial ne [krei konton](%%%%action.register%%%%) kaj esti la unua [afiŝi pri "
 "la temo](%%%%action.newnotice%%%%?status_textarea=%s)!"
 
-#: actions/noticesearchrss.php:96
+#. TRANS: RSS notice search feed title. %s is the query.
+#: actions/noticesearchrss.php:95
 #, php-format
 msgid "Updates with \"%s\""
 msgstr "Ĝisdatiĝo enhavante \"%s\""
 
-#: actions/noticesearchrss.php:98
-#, php-format
-msgid "Updates matching search term \"%1$s\" on %2$s!"
+#. TRANS: RSS notice search feed description.
+#. TRANS: %1$s is the query, %2$s is the StatusNet site name.
+#: actions/noticesearchrss.php:99
+#, fuzzy, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s."
 msgstr "Ĝisdatiĝo kongruanta al serĉvorto \"%1$s\" ĉe %2$s!"
 
 #: actions/nudge.php:85
@@ -4023,11 +4050,12 @@ msgstr "Bonvolu, nur %s-URL per plata HTTP."
 msgid "Not a supported data format."
 msgstr "Datumformato ne subteniĝas."
 
+#. TRANS: ShortName in the OpenSearch interface when trying to find users.
 #: actions/opensearch.php:64
 msgid "People Search"
 msgstr "Homserĉo"
 
-#: actions/opensearch.php:67
+#: actions/opensearch.php:68
 msgid "Notice Search"
 msgstr "Avizoserĉo"
 
@@ -4075,23 +4103,28 @@ msgstr "Montri aŭ kaŝi profilo-desegnon."
 msgid "URL shortening service is too long (maximum 50 characters)."
 msgstr "URL-mallongigado-servo tro longas (maksimume 50 literojn)."
 
-#: actions/otp.php:69
+#. TRANS: Client error displayed trying to use "one time password login" without specifying a user.
+#: actions/otp.php:70
 msgid "No user ID specified."
 msgstr "Neniu uzanto-ID specifiĝas."
 
-#: actions/otp.php:83
+#. TRANS: Client error displayed trying to use "one time password login" without specifying a login token.
+#: actions/otp.php:86
 msgid "No login token specified."
 msgstr "Neniu ensalutado-ĵetono specifiĝas."
 
-#: actions/otp.php:90
+#. TRANS: Client error displayed trying to use "one time password login" without requesting a login token.
+#: actions/otp.php:94
 msgid "No login token requested."
 msgstr "Neniu ensalutad-ĵetono bezoniĝas."
 
-#: actions/otp.php:95
+#. TRANS: Client error displayed trying to use "one time password login" while specifying an invalid login token.
+#: actions/otp.php:100
 msgid "Invalid login token specified."
 msgstr "Specifita ensalutado-ĵetono nevalidas."
 
-#: actions/otp.php:104
+#. TRANS: Client error displayed trying to use "one time password login" while specifying an expired login token.
+#: actions/otp.php:110
 msgid "Login token expired."
 msgstr "Ensalutado-ĵetono eksvalidiĝas."
 
@@ -4449,7 +4482,9 @@ msgstr "Servilo, kien direkti \"SSL\"-petojn"
 msgid "Save paths"
 msgstr "Konservu lokigilon"
 
-#: actions/peoplesearch.php:52
+#. TRANS: Instructions for the "People search" page.
+#. TRANS: %%site.name%% is the name of the StatusNet site.
+#: actions/peoplesearch.php:54
 #, php-format
 msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
@@ -4458,7 +4493,8 @@ msgstr ""
 "Serĉi personon ĉe %%site.name%% per ĝia nomo, loko, aŭ intereso. Dividu "
 "serĉvortojn per spacoj; ili estu almenaŭ 3 literojn longaj."
 
-#: actions/peoplesearch.php:58
+#. TRANS: Title of a page where users can search for other users.
+#: actions/peoplesearch.php:61
 msgid "People search"
 msgstr "Persona serĉado"
 
@@ -4746,6 +4782,12 @@ msgstr ""
 "Tio ĉi estas %%site.name%%, [mikrobloga](http://en.wikipedia.org/wiki/Micro-"
 "blogging) servo surbaze de libera servila programo [StatusNet](http://status."
 "net/)."
+
+#. TRANS: Public RSS feed description. %s is the StatusNet site name.
+#: actions/publicrss.php:106
+#, fuzzy, php-format
+msgid "%s updates from everyone."
+msgstr "%s ĝisdatigoj de ĉiuj!"
 
 #. TRANS: Title for public tag cloud.
 #: actions/publictagcloud.php:57
@@ -5182,6 +5224,7 @@ msgstr "Ripetita"
 msgid "Repeated!"
 msgstr "Ripetita!"
 
+#. TRANS: RSS reply feed title. %s is a user nickname.
 #. TRANS: Tooltip for personal group navigation menu option when logged in for viewing @-replies.
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:109
@@ -5236,9 +5279,11 @@ msgstr ""
 "Vi povas provi  [puŝeti %1$s](../%2$s) aŭ[afiŝi ion al li](%%%%action."
 "newnotice%%%%?status_textarea=%3$s)."
 
-#: actions/repliesrss.php:72
-#, php-format
-msgid "Replies to %1$s on %2$s!"
+#. TRANS: RSS reply feed description.
+#. TRANS: %1$s is a user nickname, %2$s is the StatusNet site name.
+#: actions/repliesrss.php:74
+#, fuzzy, php-format
+msgid "Replies to %1$s on %2$s."
 msgstr "Respondoj al %1$s ĉe %2$s!"
 
 #. TRANS: Client exception displayed when trying to restore an account while not logged in.
@@ -6192,15 +6237,19 @@ msgstr "Vi ne abonis tiun profilon."
 msgid "Could not save subscription."
 msgstr "Malsukcesis konservi abonon."
 
+#. TRANS: Client error displayed trying to perform any request method other than POST.
+#. TRANS: Do not translate POST.
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr "La ago akceptas nur POST-an peton."
 
-#: actions/subscribe.php:117
+#. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
+#: actions/subscribe.php:121
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr "Vi ne povas aboni foran  OMB 0.1-an profilon per ĉi tiu ago."
 
-#: actions/subscribe.php:145
+#. TRANS: Page title when subscription succeeded.
+#: actions/subscribe.php:149
 msgid "Subscribed"
 msgstr "Abonita"
 
@@ -6394,6 +6443,7 @@ msgstr "Uzu ĉi tiun formularon por etikedi viajn abonantojn aŭ abonatojn."
 msgid "No such tag."
 msgstr "Ne estas tiu etikedo."
 
+#. TRANS: Client error displayed when trying to unblock a non-blocked user.
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
 msgstr "Vi ne jam blokis la uzanton."
@@ -6983,14 +7033,14 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:771
+#: classes/Profile.php:775
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr "Malsukcesis revoki rolon \"%1$s\" de uzanto #%2$d; ĝi ne ekzistas."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:780
+#: classes/Profile.php:784
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr "Malsukcesis revoki rolon \"%1$s\" de uzanto #%2$d; datumbaza eraro."
@@ -7636,19 +7686,23 @@ msgstr "API-fonto bezonas leg-skriba aliro, sed vi nur rajtas legi."
 msgid "No application for that consumer key."
 msgstr "Ne estas aplikaĵo kun la kosumanta ŝlosilo."
 
+#: lib/apiauth.php:202 lib/apiauth.php:284
+msgid "Not allowed to use API."
+msgstr ""
+
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
-#: lib/apiauth.php:219
+#: lib/apiauth.php:225
 msgid "Bad access token."
 msgstr "Fuŝa aliro-ĵetono."
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
-#: lib/apiauth.php:224
+#: lib/apiauth.php:230
 msgid "No user for that token."
 msgstr "Ne estas uzanto kun tiu ĵetono."
 
 #. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
 #. TRANS: Client error thrown when authentication fails.
-#: lib/apiauth.php:266 lib/apiauth.php:293
+#: lib/apiauth.php:272 lib/apiauth.php:302
 msgid "Could not authenticate you."
 msgstr "Malsukcesis aŭtentigi vin."
 
@@ -9720,18 +9774,23 @@ msgctxt "role"
 msgid "Moderator"
 msgstr "Moderanto"
 
+#: lib/util.php:305
+#, fuzzy
+msgid "Not allowed to log in."
+msgstr "Ne konektita."
+
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1306
+#: lib/util.php:1309
 msgid "a few seconds ago"
 msgstr "antaŭ kelkaj sekundoj"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1309
+#: lib/util.php:1312
 msgid "about a minute ago"
 msgstr "antaŭ ĉirkaŭ unu minuto"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1313
+#: lib/util.php:1316
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -9739,12 +9798,12 @@ msgstr[0] "antaŭ ĉirkaŭ unu minuto"
 msgstr[1] "antaŭ ĉirkaŭ %d minutoj"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1316
+#: lib/util.php:1319
 msgid "about an hour ago"
 msgstr "antaŭ ĉirkaŭ unu horo"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1320
+#: lib/util.php:1323
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -9752,12 +9811,12 @@ msgstr[0] "antaŭ ĉirkaŭ unu horo"
 msgstr[1] "antaŭ ĉirkaŭ %d horoj"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1323
+#: lib/util.php:1326
 msgid "about a day ago"
 msgstr "antaŭ ĉirkaŭ unu tago"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1327
+#: lib/util.php:1330
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -9765,12 +9824,12 @@ msgstr[0] "antaŭ ĉirkaŭ unu tago"
 msgstr[1] "antaŭ ĉirkaŭ %d tagoj"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1330
+#: lib/util.php:1333
 msgid "about a month ago"
 msgstr "Antaŭ ĉrikaŭ unu monato"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1334
+#: lib/util.php:1337
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -9778,7 +9837,7 @@ msgstr[0] "antaŭ ĉirkaŭ unu monato"
 msgstr[1] "antaŭ ĉirkaŭ %d monatoj"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1337
+#: lib/util.php:1340
 msgid "about a year ago"
 msgstr "antaŭ ĉirkaŭ unu jaro"
 
@@ -9820,15 +9879,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#~ msgid "6 or more characters"
-#~ msgstr "6 aŭ pli da literoj"
-
-#~ msgid "Same as password above"
-#~ msgstr "Same kiel pasvorto supra"
-
-#~ msgid "Can't save new password."
-#~ msgstr "Malsukcesis konservi novan pasvorton."
-
-#~ msgid "URL of your homepage, blog, or profile on another site"
-#~ msgstr "URL de via hejmpaĝo, blogo aŭ profilo ĉe alia retejo"

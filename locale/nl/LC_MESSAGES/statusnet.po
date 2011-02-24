@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-17 10:25+0000\n"
-"PO-Revision-Date: 2011-02-17 10:27:33+0000\n"
+"POT-Creation-Date: 2011-02-24 10:32+0000\n"
+"PO-Revision-Date: 2011-02-24 10:37:20+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r82325); Translate extension (2011-02-01)\n"
+"X-Generator: MediaWiki 1.18alpha (r82712); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-02-14 17:20:58+0000\n"
+"X-POT-Import-Date: 2011-02-17 11:39:54+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -134,7 +134,11 @@ msgstr "Deze pagina bestaat niet."
 #. TRANS: Client error displayed when requesting Friends of a Friend feed without providing a user nickname.
 #. TRANS: Client error displayed when requesting Friends of a Friend feed for an object that is not a user.
 #. TRANS: Client error displayed when trying to get a user hCard for a non-existing user.
+#. TRANS: Client error displayed trying to use "one time password login" without using an existing user.
+#. TRANS: Client error displayed when providing a non-existing nickname in a RSS 1.0 action.
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
+#. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
+#. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when calling a profile action without specifying a user.
 #: actions/all.php:80 actions/allrss.php:69
@@ -152,10 +156,10 @@ msgstr "Deze pagina bestaat niet."
 #: actions/apitimelinementions.php:77 actions/apitimelineuser.php:79
 #: actions/avatarbynickname.php:79 actions/favoritesrss.php:72
 #: actions/foaf.php:42 actions/foaf.php:61 actions/hcard.php:67
-#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:78
 #: actions/remotesubscribe.php:144 actions/remotesubscribe.php:153
 #: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:113
-#: actions/showfavorites.php:106 actions/userbyid.php:74
+#: actions/showfavorites.php:106 actions/userbyid.php:75
 #: actions/usergroups.php:93 actions/userrss.php:40 actions/userxrd.php:59
 #: actions/xrds.php:71 lib/command.php:497 lib/galleryaction.php:59
 #: lib/mailbox.php:80 lib/profileaction.php:77
@@ -519,7 +523,6 @@ msgstr "De ontvanger is niet aangetroffen."
 
 #. TRANS: Client error displayed trying to direct message another user who's not a friend (403).
 #: actions/apidirectmessagenew.php:144
-#, fuzzy
 msgid "Cannot send direct messages to users who aren't your friend."
 msgstr ""
 "U kunt geen privéberichten sturen aan gebruikers die niet op uw "
@@ -820,6 +823,7 @@ msgstr "Het verzoektoken is al geautoriseerd."
 #. TRANS: Form validation error message.
 #. TRANS: Form validation error.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token is not okay.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
 #: actions/deletenotice.php:177 actions/disfavor.php:75
 #: actions/emailsettings.php:291 actions/favor.php:75 actions/geocode.php:55
@@ -832,7 +836,7 @@ msgstr "Het verzoektoken is al geautoriseerd."
 #: actions/profilesettings.php:217 actions/recoverpassword.php:383
 #: actions/register.php:164 actions/remotesubscribe.php:76
 #: actions/repeat.php:82 actions/smssettings.php:250 actions/subedit.php:40
-#: actions/subscribe.php:86 actions/tagother.php:166
+#: actions/subscribe.php:87 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:53
 #: lib/designsettings.php:310
 msgid "There was a problem with your session token. Try again, please."
@@ -1054,9 +1058,9 @@ msgstr "HTTP-methode wordt niet ondersteund."
 #. TRANS: Exception thrown requesting an unsupported notice output format.
 #. TRANS: %s is the requested output format.
 #: actions/apistatusesshow.php:144
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported format: %s."
-msgstr "Niet-ondersteund formaat: %s"
+msgstr "Niet-ondersteund formaat: %s."
 
 #. TRANS: Client error displayed requesting a deleted status.
 #: actions/apistatusesshow.php:155
@@ -1163,13 +1167,14 @@ msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s updates die een reactie zijn op updates van %2$s / %3$s."
 
 #. TRANS: Title for site timeline. %s is the StatusNet sitename.
+#. TRANS: Public RSS feed title. %s is the StatusNet site name.
 #: actions/apitimelinepublic.php:193 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "%s publieke tijdlijn"
 
 #. TRANS: Subtitle for site timeline. %s is the StatusNet sitename.
-#: actions/apitimelinepublic.php:199 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:199
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s updates van iedereen"
@@ -1271,9 +1276,10 @@ msgstr "De pagina is niet aangetroffen."
 
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
+#. TRANS: Client error displayed trying to subscribe to a non-existing profile.
 #: actions/atompubfavoritefeed.php:69 actions/atompubmembershipfeed.php:71
 #: actions/atompubshowfavorite.php:75 actions/atompubshowmembership.php:72
-#: actions/subscribe.php:107
+#: actions/subscribe.php:110
 msgid "No such profile."
 msgstr "Het profiel bestaat niet."
 
@@ -1580,10 +1586,9 @@ msgstr "Er is geen bestand geüpload."
 
 #. TRANS: Avatar upload form instruction after uploading a file.
 #: actions/avatarsettings.php:345
-#, fuzzy
 msgid "Pick a square area of the image to be your avatar."
 msgstr ""
-"Selecteer een vierkant in de afbeelding om deze als uw avatar in te stellen"
+"Selecteer een vierkant in de afbeelding om deze als uw avatar in te stellen."
 
 #. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
 #. TRANS: Server error displayed trying to crop an uploaded group logo that is no longer present.
@@ -1645,9 +1650,8 @@ msgstr "Reservekopie"
 
 #. TRANS: Title for submit button to backup an account on the backup account page.
 #: actions/backupaccount.php:252
-#, fuzzy
 msgid "Backup your account."
-msgstr "Uw gebruiker back-uppen"
+msgstr "Uw gebruiker back-uppen."
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 #: actions/block.php:68
@@ -1687,9 +1691,8 @@ msgstr "Nee"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
 #: actions/block.php:158
-#, fuzzy
 msgid "Do not block this user."
-msgstr "Gebruiker niet blokkeren"
+msgstr "Deze gebruiker niet blokkeren."
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
@@ -1706,9 +1709,8 @@ msgstr "Ja"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
 #: actions/block.php:165
-#, fuzzy
 msgid "Block this user."
-msgstr "Deze gebruiker blokkeren"
+msgstr "Deze gebruiker blokkeren."
 
 #. TRANS: Server error displayed when blocking a user fails.
 #: actions/block.php:189
@@ -1931,15 +1933,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting an application.
 #: actions/deleteapplication.php:161
-#, fuzzy
 msgid "Do not delete this application."
-msgstr "Deze applicatie niet verwijderen"
+msgstr "Deze applicatie niet verwijderen."
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:167
-#, fuzzy
 msgid "Delete this application."
-msgstr "Deze applicatie verwijderen"
+msgstr "Deze applicatie verwijderen."
 
 #. TRANS: Client error when trying to delete group while not logged in.
 #: actions/deletegroup.php:64
@@ -1993,28 +1993,28 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a group.
 #: actions/deletegroup.php:224
-#, fuzzy
 msgid "Do not delete this group."
-msgstr "Verwijder deze groep niet"
+msgstr "Deze groep niet verwijderen."
 
 #. TRANS: Submit button title for 'Yes' when deleting a group.
 #: actions/deletegroup.php:231
-#, fuzzy
 msgid "Delete this group."
-msgstr "Groep verwijderen"
+msgstr "Deze groep verwijderen."
 
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
 #. TRANS: Client error displayed when trying to remove a favorite while not logged in.
 #. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
 #. TRANS: Client error displayed trying to block a user from a group while not logged in.
 #. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
+#. TRANS: Client error displayed trying to log out when not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
+#. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #. TRANS: Client error displayed when trying to change user options while not logged in.
 #: actions/deletenotice.php:52 actions/disfavor.php:61 actions/favor.php:62
-#: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:69
+#: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:70
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:88
-#: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:96
+#: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:98
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:71 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -2043,15 +2043,13 @@ msgstr "Weet u zeker dat u deze aankondiging wilt verwijderen?"
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
 #: actions/deletenotice.php:159
-#, fuzzy
 msgid "Do not delete this notice."
-msgstr "Deze mededeling niet verwijderen"
+msgstr "Deze mededeling niet verwijderen."
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
 #: actions/deletenotice.php:166
-#, fuzzy
 msgid "Delete this notice."
-msgstr "Deze mededeling verwijderen"
+msgstr "Deze mededeling verwijderen."
 
 #. TRANS: Client error displayed when trying to delete a user without having the right to delete users.
 #: actions/deleteuser.php:66
@@ -2086,15 +2084,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a user.
 #: actions/deleteuser.php:158
-#, fuzzy
 msgid "Do not delete this user."
-msgstr "Deze gebruiker niet verwijderen"
+msgstr "Deze gebruiker niet verwijderen."
 
 #. TRANS: Submit button title for 'Yes' when deleting a user.
 #: actions/deleteuser.php:165
-#, fuzzy
 msgid "Delete this user."
-msgstr "Gebruiker verwijderen"
+msgstr "Deze gebruiker verwijderen."
 
 #. TRANS: Message used as title for design settings for the site.
 #. TRANS: Link description in user account settings menu.
@@ -2258,21 +2254,18 @@ msgstr "Standaardinstellingen gebruiken"
 
 #. TRANS: Title for button for resetting theme settings.
 #: actions/designadminpanel.php:720
-#, fuzzy
 msgid "Restore default designs."
-msgstr "Standaardontwerp toepassen"
+msgstr "Het standaardontwerp toepassen."
 
 #. TRANS: Title for button for resetting theme settings.
 #: actions/designadminpanel.php:728
-#, fuzzy
 msgid "Reset back to default."
-msgstr "Standaardinstellingen toepassen"
+msgstr "De standaardinstellingen toepassen."
 
 #. TRANS: Title for button for saving theme settings.
 #: actions/designadminpanel.php:736
-#, fuzzy
 msgid "Save design."
-msgstr "Ontwerp opslaan"
+msgstr "Ontwerp opslaan."
 
 #. TRANS: Client error displayed when trying to remove favorite status for a notice that is not a favorite.
 #: actions/disfavor.php:83
@@ -2685,9 +2678,8 @@ msgstr "Deze mededeling staat al in uw favorietenlijst."
 
 #. TRANS: Page title for page on which favorite notices can be unfavourited.
 #: actions/favor.php:95
-#, fuzzy
 msgid "Disfavor favorite."
-msgstr "Van favorietenlijst verwijderen"
+msgstr "Van uw favorietenlijst verwijderen."
 
 #. TRANS: Page title for first page of favorited notices.
 #. TRANS: Title for favourited notices section.
@@ -2932,15 +2924,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
 #: actions/groupblock.php:191
-#, fuzzy
 msgid "Do not block this user from this group."
-msgstr "Deze gebruiker niet de toegang tot deze groep ontzeggen"
+msgstr "Deze gebruiker niet de toegang tot deze groep ontzeggen."
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
 #: actions/groupblock.php:198
-#, fuzzy
 msgid "Block this user from this group."
-msgstr "Deze gebruiker de toegang tot deze groep ontzeggen"
+msgstr "Deze gebruiker de toegang tot deze groep ontzeggen."
 
 #. TRANS: Server error displayed when trying to block a user from a group fails because of an application error.
 #: actions/groupblock.php:215
@@ -2950,6 +2940,7 @@ msgstr ""
 "groep."
 
 #. TRANS: Client error displayed referring to a group's permalink without providing a group ID.
+#. TRANS: Client error displayed trying to find a user by ID without providing an ID.
 #: actions/groupbyid.php:73 actions/userbyid.php:70
 msgid "No ID."
 msgstr "Geen ID."
@@ -3138,8 +3129,10 @@ msgid "Group search"
 msgstr "Groepen zoeken"
 
 #. TRANS: Text on page where groups can be searched if no results were found for a query.
-#: actions/groupsearch.php:82 actions/noticesearch.php:117
-#: actions/peoplesearch.php:83
+#. TRANS: Text for notice search results is the query had no results.
+#. TRANS: Message on the "People search" page where a query has no results.
+#: actions/groupsearch.php:82 actions/noticesearch.php:122
+#: actions/peoplesearch.php:87
 msgid "No results."
 msgstr "Geen resultaten."
 
@@ -3176,6 +3169,7 @@ msgid "User is not blocked from group."
 msgstr "De gebruiker is niet de toegang tot de groep ontzegd."
 
 #. TRANS: Server error displayed when unblocking a user from a group fails because of an unknown error.
+#. TRANS: Server error displayed when removing a user block.
 #: actions/groupunblock.php:132 actions/unblock.php:86
 msgid "Error removing the block."
 msgstr "Er is een fout opgetreden bij het verwijderen van de blokkade."
@@ -3683,6 +3677,7 @@ msgstr "Opslaan"
 msgid "Save license settings"
 msgstr "Licentieinstellingen opslaan"
 
+#. TRANS: Client error displayed trying to use "one time password login" when already logged in.
 #: actions/login.php:97 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "U bent al aangemeld."
@@ -3691,7 +3686,8 @@ msgstr "U bent al aangemeld."
 msgid "Incorrect username or password."
 msgstr "De gebruikersnaam of wachtwoord is onjuist."
 
-#: actions/login.php:148 actions/otp.php:120
+#. TRANS: Server error displayed when a user object could not be created trying to login using "one time password login".
+#: actions/login.php:148 actions/otp.php:127
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
 "Er is een fout opgetreden bij het maken van de instellingen. U hebt "
@@ -3854,7 +3850,9 @@ msgstr "Nieuw bericht"
 msgid "Notice posted"
 msgstr "De mededeling is verzonden"
 
-#: actions/noticesearch.php:68
+#. TRANS: Instructions for Notice search page.
+#. TRANS: %%site.name%% is the name of the StatusNet site.
+#: actions/noticesearch.php:69
 #, php-format
 msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
@@ -3863,16 +3861,21 @@ msgstr ""
 "Zoek naar mededelingen op %%site.name%% op basis van inhoud. Scheid "
 "zoektermen met spaties. Zoektermen moeten uit drie of meer tekens bestaan."
 
-#: actions/noticesearch.php:78
+#. TRANS: Title of the page where users can search for notices.
+#: actions/noticesearch.php:80
 msgid "Text search"
 msgstr "Tekst doorzoeken"
 
-#: actions/noticesearch.php:91
+#. TRANS: Test in RSS notice search.
+#. TRANS: %1$s is the query, %2$s is the StatusNet site name.
+#: actions/noticesearch.php:95
 #, php-format
 msgid "Search results for \"%1$s\" on %2$s"
 msgstr "Zoekresultaten voor \"%1$s\" op %2$s"
 
-#: actions/noticesearch.php:121
+#. TRANS: Text for logged in users making a query for notices without results.
+#. TRANS: This message contains a Markdown link.
+#: actions/noticesearch.php:128
 #, php-format
 msgid ""
 "Be the first to [post on this topic](%%%%action.newnotice%%%%?"
@@ -3881,7 +3884,9 @@ msgstr ""
 "U kunt de eerste zijn die een bericht plaatst in [dit onderwerp](%%%%action."
 "newnotice%%%%?status_textarea=%s)!"
 
-#: actions/noticesearch.php:124
+#. TRANS: Text for not logged in users making a query for notices without results.
+#. TRANS: This message contains Markdown links.
+#: actions/noticesearch.php:133
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and be the first to "
@@ -3891,14 +3896,17 @@ msgstr ""
 "zijn die een bericht plaatst in [dit onderwerp](%%%%action.newnotice%%%%?"
 "status_textarea=%s)!"
 
-#: actions/noticesearchrss.php:96
+#. TRANS: RSS notice search feed title. %s is the query.
+#: actions/noticesearchrss.php:95
 #, php-format
 msgid "Updates with \"%s\""
 msgstr "Updates met \"%s\""
 
-#: actions/noticesearchrss.php:98
-#, php-format
-msgid "Updates matching search term \"%1$s\" on %2$s!"
+#. TRANS: RSS notice search feed description.
+#. TRANS: %1$s is the query, %2$s is the StatusNet site name.
+#: actions/noticesearchrss.php:99
+#, fuzzy, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s."
 msgstr "Updates die overeenkomen met de zoekterm \"%1$s\" op %2$s."
 
 #: actions/nudge.php:85
@@ -3994,14 +4002,14 @@ msgstr ""
 "met deze Statusnetsite."
 
 #: actions/oembed.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "\"%s\" not found."
-msgstr "De pagina is niet aangetroffen."
+msgstr "\"%s\" is niet aangetroffen."
 
 #: actions/oembed.php:76
-#, fuzzy, php-format
+#, php-format
 msgid "Notice %s not found."
-msgstr "De bovenliggende mededeling is niet aangetroffen."
+msgstr "Opmerking \"%s\" is niet gevonden."
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -4013,14 +4021,14 @@ msgid "%1$s's status on %2$s"
 msgstr "Status van %1$s op %2$s"
 
 #: actions/oembed.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "Attachment %s not found."
-msgstr "De ontvanger is niet aangetroffen."
+msgstr "De bijlage %s is niet gevonden."
 
 #: actions/oembed.php:136
 #, php-format
 msgid "\"%s\" not supported for oembed requests."
-msgstr ""
+msgstr "\"%s\" wordt niet ondersteund voor oembed-verzoeken."
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:168
@@ -4040,11 +4048,12 @@ msgstr "Alleen URL's voor %s via normale HTTP alstublieft."
 msgid "Not a supported data format."
 msgstr "Geen ondersteund gegevensformaat."
 
+#. TRANS: ShortName in the OpenSearch interface when trying to find users.
 #: actions/opensearch.php:64
 msgid "People Search"
 msgstr "Mensen zoeken"
 
-#: actions/opensearch.php:67
+#: actions/opensearch.php:68
 msgid "Notice Search"
 msgstr "Mededeling zoeken"
 
@@ -4091,23 +4100,28 @@ msgstr "Profielontwerpen weergeven of verbergen"
 msgid "URL shortening service is too long (maximum 50 characters)."
 msgstr "De URL voor de verkortingdienst is te lang (maximaal 50 tekens)."
 
-#: actions/otp.php:69
+#. TRANS: Client error displayed trying to use "one time password login" without specifying a user.
+#: actions/otp.php:70
 msgid "No user ID specified."
 msgstr "Er is geen ID opgegeven."
 
-#: actions/otp.php:83
+#. TRANS: Client error displayed trying to use "one time password login" without specifying a login token.
+#: actions/otp.php:86
 msgid "No login token specified."
 msgstr "Er is geen token opgegeven."
 
-#: actions/otp.php:90
+#. TRANS: Client error displayed trying to use "one time password login" without requesting a login token.
+#: actions/otp.php:94
 msgid "No login token requested."
 msgstr "Er is niet om een aanmeldtoken gevraagd."
 
-#: actions/otp.php:95
+#. TRANS: Client error displayed trying to use "one time password login" while specifying an invalid login token.
+#: actions/otp.php:100
 msgid "Invalid login token specified."
 msgstr "Het opgegeven token is ongeldig."
 
-#: actions/otp.php:104
+#. TRANS: Client error displayed trying to use "one time password login" while specifying an expired login token.
+#: actions/otp.php:110
 msgid "Login token expired."
 msgstr "Het aanmeldtoken is verlopen."
 
@@ -4460,7 +4474,9 @@ msgstr "De server waar SSL-verzoeken heen gestuurd moeten worden."
 msgid "Save paths"
 msgstr "Opslagpaden"
 
-#: actions/peoplesearch.php:52
+#. TRANS: Instructions for the "People search" page.
+#. TRANS: %%site.name%% is the name of the StatusNet site.
+#: actions/peoplesearch.php:54
 #, php-format
 msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
@@ -4470,7 +4486,8 @@ msgstr ""
 "interesses. Scheid de zoektermen met spaties. Zoektermen moeten uit drie of "
 "meer tekens bestaan."
 
-#: actions/peoplesearch.php:58
+#. TRANS: Title of a page where users can search for other users.
+#: actions/peoplesearch.php:61
 msgid "People search"
 msgstr "Gebruikers zoeken"
 
@@ -4591,13 +4608,12 @@ msgstr "Labels"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:164
-#, fuzzy
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
 "Eigen labels (letter, getallen, -, ., en _). Gescheiden door komma's of "
-"spaties"
+"spaties."
 
 #. TRANS: Dropdownlist label in form for profile settings.
 #: actions/profilesettings.php:169
@@ -4606,9 +4622,8 @@ msgstr "Taal"
 
 #. TRANS: Tooltip for dropdown list label in form for profile settings.
 #: actions/profilesettings.php:171
-#, fuzzy
 msgid "Preferred language."
-msgstr "Voorkeurstaal"
+msgstr "Uw voorkeurstaal."
 
 #. TRANS: Dropdownlist label in form for profile settings.
 #: actions/profilesettings.php:181
@@ -4622,12 +4637,11 @@ msgstr "In welke tijdzone verblijft u meestal?"
 
 #. TRANS: Checkbox label in form for profile settings.
 #: actions/profilesettings.php:189
-#, fuzzy
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)."
 msgstr ""
 "Automatisch abonneren bij abonnement op mij (beste voor automatische "
-"processen)"
+"processen)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
@@ -4652,9 +4666,9 @@ msgstr "De taal is te lang (maximaal 50 tekens)."
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
 #: actions/profilesettings.php:291
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\"."
-msgstr "Ongeldig label: '%s'"
+msgstr "Ongeldig label: \"%s\"."
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
@@ -4760,6 +4774,12 @@ msgstr ""
 "Dit is %%site.name%%, een [microblogdienst](http://en.wikipedia.org/wiki/"
 "Micro-blogging) gebaseerd op de Vrije Software [StatusNet](http://status."
 "net/)"
+
+#. TRANS: Public RSS feed description. %s is the StatusNet site name.
+#: actions/publicrss.php:106
+#, fuzzy, php-format
+msgid "%s updates from everyone."
+msgstr "%s updates van iedereen"
 
 #. TRANS: Title for public tag cloud.
 #: actions/publictagcloud.php:57
@@ -4901,9 +4921,8 @@ msgstr "Wachtwoordherstel aangevraagd"
 
 #. TRANS: Title for password recovery page in password saved mode.
 #: actions/recoverpassword.php:229
-#, fuzzy
 msgid "Password saved"
-msgstr "Het wachtwoord is opgeslagen."
+msgstr "Het wachtwoord is opgeslagen"
 
 #. TRANS: Title for password recovery page when an unknown action has been specified.
 #: actions/recoverpassword.php:232
@@ -4999,9 +5018,8 @@ msgid "Registration not allowed."
 msgstr "Registratie is niet toegestaan."
 
 #: actions/register.php:201
-#, fuzzy
 msgid "You cannot register if you don't agree to the license."
-msgstr "U kunt zich niet registreren als u niet met de licentie akkoord gaat."
+msgstr "U kunt zich niet registreren als u niet akkoord gaat met de licentie."
 
 #: actions/register.php:210
 msgid "Email address already exists."
@@ -5012,13 +5030,12 @@ msgid "Invalid username or password."
 msgstr "Ongeldige gebruikersnaam of wachtwoord."
 
 #: actions/register.php:340
-#, fuzzy
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues."
 msgstr ""
 "Via dit formulier kunt u een nieuwe gebruiker aanmaken. Daarna kunt u "
-"mededelingen uitsturen en contact maken met vrienden en collega's. "
+"mededelingen uitsturen en contact maken met vrienden en collega's."
 
 #. TRANS: Link description in user account settings menu.
 #: actions/register.php:431 actions/register.php:435
@@ -5027,19 +5044,16 @@ msgid "Email"
 msgstr "E-mail"
 
 #: actions/register.php:432 actions/register.php:436
-#, fuzzy
 msgid "Used only for updates, announcements, and password recovery."
-msgstr "Alleen gebruikt voor updates, aankondigingen en wachtwoordherstel"
+msgstr "Alleen gebruikt voor updates, aankondigingen en wachtwoordherstel."
 
 #: actions/register.php:443
-#, fuzzy
 msgid "Longer name, preferably your \"real\" name."
-msgstr "Een langere naam, mogelijk uw echte naam"
+msgstr "Een langere naam, mogelijk uw echte naam."
 
 #: actions/register.php:471
-#, fuzzy
 msgid "Where you are, like \"City, State (or Region), Country\"."
-msgstr "Waar u bent, bijvoorbeeld \"woonplaats, land\" of \"postcode, land\""
+msgstr "Waar u bent, bijvoorbeeld \"woonplaats, land\" of \"postcode, land\"."
 
 #: actions/register.php:510
 #, php-format
@@ -5140,18 +5154,16 @@ msgid "User nickname"
 msgstr "Gebruikersnaam"
 
 #: actions/remotesubscribe.php:129
-#, fuzzy
 msgid "Nickname of the user you want to follow."
-msgstr "De gebruikersnaam van de gebruiker die u wilt volgen"
+msgstr "Gebruikersnaam van de gebruiker waarop u wilt abonneren."
 
 #: actions/remotesubscribe.php:132
 msgid "Profile URL"
 msgstr "Profiel-URL"
 
 #: actions/remotesubscribe.php:133
-#, fuzzy
 msgid "URL of your profile on another compatible microblogging service."
-msgstr "De URL van uw profiel bij een andere, compatibele microblogdienst"
+msgstr "De URL van uw profiel bij een andere, compatibele microblogdienst."
 
 #. TRANS: Link text for link that will subscribe to a remote profile.
 #: actions/remotesubscribe.php:136 lib/subscribeform.php:139
@@ -5160,9 +5172,8 @@ msgid "Subscribe"
 msgstr "Abonneren"
 
 #: actions/remotesubscribe.php:158
-#, fuzzy
 msgid "Invalid profile URL (bad format)."
-msgstr "Ongeldige profiel-URL (foutieve opmaak)"
+msgstr "Ongeldige profiel-URL (foutieve opmaak)."
 
 #: actions/remotesubscribe.php:167
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
@@ -5202,6 +5213,7 @@ msgstr "Herhaald"
 msgid "Repeated!"
 msgstr "Herhaald!"
 
+#. TRANS: RSS reply feed title. %s is a user nickname.
 #. TRANS: Tooltip for personal group navigation menu option when logged in for viewing @-replies.
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:109
@@ -5256,9 +5268,11 @@ msgstr ""
 "U kunt proberen [%1$s te porren](../%2$s) of [een bericht voor die gebruiker "
 "plaatsen](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
-#: actions/repliesrss.php:72
-#, php-format
-msgid "Replies to %1$s on %2$s!"
+#. TRANS: RSS reply feed description.
+#. TRANS: %1$s is a user nickname, %2$s is the StatusNet site name.
+#: actions/repliesrss.php:74
+#, fuzzy, php-format
+msgid "Replies to %1$s on %2$s."
 msgstr "Antwoorden aan %1$s op %2$s."
 
 #. TRANS: Client exception displayed when trying to restore an account while not logged in.
@@ -6000,9 +6014,8 @@ msgstr ""
 
 #. TRANS: Title for button to save site notice in admin panel.
 #: actions/sitenoticeadminpanel.php:201
-#, fuzzy
 msgid "Save site notice."
-msgstr "Websitebrede mededeling opslaan"
+msgstr "Websitebrede mededeling opslaan."
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:57
@@ -6059,9 +6072,8 @@ msgstr "SMS-nummer"
 
 #. TRANS: SMS phone number input field instructions in SMS settings form.
 #: actions/smssettings.php:152
-#, fuzzy
 msgid "Phone number, no punctuation or spaces, with area code."
-msgstr "Telefoonnummer zonder spaties of leestekens, met netnummer"
+msgstr "Telefoonnummer zonder spaties of leestekens, met netnummer."
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:191
@@ -6229,17 +6241,21 @@ msgstr "U bent niet geabonneerd op dat profiel."
 msgid "Could not save subscription."
 msgstr "Het was niet mogelijk het abonnement op te slaan."
 
+#. TRANS: Client error displayed trying to perform any request method other than POST.
+#. TRANS: Do not translate POST.
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr "Deze handeling accepteert alleen POST-verzoeken."
 
-#: actions/subscribe.php:117
+#. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
+#: actions/subscribe.php:121
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
 "U kunt niet abonneren op een OMB 1.0 profiel van een andere omgeving via "
 "deze handeling."
 
-#: actions/subscribe.php:145
+#. TRANS: Page title when subscription succeeded.
+#: actions/subscribe.php:149
 msgid "Subscribed"
 msgstr "Geabonneerd"
 
@@ -6440,6 +6456,7 @@ msgstr ""
 msgid "No such tag."
 msgstr "Onbekend label."
 
+#. TRANS: Client error displayed when trying to unblock a non-blocked user.
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
 msgstr "U hebt deze gebruiker niet geblokkeerd."
@@ -6492,7 +6509,7 @@ msgstr "Ongeldige welkomsttekst. De maximale lengte is 255 tekens."
 #. TRANS: Client error displayed when trying to set a non-existing user as default subscription for new
 #. TRANS: users in user admin panel. %1$s is the invalid nickname.
 #: actions/useradminpanel.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid default subscripton: \"%1$s\" is not a user."
 msgstr "Ongeldig standaardabonnement: \"%1$s\" is geen gebruiker."
 
@@ -6553,9 +6570,8 @@ msgstr "Of gebruikers nieuwe gebruikers kunnen uitnodigen."
 
 #. TRANS: Title for button to save user settings in user admin panel.
 #: actions/useradminpanel.php:302
-#, fuzzy
 msgid "Save user settings."
-msgstr "Gebruikersinstellingen opslaan"
+msgstr "Gebruikersinstellingen opslaan."
 
 #. TRANS: Page title.
 #: actions/userauthorization.php:109
@@ -6564,7 +6580,6 @@ msgstr "Abonneren"
 
 #. TRANS: Page notice on "Auhtorize subscription" page.
 #: actions/userauthorization.php:115
-#, fuzzy
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
@@ -6584,29 +6599,25 @@ msgstr "Licentie"
 
 #. TRANS: Button text on Authorise Subscription page.
 #: actions/userauthorization.php:229
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Accept"
 msgstr "Aanvaarden"
 
 #. TRANS: Title for button on Authorise Subscription page.
 #: actions/userauthorization.php:231
-#, fuzzy
 msgid "Subscribe to this user."
-msgstr "Abonneren op deze gebruiker"
+msgstr "Abonneren op deze gebruiker."
 
 #. TRANS: Button text on Authorise Subscription page.
 #: actions/userauthorization.php:233
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Reject"
 msgstr "Afwijzen"
 
 #. TRANS: Title for button on Authorise Subscription page.
 #: actions/userauthorization.php:235
-#, fuzzy
 msgid "Reject this subscription."
-msgstr "Dit abonnement weigeren"
+msgstr "Dit abonnement weigeren."
 
 #. TRANS: Client error displayed for an empty authorisation request.
 #: actions/userauthorization.php:248
@@ -6646,35 +6657,35 @@ msgstr ""
 #. TRANS: Exception thrown when no valid user is found for an authorisation request.
 #. TRANS: %s is a listener URI.
 #: actions/userauthorization.php:325
-#, fuzzy, php-format
+#, php-format
 msgid "Listener URI \"%s\" not found here."
 msgstr "De abonnee-URI \"%s\" is hier niet te vinden."
 
 #. TRANS: Exception thrown when listenee URI is too long for an authorisation request.
 #. TRANS: %s is a listenee URI.
 #: actions/userauthorization.php:332
-#, fuzzy, php-format
+#, php-format
 msgid "Listenee URI \"%s\" is too long."
-msgstr "De URI \"%s\" voor de stream is te lang."
+msgstr "De URI \"%s\" van de gevolgde gebruiker is te lang."
 
 #. TRANS: Exception thrown when listenee URI is a local user for an authorisation request.
 #. TRANS: %s is a listenee URI.
 #: actions/userauthorization.php:340
-#, fuzzy, php-format
+#, php-format
 msgid "Listenee URI \"%s\" is a local user."
-msgstr "de URI \"%s\" voor de stream is een lokale gebruiker."
+msgstr "De abonnements-URI \"%s\" is een lokale gebruiker."
 
 #. TRANS: Exception thrown when profile URL is a local user for an authorisation request.
 #. TRANS: %s is a profile URL.
 #: actions/userauthorization.php:358
-#, fuzzy, php-format
+#, php-format
 msgid "Profile URL \"%s\" is for a local user."
-msgstr "De profiel-URL ‘%s’ is van een lokale gebruiker."
+msgstr "De profiel-URL \"%s\" is van een lokale gebruiker."
 
 #. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
 #. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
 #: actions/userauthorization.php:368
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
 "\"."
@@ -6685,21 +6696,21 @@ msgstr ""
 #. TRANS: Exception thrown when avatar URL is invalid for an authorisation request.
 #. TRANS: %s is an avatar URL.
 #: actions/userauthorization.php:378
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar URL \"%s\" is not valid."
 msgstr "De avatar-URL \"%s\" is niet geldig."
 
 #. TRANS: Exception thrown when avatar URL could not be read for an authorisation request.
 #. TRANS: %s is an avatar URL.
 #: actions/userauthorization.php:385
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot read avatar URL \"%s\"."
 msgstr "Het was niet mogelijk de avatar-URL \"%s\" te lezen."
 
 #. TRANS: Exception thrown when avatar URL return an invalid image type for an authorisation request.
 #. TRANS: %s is an avatar URL.
 #: actions/userauthorization.php:392
-#, fuzzy, php-format
+#, php-format
 msgid "Wrong image type for avatar URL \"%s\"."
 msgstr "Er staat een verkeerd afbeeldingsttype op de avatar-URL \"%s\"."
 
@@ -7048,7 +7059,7 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:771
+#: classes/Profile.php:775
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
@@ -7057,7 +7068,7 @@ msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:780
+#: classes/Profile.php:784
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -7713,19 +7724,23 @@ msgstr ""
 msgid "No application for that consumer key."
 msgstr "Er is geen applicatie voor die gebruikerssleutel."
 
+#: lib/apiauth.php:202 lib/apiauth.php:284
+msgid "Not allowed to use API."
+msgstr ""
+
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
-#: lib/apiauth.php:219
+#: lib/apiauth.php:225
 msgid "Bad access token."
 msgstr "Ongeldig toegangstoken."
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
-#: lib/apiauth.php:224
+#: lib/apiauth.php:230
 msgid "No user for that token."
 msgstr "Er is geen gebruiker voor dat token."
 
 #. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
 #. TRANS: Client error thrown when authentication fails.
-#: lib/apiauth.php:266 lib/apiauth.php:293
+#: lib/apiauth.php:272 lib/apiauth.php:302
 msgid "Could not authenticate you."
 msgstr "U kon niet geauthenticeerd worden."
 
@@ -9797,18 +9812,23 @@ msgctxt "role"
 msgid "Moderator"
 msgstr "Moderator"
 
+#: lib/util.php:305
+#, fuzzy
+msgid "Not allowed to log in."
+msgstr "Niet aangemeld."
+
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1306
+#: lib/util.php:1309
 msgid "a few seconds ago"
 msgstr "een paar seconden geleden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1309
+#: lib/util.php:1312
 msgid "about a minute ago"
 msgstr "ongeveer een minuut geleden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1313
+#: lib/util.php:1316
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -9816,12 +9836,12 @@ msgstr[0] "ongeveer een minuut geleden"
 msgstr[1] "ongeveer %d minuten geleden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1316
+#: lib/util.php:1319
 msgid "about an hour ago"
 msgstr "ongeveer een uur geleden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1320
+#: lib/util.php:1323
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -9829,12 +9849,12 @@ msgstr[0] "ongeveer een uur geleden"
 msgstr[1] "ongeveer %d uur geleden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1323
+#: lib/util.php:1326
 msgid "about a day ago"
 msgstr "ongeveer een dag geleden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1327
+#: lib/util.php:1330
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -9842,12 +9862,12 @@ msgstr[0] "ongeveer een dag geleden"
 msgstr[1] "ongeveer %d dagen geleden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1330
+#: lib/util.php:1333
 msgid "about a month ago"
 msgstr "ongeveer een maand geleden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1334
+#: lib/util.php:1337
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -9855,7 +9875,7 @@ msgstr[0] "ongeveer een maand geleden"
 msgstr[1] "ongeveer %d maanden geleden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1337
+#: lib/util.php:1340
 msgid "about a year ago"
 msgstr "ongeveer een jaar geleden"
 
@@ -9901,15 +9921,3 @@ msgstr "Ongeldige XML. De XRD-root mist."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "De back-up wordt uit het bestand \"%s\" geladen."
-
-#~ msgid "6 or more characters"
-#~ msgstr "Zes of meer tekens"
-
-#~ msgid "Same as password above"
-#~ msgstr "Gelijk aan het wachtwoord hierboven"
-
-#~ msgid "Can't save new password."
-#~ msgstr "Het was niet mogelijk het nieuwe wachtwoord op te slaan."
-
-#~ msgid "URL of your homepage, blog, or profile on another site"
-#~ msgstr "De URL van uw thuispagina, blog of profiel bij een andere website"

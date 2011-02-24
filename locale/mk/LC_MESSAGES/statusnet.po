@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-17 10:25+0000\n"
-"PO-Revision-Date: 2011-02-17 10:27:30+0000\n"
+"POT-Creation-Date: 2011-02-24 10:32+0000\n"
+"PO-Revision-Date: 2011-02-24 10:37:13+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r82325); Translate extension (2011-02-01)\n"
+"X-Generator: MediaWiki 1.18alpha (r82712); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2011-02-14 17:20:58+0000\n"
+"X-POT-Import-Date: 2011-02-17 11:39:54+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -134,7 +134,11 @@ msgstr "Нема таква страница."
 #. TRANS: Client error displayed when requesting Friends of a Friend feed without providing a user nickname.
 #. TRANS: Client error displayed when requesting Friends of a Friend feed for an object that is not a user.
 #. TRANS: Client error displayed when trying to get a user hCard for a non-existing user.
+#. TRANS: Client error displayed trying to use "one time password login" without using an existing user.
+#. TRANS: Client error displayed when providing a non-existing nickname in a RSS 1.0 action.
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
+#. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
+#. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when calling a profile action without specifying a user.
 #: actions/all.php:80 actions/allrss.php:69
@@ -152,10 +156,10 @@ msgstr "Нема таква страница."
 #: actions/apitimelinementions.php:77 actions/apitimelineuser.php:79
 #: actions/avatarbynickname.php:79 actions/favoritesrss.php:72
 #: actions/foaf.php:42 actions/foaf.php:61 actions/hcard.php:67
-#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
+#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:78
 #: actions/remotesubscribe.php:144 actions/remotesubscribe.php:153
 #: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:113
-#: actions/showfavorites.php:106 actions/userbyid.php:74
+#: actions/showfavorites.php:106 actions/userbyid.php:75
 #: actions/usergroups.php:93 actions/userrss.php:40 actions/userxrd.php:59
 #: actions/xrds.php:71 lib/command.php:497 lib/galleryaction.php:59
 #: lib/mailbox.php:80 lib/profileaction.php:77
@@ -517,10 +521,9 @@ msgstr "Примачот не е пронајден."
 
 #. TRANS: Client error displayed trying to direct message another user who's not a friend (403).
 #: actions/apidirectmessagenew.php:144
-#, fuzzy
 msgid "Cannot send direct messages to users who aren't your friend."
 msgstr ""
-"Неможете да испраќате директни пораки на корисници што не Ви се пријатели."
+"Не можете да испраќате непосредни пораки на корисници што не Ви се пријатели."
 
 #. TRANS: Client error displayed trying to direct message self (403).
 #: actions/apidirectmessagenew.php:154
@@ -816,6 +819,7 @@ msgstr "Жетонот за барање е веќе овластен."
 #. TRANS: Form validation error message.
 #. TRANS: Form validation error.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token is not okay.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
 #: actions/deletenotice.php:177 actions/disfavor.php:75
 #: actions/emailsettings.php:291 actions/favor.php:75 actions/geocode.php:55
@@ -828,7 +832,7 @@ msgstr "Жетонот за барање е веќе овластен."
 #: actions/profilesettings.php:217 actions/recoverpassword.php:383
 #: actions/register.php:164 actions/remotesubscribe.php:76
 #: actions/repeat.php:82 actions/smssettings.php:250 actions/subedit.php:40
-#: actions/subscribe.php:86 actions/tagother.php:166
+#: actions/subscribe.php:87 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:53
 #: lib/designsettings.php:310
 msgid "There was a problem with your session token. Try again, please."
@@ -1046,9 +1050,9 @@ msgstr "HTML-методот не е поддржан."
 #. TRANS: Exception thrown requesting an unsupported notice output format.
 #. TRANS: %s is the requested output format.
 #: actions/apistatusesshow.php:144
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported format: %s."
-msgstr "Неподдржан формат: %s"
+msgstr "Неподдржан формат: %s."
 
 #. TRANS: Client error displayed requesting a deleted status.
 #: actions/apistatusesshow.php:155
@@ -1154,13 +1158,14 @@ msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s подновувања коишто се одговор на подновувањата од %2$s / %3$s."
 
 #. TRANS: Title for site timeline. %s is the StatusNet sitename.
+#. TRANS: Public RSS feed title. %s is the StatusNet site name.
 #: actions/apitimelinepublic.php:193 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "Јавна историја на %s"
 
 #. TRANS: Subtitle for site timeline. %s is the StatusNet sitename.
-#: actions/apitimelinepublic.php:199 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:199
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s подновуввања од сите!"
@@ -1262,9 +1267,10 @@ msgstr "Корисникот не е пронајден."
 
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
+#. TRANS: Client error displayed trying to subscribe to a non-existing profile.
 #: actions/atompubfavoritefeed.php:69 actions/atompubmembershipfeed.php:71
 #: actions/atompubshowfavorite.php:75 actions/atompubshowmembership.php:72
-#: actions/subscribe.php:107
+#: actions/subscribe.php:110
 msgid "No such profile."
 msgstr "Нема таков профил."
 
@@ -1565,9 +1571,8 @@ msgstr "Нема подигнато податотека."
 
 #. TRANS: Avatar upload form instruction after uploading a file.
 #: actions/avatarsettings.php:345
-#, fuzzy
 msgid "Pick a square area of the image to be your avatar."
-msgstr "Одберете квадратна површина од сликата за аватар"
+msgstr "Одберете квадратна површина од сликата за аватар."
 
 #. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
 #. TRANS: Server error displayed trying to crop an uploaded group logo that is no longer present.
@@ -1629,9 +1634,8 @@ msgstr "Резерва"
 
 #. TRANS: Title for submit button to backup an account on the backup account page.
 #: actions/backupaccount.php:252
-#, fuzzy
 msgid "Backup your account."
-msgstr "Направете резервна верзија на сметката"
+msgstr "Направете резервна верзија на сметката."
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 #: actions/block.php:68
@@ -1672,9 +1676,8 @@ msgstr "Не"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
 #: actions/block.php:158
-#, fuzzy
 msgid "Do not block this user."
-msgstr "Не го блокирај корисников"
+msgstr "Не го блокирај корисников."
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
@@ -1691,9 +1694,8 @@ msgstr "Да"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
 #: actions/block.php:165
-#, fuzzy
 msgid "Block this user."
-msgstr "Блокирај го корисников"
+msgstr "Блокирај го корисников."
 
 #. TRANS: Server error displayed when blocking a user fails.
 #: actions/block.php:189
@@ -1913,15 +1915,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting an application.
 #: actions/deleteapplication.php:161
-#, fuzzy
 msgid "Do not delete this application."
-msgstr "Не го бриши овој програм"
+msgstr "Не го бриши овој програм."
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:167
-#, fuzzy
 msgid "Delete this application."
-msgstr "Избриши го програмов"
+msgstr "Избриши го програмов."
 
 #. TRANS: Client error when trying to delete group while not logged in.
 #: actions/deletegroup.php:64
@@ -1974,28 +1974,28 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a group.
 #: actions/deletegroup.php:224
-#, fuzzy
 msgid "Do not delete this group."
-msgstr "Не ја бриши групава"
+msgstr "Не ја бриши групава."
 
 #. TRANS: Submit button title for 'Yes' when deleting a group.
 #: actions/deletegroup.php:231
-#, fuzzy
 msgid "Delete this group."
-msgstr "Избриши ја групава"
+msgstr "Избриши ја групава."
 
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
 #. TRANS: Client error displayed when trying to remove a favorite while not logged in.
 #. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
 #. TRANS: Client error displayed trying to block a user from a group while not logged in.
 #. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
+#. TRANS: Client error displayed trying to log out when not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
+#. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #. TRANS: Client error displayed when trying to change user options while not logged in.
 #: actions/deletenotice.php:52 actions/disfavor.php:61 actions/favor.php:62
-#: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:69
+#: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:70
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:88
-#: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:96
+#: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:98
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:71 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -2024,15 +2024,13 @@ msgstr "Дали сте сигурни дека сакате да ја избр�
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
 #: actions/deletenotice.php:159
-#, fuzzy
 msgid "Do not delete this notice."
-msgstr "Не ја бриши оваа забелешка"
+msgstr "Не ја бриши оваа забелешка."
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
 #: actions/deletenotice.php:166
-#, fuzzy
 msgid "Delete this notice."
-msgstr "Избриши ја оваа забелешка"
+msgstr "Избриши ја забелешкава."
 
 #. TRANS: Client error displayed when trying to delete a user without having the right to delete users.
 #: actions/deleteuser.php:66
@@ -2066,15 +2064,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a user.
 #: actions/deleteuser.php:158
-#, fuzzy
 msgid "Do not delete this user."
-msgstr "Не ја бриши групава"
+msgstr "Не го бриши корисников."
 
 #. TRANS: Submit button title for 'Yes' when deleting a user.
 #: actions/deleteuser.php:165
-#, fuzzy
 msgid "Delete this user."
-msgstr "Избриши овој корисник"
+msgstr "Избриши го корисников."
 
 #. TRANS: Message used as title for design settings for the site.
 #. TRANS: Link description in user account settings menu.
@@ -2238,21 +2234,18 @@ msgstr "Користи по основно"
 
 #. TRANS: Title for button for resetting theme settings.
 #: actions/designadminpanel.php:720
-#, fuzzy
 msgid "Restore default designs."
-msgstr "Врати основно-зададени нагодувања"
+msgstr "Врати ги изгледите по основно."
 
 #. TRANS: Title for button for resetting theme settings.
 #: actions/designadminpanel.php:728
-#, fuzzy
 msgid "Reset back to default."
-msgstr "Врати по основно"
+msgstr "Врати по основно."
 
 #. TRANS: Title for button for saving theme settings.
 #: actions/designadminpanel.php:736
-#, fuzzy
 msgid "Save design."
-msgstr "Зачувај изглед"
+msgstr "Зачувај изглед."
 
 #. TRANS: Client error displayed when trying to remove favorite status for a notice that is not a favorite.
 #: actions/disfavor.php:83
@@ -2666,9 +2659,8 @@ msgstr "Веќе сте ја бендисале оваа забелешка!"
 
 #. TRANS: Page title for page on which favorite notices can be unfavourited.
 #: actions/favor.php:95
-#, fuzzy
 msgid "Disfavor favorite."
-msgstr "Тргни од бендисани"
+msgstr "Тргни од бендисани."
 
 #. TRANS: Page title for first page of favorited notices.
 #. TRANS: Title for favourited notices section.
@@ -2908,15 +2900,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
 #: actions/groupblock.php:191
-#, fuzzy
 msgid "Do not block this user from this group."
-msgstr "Не го блокирај овој корисник од оваа група"
+msgstr "Не го блокирај овој корисник од групава."
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
 #: actions/groupblock.php:198
-#, fuzzy
 msgid "Block this user from this group."
-msgstr "Блокирај го овој корисник од оваа група"
+msgstr "Блокирај го овој корисник од групава."
 
 #. TRANS: Server error displayed when trying to block a user from a group fails because of an application error.
 #: actions/groupblock.php:215
@@ -2926,6 +2916,7 @@ msgstr ""
 "групата."
 
 #. TRANS: Client error displayed referring to a group's permalink without providing a group ID.
+#. TRANS: Client error displayed trying to find a user by ID without providing an ID.
 #: actions/groupbyid.php:73 actions/userbyid.php:70
 msgid "No ID."
 msgstr "Нема ID."
@@ -3113,8 +3104,10 @@ msgid "Group search"
 msgstr "Пребарување на групи"
 
 #. TRANS: Text on page where groups can be searched if no results were found for a query.
-#: actions/groupsearch.php:82 actions/noticesearch.php:117
-#: actions/peoplesearch.php:83
+#. TRANS: Text for notice search results is the query had no results.
+#. TRANS: Message on the "People search" page where a query has no results.
+#: actions/groupsearch.php:82 actions/noticesearch.php:122
+#: actions/peoplesearch.php:87
 msgid "No results."
 msgstr "Нема резултати."
 
@@ -3151,6 +3144,7 @@ msgid "User is not blocked from group."
 msgstr "Корисникот не е блокиран од групата."
 
 #. TRANS: Server error displayed when unblocking a user from a group fails because of an unknown error.
+#. TRANS: Server error displayed when removing a user block.
 #: actions/groupunblock.php:132 actions/unblock.php:86
 msgid "Error removing the block."
 msgstr "Грешка при отстранување на блокот."
@@ -3661,6 +3655,7 @@ msgstr "Зачувај"
 msgid "Save license settings"
 msgstr "Зачувај нагодувања на лиценцата"
 
+#. TRANS: Client error displayed trying to use "one time password login" when already logged in.
 #: actions/login.php:97 actions/otp.php:62 actions/register.php:137
 msgid "Already logged in."
 msgstr "Веќе сте најавени."
@@ -3669,7 +3664,8 @@ msgstr "Веќе сте најавени."
 msgid "Incorrect username or password."
 msgstr "Неточно корисничко име или лозинка"
 
-#: actions/login.php:148 actions/otp.php:120
+#. TRANS: Server error displayed when a user object could not be created trying to login using "one time password login".
+#: actions/login.php:148 actions/otp.php:127
 msgid "Error setting user. You are probably not authorized."
 msgstr "Грешка при поставувањето на корисникот. Веројатно не се заверени."
 
@@ -3832,7 +3828,9 @@ msgstr "Ново забелешка"
 msgid "Notice posted"
 msgstr "Забелешката е објавена"
 
-#: actions/noticesearch.php:68
+#. TRANS: Instructions for Notice search page.
+#. TRANS: %%site.name%% is the name of the StatusNet site.
+#: actions/noticesearch.php:69
 #, php-format
 msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
@@ -3841,16 +3839,21 @@ msgstr ""
 "Пребарајте забелешки на %%site.name%% според нивната содржина. Поимите "
 "одделете ги со празни места; мора да имаат барем по 3 знаци."
 
-#: actions/noticesearch.php:78
+#. TRANS: Title of the page where users can search for notices.
+#: actions/noticesearch.php:80
 msgid "Text search"
 msgstr "Текстуално пребарување"
 
-#: actions/noticesearch.php:91
+#. TRANS: Test in RSS notice search.
+#. TRANS: %1$s is the query, %2$s is the StatusNet site name.
+#: actions/noticesearch.php:95
 #, php-format
 msgid "Search results for \"%1$s\" on %2$s"
 msgstr "Резултати од пребарувањето за „%1$s“ на %2$s"
 
-#: actions/noticesearch.php:121
+#. TRANS: Text for logged in users making a query for notices without results.
+#. TRANS: This message contains a Markdown link.
+#: actions/noticesearch.php:128
 #, php-format
 msgid ""
 "Be the first to [post on this topic](%%%%action.newnotice%%%%?"
@@ -3859,7 +3862,9 @@ msgstr ""
 "Бидете први што ќе [објавите нешто на оваа тема](%%%%action.newnotice%%%%?"
 "status_textarea=%s)!"
 
-#: actions/noticesearch.php:124
+#. TRANS: Text for not logged in users making a query for notices without results.
+#. TRANS: This message contains Markdown links.
+#: actions/noticesearch.php:133
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and be the first to "
@@ -3869,14 +3874,17 @@ msgstr ""
 "што ќе [објави нешто на оваа тема](%%%%action.newnotice%%%%?status_textarea=%"
 "s)!"
 
-#: actions/noticesearchrss.php:96
+#. TRANS: RSS notice search feed title. %s is the query.
+#: actions/noticesearchrss.php:95
 #, php-format
 msgid "Updates with \"%s\""
 msgstr "Подновувања со „%s“"
 
-#: actions/noticesearchrss.php:98
-#, php-format
-msgid "Updates matching search term \"%1$s\" on %2$s!"
+#. TRANS: RSS notice search feed description.
+#. TRANS: %1$s is the query, %2$s is the StatusNet site name.
+#: actions/noticesearchrss.php:99
+#, fuzzy, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s."
 msgstr "Подновувања кои се совпаѓаат со пребараниот израз „%1$s“ на %2$s!"
 
 #: actions/nudge.php:85
@@ -3966,14 +3974,14 @@ msgstr ""
 "користите овој примерок на StatusNet."
 
 #: actions/oembed.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "\"%s\" not found."
-msgstr "Корисникот не е пронајден."
+msgstr "„%s“ не е пронајден."
 
 #: actions/oembed.php:76
-#, fuzzy, php-format
+#, php-format
 msgid "Notice %s not found."
-msgstr "Матичната забелешка не е пронајдена."
+msgstr "Забелешката %s не е пронајдена."
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -3985,14 +3993,14 @@ msgid "%1$s's status on %2$s"
 msgstr "%1$s статус на %2$s"
 
 #: actions/oembed.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "Attachment %s not found."
-msgstr "Примачот не е пронајден."
+msgstr "Прилогот %s не е пронајден."
 
 #: actions/oembed.php:136
 #, php-format
 msgid "\"%s\" not supported for oembed requests."
-msgstr ""
+msgstr "„%s“ не е поддржано за oembed-барања."
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:168
@@ -4012,11 +4020,12 @@ msgstr "Ве молиме користете само %s URL-адреси врз
 msgid "Not a supported data format."
 msgstr "Ова не е поддржан формат на податотека."
 
+#. TRANS: ShortName in the OpenSearch interface when trying to find users.
 #: actions/opensearch.php:64
 msgid "People Search"
 msgstr "Пребарување на луѓе"
 
-#: actions/opensearch.php:67
+#: actions/opensearch.php:68
 msgid "Notice Search"
 msgstr "Пребарување на забелешки"
 
@@ -4036,7 +4045,7 @@ msgstr "Раководење со разни други можности."
 #. TRANS: here if it has one (most likely a single space).
 #: actions/othersettings.php:113
 msgid " (free service)"
-msgstr " (бесплатна услуга)"
+msgstr " (бесплатна служба)"
 
 #. TRANS: Label for dropdown with URL shortener services.
 #: actions/othersettings.php:122
@@ -4063,23 +4072,28 @@ msgstr "Прикажи или скриј изгледи на профилот."
 msgid "URL shortening service is too long (maximum 50 characters)."
 msgstr "Услугата за скратување на URL-адреси е предолга (највеќе до 50 знаци)."
 
-#: actions/otp.php:69
+#. TRANS: Client error displayed trying to use "one time password login" without specifying a user.
+#: actions/otp.php:70
 msgid "No user ID specified."
 msgstr "Нема назначено кориснички ID."
 
-#: actions/otp.php:83
+#. TRANS: Client error displayed trying to use "one time password login" without specifying a login token.
+#: actions/otp.php:86
 msgid "No login token specified."
 msgstr "Нема назначено најавен жетон."
 
-#: actions/otp.php:90
+#. TRANS: Client error displayed trying to use "one time password login" without requesting a login token.
+#: actions/otp.php:94
 msgid "No login token requested."
 msgstr "Не е побаран најавен жетон."
 
-#: actions/otp.php:95
+#. TRANS: Client error displayed trying to use "one time password login" while specifying an invalid login token.
+#: actions/otp.php:100
 msgid "Invalid login token specified."
 msgstr "Назначен е неважечки најавен жетон."
 
-#: actions/otp.php:104
+#. TRANS: Client error displayed trying to use "one time password login" while specifying an expired login token.
+#: actions/otp.php:110
 msgid "Login token expired."
 msgstr "Најавниот жетон е истечен."
 
@@ -4434,7 +4448,9 @@ msgstr "Oпслужувач, кому ќе му се испраќаат SSL-ба
 msgid "Save paths"
 msgstr "Зачувај патеки"
 
-#: actions/peoplesearch.php:52
+#. TRANS: Instructions for the "People search" page.
+#. TRANS: %%site.name%% is the name of the StatusNet site.
+#: actions/peoplesearch.php:54
 #, php-format
 msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
@@ -4444,7 +4460,8 @@ msgstr ""
 "одделете ги со празни места. Минималната должина на зборовите изнесува 3 "
 "знаци."
 
-#: actions/peoplesearch.php:58
+#. TRANS: Title of a page where users can search for other users.
+#: actions/peoplesearch.php:61
 msgid "People search"
 msgstr "Пребарување на луѓе"
 
@@ -4567,13 +4584,12 @@ msgstr "Ознаки"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:164
-#, fuzzy
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
 "Ознаки за Вас самите (букви, бројки, -, . и _), одделени со запирка или "
-"празно место"
+"празно место."
 
 #. TRANS: Dropdownlist label in form for profile settings.
 #: actions/profilesettings.php:169
@@ -4582,7 +4598,6 @@ msgstr "Јазик"
 
 #. TRANS: Tooltip for dropdown list label in form for profile settings.
 #: actions/profilesettings.php:171
-#, fuzzy
 msgid "Preferred language."
 msgstr "Претпочитан јазик"
 
@@ -4598,12 +4613,11 @@ msgstr "Во која часовна зона обично се наоѓате?"
 
 #. TRANS: Checkbox label in form for profile settings.
 #: actions/profilesettings.php:189
-#, fuzzy
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)."
 msgstr ""
 "Автоматски претплаќај ме на секој што се претплаќа на мене (најдобро за "
-"ботови и сл.)"
+"ботови и сл.)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
@@ -4628,9 +4642,9 @@ msgstr "Јазикот е предолг (највеќе до 50 знаци)."
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
 #: actions/profilesettings.php:291
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\"."
-msgstr "Неважечка ознака: „%s“"
+msgstr "Неважечка ознака: „%s“."
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
@@ -4734,6 +4748,12 @@ msgstr ""
 "Ова е %%site.name%%, мрежно место за [микроблогирање](http://mk.wikipedia."
 "org/wiki/Микроблогирање) заснована на слободната програмска алатка "
 "[StatusNet](http://status.net/)."
+
+#. TRANS: Public RSS feed description. %s is the StatusNet site name.
+#: actions/publicrss.php:106
+#, fuzzy, php-format
+msgid "%s updates from everyone."
+msgstr "%s подновуввања од сите!"
 
 #. TRANS: Title for public tag cloud.
 #: actions/publictagcloud.php:57
@@ -4874,9 +4894,8 @@ msgstr "Побарано е пронаоѓање на лозинката"
 
 #. TRANS: Title for password recovery page in password saved mode.
 #: actions/recoverpassword.php:229
-#, fuzzy
 msgid "Password saved"
-msgstr "Лозинката е зачувана."
+msgstr "Лозинката е зачувана"
 
 #. TRANS: Title for password recovery page when an unknown action has been specified.
 #: actions/recoverpassword.php:232
@@ -4970,7 +4989,6 @@ msgid "Registration not allowed."
 msgstr "Регистрирањето не е дозволено."
 
 #: actions/register.php:201
-#, fuzzy
 msgid "You cannot register if you don't agree to the license."
 msgstr "Не може да се регистрирате ако не ја прифаќате лиценцата."
 
@@ -4983,13 +5001,12 @@ msgid "Invalid username or password."
 msgstr "Погрешно име или лозинка."
 
 #: actions/register.php:340
-#, fuzzy
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues."
 msgstr ""
 "Со овој образец можете да создадете нова сметка. Потоа ќе можете да "
-"објавувате забелешки и да се поврзувате со пријатели и колеги. "
+"објавувате забелешки и да се поврзувате со пријатели и колеги."
 
 #. TRANS: Link description in user account settings menu.
 #: actions/register.php:431 actions/register.php:435
@@ -4998,19 +5015,16 @@ msgid "Email"
 msgstr "Е-пошта"
 
 #: actions/register.php:432 actions/register.php:436
-#, fuzzy
 msgid "Used only for updates, announcements, and password recovery."
 msgstr "Се користи само за подновувања, објави и повраќање на лозинка."
 
 #: actions/register.php:443
-#, fuzzy
 msgid "Longer name, preferably your \"real\" name."
-msgstr "Подолго име, по можност Вашето вистинско име и презиме"
+msgstr "Подолго име, по можност Вашето „вистинско“ име и презиме"
 
 #: actions/register.php:471
-#, fuzzy
 msgid "Where you are, like \"City, State (or Region), Country\"."
-msgstr "Каде се наоѓате, на пр. „Град, Област, Земја“."
+msgstr "Каде се наоѓате, на пр. „Град, Сојуз. држава (или Област), Земја“."
 
 #: actions/register.php:510
 #, php-format
@@ -5112,7 +5126,6 @@ msgid "User nickname"
 msgstr "Прекар на корисникот"
 
 #: actions/remotesubscribe.php:129
-#, fuzzy
 msgid "Nickname of the user you want to follow."
 msgstr "Прекар на корисникот што сакате да го следите."
 
@@ -5121,9 +5134,8 @@ msgid "Profile URL"
 msgstr "URL на профилот"
 
 #: actions/remotesubscribe.php:133
-#, fuzzy
 msgid "URL of your profile on another compatible microblogging service."
-msgstr "URL на Вашиот профил на друга соодветна служба за микроблогирање."
+msgstr "!URL на Вашиот профил на друга складна служба за микроблогирање."
 
 #. TRANS: Link text for link that will subscribe to a remote profile.
 #: actions/remotesubscribe.php:136 lib/subscribeform.php:139
@@ -5132,9 +5144,8 @@ msgid "Subscribe"
 msgstr "Претплати се"
 
 #: actions/remotesubscribe.php:158
-#, fuzzy
 msgid "Invalid profile URL (bad format)."
-msgstr "Неправилно URL на профил (лош формат)"
+msgstr "Неправилна URL на профилот (лош формат)."
 
 #: actions/remotesubscribe.php:167
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
@@ -5174,6 +5185,7 @@ msgstr "Повторено"
 msgid "Repeated!"
 msgstr "Повторено!"
 
+#. TRANS: RSS reply feed title. %s is a user nickname.
 #. TRANS: Tooltip for personal group navigation menu option when logged in for viewing @-replies.
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:109
@@ -5228,9 +5240,11 @@ msgstr ""
 "Можете да го [подбуцнете корисникот 1$s](../%2$s) или да [му испратите нешто]"
 "(%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
-#: actions/repliesrss.php:72
-#, php-format
-msgid "Replies to %1$s on %2$s!"
+#. TRANS: RSS reply feed description.
+#. TRANS: %1$s is a user nickname, %2$s is the StatusNet site name.
+#: actions/repliesrss.php:74
+#, fuzzy, php-format
+msgid "Replies to %1$s on %2$s."
 msgstr "Одговори на %1$s на %2$s!"
 
 #. TRANS: Client exception displayed when trying to restore an account while not logged in.
@@ -5967,9 +5981,8 @@ msgstr ""
 
 #. TRANS: Title for button to save site notice in admin panel.
 #: actions/sitenoticeadminpanel.php:201
-#, fuzzy
 msgid "Save site notice."
-msgstr "Зачувај ја објавава"
+msgstr "Зачувај ја објавата на мреж. место."
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:57
@@ -6026,10 +6039,10 @@ msgstr "Телефонски број за СМС"
 
 #. TRANS: SMS phone number input field instructions in SMS settings form.
 #: actions/smssettings.php:152
-#, fuzzy
 msgid "Phone number, no punctuation or spaces, with area code."
 msgstr ""
-"Телефонски број, без интерпункциски знаци и празни места, со повикувачки код"
+"Телефонски број, без интерпункциски знаци и празни места, со повикувачки "
+"број."
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:191
@@ -6196,16 +6209,20 @@ msgstr "Не сте претплатени на тој профил."
 msgid "Could not save subscription."
 msgstr "Не можев да ја зачувам претплатата."
 
+#. TRANS: Client error displayed trying to perform any request method other than POST.
+#. TRANS: Do not translate POST.
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr "Ова дејство прифаќа само POST-барања"
 
-#: actions/subscribe.php:117
+#. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
+#: actions/subscribe.php:121
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
 "Не можете да се претплатите на OMB 0.1 далечински профил со ова дејство."
 
-#: actions/subscribe.php:145
+#. TRANS: Page title when subscription succeeded.
+#: actions/subscribe.php:149
 msgid "Subscribed"
 msgstr "Претплатено"
 
@@ -6403,6 +6420,7 @@ msgstr "Со овој образец додавајте ознаки во Ваш
 msgid "No such tag."
 msgstr "Нема таква ознака."
 
+#. TRANS: Client error displayed when trying to unblock a non-blocked user.
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
 msgstr "Го немате блокирано тој корисник."
@@ -6455,7 +6473,7 @@ msgstr "Неважечки текст за добредојде. Дозволе�
 #. TRANS: Client error displayed when trying to set a non-existing user as default subscription for new
 #. TRANS: users in user admin panel. %1$s is the invalid nickname.
 #: actions/useradminpanel.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid default subscripton: \"%1$s\" is not a user."
 msgstr "Неважечки опис по основно: „%1$s“ не е корисник."
 
@@ -6516,9 +6534,8 @@ msgstr "Дали да им е дозволено на корисниците д�
 
 #. TRANS: Title for button to save user settings in user admin panel.
 #: actions/useradminpanel.php:302
-#, fuzzy
 msgid "Save user settings."
-msgstr "Зачувај кориснички нагодувања"
+msgstr "Зачувај кориснички нагодувања."
 
 #. TRANS: Page title.
 #: actions/userauthorization.php:109
@@ -6527,15 +6544,14 @@ msgstr "Одобрете ја претплатата"
 
 #. TRANS: Page notice on "Auhtorize subscription" page.
 #: actions/userauthorization.php:115
-#, fuzzy
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
 "click \"Reject\"."
 msgstr ""
-"Проверете ги овие податоци за да се осигурате дека сакате да се претплатите "
-"за забелешките на овој корисник. Ако не сакате да се претплатите, едноставно "
-"кликнете на „Одбиј“"
+"Проверете ги овие податоци и видете дали сакате да се претплатите на "
+"забелешките на овој корисник. Ако не сакате да се претплатите, едноставно "
+"стиснете на „Одбиј“."
 
 #. TRANS: DT element on Authorise Subscription page where license is displayed.
 #. TRANS: Menu item for site administration
@@ -6546,29 +6562,25 @@ msgstr "Лиценца"
 
 #. TRANS: Button text on Authorise Subscription page.
 #: actions/userauthorization.php:229
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Accept"
 msgstr "Прифати"
 
 #. TRANS: Title for button on Authorise Subscription page.
 #: actions/userauthorization.php:231
-#, fuzzy
 msgid "Subscribe to this user."
-msgstr "Претплати се на корисников"
+msgstr "Претплати се на корисников."
 
 #. TRANS: Button text on Authorise Subscription page.
 #: actions/userauthorization.php:233
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Reject"
 msgstr "Одбиј"
 
 #. TRANS: Title for button on Authorise Subscription page.
 #: actions/userauthorization.php:235
-#, fuzzy
 msgid "Reject this subscription."
-msgstr "Одбиј ја оваа претплата"
+msgstr "Одбиј ја оваа претплата."
 
 #. TRANS: Client error displayed for an empty authorisation request.
 #: actions/userauthorization.php:248
@@ -6608,62 +6620,62 @@ msgstr ""
 #. TRANS: Exception thrown when no valid user is found for an authorisation request.
 #. TRANS: %s is a listener URI.
 #: actions/userauthorization.php:325
-#, fuzzy, php-format
+#, php-format
 msgid "Listener URI \"%s\" not found here."
 msgstr "URI-то на следачот „%s“ не е пронајдено тука."
 
 #. TRANS: Exception thrown when listenee URI is too long for an authorisation request.
 #. TRANS: %s is a listenee URI.
 #: actions/userauthorization.php:332
-#, fuzzy, php-format
+#, php-format
 msgid "Listenee URI \"%s\" is too long."
-msgstr "Следениот URI „%s“ е предолг."
+msgstr "Следеното URI „%s“ е предолго."
 
 #. TRANS: Exception thrown when listenee URI is a local user for an authorisation request.
 #. TRANS: %s is a listenee URI.
 #: actions/userauthorization.php:340
-#, fuzzy, php-format
+#, php-format
 msgid "Listenee URI \"%s\" is a local user."
-msgstr "Следеното URI „%s“ е за локален корисник."
+msgstr "Следеното URI „%s“ е локален корисник."
 
 #. TRANS: Exception thrown when profile URL is a local user for an authorisation request.
 #. TRANS: %s is a profile URL.
 #: actions/userauthorization.php:358
-#, fuzzy, php-format
+#, php-format
 msgid "Profile URL \"%s\" is for a local user."
 msgstr "Профилната URL-адреса „%s“ е за локален корисник."
 
 #. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
 #. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
 #: actions/userauthorization.php:368
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
 "\"."
 msgstr ""
-"Лиценцата на каналот на следачот „%1$s“ не е соодветна на лиценцата на "
+"Лиценцата на каналот на следениот „%1$s“ не е складна на лиценцата на "
 "мрежното место „%2$s“."
 
 #. TRANS: Exception thrown when avatar URL is invalid for an authorisation request.
 #. TRANS: %s is an avatar URL.
 #: actions/userauthorization.php:378
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar URL \"%s\" is not valid."
 msgstr "URL-адресата „%s“ за аватар е неважечка."
 
 #. TRANS: Exception thrown when avatar URL could not be read for an authorisation request.
 #. TRANS: %s is an avatar URL.
 #: actions/userauthorization.php:385
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot read avatar URL \"%s\"."
-msgstr "Не можам да ја прочитам URL на аватарот „%s“."
+msgstr "Не можам да ја прочитам URL-адресата на аватарот „%s“."
 
 #. TRANS: Exception thrown when avatar URL return an invalid image type for an authorisation request.
 #. TRANS: %s is an avatar URL.
 #: actions/userauthorization.php:392
-#, fuzzy, php-format
+#, php-format
 msgid "Wrong image type for avatar URL \"%s\"."
-msgstr "Погрешен тип на слика за URL на аватарот „%s“."
+msgstr "Погрешен тип на слика за аватарот со URL „%s“."
 
 #. TRANS: Page title for profile design page.
 #: actions/userdesignsettings.php:74 lib/designsettings.php:63
@@ -7005,7 +7017,7 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:771
+#: classes/Profile.php:775
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
@@ -7014,7 +7026,7 @@ msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:780
+#: classes/Profile.php:784
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -7662,19 +7674,23 @@ msgstr ""
 msgid "No application for that consumer key."
 msgstr "Нема програм за тој потрошувачки клуч."
 
+#: lib/apiauth.php:202 lib/apiauth.php:284
+msgid "Not allowed to use API."
+msgstr ""
+
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
-#: lib/apiauth.php:219
+#: lib/apiauth.php:225
 msgid "Bad access token."
 msgstr "Лош пристапен жетон."
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
-#: lib/apiauth.php:224
+#: lib/apiauth.php:230
 msgid "No user for that token."
 msgstr "Нема корисник за тој жетон."
 
 #. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
 #. TRANS: Client error thrown when authentication fails.
-#: lib/apiauth.php:266 lib/apiauth.php:293
+#: lib/apiauth.php:272 lib/apiauth.php:302
 msgid "Could not authenticate you."
 msgstr "Не можевме да Ве потврдиме."
 
@@ -9727,18 +9743,23 @@ msgctxt "role"
 msgid "Moderator"
 msgstr "Модератор"
 
+#: lib/util.php:305
+#, fuzzy
+msgid "Not allowed to log in."
+msgstr "Не сте најавени."
+
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1306
+#: lib/util.php:1309
 msgid "a few seconds ago"
 msgstr "пред неколку секунди"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1309
+#: lib/util.php:1312
 msgid "about a minute ago"
 msgstr "пред една минута"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1313
+#: lib/util.php:1316
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -9746,12 +9767,12 @@ msgstr[0] "пред околу една минута"
 msgstr[1] "пред околу %d минути"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1316
+#: lib/util.php:1319
 msgid "about an hour ago"
 msgstr "пред еден час"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1320
+#: lib/util.php:1323
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -9759,12 +9780,12 @@ msgstr[0] "пред околу еден час"
 msgstr[1] "пред околу %d часа"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1323
+#: lib/util.php:1326
 msgid "about a day ago"
 msgstr "пред еден ден"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1327
+#: lib/util.php:1330
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -9772,12 +9793,12 @@ msgstr[0] "пред околу еден ден"
 msgstr[1] "пред околу %d дена"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1330
+#: lib/util.php:1333
 msgid "about a month ago"
 msgstr "пред еден месец"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1334
+#: lib/util.php:1337
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -9785,7 +9806,7 @@ msgstr[0] "пред околу еден месец"
 msgstr[1] "пред околу %d месеци"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1337
+#: lib/util.php:1340
 msgid "about a year ago"
 msgstr "пред една година"
 
@@ -9829,16 +9850,3 @@ msgstr "Неважечки XML. Нема XRD-корен."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "Земам резерва на податотеката „%s“."
-
-#~ msgid "6 or more characters"
-#~ msgstr "6 или повеќе знаци"
-
-#~ msgid "Same as password above"
-#~ msgstr "Исто како лозинката погоре"
-
-#~ msgid "Can't save new password."
-#~ msgstr "Не можам да ја зачувам новата лозинка."
-
-#~ msgid "URL of your homepage, blog, or profile on another site"
-#~ msgstr ""
-#~ "URL на Вашата домашна страница, блог или профил на друго мрежно место."
