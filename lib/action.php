@@ -854,8 +854,11 @@ class Action extends HTMLOutputter // lawsuit
     function showFooter()
     {
         $this->elementStart('div', array('id' => 'footer'));
-        $this->showSecondaryNav();
-        $this->showLicenses();
+        if (Event::handle('StartShowInsideFooter', array($this))) {
+            $this->showSecondaryNav();
+            $this->showLicenses();
+            Event::handle('EndShowInsideFooter', array($this));
+        }
         $this->elementEnd('div');
     }
 
