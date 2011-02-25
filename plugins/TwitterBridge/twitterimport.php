@@ -675,6 +675,7 @@ class TwitterImport
                     $reply = new Reply();
                     $reply->notice_id  = $notice->id;
                     $reply->profile_id = $user->id;
+                    $reply->modified   = $notice->created;
                     common_log(LOG_INFO, __METHOD__ . ": saving reply: notice {$notice->id} to profile {$user->id}");
                     $id = $reply->insert();
                 }
