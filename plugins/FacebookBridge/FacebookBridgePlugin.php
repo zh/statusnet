@@ -179,28 +179,22 @@ class FacebookBridgePlugin extends Plugin
         // Always add the admin panel route
         $m->connect('admin/facebook', array('action' => 'facebookadminpanel'));
 
-        // Only add these routes if an application has been setup on
-        // Facebook for the plugin to use.
-        if ($this->hasApplication()) {
-
-            $m->connect(
-                'main/facebooklogin',
-                array('action' => 'facebooklogin')
-            );
-            $m->connect(
-                'main/facebookfinishlogin',
-                array('action' => 'facebookfinishlogin')
-            );
-            $m->connect(
-                'settings/facebook',
-                array('action' => 'facebooksettings')
-            );
-            $m->connect(
-                'facebook/deauthorize',
-                array('action' => 'facebookdeauthorize')
-            );
-
-        }
+        $m->connect(
+            'main/facebooklogin',
+            array('action' => 'facebooklogin')
+        );
+        $m->connect(
+            'main/facebookfinishlogin',
+            array('action' => 'facebookfinishlogin')
+        );
+        $m->connect(
+            'settings/facebook',
+            array('action' => 'facebooksettings')
+        );
+        $m->connect(
+            'facebook/deauthorize',
+            array('action' => 'facebookdeauthorize')
+        );
 
         return true;
     }
