@@ -83,6 +83,27 @@ class RequireValidatedEmailPlugin extends Plugin
 
     public $disallowLogin = false;
 
+    function onAutoload($cls)
+    {
+        $dir = dirname(__FILE__);
+
+        switch ($cls)
+        {
+        case 'ConfirmfirstemailAction':
+            include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
+            return false;
+        default:
+            return true;
+        }
+    }
+
+    function onRouterInitialized($m)
+    {
+        $m->connect('main/confirmfirst/:code',
+                    array('action' => 'confirmfirstemail'));
+        return true;
+    }
+
     /**
      * Event handler for notice saves; rejects the notice
      * if user's address isn't validated.
