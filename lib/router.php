@@ -116,6 +116,8 @@ class Router
     static $bare = array('requesttoken', 'accesstoken', 'userauthorization',
                          'postnotice', 'updateprofile', 'finishremotesubscribe');
 
+    const REGEX_TAG = '[^\/]+'; // [\pL\pN_\-\.]{1,64} better if we can do unicode regexes
+
     static function get()
     {
         if (!Router::$inst) {
@@ -348,14 +350,14 @@ class Router
             $m->connect('tag', array('action' => 'publictagcloud'));
             $m->connect('tag/:tag/rss',
                         array('action' => 'tagrss'),
-                        array('tag' => '[\pL\pN_\-\.]{1,64}'));
+                        array('tag' => self::REGEX_TAG));
             $m->connect('tag/:tag',
                         array('action' => 'tag'),
-                        array('tag' => '[\pL\pN_\-\.]{1,64}'));
+                        array('tag' => self::REGEX_TAG));
 
             $m->connect('peopletag/:tag',
                         array('action' => 'peopletag'),
-                        array('tag' => '[a-zA-Z0-9]+'));
+                        array('tag' => self::REGEX_TAG));
 
             // groups
 
@@ -812,7 +814,7 @@ class Router
                     $m->connect($a.'/:tag',
                                 array('action' => $a,
                                       'nickname' => $nickname),
-                                array('tag' => '[a-zA-Z0-9]+'));
+                                array('tag' => self::REGEX_TAG));
                 }
 
                 foreach (array('rss', 'groups') as $a) {
@@ -839,12 +841,12 @@ class Router
                 $m->connect('tag/:tag/rss',
                             array('action' => 'userrss',
                                   'nickname' => $nickname),
-                            array('tag' => '[\pL\pN_\-\.]{1,64}'));
+                            array('tag' => self::REGEX_TAG));
 
                 $m->connect('tag/:tag',
                             array('action' => 'showstream',
                                   'nickname' => $nickname),
-                            array('tag' => '[\pL\pN_\-\.]{1,64}'));
+                            array('tag' => self::REGEX_TAG));
 
                 $m->connect('rsd.xml',
                             array('action' => 'rsd',
@@ -875,7 +877,7 @@ class Router
                 foreach (array('subscriptions', 'subscribers') as $a) {
                     $m->connect(':nickname/'.$a.'/:tag',
                                 array('action' => $a),
-                                array('tag' => '[a-zA-Z0-9]+',
+                                array('tag' => self::REGEX_TAG,
                                       'nickname' => Nickname::DISPLAY_FMT));
                 }
 
@@ -903,12 +905,12 @@ class Router
                 $m->connect(':nickname/tag/:tag/rss',
                             array('action' => 'userrss'),
                             array('nickname' => Nickname::DISPLAY_FMT),
-                            array('tag' => '[\pL\pN_\-\.]{1,64}'));
+                            array('tag' => self::REGEX_TAG));
 
                 $m->connect(':nickname/tag/:tag',
                             array('action' => 'showstream'),
                             array('nickname' => Nickname::DISPLAY_FMT),
-                            array('tag' => '[\pL\pN_\-\.]{1,64}'));
+                            array('tag' => self::REGEX_TAG));
 
                 $m->connect(':nickname/rsd.xml',
                             array('action' => 'rsd'),
