@@ -946,12 +946,12 @@ class Profile extends Memcached_DataObject
      *
      * @param User $cur Current user
      *
-     * @return array representation of <statusnet:profile_info> element
+     * @return array representation of <statusnet:profile_info> element or null
      */
 
     function profileInfo($cur)
     {
-        $profileInfoAttr = array();
+        $profileInfoAttr = array('local_id' => $this->id);
 
         if ($cur != null) {
             // Whether the current user is a subscribed to this profile

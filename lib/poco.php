@@ -241,4 +241,42 @@ class PoCo
             $url->outputTo($xo);
         }
     }
+
+    /**
+     * Output a Portable Contact as an array suitable for serializing
+     * as JSON
+     *
+     * @return $array the PoCo array
+     */
+
+    function asArray()
+    {
+        $poco = array();
+
+        $poco['preferredUsername'] = $this->preferredUsername;
+        $poco['displayName']       = $this->displayName;
+
+        if (!empty($this->note)) {
+            $poco['note'] = $this->note;
+        }
+
+        if (!empty($this->address)) {
+            $poco['addresses'] = $this->address->asArray();
+        }
+
+        if (!empty($this->urls)) {
+
+            $urls = array();
+
+            foreach ($this->urls as $url) {
+                $urls[] = $url->asArray();
+            }
+
+            $poco['urls'] = $urls;
+        }
+
+        return $poco;
+    }
+
 }
+
