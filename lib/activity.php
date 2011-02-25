@@ -337,6 +337,157 @@ class Activity
         return null;
     }
 
+    /**
+     * Returns an array based on this activity suitable
+     * for encoding as a JSON object
+     *
+     * @return array $activity
+     */
+
+    function asArray()
+    {
+        $activity = array();
+
+        // actor
+        $activity['actor'] = $this->actor->asArray();
+
+        // body
+        $activity['body'] = $this->content;
+
+        // generator <-- We could use this when we know a notice is created
+        //               locally. Or if we know the upstream Generator.
+
+        // icon <-- I've decided to use the posting user's stream avatar here
+        //          for now (also included in the avatarLinks extension)
+
+
+        // object
+        if ($this->verb == ActivityVerb::POST && count($this->objects) == 1) {
+            $activity['object'] = $this->objects[0]->asArray();
+
+            // Context stuff. For now I'm just sticking most of it
+            // in a property called "context"
+
+            if (!empty($this->context)) {
+
+                if (!empty($this->context->location)) {
+                    $loc = $this->context->location;
+
+                    // GeoJSON
+
+                    $activity['geopoint'] = array(
+                        'type'        => 'Point',
+                        'coordinates' => array($loc->lat, $loc->lon)
+                    );
+
+                }
+
+                $activity['to']      = $this->context->getToArray();
+                $activity['context'] = $this->context->asArray();
+            }
+
+            // Instead of adding enclosures as an extension to JSON
+            // Activities, it seems like we should be using the
+            // attachedObjects property of ActivityObject
+
+            $attachedObjects = array();
+
+            // XXX: OK, this is kinda cheating. We should probably figure out
+            // what kind of objects these are based on mime-type and then
+            // create specific object types. Right now this rely on
+            // duck-typing.  Also, we should include an embed code for
+            // video attachments.
+
+            foreach ($this->enclosures as $enclosure) {
+
+                if (is_string($enclosure)) {
+
+                    $attachedObjects[]['id']  = $enclosure;
+
+                } else {
+
+                    $attachedObjects[]['id']  = $enclosure->url;
+
+                    $mediaLink = new ActivityStreamsMediaLink(
+                        $enclosure->url,
+                        null,
+                        null,
+                        $enclosure->mimetype
+                        // XXX: Add 'size' as an extension to MediaLink?
+                    );
+
+                    $attachedObjects[]['mediaLink'] = $mediaLink->asArray(); // extension
+
+                    if ($enclosure->title) {
+                        $attachedObjects[]['displayName'] = $enclosure->title;
+                    }
+               }
+            }
+
+            if (!empty($attachedObjects)) {
+                $activity['object']['attachedObjects'] = $attachedObjects;
+            }
+
+        } else {
+            $activity['object'] = array();
+            foreach($this->objects as $object) {
+                $activity['object'][] = $object->asArray();
+            }
+        }
+
+        $activity['postedTime'] = self::iso8601Date($this->time); // Change to exactly be RFC3339?
+
+        // provider
+        $provider = array(
+            'objectType' => 'service',
+            'displayName' => common_config('site', 'name'),
+            'url' => common_root_url()
+        );
+
+        $activity['provider'] = $provider;
+
+        // target
+        if (!empty($this->target)) {
+            $activity['target'] = $this->target->asArray();
+        }
+
+        // title
+        $activity['title'] = $this->title;
+
+        // updatedTime <-- Should we use this to indicate the time we received
+        //                 a remote notice? Probably not.
+
+        // verb
+        //
+        // We can probably use the whole schema URL here but probably the
+        // relative simple name is easier to parse
+        $activity['verb'] = substr($this->verb, strrpos($this->verb, '/') + 1);
+
+        /* Purely extensions hereafter */
+
+        $tags = array();
+
+        // Use an Activity Object for term? Which object? Note?
+        foreach ($this->categories as $cat) {
+            $tags[] = $cat->term;
+        }
+
+        $activity['tags'] = $tags;
+
+        // XXX: a bit of a hack... Since JSON isn't namespaced we probably
+        // shouldn't be using 'statusnet:notice_info', but this will work
+        // for the moment.
+
+        foreach ($this->extra as $e) {
+            list($objectName, $props, $txt) = $e;
+            if (!empty($objectName)) {
+                $activity[$objectName] = $props;
+            }
+        }
+
+        return array_filter($activity);
+    }
+
     function asString($namespace=false, $author=true, $source=false)
     {
         $xs = new XMLStringer(true);

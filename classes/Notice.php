@@ -1250,23 +1250,23 @@ class Notice extends Memcached_DataObject
      * @return Activity activity object representing this Notice.
      */
 
-    function asActivity()
+    function asActivity($cur)
     {
         $act = self::cacheGet(Cache::codeKey('notice:as-activity:'.$this->id));
 
         if (!empty($act)) {
             return $act;
         }
-
         $act = new Activity();
 
         if (Event::handle('StartNoticeAsActivity', array($this, &$act))) {
 
             $profile = $this->getProfile();
 
-            $act->actor     = ActivityObject::fromProfile($profile);
-            $act->verb      = ActivityVerb::POST;
-            $act->objects[] = ActivityObject::fromNotice($this);
+            $act->actor            = ActivityObject::fromProfile($profile);
+            $act->actor->extra[]   = $profile->profileInfo($cur);
+            $act->verb             = ActivityVerb::POST;
+            $act->objects[]        = ActivityObject::fromNotice($this);
 
             // XXX: should this be handled by default processing for object entry?
 
@@ -1404,7 +1404,7 @@ class Notice extends Memcached_DataObject
                          $author=true,
                          $cur=null)
     {
-        $act = $this->asActivity();
+        $act = $this->asActivity($cur);
         $act->extra[] = $this->noticeInfo($cur);
         return $act->asString($namespace, $author, $source);
     }
