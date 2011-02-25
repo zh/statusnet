@@ -285,4 +285,13 @@ class RequireValidatedEmailPlugin extends Plugin
         }
         return true;
     }
+
+    function onLoginAction($action, &$login)
+    {
+        if ($action == 'confirmfirstemail') {
+            $login = true;
+            return false;
+        }
+        return true;
+    }
 }
