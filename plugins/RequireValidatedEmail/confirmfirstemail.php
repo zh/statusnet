@@ -197,6 +197,11 @@ class ConfirmFirstEmailForm extends Form
                                 array('code' => $this->code));
     }
 
+    function formClass()
+    {
+        return 'form_settings';
+    }
+
     function formData()
     {
         $this->out->elementStart('ul', 'form_data');
