@@ -118,11 +118,13 @@ class BackupaccountAction extends Action
     {
         $cur = common_current_user();
 
-        $stream = new UserActivityStream($cur);
+        $stream = new UserActivityStream($cur, true, UserActivityStream::OUTPUT_RAW);
 
         header('Content-Disposition: attachment; filename='.$cur->nickname.'.atom');
         header('Content-Type: application/atom+xml; charset=utf-8');
 
+        // @fixme atom feed logic is in getString...
+        // but we just want it to output to the outputter.
         $this->raw($stream->getString());
     }
 
