@@ -207,12 +207,7 @@ class ImsettingsAction extends SettingsAction
      *
      * @return Confirm_address address object for this user
      */
-<<<<<<< HEAD
-
     function getConfirmation($transport)
-=======
-    function getConfirmation()
->>>>>>> 0.9.x
     {
         $user = common_current_user();
 

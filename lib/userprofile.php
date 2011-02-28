@@ -192,15 +192,7 @@ class UserProfile extends Widget
             $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
 
             if (count($tags) > 0) {
-<<<<<<< HEAD
                 $this->out->elementStart('ul', 'tags xoxo entity_tags');
-=======
-                $this->out->elementStart('dl', 'entity_tags');
-                // TRANS: DT for tags in a profile.
-                $this->out->element('dt', null, _('Tags'));
-                $this->out->elementStart('dd');
-                $this->out->elementStart('ul', 'tags xoxo');
->>>>>>> 0.9.x
                 foreach ($tags as $tag) {
                     $this->out->elementStart('li');
                     // Avoid space by using raw output.
