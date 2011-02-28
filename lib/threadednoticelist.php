@@ -156,19 +156,25 @@ class ThreadedNoticeListItem extends NoticeListItem
     function showEnd()
     {
         $notice = Notice::conversationStream($this->notice->conversation);
-
-        $this->out->elementStart('ul', 'notices threaded-notices xoxo');
+        $notices = array();
         while ($notice->fetch()) {
             if ($notice->id == $this->notice->id) {
                 // Skip!
                 continue;
             }
-            $this->out->elementStart('li');
-            $item = new NoticeListItem($notice, $this->out);
-            $item->show();
-            $this->out->elementEnd('li');
+            $notices[] = clone($notice); // *grumble* inefficient as hell
         }
-        $this->out->elementEnd('ul');
+
+        if ($notices) {
+            $this->out->elementStart('ul', 'notices threaded-notices xoxo');
+            foreach (array_reverse($notices) as $notice) {
+                $this->out->elementStart('li');
+                $item = new NoticeListItem($notice, $this->out);
+                $item->show();
+                $this->out->elementEnd('li');
+            }
+            $this->out->elementEnd('ul');
+        }
 
         parent::showEnd();
     }
