@@ -163,7 +163,7 @@ class AllAction extends ProfileAction
     function showContent()
     {
         if (Event::handle('StartShowAllContent', array($this))) {
-            $nl = new NoticeList($this->notice, $this);
+            $nl = new ThreadedNoticeList($this->notice, $this);
 
             $cnt = $nl->show();
 

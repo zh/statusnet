@@ -212,7 +212,7 @@ class PublicAction extends Action
 
     function showContent()
     {
-        $nl = new NoticeList($this->notice, $this);
+        $nl = new ThreadedNoticeList($this->notice, $this);
 
         $cnt = $nl->show();
 
