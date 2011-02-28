@@ -1072,6 +1072,7 @@ class Notice extends Memcached_DataObject
 
             $reply->notice_id  = $this->id;
             $reply->profile_id = $profile->id;
+            $reply->modified   = $this->created;
 
             common_log(LOG_INFO, __METHOD__ . ": saving reply: notice $this->id to profile $profile->id");
 
@@ -1132,6 +1133,7 @@ class Notice extends Memcached_DataObject
 
                 $reply->notice_id  = $this->id;
                 $reply->profile_id = $mentioned->id;
+                $reply->modified   = $this->created;
 
                 $id = $reply->insert();
 
