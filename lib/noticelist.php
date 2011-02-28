@@ -329,7 +329,7 @@ class NoticeListItem extends Widget
 
     function showAvatar()
     {
-	$avatar_size = AVATAR_STREAM_SIZE;
+        $avatar_size = $this->avatarSize();
 
         $avatar = $this->profile->getAvatar($avatar_size);
 
@@ -343,6 +343,11 @@ class NoticeListItem extends Widget
                                          ($this->profile->fullname) ?
                                          $this->profile->fullname :
                                          $this->profile->nickname));
+    }
+
+    function avatarSize()
+    {
+        return AVATAR_STREAM_SIZE;
     }
 
     /**

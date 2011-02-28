@@ -168,14 +168,31 @@ class ThreadedNoticeListItem extends NoticeListItem
         if ($notices) {
             $this->out->elementStart('ul', 'notices threaded-notices xoxo');
             foreach (array_reverse($notices) as $notice) {
-                $this->out->elementStart('li');
-                $item = new NoticeListItem($notice, $this->out);
+                $item = new ThreadedNoticeListSubItem($notice, $this->out);
                 $item->show();
-                $this->out->elementEnd('li');
             }
             $this->out->elementEnd('ul');
         }
 
         parent::showEnd();
+    }
+}
+
+class ThreadedNoticeListSubItem extends NoticeListItem
+{
+
+    function avatarSize()
+    {
+        return AVATAR_STREAM_SIZE; // @fixme would like something in between
+    }
+
+    function showNoticeLocation()
+    {
+        //
+    }
+
+    function showNoticeSource()
+    {
+        //
     }
 }
