@@ -69,6 +69,12 @@ class ThreadedNoticeList extends NoticeList
         $cnt = 0;
         $conversations = array();
         while ($this->notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
+            $cnt++;
+
+            if ($cnt > NOTICES_PER_PAGE) {
+                break;
+            }
+
             $convo = $this->notice->conversation;
             if (!empty($conversations[$convo])) {
                 // Seen this convo already -- skip!
@@ -85,12 +91,6 @@ class ThreadedNoticeList extends NoticeList
             $notice->orderBy('CREATED');
             $notice->limit(1);
             $notice->find(true);
-
-            $cnt++;
-
-            if ($cnt > NOTICES_PER_PAGE) {
-                break;
-            }
 
             try {
                 $item = $this->newListItem($notice);
