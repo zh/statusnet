@@ -223,6 +223,21 @@ class ThreadedNoticeListReplyItem extends NoticeListItem
         $this->showEnd();
     }
 
+    /**
+     * start a single notice.
+     *
+     * @return void
+     */
+
+    function showStart()
+    {
+        if (Event::handle('StartOpenNoticeListItemElement', array($this))) {
+            $id = (empty($this->repeat)) ? $this->notice->id : $this->repeat->id;
+            $this->out->elementStart('li', array('class' => 'notice-reply',
+                                                 'id' => 'notice-reply-' . $id));
+        }
+    }
+
     function showMiniForm()
     {
         $replyToId = $this->notice->id;
