@@ -206,7 +206,7 @@ class UrlsettingsAction extends SettingsAction
         if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             // TRANS: Server error displayed when "Other" settings in user profile could not be updated on the server.
-            $this->serverError(_('Couldn\'t update user.'));
+            $this->serverError(_('Could not update user.'));
             return;
         }
 
@@ -238,6 +238,7 @@ class UrlsettingsAction extends SettingsAction
 
         $user->query('COMMIT');
 
+        // TRANS: Confirmation message after saving preferences.
         $this->showForm(_('Preferences saved.'), true);
     }
 }

@@ -341,6 +341,7 @@ class Memcached_DataObject extends Safe_DataObject
         $fail = false;
         $result = null;
         if (Event::handle('StartDBQuery', array($this, $string, &$result))) {
+            common_perf_counter('query', $string);
             try {
                 $result = parent::_query($string);
             } catch (Exception $e) {
@@ -493,6 +494,10 @@ class Memcached_DataObject extends Safe_DataObject
                         mysql_set_charset('utf8', $conn);
                     }
                 }
+            }
+            // Needed to make timestamp values usefully comparable.
+            if (common_config('db', 'type') == 'mysql') {
+                parent::_query("set time_zone='+0:00'");
             }
         }
 

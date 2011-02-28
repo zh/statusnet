@@ -1,5 +1,5 @@
 # Translation of StatusNet - OpenID to Catalan (Català)
-# Expored from translatewiki.net
+# Exported from translatewiki.net
 #
 # Author: Toniher
 # --
@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-16 15:08+0000\n"
-"PO-Revision-Date: 2010-12-16 15:12:28+0000\n"
+"POT-Creation-Date: 2011-02-02 23:31+0000\n"
+"PO-Revision-Date: 2011-02-02 23:37:37+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-30 20:43:49+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-29 22:25:50+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r81409); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -94,14 +94,15 @@ msgstr ""
 #: openidsettings.php:232 finishopenidlogin.php:42 openidlogin.php:51
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
+"S'ha produït un problema amb el vostre testimoni de sessió. Proveu-ho de nou."
 
 #: openidsettings.php:239
 msgid "Can't add new providers."
-msgstr ""
+msgstr "No es poden afegir proveïdors nous."
 
 #: openidsettings.php:252
 msgid "Something weird happened."
-msgstr ""
+msgstr "Ha passat quelcom estrany."
 
 #: openidsettings.php:276
 msgid "No such OpenID trustroot."
@@ -113,11 +114,11 @@ msgstr ""
 
 #: openidsettings.php:303
 msgid "No such OpenID."
-msgstr ""
+msgstr "No existeix l'OpenID."
 
 #: openidsettings.php:308
 msgid "That OpenID does not belong to you."
-msgstr ""
+msgstr "Aquest OpenID no us pertany."
 
 #: openidsettings.php:312
 msgid "OpenID removed."
@@ -137,7 +138,7 @@ msgstr ""
 
 #: openidadminpanel.php:210
 msgid "Trusted provider"
-msgstr ""
+msgstr "Proveïdor de confiança"
 
 #: openidadminpanel.php:212
 msgid ""
@@ -145,10 +146,13 @@ msgid ""
 "you are using your own OpenID service for shared sign-in, you can restrict "
 "access to only your own users here."
 msgstr ""
+"Per defecte, els usuaris poden autenticar-se amb qualsevol proveïdor "
+"d'OpenID. Si feu servir el vostre servei d'OpenID propi per a sessions "
+"compartides, podeu restringir l'accés només als usuaris propis des d'aquí."
 
 #: openidadminpanel.php:220
 msgid "Provider URL"
-msgstr ""
+msgstr "URL del proveïdor"
 
 #: openidadminpanel.php:221
 msgid ""
@@ -168,7 +172,7 @@ msgstr ""
 
 #: openidadminpanel.php:238
 msgid "Required team"
-msgstr ""
+msgstr "Equip necessari"
 
 #: openidadminpanel.php:239
 msgid "Only allow logins from users in the given team (Launchpad extension)."
@@ -190,7 +194,7 @@ msgstr ""
 
 #: openidadminpanel.php:278
 msgid "Save OpenID settings"
-msgstr ""
+msgstr "Desa els paràmetres de l'OpenID"
 
 #. TRANS: OpenID plugin server error.
 #: openid.php:138
@@ -200,21 +204,21 @@ msgstr ""
 #. TRANS: OpenID plugin message. Given when an OpenID is not valid.
 #: openid.php:150
 msgid "Not a valid OpenID."
-msgstr ""
+msgstr "No és un OpenID vàlid."
 
 #. TRANS: OpenID plugin server error. Given when the OpenID authentication request fails.
 #. TRANS: %s is the failure message.
 #: openid.php:155
 #, php-format
 msgid "OpenID failure: %s"
-msgstr ""
+msgstr "Fallada de l'OpenID: %s"
 
 #. TRANS: OpenID plugin server error. Given when the OpenID authentication request cannot be redirected.
 #. TRANS: %s is the failure message.
 #: openid.php:205
 #, php-format
 msgid "Could not redirect to server: %s"
-msgstr ""
+msgstr "No es pot redirigir al servidor: %s"
 
 #. TRANS: OpenID plugin user instructions.
 #: openid.php:244
@@ -222,31 +226,34 @@ msgid ""
 "This form should automatically submit itself. If not, click the submit "
 "button to go to your OpenID provider."
 msgstr ""
+"Aquest formulari s'hauria de trametre automàticament per si mateix. Si no, "
+"feu clic al botó de tramesa per anar al vostre proveïdor OpenID."
 
 #. TRANS: OpenID plugin server error.
 #: openid.php:280
 msgid "Error saving the profile."
-msgstr ""
+msgstr "Error en desar el perfil."
 
 #. TRANS: OpenID plugin server error.
 #: openid.php:292
 msgid "Error saving the user."
-msgstr ""
+msgstr "Error en desar l'usuari."
 
 #. TRANS: OpenID plugin client exception (403).
 #: openid.php:322
 msgid "Unauthorized URL used for OpenID login."
 msgstr ""
+"S'ha fet servir un URL no autoritzat per a l'inici de sessió de l'OpenID."
 
 #. TRANS: Title
 #: openid.php:370
 msgid "OpenID Login Submission"
-msgstr ""
+msgstr "Tramesa d'inici de sessió d'OpenID"
 
 #. TRANS: OpenID plugin message used while requesting authorization user's OpenID login provider.
 #: openid.php:381
 msgid "Requesting authorization from your login provider..."
-msgstr ""
+msgstr "S'està sol·licitant autorització del vostre proveïdor de sessió..."
 
 #. TRANS: OpenID plugin message. User instruction while requesting authorization user's OpenID login provider.
 #: openid.php:385
@@ -254,18 +261,20 @@ msgid ""
 "If you are not redirected to your login provider in a few seconds, try "
 "pushing the button below."
 msgstr ""
+"Si no se us redirigeix al vostre proveïdor de sessió en uns pocs segons, "
+"proveu de prémer el botó de sota."
 
 #. TRANS: Tooltip for main menu option "Login"
 #: OpenIDPlugin.php:218
 msgctxt "TOOLTIP"
 msgid "Login to the site"
-msgstr ""
+msgstr "Inicia una sessió al lloc"
 
 #. TRANS: Main menu option when not logged in to log in
 #: OpenIDPlugin.php:221
 msgctxt "MENU"
 msgid "Login"
-msgstr ""
+msgstr "Inicia una sessió"
 
 #. TRANS: Tooltip for main menu option "Help"
 #: OpenIDPlugin.php:226
@@ -283,7 +292,7 @@ msgstr "Ajuda"
 #: OpenIDPlugin.php:235
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
-msgstr ""
+msgstr "Cerca gent o un text"
 
 #. TRANS: Main menu option when logged in or when the StatusNet instance is not private
 #: OpenIDPlugin.php:238
@@ -403,106 +412,108 @@ msgstr "Crea un compte nou"
 msgid "Create a new user with this nickname."
 msgstr "Crea un usuari nou amb aquest sobrenom."
 
-#: finishopenidlogin.php:122
+#: finishopenidlogin.php:126
 msgid "New nickname"
 msgstr "Nou sobrenom"
 
-#: finishopenidlogin.php:124
+#: finishopenidlogin.php:128
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr ""
 
 #. TRANS: Button label in form in which to create a new user on the site for an OpenID.
-#: finishopenidlogin.php:149
+#: finishopenidlogin.php:162
 msgctxt "BUTTON"
 msgid "Create"
 msgstr "Crea"
 
 #. TRANS: Used as form legend for form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:163
+#: finishopenidlogin.php:176
 msgid "Connect existing account"
-msgstr ""
+msgstr "Connecta un compte ja existent"
 
 #. TRANS: User instructions for form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:166
+#: finishopenidlogin.php:179
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
 msgstr ""
 
 #. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:170
+#: finishopenidlogin.php:183
 msgid "Existing nickname"
-msgstr ""
+msgstr "Sobrenom ja existent"
 
 #. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:174
+#: finishopenidlogin.php:187
 msgid "Password"
 msgstr "Contrasenya"
 
 #. TRANS: Button label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:178
+#: finishopenidlogin.php:191
 msgctxt "BUTTON"
 msgid "Connect"
 msgstr "Connecta-hi"
 
 #. TRANS: Status message in case the response from the OpenID provider is that the logon attempt was cancelled.
-#: finishopenidlogin.php:191 finishaddopenid.php:90
+#: finishopenidlogin.php:237 finishaddopenid.php:90
 msgid "OpenID authentication cancelled."
-msgstr ""
+msgstr "S'ha cancel·lat l'autenticació OpenID."
 
 #. TRANS: OpenID authentication failed; display the error message. %s is the error message.
 #. TRANS: OpenID authentication failed; display the error message.
 #. TRANS: %s is the error message.
-#: finishopenidlogin.php:195 finishaddopenid.php:95
+#: finishopenidlogin.php:241 finishaddopenid.php:95
 #, php-format
 msgid "OpenID authentication failed: %s"
-msgstr ""
+msgstr "Ha fallat l'autenticació OpenID: %s"
 
-#: finishopenidlogin.php:215 finishaddopenid.php:111
+#: finishopenidlogin.php:261 finishaddopenid.php:111
 msgid ""
 "OpenID authentication aborted: you are not allowed to login to this site."
 msgstr ""
+"S'ha interromput l'autenticació OpenD: no teniu permisos per iniciar una "
+"sessió en aquest lloc."
 
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site.
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and none was provided.
-#: finishopenidlogin.php:267 finishopenidlogin.php:277
+#: finishopenidlogin.php:317 finishopenidlogin.php:327
 msgid "Registration not allowed."
 msgstr "No es permet el registre."
 
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and the one provided was not valid.
-#: finishopenidlogin.php:285
+#: finishopenidlogin.php:335
 msgid "Not a valid invitation code."
 msgstr "No és un codi d'invitació vàlid."
 
 #. TRANS: OpenID plugin message. The entered new user name is blacklisted.
-#: finishopenidlogin.php:299
+#: finishopenidlogin.php:349
 msgid "Nickname not allowed."
 msgstr "No es permet el sobrenom."
 
 #. TRANS: OpenID plugin message. The entered new user name is already used.
-#: finishopenidlogin.php:305
+#: finishopenidlogin.php:355
 msgid "Nickname already in use. Try another one."
 msgstr "El sobrenom ja és en ús. Proveu-ne un altre."
 
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
-#: finishopenidlogin.php:313 finishopenidlogin.php:400
+#: finishopenidlogin.php:363 finishopenidlogin.php:449
 msgid "Stored OpenID not found."
 msgstr "No s'ha trobat la connexió OpenID emmagatzemada."
 
 #. TRANS: OpenID plugin server error.
-#: finishopenidlogin.php:323
+#: finishopenidlogin.php:373
 msgid "Creating new account for OpenID that already has a user."
 msgstr ""
 "S'està creant un compte nou per a una connexió OpenID que ja té un usuari."
 
 #. TRANS: OpenID plugin message.
-#: finishopenidlogin.php:388
+#: finishopenidlogin.php:437
 msgid "Invalid username or password."
 msgstr "El nom d'usuari o la contrasenya no són vàlids."
 
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
-#: finishopenidlogin.php:408
+#: finishopenidlogin.php:457
 msgid "Error connecting user to OpenID."
 msgstr "S'ha produït un error en connectar l'usuari amb la connexió OpenID."
 

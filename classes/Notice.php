@@ -153,7 +153,7 @@ class Notice extends Memcached_DataObject
     function saveTags()
     {
         /* extract all #hastags */
-        $count = preg_match_all('/(?:^|\s)#([\pL\pN_\-\.]{1,64})/', strtolower($this->content), $match);
+        $count = preg_match_all('/(?:^|\s)#([\pL\pN_\-\.]{1,64})/u', strtolower($this->content), $match);
         if (!$count) {
             return true;
         }
@@ -241,7 +241,7 @@ class Notice extends Memcached_DataObject
      *              array 'urls' list of attached/referred URLs to save with the
      *                           notice in place of extracting links from content
      *              boolean 'distribute' whether to distribute the notice, default true
-     *                    
+     *
      * @fixme tag override
      *
      * @return Notice
@@ -446,7 +446,10 @@ class Notice extends Memcached_DataObject
     function blowOnInsert($conversation = false)
     {
         self::blow('profile:notice_ids:%d', $this->profile_id);
-        self::blow('public');
+
+        if ($this->isPublic()) {
+            self::blow('public');
+        }
 
         // XXX: Before we were blowing the casche only if the notice id
         // was not the root of the conversation.  What to do now?
@@ -481,7 +484,10 @@ class Notice extends Memcached_DataObject
         $this->blowOnInsert();
 
         self::blow('profile:notice_ids:%d;last', $this->profile_id);
-        self::blow('public;last');
+
+        if ($this->isPublic()) {
+            self::blow('public;last');
+        }
     }
 
     /** save all urls in the notice to the db
@@ -819,9 +825,18 @@ class Notice extends Memcached_DataObject
 
         // Exclude any deleted, non-local, or blocking recipients.
         $profile = $this->getProfile();
+        $originalProfile = null;
+        if ($this->repeat_of) {
+            // Check blocks against the original notice's poster as well.
+            $original = Notice::staticGet('id', $this->repeat_of);
+            if ($original) {
+                $originalProfile = $original->getProfile();
+            }
+        }
         foreach ($ni as $id => $source) {
             $user = User::staticGet('id', $id);
-            if (empty($user) || $user->hasBlocked($profile)) {
+            if (empty($user) || $user->hasBlocked($profile) ||
+                ($originalProfile && $user->hasBlocked($originalProfile))) {
                 unset($ni[$id]);
             }
         }
@@ -949,7 +964,7 @@ class Notice extends Memcached_DataObject
         $groups = array();
 
         /* extract all !group */
-        $count = preg_match_all('/(?:^|\s)!([A-Za-z0-9]{1,64})/',
+        $count = preg_match_all('/(?:^|\s)!(' . Nickname::DISPLAY_FMT . ')/',
                                 strtolower($this->content),
                                 $match);
         if (!$count) {
@@ -1057,6 +1072,7 @@ class Notice extends Memcached_DataObject
 
             $reply->notice_id  = $this->id;
             $reply->profile_id = $profile->id;
+            $reply->modified   = $this->created;
 
             common_log(LOG_INFO, __METHOD__ . ": saving reply: notice $this->id to profile $profile->id");
 
@@ -1117,6 +1133,7 @@ class Notice extends Memcached_DataObject
 
                 $reply->notice_id  = $this->id;
                 $reply->profile_id = $mentioned->id;
+                $reply->modified   = $this->created;
 
                 $id = $reply->insert();
 
@@ -1231,33 +1248,33 @@ class Notice extends Memcached_DataObject
      * Convert a notice into an activity for export.
      *
      * @param User $cur Current user
-     * 
+     *
      * @return Activity activity object representing this Notice.
      */
 
-    function asActivity()
+    function asActivity($cur)
     {
         $act = self::cacheGet(Cache::codeKey('notice:as-activity:'.$this->id));
 
         if (!empty($act)) {
             return $act;
         }
-
         $act = new Activity();
-	
+
         if (Event::handle('StartNoticeAsActivity', array($this, &$act))) {
 
             $profile = $this->getProfile();
-	    
-            $act->actor     = ActivityObject::fromProfile($profile);
-            $act->verb      = ActivityVerb::POST;
-            $act->objects[] = ActivityObject::fromNotice($this);
+
+            $act->actor            = ActivityObject::fromProfile($profile);
+            $act->actor->extra[]   = $profile->profileInfo($cur);
+            $act->verb             = ActivityVerb::POST;
+            $act->objects[]        = ActivityObject::fromNotice($this);
 
             // XXX: should this be handled by default processing for object entry?
 
             $act->time    = strtotime($this->created);
             $act->link    = $this->bestUrl();
-	    
+
             $act->content = common_xml_safe_str($this->rendered);
             $act->id      = $this->uri;
             $act->title   = common_xml_safe_str($this->content);
@@ -1284,9 +1301,9 @@ class Notice extends Memcached_DataObject
                     $act->enclosures[] = $enclosure;
                 }
             }
-            
+
             $ctx = new ActivityContext();
-	    
+
             if (!empty($this->reply_to)) {
                 $reply = Notice::staticGet('id', $this->reply_to);
                 if (!empty($reply)) {
@@ -1294,31 +1311,31 @@ class Notice extends Memcached_DataObject
                     $ctx->replyToUrl = $reply->bestUrl();
                 }
             }
-	    
+
             $ctx->location = $this->getLocation();
-	    
+
             $conv = null;
-	    
+
             if (!empty($this->conversation)) {
                 $conv = Conversation::staticGet('id', $this->conversation);
                 if (!empty($conv)) {
                     $ctx->conversation = $conv->uri;
                 }
             }
-	    
+
             $reply_ids = $this->getReplies();
-	    
+
             foreach ($reply_ids as $id) {
                 $profile = Profile::staticGet('id', $id);
                 if (!empty($profile)) {
                     $ctx->attention[] = $profile->getUri();
                 }
             }
-	    
+
             $groups = $this->getGroups();
-	    
+
             foreach ($groups as $group) {
-                $ctx->attention[] = $group->uri;
+                $ctx->attention[] = $group->getUri();
             }
 
             // XXX: deprecated; use ActivityVerb::SHARE instead
@@ -1330,7 +1347,7 @@ class Notice extends Memcached_DataObject
                 $ctx->forwardID  = $repeat->uri;
                 $ctx->forwardUrl = $repeat->bestUrl();
             }
-	    
+
             $act->context = $ctx;
 
             // Source
@@ -1340,7 +1357,7 @@ class Notice extends Memcached_DataObject
             if (!empty($atom_feed)) {
 
                 $act->source = new ActivitySource();
-		    
+
                 // XXX: we should store the actual feed ID
 
                 $act->source->id = $atom_feed;
@@ -1353,7 +1370,7 @@ class Notice extends Memcached_DataObject
                 $act->source->links['self']      = $atom_feed;
 
                 $act->source->icon = $profile->avatarUrl(AVATAR_PROFILE_SIZE);
-		    
+
                 $notice = $profile->getCurrentNotice();
 
                 if (!empty($notice)) {
@@ -1375,7 +1392,7 @@ class Notice extends Memcached_DataObject
 
             Event::handle('EndNoticeAsActivity', array($this, &$act));
         }
-	
+
         self::cacheSet(Cache::codeKey('notice:as-activity:'.$this->id), $act);
 
         return $act;
@@ -1386,17 +1403,17 @@ class Notice extends Memcached_DataObject
 
     function asAtomEntry($namespace=false,
                          $source=false,
-                         $author=true, 
+                         $author=true,
                          $cur=null)
     {
-        $act = $this->asActivity();
+        $act = $this->asActivity($cur);
         $act->extra[] = $this->noticeInfo($cur);
         return $act->asString($namespace, $author, $source);
     }
 
     /**
      * Extra notice info for atom entries
-     * 
+     *
      * Clients use some extra notice info in the atom stream.
      * This gives it to them.
      *
@@ -2096,6 +2113,16 @@ class Notice extends Memcached_DataObject
         $max = self::whereMaxId($id, $idField, $createdField);
         if ($max) {
             $obj->whereAdd($max);
+        }
+    }
+
+    function isPublic()
+    {
+        if (common_config('public', 'localonly')) {
+            return ($this->is_local == Notice::LOCAL_PUBLIC);
+        } else {
+            return (($this->is_local != Notice::LOCAL_NONPUBLIC) &&
+                    ($this->is_local != Notice::GATEWAY));
         }
     }
 }

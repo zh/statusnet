@@ -111,6 +111,19 @@ class Action extends HTMLOutputter // lawsuit
         }
     }
 
+    function endHTML()
+    {
+        global $_startTime;
+
+        if (isset($_startTime)) {
+            $endTime = microtime(true);
+            $diff = round(($endTime - $_startTime) * 1000);
+            $this->raw("<!-- ${diff}ms -->");
+        }
+
+        return parent::endHTML();
+    }
+
     /**
      * Show head, a template method.
      *
@@ -300,11 +313,11 @@ class Action extends HTMLOutputter // lawsuit
      * events and appending to the array. Try to avoid adding strings that won't be used, as
      * they'll be added to HTML output.
      */
-    
+
     function showScriptMessages()
     {
         $messages = array();
-	
+
         if (Event::handle('StartScriptMessages', array($this, &$messages))) {
             // Common messages needed for timeline views etc...
 
@@ -312,14 +325,14 @@ class Action extends HTMLOutputter // lawsuit
             $messages['showmore_tooltip'] = _m('TOOLTIP', 'Show more');
 
             $messages = array_merge($messages, $this->getScriptMessages());
-	    
+
 	    Event::handle('EndScriptMessages', array($this, &$messages));
         }
-	
+
         if (!empty($messages)) {
             $this->inlineScript('SN.messages=' . json_encode($messages));
         }
-	
+
         return $messages;
     }
 
@@ -822,8 +835,11 @@ class Action extends HTMLOutputter // lawsuit
     function showFooter()
     {
         $this->elementStart('div', array('id' => 'footer'));
-        $this->showSecondaryNav();
-        $this->showLicenses();
+        if (Event::handle('StartShowInsideFooter', array($this))) {
+            $this->showSecondaryNav();
+            $this->showLicenses();
+            Event::handle('EndShowInsideFooter', array($this));
+        }
         $this->elementEnd('div');
     }
 

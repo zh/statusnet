@@ -40,19 +40,16 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ShowApplicationAction extends OwnerDesignAction
 {
     /**
      * Application to show
      */
-
     var $application = null;
 
     /**
      * User who owns the app
      */
-
     var $owner = null;
 
     var $msg = null;
@@ -68,7 +65,6 @@ class ShowApplicationAction extends OwnerDesignAction
      *
      * @return success flag
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -105,7 +101,6 @@ class ShowApplicationAction extends OwnerDesignAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -132,7 +127,6 @@ class ShowApplicationAction extends OwnerDesignAction
      *
      * @return string title of the page
      */
-
     function title()
     {
         if (!empty($this->application->name)) {
@@ -274,7 +268,6 @@ class ShowApplicationAction extends OwnerDesignAction
      *
      * @return void
      */
-
     function showScripts()
     {
         parent::showScripts();
@@ -295,7 +288,6 @@ class ShowApplicationAction extends OwnerDesignAction
      * XXX: Should this be moved to its own page with a confirm?
      *
      */
-
     function resetKey()
     {
         $this->application->query('BEGIN');
@@ -355,5 +347,4 @@ class ShowApplicationAction extends OwnerDesignAction
         $this->msg = ('Consumer key and secret reset.');
         $this->showPage();
     }
-
 }

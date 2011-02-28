@@ -70,7 +70,7 @@ class ShowstreamAction extends ProfileAction
                 return sprintf(_('%1$s tagged %2$s'), $base, $this->tag);
             } else {
                 // TRANS: Page title showing tagged notices in one user's stream.
-                // TRANS: %1$s is the username, %2$s is the hash tag, %1$d is the page number.
+                // TRANS: %1$s is the username, %2$s is the hash tag, %3$d is the page number.
                 return sprintf(_('%1$s tagged %2$s, page %3$d'), $base, $this->tag, $this->page);
             }
         } else {

@@ -91,8 +91,16 @@ class AtomGroupNoticeFeed extends AtomNoticeFeed
 
         $ao = ActivityObject::fromGroup($group);
 
-        $this->addAuthorRaw($ao->asString('author').
-                            $ao->asString('activity:subject'));
+        $this->addAuthorRaw($ao->asString('author'));
+
+        $depMsg = 'Deprecation warning: activity:subject is present '
+            . 'only for backward compatibility. It will be '
+            . 'removed in the next version of StatusNet.';
+
+        $this->addAuthorRaw(
+            "<!--$depMsg-->\n"
+            . $ao->asString('activity:subject')
+        );
 
         $this->addLink($group->homeUrl());
     }

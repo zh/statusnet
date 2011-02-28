@@ -338,7 +338,7 @@ class SingleNoticeItem extends DoFollowListItem
      * show the avatar of the notice's author
      *
      * We use the larger size for single notice page.
-     * 
+     *
      * @return void
      */
 
