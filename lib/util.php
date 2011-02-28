@@ -922,11 +922,11 @@ function common_linkify($url) {
     // functions
     $url = htmlspecialchars_decode($url);
 
-   if(strpos($url, '@') !== false && strpos($url, ':') === false) {
-       //url is an email address without the mailto: protocol
-       $canon = "mailto:$url";
-       $longurl = "mailto:$url";
-   }else{
+    if (strpos($url, '@') !== false && strpos($url, ':') === false && Validate::email($url)) {
+        //url is an email address without the mailto: protocol
+        $canon = "mailto:$url";
+        $longurl = "mailto:$url";
+    } else {
 
         $canon = File_redirection::_canonUrl($url);
 
