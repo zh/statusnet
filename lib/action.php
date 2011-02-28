@@ -311,6 +311,9 @@ class Action extends HTMLOutputter // lawsuit
             // TRANS: Localized tooltip for '...' expansion button on overlong remote messages.
             $messages['showmore_tooltip'] = _m('TOOLTIP', 'Show more');
 
+            // TRANS: Inline reply form submit button: submits a reply comment.
+            $messages['reply_submit'] = _m('BUTTON', 'Comment');
+
             $messages = array_merge($messages, $this->getScriptMessages());
 	    
 	    Event::handle('EndScriptMessages', array($this, &$messages));

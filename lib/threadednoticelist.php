@@ -233,8 +233,7 @@ class ThreadedNoticeListReplyItem extends NoticeListItem
     {
         if (Event::handle('StartOpenNoticeListItemElement', array($this))) {
             $id = (empty($this->repeat)) ? $this->notice->id : $this->repeat->id;
-            $this->out->elementStart('li', array('class' => 'notice-reply',
-                                                 'id' => 'notice-reply-' . $id));
+            $this->out->elementStart('li', array('class' => 'notice-reply-placeholder'));
         }
     }
 
@@ -245,6 +244,7 @@ class ThreadedNoticeListReplyItem extends NoticeListItem
         $url = common_local_url('newnotice');
 
         // @fixme replace this with an ajax-friendly form pair?
+        /*
         $this->out->elementStart('form',
                                  array('id' => $id,
                                        'class' => 'replyform',
@@ -257,5 +257,6 @@ class ThreadedNoticeListReplyItem extends NoticeListItem
         $this->out->submit("$id-submit", _m('Send reply'));
         $this->out->elementEnd('div');
         $this->out->elementEnd('form');
+         */
     }
 }

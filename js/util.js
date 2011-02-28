@@ -553,14 +553,88 @@ var SN = { // StatusNet
          * @access private
          */
         NoticeReplyTo: function(notice) {
-            notice.find('.notice_reply').live('click', function() {
+            notice.find('.notice_reply').live('click', function(e) {
+                e.preventDefault();
                 var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
-                SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
+                /* SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text()); */
+                var id = $($('.notice_id', notice)[0]).text();
+                SN.U.NoticeInlineReplyTrigger(id, '@' + nickname.text());
                 return false;
             });
         },
 
         /**
+         * Open up a notice's 
+         * @param {String} id: notice ID
+         * @param {String} initialText
+         */
+        NoticeInlineReplyTrigger: function(id, initialText) {
+            // Find the notice we're replying to...
+            var notice = $('#notice-' + id), parentNotice = notice;
+
+            // Find the threaded replies view we'll be adding to...
+            var list = notice.closest('.notices');
+            if (list.hasClass('threaded-notices')) {
+                // We're replying to a reply; use reply form on the end of this list.
+                // We'll add our form at the end of this; grab the root notice.
+                parentNotice = list.closest('notice');
+            } else {
+                // We're replying to a parent notice; pull its threaded list
+                // and we'll add on the end of it. Will add if needed.
+                list = $('ul.threaded-notices', notice);
+                if (list.length == 0) {
+                    list = $('<ul class="notices threaded-notices xoxo"></ul>');
+                    notice.append(list);
+                }
+            }
+
+            // See if the form's already open...
+            var replyForm = $('.notice-reply-form', list);
+            if (replyForm.length == 0) {
+                // Create the reply form entry at the end
+                var replyItem = $('li.notice-reply', list);
+                if (replyItem.length == 0) {
+                    replyItem = $('<li class="notice-reply">' +
+                                      '<form class="notice-reply-form" method="post">' +
+                                          '<textarea name="status_textarea"></textarea>' +
+                                          '<div class="controls">' +
+                                          '<input type="hidden" name="token">' +
+                                          '<input type="hidden" name="inreplyto">' +
+                                          '<input type="submit" class="submit">' +
+                                      '</div>' +
+                                      '</form>' +
+                                  '</li>');
+                    replyForm = replyItem.find('form');
+                    replyForm.attr('src', '/mublog/newnotice'); // @fixme
+                    replyForm.find('input[type="submit"]').val(SN.msg('reply_submit'));
+                    if (initialText) {
+                        replyForm.find('textarea').val(initialText + ' ');
+                    }
+                    list.append(replyItem);
+                }
+            }
+
+            // Override...?
+            replyForm.find('input[name=inreplyto]').val(id);
+
+            // Set focus...
+            var text = replyForm.find('textarea');
+            if (text.length == 0) {
+                throw "No textarea";
+            }
+            if (initialText) {
+                var replyto = initialText + ' ';
+                text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
+            }
+            text.focus();
+            if (text[0].setSelectionRange) {
+                var len = text.val().length;
+                text[0].setSelectionRange(len,len);
+            }
+        },
+
+        /**
+         * FIXME OBSOLETE?
          * Updates the new notice posting form with bits for replying to the
          * given user. Adds replyto parameter to the form, and a "@foo" to the
          * text area.
@@ -596,6 +670,51 @@ var SN = { // StatusNet
         NoticeFavor: function() {
             $('.form_favor').live('click', function() { SN.U.FormXHR($(this)); return false; });
             $('.form_disfavor').live('click', function() { SN.U.FormXHR($(this)); return false; });
+        },
+
+        /**
+         * Setup function -- DOES NOT apply immediately.
+         *
+         * Sets up event handlers for favor/disfavor forms to submit via XHR.
+         * Uses 'live' rather than 'bind', so applies to future as well as present items.
+         */
+        NoticeInlineReplySetup: function() {
+            $('')
+            $('.replyform').live('submit', function(event) {
+                //SN.U.FormXHR($(this));
+                var form = $(this);
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'xml',
+                    url: SN.U.RewriteAjaxAction(form.attr('action')),
+                    data: form.serialize() + '&ajax=1',
+                    beforeSend: function(xhr) {
+                        form
+                            .addClass(SN.C.S.Processing)
+                            .find('.submit')
+                                .addClass(SN.C.S.Disabled)
+                                .attr(SN.C.S.Disabled, SN.C.S.Disabled)
+                                .end()
+                            .find('textarea')
+                                .addClass(SN.C.S.Disabled)
+                                .attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert(errorThrown || textStatus);
+                    },
+                    success: function(data, textStatus) {
+                        if (typeof($('form', data)[0]) != 'undefined') {
+                            form_new = document._importNode($('form', data)[0], true);
+                            form.replaceWith(form_new);
+                        }
+                        else {
+                            form.replaceWith(document._importNode($('p', data)[0], true));
+                        }
+                    }
+                });
+                event.preventDefault();
+                return false;
+            });
         },
 
         /**
@@ -1174,6 +1293,7 @@ var SN = { // StatusNet
                 SN.U.NoticeFavor();
                 SN.U.NoticeRepeat();
                 SN.U.NoticeReply();
+                SN.U.NoticeInlineReplySetup();
             }
 
             SN.U.NoticeAttachments();
