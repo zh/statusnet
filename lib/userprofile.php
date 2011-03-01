@@ -48,7 +48,6 @@ require_once INSTALLDIR.'/lib/widget.php';
  *
  * @see      HTMLOutputter
  */
-
 class UserProfile extends Widget
 {
     var $user = null;
@@ -73,6 +72,7 @@ class UserProfile extends Widget
 
             $this->out->elementStart('div', array('id' => 'i',
                                                   'class' => 'entity_profile vcard author'));
+            // TRANS: H2 for user profile information.
             $this->out->element('h2', null, _('User profile'));
 
             if (Event::handle('StartProfilePageProfileElements', array(&$this->out, $this->profile))) {
@@ -212,36 +212,41 @@ class UserProfile extends Widget
     {
         if ($this->profile->hasRole(Profile_role::DELETED)) {
             $this->out->elementStart('div', 'entity_actions');
+            // TRANS: H2 for user actions in a profile.
             $this->out->element('h2', null, _('User actions'));
             $this->out->elementStart('ul');
             $this->out->elementStart('p', array('class' => 'profile_deleted'));
+            // TRANS: Text shown in user profile of not yet compeltely deleted users.
             $this->out->text(_('User deletion in progress...'));
             $this->out->elementEnd('p');
             $this->out->elementEnd('ul');
             $this->out->elementEnd('div');
             return;
         }
-        if (Event::handle('StartProfilePageActionsSection', array(&$this->out, $this->profile))) {
+        if (Event::handle('StartProfilePageActionsSection', array($this->out, $this->profile))) {
 
             $cur = common_current_user();
 
             $this->out->elementStart('div', 'entity_actions');
+            // TRANS: H2 for entity actions in a profile.
             $this->out->element('h2', null, _('User actions'));
             $this->out->elementStart('ul');
 
-            if (Event::handle('StartProfilePageActionsElements', array(&$this->out, $this->profile))) {
+            if (Event::handle('StartProfilePageActionsElements', array($this->out, $this->profile))) {
                 if (empty($cur)) { // not logged in
-                    if (Event::handle('StartProfileRemoteSubscribe', array(&$this->out, $this->profile))) {
+                    if (Event::handle('StartProfileRemoteSubscribe', array($this->out, $this->profile))) {
                         $this->out->elementStart('li', 'entity_subscribe');
                         $this->showRemoteSubscribeLink();
                         $this->out->elementEnd('li');
-                        Event::handle('EndProfileRemoteSubscribe', array(&$this->out, $this->profile));
+                        Event::handle('EndProfileRemoteSubscribe', array($this->out, $this->profile));
                     }
                 } else {
                     if ($cur->id == $this->profile->id) { // your own page
                         $this->out->elementStart('li', 'entity_edit');
                         $this->out->element('a', array('href' => common_local_url('profilesettings'),
+                                                  // TRANS: Link title for link on user profile.
                                                   'title' => _('Edit profile settings')),
+                                       // TRANS: Link text for link on user profile.
                                        _('Edit'));
                         $this->out->elementEnd('li');
                     } else { // someone else's page
@@ -265,7 +270,9 @@ class UserProfile extends Widget
 
                             $this->out->elementStart('li', 'entity_send-a-message');
                             $this->out->element('a', array('href' => common_local_url('newmessage', array('to' => $this->user->id)),
+                                                      // TRANS: Link title for link on user profile.
                                                       'title' => _('Send a direct message to this user')),
+                                           // TRANS: Link text for link on user profile.
                                            _('Message'));
                             $this->out->elementEnd('li');
 
@@ -307,6 +314,7 @@ class UserProfile extends Widget
                             $cur->hasRight(Right::SILENCEUSER) ||
                             $cur->hasRight(Right::DELETEUSER)) {
                             $this->out->elementStart('li', 'entity_moderation');
+                            // TRANS: Label text on user profile to select a user role.
                             $this->out->element('p', null, _('Moderate'));
                             $this->out->elementStart('ul');
                             if ($cur->hasRight(Right::SANDBOXUSER)) {
@@ -342,12 +350,15 @@ class UserProfile extends Widget
                             $this->out->elementEnd('ul');
                             $this->out->elementEnd('li');
                         }
-                        
+
                         if ($isLocal && $cur->hasRight(Right::GRANTROLE)) {
                             $this->out->elementStart('li', 'entity_role');
+                            // TRANS: Label text on user profile to select a user role.
                             $this->out->element('p', null, _('User role'));
                             $this->out->elementStart('ul');
+                            // TRANS: Role that can be set for a user profile.
                             $this->roleButton('administrator', _m('role', 'Administrator'));
+                            // TRANS: Role that can be set for a user profile.
                             $this->roleButton('moderator', _m('role', 'Moderator'));
                             $this->out->elementEnd('ul');
                             $this->out->elementEnd('li');
@@ -355,13 +366,13 @@ class UserProfile extends Widget
                     }
                 }
 
-                Event::handle('EndProfilePageActionsElements', array(&$this->out, $this->profile));
+                Event::handle('EndProfilePageActionsElements', array($this->out, $this->profile));
             }
 
             $this->out->elementEnd('ul');
             $this->out->elementEnd('div');
 
-            Event::handle('EndProfilePageActionsSection', array(&$this->out, $this->profile));
+            Event::handle('EndProfilePageActionsSection', array($this->out, $this->profile));
         }
     }
 
@@ -387,6 +398,7 @@ class UserProfile extends Widget
                                 array('nickname' => $this->profile->nickname));
         $this->out->element('a', array('href' => $url,
                                   'class' => 'entity_remote_subscribe'),
+                       // TRANS: Link text for link that will subscribe to a remote profile.
                        _('Subscribe'));
     }
 }

@@ -1,6 +1,7 @@
 # Translation of StatusNet - CasAuthentication to German (Deutsch)
-# Expored from translatewiki.net
+# Exported from translatewiki.net
 #
+# Author: Fujnky
 # Author: Michael
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -9,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - CasAuthentication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-16 15:08+0000\n"
-"PO-Revision-Date: 2010-12-16 15:11:37+0000\n"
+"POT-Creation-Date: 2011-02-14 16:01+0000\n"
+"PO-Revision-Date: 2011-02-14 16:07:22+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-11-30 20:40:27+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r78478); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-01-29 22:19:31+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r82114); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-casauthentication\n"
@@ -29,7 +30,7 @@ msgstr "CAS"
 #. TRANS: Tooltip for menu item. CAS is Central Authentication Service.
 #: CasAuthenticationPlugin.php:85
 msgid "Login or register with CAS."
-msgstr ""
+msgstr "Anmelden oder mit CAS registrieren."
 
 #. TRANS: Invitation to users with a CAS account to log in using the service.
 #. TRANS: "[CAS login]" is a link description. (%%action.caslogin%%) is the URL.
@@ -38,18 +39,19 @@ msgstr ""
 #, php-format
 msgid "(Have an account with CAS? Try our [CAS login](%%action.caslogin%%)!)"
 msgstr ""
+"(Hast du ein CAS-Konto? Probiere unseren [CAS-Login](%%action.caslogin%%)!)"
 
 #: CasAuthenticationPlugin.php:128
 msgid "Specifying a server is required."
-msgstr ""
+msgstr "Es ist erforderlich, einen Server anzugeben."
 
 #: CasAuthenticationPlugin.php:131
 msgid "Specifying a port is required."
-msgstr ""
+msgstr "Es ist erforderlich, einen Port anzugeben."
 
 #: CasAuthenticationPlugin.php:134
 msgid "Specifying a path is required."
-msgstr ""
+msgstr "Es ist erforderlich, einen Pfad anzugeben."
 
 #. TRANS: Plugin description. CAS is Central Authentication Service.
 #: CasAuthenticationPlugin.php:154
@@ -57,6 +59,8 @@ msgid ""
 "The CAS Authentication plugin allows for StatusNet to handle authentication "
 "through CAS (Central Authentication Service)."
 msgstr ""
+"Das CAS-Authenfizierungs-Plugin erlaubt es StatusNet, die Authentifizierung "
+"über CAS (Central Authentication Service) abzuwickeln."
 
 #: caslogin.php:28
 msgid "Already logged in."
@@ -64,8 +68,10 @@ msgstr "Bereits angemeldet."
 
 #: caslogin.php:39
 msgid "Incorrect username or password."
-msgstr ""
+msgstr "Benutzername oder Passwort falsch."
 
 #: caslogin.php:45
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
+"Fehler beim Festlegen des Benutzers. Du bist wahrscheinlich nicht dazu "
+"berechtigt."

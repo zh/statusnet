@@ -56,4 +56,17 @@ class PoCoAddress
             $xo->elementEnd('poco:address');
         }
     }
+
+    /**
+     * Return this PoCo address as an array suitable for serializing in JSON
+     *
+     * @return array the address
+     */
+
+    function asArray()
+    {
+        if (!empty($this->formatted)) {
+            return array('formatted' => $this->formatted);
+        }
+    }
 }

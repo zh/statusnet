@@ -293,6 +293,7 @@ class Ostatus_profile extends Managed_DataObject
      * an acceptable response from the remote site.
      *
      * @param mixed $entry XML string, Notice, or Activity
+     * @param Profile $actor
      * @return boolean success
      */
     public function notifyActivity($entry, $actor)
@@ -1073,7 +1074,8 @@ class Ostatus_profile extends Managed_DataObject
                 return $url;
             }
         }
-        return common_path('plugins/OStatus/images/96px-Feed-icon.svg.png');
+
+        return Plugin::staticPath('OStatus', 'images/96px-Feed-icon.svg.png');
     }
 
     /**
@@ -1314,7 +1316,17 @@ class Ostatus_profile extends Managed_DataObject
     {
         $orig = clone($profile);
 
-        $profile->nickname = self::getActivityObjectNickname($object, $hints);
+        // Existing nickname is better than nothing.
+
+        if (!array_key_exists('nickname', $hints)) {
+            $hints['nickname'] = $profile->nickname;
+        }
+
+        $nickname = self::getActivityObjectNickname($object, $hints);
+
+        if (!empty($nickname)) {
+            $profile->nickname = $nickname;
+        }
 
         if (!empty($object->title)) {
             $profile->fullname = $object->title;
@@ -1330,9 +1342,23 @@ class Ostatus_profile extends Managed_DataObject
             $profile->profileurl = $object->id;
         }
 
-        $profile->bio      = self::getActivityObjectBio($object, $hints);
-        $profile->location = self::getActivityObjectLocation($object, $hints);
-        $profile->homepage = self::getActivityObjectHomepage($object, $hints);
+        $bio = self::getActivityObjectBio($object, $hints);
+
+        if (!empty($bio)) {
+            $profile->bio = $bio;
+        }
+
+        $location = self::getActivityObjectLocation($object, $hints);
+
+        if (!empty($location)) {
+            $profile->location = $location;
+        }
+
+        $homepage = self::getActivityObjectHomepage($object, $hints);
+
+        if (!empty($homepage)) {
+            $profile->homepage = $homepage;
+        }
 
         if (!empty($object->geopoint)) {
             $location = ActivityContext::locationFromPoint($object->geopoint);
@@ -1740,12 +1766,16 @@ class Ostatus_profile extends Managed_DataObject
                 case 'mailto':
                     $rest = $match[2];
                     $oprofile = Ostatus_profile::ensureWebfinger($rest);
+                    break;
                 default:
-                    common_log("Unrecognized URI protocol for profile: $protocol ($uri)");
+                    throw new ServerException("Unrecognized URI protocol for profile: $protocol ($uri)");
                     break;
                 }
+            } else {
+                throw new ServerException("No URI protocol for profile: ($uri)");
             }
         }
+
         return $oprofile;
     }
 

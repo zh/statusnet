@@ -55,14 +55,20 @@ class File extends Memcached_DataObject
         return 'http://www.facebook.com/login.php' === $url;
     }
 
-    function getAttachments($post_id) {
-        $query = "select file.* from file join file_to_post on (file_id = file.id) join notice on (post_id = notice.id) where post_id = " . $this->escape($post_id);
-        $this->query($query);
+    /**
+     * Get the attachments for a particlar notice.
+     *
+     * @param int $post_id
+     * @return array of File objects
+     */
+    static function getAttachments($post_id) {
+        $file = new File();
+        $query = "select file.* from file join file_to_post on (file_id = file.id) where post_id = " . $file->escape($post_id);
+        $file = Memcached_DataObject::cachedQuery('File', $query);
         $att = array();
-        while ($this->fetch()) {
-            $att[] = clone($this);
+        while ($file->fetch()) {
+            $att[] = clone($file);
         }
-        $this->free();
         return $att;
     }
 

@@ -52,7 +52,6 @@ require_once INSTALLDIR.'/lib/widget.php';
  *
  * @see      HTMLOutputter
  */
-
 class PersonalGroupNav extends Widget
 {
     var $action = null;
@@ -62,7 +61,6 @@ class PersonalGroupNav extends Widget
      *
      * @param Action $action current action, used for output
      */
-
     function __construct($action=null)
     {
         parent::__construct($action);
@@ -74,7 +72,6 @@ class PersonalGroupNav extends Widget
      *
      * @return void
      */
-
     function show()
     {
         $user = null;

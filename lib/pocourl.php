@@ -67,4 +67,24 @@ class PoCoURL
         }
         $xo->elementEnd('poco:urls');
     }
+
+    /**
+     * Return this PoCo URL as an array suitable for serializing in JSON
+     *
+     * @array $url the url
+     */
+
+    function asArray()
+    {
+        $url = array();
+
+        $url['type']  = $this->type;
+        $url['value'] = $this->value;
+
+        if (!empty($this->primary)) {
+            $url['primary'] = 'true';
+        }
+
+        return $url;
+    }
 }
