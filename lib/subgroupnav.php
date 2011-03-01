@@ -22,7 +22,7 @@
  * @category  Subs
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
- * @copyright 2008-2009 StatusNet, Inc.
+ * @copyright 2008-2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -43,9 +43,8 @@ require_once INSTALLDIR.'/lib/widget.php';
  * @link     http://status.net/
  */
 
-class SubGroupNav extends Widget
+class SubGroupNav extends Menu
 {
-    var $action = null;
     var $user = null;
 
     /**
@@ -57,7 +56,6 @@ class SubGroupNav extends Widget
     function __construct($action=null, $user=null)
     {
         parent::__construct($action);
-        $this->action = $action;
         $this->user = $user;
     }
 

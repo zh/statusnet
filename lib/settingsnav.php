@@ -1,7 +1,7 @@
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2010, StatusNet, Inc.
+ * Copyright (C) 2010,2011, StatusNet, Inc.
  *
  * Settings menu
  * 
@@ -23,7 +23,7 @@
  * @category  Widget
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
- * @copyright 2010 StatusNet, Inc.
+ * @copyright 2010,2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
@@ -46,21 +46,8 @@ if (!defined('STATUSNET')) {
  * @see      HTMLOutputter
  */
 
-class SettingsNav extends Widget
+class SettingsNav extends Menu
 {
-    var $action = null;
-
-    /**
-     * Construction
-     *
-     * @param Action $action current action, used for output
-     */
-    function __construct($action=null)
-    {
-        parent::__construct($action);
-        $this->action = $action;
-    }
-
     /**
      * Show the menu
      *
