@@ -557,27 +557,28 @@ var SN = { // StatusNet
                 e.preventDefault();
                 var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
                 /* SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text()); */
-                var id = $($('.notice_id', notice)[0]).text();
-                SN.U.NoticeInlineReplyTrigger(id, '@' + nickname.text());
+                SN.U.NoticeInlineReplyTrigger(notice, '@' + nickname.text());
                 return false;
             });
         },
 
         /**
-         * Open up a notice's 
-         * @param {String} id: notice ID
+         * Open up a notice's inline reply box.
+         *
+         * @param {jQuery} notice: jQuery object containing one notice
          * @param {String} initialText
          */
-        NoticeInlineReplyTrigger: function(id, initialText) {
+        NoticeInlineReplyTrigger: function(notice, initialText) {
             // Find the notice we're replying to...
-            var notice = $('#notice-' + id), parentNotice = notice;
+            var id = $($('.notice_id', notice)[0]).text();
+            var parentNotice = notice;
 
             // Find the threaded replies view we'll be adding to...
             var list = notice.closest('.notices');
             if (list.hasClass('threaded-notices')) {
                 // We're replying to a reply; use reply form on the end of this list.
                 // We'll add our form at the end of this; grab the root notice.
-                parentNotice = list.closest('notice');
+                parentNotice = list.closest('.notice');
             } else {
                 // We're replying to a parent notice; pull its threaded list
                 // and we'll add on the end of it. Will add if needed.
@@ -642,8 +643,6 @@ var SN = { // StatusNet
                                     var li = document._importNode(orig_li, true);
                                     replyItem.replaceWith(li);
                                     SN.U.NoticeInlineReplyPlaceholder(parentNotice);
-                                } else {
-                                    console.log('confused!', data);
                                 }
                             }
                         });
@@ -712,13 +711,12 @@ var SN = { // StatusNet
         },
 
         NoticeInlineReplyPlaceholder: function(notice) {
-            var id = $($('.notice_id', notice)[0]).text();
             var list = notice.find('ul.threaded-notices');
             var placeholder = $('<li class="notice-reply-placeholder">' +
                                     '<input class="placeholder">' +
                                 '</li>');
             placeholder.click(function() {
-                SN.U.NoticeInlineReplyTrigger(id);
+                SN.U.NoticeInlineReplyTrigger(notice);
             });
             placeholder.find('input').val(SN.msg('reply_comment'));
             list.append(placeholder);
