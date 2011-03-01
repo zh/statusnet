@@ -138,6 +138,7 @@ class JoingroupAction extends Action
             // TRANS: %1$s is the joining user's nickname, $2$s is the group nickname for which the join failed.
             $this->serverError(sprintf(_('Could not join user %1$s to group %2$s.'),
                                        $cur->nickname, $this->group->nickname));
+            return;
         }
 
         if ($this->boolean('ajax')) {
