@@ -1136,6 +1136,11 @@ border-top-style:solid;
 .threaded-notices .notice-reply-comments {
     margin: 8px;
 }
+.threaded-notices .response,
+.threaded-notices .source {
+    /* Hide these for ajax/realtime sourced notices */
+    display: none;
+}
 /* NOTICES */
 #notices_primary {
 float:left;

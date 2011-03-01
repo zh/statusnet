@@ -147,6 +147,11 @@ class ThreadedNoticeListItem extends NoticeListItem
 {
     const INITIAL_ITEMS = 3;
 
+    function showContext()
+    {
+        // Silence!
+    }
+
     /**
      * finish the notice
      *
@@ -208,6 +213,11 @@ class ThreadedNoticeListSubItem extends NoticeListItem
     }
 
     function showNoticeSource()
+    {
+        //
+    }
+
+    function showContext()
     {
         //
     }
