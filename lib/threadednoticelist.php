@@ -157,35 +157,37 @@ class ThreadedNoticeListItem extends NoticeListItem
 
     function showEnd()
     {
-        $notice = Notice::conversationStream($this->notice->conversation, 0, self::INITIAL_ITEMS + 2);
-        $notices = array();
-        $cnt = 0;
-        $moreCutoff = null;
-        while ($notice->fetch()) {
-            if ($notice->id == $this->notice->id) {
-                // Skip!
-                continue;
+        if (!$this->repeat) {
+            $notice = Notice::conversationStream($this->notice->conversation, 0, self::INITIAL_ITEMS + 2);
+            $notices = array();
+            $cnt = 0;
+            $moreCutoff = null;
+            while ($notice->fetch()) {
+                if ($notice->id == $this->notice->id) {
+                    // Skip!
+                    continue;
+                }
+                $cnt++;
+                if ($cnt > self::INITIAL_ITEMS) {
+                    // boo-yah
+                    $moreCutoff = clone($notice);
+                    break;
+                }
+                $notices[] = clone($notice); // *grumble* inefficient as hell
             }
-            $cnt++;
-            if ($cnt > self::INITIAL_ITEMS) {
-                // boo-yah
-                $moreCutoff = clone($notice);
-                break;
-            }
-            $notices[] = clone($notice); // *grumble* inefficient as hell
-        }
 
-        if ($notices) {
-            $this->out->elementStart('ul', 'notices threaded-notices xoxo');
-            if ($moreCutoff) {
-                $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
-                $item->show();
+            if ($notices) {
+                $this->out->elementStart('ul', 'notices threaded-notices xoxo');
+                if ($moreCutoff) {
+                    $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
+                    $item->show();
+                }
+                foreach (array_reverse($notices) as $notice) {
+                    $item = new ThreadedNoticeListSubItem($notice, $this->out);
+                    $item->show();
+                }
+                $this->out->elementEnd('ul');
             }
-            foreach (array_reverse($notices) as $notice) {
-                $item = new ThreadedNoticeListSubItem($notice, $this->out);
-                $item->show();
-            }
-            $this->out->elementEnd('ul');
         }
 
         parent::showEnd();
