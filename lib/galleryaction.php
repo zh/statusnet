@@ -94,7 +94,7 @@ class GalleryAction extends OwnerDesignAction
         $this->showPage();
     }
 
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new SubGroupNav($this, $this->user);
         $nav->show();
