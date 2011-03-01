@@ -168,4 +168,10 @@ class MailboxAction extends CurrentUserDesignAction
     {
          return true;
     }
+
+    function showObjectNav()
+    {
+        $mm = new MailboxMenu($this);
+        $mm->show();
+    }
 }

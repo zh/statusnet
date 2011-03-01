@@ -95,15 +95,11 @@ class PersonalGroupNav extends Menu
 
                 $this->out->menuItem(common_local_url('inbox', array('nickname' =>
                                                                      $nickname)),
-                                     _('Inbox'),
+                                     _('Messages'),
                                      _('Your incoming messages'),
                                      $action == 'inbox');
-                $this->out->menuItem(common_local_url('outbox', array('nickname' =>
-                                                                      $nickname)),
-                                     _('Outbox'),
-                                     _('Your sent messages'),
-                                     $action == 'outbox');
             }
+
             Event::handle('EndPersonalGroupNav', array($this));
         }
         $this->out->elementEnd('ul');
