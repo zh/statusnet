@@ -71,6 +71,12 @@ class PersonalGroupNav extends Menu
                                  _('Home'),
                                  sprintf(_('%s and friends'), $name),
                                  $action == 'all', 'nav_timeline_personal');
+            $this->out->menuItem(common_local_url('showstream', array('nickname' =>
+                                                                      $this->user->nickname)),
+                                 _('Profile'),
+                                 (empty($profile)) ? $this->user->nickname : $profile->getBestName(),
+                                 $action == 'showstream',
+                                 'nav_profile');
             $this->out->menuItem(common_local_url('replies', array('nickname' =>
                                                                    $nickname)),
                                  _('Replies'),
