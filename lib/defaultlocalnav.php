@@ -54,7 +54,7 @@ class DefaultLocalNav extends Menu
         $user = common_current_user();
 
         if (!empty($user)) {
-            $pn = new PersonalGroupNav($this->action, $user);
+            $pn = new PersonalGroupNav($this->action);
             $this->submenu(_m('Home'), $pn);
 
             $sn = new SubGroupNav($this->action, $user);

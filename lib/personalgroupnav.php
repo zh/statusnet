@@ -53,22 +53,15 @@ class PersonalGroupNav extends Menu
      */
     function show()
     {
-        $user = null;
+        $user         = common_current_user();
 
-        // FIXME: we should probably pass this in
-
-        $action = $this->action->trimmed('action');
-        $nickname = $this->action->trimmed('nickname');
-
-        if ($nickname) {
-            $user = User::staticGet('nickname', $nickname);
-            $user_profile = $user->getProfile();
-            $name = $user_profile->getBestName();
-        } else {
-            // @fixme can this happen? is this valid?
-            $user_profile = false;
-            $name = $nickname;
+        if (empty($user)) {
+            throw new ServerException('Do not show personal group nav with no current user.');
         }
+
+        $user_profile = $user->getProfile();
+        $nickname     = $user->nickname;
+        $name         = $user_profile->getBestName();
 
         $this->out->elementStart('ul', array('class' => 'nav'));
 
