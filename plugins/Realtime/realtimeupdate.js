@@ -166,9 +166,35 @@ RealtimeUpdate = {
         var noticeItem = RealtimeUpdate.makeNoticeItem(data);
         var noticeItemID = $(noticeItem).attr('id');
 
-        $("#notices_primary .notices").prepend(noticeItem);
-        $("#notices_primary .notice:first").css({display:"none"});
-        $("#notices_primary .notice:first").fadeIn(1000);
+        var list = $("#notices_primary .notices:first")
+        var prepend = true;
+
+        var threaded = true;
+        if (threaded && data.in_reply_to_status_id) {
+            // aho!
+            var parent = $('#notice-' + data.in_reply_to_status_id);
+            if (parent.length > 0) {
+                list = parent.find('.threaded-notices');
+                if (list.length == 0) {
+                    list = $('<ul class="notices threaded-notices xoxo"></ul>');
+                    parent.append(list);
+                }
+                prepend = false;
+            }
+        }
+
+        var newNotice = $(noticeItem);
+        if (prepend) {
+            list.prepend(newNotice);
+        } else {
+            var placeholder = list.find('li.notice-reply-placeholder')
+            if (placeholder) {
+                newNotice.insertBefore(placeholder)
+            } else {
+                newNotice.appendTo(list);
+            }
+        }
+        newNotice.css({display:"none"}).fadeIn(1000);
 
         SN.U.NoticeReplyTo($('#'+noticeItemID));
         SN.U.NoticeWithAttachment($('#'+noticeItemID));
