@@ -58,9 +58,9 @@ class AllAction extends ProfileAction
         $cur = common_current_user();
 
         if (!empty($cur) && $cur->id == $this->user->id) {
-            $this->notice = $this->user->noticeInbox(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+            $this->notice = $this->user->noticeInboxThreaded(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
         } else {
-            $this->notice = $this->user->noticesWithFriends(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+            $this->notice = $this->user->noticesWithFriendsThreaded(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
         }
 
         if ($this->page > 1 && $this->notice->N == 0) {

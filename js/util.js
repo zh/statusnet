@@ -450,7 +450,7 @@ var SN = { // StatusNet
                         else {
                             // New notice post was successful. If on our timeline, show it!
                             var notice = document._importNode($('li', data)[0], true);
-                            var notices = $('#notices_primary .notices');
+                            var notices = $('#notices_primary .notices:first');
                             if (notices.length > 0 && SN.U.belongsOnTimeline(notice)) {
                                 if ($('#'+notice.id).length === 0) {
                                     var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
