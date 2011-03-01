@@ -614,6 +614,42 @@ var SN = { // StatusNet
                     replyForm.find('input[name="token"]').val(baseForm.find('input[name=token]').val());
                     replyForm.find('input[type="submit"]').val(SN.msg('reply_submit'));
                     list.append(replyItem);
+
+                    replyForm.submit(function(event) {
+                        var form = replyForm;
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'xml',
+                            url: SN.U.RewriteAjaxAction(form.attr('action')),
+                            data: form.serialize() + '&ajax=1',
+                            beforeSend: function(xhr) {
+                                form
+                                    .addClass(SN.C.S.Processing)
+                                    .find('.submit')
+                                        .addClass(SN.C.S.Disabled)
+                                        .attr(SN.C.S.Disabled, SN.C.S.Disabled)
+                                        .end()
+                                    .find('textarea')
+                                        .addClass(SN.C.S.Disabled)
+                                        .attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                            },
+                            error: function (xhr, textStatus, errorThrown) {
+                                alert(errorThrown || textStatus);
+                            },
+                            success: function(data, textStatus) {
+                                var orig_li = $('li', data)[0];
+                                if (orig_li) {
+                                    var li = document._importNode(orig_li, true);
+                                    replyItem.replaceWith(li);
+                                    SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                } else {
+                                    console.log('confused!', data);
+                                }
+                            }
+                        });
+                        event.preventDefault();
+                        return false;
+                    });
                 }
             }
 
@@ -699,41 +735,6 @@ var SN = { // StatusNet
                 var list = $(this);
                 var notice = list.closest('.notice');
                 SN.U.NoticeInlineReplyPlaceholder(notice);
-            });
-            $('.replyform').live('submit', function(event) {
-                //SN.U.FormXHR($(this));
-                var form = $(this);
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'xml',
-                    url: SN.U.RewriteAjaxAction(form.attr('action')),
-                    data: form.serialize() + '&ajax=1',
-                    beforeSend: function(xhr) {
-                        form
-                            .addClass(SN.C.S.Processing)
-                            .find('.submit')
-                                .addClass(SN.C.S.Disabled)
-                                .attr(SN.C.S.Disabled, SN.C.S.Disabled)
-                                .end()
-                            .find('textarea')
-                                .addClass(SN.C.S.Disabled)
-                                .attr(SN.C.S.Disabled, SN.C.S.Disabled);
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        alert(errorThrown || textStatus);
-                    },
-                    success: function(data, textStatus) {
-                        if (typeof($('form', data)[0]) != 'undefined') {
-                            form_new = document._importNode($('form', data)[0], true);
-                            form.replaceWith(form_new);
-                        }
-                        else {
-                            form.replaceWith(document._importNode($('p', data)[0], true));
-                        }
-                    }
-                });
-                event.preventDefault();
-                return false;
             });
         },
 
