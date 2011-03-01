@@ -145,6 +145,8 @@ class ThreadedNoticeList extends NoticeList
 
 class ThreadedNoticeListItem extends NoticeListItem
 {
+    const INITIAL_ITEMS = 3;
+
     /**
      * finish the notice
      *
@@ -155,24 +157,32 @@ class ThreadedNoticeListItem extends NoticeListItem
 
     function showEnd()
     {
-        $notice = Notice::conversationStream($this->notice->conversation);
+        $notice = Notice::conversationStream($this->notice->conversation, 0, self::INITIAL_ITEMS + 2);
         $notices = array();
+        $cnt = 0;
+        $moreCutoff = null;
         while ($notice->fetch()) {
             if ($notice->id == $this->notice->id) {
                 // Skip!
                 continue;
+            }
+            $cnt++;
+            if ($cnt > self::INITIAL_ITEMS) {
+                // boo-yah
+                $moreCutoff = clone($notice);
+                break;
             }
             $notices[] = clone($notice); // *grumble* inefficient as hell
         }
 
         if ($notices) {
             $this->out->elementStart('ul', 'notices threaded-notices xoxo');
-            foreach (array_reverse($notices) as $notice) {
-                $item = new ThreadedNoticeListSubItem($notice, $this->out);
+            if ($moreCutoff) {
+                $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
                 $item->show();
             }
-            if (common_current_user()) {
-                $item = new ThreadedNoticeListReplyItem($this->notice, $this->out);
+            foreach (array_reverse($notices) as $notice) {
+                $item = new ThreadedNoticeListSubItem($notice, $this->out);
                 $item->show();
             }
             $this->out->elementEnd('ul');
@@ -202,9 +212,9 @@ class ThreadedNoticeListSubItem extends NoticeListItem
 }
 
 /**
- * Show a mini inline posting form for replies.
+ * Placeholder for loading more replies...
  */
-class ThreadedNoticeListReplyItem extends NoticeListItem
+class ThreadedNoticeListMoreItem extends NoticeListItem
 {
 
     /**
@@ -233,15 +243,21 @@ class ThreadedNoticeListReplyItem extends NoticeListItem
     {
         if (Event::handle('StartOpenNoticeListItemElement', array($this))) {
             $id = (empty($this->repeat)) ? $this->notice->id : $this->repeat->id;
-            $this->out->elementStart('li', array('class' => 'notice-reply-placeholder'));
+            $this->out->elementStart('li', array('class' => 'notice-reply-comments'));
         }
     }
 
     function showMiniForm()
     {
-        $replyToId = $this->notice->id;
-        $id = 'replyto-notice-' + $replyToId;
-        $url = common_local_url('newnotice');
+        $id = $this->notice->conversation;
+        $url = common_local_url('conversation', array('id' => $id)) . '#notice-' . $this->notice->id;
+
+        $notice = new Notice();
+        $notice->conversation = $id;
+        $n = $notice->count() - 1;
+        $msg = sprintf(_m('Show all %d comment', 'Show all %d comments', $n), $n);
+
+        $this->out->element('a', array('href' => $url), $msg);
 
         // @fixme replace this with an ajax-friendly form pair?
         /*
