@@ -92,12 +92,6 @@ class PublictagcloudAction extends Action
         $this->elementEnd('div');
     }
 
-    function showLocalNav()
-    {
-        $nav = new PublicGroupNav($this);
-        $nav->show();
-    }
-
     function handle($args)
     {
         parent::handle($args);
