@@ -167,7 +167,7 @@ class ShowgroupAction extends GroupDesignAction
      *
      * @return void
      */
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new GroupNav($this, $this->group);
         $nav->show();
