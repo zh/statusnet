@@ -616,6 +616,15 @@ var SN = { // StatusNet
                     replyForm.find('input[type="submit"]').val(SN.msg('reply_submit'));
                     list.append(replyItem);
 
+                    replyForm.find('textarea').blur(function() {
+                        var textarea = $(this);
+                        var txt = $.trim(textarea.val());
+                        if (txt == '' || txt == textarea.data('initialText')) {
+                            // Nothing to say? Begone!
+                            replyItem.remove();
+                            SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                        }
+                    });
                     replyForm.submit(function(event) {
                         var form = replyForm;
                         $.ajax({
@@ -660,10 +669,12 @@ var SN = { // StatusNet
             if (text.length == 0) {
                 throw "No textarea";
             }
+            var replyto = '';
             if (initialText) {
-                var replyto = initialText + ' ';
-                text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
+                replyto = initialText + ' ';
             }
+            text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
+            text.data('initialText', $.trim(initialText + ''));
             text.focus();
             if (text[0].setSelectionRange) {
                 var len = text.val().length;
