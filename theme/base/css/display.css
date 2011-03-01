@@ -1124,11 +1124,17 @@ border-top-style:solid;
 .threaded-notices .notice-reply {
     margin: 8px;
 }
-.threaded-notices .notice-reply textarea {
+.threaded-notices .notice-reply textarea,
+.threaded-notices .notice-reply-placeholder input.placeholder {
     margin-left: 0;
     width: 95%;
 }
-.threaded-notices .notice-reply input.submit {
+.threaded-notices .notice-reply-placeholder input.placeholder {
+    color: gray;
+    margin-left: 8px; /* ?? */
+    margin-bottom: 8px;
+}
+.threaded-notices .notice-reply .controls {
     text-align: right;
 }
 

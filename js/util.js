@@ -591,6 +591,9 @@ var SN = { // StatusNet
             // See if the form's already open...
             var replyForm = $('.notice-reply-form', list);
             if (replyForm.length == 0) {
+                // Remove placeholder if any
+                $('li.notice-reply-placeholder').remove();
+
                 // Create the reply form entry at the end
                 var replyItem = $('li.notice-reply', list);
                 if (replyItem.length == 0) {
@@ -672,6 +675,19 @@ var SN = { // StatusNet
             $('.form_disfavor').live('click', function() { SN.U.FormXHR($(this)); return false; });
         },
 
+        NoticeInlineReplyPlaceholder: function(notice) {
+            var id = $($('.notice_id', notice)[0]).text();
+            var list = notice.find('ul.threaded-notices');
+            var placeholder = $('<li class="notice-reply-placeholder">' +
+                                    '<input class="placeholder">' +
+                                '</li>');
+            placeholder.click(function() {
+                SN.U.NoticeInlineReplyTrigger(id);
+            });
+            placeholder.find('input').val(SN.msg('reply_comment'));
+            list.append(placeholder);
+        },
+
         /**
          * Setup function -- DOES NOT apply immediately.
          *
@@ -679,7 +695,11 @@ var SN = { // StatusNet
          * Uses 'live' rather than 'bind', so applies to future as well as present items.
          */
         NoticeInlineReplySetup: function() {
-            $('')
+            $('.threaded-notices').each(function() {
+                var list = $(this);
+                var notice = list.closest('.notice');
+                SN.U.NoticeInlineReplyPlaceholder(notice);
+            });
             $('.replyform').live('submit', function(event) {
                 //SN.U.FormXHR($(this));
                 var form = $(this);
