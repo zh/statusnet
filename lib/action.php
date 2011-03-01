@@ -607,6 +607,10 @@ class Action extends HTMLOutputter // lawsuit
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
         }
+        if (Event::handle('StartShowObjectNavBlock', array($this))) {
+            $this->showObjectNavBlock();
+            Event::handle('EndShowObjectNavBlock', array($this));
+        }
         if (Event::handle('StartShowAside', array($this))) {
             $this->showAside();
             Event::handle('EndShowAside', array($this));
@@ -639,6 +643,32 @@ class Action extends HTMLOutputter // lawsuit
     {
         $nav = new DefaultLocalNav($this);
         $nav->show();
+    }
+
+    /**
+     * Show menu for an object (group, profile)
+     *
+     * @return nothing
+     */
+    function showObjectNavBlock()
+    {
+        // Need to have this ID for CSS; I'm too lazy to add it to
+        // all menus
+        $this->elementStart('div', array('id' => 'site_nav_object'));
+        $this->showObjectNav();
+        $this->elementEnd('div');
+    }
+
+    /**
+     * Show object navigation.
+     *
+     * If there are things to do with this object, show it here.
+     *
+     * @return nothing
+     */
+    function showObjectNav()
+    {
+        /* Nothing here. */
     }
 
     /**
