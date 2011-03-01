@@ -54,23 +54,6 @@ class PrimaryNav extends Menu
                                         'id' => 'site_nav_global_primary'));
         if (Event::handle('StartPrimaryNav', array($this->action))) {
             if (!empty($user)) {
-                $this->action->menuItem(common_local_url('all', 
-                                                 array('nickname' => $user->nickname)),
-                                _m('Home'),
-                                _m('Friends timeline'),
-                                false,
-                                'nav_home');
-                $this->action->menuItem(common_local_url('showstream', 
-                                                 array('nickname' => $user->nickname)),
-                                _m('Profile'),
-                                _m('Your profile'),
-                                false,
-                                'nav_profile');
-                $this->action->menuItem(common_local_url('public'),
-                                _m('Public'),
-                                _m('Everyone on this site'),
-                                false,
-                                'nav_public');
                 $this->action->menuItem(common_local_url('profilesettings'),
                                 _m('Settings'),
                                 _m('Change your personal settings'),
@@ -89,11 +72,6 @@ class PrimaryNav extends Menu
                                 false,
                                 'nav_logout');
             } else {
-                $this->action->menuItem(common_local_url('public'),
-                                _m('Public'),
-                                _m('Everyone on this site'),
-                                false,
-                                'nav_public');
                 $this->action->menuItem(common_local_url('login'),
                                 _m('Login'), 
                                 _m('Login to the site'),
@@ -111,6 +89,7 @@ class PrimaryNav extends Menu
 
             Event::handle('EndPrimaryNav', array($this->action));
         }
+
         $this->action->elementEnd('ul');
     }
 }

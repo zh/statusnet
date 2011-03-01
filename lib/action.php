@@ -637,7 +637,8 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showLocalNav()
     {
-        // does nothing by default
+        $nav = new DefaultLocalNav($this);
+        $nav->show();
     }
 
     /**
