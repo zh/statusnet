@@ -607,12 +607,12 @@ var SN = { // StatusNet
                                       '</div>' +
                                       '</form>' +
                                   '</li>');
+
+                    var baseForm = $('#form_notice');
                     replyForm = replyItem.find('form');
-                    replyForm.attr('src', '/mublog/newnotice'); // @fixme
+                    replyForm.attr('action', baseForm.attr('action'));
+                    replyForm.find('input[name="token"]').val(baseForm.find('input[name=token]').val());
                     replyForm.find('input[type="submit"]').val(SN.msg('reply_submit'));
-                    if (initialText) {
-                        replyForm.find('textarea').val(initialText + ' ');
-                    }
                     list.append(replyItem);
                 }
             }
