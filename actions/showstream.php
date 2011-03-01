@@ -104,7 +104,7 @@ class ShowstreamAction extends ProfileAction
         $this->showNotices();
     }
 
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new SubGroupNav($this, $this->user);
         $nav->show();
