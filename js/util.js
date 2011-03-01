@@ -622,7 +622,11 @@ var SN = { // StatusNet
                         if (txt == '' || txt == textarea.data('initialText')) {
                             // Nothing to say? Begone!
                             replyItem.remove();
-                            SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                            if (list.find('li').length > 0) {
+                                SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                            } else {
+                                list.remove();
+                            }
                         }
                     });
                     replyForm.submit(function(event) {
