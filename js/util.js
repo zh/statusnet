@@ -654,7 +654,8 @@ var SN = { // StatusNet
                                 var orig_li = $('li', data)[0];
                                 if (orig_li) {
                                     var li = document._importNode(orig_li, true);
-                                    if ($("#notice-"+id).length == 0) {
+                                    var id = $(li).attr('id');
+                                    if ($("#"+id).length == 0) {
                                         replyItem.replaceWith(li);
                                         SN.U.NoticeInlineReplyPlaceholder(parentNotice);
                                     } else {
