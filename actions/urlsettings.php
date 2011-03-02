@@ -99,6 +99,8 @@ class UrlsettingsAction extends SettingsAction
         $this->hidden('token', common_session_token());
         $this->elementStart('ul', 'form_data');
 
+        $shorteners = array();
+
         Event::handle('GetUrlShorteners', array(&$shorteners));
 
         $services = array();
