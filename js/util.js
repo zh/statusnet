@@ -654,8 +654,13 @@ var SN = { // StatusNet
                                 var orig_li = $('li', data)[0];
                                 if (orig_li) {
                                     var li = document._importNode(orig_li, true);
-                                    replyItem.replaceWith(li);
-                                    SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                    if ($("#notice-"+id).length == 0) {
+                                        replyItem.replaceWith(li);
+                                        SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                    } else {
+                                        // Realtime came through before us...
+                                        replyItem.remove();
+                                    }
                                 }
                             }
                         });
