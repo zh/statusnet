@@ -64,7 +64,7 @@ class ThreadedNoticeList extends NoticeList
     {
         $this->out->elementStart('div', array('id' =>'notices_primary'));
         $this->out->element('h2', null, _('Notices'));
-        $this->out->elementStart('ol', array('class' => 'notices xoxo'));
+        $this->out->elementStart('ol', array('class' => 'notices threaded-notices xoxo'));
 
         $cnt = 0;
         $conversations = array();
@@ -182,7 +182,7 @@ class ThreadedNoticeListItem extends NoticeListItem
             }
 
             if ($notices) {
-                $this->out->elementStart('ul', 'notices threaded-notices xoxo');
+                $this->out->elementStart('ul', 'notices threaded-replies xoxo');
                 if ($moreCutoff) {
                     $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
                     $item->show();

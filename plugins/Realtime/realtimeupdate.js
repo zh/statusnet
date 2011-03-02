@@ -169,7 +169,7 @@ RealtimeUpdate = {
         var list = $("#notices_primary .notices:first")
         var prepend = true;
 
-        var threaded = true;
+        var threaded = list.hasClass('threaded-notices');
         if (threaded && data.in_reply_to_status_id) {
             // aho!
             var parent = $('#notice-' + data.in_reply_to_status_id);
@@ -179,12 +179,12 @@ RealtimeUpdate = {
                 // Check the parent notice to make sure it's not a reply itself.
                 // If so, use it's parent as the parent.
                 var parentList = parent.closest('.notices');
-                if (parentList.hasClass('threaded-notices')) {
+                if (parentList.hasClass('threaded-replies')) {
                     parent = parentList.closest('.notice');
                 }
-                list = parent.find('.threaded-notices');
+                list = parent.find('.threaded-replies');
                 if (list.length == 0) {
-                    list = $('<ul class="notices threaded-notices xoxo"></ul>');
+                    list = $('<ul class="notices threaded-replies xoxo"></ul>');
                     parent.append(list);
                 }
                 prepend = false;
