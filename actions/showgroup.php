@@ -195,7 +195,7 @@ class ShowgroupAction extends GroupDesignAction
         $notice = $this->group->getNotices(($this->page-1)*NOTICES_PER_PAGE,
                                            NOTICES_PER_PAGE + 1);
 
-        $nl = new NoticeList($notice, $this);
+        $nl = new ThreadedNoticeList($notice, $this);
         $cnt = $nl->show();
 
         $this->pagination($this->page > 1,

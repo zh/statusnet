@@ -1106,38 +1106,38 @@ border-top-style:solid;
 }
 
 /* Threaded notices sublist */
-#content .notices .threaded-notices {
+#content .notices .threaded-replies {
     margin-left: 10%;
     width: 90%;
 
     background: #e4e8f1;
 }
-#content .threaded-notices .notice .author .photo {
+#content .threaded-replies .notice .author .photo {
     left: 8px;
     width: 32px;
     height: 32px;
 }
-.threaded-notices .notice-reply {
+.threaded-replies .notice-reply {
     margin: 8px;
 }
-.threaded-notices .notice-reply textarea,
-.threaded-notices .notice-reply-placeholder input.placeholder {
+.threaded-replies .notice-reply textarea,
+.threaded-replies .notice-reply-placeholder input.placeholder {
     margin-left: 0;
     width: 95%;
 }
-.threaded-notices .notice-reply-placeholder input.placeholder {
+.threaded-replies .notice-reply-placeholder input.placeholder {
     color: gray;
     margin-left: 8px; /* ?? */
     margin-bottom: 8px;
 }
-.threaded-notices .notice-reply .controls {
+.threaded-replies .notice-reply .controls {
     text-align: right;
 }
-.threaded-notices .notice-reply-comments {
+.threaded-replies .notice-reply-comments {
     margin: 8px;
 }
-.threaded-notices .response,
-.threaded-notices .source {
+.threaded-replies .response,
+.threaded-replies .source {
     /* Hide these for ajax/realtime sourced notices */
     display: none;
 }

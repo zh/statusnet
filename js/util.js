@@ -575,16 +575,16 @@ var SN = { // StatusNet
 
             // Find the threaded replies view we'll be adding to...
             var list = notice.closest('.notices');
-            if (list.hasClass('threaded-notices')) {
+            if (list.hasClass('threaded-replies')) {
                 // We're replying to a reply; use reply form on the end of this list.
                 // We'll add our form at the end of this; grab the root notice.
                 parentNotice = list.closest('.notice');
             } else {
                 // We're replying to a parent notice; pull its threaded list
                 // and we'll add on the end of it. Will add if needed.
-                list = $('ul.threaded-notices', notice);
+                list = $('ul.threaded-replies', notice);
                 if (list.length == 0) {
-                    list = $('<ul class="notices threaded-notices xoxo"></ul>');
+                    list = $('<ul class="notices threaded-replies xoxo"></ul>');
                     notice.append(list);
                 }
             }
@@ -654,8 +654,14 @@ var SN = { // StatusNet
                                 var orig_li = $('li', data)[0];
                                 if (orig_li) {
                                     var li = document._importNode(orig_li, true);
-                                    replyItem.replaceWith(li);
-                                    SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                    var id = $(li).attr('id');
+                                    if ($("#"+id).length == 0) {
+                                        replyItem.replaceWith(li);
+                                        SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                    } else {
+                                        // Realtime came through before us...
+                                        replyItem.remove();
+                                    }
                                 }
                             }
                         });
@@ -726,7 +732,7 @@ var SN = { // StatusNet
         },
 
         NoticeInlineReplyPlaceholder: function(notice) {
-            var list = notice.find('ul.threaded-notices');
+            var list = notice.find('ul.threaded-replies');
             var placeholder = $('<li class="notice-reply-placeholder">' +
                                     '<input class="placeholder">' +
                                 '</li>');
@@ -744,7 +750,7 @@ var SN = { // StatusNet
          * Uses 'live' rather than 'bind', so applies to future as well as present items.
          */
         NoticeInlineReplySetup: function() {
-            $('.threaded-notices').each(function() {
+            $('.threaded-replies').each(function() {
                 var list = $(this);
                 var notice = list.closest('.notice');
                 SN.U.NoticeInlineReplyPlaceholder(notice);
