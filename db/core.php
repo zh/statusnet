@@ -201,6 +201,7 @@ $schema['notice'] = array(
         'location_id' => array('type' => 'int', 'description' => 'location id if possible'),
         'location_ns' => array('type' => 'int', 'description' => 'namespace for location'),
         'repeat_of' => array('type' => 'int', 'description' => 'notice this is a repeat of'),
+        'object_type' => array('type' => 'varchar', 'length' => 32, 'description' => 'URI representing activity streams object type'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
