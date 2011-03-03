@@ -739,7 +739,7 @@ var SN = { // StatusNet
             placeholder.click(function() {
                 SN.U.NoticeInlineReplyTrigger(notice);
             });
-            placeholder.find('input').val(SN.msg('reply_comment'));
+            placeholder.find('input').val(SN.msg('reply_placeholder'));
             list.append(placeholder);
         },
 

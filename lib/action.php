@@ -325,10 +325,10 @@ class Action extends HTMLOutputter // lawsuit
             $messages['showmore_tooltip'] = _m('TOOLTIP', 'Show more');
 
             // TRANS: Inline reply form submit button: submits a reply comment.
-            $messages['reply_submit'] = _m('BUTTON', 'Comment');
+            $messages['reply_submit'] = _m('BUTTON', 'Reply');
 
             // TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
-            $messages['reply_comment'] = _m('Add a comment...');
+            $messages['reply_placeholder'] = _m('Write a reply...');
 
             $messages = array_merge($messages, $this->getScriptMessages());
 
