@@ -44,6 +44,9 @@ if (!defined('STATUSNET')) {
  */
 class DirectoryPlugin extends Plugin
 {
+
+    private $dir = null;
+
     /**
      * Initializer for this plugin
      *
@@ -52,6 +55,7 @@ class DirectoryPlugin extends Plugin
      */
     function initialize()
     {
+        $this->dir = dirname(__FILE__);
         return true;
     }
 
@@ -76,18 +80,16 @@ class DirectoryPlugin extends Plugin
      */
     function onAutoload($cls)
     {
-        $dir = dirname(__FILE__);
-
         // common_debug("class = $cls");
 
         switch ($cls)
         {
         case 'UserdirectoryAction':
-            include_once $dir
+            include_once $this->dir
                 . '/actions/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'AlphaNav':
-            include_once $dir
+            include_once $this->dir
                 . '/lib/' . strtolower($cls) . '.php';
             return false;
         default:
@@ -106,9 +108,35 @@ class DirectoryPlugin extends Plugin
     function onRouterInitialized($m)
     {
         $m->connect(
-            'main/directory',
-            array('action' => 'userdirectory')
+            'directory/users/:filter',
+            array('action' => 'userdirectory'),
+            array('filter' => '[0-9a-zA-Z_]{1,64}')
         );
+
+        $m->connect(
+            'directory/users',
+            array('action' => 'userdirectory'),
+            array('filter' => 'all')
+        );
+
+        return true;
+    }
+
+    /**
+     * Link in a styelsheet for the onboarding actions
+     *
+     * @param Action $action Action being shown
+     *
+     * @return boolean hook flag
+     */
+    function onEndShowStatusNetStyles($action)
+    {
+        if (in_array(
+            $action->trimmed('action'),
+            array('userdirectory'))
+        ) {
+            $action->cssLink($this->path('css/directory.css'));
+        }
 
         return true;
     }

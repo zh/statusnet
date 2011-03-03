@@ -45,10 +45,14 @@ require_once INSTALLDIR . '/lib/publicgroupnav.php';
  */
 class UserdirectoryAction extends Action
 {
-    /* Page we're on */
+    /**
+     * @var $page       integer  the page we're on
+     */
     protected $page   = null;
 
-    /* What to filter the search results by */
+    /**
+     * @var $filter     string    what to filter the search results by
+     */
     protected $filter = null;
 
     /**
@@ -60,7 +64,7 @@ class UserdirectoryAction extends Action
     {
         // @fixme: This looks kinda gross
 
-        if ($this->filter == 'All') {
+        if ($this->filter == 'all') {
             if ($this->page != 1) {
                 return(sprintf(_m('All users, page %d'), $this->page));
             }
@@ -115,7 +119,7 @@ class UserdirectoryAction extends Action
         parent::prepare($args);
 
         $this->page   = ($this->arg('page')) ? ($this->arg('page') + 0) : 1;
-        $this->filter = $this->arg('filter') ? $this->arg('filter') : 'All';
+        $this->filter = $this->arg('filter') ? $this->arg('filter') : 'all';
         common_set_returnto($this->selfUrl());
 
         return true;
@@ -177,6 +181,8 @@ class UserdirectoryAction extends Action
     {
         // XXX Need search bar
 
+        $this->elementStart('div', array('id' => 'user_directory'));
+
         $alphaNav = new AlphaNav($this, true, array('All'));
         $alphaNav->show();
 
@@ -199,9 +205,15 @@ class UserdirectoryAction extends Action
             }
         }
 
-        $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
-                          $this->page, 'userdirectory',
-                          array('filter' => $this->filter));
+        $this->pagination(
+            $this->page > 1,
+            $cnt > PROFILES_PER_PAGE,
+            $this->page,
+            'userdirectory',
+            array('filter' => $this->filter)
+        );
+
+        $this->elementEnd('div');
 
     }
 
@@ -210,17 +222,22 @@ class UserdirectoryAction extends Action
      */
     function getUsers()
     {
-        $offset = ($this->page-1) * PROFILES_PER_PAGE;
-        $limit =  PROFILES_PER_PAGE + 1;
+        $offset = ($this->page - 1) * PROFILES_PER_PAGE;
+        $limit  =  PROFILES_PER_PAGE + 1;
 
         $profile = new Profile();
 
-        if ($this->filter != 'All') {
+        // XXX Any chance of SQL injection here?
+
+        if ($this->filter != 'all') {
             $profile->whereAdd(
-                sprintf('LEFT(UPPER(nickname), 1) = \'%s\'', $this->filter)
+                sprintf('LEFT(lower(nickname), 1) = \'%s\'', $this->filter)
             );
         }
+
         $profile->orderBy('created DESC, nickname');
+        $profile->limit($limit, $offset);
+
         $profile->find();
 
         return $profile;

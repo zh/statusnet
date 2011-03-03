@@ -94,14 +94,43 @@ class AlphaNav extends Widget
     {
         $actionName = $this->action->trimmed('action');
 
-        foreach ($this->filters as $filter) {
+        $this->action->elementStart('div', array('class' => 'alpha_nav'));
+
+        for ($i = 0, $size = sizeof($this->filters); $i < $size; $i++) {
+
+            $filter = $this->filters[$i];
+            $classes = '';
+
+            // Add some classes for styling
+            if ($i == 0) {
+                $classes .= 'first '; // first filter in the list
+            } elseif ($i == $size - 1) {
+                $classes .= 'last ';  // last filter in the list
+            }
+
             $href = common_local_url(
                 $actionName,
-                null,
-                array('filter' => $filter)
+                array('filter' => strtolower($filter))
             );
-            $this->action->element('a', array('href' => $href), $filter);
+
+            $params  = array('href' => $href);
+            $current = $this->action->arg('filter');
+
+            // Highlight the selected filter. If there is no selected
+            // filter, highlight the first filter in the list
+            if (empty($current) && $i == 0
+                || $current === strtolower($filter)) {
+                $classes .= 'current ';
+            }
+
+            if (!empty($classes)) {
+                $params['class'] = trim($classes);
+            }
+
+            $this->action->element('a', $params, $filter);
         }
+
+        $this->action->elementEnd('div');
     }
 
 }
