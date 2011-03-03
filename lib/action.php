@@ -464,14 +464,7 @@ class Action extends HTMLOutputter // lawsuit
 
             Event::handle('EndShowSiteNotice', array($this));
         }
-        if (common_logged_in()) {
-            if (Event::handle('StartShowNoticeForm', array($this))) {
-                $this->showNoticeForm();
-                Event::handle('EndShowNoticeForm', array($this));
-            }
-        } else {
-            $this->showAnonymousMessage();
-        }
+
         $this->elementEnd('div');
     }
 
@@ -679,6 +672,12 @@ class Action extends HTMLOutputter // lawsuit
     function showContentBlock()
     {
         $this->elementStart('div', array('id' => 'content'));
+        if (common_logged_in()) {
+            if (Event::handle('StartShowNoticeForm', array($this))) {
+                $this->showNoticeForm();
+                Event::handle('EndShowNoticeForm', array($this));
+            }
+        }
         if (Event::handle('StartShowPageTitle', array($this))) {
             $this->showPageTitle();
             Event::handle('EndShowPageTitle', array($this));
