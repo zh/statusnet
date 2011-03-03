@@ -186,6 +186,10 @@ class Profile extends Memcached_DataObject
         $notice = $this->getNotices(0, 1);
 
         if ($notice->fetch()) {
+            if ($notice instanceof ArrayWrapper) {
+                // hack for things trying to work with single notices
+                return $notice->_items[0];
+            }
             return $notice;
         } else {
             return null;
