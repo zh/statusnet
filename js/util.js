@@ -375,29 +375,7 @@ var SN = { // StatusNet
                             .addClass(SN.C.S.Disabled)
                             .attr(SN.C.S.Disabled, SN.C.S.Disabled);
 
-                    SN.C.I.NoticeDataGeo.NLat = $('#'+SN.C.S.NoticeLat).val();
-                    SN.C.I.NoticeDataGeo.NLon = $('#'+SN.C.S.NoticeLon).val();
-                    SN.C.I.NoticeDataGeo.NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
-                    SN.C.I.NoticeDataGeo.NLID = $('#'+SN.C.S.NoticeLocationId).val();
-                    SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked');
-
-                    cookieValue = $.cookie(SN.C.S.NoticeDataGeoCookie);
-
-                    if (cookieValue !== null && cookieValue != 'disabled') {
-                        cookieValue = JSON.parse(cookieValue);
-                        SN.C.I.NoticeDataGeo.NLat = $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat).val();
-                        SN.C.I.NoticeDataGeo.NLon = $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon).val();
-                        if ($('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS)) {
-                            SN.C.I.NoticeDataGeo.NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
-                            SN.C.I.NoticeDataGeo.NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
-                        }
-                    }
-                    if (cookieValue == 'disabled') {
-                        SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
-                    }
-                    else {
-                        SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', true).attr('checked');
-                    }
+                    SN.U.normalizeGeoData(form);
 
                     return true;
                 },
@@ -501,6 +479,35 @@ var SN = { // StatusNet
             });
         },
 
+        normalizeGeoData: function(form) {
+            SN.C.I.NoticeDataGeo.NLat = form.find('[name=lat]').val();
+            SN.C.I.NoticeDataGeo.NLon = form.find('[name=lon]').val();
+            SN.C.I.NoticeDataGeo.NLNS = form.find('[name=location_ns]').val();
+            SN.C.I.NoticeDataGeo.NLID = form.find('[name=location_id]').val();
+            SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked'); // @fixme
+
+            var cookieValue = $.cookie(SN.C.S.NoticeDataGeoCookie);
+
+            if (cookieValue !== null && cookieValue != 'disabled') {
+                cookieValue = JSON.parse(cookieValue);
+                SN.C.I.NoticeDataGeo.NLat = form.find('[name=lat]').val(cookieValue.NLat).val();
+                SN.C.I.NoticeDataGeo.NLon = form.find('[name=lon]').val(cookieValue.NLon).val();
+                if (cookieValue.NLNS) {
+                    SN.C.I.NoticeDataGeo.NLNS = form.find('[name=location_ns]').val(cookieValue.NLNS).val();
+                    SN.C.I.NoticeDataGeo.NLID = form.find('[name=location_id]').val(cookieValue.NLID).val();
+                } else {
+                    form.find('[name=location_ns]').val('');
+                    form.find('[name=location_id]').val('');
+                }
+            }
+            if (cookieValue == 'disabled') {
+                SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
+            }
+            else {
+                SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', true).attr('checked');
+            }
+
+        },
         /**
          * Fetch an XML DOM from an XHR's response data.
          *
@@ -1026,6 +1033,7 @@ var SN = { // StatusNet
          *
          */
         NoticeLocationAttach: function() {
+            // @fixme this should not be tied to the main notice form, as there may be multiple notice forms...
             var NLat = $('#'+SN.C.S.NoticeLat).val();
             var NLon = $('#'+SN.C.S.NoticeLon).val();
             var NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
@@ -1033,7 +1041,7 @@ var SN = { // StatusNet
             var NLN = $('#'+SN.C.S.NoticeGeoName).text();
             var NDGe = $('#'+SN.C.S.NoticeDataGeo);
 
-            function removeNoticeDataGeo() {
+            function removeNoticeDataGeo(error) {
                 $('label[for='+SN.C.S.NoticeDataGeo+']')
                     .attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()))
                     .removeClass('checked');
@@ -1045,9 +1053,17 @@ var SN = { // StatusNet
                 $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
 
                 $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled', { path: '/' });
+
+                if (error) {
+                    $('.geo_status_wrapper').removeClass('success').addClass('error');
+                    $('.geo_status_wrapper .geo_status').text(error);
+                } else {
+                    $('.geo_status_wrapper').remove();
+                }
             }
 
             function getJSONgeocodeURL(geocodeURL, data) {
+                SN.U.NoticeGeoStatus('Looking up place name...');
                 $.getJSON(geocodeURL, data, function(location) {
                     var lns, lid;
 
@@ -1068,6 +1084,7 @@ var SN = { // StatusNet
                         NLN_text = location.name;
                     }
 
+                    SN.U.NoticeGeoStatus(NLN_text, data.lat, data.lon, location.url);
                     $('label[for='+SN.C.S.NoticeDataGeo+']')
                         .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + NLN_text + ')');
 
@@ -1114,6 +1131,7 @@ var SN = { // StatusNet
 
                         if ($.cookie(SN.C.S.NoticeDataGeoCookie) === null || $.cookie(SN.C.S.NoticeDataGeoCookie) == 'disabled') {
                             if (navigator.geolocation) {
+                                SN.U.NoticeGeoStatus('Requesting location from browser...');
                                 navigator.geolocation.getCurrentPosition(
                                     function(position) {
                                         $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
@@ -1131,10 +1149,11 @@ var SN = { // StatusNet
                                     function(error) {
                                         switch(error.code) {
                                             case error.PERMISSION_DENIED:
-                                                removeNoticeDataGeo();
+                                                removeNoticeDataGeo('Location permission denied.');
                                                 break;
                                             case error.TIMEOUT:
-                                                $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
+                                                //$('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
+                                                removeNoticeDataGeo('Location lookup timeout.');
                                                 break;
                                         }
                                     },
@@ -1170,6 +1189,7 @@ var SN = { // StatusNet
                             $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID);
                             $('#'+SN.C.S.NoticeDataGeo).attr('checked', cookieValue.NDG);
 
+                            SN.U.NoticeGeoStatus(cookieValue.NLN, cookieValue.NLat, cookieValue.NLon, cookieValue.NLNU);
                             $('label[for='+SN.C.S.NoticeDataGeo+']')
                                 .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + cookieValue.NLN + ')')
                                 .addClass('checked');
@@ -1180,6 +1200,42 @@ var SN = { // StatusNet
                     }
                 }).change();
             }
+        },
+
+        /**
+         * Create or update a geolocation status widget in this notice posting form.
+         *
+         * @param {String} status
+         * @param {String} lat (optional)
+         * @param {String} lon (optional)
+         * @param {String} url (optional)
+         */
+        NoticeGeoStatus: function(status, lat, lon, url)
+        {
+            var form = $('#form_notice');
+            var wrapper = form.find('.geo_status_wrapper');
+            if (wrapper.length == 0) {
+                wrapper = $('<div class="'+SN.C.S.Success+' geo_status_wrapper"><button class="close" style="float:right">&#215;</button><div class="geo_status"></div></div>');
+                wrapper.find('button.close').click(function() {
+                    $('#'+SN.C.S.NoticeDataGeo).removeAttr('checked').change();
+                });
+                form.append(wrapper);
+            }
+            var label;
+            if (url) {
+                label = $('<a></a>').attr('href', url);
+            } else {
+                label = $('<span></span>');
+            }
+            label.text(status);
+            if (lat || lon) {
+                var latlon = lat + ';' + lon;
+                label.attr('title', latlon);
+                if (!status) {
+                    label.text(latlon)
+                }
+            }
+            wrapper.find('.geo_status').empty().append(label);
         },
 
         /**
