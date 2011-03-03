@@ -23,7 +23,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 
 define('STATUSNET_BASE_VERSION', '0.9.7');
-define('STATUSNET_LIFECYCLE', 'beta2'); // 'dev', 'alpha[0-9]+', 'beta[0-9]+', 'rc[0-9]+', 'release'
+define('STATUSNET_LIFECYCLE', 'beta3'); // 'dev', 'alpha[0-9]+', 'beta[0-9]+', 'rc[0-9]+', 'release'
 define('STATUSNET_VERSION', STATUSNET_BASE_VERSION . STATUSNET_LIFECYCLE);
 
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
