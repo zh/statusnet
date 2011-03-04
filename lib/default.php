@@ -63,6 +63,7 @@ $default =
               'use_x_sendfile' => false,
               'notice' => null, // site wide notice text
               'build' => 1, // build number, for code-dependent cache
+              'minify' => true, // true to use the minified versions of JS files; false to use orig files. Can aid during development
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
