@@ -53,8 +53,6 @@ var SN = { // StatusNet
             NoticeDataText: 'notice_data-text',
             NoticeTextCount: 'notice_text-count',
             NoticeInReplyTo: 'notice_in-reply-to',
-            NoticeDataAttach: 'notice_data-attach',
-            NoticeDataAttachSelected: 'notice_data-attach_selected',
             NoticeActionSubmit: 'notice_action-submit',
             NoticeLat: 'notice_data-lat',
             NoticeLon: 'notice_data-lon',
@@ -368,7 +366,7 @@ var SN = { // StatusNet
                             if (parseInt(xhr.status) === 0 || jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) >= 0) {
                                 form
                                     .resetForm()
-                                    .find('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                                    .find('.attach-status').remove();
                                 SN.U.FormNoticeEnhancements(form);
                             }
                             else {
@@ -425,8 +423,8 @@ var SN = { // StatusNet
                             }
                         }
                         form.resetForm();
-                        form.find('#'+SN.C.S.NoticeInReplyTo).val('');
-                        form.find('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                        form.find('[name=inreplyto]').val('');
+                        form.find('.attach-status').remove();
                         SN.U.FormNoticeEnhancements(form);
                     }
                 },
@@ -850,36 +848,34 @@ var SN = { // StatusNet
          *
          * This preview box will also allow removing the attachment
          * prior to posting.
+         *
+         * @param {jQuery} form
          */
-        NoticeDataAttach: function() {
-            NDA = $('#'+SN.C.S.NoticeDataAttach);
+        NoticeDataAttach: function(form) {
+            var NDA = form.find('input[type=file]');
             NDA.change(function(event) {
+                form.find('.attach-status').remove();
+
                 var filename = $(this).val();
                 if (!filename) {
                     // No file -- we've been tricked!
-                    $('#'+SN.C.S.NoticeDataAttachSelected).remove();
                     return false;
                 }
 
-                // @fixme appending filename straight in is potentially unsafe
-                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+filename+'</code> <button class="close">&#215;</button></div>';
-                NDAS = $('#'+SN.C.S.NoticeDataAttachSelected);
-                if (NDAS.length > 0) {
-                    NDAS.replaceWith(S);
-                }
-                else {
-                    $('#'+SN.C.S.FormNotice).append(S);
-                }
-                $('#'+SN.C.S.NoticeDataAttachSelected+' button').click(function(){
-                    $('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                var attachStatus = $('<div class="attach-status '+SN.C.S.Success+'"><code></code> <button class="close">&#215;</button></div>');
+                attachStatus.find('code').text(filename);
+                attachStatus.find('button').click(function(){
+                    attachStatus.remove();
                     NDA.val('');
 
                     return false;
                 });
+                form.append(attachStatus);
+
                 if (typeof this.files == "object") {
                     // Some newer browsers will let us fetch the files for preview.
                     for (var i = 0; i < this.files.length; i++) {
-                        SN.U.PreviewAttach(this.files[i]);
+                        SN.U.PreviewAttach(form, this.files[i]);
                     }
                 }
             });
@@ -915,13 +911,14 @@ var SN = { // StatusNet
          * Known fail:
          * - Opera 10.63, 11 beta (no input.files interface)
          *
+         * @param {jQuery} form
          * @param {File} file
          *
          * @todo use configured thumbnail size
          * @todo detect pixel size?
          * @todo should we render a thumbnail to a canvas and then use the smaller image?
          */
-        PreviewAttach: function(file) {
+        PreviewAttach: function(form, file) {
             var tooltip = file.type + ' ' + Math.round(file.size / 1024) + 'KB';
             var preview = true;
 
@@ -981,11 +978,11 @@ var SN = { // StatusNet
                         .attr('alt', tooltip)
                         .attr('src', url)
                         .attr('style', 'height: 120px');
-                    $('#'+SN.C.S.NoticeDataAttachSelected).append(img);
+                    form.find('.attach-status').append(img);
                 });
             } else {
                 var img = $('<div></div>').text(tooltip);
-                $('#'+SN.C.S.NoticeDataAttachSelected).append(img);
+                form.find('.attach-status').append(img);
             }
         },
 
@@ -1365,9 +1362,8 @@ var SN = { // StatusNet
                 $('.'+SN.C.S.FormNotice).each(function() {
                     SN.U.FormNoticeXHR($(this));
                     SN.U.FormNoticeEnhancements($(this));
+                    SN.U.NoticeDataAttach($(this));
                 });
-
-                SN.U.NoticeDataAttach();
             }
         },
 
