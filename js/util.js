@@ -136,10 +136,6 @@ var SN = { // StatusNet
             else {
                 form.find('#'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
             }
-
-            if ($('body')[0].id != 'conversation' && window.location.hash.length === 0 && $(window).scrollTop() == 0) {
-                form.find('textarea').focus();
-            }
         },
 
         /**
