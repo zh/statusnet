@@ -66,6 +66,7 @@ class NewnoticeAction extends Action
 
     function title()
     {
+        // TRANS: Page title for sending a new notice.
         return _('New notice');
     }
 
@@ -85,6 +86,7 @@ class NewnoticeAction extends Action
     function handle($args)
     {
         if (!common_logged_in()) {
+            // TRANS: Client error displayed trying to send a notice while not logged in.
             $this->clientError(_('Not logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // check for this before token since all POST and FILES data
@@ -137,6 +139,7 @@ class NewnoticeAction extends Action
         Event::handle('StartSaveNewNoticeWeb', array($this, $user, &$content, &$options));
 
         if (!$content) {
+            // TRANS: Client error displayed trying to send a notice without content.
             $this->clientError(_('No content!'));
             return;
         }
@@ -227,6 +230,7 @@ class NewnoticeAction extends Action
             $this->xw->startDocument('1.0', 'UTF-8');
             $this->elementStart('html');
             $this->elementStart('head');
+            // TRANS: Page title after sending a notice.
             $this->element('title', null, _('Notice posted'));
             $this->elementEnd('head');
             $this->elementStart('body');
@@ -261,6 +265,7 @@ class NewnoticeAction extends Action
     {
         $this->startHTML('text/xml;charset=utf-8', true);
         $this->elementStart('head');
+        // TRANS: Page title after an AJAX error occurs on the send notice page.
         $this->element('title', null, _('Ajax Error'));
         $this->elementEnd('head');
         $this->elementStart('body');
