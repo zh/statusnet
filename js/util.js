@@ -50,12 +50,6 @@ var SN = { // StatusNet
             Processing: 'processing',
             CommandResult: 'command_result',
             FormNotice: 'form_notice',
-            NoticeInReplyTo: 'notice_in-reply-to',
-            NoticeLat: 'notice_data-lat',
-            NoticeLon: 'notice_data-lon',
-            NoticeLocationId: 'notice_data-location_id',
-            NoticeLocationNs: 'notice_data-location_ns',
-            NoticeGeoName: 'notice_data-geo_name',
             NoticeDataGeo: 'notice_data-geo',
             NoticeDataGeoCookie: 'NoticeDataGeo',
             NoticeDataGeoSelected: 'notice_data-geo_selected',
@@ -395,7 +389,7 @@ var SN = { // StatusNet
                             var notices = $('#notices_primary .notices:first');
                             if (notices.length > 0 && SN.U.belongsOnTimeline(notice)) {
                                 if ($('#'+notice.id).length === 0) {
-                                    var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
+                                    var notice_irt_value = form.find('[name=inreplyto]').val();
                                     var notice_irt = '#notices_primary #notice-'+notice_irt_value;
                                     if($('body')[0].id == 'conversation') {
                                         if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
@@ -972,12 +966,14 @@ var SN = { // StatusNet
             var NLon = form.find('[name=lon]')
             var NLNS = form.find('[name=location_ns]').val();
             var NLID = form.find('[name=location_id]').val();
-            var NLN = $('#'+SN.C.S.NoticeGeoName).text(); // @fixme does this exist?
+            var NLN = ''; // @fixme
             var NDGe = form.find('[name=notice_data-geo]');
+            var check = form.find('[name=notice_data-geo]');
+            var label = $('label[for='+check.attr('id')+']');
 
             function removeNoticeDataGeo(error) {
-                $('label[for='+SN.C.S.NoticeDataGeo+']')
-                    .attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()))
+                label
+                    .attr('title', jQuery.trim(label.text()))
                     .removeClass('checked');
 
                 form.find('[name=lat]').val('');
@@ -989,10 +985,10 @@ var SN = { // StatusNet
                 $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled', { path: '/' });
 
                 if (error) {
-                    $('.geo_status_wrapper').removeClass('success').addClass('error');
-                    $('.geo_status_wrapper .geo_status').text(error);
+                    form.find('.geo_status_wrapper').removeClass('success').addClass('error');
+                    form.find('.geo_status_wrapper .geo_status').text(error);
                 } else {
-                    $('.geo_status_wrapper').remove();
+                    form.find('.geo_status_wrapper').remove();
                 }
             }
 
@@ -1042,24 +1038,24 @@ var SN = { // StatusNet
                 });
             }
 
-            if (NDGe.length > 0) {
+            if (check.length > 0) {
                 if ($.cookie(SN.C.S.NoticeDataGeoCookie) == 'disabled') {
-                    NDGe.attr('checked', false);
+                    check.attr('checked', false);
                 }
                 else {
-                    NDGe.attr('checked', true);
+                    check.attr('checked', true);
                 }
 
-                var NGW = $('#notice_data-geo_wrap');
+                var NGW = form.find('.notice_data-geo_wrap');
                 var geocodeURL = NGW.attr('title');
                 NGW.removeAttr('title');
 
-                $('label[for='+SN.C.S.NoticeDataGeo+']')
-                    .attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()));
+                label
+                    .attr('title', label.text());
 
-                NDGe.change(function() {
-                    if ($('#'+SN.C.S.NoticeDataGeo).attr('checked') === true || $.cookie(SN.C.S.NoticeDataGeoCookie) === null) {
-                        $('label[for='+SN.C.S.NoticeDataGeo+']')
+                check.change(function() {
+                    if (check.attr('checked') === true || $.cookie(SN.C.S.NoticeDataGeoCookie) === null) {
+                        label
                             .attr('title', NoticeDataGeo_text.ShareDisable)
                             .addClass('checked');
 
@@ -1109,8 +1105,8 @@ var SN = { // StatusNet
                                 }
                                 else {
                                     removeNoticeDataGeo();
-                                    $('#'+SN.C.S.NoticeDataGeo).remove();
-                                    $('label[for='+SN.C.S.NoticeDataGeo+']').remove();
+                                    check.remove();
+                                    label.remove();
                                 }
                             }
                         }
@@ -1124,7 +1120,7 @@ var SN = { // StatusNet
                             form.find('[name=notice_data-geo]').attr('checked', cookieValue.NDG);
 
                             SN.U.NoticeGeoStatus(cookieValue.NLN, cookieValue.NLat, cookieValue.NLon, cookieValue.NLNU);
-                            $('label[for='+SN.C.S.NoticeDataGeo+']')
+                            label
                                 .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + cookieValue.NLN + ')')
                                 .addClass('checked');
                         }
