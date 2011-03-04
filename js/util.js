@@ -132,10 +132,6 @@ var SN = { // StatusNet
                 // Note there's still no event for mouse-triggered 'delete'.
                 NDT.bind('cut', delayedUpdate)
                    .bind('paste', delayedUpdate);
-
-                NDT.bind('keydown', function(e) {
-                    SN.U.SubmitOnReturn(e, form);
-                });
             }
             else {
                 form.find('#'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
@@ -144,29 +140,6 @@ var SN = { // StatusNet
             if ($('body')[0].id != 'conversation' && window.location.hash.length === 0 && $(window).scrollTop() == 0) {
                 form.find('textarea').focus();
             }
-        },
-
-        /**
-         * To be called from keydown event handler on the notice import form.
-         * Checks if return or enter key was pressed, and if so attempts to
-         * submit the form and cancel standard processing of the enter key.
-         *
-         * @param {Event} event
-         * @param {jQuery} el: jQuery object whose first element is the notice posting form
-         *
-         * @return {boolean} whether to cancel the event? Does this actually pass through?
-         * @access private
-         */
-        SubmitOnReturn: function(event, el) {
-            if (event.keyCode == 13 || event.keyCode == 10) {
-                el.submit();
-                event.preventDefault();
-                event.stopPropagation();
-                $('#'+el[0].id+' #'+SN.C.S.NoticeDataText).blur();
-                $('body').focus();
-                return false;
-            }
-            return true;
         },
 
         /**
