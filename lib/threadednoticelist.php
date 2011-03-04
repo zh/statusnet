@@ -267,7 +267,7 @@ class ThreadedNoticeListMoreItem extends NoticeListItem
         $notice = new Notice();
         $notice->conversation = $id;
         $n = $notice->count() - 1;
-        $msg = sprintf(_m('Show all %d comment', 'Show all %d comments', $n), $n);
+        $msg = sprintf(_m('Show %d reply', 'Show all %d replies', $n), $n);
 
         $this->out->element('a', array('href' => $url), $msg);
 

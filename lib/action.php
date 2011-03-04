@@ -295,7 +295,13 @@ class Action extends HTMLOutputter // lawsuit
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
                 Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->script('util.min.js');
+                if (common_config('site', 'minify')) {
+                    $this->script('util.min.js');
+                } else {
+                    $this->script('util.js');
+                    $this->script('xbImportNode.js');
+                    $this->script('geometa.js');
+                }
                 $this->showScriptMessages();
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
@@ -325,10 +331,10 @@ class Action extends HTMLOutputter // lawsuit
             $messages['showmore_tooltip'] = _m('TOOLTIP', 'Show more');
 
             // TRANS: Inline reply form submit button: submits a reply comment.
-            $messages['reply_submit'] = _m('BUTTON', 'Comment');
+            $messages['reply_submit'] = _m('BUTTON', 'Reply');
 
             // TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
-            $messages['reply_comment'] = _m('Add a comment...');
+            $messages['reply_placeholder'] = _m('Write a reply...');
 
             $messages = array_merge($messages, $this->getScriptMessages());
 

@@ -10,16 +10,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-29 21:45+0000\n"
-"PO-Revision-Date: 2011-01-29 21:50:41+0000\n"
+"POT-Creation-Date: 2011-03-03 17:24+0000\n"
+"PO-Revision-Date: 2011-03-03 17:27:34+0000\n"
 "Last-Translator: Siebrand Mazeland <s.mazeland@xs4all.nl>\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-01-22 19:30:33+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r81195); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-02-14 17:22:00+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r83149); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -50,7 +50,7 @@ msgstr ""
 "en klik op \"Toevoegen\"."
 
 #. TRANS: OpenID plugin logon form field label.
-#: openidsettings.php:108 OpenIDPlugin.php:681 openidlogin.php:161
+#: openidsettings.php:108 OpenIDPlugin.php:703 openidlogin.php:152
 msgid "OpenID URL"
 msgstr "OpenID-URL"
 
@@ -96,7 +96,7 @@ msgstr ""
 "heeft tot uw OpenID."
 
 #. TRANS: Message given when there is a problem with the user's session token.
-#: openidsettings.php:232 finishopenidlogin.php:42 openidlogin.php:51
+#: openidsettings.php:232 finishopenidlogin.php:42
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Er was een probleem met uw sessietoken. Probeer het opnieuw."
 
@@ -337,40 +337,40 @@ msgid "OpenID configuration"
 msgstr "OpenID-instellingen"
 
 #. TRANS: OpenID plugin description.
-#: OpenIDPlugin.php:631
+#: OpenIDPlugin.php:653
 msgid "Use <a href=\"http://openid.net/\">OpenID</a> to login to the site."
 msgstr ""
 "Gebruik <a href=\"http://openid.net/\">OpenID</a> om aan te melden bij de "
 "site."
 
 #. TRANS: button label for OAuth authorization page when needing OpenID authentication first.
-#: OpenIDPlugin.php:641
+#: OpenIDPlugin.php:663
 msgctxt "BUTTON"
 msgid "Continue"
 msgstr "Continue"
 
 #. TRANS: OpenID plugin logon form legend.
-#: OpenIDPlugin.php:658 openidlogin.php:140
+#: OpenIDPlugin.php:680 openidlogin.php:132
 msgid "OpenID login"
 msgstr "Aanmelden via OpenID"
 
 #. TRANS: Field label.
-#: OpenIDPlugin.php:666 openidlogin.php:148
+#: OpenIDPlugin.php:688 openidlogin.php:139
 msgid "OpenID provider"
 msgstr "OpenID-provider"
 
 #. TRANS: Form guide.
-#: OpenIDPlugin.php:675 openidlogin.php:156
+#: OpenIDPlugin.php:697 openidlogin.php:147
 msgid "Enter your username."
 msgstr "Voer uw gebruikersnaam in"
 
 #. TRANS: Form guide.
-#: OpenIDPlugin.php:677 openidlogin.php:157
+#: OpenIDPlugin.php:699 openidlogin.php:148
 msgid "You will be sent to the provider's site for authentication."
 msgstr "U wordt naar de site van de provider omgeleid om aan te melden."
 
 #. TRANS: OpenID plugin logon form field instructions.
-#: OpenIDPlugin.php:684 openidlogin.php:164
+#: OpenIDPlugin.php:706 openidlogin.php:155
 msgid "Your OpenID URL"
 msgstr "Uw OpenID-URL"
 
@@ -533,7 +533,7 @@ msgstr "Fout bij het koppelen met OpenID."
 
 #. TRANS: OpenID plugin message. Rememberme logins have to reauthenticate before changing any profile settings.
 #. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
-#: openidlogin.php:82
+#: openidlogin.php:74
 #, php-format
 msgid ""
 "For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
@@ -544,30 +544,30 @@ msgstr ""
 
 #. TRANS: OpenID plugin message.
 #. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
-#: openidlogin.php:88
+#: openidlogin.php:80
 #, php-format
 msgid "Login with an [OpenID](%%doc.openid%%) account."
 msgstr "Aanmelden met een [OpenID](%%doc.openid%%)-gebruiker."
 
 #. TRANS: OpenID plugin message. Title.
 #. TRANS: Title after getting the status of the OpenID authorisation request.
-#: openidlogin.php:122 finishaddopenid.php:187
+#: openidlogin.php:114 finishaddopenid.php:187
 msgid "OpenID Login"
 msgstr "Aanmelden via OpenID"
 
 #. TRANS: OpenID plugin logon form checkbox label for setting to put the OpenID information in a cookie.
-#: openidlogin.php:169
+#: openidlogin.php:160
 msgid "Remember me"
 msgstr "Aanmeldgegevens onthouden"
 
 #. TRANS: OpenID plugin logon form field instructions.
-#: openidlogin.php:171
+#: openidlogin.php:162
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "In het vervolg automatisch aanmelden. Niet gebruiken op gedeelde computers!"
 
 #. TRANS: OpenID plugin logon form button label to start logon with the data provided in the logon form.
-#: openidlogin.php:176
+#: openidlogin.php:167
 msgctxt "BUTTON"
 msgid "Login"
 msgstr "Aanmelden"
