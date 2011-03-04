@@ -201,7 +201,7 @@ $schema['notice'] = array(
         'location_id' => array('type' => 'int', 'description' => 'location id if possible'),
         'location_ns' => array('type' => 'int', 'description' => 'namespace for location'),
         'repeat_of' => array('type' => 'int', 'description' => 'notice this is a repeat of'),
-        'object_type' => array('type' => 'varchar', 'length' => 32, 'description' => 'URI representing activity streams object type'),
+        'object_type' => array('type' => 'varchar', 'length' => 255, 'description' => 'URI representing activity streams object type', 'default' => 'http://activitystrea.ms/schema/1.0/note'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
