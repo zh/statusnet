@@ -141,7 +141,7 @@ class GroupMessageForm extends Form
         if ($contentLimit > 0) {
             $this->out->elementStart('dl', 'form_note');
             $this->out->element('dt', null, _('Available characters'));
-            $this->out->element('dd', array('id' => 'notice_text-count'),
+            $this->out->element('dd', array('class' => 'count'),
                                 $contentLimit);
             $this->out->elementEnd('dl');
         }

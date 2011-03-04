@@ -509,17 +509,17 @@ height:16px;
 padding:0;
 height:16px;
 }
-.form_notice .form_note {
+.form_notice .count {
 position:absolute;
 bottom:2px;
 right:21.715%;
 z-index:9;
 }
-.form_notice .form_note dt {
+.form_notice .count dt {
 font-weight:bold;
 display:none;
 }
-.form_notice #notice_text-count {
+.form_notice .count {
 font-weight:bold;
 line-height:1.15;
 padding:1px 2px;
@@ -1673,7 +1673,7 @@ background-position:0 -1912px;
 }
 
 input.submit,
-.form_notice.warning #notice_text-count,
+.form_notice.warning .count,
 .form_settings .form_note,
 .entity_actions a,
 .entity_actions input,
@@ -1691,7 +1691,7 @@ background-color:transparent;
 }
 input:focus, textarea:focus, select:focus,
 .form_notice.warning textarea,
-.form_notice.warning #notice_text-count,
+.form_notice.warning .count,
 .form_settings .form_note {
 border-color:#9BB43E;
 }
@@ -1706,7 +1706,7 @@ background-color:transparent;
 }
 input:focus, textarea:focus, select:focus,
 .form_notice.warning textarea,
-.form_notice.warning #notice_text-count,
+.form_notice.warning .count,
 .form_settings .form_note {
 border-color:#9BB43E;
 }
@@ -1781,10 +1781,10 @@ border-color:#AAAAAA;
 background-color:#DDFFCC;
 }
 
-#notice_text-count {
+.form_notice .count {
 color:#000000;
 }
-#form_notice.warning #notice_text-count {
+#form_notice.warning .count {
 color:#000000;
 }
 #form_notice label[for=notice_data-attach] {
@@ -2071,7 +2071,7 @@ border-color:#FFFF00;
 }
 
 
-#form_notice .form_note {
+.form_notice .count {
 color:#CCC;
 }
 

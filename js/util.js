@@ -50,7 +50,6 @@ var SN = { // StatusNet
             Processing: 'processing',
             CommandResult: 'command_result',
             FormNotice: 'form_notice',
-            NoticeTextCount: 'notice_text-count',
             NoticeInReplyTo: 'notice_in-reply-to',
             NoticeActionSubmit: 'notice_action-submit',
             NoticeLat: 'notice_data-lat',
@@ -103,7 +102,7 @@ var SN = { // StatusNet
          */
         FormNoticeEnhancements: function(form) {
             if (jQuery.data(form[0], 'ElementData') === undefined) {
-                MaxLength = form.find('#'+SN.C.S.NoticeTextCount).text();
+                MaxLength = form.find('.count').text();
                 if (typeof(MaxLength) == 'undefined') {
                      MaxLength = SN.C.I.MaxLength;
                 }
@@ -131,7 +130,7 @@ var SN = { // StatusNet
                    .bind('paste', delayedUpdate);
             }
             else {
-                form.find('#'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
+                form.find('.count').text(jQuery.data(form[0], 'ElementData').MaxLength);
             }
         },
 
@@ -159,7 +158,7 @@ var SN = { // StatusNet
             }
 
             var remaining = MaxLength - SN.U.CharacterCount(form);
-            var counter = form.find('#'+SN.C.S.NoticeTextCount);
+            var counter = form.find('.count');
 
             if (remaining.toString() != counter.text()) {
                 if (!SN.C.I.CounterBlackout || remaining === 0) {

@@ -94,7 +94,7 @@ width:60%;
 height:20px;
 }
 
-#notice_text-count {
+.form_notice .count {
 position:absolute;
 bottom:2px;
 right:40%;
@@ -104,7 +104,7 @@ z-index:9;
 /*input type=file no good in
 iPhone/iPod Touch, Android, Opera Mini Simulator
 */
-#form_notice #notice_text-count + label,
+.form_notice .count + label,
 #form_notice label[for="notice_data-attach"] {
 display:none;
 }

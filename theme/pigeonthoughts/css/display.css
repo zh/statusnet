@@ -43,7 +43,7 @@ background:none;
 }
 
 input.submit,
-#form_notice.warning #notice_text-count,
+#form_notice.warning .count,
 .form_settings .form_note,
 .entity_remote_subscribe {
 background-color:#8F0000;
@@ -186,10 +186,10 @@ border-top-color:#87B4C8;
 background:url(../images/illustrations/illu_pigeons-02.png) no-repeat 10% 100%;
 }
 
-#notice_text-count {
+.form_notice .count {
 color:#333333;
 }
-#form_notice.warning #notice_text-count {
+#form_notice.warning .count {
 color:#000000;
 }
 #form_notice label[for=notice_data-attach] {

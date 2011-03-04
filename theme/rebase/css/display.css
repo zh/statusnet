@@ -245,7 +245,7 @@ address .poweredby {
     height:16px;
 }
 
-.form_notice .form_note {
+.form_notice .count {
     position: absolute;
     bottom: 0px;
     right: 125px;
@@ -253,15 +253,15 @@ address .poweredby {
     font-size: 0.8em; 
 }
 
-.form_notice .form_note dt {
+.form_notice .count dt {
     display:none;
 }
 
-.form_notice #notice_text-count {
+.form_notice .count {
     color: #777;
 }
 
-.form_notice.warning #notice_text-count {
+.form_notice.warning .count {
     color: #ff0000;
 }        
 
