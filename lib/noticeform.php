@@ -48,31 +48,26 @@ require_once INSTALLDIR.'/lib/form.php';
  *
  * @see      HTMLOutputter
  */
-
 class NoticeForm extends Form
 {
     /**
      * Current action, used for returning to this page.
      */
-
     var $action = null;
 
     /**
      * Pre-filled content of the form
      */
-
     var $content = null;
 
     /**
      * The current user
      */
-
     var $user = null;
 
     /**
      * The notice being replied to
      */
-
     var $inreplyto = null;
 
     /**
@@ -91,7 +86,6 @@ class NoticeForm extends Form
      * @param string        $action  action to return to, if any
      * @param string        $content content to pre-fill
      */
-
     function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto=null, $lat=null, $lon=null, $location_id=null, $location_ns=null)
     {
         $this->id_suffix = time();
@@ -159,6 +153,7 @@ class NoticeForm extends Form
      */
     function formLegend()
     {
+        // TRANS: Form legend for notice form.
         $this->out->element('legend', null, _('Send a notice'));
     }
 
@@ -167,12 +162,12 @@ class NoticeForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         if (Event::handle('StartShowNoticeFormData', array($this))) {
             $this->out->element('label', array('for' => 'notice_data-text',
                                                'id' => 'notice_data-text-label'),
+                                // TRANS: Title for notice label. %s is the user's nickname.
                                 sprintf(_('What\'s up, %s?'), $this->user->nickname));
             // XXX: vary by defined max size
             $this->out->element('textarea', array('id' => 'notice_data-text',
@@ -184,18 +179,20 @@ class NoticeForm extends Form
             $contentLimit = Notice::maxContent();
 
             if ($contentLimit > 0) {
-                $this->out->element('span', 
+                $this->out->element('span',
                                     array('class' => 'count'),
                                     $contentLimit);
             }
 
             if (common_config('attachments', 'uploads')) {
                 $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
+                // TRANS: Input label in notice form for adding an attachment.
                 $this->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
                 $this->out->element('input', array('id' => 'notice_data-attach',
                                                    'type' => 'file',
                                                    'name' => 'attach',
-                                                   'title' => _('Attach a file')));
+                                                   // TRANS: Title for input field to attach a file to a notice.
+                                                   'title' => _('Attach a file.')));
             }
             if ($this->action) {
                 $this->out->hidden('notice_return-to', $this->action, 'returnto');
@@ -223,12 +220,17 @@ class NoticeForm extends Form
                 $this->out->text(' ');
                 $this->out->element('label', array('class' => 'notice_data-geo',
                                               'for' => $this->id() . '-notice_data-geo'),
+                               // TRANS: Field label to add location to a notice.
                                _('Share my location'));
 
                 $this->out->elementEnd('div');
+                // TRANS: Text to not share location for a notice in notice form.
+                $share_disable_text = _('Do not share my location');
+                // TRANS: Timeout error text for location retrieval in notice form.
+                $error_timeout_text = _('Sorry, retrieving your geo location is taking longer than expected, please try again later');
                 $this->out->inlineScript(' var NoticeDataGeo_text = {'.
-                    'ShareDisable: ' .json_encode(_('Do not share my location')).','.
-                    'ErrorTimeout: ' .json_encode(_('Sorry, retrieving your geo location is taking longer than expected, please try again later')).
+                    'ShareDisable: ' .json_encode($share_disable_text).','.
+                    'ErrorTimeout: ' .json_encode($error_timeout_text).
                     '}');
             }
 
@@ -248,6 +250,7 @@ class NoticeForm extends Form
                                            'class' => 'submit',
                                            'name' => 'status_submit',
                                            'type' => 'submit',
-                                           'value' => _m('Send button for sending notice', 'Send')));
+                                           // TRANS: Button text for sending notice.
+                                           'value' => _m('BUTTON', 'Send')));
     }
 }

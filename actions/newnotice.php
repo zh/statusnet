@@ -47,13 +47,11 @@ require_once INSTALLDIR . '/lib/mediafile.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class NewnoticeAction extends Action
 {
     /**
      * Error message, if any
      */
-
     var $msg = null;
 
     /**
@@ -63,7 +61,6 @@ class NewnoticeAction extends Action
      *
      * @return string page title
      */
-
     function title()
     {
         // TRANS: Page title for sending a new notice.
@@ -129,7 +126,6 @@ class NewnoticeAction extends Action
      *
      * @return void
      */
-
     function saveNewNotice()
     {
         $user = common_current_user();
@@ -260,7 +256,6 @@ class NewnoticeAction extends Action
      *
      * @return void
      */
-
     function ajaxErrorMsg($msg)
     {
         $this->startHTML('text/xml;charset=utf-8', true);
@@ -283,7 +278,6 @@ class NewnoticeAction extends Action
      *
      * @return void
      */
-
     function ajaxShowForm()
     {
         $this->startHTML('text/xml;charset=utf-8', true);
@@ -313,7 +307,6 @@ class NewnoticeAction extends Action
      *
      * @return void
      */
-
     function showForm($msg=null)
     {
         if ($this->boolean('ajax')) {
@@ -336,7 +329,6 @@ class NewnoticeAction extends Action
      *
      * @return void
      */
-
     function showNoticeForm()
     {
         $content = $this->trimmed('status_textarea');
@@ -365,7 +357,6 @@ class NewnoticeAction extends Action
      *
      * @todo maybe show some instructions?
      */
-
     function showPageNotice()
     {
         if ($this->msg) {
@@ -382,7 +373,6 @@ class NewnoticeAction extends Action
      *
      * @return void
      */
-
     function showNotice($notice)
     {
         $nli = new NoticeListItem($notice, $this);
