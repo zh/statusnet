@@ -993,7 +993,7 @@ var SN = { // StatusNet
             }
 
             function getJSONgeocodeURL(geocodeURL, data) {
-                SN.U.NoticeGeoStatus('Looking up place name...');
+                SN.U.NoticeGeoStatus(form, 'Looking up place name...');
                 $.getJSON(geocodeURL, data, function(location) {
                     var lns, lid;
 
@@ -1014,8 +1014,8 @@ var SN = { // StatusNet
                         NLN_text = location.name;
                     }
 
-                    SN.U.NoticeGeoStatus(NLN_text, data.lat, data.lon, location.url);
-                    $('label[for='+SN.C.S.NoticeDataGeo+']')
+                    SN.U.NoticeGeoStatus(form, NLN_text, data.lat, data.lon, location.url);
+                    label
                         .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + NLN_text + ')');
 
                     form.find('[name=lat]').val(data.lat);
@@ -1061,7 +1061,7 @@ var SN = { // StatusNet
 
                         if ($.cookie(SN.C.S.NoticeDataGeoCookie) === null || $.cookie(SN.C.S.NoticeDataGeoCookie) == 'disabled') {
                             if (navigator.geolocation) {
-                                SN.U.NoticeGeoStatus('Requesting location from browser...');
+                                SN.U.NoticeGeoStatus(form, 'Requesting location from browser...');
                                 navigator.geolocation.getCurrentPosition(
                                     function(position) {
                                         form.find('[name=lat]').val(position.coords.latitude);
@@ -1119,7 +1119,7 @@ var SN = { // StatusNet
                             form.find('[name=location_id]').val(cookieValue.NLID);
                             form.find('[name=notice_data-geo]').attr('checked', cookieValue.NDG);
 
-                            SN.U.NoticeGeoStatus(cookieValue.NLN, cookieValue.NLat, cookieValue.NLon, cookieValue.NLNU);
+                            SN.U.NoticeGeoStatus(form, cookieValue.NLN, cookieValue.NLat, cookieValue.NLon, cookieValue.NLNU);
                             label
                                 .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + cookieValue.NLN + ')')
                                 .addClass('checked');
@@ -1135,19 +1135,20 @@ var SN = { // StatusNet
         /**
          * Create or update a geolocation status widget in this notice posting form.
          *
+         * @param {jQuery} form
          * @param {String} status
          * @param {String} lat (optional)
          * @param {String} lon (optional)
          * @param {String} url (optional)
          */
-        NoticeGeoStatus: function(status, lat, lon, url)
+        NoticeGeoStatus: function(form, status, lat, lon, url)
         {
             var form = $('#form_notice');
             var wrapper = form.find('.geo_status_wrapper');
             if (wrapper.length == 0) {
                 wrapper = $('<div class="'+SN.C.S.Success+' geo_status_wrapper"><button class="close" style="float:right">&#215;</button><div class="geo_status"></div></div>');
                 wrapper.find('button.close').click(function() {
-                    $('#'+SN.C.S.NoticeDataGeo).removeAttr('checked').change();
+                    form.find('[name=notice_data-geo]').removeAttr('checked').change();
                 });
                 form.append(wrapper);
             }
