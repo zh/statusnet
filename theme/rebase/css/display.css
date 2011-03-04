@@ -265,7 +265,7 @@ address .poweredby {
     color: #ff0000;
 }        
 
-.form_notice #notice_action-submit {
+.form_notice .submit {
     padding:0;
     position:absolute;
     right:0;
@@ -1454,7 +1454,7 @@ margin-bottom:11px;
 .entity_send-a-message .form_notice select {
 display:none;
 }
-.entity_send-a-message .form_notice #notice_action-submit {
+.entity_send-a-message .form_notice .submit {
     position: absolute;
     top: 52px;
     right: 0px;
@@ -1717,7 +1717,7 @@ body.realtime-popup {
     width: 340px !important;
 }
 
-.realtime-popup .form_notice #notice_action-submit {
+.realtime-popup .form_notice .submit {
     top: 58px !important;
     height: 2em;
     font-size: 0.8em;

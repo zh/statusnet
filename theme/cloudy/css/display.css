@@ -524,7 +524,7 @@ font-weight:bold;
 line-height:1.15;
 padding:1px 2px;
 }
-.form_notice #notice_action-submit {
+.form_notice .submit {
 width:14%;
 height:47px;
 padding:0;
@@ -1794,7 +1794,7 @@ background:transparent url(../../base/images/icons/twotone/green/clip-01.gif) no
 opacity:0;
 }
 
-#form_notice.processing #notice_action-submit {
+#form_notice.processing .submit {
 background:#fff url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
 cursor:wait;
 text-indent:-9999px;

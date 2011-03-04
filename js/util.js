@@ -51,7 +51,6 @@ var SN = { // StatusNet
             CommandResult: 'command_result',
             FormNotice: 'form_notice',
             NoticeInReplyTo: 'notice_in-reply-to',
-            NoticeActionSubmit: 'notice_action-submit',
             NoticeLat: 'notice_data-lat',
             NoticeLon: 'notice_data-lon',
             NoticeLocationId: 'notice_data-location_id',
@@ -336,7 +335,7 @@ var SN = { // StatusNet
                     }
                     form
                         .addClass(SN.C.S.Processing)
-                        .find('#'+SN.C.S.NoticeActionSubmit)
+                        .find('.submit')
                             .addClass(SN.C.S.Disabled)
                             .attr(SN.C.S.Disabled, SN.C.S.Disabled);
 
@@ -347,7 +346,7 @@ var SN = { // StatusNet
                 error: function (xhr, textStatus, errorThrown) {
                     form
                         .removeClass(SN.C.S.Processing)
-                        .find('#'+SN.C.S.NoticeActionSubmit)
+                        .find('.submit')
                             .removeClass(SN.C.S.Disabled)
                             .removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
                     removeFeedback();
@@ -429,7 +428,7 @@ var SN = { // StatusNet
                 complete: function(xhr, textStatus) {
                     form
                         .removeClass(SN.C.S.Processing)
-                        .find('#'+SN.C.S.NoticeActionSubmit)
+                        .find('.submit')
                             .removeAttr(SN.C.S.Disabled)
                             .removeClass(SN.C.S.Disabled);
 
