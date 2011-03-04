@@ -433,12 +433,10 @@ var SN = { // StatusNet
                             .removeAttr(SN.C.S.Disabled)
                             .removeClass(SN.C.S.Disabled);
 
-                    $('#'+SN.C.S.NoticeLat).val(SN.C.I.NoticeDataGeo.NLat);
-                    $('#'+SN.C.S.NoticeLon).val(SN.C.I.NoticeDataGeo.NLon);
-                    if ($('#'+SN.C.S.NoticeLocationNs)) {
-                        $('#'+SN.C.S.NoticeLocationNs).val(SN.C.I.NoticeDataGeo.NLNS);
-                        $('#'+SN.C.S.NoticeLocationId).val(SN.C.I.NoticeDataGeo.NLID);
-                    }
+                    form.find('[name=lat]').val(SN.C.I.NoticeDataGeo.NLat);
+                    form.find('[name=lon]').val(SN.C.I.NoticeDataGeo.NLon);
+                    form.find('[name=location_ns]').val(SN.C.I.NoticeDataGeo.NLNS);
+                    form.find('[name=location_id]').val(SN.C.I.NoticeDataGeo.NLID);
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', SN.C.I.NoticeDataGeo.NDG);
                 }
             });
@@ -981,10 +979,10 @@ var SN = { // StatusNet
                     .attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()))
                     .removeClass('checked');
 
-                $('#'+SN.C.S.NoticeLat).val('');
-                $('#'+SN.C.S.NoticeLon).val('');
-                $('#'+SN.C.S.NoticeLocationNs).val('');
-                $('#'+SN.C.S.NoticeLocationId).val('');
+                $('.form_notice [name=lat]').val('');
+                $('.form_notice [name=lon]').val('');
+                $('.form_notice [name=location_ns]').val('');
+                $('.form_notice [name=location_id]').val('');
                 $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
 
                 $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled', { path: '/' });
@@ -1023,10 +1021,10 @@ var SN = { // StatusNet
                     $('label[for='+SN.C.S.NoticeDataGeo+']')
                         .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + NLN_text + ')');
 
-                    $('#'+SN.C.S.NoticeLat).val(data.lat);
-                    $('#'+SN.C.S.NoticeLon).val(data.lon);
-                    $('#'+SN.C.S.NoticeLocationNs).val(lns);
-                    $('#'+SN.C.S.NoticeLocationId).val(lid);
+                    $('.form_notice [name=lat]').val(data.lat);
+                    $('.form_notice [name=lon]').val(data.lon);
+                    $('.form_notice [name=location_ns]').val(lns);
+                    $('.form_notice [name=location_id]').val(lid);
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', true);
 
                     var cookieValue = {
@@ -1069,8 +1067,8 @@ var SN = { // StatusNet
                                 SN.U.NoticeGeoStatus('Requesting location from browser...');
                                 navigator.geolocation.getCurrentPosition(
                                     function(position) {
-                                        $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
-                                        $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
+                                        $('.form_notice [name=lat]').val(position.coords.latitude);
+                                        $('.form_notice [name=lon]').val(position.coords.longitude);
 
                                         var data = {
                                             lat: position.coords.latitude,
@@ -1118,10 +1116,10 @@ var SN = { // StatusNet
                         else {
                             var cookieValue = JSON.parse($.cookie(SN.C.S.NoticeDataGeoCookie));
 
-                            $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat);
-                            $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon);
-                            $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS);
-                            $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID);
+                            $('.form_notice [name=lat]').val(cookieValue.NLat);
+                            $('.form_notice [name=lon]').val(cookieValue.NLon);
+                            $('.form_notice [name=location_ns]').val(cookieValue.NLNS);
+                            $('.form_notice [name=location_id]').val(cookieValue.NLID);
                             $('#'+SN.C.S.NoticeDataGeo).attr('checked', cookieValue.NDG);
 
                             SN.U.NoticeGeoStatus(cookieValue.NLN, cookieValue.NLat, cookieValue.NLon, cookieValue.NLNU);
