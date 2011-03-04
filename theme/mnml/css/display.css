@@ -954,22 +954,22 @@ opacity: 0;
 padding:0;
 height:1.6em;
 }
-.form_notice .form_note {
+.form_notice .count {
 position:absolute;
 bottom:2px;
 right:21.715%;
 z-index:9;
 }
-.form_notice .form_note dt {
+.form_notice .count dt {
 font-weight:bold;
 display:none;
 }
-.form_notice #notice_text-count {
+.form_notice .count {
 font-family: 'TeXGyreHerosBold', sans-serif;
 line-height:1.15;
 padding:1px 2px;
 }
-.form_notice #notice_action-submit {
+.form_notice .submit {
 width:14%;
 height:47px;
 padding:0;
@@ -992,7 +992,7 @@ width:81.5%;
 margin-bottom:0;
 line-height:1.618;
 }
-.form_notice #notice_data-attach_selected code {
+.form_notice .attach-status code {
 float:left;
 width:80%;
 display:block;
@@ -1000,7 +1000,7 @@ overflow:auto;
 margin-right:2.5%;
 font-size:1.1em;
 }
-.form_notice #notice_data-attach_selected button.close {
+.form_notice .attach-status button.close {
 float:right;
 font-size:0.8em;
 }

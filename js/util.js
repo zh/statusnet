@@ -50,12 +50,7 @@ var SN = { // StatusNet
             Processing: 'processing',
             CommandResult: 'command_result',
             FormNotice: 'form_notice',
-            NoticeDataText: 'notice_data-text',
-            NoticeTextCount: 'notice_text-count',
             NoticeInReplyTo: 'notice_in-reply-to',
-            NoticeDataAttach: 'notice_data-attach',
-            NoticeDataAttachSelected: 'notice_data-attach_selected',
-            NoticeActionSubmit: 'notice_action-submit',
             NoticeLat: 'notice_data-lat',
             NoticeLon: 'notice_data-lon',
             NoticeLocationId: 'notice_data-location_id',
@@ -106,7 +101,7 @@ var SN = { // StatusNet
          */
         FormNoticeEnhancements: function(form) {
             if (jQuery.data(form[0], 'ElementData') === undefined) {
-                MaxLength = form.find('#'+SN.C.S.NoticeTextCount).text();
+                MaxLength = form.find('.count').text();
                 if (typeof(MaxLength) == 'undefined') {
                      MaxLength = SN.C.I.MaxLength;
                 }
@@ -114,7 +109,7 @@ var SN = { // StatusNet
 
                 SN.U.Counter(form);
 
-                NDT = form.find('#'+SN.C.S.NoticeDataText);
+                NDT = form.find('[name=status_textarea]');
 
                 NDT.bind('keyup', function(e) {
                     SN.U.Counter(form);
@@ -132,41 +127,10 @@ var SN = { // StatusNet
                 // Note there's still no event for mouse-triggered 'delete'.
                 NDT.bind('cut', delayedUpdate)
                    .bind('paste', delayedUpdate);
-
-                NDT.bind('keydown', function(e) {
-                    SN.U.SubmitOnReturn(e, form);
-                });
             }
             else {
-                form.find('#'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
+                form.find('.count').text(jQuery.data(form[0], 'ElementData').MaxLength);
             }
-
-            if ($('body')[0].id != 'conversation' && window.location.hash.length === 0 && $(window).scrollTop() == 0) {
-                form.find('textarea').focus();
-            }
-        },
-
-        /**
-         * To be called from keydown event handler on the notice import form.
-         * Checks if return or enter key was pressed, and if so attempts to
-         * submit the form and cancel standard processing of the enter key.
-         *
-         * @param {Event} event
-         * @param {jQuery} el: jQuery object whose first element is the notice posting form
-         *
-         * @return {boolean} whether to cancel the event? Does this actually pass through?
-         * @access private
-         */
-        SubmitOnReturn: function(event, el) {
-            if (event.keyCode == 13 || event.keyCode == 10) {
-                el.submit();
-                event.preventDefault();
-                event.stopPropagation();
-                $('#'+el[0].id+' #'+SN.C.S.NoticeDataText).blur();
-                $('body').focus();
-                return false;
-            }
-            return true;
         },
 
         /**
@@ -193,7 +157,7 @@ var SN = { // StatusNet
             }
 
             var remaining = MaxLength - SN.U.CharacterCount(form);
-            var counter = form.find('#'+SN.C.S.NoticeTextCount);
+            var counter = form.find('.count');
 
             if (remaining.toString() != counter.text()) {
                 if (!SN.C.I.CounterBlackout || remaining === 0) {
@@ -224,7 +188,7 @@ var SN = { // StatusNet
          * @return number of chars
          */
         CharacterCount: function(form) {
-            return form.find('#'+SN.C.S.NoticeDataText).val().length;
+            return form.find('[name=status_textarea]').val().length;
         },
 
         /**
@@ -365,46 +329,24 @@ var SN = { // StatusNet
                 dataType: 'xml',
                 timeout: '60000',
                 beforeSend: function(formData) {
-                    if (form.find('#'+SN.C.S.NoticeDataText)[0].value.length === 0) {
+                    if (form.find('[name=status_textarea]').val() == '') {
                         form.addClass(SN.C.S.Warning);
                         return false;
                     }
                     form
                         .addClass(SN.C.S.Processing)
-                        .find('#'+SN.C.S.NoticeActionSubmit)
+                        .find('.submit')
                             .addClass(SN.C.S.Disabled)
                             .attr(SN.C.S.Disabled, SN.C.S.Disabled);
 
-                    SN.C.I.NoticeDataGeo.NLat = $('#'+SN.C.S.NoticeLat).val();
-                    SN.C.I.NoticeDataGeo.NLon = $('#'+SN.C.S.NoticeLon).val();
-                    SN.C.I.NoticeDataGeo.NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
-                    SN.C.I.NoticeDataGeo.NLID = $('#'+SN.C.S.NoticeLocationId).val();
-                    SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked');
-
-                    cookieValue = $.cookie(SN.C.S.NoticeDataGeoCookie);
-
-                    if (cookieValue !== null && cookieValue != 'disabled') {
-                        cookieValue = JSON.parse(cookieValue);
-                        SN.C.I.NoticeDataGeo.NLat = $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat).val();
-                        SN.C.I.NoticeDataGeo.NLon = $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon).val();
-                        if ($('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS)) {
-                            SN.C.I.NoticeDataGeo.NLNS = $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS).val();
-                            SN.C.I.NoticeDataGeo.NLID = $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID).val();
-                        }
-                    }
-                    if (cookieValue == 'disabled') {
-                        SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
-                    }
-                    else {
-                        SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', true).attr('checked');
-                    }
+                    SN.U.normalizeGeoData(form);
 
                     return true;
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     form
                         .removeClass(SN.C.S.Processing)
-                        .find('#'+SN.C.S.NoticeActionSubmit)
+                        .find('.submit')
                             .removeClass(SN.C.S.Disabled)
                             .removeAttr(SN.C.S.Disabled, SN.C.S.Disabled);
                     removeFeedback();
@@ -421,7 +363,7 @@ var SN = { // StatusNet
                             if (parseInt(xhr.status) === 0 || jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) >= 0) {
                                 form
                                     .resetForm()
-                                    .find('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                                    .find('.attach-status').remove();
                                 SN.U.FormNoticeEnhancements(form);
                             }
                             else {
@@ -478,29 +420,56 @@ var SN = { // StatusNet
                             }
                         }
                         form.resetForm();
-                        form.find('#'+SN.C.S.NoticeInReplyTo).val('');
-                        form.find('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                        form.find('[name=inreplyto]').val('');
+                        form.find('.attach-status').remove();
                         SN.U.FormNoticeEnhancements(form);
                     }
                 },
                 complete: function(xhr, textStatus) {
                     form
                         .removeClass(SN.C.S.Processing)
-                        .find('#'+SN.C.S.NoticeActionSubmit)
+                        .find('.submit')
                             .removeAttr(SN.C.S.Disabled)
                             .removeClass(SN.C.S.Disabled);
 
-                    $('#'+SN.C.S.NoticeLat).val(SN.C.I.NoticeDataGeo.NLat);
-                    $('#'+SN.C.S.NoticeLon).val(SN.C.I.NoticeDataGeo.NLon);
-                    if ($('#'+SN.C.S.NoticeLocationNs)) {
-                        $('#'+SN.C.S.NoticeLocationNs).val(SN.C.I.NoticeDataGeo.NLNS);
-                        $('#'+SN.C.S.NoticeLocationId).val(SN.C.I.NoticeDataGeo.NLID);
-                    }
-                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', SN.C.I.NoticeDataGeo.NDG);
+                    form.find('[name=lat]').val(SN.C.I.NoticeDataGeo.NLat);
+                    form.find('[name=lon]').val(SN.C.I.NoticeDataGeo.NLon);
+                    form.find('[name=location_ns]').val(SN.C.I.NoticeDataGeo.NLNS);
+                    form.find('[name=location_id]').val(SN.C.I.NoticeDataGeo.NLID);
+                    form.find('[name=notice_data-geo]').attr('checked', SN.C.I.NoticeDataGeo.NDG);
                 }
             });
         },
 
+        normalizeGeoData: function(form) {
+            SN.C.I.NoticeDataGeo.NLat = form.find('[name=lat]').val();
+            SN.C.I.NoticeDataGeo.NLon = form.find('[name=lon]').val();
+            SN.C.I.NoticeDataGeo.NLNS = form.find('[name=location_ns]').val();
+            SN.C.I.NoticeDataGeo.NLID = form.find('[name=location_id]').val();
+            SN.C.I.NoticeDataGeo.NDG = form.find('[name=notice_data-geo]').attr('checked'); // @fixme
+
+            var cookieValue = $.cookie(SN.C.S.NoticeDataGeoCookie);
+
+            if (cookieValue !== null && cookieValue != 'disabled') {
+                cookieValue = JSON.parse(cookieValue);
+                SN.C.I.NoticeDataGeo.NLat = form.find('[name=lat]').val(cookieValue.NLat).val();
+                SN.C.I.NoticeDataGeo.NLon = form.find('[name=lon]').val(cookieValue.NLon).val();
+                if (cookieValue.NLNS) {
+                    SN.C.I.NoticeDataGeo.NLNS = form.find('[name=location_ns]').val(cookieValue.NLNS).val();
+                    SN.C.I.NoticeDataGeo.NLID = form.find('[name=location_id]').val(cookieValue.NLID).val();
+                } else {
+                    form.find('[name=location_ns]').val('');
+                    form.find('[name=location_id]').val('');
+                }
+            }
+            if (cookieValue == 'disabled') {
+                SN.C.I.NoticeDataGeo.NDG = form.find('[name=notice_data-geo]').attr('checked', false).attr('checked');
+            }
+            else {
+                SN.C.I.NoticeDataGeo.NDG = form.find('[name=notice_data-geo]').attr('checked', true).attr('checked');
+            }
+
+        },
         /**
          * Fetch an XML DOM from an XHR's response data.
          *
@@ -533,7 +502,7 @@ var SN = { // StatusNet
          * @access private
          */
         NoticeReply: function() {
-            if ($('#'+SN.C.S.NoticeDataText).length > 0 && $('#content .notice_reply').length > 0) {
+            if ($('#content .notice_reply').length > 0) {
                 $('#content .notice').each(function() { SN.U.NoticeReplyTo($(this)); });
             }
         },
@@ -556,7 +525,6 @@ var SN = { // StatusNet
             notice.find('.notice_reply').live('click', function(e) {
                 e.preventDefault();
                 var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
-                /* SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text()); */
                 SN.U.NoticeInlineReplyTrigger(notice, '@' + nickname.text());
                 return false;
             });
@@ -693,34 +661,6 @@ var SN = { // StatusNet
         },
 
         /**
-         * FIXME OBSOLETE?
-         * Updates the new notice posting form with bits for replying to the
-         * given user. Adds replyto parameter to the form, and a "@foo" to the
-         * text area.
-         *
-         * @fixme replyto is a global variable, but probably shouldn't be
-         *
-         * @param {String} nick
-         * @param {String} id
-         */
-        NoticeReplySet: function(nick,id) {
-            if (nick.match(SN.C.I.PatternUsername)) {
-                var text = $('#'+SN.C.S.NoticeDataText);
-                if (text.length > 0) {
-                    replyto = '@' + nick + ' ';
-                    text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
-                    $('#'+SN.C.S.FormNotice+' #'+SN.C.S.NoticeInReplyTo).val(id);
-
-                    text[0].focus();
-                    if (text[0].setSelectionRange) {
-                        var len = text.val().length;
-                        text[0].setSelectionRange(len,len);
-                    }
-                }
-            }
-        },
-
-        /**
          * Setup function -- DOES NOT apply immediately.
          *
          * Sets up event handlers for favor/disfavor forms to submit via XHR.
@@ -739,7 +679,7 @@ var SN = { // StatusNet
             placeholder.click(function() {
                 SN.U.NoticeInlineReplyTrigger(notice);
             });
-            placeholder.find('input').val(SN.msg('reply_comment'));
+            placeholder.find('input').val(SN.msg('reply_placeholder'));
             list.append(placeholder);
         },
 
@@ -874,36 +814,34 @@ var SN = { // StatusNet
          *
          * This preview box will also allow removing the attachment
          * prior to posting.
+         *
+         * @param {jQuery} form
          */
-        NoticeDataAttach: function() {
-            NDA = $('#'+SN.C.S.NoticeDataAttach);
+        NoticeDataAttach: function(form) {
+            var NDA = form.find('input[type=file]');
             NDA.change(function(event) {
+                form.find('.attach-status').remove();
+
                 var filename = $(this).val();
                 if (!filename) {
                     // No file -- we've been tricked!
-                    $('#'+SN.C.S.NoticeDataAttachSelected).remove();
                     return false;
                 }
 
-                // @fixme appending filename straight in is potentially unsafe
-                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+filename+'</code> <button class="close">&#215;</button></div>';
-                NDAS = $('#'+SN.C.S.NoticeDataAttachSelected);
-                if (NDAS.length > 0) {
-                    NDAS.replaceWith(S);
-                }
-                else {
-                    $('#'+SN.C.S.FormNotice).append(S);
-                }
-                $('#'+SN.C.S.NoticeDataAttachSelected+' button').click(function(){
-                    $('#'+SN.C.S.NoticeDataAttachSelected).remove();
+                var attachStatus = $('<div class="attach-status '+SN.C.S.Success+'"><code></code> <button class="close">&#215;</button></div>');
+                attachStatus.find('code').text(filename);
+                attachStatus.find('button').click(function(){
+                    attachStatus.remove();
                     NDA.val('');
 
                     return false;
                 });
+                form.append(attachStatus);
+
                 if (typeof this.files == "object") {
                     // Some newer browsers will let us fetch the files for preview.
                     for (var i = 0; i < this.files.length; i++) {
-                        SN.U.PreviewAttach(this.files[i]);
+                        SN.U.PreviewAttach(form, this.files[i]);
                     }
                 }
             });
@@ -939,13 +877,14 @@ var SN = { // StatusNet
          * Known fail:
          * - Opera 10.63, 11 beta (no input.files interface)
          *
+         * @param {jQuery} form
          * @param {File} file
          *
          * @todo use configured thumbnail size
          * @todo detect pixel size?
          * @todo should we render a thumbnail to a canvas and then use the smaller image?
          */
-        PreviewAttach: function(file) {
+        PreviewAttach: function(form, file) {
             var tooltip = file.type + ' ' + Math.round(file.size / 1024) + 'KB';
             var preview = true;
 
@@ -1005,11 +944,11 @@ var SN = { // StatusNet
                         .attr('alt', tooltip)
                         .attr('src', url)
                         .attr('style', 'height: 120px');
-                    $('#'+SN.C.S.NoticeDataAttachSelected).append(img);
+                    form.find('.attach-status').append(img);
                 });
             } else {
                 var img = $('<div></div>').text(tooltip);
-                $('#'+SN.C.S.NoticeDataAttachSelected).append(img);
+                form.find('.attach-status').append(img);
             }
         },
 
@@ -1020,44 +959,55 @@ var SN = { // StatusNet
          * new-notice form. Seems to set up some event handlers for
          * triggering lookups and using the new values.
          *
+         * @param {jQuery} form
+         *
          * @fixme tl;dr
          * @fixme there's not good visual state update here, so users have a
          *        hard time figuring out if it's working or fixing if it's wrong.
          *
          */
-        NoticeLocationAttach: function() {
-            var NLat = $('#'+SN.C.S.NoticeLat).val();
-            var NLon = $('#'+SN.C.S.NoticeLon).val();
-            var NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
-            var NLID = $('#'+SN.C.S.NoticeLocationId).val();
-            var NLN = $('#'+SN.C.S.NoticeGeoName).text();
-            var NDGe = $('#'+SN.C.S.NoticeDataGeo);
+        NoticeLocationAttach: function(form) {
+            // @fixme this should not be tied to the main notice form, as there may be multiple notice forms...
+            var NLat = form.find('[name=lat]')
+            var NLon = form.find('[name=lon]')
+            var NLNS = form.find('[name=location_ns]').val();
+            var NLID = form.find('[name=location_id]').val();
+            var NLN = $('#'+SN.C.S.NoticeGeoName).text(); // @fixme does this exist?
+            var NDGe = form.find('[name=notice_data-geo]');
 
-            function removeNoticeDataGeo() {
+            function removeNoticeDataGeo(error) {
                 $('label[for='+SN.C.S.NoticeDataGeo+']')
                     .attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()))
                     .removeClass('checked');
 
-                $('#'+SN.C.S.NoticeLat).val('');
-                $('#'+SN.C.S.NoticeLon).val('');
-                $('#'+SN.C.S.NoticeLocationNs).val('');
-                $('#'+SN.C.S.NoticeLocationId).val('');
-                $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
+                form.find('[name=lat]').val('');
+                form.find('[name=lon]').val('');
+                form.find('[name=location_ns]').val('');
+                form.find('[name=location_id]').val('');
+                form.find('[name=notice_data-geo]').attr('checked', false);
 
                 $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled', { path: '/' });
+
+                if (error) {
+                    $('.geo_status_wrapper').removeClass('success').addClass('error');
+                    $('.geo_status_wrapper .geo_status').text(error);
+                } else {
+                    $('.geo_status_wrapper').remove();
+                }
             }
 
             function getJSONgeocodeURL(geocodeURL, data) {
+                SN.U.NoticeGeoStatus('Looking up place name...');
                 $.getJSON(geocodeURL, data, function(location) {
                     var lns, lid;
 
                     if (typeof(location.location_ns) != 'undefined') {
-                        $('#'+SN.C.S.NoticeLocationNs).val(location.location_ns);
+                        form.find('[name=location_ns]').val(location.location_ns);
                         lns = location.location_ns;
                     }
 
                     if (typeof(location.location_id) != 'undefined') {
-                        $('#'+SN.C.S.NoticeLocationId).val(location.location_id);
+                        form.find('[name=location_id]').val(location.location_id);
                         lid = location.location_id;
                     }
 
@@ -1068,14 +1018,15 @@ var SN = { // StatusNet
                         NLN_text = location.name;
                     }
 
+                    SN.U.NoticeGeoStatus(NLN_text, data.lat, data.lon, location.url);
                     $('label[for='+SN.C.S.NoticeDataGeo+']')
                         .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + NLN_text + ')');
 
-                    $('#'+SN.C.S.NoticeLat).val(data.lat);
-                    $('#'+SN.C.S.NoticeLon).val(data.lon);
-                    $('#'+SN.C.S.NoticeLocationNs).val(lns);
-                    $('#'+SN.C.S.NoticeLocationId).val(lid);
-                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', true);
+                    form.find('[name=lat]').val(data.lat);
+                    form.find('[name=lon]').val(data.lon);
+                    form.find('[name=location_ns]').val(lns);
+                    form.find('[name=location_id]').val(lid);
+                    form.find('[name=notice_data-geo]').attr('checked', true);
 
                     var cookieValue = {
                         NLat: data.lat,
@@ -1114,10 +1065,11 @@ var SN = { // StatusNet
 
                         if ($.cookie(SN.C.S.NoticeDataGeoCookie) === null || $.cookie(SN.C.S.NoticeDataGeoCookie) == 'disabled') {
                             if (navigator.geolocation) {
+                                SN.U.NoticeGeoStatus('Requesting location from browser...');
                                 navigator.geolocation.getCurrentPosition(
                                     function(position) {
-                                        $('#'+SN.C.S.NoticeLat).val(position.coords.latitude);
-                                        $('#'+SN.C.S.NoticeLon).val(position.coords.longitude);
+                                        form.find('[name=lat]').val(position.coords.latitude);
+                                        form.find('[name=lon]').val(position.coords.longitude);
 
                                         var data = {
                                             lat: position.coords.latitude,
@@ -1131,10 +1083,11 @@ var SN = { // StatusNet
                                     function(error) {
                                         switch(error.code) {
                                             case error.PERMISSION_DENIED:
-                                                removeNoticeDataGeo();
+                                                removeNoticeDataGeo('Location permission denied.');
                                                 break;
                                             case error.TIMEOUT:
-                                                $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
+                                                //$('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
+                                                removeNoticeDataGeo('Location lookup timeout.');
                                                 break;
                                         }
                                     },
@@ -1164,12 +1117,13 @@ var SN = { // StatusNet
                         else {
                             var cookieValue = JSON.parse($.cookie(SN.C.S.NoticeDataGeoCookie));
 
-                            $('#'+SN.C.S.NoticeLat).val(cookieValue.NLat);
-                            $('#'+SN.C.S.NoticeLon).val(cookieValue.NLon);
-                            $('#'+SN.C.S.NoticeLocationNs).val(cookieValue.NLNS);
-                            $('#'+SN.C.S.NoticeLocationId).val(cookieValue.NLID);
-                            $('#'+SN.C.S.NoticeDataGeo).attr('checked', cookieValue.NDG);
+                            form.find('[name=lat]').val(cookieValue.NLat);
+                            form.find('[name=lon]').val(cookieValue.NLon);
+                            form.find('[name=location_ns]').val(cookieValue.NLNS);
+                            form.find('[name=location_id]').val(cookieValue.NLID);
+                            form.find('[name=notice_data-geo]').attr('checked', cookieValue.NDG);
 
+                            SN.U.NoticeGeoStatus(cookieValue.NLN, cookieValue.NLat, cookieValue.NLon, cookieValue.NLNU);
                             $('label[for='+SN.C.S.NoticeDataGeo+']')
                                 .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + cookieValue.NLN + ')')
                                 .addClass('checked');
@@ -1180,6 +1134,42 @@ var SN = { // StatusNet
                     }
                 }).change();
             }
+        },
+
+        /**
+         * Create or update a geolocation status widget in this notice posting form.
+         *
+         * @param {String} status
+         * @param {String} lat (optional)
+         * @param {String} lon (optional)
+         * @param {String} url (optional)
+         */
+        NoticeGeoStatus: function(status, lat, lon, url)
+        {
+            var form = $('#form_notice');
+            var wrapper = form.find('.geo_status_wrapper');
+            if (wrapper.length == 0) {
+                wrapper = $('<div class="'+SN.C.S.Success+' geo_status_wrapper"><button class="close" style="float:right">&#215;</button><div class="geo_status"></div></div>');
+                wrapper.find('button.close').click(function() {
+                    $('#'+SN.C.S.NoticeDataGeo).removeAttr('checked').change();
+                });
+                form.append(wrapper);
+            }
+            var label;
+            if (url) {
+                label = $('<a></a>').attr('href', url);
+            } else {
+                label = $('<span></span>');
+            }
+            label.text(status);
+            if (lat || lon) {
+                var latlon = lat + ';' + lon;
+                label.attr('title', latlon);
+                if (!status) {
+                    label.text(latlon)
+                }
+            }
+            wrapper.find('.geo_status').empty().append(label);
         },
 
         /**
@@ -1335,14 +1325,13 @@ var SN = { // StatusNet
          */
         NoticeForm: function() {
             if ($('body.user_in').length > 0) {
-                SN.U.NoticeLocationAttach();
-
                 $('.'+SN.C.S.FormNotice).each(function() {
-                    SN.U.FormNoticeXHR($(this));
-                    SN.U.FormNoticeEnhancements($(this));
+                    var form = $(this);
+                    SN.U.NoticeLocationAttach(form);
+                    SN.U.FormNoticeXHR(form);
+                    SN.U.FormNoticeEnhancements(form);
+                    SN.U.NoticeDataAttach(form);
                 });
-
-                SN.U.NoticeDataAttach();
             }
         },
 

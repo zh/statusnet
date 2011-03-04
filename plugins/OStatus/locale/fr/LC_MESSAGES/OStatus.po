@@ -11,13 +11,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-14 16:01+0000\n"
-"PO-Revision-Date: 2011-02-14 16:09:38+0000\n"
+"POT-Creation-Date: 2011-03-03 17:24+0000\n"
+"PO-Revision-Date: 2011-03-03 17:27:45+0000\n"
 "Language-Team: French <http://translatewiki.net/wiki/Portal:fr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-02-03 00:48:00+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r82114); Translate extension (2011-02-01)\n"
+"X-POT-Import-Date: 2011-02-14 17:22:01+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r83149); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -133,7 +133,7 @@ msgstr ""
 "concentrateur."
 
 #. TRANS: Server exception. %s is a URI.
-#: classes/Ostatus_profile.php:192
+#: classes/Ostatus_profile.php:154
 #, php-format
 msgid "Invalid ostatus_profile state: both group and profile IDs set for %s."
 msgstr ""
@@ -141,7 +141,7 @@ msgstr ""
 "profil définis pour « %s »."
 
 #. TRANS: Server exception. %s is a URI.
-#: classes/Ostatus_profile.php:195
+#: classes/Ostatus_profile.php:157
 #, php-format
 msgid "Invalid ostatus_profile state: both group and profile IDs empty for %s."
 msgstr ""
@@ -150,13 +150,13 @@ msgstr ""
 
 #. TRANS: Server exception.
 #. TRANS: %1$s is the method name the exception occured in, %2$s is the actor type.
-#: classes/Ostatus_profile.php:285
+#: classes/Ostatus_profile.php:247
 #, php-format
 msgid "Invalid actor passed to %1$s: %2$s."
 msgstr "Type d’acteur invalide passé à la méthode « %1$s » : « %2$s »."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:379
+#: classes/Ostatus_profile.php:341
 msgid ""
 "Invalid type passed to Ostatus_profile::notify. It must be XML string or "
 "Activity entry."
@@ -165,40 +165,40 @@ msgstr ""
 "une chaîne XML ou une entrée « Activity »."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:410
+#: classes/Ostatus_profile.php:372
 msgid "Unknown feed format."
 msgstr "Format de flux d’information inconnu."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:434
+#: classes/Ostatus_profile.php:396
 msgid "RSS feed without a channel."
 msgstr "Flux RSS sans canal."
 
 #. TRANS: Client exception.
-#: classes/Ostatus_profile.php:480
+#: classes/Ostatus_profile.php:442
 msgid "Can't handle that kind of post."
 msgstr "Impossible de gérer cette sorte de publication."
 
 #. TRANS: Client exception. %s is a source URI.
-#: classes/Ostatus_profile.php:538
+#: classes/Ostatus_profile.php:500
 #, php-format
 msgid "No content for notice %s."
 msgstr "Aucun contenu dans l’avis « %s »."
 
 #. TRANS: Shown when a notice is longer than supported and/or when attachments are present. At runtime
 #. TRANS: this will usually be replaced with localised text from StatusNet core messages.
-#: classes/Ostatus_profile.php:573
+#: classes/Ostatus_profile.php:535
 msgid "Show more"
 msgstr "Voir davantage"
 
 #. TRANS: Exception. %s is a profile URL.
-#: classes/Ostatus_profile.php:766
+#: classes/Ostatus_profile.php:728
 #, php-format
 msgid "Could not reach profile page %s."
 msgstr "Impossible d’atteindre la page de profil « %s »."
 
 #. TRANS: Exception. %s is a URL.
-#: classes/Ostatus_profile.php:824
+#: classes/Ostatus_profile.php:786
 #, php-format
 msgid "Could not find a feed URL for profile page %s."
 msgstr ""
@@ -206,20 +206,20 @@ msgstr ""
 "profil « %s »."
 
 #. TRANS: Feed sub exception.
-#: classes/Ostatus_profile.php:923
+#: classes/Ostatus_profile.php:885
 msgid "Can't find enough profile information to make a feed."
 msgstr ""
 "Impossible de trouver assez d’informations de profil pour créer un flux "
 "d’information."
 
 #. TRANS: Server exception. %s is a URL.
-#: classes/Ostatus_profile.php:987
+#: classes/Ostatus_profile.php:949
 #, php-format
 msgid "Invalid avatar URL %s."
 msgstr "Adresse URL d’avatar « %s » invalide."
 
 #. TRANS: Server exception. %s is a URI.
-#: classes/Ostatus_profile.php:998
+#: classes/Ostatus_profile.php:960
 #, php-format
 msgid "Tried to update avatar for unsaved remote profile %s."
 msgstr ""
@@ -227,56 +227,56 @@ msgstr ""
 "»."
 
 #. TRANS: Server exception. %s is a URL.
-#: classes/Ostatus_profile.php:1008
+#: classes/Ostatus_profile.php:970
 #, php-format
 msgid "Unable to fetch avatar from %s."
 msgstr "Impossible de récupérer l’avatar depuis « %s »."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1235
+#: classes/Ostatus_profile.php:1197
 msgid "Local user can't be referenced as remote."
 msgstr "L’utilisateur local ne peut être référencé comme distant."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1240
+#: classes/Ostatus_profile.php:1202
 msgid "Local group can't be referenced as remote."
 msgstr "Le groupe local ne peut être référencé comme distant."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1292 classes/Ostatus_profile.php:1303
+#: classes/Ostatus_profile.php:1254 classes/Ostatus_profile.php:1265
 msgid "Can't save local profile."
 msgstr "Impossible de sauvegarder le profil local."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1311
+#: classes/Ostatus_profile.php:1273
 msgid "Can't save OStatus profile."
 msgstr "Impossible de sauvegarder le profil OStatus."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1599 classes/Ostatus_profile.php:1627
+#: classes/Ostatus_profile.php:1561 classes/Ostatus_profile.php:1589
 msgid "Not a valid webfinger address."
 msgstr "Ce n’est pas une adresse « webfinger » valide."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1709
+#: classes/Ostatus_profile.php:1671
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr "Impossible de sauvegarder le profil pour « %s »."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1728
+#: classes/Ostatus_profile.php:1690
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr "Impossible d’enregistrer le profil OStatus pour « %s »."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1736
+#: classes/Ostatus_profile.php:1698
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr "Impossible de trouver un profil valide pour « %s »."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1779
+#: classes/Ostatus_profile.php:1741
 msgid "Could not store HTML content of long post as file."
 msgstr ""
 "Impossible de stocker le contenu HTML d’une longue publication en un fichier."
@@ -622,29 +622,9 @@ msgstr "S’abonner à cet utilisateur"
 msgid "You are already subscribed to this user."
 msgstr "Vous êtes déjà abonné à cet utilisateur."
 
-#: actions/ostatussub.php:167
-msgid "Photo"
-msgstr "Photo"
-
-#: actions/ostatussub.php:178
-msgid "Nickname"
-msgstr "Pseudonyme"
-
-#: actions/ostatussub.php:199
-msgid "Location"
-msgstr "Emplacement"
-
-#: actions/ostatussub.php:208
-msgid "URL"
-msgstr "Adresse URL"
-
-#: actions/ostatussub.php:220
-msgid "Note"
-msgstr "Note"
-
 #. TRANS: Error text.
-#: actions/ostatussub.php:256 actions/ostatussub.php:263
-#: actions/ostatussub.php:288
+#: actions/ostatussub.php:232 actions/ostatussub.php:239
+#: actions/ostatussub.php:264
 msgid ""
 "Sorry, we could not reach that address. Please make sure that the OStatus "
 "address is like nickname@example.com or http://example.net/nickname."
@@ -654,9 +634,9 @@ msgstr ""
 "forme pseudonyme@example.com ou http://example.net/pseudonyme."
 
 #. TRANS: Error text.
-#: actions/ostatussub.php:267 actions/ostatussub.php:271
-#: actions/ostatussub.php:275 actions/ostatussub.php:279
-#: actions/ostatussub.php:283
+#: actions/ostatussub.php:243 actions/ostatussub.php:247
+#: actions/ostatussub.php:251 actions/ostatussub.php:255
+#: actions/ostatussub.php:259
 msgid ""
 "Sorry, we could not reach that feed. Please try that OStatus address again "
 "later."
@@ -665,33 +645,33 @@ msgstr ""
 "cette adresse OStatus."
 
 #. TRANS: OStatus remote subscription dialog error.
-#: actions/ostatussub.php:317
+#: actions/ostatussub.php:293
 msgid "Already subscribed!"
 msgstr "Déjà abonné !"
 
 #. TRANS: OStatus remote subscription dialog error.
-#: actions/ostatussub.php:322
+#: actions/ostatussub.php:298
 msgid "Remote subscription failed!"
 msgstr "Ĺ’abonnement distant a échoué !"
 
-#: actions/ostatussub.php:369 actions/ostatusinit.php:64
+#: actions/ostatussub.php:345 actions/ostatusinit.php:64
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 "Un problème est survenu avec votre jeton de session. Veuillez essayer à "
 "nouveau."
 
 #. TRANS: Form title.
-#: actions/ostatussub.php:397 actions/ostatusinit.php:83
+#: actions/ostatussub.php:373 actions/ostatusinit.php:83
 msgid "Subscribe to user"
 msgstr "S’abonner à un utilisateur"
 
 #. TRANS: Page title for OStatus remote subscription form
-#: actions/ostatussub.php:417
+#: actions/ostatussub.php:393
 msgid "Confirm"
 msgstr "Confirmer"
 
 #. TRANS: Instructions.
-#: actions/ostatussub.php:429
+#: actions/ostatussub.php:405
 msgid ""
 "You can subscribe to users from other supported sites. Paste their address "
 "or profile URI below:"
@@ -811,3 +791,18 @@ msgstr "Demande d’abonnement inattendue pour le sujet invalide « %s »."
 #, php-format
 msgid "Unexpected unsubscribe request for %s."
 msgstr "Demande de désabonnement inattendue pour le sujet invalide « %s »."
+
+#~ msgid "Photo"
+#~ msgstr "Photo"
+
+#~ msgid "Nickname"
+#~ msgstr "Pseudonyme"
+
+#~ msgid "Location"
+#~ msgstr "Emplacement"
+
+#~ msgid "URL"
+#~ msgstr "Adresse URL"
+
+#~ msgid "Note"
+#~ msgstr "Note"

@@ -163,8 +163,7 @@ class MessageForm extends Form
 
         if ($contentLimit > 0) {
             $this->out->element('span',
-                                array('id' => 'notice_text-count',
-                                      'class' => 'form_note'),
+                                array('class' => 'count'),
                                 $contentLimit);
         }
     }

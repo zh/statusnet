@@ -480,22 +480,22 @@ text-indent:-279px;
 #form_notice #notice_submit label {
 display:none;
 }
-#form_notice .form_note {
+.form_notice .count {
 position:absolute;
 top:99px;
 right:98px;
 z-index:9;
 }
-#form_notice .form_note dt {
+.form_notice .count dt {
 font-weight:bold;
 display:none;
 }
-#notice_text-count {
+.form_notice .count {
 font-weight:bold;
 line-height:1.15;
 padding:1px 2px;
 }
-#form_notice #notice_action-submit {
+#form_notice .submit {
 width:14%;
 height:47px;
 padding:0;
@@ -519,7 +519,7 @@ margin-bottom:0;
 line-height:1.618;
 }
 
-.form_notice #notice_data-attach_selected button.close {
+.form_notice .attach-status button.close {
 float:right;
 font-size:0.8em;
 }

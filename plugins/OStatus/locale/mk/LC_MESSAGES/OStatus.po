@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-14 16:01+0000\n"
-"PO-Revision-Date: 2011-02-14 16:09:39+0000\n"
+"POT-Creation-Date: 2011-03-03 17:24+0000\n"
+"PO-Revision-Date: 2011-03-03 17:27:45+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-02-03 00:48:00+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r82114); Translate extension (2011-02-01)\n"
+"X-POT-Import-Date: 2011-02-14 17:22:01+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r83149); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -128,7 +128,7 @@ msgstr ""
 "Се обидувам да ставам крај на PuSH-претплатата за емитување без средиште."
 
 #. TRANS: Server exception. %s is a URI.
-#: classes/Ostatus_profile.php:192
+#: classes/Ostatus_profile.php:154
 #, php-format
 msgid "Invalid ostatus_profile state: both group and profile IDs set for %s."
 msgstr ""
@@ -136,7 +136,7 @@ msgstr ""
 "наместени за %s."
 
 #. TRANS: Server exception. %s is a URI.
-#: classes/Ostatus_profile.php:195
+#: classes/Ostatus_profile.php:157
 #, php-format
 msgid "Invalid ostatus_profile state: both group and profile IDs empty for %s."
 msgstr ""
@@ -145,13 +145,13 @@ msgstr ""
 
 #. TRANS: Server exception.
 #. TRANS: %1$s is the method name the exception occured in, %2$s is the actor type.
-#: classes/Ostatus_profile.php:285
+#: classes/Ostatus_profile.php:247
 #, php-format
 msgid "Invalid actor passed to %1$s: %2$s."
 msgstr "На %1$s е пренесен неважечки учесник: %2$s."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:379
+#: classes/Ostatus_profile.php:341
 msgid ""
 "Invalid type passed to Ostatus_profile::notify. It must be XML string or "
 "Activity entry."
@@ -160,113 +160,113 @@ msgstr ""
 "или ставка во Activity."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:410
+#: classes/Ostatus_profile.php:372
 msgid "Unknown feed format."
 msgstr "Непознат формат на каналско емитување."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:434
+#: classes/Ostatus_profile.php:396
 msgid "RSS feed without a channel."
 msgstr "RSS-емитување без канал."
 
 #. TRANS: Client exception.
-#: classes/Ostatus_profile.php:480
+#: classes/Ostatus_profile.php:442
 msgid "Can't handle that kind of post."
 msgstr "Не можам да работам со таква објава."
 
 #. TRANS: Client exception. %s is a source URI.
-#: classes/Ostatus_profile.php:538
+#: classes/Ostatus_profile.php:500
 #, php-format
 msgid "No content for notice %s."
 msgstr "Нема содржина за забелешката %s."
 
 #. TRANS: Shown when a notice is longer than supported and/or when attachments are present. At runtime
 #. TRANS: this will usually be replaced with localised text from StatusNet core messages.
-#: classes/Ostatus_profile.php:573
+#: classes/Ostatus_profile.php:535
 msgid "Show more"
 msgstr "Повеќе"
 
 #. TRANS: Exception. %s is a profile URL.
-#: classes/Ostatus_profile.php:766
+#: classes/Ostatus_profile.php:728
 #, php-format
 msgid "Could not reach profile page %s."
 msgstr "Не можев да ја добијам профилната страница %s."
 
 #. TRANS: Exception. %s is a URL.
-#: classes/Ostatus_profile.php:824
+#: classes/Ostatus_profile.php:786
 #, php-format
 msgid "Could not find a feed URL for profile page %s."
 msgstr "Не можев да пронајдам каналска URL-адреса за профилната страница %s."
 
 #. TRANS: Feed sub exception.
-#: classes/Ostatus_profile.php:923
+#: classes/Ostatus_profile.php:885
 msgid "Can't find enough profile information to make a feed."
 msgstr "Не можев да најдам доволно профилни податоци за да направам канал."
 
 #. TRANS: Server exception. %s is a URL.
-#: classes/Ostatus_profile.php:987
+#: classes/Ostatus_profile.php:949
 #, php-format
 msgid "Invalid avatar URL %s."
 msgstr "Неважечка URL-адреса за аватарот: %s."
 
 #. TRANS: Server exception. %s is a URI.
-#: classes/Ostatus_profile.php:998
+#: classes/Ostatus_profile.php:960
 #, php-format
 msgid "Tried to update avatar for unsaved remote profile %s."
 msgstr ""
 "Се обидов да го подновам аватарот за незачуваниот далечински профил %s."
 
 #. TRANS: Server exception. %s is a URL.
-#: classes/Ostatus_profile.php:1008
+#: classes/Ostatus_profile.php:970
 #, php-format
 msgid "Unable to fetch avatar from %s."
 msgstr "Не можам да го добијам аватарот од %s."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1235
+#: classes/Ostatus_profile.php:1197
 msgid "Local user can't be referenced as remote."
 msgstr "Локалниот корисник не може да се наведе како далечински."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1240
+#: classes/Ostatus_profile.php:1202
 msgid "Local group can't be referenced as remote."
 msgstr "Локалната група не може да се наведе како далечинска."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1292 classes/Ostatus_profile.php:1303
+#: classes/Ostatus_profile.php:1254 classes/Ostatus_profile.php:1265
 msgid "Can't save local profile."
 msgstr "Не можам да го зачувам локалниот профил."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1311
+#: classes/Ostatus_profile.php:1273
 msgid "Can't save OStatus profile."
 msgstr "Не можам да го зачувам профилот од OStatus."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1599 classes/Ostatus_profile.php:1627
+#: classes/Ostatus_profile.php:1561 classes/Ostatus_profile.php:1589
 msgid "Not a valid webfinger address."
 msgstr "Ова не е важечка Webfinger-адреса"
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1709
+#: classes/Ostatus_profile.php:1671
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr "Не можам да го зачувам профилот за „%s“."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1728
+#: classes/Ostatus_profile.php:1690
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr "Не можам да го зачувам ostatus_profile за „%s“."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1736
+#: classes/Ostatus_profile.php:1698
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr "Не можев да пронајдам важечки профил за „%s“."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:1779
+#: classes/Ostatus_profile.php:1741
 msgid "Could not store HTML content of long post as file."
 msgstr ""
 "Не можам да ја складирам HTML-содржината на долгата објава како податотека."
@@ -600,29 +600,9 @@ msgstr "Претплати се на корисников"
 msgid "You are already subscribed to this user."
 msgstr "Веќе сте претплатени на овој корисник."
 
-#: actions/ostatussub.php:167
-msgid "Photo"
-msgstr "Слика"
-
-#: actions/ostatussub.php:178
-msgid "Nickname"
-msgstr "Прекар"
-
-#: actions/ostatussub.php:199
-msgid "Location"
-msgstr "Место"
-
-#: actions/ostatussub.php:208
-msgid "URL"
-msgstr "URL-адереса"
-
-#: actions/ostatussub.php:220
-msgid "Note"
-msgstr "Белешка"
-
 #. TRANS: Error text.
-#: actions/ostatussub.php:256 actions/ostatussub.php:263
-#: actions/ostatussub.php:288
+#: actions/ostatussub.php:232 actions/ostatussub.php:239
+#: actions/ostatussub.php:264
 msgid ""
 "Sorry, we could not reach that address. Please make sure that the OStatus "
 "address is like nickname@example.com or http://example.net/nickname."
@@ -631,9 +611,9 @@ msgstr ""
 "OStatus е од типот prekar@primer.com или http://primer.net/prekar."
 
 #. TRANS: Error text.
-#: actions/ostatussub.php:267 actions/ostatussub.php:271
-#: actions/ostatussub.php:275 actions/ostatussub.php:279
-#: actions/ostatussub.php:283
+#: actions/ostatussub.php:243 actions/ostatussub.php:247
+#: actions/ostatussub.php:251 actions/ostatussub.php:255
+#: actions/ostatussub.php:259
 msgid ""
 "Sorry, we could not reach that feed. Please try that OStatus address again "
 "later."
@@ -642,31 +622,31 @@ msgstr ""
 "адреса подоцна."
 
 #. TRANS: OStatus remote subscription dialog error.
-#: actions/ostatussub.php:317
+#: actions/ostatussub.php:293
 msgid "Already subscribed!"
 msgstr "Веќе сте претплатени!"
 
 #. TRANS: OStatus remote subscription dialog error.
-#: actions/ostatussub.php:322
+#: actions/ostatussub.php:298
 msgid "Remote subscription failed!"
 msgstr "Далечинската претплата не успеа!"
 
-#: actions/ostatussub.php:369 actions/ostatusinit.php:64
+#: actions/ostatussub.php:345 actions/ostatusinit.php:64
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Се појави проблем со жетонот на Вашата сесија. Обидете се повторно."
 
 #. TRANS: Form title.
-#: actions/ostatussub.php:397 actions/ostatusinit.php:83
+#: actions/ostatussub.php:373 actions/ostatusinit.php:83
 msgid "Subscribe to user"
 msgstr "Претплати се на корисник"
 
 #. TRANS: Page title for OStatus remote subscription form
-#: actions/ostatussub.php:417
+#: actions/ostatussub.php:393
 msgid "Confirm"
 msgstr "Потврди"
 
 #. TRANS: Instructions.
-#: actions/ostatussub.php:429
+#: actions/ostatussub.php:405
 msgid ""
 "You can subscribe to users from other supported sites. Paste their address "
 "or profile URI below:"
@@ -784,3 +764,18 @@ msgstr "Неочекувано барање за претплата за %s."
 #, php-format
 msgid "Unexpected unsubscribe request for %s."
 msgstr "Неочекувано барање за отпишување од претплата за %s."
+
+#~ msgid "Photo"
+#~ msgstr "Слика"
+
+#~ msgid "Nickname"
+#~ msgstr "Прекар"
+
+#~ msgid "Location"
+#~ msgstr "Место"
+
+#~ msgid "URL"
+#~ msgstr "URL-адереса"
+
+#~ msgid "Note"
+#~ msgstr "Белешка"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-29 21:45+0000\n"
+"POT-Creation-Date: 2011-03-03 17:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: OpenID plugin logon form field label.
-#: openidsettings.php:108 OpenIDPlugin.php:681 openidlogin.php:161
+#: openidsettings.php:108 OpenIDPlugin.php:703 openidlogin.php:152
 msgid "OpenID URL"
 msgstr ""
 
@@ -77,7 +77,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: Message given when there is a problem with the user's session token.
-#: openidsettings.php:232 finishopenidlogin.php:42 openidlogin.php:51
+#: openidsettings.php:232 finishopenidlogin.php:42
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
@@ -301,38 +301,38 @@ msgid "OpenID configuration"
 msgstr ""
 
 #. TRANS: OpenID plugin description.
-#: OpenIDPlugin.php:631
+#: OpenIDPlugin.php:653
 msgid "Use <a href=\"http://openid.net/\">OpenID</a> to login to the site."
 msgstr ""
 
 #. TRANS: button label for OAuth authorization page when needing OpenID authentication first.
-#: OpenIDPlugin.php:641
+#: OpenIDPlugin.php:663
 msgctxt "BUTTON"
 msgid "Continue"
 msgstr ""
 
 #. TRANS: OpenID plugin logon form legend.
-#: OpenIDPlugin.php:658 openidlogin.php:140
+#: OpenIDPlugin.php:680 openidlogin.php:132
 msgid "OpenID login"
 msgstr ""
 
 #. TRANS: Field label.
-#: OpenIDPlugin.php:666 openidlogin.php:148
+#: OpenIDPlugin.php:688 openidlogin.php:139
 msgid "OpenID provider"
 msgstr ""
 
 #. TRANS: Form guide.
-#: OpenIDPlugin.php:675 openidlogin.php:156
+#: OpenIDPlugin.php:697 openidlogin.php:147
 msgid "Enter your username."
 msgstr ""
 
 #. TRANS: Form guide.
-#: OpenIDPlugin.php:677 openidlogin.php:157
+#: OpenIDPlugin.php:699 openidlogin.php:148
 msgid "You will be sent to the provider's site for authentication."
 msgstr ""
 
 #. TRANS: OpenID plugin logon form field instructions.
-#: OpenIDPlugin.php:684 openidlogin.php:164
+#: OpenIDPlugin.php:706 openidlogin.php:155
 msgid "Your OpenID URL"
 msgstr ""
 
@@ -489,7 +489,7 @@ msgstr ""
 
 #. TRANS: OpenID plugin message. Rememberme logins have to reauthenticate before changing any profile settings.
 #. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
-#: openidlogin.php:82
+#: openidlogin.php:74
 #, php-format
 msgid ""
 "For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
@@ -498,29 +498,29 @@ msgstr ""
 
 #. TRANS: OpenID plugin message.
 #. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
-#: openidlogin.php:88
+#: openidlogin.php:80
 #, php-format
 msgid "Login with an [OpenID](%%doc.openid%%) account."
 msgstr ""
 
 #. TRANS: OpenID plugin message. Title.
 #. TRANS: Title after getting the status of the OpenID authorisation request.
-#: openidlogin.php:122 finishaddopenid.php:187
+#: openidlogin.php:114 finishaddopenid.php:187
 msgid "OpenID Login"
 msgstr ""
 
 #. TRANS: OpenID plugin logon form checkbox label for setting to put the OpenID information in a cookie.
-#: openidlogin.php:169
+#: openidlogin.php:160
 msgid "Remember me"
 msgstr ""
 
 #. TRANS: OpenID plugin logon form field instructions.
-#: openidlogin.php:171
+#: openidlogin.php:162
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 
 #. TRANS: OpenID plugin logon form button label to start logon with the data provided in the logon form.
-#: openidlogin.php:176
+#: openidlogin.php:167
 msgctxt "BUTTON"
 msgid "Login"
 msgstr ""
