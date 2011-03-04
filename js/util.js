@@ -436,7 +436,7 @@ var SN = { // StatusNet
                     form.find('[name=lon]').val(SN.C.I.NoticeDataGeo.NLon);
                     form.find('[name=location_ns]').val(SN.C.I.NoticeDataGeo.NLNS);
                     form.find('[name=location_id]').val(SN.C.I.NoticeDataGeo.NLID);
-                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', SN.C.I.NoticeDataGeo.NDG);
+                    form.find('[name=notice_data-geo]').attr('checked', SN.C.I.NoticeDataGeo.NDG);
                 }
             });
         },
@@ -446,7 +446,7 @@ var SN = { // StatusNet
             SN.C.I.NoticeDataGeo.NLon = form.find('[name=lon]').val();
             SN.C.I.NoticeDataGeo.NLNS = form.find('[name=location_ns]').val();
             SN.C.I.NoticeDataGeo.NLID = form.find('[name=location_id]').val();
-            SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked'); // @fixme
+            SN.C.I.NoticeDataGeo.NDG = form.find('[name=notice_data-geo]').attr('checked'); // @fixme
 
             var cookieValue = $.cookie(SN.C.S.NoticeDataGeoCookie);
 
@@ -463,10 +463,10 @@ var SN = { // StatusNet
                 }
             }
             if (cookieValue == 'disabled') {
-                SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', false).attr('checked');
+                SN.C.I.NoticeDataGeo.NDG = form.find('[name=notice_data-geo]').attr('checked', false).attr('checked');
             }
             else {
-                SN.C.I.NoticeDataGeo.NDG = $('#'+SN.C.S.NoticeDataGeo).attr('checked', true).attr('checked');
+                SN.C.I.NoticeDataGeo.NDG = form.find('[name=notice_data-geo]').attr('checked', true).attr('checked');
             }
 
         },
@@ -959,30 +959,32 @@ var SN = { // StatusNet
          * new-notice form. Seems to set up some event handlers for
          * triggering lookups and using the new values.
          *
+         * @param {jQuery} form
+         *
          * @fixme tl;dr
          * @fixme there's not good visual state update here, so users have a
          *        hard time figuring out if it's working or fixing if it's wrong.
          *
          */
-        NoticeLocationAttach: function() {
+        NoticeLocationAttach: function(form) {
             // @fixme this should not be tied to the main notice form, as there may be multiple notice forms...
-            var NLat = $('#'+SN.C.S.NoticeLat).val();
-            var NLon = $('#'+SN.C.S.NoticeLon).val();
-            var NLNS = $('#'+SN.C.S.NoticeLocationNs).val();
-            var NLID = $('#'+SN.C.S.NoticeLocationId).val();
-            var NLN = $('#'+SN.C.S.NoticeGeoName).text();
-            var NDGe = $('#'+SN.C.S.NoticeDataGeo);
+            var NLat = form.find('[name=lat]')
+            var NLon = form.find('[name=lon]')
+            var NLNS = form.find('[name=location_ns]').val();
+            var NLID = form.find('[name=location_id]').val();
+            var NLN = $('#'+SN.C.S.NoticeGeoName).text(); // @fixme does this exist?
+            var NDGe = form.find('[name=notice_data-geo]');
 
             function removeNoticeDataGeo(error) {
                 $('label[for='+SN.C.S.NoticeDataGeo+']')
                     .attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()))
                     .removeClass('checked');
 
-                $('.form_notice [name=lat]').val('');
-                $('.form_notice [name=lon]').val('');
-                $('.form_notice [name=location_ns]').val('');
-                $('.form_notice [name=location_id]').val('');
-                $('#'+SN.C.S.NoticeDataGeo).attr('checked', false);
+                form.find('[name=lat]').val('');
+                form.find('[name=lon]').val('');
+                form.find('[name=location_ns]').val('');
+                form.find('[name=location_id]').val('');
+                form.find('[name=notice_data-geo]').attr('checked', false);
 
                 $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled', { path: '/' });
 
@@ -1000,12 +1002,12 @@ var SN = { // StatusNet
                     var lns, lid;
 
                     if (typeof(location.location_ns) != 'undefined') {
-                        $('#'+SN.C.S.NoticeLocationNs).val(location.location_ns);
+                        form.find('[name=location_ns]').val(location.location_ns);
                         lns = location.location_ns;
                     }
 
                     if (typeof(location.location_id) != 'undefined') {
-                        $('#'+SN.C.S.NoticeLocationId).val(location.location_id);
+                        form.find('[name=location_id]').val(location.location_id);
                         lid = location.location_id;
                     }
 
@@ -1020,11 +1022,11 @@ var SN = { // StatusNet
                     $('label[for='+SN.C.S.NoticeDataGeo+']')
                         .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + NLN_text + ')');
 
-                    $('.form_notice [name=lat]').val(data.lat);
-                    $('.form_notice [name=lon]').val(data.lon);
-                    $('.form_notice [name=location_ns]').val(lns);
-                    $('.form_notice [name=location_id]').val(lid);
-                    $('#'+SN.C.S.NoticeDataGeo).attr('checked', true);
+                    form.find('[name=lat]').val(data.lat);
+                    form.find('[name=lon]').val(data.lon);
+                    form.find('[name=location_ns]').val(lns);
+                    form.find('[name=location_id]').val(lid);
+                    form.find('[name=notice_data-geo]').attr('checked', true);
 
                     var cookieValue = {
                         NLat: data.lat,
@@ -1066,8 +1068,8 @@ var SN = { // StatusNet
                                 SN.U.NoticeGeoStatus('Requesting location from browser...');
                                 navigator.geolocation.getCurrentPosition(
                                     function(position) {
-                                        $('.form_notice [name=lat]').val(position.coords.latitude);
-                                        $('.form_notice [name=lon]').val(position.coords.longitude);
+                                        form.find('[name=lat]').val(position.coords.latitude);
+                                        form.find('[name=lon]').val(position.coords.longitude);
 
                                         var data = {
                                             lat: position.coords.latitude,
@@ -1115,11 +1117,11 @@ var SN = { // StatusNet
                         else {
                             var cookieValue = JSON.parse($.cookie(SN.C.S.NoticeDataGeoCookie));
 
-                            $('.form_notice [name=lat]').val(cookieValue.NLat);
-                            $('.form_notice [name=lon]').val(cookieValue.NLon);
-                            $('.form_notice [name=location_ns]').val(cookieValue.NLNS);
-                            $('.form_notice [name=location_id]').val(cookieValue.NLID);
-                            $('#'+SN.C.S.NoticeDataGeo).attr('checked', cookieValue.NDG);
+                            form.find('[name=lat]').val(cookieValue.NLat);
+                            form.find('[name=lon]').val(cookieValue.NLon);
+                            form.find('[name=location_ns]').val(cookieValue.NLNS);
+                            form.find('[name=location_id]').val(cookieValue.NLID);
+                            form.find('[name=notice_data-geo]').attr('checked', cookieValue.NDG);
 
                             SN.U.NoticeGeoStatus(cookieValue.NLN, cookieValue.NLat, cookieValue.NLon, cookieValue.NLNU);
                             $('label[for='+SN.C.S.NoticeDataGeo+']')
@@ -1323,12 +1325,12 @@ var SN = { // StatusNet
          */
         NoticeForm: function() {
             if ($('body.user_in').length > 0) {
-                SN.U.NoticeLocationAttach();
-
                 $('.'+SN.C.S.FormNotice).each(function() {
-                    SN.U.FormNoticeXHR($(this));
-                    SN.U.FormNoticeEnhancements($(this));
-                    SN.U.NoticeDataAttach($(this));
+                    var form = $(this);
+                    SN.U.NoticeLocationAttach(form);
+                    SN.U.FormNoticeXHR(form);
+                    SN.U.FormNoticeEnhancements(form);
+                    SN.U.NoticeDataAttach(form);
                 });
             }
         },
