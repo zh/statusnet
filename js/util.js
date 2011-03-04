@@ -50,7 +50,6 @@ var SN = { // StatusNet
             Processing: 'processing',
             CommandResult: 'command_result',
             FormNotice: 'form_notice',
-            NoticeDataText: 'notice_data-text',
             NoticeTextCount: 'notice_text-count',
             NoticeInReplyTo: 'notice_in-reply-to',
             NoticeActionSubmit: 'notice_action-submit',
@@ -112,7 +111,7 @@ var SN = { // StatusNet
 
                 SN.U.Counter(form);
 
-                NDT = form.find('#'+SN.C.S.NoticeDataText);
+                NDT = form.find('[name=status_textarea]');
 
                 NDT.bind('keyup', function(e) {
                     SN.U.Counter(form);
@@ -191,7 +190,7 @@ var SN = { // StatusNet
          * @return number of chars
          */
         CharacterCount: function(form) {
-            return form.find('#'+SN.C.S.NoticeDataText).val().length;
+            return form.find('[name=status_textarea]').val().length;
         },
 
         /**
@@ -332,7 +331,7 @@ var SN = { // StatusNet
                 dataType: 'xml',
                 timeout: '60000',
                 beforeSend: function(formData) {
-                    if (form.find('#'+SN.C.S.NoticeDataText)[0].value.length === 0) {
+                    if (form.find('[name=status_textarea]').val() == '') {
                         form.addClass(SN.C.S.Warning);
                         return false;
                     }
@@ -507,7 +506,7 @@ var SN = { // StatusNet
          * @access private
          */
         NoticeReply: function() {
-            if ($('#'+SN.C.S.NoticeDataText).length > 0 && $('#content .notice_reply').length > 0) {
+            if ($('#content .notice_reply').length > 0) {
                 $('#content .notice').each(function() { SN.U.NoticeReplyTo($(this)); });
             }
         },
@@ -530,7 +529,6 @@ var SN = { // StatusNet
             notice.find('.notice_reply').live('click', function(e) {
                 e.preventDefault();
                 var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
-                /* SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text()); */
                 SN.U.NoticeInlineReplyTrigger(notice, '@' + nickname.text());
                 return false;
             });
@@ -663,34 +661,6 @@ var SN = { // StatusNet
             if (text[0].setSelectionRange) {
                 var len = text.val().length;
                 text[0].setSelectionRange(len,len);
-            }
-        },
-
-        /**
-         * FIXME OBSOLETE?
-         * Updates the new notice posting form with bits for replying to the
-         * given user. Adds replyto parameter to the form, and a "@foo" to the
-         * text area.
-         *
-         * @fixme replyto is a global variable, but probably shouldn't be
-         *
-         * @param {String} nick
-         * @param {String} id
-         */
-        NoticeReplySet: function(nick,id) {
-            if (nick.match(SN.C.I.PatternUsername)) {
-                var text = $('#'+SN.C.S.NoticeDataText);
-                if (text.length > 0) {
-                    replyto = '@' + nick + ' ';
-                    text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
-                    $('#'+SN.C.S.FormNotice+' #'+SN.C.S.NoticeInReplyTo).val(id);
-
-                    text[0].focus();
-                    if (text[0].setSelectionRange) {
-                        var len = text.val().length;
-                        text[0].setSelectionRange(len,len);
-                    }
-                }
             }
         },
 
