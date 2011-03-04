@@ -553,13 +553,54 @@ var SN = { // StatusNet
 
             // See if the form's already open...
             var replyForm = $('.notice-reply-form', list);
-            if (replyForm.length == 0) {
+
+            var nextStep = function() {
+                // Override...?
+                replyForm.find('input[name=inreplyto]').val(id);
+
+                // Set focus...
+                var text = replyForm.find('textarea');
+                if (text.length == 0) {
+                    throw "No textarea";
+                }
+                var replyto = '';
+                if (initialText) {
+                    replyto = initialText + ' ';
+                }
+                text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
+                text.data('initialText', $.trim(initialText + ''));
+                text.focus();
+                if (text[0].setSelectionRange) {
+                    var len = text.val().length;
+                    text[0].setSelectionRange(len,len);
+                }
+            };
+            if (replyForm.length > 0) {
+                // Update the existing form...
+                nextStep();
+            } else {
                 // Remove placeholder if any
                 $('li.notice-reply-placeholder').remove();
 
                 // Create the reply form entry at the end
                 var replyItem = $('li.notice-reply', list);
                 if (replyItem.length == 0) {
+                    var url = $('#form_notice').attr('action');
+                    replyItem = $('<li class="notice-reply"></li>');
+                    $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
+                        var formEl = document._importNode($('form', data)[0], true);
+                        replyItem.append(formEl);
+                        list.append(replyItem);
+
+                        var form = replyForm = $(formEl);
+                        SN.U.NoticeLocationAttach(form);
+                        SN.U.FormNoticeXHR(form);
+                        SN.U.FormNoticeEnhancements(form);
+                        SN.U.NoticeDataAttach(form);
+
+                        nextStep();
+                    });
+                    /*
                     replyItem = $('<li class="notice-reply">' +
                                       '<form class="notice-reply-form" method="post">' +
                                           '<textarea name="status_textarea"></textarea>' +
@@ -570,7 +611,6 @@ var SN = { // StatusNet
                                       '</div>' +
                                       '</form>' +
                                   '</li>');
-
                     var baseForm = $('#form_notice');
                     replyForm = replyItem.find('form');
                     replyForm.attr('action', baseForm.attr('action'));
@@ -630,27 +670,8 @@ var SN = { // StatusNet
                         event.preventDefault();
                         return false;
                     });
+                                  */
                 }
-            }
-
-            // Override...?
-            replyForm.find('input[name=inreplyto]').val(id);
-
-            // Set focus...
-            var text = replyForm.find('textarea');
-            if (text.length == 0) {
-                throw "No textarea";
-            }
-            var replyto = '';
-            if (initialText) {
-                replyto = initialText + ' ';
-            }
-            text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
-            text.data('initialText', $.trim(initialText + ''));
-            text.focus();
-            if (text[0].setSelectionRange) {
-                var len = text.val().length;
-                text[0].setSelectionRange(len,len);
             }
         },
 

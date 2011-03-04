@@ -270,6 +270,31 @@ class NewnoticeAction extends Action
     }
 
     /**
+     * Show an Ajax-y notice form
+     *
+     * Goes back to the browser, where it's shown in a popup.
+     *
+     * @param string $msg Message to show
+     *
+     * @return void
+     */
+
+    function ajaxShowForm()
+    {
+        $this->startHTML('text/xml;charset=utf-8', true);
+        $this->elementStart('head');
+        $this->element('title', null, _('New notice'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+
+        $form = new NoticeForm($this);
+        $form->show();
+
+        $this->elementEnd('body');
+        $this->elementEnd('html');
+    }
+
+    /**
      * Formerly page output
      *
      * This used to be the whole page output; now that's been largely
@@ -286,8 +311,12 @@ class NewnoticeAction extends Action
 
     function showForm($msg=null)
     {
-        if ($msg && $this->boolean('ajax')) {
-            $this->ajaxErrorMsg($msg);
+        if ($this->boolean('ajax')) {
+            if ($msg) {
+                $this->ajaxErrorMsg($msg);
+            } else {
+                $this->ajaxShowForm();
+            }
             return;
         }
 
