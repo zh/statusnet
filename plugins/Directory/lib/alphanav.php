@@ -27,7 +27,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) {
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -114,11 +114,22 @@ class AlphaNav extends Widget
             );
 
             $params  = array('href' => $href);
+
+            // sort column
+            if (!empty($this->action->sort)) {
+                $params['sort'] = $this->action->sort;
+            }
+
+            // sort order
+            if (!empty($this->action->order)) {
+                $params['asc'] = 'true';
+            }
+
             $current = $this->action->arg('filter');
 
             // Highlight the selected filter. If there is no selected
             // filter, highlight the first filter in the list
-            if (empty($current) && $i == 0
+            if (!isset($current) && $i == 0
                 || $current === strtolower($filter)) {
                 $classes .= 'current ';
             }

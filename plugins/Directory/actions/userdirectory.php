@@ -120,6 +120,9 @@ class UserdirectoryAction extends Action
 
         $this->page   = ($this->arg('page')) ? ($this->arg('page') + 0) : 1;
         $this->filter = $this->arg('filter') ? $this->arg('filter') : 'all';
+        $this->sort   = $this->arg('sort');
+        $this->order  = $this->boolean('asc'); // ascending or decending
+
         common_set_returnto($this->selfUrl());
 
         return true;
@@ -192,7 +195,7 @@ class UserdirectoryAction extends Action
         $cnt     = 0;
 
         if (!empty($profile)) {
-            $profileList = new SubscriptionList(
+            $profileList = new SortableSubscriptionList(
                 $profile,
                 common_current_user(),
                 $this
@@ -235,12 +238,34 @@ class UserdirectoryAction extends Action
             );
         }
 
-        $profile->orderBy('created DESC, nickname');
+        $sort  = $this->getSortKey();
+        $order = ($this->order) ? 'ASC' : 'DESC';
+
+        $profile->orderBy("$sort $order, nickname");
         $profile->limit($limit, $offset);
 
         $profile->find();
 
         return $profile;
+    }
+
+    /**
+     * Filter the sort parameter
+     *
+     * @return string   a column name for sorting
+     */
+    function getSortKey()
+    {
+        switch ($this->sort) {
+        case 'nickname':
+            return $this->sort;
+            break;
+        case 'created':
+            return $this->sort;
+            break;
+        default:
+            return 'nickname';
+        }
     }
 
     /**

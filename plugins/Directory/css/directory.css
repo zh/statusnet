@@ -32,3 +32,33 @@ div#user_directory div.alpha_nav a:hover {
 div#user_directory div.alpha_nav a.current {
     background-color:#9BB43E;
 }
+
+table.profile_list {
+    width: 100%;
+}
+
+table.profile_list tr {
+    float: none;
+}
+
+table.profile_list tr.alt {
+    background-color: #def; /* zebra stripe */
+}
+
+table.profie_list td {
+    width: 100%;
+    padding: 0;
+}
+
+
+th.current {
+    background-image: url(../images/control_arrow_down.gif);
+    background-repeat: no-repeat;
+    background-position: 60% 2px;
+}
+
+th.current.asc {
+    background-image: url(../images/control_arrow_up.gif);
+    background-repeat: no-repeat;
+    background-position: 60% 2px;
+}
