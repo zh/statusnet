@@ -387,7 +387,22 @@ var SN = { // StatusNet
                             // New notice post was successful. If on our timeline, show it!
                             var notice = document._importNode($('li', data)[0], true);
                             var notices = $('#notices_primary .notices:first');
-                            if (notices.length > 0 && SN.U.belongsOnTimeline(notice)) {
+                            var replyItem = form.closest('li.notice-reply');
+
+                            if (replyItem.length > 0) {
+                                // If this is an inline reply, insert it in place.
+                                var id = $(notice).attr('id');
+                                if ($("#"+id).length == 0) {
+                                    var parentNotice = replyItem.closest('li.notice');
+                                    replyItem.replaceWith(notice);
+                                    SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                } else {
+                                    // Realtime came through before us...
+                                    replyItem.remove();
+                                }
+                            } else if (notices.length > 0 && SN.U.belongsOnTimeline(notice)) {
+                                // Not a reply. If on our timeline, show it at the top!
+
                                 if ($('#'+notice.id).length === 0) {
                                     var notice_irt_value = form.find('[name=inreplyto]').val();
                                     var notice_irt = '#notices_primary #notice-'+notice_irt_value;
@@ -406,10 +421,10 @@ var SN = { // StatusNet
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
                                     SN.U.NoticeReplyTo($('#'+notice.id));
                                 }
-                            }
-                            else {
+                            } else {
                                 // Not on a timeline that this belongs on?
                                 // Just show a success message.
+                                // @fixme inline
                                 showFeedback('success', $('title', data).text());
                             }
                         }
