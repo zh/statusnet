@@ -990,7 +990,7 @@ var SN = { // StatusNet
             var NLN = ''; // @fixme
             var NDGe = form.find('[name=notice_data-geo]');
             var check = form.find('[name=notice_data-geo]');
-            var label = $('label[for='+check.attr('id')+']');
+            var label = form.find('label.notice_data-geo');
 
             function removeNoticeDataGeo(error) {
                 label
@@ -1164,7 +1164,6 @@ var SN = { // StatusNet
          */
         NoticeGeoStatus: function(form, status, lat, lon, url)
         {
-            var form = $('#form_notice');
             var wrapper = form.find('.geo_status_wrapper');
             if (wrapper.length == 0) {
                 wrapper = $('<div class="'+SN.C.S.Success+' geo_status_wrapper"><button class="close" style="float:right">&#215;</button><div class="geo_status"></div></div>');

@@ -94,6 +94,8 @@ class NoticeForm extends Form
 
     function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto=null, $lat=null, $lon=null, $location_id=null, $location_ns=null)
     {
+        $this->id_suffix = time();
+
         parent::__construct($out);
 
         $this->action  = $action;
@@ -125,7 +127,7 @@ class NoticeForm extends Form
 
     function id()
     {
-        return 'form_notice';
+        return 'form_notice_' . $this->id_suffix;
     }
 
    /**
@@ -208,7 +210,21 @@ class NoticeForm extends Form
 
                 $this->out->elementStart('div', array('class' => 'notice_data-geo_wrap',
                                                       'title' => common_local_url('geocode')));
-                $this->out->checkbox('notice_data-geo', _('Share my location'), true);
+
+                // @fixme checkbox method allows no way to change the id without changing the name
+                //$this->out->checkbox('notice_data-geo', _('Share my location'), true);
+                $this->out->element('input', array(
+                    'name' => 'notice_data-geo',
+                    'type' => 'checkbox',
+                    'class' => 'checkbox',
+                    'id' => $this->id() . '-notice_data-geo',
+                    'checked' => true, // ?
+                ));
+                $this->out->text(' ');
+                $this->out->element('label', array('class' => 'notice_data-geo',
+                                              'for' => $this->id() . '-notice_data-geo'),
+                               _('Share my location'));
+
                 $this->out->elementEnd('div');
                 $this->out->inlineScript(' var NoticeDataGeo_text = {'.
                     'ShareDisable: ' .json_encode(_('Do not share my location')).','.
