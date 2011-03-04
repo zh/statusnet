@@ -708,7 +708,6 @@ class Activity
     {
         $dateStr = date('d F Y H:i:s', $tm);
         $d = new DateTime($dateStr, new DateTimeZone('UTC'));
-        $d->setTimezone(new DateTimeZone(common_timezone()));
         return $d->format('c');
     }
 }
