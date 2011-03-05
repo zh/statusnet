@@ -121,8 +121,8 @@ class AlphaNav extends Widget
             }
 
             // sort order
-            if (!empty($this->action->order)) {
-                $params['asc'] = 'true';
+            if ($this->action->reverse) {
+                $params['reverse'] = 'true';
             }
 
             $current = $this->action->arg('filter');

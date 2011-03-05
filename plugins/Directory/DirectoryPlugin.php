@@ -113,15 +113,15 @@ class DirectoryPlugin extends Plugin
     function onRouterInitialized($m)
     {
         $m->connect(
-            'directory/users/:filter',
-            array('action' => 'userdirectory'),
-            array('filter' => '[0-9a-zA-Z_]{1,64}')
-        );
-
-        $m->connect(
             'directory/users',
             array('action' => 'userdirectory'),
             array('filter' => 'all')
+        );
+
+        $m->connect(
+            'directory/users/:filter',
+            array('action' => 'userdirectory'),
+            array('filter' => '[0-9a-zA-Z_]{1,64}')
         );
 
         return true;

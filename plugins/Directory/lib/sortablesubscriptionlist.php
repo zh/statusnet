@@ -68,16 +68,16 @@ class SortableSubscriptionList extends SubscriptionList
         );
 
         foreach ($tableHeaders as $id => $label) {
-            $attrs = array('id' => $id);
 
+            $attrs   = array('id' => $id);
             $current = (!empty($this->action->sort) && $this->action->sort == $id);
 
             if ($current || empty($this->action->sort) && $id == 'nickname') {
                 $attrs['class'] = 'current';
             }
 
-            if ($current && !$this->action->boolean('asc')) {
-                $attrs['class'] .= ' asc';
+            if ($current && $this->action->reverse) {
+                $attrs['class'] .= ' reverse';
                 $attrs['class'] = trim($attrs['class']);
             }
 
@@ -86,8 +86,12 @@ class SortableSubscriptionList extends SubscriptionList
             $linkAttrs = array();
             $params    = array('sort' => $id);
 
-            if ($current && !$this->action->boolean('asc')) {
-                $params['asc'] = "true";
+            if (!empty($this->action->q)) {
+                $params['q'] = $this->action->q;
+            }
+
+            if ($current && !$this->action->reverse) {
+                $params['reverse'] = 'true';
             }
 
             $args = array();
@@ -108,7 +112,7 @@ class SortableSubscriptionList extends SubscriptionList
 
         $this->out->element('th', array('id' => 'subscriptions'), 'Subscriptions');
         $this->out->element('th', array('id' => 'notices'), 'Notices');
-        //$this->out->element('th', array('id' => 'controls'), 'Controls');
+        $this->out->element('th', array('id' => 'controls'), null);
 
         $this->out->elementEnd('tr');
         $this->out->elementEnd('thead');

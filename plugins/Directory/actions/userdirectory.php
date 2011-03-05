@@ -50,14 +50,35 @@ class UserdirectoryAction extends Action
      *
      * @var integer
      */
-    protected $page   = null;
+    public $page;
 
     /**
-     * what to filter the search results by
+     * What to filter the search results by
      *
      * @var string
      */
-    protected $filter = null;
+    public $filter;
+
+    /**
+     * Column to sort by
+     *
+     * @var string
+     */
+    public $sort;
+
+    /**
+     * How to order search results, ascending or descending
+     *
+     * @var string
+     */
+    public $reverse;
+
+    /**
+     * Query
+     *
+     * @var string
+     */
+    public $q;
 
     /**
      * Title of the page
@@ -120,11 +141,11 @@ class UserdirectoryAction extends Action
     {
         parent::prepare($args);
 
-        $this->page   = ($this->arg('page')) ? ($this->arg('page') + 0) : 1;
-        $filter       = $this->arg('filter');
-        $this->filter = isset($filter) ? $filter : 'all';
-        $this->sort   = $this->arg('sort');
-        $this->order  = $this->boolean('asc'); // ascending or decending
+        $this->page    = ($this->arg('page')) ? ($this->arg('page') + 0) : 1;
+        $this->filter  = $this->arg('filter', 'all');
+        $this->reverse = $this->boolean('reverse');
+        $this->q       = $this->trimmed('q');
+        $this->sort    = $this->arg('sort', 'nickname');
 
         common_set_returnto($this->selfUrl());
 
@@ -185,15 +206,14 @@ class UserdirectoryAction extends Action
      */
     function showContent()
     {
-        // XXX Need search bar
+        $this->showForm();
 
         $this->elementStart('div', array('id' => 'user_directory'));
 
         $alphaNav = new AlphaNav($this, true, array('All'));
         $alphaNav->show();
 
-        // XXX Maybe use a more specialized version of ProfileList here
-
+        $profile = null;
         $profile = $this->getUsers();
         $cnt     = 0;
 
@@ -205,10 +225,18 @@ class UserdirectoryAction extends Action
             );
 
             $cnt = $profileList->show();
+            $profile->free();
 
             if (0 == $cnt) {
                 $this->showEmptyListMessage();
             }
+        }
+
+        $args = array();
+        if (isset($this->q)) {
+            $args['q'] = $this->q;
+        } else {
+            $args['filter'] = $this->filter;
         }
 
         $this->pagination(
@@ -216,11 +244,38 @@ class UserdirectoryAction extends Action
             $cnt > PROFILES_PER_PAGE,
             $this->page,
             'userdirectory',
-            array('filter' => $this->filter)
+            $args
         );
 
         $this->elementEnd('div');
 
+    }
+
+    function showForm($error=null)
+    {
+        $this->elementStart(
+            'form',
+            array(
+                'method' => 'get',
+                'id'     => 'form_search',
+                'class'  => 'form_settings',
+                'action' => common_local_url('userdirectory')
+            )
+        );
+
+        $this->elementStart('fieldset');
+
+        $this->element('legend', null, _('Search site'));
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
+
+        $this->input('q', _('Keyword(s)'), $this->q);
+
+        $this->submit('search', _m('BUTTON','Search'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->elementEnd('fieldset');
+        $this->elementEnd('form');
     }
 
     /*
@@ -229,30 +284,56 @@ class UserdirectoryAction extends Action
      */
     function getUsers()
     {
-
         $profile = new Profile();
 
         $offset = ($this->page - 1) * PROFILES_PER_PAGE;
         $limit  = PROFILES_PER_PAGE + 1;
-        $sort   = $this->getSortKey();
-        $sql    = 'SELECT profile.* FROM profile, user WHERE profile.id = user.id';
 
-        if ($this->filter != 'all') {
+        if (isset($this->q)) {
+             // User is searching via query
+             $search_engine = $profile->getSearchEngine('profile');
+
+             $mode = 'reverse_chron';
+
+             if ($this->sort == 'nickname') {
+                 if ($this->reverse) {
+                     $mode = 'nickname_desc';
+                 } else {
+                     $mode = 'nickname_asc';
+                 }
+             } else {
+                 if ($this->reverse) {
+                     $mode = 'chron';
+                 }
+             }
+
+             $search_engine->set_sort_mode($mode);
+             $search_engine->limit($offset, $limit);
+             $search_engine->query($this->q);
+
+             $profile->find();
+        } else {
+            // User is browsing via AlphaNav
+            $sort   = $this->getSortKey();
+            $sql    = 'SELECT profile.* FROM profile, user WHERE profile.id = user.id';
+
+            if ($this->filter != 'all') {
+                $sql .= sprintf(
+                    ' AND LEFT(LOWER(profile.nickname), 1) = \'%s\'',
+                    $this->filter
+                );
+            }
+
             $sql .= sprintf(
-                ' AND LEFT(LOWER(profile.nickname), 1) = \'%s\'',
-                $this->filter
+                ' ORDER BY profile.%s %s, profile.nickname ASC LIMIT %d, %d',
+                $sort,
+                $this->reverse ? 'DESC' : 'ASC',
+                $offset,
+                $limit
             );
+
+            $profile->query($sql);
         }
-
-        $sql .= sprintf(
-            ' ORDER BY profile.%s %s, profile.nickname DESC LIMIT %d, %d',
-            $sort,
-            ($this->order) ? 'ASC' : 'DESC',
-            $offset,
-            $limit
-        );
-
-        $profile->query($sql);
 
         return $profile;
     }
