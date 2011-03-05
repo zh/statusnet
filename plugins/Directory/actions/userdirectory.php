@@ -46,12 +46,16 @@ require_once INSTALLDIR . '/lib/publicgroupnav.php';
 class UserdirectoryAction extends Action
 {
     /**
-     * @var $page       integer  the page we're on
+     * The page we're on
+     *
+     * @var integer
      */
     protected $page   = null;
 
     /**
-     * @var $filter     string    what to filter the search results by
+     * what to filter the search results by
+     *
+     * @var string
      */
     protected $filter = null;
 
@@ -111,8 +115,6 @@ class UserdirectoryAction extends Action
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
-     * @todo move queries from showContent() to here
      */
     function prepare($args)
     {
@@ -222,7 +224,8 @@ class UserdirectoryAction extends Action
     }
 
     /*
-     * Get users filtered by the current filter and page
+     * Get users filtered by the current filter, sort key,
+     * sort order, and page
      */
     function getUsers()
     {
@@ -278,7 +281,7 @@ class UserdirectoryAction extends Action
      */
     function showEmptyListMessage()
     {
-        $message = sprintf(_m('No users starting with %s'), $this->filter);
+        $message = sprintf(_m('No users starting with **%s**'), $this->filter);
 
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
