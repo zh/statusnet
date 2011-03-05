@@ -49,11 +49,22 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class MicroAppPlugin extends Plugin
+abstract class MicroAppPlugin extends Plugin
 {
-    abstract function isMyNotice($notice);
-    abstract function isMyActivity($activity);
+    abstract function types();
     abstract function saveNoticeFromActivity($activity);
     abstract function activityFromNotice($notice);
     abstract function showNotice($notice, $out);
+    abstract function entryForm();
+
+    function isMyNotice($notice) {
+        $types = $this->types();
+        return in_array($notice->object_type, $types);
+    }
+
+    function isMyActivity($activity) {
+        $types = $this->types();
+        return (count($activity->objects) == 1 &&
+                in_array($activity->objects[0]->type, $types));
+    }
 }
