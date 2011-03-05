@@ -119,7 +119,8 @@ class UserdirectoryAction extends Action
         parent::prepare($args);
 
         $this->page   = ($this->arg('page')) ? ($this->arg('page') + 0) : 1;
-        $this->filter = $this->arg('filter') ? $this->arg('filter') : 'all';
+        $filter       = $this->arg('filter');
+        $this->filter = isset($filter) ? $filter : 'all';
         $this->sort   = $this->arg('sort');
         $this->order  = $this->boolean('asc'); // ascending or decending
 
@@ -225,26 +226,30 @@ class UserdirectoryAction extends Action
      */
     function getUsers()
     {
-        $offset = ($this->page - 1) * PROFILES_PER_PAGE;
-        $limit  =  PROFILES_PER_PAGE + 1;
 
         $profile = new Profile();
 
-        // XXX Any chance of SQL injection here?
+        $offset = ($this->page - 1) * PROFILES_PER_PAGE;
+        $limit  = PROFILES_PER_PAGE + 1;
+        $sort   = $this->getSortKey();
+        $sql    = 'SELECT profile.* FROM profile, user WHERE profile.id = user.id';
 
         if ($this->filter != 'all') {
-            $profile->whereAdd(
-                sprintf('LEFT(lower(nickname), 1) = \'%s\'', $this->filter)
+            $sql .= sprintf(
+                ' AND LEFT(LOWER(profile.nickname), 1) = \'%s\'',
+                $this->filter
             );
         }
 
-        $sort  = $this->getSortKey();
-        $order = ($this->order) ? 'ASC' : 'DESC';
+        $sql .= sprintf(
+            ' ORDER BY profile.%s %s, profile.nickname DESC LIMIT %d, %d',
+            $sort,
+            ($this->order) ? 'ASC' : 'DESC',
+            $offset,
+            $limit
+        );
 
-        $profile->orderBy("$sort $order, nickname");
-        $profile->limit($limit, $offset);
-
-        $profile->find();
+        $profile->query($sql);
 
         return $profile;
     }

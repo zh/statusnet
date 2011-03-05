@@ -245,4 +245,15 @@ class SortableSubscriptionListItem extends SubscriptionListItem
         $this->out->elementEnd('td');
     }
 
+    /**
+     * Only show the tags if we're logged in
+     */
+    function showTags()
+    {
+         if (common_logged_in()) {
+            parent::showTags();
+        }
+
+    }
+
 }
