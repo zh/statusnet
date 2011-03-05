@@ -570,7 +570,7 @@ font-size:0.8em;
 float:left;
 }
 
-.form_notice #notice_data-geo_wrap label {
+.form_notice .notice_data-geo_wrap label {
 position:absolute;
 top:25px;
 right:4px;
@@ -580,10 +580,10 @@ width:16px;
 height:16px;
 display:block;
 }
-.form_notice #notice_data-geo_wrap input {
+.form_notice .notice_data-geo_wrap input {
 display:none;
 }
-.form_notice #notice_data-geo_wrap label {
+.form_notice .notice_data-geo_wrap label {
 font-weight:normal;
 font-size:1em;
 margin-bottom:0;
@@ -1636,7 +1636,7 @@ button.close,
 .entity_silence input.submit,
 .entity_delete input.submit,
 .notice-options .repeated,
-.form_notice label[for=notice_data-geo],
+.form_notice label.notice_data-geo,
 button.minimize,
 .form_reset_key input.submit,
 .entity_clear input.submit,
@@ -1746,10 +1746,10 @@ background-position:0 47%;
 .form_notice a#notice_data-geo_name {
 background-position:0 -1711px;
 }
-.form_notice label[for=notice_data-geo] {
+.form_notice label.notice_data-geo {
 background-position:0 -1780px;
 }
-.form_notice label[for=notice_data-geo].checked {
+.form_notice label.notice_data-geo.checked {
 background-position:0 -1846px;
 }
 

@@ -50,12 +50,6 @@ var SN = { // StatusNet
             Processing: 'processing',
             CommandResult: 'command_result',
             FormNotice: 'form_notice',
-            NoticeInReplyTo: 'notice_in-reply-to',
-            NoticeLat: 'notice_data-lat',
-            NoticeLon: 'notice_data-lon',
-            NoticeLocationId: 'notice_data-location_id',
-            NoticeLocationNs: 'notice_data-location_ns',
-            NoticeGeoName: 'notice_data-geo_name',
             NoticeDataGeo: 'notice_data-geo',
             NoticeDataGeoCookie: 'NoticeDataGeo',
             NoticeDataGeoSelected: 'notice_data-geo_selected',
@@ -393,9 +387,24 @@ var SN = { // StatusNet
                             // New notice post was successful. If on our timeline, show it!
                             var notice = document._importNode($('li', data)[0], true);
                             var notices = $('#notices_primary .notices:first');
-                            if (notices.length > 0 && SN.U.belongsOnTimeline(notice)) {
+                            var replyItem = form.closest('li.notice-reply');
+
+                            if (replyItem.length > 0) {
+                                // If this is an inline reply, insert it in place.
+                                var id = $(notice).attr('id');
+                                if ($("#"+id).length == 0) {
+                                    var parentNotice = replyItem.closest('li.notice');
+                                    replyItem.replaceWith(notice);
+                                    SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                } else {
+                                    // Realtime came through before us...
+                                    replyItem.remove();
+                                }
+                            } else if (notices.length > 0 && SN.U.belongsOnTimeline(notice)) {
+                                // Not a reply. If on our timeline, show it at the top!
+
                                 if ($('#'+notice.id).length === 0) {
-                                    var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
+                                    var notice_irt_value = form.find('[name=inreplyto]').val();
                                     var notice_irt = '#notices_primary #notice-'+notice_irt_value;
                                     if($('body')[0].id == 'conversation') {
                                         if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
@@ -412,10 +421,10 @@ var SN = { // StatusNet
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
                                     SN.U.NoticeReplyTo($('#'+notice.id));
                                 }
-                            }
-                            else {
+                            } else {
                                 // Not on a timeline that this belongs on?
                                 // Just show a success message.
+                                // @fixme inline
                                 showFeedback('success', $('title', data).text());
                             }
                         }
@@ -559,104 +568,54 @@ var SN = { // StatusNet
 
             // See if the form's already open...
             var replyForm = $('.notice-reply-form', list);
-            if (replyForm.length == 0) {
+
+            var nextStep = function() {
+                // Override...?
+                replyForm.find('input[name=inreplyto]').val(id);
+
+                // Set focus...
+                var text = replyForm.find('textarea');
+                if (text.length == 0) {
+                    throw "No textarea";
+                }
+                var replyto = '';
+                if (initialText) {
+                    replyto = initialText + ' ';
+                }
+                text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
+                text.data('initialText', $.trim(initialText + ''));
+                text.focus();
+                if (text[0].setSelectionRange) {
+                    var len = text.val().length;
+                    text[0].setSelectionRange(len,len);
+                }
+            };
+            if (replyForm.length > 0) {
+                // Update the existing form...
+                nextStep();
+            } else {
                 // Remove placeholder if any
                 $('li.notice-reply-placeholder').remove();
 
                 // Create the reply form entry at the end
                 var replyItem = $('li.notice-reply', list);
                 if (replyItem.length == 0) {
-                    replyItem = $('<li class="notice-reply">' +
-                                      '<form class="notice-reply-form" method="post">' +
-                                          '<textarea name="status_textarea"></textarea>' +
-                                          '<div class="controls">' +
-                                          '<input type="hidden" name="token">' +
-                                          '<input type="hidden" name="inreplyto">' +
-                                          '<input type="submit" class="submit">' +
-                                      '</div>' +
-                                      '</form>' +
-                                  '</li>');
+                    var url = $('#form_notice').attr('action');
+                    replyItem = $('<li class="notice-reply"></li>');
+                    $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
+                        var formEl = document._importNode($('form', data)[0], true);
+                        replyItem.append(formEl);
+                        list.append(replyItem);
 
-                    var baseForm = $('#form_notice');
-                    replyForm = replyItem.find('form');
-                    replyForm.attr('action', baseForm.attr('action'));
-                    replyForm.find('input[name="token"]').val(baseForm.find('input[name=token]').val());
-                    replyForm.find('input[type="submit"]').val(SN.msg('reply_submit'));
-                    list.append(replyItem);
+                        var form = replyForm = $(formEl);
+                        SN.U.NoticeLocationAttach(form);
+                        SN.U.FormNoticeXHR(form);
+                        SN.U.FormNoticeEnhancements(form);
+                        SN.U.NoticeDataAttach(form);
 
-                    replyForm.find('textarea').blur(function() {
-                        var textarea = $(this);
-                        var txt = $.trim(textarea.val());
-                        if (txt == '' || txt == textarea.data('initialText')) {
-                            // Nothing to say? Begone!
-                            replyItem.remove();
-                            if (list.find('li').length > 0) {
-                                SN.U.NoticeInlineReplyPlaceholder(parentNotice);
-                            } else {
-                                list.remove();
-                            }
-                        }
-                    });
-                    replyForm.submit(function(event) {
-                        var form = replyForm;
-                        $.ajax({
-                            type: 'POST',
-                            dataType: 'xml',
-                            url: SN.U.RewriteAjaxAction(form.attr('action')),
-                            data: form.serialize() + '&ajax=1',
-                            beforeSend: function(xhr) {
-                                form
-                                    .addClass(SN.C.S.Processing)
-                                    .find('.submit')
-                                        .addClass(SN.C.S.Disabled)
-                                        .attr(SN.C.S.Disabled, SN.C.S.Disabled)
-                                        .end()
-                                    .find('textarea')
-                                        .addClass(SN.C.S.Disabled)
-                                        .attr(SN.C.S.Disabled, SN.C.S.Disabled);
-                            },
-                            error: function (xhr, textStatus, errorThrown) {
-                                alert(errorThrown || textStatus);
-                            },
-                            success: function(data, textStatus) {
-                                var orig_li = $('li', data)[0];
-                                if (orig_li) {
-                                    var li = document._importNode(orig_li, true);
-                                    var id = $(li).attr('id');
-                                    if ($("#"+id).length == 0) {
-                                        replyItem.replaceWith(li);
-                                        SN.U.NoticeInlineReplyPlaceholder(parentNotice);
-                                    } else {
-                                        // Realtime came through before us...
-                                        replyItem.remove();
-                                    }
-                                }
-                            }
-                        });
-                        event.preventDefault();
-                        return false;
+                        nextStep();
                     });
                 }
-            }
-
-            // Override...?
-            replyForm.find('input[name=inreplyto]').val(id);
-
-            // Set focus...
-            var text = replyForm.find('textarea');
-            if (text.length == 0) {
-                throw "No textarea";
-            }
-            var replyto = '';
-            if (initialText) {
-                replyto = initialText + ' ';
-            }
-            text.val(replyto + text.val().replace(RegExp(replyto, 'i'), ''));
-            text.data('initialText', $.trim(initialText + ''));
-            text.focus();
-            if (text[0].setSelectionRange) {
-                var len = text.val().length;
-                text[0].setSelectionRange(len,len);
             }
         },
 
@@ -972,12 +931,14 @@ var SN = { // StatusNet
             var NLon = form.find('[name=lon]')
             var NLNS = form.find('[name=location_ns]').val();
             var NLID = form.find('[name=location_id]').val();
-            var NLN = $('#'+SN.C.S.NoticeGeoName).text(); // @fixme does this exist?
+            var NLN = ''; // @fixme
             var NDGe = form.find('[name=notice_data-geo]');
+            var check = form.find('[name=notice_data-geo]');
+            var label = form.find('label.notice_data-geo');
 
             function removeNoticeDataGeo(error) {
-                $('label[for='+SN.C.S.NoticeDataGeo+']')
-                    .attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()))
+                label
+                    .attr('title', jQuery.trim(label.text()))
                     .removeClass('checked');
 
                 form.find('[name=lat]').val('');
@@ -989,15 +950,15 @@ var SN = { // StatusNet
                 $.cookie(SN.C.S.NoticeDataGeoCookie, 'disabled', { path: '/' });
 
                 if (error) {
-                    $('.geo_status_wrapper').removeClass('success').addClass('error');
-                    $('.geo_status_wrapper .geo_status').text(error);
+                    form.find('.geo_status_wrapper').removeClass('success').addClass('error');
+                    form.find('.geo_status_wrapper .geo_status').text(error);
                 } else {
-                    $('.geo_status_wrapper').remove();
+                    form.find('.geo_status_wrapper').remove();
                 }
             }
 
             function getJSONgeocodeURL(geocodeURL, data) {
-                SN.U.NoticeGeoStatus('Looking up place name...');
+                SN.U.NoticeGeoStatus(form, 'Looking up place name...');
                 $.getJSON(geocodeURL, data, function(location) {
                     var lns, lid;
 
@@ -1018,8 +979,8 @@ var SN = { // StatusNet
                         NLN_text = location.name;
                     }
 
-                    SN.U.NoticeGeoStatus(NLN_text, data.lat, data.lon, location.url);
-                    $('label[for='+SN.C.S.NoticeDataGeo+']')
+                    SN.U.NoticeGeoStatus(form, NLN_text, data.lat, data.lon, location.url);
+                    label
                         .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + NLN_text + ')');
 
                     form.find('[name=lat]').val(data.lat);
@@ -1042,30 +1003,30 @@ var SN = { // StatusNet
                 });
             }
 
-            if (NDGe.length > 0) {
+            if (check.length > 0) {
                 if ($.cookie(SN.C.S.NoticeDataGeoCookie) == 'disabled') {
-                    NDGe.attr('checked', false);
+                    check.attr('checked', false);
                 }
                 else {
-                    NDGe.attr('checked', true);
+                    check.attr('checked', true);
                 }
 
-                var NGW = $('#notice_data-geo_wrap');
+                var NGW = form.find('.notice_data-geo_wrap');
                 var geocodeURL = NGW.attr('title');
                 NGW.removeAttr('title');
 
-                $('label[for='+SN.C.S.NoticeDataGeo+']')
-                    .attr('title', jQuery.trim($('label[for='+SN.C.S.NoticeDataGeo+']').text()));
+                label
+                    .attr('title', label.text());
 
-                NDGe.change(function() {
-                    if ($('#'+SN.C.S.NoticeDataGeo).attr('checked') === true || $.cookie(SN.C.S.NoticeDataGeoCookie) === null) {
-                        $('label[for='+SN.C.S.NoticeDataGeo+']')
+                check.change(function() {
+                    if (check.attr('checked') === true || $.cookie(SN.C.S.NoticeDataGeoCookie) === null) {
+                        label
                             .attr('title', NoticeDataGeo_text.ShareDisable)
                             .addClass('checked');
 
                         if ($.cookie(SN.C.S.NoticeDataGeoCookie) === null || $.cookie(SN.C.S.NoticeDataGeoCookie) == 'disabled') {
                             if (navigator.geolocation) {
-                                SN.U.NoticeGeoStatus('Requesting location from browser...');
+                                SN.U.NoticeGeoStatus(form, 'Requesting location from browser...');
                                 navigator.geolocation.getCurrentPosition(
                                     function(position) {
                                         form.find('[name=lat]').val(position.coords.latitude);
@@ -1109,8 +1070,8 @@ var SN = { // StatusNet
                                 }
                                 else {
                                     removeNoticeDataGeo();
-                                    $('#'+SN.C.S.NoticeDataGeo).remove();
-                                    $('label[for='+SN.C.S.NoticeDataGeo+']').remove();
+                                    check.remove();
+                                    label.remove();
                                 }
                             }
                         }
@@ -1123,8 +1084,8 @@ var SN = { // StatusNet
                             form.find('[name=location_id]').val(cookieValue.NLID);
                             form.find('[name=notice_data-geo]').attr('checked', cookieValue.NDG);
 
-                            SN.U.NoticeGeoStatus(cookieValue.NLN, cookieValue.NLat, cookieValue.NLon, cookieValue.NLNU);
-                            $('label[for='+SN.C.S.NoticeDataGeo+']')
+                            SN.U.NoticeGeoStatus(form, cookieValue.NLN, cookieValue.NLat, cookieValue.NLon, cookieValue.NLNU);
+                            label
                                 .attr('title', NoticeDataGeo_text.ShareDisable + ' (' + cookieValue.NLN + ')')
                                 .addClass('checked');
                         }
@@ -1139,19 +1100,19 @@ var SN = { // StatusNet
         /**
          * Create or update a geolocation status widget in this notice posting form.
          *
+         * @param {jQuery} form
          * @param {String} status
          * @param {String} lat (optional)
          * @param {String} lon (optional)
          * @param {String} url (optional)
          */
-        NoticeGeoStatus: function(status, lat, lon, url)
+        NoticeGeoStatus: function(form, status, lat, lon, url)
         {
-            var form = $('#form_notice');
             var wrapper = form.find('.geo_status_wrapper');
             if (wrapper.length == 0) {
                 wrapper = $('<div class="'+SN.C.S.Success+' geo_status_wrapper"><button class="close" style="float:right">&#215;</button><div class="geo_status"></div></div>');
                 wrapper.find('button.close').click(function() {
-                    $('#'+SN.C.S.NoticeDataGeo).removeAttr('checked').change();
+                    form.find('[name=notice_data-geo]').removeAttr('checked').change();
                 });
                 form.append(wrapper);
             }

@@ -63,8 +63,8 @@ class OpensearchAction extends Action
             // TRANS: ShortName in the OpenSearch interface when trying to find users.
             $short_name = _('People Search');
         } else {
-            // TRANS: ShortName in the OpenSearch interface when trying to find notices.
             $type       = 'noticesearch';
+            // TRANS: ShortName in the OpenSearch interface when trying to find notices.
             $short_name = _('Notice Search');
         }
         header('Content-Type: application/opensearchdescription+xml');

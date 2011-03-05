@@ -317,8 +317,8 @@ address .poweredby {
     font-size:0.8em;
 }
 
-.form_notice #notice_data-geo_wrap label,
-.form_notice #notice_data-geo_wrap input {
+.form_notice .notice_data-geo_wrap label,
+.form_notice .notice_data-geo_wrap input {
     position:absolute;
     top: 55px;
     right: 88px;
@@ -329,11 +329,11 @@ address .poweredby {
     display:block;
 }
 
-.form_notice #notice_data-geo_wrap input {
+.form_notice .notice_data-geo_wrap input {
     visibility:hidden;
 }
 
-.form_notice #notice_data-geo_wrap label {
+.form_notice .notice_data-geo_wrap label {
     font-weight:normal;
     font-size:1em;
     margin-bottom:0;
@@ -1728,7 +1728,7 @@ body.realtime-popup {
     right: 70px;
 }
 
-.realtime-popup .form_notice #notice_data-geo_wrap label, .form_notice #notice_data-geo_wrap input {
+.realtime-popup .form_notice .notice_data-geo_wrap label, .form_notice .notice_data-geo_wrap input {
     right: 2px;
 }
 
@@ -1771,7 +1771,7 @@ button.close,
 .entity_role_administrator input.submit,
 .entity_role_moderator input.submit,
 .notice-options .repeated,
-.form_notice label[for=notice_data-geo],
+.form_notice label.notice_data-geo,
 button.minimize,
 .form_reset_key input.submit,
 .entity_clear input.submit,
@@ -1924,10 +1924,10 @@ background-position:0 -1054px;
 .form_notice label[for=notice_data-attach] {
     background-position: 0 -328px;
 }
-.form_notice label[for=notice_data-geo] {
+.form_notice label.notice_data-geo {
     background-position: 0 -1780px;
 }
-.form_notice label[for=notice_data-geo].checked {
+.form_notice label.notice_data-geo.checked {
     background-position: 0 -1846px;
 }
 

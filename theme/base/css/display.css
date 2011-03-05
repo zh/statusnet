@@ -563,8 +563,10 @@ border-width:1px;
 border-style:solid;
 }
 
-.form_notice {
+#header .form_notice {
 width:45%;
+}
+.form_notice {
 float:left;
 position:relative;
 line-height:1;
@@ -664,8 +666,8 @@ float:right;
 font-size:0.8em;
 }
 
-.form_notice #notice_data-geo_wrap label,
-.form_notice #notice_data-geo_wrap input {
+.form_notice .notice_data-geo_wrap label,
+.form_notice .notice_data-geo_wrap input {
 position:absolute;
 top:25px;
 right:4px;
@@ -675,10 +677,10 @@ width:16px;
 height:16px;
 display:block;
 }
-.form_notice #notice_data-geo_wrap input {
+.form_notice .notice_data-geo_wrap input {
 visibility:hidden;
 }
-.form_notice #notice_data-geo_wrap label {
+.form_notice .notice_data-geo_wrap label {
 font-weight:normal;
 font-size:1em;
 margin-bottom:0;
@@ -1120,7 +1122,6 @@ border-top-style:solid;
 .threaded-replies .notice-reply {
     margin: 8px;
 }
-.threaded-replies .notice-reply textarea,
 .threaded-replies .notice-reply-placeholder input.placeholder {
     margin-left: 0;
     width: 95%;

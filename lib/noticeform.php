@@ -48,31 +48,26 @@ require_once INSTALLDIR.'/lib/form.php';
  *
  * @see      HTMLOutputter
  */
-
 class NoticeForm extends Form
 {
     /**
      * Current action, used for returning to this page.
      */
-
     var $action = null;
 
     /**
      * Pre-filled content of the form
      */
-
     var $content = null;
 
     /**
      * The current user
      */
-
     var $user = null;
 
     /**
      * The notice being replied to
      */
-
     var $inreplyto = null;
 
     /**
@@ -91,9 +86,10 @@ class NoticeForm extends Form
      * @param string        $action  action to return to, if any
      * @param string        $content content to pre-fill
      */
-
     function __construct($out=null, $action=null, $content=null, $user=null, $inreplyto=null, $lat=null, $lon=null, $location_id=null, $location_ns=null)
     {
+        $this->id_suffix = time();
+
         parent::__construct($out);
 
         $this->action  = $action;
@@ -125,7 +121,7 @@ class NoticeForm extends Form
 
     function id()
     {
-        return 'form_notice';
+        return 'form_notice_' . $this->id_suffix;
     }
 
    /**
@@ -157,6 +153,7 @@ class NoticeForm extends Form
      */
     function formLegend()
     {
+        // TRANS: Form legend for notice form.
         $this->out->element('legend', null, _('Send a notice'));
     }
 
@@ -165,12 +162,12 @@ class NoticeForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         if (Event::handle('StartShowNoticeFormData', array($this))) {
             $this->out->element('label', array('for' => 'notice_data-text',
                                                'id' => 'notice_data-text-label'),
+                                // TRANS: Title for notice label. %s is the user's nickname.
                                 sprintf(_('What\'s up, %s?'), $this->user->nickname));
             // XXX: vary by defined max size
             $this->out->element('textarea', array('id' => 'notice_data-text',
@@ -182,18 +179,20 @@ class NoticeForm extends Form
             $contentLimit = Notice::maxContent();
 
             if ($contentLimit > 0) {
-                $this->out->element('span', 
+                $this->out->element('span',
                                     array('class' => 'count'),
                                     $contentLimit);
             }
 
             if (common_config('attachments', 'uploads')) {
                 $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
+                // TRANS: Input label in notice form for adding an attachment.
                 $this->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
                 $this->out->element('input', array('id' => 'notice_data-attach',
                                                    'type' => 'file',
                                                    'name' => 'attach',
-                                                   'title' => _('Attach a file')));
+                                                   // TRANS: Title for input field to attach a file to a notice.
+                                                   'title' => _('Attach a file.')));
             }
             if ($this->action) {
                 $this->out->hidden('notice_return-to', $this->action, 'returnto');
@@ -206,13 +205,32 @@ class NoticeForm extends Form
                 $this->out->hidden('notice_data-location_id', empty($this->location_id) ? (empty($this->profile->location_id) ? null : $this->profile->location_id) : $this->location_id, 'location_id');
                 $this->out->hidden('notice_data-location_ns', empty($this->location_ns) ? (empty($this->profile->location_ns) ? null : $this->profile->location_ns) : $this->location_ns, 'location_ns');
 
-                $this->out->elementStart('div', array('id' => 'notice_data-geo_wrap',
+                $this->out->elementStart('div', array('class' => 'notice_data-geo_wrap',
                                                       'title' => common_local_url('geocode')));
-                $this->out->checkbox('notice_data-geo', _('Share my location'), true);
+
+                // @fixme checkbox method allows no way to change the id without changing the name
+                //$this->out->checkbox('notice_data-geo', _('Share my location'), true);
+                $this->out->element('input', array(
+                    'name' => 'notice_data-geo',
+                    'type' => 'checkbox',
+                    'class' => 'checkbox',
+                    'id' => $this->id() . '-notice_data-geo',
+                    'checked' => true, // ?
+                ));
+                $this->out->text(' ');
+                $this->out->element('label', array('class' => 'notice_data-geo',
+                                              'for' => $this->id() . '-notice_data-geo'),
+                               // TRANS: Field label to add location to a notice.
+                               _('Share my location'));
+
                 $this->out->elementEnd('div');
+                // TRANS: Text to not share location for a notice in notice form.
+                $share_disable_text = _('Do not share my location');
+                // TRANS: Timeout error text for location retrieval in notice form.
+                $error_timeout_text = _('Sorry, retrieving your geo location is taking longer than expected, please try again later');
                 $this->out->inlineScript(' var NoticeDataGeo_text = {'.
-                    'ShareDisable: ' .json_encode(_('Do not share my location')).','.
-                    'ErrorTimeout: ' .json_encode(_('Sorry, retrieving your geo location is taking longer than expected, please try again later')).
+                    'ShareDisable: ' .json_encode($share_disable_text).','.
+                    'ErrorTimeout: ' .json_encode($error_timeout_text).
                     '}');
             }
 
@@ -232,6 +250,7 @@ class NoticeForm extends Form
                                            'class' => 'submit',
                                            'name' => 'status_submit',
                                            'type' => 'submit',
-                                           'value' => _m('Send button for sending notice', 'Send')));
+                                           // TRANS: Button text for sending notice.
+                                           'value' => _m('BUTTON', 'Send')));
     }
 }

@@ -84,10 +84,10 @@ box-shadow:3px 3px 3px rgba(194, 194, 194, 0.1);
 text-shadow:none;
 }
 
-.form_notice label[for=notice_data-geo] {
+.form_notice label.notice_data-geo {
 background-position:0 -1780px;
 }
-.form_notice label[for=notice_data-geo].checked {
+.form_notice label.notice_data-geo.checked {
 background-position:0 -1846px;
 }
 
@@ -233,7 +233,7 @@ button.close,
 .entity_silence input.submit,
 .entity_delete input.submit,
 .notice-options .repeated,
-.form_notice label[for=notice_data-geo],
+.form_notice label.notice_data-geo,
 button.minimize,
 .form_reset_key input.submit,
 .entity_clear input.submit,

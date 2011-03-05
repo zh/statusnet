@@ -127,7 +127,7 @@ class ActivityStreamJSONDocument
     function addLink($url = null, $rel = null, $mediaType = null)
     {
         $link = new ActivityStreamsLink($url, $rel, $mediaType);
-        $this->doc['link'][] = $link->asArray();
+        $this->doc['links'][] = $link->asArray();
     }
 
     /*
