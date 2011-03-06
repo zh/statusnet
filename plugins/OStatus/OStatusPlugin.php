@@ -56,14 +56,25 @@ class OStatusPlugin extends Plugin
                     array('action' => 'ownerxrd'));
         $m->connect('main/ostatus',
                     array('action' => 'ostatusinit'));
+        $m->connect('main/ostatustag',
+                    array('action' => 'ostatustag'));
+        $m->connect('main/ostatustag?nickname=:nickname',
+                    array('action' => 'ostatustag'), array('nickname' => '[A-Za-z0-9_-]+'));
         $m->connect('main/ostatus?nickname=:nickname',
                   array('action' => 'ostatusinit'), array('nickname' => '[A-Za-z0-9_-]+'));
         $m->connect('main/ostatus?group=:group',
                   array('action' => 'ostatusinit'), array('group' => '[A-Za-z0-9_-]+'));
+        $m->connect('main/ostatus?peopletag=:peopletag&tagger=:tagger',
+                  array('action' => 'ostatusinit'), array('tagger' => '[A-Za-z0-9_-]+',
+                                                          'peopletag' => '[A-Za-z0-9_-]+'));
+
+        // Remote subscription actions
         $m->connect('main/ostatussub',
                     array('action' => 'ostatussub'));
         $m->connect('main/ostatusgroup',
                     array('action' => 'ostatusgroup'));
+        $m->connect('main/ostatuspeopletag',
+                    array('action' => 'ostatuspeopletag'));
 
         // PuSH actions
         $m->connect('main/push/hub', array('action' => 'pushhub'));
@@ -78,6 +89,9 @@ class OStatusPlugin extends Plugin
                     array('id' => '[0-9]+'));
         $m->connect('main/salmon/group/:id',
                     array('action' => 'groupsalmon'),
+                    array('id' => '[0-9]+'));
+        $m->connect('main/salmon/peopletag/:id',
+                    array('action' => 'peopletagsalmon'),
                     array('id' => '[0-9]+'));
         return true;
     }
@@ -149,6 +163,10 @@ class OStatusPlugin extends Plugin
             $salmonAction = 'groupsalmon';
             $group = $feed->getGroup();
             $id = $group->id;
+        } else if ($feed instanceof AtomListNoticeFeed) {
+            $salmonAction = 'peopletagsalmon';
+            $peopletag = $feed->getList();
+            $id = $peopletag->id;
         } else {
             return true;
         }
@@ -210,21 +228,7 @@ class OStatusPlugin extends Plugin
      */
     function onStartProfileRemoteSubscribe($output, $profile)
     {
-        $cur = common_current_user();
-
-        if (empty($cur)) {
-            // Add an OStatus subscribe
-            $output->elementStart('li', 'entity_subscribe');
-            $url = common_local_url('ostatusinit',
-                                    array('nickname' => $profile->nickname));
-            $output->element('a', array('href' => $url,
-                                        'class' => 'entity_remote_subscribe'),
-                                // TRANS: Link description for link to subscribe to a remote user.
-                                _m('Subscribe'));
-
-            $output->elementEnd('li');
-        }
-
+        $this->onStartProfileListItemActionElements($output, $profile);
         return false;
     }
 
@@ -238,10 +242,116 @@ class OStatusPlugin extends Plugin
                                     array('group' => $group->nickname));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
-                                // TRANS: Link description for link to join a remote group.
                                 _m('Join'));
+
         }
 
+        return true;
+    }
+
+    function onStartSubscribePeopletagForm($output, $peopletag)
+    {
+        $cur = common_current_user();
+
+        if (empty($cur)) {
+            $output->elementStart('li', 'entity_subscribe');
+            $profile = $peopletag->getTagger();
+            $url = common_local_url('ostatusinit',
+                                    array('tagger' => $profile->nickname, 'peopletag' => $peopletag->tag));
+            $output->element('a', array('href' => $url,
+                                        'class' => 'entity_remote_subscribe'),
+                                _m('Subscribe'));
+
+            $output->elementEnd('li');
+            return false;
+        }
+
+        return true;
+    }
+
+    function onStartShowTagProfileForm($action, $profile)
+    {
+        $action->elementStart('form', array('method' => 'post',
+                                           'id' => 'form_tag_user',
+                                           'class' => 'form_settings',
+                                           'name' => 'tagprofile',
+                                           'action' => common_local_url('tagprofile', array('id' => @$profile->id))));
+
+        $action->elementStart('fieldset');
+        $action->element('legend', null, _('Tag remote profile'));
+        $action->hidden('token', common_session_token());
+
+        $user = common_current_user();
+
+        $action->elementStart('ul', 'form_data');
+        $action->elementStart('li');
+
+        $action->input('uri', _('Remote profile'), $action->trimmed('uri'),
+                     _('OStatus user\'s address, like nickname@example.com or http://example.net/nickname'));
+        $action->elementEnd('li');
+        $action->elementEnd('ul');
+        $action->submit('fetch', _('Fetch'));
+        $action->elementEnd('fieldset');
+        $action->elementEnd('form');
+    }
+
+    function onStartTagProfileAction($action, $profile)
+    {
+        $err = null;
+        $uri = $action->trimmed('uri');
+
+        if (!$profile && $uri) {
+            try {
+                if (Validate::email($uri)) {
+                    $oprofile = Ostatus_profile::ensureWebfinger($uri);
+                } else if (Validate::uri($uri)) {
+                    $oprofile = Ostatus_profile::ensureProfileURL($uri);
+                } else {
+                    throw new Exception('Invalid URI');
+                }
+
+                // redirect to the new profile.
+                common_redirect(common_local_url('tagprofile', array('id' => $oprofile->profile_id)), 303);
+                return false;
+
+            } catch (Exception $e) {
+                $err = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
+            }
+
+            $action->showForm($err);
+            return false;
+        }
+        return true;
+    }
+
+    /*
+     * If the field being looked for is URI look for the profile
+     */
+    function onStartProfileCompletionSearch($action, $profile, $search_engine) {
+        if ($action->field == 'uri') {
+            $user = new User();
+            $profile->joinAdd($user);
+            $profile->whereAdd('uri LIKE "%' . $profile->escape($q) . '%"');
+            $profile->query();
+
+            if ($profile->N == 0) {
+                try {
+                    if (Validate::email($q)) {
+                        $oprofile = Ostatus_profile::ensureWebfinger($q);
+                    } else if (Validate::uri($q)) {
+                        $oprofile = Ostatus_profile::ensureProfileURL($q);
+                    } else {
+                        throw new Exception('Invalid URI');
+                    }
+                    return $this->filter(array($oprofile->localProfile()));
+
+                } catch (Exception $e) {
+                    $this->msg = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
+                    return array();
+                }
+            }
+            return false;
+        }
         return true;
     }
 
@@ -712,6 +822,95 @@ class OStatusPlugin extends Plugin
     }
 
     /**
+     * When one of our local users tries to subscribe to a remote peopletag,
+     * notify the remote server. If the notification is rejected,
+     * deny the subscription.
+     *
+     * @param Profile_list $peopletag
+     * @param User         $user
+     *
+     * @return mixed hook return value
+     */
+
+    function onStartSubscribePeopletag($peopletag, $user)
+    {
+        $oprofile = Ostatus_profile::staticGet('peopletag_id', $peopletag->id);
+        if ($oprofile) {
+            if (!$oprofile->subscribe()) {
+                throw new Exception(_m('Could not set up remote peopletag subscription.'));
+            }
+
+            $sub = $user->getProfile();
+            $tagger = Profile::staticGet($peopletag->tagger);
+
+            $act = new Activity();
+            $act->id = TagURI::mint('subscribe_peopletag:%d:%d:%s',
+                                    $sub->id,
+                                    $peopletag->id,
+                                    common_date_iso8601(time()));
+
+            $act->actor = ActivityObject::fromProfile($sub);
+            $act->verb = ActivityVerb::FOLLOW;
+            $act->object = $oprofile->asActivityObject();
+
+            $act->time = time();
+            $act->title = _m("Follow list");
+            $act->content = sprintf(_m("%s is now following people tagged %s by %s."),
+                                    $sub->getBestName(),
+                                    $oprofile->getBestName(),
+                                    $tagger->getBestName());
+
+            if ($oprofile->notifyActivity($act, $sub)) {
+                return true;
+            } else {
+                $oprofile->garbageCollect();
+                throw new Exception(_m("Failed subscribing to remote peopletag."));
+            }
+        }
+    }
+
+    /**
+     * When one of our local users unsubscribes to a remote peopletag, notify the remote
+     * server.
+     *
+     * @param Profile_list $peopletag
+     * @param User         $user
+     *
+     * @return mixed hook return value
+     */
+
+    function onEndUnsubscribePeopletag($peopletag, $user)
+    {
+        $oprofile = Ostatus_profile::staticGet('peopletag_id', $peopletag->id);
+        if ($oprofile) {
+            // Drop the PuSH subscription if there are no other subscribers.
+            $oprofile->garbageCollect();
+
+            $sub = Profile::staticGet($user->id);
+            $tagger = Profile::staticGet($peopletag->tagger);
+
+            $act = new Activity();
+            $act->id = TagURI::mint('unsubscribe_peopletag:%d:%d:%s',
+                                    $sub->id,
+                                    $peopletag->id,
+                                    common_date_iso8601(time()));
+
+            $act->actor = ActivityObject::fromProfile($member);
+            $act->verb = ActivityVerb::UNFOLLOW;
+            $act->object = $oprofile->asActivityObject();
+
+            $act->time = time();
+            $act->title = _m("Unfollow peopletag");
+            $act->content = sprintf(_m("%s stopped following the list %s by %s."),
+                                    $sub->getBestName(),
+                                    $oprofile->getBestName(),
+                                    $tagger->getBestName());
+
+            $oprofile->notifyActivity($act, $user);
+        }
+    }
+
+    /**
      * Notify remote users when their notices get favorited.
      *
      * @param Profile or User $profile of local user doing the faving
@@ -743,6 +942,91 @@ class OStatusPlugin extends Plugin
         $act = $fav->asActivity();
 
         $oprofile->notifyActivity($act, $profile);
+
+        return true;
+    }
+
+    function onEndTagProfile($ptag)
+    {
+        $oprofile = Ostatus_profile::staticGet('profile_id', $ptag->tagged);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        $plist = $ptag->getMeta();
+        if ($plist->private) {
+            return true;
+        }
+
+        $act = new Activity();
+
+        $tagger = $plist->getTagger();
+        $tagged = Profile::staticGet('id', $ptag->tagged);
+
+        $act->verb = ActivityVerb::TAG;
+        $act->id   = TagURI::mint('tag_profile:%d:%d:%s',
+                                  $plist->tagger, $plist->id,
+                                  common_date_iso8601(time()));
+        $act->time = time();
+        $act->title = _("Tag");
+        $act->content = sprintf(_("%s tagged %s in the list %s"),
+                                $tagger->getBestName(),
+                                $tagged->getBestName(),
+                                $plist->getBestName());
+
+        $act->actor  = ActivityObject::fromProfile($tagger);
+        $act->objects = array(ActivityObject::fromProfile($tagged));
+        $act->target = ActivityObject::fromPeopletag($plist);
+
+        $oprofile->notifyActivity($act, $tagger);
+
+        // initiate a PuSH subscription for the person being tagged
+        if (!$oprofile->subscribe()) {
+            throw new Exception(sprintf(_('Could not complete subscription to remote '.
+                                          'profile\'s feed. Tag %s could not be saved.'), $ptag->tag));
+            return false;
+        }
+        return true;
+    }
+
+    function onEndUntagProfile($ptag)
+    {
+        $oprofile = Ostatus_profile::staticGet('profile_id', $ptag->tagged);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        $plist = $ptag->getMeta();
+        if ($plist->private) {
+            return true;
+        }
+
+        $act = new Activity();
+
+        $tagger = $plist->getTagger();
+        $tagged = Profile::staticGet('id', $ptag->tagged);
+
+        $act->verb = ActivityVerb::UNTAG;
+        $act->id   = TagURI::mint('untag_profile:%d:%d:%s',
+                                  $plist->tagger, $plist->id,
+                                  common_date_iso8601(time()));
+        $act->time = time();
+        $act->title = _("Untag");
+        $act->content = sprintf(_("%s untagged %s from the list %s"),
+                                $tagger->getBestName(),
+                                $tagged->getBestName(),
+                                $plist->getBestName());
+
+        $act->actor  = ActivityObject::fromProfile($tagger);
+        $act->objects = array(ActivityObject::fromProfile($tagged));
+        $act->target = ActivityObject::fromPeopletag($plist);
+
+        $oprofile->notifyActivity($act, $tagger);
+
+        // unsubscribe to PuSH feed if no more required
+        $oprofile->garbageCollect();
 
         return true;
     }
@@ -913,7 +1197,7 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
-    function onStartProfileListItemActionElements($item)
+    function onStartProfileListItemActionElements($item, $profile=null)
     {
         if (!common_logged_in()) {
 
@@ -921,7 +1205,12 @@ class OStatusPlugin extends Plugin
 
             if (!empty($profileUser)) {
 
-                $output = $item->out;
+                if ($item instanceof Action) {
+                    $output = $item;
+                    $profile = $item->profile;
+                } else {
+                    $output = $item->out;
+                }
 
                 // Add an OStatus subscribe
                 $output->elementStart('li', 'entity_subscribe');
@@ -931,6 +1220,14 @@ class OStatusPlugin extends Plugin
                                             'class' => 'entity_remote_subscribe'),
                                   // TRANS: Link text for a user to subscribe to an OStatus user.
                                  _m('Subscribe'));
+                $output->elementEnd('li');
+
+                $output->elementStart('li', 'entity_tag');
+                $url = common_local_url('ostatustag',
+                                        array('nickname' => $profileUser->nickname));
+                $output->element('a', array('href' => $url,
+                                            'class' => 'entity_remote_tag'),
+                                 _m('Tag'));
                 $output->elementEnd('li');
             }
         }

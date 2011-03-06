@@ -112,6 +112,12 @@ class SalmonAction extends Action
             case ActivityVerb::LEAVE:
                 $this->handleLeave();
                 break;
+            case ActivityVerb::TAG:
+                $this->handleTag();
+                break;
+            case ActivityVerb::UNTAG:
+                $this->handleUntag();
+                break;
             case ActivityVerb::UPDATE_PROFILE:
                 $this->handleUpdateProfile();
                 break;
@@ -170,6 +176,16 @@ class SalmonAction extends Action
     {
         // TRANS: Client exception.
         throw new ClientException(_m("This target doesn't understand leave events."));
+    }
+
+    function handleTag()
+    {
+        throw new ClientException(_m("This target doesn't understand tag events."));
+    }
+
+    function handleUntag()
+    {
+        throw new ClientException(_m("This target doesn't understand untag events."));
     }
 
     /**
