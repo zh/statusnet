@@ -604,13 +604,84 @@ $schema['profile_tag'] = array(
     ),
     'primary key' => array('tagger', 'tagged', 'tag'),
     'foreign keys' => array(
-        'profile_tag_tagger_fkey' => array('user', array('tagger' => 'id')),
+        'profile_tag_tagger_fkey' => array('profile', array('tagger' => 'id')),
         'profile_tag_tagged_fkey' => array('profile', array('tagged' => 'id')),
+        'profile_tag_tag_fkey' => array('profile_list', array('tag' => 'tag')),
     ),
     'indexes' => array(
         'profile_tag_modified_idx' => array('modified'),
         'profile_tag_tagger_tag_idx' => array('tagger', 'tag'),
         'profile_tag_tagged_idx' => array('tagged'),
+    ),
+);
+
+$schema['profile_list'] = array(
+    'fields' => array(
+        'id' => array('type' => 'serial', 'not null' => true, 'description' => 'unique identifier'),
+        'tagger' => array('type' => 'int', 'not null' => true, 'description' => 'user making the tag'),
+        'tag' => array('type' => 'varchar', 'length' => 64, 'not null' => true, 'description' => 'people tag'),
+        'description' => array('type' => 'text', 'description' => 'description of the people tag'),
+        'private' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'is this tag private'),
+
+        'created' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date the tag was added'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date the tag was modified'),
+
+        'uri' => array('type' => 'varchar', 'length' => 255, 'description' => 'universal identifier'),
+        'mainpage' => array('type' => 'varchar', 'length' => 255, 'description' => 'page to link to'),
+        'tagged_count' => array('type' => 'int', 'default' => 0, 'description' => 'number of people tagged with this tag by this user'),
+        'subscriber_count' => array('type' => 'int', 'default' => 0, 'description' => 'number of subscribers to this tag'),
+    ),
+    'primary key' => array('tagger', 'tag'),
+    'unique keys' => array(
+      'profile_list_id_key' => array('id')
+    ),
+    'foreign keys' => array(
+        'profile_list_tagger_fkey' => array('profile', array('tagger' => 'id')),
+    ),
+    'indexes' => array(
+        'profile_list_modified_idx' => array('modified'),
+        'profile_list_tag_idx' => array('tag'),
+        'profile_list_tagger_tag_idx' => array('tagger', 'tag'),
+        'profile_list_tagged_count_idx' => array('tagged_count'),
+        'profile_list_subscriber_count_idx' => array('subscriber_count'),
+    ),
+);
+
+$schema['profile_tag_inbox'] = array(
+    'description' => 'Many-many table listing notices associated with people tags.',
+    'fields' => array(
+        'profile_tag_id' => array('type' => 'int', 'not null' => true, 'description' => 'people tag receiving the message'),
+        'notice_id' => array('type' => 'int', 'not null' => true, 'description' => 'notice received'),
+        'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date the notice was created'),
+    ),
+    'primary key' => array('profile_tag_id', 'notice_id'),
+    'foreign keys' => array(
+        'profile_tag_inbox_profile_list_id_fkey' => array('profile_list', array('profile_tag_id' => 'id')),
+        'profile_tag_inbox_notice_id_fkey' => array('notice', array('notice_id' => 'id')),
+    ),
+    'indexes' => array(
+        'profile_tag_inbox_created_idx' => array('created'),
+        'profile_tag_inbox_profile_tag_id_idx' => array('profile_tag_id'),
+    ),
+);
+
+$schema['profile_tag_subscription'] = array(
+    'fields' => array(
+        'profile_tag_id' => array('type' => 'int', 'not null' => true, 'description' => 'foreign key to profile_tag'),
+        'profile_id' => array('type' => 'int', 'not null' => true, 'description' => 'foreign key to profile table'),
+
+        'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
+    ),
+    'primary key' => array('profile_tag_id', 'profile_id'),
+    'foreign keys' => array(
+        'profile_tag_subscription_profile_list_id_fkey' => array('profile_list', array('profile_tag_id' => 'id')),
+        'profile_tag_subscription_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
+    ),
+    'indexes' => array(
+        // @fixme probably we want a (profile_id, created) index here?
+        'profile_tag_subscription_profile_id_idx' => array('profile_id'),
+        'profile_tag_subscription_created_idx' => array('created'),
     ),
 );
 
