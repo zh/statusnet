@@ -450,6 +450,74 @@ var SN = { // StatusNet
             });
         },
 
+        FormProfileSearchXHR: function(form) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'xml',
+                url: form.attr('action'),
+                data: form.serialize() + '&ajax=1',
+                beforeSend: function(xhr) {
+                    form
+                        .addClass(SN.C.S.Processing)
+                        .find('.submit')
+                            .addClass(SN.C.S.Disabled)
+                            .attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(errorThrown || textStatus);
+                },
+                success: function(data, textStatus) {
+                    var results_placeholder = $('#profile_search_results');
+                    if (typeof($('ul', data)[0]) != 'undefined') {
+                        var list = document._importNode($('ul', data)[0], true);
+                        results_placeholder.replaceWith(list);
+                    }
+                    else {
+                        var _error = $('<li/>').append(document._importNode($('p', data)[0], true)); 
+                        results_placeholder.html(_error);
+                    }
+                    form
+                        .removeClass(SN.C.S.Processing)
+                        .find('.submit')
+                            .removeClass(SN.C.S.Disabled)
+                            .attr(SN.C.S.Disabled, false);
+                }
+            });
+        },
+
+        FormPeopletagsXHR: function(form) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'xml',
+                url: form.attr('action'),
+                data: form.serialize() + '&ajax=1',
+                beforeSend: function(xhr) {
+                    form.addClass(SN.C.S.Processing)
+                        .find('.submit')
+                            .addClass(SN.C.S.Disabled)
+                            .attr(SN.C.S.Disabled, SN.C.S.Disabled);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(errorThrown || textStatus);
+                },
+                success: function(data, textStatus) {
+                    var results_placeholder = form.parents('.entity_tags');
+                    if (typeof($('.entity_tags', data)[0]) != 'undefined') {
+                        var tags = document._importNode($('.entity_tags', data)[0], true);
+                        $(tags).find('.editable').append($('<button class="peopletags_edit_button"/>'));
+                        results_placeholder.replaceWith(tags);
+                    } else {
+                        results_placeholder.find('p').remove();
+                        results_placeholder.append(document._importNode($('p', data)[0], true));
+                        form.removeClass(SN.C.S.Processing)
+                            .find('.submit')
+                                .removeClass(SN.C.S.Disabled)
+                                .attr(SN.C.S.Disabled, false);
+                    }
+                }
+            });
+        },
+
         normalizeGeoData: function(form) {
             SN.C.I.NoticeDataGeo.NLat = form.find('[name=lat]').val();
             SN.C.I.NoticeDataGeo.NLon = form.find('[name=lon]').val();
@@ -479,6 +547,7 @@ var SN = { // StatusNet
             }
 
         },
+
         /**
          * Fetch an XML DOM from an XHR's response data.
          *
@@ -1326,8 +1395,20 @@ var SN = { // StatusNet
                 $('.form_group_join').live('click', function() { SN.U.FormXHR($(this)); return false; });
                 $('.form_group_leave').live('click', function() { SN.U.FormXHR($(this)); return false; });
                 $('.form_user_nudge').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_peopletag_subscribe').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_peopletag_unsubscribe').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_user_add_peopletag').live('click', function() { SN.U.FormXHR($(this)); return false; });
+                $('.form_user_remove_peopletag').live('click', function() { SN.U.FormXHR($(this)); return false; });
 
                 SN.U.NewDirectMessage();
+            }
+        },
+
+        ProfileSearch: function() {
+            if ($('body.user_in').length > 0) {
+                $('.form_peopletag_edit_user_search input.submit').live('click', function() {
+                    SN.U.FormProfileSearchXHR($(this).parents('form')); return false;
+                });
             }
         },
 
@@ -1350,6 +1431,45 @@ var SN = { // StatusNet
             $('#form_login').bind('submit', function() {
                 SN.U.StatusNetInstance.Set({Nickname: $('#form_login #nickname').val()});
                 return true;
+            });
+        },
+
+        PeopletagAutocomplete: function() {
+            $('.form_tag_user #tags').tagInput({
+                tags: SN.C.PtagACData,
+                tagSeparator: " ",
+                animate: false,
+                formatLine: function (i, e, search, matches) {
+                  var tag = "<b>" + e.tag.substring(0, search.length) + "</b>" + e.tag.substring(search.length);
+
+                  var line = $("<div/>").addClass('mode-' + e.mode);
+                    line.append($("<div class='tagInputLineTag'>" + tag
+                        + " <em class='privacy_mode'>" + e.mode + "</em></div>"));
+                  if (e.freq)
+                    line.append("<div class='tagInputLineFreq'>" + e.freq + "</div>");
+                  return line;
+                }
+            });
+        },
+
+        PeopleTags: function() {
+            $('.user_profile_tags .editable').append($('<button class="peopletags_edit_button"/>'));
+
+            $('.peopletags_edit_button').live('click', function() {
+                var form = $(this).parents('dd').eq(0).find('form');
+                // We can buy time from the above animation
+                if (typeof SN.C.PtagACData === 'undefined') {
+                    $.getJSON(_peopletagAC + '?token=' + $('#token').val(), function(data) {
+                        SN.C.PtagACData = data;
+                        _loadTagInput(SN.Init.PeopletagAutocomplete);
+                    });
+                } else { _loadTagInput(SN.Init.PeopletagAutocomplete); }
+
+                $(this).parents('ul').eq(0).fadeOut(200, function() {form.fadeIn(200).find('input#tags')});
+            })
+
+            $('.user_profile_tags form .submit').live('click', function() {
+                SN.U.FormPeopletagsXHR($(this).parents('form')); return false;
             });
         },
 
@@ -1401,5 +1521,11 @@ $(document).ready(function(){
     }
     if ($('#form_login').length > 0) {
         SN.Init.Login();
+    }
+    if ($('#profile_search_results').length > 0) {
+        SN.Init.ProfileSearch();
+    }
+    if ($('.user_profile_tags .editable').length > 0) {
+        SN.Init.PeopleTags();
     }
 });
