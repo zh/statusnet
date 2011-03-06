@@ -429,6 +429,12 @@ class Notice extends Memcached_DataObject
             $notice->saveGroups();
         }
 
+        if (isset($peopletags)) {
+            $notice->saveProfileTags($peopletags);
+        } else {
+            $notice->saveProfileTags();
+        }
+
         if (isset($urls)) {
             $notice->saveKnownUrls($urls);
         } else {
@@ -797,6 +803,7 @@ class Notice extends Memcached_DataObject
         }
 
         $users = $this->getSubscribedUsers();
+        $ptags = $this->getProfileTags();
 
         // FIXME: kind of ignoring 'transitional'...
         // we'll probably stop supporting inboxless mode
@@ -813,6 +820,18 @@ class Notice extends Memcached_DataObject
             foreach ($users as $id) {
                 if (!array_key_exists($id, $ni)) {
                     $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
+                }
+            }
+        }
+
+        foreach ($ptags as $ptag) {
+            $users = $ptag->getUserSubscribers();
+            foreach ($users as $id) {
+                if (!array_key_exists($id, $ni)) {
+                    $user = User::staticGet('id', $id);
+                    if (!$user->hasBlocked($profile)) {
+                        $ni[$id] = NOTICE_INBOX_SOURCE_PROFILE_TAG;
+                    }
                 }
             }
         }
@@ -911,6 +930,39 @@ class Notice extends Memcached_DataObject
         $user->free();
 
         return $ids;
+    }
+
+    function getProfileTags()
+    {
+        // Don't save ptags for repeats, for now.
+
+        if (!empty($this->repeat_of)) {
+            return array();
+        }
+
+        // XXX: cache me
+
+        $ptags = array();
+
+        $ptagi = new Profile_tag_inbox();
+
+        $ptagi->selectAdd();
+        $ptagi->selectAdd('profile_tag_id');
+
+        $ptagi->notice_id = $this->id;
+
+        if ($ptagi->find()) {
+            while ($ptagi->fetch()) {
+                $profile_list = Profile_list::staticGet('id', $ptagi->profile_tag_id);
+                if ($profile_list) {
+                    $ptags[] = $profile_list;
+                }
+            }
+        }
+
+        $ptagi->free();
+
+        return $ptags;
     }
 
     /**
@@ -1029,6 +1081,69 @@ class Notice extends Memcached_DataObject
             }
 
             self::blow('user_group:notice_ids:%d', $gi->group_id);
+        }
+
+        return true;
+    }
+
+    /**
+     * record targets into profile_tag_inbox.
+     * @return array of Profile_list objects
+     */
+    function saveProfileTags($known=array())
+    {
+        // Don't save ptags for repeats, for now
+
+        if (!empty($this->repeat_of)) {
+            return array();
+        }
+
+        if (is_array($known)) {
+            $ptags = $known;
+        } else {
+            $ptags = array();
+        }
+
+        $ptag = new Profile_tag();
+        $ptag->tagged = $this->profile_id;
+
+        if($ptag->find()) {
+            while($ptag->fetch()) {
+                $plist = Profile_list::getByTaggerAndTag($ptag->tagger, $ptag->tag);
+                $ptags[] = clone($plist);
+            }
+        }
+
+        foreach ($ptags as $target) {
+            $this->addToProfileTagInbox($target);
+        }
+
+        return $ptags;
+    }
+
+    function addToProfileTagInbox($plist)
+    {
+        $ptagi = Profile_tag_inbox::pkeyGet(array('profile_tag_id' => $plist->id,
+                                         'notice_id' => $this->id));
+
+        if (empty($ptagi)) {
+
+            $ptagi = new Profile_tag_inbox();
+
+            $ptagi->query('BEGIN');
+            $ptagi->profile_tag_id  = $plist->id;
+            $ptagi->notice_id = $this->id;
+            $ptagi->created   = $this->created;
+
+            $result = $ptagi->insert();
+            if (!$result) {
+                common_log_db_error($ptagi, 'INSERT', __FILE__);
+                throw new ServerException(_('Problem saving profile_tag inbox.'));
+            }
+
+            $ptagi->query('COMMIT');
+
+            self::blow('profile_tag:notice_ids:%d', $ptagi->profile_tag_id);
         }
 
         return true;
