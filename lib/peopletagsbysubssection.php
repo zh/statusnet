@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Personal tag cloud section
+ * Peopletags with the most subscribers section
  *
  * PHP version 5
  *
@@ -32,7 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 /**
- * Personal tag cloud section
+ * Peopletags with the most subscribers section
  *
  * @category Widget
  * @package  StatusNet
@@ -41,21 +41,36 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @link     http://status.net/
  */
 
-class SubscriptionsPeopleTagCloudSection extends SubPeopleTagCloudSection
+class PeopletagsBySubsSection extends PeopletagSection
 {
+    function getPeopletags()
+    {
+        $qry = 'SELECT profile_list.*, subscriber_count as value ' .
+               'FROM profile_list WHERE profile_list.private = false ' .
+               'ORDER BY value DESC ';
+
+        $limit = PEOPLETAGS_PER_SECTION;
+        $offset = 0;
+
+        if (common_config('db','type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
+
+        $peopletag = Memcached_DataObject::cachedQuery('Profile_list',
+                                                   $qry,
+                                                   3600);
+        return $peopletag;
+    }
+
     function title()
     {
-        return _('People Tagcloud as tagged');
+        return _('People tags with most subscribers');
     }
 
-    function tagUrl($tag) {
-        $nickname = $this->out->profile->nickname;
-        return common_local_url('subscriptions', array('nickname' => $nickname, 'tag' => $tag));
-    }
-
-    function query() {
-//        return 'select tag, count(tag) as weight from subscription left join profile_tag on subscriber=tagger and subscribed=tagged where subscriber=%d and subscriber != subscribed group by tag order by weight desc';
-        return 'select profile_tag.tag, count(profile_tag.tag) as weight from subscription left join (profile_tag, profile_list) on subscriber=profile_tag.tagger and subscribed=tagged and profile_tag.tag = profile_list.tag and profile_tag.tagger = profile_list.tagger where subscriber=%d and subscriber != subscribed and profile_list.private = false and profile_tag.tag is not null group by profile_tag.tag order by weight desc';
+    function divId()
+    {
+        return 'top_peopletags_by_subs';
     }
 }
-

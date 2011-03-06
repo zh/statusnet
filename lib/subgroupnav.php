@@ -106,6 +106,15 @@ class SubGroupNav extends Widget
                                          $this->user->nickname),
                                  $action == 'usergroups',
                                  'nav_usergroups');
+            $this->out->menuItem(common_local_url('peopletagsbyuser',
+                                                  array('nickname' =>
+                                                        $this->user->nickname)),
+                                 _('People tags'),
+                                 sprintf(_('People tags by %s'),
+                                         $this->user->nickname),
+                                 in_array($action, array('peopletagsbyuser', 'peopletagsforuser')),
+                                 'nav_timeline_peopletags');
+
             if (common_config('invite', 'enabled') && !is_null($cur) && $this->user->id === $cur->id) {
                 $this->out->menuItem(common_local_url('invite'),
                                      _('Invite'),

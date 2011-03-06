@@ -84,6 +84,10 @@ class PublicGroupNav extends Widget
             $this->out->menuItem(common_local_url('publictagcloud'), _('Recent tags'),
                 _('Recent tags'), $action_name == 'publictagcloud', 'nav_recent-tags');
 
+            $this->out->menuItem(common_local_url('publicpeopletagcloud'), _('People tags'),
+                _('People tags'), in_array($action_name, array('publicpeopletagcloud',
+                                    'peopletag', 'selftag')), 'nav_people-tags');
+
             if (count(common_config('nickname', 'featured')) > 0) {
                 $this->out->menuItem(common_local_url('featured'), _('Featured'),
                     _('Featured users'), $action_name == 'featured', 'nav_featured');

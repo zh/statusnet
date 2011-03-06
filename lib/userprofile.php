@@ -33,6 +33,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 require_once INSTALLDIR.'/lib/widget.php';
+require_once INSTALLDIR.'/lib/peopletags.php';
 
 /**
  * Profile of a user
@@ -188,23 +189,17 @@ class UserProfile extends Widget
 
     function showProfileTags()
     {
-        if (Event::handle('StartProfilePageProfileTags', array($this->out, $this->profile))) {
-            $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
+        $cur = common_current_user();
 
-            if (count($tags) > 0) {
-                $this->out->elementStart('ul', 'tags xoxo entity_tags');
-                foreach ($tags as $tag) {
-                    $this->out->elementStart('li');
-                    // Avoid space by using raw output.
-                    $pt = '<span class="mark_hash">#</span><a rel="tag" href="' .
-                      common_local_url('peopletag', array('tag' => $tag)) .
-                      '">' . $tag . '</a>';
-                    $this->out->raw($pt);
-                    $this->out->elementEnd('li');
-                }
-                $this->out->elementEnd('ul');
+        $self_tags = new SelftagsWidget($this->out, $this->profile, $this->profile);
+        $self_tags->show();
+
+        if ($cur) {
+            // don't show self-tags again
+            if ($cur->id != $this->profile->id && $cur->getProfile()->canTag($this->profile)) {
+                $tags = new PeopletagsWidget($this->out, $cur, $this->profile);
+                $tags->show();
             }
-            Event::handle('EndProfilePageProfileTags', array($this->out, $this->profile));
         }
     }
 

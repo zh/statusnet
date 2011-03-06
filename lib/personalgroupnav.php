@@ -109,6 +109,12 @@ class PersonalGroupNav extends Widget
                                  _('Favorites'),
                                  sprintf(_('%s\'s favorite notices'), ($user_profile) ? $name : _('User')),
                                  $action == 'showfavorites', 'nav_timeline_favorites');
+            $this->out->menuItem(common_local_url('peopletagsbyuser', array('nickname' =>
+                                                                  $nickname)),
+                             _('People tags'),
+                             sprintf(_('People tags by %s'), ($user_profile) ? $user_profile->getBestName() : _('User')),
+                             in_array($action, array('peopletagsbyuser', 'peopletagsforuser')),
+                             'nav_timeline_peopletags');
 
             $cur = common_current_user();
 
