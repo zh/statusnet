@@ -227,7 +227,9 @@ class Router
             $m->connect('main/sup/:seconds', array('action' => 'sup'),
                         array('seconds' => '[0-9]+'));
 
-            $m->connect('main/tagother/:id', array('action' => 'tagother'));
+            $m->connect('main/tagprofile', array('action' => 'tagprofile'));
+            $m->connect('main/tagprofile/:id', array('action' => 'tagprofile'),
+                                               array('id' => '[0-9]+'));
 
             $m->connect('main/oembed',
                         array('action' => 'oembed'));
@@ -353,10 +355,6 @@ class Router
                         array('tag' => self::REGEX_TAG));
             $m->connect('tag/:tag',
                         array('action' => 'tag'),
-                        array('tag' => self::REGEX_TAG));
-
-            $m->connect('peopletag/:tag',
-                        array('action' => 'peopletag'),
                         array('tag' => self::REGEX_TAG));
 
             // groups
@@ -958,6 +956,76 @@ class Router
                                 array('action' => $a),
                                 array('nickname' => Nickname::DISPLAY_FMT));
                 }
+
+                // people tags
+
+                $m->connect('peopletags', array('action' => 'publicpeopletagcloud'));
+
+                $m->connect('peopletag/:tag', array('action' => 'peopletag',
+                                                    'tag'    => self::REGEX_TAG));
+
+                $m->connect('selftag/:tag', array('action' => 'selftag',
+                                                  'tag'    => self::REGEX_TAG));
+
+                $m->connect('main/addpeopletag', array('action' => 'addpeopletag'));
+
+                $m->connect('main/removepeopletag', array('action' => 'removepeopletag'));
+
+                $m->connect('main/profilecompletion', array('action' => 'profilecompletion'));
+
+                $m->connect('main/peopletagautocomplete', array('action' => 'peopletagautocomplete'));
+
+                $m->connect(':nickname/peopletags',
+                                array('action' => 'peopletagsbyuser',
+                                      'nickname' => Nickname::DISPLAY_FMT));
+
+                $m->connect(':nickname/peopletags/private',
+                                array('action' => 'peopletagsbyuser',
+                                      'nickname' => Nickname::DISPLAY_FMT,
+                                      'private' => 1));
+
+                $m->connect(':nickname/peopletags/public',
+                                array('action' => 'peopletagsbyuser',
+                                      'nickname' => Nickname::DISPLAY_FMT,
+                                      'public' => 1));
+
+                $m->connect(':nickname/othertags',
+                                array('action' => 'peopletagsforuser',
+                                      'nickname' => Nickname::DISPLAY_FMT));
+
+                $m->connect(':nickname/peopletagsubscriptions',
+                                array('action' => 'peopletagsubscriptions',
+                                      'nickname' => Nickname::DISPLAY_FMT));
+
+                $m->connect(':tagger/all/:tag/subscribers',
+                                array('action' => 'peopletagsubscribers',
+                                      'tagger' => Nickname::DISPLAY_FMT,
+                                      'tag' => self::REGEX_TAG));
+
+                $m->connect(':tagger/all/:tag/tagged',
+                                array('action' => 'peopletagged',
+                                      'tagger' => Nickname::DISPLAY_FMT,
+                                      'tag' => self::REGEX_TAG));
+
+                $m->connect(':tagger/all/:tag/edit',
+                                array('action' => 'editpeopletag',
+                                      'tagger' => Nickname::DISPLAY_FMT,
+                                      'tag' => self::REGEX_TAG));
+
+                foreach(array('subscribe', 'unsubscribe') as $v) {
+                    $m->connect('peopletag/:id/'.$v,
+                                    array('action' => $v.'peopletag',
+                                          'id' => '[0-9]{1,64}'));
+                }
+                $m->connect('user/:tagger_id/profiletag/:id/id',
+                                array('action' => 'profiletagbyid',
+                                      'tagger_id' => '[0-9]+',
+                                      'id' => '[0-9]+'));
+
+                $m->connect(':tagger/all/:tag',
+                                array('action' => 'showprofiletag',
+                                      'tagger' => Nickname::DISPLAY_FMT,
+                                      'tag' => self::REGEX_TAG));
 
                 foreach (array('subscriptions', 'subscribers') as $a) {
                     $m->connect(':nickname/'.$a.'/:tag',

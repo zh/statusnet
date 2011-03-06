@@ -291,6 +291,8 @@ class Action extends HTMLOutputter // lawsuit
                 $this->script('jquery.cookie.min.js');
                 $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
                 $this->script('jquery.joverlay.min.js');
+                $this->inlineScript('function _loadTagInput(init) { $.getScript("'.common_path('js/jquery.timers.js'). '"); $.getScript("'.common_path('js/jquery.tagInput.js').'", init); } var _peopletagAC = "' . common_local_url('peopletagautocomplete') . '";');
+
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&

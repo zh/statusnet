@@ -232,6 +232,8 @@ class PublicAction extends Action
         $pop->show();
         $gbp = new GroupsByMembersSection($this);
         $gbp->show();
+        $ptp = new PeopletagsBySubsSection($this);
+        $ptp->show();
         $feat = new FeaturedUsersSection($this);
         $feat->show();
     }
