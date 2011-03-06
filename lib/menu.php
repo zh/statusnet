@@ -85,7 +85,7 @@ class Menu extends Widget
     function submenu($label, $menu)
     {
         $this->action->elementStart('li');
-        $this->action->text($label);
+        $this->action->element('h3', null, $label);
         $menu->show();
         $this->action->elementEnd('li');
     }
