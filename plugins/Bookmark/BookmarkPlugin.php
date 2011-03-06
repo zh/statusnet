@@ -372,10 +372,8 @@ class BookmarkPlugin extends MicroAppPlugin
      * @return Notice resulting notice
      */
 
-    function saveNoticeFromActivity($activity, $profile)
+    function saveNoticeFromActivity($activity, $profile, $options=array())
     {
-        $options = array();
-
         $bookmark = $activity->objects[0];
 
         $relLinkEls = ActivityUtils::getLinks($bookmark->element, 'related');
@@ -622,4 +620,13 @@ class BookmarkPlugin extends MicroAppPlugin
         return new BookmarkForm($out);
     }
 
+    function tag()
+    {
+        return 'bookmark';
+    }
+
+    function appTitle()
+    {
+        return _m('Bookmark');
+    }
 }

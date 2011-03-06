@@ -54,7 +54,7 @@ abstract class MicroAppPlugin extends Plugin
     abstract function appTitle();
     abstract function tag();
     abstract function types();
-    abstract function saveNoticeFromActivity($activity, $actor);
+    abstract function saveNoticeFromActivity($activity, $actor, $options);
     abstract function activityObjectFromNotice($notice);
     abstract function showNotice($notice, $out);
     abstract function entryForm($out);
@@ -157,6 +157,13 @@ abstract class MicroAppPlugin extends Plugin
                 throw new ClientException(_('Can\'t get author for activity.'));
             }
 
+            $object = $activity->objects[0];
+
+            $options = array('uri' => $object->id,
+                             'url' => $object->link,
+                             'is_local' => Notice::REMOTE_OMB,
+                             'source' => 'ostatus');
+            
             $this->saveNoticeFromActivity($activity, $actor);
 
             return false;
@@ -196,7 +203,7 @@ abstract class MicroAppPlugin extends Plugin
                 if (!in_array($uri, $activity->context->attention) &&
                     (empty($original) ||
                      $original->profile_id != $target->id)) {
-                    throw new ClientException(_("Bookmark not posted ".
+                    throw new ClientException(_("Object not posted ".
                                                 "to this user."));
                 }
             } else {
@@ -206,7 +213,14 @@ abstract class MicroAppPlugin extends Plugin
 
             $actor = Ostatus_profile::ensureActivityObjectProfile($activity->actor);
 
-            $this->saveNoticeFromActivity($activity, $actor);
+            $object = $activity->objects[0];
+
+            $options = array('uri' => $object->id,
+                             'url' => $object->link,
+                             'is_local' => Notice::REMOTE_OMB,
+                             'source' => 'ostatus');
+
+            $this->saveNoticeFromActivity($activity, $actor, $options);
 
             return false;
         }
@@ -258,8 +272,8 @@ abstract class MicroAppPlugin extends Plugin
 
             $obj = $activity->objects[0];
 
-            $options = array('uri' => $bookmark->id,
-                             'url' => $bookmark->link,
+            $options = array('uri' => $object->id,
+                             'url' => $object->link,
                              'source' => 'restore');
 
             $saved = $this->saveNoticeFromActivity($activity,
@@ -270,6 +284,24 @@ abstract class MicroAppPlugin extends Plugin
                 $done = true;
             }
 
+            return false;
+        }
+
+        return true;
+    }
+
+    function onStartShowEntryForms(&$tabs)
+    {
+        $tabs[$this->tag()] = $this->appTitle();
+        return true;
+    }
+
+    function onStartMakeEntryForm($tag, $out, &$form)
+    {
+        $this->log(LOG_INFO, "onStartMakeEntryForm() called for tag '$tag'");
+
+        if ($tag == $this->tag()) {
+            $form = $this->entryForm($out);
             return false;
         }
 
