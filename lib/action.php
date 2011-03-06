@@ -646,8 +646,60 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showNoticeForm()
     {
-        $notice_form = new NoticeForm($this);
-        $notice_form->show();
+        $tabs = array('status' => _('Status'));
+
+        $this->elementStart('div', 'input_forms');
+
+        if (Event::handle('StartShowEntryForms', array(&$tabs))) {
+
+            $this->elementStart('ul', array('class' => 'nav',
+                                            'id' => 'input_form_nav'));
+
+            foreach ($tabs as $tag => $title) {
+
+                $attrs = array('id' => 'input_form_nav_'.$title);
+
+                if ($tag == 'status') {
+                    $attrs['class'] = 'current';
+                }
+
+                $this->elementStart('li', $attrs);
+
+                $this->element('a',
+                               array('href' => 'javascript:switchInputFormTab("'.$tag.'")'),
+                               $title);
+                $this->elementEnd('li');
+            }
+
+            $this->elementEnd('ul');
+
+            foreach ($tabs as $tag => $title) {
+
+                $attrs = array('class' => 'input_form',
+                               'id' => 'input_form_'.$tag);
+
+                if ($tag == 'status') {
+                    $attrs['class'] .= ' active';
+                } else {
+                    $attrs['class'] .= ' inactive';
+                }
+
+                $this->elementStart('div', $attrs);
+
+                $form = null;
+
+                if (Event::handle('StartMakeEntryForm', array($tag, $this, &$form))) {
+                    if ($tag == 'status') {
+                        $form = new NoticeForm($this);
+                    }
+                    Event::handle('EndMakeEntryForm', array($tag, $this, $form));
+                }
+
+                if (!empty($form)) {
+                    $form->show();
+                }
+            }
+        }
     }
 
     /**
