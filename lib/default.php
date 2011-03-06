@@ -269,6 +269,11 @@ $default =
         'group' =>
         array('maxaliases' => 3,
               'desclimit' => null),
+        'peopletag' =>
+        array('maxtags' => 100, // maximum number of tags a user can create.
+              'maxpeople' => 500, // maximum no. of people with the same tag by the same user
+              'allow_tagging' => array('all' => true), // equivalent to array('local' => true, 'remote' => true)
+              'desclimit' => null),
         'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
         'search' =>
         array('type' => 'fulltext'),

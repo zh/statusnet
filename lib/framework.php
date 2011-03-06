@@ -45,6 +45,7 @@ define('NOTICE_INBOX_SOURCE_SUB', 1);
 define('NOTICE_INBOX_SOURCE_GROUP', 2);
 define('NOTICE_INBOX_SOURCE_REPLY', 3);
 define('NOTICE_INBOX_SOURCE_FORWARD', 4);
+define('NOTICE_INBOX_SOURCE_PROFILE_TAG', 5);
 define('NOTICE_INBOX_SOURCE_GATEWAY', -1);
 
 # append our extlib dir as the last-resort place to find libs

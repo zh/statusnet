@@ -753,17 +753,19 @@ function common_find_mentions($text, $notice)
         foreach ($hmatches[1] as $hmatch) {
 
             $tag = common_canonical_tag($hmatch[0]);
+            $plist = Profile_list::getByTaggerAndTag($sender->id, $tag);
+            if (!empty($plist) && !$plist->private) {
+                $tagged = $sender->getTaggedSubscribers($tag);
 
-            $tagged = Profile_tag::getTagged($sender->id, $tag);
+                $url = common_local_url('showprofiletag',
+                                        array('tagger' => $sender->nickname,
+                                              'tag' => $tag));
 
-            $url = common_local_url('subscriptions',
-                                    array('nickname' => $sender->nickname,
-                                          'tag' => $tag));
-
-            $mentions[] = array('mentioned' => $tagged,
-                                'text' => $hmatch[0],
-                                'position' => $hmatch[1],
-                                'url' => $url);
+                $mentions[] = array('mentioned' => $tagged,
+                                    'text' => $hmatch[0],
+                                    'position' => $hmatch[1],
+                                    'url' => $url);
+            }
         }
 
         Event::handle('EndFindMentions', array($sender, $text, &$mentions));
