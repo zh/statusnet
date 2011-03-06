@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-03 17:24+0000\n"
+"POT-Creation-Date: 2011-03-06 02:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,148 +16,106 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
-#. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: twitterimport.php:114
+#: twittersettings.php:57
+msgid "Twitter settings"
+msgstr ""
+
+#: twittersettings.php:68
+msgid ""
+"Connect your Twitter account to share your updates with your Twitter friends "
+"and vice-versa."
+msgstr ""
+
+#: twittersettings.php:115
+msgid "Twitter account"
+msgstr ""
+
+#: twittersettings.php:120
+msgid "Connected Twitter account"
+msgstr ""
+
+#: twittersettings.php:125
+msgid "Disconnect my account from Twitter"
+msgstr ""
+
+#: twittersettings.php:131
+msgid "Disconnecting your Twitter could make it impossible to log in! Please "
+msgstr ""
+
+#: twittersettings.php:135
+msgid "set a password"
+msgstr ""
+
+#: twittersettings.php:137
+msgid " first."
+msgstr ""
+
+#. TRANS: %1$s is the current website name.
+#: twittersettings.php:141
 #, php-format
-msgid "RT @%1$s %2$s"
-msgstr ""
-
-#: twitter.php:409
-msgid "Your Twitter bridge has been disabled."
-msgstr ""
-
-#: twitter.php:413
-#, php-format
 msgid ""
-"Hi, %1$s. We're sorry to inform you that your link to Twitter has been "
-"disabled. We no longer seem to have permission to update your Twitter "
-"status. Did you maybe revoke %3$s's access?\n"
-"\n"
-"You can re-enable your Twitter bridge by visiting your Twitter settings "
-"page:\n"
-"\n"
-"\t%2$s\n"
-"\n"
-"Regards,\n"
-"%3$s"
+"Keep your %1$s account but disconnect from Twitter. You can use your %1$s "
+"password to log in."
 msgstr ""
 
-#: TwitterBridgePlugin.php:151 TwitterBridgePlugin.php:174
-#: TwitterBridgePlugin.php:302 twitteradminpanel.php:52
-msgid "Twitter"
+#: twittersettings.php:149
+msgid "Disconnect"
 msgstr ""
 
-#: TwitterBridgePlugin.php:152
-msgid "Login or register using Twitter"
+#: twittersettings.php:156
+msgid "Preferences"
 msgstr ""
 
-#: TwitterBridgePlugin.php:175
-msgid "Twitter integration options"
+#: twittersettings.php:160
+msgid "Automatically send my notices to Twitter."
 msgstr ""
 
-#: TwitterBridgePlugin.php:303
-msgid "Twitter bridge configuration"
+#: twittersettings.php:167
+msgid "Send local \"@\" replies to Twitter."
 msgstr ""
 
-#: TwitterBridgePlugin.php:327
-msgid ""
-"The Twitter \"bridge\" plugin allows integration of a StatusNet instance "
-"with <a href=\"http://twitter.com/\">Twitter</a>."
+#: twittersettings.php:174
+msgid "Subscribe to my Twitter friends here."
 msgstr ""
 
-#: twitteradminpanel.php:62
-msgid "Twitter bridge settings"
+#: twittersettings.php:183
+msgid "Import my friends timeline."
 msgstr ""
 
-#: twitteradminpanel.php:150
-msgid "Invalid consumer key. Max length is 255 characters."
-msgstr ""
-
-#: twitteradminpanel.php:156
-msgid "Invalid consumer secret. Max length is 255 characters."
-msgstr ""
-
-#: twitteradminpanel.php:212
-msgid "Twitter application settings"
-msgstr ""
-
-#: twitteradminpanel.php:218
-msgid "Consumer key"
-msgstr ""
-
-#: twitteradminpanel.php:219
-msgid "Consumer key assigned by Twitter"
-msgstr ""
-
-#: twitteradminpanel.php:227
-msgid "Consumer secret"
-msgstr ""
-
-#: twitteradminpanel.php:228
-msgid "Consumer secret assigned by Twitter"
-msgstr ""
-
-#: twitteradminpanel.php:238
-msgid "Note: a global consumer key and secret are set."
-msgstr ""
-
-#: twitteradminpanel.php:245
-msgid "Integration source"
-msgstr ""
-
-#: twitteradminpanel.php:246
-msgid "Name of your Twitter application"
-msgstr ""
-
-#: twitteradminpanel.php:258
-msgid "Options"
-msgstr ""
-
-#: twitteradminpanel.php:265
-msgid "Enable \"Sign-in with Twitter\""
-msgstr ""
-
-#: twitteradminpanel.php:267
-msgid "Allow users to login with their Twitter credentials"
-msgstr ""
-
-#: twitteradminpanel.php:274
-msgid "Enable Twitter import"
-msgstr ""
-
-#: twitteradminpanel.php:276
-msgid ""
-"Allow users to import their Twitter friends' timelines. Requires daemons to "
-"be manually configured."
-msgstr ""
-
-#: twitteradminpanel.php:293 twittersettings.php:199
+#: twittersettings.php:199 twitteradminpanel.php:293
 msgid "Save"
 msgstr ""
 
-#: twitteradminpanel.php:293
-msgid "Save Twitter settings"
+#: twittersettings.php:201
+msgid "Add"
 msgstr ""
 
-#: twitterlogin.php:56
-msgid "Already logged in."
-msgstr ""
-
-#: twitterlogin.php:64
-msgid "Twitter Login"
-msgstr ""
-
-#: twitterlogin.php:69
-msgid "Login with your Twitter account"
-msgstr ""
-
-#: twitterlogin.php:87
-msgid "Sign in with Twitter"
-msgstr ""
-
-#: twitterauthorization.php:120 twittersettings.php:225
+#: twittersettings.php:225 twitterauthorization.php:120
 msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
+#: twittersettings.php:235
+msgid "Unexpected form submission."
+msgstr ""
+
+#: twittersettings.php:250
+msgid "No Twitter connection to remove."
+msgstr ""
+
+#: twittersettings.php:258
+msgid "Couldn't remove Twitter user."
+msgstr ""
+
+#: twittersettings.php:262
+msgid "Twitter account disconnected."
+msgstr ""
+
+#: twittersettings.php:282 twittersettings.php:293
+msgid "Couldn't save Twitter preferences."
+msgstr ""
+
+#: twittersettings.php:301
+msgid "Twitter preferences saved."
 msgstr ""
 
 #: twitterauthorization.php:126
@@ -271,96 +229,138 @@ msgstr ""
 msgid "Invalid username or password."
 msgstr ""
 
-#: twittersettings.php:57
-msgid "Twitter settings"
+#: twitteradminpanel.php:52 TwitterBridgePlugin.php:151
+#: TwitterBridgePlugin.php:174 TwitterBridgePlugin.php:302
+msgid "Twitter"
 msgstr ""
 
-#: twittersettings.php:68
+#: twitteradminpanel.php:62
+msgid "Twitter bridge settings"
+msgstr ""
+
+#: twitteradminpanel.php:150
+msgid "Invalid consumer key. Max length is 255 characters."
+msgstr ""
+
+#: twitteradminpanel.php:156
+msgid "Invalid consumer secret. Max length is 255 characters."
+msgstr ""
+
+#: twitteradminpanel.php:212
+msgid "Twitter application settings"
+msgstr ""
+
+#: twitteradminpanel.php:218
+msgid "Consumer key"
+msgstr ""
+
+#: twitteradminpanel.php:219
+msgid "Consumer key assigned by Twitter"
+msgstr ""
+
+#: twitteradminpanel.php:227
+msgid "Consumer secret"
+msgstr ""
+
+#: twitteradminpanel.php:228
+msgid "Consumer secret assigned by Twitter"
+msgstr ""
+
+#: twitteradminpanel.php:238
+msgid "Note: a global consumer key and secret are set."
+msgstr ""
+
+#: twitteradminpanel.php:245
+msgid "Integration source"
+msgstr ""
+
+#: twitteradminpanel.php:246
+msgid "Name of your Twitter application"
+msgstr ""
+
+#: twitteradminpanel.php:258
+msgid "Options"
+msgstr ""
+
+#: twitteradminpanel.php:265
+msgid "Enable \"Sign-in with Twitter\""
+msgstr ""
+
+#: twitteradminpanel.php:267
+msgid "Allow users to login with their Twitter credentials"
+msgstr ""
+
+#: twitteradminpanel.php:274
+msgid "Enable Twitter import"
+msgstr ""
+
+#: twitteradminpanel.php:276
 msgid ""
-"Connect your Twitter account to share your updates with your Twitter friends "
-"and vice-versa."
+"Allow users to import their Twitter friends' timelines. Requires daemons to "
+"be manually configured."
 msgstr ""
 
-#: twittersettings.php:115
-msgid "Twitter account"
+#: twitteradminpanel.php:293
+msgid "Save Twitter settings"
 msgstr ""
 
-#: twittersettings.php:120
-msgid "Connected Twitter account"
+#: TwitterBridgePlugin.php:152
+msgid "Login or register using Twitter"
 msgstr ""
 
-#: twittersettings.php:125
-msgid "Disconnect my account from Twitter"
+#: TwitterBridgePlugin.php:175
+msgid "Twitter integration options"
 msgstr ""
 
-#: twittersettings.php:131
-msgid "Disconnecting your Twitter could make it impossible to log in! Please "
+#: TwitterBridgePlugin.php:303
+msgid "Twitter bridge configuration"
 msgstr ""
 
-#: twittersettings.php:135
-msgid "set a password"
+#: TwitterBridgePlugin.php:327
+msgid ""
+"The Twitter \"bridge\" plugin allows integration of a StatusNet instance "
+"with <a href=\"http://twitter.com/\">Twitter</a>."
 msgstr ""
 
-#: twittersettings.php:137
-msgid " first."
+#: twitterlogin.php:56
+msgid "Already logged in."
 msgstr ""
 
-#. TRANS: %1$s is the current website name.
-#: twittersettings.php:141
+#: twitterlogin.php:64
+msgid "Twitter Login"
+msgstr ""
+
+#: twitterlogin.php:69
+msgid "Login with your Twitter account"
+msgstr ""
+
+#: twitterlogin.php:87
+msgid "Sign in with Twitter"
+msgstr ""
+
+#: twitter.php:409
+msgid "Your Twitter bridge has been disabled."
+msgstr ""
+
+#: twitter.php:413
 #, php-format
 msgid ""
-"Keep your %1$s account but disconnect from Twitter. You can use your %1$s "
-"password to log in."
+"Hi, %1$s. We're sorry to inform you that your link to Twitter has been "
+"disabled. We no longer seem to have permission to update your Twitter "
+"status. Did you maybe revoke %3$s's access?\n"
+"\n"
+"You can re-enable your Twitter bridge by visiting your Twitter settings "
+"page:\n"
+"\n"
+"\t%2$s\n"
+"\n"
+"Regards,\n"
+"%3$s"
 msgstr ""
 
-#: twittersettings.php:149
-msgid "Disconnect"
-msgstr ""
-
-#: twittersettings.php:156
-msgid "Preferences"
-msgstr ""
-
-#: twittersettings.php:160
-msgid "Automatically send my notices to Twitter."
-msgstr ""
-
-#: twittersettings.php:167
-msgid "Send local \"@\" replies to Twitter."
-msgstr ""
-
-#: twittersettings.php:174
-msgid "Subscribe to my Twitter friends here."
-msgstr ""
-
-#: twittersettings.php:183
-msgid "Import my friends timeline."
-msgstr ""
-
-#: twittersettings.php:201
-msgid "Add"
-msgstr ""
-
-#: twittersettings.php:235
-msgid "Unexpected form submission."
-msgstr ""
-
-#: twittersettings.php:250
-msgid "No Twitter connection to remove."
-msgstr ""
-
-#: twittersettings.php:258
-msgid "Couldn't remove Twitter user."
-msgstr ""
-
-#: twittersettings.php:262
-msgid "Twitter account disconnected."
-msgstr ""
-
-#: twittersettings.php:282 twittersettings.php:293
-msgid "Couldn't save Twitter preferences."
-msgstr ""
-
-#: twittersettings.php:301
-msgid "Twitter preferences saved."
+#. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
+#. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
+#: twitterimport.php:114
+#, php-format
+msgid "RT @%1$s %2$s"
 msgstr ""
