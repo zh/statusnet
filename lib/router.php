@@ -766,6 +766,72 @@ class Router
                               'id' => '[a-zA-Z0-9]+',
                               'format' => '(xml|json)'));
 
+            // Lists (people tags)
+
+            $m->connect('api/lists/memberships.:format',
+                        array('action' => 'ApiListMemberships',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/:user/lists/memberships.:format',
+                        array('action' => 'ApiListMemberships',
+                              'user' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/lists/subscriptions.:format',
+                        array('action' => 'ApiListSubscriptions',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/:user/lists/subscriptions.:format',
+                        array('action' => 'ApiListSubscriptions',
+                              'user' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+            $m->connect('api/lists.:format',
+                        array('action' => 'ApiLists',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/:user/lists.:format',
+                        array('action' => 'ApiLists',
+                              'user' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/:user/lists/:id.:format',
+                        array('action' => 'ApiList',
+                              'user' => '[a-zA-Z0-9]+',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/:user/lists/:id/statuses.:format',
+                        array('action' => 'ApiTimelineList',
+                              'user' => '[a-zA-Z0-9]+',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json|rss|atom)'));
+
+            $m->connect('api/:user/:list_id/members.:format',
+                        array('action' => 'ApiListMembers',
+                              'user' => '[a-zA-Z0-9]+',
+                              'list_id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/:user/:list_id/subscribers.:format',
+                        array('action' => 'ApiListSubscribers',
+                              'user' => '[a-zA-Z0-9]+',
+                              'list_id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/:user/:list_id/members/:id.:format',
+                        array('action' => 'ApiListMember',
+                              'user' => '[a-zA-Z0-9]+',
+                              'list_id' => '[a-zA-Z0-9]+',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/:user/:list_id/subscribers/:id.:format',
+                        array('action' => 'ApiListSubscriber',
+                              'user' => '[a-zA-Z0-9]+',
+                              'list_id' => '[a-zA-Z0-9]+',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
             // Tags
             $m->connect('api/statusnet/tags/timeline/:tag.:format',
                         array('action' => 'ApiTimelineTag',
