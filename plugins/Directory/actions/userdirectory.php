@@ -213,7 +213,7 @@ class UserdirectoryAction extends Action
 
         $this->elementStart('div', array('id' => 'user_directory'));
 
-        $alphaNav = new AlphaNav($this, true, array('All'));
+        $alphaNav = new AlphaNav($this, false, false, array('0-9', 'All'));
         $alphaNav->show();
 
         $profile = null;
@@ -320,7 +320,16 @@ class UserdirectoryAction extends Action
             $sort   = $this->getSortKey();
             $sql    = 'SELECT profile.* FROM profile, user WHERE profile.id = user.id';
 
-            if ($this->filter != 'all') {
+            switch($this->filter)
+            {
+            case 'all':
+                // NOOP
+                break;
+            case '0-9':
+                $sql .=
+                    '  AND LEFT(profile.nickname, 1) BETWEEN \'0\' AND \'9\'';
+                break;
+            default:
                 $sql .= sprintf(
                     ' AND LEFT(LOWER(profile.nickname), 1) = \'%s\'',
                     $this->filter

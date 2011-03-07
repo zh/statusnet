@@ -121,7 +121,7 @@ class DirectoryPlugin extends Plugin
         $m->connect(
             'directory/users/:filter',
             array('action' => 'userdirectory'),
-            array('filter' => '[0-9a-zA-Z_]{1,64}')
+            array('filter' => '([0-9a-zA-Z_]{1,64}|0-9)')
         );
 
         return true;

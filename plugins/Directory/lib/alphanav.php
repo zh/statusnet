@@ -75,11 +75,11 @@ class AlphaNav extends Widget
             $this->filters = array_merge($this->filters, range(0, 9));
         }
 
+        $this->filters = array_merge($this->filters, range('A', 'Z'));
+
         if ($append) {
             $this->filters = array_merge($this->filters, $append);
         }
-
-        $this->filters = array_merge($this->filters, range('A', 'Z'));
     }
 
     /**
