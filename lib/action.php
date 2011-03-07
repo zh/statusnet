@@ -635,6 +635,8 @@ class Action extends HTMLOutputter // lawsuit
                 $this->elementEnd('div');
             }
         }
+
+        $this->elementEnd('div');
     }
 
     /**
