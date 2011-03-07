@@ -365,8 +365,8 @@ class BookmarkPlugin extends MicroAppPlugin
     /**
      * Save a bookmark from an activity
      *
-     * @param Profile  $profile  Profile to use as author
      * @param Activity $activity Activity to save
+     * @param Profile  $profile  Profile to use as author
      * @param array    $options  Options to pass to bookmark-saving code
      *
      * @return Notice resulting notice

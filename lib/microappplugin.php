@@ -51,20 +51,157 @@ if (!defined('STATUSNET')) {
 
 abstract class MicroAppPlugin extends Plugin
 {
+    /**
+     * Returns a localized string which represents this micro-app,
+     * to be shown to users selecting what type of post to make.
+     * This is paired with the key string in $this->tag().
+     *
+     * All micro-app classes must override this method.
+     *
+     * @return string
+     */
     abstract function appTitle();
+
+    /**
+     * Returns a key string which represents this micro-app in HTML
+     * ids etc, as when offering selection of what type of post to make.
+     * This is paired with the user-visible localizable $this->appTitle().
+     *
+     * All micro-app classes must override this method.
+     */
     abstract function tag();
+
+    /**
+     * Return a list of ActivityStreams object type URIs
+     * which this micro-app handles. Default implementations
+     * of the base class will use this list to check if a
+     * given ActivityStreams object belongs to us, via
+     * $this->isMyNotice() or $this->isMyActivity.
+     *
+     * All micro-app classes must override this method.
+     *
+     * @fixme can we confirm that these types are the same
+     * for Atom and JSON streams? Any limitations or issues?
+     *
+     * @return array of strings
+     */
     abstract function types();
-    abstract function saveNoticeFromActivity($activity, $actor, $options);
+
+    /**
+     * Given a parsed ActivityStreams activity, your plugin
+     * gets to figure out how to actually save it into a notice
+     * and any additional data structures you require.
+     *
+     * This will handle things received via AtomPub, OStatus
+     * (PuSH and Salmon transports), or ActivityStreams-based
+     * backup/restore of account data.
+     *
+     * You should be able to accept as input the output from your
+     * $this->activityObjectFromNotice(). Where applicable, try to
+     * use existing ActivityStreams structures and object types,
+     * and be liberal in accepting input from what might be other
+     * compatible apps.
+     *
+     * All micro-app classes must override this method.
+     *
+     * @fixme are there any standard options?
+     *
+     * @param Activity $activity
+     * @param Profile $actor
+     * @param array $options=array()
+     *
+     * @return Notice the resulting notice
+     */
+    abstract function saveNoticeFromActivity($activity, $actor, $options=array());
+
+    /**
+     * Given an existing Notice object, your plugin gets to
+     * figure out how to arrange it into an ActivityStreams
+     * object.
+     *
+     * This will be how your specialized notice gets output in
+     * Atom feeds and JSON-based ActivityStreams output, including
+     * account backup/restore and OStatus (PuSH and Salmon transports).
+     *
+     * You should be able to round-trip data from this format back
+     * through $this->saveNoticeFromActivity(). Where applicable, try
+     * to use existing ActivityStreams structures and object types,
+     * and consider interop with other compatible apps.
+     *
+     * All micro-app classes must override this method.
+     *
+     * @fixme this outputs an ActivityObject, not an Activity. Any compat issues?
+     *
+     * @param Notice $notice
+     *
+     * @return ActivityObject
+     */
     abstract function activityObjectFromNotice($notice);
+
+    /**
+     * Custom HTML output for your special notice; called when a
+     * matching notice turns up in a NoticeListItem.
+     *
+     * All micro-app classes must override this method.
+     *
+     * @param Notice $notice
+     * @param HTMLOutputter $out
+     */
     abstract function showNotice($notice, $out);
+
+    /**
+     * When building the primary notice form, we'll fetch also some
+     * alternate forms for specialized types -- that's you!
+     *
+     * Return a custom Widget or Form object for the given output
+     * object, and it'll be included in the HTML output. Beware that
+     * your form may be initially hidden.
+     *
+     * All micro-app classes must override this method.
+     *
+     * @param HTMLOutputter $out
+     * @return Widget
+     */
     abstract function entryForm($out);
+
+    /**
+     * When a notice is deleted, you'll be called here for a chance
+     * to clean up any related resources.
+     *
+     * All micro-app classes must override this method.
+     *
+     * @param Notice $notice
+     */
     abstract function deleteRelated($notice);
 
+    /**
+     * Check if a given notice object should be handled by this micro-app
+     * plugin.
+     *
+     * The default implementation checks against the activity type list
+     * returned by $this->types(). You can override this method to expand
+     * your checks.
+     *
+     * @param Notice $notice
+     * @return boolean
+     */
     function isMyNotice($notice) {
         $types = $this->types();
         return in_array($notice->object_type, $types);
     }
 
+    /**
+     * Check if a given ActivityStreams activity should be handled by this
+     * micro-app plugin.
+     *
+     * The default implementation checks against the activity type list
+     * returned by $this->types(), and requires that exactly one matching
+     * object be present. You can override this method to expand
+     * your checks or to compare the activity's verb, etc.
+     *
+     * @param Activity $activity
+     * @return boolean
+     */
     function isMyActivity($activity) {
         $types = $this->types();
         return (count($activity->objects) == 1 &&
@@ -73,6 +210,7 @@ abstract class MicroAppPlugin extends Plugin
 
     /**
      * When a notice is deleted, delete the related objects
+     * by calling the overridable $this->deleteRelated().
      *
      * @param Notice $notice Notice being deleted
      * 
