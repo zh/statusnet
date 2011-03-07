@@ -103,6 +103,7 @@ abstract class MicroAppPlugin extends Plugin
         }
 
         $out = $nli->out;
+        $notice = $nli->notice;
 
         $this->showNotice($notice, $out);
 
