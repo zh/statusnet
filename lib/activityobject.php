@@ -422,7 +422,7 @@ class ActivityObject
 
 		if (Event::handle('StartActivityObjectFromNotice', array($notice, &$object))) {
 
-			$object->type    = ActivityObject::NOTE;
+			$object->type    = (empty($notice->object_type)) ? ActivityObject::NOTE : $notice->object_type;
 
 			$object->id      = $notice->uri;
 			$object->title   = $notice->content;
