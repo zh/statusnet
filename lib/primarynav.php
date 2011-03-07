@@ -50,7 +50,8 @@ class PrimaryNav extends Menu
     function show()
     {
         $user = common_current_user();
-        $this->menuStart();
+        $this->action->elementStart('ul', array('class' => 'nav',
+                                        'id' => 'site_nav_global_primary'));
         if (Event::handle('StartPrimaryNav', array($this->action))) {
             if (!empty($user)) {
                 $this->action->menuItem(common_local_url('profilesettings'),
@@ -88,12 +89,7 @@ class PrimaryNav extends Menu
 
             Event::handle('EndPrimaryNav', array($this->action));
         }
-        $this->menuEnd();
+
         $this->action->elementEnd('ul');
-    }
-    
-    function id()
-    {
-        return 'site_nav_global_primary';
     }
 }
