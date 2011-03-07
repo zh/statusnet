@@ -657,7 +657,8 @@ class Action extends HTMLOutputter // lawsuit
 
             foreach ($tabs as $tag => $title) {
 
-                $attrs = array('id' => 'input_form_nav_'.$title);
+                $attrs = array('id' => 'input_form_nav_'.$tag,
+                               'class' => 'input_form_nav_tab');
 
                 if ($tag == 'status') {
                     $attrs['class'] = 'current';
@@ -666,7 +667,7 @@ class Action extends HTMLOutputter // lawsuit
                 $this->elementStart('li', $attrs);
 
                 $this->element('a',
-                               array('href' => 'javascript:switchInputFormTab("'.$tag.'")'),
+                               array('href' => 'javascript:SN.U.switchInputFormTab("'.$tag.'")'),
                                $title);
                 $this->elementEnd('li');
             }
@@ -679,9 +680,7 @@ class Action extends HTMLOutputter // lawsuit
                                'id' => 'input_form_'.$tag);
 
                 if ($tag == 'status') {
-                    $attrs['class'] .= ' active';
-                } else {
-                    $attrs['class'] .= ' inactive';
+                    $attrs['class'] .= ' current';
                 }
 
                 $this->elementStart('div', $attrs);
@@ -698,6 +697,8 @@ class Action extends HTMLOutputter // lawsuit
                 if (!empty($form)) {
                     $form->show();
                 }
+
+                $this->elementEnd('div');
             }
         }
     }

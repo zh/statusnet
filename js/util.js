@@ -1272,7 +1272,16 @@ var SN = { // StatusNet
             // UI links currently on the page use malleable names.
 
             return false;
-        }
+        },
+
+	switchInputFormTab: function(tag) {
+	    // The one that's current isn't current anymore
+	    $('.input_form_nav_tab.current').removeClass('current');
+	    $('#input_form_nav_'+tag).addClass('current');
+
+	    $('.input_form.current').removeClass('current');
+	    $('#input_form_'+tag).addClass('current');
+	}
     },
 
     Init: {
