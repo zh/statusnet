@@ -91,20 +91,18 @@ class UserdirectoryAction extends Action
 
         if ($this->filter == 'all') {
             if ($this->page != 1) {
-                return(sprintf(_m('All users, page %d'), $this->page));
+                return(sprintf(_m('User Directory, page %d'), $this->page));
             }
-            return _m('All users');
-        }
-
-        if ($this->page == 1) {
+            return _m('User directory');
+        } else if ($this->page == 1) {
             return sprintf(
-                _m('Users with nicknames beginning with %s'),
-                $this->filter
+                _m('User directory - %s'),
+                strtoupper($this->filter)
             );
         } else {
             return sprintf(
-                _m('Users with nicknames starting with %s, page %d'),
-                $this->filter,
+                _m('User directory - %s, page %d'),
+                strtoupper($this->filter),
                 $this->page
             );
         }
@@ -117,7 +115,12 @@ class UserdirectoryAction extends Action
      */
     function getInstructions()
     {
-        return _('User directory');
+        // TRANS: %%site.name%% is the name of the StatusNet site.
+        return _(
+            'Search for people on %%site.name%% by their name, '
+            . 'location, or interests. Separate the terms by spaces; '
+            . ' they must be 3 characters or more.'
+        );
     }
 
     /**
@@ -362,11 +365,28 @@ class UserdirectoryAction extends Action
      */
     function showEmptyListMessage()
     {
-        $message = sprintf(_m('No users starting with **%s**'), $this->filter);
-
-        $this->elementStart('div', 'guide');
-        $this->raw(common_markup_to_html($message));
-        $this->elementEnd('div');
+        if (!empty($this->filter) && ($this->filter != 'all')) {
+            $this->element(
+                'p',
+                'error',
+                sprintf(
+                    _m('No users starting with %s'),
+                    $this->filter
+                )
+            );
+        } else {
+            $this->element('p', 'error', _('No results.'));
+            $message = _m(<<<E_O_T
+* Make sure all words are spelled correctly.
+* Try different keywords.
+* Try more general keywords.
+* Try fewer keywords.
+E_O_T
+);
+            $this->elementStart('div', 'help instructions');
+            $this->raw(common_markup_to_html($message));
+            $this->elementEnd('div');
+        }
     }
 
 }
