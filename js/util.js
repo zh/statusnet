@@ -31,7 +31,8 @@ var SN = { // StatusNet
             CounterBlackout: false,
             MaxLength: 140,
             PatternUsername: /^[0-9a-zA-Z\-_.]*$/,
-            HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307]
+            HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307],
+            NoticeFormMaster: null // to be cloned from the one at top
         },
 
         /**
@@ -600,10 +601,10 @@ var SN = { // StatusNet
                 // Create the reply form entry at the end
                 var replyItem = $('li.notice-reply', list);
                 if (replyItem.length == 0) {
-                    var url = $('#form_notice').attr('action');
                     replyItem = $('<li class="notice-reply"></li>');
-                    $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
-                        var formEl = document._importNode($('form', data)[0], true);
+
+                    var intermediateStep = function(formMaster) {
+                        var formEl = document._importNode(formMaster, true);
                         replyItem.append(formEl);
                         list.append(replyItem);
 
@@ -614,7 +615,20 @@ var SN = { // StatusNet
                         SN.U.NoticeDataAttach(form);
 
                         nextStep();
-                    });
+                    };
+                    if (SN.C.I.NoticeFormMaster) {
+                        // We've already saved a master copy of the form.
+                        // Clone it in!
+                        intermediateStep(SN.C.I.NoticeFormMaster);
+                    } else {
+                        // Fetch a fresh copy of the notice form over AJAX.
+                        // Warning: this can have a delay, which looks bad.
+                        // @fixme this fallback may or may not work
+                        var url = $('#form_notice').attr('action');
+                        $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
+                            intermediateStep($('form', data)[0]);
+                        });
+                    }
                 }
             }
         },
@@ -1313,6 +1327,10 @@ var SN = { // StatusNet
          */
         Notices: function() {
             if ($('body.user_in').length > 0) {
+                var masterForm = $('.form_notice:first');
+                if (masterForm.length > 0) {
+                    SN.C.I.NoticeFormMaster = document._importNode(masterForm[0], true);
+                }
                 SN.U.NoticeFavor();
                 SN.U.NoticeRepeat();
                 SN.U.NoticeReply();
