@@ -476,14 +476,7 @@ class Action extends HTMLOutputter // lawsuit
 
             Event::handle('EndShowSiteNotice', array($this));
         }
-        if (common_logged_in()) {
-            if (Event::handle('StartShowNoticeForm', array($this))) {
-                $this->showNoticeForm();
-                Event::handle('EndShowNoticeForm', array($this));
-            }
-        } else {
-            $this->showAnonymousMessage();
-        }
+
         $this->elementEnd('div');
     }
 
@@ -555,69 +548,10 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showPrimaryNav()
     {
-        $user = common_current_user();
-        $this->elementStart('ul', array('class' => 'nav',
-                                        'id' => 'site_nav_global_primary'));
-        if (Event::handle('StartPrimaryNav', array($this))) {
-            if (!empty($user)) {
-                $this->menuItem(common_local_url('all', 
-                                                 array('nickname' => $user->nickname)),
-                                _m('Home'),
-                                _m('Friends timeline'),
-                                false,
-                                'nav_home');
-                $this->menuItem(common_local_url('showstream', 
-                                                 array('nickname' => $user->nickname)),
-                                _m('Profile'),
-                                _m('Your profile'),
-                                false,
-                                'nav_profile');
-                $this->menuItem(common_local_url('public'),
-                                _m('Public'),
-                                _m('Everyone on this site'),
-                                false,
-                                'nav_public');
-                $this->menuItem(common_local_url('profilesettings'),
-                                _m('Settings'),
-                                _m('Change your personal settings'),
-                                false,
-                                'nav_account');
-                if ($user->hasRight(Right::CONFIGURESITE)) {
-                    $this->menuItem(common_local_url('siteadminpanel'),
-                                    _m('Admin'), 
-                                    _m('Site configuration'),
-                                    false,
-                                    'nav_admin');
-                }
-                $this->menuItem(common_local_url('logout'),
-                                _m('Logout'), 
-                                _m('Logout from the site'),
-                                false,
-                                'nav_logout');
-            } else {
-                $this->menuItem(common_local_url('public'),
-                                _m('Public'),
-                                _m('Everyone on this site'),
-                                false,
-                                'nav_public');
-                $this->menuItem(common_local_url('login'),
-                                _m('Login'), 
-                                _m('Login to the site'),
-                                false,
-                                'nav_login');
-            }
-
-            if (!empty($user) || !common_config('site', 'private')) {
-                $this->menuItem(common_local_url('noticesearch'),
-                                _m('Search'),
-                                _m('Search the site'),
-                                false,
-                                'nav_search');
-            }
-
-            Event::handle('EndPrimaryNav', array($this));
-        }
-        $this->elementEnd('ul');
+        $this->elementStart('div', array('id' => 'site_nav_global_primary'));
+        $pn = new PrimaryNav($this);
+        $pn->show();
+        $this->elementEnd('div');
     }
 
     /**
@@ -733,6 +667,10 @@ class Action extends HTMLOutputter // lawsuit
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
         }
+        if (Event::handle('StartShowObjectNavBlock', array($this))) {
+            $this->showObjectNavBlock();
+            Event::handle('EndShowObjectNavBlock', array($this));
+        }
         if (Event::handle('StartShowAside', array($this))) {
             $this->showAside();
             Event::handle('EndShowAside', array($this));
@@ -763,7 +701,34 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showLocalNav()
     {
-        // does nothing by default
+        $nav = new DefaultLocalNav($this);
+        $nav->show();
+    }
+
+    /**
+     * Show menu for an object (group, profile)
+     *
+     * @return nothing
+     */
+    function showObjectNavBlock()
+    {
+        // Need to have this ID for CSS; I'm too lazy to add it to
+        // all menus
+        $this->elementStart('div', array('id' => 'site_nav_object'));
+        $this->showObjectNav();
+        $this->elementEnd('div');
+    }
+
+    /**
+     * Show object navigation.
+     *
+     * If there are things to do with this object, show it here.
+     *
+     * @return nothing
+     */
+    function showObjectNav()
+    {
+        /* Nothing here. */
     }
 
     /**
@@ -774,6 +739,12 @@ class Action extends HTMLOutputter // lawsuit
     function showContentBlock()
     {
         $this->elementStart('div', array('id' => 'content'));
+        if (common_logged_in()) {
+            if (Event::handle('StartShowNoticeForm', array($this))) {
+                $this->showNoticeForm();
+                Event::handle('EndShowNoticeForm', array($this));
+            }
+        }
         if (Event::handle('StartShowPageTitle', array($this))) {
             $this->showPageTitle();
             Event::handle('EndShowPageTitle', array($this));
@@ -915,43 +886,8 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showSecondaryNav()
     {
-        $this->elementStart('ul', array('class' => 'nav',
-                                        'id' => 'site_nav_global_secondary'));
-        if (Event::handle('StartSecondaryNav', array($this))) {
-            $this->menuItem(common_local_url('doc', array('title' => 'help')),
-                            // TRANS: Secondary navigation menu option leading to help on StatusNet.
-                            _('Help'));
-            $this->menuItem(common_local_url('doc', array('title' => 'about')),
-                            // TRANS: Secondary navigation menu option leading to text about StatusNet site.
-                            _('About'));
-            $this->menuItem(common_local_url('doc', array('title' => 'faq')),
-                            // TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-                            _('FAQ'));
-            $bb = common_config('site', 'broughtby');
-            if (!empty($bb)) {
-                $this->menuItem(common_local_url('doc', array('title' => 'tos')),
-                                // TRANS: Secondary navigation menu option leading to Terms of Service.
-                                _('TOS'));
-            }
-            $this->menuItem(common_local_url('doc', array('title' => 'privacy')),
-                            // TRANS: Secondary navigation menu option leading to privacy policy.
-                            _('Privacy'));
-            $this->menuItem(common_local_url('doc', array('title' => 'source')),
-                            // TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-                            _('Source'));
-            $this->menuItem(common_local_url('version'),
-                            // TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-                            _('Version'));
-            $this->menuItem(common_local_url('doc', array('title' => 'contact')),
-                            // TRANS: Secondary navigation menu option leading to e-mail contact information on the
-                            // TRANS: StatusNet site, where to report bugs, ...
-                            _('Contact'));
-            $this->menuItem(common_local_url('doc', array('title' => 'badge')),
-                            // TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-                            _('Badge'));
-            Event::handle('EndSecondaryNav', array($this));
-        }
-        $this->elementEnd('ul');
+        $sn = new SecondaryNav($this);
+        $sn->show();
     }
 
     /**

@@ -95,6 +95,8 @@ class UserProfile extends Widget
 
     function showAvatar()
     {
+        $this->out->elementStart('div', 'ur_face');
+
         if (Event::handle('StartProfilePageAvatar', array($this->out, $this->profile))) {
 
             $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -119,6 +121,8 @@ class UserProfile extends Widget
             Event::handle('EndProfilePageAvatar',
                           array($this->out, $this->profile));
         }
+
+        $this->out->elementEnd('div');
     }
 
     function showNickname()

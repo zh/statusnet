@@ -70,7 +70,7 @@ class SearchAction extends Action
      * @return void
      * @see SearchGroupNav
      */
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new SearchGroupNav($this, $this->trimmed('q'));
         $nav->show();
