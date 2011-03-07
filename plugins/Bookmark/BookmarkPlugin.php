@@ -508,6 +508,13 @@ class BookmarkPlugin extends MicroAppPlugin
         return $object;
     }
 
+    /**
+     * @fixme WARNING WARNING WARNING this opens a 'div' that is apparently closed by MicroAppPlugin
+     * @fixme that's probably wrong?
+     *
+     * @param Notice $notice
+     * @param HTMLOutputter $out
+     */
     function showNotice($notice, $out)
     {
         $nb = Bookmark::getByNotice($notice);

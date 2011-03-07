@@ -146,6 +146,10 @@ abstract class MicroAppPlugin extends Plugin
      *
      * @param Notice $notice
      * @param HTMLOutputter $out
+     *
+     * @fixme WARNING WARNING WARNING base plugin stuff below tries to close
+     * a div that this function opens in the BookmarkPlugin child class.
+     * This is probably wrong.
      */
     abstract function showNotice($notice, $out);
 
@@ -232,6 +236,8 @@ abstract class MicroAppPlugin extends Plugin
      * @param NoticeListItem $nli The list item being shown.
      *
      * @return boolean hook value
+     *
+     * @fixme WARNING WARNING WARNING this closes a 'div' that is implicitly opened in BookmarkPlugin's showNotice implementation
      */
 
     function onStartShowNoticeItem($nli)
