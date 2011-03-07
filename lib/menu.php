@@ -62,23 +62,6 @@ class Menu extends Widget
         $this->actionName = $action->trimmed('action');
     }
 
-    function id()
-    {
-        return 'unknown_menu';
-    }
-
-    function menuStart()
-    {
-        $this->action->elementStart('div', array('id' => $this->id()));
-        $this->action->elementStart('ul', array('class' => 'nav'));
-    }
-
-    function menuEnd()
-    {
-        $this->action->elementEnd('ul');
-        $this->action->elementEnd('div');
-    }
-
     function item($actionName, $args, $label, $description, $id=null)
     {
         if (empty($id)) {
