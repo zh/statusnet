@@ -44,7 +44,7 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class BookmarkPlugin extends Plugin
+class BookmarkPlugin extends MicroAppPlugin
 {
     const VERSION         = '0.1';
     const IMPORTDELICIOUS = 'BookmarkPlugin:IMPORTDELICIOUS';
@@ -116,25 +116,6 @@ class BookmarkPlugin extends Plugin
                                                  null,
                                                  false,
                                                  'MUL')));
-
-        return true;
-    }
-
-    /**
-     * When a notice is deleted, delete the related Bookmark
-     *
-     * @param Notice $notice Notice being deleted
-     * 
-     * @return boolean hook value
-     */
-
-    function onNoticeDeleteRelated($notice)
-    {
-        $nb = Bookmark::getByNotice($notice);
-
-        if (!empty($nb)) {
-            $nb->delete();
-        }
 
         return true;
     }
@@ -218,212 +199,6 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
-    /**
-     * Output the HTML for a bookmark in a list
-     *
-     * @param NoticeListItem $nli The list item being shown.
-     *
-     * @return boolean hook value
-     */
-
-    function onStartShowNoticeItem($nli)
-    {
-        $nb = Bookmark::getByNotice($nli->notice);
-
-        if (!empty($nb)) {
-
-            $out     = $nli->out;
-            $notice  = $nli->notice;
-            $profile = $nli->profile;
-
-            $atts = $notice->attachments();
-
-            if (count($atts) < 1) {
-                // Something wrong; let default code deal with it.
-                return true;
-            }
-
-            $att = $atts[0];
-
-            // XXX: only show the bookmark URL for non-single-page stuff
-
-            if ($out instanceof ShowbookmarkAction) {
-            } else {
-                $out->elementStart('h3');
-                $out->element('a',
-                              array('href' => $att->url,
-                                    'class' => 'bookmark-title entry-title'),
-                              $nb->title);
-                $out->elementEnd('h3');
-
-                $countUrl = common_local_url('noticebyurl',
-                                             array('id' => $att->id));
-
-                $out->element('a', array('class' => 'bookmark-notice-count',
-                                         'href' => $countUrl),
-                              $att->noticeCount());
-            }
-
-            // Replies look like "for:" tags
-
-            $replies = $nli->notice->getReplies();
-            $tags = $nli->notice->getTags();
-
-            if (!empty($replies) || !empty($tags)) {
-
-                $out->elementStart('ul', array('class' => 'bookmark-tags'));
-            
-                foreach ($replies as $reply) {
-                    $other = Profile::staticGet('id', $reply);
-                    $out->elementStart('li');
-                    $out->element('a', array('rel' => 'tag',
-                                             'href' => $other->profileurl,
-                                             'title' => $other->getBestName()),
-                                  sprintf('for:%s', $other->nickname));
-                    $out->elementEnd('li');
-                    $out->text(' ');
-                }
-
-                foreach ($tags as $tag) {
-                    $out->elementStart('li');
-                    $out->element('a', 
-                                  array('rel' => 'tag',
-                                        'href' => Notice_tag::url($tag)),
-                                  $tag);
-                    $out->elementEnd('li');
-                    $out->text(' ');
-                }
-
-                $out->elementEnd('ul');
-            }
-
-            if (!empty($nb->description)) {
-                $out->element('p',
-                              array('class' => 'bookmark-description'),
-                              $nb->description);
-            }
-
-            if (common_config('attachments', 'show_thumbs')) {
-                $haveThumbs = false;
-                foreach ($atts as $check) {
-                    $thumbnail = File_thumbnail::staticGet('file_id', $check->id);
-                    if (!empty($thumbnail)) {
-                        $haveThumbs = true;
-                        break;
-                    }
-                }
-                if ($haveThumbs) {
-                    $al = new InlineAttachmentList($notice, $out);
-                    $al->show();
-                }
-            }
-
-            $out->elementStart('div', array('class' => 'bookmark-info entry-content'));
-
-            $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
-
-            $out->element('img', 
-                          array('src' => ($avatar) ?
-                                $avatar->displayUrl() :
-                                Avatar::defaultImage(AVATAR_MINI_SIZE),
-                                'class' => 'avatar photo bookmark-avatar',
-                                'width' => AVATAR_MINI_SIZE,
-                                'height' => AVATAR_MINI_SIZE,
-                                'alt' => $profile->getBestName()));
-
-            $out->raw('&nbsp;');
-
-            $out->element('a', 
-                          array('href' => $profile->profileurl,
-                                'title' => $profile->getBestName()),
-                          $profile->nickname);
-
-            $nli->showNoticeLink();
-            $nli->showNoticeSource();
-            $nli->showNoticeLocation();
-            $nli->showContext();
-            $nli->showRepeat();
-
-            $out->elementEnd('div');
-
-            $nli->showNoticeOptions();
-
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Render a notice as a Bookmark object
-     *
-     * @param Notice         $notice  Notice to render
-     * @param ActivityObject &$object Empty object to fill
-     *
-     * @return boolean hook value
-     */
-     
-    function onStartActivityObjectFromNotice($notice, &$object)
-    {
-        common_log(LOG_INFO,
-                   "Checking {$notice->uri} to see if it's a bookmark.");
-
-        $nb = Bookmark::getByNotice($notice);
-                                         
-        if (!empty($nb)) {
-
-            common_log(LOG_INFO,
-                       "Formatting notice {$notice->uri} as a bookmark.");
-
-            $object->id      = $notice->uri;
-            $object->type    = ActivityObject::BOOKMARK;
-            $object->title   = $nb->title;
-            $object->summary = $nb->description;
-            $object->link    = $notice->bestUrl();
-
-            // Attributes of the URL
-
-            $attachments = $notice->attachments();
-
-            if (count($attachments) != 1) {
-                throw new ServerException(_('Bookmark notice with the '.
-                                            'wrong number of attachments.'));
-            }
-
-            $target = $attachments[0];
-
-            $attrs = array('rel' => 'related',
-                           'href' => $target->url);
-
-            if (!empty($target->title)) {
-                $attrs['title'] = $target->title;
-            }
-
-            $object->extra[] = array('link', $attrs, null);
-                                                   
-            // Attributes of the thumbnail, if any
-
-            $thumbnail = $target->getThumbnail();
-
-            if (!empty($thumbnail)) {
-                $tattrs = array('rel' => 'preview',
-                                'href' => $thumbnail->url);
-
-                if (!empty($thumbnail->width)) {
-                    $tattrs['media:width'] = $thumbnail->width;
-                }
-
-                if (!empty($thumbnail->height)) {
-                    $tattrs['media:height'] = $thumbnail->height;
-                }
-
-                $object->extra[] = array('link', $attrs, null);
-            }
-
-            return false;
-        }
-
-        return true;
-    }
 
     /**
      * Add our two queue handlers to the queue manager
@@ -481,149 +256,7 @@ class BookmarkPlugin extends Plugin
         return true;
     }
 
-    /**
-     * Handle a posted bookmark from PuSH
-     *
-     * @param Activity        $activity activity to handle
-     * @param Ostatus_profile $oprofile Profile for the feed
-     *
-     * @return boolean hook value
-     */
 
-    function onStartHandleFeedEntryWithProfile($activity, $oprofile)
-    {
-        common_log(LOG_INFO, "BookmarkPlugin called for new feed entry.");
-
-        if (self::_isPostBookmark($activity)) {
-
-            common_log(LOG_INFO, 
-                       "Importing activity {$activity->id} as a bookmark.");
-
-            $author = $oprofile->checkAuthorship($activity);
-
-            if (empty($author)) {
-                throw new ClientException(_('Can\'t get author for activity.'));
-            }
-
-            self::_postRemoteBookmark($author,
-                                      $activity);
-
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Handle a posted bookmark from Salmon
-     *
-     * @param Activity $activity activity to handle
-     * @param mixed    $target   user or group targeted
-     *
-     * @return boolean hook value
-     */
-
-    function onStartHandleSalmonTarget($activity, $target)
-    {
-        if (self::_isPostBookmark($activity)) {
-
-            $this->log(LOG_INFO, "Checking {$activity->id} as a valid Salmon slap.");
-
-            if ($target instanceof User_group) {
-                $uri = $target->getUri();
-                if (!in_array($uri, $activity->context->attention)) {
-                    throw new ClientException(_("Bookmark not posted ".
-                                                "to this group."));
-                }
-            } else if ($target instanceof User) {
-                $uri      = $target->uri;
-                $original = null;
-                if (!empty($activity->context->replyToID)) {
-                    $original = Notice::staticGet('uri', 
-                                                  $activity->context->replyToID); 
-                }
-                if (!in_array($uri, $activity->context->attention) &&
-                    (empty($original) ||
-                     $original->profile_id != $target->id)) {
-                    throw new ClientException(_("Bookmark not posted ".
-                                                "to this user."));
-                }
-            } else {
-                throw new ServerException(_("Don't know how to handle ".
-                                            "this kind of target."));
-            }
-
-            $author = Ostatus_profile::ensureActivityObjectProfile($activity->actor);
-
-            self::_postRemoteBookmark($author,
-                                      $activity);
-
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Handle bookmark posted via AtomPub
-     *
-     * @param Activity &$activity Activity that was posted
-     * @param User     $user      User that posted it
-     * @param Notice   &$notice   Resulting notice
-     *
-     * @return boolean hook value
-     */
-
-    function onStartAtomPubNewActivity(&$activity, $user, &$notice)
-    {
-        if (self::_isPostBookmark($activity)) {
-            $options = array('source' => 'atompub');
-            $notice  = self::_postBookmark($user->getProfile(),
-                                           $activity,
-                                           $options);
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Handle bookmark imported from a backup file
-     *
-     * @param User           $user     User to import for
-     * @param ActivityObject $author   Original author per import file
-     * @param Activity       $activity Activity to import
-     * @param boolean        $trusted  Is this a trusted user?
-     * @param boolean        &$done    Is this done (success or unrecoverable error)
-     *
-     * @return boolean hook value
-     */
-
-    function onStartImportActivity($user, $author, $activity, $trusted, &$done)
-    {
-        if (self::_isPostBookmark($activity)) {
-
-            $bookmark = $activity->objects[0];
-
-            $this->log(LOG_INFO,
-                       'Importing Bookmark ' . $bookmark->id . 
-                       ' for user ' . $user->nickname);
-
-            $options = array('uri' => $bookmark->id,
-                             'url' => $bookmark->link,
-                             'source' => 'restore');
-
-            $saved = self::_postBookmark($user->getProfile(), $activity, $options);
-
-            if (!empty($saved)) {
-                $done = true;
-            }
-
-            return false;
-        }
-
-        return true;
-    }
 
     /**
      * Show a link to our delicious import page on profile settings form
@@ -692,6 +325,44 @@ class BookmarkPlugin extends Plugin
     }
 
     /**
+     * Test if an activity represents posting a bookmark
+     *
+     * @param Activity $activity Activity to test
+     *
+     * @return true if it's a Post of a Bookmark, else false
+     */
+
+    static private function _isPostBookmark($activity)
+    {
+        return ($activity->verb == ActivityVerb::POST &&
+                $activity->objects[0]->type == ActivityObject::BOOKMARK);
+    }
+
+    function types()
+    {
+        return array(ActivityObject::BOOKMARK);
+    }
+
+    /**
+     * When a notice is deleted, delete the related Bookmark
+     *
+     * @param Notice $notice Notice being deleted
+     * 
+     * @return boolean hook value
+     */
+
+    function deleteRelated($notice)
+    {
+        $nb = Bookmark::getByNotice($notice);
+
+        if (!empty($nb)) {
+            $nb->delete();
+        }
+
+        return true;
+    }
+
+    /**
      * Save a bookmark from an activity
      *
      * @param Profile  $profile  Profile to use as author
@@ -701,9 +372,7 @@ class BookmarkPlugin extends Plugin
      * @return Notice resulting notice
      */
 
-    static private function _postBookmark(Profile $profile,
-                                          Activity $activity,
-                                          $options=array())
+    function saveNoticeFromActivity($activity, $profile, $options=array())
     {
         $bookmark = $activity->objects[0];
 
@@ -782,17 +451,184 @@ class BookmarkPlugin extends Plugin
                                  $options);
     }
 
-    /**
-     * Test if an activity represents posting a bookmark
-     *
-     * @param Activity $activity Activity to test
-     *
-     * @return true if it's a Post of a Bookmark, else false
-     */
-
-    static private function _isPostBookmark($activity)
+    function activityObjectFromNotice($notice)
     {
-        return ($activity->verb == ActivityVerb::POST &&
-                $activity->objects[0]->type == ActivityObject::BOOKMARK);
+        assert($this->isMyNotice($notice));
+
+        common_log(LOG_INFO,
+                   "Formatting notice {$notice->uri} as a bookmark.");
+
+        $object = new ActivityObject();
+
+        $object->id      = $notice->uri;
+        $object->type    = ActivityObject::BOOKMARK;
+        $object->title   = $nb->title;
+        $object->summary = $nb->description;
+        $object->link    = $notice->bestUrl();
+
+        // Attributes of the URL
+
+        $attachments = $notice->attachments();
+
+        if (count($attachments) != 1) {
+            throw new ServerException(_('Bookmark notice with the '.
+                                        'wrong number of attachments.'));
+        }
+
+        $target = $attachments[0];
+
+        $attrs = array('rel' => 'related',
+                       'href' => $target->url);
+
+        if (!empty($target->title)) {
+            $attrs['title'] = $target->title;
+        }
+
+        $object->extra[] = array('link', $attrs, null);
+                                                   
+        // Attributes of the thumbnail, if any
+
+        $thumbnail = $target->getThumbnail();
+
+        if (!empty($thumbnail)) {
+            $tattrs = array('rel' => 'preview',
+                            'href' => $thumbnail->url);
+
+            if (!empty($thumbnail->width)) {
+                $tattrs['media:width'] = $thumbnail->width;
+            }
+
+            if (!empty($thumbnail->height)) {
+                $tattrs['media:height'] = $thumbnail->height;
+            }
+
+            $object->extra[] = array('link', $attrs, null);
+        }
+
+        return $object;
+    }
+
+    function showNotice($notice, $out)
+    {
+        $nb = Bookmark::getByNotice($notice);
+
+        $profile = $notice->getProfile();
+
+        $atts = $notice->attachments();
+
+        if (count($atts) < 1) {
+            // Something wrong; let default code deal with it.
+            throw new Exception("That can't be right.");
+        }
+
+        $att = $atts[0];
+
+        // XXX: only show the bookmark URL for non-single-page stuff
+
+        if ($out instanceof ShowbookmarkAction) {
+        } else {
+            $out->elementStart('h3');
+            $out->element('a',
+                          array('href' => $att->url,
+                                'class' => 'bookmark-title entry-title'),
+                          $nb->title);
+            $out->elementEnd('h3');
+
+            $countUrl = common_local_url('noticebyurl',
+                                         array('id' => $att->id));
+
+            $out->element('a', array('class' => 'bookmark-notice-count',
+                                     'href' => $countUrl),
+                          $att->noticeCount());
+        }
+
+        // Replies look like "for:" tags
+
+        $replies = $notice->getReplies();
+        $tags = $notice->getTags();
+
+        if (!empty($replies) || !empty($tags)) {
+
+            $out->elementStart('ul', array('class' => 'bookmark-tags'));
+            
+            foreach ($replies as $reply) {
+                $other = Profile::staticGet('id', $reply);
+                $out->elementStart('li');
+                $out->element('a', array('rel' => 'tag',
+                                         'href' => $other->profileurl,
+                                         'title' => $other->getBestName()),
+                              sprintf('for:%s', $other->nickname));
+                $out->elementEnd('li');
+                $out->text(' ');
+            }
+
+            foreach ($tags as $tag) {
+                $out->elementStart('li');
+                $out->element('a', 
+                              array('rel' => 'tag',
+                                    'href' => Notice_tag::url($tag)),
+                              $tag);
+                $out->elementEnd('li');
+                $out->text(' ');
+            }
+
+            $out->elementEnd('ul');
+        }
+
+        if (!empty($nb->description)) {
+            $out->element('p',
+                          array('class' => 'bookmark-description'),
+                          $nb->description);
+        }
+
+        if (common_config('attachments', 'show_thumbs')) {
+            $haveThumbs = false;
+            foreach ($atts as $check) {
+                $thumbnail = File_thumbnail::staticGet('file_id', $check->id);
+                if (!empty($thumbnail)) {
+                    $haveThumbs = true;
+                    break;
+                }
+            }
+            if ($haveThumbs) {
+                $al = new InlineAttachmentList($notice, $out);
+                $al->show();
+            }
+        }
+
+        $out->elementStart('div', array('class' => 'bookmark-info entry-content'));
+
+        $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
+
+        $out->element('img', 
+                      array('src' => ($avatar) ?
+                            $avatar->displayUrl() :
+                            Avatar::defaultImage(AVATAR_MINI_SIZE),
+                            'class' => 'avatar photo bookmark-avatar',
+                            'width' => AVATAR_MINI_SIZE,
+                            'height' => AVATAR_MINI_SIZE,
+                            'alt' => $profile->getBestName()));
+
+        $out->raw('&nbsp;');
+
+        $out->element('a', 
+                      array('href' => $profile->profileurl,
+                            'title' => $profile->getBestName()),
+                      $profile->nickname);
+    }
+
+    function entryForm($out)
+    {
+        return new BookmarkForm($out);
+    }
+
+    function tag()
+    {
+        return 'bookmark';
+    }
+
+    function appTitle()
+    {
+        return _m('Bookmark');
     }
 }

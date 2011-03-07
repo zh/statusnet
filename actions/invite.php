@@ -289,7 +289,7 @@ class InviteAction extends CurrentUserDesignAction
         mail_send($recipients, $headers, $body);
     }
 
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new SubGroupNav($this, common_current_user());
         $nav->show();

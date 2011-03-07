@@ -307,7 +307,8 @@ class Bookmark extends Memcached_DataObject
         $options = array_merge(array('urls' => array($url),
                                      'rendered' => $rendered,
                                      'tags' => $tags,
-                                     'replies' => $replies),
+                                     'replies' => $replies,
+                                     'object_type' => ActivityObject::BOOKMARK),
                                $options);
 
         if (!array_key_exists('uri', $options)) {

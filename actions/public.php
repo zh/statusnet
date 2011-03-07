@@ -168,21 +168,6 @@ class PublicAction extends Action
                               _('Public Stream Feed (Atom)')));
     }
 
-    /**
-     * Show tabset for this page
-     *
-     * Uses the PublicGroupNav widget
-     *
-     * @return void
-     * @see PublicGroupNav
-     */
-
-    function showLocalNav()
-    {
-        $nav = new PublicGroupNav($this);
-        $nav->show();
-    }
-
     function showEmptyList()
     {
         $message = _('This is the public timeline for %%site.name%% but no one has posted anything yet.') . ' ';

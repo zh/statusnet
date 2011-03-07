@@ -44,21 +44,8 @@ require_once INSTALLDIR.'/lib/widget.php';
  *
  * @see      Widget
  */
-class LoginGroupNav extends Widget
+class LoginGroupNav extends Menu
 {
-    var $action = null;
-
-    /**
-     * Construction
-     *
-     * @param Action $action current action, used for output
-     */
-    function __construct($action=null)
-    {
-        parent::__construct($action);
-        $this->action = $action;
-    }
-
     /**
      * Show the menu
      *

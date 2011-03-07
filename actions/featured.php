@@ -90,12 +90,6 @@ class FeaturedAction extends Action
         $this->elementEnd('div');
     }
 
-    function showLocalNav()
-    {
-        $nav = new PublicGroupNav($this);
-        $nav->show();
-    }
-
     function getInstructions()
     {
         // TRANS: Description on page displaying featured users.

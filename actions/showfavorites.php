@@ -189,17 +189,6 @@ class ShowfavoritesAction extends OwnerDesignAction
                                       $this->user->nickname)));
     }
 
-    /**
-     * show the personal group nav
-     *
-     * @return void
-     */
-    function showLocalNav()
-    {
-        $nav = new PersonalGroupNav($this);
-        $nav->show();
-    }
-
     function showEmptyListMessage()
     {
         if (common_logged_in()) {

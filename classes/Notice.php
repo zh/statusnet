@@ -72,6 +72,7 @@ class Notice extends Memcached_DataObject
     public $location_id;                     // int(4)
     public $location_ns;                     // int(4)
     public $repeat_of;                       // int(4)
+    public $object_type;                     // varchar(255)
 
     /* Static get */
     function staticGet($k,$v=NULL)
@@ -241,6 +242,7 @@ class Notice extends Memcached_DataObject
      *              array 'urls' list of attached/referred URLs to save with the
      *                           notice in place of extracting links from content
      *              boolean 'distribute' whether to distribute the notice, default true
+     *              string 'object_type' URL of the associated object type (default ActivityObject::NOTE)
      *
      * @fixme tag override
      *
@@ -358,6 +360,12 @@ class Notice extends Memcached_DataObject
             $notice->rendered = $rendered;
         } else {
             $notice->rendered = common_render_content($final, $notice);
+        }
+
+        if (empty($object_type)) {
+            $notice->object_type = (empty($notice->reply_to)) ? ActivityObject::NOTE : ActivityObject::COMMENT;
+        } else {
+            $notice->object_type = $object_type;
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
