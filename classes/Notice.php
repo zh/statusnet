@@ -363,7 +363,7 @@ class Notice extends Memcached_DataObject
         }
 
         if (empty($object_type)) {
-            $notice->object_type = ActivityObject::NOTE;
+            $notice->object_type = (empty($notice->reply_to)) ? ActivityObject::NOTE : ActivityObject::COMMENT;
         } else {
             $notice->object_type = $object_type;
         }
