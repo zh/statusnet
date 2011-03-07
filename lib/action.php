@@ -536,8 +536,10 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showPrimaryNav()
     {
+        $this->elementStart('div', array('id' => 'site_nav_global_primary'));
         $pn = new PrimaryNav($this);
         $pn->show();
+        $this->elementEnd('div');
     }
 
     /**

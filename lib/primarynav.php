@@ -50,8 +50,7 @@ class PrimaryNav extends Menu
     function show()
     {
         $user = common_current_user();
-        $this->action->elementStart('ul', array('class' => 'nav',
-                                        'id' => 'site_nav_global_primary'));
+        $this->action->elementStart('ul', array('class' => 'nav'));
         if (Event::handle('StartPrimaryNav', array($this->action))) {
             if (!empty($user)) {
                 $this->action->menuItem(common_local_url('profilesettings'),
