@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-03 17:24+0000\n"
+"POT-Creation-Date: 2011-03-06 02:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,41 +16,132 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. TRANS: Menu item.
-#. TRANS: Menu item tab.
-#: FacebookBridgePlugin.php:218 FacebookBridgePlugin.php:257
-#: FacebookBridgePlugin.php:298
-msgctxt "MENU"
+#: actions/facebooklogin.php:43
+msgid "Already logged in."
+msgstr ""
+
+#. TRANS: Instructions.
+#: actions/facebooklogin.php:52
+msgid "Login with your Facebook Account"
+msgstr ""
+
+#. TRANS: Page title.
+#: actions/facebooklogin.php:67
+msgid "Login with Facebook"
+msgstr ""
+
+#: actions/facebookadminpanel.php:52
 msgid "Facebook"
 msgstr ""
 
-#. TRANS: Tooltip for menu item "Facebook".
-#: FacebookBridgePlugin.php:220
-msgid "Login or register using Facebook"
+#: actions/facebookadminpanel.php:62
+msgid "Facebook integration settings"
 msgstr ""
 
-#. TRANS: Tooltip for menu item "Facebook".
-#: FacebookBridgePlugin.php:259
-msgid "Facebook integration configuration"
+#: actions/facebookadminpanel.php:123
+msgid "Invalid Facebook ID. Max length is 255 characters."
 msgstr ""
 
-#. TRANS: Tooltip for menu item "Facebook".
+#: actions/facebookadminpanel.php:129
+msgid "Invalid Facebook secret. Max length is 255 characters."
+msgstr ""
+
+#: actions/facebookadminpanel.php:178
+msgid "Facebook application settings"
+msgstr ""
+
+#: actions/facebookadminpanel.php:184
+msgid "Application ID"
+msgstr ""
+
+#: actions/facebookadminpanel.php:185
+msgid "ID of your Facebook application"
+msgstr ""
+
+#: actions/facebookadminpanel.php:193
+msgid "Secret"
+msgstr ""
+
+#: actions/facebookadminpanel.php:194
+msgid "Application secret"
+msgstr ""
+
+#: actions/facebookadminpanel.php:210
+msgid "Save"
+msgstr ""
+
+#: actions/facebookadminpanel.php:210
+msgid "Save Facebook settings"
+msgstr ""
+
+#: actions/facebooksettings.php:86 actions/facebookfinishlogin.php:141
+msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
 #. TRANS: Page title for Facebook settings.
-#: FacebookBridgePlugin.php:300 actions/facebooksettings.php:105
+#. TRANS: Tooltip for menu item "Facebook".
+#: actions/facebooksettings.php:105 FacebookBridgePlugin.php:300
 msgid "Facebook settings"
 msgstr ""
 
-#: FacebookBridgePlugin.php:564
-msgid "A plugin for integrating StatusNet with Facebook."
+#: actions/facebooksettings.php:137
+msgid "Connected Facebook user"
 msgstr ""
 
-#: lib/facebookclient.php:786
-msgid "Your Facebook connection has been removed"
+#: actions/facebooksettings.php:164
+msgid "Publish my notices to Facebook."
 msgstr ""
 
-#: lib/facebookclient.php:845
+#: actions/facebooksettings.php:174
+msgid "Send \"@\" replies to Facebook."
+msgstr ""
+
+#. TRANS: Submit button to save synchronisation settings.
+#: actions/facebooksettings.php:183
+msgctxt "BUTTON"
+msgid "Save"
+msgstr ""
+
+#. TRANS: Legend.
+#: actions/facebooksettings.php:192
+msgid "Disconnect my account from Facebook"
+msgstr ""
+
+#: actions/facebooksettings.php:199
 #, php-format
-msgid "Contact the %s administrator to retrieve your account"
+msgid ""
+"Disconnecting your Faceboook would make it impossible to log in! Please [set "
+"a password](%s) first."
+msgstr ""
+
+#: actions/facebooksettings.php:213
+#, php-format
+msgid ""
+"Keep your %1$s account but disconnect from Facebook. You'll use your %1$s "
+"password to log in."
+msgstr ""
+
+#. TRANS: Submit button.
+#: actions/facebooksettings.php:220
+msgctxt "BUTTON"
+msgid "Disconnect"
+msgstr ""
+
+#: actions/facebooksettings.php:243
+msgid "There was a problem saving your sync preferences."
+msgstr ""
+
+#. TRANS: Confirmation that synchronisation settings have been saved into the system.
+#: actions/facebooksettings.php:246
+msgid "Sync preferences saved."
+msgstr ""
+
+#: actions/facebooksettings.php:260
+msgid "Couldn't delete link to Facebook."
+msgstr ""
+
+#: actions/facebooksettings.php:264
+msgid "You have disconnected from Facebook."
 msgstr ""
 
 #: actions/facebookfinishlogin.php:88
@@ -60,10 +151,6 @@ msgstr ""
 
 #: actions/facebookfinishlogin.php:118
 msgid "There is already a local account linked with that Facebook account."
-msgstr ""
-
-#: actions/facebookfinishlogin.php:141 actions/facebooksettings.php:86
-msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
 #: actions/facebookfinishlogin.php:150
@@ -176,120 +263,33 @@ msgstr ""
 msgid "Invalid username or password."
 msgstr ""
 
-#: actions/facebooklogin.php:43
-msgid "Already logged in."
-msgstr ""
-
-#. TRANS: Instructions.
-#: actions/facebooklogin.php:52
-msgid "Login with your Facebook Account"
-msgstr ""
-
-#. TRANS: Page title.
-#: actions/facebooklogin.php:67
-msgid "Login with Facebook"
-msgstr ""
-
-#: actions/facebookadminpanel.php:52
+#. TRANS: Menu item.
+#. TRANS: Menu item tab.
+#: FacebookBridgePlugin.php:218 FacebookBridgePlugin.php:257
+#: FacebookBridgePlugin.php:298
+msgctxt "MENU"
 msgid "Facebook"
 msgstr ""
 
-#: actions/facebookadminpanel.php:62
-msgid "Facebook integration settings"
+#. TRANS: Tooltip for menu item "Facebook".
+#: FacebookBridgePlugin.php:220
+msgid "Login or register using Facebook"
 msgstr ""
 
-#: actions/facebookadminpanel.php:123
-msgid "Invalid Facebook ID. Max length is 255 characters."
+#. TRANS: Tooltip for menu item "Facebook".
+#: FacebookBridgePlugin.php:259
+msgid "Facebook integration configuration"
 msgstr ""
 
-#: actions/facebookadminpanel.php:129
-msgid "Invalid Facebook secret. Max length is 255 characters."
+#: FacebookBridgePlugin.php:564
+msgid "A plugin for integrating StatusNet with Facebook."
 msgstr ""
 
-#: actions/facebookadminpanel.php:178
-msgid "Facebook application settings"
+#: lib/facebookclient.php:786
+msgid "Your Facebook connection has been removed"
 msgstr ""
 
-#: actions/facebookadminpanel.php:184
-msgid "Application ID"
-msgstr ""
-
-#: actions/facebookadminpanel.php:185
-msgid "ID of your Facebook application"
-msgstr ""
-
-#: actions/facebookadminpanel.php:193
-msgid "Secret"
-msgstr ""
-
-#: actions/facebookadminpanel.php:194
-msgid "Application secret"
-msgstr ""
-
-#: actions/facebookadminpanel.php:210
-msgid "Save"
-msgstr ""
-
-#: actions/facebookadminpanel.php:210
-msgid "Save Facebook settings"
-msgstr ""
-
-#: actions/facebooksettings.php:137
-msgid "Connected Facebook user"
-msgstr ""
-
-#: actions/facebooksettings.php:164
-msgid "Publish my notices to Facebook."
-msgstr ""
-
-#: actions/facebooksettings.php:174
-msgid "Send \"@\" replies to Facebook."
-msgstr ""
-
-#. TRANS: Submit button to save synchronisation settings.
-#: actions/facebooksettings.php:183
-msgctxt "BUTTON"
-msgid "Save"
-msgstr ""
-
-#. TRANS: Legend.
-#: actions/facebooksettings.php:192
-msgid "Disconnect my account from Facebook"
-msgstr ""
-
-#: actions/facebooksettings.php:199
+#: lib/facebookclient.php:845
 #, php-format
-msgid ""
-"Disconnecting your Faceboook would make it impossible to log in! Please [set "
-"a password](%s) first."
-msgstr ""
-
-#: actions/facebooksettings.php:213
-#, php-format
-msgid ""
-"Keep your %1$s account but disconnect from Facebook. You'll use your %1$s "
-"password to log in."
-msgstr ""
-
-#. TRANS: Submit button.
-#: actions/facebooksettings.php:220
-msgctxt "BUTTON"
-msgid "Disconnect"
-msgstr ""
-
-#: actions/facebooksettings.php:243
-msgid "There was a problem saving your sync preferences."
-msgstr ""
-
-#. TRANS: Confirmation that synchronisation settings have been saved into the system.
-#: actions/facebooksettings.php:246
-msgid "Sync preferences saved."
-msgstr ""
-
-#: actions/facebooksettings.php:260
-msgid "Couldn't delete link to Facebook."
-msgstr ""
-
-#: actions/facebooksettings.php:264
-msgid "You have disconnected from Facebook."
+msgid "Contact the %s administrator to retrieve your account"
 msgstr ""
