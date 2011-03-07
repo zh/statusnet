@@ -510,6 +510,8 @@ class BookmarkPlugin extends MicroAppPlugin
 
     function showNotice($notice, $out)
     {
+        $nb = Bookmark::getByNotice($notice);
+
         $profile = $notice->getProfile();
 
         $atts = $notice->attachments();
@@ -542,8 +544,8 @@ class BookmarkPlugin extends MicroAppPlugin
 
         // Replies look like "for:" tags
 
-        $replies = $nli->notice->getReplies();
-        $tags = $nli->notice->getTags();
+        $replies = $notice->getReplies();
+        $tags = $notice->getTags();
 
         if (!empty($replies) || !empty($tags)) {
 
