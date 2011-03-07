@@ -70,23 +70,23 @@ class PersonalGroupNav extends Menu
                                                                $nickname)),
                                  _('Home'),
                                  sprintf(_('%s and friends'), $name),
-                                 $action == 'all', 'nav_timeline_personal');
+                                 $this->action == 'all', 'nav_timeline_personal');
             $this->out->menuItem(common_local_url('showstream', array('nickname' =>
                                                                       $nickname)),
                                  _('Profile'),
                                  _('Your profile'),
-                                 $action == 'showstream',
+                                 $this->action == 'showstream',
                                  'nav_profile');
             $this->out->menuItem(common_local_url('replies', array('nickname' =>
                                                                    $nickname)),
                                  _('Replies'),
                                  sprintf(_('Replies to %s'), $name),
-                                 $action == 'replies', 'nav_timeline_replies');
+                                 $this->action == 'replies', 'nav_timeline_replies');
             $this->out->menuItem(common_local_url('showfavorites', array('nickname' =>
                                                                          $nickname)),
                                  _('Favorites'),
                                  sprintf(_('%s\'s favorite notices'), ($user_profile) ? $name : _('User')),
-                                 $action == 'showfavorites', 'nav_timeline_favorites');
+                                 $this->action == 'showfavorites', 'nav_timeline_favorites');
 
             $cur = common_current_user();
 
@@ -97,7 +97,7 @@ class PersonalGroupNav extends Menu
                                                                      $nickname)),
                                      _('Messages'),
                                      _('Your incoming messages'),
-                                     $action == 'inbox');
+                                     $this->action == 'inbox');
             }
 
             Event::handle('EndPersonalGroupNav', array($this));
