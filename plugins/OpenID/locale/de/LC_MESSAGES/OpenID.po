@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Apmon
+# Author: Fujnky
 # Author: The Evil IP address
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -10,13 +11,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-29 21:45+0000\n"
-"PO-Revision-Date: 2011-01-29 21:50:40+0000\n"
+"POT-Creation-Date: 2011-02-14 16:01+0000\n"
+"PO-Revision-Date: 2011-02-14 16:09:15+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-01-22 19:30:33+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r81195); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2011-02-03 23:18:47+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r82114); Translate extension (2011-02-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -210,7 +211,7 @@ msgstr "OpenId-Einstellungen speichern"
 #. TRANS: OpenID plugin server error.
 #: openid.php:138
 msgid "Cannot instantiate OpenID consumer object."
-msgstr ""
+msgstr "OpenID-Consumer-Objekt kann nicht instanziiert werden."
 
 #. TRANS: OpenID plugin message. Given when an OpenID is not valid.
 #: openid.php:150
@@ -237,6 +238,9 @@ msgid ""
 "This form should automatically submit itself. If not, click the submit "
 "button to go to your OpenID provider."
 msgstr ""
+"Dieses Formular sollte automatisch selbst abschicken. Wenn dies nicht der "
+"Fall ist, klicke auf die Schaltfläche Senden, um zu deinem OpenID Provider "
+"zu wechseln."
 
 #. TRANS: OpenID plugin server error.
 #: openid.php:280
@@ -347,12 +351,12 @@ msgstr "Weiter"
 #. TRANS: OpenID plugin logon form legend.
 #: OpenIDPlugin.php:658 openidlogin.php:140
 msgid "OpenID login"
-msgstr ""
+msgstr "OpenID-Benutzername"
 
 #. TRANS: Field label.
 #: OpenIDPlugin.php:666 openidlogin.php:148
 msgid "OpenID provider"
-msgstr ""
+msgstr "OpenID-Provider"
 
 #. TRANS: Form guide.
 #: OpenIDPlugin.php:675 openidlogin.php:156
@@ -363,6 +367,8 @@ msgstr "Gib deinen Benutzernamen ein."
 #: OpenIDPlugin.php:677 openidlogin.php:157
 msgid "You will be sent to the provider's site for authentication."
 msgstr ""
+"Du wirst zur Authentifizierung auf die Seite ihres OpenID-Providers "
+"weitergeleitet werden."
 
 #. TRANS: OpenID plugin logon form field instructions.
 #: OpenIDPlugin.php:684 openidlogin.php:164
@@ -413,7 +419,7 @@ msgstr ""
 #. TRANS: Title
 #: finishopenidlogin.php:80
 msgid "OpenID Account Setup"
-msgstr ""
+msgstr "OpenID Konto-Setup"
 
 #: finishopenidlogin.php:117
 msgid "Create new account"
@@ -512,7 +518,7 @@ msgstr "Benutzername wird bereits verwendet. Suche dir einen anderen aus."
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
 #: finishopenidlogin.php:363 finishopenidlogin.php:449
 msgid "Stored OpenID not found."
-msgstr ""
+msgstr "Gespeicherte OpenID nicht gefunden."
 
 #. TRANS: OpenID plugin server error.
 #: finishopenidlogin.php:373
@@ -527,7 +533,7 @@ msgstr "Benutzername oder Passwort falsch."
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
 #: finishopenidlogin.php:457
 msgid "Error connecting user to OpenID."
-msgstr ""
+msgstr "Fehler bei der Verbindung des Benutzers mit OpenID."
 
 #. TRANS: OpenID plugin message. Rememberme logins have to reauthenticate before changing any profile settings.
 #. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
@@ -551,7 +557,7 @@ msgstr "Mit einem [OpenID](%%doc.openid%%)-Benutzerkonto anmelden."
 #. TRANS: Title after getting the status of the OpenID authorisation request.
 #: openidlogin.php:122 finishaddopenid.php:187
 msgid "OpenID Login"
-msgstr ""
+msgstr "OpenID-Anmeldung"
 
 #. TRANS: OpenID plugin logon form checkbox label for setting to put the OpenID information in a cookie.
 #: openidlogin.php:169
@@ -571,12 +577,14 @@ msgstr "Anmelden"
 
 #: openidtrust.php:52
 msgid "OpenID Identity Verification"
-msgstr ""
+msgstr "OpenID-Identitätsverifikation"
 
 #: openidtrust.php:70
 msgid ""
 "This page should only be reached during OpenID processing, not directly."
 msgstr ""
+"Diese Seite sollte nur während der Abwicklung von OpenID erreicht werden, "
+"nicht direkt."
 
 #: openidtrust.php:118
 #, php-format
@@ -614,9 +622,9 @@ msgstr "Jemand anders hat bereits diese Open-ID."
 #. TRANS: message in case the OpenID object cannot be connected to the user.
 #: finishaddopenid.php:138
 msgid "Error connecting user."
-msgstr ""
+msgstr "Fehler beim Verbinden des Benutzers."
 
 #. TRANS: message in case the user or the user profile cannot be saved in StatusNet.
 #: finishaddopenid.php:145
 msgid "Error updating profile"
-msgstr ""
+msgstr "Fehler beim Aktualisieren des Profils"

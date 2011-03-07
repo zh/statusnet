@@ -201,6 +201,17 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         case 'json':
             $this->showJsonTimeline($this->notices);
             break;
+        case 'as':
+            header('Content-Type: application/json; charset=utf-8');
+            $doc = new ActivityStreamJSONDocument($this->auth_user);
+            $doc->setTitle($atom->title);
+            $doc->addLink($link, 'alternate', 'text/html');
+            $doc->addItemsFromNotices($this->notices);
+
+            // XXX: Add paging extension?
+
+            $this->raw($doc->asString());
+            break;
         default:
             // TRANS: Client error displayed when trying to handle an unknown API method.
             $this->clientError(_('API method not found.'), $code = 404);
@@ -329,7 +340,6 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         $saved = null;
 
         if (Event::handle('StartAtomPubNewActivity', array(&$activity, $this->user, &$saved))) {
-
             if ($activity->verb != ActivityVerb::POST) {
                 // TRANS: Client error displayed when not using the POST verb. Do not translate POST.
                 $this->clientError(_('Can only handle POST activities.'));
@@ -405,6 +415,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
             if (!empty($notice)) {
                 // TRANS: Client error displayed when using another format than AtomPub.
+                // TRANS: %s is the notice URI.
                 $this->clientError(sprintf(_('Notice with URI "%s" already exists.'),
                                            $note->id));
                 return;

@@ -336,7 +336,7 @@ class DesignadminpanelAction extends AdminPanelAction
         if (!in_array($values['theme'], Theme::listAvailable())) {
             // TRANS: Client error displayed when a theme is submitted through the form that is not in the theme list.
             // TRANS: %s is the chosen unavailable theme.
-            $this->clientError(sprintf(_("Theme not available: %s."), $values['theme']));
+            $this->clientError(sprintf(_('Theme not available: %s.'), $values['theme']));
         }
     }
 
@@ -443,7 +443,7 @@ class DesignAdminPanelForm extends AdminForm
                      // TRANS: Field label for StatusNet site logo.
                      _('Site logo'),
                      // TRANS: Title for field label for StatusNet site logo.
-                     'Logo for the site (full URL)');
+                     'Logo for the site (full URL).');
         $this->unli();
 
         $this->li();
@@ -451,7 +451,7 @@ class DesignAdminPanelForm extends AdminForm
                      // TRANS: Field label for SSL StatusNet site logo.
                      _('SSL logo'),
                      // TRANS: Title for field label for SSL StatusNet site logo.
-                     'Logo to show on SSL pages');
+                     'Logo to show on SSL pages.');
         $this->unli();
 
         $this->out->elementEnd('ul');
@@ -717,7 +717,7 @@ class DesignAdminPanelForm extends AdminForm
         // TRANS: Button text for resetting theme settings.
         $this->out->submit('defaults', _m('BUTTON','Use defaults'), 'submit form_action-default',
                 // TRANS: Title for button for resetting theme settings.
-                'defaults', _('Restore default designs'));
+                'defaults', _('Restore default designs.'));
 
         $this->out->element('input', array('id' => 'settings_design_reset',
                                          'type' => 'reset',
@@ -725,7 +725,7 @@ class DesignAdminPanelForm extends AdminForm
                                          'value' => 'Reset',
                                          'class' => 'submit form_action-primary',
                                          // TRANS: Title for button for resetting theme settings.
-                                         'title' => _('Reset back to default')));
+                                         'title' => _('Reset back to default.')));
 
         $this->out->submit('save',
                            // TRANS: Button text for saving theme settings.
@@ -733,6 +733,6 @@ class DesignAdminPanelForm extends AdminForm
                            'submit form_action-secondary',
                            'save',
                            // TRANS: Title for button for saving theme settings.
-                           _('Save design'));
+                           _('Save design.'));
     }
 }

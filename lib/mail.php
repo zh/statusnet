@@ -162,8 +162,12 @@ function mail_to_user(&$user, $subject, $body, $headers=array(), $address=null)
  *
  * @return success flag
  */
-function mail_confirm_address($user, $code, $nickname, $address)
+function mail_confirm_address($user, $code, $nickname, $address, $url=null)
 {
+    if (empty($url)) {
+        $url = common_local_url('confirmaddress', array('code' => $code));
+    }
+
     // TRANS: Subject for address confirmation email.
     $subject = _('Email address confirmation');
 
@@ -178,7 +182,8 @@ function mail_confirm_address($user, $code, $nickname, $address)
                       "Thanks for your time, \n%2\$s\n"),
                     $nickname,
                     common_config('site', 'name'),
-                    common_local_url('confirmaddress', array('code' => $code)));
+                    $url);
+
     $headers = array();
 
     return mail_to_user($user, $subject, $body, $headers, $address);

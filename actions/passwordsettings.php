@@ -106,11 +106,11 @@ class PasswordsettingsAction extends AccountSettingsAction
         }
         $this->elementStart('li');
         $this->password('newpassword', _('New password'),
-                        _('6 or more characters'));
+                        _('6 or more characters.'));
         $this->elementEnd('li');
         $this->elementStart('li');
         $this->password('confirm', _('Confirm'),
-                        _('Same as password above'));
+                        _('Same as password above.'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
@@ -128,7 +128,6 @@ class PasswordsettingsAction extends AccountSettingsAction
      *
      * @return void
      */
-
     function handlePost()
     {
         // CSRF protection
@@ -183,7 +182,7 @@ class PasswordsettingsAction extends AccountSettingsAction
             }
 
             if (!$user->update($original)) {
-                $this->serverError(_('Can\'t save new password.'));
+                $this->serverError(_('Cannot save new password.'));
                 return;
             }
             Event::handle('EndChangePassword', array($user));

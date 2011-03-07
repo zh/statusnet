@@ -57,7 +57,7 @@ class RestoreaccountAction extends Action
     function title()
     {
         // TRANS: Page title for page where a user account can be restored from backup.
-        return _("Restore account");
+        return _('Restore account');
     }
 
     /**

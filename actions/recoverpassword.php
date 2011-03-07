@@ -226,7 +226,7 @@ class RecoverpasswordAction extends Action
          // TRANS: Title for password recovery page in email sent mode.
          case 'sent': return _('Password recovery requested');
          // TRANS: Title for password recovery page in password saved mode.
-         case 'saved': return _('Password saved.');
+         case 'saved': return _('Password saved');
          default:
             // TRANS: Title for password recovery page when an unknown action has been specified.
             return _('Unknown action');

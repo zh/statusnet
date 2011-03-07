@@ -72,7 +72,7 @@ class RepeatAction extends Action
         }
 
         if ($this->user->id == $this->notice->profile_id) {
-            $this->clientError(_("You cannot repeat your own notice."));
+            $this->clientError(_('You cannot repeat your own notice.'));
             return false;
         }
 

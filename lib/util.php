@@ -300,7 +300,10 @@ function common_set_user($user)
 
     if ($user) {
         if (Event::handle('StartSetUser', array(&$user))) {
-            if($user){
+            if (!empty($user)) {
+                if (!$user->hasRight(Right::WEBLOGIN)) {
+                    throw new AuthorizationException(_('Not allowed to log in.'));
+                }
                 common_ensure_session();
                 $_SESSION['userid'] = $user->id;
                 $_cur = $user;
@@ -784,7 +787,7 @@ function common_render_text($text)
 
     $r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
     $r = common_replace_urls_callback($r, 'common_linkify');
-    $r = preg_replace('/(^|\&quot\;|\'|\(|\[|\{|\s+)#([\pL\pN_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
+    $r = preg_replace('/(^|\&quot\;|\'|\(|\[|\{|\s+)#([\pL\pN_\-\.]{1,64})/ue', "'\\1#'.common_tag_link('\\2')", $r);
     // XXX: machine tags
     return $r;
 }

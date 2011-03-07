@@ -64,7 +64,7 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
 
             $ao = ActivityObject::fromProfile($profile);
 
-            $ao->extra[] = $profile->profileInfo($cur);
+            array_push($ao->extra, $profile->profileInfo($cur));
 
             // XXX: For users, we generate an author _AND_ an <activity:subject>
             // This is for backward compatibility with clients (especially

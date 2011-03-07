@@ -161,14 +161,14 @@ class ProfilesettingsAction extends AccountSettingsAction
             $this->input('tags', _('Tags'),
                          ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
                          // TRANS: Tooltip for field label in form for profile settings.
-                         _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
+                         _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated.'));
             $this->elementEnd('li');
             $this->elementStart('li');
             $language = common_language();
             // TRANS: Dropdownlist label in form for profile settings.
             $this->dropdown('language', _('Language'),
                          // TRANS: Tooltip for dropdown list label in form for profile settings.
-                            get_nice_language_list(), _('Preferred language'),
+                            get_nice_language_list(), _('Preferred language.'),
                             false, $language);
             $this->elementEnd('li');
             $timezone = common_timezone();
@@ -187,7 +187,7 @@ class ProfilesettingsAction extends AccountSettingsAction
             $this->checkbox('autosubscribe',
                             // TRANS: Checkbox label in form for profile settings.
                             _('Automatically subscribe to whoever '.
-                              'subscribes to me (best for non-humans)'),
+                              'subscribes to me (best for non-humans).'),
                             ($this->arg('autosubscribe')) ?
                             $this->boolean('autosubscribe') : $user->autosubscribe);
             $this->elementEnd('li');
@@ -288,7 +288,7 @@ class ProfilesettingsAction extends AccountSettingsAction
                 if (!common_valid_profile_tag($tag)) {
                     // TRANS: Validation error in form for profile settings.
                     // TRANS: %s is an invalid tag.
-                    $this->showForm(sprintf(_('Invalid tag: "%s"'), $tag));
+                    $this->showForm(sprintf(_('Invalid tag: "%s".'), $tag));
                     return;
                 }
             }
