@@ -1381,6 +1381,16 @@ var SN = { // StatusNet
         },
 
         /**
+         * Set up any generic 'ajax' form so it submits via AJAX with auto-replacement.
+         */
+        AjaxForms: function() {
+            $('form.ajax').live('submit', function() {
+                SN.U.FormXHR($(this));
+                return false;
+            });
+        },
+
+        /**
          * Add logic to any file upload forms to handle file size limits,
          * on browsers that support basic FileAPI.
          */
@@ -1416,6 +1426,7 @@ var SN = { // StatusNet
  * don't start them loading until after DOM-ready time!
  */
 $(document).ready(function(){
+    SN.Init.AjaxForms();
     SN.Init.UploadForms();
     if ($('.'+SN.C.S.FormNotice).length > 0) {
         SN.Init.NoticeForm();
