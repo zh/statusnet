@@ -35,8 +35,10 @@ class ExtendedProfile
         $detail = new Profile_detail();
         $detail->profile_id = $this->profile->id;
         $detail->find();
-        
-        while ($detail->get()) {
+
+        $fields = array();
+
+        while ($detail->fetch()) {
             $fields[$detail->field][] = clone($detail);
         }
         return $fields;

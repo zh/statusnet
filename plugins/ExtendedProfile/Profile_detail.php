@@ -96,7 +96,7 @@ class Profile_detail extends Memcached_DataObject
 
                      'value' => DB_DATAOBJECT_STR,
                      'rel' => DB_DATAOBJECT_STR,
-                     'ref_profile' => DB_DATAOBJECT_ID,
+                     'ref_profile' => DB_DATAOBJECT_INT,
 
                      'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
                      'modified' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
