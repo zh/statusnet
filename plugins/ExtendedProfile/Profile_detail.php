@@ -21,18 +21,52 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+/**
+ * DataObject class to store extended profile fields. Allows for storing
+ * multiple values per a "field" (field property is not unique).
+ *
+ * Example:
+ *
+ *     Jed's Phone Numbers
+ *     home  : 510-384-1992
+ *     mobile: 510-719-1139
+ *     work  : 415-231-1121
+ *
+ * We can store these phone numbers in a "field" represented by three
+ * Profile_detail objects, each named 'phone_number' like this:
+ *
+ *     $phone1 = new Profile_detail();
+ *     $phone1->field       = 'phone_number';
+ *     $phone1->rel         = 'home';
+ *     $phone1->field_index = 1;
+ *     $phone1->value       = '510-384-1992';
+ *
+ *     $phone1 = new Profile_detail();
+ *     $phone1->field       = 'phone_number';
+ *     $phone1->rel         = 'mobile';
+ *     $phone1->field_index = 2;
+ *     $phone1->value       = '510-719-1139';
+ *
+ *     $phone1 = new Profile_detail();
+ *     $phone1->field       = 'phone_number';
+ *     $phone1->rel         = 'work';
+ *     $phone1->field_index = 3;
+ *     $phone1->value       = '415-231-1121';
+ *
+ */
 class Profile_detail extends Memcached_DataObject
 {
-    public $__table = 'submirror';
+    public $__table = 'profile_detail';
 
     public $id;
 
     public $profile_id;
+    public $rel;         // detail for some field types; eg "home", "mobile", "work" for phones or "aim", "irc", "xmpp" for IM
     public $field;
+
+    public $value;       // primary text value
     public $field_index; // relative ordering of multiple values in the same field
 
-    public $value; // primary text value
-    public $rel; // detail for some field types; eg "home", "mobile", "work" for phones or "aim", "irc", "xmpp" for IM
     public $ref_profile; // for people types, allows pointing to a known profile in the system
 
     public $created;
@@ -68,9 +102,17 @@ class Profile_detail extends Memcached_DataObject
                      'modified' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
     }
 
+    /**
+     * Database schema setup
+     *
+     * @see Schema
+     * @see ColumnDef
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
+
     static function schemaDef()
     {
-        // @fixme need a reverse key on (subscribed, subscriber) as well
         return array(new ColumnDef('id', 'integer',
                                    null, false, 'PRI'),
 
@@ -113,7 +155,7 @@ class Profile_detail extends Memcached_DataObject
     }
 
     /**
-     * return key definitions for DB_DataObject
+     * Return key definitions for DB_DataObject
      *
      * DB_DataObject needs to know about keys that the table has; this function
      * defines them.
@@ -127,7 +169,7 @@ class Profile_detail extends Memcached_DataObject
     }
 
     /**
-     * return key definitions for Memcached_DataObject
+     * Return key definitions for Memcached_DataObject
      *
      * Our caching system uses the same key definitions, but uses a different
      * method to get them.
@@ -141,6 +183,15 @@ class Profile_detail extends Memcached_DataObject
         // need a sane key for reverse lookup too
         return array('id' => 'K');
     }
+
+    /**
+     * Get the sequence key
+     *
+     * Returns the first serial column defined in the table, if any.
+     *
+     * @access private
+     * @return array (column,use_native,sequence_name)
+     */
 
     function sequenceKey()
     {
