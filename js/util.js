@@ -1263,7 +1263,7 @@ var SN = { // StatusNet
 
             var profileLink = $('#nav_profile a').attr('href');
             if (profileLink) {
-                var authorUrl = $(notice).find('.entry-title .author a.url').attr('href');
+                var authorUrl = $(notice).find('.vcard.author a.url').attr('href');
                 if (authorUrl == profileLink) {
                     if (action == 'all' || action == 'showstream') {
                         // Posts always show on your own friends and profile streams.
@@ -1301,7 +1301,7 @@ var SN = { // StatusNet
          */
         NoticeForm: function() {
             if ($('body.user_in').length > 0) {
-                $('.'+SN.C.S.FormNotice).each(function() {
+                $('.ajax-notice').each(function() {
                     var form = $(this);
                     SN.U.NoticeLocationAttach(form);
                     SN.U.FormNoticeXHR(form);

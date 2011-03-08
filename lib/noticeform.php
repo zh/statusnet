@@ -132,7 +132,7 @@ class NoticeForm extends Form
 
     function formClass()
     {
-        return 'form_notice';
+        return 'form_notice ajax-notice';
     }
 
     /**

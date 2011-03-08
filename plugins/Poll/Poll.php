@@ -216,6 +216,7 @@ class Poll extends Managed_DataObject
                                         array('id' => $p->id));
         }
 
+        common_log(LOG_DEBUG, "Saving poll: $p->id $p->uri");
         $p->insert();
 
         $content  = sprintf(_m('Poll: %s %s'),

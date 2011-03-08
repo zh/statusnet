@@ -125,6 +125,9 @@ class NewbookmarkAction extends Action
 
     function newBookmark()
     {
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true);
+        }
         try {
             if (empty($this->title)) {
                 throw new ClientException(_('Bookmark must have a title.'));
@@ -147,7 +150,37 @@ class NewbookmarkAction extends Action
             return;
         }
 
-        common_redirect($saved->bestUrl(), 303);
+        if ($this->boolean('ajax')) {
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            // TRANS: Page title after sending a notice.
+            $this->element('title', null, _('Notice posted'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->showNotice($saved);
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            common_redirect($saved->bestUrl(), 303);
+        }
+    }
+
+    /**
+     * Output a notice
+     *
+     * Used to generate the notice code for Ajax results.
+     *
+     * @param Notice $notice Notice that was saved
+     *
+     * @return void
+     */
+    function showNotice($notice)
+    {
+        class_exists('NoticeList'); // @fixme hack for autoloader
+        $nli = new NoticeListItem($notice, $this);
+        $nli->show();
     }
 
     /**
