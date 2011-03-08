@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:36:29+0000\n"
+"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"PO-Revision-Date: 2011-03-08 01:05:22+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2011-03-03 17:59:19+0000\n"
+"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -2935,9 +2935,8 @@ msgid "Type"
 msgstr "Тип"
 
 #. TRANS: Dropdown field instructions in the license admin panel.
-#, fuzzy
 msgid "Select a license."
-msgstr "Одберете лиценца"
+msgstr "Одберете лиценца."
 
 #. TRANS: Form legend in the license admin panel.
 msgid "License details"
@@ -2978,9 +2977,8 @@ msgid "URL for an image to display with the license."
 msgstr "URL-адреса за слика што ќе се прикажува со лиценцата."
 
 #. TRANS: Button title in the license admin panel.
-#, fuzzy
 msgid "Save license settings."
-msgstr "Зачувај нагодувања на лиценцата"
+msgstr "Зачувај нагодувања на лиценцата."
 
 #. TRANS: Client error displayed when trying to log in while already logged in.
 #. TRANS: Client error displayed trying to use "one time password login" when already logged in.
@@ -3014,7 +3012,6 @@ msgstr ""
 "Отсега врши автоматска најава. Не треба да се користи за јавни сметачи!"
 
 #. TRANS: Button text for log in on login page.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Login"
 msgstr "Најава"
@@ -3110,9 +3107,8 @@ msgstr "Нова порака"
 
 #. TRANS: Client error displayed trying to send a direct message to a user while sender and
 #. TRANS: receiver are not subscribed to each other.
-#, fuzzy
 msgid "You cannot send a message to this user."
-msgstr "Не можете да испратите порака до овојо корисник."
+msgstr "Не можете да испратите порака до овој корисник."
 
 #. TRANS: Form validator error displayed trying to send a direct message without content.
 #. TRANS: Client error displayed trying to send a notice without content.
@@ -5944,86 +5940,17 @@ msgid "Show more"
 msgstr "Повеќе"
 
 #. TRANS: Inline reply form submit button: submits a reply comment.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Reply"
-msgstr "Одговор"
+msgstr "Одговори"
 
 #. TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
 msgid "Write a reply..."
-msgstr ""
+msgstr "Напишете одговор..."
 
-msgid "Home"
-msgstr "Домашна страница"
-
-msgid "Friends timeline"
-msgstr "Историја на пријатели"
-
-msgid "Your profile"
-msgstr "Профил на група"
-
-msgid "Public"
-msgstr "Јавен"
-
-msgid "Everyone on this site"
-msgstr "Сите на ова мрежно место"
-
-msgid "Settings"
-msgstr "Нагодувања за СМС"
-
-msgid "Change your personal settings"
-msgstr "Измена на лични поставки"
-
-msgid "Site configuration"
-msgstr "Поставки на мреж. место"
-
-msgid "Logout"
-msgstr "Одјава"
-
-msgid "Logout from the site"
-msgstr "Одјава"
-
-msgid "Login to the site"
-msgstr "Најава"
-
-msgid "Search"
-msgstr "Барај"
-
-msgid "Search the site"
-msgstr "Пребарај по мрежното место"
-
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
-msgid "Help"
-msgstr "Помош"
-
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-msgid "About"
-msgstr "За нас"
-
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-msgid "FAQ"
-msgstr "ЧПП"
-
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
-msgid "TOS"
-msgstr "Услови"
-
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-msgid "Privacy"
-msgstr "Приватност"
-
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-msgid "Source"
-msgstr "Изворен код"
-
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
-#. TRANS: StatusNet site, where to report bugs, ...
-msgid "Contact"
-msgstr "Контакт"
-
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-msgid "Badge"
-msgstr "Значка"
+#, fuzzy
+msgid "Status"
+msgstr "StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6815,6 +6742,12 @@ msgstr "Оди на инсталаторот."
 msgid "Database error"
 msgstr "Грешка во базата на податоци"
 
+msgid "Home"
+msgstr "Домашна страница"
+
+msgid "Public"
+msgstr "Јавен"
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "Избриши овој корисник"
@@ -7494,6 +7427,18 @@ msgstr ""
 "впуштите во разговор со други корисници. Луѓето можат да Ви испраќаат пораки "
 "што ќе можете да ги видите само Вие."
 
+msgid "Inbox"
+msgstr "Примени"
+
+msgid "Your incoming messages"
+msgstr "Ваши приемни пораки"
+
+msgid "Outbox"
+msgstr "За праќање"
+
+msgid "Your sent messages"
+msgstr "Ваши испратени пораки"
+
 msgid "Could not parse message."
 msgstr "Не можев да ја парсирам пораката."
 
@@ -7571,6 +7516,20 @@ msgstr "Пораки"
 msgid "from"
 msgstr "од"
 
+msgid "Can't get author for activity."
+msgstr ""
+
+#, fuzzy
+msgid "Bookmark not posted to this group."
+msgstr "Не Ви е дозволено да ја избришете оваа група."
+
+#, fuzzy
+msgid "Object not posted to this user."
+msgstr "Не го бриши корисников."
+
+msgid "Don't know how to handle this kind of target."
+msgstr ""
+
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
 msgstr "Прекарот не може да стои празен."
@@ -7596,9 +7555,8 @@ msgid "Attach"
 msgstr "Приложи"
 
 #. TRANS: Title for input field to attach a file to a notice.
-#, fuzzy
 msgid "Attach a file."
-msgstr "Приложи податотека"
+msgstr "Приложи податотека."
 
 #. TRANS: Field label to add location to a notice.
 msgid "Share my location"
@@ -7685,23 +7643,14 @@ msgstr "Дуплирана забелешка."
 msgid "Couldn't insert new subscription."
 msgstr "Не може да се внесе нова претплата."
 
+msgid "Your profile"
+msgstr "Профил на група"
+
 msgid "Replies"
 msgstr "Одговори"
 
 msgid "Favorites"
 msgstr "Бендисани"
-
-msgid "Inbox"
-msgstr "Примени"
-
-msgid "Your incoming messages"
-msgstr "Ваши приемни пораки"
-
-msgid "Outbox"
-msgstr "За праќање"
-
-msgid "Your sent messages"
-msgstr "Ваши испратени пораки"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -7725,6 +7674,30 @@ msgstr "Овозможи"
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr "(Описите на приклучоците не се достапни ако е оневозможено.)"
+
+msgid "Settings"
+msgstr "Нагодувања за СМС"
+
+msgid "Change your personal settings"
+msgstr "Измена на лични поставки"
+
+msgid "Site configuration"
+msgstr "Поставки на мреж. место"
+
+msgid "Logout"
+msgstr "Одјава"
+
+msgid "Logout from the site"
+msgstr "Одјава"
+
+msgid "Login to the site"
+msgstr "Најава"
+
+msgid "Search"
+msgstr "Барај"
+
+msgid "Search the site"
+msgstr "Пребарај по мрежното место"
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -7833,6 +7806,39 @@ msgstr "Пронајдете содржини на забелешките"
 
 msgid "Find groups on this site"
 msgstr "Пронајдете групи на ова мрежно место"
+
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+msgid "Help"
+msgstr "Помош"
+
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+msgid "About"
+msgstr "За нас"
+
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+msgid "FAQ"
+msgstr "ЧПП"
+
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+msgid "TOS"
+msgstr "Услови"
+
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+msgid "Privacy"
+msgstr "Приватност"
+
+#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+msgid "Source"
+msgstr "Изворен код"
+
+#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: StatusNet site, where to report bugs, ...
+msgid "Contact"
+msgstr "Контакт"
+
+#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+msgid "Badge"
+msgstr "Значка"
 
 msgid "Untitled section"
 msgstr "Заглавие без наслов"
@@ -7956,11 +7962,11 @@ msgstr "Изгледот содржи податотека од типот „.%
 msgid "Error opening theme archive."
 msgstr "Грешка при отворањето на архивот за мотив."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Show %d reply"
 msgid_plural "Show all %d replies"
-msgstr[0] "Повеќе"
-msgstr[1] "Повеќе"
+msgstr[0] "Прикажи %d одговор"
+msgstr[1] "Прикажи ги сите %d одговори"
 
 msgid "Top posters"
 msgstr "Најактивни објавувачи"
@@ -8115,26 +8121,8 @@ msgstr "Неважечки XML. Нема XRD-корен."
 msgid "Getting backup from file '%s'."
 msgstr "Земам резерва на податотеката „%s“."
 
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "Целото име е предолго (највеќе 255 знаци)"
+#~ msgid "Friends timeline"
+#~ msgstr "Историја на пријатели"
 
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "описот е предолг (највеќе %d знаци)"
-
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "Местоположбата е предолга (дозволени се највеќе 255 знаци)."
-
-#~ msgid "Too many aliases! Maximum %d."
-#~ msgstr "Премногу алијаси! Дозволено е највеќе %d."
-
-#~ msgctxt "BUTTON"
-#~ msgid "Comment"
-#~ msgstr "Коментар"
-
-#~ msgid "Add a comment..."
-#~ msgstr "Додај коментар..."
-
-#~ msgid "Show all %d comment"
-#~ msgid_plural "Show all %d comments"
-#~ msgstr[0] "Прикажи го коментарот"
-#~ msgstr[1] "Прикажи ги сите %d коментари"
+#~ msgid "Everyone on this site"
+#~ msgstr "Сите на ова мрежно место"
