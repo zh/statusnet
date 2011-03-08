@@ -12,13 +12,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:36:23+0000\n"
+"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"PO-Revision-Date: 2011-03-08 01:05:16+0000\n"
 "Language-Team: Hungarian <http://translatewiki.net/wiki/Portal:hu>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-03 17:59:19+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hu\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -5841,84 +5841,9 @@ msgstr "Válasz"
 msgid "Write a reply..."
 msgstr ""
 
-msgid "Home"
-msgstr "Otthon"
-
 #, fuzzy
-msgid "Friends timeline"
-msgstr "%s története"
-
-#, fuzzy
-msgid "Your profile"
-msgstr "Csoportprofil"
-
-msgid "Public"
-msgstr ""
-
-#, fuzzy
-msgid "Everyone on this site"
-msgstr "Emberek keresése az oldalon"
-
-#, fuzzy
-msgid "Settings"
-msgstr "SMS beállítások"
-
-#, fuzzy
-msgid "Change your personal settings"
-msgstr "Változtasd meg a jelszavad"
-
-#, fuzzy
-msgid "Site configuration"
-msgstr "A felhasználók beállításai"
-
-msgid "Logout"
-msgstr "Kijelentkezés"
-
-msgid "Logout from the site"
-msgstr "Kijelentkezés a webhelyről"
-
-msgid "Login to the site"
-msgstr "Bejelentkezés a webhelyre"
-
-msgid "Search"
-msgstr "Keresés"
-
-#, fuzzy
-msgid "Search the site"
-msgstr "A webhely témája."
-
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
-msgid "Help"
-msgstr "Súgó"
-
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-msgid "About"
-msgstr "Névjegy"
-
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-msgid "FAQ"
-msgstr "GyIK"
-
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
-msgid "TOS"
-msgstr "Felhasználási feltételek"
-
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-msgid "Privacy"
-msgstr ""
-
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-msgid "Source"
-msgstr "Forrás"
-
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
-#. TRANS: StatusNet site, where to report bugs, ...
-msgid "Contact"
-msgstr "Kapcsolat"
-
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-msgid "Badge"
-msgstr ""
+msgid "Status"
+msgstr "StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6664,6 +6589,12 @@ msgstr "Menj a telepítőhöz."
 msgid "Database error"
 msgstr "Adatbázishiba"
 
+msgid "Home"
+msgstr "Otthon"
+
+msgid "Public"
+msgstr ""
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "Töröljük ezt a felhasználót"
@@ -7308,6 +7239,20 @@ msgstr ""
 "keveredj más felhasználókkal. Olyan üzenetet küldhetnek neked emberek, amit "
 "csak te láthatsz."
 
+#, fuzzy
+msgid "Inbox"
+msgstr "Homokozó"
+
+msgid "Your incoming messages"
+msgstr "A bejövő üzeneteid"
+
+#, fuzzy
+msgid "Outbox"
+msgstr "%s kimenő postafiókja"
+
+msgid "Your sent messages"
+msgstr "A küldött üzeneteid"
+
 msgid "Could not parse message."
 msgstr "Nem sikerült az üzenetet feldolgozni."
 
@@ -7383,6 +7328,20 @@ msgstr "Üzenet"
 
 msgid "from"
 msgstr "írta"
+
+msgid "Can't get author for activity."
+msgstr ""
+
+#, fuzzy
+msgid "Bookmark not posted to this group."
+msgstr "Nem vagy tagja ennek a csoportnak."
+
+#, fuzzy
+msgid "Object not posted to this user."
+msgstr "Ne töröljük ezt a hírt"
+
+msgid "Don't know how to handle this kind of target."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -7496,25 +7455,15 @@ msgstr ""
 msgid "Couldn't insert new subscription."
 msgstr ""
 
+#, fuzzy
+msgid "Your profile"
+msgstr "Csoportprofil"
+
 msgid "Replies"
 msgstr "Válaszok"
 
 msgid "Favorites"
 msgstr "Kedvencek"
-
-#, fuzzy
-msgid "Inbox"
-msgstr "Homokozó"
-
-msgid "Your incoming messages"
-msgstr "A bejövő üzeneteid"
-
-#, fuzzy
-msgid "Outbox"
-msgstr "%s kimenő postafiókja"
-
-msgid "Your sent messages"
-msgstr "A küldött üzeneteid"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -7538,6 +7487,34 @@ msgstr ""
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr ""
+
+#, fuzzy
+msgid "Settings"
+msgstr "SMS beállítások"
+
+#, fuzzy
+msgid "Change your personal settings"
+msgstr "Változtasd meg a jelszavad"
+
+#, fuzzy
+msgid "Site configuration"
+msgstr "A felhasználók beállításai"
+
+msgid "Logout"
+msgstr "Kijelentkezés"
+
+msgid "Logout from the site"
+msgstr "Kijelentkezés a webhelyről"
+
+msgid "Login to the site"
+msgstr "Bejelentkezés a webhelyre"
+
+msgid "Search"
+msgstr "Keresés"
+
+#, fuzzy
+msgid "Search the site"
+msgstr "A webhely témája."
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -7647,6 +7624,39 @@ msgstr "Keressünk a hírek tartalmában"
 
 msgid "Find groups on this site"
 msgstr "Csoportok keresése az oldalon"
+
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+msgid "Help"
+msgstr "Súgó"
+
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+msgid "About"
+msgstr "Névjegy"
+
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+msgid "FAQ"
+msgstr "GyIK"
+
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+msgid "TOS"
+msgstr "Felhasználási feltételek"
+
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+msgid "Privacy"
+msgstr ""
+
+#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+msgid "Source"
+msgstr "Forrás"
+
+#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: StatusNet site, where to report bugs, ...
+msgid "Contact"
+msgstr "Kapcsolat"
+
+#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+msgid "Badge"
+msgstr ""
 
 msgid "Untitled section"
 msgstr "Névtelen szakasz"
@@ -7927,19 +7937,10 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "A teljes név túl hosszú (legfeljebb 255 karakter lehet)."
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "a leírás túl hosszú (legfeljebb %d karakter)."
-
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "A hely túl hosszú (legfeljebb 255 karakter lehet)."
-
-#~ msgid "Too many aliases! Maximum %d."
-#~ msgstr "Túl sok álnév! Legfeljebb %d lehet."
+#, fuzzy
+#~ msgid "Friends timeline"
+#~ msgstr "%s története"
 
 #, fuzzy
-#~ msgctxt "BUTTON"
-#~ msgid "Comment"
-#~ msgstr "Tartalom"
+#~ msgid "Everyone on this site"
+#~ msgstr "Emberek keresése az oldalon"

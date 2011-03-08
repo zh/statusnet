@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:36:31+0000\n"
+"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"PO-Revision-Date: 2011-03-08 01:05:24+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-03-03 17:59:19+0000\n"
+"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -2961,9 +2961,8 @@ msgid "Type"
 msgstr "Type"
 
 #. TRANS: Dropdown field instructions in the license admin panel.
-#, fuzzy
 msgid "Select a license."
-msgstr "Selecteer licentie"
+msgstr "Selecteer een licentie."
 
 #. TRANS: Form legend in the license admin panel.
 msgid "License details"
@@ -3002,9 +3001,8 @@ msgid "URL for an image to display with the license."
 msgstr "Een URL voor een afbeelding om weer te geven met de licentie."
 
 #. TRANS: Button title in the license admin panel.
-#, fuzzy
 msgid "Save license settings."
-msgstr "Licentieinstellingen opslaan"
+msgstr "Licentieinstellingen opslaan."
 
 #. TRANS: Client error displayed when trying to log in while already logged in.
 #. TRANS: Client error displayed trying to use "one time password login" when already logged in.
@@ -3039,7 +3037,6 @@ msgid "Automatically login in the future; not for shared computers!"
 msgstr "Voortaan automatisch aanmelden. Niet gebruiken op gedeelde computers!"
 
 #. TRANS: Button text for log in on login page.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Login"
 msgstr "Aanmelden"
@@ -3136,7 +3133,6 @@ msgstr "Nieuw bericht"
 
 #. TRANS: Client error displayed trying to send a direct message to a user while sender and
 #. TRANS: receiver are not subscribed to each other.
-#, fuzzy
 msgid "You cannot send a message to this user."
 msgstr "U kunt geen bericht naar deze gebruiker zenden."
 
@@ -5987,86 +5983,17 @@ msgid "Show more"
 msgstr "Meer weergeven"
 
 #. TRANS: Inline reply form submit button: submits a reply comment.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Reply"
 msgstr "Antwoorden"
 
 #. TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
 msgid "Write a reply..."
-msgstr ""
+msgstr "Schrijf een antwoord..."
 
-msgid "Home"
-msgstr "Start"
-
-msgid "Friends timeline"
-msgstr "Tijdlijn van vrienden"
-
-msgid "Your profile"
-msgstr "Uw profiel"
-
-msgid "Public"
-msgstr "Openbaar"
-
-msgid "Everyone on this site"
-msgstr "Iedereen op deze site"
-
-msgid "Settings"
-msgstr "SMS-instellingen"
-
-msgid "Change your personal settings"
-msgstr "Persoonlijke instellingen wijzigen"
-
-msgid "Site configuration"
-msgstr "Siteinstellingen"
-
-msgid "Logout"
-msgstr "Afmelden"
-
-msgid "Logout from the site"
-msgstr "Van de site afmelden"
-
-msgid "Login to the site"
-msgstr "Bij de site aanmelden"
-
-msgid "Search"
-msgstr "Zoeken"
-
-msgid "Search the site"
-msgstr "Site doorzoeken"
-
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
-msgid "Help"
-msgstr "Help"
-
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-msgid "About"
-msgstr "Over"
-
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-msgid "FAQ"
-msgstr "Veel gestelde vragen"
-
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
-msgid "TOS"
-msgstr "Gebruiksvoorwaarden"
-
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-msgid "Privacy"
-msgstr "Privacy"
-
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-msgid "Source"
-msgstr "Broncode"
-
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
-#. TRANS: StatusNet site, where to report bugs, ...
-msgid "Contact"
-msgstr "Contact"
-
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-msgid "Badge"
-msgstr "Widget"
+#, fuzzy
+msgid "Status"
+msgstr "StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6878,6 +6805,12 @@ msgstr "Naar het installatieprogramma gaan."
 msgid "Database error"
 msgstr "Databasefout"
 
+msgid "Home"
+msgstr "Start"
+
+msgid "Public"
+msgstr "Openbaar"
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "Gebruiker verwijderen"
@@ -7556,6 +7489,18 @@ msgstr ""
 "U hebt geen privéberichten. U kunt privéberichten verzenden aan andere "
 "gebruikers. Mensen kunnen u privéberichten sturen die alleen u kunt lezen."
 
+msgid "Inbox"
+msgstr "Postvak IN"
+
+msgid "Your incoming messages"
+msgstr "Uw inkomende berichten"
+
+msgid "Outbox"
+msgstr "Postvak UIT"
+
+msgid "Your sent messages"
+msgstr "Uw verzonden berichten"
+
 msgid "Could not parse message."
 msgstr "Het was niet mogelijk het bericht te verwerken."
 
@@ -7633,6 +7578,20 @@ msgstr "Berichten"
 msgid "from"
 msgstr "van"
 
+msgid "Can't get author for activity."
+msgstr ""
+
+#, fuzzy
+msgid "Bookmark not posted to this group."
+msgstr "U mag deze groep niet verwijderen."
+
+#, fuzzy
+msgid "Object not posted to this user."
+msgstr "Deze gebruiker niet verwijderen."
+
+msgid "Don't know how to handle this kind of target."
+msgstr ""
+
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
 msgstr "Gebruikersnaam kan niet leeg zijn."
@@ -7658,9 +7617,8 @@ msgid "Attach"
 msgstr "Toevoegen"
 
 #. TRANS: Title for input field to attach a file to a notice.
-#, fuzzy
 msgid "Attach a file."
-msgstr "Bestand toevoegen"
+msgstr "Voeg een bestand toe."
 
 #. TRANS: Field label to add location to a notice.
 msgid "Share my location"
@@ -7747,23 +7705,14 @@ msgstr "Dubbele mededeling."
 msgid "Couldn't insert new subscription."
 msgstr "Kon nieuw abonnement niet toevoegen."
 
+msgid "Your profile"
+msgstr "Uw profiel"
+
 msgid "Replies"
 msgstr "Antwoorden"
 
 msgid "Favorites"
 msgstr "Favorieten"
-
-msgid "Inbox"
-msgstr "Postvak IN"
-
-msgid "Your incoming messages"
-msgstr "Uw inkomende berichten"
-
-msgid "Outbox"
-msgstr "Postvak UIT"
-
-msgid "Your sent messages"
-msgstr "Uw verzonden berichten"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -7787,6 +7736,30 @@ msgstr "Inschakelen"
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr "Plug-inbeschrijvingen zijn niet beschikbaar als uitgeschakeld."
+
+msgid "Settings"
+msgstr "SMS-instellingen"
+
+msgid "Change your personal settings"
+msgstr "Persoonlijke instellingen wijzigen"
+
+msgid "Site configuration"
+msgstr "Siteinstellingen"
+
+msgid "Logout"
+msgstr "Afmelden"
+
+msgid "Logout from the site"
+msgstr "Van de site afmelden"
+
+msgid "Login to the site"
+msgstr "Bij de site aanmelden"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Search the site"
+msgstr "Site doorzoeken"
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -7895,6 +7868,39 @@ msgstr "Inhoud van mededelingen vinden"
 
 msgid "Find groups on this site"
 msgstr "Groepen op deze site vinden"
+
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+msgid "Help"
+msgstr "Help"
+
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+msgid "About"
+msgstr "Over"
+
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+msgid "FAQ"
+msgstr "Veel gestelde vragen"
+
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+msgid "TOS"
+msgstr "Gebruiksvoorwaarden"
+
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+msgid "Privacy"
+msgstr "Privacy"
+
+#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+msgid "Source"
+msgstr "Broncode"
+
+#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: StatusNet site, where to report bugs, ...
+msgid "Contact"
+msgstr "Contact"
+
+#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+msgid "Badge"
+msgstr "Widget"
 
 msgid "Untitled section"
 msgstr "Naamloze sectie"
@@ -8025,11 +8031,11 @@ msgstr ""
 "Er is een fout opgetreden tijdens het openen van het archiefbestand met de "
 "vormgeving."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Show %d reply"
 msgid_plural "Show all %d replies"
-msgstr[0] "Meer weergeven"
-msgstr[1] "Meer weergeven"
+msgstr[0] "Antwoord weergegeven"
+msgstr[1] "Alle %d antwoorden weergegeven"
 
 msgid "Top posters"
 msgstr "Meest actieve gebruikers"
@@ -8183,26 +8189,8 @@ msgstr "Ongeldige XML. De XRD-root mist."
 msgid "Getting backup from file '%s'."
 msgstr "De back-up wordt uit het bestand \"%s\" geladen."
 
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "De volledige naam is te lang (maximaal 255 tekens)."
+#~ msgid "Friends timeline"
+#~ msgstr "Tijdlijn van vrienden"
 
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "de beschrijving is te lang (maximaal %d tekens)"
-
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "De locatie is te lang (maximaal 255 tekens)."
-
-#~ msgid "Too many aliases! Maximum %d."
-#~ msgstr "Te veel aliassen! Het maximale aantal is %d."
-
-#~ msgctxt "BUTTON"
-#~ msgid "Comment"
-#~ msgstr "Opmerking"
-
-#~ msgid "Add a comment..."
-#~ msgstr "Opmerking toevoegen..."
-
-#~ msgid "Show all %d comment"
-#~ msgid_plural "Show all %d comments"
-#~ msgstr[0] "Opmerking weergeven"
-#~ msgstr[1] "Alle %d opmerkingen weergeven"
+#~ msgid "Everyone on this site"
+#~ msgstr "Iedereen op deze site"

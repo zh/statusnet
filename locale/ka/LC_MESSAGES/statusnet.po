@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:36:27+0000\n"
+"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"PO-Revision-Date: 2011-03-08 01:05:20+0000\n"
 "Language-Team: Georgian <http://translatewiki.net/wiki/Portal:ka>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ka\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-03 17:59:19+0000\n"
+"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -5992,87 +5992,8 @@ msgid "Write a reply..."
 msgstr ""
 
 #, fuzzy
-msgid "Home"
-msgstr "ვებ. გვერსი"
-
-#, fuzzy
-msgid "Friends timeline"
-msgstr "%s-ის ნაკადი"
-
-#, fuzzy
-msgid "Your profile"
-msgstr "მომხმარებლის პროფილი"
-
-msgid "Public"
-msgstr "საჯარო"
-
-#, fuzzy
-msgid "Everyone on this site"
-msgstr "მოძებნე ადამიანები ამ საიტზე"
-
-#, fuzzy
-msgid "Settings"
-msgstr "SMS პარამეტრები"
-
-#, fuzzy
-msgid "Change your personal settings"
-msgstr "შეცვალე პროფილის პარამეტრები"
-
-#, fuzzy
-msgid "Site configuration"
-msgstr "მომხმარებლის კონფიგურაცია"
-
-#, fuzzy
-msgid "Logout"
-msgstr "გასვლა"
-
-#, fuzzy
-msgid "Logout from the site"
-msgstr "გასვლა საიტიდან"
-
-#, fuzzy
-msgid "Login to the site"
-msgstr "საიტზე შესვლა"
-
-msgid "Search"
-msgstr "ძიება"
-
-#, fuzzy
-msgid "Search the site"
-msgstr "ძიება საიტზე"
-
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
-msgid "Help"
-msgstr "დახმარება"
-
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-msgid "About"
-msgstr "საიტის შესახებ"
-
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-msgid "FAQ"
-msgstr "ხდკ"
-
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
-msgid "TOS"
-msgstr "მპ"
-
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-msgid "Privacy"
-msgstr "პირადი"
-
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-msgid "Source"
-msgstr "წყარო"
-
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
-#. TRANS: StatusNet site, where to report bugs, ...
-msgid "Contact"
-msgstr "კონტაქტი"
-
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-msgid "Badge"
-msgstr "იარლიყი"
+msgid "Status"
+msgstr "StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6829,6 +6750,13 @@ msgstr "გადადი ამ ინსტალატორზე."
 msgid "Database error"
 msgstr "მონაცემთა ბაზის შეცდომა"
 
+#, fuzzy
+msgid "Home"
+msgstr "ვებ. გვერსი"
+
+msgid "Public"
+msgstr "საჯარო"
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "ამ მომხმარებლის წაშლა"
@@ -7483,6 +7411,18 @@ msgstr ""
 "შეტყობინებები, რომ ჩაერთოთ საუბრებში სხვა ხალხთან. ხალხს შეუძლია "
 "გამოგიგზავნონ შეტყობინებები მხოლოდ თქვენ დასანახად."
 
+msgid "Inbox"
+msgstr "შემომავალი წერილების ყუთი"
+
+msgid "Your incoming messages"
+msgstr "თქვენი შემომავალი შეტყობინებები"
+
+msgid "Outbox"
+msgstr "გამავალი წერილების ყუთი"
+
+msgid "Your sent messages"
+msgstr "თქვენი გაგზავნილი წერილები"
+
 msgid "Could not parse message."
 msgstr "შეტყობინების გაცრა (გა-parse-ვა) ვერ მოხერხდა."
 
@@ -7560,6 +7500,20 @@ msgstr "შეტყობინება"
 
 msgid "from"
 msgstr "ვისგან"
+
+msgid "Can't get author for activity."
+msgstr ""
+
+#, fuzzy
+msgid "Bookmark not posted to this group."
+msgstr "თვენ არ ხართ ამ ჯგუფის წევრი."
+
+#, fuzzy
+msgid "Object not posted to this user."
+msgstr "არ წაშალო ეს შეტყობინება"
+
+msgid "Don't know how to handle this kind of target."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -7674,23 +7628,15 @@ msgstr ""
 msgid "Couldn't insert new subscription."
 msgstr "ახალი გამოწერის ჩასმა ვერ მოხერხდა."
 
+#, fuzzy
+msgid "Your profile"
+msgstr "მომხმარებლის პროფილი"
+
 msgid "Replies"
 msgstr "პასუხები"
 
 msgid "Favorites"
 msgstr "რჩეულები"
-
-msgid "Inbox"
-msgstr "შემომავალი წერილების ყუთი"
-
-msgid "Your incoming messages"
-msgstr "თქვენი შემომავალი შეტყობინებები"
-
-msgid "Outbox"
-msgstr "გამავალი წერილების ყუთი"
-
-msgid "Your sent messages"
-msgstr "თქვენი გაგზავნილი წერილები"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -7714,6 +7660,37 @@ msgstr ""
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr ""
+
+#, fuzzy
+msgid "Settings"
+msgstr "SMS პარამეტრები"
+
+#, fuzzy
+msgid "Change your personal settings"
+msgstr "შეცვალე პროფილის პარამეტრები"
+
+#, fuzzy
+msgid "Site configuration"
+msgstr "მომხმარებლის კონფიგურაცია"
+
+#, fuzzy
+msgid "Logout"
+msgstr "გასვლა"
+
+#, fuzzy
+msgid "Logout from the site"
+msgstr "გასვლა საიტიდან"
+
+#, fuzzy
+msgid "Login to the site"
+msgstr "საიტზე შესვლა"
+
+msgid "Search"
+msgstr "ძიება"
+
+#, fuzzy
+msgid "Search the site"
+msgstr "ძიება საიტზე"
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -7823,6 +7800,39 @@ msgstr "მოძებნე შეტყობინებებში"
 
 msgid "Find groups on this site"
 msgstr "მოძებნე ჯგუფები ამ საიტზე"
+
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+msgid "Help"
+msgstr "დახმარება"
+
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+msgid "About"
+msgstr "საიტის შესახებ"
+
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+msgid "FAQ"
+msgstr "ხდკ"
+
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+msgid "TOS"
+msgstr "მპ"
+
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+msgid "Privacy"
+msgstr "პირადი"
+
+#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+msgid "Source"
+msgstr "წყარო"
+
+#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: StatusNet site, where to report bugs, ...
+msgid "Contact"
+msgstr "კონტაქტი"
+
+#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+msgid "Badge"
+msgstr "იარლიყი"
 
 msgid "Untitled section"
 msgstr "უსათაურო სექცია"
@@ -8102,16 +8112,10 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "სრული სახელი ძალიან გრძელია (არაუმეტეს 255 სიმბოლო)."
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "აღწერა ძალიან გრძელია (არაუმეტეს %d სიმბოლო)."
-
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "ადგილმდებარეობა ძალიან გრძელია (არაუმეტეს 255 სიმბოლო)."
+#, fuzzy
+#~ msgid "Friends timeline"
+#~ msgstr "%s-ის ნაკადი"
 
 #, fuzzy
-#~ msgctxt "BUTTON"
-#~ msgid "Comment"
-#~ msgstr "შიგთავსი"
+#~ msgid "Everyone on this site"
+#~ msgstr "მოძებნე ადამიანები ამ საიტზე"

@@ -613,6 +613,8 @@ class ActivityObject
             $this->poco->outputTo($xo);
         }
 
+        // @fixme there's no way here to make a tree; elements can only contain plaintext
+        // @fixme these may collide with JSON extensions
         foreach ($this->extra as $el) {
             list($extraTag, $attrs, $content) = $el;
             $xo->element($extraTag, $attrs, $content);
@@ -697,6 +699,7 @@ class ActivityObject
         //
         // We can probably use the whole schema URL here but probably the
         // relative simple name is easier to parse
+        // @fixme this breaks extension URIs
         $object['type'] = substr($this->type, strrpos($this->type, '/') + 1);
 
         // summary
@@ -708,7 +711,9 @@ class ActivityObject
         $object['url'] = $this->id;
 
         /* Extensions */
-
+        // @fixme these may collide with XML extensions
+        // @fixme multiple tags of same name will overwrite each other
+        // @fixme text content from XML extensions will be lost
         foreach ($this->extra as $e) {
             list($objectName, $props, $txt) = $e;
             $object[$objectName] = $props;
