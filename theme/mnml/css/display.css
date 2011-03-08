@@ -234,7 +234,7 @@ p.instructions {
 
 /*-- FORMS --*/
 
-.form_notice label[for=notice_data-attach],
+.form_notice label.notice_data-attach,
 #export_data li a.rss,
 #export_data li a.atom,
 #export_data li a.foaf,
@@ -292,7 +292,7 @@ button.minimize,
 .form_notice label.notice_data-geo.checked {
     background-position:0 -1846px;
 }
-.form_notice label[for=notice_data-attach] {
+.form_notice label.notice_data-attach {
     background-position:0 -328px;
 }
 button.close {
@@ -937,19 +937,19 @@ z-index:2;
 .form_notice label {
 float:left;
 }
-.form_notice label[for=notice_data-attach],
-.form_notice #notice_data-attach {
+.form_notice label.notice_data-attach,
+.form_notice input.notice_data-attach {
 position:absolute;
 top:2em;
 right: 3em;
 cursor:pointer;
 }
-.form_notice label[for=notice_data-attach] {
+.form_notice label.notice_data-attach {
 text-indent:-9999px;
 width:16px;
 height:16px;
 }
-.form_notice #notice_data-attach {
+.form_notice input.notice_data-attach {
 opacity: 0;
 padding:0;
 height:1.6em;
