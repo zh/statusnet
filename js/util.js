@@ -228,6 +228,9 @@ var SN = { // StatusNet
          * will be extracted and copied in, replacing the original form.
          * If there's no form, the first paragraph will be used.
          *
+         * This will automatically be applied on the 'submit' event for
+         * any form with the 'ajax' class.
+         *
          * @fixme can sometimes explode confusingly if returnd data is bogus
          * @fixme error handling is pretty vague
          * @fixme can't submit file uploads
@@ -631,17 +634,6 @@ var SN = { // StatusNet
                     }
                 }
             }
-        },
-
-        /**
-         * Setup function -- DOES NOT apply immediately.
-         *
-         * Sets up event handlers for favor/disfavor forms to submit via XHR.
-         * Uses 'live' rather than 'bind', so applies to future as well as present items.
-         */
-        NoticeFavor: function() {
-            $('.form_favor').live('click', function() { SN.U.FormXHR($(this)); return false; });
-            $('.form_disfavor').live('click', function() { SN.U.FormXHR($(this)); return false; });
         },
 
         NoticeInlineReplyPlaceholder: function(notice) {
@@ -1331,7 +1323,6 @@ var SN = { // StatusNet
                 if (masterForm.length > 0) {
                     SN.C.I.NoticeFormMaster = document._importNode(masterForm[0], true);
                 }
-                SN.U.NoticeFavor();
                 SN.U.NoticeRepeat();
                 SN.U.NoticeReply();
                 SN.U.NoticeInlineReplySetup();
@@ -1348,12 +1339,6 @@ var SN = { // StatusNet
          */
         EntityActions: function() {
             if ($('body.user_in').length > 0) {
-                $('.form_user_subscribe').live('click', function() { SN.U.FormXHR($(this)); return false; });
-                $('.form_user_unsubscribe').live('click', function() { SN.U.FormXHR($(this)); return false; });
-                $('.form_group_join').live('click', function() { SN.U.FormXHR($(this)); return false; });
-                $('.form_group_leave').live('click', function() { SN.U.FormXHR($(this)); return false; });
-                $('.form_user_nudge').live('click', function() { SN.U.FormXHR($(this)); return false; });
-
                 SN.U.NewDirectMessage();
             }
         },
@@ -1377,6 +1362,16 @@ var SN = { // StatusNet
             $('#form_login').bind('submit', function() {
                 SN.U.StatusNetInstance.Set({Nickname: $('#form_login #nickname').val()});
                 return true;
+            });
+        },
+
+        /**
+         * Set up any generic 'ajax' form so it submits via AJAX with auto-replacement.
+         */
+        AjaxForms: function() {
+            $('form.ajax').live('submit', function() {
+                SN.U.FormXHR($(this));
+                return false;
             });
         },
 
@@ -1416,6 +1411,7 @@ var SN = { // StatusNet
  * don't start them loading until after DOM-ready time!
  */
 $(document).ready(function(){
+    SN.Init.AjaxForms();
     SN.Init.UploadForms();
     if ($('.'+SN.C.S.FormNotice).length > 0) {
         SN.Init.NoticeForm();
