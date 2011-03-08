@@ -14,17 +14,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:36:26+0000\n"
+"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"PO-Revision-Date: 2011-03-08 01:05:19+0000\n"
 "Language-Team: Japanese <http://translatewiki.net/wiki/Portal:ja>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-03 17:59:19+0000\n"
+"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -6061,82 +6061,9 @@ msgstr "返信"
 msgid "Write a reply..."
 msgstr ""
 
-msgid "Home"
-msgstr "ホームページ"
-
 #, fuzzy
-msgid "Friends timeline"
-msgstr "%s のタイムライン"
-
-msgid "Your profile"
-msgstr "グループプロファイル"
-
-msgid "Public"
-msgstr "パブリック"
-
-#, fuzzy
-msgid "Everyone on this site"
-msgstr "このサイトの人々を探す"
-
-msgid "Settings"
-msgstr "SMS 設定"
-
-#, fuzzy
-msgid "Change your personal settings"
-msgstr "プロファイル設定の変更"
-
-#, fuzzy
-msgid "Site configuration"
-msgstr "ユーザ設定"
-
-msgid "Logout"
-msgstr "ロゴ"
-
-msgid "Logout from the site"
-msgstr "サイトのテーマ"
-
-msgid "Login to the site"
-msgstr "サイトへログイン"
-
-msgid "Search"
-msgstr "検索"
-
-#, fuzzy
-msgid "Search the site"
-msgstr "サイト検索"
-
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
-msgid "Help"
-msgstr "ヘルプ"
-
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-msgid "About"
-msgstr "About"
-
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-msgid "FAQ"
-msgstr "よくある質問"
-
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
-msgid "TOS"
-msgstr ""
-
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-msgid "Privacy"
-msgstr "プライバシー"
-
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-msgid "Source"
-msgstr "ソース"
-
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
-#. TRANS: StatusNet site, where to report bugs, ...
-msgid "Contact"
-msgstr "連絡先"
-
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-msgid "Badge"
-msgstr "バッジ"
+msgid "Status"
+msgstr "StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6900,6 +6827,12 @@ msgstr "インストーラへ。"
 msgid "Database error"
 msgstr "データベースエラー"
 
+msgid "Home"
+msgstr "ホームページ"
+
+msgid "Public"
+msgstr "パブリック"
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "このユーザを削除"
@@ -7546,6 +7479,18 @@ msgstr ""
 "に引き込むプライベートメッセージを送ることができます。人々はあなただけへの"
 "メッセージを送ることができます。"
 
+msgid "Inbox"
+msgstr "受信箱"
+
+msgid "Your incoming messages"
+msgstr "あなたの入ってくるメッセージ"
+
+msgid "Outbox"
+msgstr "送信箱"
+
+msgid "Your sent messages"
+msgstr "あなたが送ったメッセージ"
+
 msgid "Could not parse message."
 msgstr "メッセージを分析できませんでした。"
 
@@ -7624,6 +7569,20 @@ msgstr "メッセージ"
 
 msgid "from"
 msgstr "from"
+
+msgid "Can't get author for activity."
+msgstr ""
+
+#, fuzzy
+msgid "Bookmark not posted to this group."
+msgstr "このグループのメンバーではありません。"
+
+#, fuzzy
+msgid "Object not posted to this user."
+msgstr "このつぶやきを削除できません。"
+
+msgid "Don't know how to handle this kind of target."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -7742,23 +7701,14 @@ msgstr ""
 msgid "Couldn't insert new subscription."
 msgstr "サブスクリプションを追加できません"
 
+msgid "Your profile"
+msgstr "グループプロファイル"
+
 msgid "Replies"
 msgstr "返信"
 
 msgid "Favorites"
 msgstr "お気に入り"
-
-msgid "Inbox"
-msgstr "受信箱"
-
-msgid "Your incoming messages"
-msgstr "あなたの入ってくるメッセージ"
-
-msgid "Outbox"
-msgstr "送信箱"
-
-msgid "Your sent messages"
-msgstr "あなたが送ったメッセージ"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -7782,6 +7732,33 @@ msgstr ""
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr ""
+
+msgid "Settings"
+msgstr "SMS 設定"
+
+#, fuzzy
+msgid "Change your personal settings"
+msgstr "プロファイル設定の変更"
+
+#, fuzzy
+msgid "Site configuration"
+msgstr "ユーザ設定"
+
+msgid "Logout"
+msgstr "ロゴ"
+
+msgid "Logout from the site"
+msgstr "サイトのテーマ"
+
+msgid "Login to the site"
+msgstr "サイトへログイン"
+
+msgid "Search"
+msgstr "検索"
+
+#, fuzzy
+msgid "Search the site"
+msgstr "サイト検索"
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -7891,6 +7868,39 @@ msgstr "つぶやきの内容を探す"
 
 msgid "Find groups on this site"
 msgstr "このサイト上のグループを検索する"
+
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+msgid "Help"
+msgstr "ヘルプ"
+
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+msgid "About"
+msgstr "About"
+
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+msgid "FAQ"
+msgstr "よくある質問"
+
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+msgid "TOS"
+msgstr ""
+
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+msgid "Privacy"
+msgstr "プライバシー"
+
+#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+msgid "Source"
+msgstr "ソース"
+
+#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: StatusNet site, where to report bugs, ...
+msgid "Contact"
+msgstr "連絡先"
+
+#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+msgid "Badge"
+msgstr "バッジ"
 
 msgid "Untitled section"
 msgstr "名称未設定のセクション"
@@ -8170,19 +8180,10 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "フルネームが長すぎます。（255字まで）"
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "記述が長すぎます。（最長 %d 字）"
-
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "場所が長すぎます。（255字まで）"
-
-#~ msgid "Too many aliases! Maximum %d."
-#~ msgstr "別名が多すぎます! 最大 %d。"
+#, fuzzy
+#~ msgid "Friends timeline"
+#~ msgstr "%s のタイムライン"
 
 #, fuzzy
-#~ msgctxt "BUTTON"
-#~ msgid "Comment"
-#~ msgstr "内容"
+#~ msgid "Everyone on this site"
+#~ msgstr "このサイトの人々を探す"

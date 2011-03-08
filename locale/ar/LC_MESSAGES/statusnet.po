@@ -12,19 +12,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:36:06+0000\n"
+"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"PO-Revision-Date: 2011-03-08 01:04:58+0000\n"
 "Language-Team: Arabic <http://translatewiki.net/wiki/Portal:ar>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == "
 "2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= "
 "99) ? 4 : 5 ) ) ) );\n"
-"X-POT-Import-Date: 2011-03-03 17:59:19+0000\n"
+"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -5911,82 +5911,9 @@ msgstr "رُد"
 msgid "Write a reply..."
 msgstr ""
 
-msgid "Home"
-msgstr "الرئيسية"
-
 #, fuzzy
-msgid "Friends timeline"
-msgstr "مسار %s الزمني"
-
-msgid "Your profile"
-msgstr "ملفك الشخصي"
-
-msgid "Public"
-msgstr "عام"
-
-#, fuzzy
-msgid "Everyone on this site"
-msgstr "ابحث عن أشخاص على هذا الموقع"
-
-msgid "Settings"
-msgstr "إعدادات"
-
-#, fuzzy
-msgid "Change your personal settings"
-msgstr "غيّر إعدادات ملفك الشخصي"
-
-#, fuzzy
-msgid "Site configuration"
-msgstr "ضبط المستخدم"
-
-msgid "Logout"
-msgstr "اخرج"
-
-msgid "Logout from the site"
-msgstr "اخرج من الموقع"
-
-msgid "Login to the site"
-msgstr "لُج إلى الموقع"
-
-msgid "Search"
-msgstr "ابحث"
-
-#, fuzzy
-msgid "Search the site"
-msgstr "ابحث في الموقع"
-
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
-msgid "Help"
-msgstr "مساعدة"
-
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-msgid "About"
-msgstr "عن"
-
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-msgid "FAQ"
-msgstr "الأسئلة المكررة"
-
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
-msgid "TOS"
-msgstr "الشروط"
-
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-msgid "Privacy"
-msgstr "خصوصية"
-
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-msgid "Source"
-msgstr "المصدر"
-
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
-#. TRANS: StatusNet site, where to report bugs, ...
-msgid "Contact"
-msgstr "اتصل"
-
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-msgid "Badge"
-msgstr "الجسر"
+msgid "Status"
+msgstr "ستاتس نت"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6810,6 +6737,12 @@ msgstr "اذهب إلى المُثبّت."
 msgid "Database error"
 msgstr "خطأ قاعدة بيانات"
 
+msgid "Home"
+msgstr "الرئيسية"
+
+msgid "Public"
+msgstr "عام"
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "احذف هذا المستخدم"
@@ -7426,6 +7359,18 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
+msgid "Inbox"
+msgstr "صندوق الوارد"
+
+msgid "Your incoming messages"
+msgstr "رسائلك الواردة"
+
+msgid "Outbox"
+msgstr "صندوق الصادر"
+
+msgid "Your sent messages"
+msgstr "رسائلك المُرسلة"
+
 msgid "Could not parse message."
 msgstr "تعذّر تحليل الرسالة."
 
@@ -7503,6 +7448,20 @@ msgstr "رسالة"
 
 msgid "from"
 msgstr "من"
+
+msgid "Can't get author for activity."
+msgstr ""
+
+#, fuzzy
+msgid "Bookmark not posted to this group."
+msgstr "لا يسمح لك بحذف هذه المجموعة."
+
+#, fuzzy
+msgid "Object not posted to this user."
+msgstr "لا تحذف هذا المستخدم."
+
+msgid "Don't know how to handle this kind of target."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -7621,23 +7580,14 @@ msgstr ""
 msgid "Couldn't insert new subscription."
 msgstr "تعذّر إدراج اشتراك جديد."
 
+msgid "Your profile"
+msgstr "ملفك الشخصي"
+
 msgid "Replies"
 msgstr "الردود"
 
 msgid "Favorites"
 msgstr "المفضلات"
-
-msgid "Inbox"
-msgstr "صندوق الوارد"
-
-msgid "Your incoming messages"
-msgstr "رسائلك الواردة"
-
-msgid "Outbox"
-msgstr "صندوق الصادر"
-
-msgid "Your sent messages"
-msgstr "رسائلك المُرسلة"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -7661,6 +7611,33 @@ msgstr ""
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr ""
+
+msgid "Settings"
+msgstr "إعدادات"
+
+#, fuzzy
+msgid "Change your personal settings"
+msgstr "غيّر إعدادات ملفك الشخصي"
+
+#, fuzzy
+msgid "Site configuration"
+msgstr "ضبط المستخدم"
+
+msgid "Logout"
+msgstr "اخرج"
+
+msgid "Logout from the site"
+msgstr "اخرج من الموقع"
+
+msgid "Login to the site"
+msgstr "لُج إلى الموقع"
+
+msgid "Search"
+msgstr "ابحث"
+
+#, fuzzy
+msgid "Search the site"
+msgstr "ابحث في الموقع"
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -7770,6 +7747,39 @@ msgstr "ابحث عن محتويات في الإشعارات"
 
 msgid "Find groups on this site"
 msgstr "ابحث عن مجموعات على هذا الموقع"
+
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+msgid "Help"
+msgstr "مساعدة"
+
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+msgid "About"
+msgstr "عن"
+
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+msgid "FAQ"
+msgstr "الأسئلة المكررة"
+
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+msgid "TOS"
+msgstr "الشروط"
+
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+msgid "Privacy"
+msgstr "خصوصية"
+
+#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+msgid "Source"
+msgstr "المصدر"
+
+#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: StatusNet site, where to report bugs, ...
+msgid "Contact"
+msgstr "اتصل"
+
+#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+msgid "Badge"
+msgstr "الجسر"
 
 msgid "Untitled section"
 msgstr "قسم غير مُعنون"
@@ -8077,20 +8087,10 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "الاسم الكامل طويل جدا (الأقصى 255 حرفًا)"
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "المنظمة طويلة جدا (الأقصى %d حرفا)."
+#, fuzzy
+#~ msgid "Friends timeline"
+#~ msgstr "مسار %s الزمني"
 
 #, fuzzy
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "المنظمة طويلة جدا (الأقصى 255 حرفا)."
-
-#~ msgid "Too many aliases! Maximum %d."
-#~ msgstr "كنيات كيرة! العدد الأقصى هو %d."
-
-#, fuzzy
-#~ msgctxt "BUTTON"
-#~ msgid "Comment"
-#~ msgstr "المحتوى"
+#~ msgid "Everyone on this site"
+#~ msgstr "ابحث عن أشخاص على هذا الموقع"

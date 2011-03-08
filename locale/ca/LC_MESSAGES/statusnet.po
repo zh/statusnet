@@ -16,17 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:36:10+0000\n"
+"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"PO-Revision-Date: 2011-03-08 01:05:03+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-03-03 17:59:19+0000\n"
+"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -2590,7 +2590,7 @@ msgstr "Adreça de missatgeria instantània"
 
 #, php-format
 msgid "%s screenname."
-msgstr ""
+msgstr "Nom en pantalla %s"
 
 #. TRANS: Header for IM preferences form.
 #, fuzzy
@@ -2634,9 +2634,8 @@ msgstr "S'han desat les preferències."
 msgid "No screenname."
 msgstr "Cap sobrenom."
 
-#, fuzzy
 msgid "No transport."
-msgstr "Cap avís."
+msgstr "No hi ha cap transport."
 
 #. TRANS: Message given saving IM address that cannot be normalised.
 #, fuzzy
@@ -2959,9 +2958,8 @@ msgid "Type"
 msgstr "Tipus"
 
 #. TRANS: Dropdown field instructions in the license admin panel.
-#, fuzzy
 msgid "Select a license."
-msgstr "Seleccioneu la llicència"
+msgstr "Seleccioneu una llicència."
 
 #. TRANS: Form legend in the license admin panel.
 msgid "License details"
@@ -3000,9 +2998,8 @@ msgid "URL for an image to display with the license."
 msgstr "URL de la imatge que es mostrarà juntament amb la llicència."
 
 #. TRANS: Button title in the license admin panel.
-#, fuzzy
 msgid "Save license settings."
-msgstr "Desa els paràmetres de la llicència"
+msgstr "Desa els paràmetres de la llicència."
 
 #. TRANS: Client error displayed when trying to log in while already logged in.
 #. TRANS: Client error displayed trying to use "one time password login" when already logged in.
@@ -3039,10 +3036,9 @@ msgstr ""
 "compartits!"
 
 #. TRANS: Button text for log in on login page.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Login"
-msgstr "Inici de sessió"
+msgstr "Inicia una sessió"
 
 #. TRANS: Link text for link to "reset password" on login page.
 msgid "Lost or forgotten password?"
@@ -3136,9 +3132,8 @@ msgstr "Nou missatge"
 
 #. TRANS: Client error displayed trying to send a direct message to a user while sender and
 #. TRANS: receiver are not subscribed to each other.
-#, fuzzy
 msgid "You cannot send a message to this user."
-msgstr "No podeu enviar un misssatge a aquest usuari."
+msgstr "No podeu enviar un missatge a l'usuari."
 
 #. TRANS: Form validator error displayed trying to send a direct message without content.
 #. TRANS: Client error displayed trying to send a notice without content.
@@ -3686,16 +3681,15 @@ msgstr "Usuaris que s'han etiquetat amb %1$s - pàgina %2$d"
 #. TRANS: Page title for AJAX form return when a disabling a plugin.
 msgctxt "plugin"
 msgid "Disabled"
-msgstr ""
+msgstr "Inhabilitat"
 
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
 msgstr "Aquesta acció només accepta sol·licituds POST."
 
-#, fuzzy
 msgid "You cannot administer plugins."
-msgstr "No podeu eliminar els usuaris."
+msgstr "No es poden administrar els connectors."
 
 #, fuzzy
 msgid "No such plugin."
@@ -3704,7 +3698,7 @@ msgstr "No existeix la pàgina."
 #. TRANS: Page title for AJAX form return when enabling a plugin.
 msgctxt "plugin"
 msgid "Enabled"
-msgstr ""
+msgstr "Habilitat"
 
 #. TRANS: Tab and title for plugins admin panel.
 #. TRANS: Menu item for site administration
@@ -3717,15 +3711,19 @@ msgid ""
 "\"http://status.net/wiki/Plugins\">online plugin documentation</a> for more "
 "details."
 msgstr ""
+"Es poden configurar i habilitar connectors addicionals manualment. Vegeu la "
+"<a href=\"http://status.net/wiki/Plugins\">documentació en línia sobre els "
+"connectors</a> per a més detalls."
 
 #. TRANS: Admin form section header
-#, fuzzy
 msgid "Default plugins"
-msgstr "Llengua per defecte"
+msgstr "Connectors per defecte"
 
 msgid ""
 "All default plugins have been disabled from the site's configuration file."
 msgstr ""
+"S'han inhabilitat tots els connectors per defecte del fitxer de configuració "
+"del lloc."
 
 msgid "Invalid notice content."
 msgstr "El contingut de l'avís no és vàlid."
@@ -5309,7 +5307,7 @@ msgid "[none]"
 msgstr "Cap"
 
 msgid "[internal]"
-msgstr ""
+msgstr "[intern]"
 
 #. TRANS: Label for dropdown with URL shortener services.
 msgid "Shorten URLs with"
@@ -5560,9 +5558,8 @@ msgstr "Visualitza els dissenys de perfil"
 msgid "Show or hide profile designs."
 msgstr "Mostra o amaga els dissenys de perfil."
 
-#, fuzzy
 msgid "Background file"
-msgstr "Fons"
+msgstr "Fitxer de fons"
 
 #. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
 #, php-format
@@ -5966,92 +5963,17 @@ msgid "Show more"
 msgstr "Mostra més"
 
 #. TRANS: Inline reply form submit button: submits a reply comment.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Reply"
 msgstr "Respon"
 
 #. TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
 msgid "Write a reply..."
-msgstr ""
-
-msgid "Home"
-msgstr "Pàgina personal"
+msgstr "Escriviu una resposta..."
 
 #, fuzzy
-msgid "Friends timeline"
-msgstr "%s línia temporal"
-
-#, fuzzy
-msgid "Your profile"
-msgstr "Perfil del grup"
-
-msgid "Public"
-msgstr "Públic"
-
-#, fuzzy
-msgid "Everyone on this site"
-msgstr "Cerca gent en aquest lloc"
-
-msgid "Settings"
-msgstr "Paràmetres de l'SMS"
-
-#, fuzzy
-msgid "Change your personal settings"
-msgstr "Canvieu els paràmetres del vostre perfil"
-
-#, fuzzy
-msgid "Site configuration"
-msgstr "Configuració de l'usuari"
-
-msgid "Logout"
-msgstr "Finalitza la sessió"
-
-msgid "Logout from the site"
-msgstr "Finalitza la sessió del lloc"
-
-msgid "Login to the site"
-msgstr "Inicia una sessió al lloc"
-
-msgid "Search"
-msgstr "Cerca"
-
-#, fuzzy
-msgid "Search the site"
-msgstr "Cerca al lloc"
-
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
-msgid "Help"
-msgstr "Ajuda"
-
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-msgid "About"
-msgstr "Quant a"
-
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-msgid "FAQ"
-msgstr "Preguntes més freqüents"
-
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
-msgid "TOS"
-msgstr "Termes del servei"
-
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-msgid "Privacy"
-msgstr "Privadesa"
-
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-msgid "Source"
-msgstr "Font"
-
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
-#. TRANS: StatusNet site, where to report bugs, ...
-msgid "Contact"
-msgstr "Contacte"
-
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-msgid "Badge"
-msgstr "Insígnia"
+msgid "Status"
+msgstr "StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6278,9 +6200,8 @@ msgid "Set site license"
 msgstr "Defineix la llicència del lloc"
 
 #. TRANS: Menu item title/tooltip
-#, fuzzy
 msgid "Plugins configuration"
-msgstr "Configuració dels camins"
+msgstr "Configuració dels connectors"
 
 #. TRANS: Client error 401.
 msgid "API resource requires read-write access, but you only have read access."
@@ -6539,9 +6460,8 @@ msgstr ""
 "Avisos: %3$s"
 
 #. TRANS: Error message text shown when a favorite could not be set because it has already been favorited.
-#, fuzzy
 msgid "Could not create favorite: already favorited."
-msgstr "No es pot crear el preferit."
+msgstr "No es pot crear el preferit: ja era preferit."
 
 #. TRANS: Text shown when a notice has been marked as favourite successfully.
 msgid "Notice marked as fave."
@@ -6851,13 +6771,18 @@ msgstr "Vés a l'instal·lador."
 msgid "Database error"
 msgstr "Error de la base de dades"
 
+msgid "Home"
+msgstr "Pàgina personal"
+
+msgid "Public"
+msgstr "Públic"
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "Elimina l'usuari"
 
-#, fuzzy
 msgid "Change design"
-msgstr "Desa el disseny"
+msgstr "Canvia el disseny"
 
 #. TRANS: Fieldset legend on profile design page to change profile page colours.
 msgid "Change colours"
@@ -6881,7 +6806,6 @@ msgid "Upload file"
 msgstr "Puja un fitxer"
 
 #. TRANS: Instructions for form on profile design page.
-#, fuzzy
 msgid ""
 "You can upload your personal background image. The maximum file size is 2Mb."
 msgstr ""
@@ -7526,6 +7450,18 @@ msgstr ""
 "usuaris en la conversa. La gent pot enviar-vos missatges només per als "
 "vostres ulls."
 
+msgid "Inbox"
+msgstr "Safata d'entrada"
+
+msgid "Your incoming messages"
+msgstr "Els teus missatges rebuts"
+
+msgid "Outbox"
+msgstr "Safata de sortida"
+
+msgid "Your sent messages"
+msgstr "Els teus missatges enviats"
+
 msgid "Could not parse message."
 msgstr "No es pot analitzar el missatge."
 
@@ -7602,6 +7538,20 @@ msgstr "Missatges"
 
 msgid "from"
 msgstr "de"
+
+msgid "Can't get author for activity."
+msgstr ""
+
+#, fuzzy
+msgid "Bookmark not posted to this group."
+msgstr "No teniu permisos per eliminar el grup."
+
+#, fuzzy
+msgid "Object not posted to this user."
+msgstr "No eliminis l'usuari."
+
+msgid "Don't know how to handle this kind of target."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -7717,23 +7667,14 @@ msgstr "Avís duplicat."
 msgid "Couldn't insert new subscription."
 msgstr "No s'ha pogut inserir una nova subscripció."
 
+msgid "Your profile"
+msgstr "El vostre perfil"
+
 msgid "Replies"
 msgstr "Respostes"
 
 msgid "Favorites"
 msgstr "Preferits"
-
-msgid "Inbox"
-msgstr "Safata d'entrada"
-
-msgid "Your incoming messages"
-msgstr "Els teus missatges rebuts"
-
-msgid "Outbox"
-msgstr "Safata de sortida"
-
-msgid "Your sent messages"
-msgstr "Els teus missatges enviats"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -7747,16 +7688,40 @@ msgstr "Desconegut"
 #. TRANS: Plugin admin panel controls
 msgctxt "plugin"
 msgid "Disable"
-msgstr ""
+msgstr "Inhabilita"
 
 #. TRANS: Plugin admin panel controls
 msgctxt "plugin"
 msgid "Enable"
-msgstr ""
+msgstr "Habilita"
 
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr ""
+
+msgid "Settings"
+msgstr "Paràmetres de l'SMS"
+
+msgid "Change your personal settings"
+msgstr "Canvieu els vostres paràmetres personals"
+
+msgid "Site configuration"
+msgstr "Configuració del lloc"
+
+msgid "Logout"
+msgstr "Finalitza la sessió"
+
+msgid "Logout from the site"
+msgstr "Finalitza la sessió del lloc"
+
+msgid "Login to the site"
+msgstr "Inicia una sessió al lloc"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Search the site"
+msgstr "Cerca al lloc"
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -7865,6 +7830,39 @@ msgstr "Cerca el contingut dels avisos"
 
 msgid "Find groups on this site"
 msgstr "Cerca grups en aquest lloc"
+
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+msgid "Help"
+msgstr "Ajuda"
+
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+msgid "About"
+msgstr "Quant a"
+
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+msgid "FAQ"
+msgstr "Preguntes més freqüents"
+
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+msgid "TOS"
+msgstr "Termes del servei"
+
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+msgid "Privacy"
+msgstr "Privadesa"
+
+#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+msgid "Source"
+msgstr "Font"
+
+#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: StatusNet site, where to report bugs, ...
+msgid "Contact"
+msgstr "Contacte"
+
+#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+msgid "Badge"
+msgstr "Insígnia"
 
 msgid "Untitled section"
 msgstr "Secció sense títol"
@@ -8145,19 +8143,8 @@ msgstr "L'XML no és vàlid, hi manca l'arrel XRD."
 msgid "Getting backup from file '%s'."
 msgstr "Es recupera la còpia de seguretat del fitxer '%s'."
 
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "El vostre nom sencer és massa llarg (màx. 255 caràcters)."
+#~ msgid "Friends timeline"
+#~ msgstr "Línia temporal dels amics"
 
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "la descripció és massa llarga (màx. %d caràcters)."
-
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "La localització és massa llarga (màx. 255 caràcters)."
-
-#~ msgid "Too many aliases! Maximum %d."
-#~ msgstr "Hi ha massa àlies! Màxim %d."
-
-#, fuzzy
-#~ msgctxt "BUTTON"
-#~ msgid "Comment"
-#~ msgstr "Contingut"
+#~ msgid "Everyone on this site"
+#~ msgstr "Tothom en aquest lloc"

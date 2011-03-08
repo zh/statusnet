@@ -365,8 +365,8 @@ class BookmarkPlugin extends MicroAppPlugin
     /**
      * Save a bookmark from an activity
      *
-     * @param Profile  $profile  Profile to use as author
      * @param Activity $activity Activity to save
+     * @param Profile  $profile  Profile to use as author
      * @param array    $options  Options to pass to bookmark-saving code
      *
      * @return Notice resulting notice
@@ -508,6 +508,13 @@ class BookmarkPlugin extends MicroAppPlugin
         return $object;
     }
 
+    /**
+     * @fixme WARNING WARNING WARNING this opens a 'div' that is apparently closed by MicroAppPlugin
+     * @fixme that's probably wrong?
+     *
+     * @param Notice $notice
+     * @param HTMLOutputter $out
+     */
     function showNotice($notice, $out)
     {
         $nb = Bookmark::getByNotice($notice);

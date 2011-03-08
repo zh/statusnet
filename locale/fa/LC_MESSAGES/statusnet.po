@@ -7,6 +7,7 @@
 # Author: Everplays
 # Author: Mjbmr
 # Author: Narcissus
+# Author: Sahim
 # Author: ZxxZxxZ
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -15,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:36:17+0000\n"
+"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"PO-Revision-Date: 2011-03-08 01:05:10+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian <http://translatewiki.net/wiki/Portal:fa>\n"
 "MIME-Version: 1.0\n"
@@ -25,9 +26,9 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
-"X-POT-Import-Date: 2011-03-03 17:59:19+0000\n"
+"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1712,9 +1713,8 @@ msgid "Do not delete this user."
 msgstr "این پیام را پاک نکن"
 
 #. TRANS: Submit button title for 'Yes' when deleting a user.
-#, fuzzy
 msgid "Delete this user."
-msgstr "حذف این کاربر"
+msgstr "این کاربر حذف شود."
 
 #. TRANS: Message used as title for design settings for the site.
 msgid "Design"
@@ -5023,9 +5023,8 @@ msgid "SMS phone number"
 msgstr "شمارهٔ تماس پیامک"
 
 #. TRANS: SMS phone number input field instructions in SMS settings form.
-#, fuzzy
 msgid "Phone number, no punctuation or spaces, with area code."
-msgstr "شماره تلفن، بدون نشانه گذاری یا فاصله، با کد منطقه"
+msgstr "شماره تلفن، بدون نشانه‌گذاری یا فاصله‌گذاری، با کد منطقه."
 
 #. TRANS: Form legend for SMS preferences form.
 msgid "SMS preferences"
@@ -5368,9 +5367,8 @@ msgstr "مدیریت انتخاب های مختلف دیگر."
 msgid " (free service)"
 msgstr " (سرویس‌ آزاد)"
 
-#, fuzzy
 msgid "[none]"
-msgstr "هیچ"
+msgstr "[هیچ]"
 
 msgid "[internal]"
 msgstr ""
@@ -6029,84 +6027,9 @@ msgstr "پاسخ"
 msgid "Write a reply..."
 msgstr ""
 
-msgid "Home"
-msgstr "خانه"
-
 #, fuzzy
-msgid "Friends timeline"
-msgstr "خط‌زمانی %s"
-
-#, fuzzy
-msgid "Your profile"
-msgstr "نمایهٔ گروه"
-
-msgid "Public"
-msgstr "عمومی"
-
-#, fuzzy
-msgid "Everyone on this site"
-msgstr "پیدا کردن افراد در این وب‌گاه"
-
-#, fuzzy
-msgid "Settings"
-msgstr "تنظیمات پیامک"
-
-#, fuzzy
-msgid "Change your personal settings"
-msgstr "تنظیمات نمایه‌تان را تغییر دهید"
-
-#, fuzzy
-msgid "Site configuration"
-msgstr "پیکربندی کاربر"
-
-msgid "Logout"
-msgstr "خروج"
-
-msgid "Logout from the site"
-msgstr "خارج شدن از سایت ."
-
-msgid "Login to the site"
-msgstr "ورود به وب‌گاه"
-
-msgid "Search"
-msgstr "جست‌وجو"
-
-#, fuzzy
-msgid "Search the site"
-msgstr "جست‌وجوی وب‌گاه"
-
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
-msgid "Help"
-msgstr "کمک"
-
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-msgid "About"
-msgstr "دربارهٔ"
-
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-msgid "FAQ"
-msgstr "سوال‌های رایج"
-
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
-msgid "TOS"
-msgstr "شرایط سرویس"
-
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-msgid "Privacy"
-msgstr "خصوصی"
-
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-msgid "Source"
-msgstr "منبع"
-
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
-#. TRANS: StatusNet site, where to report bugs, ...
-msgid "Contact"
-msgstr "تماس"
-
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-msgid "Badge"
-msgstr "نشان"
+msgid "Status"
+msgstr "StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6224,9 +6147,9 @@ msgstr ""
 msgid "No content for notice %s."
 msgstr "پیدا کردن محتوای پیام‌ها"
 
-#, fuzzy, php-format
+#, php-format
 msgid "No such user %s."
-msgstr "چنین کاربری وجود ندارد."
+msgstr "چنین کاربری وجود ندارد %s."
 
 #. TRANS: Client exception thrown when post to collection fails with a 400 status.
 #. TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
@@ -6901,6 +6824,12 @@ msgstr "برو به نصاب."
 msgid "Database error"
 msgstr "خطای پایگاه داده"
 
+msgid "Home"
+msgstr "خانه"
+
+msgid "Public"
+msgstr "عمومی"
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "حذف این کاربر"
@@ -7574,6 +7503,18 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
+msgid "Inbox"
+msgstr "صندوق دریافتی"
+
+msgid "Your incoming messages"
+msgstr "پیام های وارد شونده ی شما"
+
+msgid "Outbox"
+msgstr "صندوق خروجی"
+
+msgid "Your sent messages"
+msgstr "پیام‌های فرستاده شدهٔ شما"
+
 msgid "Could not parse message."
 msgstr "نمی‌توان پیام را تجزیه کرد."
 
@@ -7650,6 +7591,20 @@ msgstr "پیام"
 
 msgid "from"
 msgstr "از"
+
+msgid "Can't get author for activity."
+msgstr ""
+
+#, fuzzy
+msgid "Bookmark not posted to this group."
+msgstr "شما یک عضو این گروه نیستید."
+
+#, fuzzy
+msgid "Object not posted to this user."
+msgstr "این پیام را پاک نکن"
+
+msgid "Don't know how to handle this kind of target."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -7765,23 +7720,15 @@ msgstr ""
 msgid "Couldn't insert new subscription."
 msgstr "نمی‌توان اشتراک تازه‌ای افزود."
 
+#, fuzzy
+msgid "Your profile"
+msgstr "نمایهٔ گروه"
+
 msgid "Replies"
 msgstr "پاسخ ها"
 
 msgid "Favorites"
 msgstr "برگزیده‌ها"
-
-msgid "Inbox"
-msgstr "صندوق دریافتی"
-
-msgid "Your incoming messages"
-msgstr "پیام های وارد شونده ی شما"
-
-msgid "Outbox"
-msgstr "صندوق خروجی"
-
-msgid "Your sent messages"
-msgstr "پیام‌های فرستاده شدهٔ شما"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -7805,6 +7752,34 @@ msgstr ""
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr ""
+
+#, fuzzy
+msgid "Settings"
+msgstr "تنظیمات پیامک"
+
+#, fuzzy
+msgid "Change your personal settings"
+msgstr "تنظیمات نمایه‌تان را تغییر دهید"
+
+#, fuzzy
+msgid "Site configuration"
+msgstr "پیکربندی کاربر"
+
+msgid "Logout"
+msgstr "خروج"
+
+msgid "Logout from the site"
+msgstr "خارج شدن از سایت ."
+
+msgid "Login to the site"
+msgstr "ورود به وب‌گاه"
+
+msgid "Search"
+msgstr "جست‌وجو"
+
+#, fuzzy
+msgid "Search the site"
+msgstr "جست‌وجوی وب‌گاه"
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -7917,6 +7892,39 @@ msgstr "پیدا کردن محتوای پیام‌ها"
 
 msgid "Find groups on this site"
 msgstr "پیدا کردن گروه‌ها در این وب‌گاه"
+
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+msgid "Help"
+msgstr "کمک"
+
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+msgid "About"
+msgstr "دربارهٔ"
+
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+msgid "FAQ"
+msgstr "سوال‌های رایج"
+
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+msgid "TOS"
+msgstr "شرایط سرویس"
+
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+msgid "Privacy"
+msgstr "خصوصی"
+
+#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+msgid "Source"
+msgstr "منبع"
+
+#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: StatusNet site, where to report bugs, ...
+msgid "Contact"
+msgstr "تماس"
+
+#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+msgid "Badge"
+msgstr "نشان"
 
 msgid "Untitled section"
 msgstr "بخش بی‌نام"
@@ -8194,19 +8202,10 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "نام کامل خیلی طولانی است (حداکثر ۲۵۵ نویسه)."
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "توصیف خیلی طولانی است (حداکثر %d نویسه)"
-
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "نام مکان خیلی طولانی است (حداکثر ۲۵۵ نویسه)"
-
-#~ msgid "Too many aliases! Maximum %d."
-#~ msgstr "نام‌های مستعار بسیار زیاد هستند! حداکثر %d."
+#, fuzzy
+#~ msgid "Friends timeline"
+#~ msgstr "خط‌زمانی %s"
 
 #, fuzzy
-#~ msgctxt "BUTTON"
-#~ msgid "Comment"
-#~ msgstr "محتوا"
+#~ msgid "Everyone on this site"
+#~ msgstr "پیدا کردن افراد در این وب‌گاه"

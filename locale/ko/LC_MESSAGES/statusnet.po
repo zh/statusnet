@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:36:28+0000\n"
+"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"PO-Revision-Date: 2011-03-08 01:05:21+0000\n"
 "Language-Team: Korean <http://translatewiki.net/wiki/Portal:ko>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-03 17:59:19+0000\n"
+"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -5936,83 +5936,9 @@ msgstr "답장하기"
 msgid "Write a reply..."
 msgstr ""
 
-msgid "Home"
-msgstr "홈페이지"
-
 #, fuzzy
-msgid "Friends timeline"
-msgstr "%s 타임라인"
-
-#, fuzzy
-msgid "Your profile"
-msgstr "그룹 프로필"
-
-msgid "Public"
-msgstr "공개"
-
-#, fuzzy
-msgid "Everyone on this site"
-msgstr "이 사이트에 있는 사람 찾기"
-
-msgid "Settings"
-msgstr "메일 설정"
-
-#, fuzzy
-msgid "Change your personal settings"
-msgstr "프로필 세팅 바꾸기"
-
-#, fuzzy
-msgid "Site configuration"
-msgstr "메일 주소 확인"
-
-msgid "Logout"
-msgstr "로그아웃"
-
-msgid "Logout from the site"
-msgstr "이 사이트에서 로그아웃"
-
-msgid "Login to the site"
-msgstr "이 사이트에 로그인"
-
-msgid "Search"
-msgstr "검색"
-
-#, fuzzy
-msgid "Search the site"
-msgstr "검색 도움말"
-
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
-msgid "Help"
-msgstr "도움말"
-
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-msgid "About"
-msgstr "정보"
-
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-msgid "FAQ"
-msgstr "자주 묻는 질문"
-
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
-msgid "TOS"
-msgstr "서비스 약관"
-
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-msgid "Privacy"
-msgstr "개인정보 취급방침"
-
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-msgid "Source"
-msgstr "소스 코드"
-
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
-#. TRANS: StatusNet site, where to report bugs, ...
-msgid "Contact"
-msgstr "연락하기"
-
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-msgid "Badge"
-msgstr "배지"
+msgid "Status"
+msgstr "StatusNet %s"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6771,6 +6697,12 @@ msgstr "이 사이트에 로그인"
 msgid "Database error"
 msgstr "데이터베이스 오류"
 
+msgid "Home"
+msgstr "홈페이지"
+
+msgid "Public"
+msgstr "공개"
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "이 사용자 삭제"
@@ -7344,6 +7276,18 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
+msgid "Inbox"
+msgstr "받은 쪽지함"
+
+msgid "Your incoming messages"
+msgstr "받은 메시지"
+
+msgid "Outbox"
+msgstr "보낸 쪽지함"
+
+msgid "Your sent messages"
+msgstr "보낸 메시지"
+
 msgid "Could not parse message."
 msgstr "메시지를 분리할 수 없습니다."
 
@@ -7419,6 +7363,20 @@ msgstr "메시지"
 
 msgid "from"
 msgstr "방법"
+
+msgid "Can't get author for activity."
+msgstr ""
+
+#, fuzzy
+msgid "Bookmark not posted to this group."
+msgstr "당신은 해당 그룹의 멤버가 아닙니다."
+
+#, fuzzy
+msgid "Object not posted to this user."
+msgstr "이 통지를 지울 수 없습니다."
+
+msgid "Don't know how to handle this kind of target."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -7532,23 +7490,15 @@ msgstr ""
 msgid "Couldn't insert new subscription."
 msgstr "예약 구독을 추가 할 수 없습니다."
 
+#, fuzzy
+msgid "Your profile"
+msgstr "그룹 프로필"
+
 msgid "Replies"
 msgstr "답신"
 
 msgid "Favorites"
 msgstr "좋아하는 글들"
-
-msgid "Inbox"
-msgstr "받은 쪽지함"
-
-msgid "Your incoming messages"
-msgstr "받은 메시지"
-
-msgid "Outbox"
-msgstr "보낸 쪽지함"
-
-msgid "Your sent messages"
-msgstr "보낸 메시지"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -7573,6 +7523,33 @@ msgstr ""
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr ""
+
+msgid "Settings"
+msgstr "메일 설정"
+
+#, fuzzy
+msgid "Change your personal settings"
+msgstr "프로필 세팅 바꾸기"
+
+#, fuzzy
+msgid "Site configuration"
+msgstr "메일 주소 확인"
+
+msgid "Logout"
+msgstr "로그아웃"
+
+msgid "Logout from the site"
+msgstr "이 사이트에서 로그아웃"
+
+msgid "Login to the site"
+msgstr "이 사이트에 로그인"
+
+msgid "Search"
+msgstr "검색"
+
+#, fuzzy
+msgid "Search the site"
+msgstr "검색 도움말"
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -7686,6 +7663,39 @@ msgstr "통지들의 내용 찾기"
 
 msgid "Find groups on this site"
 msgstr "이 사이트에서 그룹 찾기"
+
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+msgid "Help"
+msgstr "도움말"
+
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+msgid "About"
+msgstr "정보"
+
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+msgid "FAQ"
+msgstr "자주 묻는 질문"
+
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+msgid "TOS"
+msgstr "서비스 약관"
+
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+msgid "Privacy"
+msgstr "개인정보 취급방침"
+
+#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+msgid "Source"
+msgstr "소스 코드"
+
+#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: StatusNet site, where to report bugs, ...
+msgid "Contact"
+msgstr "연락하기"
+
+#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+msgid "Badge"
+msgstr "배지"
 
 msgid "Untitled section"
 msgstr "제목없는 섹션"
@@ -7966,19 +7976,10 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "실명이 너무 깁니다. (최대 255글자)"
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "설명이 너무 길어요. (최대 %d글자)"
-
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "위치가 너무 깁니다. (최대 255글자)"
-
-#~ msgid "Too many aliases! Maximum %d."
-#~ msgstr "별명이 너무 많습니다! 최대 %d개."
+#, fuzzy
+#~ msgid "Friends timeline"
+#~ msgstr "%s 타임라인"
 
 #, fuzzy
-#~ msgctxt "BUTTON"
-#~ msgid "Comment"
-#~ msgstr "만족하는"
+#~ msgid "Everyone on this site"
+#~ msgstr "이 사이트에 있는 사람 찾기"

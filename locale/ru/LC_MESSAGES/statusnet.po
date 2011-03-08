@@ -18,18 +18,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:36:37+0000\n"
+"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"PO-Revision-Date: 2011-03-08 01:05:30+0000\n"
 "Language-Team: Russian <http://translatewiki.net/wiki/Portal:ru>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2011-03-03 17:59:19+0000\n"
+"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1324,7 +1324,7 @@ msgstr ""
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Backup"
-msgstr "Фон"
+msgstr "Создать резервную копию"
 
 #. TRANS: Title for submit button to backup an account on the backup account page.
 #, fuzzy
@@ -6043,83 +6043,9 @@ msgstr "Ответить"
 msgid "Write a reply..."
 msgstr ""
 
-msgid "Home"
-msgstr "Главная"
-
 #, fuzzy
-msgid "Friends timeline"
-msgstr "Лента %s"
-
-#, fuzzy
-msgid "Your profile"
-msgstr "Профиль группы"
-
-msgid "Public"
-msgstr "Общее"
-
-#, fuzzy
-msgid "Everyone on this site"
-msgstr "Найти человека на этом сайте"
-
-msgid "Settings"
-msgstr "Установки СМС"
-
-#, fuzzy
-msgid "Change your personal settings"
-msgstr "Изменить ваши настройки профиля"
-
-#, fuzzy
-msgid "Site configuration"
-msgstr "Конфигурация пользователя"
-
-msgid "Logout"
-msgstr "Выход"
-
-msgid "Logout from the site"
-msgstr "Выйти"
-
-msgid "Login to the site"
-msgstr "Войти"
-
-msgid "Search"
-msgstr "Поиск"
-
-#, fuzzy
-msgid "Search the site"
-msgstr "Поиск по сайту"
-
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
-msgid "Help"
-msgstr "Помощь"
-
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-msgid "About"
-msgstr "О проекте"
-
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-msgid "FAQ"
-msgstr "ЧаВо"
-
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
-msgid "TOS"
-msgstr "TOS"
-
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-msgid "Privacy"
-msgstr "Пользовательское соглашение"
-
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-msgid "Source"
-msgstr "Исходный код"
-
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
-#. TRANS: StatusNet site, where to report bugs, ...
-msgid "Contact"
-msgstr "Контактная информация"
-
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-msgid "Badge"
-msgstr "Бедж"
+msgid "Status"
+msgstr "StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6924,6 +6850,12 @@ msgstr "Перейти к установщику"
 msgid "Database error"
 msgstr "Ошибка базы данных"
 
+msgid "Home"
+msgstr "Главная"
+
+msgid "Public"
+msgstr "Общее"
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "Удалить этого пользователя"
@@ -7608,6 +7540,18 @@ msgstr ""
 "вовлечения других пользователей в разговор. Сообщения, получаемые от других "
 "людей, видите только вы."
 
+msgid "Inbox"
+msgstr "Входящие"
+
+msgid "Your incoming messages"
+msgstr "Ваши входящие сообщения"
+
+msgid "Outbox"
+msgstr "Исходящие"
+
+msgid "Your sent messages"
+msgstr "Ваши исходящие сообщения"
+
 msgid "Could not parse message."
 msgstr "Сообщение не удаётся разобрать."
 
@@ -7685,6 +7629,20 @@ msgstr "Сообщение"
 
 msgid "from"
 msgstr "от"
+
+msgid "Can't get author for activity."
+msgstr ""
+
+#, fuzzy
+msgid "Bookmark not posted to this group."
+msgstr "Вы не можете удалить эту группу."
+
+#, fuzzy
+msgid "Object not posted to this user."
+msgstr "Не удаляйте эту группу"
+
+msgid "Don't know how to handle this kind of target."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -7801,23 +7759,15 @@ msgstr "Дублирующаяся запись."
 msgid "Couldn't insert new subscription."
 msgstr "Не удаётся вставить новую подписку."
 
+#, fuzzy
+msgid "Your profile"
+msgstr "Профиль группы"
+
 msgid "Replies"
 msgstr "Ответы"
 
 msgid "Favorites"
 msgstr "Любимое"
-
-msgid "Inbox"
-msgstr "Входящие"
-
-msgid "Your incoming messages"
-msgstr "Ваши входящие сообщения"
-
-msgid "Outbox"
-msgstr "Исходящие"
-
-msgid "Your sent messages"
-msgstr "Ваши исходящие сообщения"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -7841,6 +7791,33 @@ msgstr ""
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr ""
+
+msgid "Settings"
+msgstr "Установки СМС"
+
+#, fuzzy
+msgid "Change your personal settings"
+msgstr "Изменить ваши настройки профиля"
+
+#, fuzzy
+msgid "Site configuration"
+msgstr "Конфигурация пользователя"
+
+msgid "Logout"
+msgstr "Выход"
+
+msgid "Logout from the site"
+msgstr "Выйти"
+
+msgid "Login to the site"
+msgstr "Войти"
+
+msgid "Search"
+msgstr "Поиск"
+
+#, fuzzy
+msgid "Search the site"
+msgstr "Поиск по сайту"
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -7949,6 +7926,39 @@ msgstr "Найти запись по содержимому"
 
 msgid "Find groups on this site"
 msgstr "Найти группы на этом сайте"
+
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+msgid "Help"
+msgstr "Помощь"
+
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+msgid "About"
+msgstr "О проекте"
+
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+msgid "FAQ"
+msgstr "ЧаВо"
+
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+msgid "TOS"
+msgstr "TOS"
+
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+msgid "Privacy"
+msgstr "Пользовательское соглашение"
+
+#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+msgid "Source"
+msgstr "Исходный код"
+
+#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: StatusNet site, where to report bugs, ...
+msgid "Contact"
+msgstr "Контактная информация"
+
+#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+msgid "Badge"
+msgstr "Бедж"
 
 msgid "Untitled section"
 msgstr "Секция без названия"
@@ -8242,19 +8252,10 @@ msgstr "Неверный XML, отсутствует корень XRD."
 msgid "Getting backup from file '%s'."
 msgstr "Получение резервной копии из файла «%s»."
 
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "Полное имя слишком длинное (максимум 255 символов)."
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "Слишком длинное описание (максимум %d символов)"
-
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "Слишком длинное месторасположение (максимум 255 символов)."
-
-#~ msgid "Too many aliases! Maximum %d."
-#~ msgstr "Слишком много алиасов! Максимальное число — %d."
+#, fuzzy
+#~ msgid "Friends timeline"
+#~ msgstr "Лента %s"
 
 #, fuzzy
-#~ msgctxt "BUTTON"
-#~ msgid "Comment"
-#~ msgstr "Содержание"
+#~ msgid "Everyone on this site"
+#~ msgstr "Найти человека на этом сайте"

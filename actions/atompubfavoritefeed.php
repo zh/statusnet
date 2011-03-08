@@ -256,7 +256,7 @@ class AtompubfavoritefeedAction extends ApiAuthAction
             if (empty($notice)) {
                 // XXX: import from listed URL or something
                 // TRANS: Client exception thrown when trying favorite a notice without content.
-                throw new ClientException(_('Unknown note.'));
+                throw new ClientException(_('Unknown notice.'));
             }
 
             $old = Fave::pkeyGet(array('user_id' => $this->auth_user->id,
