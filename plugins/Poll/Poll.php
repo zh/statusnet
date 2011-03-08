@@ -166,7 +166,9 @@ class Poll extends Managed_DataObject
 
         $raw = array();
         while ($pr->fetch()) {
-            $raw[$pr->selection] = $pr->votes;
+            // Votes list 1-based
+            // Array stores 0-based
+            $raw[$pr->selection - 1] = $pr->votes;
         }
 
         $counts = array();
