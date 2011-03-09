@@ -91,6 +91,7 @@ class NeweventAction extends Action
 
         $this->title       = $this->trimmed('title');
         $this->location    = $this->trimmed('location');
+        $this->url         = $this->trimmed('url');
         $this->description = $this->trimmed('description');
 
         $start_date = $this->trimmed('start_date');
@@ -146,12 +147,15 @@ class NeweventAction extends Action
                 throw new ClientException(_('Event must have an end time.'));
             }
 
-            $saved = Happening::saveNew($this->user->getProfile(),
+            $profile = $this->user->getProfile();
+
+            $saved = Happening::saveNew($profile,
                                         $this->start_time,
                                         $this->end_time,
                                         $this->title,
                                         $this->location,
-                                        $this->description);
+                                        $this->description,
+                                        $this->url);
 
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();

@@ -60,6 +60,7 @@ class Happening extends Managed_DataObject
     public $end_time;              // datetime
     public $title;                 // varchar(255)
     public $location;              // varchar(255)
+    public $url;                   // varchar(255)
     public $description;           // text
     public $created;               // datetime
 
@@ -92,15 +93,16 @@ class Happening extends Managed_DataObject
                 'uri' => array('type' => 'varchar',
                                'length' => 255,
                                'not null' => true),
-                'profile_id' => array('type' => 'int'),
-                'start_time' => array('type' => 'datetime'),
-                'end_time' => array('type' => 'datetime'),
+                'profile_id' => array('type' => 'int', 'not null' => true),
+                'start_time' => array('type' => 'datetime', 'not null' => true),
+                'end_time' => array('type' => 'datetime', 'not null' => true),
                 'title' => array('type' => 'varchar',
                                  'length' => 255,
                                  'not null' => true),
                 'location' => array('type' => 'varchar',
-                                    'length' => 255,
-                                    'not null' => true),
+                                    'length' => 255),
+                'url' => array('type' => 'varchar',
+                               'length' => 255),
                 'description' => array('type' => 'text'),
                 'created' => array('type' => 'datetime',
                                    'not null' => true),
@@ -109,10 +111,13 @@ class Happening extends Managed_DataObject
             'unique keys' => array(
                 'happening_uri_key' => array('uri'),
             ),
+            'foreign keys' => array('happening_profile_id__key' => array('profile', array('profile_id' => 'id'))),
+            'indexes' => array('happening_created_idx' => array('created'),
+                               'happening_start_end_idx' => array('start_time', 'end_time')),
         );
     }
 
-    function saveNew($profile, $start_time, $end_time, $title, $location, $description, $options=array())
+    function saveNew($profile, $start_time, $end_time, $title, $location, $description, $url, $options=array())
     {
         if (array_key_exists('uri', $options)) {
             $other = Happening::staticGet('uri', $options['uri']);
@@ -130,6 +135,7 @@ class Happening extends Managed_DataObject
         $ev->title       = $title;
         $ev->location    = $location;
         $ev->description = $description;
+        $ev->url         = $url;
 
         if (array_key_exists('created', $options)) {
             $ev->created = $options['created'];
@@ -177,6 +183,10 @@ class Happening extends Managed_DataObject
             $options['uri'] = $ev->uri;
         }
 
+        if (!empty($url)) {
+            $options['urls'] = array($url);
+        }
+
         $saved = Notice::saveNew($profile->id,
                                  $content,
                                  array_key_exists('source', $options) ?
@@ -191,7 +201,7 @@ class Happening extends Managed_DataObject
         return Notice::staticGet('uri', $this->uri);
     }
 
-    static function fromNotice()
+    static function fromNotice($notice)
     {
         return Happening::staticGet('uri', $notice->uri);
     }

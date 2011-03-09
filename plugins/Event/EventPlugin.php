@@ -300,8 +300,69 @@ class EventPlugin extends MicroappPlugin
 
     function showEventNotice($notice, $out)
     {
-        $out->raw($notice->rendered);
-        return;
+        $profile = $notice->getProfile();
+        $event   = Happening::fromNotice($notice);
+
+        assert(!empty($event));
+        assert(!empty($profile));
+
+        $out->elementStart('div', 'vevent');
+
+        $out->elementStart('h3');
+
+        if (!empty($event->url)) {
+            $out->element('a',
+                          array('href' => $att->url,
+                                'class' => 'event-title entry-title summary'),
+                          $event->title);
+        } else {
+            $out->text($event->title);
+        }
+
+        $out->elementEnd('h3');
+
+        $out->elementStart('div', 'event-times');
+        $out->element('abbr', array('class' => 'dtstart',
+                                    'title' => common_date_iso8601($event->start_time)),
+                      common_exact_date($event->start_time));
+        $out->text(' - ');
+        $out->element('span', array('class' => 'dtend',
+                                    'title' => common_date_iso8601($event->end_time)),
+                      common_exact_date($event->end_time));
+        $out->elementEnd('div');
+
+        if (!empty($event->description)) {
+            $out->element('div', 'description', $event->description);
+        }
+
+        if (!empty($event->location)) {
+            $out->element('div', 'location', $event->location);
+        }
+
+        $out->elementStart('div', array('class' => 'event-info entry-content'));
+
+        $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
+
+        $out->element('img', 
+                      array('src' => ($avatar) ?
+                            $avatar->displayUrl() :
+                            Avatar::defaultImage(AVATAR_MINI_SIZE),
+                            'class' => 'avatar photo bookmark-avatar',
+                            'width' => AVATAR_MINI_SIZE,
+                            'height' => AVATAR_MINI_SIZE,
+                            'alt' => $profile->getBestName()));
+
+        $out->raw('&#160;'); // avoid &nbsp; for AJAX XML compatibility
+
+        $out->elementStart('span', 'vcard author'); // hack for belongsOnTimeline; JS needs to be able to find the author
+        $out->element('a', 
+                      array('class' => 'url',
+                            'href' => $profile->profileurl,
+                            'title' => $profile->getBestName()),
+                      $profile->nickname);
+        $out->elementEnd('span');
+
+        $out->elementEnd('div');
     }
 
     /**

@@ -134,6 +134,13 @@ class EventForm extends Form
         $this->unli();
 
         $this->li();
+        $this->out->input('url',
+                          _('URL'),
+                          null,
+                          _('URL for more information'));
+        $this->unli();
+
+        $this->li();
         $this->out->input('description',
                           _('Description'),
                           null,

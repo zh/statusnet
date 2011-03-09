@@ -192,7 +192,7 @@ class RSVP extends Managed_DataObject
         return Notice::staticGet('uri', $this->uri);
     }
 
-    static function fromNotice()
+    static function fromNotice($notice)
     {
         return RSVP::staticGet('uri', $notice->uri);
     }
