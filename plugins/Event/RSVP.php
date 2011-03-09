@@ -72,12 +72,26 @@ class RSVP extends Managed_DataObject
     }
 
     /**
+     * Get an instance by compound key
+     *
+     * @param array $kv array of key-value mappings
+     *
+     * @return Bookmark object found, or null for no hits
+     *
+     */
+
+    function pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('RSVP', $kv);
+    }
+
+    /**
      * The One True Thingy that must be defined and declared.
      */
     public static function schemaDef()
     {
         return array(
-            'description' => 'A real-world event',
+            'description' => 'Plan to attend event',
             'fields' => array(
                 'id' => array('type' => 'char',
                               'length' => 36,
@@ -107,7 +121,7 @@ class RSVP extends Managed_DataObject
         );
     }
 
-    function saveNew($profile, $event, $result, $options)
+    function saveNew($profile, $event, $result, $options=array())
     {
         if (array_key_exists('uri', $options)) {
             $other = RSVP::staticGet('uri', $options['uri']);
@@ -181,7 +195,7 @@ class RSVP extends Managed_DataObject
             ($verb == RSVP::NEGATIVE) ? 0 : null;
     }
 
-    function verbFor($code)
+    static function verbFor($code)
     {
         return ($code == 1) ? RSVP::POSITIVE :
             ($code == 0) ? RSVP::NEGATIVE : null;
@@ -189,7 +203,11 @@ class RSVP extends Managed_DataObject
 
     function getNotice()
     {
-        return Notice::staticGet('uri', $this->uri);
+        $notice = Notice::staticGet('uri', $this->uri);
+        if (empty($notice)) {
+            throw new ServerException("RSVP {$this->id} does not correspond to a notice in the DB.");
+        }
+        return $notice;
     }
 
     static function fromNotice($notice)
@@ -207,11 +225,15 @@ class RSVP extends Managed_DataObject
 
         if ($rsvp->find()) {
             while ($rsvp->fetch()) {
-                $verb = $this->verbFor($rsvp->code);
+                $verb = self::verbFor($rsvp->result);
                 $rsvps[$verb][] = clone($rsvp);
             }
         }
 
         return $rsvps;
+    }
+
+    function delete()
+    {
     }
 }

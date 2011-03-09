@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Add a new event
+ * Cancel the RSVP for an event
  * 
  * PHP version 5
  *
@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Add a new event
+ * RSVP for an event
  *
  * @category  Event
  * @package   StatusNet
@@ -44,16 +44,11 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class NeweventAction extends Action
+class CancelrsvpAction extends Action
 {
-    protected $user        = null;
-    protected $error       = null;
-    protected $complete    = null;
-    protected $title       = null;
-    protected $location    = null;
-    protected $description = null;
-    protected $start_time  = null;
-    protected $end_time    = null;
+    protected $user  = null;
+    protected $rsvp  = null;
+    protected $event = null;
 
     /**
      * Returns the title of the action
@@ -63,7 +58,7 @@ class NeweventAction extends Action
 
     function title()
     {
-        return _('New event');
+        return _('Cancel RSVP');
     }
 
     /**
@@ -78,29 +73,29 @@ class NeweventAction extends Action
     {
         parent::prepare($argarray);
 
+        $rsvpId = $this->trimmed('rsvp');
+
+        if (empty($rsvpId)) {
+            throw new ClientException(_('No such rsvp.'));
+        }
+
+        $this->rsvp = RSVP::staticGet('id', $rsvpId);
+
+        if (empty($this->rsvp)) {
+            throw new ClientException(_('No such rsvp.'));
+        }
+
+        $this->event = Happening::staticGet('id', $this->rsvp->event_id);
+
+        if (empty($this->event)) {
+            throw new ClientException(_('No such event.'));
+        }
+
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_("Must be logged in to post a event."),
-                                      403);
+            throw new ClientException(_('You must be logged in to RSVP for an event.'));
         }
-
-        if ($this->isPost()) {
-            $this->checkSessionToken();
-        }
-
-        $this->title       = $this->trimmed('title');
-        $this->location    = $this->trimmed('location');
-        $this->url         = $this->trimmed('url');
-        $this->description = $this->trimmed('description');
-
-        $start_date = $this->trimmed('start_date');
-        $start_time = $this->trimmed('start_time');
-        $end_date   = $this->trimmed('end_date');
-        $end_time   = $this->trimmed('end_time');
-
-        $this->start_time = strtotime($start_date . ' ' . $start_time);
-        $this->end_time   = strtotime($end_date . ' ' . $end_time);
 
         return true;
     }
@@ -118,7 +113,7 @@ class NeweventAction extends Action
         parent::handle($argarray);
 
         if ($this->isPost()) {
-            $this->newEvent();
+            $this->cancelRSVP();
         } else {
             $this->showPage();
         }
@@ -132,35 +127,16 @@ class NeweventAction extends Action
      * @return void
      */
 
-    function newEvent()
+    function cancelRSVP()
     {
         try {
-            if (empty($this->title)) {
-                throw new ClientException(_('Event must have a title.'));
+            $notice = $this->rsvp->getNotice();
+            // NB: this will delete the rsvp, too
+            if (!empty($notice)) {
+                $notice->delete();
+            } else {
+                $this->rsvp->delete();
             }
-
-            if (empty($this->start_time)) {
-                throw new ClientException(_('Event must have a start time.'));
-            }
-
-            if (empty($this->end_time)) {
-                throw new ClientException(_('Event must have an end time.'));
-            }
-
-            $profile = $this->user->getProfile();
-
-            $saved = Happening::saveNew($profile,
-                                        $this->start_time,
-                                        $this->end_time,
-                                        $this->title,
-                                        $this->location,
-                                        $this->description,
-                                        $this->url);
-
-            $event = Happening::fromNotice($saved);
-
-            RSVP::saveNew($profile, $event, RSVP::POSITIVE);
-
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
             $this->showPage();
@@ -176,11 +152,12 @@ class NeweventAction extends Action
             $this->element('title', null, _('Event saved'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->showNotice($saved);
+            $this->elementStart('body');
+            $form = new RSVPForm($this->event, $this);
+            $form->show();
+            $this->elementEnd('body');
             $this->elementEnd('body');
             $this->elementEnd('html');
-        } else {
-            common_redirect($saved->bestUrl(), 303);
         }
     }
 
@@ -196,7 +173,7 @@ class NeweventAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new EventForm($this);
+        $form = new CancelRSVPForm($this->rsvp, $this);
 
         $form->show();
 
@@ -221,21 +198,5 @@ class NeweventAction extends Action
         } else {
             return false;
         }
-    }
-
-
-    /**
-     * Output a notice
-     *
-     * Used to generate the notice code for Ajax results.
-     *
-     * @param Notice $notice Notice that was saved
-     *
-     * @return void
-     */
-    function showNotice($notice)
-    {
-        $nli = new NoticeListItem($notice, $this);
-        $nli->show();
     }
 }

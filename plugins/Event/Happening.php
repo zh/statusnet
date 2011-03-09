@@ -210,4 +210,10 @@ class Happening extends Managed_DataObject
     {
         return RSVP::forEvent($this);
     }
+
+    function getRSVP($profile)
+    {
+        return RSVP::pkeyGet(array('profile_id' => $profile->id,
+                                   'event_id' => $this->id));
+    }
 }

@@ -1,17 +1,11 @@
 <?php
 /**
- * Give a warm greeting to our friendly user
- *
- * PHP version 5
- *
- * @category Sample
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://status.net/
- *
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2011, StatusNet, Inc.
+ *
+ * RSVP for an event
+ * 
+ * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,140 +19,184 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Event
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2011 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
-
 if (!defined('STATUSNET')) {
+    // This check helps protect against security problems;
+    // your code file can't be executed directly from the web.
     exit(1);
 }
 
 /**
- * Give a warm greeting to our friendly user
+ * RSVP for an event
  *
- * This sample action shows some basic ways of doing output in an action
- * class.
- *
- * Action classes have several output methods that they override from
- * the parent class.
- *
- * @category Sample
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://status.net/
+ * @category  Event
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2011 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
-class HelloAction extends Action
+
+class NewrsvpAction extends Action
 {
-    var $user = null;
-    var $gc   = null;
+    protected $user  = null;
+    protected $event = null;
+    protected $type  = null;
 
     /**
-     * Take arguments for running
+     * Returns the title of the action
      *
-     * This method is called first, and it lets the action class get
-     * all its arguments and validate them. It's also the time
-     * to fetch any relevant data from the database.
-     *
-     * Action classes should run parent::prepare($args) as the first
-     * line of this method to make sure the default argument-processing
-     * happens.
-     *
-     * @param array $args $_REQUEST args
-     *
-     * @return boolean success flag
+     * @return string Action title
      */
-    function prepare($args)
+
+    function title()
     {
-        parent::prepare($args);
+        return _('New RSVP');
+    }
+
+    /**
+     * For initializing members of the class.
+     *
+     * @param array $argarray misc. arguments
+     *
+     * @return boolean true
+     */
+
+    function prepare($argarray)
+    {
+        parent::prepare($argarray);
+
+        $eventId = $this->trimmed('event');
+
+        if (empty($eventId)) {
+            throw new ClientException(_('No such event.'));
+        }
+
+        $this->event = Happening::staticGet('id', $eventId);
+
+        if (empty($this->event)) {
+            throw new ClientException(_('No such event.'));
+        }
 
         $this->user = common_current_user();
 
-        if (!empty($this->user)) {
-            $this->gc = User_greeting_count::inc($this->user->id);
+        if (empty($this->user)) {
+            throw new ClientException(_('You must be logged in to RSVP for an event.'));
         }
 
+        if ($this->arg('yes')) {
+            $this->type = RSVP::POSITIVE;
+        } else if ($this->arg('no')) {
+            $this->type = RSVP::NEGATIVE;
+        } else {
+            $this->type = RSVP::POSSIBLE;
+        }
         return true;
     }
 
     /**
-     * Handle request
+     * Handler method
      *
-     * This is the main method for handling a request. Note that
-     * most preparation should be done in the prepare() method;
-     * by the time handle() is called the action should be
-     * more or less ready to go.
-     *
-     * @param array $args $_REQUEST args; handled in prepare()
+     * @param array $argarray is ignored since it's now passed in in prepare()
      *
      * @return void
      */
-    function handle($args)
-    {
-        parent::handle($args);
 
-        $this->showPage();
+    function handle($argarray=null)
+    {
+        parent::handle($argarray);
+
+        if ($this->isPost()) {
+            $this->newRSVP();
+        } else {
+            $this->showPage();
+        }
+
+        return;
     }
 
     /**
-     * Title of this page
+     * Add a new event
      *
-     * Override this method to show a custom title.
-     *
-     * @return string Title of the page
+     * @return void
      */
-    function title()
+
+    function newRSVP()
     {
-        if (empty($this->user)) {
-            return _m('Hello');
+        try {
+            $saved = RSVP::saveNew($this->user->getProfile(),
+                                   $this->event,
+                                   $this->type);
+        } catch (ClientException $ce) {
+            $this->error = $ce->getMessage();
+            $this->showPage();
+            return;
+        }
+
+        if ($this->boolean('ajax')) {
+            $rsvp = RSVP::fromNotice($saved);
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            // TRANS: Page title after sending a notice.
+            $this->element('title', null, _('Event saved'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->elementStart('body');
+            $cancel = new CancelRSVPForm($rsvp, $this);
+            $cancel->show();
+            $this->elementEnd('body');
+            $this->elementEnd('body');
+            $this->elementEnd('html');
         } else {
-            return sprintf(_m('Hello, %s!'), $this->user->nickname);
+            common_redirect($saved->bestUrl(), 303);
         }
     }
 
     /**
-     * Show content in the content area
-     *
-     * The default StatusNet page has a lot of decorations: menus,
-     * logos, tabs, all that jazz. This method is used to show
-     * content in the content area of the page; it's the main
-     * thing you want to overload.
-     *
-     * This method also demonstrates use of a plural localized string.
+     * Show the event form
      *
      * @return void
      */
+
     function showContent()
     {
-        if (empty($this->user)) {
-            $this->element('p', array('class' => 'greeting'),
-                           _m('Hello, stranger!'));
-        } else {
-            $this->element('p', array('class' => 'greeting'),
-                           sprintf(_m('Hello, %s'), $this->user->nickname));
-            $this->element('p', array('class' => 'greeting_count'),
-                           sprintf(_m('I have greeted you %d time.',
-                                      'I have greeted you %d times.',
-                                      $this->gc->greeting_count),
-                                   $this->gc->greeting_count));
+        if (!empty($this->error)) {
+            $this->element('p', 'error', $this->error);
         }
+
+        $form = new RSVPForm($this->event, $this);
+
+        $form->show();
+
+        return;
     }
 
     /**
      * Return true if read only.
      *
-     * Some actions only read from the database; others read and write.
-     * The simple database load-balancer built into StatusNet will
-     * direct read-only actions to database mirrors (if they are configured),
-     * and read-write actions to the master database.
+     * MAY override
      *
-     * This defaults to false to avoid data integrity issues, but you
-     * should make sure to overload it for performance gains.
-     *
-     * @param array $args other arguments, if RO/RW status depends on them.
+     * @param array $args other arguments
      *
      * @return boolean is read only action?
      */
+
     function isReadOnly($args)
     {
-        return false;
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' ||
+            $_SERVER['REQUEST_METHOD'] == 'HEAD') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

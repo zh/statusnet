@@ -79,11 +79,14 @@ class EventPlugin extends MicroappPlugin
         {
         case 'NeweventAction':
         case 'NewrsvpAction':
+        case 'CancelrsvpAction':
         case 'ShoweventAction':
         case 'ShowrsvpAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'EventForm':
+        case 'RSVPForm':
+        case 'CancelRSVPForm':
             include_once $dir . '/'.strtolower($cls).'.php';
             break;
         case 'Happening':
@@ -109,6 +112,8 @@ class EventPlugin extends MicroappPlugin
                     array('action' => 'newevent'));
         $m->connect('main/event/rsvp',
                     array('action' => 'newrsvp'));
+        $m->connect('main/event/rsvp/cancel',
+                    array('action' => 'cancelrsvp'));
         $m->connect('event/:id',
                     array('action' => 'showevent'),
                     array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
@@ -294,7 +299,7 @@ class EventPlugin extends MicroappPlugin
 
     function showRSVPNotice($notice, $out)
     {
-        $out->element('span', null, 'RSVP');
+        $out->raw($notice->rendered);
         return;
     }
 
@@ -312,7 +317,7 @@ class EventPlugin extends MicroappPlugin
 
         if (!empty($event->url)) {
             $out->element('a',
-                          array('href' => $att->url,
+                          array('href' => $event->url,
                                 'class' => 'event-title entry-title summary'),
                           $event->title);
         } else {
@@ -348,6 +353,20 @@ class EventPlugin extends MicroappPlugin
                               count($rsvps[RSVP::POSITIVE]),
                               count($rsvps[RSVP::NEGATIVE]),
                               count($rsvps[RSVP::POSSIBLE])));
+
+        $user = common_current_user();
+
+        if (!empty($user)) {
+            $rsvp = $event->getRSVP($user->getProfile());
+
+            if (empty($rsvp)) {
+                $form = new RSVPForm($event, $out);
+            } else {
+                $form = new CancelRSVPForm($rsvp, $out);
+            }
+
+            $form->show();
+        }
 
         $out->elementStart('div', array('class' => 'event-info entry-content'));
 

@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Show a single event
+ * Form to RSVP for an event
  * 
  * PHP version 5
  *
@@ -35,9 +35,9 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Show a single event, with associated information
+ * A form to RSVP for an event
  *
- * @category  Event
+ * @category  General
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -45,65 +45,76 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class ShoweventAction extends ShownoticeAction
+class RSVPForm extends Form
 {
-    protected $id    = null;
     protected $event = null;
 
-    /**
-     * For initializing members of the class.
-     *
-     * @param array $argarray misc. arguments
-     *
-     * @return boolean true
-     */
-
-    function prepare($argarray)
+    function __construct($event, $out=null)
     {
-        OwnerDesignAction::prepare($argarray);
-
-        $this->id = $this->trimmed('id');
-
-        $this->event = Happening::staticGet('id', $this->id);
-
-        if (empty($this->event)) {
-            throw new ClientException(_('No such event.'), 404);
-        }
-
-        $this->notice = $this->event->getNotice();
-
-        if (empty($this->notice)) {
-            // Did we used to have it, and it got deleted?
-            throw new ClientException(_('No such event.'), 404);
-        }
-
-        $this->user = User::staticGet('id', $this->event->profile_id);
-
-        if (empty($this->user)) {
-            throw new ClientException(_('No such user.'), 404);
-        }
-
-        $this->profile = $this->user->getProfile();
-
-        if (empty($this->profile)) {
-            throw new ServerException(_('User without a profile.'));
-        }
-
-        $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
-
-        return true;
+        parent::__construct($out);
+        $this->event = $event;
     }
 
     /**
-     * Title of the page
+     * ID of the form
      *
-     * Used by Action class for layout.
-     *
-     * @return string page tile
+     * @return int ID of the form
      */
 
-    function title()
+    function id()
     {
-        return $this->event->title;
+        return 'form_event_rsvp';
+    }
+
+    /**
+     * class of the form
+     *
+     * @return string class of the form
+     */
+
+    function formClass()
+    {
+        return 'ajax';
+    }
+
+    /**
+     * Action of the form
+     *
+     * @return string URL of the action
+     */
+
+    function action()
+    {
+        return common_local_url('newrsvp');
+    }
+
+    /**
+     * Data elements of the form
+     *
+     * @return void
+     */
+
+    function formData()
+    {
+        $this->out->elementStart('fieldset', array('id' => 'new_rsvp_data'));
+
+        $this->out->text(_('RSVP: '));
+
+        $this->out->hidden('event', $this->event->id);
+
+        $this->out->elementEnd('fieldset');
+    }
+
+    /**
+     * Action elements
+     *
+     * @return void
+     */
+
+    function formActions()
+    {
+        $this->out->submit('yes', _m('BUTTON', 'Yes'));
+        $this->out->submit('no', _m('BUTTON', 'No'));
+        $this->out->submit('maybe', _m('BUTTON', 'Maybe'));
     }
 }
