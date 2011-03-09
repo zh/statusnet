@@ -669,10 +669,6 @@ class Action extends HTMLOutputter // lawsuit
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
         }
-        if (Event::handle('StartShowObjectNavBlock', array($this))) {
-            $this->showObjectNavBlock();
-            Event::handle('EndShowObjectNavBlock', array($this));
-        }
         if (Event::handle('StartShowAside', array($this))) {
             $this->showAside();
             Event::handle('EndShowAside', array($this));
@@ -828,6 +824,10 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
+        if (Event::handle('StartShowObjectNavBlock', array($this))) {
+            $this->showObjectNavBlock();
+            Event::handle('EndShowObjectNavBlock', array($this));
+        }
         if (Event::handle('StartShowSections', array($this))) {
             $this->showSections();
             Event::handle('EndShowSections', array($this));
