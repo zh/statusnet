@@ -391,7 +391,8 @@ class EventPlugin extends MicroappPlugin
                       $profile->nickname);
         $out->elementEnd('span');
 
-        $out->elementEnd('div');
+        // @fixme right now we have to leave this div open
+        //$out->elementEnd('div');
     }
 
     /**
