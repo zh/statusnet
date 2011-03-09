@@ -56,7 +56,25 @@ class AdminPanelNav extends Menu
     function show()
     {
         $action_name = $this->action->trimmed('action');
+        $user = common_current_user();
+        $nickname = $user->nickname;
+        $name = $user->getProfile()->getBestName();
 
+        // Stub section w/ home link
+        $this->action->elementStart('ul');
+        $this->action->element('h3', null, _('Home'));
+        $this->action->elementStart('ul', 'nav');
+        $this->out->menuItem(common_local_url('all', array('nickname' =>
+                                                           $nickname)),
+                             _('Home'),
+                             sprintf(_('%s and friends'), $name),
+                             $this->action == 'all', 'nav_timeline_personal');
+
+        $this->action->elementEnd('ul');
+        $this->action->elementEnd('ul');
+
+        $this->action->elementStart('ul');
+        $this->action->element('h3', null, _('Admin'));
         $this->action->elementStart('ul', array('class' => 'nav'));
 
         if (Event::handle('StartAdminPanelNav', array($this))) {
@@ -143,6 +161,7 @@ class AdminPanelNav extends Menu
 
             Event::handle('EndAdminPanelNav', array($this));
         }
+        $this->action->elementEnd('ul');
         $this->action->elementEnd('ul');
     }
 }
