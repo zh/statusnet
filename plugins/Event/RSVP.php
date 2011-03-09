@@ -1,6 +1,6 @@
 <?php
 /**
- * Data class for counting greetings
+ * Data class for event RSVPs
  *
  * PHP version 5
  *
@@ -11,7 +11,7 @@
  * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2011, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -31,154 +31,169 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
-
 /**
- * Data class for counting greetings
+ * Data class for event RSVPs
  *
- * We use the DB_DataObject framework for data classes in StatusNet. Each
- * table maps to a particular data class, making it easier to manipulate
- * data.
- *
- * Data classes should extend Memcached_DataObject, the (slightly misnamed)
- * extension of DB_DataObject that provides caching, internationalization,
- * and other bits of good functionality to StatusNet-specific data classes.
- *
- * @category Action
+ * @category Event
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  *
- * @see      DB_DataObject
+ * @see      Managed_DataObject
  */
 
-class User_greeting_count extends Memcached_DataObject
+class RSVP extends Managed_DataObject
 {
-    public $__table = 'user_greeting_count'; // table name
-    public $user_id;                         // int(4)  primary_key not_null
-    public $greeting_count;                  // int(4)
+    const POSITIVE = 'http://activitystrea.ms/schema/1.0/rsvp-yes';
+    const POSSIBLE = 'http://activitystrea.ms/schema/1.0/rsvp-maybe';
+    const NEGATIVE = 'http://activitystrea.ms/schema/1.0/rsvp-no';
+
+    public $__table = 'rsvp'; // table name
+    public $id;                // varchar(36) UUID
+    public $uri;               // varchar(255)
+    public $profile_id;        // int
+    public $event_id;          // varchar(36) UUID
+    public $result;            // tinyint
+    public $created;           // datetime
 
     /**
      * Get an instance by key
      *
-     * This is a utility method to get a single instance with a given key value.
-     *
-     * @param string $k Key to use to lookup (usually 'user_id' for this class)
+     * @param string $k Key to use to lookup (usually 'id' for this class)
      * @param mixed  $v Value to lookup
      *
-     * @return User_greeting_count object found, or null for no hits
+     * @return RSVP object found, or null for no hits
      *
      */
     function staticGet($k, $v=null)
     {
-        return Memcached_DataObject::staticGet('User_greeting_count', $k, $v);
+        return Memcached_DataObject::staticGet('RSVP', $k, $v);
     }
 
     /**
-     * return table definition for DB_DataObject
-     *
-     * DB_DataObject needs to know something about the table to manipulate
-     * instances. This method provides all the DB_DataObject needs to know.
-     *
-     * @return array array of column definitions
+     * The One True Thingy that must be defined and declared.
      */
-    function table()
+    public static function schemaDef()
     {
-        return array('user_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-                     'greeting_count' => DB_DATAOBJECT_INT);
+        return array(
+            'description' => 'A real-world event',
+            'fields' => array(
+                'id' => array('type' => 'char',
+                              'length' => 36,
+                              'not null' => true,
+                              'description' => 'UUID'),
+                'uri' => array('type' => 'varchar',
+                               'length' => 255,
+                               'not null' => true),
+                'profile_id' => array('type' => 'int'),
+                'event_id' => array('type' => 'char',
+                              'length' => 36,
+                              'not null' => true,
+                              'description' => 'UUID'),
+                'result' => array('type' => 'tinyint',
+                                  'description' => '1, 0, or null for three-state yes, no, maybe'),
+                'created' => array('type' => 'datetime',
+                                   'not null' => true),
+            ),
+            'primary key' => array('id'),
+            'unique keys' => array(
+                'rsvp_uri_key' => array('uri'),
+                'rsvp_profile_event_key' => array('profile_id', 'event_id'),
+            ),
+            'foreign keys' => array('rsvp_event_id_key' => array('event', array('event_id' => 'id')),
+                                    'rsvp_profile_id__key' => array('profile', array('profile_id' => 'id'))),
+            'indexes' => array('rsvp_created_idx' => array('created')),
+        );
     }
 
-    /**
-     * return key definitions for DB_DataObject
-     *
-     * DB_DataObject needs to know about keys that the table has, since it
-     * won't appear in StatusNet's own keys list. In most cases, this will
-     * simply reference your keyTypes() function.
-     *
-     * @return array list of key field names
-     */
-    function keys()
+    function saveNew($profile, $event, $result, $options)
     {
-        return array_keys($this->keyTypes());
-    }
-
-    /**
-     * return key definitions for Memcached_DataObject
-     *
-     * Our caching system uses the same key definitions, but uses a different
-     * method to get them. This key information is used to store and clear
-     * cached data, so be sure to list any key that will be used for static
-     * lookups.
-     *
-     * @return array associative array of key definitions, field name to type:
-     *         'K' for primary key: for compound keys, add an entry for each component;
-     *         'U' for unique keys: compound keys are not well supported here.
-     */
-    function keyTypes()
-    {
-        return array('user_id' => 'K');
-    }
-
-    /**
-     * Magic formula for non-autoincrementing integer primary keys
-     *
-     * If a table has a single integer column as its primary key, DB_DataObject
-     * assumes that the column is auto-incrementing and makes a sequence table
-     * to do this incrementation. Since we don't need this for our class, we
-     * overload this method and return the magic formula that DB_DataObject needs.
-     *
-     * @return array magic three-false array that stops auto-incrementing.
-     */
-    function sequenceKey()
-    {
-        return array(false, false, false);
-    }
-
-    /**
-     * Increment a user's greeting count and return instance
-     *
-     * This method handles the ins and outs of creating a new greeting_count for a
-     * user or fetching the existing greeting count and incrementing its value.
-     *
-     * @param integer $user_id ID of the user to get a count for
-     *
-     * @return User_greeting_count instance for this user, with count already incremented.
-     */
-    static function inc($user_id)
-    {
-        $gc = User_greeting_count::staticGet('user_id', $user_id);
-
-        if (empty($gc)) {
-
-            $gc = new User_greeting_count();
-
-            $gc->user_id        = $user_id;
-            $gc->greeting_count = 1;
-
-            $result = $gc->insert();
-
-            if (!$result) {
-                // TRANS: Exception thrown when the user greeting count could not be saved in the database.
-                // TRANS: %d is a user ID (number).
-                throw Exception(sprintf(_m("Could not save new greeting count for %d."),
-                                        $user_id));
-            }
-        } else {
-            $orig = clone($gc);
-
-            $gc->greeting_count++;
-
-            $result = $gc->update($orig);
-
-            if (!$result) {
-                // TRANS: Exception thrown when the user greeting count could not be saved in the database.
-                // TRANS: %d is a user ID (number).
-                throw Exception(sprintf(_m("Could not increment greeting count for %d."),
-                                        $user_id));
+        if (array_key_exists('uri', $options)) {
+            $other = RSVP::staticGet('uri', $options['uri']);
+            if (!empty($other)) {
+                throw new ClientException(_('RSVP already exists.'));
             }
         }
 
-        return $gc;
+        $other = RSVP::pkeyGet(array('profile_id' => $profile->id,
+                                     'event_id' => $event->id));
+
+        if (!empty($other)) {
+            throw new ClientException(_('RSVP already exists.'));
+        }
+
+        $rsvp = new RSVP();
+
+        $rsvp->id          = UUID::gen();
+        $rsvp->profile_id  = $profile->id;
+        $rsvp->event_id    = $event->id;
+        $rsvp->result      = self::codeFor($result);
+
+        if (array_key_exists('created', $options)) {
+            $rsvp->created = $options['created'];
+        } else {
+            $rsvp->created = common_sql_now();
+        }
+
+        if (array_key_exists('uri', $options)) {
+            $rsvp->uri = $options['uri'];
+        } else {
+            $rsvp->uri = common_local_url('showrsvp',
+                                        array('id' => $rsvp->id));
+        }
+
+        $rsvp->insert();
+
+        // XXX: come up with something sexier
+
+        $content = sprintf(_('RSVPed %s for an event.'),
+                           ($result == RSVP::POSITIVE) ? _('positively') :
+                           ($result == RSVP::NEGATIVE) ? _('negatively') : _('possibly'));
+        
+        $rendered = $content;
+
+        $options = array_merge(array('object_type' => $result),
+                               $options);
+
+        if (!array_key_exists('uri', $options)) {
+            $options['uri'] = $rsvp->uri;
+        }
+
+        $eventNotice = $event->getNotice();
+
+        if (!empty($eventNotice)) {
+            $options['reply_to'] = $eventNotice->id;
+        }
+
+        $saved = Notice::saveNew($profile->id,
+                                 $content,
+                                 array_key_exists('source', $options) ?
+                                 $options['source'] : 'web',
+                                 $options);
+
+        return $saved;
+    }
+
+    function codeFor($verb)
+    {
+        return ($verb == RSVP::POSITIVE) ? 1 :
+            ($verb == RSVP::NEGATIVE) ? 0 : null;
+    }
+
+    function verbFor($code)
+    {
+        return ($code == 1) ? RSVP::POSITIVE :
+            ($code == 0) ? RSVP::NEGATIVE : null;
+    }
+
+    function getNotice()
+    {
+        return Notice::staticGet('uri', $this->uri);
+    }
+
+    static function fromNotice()
+    {
+        return RSVP::staticGet('uri', $notice->uri);
     }
 }

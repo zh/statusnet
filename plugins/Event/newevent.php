@@ -1,17 +1,11 @@
 <?php
 /**
- * Give a warm greeting to our friendly user
- *
- * PHP version 5
- *
- * @category Sample
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://status.net/
- *
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2011, StatusNet, Inc.
+ *
+ * Add a new event
+ * 
+ * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,140 +19,173 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Event
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2011 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
-
 if (!defined('STATUSNET')) {
+    // This check helps protect against security problems;
+    // your code file can't be executed directly from the web.
     exit(1);
 }
 
 /**
- * Give a warm greeting to our friendly user
+ * Add a new event
  *
- * This sample action shows some basic ways of doing output in an action
- * class.
- *
- * Action classes have several output methods that they override from
- * the parent class.
- *
- * @category Sample
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://status.net/
+ * @category  Event
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2011 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
-class HelloAction extends Action
+
+class NeweventAction extends Action
 {
-    var $user = null;
-    var $gc   = null;
+    protected $user        = null;
+    protected $error       = null;
+    protected $complete    = null;
+    protected $title       = null;
+    protected $location    = null;
+    protected $description = null;
+    protected $start_time  = null;
+    protected $end_time    = null;
 
     /**
-     * Take arguments for running
+     * Returns the title of the action
      *
-     * This method is called first, and it lets the action class get
-     * all its arguments and validate them. It's also the time
-     * to fetch any relevant data from the database.
-     *
-     * Action classes should run parent::prepare($args) as the first
-     * line of this method to make sure the default argument-processing
-     * happens.
-     *
-     * @param array $args $_REQUEST args
-     *
-     * @return boolean success flag
+     * @return string Action title
      */
-    function prepare($args)
+
+    function title()
     {
-        parent::prepare($args);
+        return _('New event');
+    }
+
+    /**
+     * For initializing members of the class.
+     *
+     * @param array $argarray misc. arguments
+     *
+     * @return boolean true
+     */
+
+    function prepare($argarray)
+    {
+        parent::prepare($argarray);
 
         $this->user = common_current_user();
 
-        if (!empty($this->user)) {
-            $this->gc = User_greeting_count::inc($this->user->id);
+        if (empty($this->user)) {
+            throw new ClientException(_("Must be logged in to post a event."),
+                                      403);
         }
+
+        if ($this->isPost()) {
+            $this->checkSessionToken();
+        }
+
+        $this->title       = $this->trimmed('title');
+        $this->location    = $this->trimmed('location');
+        $this->description = $this->trimmed('description');
 
         return true;
     }
 
     /**
-     * Handle request
+     * Handler method
      *
-     * This is the main method for handling a request. Note that
-     * most preparation should be done in the prepare() method;
-     * by the time handle() is called the action should be
-     * more or less ready to go.
-     *
-     * @param array $args $_REQUEST args; handled in prepare()
+     * @param array $argarray is ignored since it's now passed in in prepare()
      *
      * @return void
      */
-    function handle($args)
-    {
-        parent::handle($args);
 
-        $this->showPage();
-    }
-
-    /**
-     * Title of this page
-     *
-     * Override this method to show a custom title.
-     *
-     * @return string Title of the page
-     */
-    function title()
+    function handle($argarray=null)
     {
-        if (empty($this->user)) {
-            return _m('Hello');
+        parent::handle($argarray);
+
+        if ($this->isPost()) {
+            $this->newEvent();
         } else {
-            return sprintf(_m('Hello, %s!'), $this->user->nickname);
+            $this->showPage();
         }
+
+        return;
     }
 
     /**
-     * Show content in the content area
-     *
-     * The default StatusNet page has a lot of decorations: menus,
-     * logos, tabs, all that jazz. This method is used to show
-     * content in the content area of the page; it's the main
-     * thing you want to overload.
-     *
-     * This method also demonstrates use of a plural localized string.
+     * Add a new event
      *
      * @return void
      */
+
+    function newEvent()
+    {
+        try {
+            if (empty($this->title)) {
+                throw new ClientException(_('Event must have a title.'));
+            }
+
+            if (empty($this->url)) {
+                throw new ClientException(_('Event must have an URL.'));
+            }
+
+
+            $saved = Event::saveNew($this->user->getProfile(),
+                                              $this->title,
+                                              $this->url,
+                                              $this->tags,
+                                              $this->description);
+
+        } catch (ClientException $ce) {
+            $this->error = $ce->getMessage();
+            $this->showPage();
+            return;
+        }
+
+        common_redirect($saved->bestUrl(), 303);
+    }
+
+    /**
+     * Show the event form
+     *
+     * @return void
+     */
+
     function showContent()
     {
-        if (empty($this->user)) {
-            $this->element('p', array('class' => 'greeting'),
-                           _m('Hello, stranger!'));
-        } else {
-            $this->element('p', array('class' => 'greeting'),
-                           sprintf(_m('Hello, %s'), $this->user->nickname));
-            $this->element('p', array('class' => 'greeting_count'),
-                           sprintf(_m('I have greeted you %d time.',
-                                      'I have greeted you %d times.',
-                                      $this->gc->greeting_count),
-                                   $this->gc->greeting_count));
+        if (!empty($this->error)) {
+            $this->element('p', 'error', $this->error);
         }
+
+        $form = new EventForm($this);
+
+        $form->show();
+
+        return;
     }
 
     /**
      * Return true if read only.
      *
-     * Some actions only read from the database; others read and write.
-     * The simple database load-balancer built into StatusNet will
-     * direct read-only actions to database mirrors (if they are configured),
-     * and read-write actions to the master database.
+     * MAY override
      *
-     * This defaults to false to avoid data integrity issues, but you
-     * should make sure to overload it for performance gains.
-     *
-     * @param array $args other arguments, if RO/RW status depends on them.
+     * @param array $args other arguments
      *
      * @return boolean is read only action?
      */
+
     function isReadOnly($args)
     {
-        return false;
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' ||
+            $_SERVER['REQUEST_METHOD'] == 'HEAD') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
