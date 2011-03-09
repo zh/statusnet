@@ -83,7 +83,7 @@ class NewpollForm extends Form
 
     function formClass()
     {
-        return 'form_settings';
+        return 'form_settings ajax-notice';
     }
 
     /**

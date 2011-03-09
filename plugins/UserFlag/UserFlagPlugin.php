@@ -181,21 +181,6 @@ class UserFlagPlugin extends Plugin
     }
 
     /**
-     * Initialize any flagging buttons on the page
-     *
-     * @param Action $action action being shown
-     *
-     * @return boolean hook result
-     */
-    function onEndShowScripts($action)
-    {
-        $action->inlineScript('if ($(".form_entity_flag").length > 0) { '.
-                              '$(".form_entity_flag").bind("click", function() {'.
-                              'SN.U.FormXHR($(this)); return false; }); }');
-        return true;
-    }
-
-    /**
      * Check whether a user has one of our defined rights
      *
      * We define extra rights; this function checks to see if a

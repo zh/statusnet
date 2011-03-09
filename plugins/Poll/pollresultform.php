@@ -83,7 +83,7 @@ class PollResultForm extends Form
 
     function formClass()
     {
-        return 'form_settings';
+        return 'form_settings ajax';
     }
 
     /**
@@ -109,14 +109,33 @@ class PollResultForm extends Form
         $out = $this->out;
         $counts = $poll->countResponses();
 
-        $out->element('p', 'poll-question', $poll->question);
-        $out->elementStart('ul', 'poll-options');
-        foreach ($poll->getOptions() as $i => $opt) {
-            $out->elementStart('li');
-            $out->text($counts[$i] . ' ' . $opt);
-            $out->elementEnd('li');
+        $width = 200;
+        $max = max($counts);
+        if ($max == 0) {
+            $max = 1; // quick hack :D
         }
-        $out->elementEnd('ul');
+
+        $out->element('p', 'poll-question', $poll->question);
+        $out->elementStart('table', 'poll-results');
+        foreach ($poll->getOptions() as $i => $opt) {
+            $w = intval($counts[$i] * $width / $max) + 1;
+
+            $out->elementStart('tr');
+
+            $out->elementStart('td');
+            $out->text($opt);
+            $out->elementEnd('td');
+
+            $out->elementStart('td');
+            $out->element('span', array('class' => 'poll-block',
+                                       'style' => "width: {$w}px"),
+                                  "\xc2\xa0"); // nbsp
+            $out->text($counts[$i]);
+            $out->elementEnd('td');
+
+            $out->elementEnd('tr');
+        }
+        $out->elementEnd('table');
     }
 
     /**

@@ -161,8 +161,8 @@ address {
     border-radius: 6px;
 }
 
-.form_notice label[for=notice_data-attach],
-.form_notice #notice_data-attach {
+.form_notice label.notice_data-attach,
+.form_notice input.notice_data-attach {
     top: 27px;
     right: 86px;
 }
@@ -594,7 +594,7 @@ padding-right:0;
     right: 6px !important;
 }
 
-.realtime-popup .form_notice label[for=notice_data-attach], .realtime-popup .form_notice #notice_data-attach {
+.realtime-popup .form_notice label.notice_data-attach, .realtime-popup .form_notice input.notice_data-attach {
     right: 74px;
     top: 3px !important;
 }

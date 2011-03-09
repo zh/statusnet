@@ -146,6 +146,6 @@ class FavorForm extends Form
      */
     function formClass()
     {
-        return 'form_favor';
+        return 'form_favor ajax';
     }
 }

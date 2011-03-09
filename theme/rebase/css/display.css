@@ -226,21 +226,28 @@ address .poweredby {
     color: #333 !important;
 }
 
-.form_notice label[for=notice_data-attach],
-.form_notice #notice_data-attach {
+.form_notice label.notice_data-attach,
+.form_notice input.notice_data-attach {
     position:absolute;
-    top: 31px;
-    right: 88px;
     cursor:pointer;
 }
+.form_notice label.notice_data-attach {
+    top: 31px;
+    right: 88px;
+}
+.form_notice input.notice_data-attach {
+    /* Positioned inside the label */
+    top: 0;
+    right: 0;
+}
 
-.form_notice label[for=notice_data-attach] {
+.form_notice label.notice_data-attach {
     text-indent:-9999px;
     width:16px;
     height:16px;
 }
 
-.form_notice #notice_data-attach {
+.form_notice input.notice_data-attach {
     padding:0;
     height:16px;
 }
@@ -348,7 +355,7 @@ address .poweredby {
     opacity: 1;
 }
 
-.form_notice #notice_data-attach {
+.form_notice input.notice_data-attach {
     opacity:0;
 }
 
@@ -1724,7 +1731,7 @@ body.realtime-popup {
     width: 86px;
 }
 
-.realtime-popup .form_notice label[for=notice_data-attach], .form_notice #notice_data-attach {
+.realtime-popup .form_notice label.notice_data-attach {
     right: 70px;
 }
 
@@ -1734,7 +1741,7 @@ body.realtime-popup {
 
 /* icons */
 
-.form_notice label[for=notice_data-attach],
+.form_notice label.notice_data-attach,
 #export_data li a.rss,
 #export_data li a.atom,
 #export_data li a.foaf,
@@ -1921,7 +1928,7 @@ background-position:0 -1648px;
 #new_group a {
 background-position:0 -1054px;
 }
-.form_notice label[for=notice_data-attach] {
+.form_notice label.notice_data-attach {
     background-position: 0 -328px;
 }
 .form_notice label.notice_data-geo {

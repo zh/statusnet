@@ -166,7 +166,9 @@ class Poll extends Managed_DataObject
 
         $raw = array();
         while ($pr->fetch()) {
-            $raw[$pr->selection] = $pr->votes;
+            // Votes list 1-based
+            // Array stores 0-based
+            $raw[$pr->selection - 1] = $pr->votes;
         }
 
         $counts = array();
@@ -216,6 +218,7 @@ class Poll extends Managed_DataObject
                                         array('id' => $p->id));
         }
 
+        common_log(LOG_DEBUG, "Saving poll: $p->id $p->uri");
         $p->insert();
 
         $content  = sprintf(_m('Poll: %s %s'),
