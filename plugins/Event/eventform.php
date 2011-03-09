@@ -66,7 +66,7 @@ class EventForm extends Form
 
     function formClass()
     {
-        return 'form_settings ajax';
+        return 'form_settings ajax-notice';
     }
 
     /**

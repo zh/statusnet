@@ -146,12 +146,12 @@ class NeweventAction extends Action
                 throw new ClientException(_('Event must have an end time.'));
             }
 
-            $saved = Event::saveNew($this->user->getProfile(),
-                                    $this->start_time,
-                                    $this->end_time,
-                                    $this->title,
-                                    $this->location,
-                                    $this->description);
+            $saved = Happening::saveNew($this->user->getProfile(),
+                                        $this->start_time,
+                                        $this->end_time,
+                                        $this->title,
+                                        $this->location,
+                                        $this->description);
 
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
@@ -159,7 +159,21 @@ class NeweventAction extends Action
             return;
         }
 
-
+        if ($this->boolean('ajax')) {
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            // TRANS: Page title after sending a notice.
+            $this->element('title', null, _('Event saved'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->showNotice($saved);
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            common_redirect($saved->bestUrl(), 303);
+        }
     }
 
     /**
@@ -199,5 +213,21 @@ class NeweventAction extends Action
         } else {
             return false;
         }
+    }
+
+
+    /**
+     * Output a notice
+     *
+     * Used to generate the notice code for Ajax results.
+     *
+     * @param Notice $notice Notice that was saved
+     *
+     * @return void
+     */
+    function showNotice($notice)
+    {
+        $nli = new NoticeListItem($notice, $this);
+        $nli->show();
     }
 }

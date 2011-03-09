@@ -58,7 +58,7 @@ class EventPlugin extends MicroappPlugin
     {
         $schema = Schema::get();
 
-        $schema->ensureTable('event', Happening::schemaDef());
+        $schema->ensureTable('happening', Happening::schemaDef());
         $schema->ensureTable('rsvp', RSVP::schemaDef());
 
         return true;
