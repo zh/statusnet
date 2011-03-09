@@ -108,4 +108,21 @@ class ShowPollAction extends ShownoticeAction
                        $this->poll->question);
     }
 
+    /**
+     * @fixme combine the notice time with poll update time
+     */
+    function lastModified()
+    {
+        return Action::lastModified();
+    }
+
+
+    /**
+     * @fixme combine the notice time with poll update time
+     */
+    function etag()
+    {
+        return Action::etag();
+    }
+
 }
