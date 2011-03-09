@@ -66,7 +66,8 @@ class LoginGroupNav extends Menu
                                     _('Login with a username and password'),
                                     $action_name === 'login');
 
-            if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
+            if (!common_logged_in() &&
+                !(common_config('site','closed') || common_config('site','inviteonly'))) {
                 $this->action->menuItem(common_local_url('register'),
                                         // TRANS: Menu item for registering with the StatusNet site.
                                         _m('MENU','Register'),
