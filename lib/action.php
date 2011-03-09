@@ -602,7 +602,7 @@ class Action extends HTMLOutputter // lawsuit
                                'class' => 'input_form_nav_tab');
 
                 if ($tag == 'status') {
-                    $attrs['class'] = 'current';
+                    $attrs['class'] .= ' current';
                 }
 
                 $this->elementStart('li', $attrs);
