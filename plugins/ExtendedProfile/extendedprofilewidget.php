@@ -21,13 +21,35 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-class ExtendedProfileWidget extends Widget
+/**
+ * Class for outputting a widget to display or edit
+ * extended profiles
+ */
+class ExtendedProfileWidget extends Form
 {
-    const EDITABLE=true;
+    const EDITABLE = true;
 
+    /**
+     * The parent profile
+     *
+     * @var Profile
+     */
     protected $profile;
+
+    /**
+     * The extended profile
+     *
+     * @var Extended_profile
+     */
     protected $ext;
 
+    /**
+     * Constructor
+     *
+     * @param XMLOutputter  $out
+     * @param Profile       $profile
+     * @param boolean       $editable
+     */
     public function __construct(XMLOutputter $out=null, Profile $profile=null, $editable=false)
     {
         parent::__construct($out);
@@ -38,7 +60,30 @@ class ExtendedProfileWidget extends Widget
         $this->editable = $editable;
     }
 
+    /**
+     * Show the extended profile, or the edit form
+     */
     public function show()
+    {
+        if ($this->editable) {
+            parent::show();
+        } else {
+            $this->showSections();
+        }
+    }
+
+    /**
+     * Show form data
+     */
+    public function formData()
+    {
+        $this->showSections();
+    }
+
+    /**
+     * Show each section of the extended profile
+     */
+    public function showSections()
     {
         $sections = $this->ext->getSections();
         foreach ($sections as $name => $section) {
@@ -46,6 +91,12 @@ class ExtendedProfileWidget extends Widget
         }
     }
 
+    /**
+     * Show an extended profile section
+     *
+     * @param string $name      name of the section
+     * @param array  $section   array of fields for the section
+     */
     protected function showExtendedProfileSection($name, $section)
     {
         $this->out->element('h3', null, $section['label']);
@@ -56,6 +107,12 @@ class ExtendedProfileWidget extends Widget
         $this->out->elementEnd('table');
     }
 
+    /**
+     * Show an extended profile field
+     *
+     * @param string $name  name of the field
+     * @param array  $field set of key/value pairs for the field
+     */
     protected function showExtendedProfileField($name, $field)
     {
         $this->out->elementStart('tr');
@@ -73,30 +130,110 @@ class ExtendedProfileWidget extends Widget
         $this->out->elementEnd('tr');
     }
 
+    /**
+     * Outputs the value of a field
+     *
+     * @param string $name  name of the field
+     * @param array  $field set of key/value pairs for the field
+     */
     protected function showFieldValue($name, $field)
     {
-        $this->out->text($name);
+        $type = strval(@$field['type']);
+
+        switch($type)
+        {
+        case '':
+        case 'text':
+        case 'textarea':
+            $this->out->text($this->ext->getTextValue($name));
+            break;
+        case 'tags':
+            $this->out->text($this->ext->getTags());
+            break;
+        default:
+            $this->out->text("TYPE: $type");
+        }
+
     }
 
+    /**
+     * Show an editable version of the field
+     *
+     * @param string $name  name fo the field
+     * @param array  $field array of key/value pairs for the field
+     */
     protected function showEditableField($name, $field)
     {
         $out = $this->out;
-        //$out = new HTMLOutputter();
-        // @fixme
+
         $type = strval(@$field['type']);
         $id = "extprofile-" . $name;
+
         $value = 'placeholder';
 
         switch ($type) {
-            case '':
-            case 'text':
-                $out->input($id, null, $value);
-                break;
-            case 'textarea':
-                $out->textarea($id, null, $value);
-                break;
-            default:
-                $out->input($id, null, "TYPE: $type");
+        case '':
+        case 'text':
+            $out->input($id, null, $this->ext->getTextValue($name));
+            break;
+        case 'textarea':
+            $out->textarea($id, null,  $this->ext->getTextValue($name));
+            break;
+        case 'tags':
+            $out->input($id, null, $this->ext->getTags());
+            break;
+        default:
+            $out->input($id, null, "TYPE: $type");
         }
+    }
+
+    /**
+     * Action elements
+     *
+     * @return void
+     */
+
+    function formActions()
+    {
+        $this->out->submit(
+            'save',
+            _m('BUTTON','Save'),
+            'submit form_action-secondary',
+            'save',
+            _('Save details')
+       );
+    }
+
+    /**
+     * ID of the form
+     *
+     * @return string ID of the form
+     */
+
+    function id()
+    {
+        return 'profile-details-' . $this->profile->id;
+    }
+
+    /**
+     * class of the form
+     *
+     * @return string of the form class
+     */
+
+    function formClass()
+    {
+        return 'form_profile_details';
+    }
+
+    /**
+     * Action of the form
+     *
+     * @return string URL of the action
+     */
+
+    function action()
+    {
+        return common_local_url('profiledetailsettings');
     }
 }

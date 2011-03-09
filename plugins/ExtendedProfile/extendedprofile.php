@@ -21,15 +21,29 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+/**
+ * Class to represent extended profile data
+ */
 class ExtendedProfile
 {
+    /**
+     * Constructor
+     *
+     * @param Profile $profile
+     */
     function __construct(Profile $profile)
     {
-        $this->profile = $profile;
+        $this->profile  = $profile;
+        $this->user     = $profile->getUser();
         $this->sections = $this->getSections();
-        $this->fields = $this->loadFields();
+        $this->fields   = $this->loadFields();
     }
 
+    /**
+     * Load extended profile fields
+     *
+     * @return array $fields the list of fields
+     */
     function loadFields()
     {
         $detail = new Profile_detail();
@@ -41,9 +55,48 @@ class ExtendedProfile
         while ($detail->fetch()) {
             $fields[$detail->field][] = clone($detail);
         }
+
         return $fields;
     }
 
+    /**
+     * Get a the self-tags associated with this profile
+     *
+     * @return string the concatenated string of tags
+     */
+    function getTags()
+    {
+        return implode(' ', $this->user->getSelfTags());
+    }
+
+    /**
+     * Return a simple string value. Checks for fields that should
+     * be stored in the regular profile and returns values from it
+     * if appropriate.
+     *
+     * @param string $name name of the detail field to get the
+     *                     value from
+     *
+     * @return string the value
+     */
+    function getTextValue($name)
+    {
+        $profileFields = array('fullname', 'location', 'bio');
+
+        if (in_array(strtolower($name), $profileFields)) {
+            return $this->profile->$name;
+        } else if (in_array($name, $this->fields)) {
+            return $this->fields[$name]->value;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     *  Return all the sections of the extended profile
+     *
+     * @return array the big list of sections and fields
+     */
     function getSections()
     {
         return array(

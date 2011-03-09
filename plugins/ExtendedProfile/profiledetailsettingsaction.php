@@ -21,7 +21,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-class ProfileDetailSettingsAction extends AccountSettingsAction
+class ProfileDetailSettingsAction extends SettingsAction
 {
 
     function title()
@@ -47,9 +47,26 @@ class ProfileDetailSettingsAction extends AccountSettingsAction
         return true;
     }
 
-    function handle($args)
+    function handlePost()
     {
-        $this->showPage();
+        // CSRF protection
+        $token = $this->trimmed('token');
+        if (!$token || $token != common_session_token()) {
+            $this->show_form(
+                _m(
+                    'There was a problem with your session token. '
+                    .   'Try again, please.'
+                  )
+            );
+            return;
+        }
+
+        if ($this->arg('save')) {
+            $this->saveDetails();
+        } else {
+            // TRANS: Message given submitting a form with an unknown action
+            $this->showForm(_m('Unexpected form submission.'));
+        }
     }
 
     function showContent()
@@ -60,4 +77,115 @@ class ProfileDetailSettingsAction extends AccountSettingsAction
         $widget = new ExtendedProfileWidget($this, $profile, ExtendedProfileWidget::EDITABLE);
         $widget->show();
     }
+
+    function saveDetails()
+    {
+        common_debug(var_export($_POST, true));
+
+        $user = common_current_user();
+
+        try {
+           $this->saveStandardProfileDetails($user);
+        } catch (Exception $e) {
+            $this->showForm($e->getMessage(), false);
+            return;
+        }
+
+        $profile = $user->getProfile();
+
+
+        $simple_fields = array('title', 'manager', 'tags', 'spouse');
+
+        $this->showForm(_('Details saved.'), true);
+
+    }
+
+    /**
+     * Save fields that should be stored in the main profile object
+     *
+     * XXX: There's a lot of dupe code here from ProfileSettingsAction.
+     *      Do not want.
+     *
+     * @param User $user the current user
+     */
+    function saveStandardProfileDetails($user)
+    {
+        $user->query('BEGIN');
+
+        $fullname  = $this->trimmed('extprofile-fullname');
+        $location  = $this->trimmed('extprofile-location');
+        $tagstring = $this->trimmed('extprofile-tags');
+        $bio       = $this->trimmed('extprofile-bio');
+
+        if ($tagstring) {
+            $tags = array_map(
+                'common_canonical_tag',
+                preg_split('/[\s,]+/', $tagstring)
+            );
+        } else {
+            $tags = array();
+        }
+
+        foreach ($tags as $tag) {
+            if (!common_valid_profile_tag($tag)) {
+                // TRANS: Validation error in form for profile settings.
+                // TRANS: %s is an invalid tag.
+                throw new Exception(sprintf(_m('Invalid tag: "%s".'), $tag));
+            }
+        }
+
+        $profile = $user->getProfile();
+
+        if ($fullname    != $profile->fullname
+            || $location != $profile->location
+            || $tags     != $profile->tags
+            || $bio      != $profile->bio) {
+
+            $orig = clone($profile);
+
+            $profile->nickname = $user->nickname;
+            $profile->fullname = $fullname;
+            $profile->bio      = $bio;
+            $profile->location = $location;
+
+            $loc = Location::fromName($location);
+
+            if (empty($loc)) {
+                $profile->lat         = null;
+                $profile->lon         = null;
+                $profile->location_id = null;
+                $profile->location_ns = null;
+            } else {
+                $profile->lat         = $loc->lat;
+                $profile->lon         = $loc->lon;
+                $profile->location_id = $loc->location_id;
+                $profile->location_ns = $loc->location_ns;
+            }
+
+            $profile->profileurl = common_profile_url($user->nickname);
+
+            $result = $profile->update($orig);
+
+            if ($result === false) {
+                common_log_db_error($profile, 'UPDATE', __FILE__);
+                // TRANS: Server error thrown when user profile settings could not be saved.
+                $this->serverError(_('Could not save profile.'));
+                return;
+            }
+
+            // Set the user tags
+            $result = $user->setSelfTags($tags);
+
+            if (!$result) {
+                // TRANS: Server error thrown when user profile settings tags could not be saved.
+                $this->serverError(_('Could not save tags.'));
+                return;
+            }
+
+            $user->query('COMMIT');
+            Event::handle('EndProfileSaveForm', array($this));
+            common_broadcast_profile($profile);
+        }
+    }
+
 }

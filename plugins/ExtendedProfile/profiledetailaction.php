@@ -23,6 +23,7 @@ if (!defined('STATUSNET')) {
 
 class ProfileDetailAction extends ProfileAction
 {
+
     function isReadOnly($args)
     {
         return true;
