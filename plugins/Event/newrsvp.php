@@ -72,6 +72,9 @@ class NewrsvpAction extends Action
     function prepare($argarray)
     {
         parent::prepare($argarray);
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true); // short error results!
+        }
 
         $eventId = $this->trimmed('event');
 

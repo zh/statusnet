@@ -72,6 +72,9 @@ class CancelrsvpAction extends Action
     function prepare($argarray)
     {
         parent::prepare($argarray);
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true); // short error results!
+        }
 
         $rsvpId = $this->trimmed('rsvp');
 
@@ -133,8 +136,10 @@ class CancelrsvpAction extends Action
             $notice = $this->rsvp->getNotice();
             // NB: this will delete the rsvp, too
             if (!empty($notice)) {
+                common_log(LOG_DEBUG, "Deleting notice...");
                 $notice->delete();
             } else {
+                common_log(LOG_DEBUG, "Deleting RSVP alone...");
                 $this->rsvp->delete();
             }
         } catch (ClientException $ce) {

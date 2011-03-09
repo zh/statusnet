@@ -295,6 +295,31 @@ class EventPlugin extends MicroappPlugin
             $this->showRSVPNotice($notice, $out);
             break;
         }
+
+        // @fixme we have to start the name/avatar and open this div
+        $out->elementStart('div', array('class' => 'event-info entry-content')); // EVENT-INFO.ENTRY-CONTENT IN
+
+        $profile = $notice->getProfile();
+        $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
+
+        $out->element('img',
+                      array('src' => ($avatar) ?
+                            $avatar->displayUrl() :
+                            Avatar::defaultImage(AVATAR_MINI_SIZE),
+                            'class' => 'avatar photo bookmark-avatar',
+                            'width' => AVATAR_MINI_SIZE,
+                            'height' => AVATAR_MINI_SIZE,
+                            'alt' => $profile->getBestName()));
+
+        $out->raw('&#160;'); // avoid &nbsp; for AJAX XML compatibility
+
+        $out->elementStart('span', 'vcard author'); // hack for belongsOnTimeline; JS needs to be able to find the author
+        $out->element('a',
+                      array('class' => 'url',
+                            'href' => $profile->profileurl,
+                            'title' => $profile->getBestName()),
+                      $profile->nickname);
+        $out->elementEnd('span');
     }
 
     function showRSVPNotice($notice, $out)
@@ -311,9 +336,9 @@ class EventPlugin extends MicroappPlugin
         assert(!empty($event));
         assert(!empty($profile));
 
-        $out->elementStart('div', 'vevent');
+        $out->elementStart('div', 'vevent'); // VEVENT IN
 
-        $out->elementStart('h3');
+        $out->elementStart('h3');  // VEVENT/H3 IN
 
         if (!empty($event->url)) {
             $out->element('a',
@@ -324,11 +349,11 @@ class EventPlugin extends MicroappPlugin
             $out->text($event->title);
         }
 
-        $out->elementEnd('h3');
+        $out->elementEnd('h3'); // VEVENT/H3 OUT
 
         // FIXME: better dates
 
-        $out->elementStart('div', 'event-times');
+        $out->elementStart('div', 'event-times'); // VEVENT/EVENT-TIMES IN
         $out->element('abbr', array('class' => 'dtstart',
                                     'title' => common_date_iso8601($event->start_time)),
                       common_exact_date($event->start_time));
@@ -336,7 +361,7 @@ class EventPlugin extends MicroappPlugin
         $out->element('span', array('class' => 'dtend',
                                     'title' => common_date_iso8601($event->end_time)),
                       common_exact_date($event->end_time));
-        $out->elementEnd('div');
+        $out->elementEnd('div'); // VEVENT/EVENT-TIMES OUT
 
         if (!empty($event->description)) {
             $out->element('div', 'description', $event->description);
@@ -358,6 +383,7 @@ class EventPlugin extends MicroappPlugin
 
         if (!empty($user)) {
             $rsvp = $event->getRSVP($user->getProfile());
+            common_log(LOG_DEBUG, "RSVP is: " . ($rsvp ? $rsvp->id : 'none'));
 
             if (empty($rsvp)) {
                 $form = new RSVPForm($event, $out);
@@ -368,31 +394,7 @@ class EventPlugin extends MicroappPlugin
             $form->show();
         }
 
-        $out->elementStart('div', array('class' => 'event-info entry-content'));
-
-        $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
-
-        $out->element('img', 
-                      array('src' => ($avatar) ?
-                            $avatar->displayUrl() :
-                            Avatar::defaultImage(AVATAR_MINI_SIZE),
-                            'class' => 'avatar photo bookmark-avatar',
-                            'width' => AVATAR_MINI_SIZE,
-                            'height' => AVATAR_MINI_SIZE,
-                            'alt' => $profile->getBestName()));
-
-        $out->raw('&#160;'); // avoid &nbsp; for AJAX XML compatibility
-
-        $out->elementStart('span', 'vcard author'); // hack for belongsOnTimeline; JS needs to be able to find the author
-        $out->element('a', 
-                      array('class' => 'url',
-                            'href' => $profile->profileurl,
-                            'title' => $profile->getBestName()),
-                      $profile->nickname);
-        $out->elementEnd('span');
-
-        // @fixme right now we have to leave this div open
-        //$out->elementEnd('div');
+        $out->elementEnd('div'); // vevent out
     }
 
     /**
@@ -417,15 +419,20 @@ class EventPlugin extends MicroappPlugin
     {
         switch ($notice->object_type) {
         case Happening::OBJECT_TYPE:
+            common_log(LOG_DEBUG, "Deleting event from notice...");
             $happening = Happening::fromNotice($notice);
             $happening->delete();
             break;
         case RSVP::POSITIVE:
         case RSVP::NEGATIVE:
         case RSVP::POSSIBLE:
+            common_log(LOG_DEBUG, "Deleting rsvp from notice...");
             $rsvp = RSVP::fromNotice($notice);
+            common_log(LOG_DEBUG, "to delete: $rsvp->id");
             $rsvp->delete();
             break;
+        default:
+            common_log(LOG_DEBUG, "Not deleting related, wtf...");
         }
     }
 }

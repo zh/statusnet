@@ -86,6 +86,20 @@ class RSVP extends Managed_DataObject
     }
 
     /**
+     * Add the compound profile_id/event_id index to our cache keys
+     * since the DB_DataObject stuff doesn't understand compound keys
+     * except for the primary.
+     *
+     * @return array
+     */
+    function _allCacheKeys() {
+        $keys = parent::_allCacheKeys();
+        $keys[] = self::multicacheKey('RSVP', array('profile_id' => $this->profile_id,
+                                                    'event_id' => $this->event_id));
+        return $keys;
+    }
+
+    /**
      * The One True Thingy that must be defined and declared.
      */
     public static function schemaDef()
@@ -231,9 +245,5 @@ class RSVP extends Managed_DataObject
         }
 
         return $rsvps;
-    }
-
-    function delete()
-    {
     }
 }
