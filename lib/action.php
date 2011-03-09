@@ -267,9 +267,16 @@ class Action extends HTMLOutputter // lawsuit
 
     function primaryCssLink($mainTheme=null, $media=null)
     {
+        $theme = new Theme($mainTheme);
+
+        // Some themes may have external stylesheets, such as using the
+        // Google Font APIs to load webfonts.
+        foreach ($theme->getExternals() as $url) {
+            $this->cssLink($url, $mainTheme, $media);
+        }
+
         // If the currently-selected theme has dependencies on other themes,
         // we'll need to load their display.css files as well in order.
-        $theme = new Theme($mainTheme);
         $baseThemes = $theme->getDeps();
         foreach ($baseThemes as $baseTheme) {
             $this->cssLink('css/display.css', $baseTheme, $media);
