@@ -713,16 +713,24 @@ class Action extends HTMLOutputter // lawsuit
     /**
      * Show menu for an object (group, profile)
      *
+     * This block will only show if a subclass has overridden
+     * the showObjectNav() method.
+     *
      * @return nothing
      */
     function showObjectNavBlock()
     {
-        // Need to have this ID for CSS; I'm too lazy to add it to
-        // all menus
-        $this->elementStart('div', array('id' => 'site_nav_object',
-                                         'class' => 'section'));
-        $this->showObjectNav();
-        $this->elementEnd('div');
+        $rmethod = new ReflectionMethod($this, 'showObjectNav');
+        $dclass = $rmethod->getDeclaringClass()->getName();
+
+        if ($dclass != 'Action') {
+            // Need to have this ID for CSS; I'm too lazy to add it to
+            // all menus
+            $this->elementStart('div', array('id' => 'site_nav_object',
+                                             'class' => 'section'));
+            $this->showObjectNav();
+            $this->elementEnd('div');
+        }
     }
 
     /**
