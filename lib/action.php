@@ -712,7 +712,8 @@ class Action extends HTMLOutputter // lawsuit
     {
         // Need to have this ID for CSS; I'm too lazy to add it to
         // all menus
-        $this->elementStart('div', array('id' => 'site_nav_object'));
+        $this->elementStart('div', array('id' => 'site_nav_object',
+                                         'class' => 'section'));
         $this->showObjectNav();
         $this->elementEnd('div');
     }
