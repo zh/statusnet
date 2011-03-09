@@ -112,7 +112,7 @@ class Happening extends Managed_DataObject
         );
     }
 
-    function saveNew($profile, $start_time, $end_time, $title, $location, $description, $options)
+    function saveNew($profile, $start_time, $end_time, $title, $location, $description, $options=array())
     {
         if (array_key_exists('uri', $options)) {
             $other = Happening::staticGet('uri', $options['uri']);

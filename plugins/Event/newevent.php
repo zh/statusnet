@@ -93,6 +93,14 @@ class NeweventAction extends Action
         $this->location    = $this->trimmed('location');
         $this->description = $this->trimmed('description');
 
+        $start_date = $this->trimmed('start_date');
+        $start_time = $this->trimmed('start_time');
+        $end_date   = $this->trimmed('end_date');
+        $end_time   = $this->trimmed('end_time');
+
+        $this->start_time = strtotime($start_date . ' ' . $start_time);
+        $this->end_time   = strtotime($end_date . ' ' . $end_time);
+
         return true;
     }
 
@@ -130,16 +138,20 @@ class NeweventAction extends Action
                 throw new ClientException(_('Event must have a title.'));
             }
 
-            if (empty($this->url)) {
-                throw new ClientException(_('Event must have an URL.'));
+            if (empty($this->start_time)) {
+                throw new ClientException(_('Event must have a start time.'));
             }
 
+            if (empty($this->end_time)) {
+                throw new ClientException(_('Event must have an end time.'));
+            }
 
             $saved = Event::saveNew($this->user->getProfile(),
-                                              $this->title,
-                                              $this->url,
-                                              $this->tags,
-                                              $this->description);
+                                    $this->start_time,
+                                    $this->end_time,
+                                    $this->title,
+                                    $this->location,
+                                    $this->description);
 
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
@@ -147,7 +159,7 @@ class NeweventAction extends Action
             return;
         }
 
-        common_redirect($saved->bestUrl(), 303);
+
     }
 
     /**
