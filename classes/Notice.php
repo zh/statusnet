@@ -463,6 +463,10 @@ class Notice extends Memcached_DataObject
         // was not the root of the conversation.  What to do now?
 
         self::blow('notice:conversation_ids:%d', $this->conversation);
+        
+        if (!empty($this->reply_to)) {
+            self::blow('notice:responses:%d', $this->reply_to);
+        }
 
         if (!empty($this->repeat_of)) {
             self::blow('notice:repeats:%d', $this->repeat_of);
@@ -492,6 +496,7 @@ class Notice extends Memcached_DataObject
         $this->blowOnInsert();
 
         self::blow('profile:notice_ids:%d;last', $this->profile_id);
+        self::blow('notice:responses:%d', $this->id);
 
         if ($this->isPublic()) {
             self::blow('public;last');
@@ -2132,5 +2137,47 @@ class Notice extends Memcached_DataObject
             return (($this->is_local != Notice::LOCAL_NONPUBLIC) &&
                     ($this->is_local != Notice::GATEWAY));
         }
+    }
+
+    function responseStream($offset=0, $limit=20, $since_id=0, $max_id=0)
+    {
+        $ids = Notice::stream(array($this, '_responseStreamDirect'),
+                              array(),
+                              'notice:responses:'.$id,
+                              $offset, $limit, $since_id, $max_id);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _responseStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0)
+    {
+        $notice = new Notice();
+
+        $notice->selectAdd(); // clears it
+        $notice->selectAdd('id');
+
+        $notice->reply_to = $this->reply_to;
+
+        $notice->orderBy('created DESC, id DESC');
+
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
+        }
+
+        Notice::addWhereSinceId($notice, $since_id);
+        Notice::addWhereMaxId($notice, $max_id);
+
+        $ids = array();
+
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $ids[] = $notice->id;
+            }
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
     }
 }
