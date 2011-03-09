@@ -93,10 +93,47 @@ class ProfileDetailSettingsAction extends SettingsAction
 
         $profile = $user->getProfile();
 
+        $simpleFieldNames = array('title');
 
-        $simple_fields = array('title', 'manager', 'tags', 'spouse');
+        foreach ($simpleFieldNames as $name) {
+            $value = $this->trimmed('extprofile-' . $name);
+            $this->saveSimpleField($user, $name, $value);
+        }
 
         $this->showForm(_('Details saved.'), true);
+
+    }
+
+    function saveSimpleField($user, $name, $value)
+    {
+        $profile = $user->getProfile();
+
+        $detail = new Profile_detail();
+
+        $detail->profile_id  = $profile->id;
+        $detail->field       = $name;
+        $detail->field_index = 1;
+
+        $result = $detail->find(true);
+
+
+        if (empty($result)) {
+            $detail->value = $value;
+
+            $detail->created = common_sql_now();
+
+            common_debug("XXXXXXXXXXXXXXX not found");
+            //common_debug('bbbbbbbbbbbb ' . var_export($detail, true));
+
+            $result = $detail->insert();
+        } else {
+            common_debug('zzzzz FOUND');
+            $orig = clone($detail);
+            $detail->value = $value;
+            $result = $detail->update($orig);
+        }
+
+        $detail->free();
 
     }
 
@@ -136,9 +173,12 @@ class ProfileDetailSettingsAction extends SettingsAction
 
         $profile = $user->getProfile();
 
+        $oldTags = $user->getSelfTags();
+        $newTags = array_diff($tags, $oldTags);
+
         if ($fullname    != $profile->fullname
             || $location != $profile->location
-            || $tags     != $profile->tags
+            || !empty($newTags)
             || $bio      != $profile->bio) {
 
             $orig = clone($profile);
