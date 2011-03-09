@@ -321,6 +321,8 @@ class EventPlugin extends MicroappPlugin
 
         $out->elementEnd('h3');
 
+        // FIXME: better dates
+
         $out->elementStart('div', 'event-times');
         $out->element('abbr', array('class' => 'dtstart',
                                     'title' => common_date_iso8601($event->start_time)),
@@ -338,6 +340,14 @@ class EventPlugin extends MicroappPlugin
         if (!empty($event->location)) {
             $out->element('div', 'location', $event->location);
         }
+
+        $rsvps = $event->getRSVPs();
+
+        $out->element('div', 'event-rsvps',
+                      sprintf(_('Yes: %d No: %d Maybe: %d'),
+                              count($rsvps[RSVP::POSITIVE]),
+                              count($rsvps[RSVP::NEGATIVE]),
+                              count($rsvps[RSVP::POSSIBLE])));
 
         $out->elementStart('div', array('class' => 'event-info entry-content'));
 

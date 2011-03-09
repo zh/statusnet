@@ -205,4 +205,9 @@ class Happening extends Managed_DataObject
     {
         return Happening::staticGet('uri', $notice->uri);
     }
+
+    function getRSVPs()
+    {
+        return RSVP::forEvent($this);
+    }
 }

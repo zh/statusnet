@@ -196,4 +196,22 @@ class RSVP extends Managed_DataObject
     {
         return RSVP::staticGet('uri', $notice->uri);
     }
+
+    static function forEvent($event)
+    {
+        $rsvps = array(RSVP::POSITIVE => array(), RSVP::NEGATIVE => array(), RSVP::POSSIBLE => array());
+
+        $rsvp = new RSVP();
+
+        $rsvp->event_id = $event->id;
+
+        if ($rsvp->find()) {
+            while ($rsvp->fetch()) {
+                $verb = $this->verbFor($rsvp->code);
+                $rsvps[$verb][] = clone($rsvp);
+            }
+        }
+
+        return $rsvps;
+    }
 }
