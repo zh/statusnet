@@ -38,13 +38,13 @@ if (!defined('STATUSNET')) {
  *     $phone1 = new Profile_detail();
  *     $phone1->field_name  = 'phone_number';
  *     $phone1->rel         = 'home';
- *     $phone1->value       = '510-384-1992';
+ *     $phone1->field_value = '510-384-1992';
  *     $phone1->value_index = 1;
  *
  *     $phone1 = new Profile_detail();
  *     $phone1->field_name  = 'phone_number';
  *     $phone1->rel         = 'mobile';
- *     $phone1->value       = '510-719-1139';
+ *     $phone1->field_value = '510-719-1139';
  *     $phone1->value_index = 2;
  *
  *     $phone1 = new Profile_detail();
@@ -62,7 +62,7 @@ class Profile_detail extends Managed_DataObject
     public $profile_id;  // profile this is for
     public $rel;         // detail for some field types; eg "home", "mobile", "work" for phones or "aim", "irc", "xmpp" for IM
     public $field_name;  // name
-    public $value;       // primary text value
+    public $field_value; // primary text value
     public $value_index; // relative ordering of multiple values in the same field
     public $ref_profile; // for people types, allows pointing to a known profile in the system
     public $created;
@@ -131,7 +131,7 @@ class Profile_detail extends Managed_DataObject
             ),
             'primary key' => array('id'),
             'unique keys' => array(
-                'profile_detial_profile_id_field_name_value_index'
+                'profile_detail_profile_id_field_name_value_index'
                     => array('profile_id', 'field_name', 'value_index'),
             )
         );

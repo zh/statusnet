@@ -37,6 +37,7 @@ class ExtendedProfile
         $this->user     = $profile->getUser();
         $this->sections = $this->getSections();
         $this->fields   = $this->loadFields();
+        common_debug(var_export($this->fields, true));
     }
 
     /**
