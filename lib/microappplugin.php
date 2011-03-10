@@ -308,8 +308,9 @@ abstract class MicroAppPlugin extends Plugin
                              'url' => $object->link,
                              'is_local' => Notice::REMOTE_OMB,
                              'source' => 'ostatus');
-            
-            $this->saveNoticeFromActivity($activity, $actor);
+
+            // $actor is an ostatus_profile
+            $this->saveNoticeFromActivity($activity, $actor->localProfile());
 
             return false;
         }
@@ -365,7 +366,8 @@ abstract class MicroAppPlugin extends Plugin
                              'is_local' => Notice::REMOTE_OMB,
                              'source' => 'ostatus');
 
-            $this->saveNoticeFromActivity($activity, $actor, $options);
+            // $actor is an ostatus_profile
+            $this->saveNoticeFromActivity($activity, $actor->localProfile(), $options);
 
             return false;
         }
@@ -389,6 +391,7 @@ abstract class MicroAppPlugin extends Plugin
 
             $options = array('source' => 'atompub');
 
+            // $user->getProfile() is a Profile
             $this->saveNoticeFromActivity($activity,
                                           $user->getProfile(),
                                           $options);
@@ -421,6 +424,7 @@ abstract class MicroAppPlugin extends Plugin
                              'url' => $object->link,
                              'source' => 'restore');
 
+            // $user->getProfile() is a Profile
             $saved = $this->saveNoticeFromActivity($activity,
                                                    $user->getProfile(),
                                                    $options);

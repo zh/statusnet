@@ -194,6 +194,7 @@ class PollPlugin extends MicroAppPlugin
     {
         // @fixme
         common_log(LOG_DEBUG, "XXX activity: " . var_export($activity, true));
+        common_log(LOG_DEBUG, "XXX profile: " . var_export($profile, true));
         common_log(LOG_DEBUG, "XXX options: " . var_export($options, true));
 
         // Ok for now, we can grab stuff from the XML entry directly.
@@ -215,6 +216,13 @@ class PollPlugin extends MicroAppPlugin
                 }
                 common_log(LOG_DEBUG, "YYY question: $question");
                 common_log(LOG_DEBUG, "YYY opts: " . var_export($opts, true));
+                try {
+                    $notice = Poll::saveNew($profile, $question, $opts, $options);
+                    common_log(LOG_DEBUG, "YYY ok: " . $notice->id);
+                    return $notice;
+                } catch (Exception $e) {
+                    common_log(LOG_DEBUG, "YYY fail: " . $e->getMessage());
+                }
             } else {
                 common_log(LOG_DEBUG, "YYY no poll data");
             }
