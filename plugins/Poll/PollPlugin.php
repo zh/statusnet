@@ -124,8 +124,11 @@ class PollPlugin extends MicroAppPlugin
     function onRouterInitialized($m)
     {
         $m->connect('main/poll/new',
-                    array('action' => 'newpoll'),
-                    array('id' => '[0-9]+'));
+                    array('action' => 'newpoll'));
+
+        $m->connect('main/poll/:id',
+                    array('action' => 'showpoll'),
+                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
         $m->connect('main/poll/:id/respond',
                     array('action' => 'respondpoll'),
@@ -190,6 +193,32 @@ class PollPlugin extends MicroAppPlugin
     function saveNoticeFromActivity($activity, $profile, $options=array())
     {
         // @fixme
+        common_log(LOG_DEBUG, "XXX activity: " . var_export($activity, true));
+        common_log(LOG_DEBUG, "XXX options: " . var_export($options, true));
+
+        // Ok for now, we can grab stuff from the XML entry directly.
+        // This won't work when reading from JSON source
+        if ($activity->entry) {
+            $elements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'data');
+            if ($elements->length) {
+                $data = $elements->item(0);
+                $question = $data->getAttribute('question');
+                $opts = array();
+                foreach ($data->attributes as $node) {
+                    $name = $node->nodeName;
+                    if (substr($name, 0, 6) == 'option') {
+                        $n = intval(substr($name, 6));
+                        if ($n > 0) {
+                            $opts[$n - 1] = $node->nodeValue;
+                        }
+                    }
+                }
+                common_log(LOG_DEBUG, "YYY question: $question");
+                common_log(LOG_DEBUG, "YYY opts: " . var_export($opts, true));
+            } else {
+                common_log(LOG_DEBUG, "YYY no poll data");
+            }
+        }
     }
 
     function activityObjectFromNotice($notice)
