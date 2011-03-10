@@ -616,12 +616,15 @@ class BookmarkPlugin extends MicroAppPlugin
                             'height' => AVATAR_MINI_SIZE,
                             'alt' => $profile->getBestName()));
 
-        $out->raw('&nbsp;');
+        $out->raw('&#160;'); // avoid &nbsp; for AJAX XML compatibility
 
+        $out->elementStart('span', 'vcard author'); // hack for belongsOnTimeline; JS needs to be able to find the author
         $out->element('a', 
-                      array('href' => $profile->profileurl,
+                      array('class' => 'url',
+                            'href' => $profile->profileurl,
                             'title' => $profile->getBestName()),
                       $profile->nickname);
+        $out->elementEnd('span');
     }
 
     function entryForm($out)

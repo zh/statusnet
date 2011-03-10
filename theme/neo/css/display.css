@@ -180,7 +180,8 @@ address {
 }
 
 .form_notice .error,
-.form_notice .success {
+.form_notice .success,
+.form_notice .notice-status {
     width: 341px;
 }
 
@@ -480,14 +481,14 @@ td.entity_profile { /* cf directory table */
     margin-bottom: 10px;
 }
 
-.error, .success {
+.error, .success, .notice-status {
     background-color: #F7E8E8;
     padding: 4px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
 }
-.success {
+.success, .notice-status {
     background-color: #f2f2f2;
 }
 

@@ -132,7 +132,7 @@ class NoticeForm extends Form
 
     function formClass()
     {
-        return 'form_notice';
+        return 'form_notice ajax-notice';
     }
 
     /**
@@ -170,7 +170,7 @@ class NoticeForm extends Form
                                 // TRANS: Title for notice label. %s is the user's nickname.
                                 sprintf(_('What\'s up, %s?'), $this->user->nickname));
             // XXX: vary by defined max size
-            $this->out->element('textarea', array('id' => 'notice_data-text',
+            $this->out->element('textarea', array('class' => 'notice_data-text',
                                                   'cols' => 35,
                                                   'rows' => 4,
                                                   'name' => 'status_textarea'),

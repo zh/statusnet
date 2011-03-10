@@ -606,4 +606,8 @@ class RegisterAction extends Action
         $nav = new LoginGroupNav($this);
         $nav->show();
     }
+
+    function showNoticeForm()
+    {
+    }
 }

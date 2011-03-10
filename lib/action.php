@@ -267,9 +267,16 @@ class Action extends HTMLOutputter // lawsuit
 
     function primaryCssLink($mainTheme=null, $media=null)
     {
+        $theme = new Theme($mainTheme);
+
+        // Some themes may have external stylesheets, such as using the
+        // Google Font APIs to load webfonts.
+        foreach ($theme->getExternals() as $url) {
+            $this->cssLink($url, $mainTheme, $media);
+        }
+
         // If the currently-selected theme has dependencies on other themes,
         // we'll need to load their display.css files as well in order.
-        $theme = new Theme($mainTheme);
         $baseThemes = $theme->getDeps();
         foreach ($baseThemes as $baseTheme) {
             $this->cssLink('css/display.css', $baseTheme, $media);
@@ -595,7 +602,7 @@ class Action extends HTMLOutputter // lawsuit
                                'class' => 'input_form_nav_tab');
 
                 if ($tag == 'status') {
-                    $attrs['class'] = 'current';
+                    $attrs['class'] .= ' current';
                 }
 
                 $this->elementStart('li', $attrs);
@@ -669,10 +676,6 @@ class Action extends HTMLOutputter // lawsuit
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
         }
-        if (Event::handle('StartShowObjectNavBlock', array($this))) {
-            $this->showObjectNavBlock();
-            Event::handle('EndShowObjectNavBlock', array($this));
-        }
         if (Event::handle('StartShowAside', array($this))) {
             $this->showAside();
             Event::handle('EndShowAside', array($this));
@@ -710,15 +713,24 @@ class Action extends HTMLOutputter // lawsuit
     /**
      * Show menu for an object (group, profile)
      *
+     * This block will only show if a subclass has overridden
+     * the showObjectNav() method.
+     *
      * @return nothing
      */
     function showObjectNavBlock()
     {
-        // Need to have this ID for CSS; I'm too lazy to add it to
-        // all menus
-        $this->elementStart('div', array('id' => 'site_nav_object'));
-        $this->showObjectNav();
-        $this->elementEnd('div');
+        $rmethod = new ReflectionMethod($this, 'showObjectNav');
+        $dclass = $rmethod->getDeclaringClass()->getName();
+
+        if ($dclass != 'Action') {
+            // Need to have this ID for CSS; I'm too lazy to add it to
+            // all menus
+            $this->elementStart('div', array('id' => 'site_nav_object',
+                                             'class' => 'section'));
+            $this->showObjectNav();
+            $this->elementEnd('div');
+        }
     }
 
     /**
@@ -828,6 +840,10 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
+        if (Event::handle('StartShowObjectNavBlock', array($this))) {
+            $this->showObjectNavBlock();
+            Event::handle('EndShowObjectNavBlock', array($this));
+        }
         if (Event::handle('StartShowSections', array($this))) {
             $this->showSections();
             Event::handle('EndShowSections', array($this));

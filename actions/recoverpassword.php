@@ -282,7 +282,11 @@ class RecoverpasswordAction extends Action
         $user = User::staticGet('email', common_canonical_email($nore));
 
         if (!$user) {
-            $user = User::staticGet('nickname', common_canonical_nickname($nore));
+            try {
+                $user = User::staticGet('nickname', common_canonical_nickname($nore));
+            } catch (NicknameException $e) {
+                // invalid
+            }
         }
 
         # See if it's an unconfirmed email address

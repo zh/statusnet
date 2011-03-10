@@ -3,8 +3,8 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Form for adding a new poll
- *
+ * Form for entering an event
+ * 
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,9 +20,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  PollPlugin
+ * @category  Event
  * @package   StatusNet
- * @author    Brion Vibber <brion@status.net>
+ * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
@@ -35,35 +35,18 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Form to add a new poll thingy
+ * Form for adding an event
  *
- * @category  PollPlugin
+ * @category  Event
  * @package   StatusNet
- * @author    Brion Vibber <brion@status.net>
+ * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
 
-class NewpollForm extends Form
+class EventForm extends Form
 {
-
-    protected $question = null;
-    protected $options = array();
-
-    /**
-     * Construct a new poll form
-     *
-     * @param HTMLOutputter $out         output channel
-     *
-     * @return void
-     */
-
-    function __construct($out=null, $question=null, $options=null)
-    {
-        parent::__construct($out);
-    }
-
     /**
      * ID of the form
      *
@@ -72,7 +55,7 @@ class NewpollForm extends Form
 
     function id()
     {
-        return 'newpoll-form';
+        return 'form_new_event';
     }
 
     /**
@@ -94,7 +77,7 @@ class NewpollForm extends Form
 
     function action()
     {
-        return common_local_url('newpoll');
+        return common_local_url('newevent');
     }
 
     /**
@@ -105,33 +88,64 @@ class NewpollForm extends Form
 
     function formData()
     {
-        $this->out->elementStart('fieldset', array('id' => 'newpoll-data'));
+        $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->out->input('question',
-                          _m('Question'),
-                          $this->question,
-                          _m('What question are people answering?'));
+        $this->out->input('title',
+                          _('Title'),
+                          null,
+                          _('Title of the event'));
         $this->unli();
 
-        $max = 5;
-        if (count($this->options) + 1 > $max) {
-            $max = count($this->options) + 2;
-        }
-        for ($i = 0; $i < $max; $i++) {
-            // @fixme make extensible
-            if (isset($this->options[$i])) {
-                $default = $this->options[$i];
-            } else {
-                $default = '';
-            }
-            $this->li();
-            $this->out->input('option' . ($i + 1),
-                              sprintf(_m('Option %d'), $i + 1),
-                              $default);
-            $this->unli();
-        }
+        $this->li();
+        $this->out->input('startdate',
+                          _('Start date'),
+                          null,
+                          _('Date the event starts'));
+        $this->unli();
+
+        $this->li();
+        $this->out->input('starttime',
+                          _('Start time'),
+                          null,
+                          _('Time the event starts'));
+        $this->unli();
+
+        $this->li();
+        $this->out->input('enddate',
+                          _('End date'),
+                          null,   
+                          _('Date the event ends'));
+        $this->unli();
+
+        $this->li();
+        $this->out->input('endtime',
+                          _('End time'),
+                          null,
+                          _('Time the event ends'));
+        $this->unli();
+
+        $this->li();
+        $this->out->input('location',
+                          _('Location'),
+                          null,
+                          _('Event location'));
+        $this->unli();
+
+        $this->li();
+        $this->out->input('url',
+                          _('URL'),
+                          null,
+                          _('URL for more information'));
+        $this->unli();
+
+        $this->li();
+        $this->out->input('description',
+                          _('Description'),
+                          null,
+                          _('Description of the event'));
+        $this->unli();
 
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');

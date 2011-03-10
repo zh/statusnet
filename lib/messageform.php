@@ -96,7 +96,7 @@ class MessageForm extends Form
 
     function formClass()
     {
-        return 'form_notice';
+        return 'form_notice ajax-notice';
     }
 
     /**
@@ -153,7 +153,7 @@ class MessageForm extends Form
         $this->out->dropdown('to', _('To'), $mutual, null, false,
                              ($this->to) ? $this->to->id : null);
 
-        $this->out->element('textarea', array('id' => 'notice_data-text',
+        $this->out->element('textarea', array('class' => 'notice_data-text',
                                               'cols' => 35,
                                               'rows' => 4,
                                               'name' => 'content'),

@@ -3,8 +3,8 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Form for adding a new poll
- *
+ * Form to RSVP for an event
+ * 
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,9 +20,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  PollPlugin
+ * @category  Event
  * @package   StatusNet
- * @author    Brion Vibber <brion@status.net>
+ * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
@@ -35,33 +35,24 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Form to add a new poll thingy
+ * A form to RSVP for an event
  *
- * @category  PollPlugin
+ * @category  General
  * @package   StatusNet
- * @author    Brion Vibber <brion@status.net>
+ * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
 
-class NewpollForm extends Form
+class RSVPForm extends Form
 {
+    protected $event = null;
 
-    protected $question = null;
-    protected $options = array();
-
-    /**
-     * Construct a new poll form
-     *
-     * @param HTMLOutputter $out         output channel
-     *
-     * @return void
-     */
-
-    function __construct($out=null, $question=null, $options=null)
+    function __construct($event, $out=null)
     {
         parent::__construct($out);
+        $this->event = $event;
     }
 
     /**
@@ -72,7 +63,7 @@ class NewpollForm extends Form
 
     function id()
     {
-        return 'newpoll-form';
+        return 'form_event_rsvp';
     }
 
     /**
@@ -83,7 +74,7 @@ class NewpollForm extends Form
 
     function formClass()
     {
-        return 'form_settings ajax-notice';
+        return 'ajax';
     }
 
     /**
@@ -94,7 +85,7 @@ class NewpollForm extends Form
 
     function action()
     {
-        return common_local_url('newpoll');
+        return common_local_url('newrsvp');
     }
 
     /**
@@ -105,35 +96,12 @@ class NewpollForm extends Form
 
     function formData()
     {
-        $this->out->elementStart('fieldset', array('id' => 'newpoll-data'));
-        $this->out->elementStart('ul', 'form_data');
+        $this->out->elementStart('fieldset', array('id' => 'new_rsvp_data'));
 
-        $this->li();
-        $this->out->input('question',
-                          _m('Question'),
-                          $this->question,
-                          _m('What question are people answering?'));
-        $this->unli();
+        $this->out->text(_('RSVP: '));
 
-        $max = 5;
-        if (count($this->options) + 1 > $max) {
-            $max = count($this->options) + 2;
-        }
-        for ($i = 0; $i < $max; $i++) {
-            // @fixme make extensible
-            if (isset($this->options[$i])) {
-                $default = $this->options[$i];
-            } else {
-                $default = '';
-            }
-            $this->li();
-            $this->out->input('option' . ($i + 1),
-                              sprintf(_m('Option %d'), $i + 1),
-                              $default);
-            $this->unli();
-        }
+        $this->out->hidden('event', $this->event->id);
 
-        $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
     }
 
@@ -145,6 +113,8 @@ class NewpollForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _m('BUTTON', 'Save'));
+        $this->out->submit('yes', _m('BUTTON', 'Yes'));
+        $this->out->submit('no', _m('BUTTON', 'No'));
+        $this->out->submit('maybe', _m('BUTTON', 'Maybe'));
     }
 }

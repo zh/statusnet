@@ -104,7 +104,7 @@ var SN = { // StatusNet
 
                 SN.U.Counter(form);
 
-                NDT = form.find('[name=status_textarea]');
+                NDT = form.find('.notice_data-text:first');
 
                 NDT.bind('keyup', function(e) {
                     SN.U.Counter(form);
@@ -183,7 +183,7 @@ var SN = { // StatusNet
          * @return number of chars
          */
         CharacterCount: function(form) {
-            return form.find('[name=status_textarea]').val().length;
+            return form.find('.notice_data-text:first').val().length;
         },
 
         /**
@@ -327,7 +327,7 @@ var SN = { // StatusNet
                 dataType: 'xml',
                 timeout: '60000',
                 beforeSend: function(formData) {
-                    if (form.find('[name=status_textarea]').val() == '') {
+                    if (form.find('.notice_data-text:first').val() == '') {
                         form.addClass(SN.C.S.Warning);
                         return false;
                     }
@@ -612,10 +612,7 @@ var SN = { // StatusNet
                         list.append(replyItem);
 
                         var form = replyForm = $(formEl);
-                        SN.U.NoticeLocationAttach(form);
-                        SN.U.FormNoticeXHR(form);
-                        SN.U.FormNoticeEnhancements(form);
-                        SN.U.NoticeDataAttach(form);
+                        SN.Init.NoticeFormSetup(form);
 
                         nextStep();
                     };
@@ -1263,7 +1260,7 @@ var SN = { // StatusNet
 
             var profileLink = $('#nav_profile a').attr('href');
             if (profileLink) {
-                var authorUrl = $(notice).find('.entry-title .author a.url').attr('href');
+                var authorUrl = $(notice).find('.vcard.author a.url').attr('href');
                 if (authorUrl == profileLink) {
                     if (action == 'all' || action == 'showstream') {
                         // Posts always show on your own friends and profile streams.
@@ -1280,6 +1277,13 @@ var SN = { // StatusNet
             return false;
         },
 
+        /**
+         * Switch to another active input sub-form.
+         * This will hide the current form (if any), show the new one, and
+         * update the input type tab selection state.
+         *
+         * @param {String} tag
+         */
 	switchInputFormTab: function(tag) {
 	    // The one that's current isn't current anymore
 	    $('.input_form_nav_tab.current').removeClass('current');
@@ -1301,14 +1305,25 @@ var SN = { // StatusNet
          */
         NoticeForm: function() {
             if ($('body.user_in').length > 0) {
-                $('.'+SN.C.S.FormNotice).each(function() {
+                $('.ajax-notice').each(function() {
                     var form = $(this);
-                    SN.U.NoticeLocationAttach(form);
-                    SN.U.FormNoticeXHR(form);
-                    SN.U.FormNoticeEnhancements(form);
-                    SN.U.NoticeDataAttach(form);
+                    SN.Init.NoticeFormSetup(form);
                 });
             }
+        },
+
+        /**
+         * Encapsulate notice form setup for a single form.
+         * Plugins can add extra setup by monkeypatching this
+         * function.
+         *
+         * @param {jQuery} form
+         */
+        NoticeFormSetup: function(form) {
+            SN.U.NoticeLocationAttach(form);
+            SN.U.FormNoticeXHR(form);
+            SN.U.FormNoticeEnhancements(form);
+            SN.U.NoticeDataAttach(form);
         },
 
         /**

@@ -1,9 +1,9 @@
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2010, StatusNet, Inc.
+ * Copyright (C) 2011, StatusNet, Inc.
  *
- * Add a new bookmark
+ * RSVP for an event
  * 
  * PHP version 5
  *
@@ -20,10 +20,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Bookmark
+ * @category  Event
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
- * @copyright 2010 StatusNet, Inc.
+ * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
@@ -34,25 +34,21 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Add a new bookmark
+ * RSVP for an event
  *
- * @category  Bookmark
+ * @category  Event
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
- * @copyright 2010 StatusNet, Inc.
+ * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
 
-class NewbookmarkAction extends Action
+class NewrsvpAction extends Action
 {
-    protected $user        = null;
-    protected $error       = null;
-    protected $complete    = null;
-    protected $title       = null;
-    protected $url         = null;
-    protected $tags        = null;
-    protected $description = null;
+    protected $user  = null;
+    protected $event = null;
+    protected $type  = null;
 
     /**
      * Returns the title of the action
@@ -62,7 +58,7 @@ class NewbookmarkAction extends Action
 
     function title()
     {
-        return _('New bookmark');
+        return _('New RSVP');
     }
 
     /**
@@ -76,23 +72,35 @@ class NewbookmarkAction extends Action
     function prepare($argarray)
     {
         parent::prepare($argarray);
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true); // short error results!
+        }
+
+        $eventId = $this->trimmed('event');
+
+        if (empty($eventId)) {
+            throw new ClientException(_('No such event.'));
+        }
+
+        $this->event = Happening::staticGet('id', $eventId);
+
+        if (empty($this->event)) {
+            throw new ClientException(_('No such event.'));
+        }
 
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_("Must be logged in to post a bookmark."),
-                                      403);
+            throw new ClientException(_('You must be logged in to RSVP for an event.'));
         }
 
-        if ($this->isPost()) {
-            $this->checkSessionToken();
+        if ($this->arg('yes')) {
+            $this->type = RSVP::POSITIVE;
+        } else if ($this->arg('no')) {
+            $this->type = RSVP::NEGATIVE;
+        } else {
+            $this->type = RSVP::POSSIBLE;
         }
-
-        $this->title       = $this->trimmed('title');
-        $this->url         = $this->trimmed('url');
-        $this->tags        = $this->trimmed('tags');
-        $this->description = $this->trimmed('description');
-
         return true;
     }
 
@@ -109,7 +117,7 @@ class NewbookmarkAction extends Action
         parent::handle($argarray);
 
         if ($this->isPost()) {
-            $this->newBookmark();
+            $this->newRSVP();
         } else {
             $this->showPage();
         }
@@ -118,32 +126,17 @@ class NewbookmarkAction extends Action
     }
 
     /**
-     * Add a new bookmark
+     * Add a new event
      *
      * @return void
      */
 
-    function newBookmark()
+    function newRSVP()
     {
-        if ($this->boolean('ajax')) {
-            StatusNet::setApi(true);
-        }
         try {
-            if (empty($this->title)) {
-                throw new ClientException(_('Bookmark must have a title.'));
-            }
-
-            if (empty($this->url)) {
-                throw new ClientException(_('Bookmark must have an URL.'));
-            }
-
-
-            $saved = Bookmark::saveNew($this->user->getProfile(),
-                                              $this->title,
-                                              $this->url,
-                                              $this->tags,
-                                              $this->description);
-
+            $saved = RSVP::saveNew($this->user->getProfile(),
+                                   $this->event,
+                                   $this->type);
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
             $this->showPage();
@@ -151,15 +144,19 @@ class NewbookmarkAction extends Action
         }
 
         if ($this->boolean('ajax')) {
+            $rsvp = RSVP::fromNotice($saved);
             header('Content-Type: text/xml;charset=utf-8');
             $this->xw->startDocument('1.0', 'UTF-8');
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Page title after sending a notice.
-            $this->element('title', null, _('Notice posted'));
+            $this->element('title', null, _('Event saved'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->showNotice($saved);
+            $this->elementStart('body');
+            $cancel = new CancelRSVPForm($rsvp, $this);
+            $cancel->show();
+            $this->elementEnd('body');
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
@@ -168,23 +165,7 @@ class NewbookmarkAction extends Action
     }
 
     /**
-     * Output a notice
-     *
-     * Used to generate the notice code for Ajax results.
-     *
-     * @param Notice $notice Notice that was saved
-     *
-     * @return void
-     */
-    function showNotice($notice)
-    {
-        class_exists('NoticeList'); // @fixme hack for autoloader
-        $nli = new NoticeListItem($notice, $this);
-        $nli->show();
-    }
-
-    /**
-     * Show the bookmark form
+     * Show the event form
      *
      * @return void
      */
@@ -195,11 +176,7 @@ class NewbookmarkAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new BookmarkForm($this,
-                                 $this->title,
-                                 $this->url,
-                                 $this->tags,
-                                 $this->description);
+        $form = new RSVPForm($this->event, $this);
 
         $form->show();
 
@@ -226,4 +203,3 @@ class NewbookmarkAction extends Action
         }
     }
 }
- 
