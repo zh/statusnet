@@ -177,7 +177,8 @@ class RSVP extends Managed_DataObject
 
         $content = sprintf(_('RSVPed %s for an event.'),
                            ($result == RSVP::POSITIVE) ? _('positively') :
-                           ($result == RSVP::NEGATIVE) ? _('negatively') : _('possibly'));
+                           ($result == RSVP::NEGATIVE) ? _('negatively') :
+                           _('possibly'));
         
         $rendered = $content;
 
@@ -231,7 +232,9 @@ class RSVP extends Managed_DataObject
 
     static function forEvent($event)
     {
-        $rsvps = array(RSVP::POSITIVE => array(), RSVP::NEGATIVE => array(), RSVP::POSSIBLE => array());
+        $rsvps = array(RSVP::POSITIVE => array(),
+                       RSVP::NEGATIVE => array(),
+                       RSVP::POSSIBLE => array());
 
         $rsvp = new RSVP();
 
