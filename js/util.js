@@ -612,10 +612,7 @@ var SN = { // StatusNet
                         list.append(replyItem);
 
                         var form = replyForm = $(formEl);
-                        SN.U.NoticeLocationAttach(form);
-                        SN.U.FormNoticeXHR(form);
-                        SN.U.FormNoticeEnhancements(form);
-                        SN.U.NoticeDataAttach(form);
+                        SN.Init.NoticeFormSetup(form);
 
                         nextStep();
                     };
@@ -1310,12 +1307,23 @@ var SN = { // StatusNet
             if ($('body.user_in').length > 0) {
                 $('.ajax-notice').each(function() {
                     var form = $(this);
-                    SN.U.NoticeLocationAttach(form);
-                    SN.U.FormNoticeXHR(form);
-                    SN.U.FormNoticeEnhancements(form);
-                    SN.U.NoticeDataAttach(form);
+                    SN.Init.NoticeFormSetup(form);
                 });
             }
+        },
+
+        /**
+         * Encapsulate notice form setup for a single form.
+         * Plugins can add extra setup by monkeypatching this
+         * function.
+         *
+         * @param {jQuery} form
+         */
+        NoticeFormSetup: function(form) {
+            SN.U.NoticeLocationAttach(form);
+            SN.U.FormNoticeXHR(form);
+            SN.U.FormNoticeEnhancements(form);
+            SN.U.NoticeDataAttach(form);
         },
 
         /**

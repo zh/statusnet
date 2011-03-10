@@ -646,7 +646,8 @@ float:left;
 max-width:322px;
 }
 .form_notice .error,
-.form_notice .success {
+.form_notice .success,
+.form_notice .notice-status {
 float:left;
 clear:both;
 width:81.5%;
@@ -661,7 +662,8 @@ overflow:auto;
 margin-right:2.5%;
 font-size:1.1em;
 }
-.form_notice .attach-status button.close {
+.form_notice .attach-status button.close,
+.form_notice .notice-status button.close,{
 float:right;
 font-size:0.8em;
 }
