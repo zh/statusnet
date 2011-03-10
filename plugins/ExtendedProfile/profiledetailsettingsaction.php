@@ -97,7 +97,7 @@ class ProfileDetailSettingsAction extends SettingsAction
 
         $profile = $user->getProfile();
 
-        $simpleFieldNames = array('title');
+        $simpleFieldNames = array('title', 'spouse', 'kids');
 
         foreach ($simpleFieldNames as $name) {
             $value = $this->trimmed('extprofile-' . $name);
