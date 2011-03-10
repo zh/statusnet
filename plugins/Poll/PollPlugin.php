@@ -209,8 +209,8 @@ class PollPlugin extends MicroAppPlugin
         if ($activity->entry) {
             $pollElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'poll');
             $responseElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'response');
-            if ($dataElements->length) {
-                $data = $dataElements->item(0);
+            if ($pollElements->length) {
+                $data = $pollElements->item(0);
                 $question = $data->getAttribute('question');
                 $opts = array();
                 foreach ($data->attributes as $node) {
