@@ -279,7 +279,7 @@ class PollPlugin extends MicroAppPlugin
         $object->summary = $notice->content;
         $object->link    = $notice->bestUrl();
 
-        $response = Poll_response:getByNotice($notice);
+        $response = Poll_response::getByNotice($notice);
         $poll = $response->getPoll();
 
         /**
