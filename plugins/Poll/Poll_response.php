@@ -142,6 +142,14 @@ class Poll_response extends Managed_DataObject
     }
 
     /**
+     *
+     * @return Poll
+     */
+    function getPoll()
+    {
+        return Poll::staticGet('id', $this->poll_id);
+    }
+    /**
      * Save a new poll notice
      *
      * @param Profile $profile

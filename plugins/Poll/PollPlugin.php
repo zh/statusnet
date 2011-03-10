@@ -280,31 +280,34 @@ class PollPlugin extends MicroAppPlugin
         $object->link    = $notice->bestUrl();
 
         $response = Poll_response::getByNotice($notice);
-        $poll = $response->getPoll();
-
-        /**
-         * For the moment, using a kind of icky-looking schema that happens to
-         * work with out code for generating both Atom and JSON forms, though
-         * I don't like it:
-         *
-         * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll"
-         *                poll="http://..../poll/...."
-         *                selection="3" />
-         *
-         * "poll:response": {
-         *     "xmlns:poll": http://apinamespace.org/activitystreams/object/poll
-         *     "uri": "http://..../poll/...."
-         *     "selection": 3
-         * }
-         *
-         */
-        // @fixme there's no way to specify an XML node tree here, like <poll><option/><option/></poll>
-        // @fixme there's no way to specify a JSON array or multi-level tree unless you break the XML attribs
-        // @fixme XML node contents don't get shown in JSON
-        $data = array('xmlns:poll' => self::POLL_OBJECT,
-                      'poll'       => $poll->uri,
-                      'selection'  => intval($response->selection));
-        $object->extra[] = array('poll:response', $data, '');
+        if (!$response) {
+            common_log(LOG_DEBUG, "QQQ notice uri: $notice->uri");
+        } else {
+            $poll = $response->getPoll();
+            /**
+             * For the moment, using a kind of icky-looking schema that happens to
+             * work with out code for generating both Atom and JSON forms, though
+             * I don't like it:
+             *
+             * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll"
+             *                poll="http://..../poll/...."
+             *                selection="3" />
+             *
+             * "poll:response": {
+             *     "xmlns:poll": http://apinamespace.org/activitystreams/object/poll
+             *     "uri": "http://..../poll/...."
+             *     "selection": 3
+             * }
+             *
+             */
+            // @fixme there's no way to specify an XML node tree here, like <poll><option/><option/></poll>
+            // @fixme there's no way to specify a JSON array or multi-level tree unless you break the XML attribs
+            // @fixme XML node contents don't get shown in JSON
+            $data = array('xmlns:poll' => self::POLL_OBJECT,
+                          'poll'       => $poll->uri,
+                          'selection'  => intval($response->selection));
+            $object->extra[] = array('poll:response', $data, '');
+        }
         return $object;
     }
 
