@@ -47,7 +47,10 @@ if (!defined('STATUSNET')) {
 class PollPlugin extends MicroAppPlugin
 {
     const VERSION         = '0.1';
-    const POLL_OBJECT     = 'http://apinamespace.org/activitystreams/object/poll';
+
+    // @fixme which domain should we use for these namespaces?
+    const POLL_OBJECT          = 'http://apinamespace.org/activitystreams/object/poll';
+    const POLL_RESPONSE_OBJECT = 'http://apinamespace.org/activitystreams/object/poll-response';
 
     /**
      * Database schema setup
@@ -130,6 +133,10 @@ class PollPlugin extends MicroAppPlugin
                     array('action' => 'showpoll'),
                     array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
+        $m->connect('main/poll/response/:id',
+                    array('action' => 'showpollresponse'),
+                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
+
         $m->connect('main/poll/:id/respond',
                     array('action' => 'respondpoll'),
                     array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
@@ -158,7 +165,7 @@ class PollPlugin extends MicroAppPlugin
 
     function types()
     {
-        return array(self::POLL_OBJECT);
+        return array(self::POLL_OBJECT, self::POLL_RESPONSE_OBJECT);
     }
 
     /**
@@ -283,6 +290,18 @@ class PollPlugin extends MicroAppPlugin
      */
     function showNotice($notice, $out)
     {
+        switch ($notice->object_type) {
+        case self::POLL_OBJECT:
+            return $this->showNoticePoll($notice, $out);
+        case self::POLL_RESPONSE_OBJECT:
+            return $this->showNoticePollResponse($notice, $out);
+        default:
+            throw new Exception('Unexpected type for poll plugin: ' . $notice->object_type);
+        }
+    }
+
+    function showNoticePoll($notice, $out)
+    {
         $user = common_current_user();
 
         // @hack we want regular rendering, then just add stuff after that
@@ -307,6 +326,18 @@ class PollPlugin extends MicroAppPlugin
             $out->text('Poll data is missing');
         }
         $out->elementEnd('div');
+
+        // @fixme
+        $out->elementStart('div', array('class' => 'entry-content'));
+    }
+
+    function showNoticePollResponse($notice, $out)
+    {
+        $user = common_current_user();
+
+        // @hack we want regular rendering, then just add stuff after that
+        $nli = new NoticeListItem($notice, $out);
+        $nli->showNotice();
 
         // @fixme
         $out->elementStart('div', array('class' => 'entry-content'));

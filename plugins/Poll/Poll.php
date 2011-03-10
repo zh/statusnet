@@ -47,6 +47,7 @@ class Poll extends Managed_DataObject
 {
     public $__table = 'poll'; // table name
     public $id;          // char(36) primary key not null -> UUID
+    public $uri;
     public $profile_id;  // int -> profile.id
     public $question;    // text
     public $options;     // text; newline(?)-delimited

@@ -75,6 +75,9 @@ class RespondPollAction extends Action
     function prepare($argarray)
     {
         parent::prepare($argarray);
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true);
+        }
 
         $this->user = common_current_user();
 
@@ -132,20 +135,16 @@ class RespondPollAction extends Action
     function respondPoll()
     {
         try {
-            $response = new Poll_response();
-            $response->poll_id = $this->poll->id;
-            $response->profile_id = $this->user->id;
-            $response->selection = $this->selection;
-            $response->created = common_sql_now();
-            $response->insert();
-
+            $notice = Poll_response::saveNew($this->user->getProfile(),
+                                             $this->poll,
+                                             $this->selection);
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
             $this->showPage();
             return;
         }
 
-        if ($this->arg('ajax')) {
+        if ($this->boolean('ajax')) {
             header('Content-Type: text/xml;charset=utf-8');
             $this->xw->startDocument('1.0', 'UTF-8');
             $this->elementStart('html');
