@@ -222,6 +222,8 @@ class Action extends HTMLOutputter // lawsuit
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
 
+            $this->cssLink(common_path('js/css/smoothness/jquery-ui.css'));
+
             if (Event::handle('StartShowUAStyles', array($this))) {
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
                                'href="'.Theme::path('css/ie.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
@@ -295,6 +297,7 @@ class Action extends HTMLOutputter // lawsuit
             if (Event::handle('StartShowJQueryScripts', array($this))) {
                 $this->script('jquery.min.js');
                 $this->script('jquery.form.min.js');
+                $this->script('jquery-ui.min.js');
                 $this->script('jquery.cookie.min.js');
                 $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
                 $this->script('jquery.joverlay.min.js');
