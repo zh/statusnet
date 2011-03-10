@@ -207,9 +207,10 @@ class PollPlugin extends MicroAppPlugin
         // Ok for now, we can grab stuff from the XML entry directly.
         // This won't work when reading from JSON source
         if ($activity->entry) {
-            $elements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'data');
-            if ($elements->length) {
-                $data = $elements->item(0);
+            $pollElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'poll');
+            $responseElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'response');
+            if ($dataElements->length) {
+                $data = $dataElements->item(0);
                 $question = $data->getAttribute('question');
                 $opts = array();
                 foreach ($data->attributes as $node) {
@@ -230,6 +231,25 @@ class PollPlugin extends MicroAppPlugin
                 } catch (Exception $e) {
                     common_log(LOG_DEBUG, "YYY fail: " . $e->getMessage());
                 }
+            } else if ($responseElements->length) {
+                $data = $responseElements->item(0);
+                $pollUri = $data->getAttribute('poll');
+                $selection = intval($data->getAttribute('selection'));
+
+                if (!$pollUri) {
+                    throw new Exception('Invalid poll response: no poll reference.');
+                }
+                $poll = Poll::staticGet('uri', $pollUri);
+                if (!$poll) {
+                    throw new Exception('Invalid poll response: poll is unknown.');
+                }
+                try {
+                    $notice = Poll_response::saveNew($profile, $poll, $selection, $options);
+                    common_log(LOG_DEBUG, "YYY response ok: " . $notice->id);
+                    return $notice;
+                } catch (Exception $e) {
+                    common_log(LOG_DEBUG, "YYY response fail: " . $e->getMessage());
+                }
             } else {
                 common_log(LOG_DEBUG, "YYY no poll data");
             }
@@ -240,11 +260,61 @@ class PollPlugin extends MicroAppPlugin
     {
         assert($this->isMyNotice($notice));
 
+        switch ($notice->object_type) {
+        case self::POLL_OBJECT:
+            return $this->activityObjectFromNoticePoll($notice);
+        case self::POLL_RESPONSE_OBJECT:
+            return $this->activityObjectFromNoticePollResponse($notice);
+        default:
+            throw new Exception('Unexpected type for poll plugin: ' . $notice->object_type);
+        }
+    }
+
+    function activityObjectFromNoticePoll($notice)
+    {
         $object = new ActivityObject();
         $object->id      = $notice->uri;
         $object->type    = self::POLL_OBJECT;
-        $object->title   = 'Poll title';
-        $object->summary = 'Poll summary';
+        $object->title   = $notice->content;
+        $object->summary = $notice->content;
+        $object->link    = $notice->bestUrl();
+
+        $response = Poll_response::getByNotice($notice);
+        $poll = $response->getPoll();
+
+        /**
+         * For the moment, using a kind of icky-looking schema that happens to
+         * work with out code for generating both Atom and JSON forms, though
+         * I don't like it:
+         *
+         * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll"
+         *                poll="http://..../poll/...."
+         *                selection="3" />
+         *
+         * "poll:response": {
+         *     "xmlns:poll": http://apinamespace.org/activitystreams/object/poll
+         *     "uri": "http://..../poll/...."
+         *     "selection": 3
+         * }
+         *
+         */
+        // @fixme there's no way to specify an XML node tree here, like <poll><option/><option/></poll>
+        // @fixme there's no way to specify a JSON array or multi-level tree unless you break the XML attribs
+        // @fixme XML node contents don't get shown in JSON
+        $data = array('xmlns:poll' => self::POLL_OBJECT,
+                      'poll'       => $poll->uri,
+                      'selection'  => intval($response->selection));
+        $object->extra[] = array('poll:response', $data, '');
+        return $object;
+    }
+
+    function activityObjectFromNoticePollResponse($notice)
+    {
+        $object = new ActivityObject();
+        $object->id      = $notice->uri;
+        $object->type    = self::POLL_RESPONSE_OBJECT;
+        $object->title   = $notice->content;
+        $object->summary = $notice->content;
         $object->link    = $notice->bestUrl();
 
         $poll = Poll::getByNotice($notice);
@@ -262,7 +332,7 @@ class PollPlugin extends MicroAppPlugin
          *            option2="Option two"
          *            option3="Option three"></poll:data>
          *
-         * "poll:data": {
+         * "poll:response": {
          *     "xmlns:poll": http://apinamespace.org/activitystreams/object/poll
          *     "question": "Who wants a poll question?"
          *     "option1": "Option one"
@@ -279,7 +349,7 @@ class PollPlugin extends MicroAppPlugin
         foreach ($poll->getOptions() as $i => $opt) {
             $data['option' . ($i + 1)] = $opt;
         }
-        $object->extra[] = array('poll:data', $data, '');
+        $object->extra[] = array('poll:poll', $data, '');
         return $object;
     }
 

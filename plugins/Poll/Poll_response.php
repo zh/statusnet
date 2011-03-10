@@ -158,10 +158,10 @@ class Poll_response extends Managed_DataObject
             $options = array();
         }
 
-        $opts = $poll->getOptions();
-        if ($selection < 1 || $selection > count($opts)) {
+        if (!$poll->isValidSelection($selection)) {
             throw new ClientException(_m('Invalid poll selection.'));
         }
+        $opts = $poll->getOptions();
         $answer = $opts[$selection - 1];
 
         $pr = new Poll_response();

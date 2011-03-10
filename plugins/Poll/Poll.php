@@ -128,6 +128,23 @@ class Poll extends Managed_DataObject
         return explode("\n", $this->options);
     }
 
+    /**
+     * Is this a valid selection index?
+     *
+     * @param numeric $selection (1-based)
+     * @return boolean
+     */
+    function isValidSelection($selection)
+    {
+        if ($selection != intval($selection)) {
+            return false;
+        }
+        if ($selection < 1 || $selection > count($this->getOptions())) {
+            return false;
+        }
+        return true;
+    }
+
     function getNotice()
     {
         return Notice::staticGet('uri', $this->uri);
