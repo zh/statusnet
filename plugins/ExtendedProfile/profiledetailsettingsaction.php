@@ -74,7 +74,11 @@ class ProfileDetailSettingsAction extends SettingsAction
         $cur = common_current_user();
         $profile = $cur->getProfile();
 
-        $widget = new ExtendedProfileWidget($this, $profile, ExtendedProfileWidget::EDITABLE);
+        $widget = new ExtendedProfileWidget(
+            $this,
+            $profile,
+            ExtendedProfileWidget::EDITABLE
+        );
         $widget->show();
     }
 
@@ -154,8 +158,6 @@ class ProfileDetailSettingsAction extends SettingsAction
      */
     function saveStandardProfileDetails($user)
     {
-        $user->query('BEGIN');
-
         $fullname  = $this->trimmed('extprofile-fullname');
         $location  = $this->trimmed('extprofile-location');
         $tagstring = $this->trimmed('extprofile-tags');
@@ -187,7 +189,7 @@ class ProfileDetailSettingsAction extends SettingsAction
             || $location != $profile->location
             || !empty($newTags)
             || $bio      != $profile->bio) {
-
+ 
             $orig = clone($profile);
 
             $profile->nickname = $user->nickname;
@@ -229,7 +231,6 @@ class ProfileDetailSettingsAction extends SettingsAction
                 return;
             }
 
-            $user->query('COMMIT');
             Event::handle('EndProfileSaveForm', array($this));
             common_broadcast_profile($profile);
         }

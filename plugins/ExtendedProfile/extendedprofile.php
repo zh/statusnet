@@ -26,6 +26,8 @@ if (!defined('STATUSNET')) {
  */
 class ExtendedProfile
 {
+    protected $fields;
+
     /**
      * Constructor
      *
@@ -82,12 +84,13 @@ class ExtendedProfile
      */
     function getTextValue($name)
     {
+        $key           = strtolower($name);
         $profileFields = array('fullname', 'location', 'bio');
 
-        if (in_array(strtolower($name), $profileFields)) {
+        if (in_array($key, $profileFields)) {
             return $this->profile->$name;
-        } else if (in_array($name, $this->fields)) {
-            return $this->fields[$name]->field_value;
+        } else if (array_key_exists($key, $this->fields)) {
+            return $this->fields[$key][0]->field_value;
         } else {
             return null;
         }
