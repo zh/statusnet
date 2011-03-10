@@ -1276,22 +1276,6 @@ var SN = { // StatusNet
 
             return false;
         },
-
-        /**
-         * Switch to another active input sub-form.
-         * This will hide the current form (if any), show the new one, and
-         * update the input type tab selection state.
-         *
-         * @param {String} tag
-         */
-	switchInputFormTab: function(tag) {
-	    // The one that's current isn't current anymore
-	    $('.input_form_nav_tab.current').removeClass('current');
-	    $('#input_form_nav_'+tag).addClass('current');
-
-	    $('.input_form.current').removeClass('current');
-	    $('#input_form_'+tag).addClass('current');
-	}
     },
 
     Init: {
