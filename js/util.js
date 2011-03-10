@@ -104,7 +104,7 @@ var SN = { // StatusNet
 
                 SN.U.Counter(form);
 
-                NDT = form.find('[name=status_textarea]');
+                NDT = form.find('.notice_data-text:first');
 
                 NDT.bind('keyup', function(e) {
                     SN.U.Counter(form);
@@ -183,7 +183,7 @@ var SN = { // StatusNet
          * @return number of chars
          */
         CharacterCount: function(form) {
-            return form.find('[name=status_textarea]').val().length;
+            return form.find('.notice_data-text:first').val().length;
         },
 
         /**
@@ -327,7 +327,7 @@ var SN = { // StatusNet
                 dataType: 'xml',
                 timeout: '60000',
                 beforeSend: function(formData) {
-                    if (form.find('[name=status_textarea]').val() == '') {
+                    if (form.find('.notice_data-text:first').val() == '') {
                         form.addClass(SN.C.S.Warning);
                         return false;
                     }
