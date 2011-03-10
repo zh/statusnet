@@ -270,7 +270,7 @@ class PollPlugin extends MicroAppPlugin
         }
     }
 
-    function activityObjectFromNoticePoll($notice)
+    function activityObjectFromNoticePollResponse($notice)
     {
         $object = new ActivityObject();
         $object->id      = $notice->uri;
@@ -279,7 +279,7 @@ class PollPlugin extends MicroAppPlugin
         $object->summary = $notice->content;
         $object->link    = $notice->bestUrl();
 
-        $response = Poll_response::getByNotice($notice);
+        $response = Poll_response:getByNotice($notice);
         $poll = $response->getPoll();
 
         /**
@@ -308,7 +308,7 @@ class PollPlugin extends MicroAppPlugin
         return $object;
     }
 
-    function activityObjectFromNoticePollResponse($notice)
+    function activityObjectFromNoticePoll($notice)
     {
         $object = new ActivityObject();
         $object->id      = $notice->uri;
