@@ -39,7 +39,7 @@ class ExtendedProfile
         $this->user     = $profile->getUser();
         $this->sections = $this->getSections();
         $this->fields   = $this->loadFields();
-        common_debug(var_export($this->fields, true));
+        //common_debug(var_export($this->fields, true));
     }
 
     /**
@@ -96,6 +96,21 @@ class ExtendedProfile
         }
     }
 
+
+    function getPhones()
+    {
+        return array(
+                'label' => _m('Phone'),
+                'type'  => 'phone',
+                'multi' => true,
+                'index' => 8123,
+                'rel'   => 'home',
+                'value' => '510-528-0079',
+                'vcard' => 'tel'
+
+        );
+    }
+
     /**
      *  Return all the sections of the extended profile
      *
@@ -140,12 +155,7 @@ class ExtendedProfile
             'contact' => array(
                 'label' => _m('Contact'),
                 'fields' => array(
-                    'phone' => array(
-                        'label' => _m('Phone'),
-                        'type' => 'phone',
-                        'multi' => true,
-                        'vcard' => 'tel',
-                    ),
+                    'phone' => $this->getPhones(),
                     'im' => array(
                         'label' => _m('IM'),
                         'type' => 'im',

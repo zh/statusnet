@@ -150,10 +150,55 @@ class ExtendedProfileWidget extends Form
         case 'tags':
             $this->out->text($this->ext->getTags());
             break;
+        case 'phone':
+            common_debug("GOT a PHONE!");
+            $this->showPhone($field);
+            break;
         default:
             $this->out->text("TYPE: $type");
         }
+    }
 
+    protected function showPhone($field)
+    {
+        $this->out->elementStart('div', array('class' => 'phone-display'));
+        $this->out->text($field['value']);
+        $this->out->text(' (' . $field['rel'] . ')');
+        $this->out->elementEnd('div');
+    }
+
+    protected function showEditablePhone($name, $field)
+    {
+        $index = $field['index'];
+        $id    = "extprofile-$name-$index";
+        $rel   = $id . '-rel';
+
+        $this->out->elementStart('div', array('class' => 'phone-edit'));
+        $this->out->input($id, null, $field['value']);
+        $this->out->dropdown(
+            $id . '-rel',
+            'Type',
+            array(
+                'office' => 'Office',
+                'mobile' => 'Mobile',
+                'home'   => 'Home',
+                'pager'  => 'Pager',
+                'other'  => 'Other'
+            ),
+            null,
+            false,
+            $field['rel']
+        );
+        if ($field['multi']) {
+            $this->out->element(
+                'a',
+                array(
+                    'name' => $name,
+                    'href' => 'javascript://'),
+                    '+'
+                );
+        }
+        $this->out->elementEnd('div');
     }
 
     /**
@@ -181,6 +226,9 @@ class ExtendedProfileWidget extends Form
             break;
         case 'tags':
             $out->input($id, null, $this->ext->getTags());
+            break;
+        case 'phone':
+            $this->showEditablePhone($name, $field);
             break;
         default:
             $out->input($id, null, "TYPE: $type");

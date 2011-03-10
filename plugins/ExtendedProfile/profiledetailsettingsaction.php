@@ -101,51 +101,122 @@ class ProfileDetailSettingsAction extends SettingsAction
 
         foreach ($simpleFieldNames as $name) {
             $value = $this->trimmed('extprofile-' . $name);
-            $this->saveSimpleField($user, $name, $value);
+            $this->saveField($user, $name, $value);
         }
+
+        $this->savePhoneNumbers($user);
 
         $this->showForm(_('Details saved.'), true);
 
     }
 
-    function saveSimpleField($user, $name, $value)
+    function savePhoneNumbers($user) {
+        $phones = $this->findPhoneNumbers();
+
+        foreach ($phones as $phone) {
+            $this->saveField(
+                $user,
+                'phone',
+                $phone['value'],
+                $phone['rel'],
+                $phone['index']
+            );
+        }
+    }
+
+    function findPhoneNumbers() {
+        $phones      = array();
+        $phoneParams = $this->findMultiParams('phone');
+        ksort($phoneParams); // this sorts them into pairs
+        $phones = $this->arraySplit($phoneParams, sizeof($phoneParams) / 2);
+
+        $phoneTuples = array();
+
+        foreach($phones as $phone) {
+            $firstkey           = array_shift(array_keys($phone));
+            $index              = substr($firstkey, strrpos($firstkey, '-') + 1);
+            list($number, $rel) = array_values($phone);
+
+            $phoneTuples[] = array(
+                'value' => $number,
+                'index' => $index,
+                'rel'   => $rel
+            );
+
+            return $phoneTuples;
+        }
+
+        return $phones;
+    }
+
+    function arraySplit($array, $pieces)
+    {
+        if ($pieces < 2) {
+            return array($array);
+        }
+
+        $newCount = ceil(count($array) / $pieces);
+        $a = array_slice($array, 0, $newCount);
+        $b = array_split(array_slice($array, $newCount), $pieces - 1);
+
+        return array_merge(array($a), $b);
+    }
+
+    function findMultiParams($type) {
+        $formVals = array();
+        $target   = $type;
+        foreach ($_POST as $key => $val) {
+            if (strrpos('extprofile-' . $key, $target) !== false) {
+                $formVals[$key] = $val;
+            }
+        }
+        return $formVals;
+    }
+
+    /**
+     * Save an extended profile field as a Profile_detail
+     *
+     * @param User   $user    the current user
+     * @param string $name    field name
+     * @param string $value   field value
+     * @param string $rel     field rel (type)
+     * @param int    $index   index (fields can have multiple values)
+     */
+    function saveField($user, $name, $value, $rel = null, $index = null)
     {
         $profile = $user->getProfile();
-
-        $detail = new Profile_detail();
+        $detail  = new Profile_detail();
 
         $detail->profile_id  = $profile->id;
         $detail->field_name  = $name;
+        $detail->value_index = $index;
 
         $result = $detail->find(true);
 
-
         if (empty($result)) {
-
+            $detial->value_index = $index;
+            $detail->rel         = $rel;
             $detail->field_value = $value;
-
-            $detail->created = common_sql_now();
-
-            common_debug("XXXXXXXXXXXXXXX not found");
-
+            $detail->created     = common_sql_now();
             $result = $detail->insert();
-
             if (empty($result)) {
                 common_log_db_error($detail, 'INSERT', __FILE__);
                 $this->serverError(_m('Could not save profile details.'));
             }
-
         } else {
-
-            common_debug('zzzzz FOUND');
             $orig = clone($detail);
-            $detail->field_value = $value;
-            $result = $detail->update($orig);
 
+            $detail->field_value = $value;
+            $detail->rel         = $rel;
+
+            $result = $detail->update($orig);
+            if (empty($result)) {
+                common_log_db_error($detail, 'UPDATE', __FILE__);
+                $this->serverError(_m('Could not save profile details.'));
+            }
         }
 
         $detail->free();
-
     }
 
     /**
@@ -189,7 +260,7 @@ class ProfileDetailSettingsAction extends SettingsAction
             || $location != $profile->location
             || !empty($newTags)
             || $bio      != $profile->bio) {
- 
+
             $orig = clone($profile);
 
             $profile->nickname = $user->nickname;
