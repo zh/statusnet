@@ -435,4 +435,9 @@ class EventPlugin extends MicroappPlugin
             common_log(LOG_DEBUG, "Not deleting related, wtf...");
         }
     }
+
+    function onEndShowScripts($action)
+    {
+        $action->inlineScript('$(document).ready(function() { $("#startdate").datepicker(); $("#enddate").datepicker(); });');
+    }
 }
