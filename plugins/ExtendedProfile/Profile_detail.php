@@ -23,7 +23,7 @@ if (!defined('STATUSNET')) {
 
 /**
  * DataObject class to store extended profile fields. Allows for storing
- * multiple values per a "field" (field property is not unique).
+ * multiple values per a "field_name" (field_name property is not unique).
  *
  * Example:
  *
@@ -36,166 +36,105 @@ if (!defined('STATUSNET')) {
  * Profile_detail objects, each named 'phone_number' like this:
  *
  *     $phone1 = new Profile_detail();
- *     $phone1->field       = 'phone_number';
+ *     $phone1->field_name  = 'phone_number';
  *     $phone1->rel         = 'home';
- *     $phone1->field_index = 1;
  *     $phone1->value       = '510-384-1992';
+ *     $phone1->value_index = 1;
  *
  *     $phone1 = new Profile_detail();
- *     $phone1->field       = 'phone_number';
+ *     $phone1->field_name  = 'phone_number';
  *     $phone1->rel         = 'mobile';
- *     $phone1->field_index = 2;
  *     $phone1->value       = '510-719-1139';
+ *     $phone1->value_index = 2;
  *
  *     $phone1 = new Profile_detail();
- *     $phone1->field       = 'phone_number';
+ *     $phone1->field_name  = 'phone_number';
  *     $phone1->rel         = 'work';
- *     $phone1->field_index = 3;
- *     $phone1->value       = '415-231-1121';
+ *     $phone1->field_value = '415-231-1121';
+ *     $phone1->value_index = 3;
  *
  */
-class Profile_detail extends Memcached_DataObject
+class Profile_detail extends Managed_DataObject
 {
     public $__table = 'profile_detail';
 
     public $id;
-
-    public $profile_id;
+    public $profile_id;  // profile this is for
     public $rel;         // detail for some field types; eg "home", "mobile", "work" for phones or "aim", "irc", "xmpp" for IM
-    public $field;
-
+    public $field_name;  // name
     public $value;       // primary text value
-    public $field_index; // relative ordering of multiple values in the same field
-
+    public $value_index; // relative ordering of multiple values in the same field
     public $ref_profile; // for people types, allows pointing to a known profile in the system
-
     public $created;
     public $modified;
 
-    public /*static*/ function staticGet($k, $v=null)
+    /**
+     * Get an instance by key
+     *
+     * This is a utility method to get a single instance with a given key value.
+     *
+     * @param string $k Key to use to lookup
+     * @param mixed  $v Value to lookup
+     *
+     * @return User_greeting_count object found, or null for no hits
+     *
+     */
+
+    function staticGet($k, $v=null)
     {
-        return parent::staticGet(__CLASS__, $k, $v);
+        return Memcached_DataObject::staticGet('Profile_detail', $k, $v);
     }
 
     /**
-     * return table definition for DB_DataObject
+     * Get an instance by compound key
      *
-     * DB_DataObject needs to know something about the table to manipulate
-     * instances. This method provides all the DB_DataObject needs to know.
+     * This is a utility method to get a single instance with a given set of
+     * key-value pairs. Usually used for the primary key for a compound key; thus
+     * the name.
      *
-     * @return array array of column definitions
+     * @param array $kv array of key-value mappings
+     *
+     * @return Bookmark object found, or null for no hits
+     *
      */
 
-    function table()
+    function pkeyGet($kv)
     {
-        return array('id' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-
-                     'profile_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-                     'field' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
-                     'field_index' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-
-                     'value' => DB_DATAOBJECT_STR,
-                     'rel' => DB_DATAOBJECT_STR,
-                     'ref_profile' => DB_DATAOBJECT_INT,
-
-                     'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
-                     'modified' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
+        return Memcached_DataObject::pkeyGet('Profile_detail', $kv);
     }
-
-    /**
-     * Database schema setup
-     *
-     * @see Schema
-     * @see ColumnDef
-     *
-     * @return boolean hook value; true means continue processing, false means stop.
-     */
 
     static function schemaDef()
     {
-        return array(new ColumnDef('id', 'integer',
-                                   null, false, 'PRI'),
-
-                     // @fixme need a unique index on these three
-                     new ColumnDef('profile_id', 'integer',
-                                   null, false),
-                     new ColumnDef('field', 'varchar',
-                                   16, false),
-                     new ColumnDef('field_index', 'integer',
-                                   null, false),
-
-                     new ColumnDef('value', 'text',
-                                   null, true),
-                     new ColumnDef('rel', 'varchar',
-                                   16, true),
-                     new ColumnDef('ref_profile', 'integer',
-                                   null, true),
-
-                     new ColumnDef('created', 'datetime',
-                                   null, false),
-                     new ColumnDef('modified', 'datetime',
-                                   null, false));
-    }
-
-    /**
-     * Temporary hack to set up the compound index, since we can't do
-     * it yet through regular Schema interface. (Coming for 1.0...)
-     *
-     * @param Schema $schema
-     * @return void
-     */
-    static function fixIndexes($schema)
-    {
-        try {
-            // @fixme this won't be a unique index... SIGH
-            $schema->createIndex('profile_detail', array('profile_id', 'field', 'field_index'));
-        } catch (Exception $e) {
-            common_log(LOG_ERR, __METHOD__ . ': ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Return key definitions for DB_DataObject
-     *
-     * DB_DataObject needs to know about keys that the table has; this function
-     * defines them.
-     *
-     * @return array key definitions
-     */
-
-    function keys()
-    {
-        return array_keys($this->keyTypes());
-    }
-
-    /**
-     * Return key definitions for Memcached_DataObject
-     *
-     * Our caching system uses the same key definitions, but uses a different
-     * method to get them.
-     *
-     * @return array key definitions
-     */
-
-    function keyTypes()
-    {
-        // @fixme keys
-        // need a sane key for reverse lookup too
-        return array('id' => 'K');
-    }
-
-    /**
-     * Get the sequence key
-     *
-     * Returns the first serial column defined in the table, if any.
-     *
-     * @access private
-     * @return array (column,use_native,sequence_name)
-     */
-
-    function sequenceKey()
-    {
-        return array('id', true);
+        return array(
+            'description'
+                => 'Additional profile details for the ExtendedProfile plugin',
+            'fields'      => array(
+                'id'          => array('type' => 'serial', 'not null' => true),
+                'profile_id'  => array('type' => 'int', 'not null' => true),
+                'field_name'  => array(
+                    'type'     => 'varchar',
+                    'length'   => 16,
+                    'not null' => true
+                ),
+                'value_index' => array('type' => 'int'),
+                'field_value' => array('type' => 'text'),
+                'rel'         => array('type' => 'varchar', 'length' => 16),
+                'rel_profile' => array('type' => 'int'),
+                'created'     => array(
+                    'type'     => 'datetime',
+                    'not null' => true
+                 ),
+                'modified'    => array(
+                    'type' => 'timestamp',
+                    'not null' => true
+                ),
+            ),
+            'primary key' => array('id'),
+            'unique keys' => array(
+                'profile_detial_profile_id_field_name_value_index'
+                    => array('profile_id', 'field_name', 'value_index'),
+            )
+        );
     }
 
 }

@@ -53,7 +53,7 @@ class ExtendedProfile
         $fields = array();
 
         while ($detail->fetch()) {
-            $fields[$detail->field][] = clone($detail);
+            $fields[$detail->field_name][] = clone($detail);
         }
 
         return $fields;
@@ -86,7 +86,7 @@ class ExtendedProfile
         if (in_array(strtolower($name), $profileFields)) {
             return $this->profile->$name;
         } else if (in_array($name, $this->fields)) {
-            return $this->fields[$name]->value;
+            return $this->fields[$name]->field_value;
         } else {
             return null;
         }

@@ -111,26 +111,33 @@ class ProfileDetailSettingsAction extends SettingsAction
         $detail = new Profile_detail();
 
         $detail->profile_id  = $profile->id;
-        $detail->field       = $name;
-        $detail->field_index = 1;
+        $detail->field_name  = $name;
 
         $result = $detail->find(true);
 
 
         if (empty($result)) {
-            $detail->value = $value;
+
+            $detail->field_value = $value;
 
             $detail->created = common_sql_now();
 
             common_debug("XXXXXXXXXXXXXXX not found");
-            //common_debug('bbbbbbbbbbbb ' . var_export($detail, true));
 
             $result = $detail->insert();
+
+            if (empty($result)) {
+                common_log_db_error($detail, 'INSERT', __FILE__);
+                $this->serverError(_m('Could not save profile details.'));
+            }
+
         } else {
+
             common_debug('zzzzz FOUND');
             $orig = clone($detail);
-            $detail->value = $value;
+            $detail->field_value = $value;
             $result = $detail->update($orig);
+
         }
 
         $detail->free();

@@ -95,8 +95,6 @@ class ExtendedProfilePlugin extends Plugin
         $schema = Schema::get();
         $schema->ensureTable('profile_detail', Profile_detail::schemaDef());
 
-        // @hack until key definition support is merged
-        Profile_detail::fixIndexes($schema);
         return true;
     }
 
