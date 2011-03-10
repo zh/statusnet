@@ -310,7 +310,7 @@ abstract class MicroAppPlugin extends Plugin
                              'source' => 'ostatus');
 
             // $actor is an ostatus_profile
-            $this->saveNoticeFromActivity($activity, $actor->localProfile());
+            $this->saveNoticeFromActivity($activity, $actor->localProfile(), $options);
 
             return false;
         }
