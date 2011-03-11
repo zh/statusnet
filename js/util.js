@@ -1315,12 +1315,11 @@ var SN = { // StatusNet
                 $('body').bind('click', function(e) {
                     var openReplies = $('li.notice-reply');
                     if (openReplies.length > 0) {
-                        var target = $(e.target).closest('li.notice-reply');
-                        if (target.length == 0) {
-                            // There are inline replies open, and we
-                            // clicked outside of one...
-                            openReplies.each(function() {
-                                var replyItem = $(this);
+                        var target = $(e.target);
+                        openReplies.each(function() {
+                            // Did we click outside this one?
+                            var replyItem = $(this);
+                            if (replyItem.has(e.target).length == 0) {
                                 var textarea = replyItem.find('.notice_data-text:first');
                                 var cur = $.trim(textarea.val());
                                 // Only close if there's been no edit.
@@ -1329,8 +1328,8 @@ var SN = { // StatusNet
                                     replyItem.remove();
                                     SN.U.NoticeInlineReplyPlaceholder(parentNotice);
                                 }
-                            });
-                        }
+                            }
+                        });
                     }
                 });
             }
