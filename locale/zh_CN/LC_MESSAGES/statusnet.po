@@ -15,18 +15,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-08 01:03+0000\n"
-"PO-Revision-Date: 2011-03-08 01:05:35+0000\n"
+"POT-Creation-Date: 2011-03-11 18:15+0000\n"
+"PO-Revision-Date: 2011-03-11 18:17:32+0000\n"
 "Language-Team: Simplified Chinese <http://translatewiki.net/wiki/Portal:zh-"
 "hans>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
+"X-Generator: MediaWiki 1.18alpha (r83703); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
+"X-POT-Import-Date: 2011-03-08 01:25:01+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1017,7 +1017,8 @@ msgid "Can only fave notices."
 msgstr "可以只为心目中的绝对通知书。"
 
 #. TRANS: Client exception thrown when trying favorite a notice without content.
-msgid "Unknown note."
+#, fuzzy
+msgid "Unknown notice."
 msgstr "未知的注意。"
 
 #. TRANS: Client exception thrown when trying favorite an already favorited notice.
@@ -1577,6 +1578,7 @@ msgstr "删除此组。"
 #. TRANS: Client error displayed trying to create a new direct message while not logged in.
 #. TRANS: Client error displayed trying to send a notice while not logged in.
 #. TRANS: Client error displayed trying to nudge a user without being logged in.
+#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
@@ -3020,6 +3022,10 @@ msgstr "Source URL 必填。"
 msgid "Could not create application."
 msgstr "无法创建应用。"
 
+#, fuzzy
+msgid "Invalid image."
+msgstr "大小不正确。"
+
 #. TRANS: Title for form to create a group.
 msgid "New group"
 msgstr "新小组"
@@ -3298,49 +3304,74 @@ msgstr "%s 的发件箱"
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr "这是你的发件箱，包含你发送的私信。"
 
+#. TRANS: Title for page where to change password.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Change password"
 msgstr "修改密码"
 
+#. TRANS: Instructions for page where to change password.
 msgid "Change your password."
 msgstr "修改你的密码"
 
+#. TRANS: Fieldset legend on page where to change password.
 #. TRANS: Fieldset legend for password reset form.
 msgid "Password change"
 msgstr "修改密码"
 
+#. TRANS: Field label on page where to change password.
 msgid "Old password"
 msgstr "旧密码"
 
+#. TRANS: Field label on page where to change password.
 #. TRANS: Field label for password reset form.
 msgid "New password"
 msgstr "新密码"
 
+#. TRANS: Field title on page where to change password.
 msgid "6 or more characters."
 msgstr "6 个或更多字符"
 
+#. TRANS: Field label on page where to change password. In this field the new password should be typed a second time.
+#, fuzzy
+msgctxt "LABEL"
+msgid "Confirm"
+msgstr "密码确认"
+
+#. TRANS: Field title on page where to change password.
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
 msgid "Same as password above."
 msgstr "与上面相同的密码"
 
+#. TRANS: Button text on page where to change password.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Change"
 msgstr "修改"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Password must be 6 or more characters."
 msgstr "密码必须包含 6 个或更多字符。"
 
 msgid "Passwords don't match."
 msgstr "密码不匹配。"
 
-msgid "Incorrect old password"
+#. TRANS: Form validation error on page where to change password.
+#, fuzzy
+msgid "Incorrect old password."
 msgstr "旧密码不正确"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Error saving user; invalid."
 msgstr "保存用户时出错；无效。"
 
+#. TRANS: Server error displayed on page where to change password when password change
+#. TRANS: could not be made because of a server error.
 #. TRANS: Reset password form validation error message.
 msgid "Cannot save new password."
 msgstr "无法保存新密码。"
 
+#. TRANS: Form validation notice on page where to change password.
 msgid "Password saved."
 msgstr "密码已保存。"
 
@@ -3390,6 +3421,7 @@ msgstr "网站"
 msgid "Server"
 msgstr "服务器"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Site's server hostname."
 msgstr "网站的服务器主机名。"
 
@@ -3397,6 +3429,7 @@ msgstr "网站的服务器主机名。"
 msgid "Path"
 msgstr "路径"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Site path."
 msgstr "网站路径"
 
@@ -3404,6 +3437,7 @@ msgstr "网站路径"
 msgid "Locale directory"
 msgstr "本地化目录"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Directory path to locales."
 msgstr "本地化文件的目录路径"
 
@@ -3411,9 +3445,14 @@ msgstr "本地化文件的目录路径"
 msgid "Fancy URLs"
 msgstr "优化 URLs"
 
-msgid "Use fancy (more readable and memorable) URLs?"
+#. TRANS: Field title in Paths admin panel.
+#, fuzzy
+msgid "Use fancy URLs (more readable and memorable)?"
 msgstr "使用优化的 URLs（更简洁易记）？"
 
+#. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Theme"
 msgstr "主题"
 
@@ -3526,6 +3565,8 @@ msgid "Directory where attachments are located."
 msgstr "附件文件的目录。"
 
 #. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "SSL"
 msgstr "SSL"
 
@@ -3570,10 +3611,14 @@ msgstr ""
 msgid "People search"
 msgstr "搜索用户"
 
+#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, php-format
 msgid "Not a valid people tag: %s."
 msgstr "不是有效的标签：%s。"
 
+#. TRANS: Page title for users with a certain self-tag.
+#. TRANS: %1$s is the tag, %2$s is the page number.
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "用户自加标签%s - 第%d 页"
@@ -3583,15 +3628,19 @@ msgctxt "plugin"
 msgid "Disabled"
 msgstr ""
 
+#. TRANS: Client error displayed when trying to use another method than POST.
+#. TRANS: Do not translate POST.
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
 msgstr "这个动作只接受 POST 请求"
 
+#. TRANS: Client error displayed when trying to enable or disable a plugin without access rights.
 #, fuzzy
 msgid "You cannot administer plugins."
 msgstr "你不能删除用户。"
 
+#. TRANS: Client error displayed when trying to enable or disable a non-existing plugin.
 #, fuzzy
 msgid "No such plugin."
 msgstr "没有这个页面。"
@@ -3602,7 +3651,8 @@ msgid "Enabled"
 msgstr ""
 
 #. TRANS: Tab and title for plugins admin panel.
-#. TRANS: Menu item for site administration
+#, fuzzy
+msgctxt "TITLE"
 msgid "Plugins"
 msgstr "插件"
 
@@ -3618,15 +3668,19 @@ msgstr ""
 msgid "Default plugins"
 msgstr "默认语言"
 
+#. TRANS: Text displayed on plugin admin page when no plugin are enabled.
 msgid ""
 "All default plugins have been disabled from the site's configuration file."
 msgstr ""
 
+#. TRANS: Client error displayed if the notice posted has too many characters.
 msgid "Invalid notice content."
 msgstr "无效的消息内容。"
 
-#, php-format
-msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
+#. TRANS: Exception thrown if a notice's license is not compatible with the StatusNet site license.
+#. TRANS: %1$s is the notice license, %2$s is the StatusNet site's license.
+#, fuzzy, php-format
+msgid "Notice license \"%1$s\" is not compatible with site license \"%2$s\"."
 msgstr "消息许可证“%1$s”与这个网站的许可证“%2$s”不兼容。"
 
 #. TRANS: Page title for profile settings.
@@ -3765,43 +3819,57 @@ msgstr "设置已保存。"
 msgid "Restore account"
 msgstr "还原账户"
 
+#. TRANS: Client error displayed when requesting a public timeline page beyond the page limit.
+#. TRANS: %s is the page limit.
 #, php-format
 msgid "Beyond the page limit (%s)."
 msgstr "超出页面限制(%s)。"
 
+#. TRANS: Server error displayed when a public timeline cannot be retrieved.
 msgid "Could not retrieve public stream."
 msgstr "无法获取到公共的时间线。"
 
+#. TRANS: Title for all public timeline pages but the first.
+#. TRANS: %d is the page number.
 #, php-format
 msgid "Public timeline, page %d"
 msgstr "公共时间线，第%d页"
 
+#. TRANS: Title for the first public timeline page.
 msgid "Public timeline"
 msgstr "公共时间线"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr "公开的 RSS 聚合 (RSS 1.0)"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr "公开的 RSS 聚合 (RSS 2.0)"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (Atom)"
 msgstr "公开的 RSS 聚合 (Atom)"
 
+#. TRANS: Text displayed for public feed when there are no public notices.
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr "这是%%site.name%%的公共时间线，但是还没有人发布任何内容。"
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a logged in user.
 msgid "Be the first to post!"
 msgstr "成为第一个发布消息的人！"
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a not logged in user.
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr "现在就 [注册](%%action.register%%) 并成为第一个发布消息的人！"
 
+#. TRANS: Message for not logged in users at an invite-only site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3814,6 +3882,8 @@ msgstr ""
 "务。[现在加入](%%action.register%%) 并与你的朋友、家人和同事们一起分享你的消"
 "息。([查看更多](%%doc.help%%))"
 
+#. TRANS: Message for not logged in users at a closed site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -5434,6 +5504,10 @@ msgid ""
 "along with this program.  If not, see %s."
 msgstr "你应该在本程序中收到了一份 GNU Affero GPL 的副本，如果没有收到请看%s。"
 
+#. TRANS: Menu item for site administration
+msgid "Plugins"
+msgstr "插件"
+
 #. TRANS: Form input field label for application name.
 msgid "Name"
 msgstr "名称"
@@ -5915,6 +5989,9 @@ msgstr "saveSettings() 尚未实现。"
 #. TRANS: the admin panel Design.
 msgid "Unable to delete design setting."
 msgstr "无法删除外观设置。"
+
+msgid "Home"
+msgstr "主页"
 
 #. TRANS: Menu item title/tooltip
 msgid "Basic site configuration"
@@ -6524,9 +6601,6 @@ msgstr "去安装程序。"
 
 msgid "Database error"
 msgstr "数据库错误"
-
-msgid "Home"
-msgstr "主页"
 
 msgid "Public"
 msgstr "公共"
@@ -7307,7 +7381,6 @@ msgstr "发送一个通知"
 msgid "What's up, %s?"
 msgstr "%s，最近怎么样？"
 
-#. TRANS: Input label in notice form for adding an attachment.
 msgid "Attach"
 msgstr "附件"
 
@@ -7373,6 +7446,9 @@ msgstr "删除"
 
 msgid "Notice repeated"
 msgstr "消息已转发"
+
+msgid "Update your status..."
+msgstr ""
 
 msgid "Nudge this user"
 msgstr "呼叫用户"
@@ -7868,11 +7944,3 @@ msgstr "不合法的XML, 缺少XRD根"
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "从文件'%s'获取备份。"
-
-#, fuzzy
-#~ msgid "Friends timeline"
-#~ msgstr "%s的时间线"
-
-#, fuzzy
-#~ msgid "Everyone on this site"
-#~ msgstr "搜索本站用户"
