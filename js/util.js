@@ -599,7 +599,7 @@ var SN = { // StatusNet
                 nextStep();
             } else {
                 // Remove placeholder if any
-                $('li.notice-reply-placeholder').remove();
+                list.find('li.notice-reply-placeholder').remove();
 
                 // Create the reply form entry at the end
                 var replyItem = $('li.notice-reply', list);
