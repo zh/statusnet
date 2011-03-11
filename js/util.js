@@ -1323,6 +1323,21 @@ var SN = { // StatusNet
 
                 // Make inline reply forms self-close when clicking out.
                 $('body').bind('click', function(e) {
+                    var currentForm = $('#content .input_forms div.current');
+                    if (currentForm.length > 0) {
+                        if ($('#content .input_forms').has(e.target).length == 0) {
+                            // If all fields are empty, switch back to the placeholder.
+                            var fields = currentForm.find('textarea, input[type=text], input[type=""]');
+                            var anything = false;
+                            fields.each(function() {
+                                anything = anything || $(this).val();
+                            });
+                            if (!anything) {
+                                SN.U.switchInputFormTab("placeholder");
+                            }
+                        }
+                    }
+
                     var openReplies = $('li.notice-reply');
                     if (openReplies.length > 0) {
                         var target = $(e.target);
