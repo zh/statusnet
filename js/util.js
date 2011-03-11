@@ -1290,7 +1290,13 @@ var SN = { // StatusNet
 	switchInputFormTab: function(tag) {
 	    // The one that's current isn't current anymore
 	    $('.input_form_nav_tab.current').removeClass('current');
-	    $('#input_form_nav_'+tag).addClass('current');
+            if (tag == 'placeholder') {
+                // Hack: when showing the placeholder, mark the tab
+                // as current for 'Status'.
+                $('#input_form_nav_status').addClass('current');
+            } else {
+                $('#input_form_nav_'+tag).addClass('current');
+            }
 
 	    $('.input_form.current').removeClass('current');
 	    $('#input_form_'+tag)
