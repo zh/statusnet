@@ -42,7 +42,6 @@ if (!defined('STATUSNET')) {
  *
  * @see      DB_DataObject
  */
-
 class Poll_response extends Managed_DataObject
 {
     public $__table = 'poll_response'; // table name
@@ -63,7 +62,6 @@ class Poll_response extends Managed_DataObject
      * @return User_greeting_count object found, or null for no hits
      *
      */
-
     function staticGet($k, $v=null)
     {
         return Memcached_DataObject::staticGet('Poll_response', $k, $v);
@@ -81,7 +79,6 @@ class Poll_response extends Managed_DataObject
      * @return Bookmark object found, or null for no hits
      *
      */
-
     function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Poll_response', $kv);
@@ -120,7 +117,6 @@ class Poll_response extends Managed_DataObject
      *
      * @return Poll_response found response or null
      */
-
     function getByNotice($notice)
     {
         return self::staticGet('uri', $notice->uri);
@@ -159,7 +155,6 @@ class Poll_response extends Managed_DataObject
      *
      * @return Notice saved notice
      */
-
     static function saveNew($profile, $poll, $selection, $options=null)
     {
         if (empty($options)) {

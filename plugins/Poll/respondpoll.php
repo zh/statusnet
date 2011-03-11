@@ -43,7 +43,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class RespondPollAction extends Action
 {
     protected $user        = null;
@@ -58,7 +57,6 @@ class RespondPollAction extends Action
      *
      * @return string Action title
      */
-
     function title()
     {
         return _m('Poll response');
@@ -71,7 +69,6 @@ class RespondPollAction extends Action
      *
      * @return boolean true
      */
-
     function prepare($argarray)
     {
         parent::prepare($argarray);
@@ -82,7 +79,7 @@ class RespondPollAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_m("Must be logged in to respond to a poll."),
+            throw new ClientException(_m("You must be logged in to respond to a poll."),
                                       403);
         }
 
@@ -112,7 +109,6 @@ class RespondPollAction extends Action
      *
      * @return void
      */
-
     function handle($argarray=null)
     {
         parent::handle($argarray);
@@ -131,7 +127,6 @@ class RespondPollAction extends Action
      *
      * @return void
      */
-
     function respondPoll()
     {
         try {
@@ -167,7 +162,6 @@ class RespondPollAction extends Action
      *
      * @return void
      */
-
     function showContent()
     {
         if (!empty($this->error)) {
@@ -190,7 +184,6 @@ class RespondPollAction extends Action
      *
      * @return boolean is read only action?
      */
-
     function isReadOnly($args)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET' ||

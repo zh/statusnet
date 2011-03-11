@@ -43,7 +43,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class NewPollAction extends Action
 {
     protected $user        = null;
@@ -58,7 +57,6 @@ class NewPollAction extends Action
      *
      * @return string Action title
      */
-
     function title()
     {
         return _('New poll');
@@ -71,7 +69,6 @@ class NewPollAction extends Action
      *
      * @return boolean true
      */
-
     function prepare($argarray)
     {
         parent::prepare($argarray);
@@ -79,7 +76,7 @@ class NewPollAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_("Must be logged in to post a poll."),
+            throw new ClientException(_("You must be logged in to post a poll."),
                                       403);
         }
 
@@ -105,7 +102,6 @@ class NewPollAction extends Action
      *
      * @return void
      */
-
     function handle($argarray=null)
     {
         parent::handle($argarray);
@@ -124,7 +120,6 @@ class NewPollAction extends Action
      *
      * @return void
      */
-
     function newPoll()
     {
         if ($this->boolean('ajax')) {
@@ -143,7 +138,6 @@ class NewPollAction extends Action
             $saved = Poll::saveNew($this->user->getProfile(),
                                               $this->question,
                                               $this->options);
-
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
             $this->showPage();
@@ -188,7 +182,6 @@ class NewPollAction extends Action
      *
      * @return void
      */
-
     function showContent()
     {
         if (!empty($this->error)) {
@@ -213,7 +206,6 @@ class NewPollAction extends Action
      *
      * @return boolean is read only action?
      */
-
     function isReadOnly($args)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET' ||

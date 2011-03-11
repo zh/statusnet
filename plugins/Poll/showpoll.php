@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class ShowPollAction extends ShownoticeAction
 {
     protected $poll = null;
@@ -56,7 +55,6 @@ class ShowPollAction extends ShownoticeAction
      *
      * @return boolean true
      */
-
     function prepare($argarray)
     {
         OwnerDesignAction::prepare($argarray);
@@ -100,7 +98,6 @@ class ShowPollAction extends ShownoticeAction
      *
      * @return string page tile
      */
-
     function title()
     {
         return sprintf(_('%s\'s poll: %s'),
@@ -124,5 +121,4 @@ class ShowPollAction extends ShownoticeAction
     {
         return Action::etag();
     }
-
 }

@@ -64,7 +64,6 @@ class Poll extends Managed_DataObject
      * @return User_greeting_count object found, or null for no hits
      *
      */
-
     function staticGet($k, $v=null)
     {
         return Memcached_DataObject::staticGet('Poll', $k, $v);
@@ -82,7 +81,6 @@ class Poll extends Managed_DataObject
      * @return Bookmark object found, or null for no hits
      *
      */
-
     function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Poll', $kv);
@@ -117,7 +115,6 @@ class Poll extends Managed_DataObject
      *
      * @return Poll found poll or null
      */
-
     function getByNotice($notice)
     {
         return self::staticGet('uri', $notice->uri);
@@ -209,7 +206,6 @@ class Poll extends Managed_DataObject
      *
      * @return Notice saved notice
      */
-
     static function saveNew($profile, $question, $opts, $options=null)
     {
         if (empty($options)) {

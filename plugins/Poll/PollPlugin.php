@@ -43,7 +43,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class PollPlugin extends MicroAppPlugin
 {
     const VERSION         = '0.1';
@@ -60,7 +59,6 @@ class PollPlugin extends MicroAppPlugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onCheckSchema()
     {
         $schema = Schema::get();
@@ -76,7 +74,6 @@ class PollPlugin extends MicroAppPlugin
      *
      * @return boolean hook value
      */
-
     function onEndShowStyles($action)
     {
         $action->cssLink($this->path('poll.css'));
@@ -90,7 +87,6 @@ class PollPlugin extends MicroAppPlugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onAutoload($cls)
     {
         $dir = dirname(__FILE__);
@@ -123,7 +119,6 @@ class PollPlugin extends MicroAppPlugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onRouterInitialized($m)
     {
         $m->connect('main/poll/new',
@@ -151,7 +146,6 @@ class PollPlugin extends MicroAppPlugin
      *
      * @return value
      */
-
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'Poll',
@@ -175,7 +169,6 @@ class PollPlugin extends MicroAppPlugin
      *
      * @return boolean hook value
      */
-
     function deleteRelated($notice)
     {
         $p = Poll::getByNotice($notice);
@@ -196,7 +189,6 @@ class PollPlugin extends MicroAppPlugin
      *
      * @return Notice resulting notice
      */
-
     function saveNoticeFromActivity($activity, $profile, $options=array())
     {
         // @fixme
