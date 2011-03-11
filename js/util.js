@@ -1292,7 +1292,12 @@ var SN = { // StatusNet
 	    $('#input_form_nav_'+tag).addClass('current');
 
 	    $('.input_form.current').removeClass('current');
-	    $('#input_form_'+tag).addClass('current');
+	    $('#input_form_'+tag)
+                .addClass('current')
+                .find('.ajax-notice').each(function() {
+                    var form = $(this);
+                    SN.Init.NoticeFormSetup(form);
+                });
 	}
     },
 
@@ -1307,9 +1312,12 @@ var SN = { // StatusNet
          */
         NoticeForm: function() {
             if ($('body.user_in').length > 0) {
-                $('.ajax-notice').each(function() {
-                    var form = $(this);
-                    SN.Init.NoticeFormSetup(form);
+                // SN.Init.NoticeFormSetup() will get run
+                // when forms get displayed for the first time...
+
+                // Hack to initialize the placeholder at top
+                $('#input_form_placeholder input.placeholder').focus(function() {
+                    SN.U.switchInputFormTab("status");
                 });
 
                 // Make inline reply forms self-close when clicking out.
@@ -1344,10 +1352,13 @@ var SN = { // StatusNet
          * @param {jQuery} form
          */
         NoticeFormSetup: function(form) {
-            SN.U.NoticeLocationAttach(form);
-            SN.U.FormNoticeXHR(form);
-            SN.U.FormNoticeEnhancements(form);
-            SN.U.NoticeDataAttach(form);
+            if (!form.data('NoticeFormSetup')) {
+                SN.U.NoticeLocationAttach(form);
+                SN.U.FormNoticeXHR(form);
+                SN.U.FormNoticeEnhancements(form);
+                SN.U.NoticeDataAttach(form);
+                form.data('NoticeFormSetup', true);
+            }
         },
 
         /**
