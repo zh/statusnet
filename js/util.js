@@ -638,11 +638,12 @@ var SN = { // StatusNet
             var placeholder = $('<li class="notice-reply-placeholder">' +
                                     '<input class="placeholder">' +
                                 '</li>');
-            placeholder.click(function() {
-                SN.U.NoticeInlineReplyTrigger(notice);
-                return false;
-            });
-            placeholder.find('input').val(SN.msg('reply_placeholder'));
+            placeholder.find('input')
+                .val(SN.msg('reply_placeholder'))
+                .focus(function() {
+                    SN.U.NoticeInlineReplyTrigger(notice);
+                    return false;
+                });
             list.append(placeholder);
         },
 
