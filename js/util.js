@@ -1118,6 +1118,7 @@ var SN = { // StatusNet
                 wrapper = $('<div class="'+SN.C.S.Success+' geo_status_wrapper"><button class="close" style="float:right">&#215;</button><div class="geo_status"></div></div>');
                 wrapper.find('button.close').click(function() {
                     form.find('[name=notice_data-geo]').removeAttr('checked').change();
+                    return false;
                 });
                 form.append(wrapper);
             }
