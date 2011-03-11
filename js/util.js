@@ -424,6 +424,7 @@ var SN = { // StatusNet
                                         .fadeIn(2500);
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
                                     SN.U.NoticeReplyTo($('#'+notice.id));
+                                    SN.U.switchInputFormTab("placeholder");
                                 }
                             } else {
                                 // Not on a timeline that this belongs on?
