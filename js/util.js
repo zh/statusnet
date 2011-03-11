@@ -640,6 +640,7 @@ var SN = { // StatusNet
                                 '</li>');
             placeholder.click(function() {
                 SN.U.NoticeInlineReplyTrigger(notice);
+                return false;
             });
             placeholder.find('input').val(SN.msg('reply_placeholder'));
             list.append(placeholder);
@@ -1308,6 +1309,27 @@ var SN = { // StatusNet
                 $('.ajax-notice').each(function() {
                     var form = $(this);
                     SN.Init.NoticeFormSetup(form);
+                });
+
+                // Make inline reply forms self-close when clicking out.
+                $('body').bind('click', function(e) {
+                    var openReplies = $('li.notice-reply');
+                    if (openReplies.length > 0) {
+                        var target = $(e.target).closest('li.notice-reply');
+                        if (target.length == 0) {
+                            // There are inline replies open, and we
+                            // clicked outside of one...
+                            openReplies.each(function() {
+                                var replyItem = $(this);
+                                // Only close if there's been no edit.
+                                if (replyItem.find('.notice_data-text:first').val() == '') {
+                                    var parentNotice = replyItem.closest('li.notice');
+                                    replyItem.remove();
+                                    SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                }
+                            });
+                        }
+                    }
                 });
             }
         },
