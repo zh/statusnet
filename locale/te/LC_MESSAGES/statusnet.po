@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-08 01:03+0000\n"
-"PO-Revision-Date: 2011-03-08 01:05:32+0000\n"
+"POT-Creation-Date: 2011-03-11 18:15+0000\n"
+"PO-Revision-Date: 2011-03-11 18:17:29+0000\n"
 "Language-Team: Telugu <http://translatewiki.net/wiki/Portal:te>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
+"X-Generator: MediaWiki 1.18alpha (r83703); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
+"X-POT-Import-Date: 2011-03-08 01:25:01+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -482,7 +482,7 @@ msgstr "పూర్తి పేరు చాలా పెద్దగా ఉ�
 #. TRANS: %d is the maximum number of characters for the description.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed characters.
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
 msgstr[0] "వివరణ చాలా పెద్దగా ఉంది (%d అక్షరాలు గరిష్ఠం)."
@@ -493,7 +493,6 @@ msgstr[1] "వివరణ చాలా పెద్దగా ఉంది (%d �
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#, fuzzy
 msgid "Location is too long (maximum 255 characters)."
 msgstr "ప్రాంతం పేరు మరీ పెద్దగా ఉంది (255 అక్షరాలు గరిష్ఠం)."
 
@@ -505,7 +504,7 @@ msgstr "ప్రాంతం పేరు మరీ పెద్దగా ఉ�
 #. TRANS: %d is the maximum number of allowed aliases.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed aliases.
-#, fuzzy, php-format
+#, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
 msgstr[0] "చాలా మారుపేర్లు! %d గరిష్ఠం."
@@ -1030,25 +1029,24 @@ msgstr "సైటు గమనికని భద్రపరచు"
 
 #. TRANS: Client exception thrown when trying favorite a notice without content.
 #, fuzzy
-msgid "Unknown note."
+msgid "Unknown notice."
 msgstr "తెలియని చర్య"
 
 #. TRANS: Client exception thrown when trying favorite an already favorited notice.
-#, fuzzy
 msgid "Already a favorite."
-msgstr "ఇష్టాంశాలకు చేర్చు"
+msgstr "అది ఇప్పటికే ఇష్టాంశం."
 
 #. TRANS: Title for group membership feed.
 #. TRANS: %s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "%s group memberships"
-msgstr "%s గుంపు సభ్యులు"
+msgstr "%s గుంపు సభ్యత్వాలు"
 
 #. TRANS: Subtitle for group membership feed.
 #. TRANS: %1$s is a username, %2$s is the StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "Groups %1$s is a member of on %2$s"
-msgstr "%s సభ్యులుగా ఉన్న గుంపులు"
+msgstr "%2$sలో %1$s సభ్యులుగా ఉన్న గుంపులు"
 
 #. TRANS: Client exception thrown when trying subscribe someone else to a group.
 #, fuzzy
@@ -1062,9 +1060,8 @@ msgid "Can only handle join activities."
 msgstr "సైటు గమనికని భద్రపరచు"
 
 #. TRANS: Client exception thrown when trying to subscribe to a non-existing group.
-#, fuzzy
 msgid "Unknown group."
-msgstr "తెలియని చర్య"
+msgstr "గుర్తుతెలియని గుంపు."
 
 #. TRANS: Client exception thrown when trying to subscribe to an already subscribed group.
 msgid "Already a member."
@@ -1072,17 +1069,15 @@ msgstr "ఇప్పటికే సభ్యులు."
 
 #. TRANS: Client exception thrown when trying to subscribe to group while blocked from that group.
 msgid "Blocked by admin."
-msgstr ""
+msgstr "నిర్వాహకులు నిరోధించారు."
 
 #. TRANS: Client exception thrown when referencing a non-existing favorite.
-#, fuzzy
 msgid "No such favorite."
-msgstr "అటువంటి ఫైలు లేదు."
+msgstr "అటువంటి ఇష్టాంశం లేదు."
 
 #. TRANS: Client exception thrown when trying to remove a favorite notice of another user.
-#, fuzzy
 msgid "Cannot delete someone else's favorite."
-msgstr "ఇష్టాంశాన్ని తొలగించలేకపోయాం."
+msgstr "మరొకరి ఇష్టాంశాన్ని తొలగించలేరు."
 
 #. TRANS: Client exception thrown when referencing a non-existing group.
 #. TRANS: Client error displayed when requesting a list of blocked users for a non-local group.
@@ -1142,9 +1137,9 @@ msgstr "కొత్త చందాని చేర్చలేకపోయా�
 
 #. TRANS: Subtitle for Atom subscription feed.
 #. TRANS: %1$s is a user nickname, %s$s is the StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "People %1$s has subscribed to on %2$s"
-msgstr "%sకి చందాచేరిన వ్యక్తులు"
+msgstr "%2$sలో %1$s చందాచేరిన వ్యక్తులు"
 
 #. TRANS: Client error displayed when not using the follow verb.
 msgid "Can only handle Follow activities."
@@ -1333,9 +1328,8 @@ msgid "No"
 msgstr "కాదు"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
-#, fuzzy
 msgid "Do not block this user."
-msgstr "ఈ వాడుకరిని నిరోధించకు"
+msgstr "ఈ వాడుకరిని నిరోధించవద్దు."
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
@@ -1474,9 +1468,8 @@ msgstr "ఖాతాని తొలగించాం."
 
 #. TRANS: Page title for page on which a user account can be deleted.
 #. TRANS: Option in profile settings to delete the account of the currently logged in user.
-#, fuzzy
 msgid "Delete account"
-msgstr "ఖాతాని సృష్టించుకోండి"
+msgstr "ఖాతా తొలగింపు"
 
 #. TRANS: Form text for user deletion form.
 msgid ""
@@ -1539,14 +1532,12 @@ msgstr ""
 "వాడుకరుల అనుసంధానాలతో సహా, డాటాబేసు నుండి తొలగిస్తుంది."
 
 #. TRANS: Submit button title for 'No' when deleting an application.
-#, fuzzy
 msgid "Do not delete this application."
-msgstr "ఈ ఉపకరణాన్ని తొలగించకు"
+msgstr "ఈ ఉపకరణాన్ని తొలగించవద్దు."
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
-#, fuzzy
 msgid "Delete this application."
-msgstr "ఈ ఉపకరణాన్ని తొలగించు"
+msgstr "ఈ ఉపకరణాన్ని తొలగించు."
 
 #. TRANS: Client error when trying to delete group while not logged in.
 msgid "You must be logged in to delete a group."
@@ -1590,14 +1581,12 @@ msgstr ""
 "వెనక్కి తేలేకుండా."
 
 #. TRANS: Submit button title for 'No' when deleting a group.
-#, fuzzy
 msgid "Do not delete this group."
-msgstr "ఈ గుంపును తొలగించకు"
+msgstr "ఈ గుంపును తొలగించవద్దు."
 
 #. TRANS: Submit button title for 'Yes' when deleting a group.
-#, fuzzy
 msgid "Delete this group."
-msgstr "ఈ గుంపుని తొలగించు"
+msgstr "ఈ గుంపుని తొలగించు."
 
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
 #. TRANS: Client error displayed when trying to remove a favorite while not logged in.
@@ -1609,6 +1598,7 @@ msgstr "ఈ గుంపుని తొలగించు"
 #. TRANS: Client error displayed trying to create a new direct message while not logged in.
 #. TRANS: Client error displayed trying to send a notice while not logged in.
 #. TRANS: Client error displayed trying to nudge a user without being logged in.
+#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
@@ -1632,14 +1622,12 @@ msgid "Are you sure you want to delete this notice?"
 msgstr "మీరు నిజంగానే ఈ నోటీసుని తొలగించాలనుకుంటున్నారా?"
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
-#, fuzzy
 msgid "Do not delete this notice."
-msgstr "ఈ నోటీసుని తొలగించకు"
+msgstr "ఈ నోటీసుని తొలగించవద్దు."
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#, fuzzy
 msgid "Delete this notice."
-msgstr "ఈ నోటీసుని తొలగించు"
+msgstr "ఈ నోటీసుని తొలగించు."
 
 #. TRANS: Client error displayed when trying to delete a user without having the right to delete users.
 msgid "You cannot delete users."
@@ -1650,10 +1638,9 @@ msgid "You can only delete local users."
 msgstr "మీరు స్థానిక వాడుకరులను మాత్రమే తొలగించగలరు."
 
 #. TRANS: Title of delete user page.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Delete user"
-msgstr "వాడుకరిని తొలగించు"
+msgstr "వాడుకరి తొలగింపు"
 
 #. TRANS: Fieldset legend on delete user page.
 msgid "Delete user"
@@ -1722,9 +1709,8 @@ msgid "Theme for the site."
 msgstr "సైటుకి అలంకారం."
 
 #. TRANS: Field label for uploading a cutom theme.
-#, fuzzy
 msgid "Custom theme"
-msgstr "సైటు అలంకారం"
+msgstr "అభిమత అలంకారం"
 
 #. TRANS: Form instructions for uploading a cutom StatusNet theme.
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
@@ -1831,9 +1817,9 @@ msgstr "ఇష్టాంశాలకు చేర్చు"
 
 #. TRANS: Client exception thrown when requesting a document from the documentation that does not exist.
 #. TRANS: %s is the non-existing document.
-#, fuzzy, php-format
+#, php-format
 msgid "No such document \"%s\"."
-msgstr "అటువంటి జోడింపు లేదు."
+msgstr "\"%s\" అనే పత్రం లేదు."
 
 #. TRANS: Title for "Edit application" form.
 #. TRANS: Form legend.
@@ -1859,7 +1845,6 @@ msgstr "పేరు తప్పనిసరి."
 
 #. TRANS: Validation error shown when providing too long a name in the "Edit application" form.
 #. TRANS: Validation error shown when providing too long a name in the "New application" form.
-#, fuzzy
 msgid "Name is too long (maximum 255 characters)."
 msgstr "పేరు చాలా పెద్దగా ఉంది (గరిష్ఠంగా 255 అక్షరాలు)."
 
@@ -1889,7 +1874,6 @@ msgid "Organization is required."
 msgstr "సంస్థ తప్పనిసరి."
 
 #. TRANS: Validation error shown when providing too long an arganisation name in the "Edit application" form.
-#, fuzzy
 msgid "Organization is too long (maximum 255 characters)."
 msgstr "సంస్థ పేరు మరీ పెద్దగా ఉంది (255 అక్షరాలు గరిష్ఠం)."
 
@@ -2344,9 +2328,8 @@ msgstr ""
 "తొలగిస్తాం, ఇక భవిష్యత్తులో వారు గుంపులో ప్రచురించలేరు, మరియు గుంపుకి చందాచేరలేరు."
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
-#, fuzzy
 msgid "Do not block this user from this group."
-msgstr "ఈ వాడుకరిని ఈ గుంపు నుండి నిరోధించకు"
+msgstr "ఈ వాడుకరిని ఈ గుంపు నుండి నిరోధించవద్దు."
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
 msgid "Block this user from this group."
@@ -2481,7 +2464,7 @@ msgstr "గుంపులు, పుట %d"
 #. TRANS: Page notice of group list. %%%%site.name%%%% is the StatusNet site name,
 #. TRANS: %%%%action.groupsearch%%%% and %%%%action.newgroup%%%% are URLs. Do not change them.
 #. TRANS: This message contains Markdown links in the form [link text](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%%%%site.name%%%% groups let you find and talk with people of similar "
 "interests. After you join a group you can send messages to all other members "
@@ -2491,8 +2474,8 @@ msgid ""
 msgstr ""
 "ఒకే రకమైన ఆసక్తులు ఉన్న వ్యక్తులు కలుసుకోడానికి మరియు మాట్లాడుకోడానికి %%%%site.name%%%% "
 "గుంపులు వీలుకల్పిస్తాయి. ఒక గుంపులో చేరిన తర్వాత మీరు \"!groupname\" అన్న సంకేతం ద్వారా ఆ "
-"గుంపు లోని సభ్యులందరికీ సందేశాలని పంపించవచ్చు. మీకు నచ్చిన గుంపు కనబడలేదా? [దాని కోసం వెతకండి](%%"
-"%%action.groupsearch%%%%) లేదా [మీరే కొత్తది సృష్టించండి!](%%%%action.newgroup%%%%)"
+"గుంపు లోని సభ్యులందరికీ సందేశాలను పంపించవచ్చు. మీకు నచ్చిన గుంపు కనబడలేదా? [దాని కోసం వెతకండి](%"
+"%%%action.groupsearch%%%%) లేదా [మీరే కొత్తది సృష్టించండి!](%%%%action.newgroup%%%%)"
 
 #. TRANS: Link to create a new group on the group list page.
 msgid "Create a new group"
@@ -2940,9 +2923,8 @@ msgid "Type"
 msgstr "రకం"
 
 #. TRANS: Dropdown field instructions in the license admin panel.
-#, fuzzy
 msgid "Select a license."
-msgstr "లైసెన్సును ఎంచుకోండి"
+msgstr "లైసెన్సును ఎంచుకోండి."
 
 #. TRANS: Form legend in the license admin panel.
 msgid "License details"
@@ -3016,7 +2998,6 @@ msgid "Automatically login in the future; not for shared computers!"
 msgstr "భవిష్యత్తులో ఆటోమెటిగ్గా లోనికి ప్రవేశించు; బయటి కంప్యూర్ల కొరకు కాదు!"
 
 #. TRANS: Button text for log in on login page.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Login"
 msgstr "ప్రవేశించండి"
@@ -3092,14 +3073,17 @@ msgstr "పేరు తప్పనిసరి."
 msgid "Could not create application."
 msgstr "ఉపకరణాన్ని సృష్టించలేకపోయాం."
 
+#, fuzzy
+msgid "Invalid image."
+msgstr "తప్పుడు పరిమాణం."
+
 #. TRANS: Title for form to create a group.
 msgid "New group"
 msgstr "కొత్త గుంపు"
 
 #. TRANS: Client exception thrown when a user tries to create a group while banned.
-#, fuzzy
 msgid "You are not allowed to create groups on this site."
-msgstr "ఈ గుంపును తొలగించడానికి మీకు అనుమతి లేదు."
+msgstr "ఈ సైటులో గుంపులను సృష్టించడానికి మీకు అనుమతి లేదు."
 
 #. TRANS: Form instructions for group create form.
 msgid "Use this form to create a new group."
@@ -3374,51 +3358,74 @@ msgstr "%sకి వచ్చినవి"
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr "ఇవి మీరు పంపివున్న అంతరంగిక సందేశాలు."
 
+#. TRANS: Title for page where to change password.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Change password"
 msgstr "సంకేతపదం మార్చుకోండి"
 
+#. TRANS: Instructions for page where to change password.
 msgid "Change your password."
 msgstr "మీ సంకేతపదం మార్చుకోండి."
 
+#. TRANS: Fieldset legend on page where to change password.
 #. TRANS: Fieldset legend for password reset form.
 msgid "Password change"
 msgstr "సంకేతపదం మార్పు"
 
+#. TRANS: Field label on page where to change password.
 msgid "Old password"
 msgstr "పాత సంకేతపదం"
 
+#. TRANS: Field label on page where to change password.
 #. TRANS: Field label for password reset form.
 msgid "New password"
 msgstr "కొత్త సంకేతపదం"
 
+#. TRANS: Field title on page where to change password.
 msgid "6 or more characters."
 msgstr "6 లేదా అంతకంటే ఎక్కువ అక్షరాలు."
 
-#. TRANS: Ttile for field label for password reset form where the password has to be typed again.
+#. TRANS: Field label on page where to change password. In this field the new password should be typed a second time.
 #, fuzzy
-msgid "Same as password above."
-msgstr "పై సంకేతపదం వలెనే"
+msgctxt "LABEL"
+msgid "Confirm"
+msgstr "నిర్థారించు"
 
+#. TRANS: Field title on page where to change password.
+#. TRANS: Ttile for field label for password reset form where the password has to be typed again.
+msgid "Same as password above."
+msgstr "పై సంకేతపదం వలెనే."
+
+#. TRANS: Button text on page where to change password.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Change"
 msgstr "మార్చు"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Password must be 6 or more characters."
 msgstr "సంకేతపదం తప్పనిసరిగా 6 లేదా అంతకంటే ఎక్కువ అక్షరాలుండాలి."
 
 msgid "Passwords don't match."
 msgstr "సంకేతపదాలు సరిపోలలేదు."
 
-msgid "Incorrect old password"
+#. TRANS: Form validation error on page where to change password.
+#, fuzzy
+msgid "Incorrect old password."
 msgstr "పాత సంకేతపదం తప్పు"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Error saving user; invalid."
 msgstr "వాడుకరిని భద్రపరచడంలో పొరపాటు: సరికాదు."
 
+#. TRANS: Server error displayed on page where to change password when password change
+#. TRANS: could not be made because of a server error.
 #. TRANS: Reset password form validation error message.
-#, fuzzy
 msgid "Cannot save new password."
-msgstr "కొత్త సంకేతపదాన్ని భద్రపరచలేము."
+msgstr "కొత్త సంకేతపదాన్ని భద్రపరచలేకున్నాం."
 
+#. TRANS: Form validation notice on page where to change password.
 msgid "Password saved."
 msgstr "సంకేతపదం భద్రమయ్యింది."
 
@@ -3469,6 +3476,7 @@ msgstr "సైటు"
 msgid "Server"
 msgstr "సేవకి"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Site's server hostname."
 msgstr ""
 
@@ -3476,6 +3484,7 @@ msgstr ""
 msgid "Path"
 msgstr "త్రోవ"
 
+#. TRANS: Field title in Paths admin panel.
 #, fuzzy
 msgid "Site path."
 msgstr "సైటు అలంకారం"
@@ -3485,6 +3494,7 @@ msgstr "సైటు అలంకారం"
 msgid "Locale directory"
 msgstr "అలంకార సంచయం"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Directory path to locales."
 msgstr ""
 
@@ -3492,9 +3502,13 @@ msgstr ""
 msgid "Fancy URLs"
 msgstr ""
 
-msgid "Use fancy (more readable and memorable) URLs?"
+#. TRANS: Field title in Paths admin panel.
+msgid "Use fancy URLs (more readable and memorable)?"
 msgstr ""
 
+#. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Theme"
 msgstr "అలంకారం"
 
@@ -3618,6 +3632,7 @@ msgstr ""
 
 #. TRANS: Fieldset legend in Paths admin panel.
 #, fuzzy
+msgctxt "LEGEND"
 msgid "SSL"
 msgstr "SSLని ఉపయోగించు"
 
@@ -3664,10 +3679,14 @@ msgstr ""
 msgid "People search"
 msgstr "వ్యక్తుల అన్వేషణ"
 
+#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Not a valid people tag: %s."
 msgstr "సరైన ఈమెయిల్ చిరునామా కాదు:"
 
+#. TRANS: Page title for users with a certain self-tag.
+#. TRANS: %1$s is the tag, %2$s is the page number.
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నోటీసులు!"
@@ -3677,15 +3696,19 @@ msgctxt "plugin"
 msgid "Disabled"
 msgstr ""
 
+#. TRANS: Client error displayed when trying to use another method than POST.
+#. TRANS: Do not translate POST.
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
 msgstr ""
 
+#. TRANS: Client error displayed when trying to enable or disable a plugin without access rights.
 #, fuzzy
 msgid "You cannot administer plugins."
 msgstr "మీరు వాడుకరులని తొలగించలేరు."
 
+#. TRANS: Client error displayed when trying to enable or disable a non-existing plugin.
 #, fuzzy
 msgid "No such plugin."
 msgstr "అటువంటి పేజీ లేదు."
@@ -3696,7 +3719,8 @@ msgid "Enabled"
 msgstr ""
 
 #. TRANS: Tab and title for plugins admin panel.
-#. TRANS: Menu item for site administration
+#, fuzzy
+msgctxt "TITLE"
 msgid "Plugins"
 msgstr "ప్లగిన్లు"
 
@@ -3712,15 +3736,19 @@ msgstr ""
 msgid "Default plugins"
 msgstr "అప్రమేయ భాష"
 
+#. TRANS: Text displayed on plugin admin page when no plugin are enabled.
 msgid ""
 "All default plugins have been disabled from the site's configuration file."
 msgstr ""
 
+#. TRANS: Client error displayed if the notice posted has too many characters.
 msgid "Invalid notice content."
 msgstr "తప్పుడు దస్త్రపుపేరు.."
 
+#. TRANS: Exception thrown if a notice's license is not compatible with the StatusNet site license.
+#. TRANS: %1$s is the notice license, %2$s is the StatusNet site's license.
 #, php-format
-msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
+msgid "Notice license \"%1$s\" is not compatible with site license \"%2$s\"."
 msgstr ""
 
 #. TRANS: Page title for profile settings.
@@ -3839,9 +3867,9 @@ msgstr "భాష మరీ పెద్దగా ఉంది (50 అక్ష�
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\"."
-msgstr "తప్పుడు మారుపేరు: \"%s\""
+msgstr "చెల్లని ట్యాగు: \"%s\""
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
@@ -3869,58 +3897,72 @@ msgstr "అమరికలు భద్రమయ్యాయి."
 msgid "Restore account"
 msgstr "ఖాతాని సృష్టించుకోండి"
 
+#. TRANS: Client error displayed when requesting a public timeline page beyond the page limit.
+#. TRANS: %s is the page limit.
 #, php-format
 msgid "Beyond the page limit (%s)."
 msgstr ""
 
+#. TRANS: Server error displayed when a public timeline cannot be retrieved.
 #, fuzzy
 msgid "Could not retrieve public stream."
 msgstr "మారుపేర్లని సృష్టించలేకపోయాం."
 
+#. TRANS: Title for all public timeline pages but the first.
+#. TRANS: %d is the page number.
 #, php-format
 msgid "Public timeline, page %d"
 msgstr "ప్రజా కాలరేఖ, పేజీ %d"
 
+#. TRANS: Title for the first public timeline page.
 msgid "Public timeline"
 msgstr "ప్రజా కాలరేఖ"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr "ప్రజా వాహిని ఫీడు (RSS 1.0)"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr "ప్రజా వాహిని ఫీడు (RSS 2.0)"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (Atom)"
 msgstr "ప్రజా వాహిని ఫీడు (ఆటమ్)"
 
+#. TRANS: Text displayed for public feed when there are no public notices.
 #, fuzzy, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr "ఇది %s మరియు మిత్రుల కాలరేఖ కానీ ఇంకా ఎవరూ ఏమీ రాయలేదు."
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a logged in user.
 msgid "Be the first to post!"
 msgstr ""
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a not logged in user.
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr "[ఖాతా నమోదు చేసుకుని](%%action.register%%) మొదటగా వ్రాసేది మీరే ఎందుకు కాకూడదు!"
 
-#, fuzzy, php-format
+#. TRANS: Message for not logged in users at an invite-only site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
+#, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
-"**%s** అనేది [స్టేటస్‌నెట్](http://status.net/) అనే స్వేచ్ఛా ఉపకరణ అధారిత [సూక్ష్మ-బ్లాగింగు]"
-"(http://en.wikipedia.org/wiki/Micro-blogging) సేవ అయిన %%%%site.name%%%%లో ఒక "
-"వాడుకరి గుంపు.\n"
-"దీని సభ్యులు వారి జీవితం మరియు ఆసక్తుల గురించి చిన్న సందేశాలని పంచుకుంటారు. ఈ గుంపు మరియు ఇంకా "
-"చాల వాటిలో భాగస్తులవ్వడానికి [ఇప్పుడే చేరండి](%%%%action.register%%%%)! ([మరింత చదవండి](%%%%"
-"doc.help%%%%))"
+"ఇది %%site.name%%, [స్టేటస్‌నెట్](http://status.net/) అనే స్వేచ్ఛా ఉపకరణ అధారిత [సూక్ష్మ-"
+"బ్లాగింగు](http://en.wikipedia.org/wiki/Micro-blogging) సేవ. మీ సంగతులను మీ "
+"మిత్రులతో, కుటుంబంతో మరియు సహోద్యోగులతో పంచుకోడానికి [ఇప్పుడే చేరండి](%%action.register%%)! "
+"([మరింత తెలుసుకోండి](%%doc.help%%))"
 
+#. TRANS: Message for not logged in users at a closed site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3931,9 +3973,9 @@ msgstr ""
 "ఆధారపడిన ఒక [మైక్రో-బ్లాగింగు](http://en.wikipedia.org/wiki/Micro-blogging) సేవ."
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
-#, fuzzy, php-format
+#, php-format
 msgid "%s updates from everyone."
-msgstr "అందరి నుండి %s తాజాకరణలు!"
+msgstr "అందరి నుండి %s తాజాకరణలు."
 
 #. TRANS: Title for public tag cloud.
 msgid "Public tag cloud"
@@ -4115,9 +4157,9 @@ msgstr "మీ కొత్త సంకేతపదం భద్రమైంద
 msgid "No id parameter"
 msgstr "జోడింపులు లేవు."
 
-#, fuzzy, php-format
+#, php-format
 msgid "No such file \"%d\""
-msgstr "అటువంటి ఫైలు లేదు."
+msgstr "\"%d\" అనే దస్త్రం లేదు"
 
 msgid "Sorry, only invited people can register."
 msgstr "క్షమించండి, ఆహ్వానితులు మాత్రమే నమోదుకాగలరు."
@@ -4160,9 +4202,8 @@ msgstr "తాజా విశేషాలు, ప్రకటనలు, మర�
 msgid "Longer name, preferably your \"real\" name."
 msgstr "పొడుగాటి పేరు, మీ \"అసలు\" పేరైతే మంచిది"
 
-#, fuzzy
 msgid "Where you are, like \"City, State (or Region), Country\"."
-msgstr "మీరు ఎక్కడ నుండి, \"నగరం, రాష్ట్రం (లేదా ప్రాంతం), దేశం\""
+msgstr "మీరు ఎక్కడివారు, \"నగరం, రాష్ట్రం (లేదా ప్రాంతం), దేశం\"."
 
 #, php-format
 msgid ""
@@ -4260,9 +4301,8 @@ msgstr ""
 msgid "Subscribe"
 msgstr "చందాచేరు"
 
-#, fuzzy
 msgid "Invalid profile URL (bad format)."
-msgstr "ప్రొపైల్ URL తప్పు (చెడు ఫార్మాట్)"
+msgstr "ప్రొపైల్ URL తప్పు (చెల్లని ఫార్మాట్)."
 
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
@@ -4288,9 +4328,8 @@ msgstr "మీ నోటీసుని మీరే పునరావృతి
 msgid "You already repeated that notice."
 msgstr "మీరు ఇప్పటికే ఆ నోటీసుని పునరావృతించారు."
 
-#, fuzzy
 msgid "Repeated"
-msgstr "సృష్టితం"
+msgstr "పునరావృతం"
 
 msgid "Repeated!"
 msgstr "పునరావృతించారు!"
@@ -4413,9 +4452,8 @@ msgid ""
 msgstr ""
 
 #. TRANS: Title for submit button to confirm upload of a user backup file for account restore.
-#, fuzzy
 msgid "Upload the file"
-msgstr "ఫైలుని ఎక్కించు"
+msgstr "ఈ దస్త్రాన్ని ఎక్కించండి"
 
 msgid "You cannot revoke user roles on this site."
 msgstr "ఈ సైటులో మీరు వాడుకరలకి పాత్రలను ఇవ్వలేరు."
@@ -5265,9 +5303,8 @@ msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
-#, fuzzy
 msgid "URL settings"
-msgstr "IM అమరికలు"
+msgstr "URL అమరికలు"
 
 #. TRANS: Instructions for tab "Other" in user profile settings.
 msgid "Manage various other options."
@@ -5391,9 +5428,8 @@ msgid "Whether to allow users to invite new users."
 msgstr "వాడుకరులను కొత్త వారిని ఆహ్వానించడానికి అనుమతించాలా వద్దా."
 
 #. TRANS: Title for button to save user settings in user admin panel.
-#, fuzzy
 msgid "Save user settings."
-msgstr "వాడుకరి అమరికలను భద్రపరచు"
+msgstr "వాడుకరి అమరికలను భద్రపరచు."
 
 #. TRANS: Page title.
 msgid "Authorize subscription"
@@ -5512,9 +5548,8 @@ msgstr "నేపథ్య చిత్రం మరియు రంగుల �
 msgid "Enjoy your hotdog!"
 msgstr ""
 
-#, fuzzy
 msgid "Design settings"
-msgstr "సైటు అమరికలను భద్రపరచు"
+msgstr "రూపురేఖల అమరికలు"
 
 msgid "View profile designs"
 msgstr "ఫ్రొఫైలు రూపురేఖలు"
@@ -5589,6 +5624,10 @@ msgid ""
 "You should have received a copy of the GNU Affero General Public License "
 "along with this program.  If not, see %s."
 msgstr ""
+
+#. TRANS: Menu item for site administration
+msgid "Plugins"
+msgstr "ప్లగిన్లు"
 
 #. TRANS: Form input field label for application name.
 msgid "Name"
@@ -5909,18 +5948,16 @@ msgid "Show more"
 msgstr "మరింత చూపించు"
 
 #. TRANS: Inline reply form submit button: submits a reply comment.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Reply"
 msgstr "స్పందించండి"
 
 #. TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
 msgid "Write a reply..."
-msgstr ""
+msgstr "మీ స్పందనని వ్రాయండి..."
 
-#, fuzzy
 msgid "Status"
-msgstr "స్టేటస్‌నెట్"
+msgstr "స్థితి"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6085,6 +6122,9 @@ msgstr ""
 #, fuzzy
 msgid "Unable to delete design setting."
 msgstr "మీ రూపురేఖల అమరికలని భద్రపరచలేకున్నాం."
+
+msgid "Home"
+msgstr "ముంగిలి"
 
 #. TRANS: Menu item title/tooltip
 msgid "Basic site configuration"
@@ -6321,14 +6361,12 @@ msgid "Notices where this attachment appears"
 msgstr ""
 
 #. TRANS: Title.
-#, fuzzy
 msgid "Tags for this attachment"
-msgstr "అటువంటి జోడింపు లేదు."
+msgstr "ఈ జోడింపుకి ట్యాగులు"
 
 #. TRANS: Exception thrown when a password change fails.
-#, fuzzy
 msgid "Password changing failed."
-msgstr "సంకేతపదం మార్పు విఫలమైంది"
+msgstr "సంకేతపదపు మార్పు విఫలమైంది."
 
 #. TRANS: Exception thrown when a password change attempt fails because it is not allowed.
 msgid "Password changing is not allowed."
@@ -6685,9 +6723,6 @@ msgstr "సైటు లోనికి ప్రవేశించండి"
 msgid "Database error"
 msgstr ""
 
-msgid "Home"
-msgstr "ముంగిలి"
-
 msgid "Public"
 msgstr "ప్రజా"
 
@@ -6810,9 +6845,8 @@ msgstr "అన్నీ"
 msgid "Select tag to filter"
 msgstr ""
 
-#, fuzzy
 msgid "Tag"
-msgstr "ట్యాగులు"
+msgstr "ట్యాగు"
 
 msgid "Choose a tag to narrow list"
 msgstr ""
@@ -7476,7 +7510,6 @@ msgstr "సైటు గమనిక"
 msgid "What's up, %s?"
 msgstr "%s, ఏమిటి సంగతులు?"
 
-#. TRANS: Input label in notice form for adding an attachment.
 msgid "Attach"
 msgstr "జోడించు"
 
@@ -7544,6 +7577,9 @@ msgstr "ఈ నోటీసుని తొలగించు"
 
 msgid "Notice repeated"
 msgstr "నోటీసుని పునరావృతించారు"
+
+msgid "Update your status..."
+msgstr ""
 
 #, fuzzy
 msgid "Nudge this user"
@@ -7613,9 +7649,8 @@ msgstr "SMS అమరికలు"
 msgid "Change your personal settings"
 msgstr "ఫ్రొఫైలు అమరికలని మార్చు"
 
-#, fuzzy
 msgid "Site configuration"
-msgstr "వాడుకరి స్వరూపణం"
+msgstr "సైటు స్వరూపణం"
 
 msgid "Logout"
 msgstr "నిష్క్రమించు"
@@ -7854,9 +7889,8 @@ msgid "None"
 msgstr "ఏమీలేదు"
 
 #. TRANS: Server exception displayed if a theme name was invalid.
-#, fuzzy
 msgid "Invalid theme name."
-msgstr "తప్పుడు దస్త్రపుపేరు.."
+msgstr "చెల్లని అలంకారపు పేరు."
 
 msgid "This server cannot handle theme uploads without ZIP support."
 msgstr ""
@@ -7864,9 +7898,8 @@ msgstr ""
 msgid "The theme file is missing or the upload failed."
 msgstr ""
 
-#, fuzzy
 msgid "Failed saving theme."
-msgstr "అవతారపు తాజాకరణ విఫలమైంది."
+msgstr "అలంకారాన్ని భద్రపరచడం విఫలమైంది."
 
 msgid "Invalid theme: bad directory structure."
 msgstr ""
@@ -7981,9 +8014,8 @@ msgctxt "role"
 msgid "Moderator"
 msgstr "సమన్వయకర్త"
 
-#, fuzzy
 msgid "Not allowed to log in."
-msgstr "లోనికి ప్రవేశించలేదు."
+msgstr "ప్రవేశించడానికి అనుమతి లేదు."
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 msgid "a few seconds ago"
@@ -8039,14 +8071,13 @@ msgstr "ఒక సంవత్సరం క్రితం"
 
 #. TRANS: Web color exception thrown when a hexadecimal color code does not validate.
 #. TRANS: %s is the provided (invalid) color code.
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex characters."
 msgstr "%s అనేది సరైన రంగు కాదు! 3 లేదా 6 హెక్స్ అక్షరాలను వాడండి."
 
 #. TRANS: Exception.
-#, fuzzy
 msgid "Invalid XML."
-msgstr "తప్పుడు పరిమాణం."
+msgstr "చెల్లని XML."
 
 #. TRANS: Exception.
 msgid "Invalid XML, missing XRD root."
@@ -8056,11 +8087,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#, fuzzy
-#~ msgid "Friends timeline"
-#~ msgstr "%s కాలరేఖ"
-
-#, fuzzy
-#~ msgid "Everyone on this site"
-#~ msgstr "ఈ సైటులోని వ్యక్తులని కనుగొనండి"

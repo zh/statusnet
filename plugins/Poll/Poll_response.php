@@ -42,7 +42,6 @@ if (!defined('STATUSNET')) {
  *
  * @see      DB_DataObject
  */
-
 class Poll_response extends Managed_DataObject
 {
     public $__table = 'poll_response'; // table name
@@ -63,7 +62,6 @@ class Poll_response extends Managed_DataObject
      * @return User_greeting_count object found, or null for no hits
      *
      */
-
     function staticGet($k, $v=null)
     {
         return Memcached_DataObject::staticGet('Poll_response', $k, $v);
@@ -81,7 +79,6 @@ class Poll_response extends Managed_DataObject
      * @return Bookmark object found, or null for no hits
      *
      */
-
     function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Poll_response', $kv);
@@ -120,7 +117,6 @@ class Poll_response extends Managed_DataObject
      *
      * @return Poll_response found response or null
      */
-
     function getByNotice($notice)
     {
         return self::staticGet('uri', $notice->uri);
@@ -159,7 +155,6 @@ class Poll_response extends Managed_DataObject
      *
      * @return Notice saved notice
      */
-
     static function saveNew($profile, $poll, $selection, $options=null)
     {
         if (empty($options)) {
@@ -167,6 +162,7 @@ class Poll_response extends Managed_DataObject
         }
 
         if (!$poll->isValidSelection($selection)) {
+            // TRANS: Client exception thrown when responding to a poll with an invalid option.
             throw new ClientException(_m('Invalid poll selection.'));
         }
         $opts = $poll->getOptions();
@@ -194,11 +190,14 @@ class Poll_response extends Managed_DataObject
         common_log(LOG_DEBUG, "Saving poll response: $pr->id $pr->uri");
         $pr->insert();
 
+        // TRANS: Notice content voting for a poll.
+        // TRANS: %s is the chosen option in the poll.
         $content  = sprintf(_m('voted for "%s"'),
                             $answer);
-        $rendered = sprintf(_m('voted for “<a href="%s">%s</a>”'),
-                            htmlspecialchars($poll->uri),
-                            htmlspecialchars($answer));
+        $link = '<a href="' . htmlspecialchars($poll->uri) . '">' . htmlspecialchars($answer) . '</a>';
+        // TRANS: Rendered version of the notice content voting for a poll.
+        // TRANS: %s a link to the poll with the chosen option as link description.
+        $rendered = sprintf(_m('voted for "%s"'), $link);
 
         $tags    = array();
         $replies = array();
