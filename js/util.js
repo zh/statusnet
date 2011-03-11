@@ -1321,8 +1321,10 @@ var SN = { // StatusNet
                             // clicked outside of one...
                             openReplies.each(function() {
                                 var replyItem = $(this);
+                                var textarea = replyItem.find('.notice_data-text:first');
+                                var cur = $.trim(textarea.val());
                                 // Only close if there's been no edit.
-                                if (replyItem.find('.notice_data-text:first').val() == '') {
+                                if (cur == '' || cur == textarea.data('initialText')) {
                                     var parentNotice = replyItem.closest('li.notice');
                                     replyItem.remove();
                                     SN.U.NoticeInlineReplyPlaceholder(parentNotice);
