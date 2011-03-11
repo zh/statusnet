@@ -1115,3 +1115,19 @@ StartGroupProfileElements: Start showing stuff about the group on its profile pa
 EndGroupProfileElements: Start showing stuff about the group on its profile page
 - $action: action being executed (for output and params)
 - $group: group for the page
+
+StartActivityObjectOutputAtom: Called at start of Atom XML output generation for ActivityObject chunks, just inside the <activity:object>. Cancel the event to take over its output completely (you're responsible for calling the matching End event if so)
+- $obj: ActivityObject
+- $out: XMLOutputter to append custom output
+
+EndActivityObjectOutputAtom: Called at end of Atom XML output generation for ActivityObject chunks, just inside the </activity:object>
+- $obj: ActivityObject
+- $out: XMLOutputter to append custom output
+
+StartActivityObjectOutputJson: Called at start of JSON output generation for ActivityObject chunks: the array has not yet been filled out. Cancel the event to take over its output completely (you're responsible for calling the matching End event if so)
+- $obj ActivityObject
+- &$out: array to be serialized; you're free to modify it
+
+EndActivityObjectOutputJson: Called at end of JSON output generation for ActivityObject chunks: the array has not yet been filled out.
+- $obj ActivityObject
+- &$out: array to be serialized; you're free to modify it
