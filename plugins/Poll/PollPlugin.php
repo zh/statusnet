@@ -203,26 +203,22 @@ class PollPlugin extends MicroAppPlugin
             $pollElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'poll');
             $responseElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'response');
             if ($pollElements->length) {
-                $data = $pollElements->item(0);
-                $question = $data->getAttribute('question');
+                $question = '';
                 $opts = array();
-                foreach ($data->attributes as $node) {
-                    $name = $node->nodeName;
-                    if (substr($name, 0, 6) == 'option') {
-                        $n = intval(substr($name, 6));
-                        if ($n > 0) {
-                            $opts[$n - 1] = $node->nodeValue;
-                        }
-                    }
+
+                $data = $pollElements->item(0);
+                foreach ($data->getElementsByTagNameNS(self::POLL_OBJECT, 'question') as $node) {
+                    $question = $node->textValue; // ?
                 }
-                common_log(LOG_DEBUG, "YYY question: $question");
-                common_log(LOG_DEBUG, "YYY opts: " . var_export($opts, true));
+                foreach ($data->getElementsByTagNameNS(self::POLL_OBJECT, 'option') as $node) {
+                    $opts[] = $node->textValue;
+                }
                 try {
                     $notice = Poll::saveNew($profile, $question, $opts, $options);
-                    common_log(LOG_DEBUG, "YYY ok: " . $notice->id);
+                    common_log(LOG_DEBUG, "Saved Poll from ActivityStream data ok: notice id " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
-                    common_log(LOG_DEBUG, "YYY fail: " . $e->getMessage());
+                    common_log(LOG_DEBUG, "Poll save from ActivityStream data failed: " . $e->getMessage());
                 }
             } else if ($responseElements->length) {
                 $data = $responseElements->item(0);
@@ -240,10 +236,10 @@ class PollPlugin extends MicroAppPlugin
                 }
                 try {
                     $notice = Poll_response::saveNew($profile, $poll, $selection, $options);
-                    common_log(LOG_DEBUG, "YYY response ok: " . $notice->id);
+                    common_log(LOG_DEBUG, "Saved Poll_response ok, notice id: " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
-                    common_log(LOG_DEBUG, "YYY response fail: " . $e->getMessage());
+                    common_log(LOG_DEBUG, "Poll response  save fail: " . $e->getMessage());
                 }
             } else {
                 common_log(LOG_DEBUG, "YYY no poll data");
