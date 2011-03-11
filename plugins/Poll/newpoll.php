@@ -59,7 +59,7 @@ class NewPollAction extends Action
      */
     function title()
     {
-        return _('New poll');
+        return _m('New poll');
     }
 
     /**
@@ -76,7 +76,7 @@ class NewPollAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_("You must be logged in to post a poll."),
+            throw new ClientException(_m('You must be logged in to post a poll.'),
                                       403);
         }
 
@@ -127,11 +127,11 @@ class NewPollAction extends Action
         }
         try {
             if (empty($this->question)) {
-                throw new ClientException(_('Poll must have a question.'));
+                throw new ClientException(_m('Poll must have a question.'));
             }
 
             if (count($this->options) < 2) {
-                throw new ClientException(_('Poll must have at least two options.'));
+                throw new ClientException(_m('Poll must have at least two options.'));
             }
 
 
@@ -150,7 +150,7 @@ class NewPollAction extends Action
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Page title after sending a notice.
-            $this->element('title', null, _('Notice posted'));
+            $this->element('title', null, _m('Notice posted'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->showNotice($saved);

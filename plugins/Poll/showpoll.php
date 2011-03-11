@@ -100,7 +100,7 @@ class ShowPollAction extends ShownoticeAction
      */
     function title()
     {
-        return sprintf(_('%s\'s poll: %s'),
+        return sprintf(_m('%s\'s poll: %s'),
                        $this->user->nickname,
                        $this->poll->question);
     }
