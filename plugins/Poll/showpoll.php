@@ -64,6 +64,7 @@ class ShowPollAction extends ShownoticeAction
         $this->poll = Poll::staticGet('id', $this->id);
 
         if (empty($this->poll)) {
+            // TRANS: Client exception thrown trying to view a non-existing poll.
             throw new ClientException(_m('No such poll.'), 404);
         }
 
@@ -71,18 +72,21 @@ class ShowPollAction extends ShownoticeAction
 
         if (empty($this->notice)) {
             // Did we used to have it, and it got deleted?
+            // TRANS: Client exception thrown trying to view a non-existing poll notice.
             throw new ClientException(_m('No such poll notice.'), 404);
         }
 
         $this->user = User::staticGet('id', $this->poll->profile_id);
 
         if (empty($this->user)) {
+            // TRANS: Client exception thrown trying to view a poll of a non-existing user.
             throw new ClientException(_m('No such user.'), 404);
         }
 
         $this->profile = $this->user->getProfile();
 
         if (empty($this->profile)) {
+            // TRANS: Server exception thrown trying to view a poll for a user for which the profile could not be loaded.
             throw new ServerException(_m('User without a profile.'));
         }
 
@@ -100,7 +104,9 @@ class ShowPollAction extends ShownoticeAction
      */
     function title()
     {
-        return sprintf(_m('%s\'s poll: %s'),
+        // TRANS: Page title for a poll.
+        // TRANS: %1$s is the nickname of the user that created the poll, %2$s is the poll question.
+        return sprintf(_m('%1$s\'s poll: %2$s'),
                        $this->user->nickname,
                        $this->poll->question);
     }

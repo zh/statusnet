@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Add a new Poll
+ * Respond to a Poll
  *
  * PHP version 5
  *
@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Add a new Poll
+ * Respond to a Poll
  *
  * @category  Poll
  * @package   StatusNet
@@ -59,6 +59,7 @@ class RespondPollAction extends Action
      */
     function title()
     {
+        // TRANS: Page title for poll response.
         return _m('Poll response');
     }
 
@@ -79,6 +80,7 @@ class RespondPollAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
+            // TRANS: Client exception thrown trying to respond to a poll while not logged in.
             throw new ClientException(_m("You must be logged in to respond to a poll."),
                                       403);
         }
@@ -90,11 +92,13 @@ class RespondPollAction extends Action
         $id = $this->trimmed('id');
         $this->poll = Poll::staticGet('id', $id);
         if (empty($this->poll)) {
-            throw new ClientException(_m("Invalid or missing poll."), 404);
+            // TRANS: Client exception thrown trying to respond to a non-existing poll.
+            throw new ClientException(_m('Invalid or missing poll.'), 404);
         }
 
         $selection = intval($this->trimmed('pollselection'));
         if ($selection < 1 || $selection > count($this->poll->getOptions())) {
+            // TRANS: Client exception thrown responding to a poll with an invalid answer.
             throw new ClientException(_m('Invalid poll selection.'));
         }
         $this->selection = $selection;

@@ -162,6 +162,7 @@ class Poll_response extends Managed_DataObject
         }
 
         if (!$poll->isValidSelection($selection)) {
+            // TRANS: Client exception thrown when responding to a poll with an invalid option.
             throw new ClientException(_m('Invalid poll selection.'));
         }
         $opts = $poll->getOptions();
@@ -189,11 +190,14 @@ class Poll_response extends Managed_DataObject
         common_log(LOG_DEBUG, "Saving poll response: $pr->id $pr->uri");
         $pr->insert();
 
+        // TRANS: Notice content voting for a poll.
+        // TRANS: %s is the chosen option in the poll.
         $content  = sprintf(_m('voted for "%s"'),
                             $answer);
-        $rendered = sprintf(_m('voted for “<a href="%s">%s</a>”'),
-                            htmlspecialchars($poll->uri),
-                            htmlspecialchars($answer));
+        $link = '<a href="' . htmlspecialchars($poll->uri) . '">' . htmlspecialchars($answer) . '</a>';
+        // TRANS: Rendered version of the notice content voting for a poll.
+        // TRANS: %s a link to the poll with the chosen option as link description.
+        $rendered = sprintf(_m('voted for "%s"'), $link);
 
         $tags    = array();
         $replies = array();

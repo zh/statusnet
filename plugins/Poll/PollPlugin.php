@@ -153,6 +153,7 @@ class PollPlugin extends MicroAppPlugin
                             'author' => 'Brion Vibber',
                             'homepage' => 'http://status.net/wiki/Plugin:Poll',
                             'rawdescription' =>
+                            // TRANS: Plugin description.
                             _m('Simple extension for supporting basic polls.'));
         return true;
     }
@@ -229,11 +230,13 @@ class PollPlugin extends MicroAppPlugin
                 $selection = intval($data->getAttribute('selection'));
 
                 if (!$pollUri) {
-                    throw new Exception('Invalid poll response: no poll reference.');
+                    // TRANS: Exception thrown trying to respond to a poll without a poll reference.
+                    throw new Exception(_m('Invalid poll response: no poll reference.'));
                 }
                 $poll = Poll::staticGet('uri', $pollUri);
                 if (!$poll) {
-                    throw new Exception('Invalid poll response: poll is unknown.');
+                    // TRANS: Exception thrown trying to respond to a non-existing poll.
+                    throw new Exception(_m('Invalid poll response: poll is unknown.'));
                 }
                 try {
                     $notice = Poll_response::saveNew($profile, $poll, $selection, $options);
@@ -258,7 +261,9 @@ class PollPlugin extends MicroAppPlugin
         case self::POLL_RESPONSE_OBJECT:
             return $this->activityObjectFromNoticePollResponse($notice);
         default:
-            throw new Exception('Unexpected type for poll plugin: ' . $notice->object_type);
+            // TRANS: Exception thrown when performing an unexpected action on a poll.
+            // TRANS: %s is the unpexpected object type.
+            throw new Exception(sprintf(_m('Unexpected type for poll plugin: %s.'), $notice->object_type));
         }
     }
 
@@ -361,7 +366,9 @@ class PollPlugin extends MicroAppPlugin
         case self::POLL_RESPONSE_OBJECT:
             return $this->showNoticePollResponse($notice, $out);
         default:
-            throw new Exception('Unexpected type for poll plugin: ' . $notice->object_type);
+            // TRANS: Exception thrown when performing an unexpected action on a poll.
+            // TRANS: %s is the unpexpected object type.
+            throw new Exception(sprintf(_m('Unexpected type for poll plugin: %s.'), $notice->object_type));
         }
     }
 
@@ -388,7 +395,7 @@ class PollPlugin extends MicroAppPlugin
                 $form->show();
             }
         } else {
-            $out->text('Poll data is missing');
+            $out->text(_('Poll data is missing'));
         }
         $out->elementEnd('div');
 
@@ -421,6 +428,7 @@ class PollPlugin extends MicroAppPlugin
 
     function appTitle()
     {
-        return _m('Poll');
+        // TRANS: Application title.
+        return _m('APPTITLE','Poll');
     }
 }

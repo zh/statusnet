@@ -235,12 +235,15 @@ class Poll extends Managed_DataObject
         common_log(LOG_DEBUG, "Saving poll: $p->id $p->uri");
         $p->insert();
 
-        $content  = sprintf(_m('Poll: %s %s'),
+        // TRANS: Notice content creating a poll.
+        // TRANS: %1$s is the poll question, %2$s is a link to the poll.
+        $content  = sprintf(_m('Poll: %1$s %2$s'),
                             $question,
                             $p->uri);
-        $rendered = sprintf(_m('Poll: <a href="%s">%s</a>'),
-                            htmlspecialchars($p->uri),
-                            htmlspecialchars($question));
+        $link = '<a href="' . htmlspecialchars($p->uri) . '">' . htmlspecialchars($question) . '</a>';
+        // TRANS: Rendered version of the notice content creating a poll.
+        // TRANS: %s a link to the poll with the question as link description.
+        $rendered = sprintf(_m('Poll: %s'), $link);
 
         $tags    = array('poll');
         $replies = array();

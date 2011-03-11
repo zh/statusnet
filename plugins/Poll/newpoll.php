@@ -59,6 +59,7 @@ class NewPollAction extends Action
      */
     function title()
     {
+        // TRANS: Title for poll page.
         return _m('New poll');
     }
 
@@ -76,6 +77,7 @@ class NewPollAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
+            // TRANS: Client exception thrown trying to create a poll while not logged in.
             throw new ClientException(_m('You must be logged in to post a poll.'),
                                       403);
         }
@@ -127,10 +129,12 @@ class NewPollAction extends Action
         }
         try {
             if (empty($this->question)) {
+            // TRANS: Client exception thrown trying to create a poll without a question.
                 throw new ClientException(_m('Poll must have a question.'));
             }
 
             if (count($this->options) < 2) {
+                // TRANS: Client exception thrown trying to create a poll with fewer than two options.
                 throw new ClientException(_m('Poll must have at least two options.'));
             }
 
