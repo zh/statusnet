@@ -423,7 +423,6 @@ var SN = { // StatusNet
                                         .css({display:'none'})
                                         .fadeIn(2500);
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
-                                    SN.U.NoticeReplyTo($('#'+notice.id));
                                     SN.U.switchInputFormTab("placeholder");
                                 }
                             } else {
@@ -516,32 +515,20 @@ var SN = { // StatusNet
          * @access private
          */
         NoticeReply: function() {
-            if ($('#content .notice_reply').length > 0) {
-                $('#content .notice').each(function() { SN.U.NoticeReplyTo($(this)); });
-            }
-        },
-
-        /**
-         * Setup function -- DOES NOT trigger actions immediately.
-         *
-         * Sets up event handlers on the given notice's reply button to
-         * tweak the new-notice form with needed variables and focus it
-         * when pushed.
-         *
-         * (This replaces the default reply button behavior to submit
-         * directly to a form which comes back with a specialized page
-         * with the form data prefilled.)
-         *
-         * @param {jQuery} notice: jQuery object containing one or more notices
-         * @access private
-         */
-        NoticeReplyTo: function(notice) {
-            notice.find('.notice_reply').live('click', function(e) {
+            $('#content .notice_reply').live('click', function(e) {
                 e.preventDefault();
+                var notice = $(this).closest('li.notice');
                 var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
                 SN.U.NoticeInlineReplyTrigger(notice, '@' + nickname.text());
                 return false;
             });
+        },
+
+        /**
+         * Stub -- kept for compat with plugins for now.
+         * @access private
+         */
+        NoticeReplyTo: function(notice) {
         },
 
         /**
