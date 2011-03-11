@@ -187,18 +187,6 @@ class UserdirectoryAction extends Action
         $this->elementEnd('div');
     }
 
-    /**
-     * Local navigation
-     *
-     * This page is part of the public group, so show that.
-     *
-     * @return void
-     */
-    function showLocalNav()
-    {
-        $nav = new PublicGroupNav($this);
-        $nav->show();
-    }
 
     /**
      * Content area

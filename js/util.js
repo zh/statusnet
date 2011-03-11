@@ -599,7 +599,7 @@ var SN = { // StatusNet
                 nextStep();
             } else {
                 // Remove placeholder if any
-                $('li.notice-reply-placeholder').remove();
+                list.find('li.notice-reply-placeholder').remove();
 
                 // Create the reply form entry at the end
                 var replyItem = $('li.notice-reply', list);
@@ -638,10 +638,12 @@ var SN = { // StatusNet
             var placeholder = $('<li class="notice-reply-placeholder">' +
                                     '<input class="placeholder">' +
                                 '</li>');
-            placeholder.click(function() {
-                SN.U.NoticeInlineReplyTrigger(notice);
-            });
-            placeholder.find('input').val(SN.msg('reply_placeholder'));
+            placeholder.find('input')
+                .val(SN.msg('reply_placeholder'))
+                .focus(function() {
+                    SN.U.NoticeInlineReplyTrigger(notice);
+                    return false;
+                });
             list.append(placeholder);
         },
 
@@ -1015,8 +1017,7 @@ var SN = { // StatusNet
                 }
 
                 var NGW = form.find('.notice_data-geo_wrap');
-                var geocodeURL = NGW.attr('title');
-                NGW.removeAttr('title');
+                var geocodeURL = NGW.attr('data-api');
 
                 label
                     .attr('title', label.text());
@@ -1116,6 +1117,7 @@ var SN = { // StatusNet
                 wrapper = $('<div class="'+SN.C.S.Success+' geo_status_wrapper"><button class="close" style="float:right">&#215;</button><div class="geo_status"></div></div>');
                 wrapper.find('button.close').click(function() {
                     form.find('[name=notice_data-geo]').removeAttr('checked').change();
+                    return false;
                 });
                 form.append(wrapper);
             }
@@ -1308,6 +1310,28 @@ var SN = { // StatusNet
                 $('.ajax-notice').each(function() {
                     var form = $(this);
                     SN.Init.NoticeFormSetup(form);
+                });
+
+                // Make inline reply forms self-close when clicking out.
+                $('body').bind('click', function(e) {
+                    var openReplies = $('li.notice-reply');
+                    if (openReplies.length > 0) {
+                        var target = $(e.target);
+                        openReplies.each(function() {
+                            // Did we click outside this one?
+                            var replyItem = $(this);
+                            if (replyItem.has(e.target).length == 0) {
+                                var textarea = replyItem.find('.notice_data-text:first');
+                                var cur = $.trim(textarea.val());
+                                // Only close if there's been no edit.
+                                if (cur == '' || cur == textarea.data('initialText')) {
+                                    var parentNotice = replyItem.closest('li.notice');
+                                    replyItem.remove();
+                                    SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                }
+                            }
+                        });
+                    }
                 });
             }
         },
