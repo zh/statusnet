@@ -21,7 +21,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-class ProfileDetailAction extends ProfileAction
+class ProfileDetailAction extends ShowstreamAction
 {
 
     function isReadOnly($args)
@@ -34,21 +34,10 @@ class ProfileDetailAction extends ProfileAction
         return $this->profile->getFancyName();
     }
 
-    function showLocalNav()
-    {
-        $nav = new PersonalGroupNav($this);
-        $nav->show();
-    }
-
     function showStylesheets() {
         parent::showStylesheets();
         $this->cssLink('plugins/ExtendedProfile/profiledetail.css');
         return true;
-    }
-
-    function handle($args)
-    {
-        $this->showPage();
     }
 
     function showContent()

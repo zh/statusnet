@@ -21,7 +21,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-class ProfileDetailSettingsAction extends SettingsAction
+class ProfileDetailSettingsAction extends ProfileSettingsAction
 {
 
     function title()
