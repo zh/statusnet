@@ -37,8 +37,10 @@ class ExtendedProfile
     {
         $this->profile  = $profile;
         $this->user     = $profile->getUser();
-        $this->sections = $this->getSections();
         $this->fields   = $this->loadFields();
+        $this->sections = $this->getSections();
+        //common_debug(var_export($this->sections, true));
+
         //common_debug(var_export($this->fields, true));
     }
 
@@ -96,19 +98,36 @@ class ExtendedProfile
         }
     }
 
-
     function getPhones()
     {
-        return array(
+        $phones  = $this->fields['phone'];
+        $pArrays = array();
+
+        if (empty($phones)) {
+            $pArrays[] = array(
                 'label' => _m('Phone'),
                 'type'  => 'phone',
-                'multi' => true,
-                'index' => 8123,
-                'rel'   => 'home',
-                'value' => '510-528-0079',
-                'vcard' => 'tel'
-
-        );
+                'vcard' => 'tel',
+                'multi' => true
+            );
+        } else {
+            for ($i = 0; $i < sizeof($phones); $i++) {
+                $pa = array(
+                    'label' => _m('Phone'),
+                    'type'  => 'phone',
+                    'index' => $phones[$i]->value_index,
+                    'rel'   => $phones[$i]->rel,
+                    'value' => $phones[$i]->field_value,
+                    'vcard' => 'tel'
+                );
+                // Last phone record should allow adding more
+                if ($i == sizeof($phones) - 1) {
+                    $pa['multi'] = true;
+                }
+               $pArrays[] = $pa;
+            }
+        }
+        return $pArrays;
     }
 
     /**

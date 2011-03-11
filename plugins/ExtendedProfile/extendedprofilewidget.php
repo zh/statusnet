@@ -101,8 +101,13 @@ class ExtendedProfileWidget extends Form
     {
         $this->out->element('h3', null, $section['label']);
         $this->out->elementStart('table', array('class' => 'extended-profile'));
+
         foreach ($section['fields'] as $fieldName => $field) {
-            $this->showExtendedProfileField($fieldName, $field);
+            if ($fieldName == 'phone') {
+                $this->showPhones($fieldName, $field);
+            } else {
+                $this->showExtendedProfileField($fieldName, $field);
+            }
         }
         $this->out->elementEnd('table');
     }
@@ -151,7 +156,6 @@ class ExtendedProfileWidget extends Form
             $this->out->text($this->ext->getTags());
             break;
         case 'phone':
-            common_debug("GOT a PHONE!");
             $this->showPhone($field);
             break;
         default:
@@ -159,11 +163,19 @@ class ExtendedProfileWidget extends Form
         }
     }
 
+    protected function showPhones($name, $field) {
+        foreach ($field as $phone) {
+            $this->showExtendedProfileField($name, $phone);
+        }
+    }
+
     protected function showPhone($field)
     {
         $this->out->elementStart('div', array('class' => 'phone-display'));
         $this->out->text($field['value']);
-        $this->out->text(' (' . $field['rel'] . ')');
+        if (!empty($field['rel'])) {
+            $this->out->text(' (' . $field['rel'] . ')');
+        }
         $this->out->elementEnd('div');
     }
 
