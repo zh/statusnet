@@ -424,6 +424,7 @@ var SN = { // StatusNet
                                         .fadeIn(2500);
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
                                     SN.U.NoticeReplyTo($('#'+notice.id));
+                                    SN.U.switchInputFormTab("placeholder");
                                 }
                             } else {
                                 // Not on a timeline that this belongs on?
@@ -1292,7 +1293,13 @@ var SN = { // StatusNet
 	    $('#input_form_nav_'+tag).addClass('current');
 
 	    $('.input_form.current').removeClass('current');
-	    $('#input_form_'+tag).addClass('current');
+	    $('#input_form_'+tag)
+                .addClass('current')
+                .find('.ajax-notice').each(function() {
+                    var form = $(this);
+                    SN.Init.NoticeFormSetup(form);
+                })
+                .find('textarea:first').focus();
 	}
     },
 
@@ -1307,13 +1314,31 @@ var SN = { // StatusNet
          */
         NoticeForm: function() {
             if ($('body.user_in').length > 0) {
-                $('.ajax-notice').each(function() {
-                    var form = $(this);
-                    SN.Init.NoticeFormSetup(form);
+                // SN.Init.NoticeFormSetup() will get run
+                // when forms get displayed for the first time...
+
+                // Hack to initialize the placeholder at top
+                $('#input_form_placeholder input.placeholder').focus(function() {
+                    SN.U.switchInputFormTab("status");
                 });
 
                 // Make inline reply forms self-close when clicking out.
                 $('body').bind('click', function(e) {
+                    var currentForm = $('#content .input_forms div.current');
+                    if (currentForm.length > 0) {
+                        if ($('#content .input_forms').has(e.target).length == 0) {
+                            // If all fields are empty, switch back to the placeholder.
+                            var fields = currentForm.find('textarea, input[type=text], input[type=""]');
+                            var anything = false;
+                            fields.each(function() {
+                                anything = anything || $(this).val();
+                            });
+                            if (!anything) {
+                                SN.U.switchInputFormTab("placeholder");
+                            }
+                        }
+                    }
+
                     var openReplies = $('li.notice-reply');
                     if (openReplies.length > 0) {
                         var target = $(e.target);
@@ -1344,10 +1369,13 @@ var SN = { // StatusNet
          * @param {jQuery} form
          */
         NoticeFormSetup: function(form) {
-            SN.U.NoticeLocationAttach(form);
-            SN.U.FormNoticeXHR(form);
-            SN.U.FormNoticeEnhancements(form);
-            SN.U.NoticeDataAttach(form);
+            if (!form.data('NoticeFormSetup')) {
+                SN.U.NoticeLocationAttach(form);
+                SN.U.FormNoticeXHR(form);
+                SN.U.FormNoticeEnhancements(form);
+                SN.U.NoticeDataAttach(form);
+                form.data('NoticeFormSetup', true);
+            }
         },
 
         /**
