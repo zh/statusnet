@@ -208,10 +208,10 @@ class PollPlugin extends MicroAppPlugin
 
                 $data = $pollElements->item(0);
                 foreach ($data->getElementsByTagNameNS(self::POLL_OBJECT, 'question') as $node) {
-                    $question = $node->textValue; // ?
+                    $question = $node->textContent;
                 }
                 foreach ($data->getElementsByTagNameNS(self::POLL_OBJECT, 'option') as $node) {
-                    $opts[] = $node->textValue;
+                    $opts[] = $node->textContent;
                 }
                 try {
                     $notice = Poll::saveNew($profile, $question, $opts, $options);
