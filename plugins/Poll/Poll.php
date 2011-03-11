@@ -47,6 +47,7 @@ class Poll extends Managed_DataObject
 {
     public $__table = 'poll'; // table name
     public $id;          // char(36) primary key not null -> UUID
+    public $uri;
     public $profile_id;  // int -> profile.id
     public $question;    // text
     public $options;     // text; newline(?)-delimited
@@ -125,6 +126,23 @@ class Poll extends Managed_DataObject
     function getOptions()
     {
         return explode("\n", $this->options);
+    }
+
+    /**
+     * Is this a valid selection index?
+     *
+     * @param numeric $selection (1-based)
+     * @return boolean
+     */
+    function isValidSelection($selection)
+    {
+        if ($selection != intval($selection)) {
+            return false;
+        }
+        if ($selection < 1 || $selection > count($this->getOptions())) {
+            return false;
+        }
+        return true;
     }
 
     function getNotice()

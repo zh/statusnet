@@ -128,8 +128,8 @@ class AlphaNav extends Widget
             $current = $this->action->arg('filter');
 
             // Highlight the selected filter. If there is no selected
-            // filter, highlight the first filter in the list
-            if (!isset($current) && $i == 0
+            // filter, highlight the last filter in the list (all)
+            if (!isset($current) && $i == ($size - 1)
                 || $current === strtolower($filter)) {
                 $classes .= 'current ';
             }

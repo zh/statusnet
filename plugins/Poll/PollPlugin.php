@@ -47,7 +47,10 @@ if (!defined('STATUSNET')) {
 class PollPlugin extends MicroAppPlugin
 {
     const VERSION         = '0.1';
-    const POLL_OBJECT     = 'http://apinamespace.org/activitystreams/object/poll';
+
+    // @fixme which domain should we use for these namespaces?
+    const POLL_OBJECT          = 'http://apinamespace.org/activitystreams/object/poll';
+    const POLL_RESPONSE_OBJECT = 'http://apinamespace.org/activitystreams/object/poll-response';
 
     /**
      * Database schema setup
@@ -124,8 +127,15 @@ class PollPlugin extends MicroAppPlugin
     function onRouterInitialized($m)
     {
         $m->connect('main/poll/new',
-                    array('action' => 'newpoll'),
-                    array('id' => '[0-9]+'));
+                    array('action' => 'newpoll'));
+
+        $m->connect('main/poll/:id',
+                    array('action' => 'showpoll'),
+                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
+
+        $m->connect('main/poll/response/:id',
+                    array('action' => 'showpollresponse'),
+                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
         $m->connect('main/poll/:id/respond',
                     array('action' => 'respondpoll'),
@@ -155,7 +165,7 @@ class PollPlugin extends MicroAppPlugin
 
     function types()
     {
-        return array(self::POLL_OBJECT);
+        return array(self::POLL_OBJECT, self::POLL_RESPONSE_OBJECT);
     }
 
     /**
@@ -190,17 +200,124 @@ class PollPlugin extends MicroAppPlugin
     function saveNoticeFromActivity($activity, $profile, $options=array())
     {
         // @fixme
+        common_log(LOG_DEBUG, "XXX activity: " . var_export($activity, true));
+        common_log(LOG_DEBUG, "XXX profile: " . var_export($profile, true));
+        common_log(LOG_DEBUG, "XXX options: " . var_export($options, true));
+
+        // Ok for now, we can grab stuff from the XML entry directly.
+        // This won't work when reading from JSON source
+        if ($activity->entry) {
+            $pollElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'poll');
+            $responseElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'response');
+            if ($pollElements->length) {
+                $data = $pollElements->item(0);
+                $question = $data->getAttribute('question');
+                $opts = array();
+                foreach ($data->attributes as $node) {
+                    $name = $node->nodeName;
+                    if (substr($name, 0, 6) == 'option') {
+                        $n = intval(substr($name, 6));
+                        if ($n > 0) {
+                            $opts[$n - 1] = $node->nodeValue;
+                        }
+                    }
+                }
+                common_log(LOG_DEBUG, "YYY question: $question");
+                common_log(LOG_DEBUG, "YYY opts: " . var_export($opts, true));
+                try {
+                    $notice = Poll::saveNew($profile, $question, $opts, $options);
+                    common_log(LOG_DEBUG, "YYY ok: " . $notice->id);
+                    return $notice;
+                } catch (Exception $e) {
+                    common_log(LOG_DEBUG, "YYY fail: " . $e->getMessage());
+                }
+            } else if ($responseElements->length) {
+                $data = $responseElements->item(0);
+                $pollUri = $data->getAttribute('poll');
+                $selection = intval($data->getAttribute('selection'));
+
+                if (!$pollUri) {
+                    throw new Exception('Invalid poll response: no poll reference.');
+                }
+                $poll = Poll::staticGet('uri', $pollUri);
+                if (!$poll) {
+                    throw new Exception('Invalid poll response: poll is unknown.');
+                }
+                try {
+                    $notice = Poll_response::saveNew($profile, $poll, $selection, $options);
+                    common_log(LOG_DEBUG, "YYY response ok: " . $notice->id);
+                    return $notice;
+                } catch (Exception $e) {
+                    common_log(LOG_DEBUG, "YYY response fail: " . $e->getMessage());
+                }
+            } else {
+                common_log(LOG_DEBUG, "YYY no poll data");
+            }
+        }
     }
 
     function activityObjectFromNotice($notice)
     {
         assert($this->isMyNotice($notice));
 
+        switch ($notice->object_type) {
+        case self::POLL_OBJECT:
+            return $this->activityObjectFromNoticePoll($notice);
+        case self::POLL_RESPONSE_OBJECT:
+            return $this->activityObjectFromNoticePollResponse($notice);
+        default:
+            throw new Exception('Unexpected type for poll plugin: ' . $notice->object_type);
+        }
+    }
+
+    function activityObjectFromNoticePollResponse($notice)
+    {
         $object = new ActivityObject();
         $object->id      = $notice->uri;
         $object->type    = self::POLL_OBJECT;
-        $object->title   = 'Poll title';
-        $object->summary = 'Poll summary';
+        $object->title   = $notice->content;
+        $object->summary = $notice->content;
+        $object->link    = $notice->bestUrl();
+
+        $response = Poll_response::getByNotice($notice);
+        if (!$response) {
+            common_log(LOG_DEBUG, "QQQ notice uri: $notice->uri");
+        } else {
+            $poll = $response->getPoll();
+            /**
+             * For the moment, using a kind of icky-looking schema that happens to
+             * work with out code for generating both Atom and JSON forms, though
+             * I don't like it:
+             *
+             * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll"
+             *                poll="http://..../poll/...."
+             *                selection="3" />
+             *
+             * "poll:response": {
+             *     "xmlns:poll": http://apinamespace.org/activitystreams/object/poll
+             *     "uri": "http://..../poll/...."
+             *     "selection": 3
+             * }
+             *
+             */
+            // @fixme there's no way to specify an XML node tree here, like <poll><option/><option/></poll>
+            // @fixme there's no way to specify a JSON array or multi-level tree unless you break the XML attribs
+            // @fixme XML node contents don't get shown in JSON
+            $data = array('xmlns:poll' => self::POLL_OBJECT,
+                          'poll'       => $poll->uri,
+                          'selection'  => intval($response->selection));
+            $object->extra[] = array('poll:response', $data, '');
+        }
+        return $object;
+    }
+
+    function activityObjectFromNoticePoll($notice)
+    {
+        $object = new ActivityObject();
+        $object->id      = $notice->uri;
+        $object->type    = self::POLL_RESPONSE_OBJECT;
+        $object->title   = $notice->content;
+        $object->summary = $notice->content;
         $object->link    = $notice->bestUrl();
 
         $poll = Poll::getByNotice($notice);
@@ -218,7 +335,7 @@ class PollPlugin extends MicroAppPlugin
          *            option2="Option two"
          *            option3="Option three"></poll:data>
          *
-         * "poll:data": {
+         * "poll:response": {
          *     "xmlns:poll": http://apinamespace.org/activitystreams/object/poll
          *     "question": "Who wants a poll question?"
          *     "option1": "Option one"
@@ -235,7 +352,7 @@ class PollPlugin extends MicroAppPlugin
         foreach ($poll->getOptions() as $i => $opt) {
             $data['option' . ($i + 1)] = $opt;
         }
-        $object->extra[] = array('poll:data', $data, '');
+        $object->extra[] = array('poll:poll', $data, '');
         return $object;
     }
 
@@ -245,6 +362,18 @@ class PollPlugin extends MicroAppPlugin
      * and Bookmark plugin for if that's right.
      */
     function showNotice($notice, $out)
+    {
+        switch ($notice->object_type) {
+        case self::POLL_OBJECT:
+            return $this->showNoticePoll($notice, $out);
+        case self::POLL_RESPONSE_OBJECT:
+            return $this->showNoticePollResponse($notice, $out);
+        default:
+            throw new Exception('Unexpected type for poll plugin: ' . $notice->object_type);
+        }
+    }
+
+    function showNoticePoll($notice, $out)
     {
         $user = common_current_user();
 
@@ -270,6 +399,18 @@ class PollPlugin extends MicroAppPlugin
             $out->text('Poll data is missing');
         }
         $out->elementEnd('div');
+
+        // @fixme
+        $out->elementStart('div', array('class' => 'entry-content'));
+    }
+
+    function showNoticePollResponse($notice, $out)
+    {
+        $user = common_current_user();
+
+        // @hack we want regular rendering, then just add stuff after that
+        $nli = new NoticeListItem($notice, $out);
+        $nli->showNotice();
 
         // @fixme
         $out->elementStart('div', array('class' => 'entry-content'));
