@@ -627,26 +627,23 @@ var SN = { // StatusNet
                                     '<input class="placeholder">' +
                                 '</li>');
             placeholder.find('input')
-                .val(SN.msg('reply_placeholder'))
-                .focus(function() {
-                    SN.U.NoticeInlineReplyTrigger(notice);
-                    return false;
-                });
+                .val(SN.msg('reply_placeholder'));
             list.append(placeholder);
         },
 
         /**
          * Setup function -- DOES NOT apply immediately.
          *
-         * Sets up event handlers for favor/disfavor forms to submit via XHR.
+         * Sets up event handlers for inline reply mini-form placeholders.
          * Uses 'live' rather than 'bind', so applies to future as well as present items.
          */
         NoticeInlineReplySetup: function() {
-            $('.threaded-replies').each(function() {
-                var list = $(this);
-                var notice = list.closest('.notice');
-                SN.U.NoticeInlineReplyPlaceholder(notice);
-            });
+            $('li.notice-reply-placeholder input')
+                .live('focus', function() {
+                    var notice = $(this).closest('li.notice');
+                    SN.U.NoticeInlineReplyTrigger(notice);
+                    return false;
+                });
         },
 
         /**
