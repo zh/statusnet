@@ -1017,8 +1017,7 @@ var SN = { // StatusNet
                 }
 
                 var NGW = form.find('.notice_data-geo_wrap');
-                var geocodeURL = NGW.attr('title');
-                NGW.removeAttr('title');
+                var geocodeURL = NGW.attr('data-api');
 
                 label
                     .attr('title', label.text());
