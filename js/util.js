@@ -1297,7 +1297,8 @@ var SN = { // StatusNet
                 .find('.ajax-notice').each(function() {
                     var form = $(this);
                     SN.Init.NoticeFormSetup(form);
-                });
+                })
+                .find('textarea:first').focus();
 	}
     },
 
