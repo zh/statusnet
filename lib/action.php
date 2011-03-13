@@ -293,11 +293,19 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
-                $this->script('jquery.min.js');
-                $this->script('jquery.form.min.js');
-                $this->script('jquery.cookie.min.js');
-                $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
-                $this->script('jquery.joverlay.min.js');
+                if (common_config('site', 'minify')) {
+                    $this->script('jquery.min.js');
+                    $this->script('jquery.form.min.js');
+                    $this->script('jquery.cookie.min.js');
+                    $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
+                    $this->script('jquery.joverlay.min.js');
+                } else {
+                    $this->script('jquery.js');
+                    $this->script('jquery.form.js');
+                    $this->script('jquery.cookie.js');
+                    $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.js').'"); }');
+                    $this->script('jquery.joverlay.js');
+                }
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&

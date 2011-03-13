@@ -48,8 +48,8 @@ class PollPlugin extends MicroAppPlugin
     const VERSION         = '0.1';
 
     // @fixme which domain should we use for these namespaces?
-    const POLL_OBJECT          = 'http://apinamespace.org/activitystreams/object/poll';
-    const POLL_RESPONSE_OBJECT = 'http://apinamespace.org/activitystreams/object/poll-response';
+    const POLL_OBJECT          = 'http://activityschema.org/object/poll';
+    const POLL_RESPONSE_OBJECT = 'http://activityschema.org/object/poll-response';
 
     /**
      * Database schema setup
@@ -203,26 +203,22 @@ class PollPlugin extends MicroAppPlugin
             $pollElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'poll');
             $responseElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'response');
             if ($pollElements->length) {
-                $data = $pollElements->item(0);
-                $question = $data->getAttribute('question');
+                $question = '';
                 $opts = array();
-                foreach ($data->attributes as $node) {
-                    $name = $node->nodeName;
-                    if (substr($name, 0, 6) == 'option') {
-                        $n = intval(substr($name, 6));
-                        if ($n > 0) {
-                            $opts[$n - 1] = $node->nodeValue;
-                        }
-                    }
+
+                $data = $pollElements->item(0);
+                foreach ($data->getElementsByTagNameNS(self::POLL_OBJECT, 'question') as $node) {
+                    $question = $node->textContent;
                 }
-                common_log(LOG_DEBUG, "YYY question: $question");
-                common_log(LOG_DEBUG, "YYY opts: " . var_export($opts, true));
+                foreach ($data->getElementsByTagNameNS(self::POLL_OBJECT, 'option') as $node) {
+                    $opts[] = $node->textContent;
+                }
                 try {
                     $notice = Poll::saveNew($profile, $question, $opts, $options);
-                    common_log(LOG_DEBUG, "YYY ok: " . $notice->id);
+                    common_log(LOG_DEBUG, "Saved Poll from ActivityStream data ok: notice id " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
-                    common_log(LOG_DEBUG, "YYY fail: " . $e->getMessage());
+                    common_log(LOG_DEBUG, "Poll save from ActivityStream data failed: " . $e->getMessage());
                 }
             } else if ($responseElements->length) {
                 $data = $responseElements->item(0);
@@ -240,10 +236,10 @@ class PollPlugin extends MicroAppPlugin
                 }
                 try {
                     $notice = Poll_response::saveNew($profile, $poll, $selection, $options);
-                    common_log(LOG_DEBUG, "YYY response ok: " . $notice->id);
+                    common_log(LOG_DEBUG, "Saved Poll_response ok, notice id: " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
-                    common_log(LOG_DEBUG, "YYY response fail: " . $e->getMessage());
+                    common_log(LOG_DEBUG, "Poll response  save fail: " . $e->getMessage());
                 }
             } else {
                 common_log(LOG_DEBUG, "YYY no poll data");
@@ -277,33 +273,15 @@ class PollPlugin extends MicroAppPlugin
         $object->link    = $notice->bestUrl();
 
         $response = Poll_response::getByNotice($notice);
-        if (!$response) {
-            common_log(LOG_DEBUG, "QQQ notice uri: $notice->uri");
-        } else {
+        if ($response) {
             $poll = $response->getPoll();
-            /**
-             * For the moment, using a kind of icky-looking schema that happens to
-             * work with out code for generating both Atom and JSON forms, though
-             * I don't like it:
-             *
-             * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll"
-             *                poll="http://..../poll/...."
-             *                selection="3" />
-             *
-             * "poll:response": {
-             *     "xmlns:poll": http://apinamespace.org/activitystreams/object/poll
-             *     "uri": "http://..../poll/...."
-             *     "selection": 3
-             * }
-             *
-             */
-            // @fixme there's no way to specify an XML node tree here, like <poll><option/><option/></poll>
-            // @fixme there's no way to specify a JSON array or multi-level tree unless you break the XML attribs
-            // @fixme XML node contents don't get shown in JSON
-            $data = array('xmlns:poll' => self::POLL_OBJECT,
-                          'poll'       => $poll->uri,
-                          'selection'  => intval($response->selection));
-            $object->extra[] = array('poll:response', $data, '');
+            if ($poll) {
+                // Stash data to be formatted later by
+                // $this->activityObjectOutputAtom() or
+                // $this->activityObjectOutputJson()...
+                $object->pollSelection = intval($response->selection);
+                $object->pollUri = $poll->uri;
+            }
         }
         return $object;
     }
@@ -318,40 +296,111 @@ class PollPlugin extends MicroAppPlugin
         $object->link    = $notice->bestUrl();
 
         $poll = Poll::getByNotice($notice);
-        /**
-         * Adding the poll-specific data. There's no standard in AS for polls,
-         * so we're making stuff up.
-         *
-         * For the moment, using a kind of icky-looking schema that happens to
-         * work with out code for generating both Atom and JSON forms, though
-         * I don't like it:
-         *
-         * <poll:data xmlns:poll="http://apinamespace.org/activitystreams/object/poll"
-         *            question="Who wants a poll question?"
-         *            option1="Option one"
-         *            option2="Option two"
-         *            option3="Option three"></poll:data>
-         *
-         * "poll:response": {
-         *     "xmlns:poll": http://apinamespace.org/activitystreams/object/poll
-         *     "question": "Who wants a poll question?"
-         *     "option1": "Option one"
-         *     "option2": "Option two"
-         *     "option3": "Option three"
-         * }
-         *
-         */
-        // @fixme there's no way to specify an XML node tree here, like <poll><option/><option/></poll>
-        // @fixme there's no way to specify a JSON array or multi-level tree unless you break the XML attribs
-        // @fixme XML node contents don't get shown in JSON
-        $data = array('xmlns:poll' => self::POLL_OBJECT,
-                      'question'   => $poll->question);
-        foreach ($poll->getOptions() as $i => $opt) {
-            $data['option' . ($i + 1)] = $opt;
+        if ($poll) {
+            // Stash data to be formatted later by
+            // $this->activityObjectOutputAtom() or
+            // $this->activityObjectOutputJson()...
+            $object->pollQuestion = $poll->question;
+            $object->pollOptions = $poll->getOptions();
         }
-        $object->extra[] = array('poll:poll', $data, '');
+
         return $object;
     }
+
+    /**
+     * Called when generating Atom XML ActivityStreams output from an
+     * ActivityObject belonging to this plugin. Gives the plugin
+     * a chance to add custom output.
+     *
+     * Note that you can only add output of additional XML elements,
+     * not change existing stuff here.
+     *
+     * If output is already handled by the base Activity classes,
+     * you can leave this base implementation as a no-op.
+     *
+     * @param ActivityObject $obj
+     * @param XMLOutputter $out to add elements at end of object
+     */
+    function activityObjectOutputAtom(ActivityObject $obj, XMLOutputter $out)
+    {
+        if (isset($obj->pollQuestion)) {
+            /**
+             * <poll:poll xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
+             *   <poll:question>Who wants a poll question?</poll:question>
+             *   <poll:option>Option one</poll:option>
+             *   <poll:option>Option two</poll:option>
+             *   <poll:option>Option three</poll:option>
+             * </poll:poll>
+             */
+            $data = array('xmlns:poll' => self::POLL_OBJECT);
+            $out->elementStart('poll:poll', $data);
+            $out->element('poll:question', array(), $obj->pollQuestion);
+            foreach ($obj->pollOptions as $opt) {
+                $out->element('poll:option', array(), $opt);
+            }
+            $out->elementEnd('poll:poll');
+        }
+        if (isset($obj->pollSelection)) {
+            /**
+             * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
+             *                poll="http://..../poll/...."
+             *                selection="3" />
+             */
+            $data = array('xmlns:poll' => self::POLL_OBJECT,
+                          'poll'       => $obj->pollUri,
+                          'selection'  => $obj->pollSelection);
+            $out->element('poll:response', $data, '');
+        }
+    }
+
+    /**
+     * Called when generating JSON ActivityStreams output from an
+     * ActivityObject belonging to this plugin. Gives the plugin
+     * a chance to add custom output.
+     *
+     * Modify the array contents to your heart's content, and it'll
+     * all get serialized out as JSON.
+     *
+     * If output is already handled by the base Activity classes,
+     * you can leave this base implementation as a no-op.
+     *
+     * @param ActivityObject $obj
+     * @param array &$out JSON-targeted array which can be modified
+     */
+    public function activityObjectOutputJson(ActivityObject $obj, array &$out)
+    {
+        common_log(LOG_DEBUG, 'QQQ: ' . var_export($obj, true));
+        if (isset($obj->pollQuestion)) {
+            /**
+             * "poll": {
+             *   "question": "Who wants a poll question?",
+             *   "options": [
+             *     "Option 1",
+             *     "Option 2",
+             *     "Option 3"
+             *   ]
+             * }
+             */
+            $data = array('question' => $obj->pollQuestion,
+                          'options' => array());
+            foreach ($obj->pollOptions as $opt) {
+                $data['options'][] = $opt;
+            }
+            $out['poll'] = $data;
+        }
+        if (isset($obj->pollSelection)) {
+            /**
+             * "pollResponse": {
+             *   "poll": "http://..../poll/....",
+             *   "selection": 3
+             * }
+             */
+            $data = array('poll'       => $obj->pollUri,
+                          'selection'  => $obj->pollSelection);
+            $out['pollResponse'] = $data;
+        }
+    }
+
 
     /**
      * @fixme WARNING WARNING WARNING parent class closes the final div that we
