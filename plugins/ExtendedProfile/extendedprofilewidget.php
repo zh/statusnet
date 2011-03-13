@@ -184,8 +184,12 @@ class ExtendedProfileWidget extends Form
         $index = $field['index'];
         $id    = "extprofile-$name-$index";
         $rel   = $id . '-rel';
-
-        $this->out->elementStart('div', array('class' => 'phone-edit'));
+        $this->out->elementStart(
+            'div', array(
+                'id' => $id . '-edit',
+                'class' => 'phone-edit'
+            )
+        );
         $this->out->input($id, null, $field['value']);
         $this->out->dropdown(
             $id . '-rel',
@@ -205,9 +209,18 @@ class ExtendedProfileWidget extends Form
             $this->out->element(
                 'a',
                 array(
-                    'name' => $name,
+                    'class' => 'add_row',
                     'href' => 'javascript://'),
                     '+'
+                );
+            $this->out->element(
+                'a',
+                array(
+                    'class' => 'remove_row',
+                    'href' => 'javascript://',
+                    'style' => 'display: none; '
+                    ),
+                    '-'
                 );
         }
         $this->out->elementEnd('div');

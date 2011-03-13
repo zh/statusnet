@@ -43,7 +43,13 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
     function showStylesheets() {
         parent::showStylesheets();
-        $this->cssLink('plugins/ExtendedProfile/profiledetail.css');
+        $this->cssLink('plugins/ExtendedProfile/css/profiledetail.css');
+        return true;
+    }
+
+    function  showScripts() {
+        parent::showScripts();
+        $this->script('plugins/ExtendedProfile/js/profiledetail.js');
         return true;
     }
 
@@ -133,7 +139,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         $phoneTuples = array();
 
         foreach($phones as $phone) {
-            $firstkey           = array_shift(array_keys($phone));
+            $firstkey           = current(array_keys($phone));
             $index              = substr($firstkey, strrpos($firstkey, '-') + 1);
             list($number, $rel) = array_values($phone);
 
@@ -142,11 +148,9 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
                 'index' => $index,
                 'rel'   => $rel
             );
-
-            return $phoneTuples;
         }
 
-        return $phones;
+        return $phoneTuples;
     }
 
     function arraySplit($array, $pieces)
@@ -157,7 +161,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
         $newCount = ceil(count($array) / $pieces);
         $a = array_slice($array, 0, $newCount);
-        $b = array_split(array_slice($array, $newCount), $pieces - 1);
+        $b = $this->arraySplit(array_slice($array, $newCount), $pieces - 1);
 
         return array_merge(array($a), $b);
     }

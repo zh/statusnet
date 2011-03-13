@@ -106,6 +106,7 @@ class ExtendedProfile
         if (empty($phones)) {
             $pArrays[] = array(
                 'label' => _m('Phone'),
+                'index' => 0,
                 'type'  => 'phone',
                 'vcard' => 'tel',
                 'multi' => true
@@ -115,7 +116,7 @@ class ExtendedProfile
                 $pa = array(
                     'label' => _m('Phone'),
                     'type'  => 'phone',
-                    'index' => $phones[$i]->value_index,
+                    'index' => intva($phones[$i]->value_index),
                     'rel'   => $phones[$i]->rel,
                     'value' => $phones[$i]->field_value,
                     'vcard' => 'tel'
