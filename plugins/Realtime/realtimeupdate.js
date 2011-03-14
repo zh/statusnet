@@ -44,10 +44,7 @@
  */
 RealtimeUpdate = {
      _userid: 0,
-     _replyurl: '',
-     _favorurl: '',
-     _repeaturl: '',
-     _deleteurl: '',
+     _showurl: '',
      _updatecounter: 0,
      _maxnotices: 50,
      _windowhasfocus: true,
@@ -66,21 +63,15 @@ RealtimeUpdate = {
       * feed data into the RealtimeUpdate object!
       *
       * @param {int} userid: local profile ID of the currently logged-in user
-      * @param {String} replyurl: URL for newnotice action, used when generating reply buttons
-      * @param {String} favorurl: URL for favor action, used when generating fave buttons
-      * @param {String} repeaturl: URL for repeat action, used when generating repeat buttons
-      * @param {String} deleteurl: URL template for deletenotice action, used when generating delete buttons.
+      * @param {String} showurl: URL for shownotice action, used when fetching formatting notices.
       *                            This URL contains a stub value of 0000000000 which will be replaced with the notice ID.
       *
       * @access public
       */
-     init: function(userid, replyurl, favorurl, repeaturl, deleteurl)
+     init: function(userid, showurl)
      {
         RealtimeUpdate._userid = userid;
-        RealtimeUpdate._replyurl = replyurl;
-        RealtimeUpdate._favorurl = favorurl;
-        RealtimeUpdate._repeaturl = repeaturl;
-        RealtimeUpdate._deleteurl = deleteurl;
+        RealtimeUpdate._showurl = showurl;
 
         RealtimeUpdate._documenttitle = document.title;
 
@@ -268,83 +259,20 @@ RealtimeUpdate = {
       * loads data from server, so runs async.
       *
       * @param {Object} data: extended JSON API-formatted notice
-      * @param {function} callback: function(str) to receive HTML fragment
-      *
-      * @fixme this replicates core StatusNet code, making maintenance harder
-      * @fixme sloppy HTML building (raw concat without escaping)
-      * @fixme no i18n support
-      * @fixme local variables pollute global namespace
+      * @param {function} callback: function(DOMNode) to receive new code
       *
       * @access private
       */
      makeNoticeItem: function(data, callback)
      {
-          if (data.hasOwnProperty('retweeted_status')) {
-               original = data['retweeted_status'];
-               repeat   = data;
-               data     = original;
-               unique   = repeat['id'];
-               responsible = repeat['user'];
-          } else {
-               original = null;
-               repeat = null;
-               unique = data['id'];
-               responsible = data['user'];
-          }
-
-          user = data['user'];
-          html = data['html'].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&amp;/g,'&');
-          source = data['source'].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&amp;/g,'&');
-
-          ni = "<li class=\"hentry notice\" id=\"notice-"+unique+"\">"+
-               "<div class=\"entry-title\">"+
-               "<span class=\"vcard author\">"+
-               "<a href=\""+user['profile_url']+"\" class=\"url\" title=\""+user['name']+"\">"+
-               "<img src=\""+user['profile_image_url']+"\" class=\"avatar photo\" width=\"48\" height=\"48\" alt=\""+user['screen_name']+"\"/>"+
-               "<span class=\"nickname fn\">"+user['screen_name']+"</span>"+
-               "</a>"+
-               "</span>"+
-               "<p class=\"entry-content\">"+html+"</p>"+
-               "</div>"+
-               "<div class=\"entry-content\">"+
-               "<a class=\"timestamp\" rel=\"bookmark\" href=\""+data['url']+"\" >"+
-               "<abbr class=\"published\" title=\""+data['created_at']+"\">a few seconds ago</abbr>"+
-               "</a> "+
-               "<span class=\"source\">"+
-               "from "+
-                "<span class=\"device\">"+source+"</span>"+ // may have a link
-               "</span>";
-          if (data['conversation_url']) {
-               ni = ni+" <a class=\"response\" href=\""+data['conversation_url']+"\">in context</a>";
-          }
-
-          if (repeat) {
-               ru = repeat['user'];
-               ni = ni + "<span class=\"repeat vcard\">Repeated by " +
-                    "<a href=\"" + ru['profile_url'] + "\" class=\"url\">" +
-                    "<span class=\"nickname\">"+ ru['screen_name'] + "</span></a></span>";
-          }
-
-          ni = ni+"</div>";
-
-          ni = ni + "<div class=\"notice-options\">";
-
-          if (RealtimeUpdate._userid != 0) {
-               var input = $("form#form_notice fieldset input#token");
-               var session_key = input.val();
-               ni = ni+RealtimeUpdate.makeFavoriteForm(data['id'], session_key);
-               ni = ni+RealtimeUpdate.makeReplyLink(data['id'], data['user']['screen_name']);
-               if (RealtimeUpdate._userid == responsible['id']) {
-                    ni = ni+RealtimeUpdate.makeDeleteLink(data['id']);
-               } else if (RealtimeUpdate._userid != user['id']) {
-                    ni = ni+RealtimeUpdate.makeRepeatForm(data['id'],  session_key);
-               }
-          }
-
-          ni = ni+"</div>";
-
-          ni = ni+"</li>";
-          callback(ni);
+         var url = RealtimeUpdate._showurl.replace('0000000000', data.id);
+         $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
+             var notice = $('li.notice:first', data);
+             if (notice.length) {
+                 var node = document._importNode(notice[0], true);
+                 callback(node);
+             }
+         });
      },
 
      /**
