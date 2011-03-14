@@ -58,7 +58,7 @@ class GroupProfileBlock extends ProfileBlock
     function avatar()
     {
         return ($this->group->homepage_logo) ?
-          $this->group->homepage_logo : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
+            $this->group->homepage_logo : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
     }
 
     function name()
@@ -100,5 +100,39 @@ class GroupProfileBlock extends ProfileBlock
     function description()
     {
         return $this->group->description;
+    }
+
+    function showActions()
+    {
+        $cur = common_current_user();
+        $this->out->elementStart('div', 'entity_actions');
+        // TRANS: Group actions header (h2). Text hidden by default.
+        $this->out->element('h2', null, _('Group actions'));
+        $this->out->elementStart('ul');
+        if (Event::handle('StartGroupActionsList', array($this, $this->group))) {
+            $this->out->elementStart('li', 'entity_subscribe');
+            if (Event::handle('StartGroupSubscribe', array($this, $this->group))) {
+                if ($cur) {
+                    if ($cur->isMember($this->group)) {
+                        $lf = new LeaveForm($this->out, $this->group);
+                        $lf->show();
+                    } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
+                        $jf = new JoinForm($this->out, $this->group);
+                        $jf->show();
+                    }
+                }
+                Event::handle('EndGroupSubscribe', array($this, $this->group));
+            }
+            $this->out->elementEnd('li');
+            if ($cur && $cur->hasRight(Right::DELETEGROUP)) {
+                $this->out->elementStart('li', 'entity_delete');
+                $df = new DeleteGroupForm($this->out, $this->group);
+                $df->show();
+                $this->out->elementEnd('li');
+            }
+            Event::handle('EndGroupActionsList', array($this, $this->group));
+        }
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('div');
     }
 }
