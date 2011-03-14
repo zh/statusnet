@@ -81,7 +81,7 @@ class AccountProfileBlock extends ProfileBlock
     function canEdit()
     {
         $user = common_current_user();
-        return ((!empty($user)) && ($user->id == $profile->id));
+        return ((!empty($user)) && ($user->id == $this->profile->id));
     }
 
     function editUrl()
