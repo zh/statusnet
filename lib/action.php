@@ -717,7 +717,6 @@ class Action extends HTMLOutputter // lawsuit
         // all menus
         $this->elementStart('div', array('id' => 'site_nav_local_views'));
         // Cheat cheat cheat!
-        $this->showProfileBlock();
         $this->showLocalNav();
         $this->elementEnd('div');
     }
@@ -879,6 +878,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
+        $this->showProfileBlock();
         if (Event::handle('StartShowObjectNavBlock', array($this))) {
             $this->showObjectNavBlock();
             Event::handle('EndShowObjectNavBlock', array($this));
