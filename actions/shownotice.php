@@ -78,6 +78,9 @@ class ShownoticeAction extends OwnerDesignAction
     function prepare($args)
     {
         parent::prepare($args);
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true);
+        }
 
         $id = $this->arg('notice');
 
@@ -189,7 +192,6 @@ class ShownoticeAction extends OwnerDesignAction
         parent::handle($args);
 
         if ($this->boolean('ajax')) {
-            StatusNet::setApi(true);
             $this->showAjax();
         } else {
             if ($this->notice->is_local == Notice::REMOTE_OMB) {
