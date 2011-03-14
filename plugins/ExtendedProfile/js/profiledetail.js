@@ -1,43 +1,35 @@
-var removeRow = function() {
-    var cnt = rowCount(this);
-    var table = $(this).closest('table');
-    console.log("row count = " + cnt);
-    if (cnt > 1) {
-        var target = $(this).closest('tr');
-        target.remove();
-        reorder(table);
-    }
-};
+var reorder = function(class) {
+    console.log("QQQ Enter reorder");
 
-var rowCount = function(row) {
-    var top = $(row).closest('table');
-    var trs = $(top).find('tr');
-    return trs.length - 1; // exclude th section header row
-};
+    var divs = $.find('div[class=' + class + ']');
+    console.log('divs length = ' + divs.length);
 
-var reorder = function(table) {
-    var trs = $(table).find('tr').has('td');
+    $(divs).find('a').hide();
 
-    $(trs).find('a').hide();
-
-    $(trs).each(function(i, tr) {
+    $(divs).each(function(i, div) {
         console.log("ROW " + i);
-        $(tr).find('a.remove_row').show();
-        replaceIndex(rowIndex(tr), i);
+        $(div).find('a.remove_row').show();
+        replaceIndex(rowIndex(div), i);
     });
 
-    $(trs).last().find('a.add_row').show();
+    $(divs).last().find('a.add_row').show();
 
-    if (trs.length == 1) {
-        $(trs).find('a.remove_row').hide();
+    if (divs.length == 1) {
+        $(divs).find('a.remove_row').hide();
     }
 
 };
 
-var rowIndex = function(elem) {
-    var idStr = $(elem).find('div').attr('id');
-    var id = idStr.match(/\d+/);
+var rowIndex = function(div) {
+    var idstr = $(div).attr('id');
+    var id = idstr.match(/\d+/);
     console.log("id = " + id);
+    return id;
+};
+
+var rowCount = function(class) {
+    var divs = $.find('div[class=' + class + ']');
+    return divs.length;
 };
 
 var replaceIndex = function(elem, oldIndex, newIndex) {
@@ -46,7 +38,7 @@ var replaceIndex = function(elem, oldIndex, newIndex) {
             var regexp = /extprofile-.*-\d.*/;
             var value = attrib.value;
             var match = value.match(regexp);
-            if (match != null) {
+            if (match !== null) {
                 attrib.value = value.replace("-" + oldIndex, "-" + newIndex);
                 console.log('match: oldIndex = ' + oldIndex + ' newIndex = ' + newIndex + ' name = ' + attrib.name + ' value = ' + attrib.value);
             }
@@ -60,22 +52,42 @@ var resetRow = function(elem) {
 }
 
 var addRow = function() {
-    var divId = $(this).closest('div').attr('id');
-    var index = divId.match(/\d+/);
-    console.log("Current row = " + index);
+    var div = $(this).closest('div');
+    var id = $(div).attr('id');
+    var class = $(div).attr('class');
+    var index = id.match(/\d+/);
+    console.log("Current row = " + index + ', class = ' + class);
     var tr = $(this).closest('tr');
     var newtr = $(tr).clone();
     var newIndex = parseInt(index) + 1;
     replaceIndex(newtr, index, newIndex);
     resetRow(newtr);
     $(tr).after(newtr);
-    console.log("number of rows: " + rowCount(tr));
-    reorder($(this).closest('table'));
+    reorder(class);
 };
+
+var removeRow = function() {
+    var div = $(this).closest('div');
+    var id = $(div).attr('id');
+    var class = $(div).attr('class');
+
+    cnt = rowCount(class);
+    console.debug("removeRow - cnt = " + cnt);
+    if (cnt > 1) {
+        var target = $(this).closest('tr');
+        target.remove();
+        reorder(class);
+    }
+};
+
+var init = function() {
+    reorder('phone-edit');
+}
 
 $(document).ready(
 
 function() {
+    init();
     $('.add_row').live('click', addRow);
     $('.remove_row').live('click', removeRow);
 }

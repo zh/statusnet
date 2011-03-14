@@ -107,7 +107,9 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
         foreach ($simpleFieldNames as $name) {
             $value = $this->trimmed('extprofile-' . $name);
-            $this->saveField($user, $name, $value);
+            if (!empty($value)) {
+                $this->saveField($user, $name, $value);
+            }
         }
 
         $this->savePhoneNumbers($user);
@@ -118,15 +120,19 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
     function savePhoneNumbers($user) {
         $phones = $this->findPhoneNumbers();
-
-        foreach ($phones as $phone) {
-            $this->saveField(
-                $user,
-                'phone',
-                $phone['value'],
-                $phone['rel'],
-                $phone['index']
-            );
+        $this->removeAll($user, 'phone');
+        $i = 0;
+        foreach($phones as $phone) {
+            if (!empty($phone['value'])) {
+                ++$i;
+                $this->saveField(
+                    $user,
+                    'phone',
+                    $phone['value'],
+                    $phone['rel'],
+                    $i
+                );
+            }
         }
     }
 
@@ -220,6 +226,16 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
             }
         }
 
+        $detail->free();
+    }
+
+    function removeAll($user, $name)
+    {
+        $profile = $user->getProfile();
+        $detail  = new Profile_detail();
+        $detail->profile_id  = $profile->id;
+        $detail->field_name  = $name;
+        $detail->delete();
         $detail->free();
     }
 

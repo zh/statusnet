@@ -100,7 +100,7 @@ class ExtendedProfile
 
     function getPhones()
     {
-        $phones  = $this->fields['phone'];
+        $phones = (isset($this->fields['phone'])) ? $this->fields['phone'] : null;
         $pArrays = array();
 
         if (empty($phones)) {
@@ -109,22 +109,20 @@ class ExtendedProfile
                 'index' => 0,
                 'type'  => 'phone',
                 'vcard' => 'tel',
-                'multi' => true
+                'rel'   => 'office',
+                'value' => null
             );
         } else {
             for ($i = 0; $i < sizeof($phones); $i++) {
                 $pa = array(
                     'label' => _m('Phone'),
                     'type'  => 'phone',
-                    'index' => intva($phones[$i]->value_index),
+                    'index' => intval($phones[$i]->value_index),
                     'rel'   => $phones[$i]->rel,
                     'value' => $phones[$i]->field_value,
                     'vcard' => 'tel'
                 );
-                // Last phone record should allow adding more
-                if ($i == sizeof($phones) - 1) {
-                    $pa['multi'] = true;
-                }
+
                $pArrays[] = $pa;
             }
         }

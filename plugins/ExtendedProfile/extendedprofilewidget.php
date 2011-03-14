@@ -156,7 +156,7 @@ class ExtendedProfileWidget extends Form
             $this->out->text($this->ext->getTags());
             break;
         case 'phone':
-            $this->showPhone($field);
+            $this->showPhone($name, $field);
             break;
         default:
             $this->out->text("TYPE: $type");
@@ -169,7 +169,7 @@ class ExtendedProfileWidget extends Form
         }
     }
 
-    protected function showPhone($field)
+    protected function showPhone($name, $field)
     {
         $this->out->elementStart('div', array('class' => 'phone-display'));
         $this->out->text($field['value']);
@@ -181,7 +181,7 @@ class ExtendedProfileWidget extends Form
 
     protected function showEditablePhone($name, $field)
     {
-        $index = $field['index'];
+        $index = isset($field['index']) ? $field['index'] : 0;
         $id    = "extprofile-$name-$index";
         $rel   = $id . '-rel';
         $this->out->elementStart(
@@ -190,7 +190,11 @@ class ExtendedProfileWidget extends Form
                 'class' => 'phone-edit'
             )
         );
-        $this->out->input($id, null, $field['value']);
+        $this->out->input(
+            $id,
+            null,
+            isset($field['value']) ? $field['value'] : null
+        );
         $this->out->dropdown(
             $id . '-rel',
             'Type',
@@ -203,26 +207,29 @@ class ExtendedProfileWidget extends Form
             ),
             null,
             false,
-            $field['rel']
+            isset($field['rel']) ? $field['rel'] : null
         );
-        if ($field['multi']) {
-            $this->out->element(
-                'a',
-                array(
-                    'class' => 'add_row',
-                    'href' => 'javascript://'),
-                    '+'
-                );
-            $this->out->element(
-                'a',
-                array(
-                    'class' => 'remove_row',
-                    'href' => 'javascript://',
-                    'style' => 'display: none; '
-                    ),
-                    '-'
-                );
-        }
+
+        $this->out->element(
+            'a',
+            array(
+                'class' => 'add_row',
+                'href' => 'javascript://',
+                'style' => 'display: none; '
+            ),
+            '+'
+        );
+
+        $this->out->element(
+            'a',
+            array(
+                'class' => 'remove_row',
+                'href' => 'javascript://',
+                'style' => 'display: none; '
+            ),
+            '-'
+        );
+
         $this->out->elementEnd('div');
     }
 
