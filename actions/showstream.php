@@ -33,7 +33,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 require_once INSTALLDIR.'/lib/personalgroupnav.php';
-require_once INSTALLDIR.'/lib/userprofile.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
 require_once INSTALLDIR.'/lib/profileminilist.php';
 require_once INSTALLDIR.'/lib/groupminilist.php';
@@ -100,7 +99,6 @@ class ShowstreamAction extends ProfileAction
 
     function showContent()
     {
-        $this->showProfile();
         $this->showNotices();
     }
 
@@ -197,12 +195,6 @@ class ShowstreamAction extends ProfileAction
         $this->element('link', array('rel' => 'EditURI',
                                      'type' => 'application/rsd+xml',
                                      'href' => $rsd));
-    }
-
-    function showProfile()
-    {
-        $profile = new UserProfile($this, $this->user, $this->profile);
-        $profile->show();
     }
 
     function showEmptyListMessage()
