@@ -323,7 +323,12 @@ class RealtimePlugin extends Plugin
 
     function _getScripts()
     {
-        return array(Plugin::staticPath('Realtime', 'realtimeupdate.min.js'));
+        if (common_config('site', 'minify')) {
+            $js = 'realtimeupdate.min.js';
+        } else {
+            $js = 'realtimeupdate.js';
+        }
+        return array(Plugin::staticPath('Realtime', $js));
     }
 
     /**
