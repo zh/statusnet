@@ -64,6 +64,7 @@ class Profile_detail extends Managed_DataObject
     public $field_name;  // name
     public $field_value; // primary text value
     public $value_index; // relative ordering of multiple values in the same field
+    public $date;        // related date
     public $ref_profile; // for people types, allows pointing to a known profile in the system
     public $created;
     public $modified;
@@ -118,6 +119,7 @@ class Profile_detail extends Managed_DataObject
                 ),
                 'value_index' => array('type' => 'int'),
                 'field_value' => array('type' => 'text'),
+                'date'        => array('type' => 'datetime'),
                 'rel'         => array('type' => 'varchar', 'length' => 16),
                 'rel_profile' => array('type' => 'int'),
                 'created'     => array(
