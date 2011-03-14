@@ -681,6 +681,9 @@ class Action extends HTMLOutputter // lawsuit
     function showCore()
     {
         $this->elementStart('div', array('id' => 'core'));
+        $this->elementStart('div', array('id' => 'aside_primary_wrapper'));
+        $this->elementStart('div', array('id' => 'content_wrapper'));
+        $this->elementStart('div', array('id' => 'site_nav_local_views_wrapper'));
         if (Event::handle('StartShowLocalNavBlock', array($this))) {
             $this->showLocalNavBlock();
             Event::handle('EndShowLocalNavBlock', array($this));
@@ -693,6 +696,9 @@ class Action extends HTMLOutputter // lawsuit
             $this->showAside();
             Event::handle('EndShowAside', array($this));
         }
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+        $this->elementEnd('div');
         $this->elementEnd('div');
     }
 
