@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Default profile block to show current user's info
+ * Profile block to show for an account
  * 
  * PHP version 5
  *
@@ -35,7 +35,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Default profile block
+ * Profile block to show for an account
  *
  * @category  Widget
  * @package   StatusNet
@@ -45,34 +45,65 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class DefaultProfileBlock extends AccountProfileBlock
+class AccountProfileBlock extends ProfileBlock
 {
-    function __construct($out)
+    protected $profile = null;
+
+    function __construct($out, $profile)
     {
-        $user = common_current_user();
-        if (empty($user)) {
-            throw new Exception("DefaultProfileBlock with no user.");
+        parent::__construct($out);
+        $this->profile = $profile;
+    }
+
+    function avatar()
+    {
+        $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
+        if (empty($avatar)) {
+            $avatar = $this->profile->getAvatar(73);
         }
-        parent::__construct($out, $user->getProfile());
+        return (!empty($avatar)) ? 
+            $avatar->displayUrl() : 
+            Avatar::defaultImage(AVATAR_PROFILE_SIZE);
+    }
+
+    function name()
+    {
+        return $this->profile->getBestName();
+    }
+
+    function url()
+    {
+        return $this->profile->profileurl;
     }
 
     function canEdit()
     {
-        return true;
+        $user = common_current_user();
+        return ((!empty($user)) && ($user->id == $profile->id));
+    }
+
+    function editUrl()
+    {
+        return common_local_url('profilesettings');
+    }
+
+    function editText()
+    {
+        return _('Edit');
     }
 
     function location()
     {
-        return null;
+        return $this->profile->location;
     }
 
     function homepage()
     {
-        return null;
+        return $this->profile->homepage;
     }
 
     function description()
     {
-        return null;
+        return $this->profile->bio;
     }
 }
