@@ -188,22 +188,27 @@ class ShownoticeAction extends OwnerDesignAction
     {
         parent::handle($args);
 
-        if ($this->notice->is_local == Notice::REMOTE_OMB) {
-            if (!empty($this->notice->url)) {
-                $target = $this->notice->url;
-            } else if (!empty($this->notice->uri) && preg_match('/^https?:/', $this->notice->uri)) {
-                // Old OMB posts saved the remote URL only into the URI field.
-                $target = $this->notice->uri;
-            } else {
-                // Shouldn't happen.
-                $target = false;
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true);
+            $this->showAjax();
+        } else {
+            if ($this->notice->is_local == Notice::REMOTE_OMB) {
+                if (!empty($this->notice->url)) {
+                    $target = $this->notice->url;
+                } else if (!empty($this->notice->uri) && preg_match('/^https?:/', $this->notice->uri)) {
+                    // Old OMB posts saved the remote URL only into the URI field.
+                    $target = $this->notice->uri;
+                } else {
+                    // Shouldn't happen.
+                    $target = false;
+                }
+                if ($target && $target != $this->selfUrl()) {
+                    common_redirect($target, 301);
+                    return false;
+                }
             }
-            if ($target && $target != $this->selfUrl()) {
-                common_redirect($target, 301);
-                return false;
-            }
+            $this->showPage();
         }
-        $this->showPage();
     }
 
     /**
@@ -230,6 +235,21 @@ class ShownoticeAction extends OwnerDesignAction
         $nli = new SingleNoticeItem($this->notice, $this);
         $nli->show();
         $this->elementEnd('ol');
+    }
+
+    function showAjax()
+    {
+        header('Content-Type: text/xml;charset=utf-8');
+        $this->xw->startDocument('1.0', 'UTF-8');
+        $this->elementStart('html');
+        $this->elementStart('head');
+        $this->element('title', null, _('Notice'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $nli = new NoticeListItem($this->notice, $this);
+        $nli->show();
+        $this->elementEnd('body');
+        $this->elementEnd('html');
     }
 
     /**
