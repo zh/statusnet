@@ -137,21 +137,46 @@ address {
 #core {
     clear: both;
     margin: 0px;
-    width: 960px;
+    width: 958px;
     border-top: 5px solid #FB6104;
-}
-
-#site_nav_local_views {
-    display: block;
-    float: left;
-    width: 138px;
-    margin-top: 0px;
-    padding: 10px;
-    padding-top: 22px;
-    background-color: #ececf2; 
     border-left: 1px solid #d8dae6;
     border-right: 1px solid #d8dae6;
-    min-height: 800px; /* XXX set up equal column heights! */
+}
+
+#aside_primary_wrapper {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    background-color: #ececf2;  
+}    
+
+#content_wrapper  {  
+    width: 100%;  
+    float: left;
+    position: relative;  
+    right: 239px; 
+    background-color: #fff;  
+    border-right: 1px solid #d8dae6;
+}  
+
+#site_nav_local_views_wrapper  {  
+    width: 100%;  
+    float: left;
+    position: relative;  
+    right: 561px;
+    background-color: #ececf2;  
+    border-right: 1px solid #d8dae6;
+}  
+
+#site_nav_local_views {
+    width: 138px;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    left: 800px;
+    margin-top: 0px;
+    padding: 22px 10px 40px 10px;
 }
 
 #site_nav_local_views H3 {
@@ -196,8 +221,12 @@ address {
 
 #content {
     width: 520px;
-    margin-right: 0px;
-    padding: 20px;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    left: 801px;
+    margin: 0px;
+    padding: 20px 20px 40px 20px;
 }
 
 /* Input forms */
@@ -357,13 +386,12 @@ address {
 
 #aside_primary {
     width: 218px;
-    padding: 10px;
-    padding-top: 22px;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    left: 802px;
+    padding: 22px 10px 40px 10px;
     margin-top: 0px;
-    background-color: #ececf2; 
-    border-left: 1px solid #d8dae6;
-    border-right: 1px solid #d8dae6;
-    min-height: 800px; /* XXX set up equal column heights! */
 }
 
 #aside_primary .section {
@@ -665,6 +693,8 @@ div.entry-content a.response:after {
 }
 
 #footer {
+    position: relative;
+    top: -6px;
     color: #000;
     margin-left: 0px;
     margin-right: 0px;
