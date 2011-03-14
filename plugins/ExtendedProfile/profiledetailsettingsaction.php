@@ -113,6 +113,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         }
 
         $this->savePhoneNumbers($user);
+        $this->saveExperiences($user);
 
         $this->showForm(_('Details saved.'), true);
 
@@ -141,22 +142,97 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         $phoneParams = $this->findMultiParams('phone');
         ksort($phoneParams); // this sorts them into pairs
         $phones = $this->arraySplit($phoneParams, sizeof($phoneParams) / 2);
-
         $phoneTuples = array();
 
-        foreach($phones as $phone) {
-            $firstkey           = current(array_keys($phone));
-            $index              = substr($firstkey, strrpos($firstkey, '-') + 1);
+        foreach ($phones as $phone) {
             list($number, $rel) = array_values($phone);
-
             $phoneTuples[] = array(
                 'value' => $number,
-                'index' => $index,
                 'rel'   => $rel
             );
         }
 
         return $phoneTuples;
+    }
+
+    function findExperiences() {
+
+        // Form vals look like this:
+        // 'extprofile-experience-0'         => 'Bozotronix',
+        // 'extprofile-experience-0-current' => 'true'
+        // 'extprofile-experience-0-start'   => '1/5/10',
+        // 'extprofile-experience-0-end'     => '2/3/11',
+
+        $experiences = array();
+        $expParams = $this->findMultiParams('experience');
+        ksort($expParams);
+        $experiences = $this->arraySplit($expParams, sizeof($expParams) / 4);
+        $expArray = array();
+
+        foreach ($experiences as $exp) {
+            list($company, $current, $start, $end) = array_values($exp);
+            $expArray[] = array(
+                'company' => $company,
+                'start'   => $start,
+                'end'     => $end,
+                'current' => $current,
+            );
+        }
+
+        return $expArray;
+    }
+
+    function saveExperiences($user) {
+        common_debug('save experiences');
+        $experiences = $this->findExperiences();
+
+        $this->removeAll($user, 'company');
+        $this->removeAll($user, 'start');
+        $this->removeAll($user, 'end'); // also stores 'current'
+
+        $i = 0;
+        foreach($experiences as $experience) {
+            if (!empty($experience['company'])) {
+                ++$i;
+                $this->saveField(
+                    $user,
+                    'company',
+                    $experience['company'],
+                    null,
+                    $i
+                );
+           /*
+                $this->saveField(
+                    $user,
+                    'start',
+                    null,
+                    null,
+                    $i,
+                    $experience['start']
+                );
+
+                // Save "current" employer indicator in rel
+                if ($experience['current']) {
+                    $this->saveField(
+                        $user,
+                        'end',
+                        null,
+                        'current', // rel
+                        $i
+                    );
+                } else {
+                    $this->saveField(
+                        $user,
+                        'end',
+                        null,
+                        null,
+                        $i,
+                        $experience['end']
+                    );
+                }
+                */
+            }
+        }
     }
 
     function arraySplit($array, $pieces)
@@ -191,8 +267,9 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
      * @param string $value   field value
      * @param string $rel     field rel (type)
      * @param int    $index   index (fields can have multiple values)
+     * @param date   $date    related date
      */
-    function saveField($user, $name, $value, $rel = null, $index = null)
+    function saveField($user, $name, $value, $rel = null, $index = null, $date = null)
     {
         $profile = $user->getProfile();
         $detail  = new Profile_detail();
@@ -207,6 +284,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
             $detial->value_index = $index;
             $detail->rel         = $rel;
             $detail->field_value = $value;
+            $detail->date        = $date;
             $detail->created     = common_sql_now();
             $result = $detail->insert();
             if (empty($result)) {
@@ -218,6 +296,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
             $detail->field_value = $value;
             $detail->rel         = $rel;
+            $detail->date        = $date;
 
             $result = $detail->update($orig);
             if (empty($result)) {

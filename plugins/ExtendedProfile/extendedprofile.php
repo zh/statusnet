@@ -129,6 +129,29 @@ class ExtendedProfile
         return $pArrays;
     }
 
+    function getExperiences()
+    {
+        $companies = (isset($this->fields['companies'])) ? $this->fields['company'] : null;
+        $start = (isset($this->fields['start'])) ? $this->fields['start'] : null;
+        $end   = (isset($this->fields['end'])) ? $this->fields['end'] : null;
+
+        $cArrays = array();
+
+        if (empty($experiences)) {
+            $eArrays[] = array(
+                'label'   => _m('Employer'),
+                'type'    => 'experience',
+                'company' => "Bozotronix",
+                'start'   => '1/5/10',
+                'end'     => '2/3/11',
+                'current' => true,
+                'index'   => 0
+            );
+        }
+
+        return $eArrays;
+    }
+
     /**
      *  Return all the sections of the extended profile
      *
@@ -206,10 +229,7 @@ class ExtendedProfile
             'experience' => array(
                 'label' => _m('Work experience'),
                 'fields' => array(
-                    'experience' => array(
-                        'type' => 'experience',
-                        'label' => _m('Employer'),
-                    ),
+                    'experience' => $this->getExperiences(),
                 ),
             ),
             'education' => array(

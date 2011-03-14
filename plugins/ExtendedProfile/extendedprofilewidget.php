@@ -103,9 +103,13 @@ class ExtendedProfileWidget extends Form
         $this->out->elementStart('table', array('class' => 'extended-profile'));
 
         foreach ($section['fields'] as $fieldName => $field) {
-            if ($fieldName == 'phone') {
-                $this->showPhones($fieldName, $field);
-            } else {
+
+            switch($fieldName) {
+            case 'phone':
+            case 'experience':
+                $this->showMultiple($fieldName, $field);
+                break;
+            default:
                 $this->showExtendedProfileField($fieldName, $field);
             }
         }
@@ -135,37 +139,9 @@ class ExtendedProfileWidget extends Form
         $this->out->elementEnd('tr');
     }
 
-    /**
-     * Outputs the value of a field
-     *
-     * @param string $name  name of the field
-     * @param array  $field set of key/value pairs for the field
-     */
-    protected function showFieldValue($name, $field)
-    {
-        $type = strval(@$field['type']);
-
-        switch($type)
-        {
-        case '':
-        case 'text':
-        case 'textarea':
-            $this->out->text($this->ext->getTextValue($name));
-            break;
-        case 'tags':
-            $this->out->text($this->ext->getTags());
-            break;
-        case 'phone':
-            $this->showPhone($name, $field);
-            break;
-        default:
-            $this->out->text("TYPE: $type");
-        }
-    }
-
-    protected function showPhones($name, $field) {
-        foreach ($field as $phone) {
-            $this->showExtendedProfileField($name, $phone);
+    protected function showMultiple($name, $fields) {
+        foreach ($fields as $field) {
+            $this->showExtendedProfileField($name, $field);
         }
     }
 
@@ -210,6 +186,74 @@ class ExtendedProfileWidget extends Form
             isset($field['rel']) ? $field['rel'] : null
         );
 
+        $this->showMultiControls();
+        $this->out->elementEnd('div');
+    }
+
+    protected function showExperience($name, $field)
+    {
+        $this->out->elementStart('div', array('class' => 'experience-display'));
+        $this->out->text($field['company']);
+        $this->out->elementStart('dl', 'experience-start-and-end');
+        $this->out->element('dt', null, _m('Start'));
+        $this->out->element('dd', null, $field['start']);
+        $this->out->element('dt', null, _m('End'));
+        if ($field['current']) {
+            $this->out->element('dd', null, '(' . _m('Current') . ')');
+        } else {
+            $this->out->element('dd', null, $field['end']);
+        }
+        $this->out->elementEnd('dl');
+        $this->out->elementEnd('div');
+    }
+
+    protected function showEditableExperience($name, $field)
+    {
+        $index = isset($field['index']) ? $field['index'] : 0;
+        $id    = "extprofile-$name-$index";
+        $this->out->elementStart(
+            'div', array(
+                'id' => $id . '-edit',
+                'class' => 'experience-edit'
+            )
+        );
+
+        $this->out->input(
+            $id,
+            null,
+            isset($field['company']) ? $field['company'] : null
+        );
+
+        $this->out->elementStart('ul', 'experience-start-and-end');
+        $this->out->elementStart('li');
+        $this->out->input(
+            $id . '-start',
+            _m('Start'),
+            isset($field['start']) ? $field['start'] : null
+        );
+        $this->out->elementEnd('li');
+
+        $this->out->elementStart('li');
+        $this->out->input(
+            $id . '-end',
+            _m('End'),
+            isset($field['end']) ? $field['end'] : null
+        );
+        $this->out->elementEnd('li');
+        $this->out->elementStart('li');
+        $this->out->checkbox(
+            $id . '-current',
+            _m('Current'),
+            $field['current']
+        );
+        $this->out->elementEnd('li');
+        $this->out->elementEnd('ul');
+        $this->showMultiControls();
+        $this->out->elementEnd('div');
+    }
+
+    function showMultiControls()
+    {
         $this->out->element(
             'a',
             array(
@@ -229,8 +273,37 @@ class ExtendedProfileWidget extends Form
             ),
             '-'
         );
+    }
 
-        $this->out->elementEnd('div');
+    /**
+     * Outputs the value of a field
+     *
+     * @param string $name  name of the field
+     * @param array  $field set of key/value pairs for the field
+     */
+    protected function showFieldValue($name, $field)
+    {
+        $type = strval(@$field['type']);
+
+        switch($type)
+        {
+        case '':
+        case 'text':
+        case 'textarea':
+            $this->out->text($this->ext->getTextValue($name));
+            break;
+        case 'tags':
+            $this->out->text($this->ext->getTags());
+            break;
+        case 'phone':
+            $this->showPhone($name, $field);
+            break;
+        case 'experience':
+            $this->showExperience($name, $field);
+            break;
+        default:
+            $this->out->text("TYPE: $type");
+        }
     }
 
     /**
@@ -261,6 +334,9 @@ class ExtendedProfileWidget extends Form
             break;
         case 'phone':
             $this->showEditablePhone($name, $field);
+            break;
+        case 'experience':
+            $this->showEditableExperience($name, $field);
             break;
         default:
             $out->input($id, null, "TYPE: $type");

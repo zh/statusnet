@@ -82,6 +82,7 @@ var removeRow = function() {
 
 var init = function() {
     reorder('phone-edit');
+    reorder('experience-edit');
 }
 
 $(document).ready(
