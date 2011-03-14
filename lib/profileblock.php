@@ -61,11 +61,13 @@ abstract class ProfileBlock extends Widget
     {
         $this->out->elementStart('div', 'profile_block');
 
+        $size = $this->avatarSize();
+
         $this->out->element('img', array('src' => $this->avatar(),
                                          'class' => 'profile_block_avatar',
                                          'alt' => $this->name(),
-                                         'width' => AVATAR_PROFILE_SIZE,
-                                         'height' => AVATAR_PROFILE_SIZE));
+                                         'width' => $size,
+                                         'height' => $size));
 
         if ($this->canEdit()) {
             $this->out->element('a', array('href' => $this->editUrl()),
@@ -106,4 +108,10 @@ abstract class ProfileBlock extends Widget
 
         $this->out->elementEnd('div');
     }
+
+    function avatarSize()
+    {
+        return AVATAR_PROFILE_SIZE;
+    }
+
 }
