@@ -110,6 +110,12 @@ class ShowstreamAction extends ProfileAction
         $nav->show();
     }
 
+    function showProfileBlock()
+    {
+        $block = new AccountProfileBlock($this, $this->profile);
+        $block->show();
+    }
+
     function showPageNoticeBlock()
     {
         return;

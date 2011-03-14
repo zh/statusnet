@@ -168,4 +168,10 @@ class UsergroupsAction extends OwnerDesignAction
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
     }
+
+    function showProfileBlock()
+    {
+        $block = new AccountProfileBlock($this, $this->profile);
+        $block->show();
+    }
 }
