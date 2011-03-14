@@ -186,8 +186,8 @@ class NoticeForm extends Form
 
             if (common_config('attachments', 'uploads')) {
                 $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
-                // TRANS: Input label in notice form for adding an attachment.
                 $this->out->elementStart('label', array('class' => 'notice_data-attach'));
+                // TRANS: Input label in notice form for adding an attachment.
                 $this->out->text(_('Attach'));
                 $this->out->element('input', array('class' => 'notice_data-attach',
                                                    'type' => 'file',

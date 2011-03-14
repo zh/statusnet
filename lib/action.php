@@ -293,11 +293,19 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
-                $this->script('jquery.min.js');
-                $this->script('jquery.form.min.js');
-                $this->script('jquery.cookie.min.js');
-                $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
-                $this->script('jquery.joverlay.min.js');
+                if (common_config('site', 'minify')) {
+                    $this->script('jquery.min.js');
+                    $this->script('jquery.form.min.js');
+                    $this->script('jquery.cookie.min.js');
+                    $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
+                    $this->script('jquery.joverlay.min.js');
+                } else {
+                    $this->script('jquery.js');
+                    $this->script('jquery.form.js');
+                    $this->script('jquery.cookie.js');
+                    $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.js').'"); }');
+                    $this->script('jquery.joverlay.js');
+                }
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
@@ -602,9 +610,11 @@ class Action extends HTMLOutputter // lawsuit
                                'class' => 'input_form_nav_tab');
 
                 if ($tag == 'status') {
+                    // We're actually showing the placeholder form,
+                    // but we special-case the 'Status' tab as if
+                    // it were a small version of it.
                     $attrs['class'] .= ' current';
                 }
-
                 $this->elementStart('li', $attrs);
 
                 $this->element('a',
@@ -615,14 +625,17 @@ class Action extends HTMLOutputter // lawsuit
 
             $this->elementEnd('ul');
 
+            $attrs = array('class' => 'input_form current',
+                           'id' => 'input_form_placeholder');
+            $this->elementStart('div', $attrs);
+            $form = new NoticePlaceholderForm($this);
+            $form->show();
+            $this->elementEnd('div');
+
             foreach ($tabs as $tag => $title) {
 
                 $attrs = array('class' => 'input_form',
                                'id' => 'input_form_'.$tag);
-
-                if ($tag == 'status') {
-                    $attrs['class'] .= ' current';
-                }
 
                 $this->elementStart('div', $attrs);
 

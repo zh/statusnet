@@ -44,10 +44,8 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class NewpollForm extends Form
 {
-
     protected $question = null;
     protected $options = array();
 
@@ -58,7 +56,6 @@ class NewpollForm extends Form
      *
      * @return void
      */
-
     function __construct($out=null, $question=null, $options=null)
     {
         parent::__construct($out);
@@ -69,7 +66,6 @@ class NewpollForm extends Form
      *
      * @return int ID of the form
      */
-
     function id()
     {
         return 'newpoll-form';
@@ -80,7 +76,6 @@ class NewpollForm extends Form
      *
      * @return string class of the form
      */
-
     function formClass()
     {
         return 'form_settings ajax-notice';
@@ -91,7 +86,6 @@ class NewpollForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('newpoll');
@@ -102,7 +96,6 @@ class NewpollForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         $this->out->elementStart('fieldset', array('id' => 'newpoll-data'));
@@ -110,8 +103,10 @@ class NewpollForm extends Form
 
         $this->li();
         $this->out->input('question',
+                          // TRANS: Field label on the page to create a poll.
                           _m('Question'),
                           $this->question,
+                          // TRANS: Field title on the page to create a poll.
                           _m('What question are people answering?'));
         $this->unli();
 
@@ -128,6 +123,8 @@ class NewpollForm extends Form
             }
             $this->li();
             $this->out->input('option' . ($i + 1),
+                              // TRANS: Field label for an answer option on the page to create a poll.
+                              // TRANS: %d is the option number.
                               sprintf(_m('Option %d'), $i + 1),
                               $default);
             $this->unli();
@@ -142,9 +139,9 @@ class NewpollForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
+        // TRANS: Button text for saving a new poll.
         $this->out->submit('submit', _m('BUTTON', 'Save'));
     }
 }

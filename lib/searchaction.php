@@ -168,7 +168,5 @@ E_O_T
         $this->elementStart('div', 'help instructions');
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
-
-        $this->elementEnd('div');
     }
 }

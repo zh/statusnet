@@ -191,6 +191,12 @@ class ThreadedNoticeListItem extends NoticeListItem
                     $item = new ThreadedNoticeListSubItem($notice, $this->out);
                     $item->show();
                 }
+                // @fixme do a proper can-post check that's consistent
+                // with the JS side
+                if (common_current_user()) {
+                    $item = new ThreadedNoticeListReplyItem($notice, $this->out);
+                    $item->show();
+                }
                 $this->out->elementEnd('ul');
             }
         }
@@ -253,10 +259,7 @@ class ThreadedNoticeListMoreItem extends NoticeListItem
 
     function showStart()
     {
-        if (Event::handle('StartOpenNoticeListItemElement', array($this))) {
-            $id = (empty($this->repeat)) ? $this->notice->id : $this->repeat->id;
-            $this->out->elementStart('li', array('class' => 'notice-reply-comments'));
-        }
+        $this->out->elementStart('li', array('class' => 'notice-reply-comments'));
     }
 
     function showMiniForm()
@@ -270,21 +273,47 @@ class ThreadedNoticeListMoreItem extends NoticeListItem
         $msg = sprintf(_m('Show %d reply', 'Show all %d replies', $n), $n);
 
         $this->out->element('a', array('href' => $url), $msg);
+    }
+}
 
-        // @fixme replace this with an ajax-friendly form pair?
-        /*
-        $this->out->elementStart('form',
-                                 array('id' => $id,
-                                       'class' => 'replyform',
-                                       'method' => 'post',
-                                       'action' => $url));
-        $this->out->hidden('token', common_session_token());
-        $this->out->hidden("$id-inreplyto", $replyToId, "inreplyto");
-        $this->out->element('textarea', array('name' => 'status_textarea'));
-        $this->out->elementStart('div', array('class' => 'controls'));
-        $this->out->submit("$id-submit", _m('Send reply'));
-        $this->out->elementEnd('div');
-        $this->out->elementEnd('form');
-         */
+
+/**
+ * Placeholder for reply form...
+ * Same as get added at runtime via SN.U.NoticeInlineReplyPlaceholder
+ */
+class ThreadedNoticeListReplyItem extends NoticeListItem
+{
+
+    /**
+     * recipe function for displaying a single notice.
+     *
+     * This uses all the other methods to correctly display a notice. Override
+     * it or one of the others to fine-tune the output.
+     *
+     * @return void
+     */
+
+    function show()
+    {
+        $this->showStart();
+        $this->showMiniForm();
+        $this->showEnd();
+    }
+
+    /**
+     * start a single notice.
+     *
+     * @return void
+     */
+
+    function showStart()
+    {
+        $this->out->elementStart('li', array('class' => 'notice-reply-placeholder'));
+    }
+
+    function showMiniForm()
+    {
+        $this->out->element('input', array('class' => 'placeholder',
+                                           'value' => _('Write a reply...')));
     }
 }

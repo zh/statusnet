@@ -63,6 +63,9 @@ class PersonalGroupNav extends Menu
         $nickname     = $user->nickname;
         $name         = $user_profile->getBestName();
 
+        $action = $this->actionName;
+        $mine = ($this->action->arg('nickname') == $nickname); // @fixme kinda vague
+
         $this->out->elementStart('ul', array('class' => 'nav'));
 
         if (Event::handle('StartPersonalGroupNav', array($this))) {
@@ -70,23 +73,23 @@ class PersonalGroupNav extends Menu
                                                                $nickname)),
                                  _('Home'),
                                  sprintf(_('%s and friends'), $name),
-                                 $this->action == 'all', 'nav_timeline_personal');
+                                 $mine && $action =='all', 'nav_timeline_personal');
             $this->out->menuItem(common_local_url('showstream', array('nickname' =>
                                                                       $nickname)),
                                  _('Profile'),
                                  _('Your profile'),
-                                 $this->action == 'showstream',
+                                 $mine && $action =='showstream',
                                  'nav_profile');
             $this->out->menuItem(common_local_url('replies', array('nickname' =>
                                                                    $nickname)),
                                  _('Replies'),
                                  sprintf(_('Replies to %s'), $name),
-                                 $this->action == 'replies', 'nav_timeline_replies');
+                                 $mine && $action =='replies', 'nav_timeline_replies');
             $this->out->menuItem(common_local_url('showfavorites', array('nickname' =>
                                                                          $nickname)),
                                  _('Favorites'),
                                  sprintf(_('%s\'s favorite notices'), ($user_profile) ? $name : _('User')),
-                                 $this->action == 'showfavorites', 'nav_timeline_favorites');
+                                 $mine && $action =='showfavorites', 'nav_timeline_favorites');
 
             $cur = common_current_user();
 
@@ -97,7 +100,7 @@ class PersonalGroupNav extends Menu
                                                                      $nickname)),
                                      _('Messages'),
                                      _('Your incoming messages'),
-                                     $this->action == 'inbox');
+                                     $mine && $action =='inbox');
             }
 
             Event::handle('EndPersonalGroupNav', array($this));

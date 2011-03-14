@@ -213,6 +213,44 @@ abstract class MicroAppPlugin extends Plugin
     }
 
     /**
+     * Called when generating Atom XML ActivityStreams output from an
+     * ActivityObject belonging to this plugin. Gives the plugin
+     * a chance to add custom output.
+     *
+     * Note that you can only add output of additional XML elements,
+     * not change existing stuff here.
+     *
+     * If output is already handled by the base Activity classes,
+     * you can leave this base implementation as a no-op.
+     *
+     * @param ActivityObject $obj
+     * @param XMLOutputter $out to add elements at end of object
+     */
+    function activityObjectOutputAtom(ActivityObject $obj, XMLOutputter $out)
+    {
+        // default is a no-op
+    }
+
+    /**
+     * Called when generating JSON ActivityStreams output from an
+     * ActivityObject belonging to this plugin. Gives the plugin
+     * a chance to add custom output.
+     *
+     * Modify the array contents to your heart's content, and it'll
+     * all get serialized out as JSON.
+     *
+     * If output is already handled by the base Activity classes,
+     * you can leave this base implementation as a no-op.
+     *
+     * @param ActivityObject $obj
+     * @param array &$out JSON-targeted array which can be modified
+     */
+    public function activityObjectOutputJson(ActivityObject $obj, array &$out)
+    {
+        // default is a no-op
+    }
+
+    /**
      * When a notice is deleted, delete the related objects
      * by calling the overridable $this->deleteRelated().
      *
@@ -436,6 +474,46 @@ abstract class MicroAppPlugin extends Plugin
             return false;
         }
 
+        return true;
+    }
+
+    /**
+     * Event handler gives the plugin a chance to add custom
+     * Atom XML ActivityStreams output from a previously filled-out
+     * ActivityObject.
+     *
+     * The atomOutput method is called if it's one of
+     * our matching types.
+     *
+     * @param ActivityObject $obj
+     * @param XMLOutputter $out to add elements at end of object
+     * @return boolean hook return value
+     */
+    function onEndActivityObjectOutputAtom(ActivityObject $obj, XMLOutputter $out)
+    {
+        if (in_array($obj->type, $this->types())) {
+            $this->activityObjectOutputAtom($obj, $out);
+        }
+        return true;
+    }
+
+    /**
+     * Event handler gives the plugin a chance to add custom
+     * JSON ActivityStreams output from a previously filled-out
+     * ActivityObject.
+     *
+     * The activityObjectOutputJson method is called if it's one of
+     * our matching types.
+     *
+     * @param ActivityObject $obj
+     * @param array &$out JSON-targeted array which can be modified
+     * @return boolean hook return value
+     */
+    function onEndActivityObjectOutputJson(ActivityObject $obj, array &$out)
+    {
+        if (in_array($obj->type, $this->types())) {
+            $this->activityObjectOutputJson($obj, &$out);
+        }
         return true;
     }
 

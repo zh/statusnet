@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-08 01:03+0000\n"
-"PO-Revision-Date: 2011-03-08 01:05:20+0000\n"
+"POT-Creation-Date: 2011-03-11 18:15+0000\n"
+"PO-Revision-Date: 2011-03-11 18:17:16+0000\n"
 "Language-Team: Georgian <http://translatewiki.net/wiki/Portal:ka>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
+"X-Generator: MediaWiki 1.18alpha (r83703); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ka\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
+"X-POT-Import-Date: 2011-03-08 01:25:01+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1034,7 +1034,7 @@ msgstr "მოძებნე შეტყობინებებში"
 
 #. TRANS: Client exception thrown when trying favorite a notice without content.
 #, fuzzy
-msgid "Unknown note."
+msgid "Unknown notice."
 msgstr "უცნობი"
 
 #. TRANS: Client exception thrown when trying favorite an already favorited notice.
@@ -1622,6 +1622,7 @@ msgstr "ამ მომხმარებლის წაშლა"
 #. TRANS: Client error displayed trying to create a new direct message while not logged in.
 #. TRANS: Client error displayed trying to send a notice while not logged in.
 #. TRANS: Client error displayed trying to nudge a user without being logged in.
+#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
@@ -3133,6 +3134,10 @@ msgstr "წყაროს URL სავალდებულოა."
 msgid "Could not create application."
 msgstr "აპლიკაციის შექმნა ვერ მოხერხდა."
 
+#, fuzzy
+msgid "Invalid image."
+msgstr "ზომა არასწორია."
+
 #. TRANS: Title for form to create a group.
 msgid "New group"
 msgstr "ახალი ჯგუფი"
@@ -3413,52 +3418,77 @@ msgstr ""
 "ეს არის თქვენი გამავალი ფოსტა, რომელშიც ჩამოთვლილია პირადი შეტყობინებები "
 "რომლებიც თქვენ გააგზავნეთ."
 
+#. TRANS: Title for page where to change password.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Change password"
 msgstr "შეცვალეთ პაროლი"
 
+#. TRANS: Instructions for page where to change password.
 msgid "Change your password."
 msgstr "შეცვალეთ თქვენი პაროლი."
 
+#. TRANS: Fieldset legend on page where to change password.
 #. TRANS: Fieldset legend for password reset form.
 msgid "Password change"
 msgstr "პაროლის შეცვლა"
 
+#. TRANS: Field label on page where to change password.
 msgid "Old password"
 msgstr "ძველი პაროლი"
 
+#. TRANS: Field label on page where to change password.
 #. TRANS: Field label for password reset form.
 msgid "New password"
 msgstr "ახალი პაროლი"
 
+#. TRANS: Field title on page where to change password.
 #, fuzzy
 msgid "6 or more characters."
 msgstr "6 ან მეტი სიმბოლო"
 
+#. TRANS: Field label on page where to change password. In this field the new password should be typed a second time.
+#, fuzzy
+msgctxt "LABEL"
+msgid "Confirm"
+msgstr "ვადასტურებ"
+
+#. TRANS: Field title on page where to change password.
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
 #, fuzzy
 msgid "Same as password above."
 msgstr "იგივე რაც ზედა პაროლი"
 
+#. TRANS: Button text on page where to change password.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Change"
 msgstr "შეცვლა"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Password must be 6 or more characters."
 msgstr "პაროლი უნდა შედგებოდეს 6 ან მეტი სიმბოლოსგან."
 
 msgid "Passwords don't match."
 msgstr "პაროლები არ ემთხვევა."
 
-msgid "Incorrect old password"
+#. TRANS: Form validation error on page where to change password.
+#, fuzzy
+msgid "Incorrect old password."
 msgstr "არასწორი ძველი პაროლი"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Error saving user; invalid."
 msgstr "შეცდომა მომხმარებლის შენახვისას; არასწორი."
 
+#. TRANS: Server error displayed on page where to change password when password change
+#. TRANS: could not be made because of a server error.
 #. TRANS: Reset password form validation error message.
 #, fuzzy
 msgid "Cannot save new password."
 msgstr "ვერ ვინახავ ახალ პაროლს."
 
+#. TRANS: Form validation notice on page where to change password.
 msgid "Password saved."
 msgstr "პაროლი შენახულია."
 
@@ -3508,6 +3538,7 @@ msgstr "საიტი"
 msgid "Server"
 msgstr "სერვერი"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Site's server hostname."
 msgstr "საიტის სერვერის ჰოსტის სახელი."
 
@@ -3515,6 +3546,7 @@ msgstr "საიტის სერვერის ჰოსტის სახ
 msgid "Path"
 msgstr "გზა"
 
+#. TRANS: Field title in Paths admin panel.
 #, fuzzy
 msgid "Site path."
 msgstr "საიტის გზა"
@@ -3524,6 +3556,7 @@ msgstr "საიტის გზა"
 msgid "Locale directory"
 msgstr "იერსახის დირექტორია"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Directory path to locales."
 msgstr ""
 
@@ -3531,9 +3564,14 @@ msgstr ""
 msgid "Fancy URLs"
 msgstr "ლამაზი URL–ები"
 
-msgid "Use fancy (more readable and memorable) URLs?"
+#. TRANS: Field title in Paths admin panel.
+#, fuzzy
+msgid "Use fancy URLs (more readable and memorable)?"
 msgstr "გამოვიყენო ლამაზი (მეტად კითხვადი და დასამახსოვრებელი) URL–ები?"
 
+#. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Theme"
 msgstr "იერსახე"
 
@@ -3655,6 +3693,8 @@ msgid "Directory where attachments are located."
 msgstr ""
 
 #. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "SSL"
 msgstr "SSL"
 
@@ -3702,10 +3742,14 @@ msgstr ""
 msgid "People search"
 msgstr "პიროვნებების ძიება"
 
+#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, php-format
 msgid "Not a valid people tag: %s."
 msgstr "პიროვნებების არასწორი სანიშნე: %s."
 
+#. TRANS: Page title for users with a certain self-tag.
+#. TRANS: %1$s is the tag, %2$s is the page number.
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr ""
@@ -3716,15 +3760,19 @@ msgctxt "plugin"
 msgid "Disabled"
 msgstr ""
 
+#. TRANS: Client error displayed when trying to use another method than POST.
+#. TRANS: Do not translate POST.
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
 msgstr "ეს მოქმედება მხოლოდ POST მოთხოვნებს იღებს."
 
+#. TRANS: Client error displayed when trying to enable or disable a plugin without access rights.
 #, fuzzy
 msgid "You cannot administer plugins."
 msgstr "თქვენ ვერ შეძლებთ მომხმარებლების წაშლას."
 
+#. TRANS: Client error displayed when trying to enable or disable a non-existing plugin.
 #, fuzzy
 msgid "No such plugin."
 msgstr "ასეთი გვერდი არ არსებობს."
@@ -3735,7 +3783,8 @@ msgid "Enabled"
 msgstr ""
 
 #. TRANS: Tab and title for plugins admin panel.
-#. TRANS: Menu item for site administration
+#, fuzzy
+msgctxt "TITLE"
 msgid "Plugins"
 msgstr "დამატებები"
 
@@ -3751,15 +3800,19 @@ msgstr ""
 msgid "Default plugins"
 msgstr "პირვანდელი ენა"
 
+#. TRANS: Text displayed on plugin admin page when no plugin are enabled.
 msgid ""
 "All default plugins have been disabled from the site's configuration file."
 msgstr ""
 
+#. TRANS: Client error displayed if the notice posted has too many characters.
 msgid "Invalid notice content."
 msgstr "შეტყობინების არასწორი შიგთავსი."
 
-#, php-format
-msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
+#. TRANS: Exception thrown if a notice's license is not compatible with the StatusNet site license.
+#. TRANS: %1$s is the notice license, %2$s is the StatusNet site's license.
+#, fuzzy, php-format
+msgid "Notice license \"%1$s\" is not compatible with site license \"%2$s\"."
 msgstr "შეტყობინების ლიცენზია ‘%1$s’ შეუთავსებელია საიტის ლიცენზიასთან ‘%2$s’."
 
 #. TRANS: Page title for profile settings.
@@ -3911,29 +3964,39 @@ msgstr "პარამეტრები შენახულია."
 msgid "Restore account"
 msgstr "გახსენი ანგარიში"
 
+#. TRANS: Client error displayed when requesting a public timeline page beyond the page limit.
+#. TRANS: %s is the page limit.
 #, php-format
 msgid "Beyond the page limit (%s)."
 msgstr "გვერსიდ საზღვრის მიღმა (%s)."
 
+#. TRANS: Server error displayed when a public timeline cannot be retrieved.
 msgid "Could not retrieve public stream."
 msgstr "საჯარო ნაკადის გამოთხოვნა ვერ ხერხდება."
 
+#. TRANS: Title for all public timeline pages but the first.
+#. TRANS: %d is the page number.
 #, php-format
 msgid "Public timeline, page %d"
 msgstr "საჯარო განახლებების ნაკადი, გვერდი %d"
 
+#. TRANS: Title for the first public timeline page.
 msgid "Public timeline"
 msgstr "საჯარო განახლებების ნაკადი"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr ""
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr ""
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (Atom)"
 msgstr ""
 
+#. TRANS: Text displayed for public feed when there are no public notices.
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
@@ -3941,14 +4004,18 @@ msgid ""
 msgstr ""
 "ეს არის საჯარო განახლებების ნაკადი, მაგრამ ჯერჯერობით არავის დაუპოსტავს."
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a logged in user.
 msgid "Be the first to post!"
 msgstr "დაპოსტე პირველმა!"
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a not logged in user.
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr "[დარეგისტრირდი](%%action.register%%) და დაპოსტე პირველმა!"
 
+#. TRANS: Message for not logged in users at an invite-only site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3961,6 +4028,8 @@ msgstr ""
 "[შემოგვიერთდი ახლავე](%%action.register%%) და გაუზიარე შეტყობინებები "
 "მეგობრებს, ოჯახის წევრებს და კოლეგებს! ([გაიგე მეტი](%%doc.help%%))"
 
+#. TRANS: Message for not logged in users at a closed site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -5659,6 +5728,10 @@ msgstr ""
 "თქვენ უნდა მიგეღოთ GNU Affero ძირითადი საჯარო ლიცენზიის ასლი ამ პროგრამასთან "
 "ერთად. თუ არა, იხილეთ %s."
 
+#. TRANS: Menu item for site administration
+msgid "Plugins"
+msgstr "დამატებები"
+
 #. TRANS: Form input field label for application name.
 msgid "Name"
 msgstr "დასახელება"
@@ -6158,6 +6231,10 @@ msgstr "saveSettings() არ არის განხორციელებ�
 #. TRANS: the admin panel Design.
 msgid "Unable to delete design setting."
 msgstr "დიზაინის პარამეტრების წაშლა ვერ ხერხდება."
+
+#, fuzzy
+msgid "Home"
+msgstr "ვებ. გვერსი"
 
 #. TRANS: Menu item title/tooltip
 msgid "Basic site configuration"
@@ -6749,10 +6826,6 @@ msgstr "გადადი ამ ინსტალატორზე."
 
 msgid "Database error"
 msgstr "მონაცემთა ბაზის შეცდომა"
-
-#, fuzzy
-msgid "Home"
-msgstr "ვებ. გვერსი"
 
 msgid "Public"
 msgstr "საჯარო"
@@ -7534,7 +7607,6 @@ msgstr "შეტყობინების გაგზავნა"
 msgid "What's up, %s?"
 msgstr "რა არის ახალი %s?"
 
-#. TRANS: Input label in notice form for adding an attachment.
 msgid "Attach"
 msgstr "ფაილის მიმაგრება"
 
@@ -7602,6 +7674,9 @@ msgstr "შეტყობინების წაშლა"
 
 msgid "Notice repeated"
 msgstr "შეტყობინება გამეორებულია"
+
+msgid "Update your status..."
+msgstr ""
 
 msgid "Nudge this user"
 msgstr ""
@@ -8111,11 +8186,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#, fuzzy
-#~ msgid "Friends timeline"
-#~ msgstr "%s-ის ნაკადი"
-
-#, fuzzy
-#~ msgid "Everyone on this site"
-#~ msgstr "მოძებნე ადამიანები ამ საიტზე"

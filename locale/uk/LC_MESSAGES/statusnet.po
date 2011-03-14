@@ -12,18 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-08 01:03+0000\n"
-"PO-Revision-Date: 2011-03-08 01:05:34+0000\n"
+"POT-Creation-Date: 2011-03-11 18:15+0000\n"
+"PO-Revision-Date: 2011-03-11 18:17:31+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
+"X-Generator: MediaWiki 1.18alpha (r83703); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
+"X-POT-Import-Date: 2011-03-08 01:25:01+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1060,7 +1060,8 @@ msgid "Can only fave notices."
 msgstr "Можна лише додавати дописи до обраних."
 
 #. TRANS: Client exception thrown when trying favorite a notice without content.
-msgid "Unknown note."
+#, fuzzy
+msgid "Unknown notice."
 msgstr "Невідома примітка"
 
 #. TRANS: Client exception thrown when trying favorite an already favorited notice.
@@ -1631,6 +1632,7 @@ msgstr "Видалити спільноту."
 #. TRANS: Client error displayed trying to create a new direct message while not logged in.
 #. TRANS: Client error displayed trying to send a notice while not logged in.
 #. TRANS: Client error displayed trying to nudge a user without being logged in.
+#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
@@ -3108,6 +3110,10 @@ msgstr "Потрібна URL-адреса."
 msgid "Could not create application."
 msgstr "Не вдалося створити додаток."
 
+#, fuzzy
+msgid "Invalid image."
+msgstr "Недійсний розмір."
+
 #. TRANS: Title for form to create a group.
 msgid "New group"
 msgstr "Нова спільнота"
@@ -3393,49 +3399,74 @@ msgstr ""
 "Це ваші вихідні повідомлення, тут містяться повідомлення, які ви надіслали "
 "приватно."
 
+#. TRANS: Title for page where to change password.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Change password"
 msgstr "Змінити пароль"
 
+#. TRANS: Instructions for page where to change password.
 msgid "Change your password."
 msgstr "Змінити пароль."
 
+#. TRANS: Fieldset legend on page where to change password.
 #. TRANS: Fieldset legend for password reset form.
 msgid "Password change"
 msgstr "Пароль замінено"
 
+#. TRANS: Field label on page where to change password.
 msgid "Old password"
 msgstr "Старий пароль"
 
+#. TRANS: Field label on page where to change password.
 #. TRANS: Field label for password reset form.
 msgid "New password"
 msgstr "Новий пароль"
 
+#. TRANS: Field title on page where to change password.
 msgid "6 or more characters."
 msgstr "6 або більше знаків."
 
+#. TRANS: Field label on page where to change password. In this field the new password should be typed a second time.
+#, fuzzy
+msgctxt "LABEL"
+msgid "Confirm"
+msgstr "Підтвердити"
+
+#. TRANS: Field title on page where to change password.
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
 msgid "Same as password above."
 msgstr "Такий само, як і пароль вище."
 
+#. TRANS: Button text on page where to change password.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Change"
 msgstr "Змінити"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Password must be 6 or more characters."
 msgstr "Пароль має складатись з 6-ти або більше знаків."
 
 msgid "Passwords don't match."
 msgstr "Паролі не співпадають."
 
-msgid "Incorrect old password"
+#. TRANS: Form validation error on page where to change password.
+#, fuzzy
+msgid "Incorrect old password."
 msgstr "Старий пароль є неточним"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Error saving user; invalid."
 msgstr "Помилка при збереженні користувача; недійсний."
 
+#. TRANS: Server error displayed on page where to change password when password change
+#. TRANS: could not be made because of a server error.
 #. TRANS: Reset password form validation error message.
 msgid "Cannot save new password."
 msgstr "Не вдається зберегти новий пароль."
 
+#. TRANS: Form validation notice on page where to change password.
 msgid "Password saved."
 msgstr "Пароль збережено."
 
@@ -3485,6 +3516,7 @@ msgstr "Сайт"
 msgid "Server"
 msgstr "Сервер"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Site's server hostname."
 msgstr "Ім’я хосту сервера на якому знаходиться сайт."
 
@@ -3492,6 +3524,7 @@ msgstr "Ім’я хосту сервера на якому знаходитьс
 msgid "Path"
 msgstr "Шлях"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Site path."
 msgstr "Шлях до сайту."
 
@@ -3499,6 +3532,7 @@ msgstr "Шлях до сайту."
 msgid "Locale directory"
 msgstr "Директорія локалі"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Directory path to locales."
 msgstr "Шлях до директорії локалей."
 
@@ -3506,9 +3540,14 @@ msgstr "Шлях до директорії локалей."
 msgid "Fancy URLs"
 msgstr "Надзвичайні URL-адреси"
 
-msgid "Use fancy (more readable and memorable) URLs?"
+#. TRANS: Field title in Paths admin panel.
+#, fuzzy
+msgid "Use fancy URLs (more readable and memorable)?"
 msgstr "Використовувати надзвичайні (найбільш пам’ятні і визначні) URL-адреси?"
 
+#. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Theme"
 msgstr "Тема"
 
@@ -3621,6 +3660,8 @@ msgid "Directory where attachments are located."
 msgstr "Директорія, в якій знаходяться вкладення."
 
 #. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "SSL"
 msgstr "SSL-шифрування"
 
@@ -3666,10 +3707,14 @@ msgstr ""
 msgid "People search"
 msgstr "Пошук людей"
 
+#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, php-format
 msgid "Not a valid people tag: %s."
 msgstr "Це недійсний особистий теґ: %s."
 
+#. TRANS: Page title for users with a certain self-tag.
+#. TRANS: %1$s is the tag, %2$s is the page number.
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Користувачі з особистим теґом «%1$s» — сторінка %2$d"
@@ -3679,14 +3724,18 @@ msgctxt "plugin"
 msgid "Disabled"
 msgstr "Вимкнений"
 
+#. TRANS: Client error displayed when trying to use another method than POST.
+#. TRANS: Do not translate POST.
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
 msgstr "Ця дія приймає лише запити POST."
 
+#. TRANS: Client error displayed when trying to enable or disable a plugin without access rights.
 msgid "You cannot administer plugins."
 msgstr "Ви не можете керувати додатками."
 
+#. TRANS: Client error displayed when trying to enable or disable a non-existing plugin.
 msgid "No such plugin."
 msgstr "Немає такого додатку."
 
@@ -3696,7 +3745,8 @@ msgid "Enabled"
 msgstr "Увімкнений"
 
 #. TRANS: Tab and title for plugins admin panel.
-#. TRANS: Menu item for site administration
+#, fuzzy
+msgctxt "TITLE"
 msgid "Plugins"
 msgstr "Додатки"
 
@@ -3714,16 +3764,20 @@ msgstr ""
 msgid "Default plugins"
 msgstr "Додатки за замовчуванням"
 
+#. TRANS: Text displayed on plugin admin page when no plugin are enabled.
 msgid ""
 "All default plugins have been disabled from the site's configuration file."
 msgstr ""
 "Всі додатки за замовчуванням було вимкнено у файлі конфігурації даного сайту."
 
+#. TRANS: Client error displayed if the notice posted has too many characters.
 msgid "Invalid notice content."
 msgstr "Недійсний зміст допису."
 
-#, php-format
-msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
+#. TRANS: Exception thrown if a notice's license is not compatible with the StatusNet site license.
+#. TRANS: %1$s is the notice license, %2$s is the StatusNet site's license.
+#, fuzzy, php-format
+msgid "Notice license \"%1$s\" is not compatible with site license \"%2$s\"."
 msgstr "Ліцензія допису «%1$s» є несумісною з ліцензією сайту «%2$s»."
 
 #. TRANS: Page title for profile settings.
@@ -3869,29 +3923,39 @@ msgstr "Налаштування збережено."
 msgid "Restore account"
 msgstr "Відновити акаунт"
 
+#. TRANS: Client error displayed when requesting a public timeline page beyond the page limit.
+#. TRANS: %s is the page limit.
 #, php-format
 msgid "Beyond the page limit (%s)."
 msgstr "Перевищено ліміт сторінки (%s)."
 
+#. TRANS: Server error displayed when a public timeline cannot be retrieved.
 msgid "Could not retrieve public stream."
 msgstr "Не вдається відновити загальну стрічку."
 
+#. TRANS: Title for all public timeline pages but the first.
+#. TRANS: %d is the page number.
 #, php-format
 msgid "Public timeline, page %d"
 msgstr "Загальна стрічка, сторінка %d"
 
+#. TRANS: Title for the first public timeline page.
 msgid "Public timeline"
 msgstr "Загальна стрічка"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr "Стрічка публічних дописів (RSS 1.0)"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr "Стрічка публічних дописів (RSS 2.0)"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (Atom)"
 msgstr "Стрічка публічних дописів (Atom)"
 
+#. TRANS: Text displayed for public feed when there are no public notices.
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
@@ -3899,9 +3963,11 @@ msgid ""
 msgstr ""
 "Це публічна стрічка дописів сайту %%site.name%%, але вона поки що порожня."
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a logged in user.
 msgid "Be the first to post!"
 msgstr "Станьте першим! Напишіть щось!"
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a not logged in user.
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
@@ -3909,6 +3975,8 @@ msgstr ""
 "Чому б не [зареєструватись](%%action.register%%) і не зробити свій перший "
 "допис!"
 
+#. TRANS: Message for not logged in users at an invite-only site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3922,6 +3990,8 @@ msgstr ""
 "розділити своє життя з друзями, родиною і колегами! ([Дізнатися більше](%%"
 "doc.help%%))"
 
+#. TRANS: Message for not logged in users at a closed site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -5610,6 +5680,10 @@ msgstr ""
 "Разом з програмою ви маєте отримати копію ліцензійних умов GNU Affero "
 "General Public License. Якщо ні, перейдіть на %s."
 
+#. TRANS: Menu item for site administration
+msgid "Plugins"
+msgstr "Додатки"
+
 #. TRANS: Form input field label for application name.
 msgid "Name"
 msgstr "Ім’я"
@@ -5945,9 +6019,8 @@ msgstr "Відповісти"
 msgid "Write a reply..."
 msgstr "Пише відповідь..."
 
-#, fuzzy
 msgid "Status"
-msgstr "StatusNet"
+msgstr "Статус"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #. TRANS: Text between [] is a link description, text between () is the link itself.
@@ -6111,6 +6184,9 @@ msgstr "saveSettings() не виконано."
 #. TRANS: the admin panel Design.
 msgid "Unable to delete design setting."
 msgstr "Немає можливості видалити налаштування дизайну."
+
+msgid "Home"
+msgstr "Веб-сторінка"
 
 #. TRANS: Menu item title/tooltip
 msgid "Basic site configuration"
@@ -6742,9 +6818,6 @@ msgstr "Іти до файлу інсталяції."
 
 msgid "Database error"
 msgstr "Помилка бази даних"
-
-msgid "Home"
-msgstr "Веб-сторінка"
 
 msgid "Public"
 msgstr "Загал"
@@ -7525,18 +7598,16 @@ msgid "from"
 msgstr "з"
 
 msgid "Can't get author for activity."
-msgstr ""
+msgstr "Не вдається отримати автора для діяльності."
 
-#, fuzzy
 msgid "Bookmark not posted to this group."
-msgstr "Вам не дозволено видаляти цю спільноту."
+msgstr "Закладку не додано до цієї спільноти."
 
-#, fuzzy
 msgid "Object not posted to this user."
-msgstr "Не видаляти цього користувача."
+msgstr "Об’єкт не додано до цього користувача."
 
 msgid "Don't know how to handle this kind of target."
-msgstr ""
+msgstr "Не знаю, як обробити такого роду мету."
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -7559,7 +7630,6 @@ msgstr "Надіслати допис"
 msgid "What's up, %s?"
 msgstr "Що нового, %s?"
 
-#. TRANS: Input label in notice form for adding an attachment.
 msgid "Attach"
 msgstr "Вкласти"
 
@@ -7626,6 +7696,9 @@ msgstr "Видалити допис"
 
 msgid "Notice repeated"
 msgstr "Допис повторили"
+
+msgid "Update your status..."
+msgstr ""
 
 msgid "Nudge this user"
 msgstr "«Розштовхати» користувача"
@@ -8139,9 +8212,3 @@ msgstr "Неправильний XML, корінь XRD відсутній."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "Отримання резервної копії файлу «%s»."
-
-#~ msgid "Friends timeline"
-#~ msgstr "Стрічка друзів"
-
-#~ msgid "Everyone on this site"
-#~ msgstr "Всі на цьому сайті"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-08 01:03+0000\n"
+"POT-Creation-Date: 2011-03-11 18:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
-#: actions/accessadminpanel.php:53 lib/adminpanelnav.php:92
+#: actions/accessadminpanel.php:53 lib/adminpanelnav.php:110
 msgid "Access"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr ""
 #. TRANS: Button text on profile design page to save settings.
 #: actions/accessadminpanel.php:193 actions/designadminpanel.php:732
 #: actions/emailsettings.php:251 actions/imsettings.php:199
-#: actions/licenseadminpanel.php:335 actions/pathsadminpanel.php:512
+#: actions/licenseadminpanel.php:335 actions/pathsadminpanel.php:517
 #: actions/profilesettings.php:198 actions/sitenoticeadminpanel.php:197
 #: actions/smssettings.php:204 actions/subscriptions.php:261
 #: actions/urlsettings.php:152 actions/useradminpanel.php:298
@@ -97,7 +97,7 @@ msgstr ""
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
-#: actions/all.php:68 actions/public.php:98 actions/replies.php:93
+#: actions/all.php:68 actions/public.php:99 actions/replies.php:93
 #: actions/showfavorites.php:140 actions/tag.php:52
 msgid "No such page."
 msgstr ""
@@ -176,7 +176,7 @@ msgstr ""
 #. TRANS: Timeline title for user and friends. %s is a user nickname.
 #: actions/all.php:94 actions/all.php:185 actions/allrss.php:117
 #: actions/apitimelinefriends.php:207 actions/apitimelinehome.php:113
-#: lib/personalgroupnav.php:72
+#: lib/adminpanelnav.php:70 lib/personalgroupnav.php:72 lib/settingsnav.php:71
 #, php-format
 msgid "%s and friends"
 msgstr ""
@@ -853,8 +853,8 @@ msgstr ""
 #: actions/invite.php:60 actions/makeadmin.php:67 actions/newmessage.php:140
 #: actions/newnotice.php:104 actions/nudge.php:81
 #: actions/oauthappssettings.php:162 actions/oauthconnectionssettings.php:135
-#: actions/passwordsettings.php:137 actions/pluginenable.php:87
-#: actions/profilesettings.php:218 actions/recoverpassword.php:383
+#: actions/passwordsettings.php:146 actions/pluginenable.php:87
+#: actions/profilesettings.php:218 actions/recoverpassword.php:387
 #: actions/register.php:157 actions/remotesubscribe.php:76
 #: actions/repeat.php:82 actions/smssettings.php:249 actions/subedit.php:40
 #: actions/subscribe.php:87 actions/tagother.php:145
@@ -943,7 +943,7 @@ msgstr ""
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label on login page.
 #: actions/apioauthauthorize.php:463 actions/login.php:235
-#: actions/register.php:415 lib/settingsnav.php:74
+#: actions/register.php:415 lib/settingsnav.php:93
 msgid "Password"
 msgstr ""
 
@@ -1311,7 +1311,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown when trying favorite a notice without content.
 #: actions/atompubfavoritefeed.php:259
-msgid "Unknown note."
+msgid "Unknown notice."
 msgstr ""
 
 #. TRANS: Client exception thrown when trying favorite an already favorited notice.
@@ -1505,7 +1505,7 @@ msgid "Invalid size."
 msgstr ""
 
 #. TRANS: Title for avatar upload page.
-#: actions/avatarsettings.php:66 lib/settingsnav.php:69
+#: actions/avatarsettings.php:66 lib/settingsnav.php:88
 msgid "Avatar"
 msgstr ""
 
@@ -1865,8 +1865,8 @@ msgstr ""
 
 #. TRANS: Field label for delete account confirmation entry.
 #. TRANS: Field label for password reset form where the password has to be typed again.
-#: actions/deleteaccount.php:300 actions/passwordsettings.php:112
-#: actions/recoverpassword.php:262 actions/register.php:419
+#: actions/deleteaccount.php:300 actions/recoverpassword.php:262
+#: actions/register.php:419
 msgid "Confirm"
 msgstr ""
 
@@ -1902,7 +1902,7 @@ msgstr ""
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:131
 #: actions/newapplication.php:112 actions/showapplication.php:113
-#: lib/action.php:1388
+#: lib/action.php:1409
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -1996,6 +1996,7 @@ msgstr ""
 #. TRANS: Client error displayed trying to create a new direct message while not logged in.
 #. TRANS: Client error displayed trying to send a notice while not logged in.
 #. TRANS: Client error displayed trying to nudge a user without being logged in.
+#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
@@ -2003,7 +2004,7 @@ msgstr ""
 #: actions/deletenotice.php:52 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:69
 #: actions/makeadmin.php:62 actions/newmessage.php:89 actions/newnotice.php:87
-#: actions/nudge.php:64 actions/pluginenable.php:97 actions/subedit.php:33
+#: actions/nudge.php:64 actions/pluginenable.php:98 actions/subedit.php:33
 #: actions/subscribe.php:98 actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:71 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -2077,7 +2078,7 @@ msgid "Delete this user."
 msgstr ""
 
 #. TRANS: Message used as title for design settings for the site.
-#: actions/designadminpanel.php:60 lib/settingsnav.php:84
+#: actions/designadminpanel.php:60 lib/settingsnav.php:103
 msgid "Design"
 msgstr ""
 
@@ -2969,7 +2970,7 @@ msgid "A list of the users in this group."
 msgstr ""
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
-#: actions/groupmembers.php:190 lib/primarynav.php:63
+#: actions/groupmembers.php:190 lib/adminpanelnav.php:77 lib/primarynav.php:63
 msgid "Admin"
 msgstr ""
 
@@ -3355,7 +3356,7 @@ msgstr ""
 
 #. TRANS: Send button for inviting friends
 #. TRANS: Button text for sending notice.
-#: actions/invite.php:232 lib/noticeform.php:254
+#: actions/invite.php:232 lib/noticeform.php:256
 msgctxt "BUTTON"
 msgid "Send"
 msgstr ""
@@ -3688,6 +3689,10 @@ msgstr ""
 msgid "Could not create application."
 msgstr ""
 
+#: actions/newapplication.php:297
+msgid "Invalid image."
+msgstr ""
+
 #. TRANS: Title for form to create a group.
 #: actions/newgroup.php:53
 msgid "New group"
@@ -4013,70 +4018,92 @@ msgstr ""
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr ""
 
-#: actions/passwordsettings.php:58
+#. TRANS: Title for page where to change password.
+#: actions/passwordsettings.php:59
+msgctxt "TITLE"
 msgid "Change password"
 msgstr ""
 
-#: actions/passwordsettings.php:69
+#. TRANS: Instructions for page where to change password.
+#: actions/passwordsettings.php:71
 msgid "Change your password."
 msgstr ""
 
+#. TRANS: Fieldset legend on page where to change password.
 #. TRANS: Fieldset legend for password reset form.
-#: actions/passwordsettings.php:96 actions/recoverpassword.php:251
+#: actions/passwordsettings.php:99 actions/recoverpassword.php:251
 msgid "Password change"
 msgstr ""
 
-#: actions/passwordsettings.php:104
+#. TRANS: Field label on page where to change password.
+#: actions/passwordsettings.php:108
 msgid "Old password"
 msgstr ""
 
+#. TRANS: Field label on page where to change password.
 #. TRANS: Field label for password reset form.
-#: actions/passwordsettings.php:108 actions/recoverpassword.php:256
+#: actions/passwordsettings.php:113 actions/recoverpassword.php:256
 msgid "New password"
 msgstr ""
 
-#: actions/passwordsettings.php:109 actions/register.php:416
+#. TRANS: Field title on page where to change password.
+#: actions/passwordsettings.php:115 actions/register.php:416
 msgid "6 or more characters."
 msgstr ""
 
+#. TRANS: Field label on page where to change password. In this field the new password should be typed a second time.
+#: actions/passwordsettings.php:119
+msgctxt "LABEL"
+msgid "Confirm"
+msgstr ""
+
+#. TRANS: Field title on page where to change password.
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
-#: actions/passwordsettings.php:113 actions/recoverpassword.php:264
+#: actions/passwordsettings.php:121 actions/recoverpassword.php:264
 #: actions/register.php:420
 msgid "Same as password above."
 msgstr ""
 
-#: actions/passwordsettings.php:117
+#. TRANS: Button text on page where to change password.
+#: actions/passwordsettings.php:126
+msgctxt "BUTTON"
 msgid "Change"
 msgstr ""
 
-#: actions/passwordsettings.php:153 actions/register.php:223
+#. TRANS: Form validation error on page where to change password.
+#: actions/passwordsettings.php:163 actions/register.php:223
 msgid "Password must be 6 or more characters."
 msgstr ""
 
-#: actions/passwordsettings.php:156 actions/register.php:226
+#: actions/passwordsettings.php:166 actions/register.php:226
 msgid "Passwords don't match."
 msgstr ""
 
-#: actions/passwordsettings.php:164
-msgid "Incorrect old password"
+#. TRANS: Form validation error on page where to change password.
+#: actions/passwordsettings.php:175
+msgid "Incorrect old password."
 msgstr ""
 
-#: actions/passwordsettings.php:180
+#. TRANS: Form validation error on page where to change password.
+#: actions/passwordsettings.php:192
 msgid "Error saving user; invalid."
 msgstr ""
 
+#. TRANS: Server error displayed on page where to change password when password change
+#. TRANS: could not be made because of a server error.
 #. TRANS: Reset password form validation error message.
-#: actions/passwordsettings.php:185 actions/recoverpassword.php:418
+#: actions/passwordsettings.php:199 actions/recoverpassword.php:422
 msgid "Cannot save new password."
 msgstr ""
 
-#: actions/passwordsettings.php:191
+#. TRANS: Form validation notice on page where to change password.
+#: actions/passwordsettings.php:206
 msgid "Password saved."
 msgstr ""
 
 #. TRANS: Title for Paths admin panel.
 #. TRANS: Menu item for site administration
-#: actions/pathsadminpanel.php:58 lib/adminpanelnav.php:100
+#: actions/pathsadminpanel.php:58 lib/adminpanelnav.php:118
 msgid "Paths"
 msgstr ""
 
@@ -4125,221 +4152,228 @@ msgid "Site"
 msgstr ""
 
 #. TRANS: Field label in Paths admin panel.
-#: actions/pathsadminpanel.php:241 actions/pathsadminpanel.php:279
-#: actions/pathsadminpanel.php:370 actions/pathsadminpanel.php:425
+#: actions/pathsadminpanel.php:241 actions/pathsadminpanel.php:284
+#: actions/pathsadminpanel.php:375 actions/pathsadminpanel.php:430
 msgid "Server"
 msgstr ""
 
-#: actions/pathsadminpanel.php:242
+#. TRANS: Field title in Paths admin panel.
+#: actions/pathsadminpanel.php:243
 msgid "Site's server hostname."
 msgstr ""
 
 #. TRANS: Field label in Paths admin panel.
-#: actions/pathsadminpanel.php:248 actions/pathsadminpanel.php:288
-#: actions/pathsadminpanel.php:379 actions/pathsadminpanel.php:434
+#: actions/pathsadminpanel.php:249 actions/pathsadminpanel.php:293
+#: actions/pathsadminpanel.php:384 actions/pathsadminpanel.php:439
 msgid "Path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:249
+#. TRANS: Field title in Paths admin panel.
+#: actions/pathsadminpanel.php:251
 msgid "Site path."
 msgstr ""
 
 #. TRANS: Field label in Paths admin panel.
-#: actions/pathsadminpanel.php:255
+#: actions/pathsadminpanel.php:257
 msgid "Locale directory"
 msgstr ""
 
-#: actions/pathsadminpanel.php:256
+#. TRANS: Field title in Paths admin panel.
+#: actions/pathsadminpanel.php:259
 msgid "Directory path to locales."
 msgstr ""
 
 #. TRANS: Checkbox label in Paths admin panel.
-#: actions/pathsadminpanel.php:263
+#: actions/pathsadminpanel.php:266
 msgid "Fancy URLs"
 msgstr ""
 
-#: actions/pathsadminpanel.php:265
-msgid "Use fancy (more readable and memorable) URLs?"
+#. TRANS: Field title in Paths admin panel.
+#: actions/pathsadminpanel.php:269
+msgid "Use fancy URLs (more readable and memorable)?"
 msgstr ""
 
-#: actions/pathsadminpanel.php:272
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:277
+msgctxt "LEGEND"
 msgid "Theme"
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:281
+#: actions/pathsadminpanel.php:286
 msgid "Server for themes."
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:290
+#: actions/pathsadminpanel.php:295
 msgid "Web path to themes."
 msgstr ""
 
 #. TRANS: Field label in Paths admin panel.
-#: actions/pathsadminpanel.php:297 actions/pathsadminpanel.php:388
-#: actions/pathsadminpanel.php:443 actions/pathsadminpanel.php:495
+#: actions/pathsadminpanel.php:302 actions/pathsadminpanel.php:393
+#: actions/pathsadminpanel.php:448 actions/pathsadminpanel.php:500
 msgid "SSL server"
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:299
+#: actions/pathsadminpanel.php:304
 msgid "SSL server for themes (default: SSL server)."
 msgstr ""
 
 #. TRANS: Field label in Paths admin panel.
-#: actions/pathsadminpanel.php:306 actions/pathsadminpanel.php:397
-#: actions/pathsadminpanel.php:452
+#: actions/pathsadminpanel.php:311 actions/pathsadminpanel.php:402
+#: actions/pathsadminpanel.php:457
 msgid "SSL path"
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:308
+#: actions/pathsadminpanel.php:313
 msgid "SSL path to themes (default: /theme/)."
 msgstr ""
 
 #. TRANS: Field label in Paths admin panel.
-#: actions/pathsadminpanel.php:315 actions/pathsadminpanel.php:406
-#: actions/pathsadminpanel.php:461
+#: actions/pathsadminpanel.php:320 actions/pathsadminpanel.php:411
+#: actions/pathsadminpanel.php:466
 msgid "Directory"
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:317
+#: actions/pathsadminpanel.php:322
 msgid "Directory where themes are located."
 msgstr ""
 
 #. TRANS: Fieldset legend in Paths admin panel.
-#: actions/pathsadminpanel.php:326
+#: actions/pathsadminpanel.php:331
 msgid "Avatars"
 msgstr ""
 
 #. TRANS: Field label in Paths admin panel.
-#: actions/pathsadminpanel.php:333
+#: actions/pathsadminpanel.php:338
 msgid "Avatar server"
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:335
+#: actions/pathsadminpanel.php:340
 msgid "Server for avatars."
 msgstr ""
 
 #. TRANS: Field label in Paths admin panel.
-#: actions/pathsadminpanel.php:342
+#: actions/pathsadminpanel.php:347
 msgid "Avatar path"
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:344
+#: actions/pathsadminpanel.php:349
 msgid "Web path to avatars."
 msgstr ""
 
 #. TRANS: Field label in Paths admin panel.
-#: actions/pathsadminpanel.php:351
+#: actions/pathsadminpanel.php:356
 msgid "Avatar directory"
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:353
+#: actions/pathsadminpanel.php:358
 msgid "Directory where avatars are located."
 msgstr ""
 
 #. TRANS: Fieldset legend in Paths admin panel.
-#: actions/pathsadminpanel.php:364
+#: actions/pathsadminpanel.php:369
 msgid "Backgrounds"
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:372
+#: actions/pathsadminpanel.php:377
 msgid "Server for backgrounds."
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:381
+#: actions/pathsadminpanel.php:386
 msgid "Web path to backgrounds."
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:390
+#: actions/pathsadminpanel.php:395
 msgid "Server for backgrounds on SSL pages."
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:399
+#: actions/pathsadminpanel.php:404
 msgid "Web path to backgrounds on SSL pages."
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:408
+#: actions/pathsadminpanel.php:413
 msgid "Directory where backgrounds are located."
 msgstr ""
 
 #. TRANS: Fieldset legens in Paths admin panel.
-#: actions/pathsadminpanel.php:419
+#: actions/pathsadminpanel.php:424
 msgid "Attachments"
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:427
+#: actions/pathsadminpanel.php:432
 msgid "Server for attachments."
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:436
+#: actions/pathsadminpanel.php:441
 msgid "Web path to attachments."
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:445
+#: actions/pathsadminpanel.php:450
 msgid "Server for attachments on SSL pages."
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:454
+#: actions/pathsadminpanel.php:459
 msgid "Web path to attachments on SSL pages."
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:463
+#: actions/pathsadminpanel.php:468
 msgid "Directory where attachments are located."
 msgstr ""
 
 #. TRANS: Fieldset legend in Paths admin panel.
-#: actions/pathsadminpanel.php:472
+#: actions/pathsadminpanel.php:477
+msgctxt "LEGEND"
 msgid "SSL"
 msgstr ""
 
 #. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
-#: actions/pathsadminpanel.php:477 actions/snapshotadminpanel.php:202
+#: actions/pathsadminpanel.php:482 actions/snapshotadminpanel.php:202
 msgid "Never"
 msgstr ""
 
 #. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
-#: actions/pathsadminpanel.php:479
+#: actions/pathsadminpanel.php:484
 msgid "Sometimes"
 msgstr ""
 
 #. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
-#: actions/pathsadminpanel.php:481
+#: actions/pathsadminpanel.php:486
 msgid "Always"
 msgstr ""
 
-#: actions/pathsadminpanel.php:485
+#: actions/pathsadminpanel.php:490
 msgid "Use SSL"
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:487
+#: actions/pathsadminpanel.php:492
 msgid "When to use SSL."
 msgstr ""
 
 #. TRANS: Tooltip for field label in Paths admin panel.
-#: actions/pathsadminpanel.php:497
+#: actions/pathsadminpanel.php:502
 msgid "Server to direct SSL requests to."
 msgstr ""
 
 #. TRANS: Button title text to store form data in the Paths admin panel.
-#: actions/pathsadminpanel.php:514
+#: actions/pathsadminpanel.php:519
 msgid "Save paths"
 msgstr ""
 
@@ -4357,51 +4391,58 @@ msgstr ""
 msgid "People search"
 msgstr ""
 
-#: actions/peopletag.php:68
+#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
+#. TRANS: %s is the invalid tag.
+#: actions/peopletag.php:69
 #, php-format
 msgid "Not a valid people tag: %s."
 msgstr ""
 
-#: actions/peopletag.php:142
+#. TRANS: Page title for users with a certain self-tag.
+#. TRANS: %1$s is the tag, %2$s is the page number.
+#: actions/peopletag.php:145
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr ""
 
 #. TRANS: Page title for AJAX form return when a disabling a plugin.
-#: actions/plugindisable.php:69
+#: actions/plugindisable.php:68
 msgctxt "plugin"
 msgid "Disabled"
 msgstr ""
 
+#. TRANS: Client error displayed when trying to use another method than POST.
+#. TRANS: Do not translate POST.
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 #: actions/pluginenable.php:78 actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr ""
 
-#: actions/pluginenable.php:102
+#. TRANS: Client error displayed when trying to enable or disable a plugin without access rights.
+#: actions/pluginenable.php:104
 msgid "You cannot administer plugins."
 msgstr ""
 
-#: actions/pluginenable.php:109
+#. TRANS: Client error displayed when trying to enable or disable a non-existing plugin.
+#: actions/pluginenable.php:112
 msgid "No such plugin."
 msgstr ""
 
 #. TRANS: Page title for AJAX form return when enabling a plugin.
-#: actions/pluginenable.php:159
+#: actions/pluginenable.php:161
 msgctxt "plugin"
 msgid "Enabled"
 msgstr ""
 
 #. TRANS: Tab and title for plugins admin panel.
-#. TRANS: Menu item for site administration
-#: actions/pluginsadminpanel.php:56 actions/version.php:191
-#: lib/adminpanelnav.php:140
+#: actions/pluginsadminpanel.php:53
+msgctxt "TITLE"
 msgid "Plugins"
 msgstr ""
 
 #. TRANS: Instructions at top of plugin admin page.
-#: actions/pluginsadminpanel.php:68
+#: actions/pluginsadminpanel.php:64
 msgid ""
 "Additional plugins can be enabled and configured manually. See the <a href="
 "\"http://status.net/wiki/Plugins\">online plugin documentation</a> for more "
@@ -4409,22 +4450,26 @@ msgid ""
 msgstr ""
 
 #. TRANS: Admin form section header
-#: actions/pluginsadminpanel.php:84
+#: actions/pluginsadminpanel.php:79
 msgid "Default plugins"
 msgstr ""
 
-#: actions/pluginsadminpanel.php:106
+#. TRANS: Text displayed on plugin admin page when no plugin are enabled.
+#: actions/pluginsadminpanel.php:102
 msgid ""
 "All default plugins have been disabled from the site's configuration file."
 msgstr ""
 
-#: actions/postnotice.php:95
+#. TRANS: Client error displayed if the notice posted has too many characters.
+#: actions/postnotice.php:96
 msgid "Invalid notice content."
 msgstr ""
 
-#: actions/postnotice.php:101
+#. TRANS: Exception thrown if a notice's license is not compatible with the StatusNet site license.
+#. TRANS: %1$s is the notice license, %2$s is the StatusNet site's license.
+#: actions/postnotice.php:104
 #, php-format
-msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
+msgid "Notice license \"%1$s\" is not compatible with site license \"%2$s\"."
 msgstr ""
 
 #. TRANS: Page title for profile settings.
@@ -4598,54 +4643,68 @@ msgstr ""
 msgid "Restore account"
 msgstr ""
 
+#. TRANS: Client error displayed when requesting a public timeline page beyond the page limit.
+#. TRANS: %s is the page limit.
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)."
 msgstr ""
 
-#: actions/public.php:92
+#. TRANS: Server error displayed when a public timeline cannot be retrieved.
+#: actions/public.php:93
 msgid "Could not retrieve public stream."
 msgstr ""
 
-#: actions/public.php:130
+#. TRANS: Title for all public timeline pages but the first.
+#. TRANS: %d is the page number.
+#: actions/public.php:131
 #, php-format
 msgid "Public timeline, page %d"
 msgstr ""
 
-#: actions/public.php:132 lib/publicgroupnav.php:65
+#. TRANS: Title for the first public timeline page.
+#: actions/public.php:134 lib/publicgroupnav.php:65
 msgid "Public timeline"
 msgstr ""
 
-#: actions/public.php:160
+#. TRANS: Link description for public timeline feed.
+#: actions/public.php:162
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr ""
 
-#: actions/public.php:164
+#. TRANS: Link description for public timeline feed.
+#: actions/public.php:167
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr ""
 
-#: actions/public.php:168
+#. TRANS: Link description for public timeline feed.
+#: actions/public.php:172
 msgid "Public Stream Feed (Atom)"
 msgstr ""
 
-#: actions/public.php:173
+#. TRANS: Text displayed for public feed when there are no public notices.
+#: actions/public.php:178
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr ""
 
-#: actions/public.php:176
+#. TRANS: Additional text displayed for public feed when there are no public notices for a logged in user.
+#: actions/public.php:182
 msgid "Be the first to post!"
 msgstr ""
 
-#: actions/public.php:180
+#. TRANS: Additional text displayed for public feed when there are no public notices for a not logged in user.
+#: actions/public.php:187
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr ""
 
-#: actions/public.php:227
+#. TRANS: Message for not logged in users at an invite-only site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
+#: actions/public.php:235
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4654,7 +4713,9 @@ msgid ""
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
 
-#: actions/public.php:232
+#. TRANS: Message for not logged in users at a closed site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
+#: actions/public.php:242
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4790,7 +4851,7 @@ msgstr ""
 
 #. TRANS: Title for password recovery page in email sent mode.
 #. TRANS: Subject for password recovery e-mail.
-#: actions/recoverpassword.php:227 actions/recoverpassword.php:366
+#: actions/recoverpassword.php:227 actions/recoverpassword.php:370
 msgid "Password recovery requested"
 msgstr ""
 
@@ -4822,49 +4883,49 @@ msgid "Enter a nickname or email address."
 msgstr ""
 
 #. TRANS: Information on password recovery form if no known username or e-mail address was specified.
-#: actions/recoverpassword.php:309
+#: actions/recoverpassword.php:313
 msgid "No user with that email address or username."
 msgstr ""
 
 #. TRANS: Client error displayed on password recovery form if a user does not have a registered e-mail address.
-#: actions/recoverpassword.php:327
+#: actions/recoverpassword.php:331
 msgid "No registered email address for that user."
 msgstr ""
 
 #. TRANS: Server error displayed if e-mail address confirmation fails in the database on the password recovery form.
-#: actions/recoverpassword.php:342
+#: actions/recoverpassword.php:346
 msgid "Error saving address confirmation."
 msgstr ""
 
 #. TRANS: User notification after an e-mail with instructions was sent from the password recovery form.
-#: actions/recoverpassword.php:370
+#: actions/recoverpassword.php:374
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to reset as password without providing a user.
-#: actions/recoverpassword.php:391
+#: actions/recoverpassword.php:395
 msgid "Unexpected password reset."
 msgstr ""
 
 #. TRANS: Reset password form validation error message.
-#: actions/recoverpassword.php:400
+#: actions/recoverpassword.php:404
 msgid "Password must be 6 characters or more."
 msgstr ""
 
 #. TRANS: Reset password form validation error message.
-#: actions/recoverpassword.php:405
+#: actions/recoverpassword.php:409
 msgid "Password and confirmation do not match."
 msgstr ""
 
 #. TRANS: Server error displayed when something does wrong with the user object during password reset.
-#: actions/recoverpassword.php:426 actions/register.php:241
+#: actions/recoverpassword.php:430 actions/register.php:241
 msgid "Error setting user."
 msgstr ""
 
 #. TRANS: Success message for user after password reset.
-#: actions/recoverpassword.php:434
+#: actions/recoverpassword.php:438
 msgid "New password successfully saved. You are now logged in."
 msgstr ""
 
@@ -4916,7 +4977,7 @@ msgid ""
 msgstr ""
 
 #: actions/register.php:424 actions/register.php:428
-#: actions/siteadminpanel.php:238 lib/settingsnav.php:79
+#: actions/siteadminpanel.php:238 lib/settingsnav.php:98
 msgid "Email"
 msgstr ""
 
@@ -5056,7 +5117,7 @@ msgstr ""
 msgid "You already repeated that notice."
 msgstr ""
 
-#: actions/repeat.php:112 lib/noticelist.php:697
+#: actions/repeat.php:112 lib/noticelistitem.php:602
 msgid "Repeated"
 msgstr ""
 
@@ -5225,7 +5286,7 @@ msgstr ""
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelnav.php:108
+#: lib/adminpanelnav.php:126
 msgid "Sessions"
 msgstr ""
 
@@ -5283,7 +5344,7 @@ msgstr ""
 
 #. TRANS: Title of form for deleting a user.
 #: actions/showapplication.php:228 lib/deletegroupform.php:121
-#: lib/deleteuserform.php:64 lib/noticelist.php:678
+#: lib/deleteuserform.php:64 lib/noticelistitem.php:583
 msgid "Delete"
 msgstr ""
 
@@ -5902,7 +5963,7 @@ msgstr ""
 
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
-#: lib/adminpanelnav.php:124
+#: lib/adminpanelnav.php:142
 msgid "Snapshots"
 msgstr ""
 
@@ -6082,12 +6143,12 @@ msgid "Subscription feed for %s (Atom)"
 msgstr ""
 
 #. TRANS: Checkbox label for enabling Jabber messages for a profile in a subscriptions list.
-#: actions/subscriptions.php:241 lib/settingsnav.php:97
+#: actions/subscriptions.php:241 lib/settingsnav.php:116
 msgid "IM"
 msgstr ""
 
 #. TRANS: Checkbox label for enabling SMS messages for a profile in a subscriptions list.
-#: actions/subscriptions.php:256 lib/settingsnav.php:104
+#: actions/subscriptions.php:256 lib/settingsnav.php:123
 msgid "SMS"
 msgstr ""
 
@@ -6279,7 +6340,7 @@ msgid "Invalid default subscripton: \"%1$s\" is not a user."
 msgstr ""
 
 #: actions/useradminpanel.php:215 lib/personalgroupnav.php:76
-#: lib/settingsnav.php:64 lib/subgroupnav.php:79
+#: lib/settingsnav.php:83 lib/subgroupnav.php:79
 msgid "Profile"
 msgstr ""
 
@@ -6540,7 +6601,7 @@ msgid "Contributors"
 msgstr ""
 
 #. TRANS: Menu item for site administration
-#: actions/version.php:167 lib/adminpanelnav.php:132
+#: actions/version.php:167 lib/adminpanelnav.php:150
 msgid "License"
 msgstr ""
 
@@ -6565,6 +6626,11 @@ msgstr ""
 msgid ""
 "You should have received a copy of the GNU Affero General Public License "
 "along with this program.  If not, see %s."
+msgstr ""
+
+#. TRANS: Menu item for site administration
+#: actions/version.php:191 lib/adminpanelnav.php:158
+msgid "Plugins"
 msgstr ""
 
 #. TRANS: Form input field label for application name.
@@ -6939,23 +7005,23 @@ msgid "Untitled page"
 msgstr ""
 
 #. TRANS: Localized tooltip for '...' expansion button on overlong remote messages.
-#: lib/action.php:331
+#: lib/action.php:338
 msgctxt "TOOLTIP"
 msgid "Show more"
 msgstr ""
 
 #. TRANS: Inline reply form submit button: submits a reply comment.
-#: lib/action.php:334
+#: lib/action.php:341
 msgctxt "BUTTON"
 msgid "Reply"
 msgstr ""
 
 #. TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
-#: lib/action.php:337
+#: lib/action.php:344
 msgid "Write a reply..."
 msgstr ""
 
-#: lib/action.php:583
+#: lib/action.php:590
 msgid "Status"
 msgstr ""
 
@@ -6963,7 +7029,7 @@ msgstr ""
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
-#: lib/action.php:918
+#: lib/action.php:939
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -6971,7 +7037,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:921
+#: lib/action.php:942
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr ""
@@ -6980,7 +7046,7 @@ msgstr ""
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: %s is the version of StatusNet that is being used.
-#: lib/action.php:928
+#: lib/action.php:949
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -6990,39 +7056,39 @@ msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:946
+#: lib/action.php:967
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:953
+#: lib/action.php:974
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:957
+#: lib/action.php:978
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
 #. TRANS: license message in footer.
 #. TRANS: %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:989
+#: lib/action.php:1010
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1332
+#: lib/action.php:1353
 msgid "After"
 msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1342
+#: lib/action.php:1363
 msgid "Before"
 msgstr ""
 
@@ -7144,76 +7210,82 @@ msgstr ""
 msgid "Unable to delete design setting."
 msgstr ""
 
+#: lib/adminpanelnav.php:65 lib/adminpanelnav.php:69
+#: lib/defaultlocalnav.php:58 lib/personalgroupnav.php:71
+#: lib/settingsnav.php:66 lib/settingsnav.php:70
+msgid "Home"
+msgstr ""
+
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelnav.php:66
+#: lib/adminpanelnav.php:84
 msgid "Basic site configuration"
 msgstr ""
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelnav.php:68
+#: lib/adminpanelnav.php:86
 msgctxt "MENU"
 msgid "Site"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelnav.php:74
+#: lib/adminpanelnav.php:92
 msgid "Design configuration"
 msgstr ""
 
 #. TRANS: Menu item for site administration
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
-#: lib/adminpanelnav.php:76 lib/groupnav.php:133
+#: lib/adminpanelnav.php:94 lib/groupnav.php:133
 msgctxt "MENU"
 msgid "Design"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelnav.php:82
+#: lib/adminpanelnav.php:100
 msgid "User configuration"
 msgstr ""
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelnav.php:84 lib/personalgroupnav.php:88
+#: lib/adminpanelnav.php:102 lib/personalgroupnav.php:88
 msgid "User"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelnav.php:90
+#: lib/adminpanelnav.php:108
 msgid "Access configuration"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelnav.php:98
+#: lib/adminpanelnav.php:116
 msgid "Paths configuration"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelnav.php:106
+#: lib/adminpanelnav.php:124
 msgid "Sessions configuration"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelnav.php:114
+#: lib/adminpanelnav.php:132
 msgid "Edit site notice"
 msgstr ""
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelnav.php:116
+#: lib/adminpanelnav.php:134
 msgid "Site notice"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelnav.php:122
+#: lib/adminpanelnav.php:140
 msgid "Snapshots configuration"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelnav.php:130
+#: lib/adminpanelnav.php:148
 msgid "Set site license"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelnav.php:138
+#: lib/adminpanelnav.php:156
 msgid "Plugins configuration"
 msgstr ""
 
@@ -7830,10 +7902,6 @@ msgstr ""
 msgid "Database error"
 msgstr ""
 
-#: lib/defaultlocalnav.php:58 lib/personalgroupnav.php:71
-msgid "Home"
-msgstr ""
-
 #: lib/defaultlocalnav.php:62 lib/publicgroupnav.php:64
 msgid "Public"
 msgstr ""
@@ -8223,13 +8291,13 @@ msgid "Login with a username and password"
 msgstr ""
 
 #. TRANS: Menu item for registering with the StatusNet site.
-#: lib/logingroupnav.php:72
+#: lib/logingroupnav.php:73
 msgctxt "MENU"
 msgid "Register"
 msgstr ""
 
 #. TRANS: Title for menu item for registering with the StatusNet site.
-#: lib/logingroupnav.php:74
+#: lib/logingroupnav.php:75
 msgid "Sign up for a new account"
 msgstr ""
 
@@ -8594,7 +8662,7 @@ msgstr ""
 msgid "Messages"
 msgstr ""
 
-#: lib/messagelistitem.php:123 lib/noticelist.php:527
+#: lib/messagelistitem.php:123 lib/noticelistitem.php:432
 msgid "from"
 msgstr ""
 
@@ -8602,15 +8670,15 @@ msgstr ""
 msgid "Can't get author for activity."
 msgstr ""
 
-#: lib/microappplugin.php:338
+#: lib/microappplugin.php:339
 msgid "Bookmark not posted to this group."
 msgstr ""
 
-#: lib/microappplugin.php:351
+#: lib/microappplugin.php:352
 msgid "Object not posted to this user."
 msgstr ""
 
-#: lib/microappplugin.php:355
+#: lib/microappplugin.php:356
 msgid "Don't know how to handle this kind of target."
 msgstr ""
 
@@ -8639,87 +8707,91 @@ msgid "What's up, %s?"
 msgstr ""
 
 #. TRANS: Input label in notice form for adding an attachment.
-#: lib/noticeform.php:190
+#: lib/noticeform.php:191
 msgid "Attach"
 msgstr ""
 
 #. TRANS: Title for input field to attach a file to a notice.
-#: lib/noticeform.php:195
+#: lib/noticeform.php:196
 msgid "Attach a file."
 msgstr ""
 
 #. TRANS: Field label to add location to a notice.
-#: lib/noticeform.php:224
+#: lib/noticeform.php:225
 msgid "Share my location"
 msgstr ""
 
 #. TRANS: Text to not share location for a notice in notice form.
-#: lib/noticeform.php:228
+#: lib/noticeform.php:230
 msgid "Do not share my location"
 msgstr ""
 
 #. TRANS: Timeout error text for location retrieval in notice form.
-#: lib/noticeform.php:230
+#: lib/noticeform.php:232
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:457
+#: lib/noticelistitem.php:362
 msgid "N"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of south
-#: lib/noticelist.php:459
+#: lib/noticelistitem.php:364
 msgid "S"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of east
-#: lib/noticelist.php:461
+#: lib/noticelistitem.php:366
 msgid "E"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of west
-#: lib/noticelist.php:463
+#: lib/noticelistitem.php:368
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:465
+#: lib/noticelistitem.php:370
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:474
+#: lib/noticelistitem.php:379
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:523
+#: lib/noticelistitem.php:428
 msgid "web"
 msgstr ""
 
-#: lib/noticelist.php:589
+#: lib/noticelistitem.php:494
 msgid "in context"
 msgstr ""
 
-#: lib/noticelist.php:624
+#: lib/noticelistitem.php:529
 msgid "Repeated by"
 msgstr ""
 
-#: lib/noticelist.php:651
+#: lib/noticelistitem.php:556
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:652
+#: lib/noticelistitem.php:557
 msgid "Reply"
 msgstr ""
 
-#: lib/noticelist.php:678
+#: lib/noticelistitem.php:583
 msgid "Delete this notice"
 msgstr ""
 
-#: lib/noticelist.php:696
+#: lib/noticelistitem.php:601
 msgid "Notice repeated"
+msgstr ""
+
+#: lib/noticeplaceholderform.php:54
+msgid "Update your status..."
 msgstr ""
 
 #: lib/nudgeform.php:116
@@ -8795,7 +8867,7 @@ msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr ""
 
-#: lib/primarynav.php:57
+#: lib/primarynav.php:57 lib/settingsnav.php:78
 msgid "Settings"
 msgstr ""
 
@@ -9014,47 +9086,47 @@ msgstr ""
 msgid "More..."
 msgstr ""
 
-#: lib/settingsnav.php:65
+#: lib/settingsnav.php:84
 msgid "Change your profile settings"
 msgstr ""
 
-#: lib/settingsnav.php:70
+#: lib/settingsnav.php:89
 msgid "Upload an avatar"
 msgstr ""
 
-#: lib/settingsnav.php:75
+#: lib/settingsnav.php:94
 msgid "Change your password"
 msgstr ""
 
-#: lib/settingsnav.php:80
+#: lib/settingsnav.php:99
 msgid "Change email handling"
 msgstr ""
 
-#: lib/settingsnav.php:85
+#: lib/settingsnav.php:104
 msgid "Design your profile"
 msgstr ""
 
-#: lib/settingsnav.php:89
+#: lib/settingsnav.php:108
 msgid "URL"
 msgstr ""
 
-#: lib/settingsnav.php:90
+#: lib/settingsnav.php:109
 msgid "URL shorteners"
 msgstr ""
 
-#: lib/settingsnav.php:98
+#: lib/settingsnav.php:117
 msgid "Updates by instant messenger (IM)"
 msgstr ""
 
-#: lib/settingsnav.php:105
+#: lib/settingsnav.php:124
 msgid "Updates by SMS"
 msgstr ""
 
-#: lib/settingsnav.php:110
+#: lib/settingsnav.php:129
 msgid "Connections"
 msgstr ""
 
-#: lib/settingsnav.php:111
+#: lib/settingsnav.php:130
 msgid "Authorized connected applications"
 msgstr ""
 
@@ -9109,7 +9181,7 @@ msgid "None"
 msgstr ""
 
 #. TRANS: Server exception displayed if a theme name was invalid.
-#: lib/theme.php:74
+#: lib/theme.php:77
 msgid "Invalid theme name."
 msgstr ""
 

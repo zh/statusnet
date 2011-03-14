@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class PollResponseForm extends Form
 {
     protected $poll;
@@ -57,7 +56,6 @@ class PollResponseForm extends Form
      *
      * @return void
      */
-
     function __construct(Poll $poll, HTMLOutputter $out)
     {
         parent::__construct($out);
@@ -69,7 +67,6 @@ class PollResponseForm extends Form
      *
      * @return int ID of the form
      */
-
     function id()
     {
         return 'pollresponse-form';
@@ -80,7 +77,6 @@ class PollResponseForm extends Form
      *
      * @return string class of the form
      */
-
     function formClass()
     {
         return 'form_settings ajax';
@@ -91,7 +87,6 @@ class PollResponseForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('respondpoll', array('id' => $this->poll->id));
@@ -102,7 +97,6 @@ class PollResponseForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         $poll = $this->poll;
@@ -127,9 +121,9 @@ class PollResponseForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
+        // TRANS: Button text for submitting a poll response.
         $this->out->submit('submit', _m('BUTTON', 'Submit'));
     }
 }

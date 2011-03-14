@@ -273,8 +273,11 @@ address {
     display: none; /* XXX move into input with js */
 }
 
-.form_notice textarea {
+.form_notice textarea,
+.form_notice_placeholder .placeholder {
     width: 473px;
+}
+.form_notice textarea {
     height: 42px;
     padding: 6px 10px 18px 10px;
     border: 1px solid #a6a6a6;
@@ -501,10 +504,17 @@ div.entry-content a.response:after {
     background: none;
 }
 
+#content .notice .threaded-replies .entry-title {
+    min-height: 1px;
+}
+
 #content .threaded-replies .notice .author .photo {
     height: 24px;
     width: 24px;
     top: 14px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 #content .notice .threaded-replies .notice .entry-title {
