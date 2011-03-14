@@ -716,8 +716,24 @@ class Action extends HTMLOutputter // lawsuit
         // Need to have this ID for CSS; I'm too lazy to add it to
         // all menus
         $this->elementStart('div', array('id' => 'site_nav_local_views'));
+        // Cheat cheat cheat!
+        $this->showProfileBlock();
         $this->showLocalNav();
         $this->elementEnd('div');
+    }
+
+    /**
+     * If there's a logged-in user, show a bit of login context
+     *
+     * @return nothing
+     */
+
+    function showProfileBlock()
+    {
+        if (common_logged_in()) {
+            $block = new DefaultProfileBlock($this);
+            $block->show();
+        }
     }
 
     /**
