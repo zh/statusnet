@@ -106,6 +106,8 @@ abstract class ProfileBlock extends Widget
                                 $description);
         }
 
+        $this->showActions();
+
         $this->out->elementEnd('div');
     }
 
@@ -114,4 +116,7 @@ abstract class ProfileBlock extends Widget
         return AVATAR_PROFILE_SIZE;
     }
 
+    function showActions()
+    {
+    }
 }
