@@ -163,50 +163,51 @@ RealtimeUpdate = {
             return;
         }
 
-        var noticeItem = RealtimeUpdate.makeNoticeItem(data);
-        var noticeItemID = $(noticeItem).attr('id');
+        RealtimeUpdate.makeNoticeItem(data, function(noticeItem) {
+            var noticeItemID = $(noticeItem).attr('id');
 
-        var list = $("#notices_primary .notices:first")
-        var prepend = true;
+            var list = $("#notices_primary .notices:first")
+            var prepend = true;
 
-        var threaded = list.hasClass('threaded-notices');
-        if (threaded && data.in_reply_to_status_id) {
-            // aho!
-            var parent = $('#notice-' + data.in_reply_to_status_id);
-            if (parent.length == 0) {
-                // @todo fetch the original, insert it, and finish the rest
-            } else {
-                // Check the parent notice to make sure it's not a reply itself.
-                // If so, use it's parent as the parent.
-                var parentList = parent.closest('.notices');
-                if (parentList.hasClass('threaded-replies')) {
-                    parent = parentList.closest('.notice');
+            var threaded = list.hasClass('threaded-notices');
+            if (threaded && data.in_reply_to_status_id) {
+                // aho!
+                var parent = $('#notice-' + data.in_reply_to_status_id);
+                if (parent.length == 0) {
+                    // @todo fetch the original, insert it, and finish the rest
+                } else {
+                    // Check the parent notice to make sure it's not a reply itself.
+                    // If so, use it's parent as the parent.
+                    var parentList = parent.closest('.notices');
+                    if (parentList.hasClass('threaded-replies')) {
+                        parent = parentList.closest('.notice');
+                    }
+                    list = parent.find('.threaded-replies');
+                    if (list.length == 0) {
+                        list = $('<ul class="notices threaded-replies xoxo"></ul>');
+                        parent.append(list);
+                    }
+                    prepend = false;
                 }
-                list = parent.find('.threaded-replies');
-                if (list.length == 0) {
-                    list = $('<ul class="notices threaded-replies xoxo"></ul>');
-                    parent.append(list);
-                }
-                prepend = false;
             }
-        }
 
-        var newNotice = $(noticeItem);
-        if (prepend) {
-            list.prepend(newNotice);
-        } else {
-            var placeholder = list.find('li.notice-reply-placeholder')
-            if (placeholder.length > 0) {
-                newNotice.insertBefore(placeholder)
+            var newNotice = $(noticeItem);
+            if (prepend) {
+                list.prepend(newNotice);
             } else {
-                newNotice.appendTo(list);
-                SN.U.NoticeInlineReplyPlaceholder(parent);
+                var placeholder = list.find('li.notice-reply-placeholder')
+                if (placeholder.length > 0) {
+                    newNotice.insertBefore(placeholder)
+                } else {
+                    newNotice.appendTo(list);
+                    SN.U.NoticeInlineReplyPlaceholder(parent);
+                }
             }
-        }
-        newNotice.css({display:"none"}).fadeIn(1000);
+            newNotice.css({display:"none"}).fadeIn(1000);
 
-        SN.U.NoticeReplyTo($('#'+noticeItemID));
-        SN.U.NoticeWithAttachment($('#'+noticeItemID));
+            SN.U.NoticeReplyTo($('#'+noticeItemID));
+            SN.U.NoticeWithAttachment($('#'+noticeItemID));
+        });
      },
 
      /**
@@ -263,10 +264,11 @@ RealtimeUpdate = {
      },
 
      /**
-      * Builds a notice HTML block from JSON API-style data.
+      * Builds a notice HTML block from JSON API-style data;
+      * loads data from server, so runs async.
       *
       * @param {Object} data: extended JSON API-formatted notice
-      * @return {String} HTML fragment
+      * @param {function} callback: function(str) to receive HTML fragment
       *
       * @fixme this replicates core StatusNet code, making maintenance harder
       * @fixme sloppy HTML building (raw concat without escaping)
@@ -275,7 +277,7 @@ RealtimeUpdate = {
       *
       * @access private
       */
-     makeNoticeItem: function(data)
+     makeNoticeItem: function(data, callback)
      {
           if (data.hasOwnProperty('retweeted_status')) {
                original = data['retweeted_status'];
@@ -342,7 +344,7 @@ RealtimeUpdate = {
           ni = ni+"</div>";
 
           ni = ni+"</li>";
-          return ni;
+          callback(ni);
      },
 
      /**
