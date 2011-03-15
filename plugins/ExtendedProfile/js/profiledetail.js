@@ -12,6 +12,9 @@ var reorder = function(class) {
         replaceIndex(rowIndex(div), i);
     });
 
+    $this = $(divs).last().closest('tr');
+    $this.addClass('supersizeme');
+
     $(divs).last().find('a.add_row').show();
 
     if (divs.length == 1) {
@@ -57,7 +60,8 @@ var addRow = function() {
     var class = $(div).attr('class');
     var index = id.match(/\d+/);
     console.log("Current row = " + index + ', class = ' + class);
-    var tr = $(this).closest('tr');
+    var trold = $(this).closest('tr');
+    var tr = $(trold).removeClass('supersizeme');
     var newtr = $(tr).clone();
     var newIndex = parseInt(index) + 1;
     replaceIndex(newtr, index, newIndex);
