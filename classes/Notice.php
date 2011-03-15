@@ -812,41 +812,48 @@ class Notice extends Memcached_DataObject
 
         $ni = array();
 
-        foreach ($users as $id) {
-            $ni[$id] = NOTICE_INBOX_SOURCE_SUB;
-        }
+        // Give plugins a chance to add folks in at start...
+        if (Event::handle('StartNoticeWhoGets', array($this, &$ni))) {
 
-        foreach ($groups as $group) {
-            $users = $group->getUserMembers();
             foreach ($users as $id) {
-                if (!array_key_exists($id, $ni)) {
-                    $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
+                $ni[$id] = NOTICE_INBOX_SOURCE_SUB;
+            }
+
+            foreach ($groups as $group) {
+                $users = $group->getUserMembers();
+                foreach ($users as $id) {
+                    if (!array_key_exists($id, $ni)) {
+                        $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
+                    }
                 }
             }
-        }
 
-        foreach ($recipients as $recipient) {
-            if (!array_key_exists($recipient, $ni)) {
-                $ni[$recipient] = NOTICE_INBOX_SOURCE_REPLY;
+            foreach ($recipients as $recipient) {
+                if (!array_key_exists($recipient, $ni)) {
+                    $ni[$recipient] = NOTICE_INBOX_SOURCE_REPLY;
+                }
             }
-        }
 
-        // Exclude any deleted, non-local, or blocking recipients.
-        $profile = $this->getProfile();
-        $originalProfile = null;
-        if ($this->repeat_of) {
-            // Check blocks against the original notice's poster as well.
-            $original = Notice::staticGet('id', $this->repeat_of);
-            if ($original) {
-                $originalProfile = $original->getProfile();
+            // Exclude any deleted, non-local, or blocking recipients.
+            $profile = $this->getProfile();
+            $originalProfile = null;
+            if ($this->repeat_of) {
+                // Check blocks against the original notice's poster as well.
+                $original = Notice::staticGet('id', $this->repeat_of);
+                if ($original) {
+                    $originalProfile = $original->getProfile();
+                }
             }
-        }
-        foreach ($ni as $id => $source) {
-            $user = User::staticGet('id', $id);
-            if (empty($user) || $user->hasBlocked($profile) ||
-                ($originalProfile && $user->hasBlocked($originalProfile))) {
-                unset($ni[$id]);
+            foreach ($ni as $id => $source) {
+                $user = User::staticGet('id', $id);
+                if (empty($user) || $user->hasBlocked($profile) ||
+                    ($originalProfile && $user->hasBlocked($originalProfile))) {
+                    unset($ni[$id]);
+                }
             }
+
+            // Give plugins a chance to filter out...
+            Event::handle('EndNoticeWhoGets', array($this, &$ni));
         }
 
         if (!empty($c)) {
