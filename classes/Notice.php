@@ -2006,6 +2006,11 @@ class Notice extends Memcached_DataObject
                 $this->is_local == Notice::LOCAL_NONPUBLIC);
     }
 
+    /**
+     * Get the list of hash tags saved with this notice.
+     *
+     * @return array of strings
+     */
     public function getTags()
     {
         $tags = array();
