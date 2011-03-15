@@ -98,6 +98,8 @@ class ExtendedProfile
         }
     }
 
+    // XXX: getPhones, getIms, and getWebsites pretty much do the same thing,
+    //      so refactor.
     function getPhones()
     {
         $phones = (isset($this->fields['phone'])) ? $this->fields['phone'] : null;
@@ -153,6 +155,32 @@ class ExtendedProfile
             }
         }
         return $iArrays;
+    }
+
+    function getWebsites()
+    {
+        $sites = (isset($this->fields['website'])) ? $this->fields['website'] : null;
+        $wArrays = array();
+
+        if (empty($sites)) {
+            $wArrays[] = array(
+                'label' => _m('Website'),
+                'type' => 'website'
+            );
+        } else {
+            for ($i = 0; $i < sizeof($sites); $i++) {
+                $wa = array(
+                    'label' => _m('Website'),
+                    'type'  => 'website',
+                    'index' => intval($sites[$i]->value_index),
+                    'rel'   => $sites[$i]->rel,
+                    'value' => $sites[$i]->field_value,
+                );
+
+                $wArrays[] = $wa;
+            }
+        }
+        return $wArrays;
     }
 
     function getExperiences()
@@ -273,13 +301,9 @@ class ExtendedProfile
             'contact' => array(
                 'label' => _m('Contact'),
                 'fields' => array(
-                    'phone' => $this->getPhones(),
-                    'im' => $this->getIms(),
-                    'website' => array(
-                        'label' => _m('Websites'),
-                        'type' => 'website',
-                        'multi' => true,
-                    ),
+                    'phone'   => $this->getPhones(),
+                    'im'      => $this->getIms(),
+                    'website' => $this->getWebsites()
                 ),
             ),
             'personal' => array(

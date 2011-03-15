@@ -107,6 +107,7 @@ class ExtendedProfileWidget extends Form
             switch($fieldName) {
             case 'phone':
             case 'im':
+            case 'website':
             case 'experience':
             case 'education':
                 $this->showMultiple($fieldName, $field);
@@ -147,6 +148,8 @@ class ExtendedProfileWidget extends Form
         }
     }
 
+    // XXX: showPhone, showIm and showWebsite all work the same, so
+    //      combine
     protected function showPhone($name, $field)
     {
         $this->out->elementStart('div', array('class' => 'phone-display'));
@@ -160,6 +163,16 @@ class ExtendedProfileWidget extends Form
     protected function showIm($name, $field)
     {
         $this->out->elementStart('div', array('class' => 'im-display'));
+        $this->out->text($field['value']);
+        if (!empty($field['rel'])) {
+            $this->out->text(' (' . $field['rel'] . ')');
+        }
+        $this->out->elementEnd('div');
+    }
+
+    protected function showWebsite($name, $field)
+    {
+        $this->out->elementStart('div', array('class' => 'website-display'));
         $this->out->text($field['value']);
         if (!empty($field['rel'])) {
             $this->out->text(' (' . $field['rel'] . ')');
@@ -229,6 +242,44 @@ class ExtendedProfileWidget extends Form
                 'home'   => 'Home',
                 'pager'  => 'Pager',
                 'other'  => 'Other'
+            ),
+            null,
+            false,
+            isset($field['rel']) ? $field['rel'] : null
+        );
+
+        $this->showMultiControls();
+        $this->out->elementEnd('div');
+    }
+
+    protected function showEditableWebsite($name, $field)
+    {
+        $index = isset($field['index']) ? $field['index'] : 0;
+        $id    = "extprofile-$name-$index";
+        $rel   = $id . '-rel';
+        $this->out->elementStart(
+            'div', array(
+                'id' => $id . '-edit',
+                'class' => 'website-edit'
+            )
+        );
+        $this->out->input(
+            $id,
+            null,
+            isset($field['value']) ? $field['value'] : null
+        );
+        $this->out->dropdown(
+            $id . '-rel',
+            'Type',
+            array(
+                'blog'     => 'Blog',
+                'homepage' => 'Homepage',
+                'facebook' => 'Facebook',
+                'linkedin' => 'LinkedIn',
+                'flickr'   => 'Flickr',
+                'google'   => 'Google Profile',
+                'other'    => 'Other',
+                'twitter'  => 'Twitter'
             ),
             null,
             false,
@@ -421,6 +472,9 @@ class ExtendedProfileWidget extends Form
         case 'phone':
             $this->showPhone($name, $field);
             break;
+        case 'website':
+            $this->showWebsite($name, $field);
+            break;
         case 'im':
             $this->showIm($name, $field);
             break;
@@ -466,6 +520,9 @@ class ExtendedProfileWidget extends Form
             break;
         case 'im':
             $this->showEditableIm($name, $field);
+            break;
+        case 'website':
+            $this->showEditableWebsite($name, $field);
             break;
         case 'experience':
             $this->showEditableExperience($name, $field);

@@ -110,6 +110,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
             $this->savePhoneNumbers($user);
             $this->saveIms($user);
+            $this->saveWebsites($user);
             $this->saveExperiences($user);
             $this->saveEducations($user);
 
@@ -192,6 +193,42 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
                     'im',
                     $im['value'],
                     $im['rel'],
+                    $i
+                );
+            }
+        }
+    }
+
+    function findWebsites() {
+
+        //  Form vals look like this:
+
+        $sites = $this->sliceParams('website', 2);
+        $wsArray = array();
+
+        foreach ($sites as $site) {
+            list($id, $rel) = array_values($site);
+            $wsArray[] = array(
+                'value' => $id,
+                'rel'   => $rel
+            );
+        }
+
+        return $wsArray;
+    }
+
+    function saveWebsites($user) {
+        $sites = $this->findWebsites();
+        $this->removeAll($user, 'website');
+        $i = 0;
+        foreach($sites as $site) {
+            if (!empty($site['value'])) {
+                ++$i;
+                $this->saveField(
+                    $user,
+                    'website',
+                    $site['value'],
+                    $site['rel'],
                     $i
                 );
             }
