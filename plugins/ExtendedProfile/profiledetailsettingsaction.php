@@ -139,10 +139,8 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
     }
 
     function findPhoneNumbers() {
-        $phones      = array();
-        $phoneParams = $this->findMultiParams('phone');
-        ksort($phoneParams); // this sorts them into pairs
-        $phones = $this->arraySplit($phoneParams, sizeof($phoneParams) / 2);
+
+        $phones = $this->sliceParams('phone', 2);
         $phoneTuples = array();
 
         foreach ($phones as $phone) {
@@ -156,6 +154,14 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         return $phoneTuples;
     }
 
+    function sliceParams($key, $size) {
+        $slice = array();
+        $params = $this->findMultiParams($key);
+        ksort($params);
+        $slice = $this->arraySplit($params, sizeof($params) / $size);
+        return $slice;
+    }
+
     function findExperiences() {
 
         // Form vals look like this:
@@ -164,10 +170,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         // 'extprofile-experience-0-start'   => '1/5/10',
         // 'extprofile-experience-0-end'     => '2/3/11',
 
-        $experiences = array();
-        $expParams = $this->findMultiParams('experience');
-        ksort($expParams);
-        $experiences = $this->arraySplit($expParams, sizeof($expParams) / 4);
+        $experiences = $this->sliceParams('experience', 4);
         $expArray = array();
 
         foreach ($experiences as $exp) {
@@ -179,24 +182,24 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
             $startTs = strtotime($start);
 
             if ($startTs === false) {
-                throw new Exception(
-                    sprintf(_m("Invalid start date: %s"), $start)
-                );
+                $msg = empty($start) ? _m('You must supply a start date.')
+                    : sprintf(_m("Invalid start date: %s"), $start);
+                throw new Exception($msg);
             }
 
             $endTs = strtotime($end);
 
             if ($current === 'false' && $endTs === false) {
-                throw new Exception(
-                    sprintf(_m("Invalid end date: %s"), $start)
-                );
+                $msg = empty($end) ? _m('You must supply an end date.')
+                    : sprintf(_m("Invalid end date: %s"), $end);
+                throw new Exception($msg);
             }
 
             $expArray[] = array(
                 'company' => $company,
                 'start'   => common_sql_date($startTs),
                 'end'     => common_sql_date($endTs),
-                'current' => $current,
+                'current' => ($current == 'false') ? false : true
             );
         }
 
