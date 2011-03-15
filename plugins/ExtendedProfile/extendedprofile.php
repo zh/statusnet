@@ -168,7 +168,7 @@ class ExtendedProfile
     {
         $schools = (isset($this->fields['school'])) ? $this->fields['school'] : null;
         $degrees = (isset($this->fields['degree'])) ? $this->fields['degree'] : null;
-        $descs = (isset($this->fields['degree_description'])) ? $this->fields['degree_description'] : null;
+        $descs = (isset($this->fields['degree_descr'])) ? $this->fields['degree_descr'] : null;
         $start = (isset($this->fields['school_start'])) ? $this->fields['school_start'] : null;
         $end = (isset($this->fields['school_end'])) ? $this->fields['school_end'] : null;
         $iArrays = array();
@@ -190,8 +190,8 @@ class ExtendedProfile
                     'type'    => 'education',
                     'label'   => _m('Institution'),
                     'school'  => $schools[$i]->field_value,
-                    'degree'  => $degrees[$i]->field_value,
-                    'description' => $descs[$i]->field_value,
+                    'degree'  => isset($degrees[$i]->field_value) ? $degrees[$i]->field_value : null,
+                    'description' => isset($descs[$i]->field_value) ? $descs[$i]->field_value : null,
                     'index'   => intval($schools[$i]->value_index),
                     'start'   => $start[$i]->date,
                     'end'     => $end[$i]->date

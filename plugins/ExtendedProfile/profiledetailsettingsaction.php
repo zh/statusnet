@@ -110,6 +110,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
             $this->savePhoneNumbers($user);
             $this->saveExperiences($user);
+            $this->saveEducations($user);
 
         } catch (Exception $e) {
             $this->showForm($e->getMessage(), false);
@@ -171,28 +172,30 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
         foreach ($experiences as $exp) {
             list($company, $current, $end, $start) = array_values($exp);
-            $startTs = strtotime($start);
+            if (!empty($company)) {
+                $startTs = strtotime($start);
 
-            if ($startTs === false) {
-                $msg = empty($start) ? _m('You must supply a start date.')
-                    : sprintf(_m("Invalid start date: %s"), $start);
-                throw new Exception($msg);
+                if ($startTs === false) {
+                    $msg = empty($start) ? _m('You must supply a start date.')
+                        : sprintf(_m("Invalid start date: %s"), $start);
+                    throw new Exception($msg);
+                }
+
+                $endTs = strtotime($end);
+
+                if ($current === 'false' && $endTs === false) {
+                    $msg = empty($end) ? _m('You must supply an end date.')
+                        : sprintf(_m("Invalid end date: %s"), $end);
+                    throw new Exception($msg);
+                }
+
+                $expArray[] = array(
+                    'company' => $company,
+                    'start'   => common_sql_date($startTs),
+                    'end'     => common_sql_date($endTs),
+                    'current' => ($current == 'false') ? false : true
+                );
             }
-
-            $endTs = strtotime($end);
-
-            if ($current === 'false' && $endTs === false) {
-                $msg = empty($end) ? _m('You must supply an end date.')
-                    : sprintf(_m("Invalid end date: %s"), $end);
-                throw new Exception($msg);
-            }
-
-            $expArray[] = array(
-                'company' => $company,
-                'start'   => common_sql_date($startTs),
-                'end'     => common_sql_date($endTs),
-                'current' => ($current == 'false') ? false : true
-            );
         }
 
         return $expArray;
@@ -250,6 +253,110 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
             }
         }
     }
+
+    function findEducations() {
+
+        // Form vals look like this:
+        // 'extprofile-education-0-school' => 'Pigdog',
+        // 'extprofile-education-0-degree' => 'BA',
+        // 'extprofile-education-0-description' => 'Blar',
+        // 'extprofile-education-0-start' => '05/22/99',
+        // 'extprofile-education-0-end' => '05/22/05',
+
+        $edus = $this->sliceParams('education', 5);
+        $eduArray = array();
+
+        foreach ($edus as $edu) {
+            list($school, $degree, $description, $end, $start) = array_values($edu);
+
+            if (!empty($school)) {
+
+                $startTs = strtotime($start);
+
+                if ($startTs === false) {
+                    $msg = empty($start) ? _m('You must supply a start date.')
+                        : sprintf(_m("Invalid start date: %s"), $start);
+                    throw new Exception($msg);
+                }
+
+                $endTs = strtotime($end);
+
+                if ($endTs === false) {
+                    $msg = empty($end) ? _m('You must supply an end date.')
+                        : sprintf(_m("Invalid end date: %s"), $end);
+                    throw new Exception($msg);
+                }
+
+                $eduArray[] = array(
+                    'school'      => $school,
+                    'degree'      => $degree,
+                    'description' => $description,
+                    'start'       => common_sql_date($startTs),
+                    'end'         => common_sql_date($endTs)
+                );
+            }
+        }
+
+        return $eduArray;
+    }
+
+
+    function saveEducations($user) {
+         common_debug('save education');
+         $edus = $this->findEducations();
+         common_debug(var_export($edus, true));
+
+         $this->removeAll($user, 'school');
+         $this->removeAll($user, 'degree');
+         $this->removeAll($user, 'degree_descr');
+         $this->removeAll($user, 'school_start');
+         $this->removeAll($user, 'school_end');
+
+         $i = 0;
+         foreach($edus as $edu) {
+             if (!empty($edu['school'])) {
+                 ++$i;
+                 $this->saveField(
+                     $user,
+                     'school',
+                     $edu['school'],
+                     null,
+                     $i
+                 );
+                 $this->saveField(
+                     $user,
+                     'degree',
+                     $edu['degree'],
+                     null,
+                     $i
+                 );
+                 $this->saveField(
+                     $user,
+                     'degree_descr',
+                     $edu['description'],
+                     null,
+                     $i
+                 );
+                 $this->saveField(
+                     $user,
+                     'school_start',
+                     null,
+                     null,
+                     $i,
+                     $edu['start']
+                 );
+
+                 $this->saveField(
+                     $user,
+                     'school_end',
+                     null,
+                     null,
+                     $i,
+                     $edu['end']
+                 );
+            }
+         }
+     }
 
     function arraySplit($array, $pieces)
     {

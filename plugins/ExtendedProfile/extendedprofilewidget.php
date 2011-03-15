@@ -291,7 +291,7 @@ class ExtendedProfileWidget extends Form
 
         $this->out->element('div', 'label', _m('Degree'));
         $this->out->input(
-            $id,
+            $id . '-degree',
             null,
             isset($field['degree']) ? $field['degree'] : null
         );
@@ -300,7 +300,7 @@ class ExtendedProfileWidget extends Form
         $this->out->element('div', 'field', $field['description']);
 
         $this->out->input(
-            $id,
+            $id . '-description',
             null,
             isset($field['description']) ? $field['description'] : null
         );
