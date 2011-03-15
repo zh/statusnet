@@ -399,7 +399,7 @@ class ExtendedProfileWidget extends Form
         $this->out->element('div', 'label', _m('Description'));
         $this->out->element('div', 'field', $field['description']);
 
-        $this->out->input(
+        $this->out->textarea(
             $id . '-description',
             null,
             isset($field['description']) ? $field['description'] : null
@@ -463,6 +463,9 @@ class ExtendedProfileWidget extends Form
         case 'textarea':
             $this->out->text($this->ext->getTextValue($name));
             break;
+        case 'date':
+            $this->out->text($this->ext->getTextValue($name));
+            break;
         case 'tags':
             $this->out->text($this->ext->getTags());
             break;
@@ -504,6 +507,9 @@ class ExtendedProfileWidget extends Form
         switch ($type) {
         case '':
         case 'text':
+            $out->input($id, null, $this->ext->getTextValue($name));
+            break;
+        case 'date':
             $out->input($id, null, $this->ext->getTextValue($name));
             break;
         case 'textarea':

@@ -100,12 +100,22 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
             $profile = $user->getProfile();
 
             $simpleFieldNames = array('title', 'spouse', 'kids');
+            $dateFieldNames   = array('birthday');
 
             foreach ($simpleFieldNames as $name) {
                 $value = $this->trimmed('extprofile-' . $name);
                 if (!empty($value)) {
                     $this->saveField($user, $name, $value);
                 }
+            }
+
+            foreach ($dateFieldNames as $name) {
+                $value = $this->trimmed('extprofile-' . $name);
+                $this->saveField(
+                    $user,
+                    $name,
+                    $this->parseDate($name, $value)
+                );
             }
 
             $this->savePhoneNumbers($user);
@@ -121,6 +131,30 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
         $this->showForm(_('Details saved.'), true);
 
+    }
+
+    function parseDate($fieldname, $datestr, $required = false)
+    {
+        if (empty($datestr) && $required) {
+            $msg = sprintf(
+                _m('You must supply a date for "%s".'),
+                $fieldname
+            );
+            throw new Exception($msg);
+        } else {
+            $ts = strtotime($datestr);
+            if ($ts === false) {
+                throw new Exception(
+                    sprintf(
+                        _m('Invalid date entered for "%s": %s'),
+                        $fieldname,
+                        $ts
+                    )
+                );
+            }
+            return common_sql_date($ts);
+        }
+        return null;
     }
 
     function savePhoneNumbers($user) {
@@ -249,26 +283,10 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         foreach ($experiences as $exp) {
             list($company, $current, $end, $start) = array_values($exp);
             if (!empty($company)) {
-                $startTs = strtotime($start);
-
-                if ($startTs === false) {
-                    $msg = empty($start) ? _m('You must supply a start date.')
-                        : sprintf(_m("Invalid start date: %s"), $start);
-                    throw new Exception($msg);
-                }
-
-                $endTs = strtotime($end);
-
-                if ($current === 'false' && $endTs === false) {
-                    $msg = empty($end) ? _m('You must supply an end date.')
-                        : sprintf(_m("Invalid end date: %s"), $end);
-                    throw new Exception($msg);
-                }
-
                 $expArray[] = array(
                     'company' => $company,
-                    'start'   => common_sql_date($startTs),
-                    'end'     => common_sql_date($endTs),
+                    'start'   => $this->parseDate('Start', $start, true),
+                    'end'     => $this->parseDate('End', $end, true),
                     'current' => ($current == 'false') ? false : true
                 );
             }
@@ -344,31 +362,13 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
         foreach ($edus as $edu) {
             list($school, $degree, $description, $end, $start) = array_values($edu);
-
             if (!empty($school)) {
-
-                $startTs = strtotime($start);
-
-                if ($startTs === false) {
-                    $msg = empty($start) ? _m('You must supply a start date.')
-                        : sprintf(_m("Invalid start date: %s"), $start);
-                    throw new Exception($msg);
-                }
-
-                $endTs = strtotime($end);
-
-                if ($endTs === false) {
-                    $msg = empty($end) ? _m('You must supply an end date.')
-                        : sprintf(_m("Invalid end date: %s"), $end);
-                    throw new Exception($msg);
-                }
-
                 $eduArray[] = array(
                     'school'      => $school,
                     'degree'      => $degree,
                     'description' => $description,
-                    'start'       => common_sql_date($startTs),
-                    'end'         => common_sql_date($endTs)
+                    'start'       => $this->parseDate('Start', $start, true),
+                    'end'         => $this->parseDate('End', $end, true)
                 );
             }
         }
