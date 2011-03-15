@@ -320,6 +320,7 @@ class ExtendedProfileWidget extends Form
             _m('End'),
             isset($field['end']) ? $field['end'] : null
         );
+        $this->out->elementEnd('li');
         $this->out->elementEnd('ul');
 
         $this->showMultiControls();
