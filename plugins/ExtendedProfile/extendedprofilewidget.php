@@ -192,18 +192,19 @@ class ExtendedProfileWidget extends Form
 
     protected function showExperience($name, $field)
     {
-        $this->out->elementStart('div', array('class' => 'experience-display'));
-        $this->out->text($field['company']);
-        $this->out->elementStart('dl', 'experience-start-and-end');
-        $this->out->element('dt', null, _m('Start'));
-        $this->out->element('dd', null, $field['start']);
-        $this->out->element('dt', null, _m('End'));
+        $this->out->elementStart('div', 'experience-item');
+        $this->out->element('div', 'field', $field['company']);
+        $this->out->element('div', 'label', _m('Start'));
+        $this->out->element('div', array('class' => 'field date'), $field['start']);
+        $this->out->element('div', 'label', _m('End'));
+        $this->out->element('div', array('class' => 'field date'), $field['end']);
         if ($field['current']) {
-            $this->out->element('dd', null, '(' . _m('Current') . ')');
-        } else {
-            $this->out->element('dd', null, $field['end']);
+            $this->out->element(
+                'div',
+                array('class' => 'field current'),
+                '(' . _m('Current') . ')'
+            );
         }
-        $this->out->elementEnd('dl');
         $this->out->elementEnd('div');
     }
 
