@@ -33,12 +33,14 @@ $default =
               'nickname' => 'statusnet',
               'wildcard' => null,
               'server' => $_server,
-              'theme' => 'default',
+              'theme' => 'neo',
               'path' => $_path,
               'logfile' => null,
               'logo' => null,
               'ssllogo' => null,
               'logdebug' => false,
+              'logperf' => false, // Enable to dump performance counters to syslog
+              'logperf_detail' => false, // Enable to dump every counter hit
               'fancy' => false,
               'locale_path' => INSTALLDIR.'/locale',
               'language' => 'en',
@@ -61,6 +63,7 @@ $default =
               'use_x_sendfile' => false,
               'notice' => null, // site wide notice text
               'build' => 1, // build number, for code-dependent cache
+              'minify' => true, // true to use the minified versions of JS files; false to use orig files. Can aid during development
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
@@ -76,7 +79,8 @@ $default =
               'schemacheck' => 'runtime', // 'runtime' or 'script'
               'annotate_queries' => false, // true to add caller comments to queries, eg /* POST Notice::saveNew */
               'log_queries' => false, // true to log all DB queries
-              'log_slow_queries' => 0), // if set, log queries taking over N seconds
+              'log_slow_queries' => 0, // if set, log queries taking over N seconds
+              'mysql_foreign_keys' => false), // if set, enables experimental foreign key support on MySQL
         'syslog' =>
         array('appname' => 'statusnet', # for syslog
               'priority' => 'debug', # XXX: currently ignored
@@ -269,8 +273,9 @@ $default =
         'search' =>
         array('type' => 'fulltext'),
         'sessions' =>
-        array('handle' => false, // whether to handle sessions ourselves
-              'debug' => false), // debugging output for sessions
+        array('handle' => false,   // whether to handle sessions ourselves
+              'debug' => false,    // debugging output for sessions
+              'gc_limit' => 1000), // max sessions to expire at a time
         'design' =>
         array('backgroundcolor' => null, // null -> 'use theme default'
               'contentcolor' => null,
@@ -294,26 +299,23 @@ $default =
         'logincommand' =>
         array('disabled' => true),
         'plugins' =>
-        array('default' => array('LilUrl' => array('shortenerName'=>'ur1.ca',
-                                                   'freeService' => true,
-                                                   'serviceUrl'=>'http://ur1.ca/'),
-                                 'PtitUrl' => array('shortenerName' => 'ptiturl.com',
-                                                    'serviceUrl' => 'http://ptiturl.com/?creer=oui&action=Reduire&url=%1$s'),
-                                 'SimpleUrl' => array(array('shortenerName' => 'is.gd', 'serviceUrl' => 'http://is.gd/api.php?longurl=%1$s'),
-                                                      array('shortenerName' => 'snipr.com', 'serviceUrl' => 'http://snipr.com/site/snip?r=simple&link=%1$s'),
-                                                      array('shortenerName' => 'metamark.net', 'serviceUrl' => 'http://metamark.net/api/rest/simple?long_url=%1$s'),
-                                                      array('shortenerName' => 'tinyurl.com', 'serviceUrl' => 'http://tinyurl.com/api-create.php?url=%1$s')),
-                                 'TightUrl' => array('shortenerName' => '2tu.us', 'freeService' => true,'serviceUrl'=>'http://2tu.us/?save=y&url=%1$s'),
-                                 'Geonames' => null,
+        array('default' => array('Geonames' => null,
                                  'Mapstraction' => null,
                                  'OStatus' => null,
                                  'WikiHashtags' => null,
                                  'RSSCloud' => null,
+                                 'ClientSideShorten' => null,
+                                 'StrictTransportSecurity' => null,
                                  'OpenID' => null),
               'locale_path' => false, // Set to a path to use *instead of* each plugin's own locale subdirectories
+              'server' => null,
+              'sslserver' => null,
+              'path' => null,
+              'sslpath' => null,
               ),
+        'pluginlist' => array(),
         'admin' =>
-        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice', 'license')),
+        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice', 'license', 'plugins')),
         'singleuser' =>
         array('enabled' => false,
               'nickname' => null),
@@ -328,6 +330,10 @@ $default =
               'members' => true,
               'peopletag' => true,
               'external' => 'sometimes'), // Options: 'sometimes', 'never', default = 'sometimes'
+        'url' =>
+        array('shortener' => 'ur1.ca',
+              'maxlength' => 25,
+              'maxnoticelength' => -1),
         'http' => // HTTP client settings when contacting other sites
         array('ssl_cafile' => false, // To enable SSL cert validation, point to a CA bundle (eg '/usr/lib/ssl/certs/ca-certificates.crt')
               'curl' => false, // Use CURL backend for HTTP fetches if available. (If not, PHP's socket streams will be used.)

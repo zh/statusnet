@@ -33,8 +33,6 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/plugins/UrlShortener/UrlShortenerPlugin.php';
-
 class BitlyUrlPlugin extends UrlShortenerPlugin
 {
     public $shortenerName = 'bit.ly';
@@ -186,7 +184,7 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
      */
     function onRouterInitialized($m)
     {
-        $m->connect('admin/bitly',
+        $m->connect('panel/bitly',
                     array('action' => 'bitlyadminpanel'));
         return true;
     }

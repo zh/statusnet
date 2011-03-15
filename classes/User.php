@@ -48,11 +48,6 @@ class User extends Memcached_DataObject
     public $language;                        // varchar(50)
     public $timezone;                        // varchar(50)
     public $emailpost;                       // tinyint(1)   default_1
-    public $jabber;                          // varchar(255)  unique_key
-    public $jabbernotify;                    // tinyint(1)
-    public $jabberreplies;                   // tinyint(1)
-    public $jabbermicroid;                   // tinyint(1)   default_1
-    public $updatefrompresence;              // tinyint(1)
     public $sms;                             // varchar(64)  unique_key
     public $carrier;                         // int(4)
     public $smsnotify;                       // tinyint(1)
@@ -94,7 +89,7 @@ class User extends Memcached_DataObject
     {
         $this->_connect();
         $parts = array();
-        foreach (array('nickname', 'email', 'jabber', 'incomingemail', 'sms', 'carrier', 'smsemail', 'language', 'timezone') as $k) {
+        foreach (array('nickname', 'email', 'incomingemail', 'sms', 'carrier', 'smsemail', 'language', 'timezone') as $k) {
             if (strcmp($this->$k, $orig->$k) != 0) {
                 $parts[] = $k . ' = ' . $this->_quote($this->$k);
             }
@@ -476,9 +471,19 @@ class User extends Memcached_DataObject
         return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, false);
     }
 
+    function noticesWithFriendsThreaded($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
+    {
+        return Inbox::streamNoticesThreaded($this->id, $offset, $limit, $since_id, $before_id, false);
+    }
+
     function noticeInbox($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
         return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, true);
+    }
+
+    function noticeInboxThreaded($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
+    {
+        return Inbox::streamNoticesThreaded($this->id, $offset, $limit, $since_id, $before_id, true);
     }
 
     function friendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
@@ -975,7 +980,7 @@ class User extends Memcached_DataObject
     }
 
     /*
-     * Get a list of OAuth client application that have access to this
+     * Get a list of OAuth client applications that have access to this
      * user's account.
      */
     function getConnectedApps($offset = 0, $limit = null)

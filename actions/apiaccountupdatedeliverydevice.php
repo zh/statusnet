@@ -116,10 +116,16 @@ class ApiAccountUpdateDeliveryDeviceAction extends ApiAuthAction
         if (strtolower($this->device) == 'sms') {
             $this->user->smsnotify = true;
         } elseif (strtolower($this->device) == 'im') {
-            $this->user->jabbernotify = true;
+            //TODO IM is pluginized now, so what should we do?
+            //Enable notifications for all IM plugins?
+            //For now, don't do anything
+            //$this->user->jabbernotify = true;
         } elseif (strtolower($this->device == 'none')) {
             $this->user->smsnotify    = false;
-            $this->user->jabbernotify = false;
+            //TODO IM is pluginized now, so what should we do?
+            //Disable notifications for all IM plugins?
+            //For now, don't do anything
+            //$this->user->jabbernotify = false;
         }
 
         $result = $this->user->update($original);
@@ -143,7 +149,7 @@ class ApiAccountUpdateDeliveryDeviceAction extends ApiAuthAction
 
         if ($this->format == 'xml') {
             $this->initDocument('xml');
-            $this->showTwitterXmlUser($twitter_user);
+            $this->showTwitterXmlUser($twitter_user, 'user', true);
             $this->endDocument('xml');
         } elseif ($this->format == 'json') {
             $this->initDocument('json');

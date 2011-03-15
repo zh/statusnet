@@ -25,7 +25,8 @@ if (!defined('STATUSNET')) {
  * @package OStatusPlugin
  * @maintainer Brion Vibber <brion@status.net>
  */
-class Ostatus_profile extends Memcached_DataObject
+
+class Ostatus_profile extends Managed_DataObject
 {
     public $__table = 'ostatus_profile';
 
@@ -47,74 +48,35 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
-     * return table definition for DB_DataObject
-     *
-     * DB_DataObject needs to know something about the table to manipulate
-     * instances. This method provides all the DB_DataObject needs to know.
+     * Return table definition for Schema setup and DB_DataObject usage.
      *
      * @return array array of column definitions
      */
-    function table()
-    {
-        return array('uri' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
-                     'profile_id' => DB_DATAOBJECT_INT,
-                     'group_id' => DB_DATAOBJECT_INT,
-                     'feeduri' => DB_DATAOBJECT_STR,
-                     'salmonuri' =>  DB_DATAOBJECT_STR,
-                     'avatar' =>  DB_DATAOBJECT_STR,
-                     'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
-                     'modified' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
-    }
 
     static function schemaDef()
     {
-        return array(new ColumnDef('uri', 'varchar',
-                                   255, false, 'PRI'),
-                     new ColumnDef('profile_id', 'integer',
-                                   null, true, 'UNI'),
-                     new ColumnDef('group_id', 'integer',
-                                   null, true, 'UNI'),
-                     new ColumnDef('feeduri', 'varchar',
-                                   255, true, 'UNI'),
-                     new ColumnDef('salmonuri', 'text',
-                                   null, true),
-                     new ColumnDef('avatar', 'text',
-                                   null, true),
-                     new ColumnDef('created', 'datetime',
-                                   null, false),
-                     new ColumnDef('modified', 'datetime',
-                                   null, false));
-    }
-
-    /**
-     * return key definitions for DB_DataObject
-     *
-     * DB_DataObject needs to know about keys that the table has; this function
-     * defines them.
-     *
-     * @return array key definitions
-     */
-    function keys()
-    {
-        return array_keys($this->keyTypes());
-    }
-
-    /**
-     * return key definitions for Memcached_DataObject
-     *
-     * Our caching system uses the same key definitions, but uses a different
-     * method to get them.
-     *
-     * @return array key definitions
-     */
-    function keyTypes()
-    {
-        return array('uri' => 'K', 'profile_id' => 'U', 'group_id' => 'U', 'feeduri' => 'U');
-    }
-
-    function sequenceKey()
-    {
-        return array(false, false, false);
+        return array(
+            'fields' => array(
+                'uri' => array('type' => 'varchar', 'length' => 255, 'not null' => true),
+                'profile_id' => array('type' => 'integer'),
+                'group_id' => array('type' => 'integer'),
+                'feeduri' => array('type' => 'varchar', 'length' => 255),
+                'salmonuri' => array('type' => 'varchar', 'length' => 255),
+                'avatar' => array('type' => 'text'),
+                'created' => array('type' => 'datetime', 'not null' => true),
+                'modified' => array('type' => 'datetime', 'not null' => true),
+            ),
+            'primary key' => array('uri'),
+            'unique keys' => array(
+                'ostatus_profile_profile_id_idx' => array('profile_id'),
+                'ostatus_profile_group_id_idx' => array('group_id'),
+                'ostatus_profile_feeduri_idx' => array('feeduri'),
+            ),
+            'foreign keys' => array(
+                'ostatus_profile_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
+                'ostatus_profile_group_id_fkey' => array('user_group', array('group_id' => 'id')),
+            ),
+        );
     }
 
     /**
@@ -1112,7 +1074,8 @@ class Ostatus_profile extends Memcached_DataObject
                 return $url;
             }
         }
-        return common_path('plugins/OStatus/images/96px-Feed-icon.svg.png');
+
+        return Plugin::staticPath('OStatus', 'images/96px-Feed-icon.svg.png');
     }
 
     /**
@@ -1353,7 +1316,17 @@ class Ostatus_profile extends Memcached_DataObject
     {
         $orig = clone($profile);
 
-        $profile->nickname = self::getActivityObjectNickname($object, $hints);
+        // Existing nickname is better than nothing.
+
+        if (!array_key_exists('nickname', $hints)) {
+            $hints['nickname'] = $profile->nickname;
+        }
+
+        $nickname = self::getActivityObjectNickname($object, $hints);
+
+        if (!empty($nickname)) {
+            $profile->nickname = $nickname;
+        }
 
         if (!empty($object->title)) {
             $profile->fullname = $object->title;
@@ -1369,9 +1342,23 @@ class Ostatus_profile extends Memcached_DataObject
             $profile->profileurl = $object->id;
         }
 
-        $profile->bio      = self::getActivityObjectBio($object, $hints);
-        $profile->location = self::getActivityObjectLocation($object, $hints);
-        $profile->homepage = self::getActivityObjectHomepage($object, $hints);
+        $bio = self::getActivityObjectBio($object, $hints);
+
+        if (!empty($bio)) {
+            $profile->bio = $bio;
+        }
+
+        $location = self::getActivityObjectLocation($object, $hints);
+
+        if (!empty($location)) {
+            $profile->location = $location;
+        }
+
+        $homepage = self::getActivityObjectHomepage($object, $hints);
+
+        if (!empty($homepage)) {
+            $profile->homepage = $homepage;
+        }
 
         if (!empty($object->geopoint)) {
             $location = ActivityContext::locationFromPoint($object->geopoint);
@@ -1781,12 +1768,14 @@ class Ostatus_profile extends Memcached_DataObject
                     $oprofile = Ostatus_profile::ensureWebfinger($rest);
                     break;
                 default:
-                    common_log(LOG_WARNING,
-                               "Unrecognized URI protocol for profile: $protocol ($uri)");
+                    throw new ServerException("Unrecognized URI protocol for profile: $protocol ($uri)");
                     break;
                 }
+            } else {
+                throw new ServerException("No URI protocol for profile: ($uri)");
             }
         }
+
         return $oprofile;
     }
 

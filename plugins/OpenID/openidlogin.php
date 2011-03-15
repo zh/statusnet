@@ -44,14 +44,6 @@ class OpenidloginAction extends Action
 
             oid_assert_allowed($openid_url);
 
-            # CSRF protection
-            $token = $this->trimmed('token');
-            if (!$token || $token != common_session_token()) {
-                // TRANS: Message given when there is a problem with the user's session token.
-                $this->showForm(_m('There was a problem with your session token. Try again, please.'), $openid_url);
-                return;
-            }
-
             $rememberme = $this->boolean('rememberme');
 
             common_ensure_session();
@@ -138,7 +130,6 @@ class OpenidloginAction extends Action
         $this->elementStart('fieldset');
         // TRANS: OpenID plugin logon form legend.
         $this->element('legend', null, _m('OpenID login'));
-        $this->hidden('token', common_session_token());
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
@@ -182,5 +173,9 @@ class OpenidloginAction extends Action
     {
         $nav = new LoginGroupNav($this);
         $nav->show();
+    }
+
+    function showNoticeForm()
+    {
     }
 }

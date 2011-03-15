@@ -46,7 +46,6 @@ require_once INSTALLDIR . '/lib/designsettings.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class UserDesignSettingsAction extends DesignSettingsAction
 {
     /**
@@ -70,7 +69,6 @@ class UserDesignSettingsAction extends DesignSettingsAction
      *
      * @return string Title of the page
      */
-
     function title()
     {
         return _('Profile design');
@@ -81,7 +79,6 @@ class UserDesignSettingsAction extends DesignSettingsAction
      *
      * @return instructions for use
      */
-
     function getInstructions()
     {
         return _('Customize the way your profile looks ' .
@@ -93,7 +90,6 @@ class UserDesignSettingsAction extends DesignSettingsAction
      *
      * @return Design
      */
-
     function getWorkingDesign()
     {
         $user   = common_current_user();
@@ -108,7 +104,6 @@ class UserDesignSettingsAction extends DesignSettingsAction
      *
      * @return void
      */
-
     function showContent()
     {
         $design = $this->getWorkingDesign();
@@ -121,13 +116,28 @@ class UserDesignSettingsAction extends DesignSettingsAction
     }
 
     /**
+     * Shows the design settings form
+     *
+     * @param Design $design a working design to show
+     *
+     * @return nothing
+     */
+
+    function showDesignForm($design)
+    {
+        $form = new UserDesignForm($this, $design, $this->submitaction);
+        $form->show();
+    }
+
+    /**
      * Save or update the user's design settings
      *
      * @return void
      */
-
     function saveDesign()
     {
+        $this->saveDesignPreferences();
+
         foreach ($this->args as $key => $val) {
             if (preg_match('/(#ho|ho)Td.*g/i', $val)) {
                 $this->sethd();
@@ -164,11 +174,11 @@ class UserDesignSettingsAction extends DesignSettingsAction
             $tile = true;
         }
 
-        $user   = common_current_user();
+        $user = common_current_user();
+
         $design = $user->getDesign();
 
         if (!empty($design)) {
-
             $original = clone($design);
 
             $design->backgroundcolor = $bgcolor->intValue();
@@ -183,13 +193,11 @@ class UserDesignSettingsAction extends DesignSettingsAction
 
             if ($result === false) {
                 common_log_db_error($design, 'UPDATE', __FILE__);
-                $this->showForm(_('Couldn\'t update your design.'));
+                $this->showForm(_('Could not update your design.'));
                 return;
             }
-
             // update design
         } else {
-
             $user->query('BEGIN');
 
             // save new design
@@ -236,7 +244,6 @@ class UserDesignSettingsAction extends DesignSettingsAction
      *
      * @return nothing
      */
-
     function sethd()
     {
 
@@ -282,4 +289,64 @@ class UserDesignSettingsAction extends DesignSettingsAction
         $this->showForm(_('Enjoy your hotdog!'), true);
     }
 
+    function saveDesignPreferences()
+    {
+        $viewdesigns = $this->boolean('viewdesigns');
+
+        $user = common_current_user();
+
+        $original = clone($user);
+
+        $user->viewdesigns = $viewdesigns;
+
+        $result = $user->update($original);
+
+        if ($result === false) {
+            common_log_db_error($user, 'UPDATE', __FILE__);
+            throw new ServerException(_('Couldn\'t update user.'));
+        }
+    }
+}
+
+class UserDesignForm extends DesignForm
+{
+    function __construct($out, $design, $actionurl)
+    {
+        parent::__construct($out, $design, $actionurl);
+    }
+
+    /**
+     * Legend of the Form
+     *
+     * @return void
+     */
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Design settings'));
+    }
+
+    /**
+     * Data elements of the form
+     *
+     * @return void
+     */
+
+    function formData()
+    {
+        $user = common_current_user();
+
+        $this->out->elementStart('ul', 'form_data');
+        $this->out->elementStart('li');
+        $this->out->checkbox('viewdesigns', _('View profile designs'),
+                         -                        $user->viewdesigns, _('Show or hide profile designs.'));
+        $this->out->elementEnd('li');
+        $this->out->elementEnd('ul');
+
+        $this->out->elementEnd('fieldset');
+
+        $this->out->elementStart('fieldset');
+        $this->out->element('legend', null, _('Background file'));
+
+        parent::formData();
+    }
 }

@@ -287,6 +287,18 @@ class FavCommand extends Command
     function handle($channel)
     {
         $notice = $this->getNotice($this->other);
+
+        $fave            = new Fave();
+        $fave->user_id   = $this->user->id;
+        $fave->notice_id = $notice->id;
+        $fave->find();
+
+        if ($fave->fetch()) {
+            // TRANS: Error message text shown when a favorite could not be set because it has already been favorited.
+            $channel->error($this->user, _('Could not create favorite: already favorited.'));
+            return;
+        }
+
         $fave = Fave::addNew($this->user->getProfile(), $notice);
 
         if (!$fave) {
@@ -300,7 +312,7 @@ class FavCommand extends Command
 
         $other = User::staticGet('id', $notice->profile_id);
 
-        if ($other && $other->id != $user->id) {
+        if ($other && $other->id != $this->user->id) {
             if ($other->email && $other->emailnotifyfav) {
                 mail_notify_fave($other, $this->user, $notice);
             }
@@ -718,7 +730,7 @@ class OffCommand extends Command
     }
     function handle($channel)
     {
-        if ($other) {
+        if ($this->other) {
             // TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
             $channel->error($this->user, _("Command not yet implemented."));
         } else {
@@ -744,7 +756,7 @@ class OnCommand extends Command
 
     function handle($channel)
     {
-        if ($other) {
+        if ($this->other) {
             // TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
             $channel->error($this->user, _("Command not yet implemented."));
         } else {

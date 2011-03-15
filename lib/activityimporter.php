@@ -4,7 +4,7 @@
  * Copyright (C) 2010, StatusNet, Inc.
  *
  * class to import activities as part of a user's timeline
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class ActivityImporter extends QueueHandler
 {
     private $trusted = false;
@@ -56,7 +55,6 @@ class ActivityImporter extends QueueHandler
      *
      * @return
      */
-
     function handle($data)
     {
         list($user, $author, $activity, $trusted) = $data;
@@ -65,9 +63,8 @@ class ActivityImporter extends QueueHandler
 
         $done = null;
 
-        if (Event::handle('StartImportActivity', 
+        if (Event::handle('StartImportActivity',
                           array($user, $author, $activity, $trusted, &$done))) {
-
             try {
                 switch ($activity->verb) {
                 case ActivityVerb::FOLLOW:
@@ -80,9 +77,10 @@ class ActivityImporter extends QueueHandler
                     $this->postNote($user, $author, $activity);
                     break;
                 default:
-                    throw new ClientException("Unknown verb: {$activity->verb}");
+                    // TRANS: Client exception thrown when using an unknown verb for the activity importer.
+                    throw new ClientException(sprintf(_("Unknown verb: \"%s\"."),$activity->verb));
                 }
-                Event::handle('EndImportActivity', 
+                Event::handle('EndImportActivity',
                               array($user, $author, $activity, $trusted));
                 $done = true;
             } catch (ClientException $ce) {
@@ -98,31 +96,31 @@ class ActivityImporter extends QueueHandler
         }
         return $done;
     }
-    
+
     function subscribeProfile($user, $author, $activity)
     {
         $profile = $user->getProfile();
 
         if ($activity->objects[0]->id == $author->id) {
-
             if (!$this->trusted) {
-                throw new ClientException(_("Can't force subscription for untrusted user."));
+                // TRANS: Client exception thrown when trying to force a subscription for an untrusted user.
+                throw new ClientException(_("Cannot force subscription for untrusted user."));
             }
 
             $other = $activity->actor;
             $otherUser = User::staticGet('uri', $other->id);
-            
+
             if (!empty($otherUser)) {
                 $otherProfile = $otherUser->getProfile();
             } else {
-                throw new Exception("Can't force remote user to subscribe.");
+                // TRANS: Client exception thrown when trying to for a remote user to subscribe.
+                throw new Exception(_("Cannot force remote user to subscribe."));
             }
 
             // XXX: don't do this for untrusted input!
 
             Subscription::start($otherProfile, $profile);
-
-        } else if (empty($activity->actor) 
+        } else if (empty($activity->actor)
                    || $activity->actor->id == $author->id) {
 
             $other = $activity->objects[0];
@@ -130,12 +128,14 @@ class ActivityImporter extends QueueHandler
             $otherProfile = Profile::fromUri($other->id);
 
             if (empty($otherProfile)) {
+                // TRANS: Client exception thrown when trying to subscribe to an unknown profile.
                 throw new ClientException(_("Unknown profile."));
             }
 
             Subscription::start($profile, $otherProfile);
         } else {
-            throw new Exception("This activity seems unrelated to our user.");
+            // TRANS: Client exception thrown when trying to import an event not related to the importing user.
+            throw new Exception(_("This activity seems unrelated to our user."));
         }
     }
 
@@ -150,7 +150,8 @@ class ActivityImporter extends QueueHandler
         if (empty($group)) {
             $oprofile = Ostatus_profile::ensureActivityObjectProfile($activity->objects[0]);
             if (!$oprofile->isGroup()) {
-                throw new ClientException("Remote profile is not a group!");
+                // TRANS: Client exception thrown when trying to join a remote group that is not a group.
+                throw new ClientException(_("Remote profile is not a group!"));
             }
             $group = $oprofile->localGroup();
         }
@@ -158,7 +159,8 @@ class ActivityImporter extends QueueHandler
         assert(!empty($group));
 
         if ($user->isMember($group)) {
-            throw new ClientException("User is already a member of this group.");
+            // TRANS: Client exception thrown when trying to join a group the importing user is already a member of.
+            throw new ClientException(_("User is already a member of this group."));
         }
 
         if (Event::handle('StartJoinGroup', array($group, $user))) {
@@ -178,7 +180,7 @@ class ActivityImporter extends QueueHandler
         $notice = Notice::staticGet('uri', $sourceUri);
 
         if (!empty($notice)) {
-            
+
             common_log(LOG_INFO, "Notice {$sourceUri} already exists.");
 
             if ($this->trusted) {
@@ -194,12 +196,15 @@ class ActivityImporter extends QueueHandler
                     $notice->update($orig);
                     return;
                 } else {
-                    throw new ClientException(sprintf(_("Already know about notice %s and ".
-                                                        " it's got a different author %s."),
+                    // TRANS: Client exception thrown when trying to import a notice by another user.
+                    // TRANS: %1$s is the source URI of the notice, %2$s is the URI of the author.
+                    throw new ClientException(sprintf(_('Already know about notice %1$s and '.
+                                                        ' it has a different author %2$s.'),
                                                       $sourceUri, $uri));
                 }
             } else {
-                throw new ClientException("Not overwriting author info for non-trusted user.");
+                // TRANS: Client exception thrown when trying to overwrite the author information for a non-trusted user during import.
+                throw new ClientException(_("Not overwriting author info for non-trusted user."));
             }
         }
 
@@ -213,8 +218,9 @@ class ActivityImporter extends QueueHandler
             $sourceContent = $note->title;
         } else {
             // @fixme fetch from $sourceUrl?
-            // @todo i18n FIXME: use sprintf and add i18n.
-            throw new ClientException("No content for notice {$sourceUri}.");
+            // TRANS: Client exception thrown when trying to import a notice without content.
+            // TRANS: %s is the notice URI.
+            throw new ClientException(sprintf(_("No content for notice %s."),$sourceUri));
         }
 
         // Get (safe!) HTML and text versions of the content
@@ -345,7 +351,7 @@ class ActivityImporter extends QueueHandler
 
         return array($groups, $replies);
     }
- 
+
 
     function purify($content)
     {

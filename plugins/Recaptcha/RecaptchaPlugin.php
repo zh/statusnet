@@ -41,7 +41,8 @@ class RecaptchaPlugin extends Plugin
     var $failed;
     var $ssl;
 
-    function onInitializePlugin(){
+    function onInitializePlugin()
+    {
         if(!isset($this->private_key)) {
             common_log(LOG_ERR, 'Recaptcha: Must specify private_key in config.php');
         }
@@ -49,14 +50,6 @@ class RecaptchaPlugin extends Plugin
             common_log(LOG_ERR, 'Recaptcha: Must specify public_key in config.php');
         }
     }
-
-    function checkssl(){
-        if(common_config('site', 'ssl') === 'sometimes' || common_config('site', 'ssl') === 'always') {
-            return true;
-        }
-        return false;
-    }
-
 
     function onEndRegistrationFormData($action)
     {
@@ -77,7 +70,7 @@ class RecaptchaPlugin extends Plugin
     {
         if (isset($action->recaptchaPluginNeedsOutput) && $action->recaptchaPluginNeedsOutput) {
             // Load the AJAX API
-            if ($this->checkssl()) {
+            if (StatusNet::isHTTPS()) {
                 $url = "https://api-secure.recaptcha.net/js/recaptcha_ajax.js";
             } else {
                 $url = "http://api.recaptcha.net/js/recaptcha_ajax.js";

@@ -186,6 +186,10 @@ class Profile extends Memcached_DataObject
         $notice = $this->getNotices(0, 1);
 
         if ($notice->fetch()) {
+            if ($notice instanceof ArrayWrapper) {
+                // hack for things trying to work with single notices
+                return $notice->_items[0];
+            }
             return $notice;
         } else {
             return null;
@@ -354,7 +358,10 @@ class Profile extends Memcached_DataObject
         $profiles = array();
 
         while ($subs->fetch()) {
-            $profiles[] = Profile::staticGet($subs->subscribed);
+            $profile = Profile::staticGet($subs->subscribed);
+            if ($profile) {
+                $profiles[] = $profile;
+            }
         }
 
         return new ArrayWrapper($profiles);
@@ -369,7 +376,10 @@ class Profile extends Memcached_DataObject
         $profiles = array();
 
         while ($subs->fetch()) {
-            $profiles[] = Profile::staticGet($subs->subscriber);
+            $profile = Profile::staticGet($subs->subscriber);
+            if ($profile) {
+                $profiles[] = $profile;
+            }
         }
 
         return new ArrayWrapper($profiles);
@@ -377,10 +387,10 @@ class Profile extends Memcached_DataObject
 
     function subscriptionCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
 
         if (!empty($c)) {
-            $cnt = $c->get(common_cache_key('profile:subscription_count:'.$this->id));
+            $cnt = $c->get(Cache::key('profile:subscription_count:'.$this->id));
             if (is_integer($cnt)) {
                 return (int) $cnt;
             }
@@ -394,7 +404,7 @@ class Profile extends Memcached_DataObject
         $cnt = ($cnt > 0) ? $cnt - 1 : $cnt;
 
         if (!empty($c)) {
-            $c->set(common_cache_key('profile:subscription_count:'.$this->id), $cnt);
+            $c->set(Cache::key('profile:subscription_count:'.$this->id), $cnt);
         }
 
         return $cnt;
@@ -402,9 +412,9 @@ class Profile extends Memcached_DataObject
 
     function subscriberCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
-            $cnt = $c->get(common_cache_key('profile:subscriber_count:'.$this->id));
+            $cnt = $c->get(Cache::key('profile:subscriber_count:'.$this->id));
             if (is_integer($cnt)) {
                 return (int) $cnt;
             }
@@ -416,7 +426,7 @@ class Profile extends Memcached_DataObject
         $cnt = (int) $sub->count('distinct subscriber');
 
         if (!empty($c)) {
-            $c->set(common_cache_key('profile:subscriber_count:'.$this->id), $cnt);
+            $c->set(Cache::key('profile:subscriber_count:'.$this->id), $cnt);
         }
 
         return $cnt;
@@ -447,7 +457,7 @@ class Profile extends Memcached_DataObject
 
     function hasFave($notice)
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
 
         // XXX: Kind of a hack.
 
@@ -482,9 +492,9 @@ class Profile extends Memcached_DataObject
 
     function faveCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
-            $cnt = $c->get(common_cache_key('profile:fave_count:'.$this->id));
+            $cnt = $c->get(Cache::key('profile:fave_count:'.$this->id));
             if (is_integer($cnt)) {
                 return (int) $cnt;
             }
@@ -495,7 +505,7 @@ class Profile extends Memcached_DataObject
         $cnt = (int) $faves->count('distinct notice_id');
 
         if (!empty($c)) {
-            $c->set(common_cache_key('profile:fave_count:'.$this->id), $cnt);
+            $c->set(Cache::key('profile:fave_count:'.$this->id), $cnt);
         }
 
         return $cnt;
@@ -503,10 +513,10 @@ class Profile extends Memcached_DataObject
 
     function noticeCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
 
         if (!empty($c)) {
-            $cnt = $c->get(common_cache_key('profile:notice_count:'.$this->id));
+            $cnt = $c->get(Cache::key('profile:notice_count:'.$this->id));
             if (is_integer($cnt)) {
                 return (int) $cnt;
             }
@@ -517,7 +527,7 @@ class Profile extends Memcached_DataObject
         $cnt = (int) $notices->count('distinct id');
 
         if (!empty($c)) {
-            $c->set(common_cache_key('profile:notice_count:'.$this->id), $cnt);
+            $c->set(Cache::key('profile:notice_count:'.$this->id), $cnt);
         }
 
         return $cnt;
@@ -525,47 +535,47 @@ class Profile extends Memcached_DataObject
 
     function blowFavesCache()
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
         if ($cache) {
             // Faves don't happen chronologically, so we need to blow
             // ;last cache, too
-            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id));
-            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id.';last'));
-            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id));
-            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id.';last'));
+            $cache->delete(Cache::key('fave:ids_by_user:'.$this->id));
+            $cache->delete(Cache::key('fave:ids_by_user:'.$this->id.';last'));
+            $cache->delete(Cache::key('fave:ids_by_user_own:'.$this->id));
+            $cache->delete(Cache::key('fave:ids_by_user_own:'.$this->id.';last'));
         }
         $this->blowFaveCount();
     }
 
     function blowSubscriberCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
-            $c->delete(common_cache_key('profile:subscriber_count:'.$this->id));
+            $c->delete(Cache::key('profile:subscriber_count:'.$this->id));
         }
     }
 
     function blowSubscriptionCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
-            $c->delete(common_cache_key('profile:subscription_count:'.$this->id));
+            $c->delete(Cache::key('profile:subscription_count:'.$this->id));
         }
     }
 
     function blowFaveCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
-            $c->delete(common_cache_key('profile:fave_count:'.$this->id));
+            $c->delete(Cache::key('profile:fave_count:'.$this->id));
         }
     }
 
     function blowNoticeCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
-            $c->delete(common_cache_key('profile:notice_count:'.$this->id));
+            $c->delete(Cache::key('profile:notice_count:'.$this->id));
         }
     }
 
@@ -746,6 +756,10 @@ class Profile extends Memcached_DataObject
                 throw new Exception("Can't save role '$name' for profile '{$this->id}'");
             }
 
+            if ($name == 'owner') {
+                User::blow('user:site_owner');
+            }
+
             Event::handle('EndGrantRole', array($this, $name));
         }
 
@@ -772,6 +786,10 @@ class Profile extends Memcached_DataObject
                 // TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
                 // TRANS: %1$s is the role name, %2$s is the user ID (number).
                 throw new Exception(sprintf(_('Cannot revoke role "%1$s" for user #%2$d; database error.'),$name, $this->id));
+            }
+
+            if ($name == 'owner') {
+                User::blow('user:site_owner');
             }
 
             Event::handle('EndRevokeRole', array($this, $name));
@@ -859,6 +877,12 @@ class Profile extends Memcached_DataObject
             case Right::EMAILONFAVE:
                 $result = !$this->isSandboxed();
                 break;
+            case Right::WEBLOGIN:
+                $result = !$this->isSilenced();
+                break;
+            case Right::API:
+                $result = !$this->isSilenced();
+                break;
             case Right::BACKUPACCOUNT:
                 $result = common_config('profile', 'backup');
                 break;
@@ -916,6 +940,31 @@ class Profile extends Memcached_DataObject
         $xs->elementEnd('author');
 
         return $xs->getString();
+    }
+
+    /**
+     * Extra profile info for atom entries
+     *
+     * Clients use some extra profile info in the atom stream.
+     * This gives it to them.
+     *
+     * @param User $cur Current user
+     *
+     * @return array representation of <statusnet:profile_info> element or null
+     */
+
+    function profileInfo($cur)
+    {
+        $profileInfoAttr = array('local_id' => $this->id);
+
+        if ($cur != null) {
+            // Whether the current user is a subscribed to this profile
+            $profileInfoAttr['following'] = $cur->isSubscribed($this) ? 'true' : 'false';
+            // Whether the current user is has blocked this profile
+            $profileInfoAttr['blocking']  = $cur->hasBlocked($this) ? 'true' : 'false';
+        }
+
+        return array('statusnet:profile_info', $profileInfoAttr, null);
     }
 
     /**

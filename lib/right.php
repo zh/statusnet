@@ -66,5 +66,7 @@ class Right
     const DELETEACCOUNT      = 'deleteaccount';
     const MOVEACCOUNT        = 'moveaccount';
     const CREATEGROUP        = 'creategroup';
+    const WEBLOGIN           = 'weblogin';
+    const API                = 'api';
 }
 

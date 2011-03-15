@@ -419,12 +419,12 @@ class OStatusPlugin extends Plugin
     }
 
     function onEndShowStatusNetStyles($action) {
-        $action->cssLink('plugins/OStatus/theme/base/css/ostatus.css');
+        $action->cssLink($this->path('theme/base/css/ostatus.css'));
         return true;
     }
 
     function onEndShowStatusNetScripts($action) {
-        $action->script('plugins/OStatus/js/ostatus.js');
+        $action->script($this->path('js/ostatus.js'));
         return true;
     }
 
@@ -992,23 +992,35 @@ class OStatusPlugin extends Plugin
         return false;
     }
 
-    function onStartGetProfileFromURI($uri, &$profile) {
+    function onStartGetProfileFromURI($uri, &$profile)
+    {
+        // Don't want to do Web-based discovery on our own server,
+        // so we check locally first.
 
-        // XXX: do discovery here instead (OStatus_profile::ensureProfileURI($uri))
+        $user = User::staticGet('uri', $uri);
+        
+        if (!empty($user)) {
+            $profile = $user->getProfile();
+            return false;
+        }
 
-        $oprofile = Ostatus_profile::staticGet('uri', $uri);
+        // Now, check remotely
 
-        if (!empty($oprofile) && !$oprofile->isGroup()) {
+        $oprofile = Ostatus_profile::ensureProfileURI($uri);
+
+        if (!empty($oprofile)) {
             $profile = $oprofile->localProfile();
             return false;
         }
+
+        // Still not a hit, so give up.
 
         return true;
     }
 
     function onEndXrdActionLinks(&$xrd, $user)
     {
-	$xrd->links[] = array('rel' => Discovery::UPDATESFROM,
+    	$xrd->links[] = array('rel' => Discovery::UPDATESFROM,
 			      'href' => common_local_url('ApiTimelineUser',
 							 array('id' => $user->id,
 							       'format' => 'atom')),
@@ -1043,6 +1055,6 @@ class OStatusPlugin extends Plugin
         $xrd->links[] = array('rel' => 'http://ostatus.org/schema/1.0/subscribe',
                               'template' => $url );
 	
-	return true;
+    	return true;
     }
 }

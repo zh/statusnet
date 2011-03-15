@@ -157,22 +157,38 @@ function common_timezone()
     return common_config('site', 'timezone');
 }
 
+function common_valid_language($lang)
+{
+    if ($lang) {
+        // Validate -- we don't want to end up with a bogus code
+        // left over from some old junk.
+        foreach (common_config('site', 'languages') as $code => $info) {
+            if ($info['lang'] == $lang) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function common_language()
 {
+    // Allow ?uselang=xx override, very useful for debugging
+    // and helping translators check usage and context.
+    if (isset($_GET['uselang'])) {
+        $uselang = strval($_GET['uselang']);
+        if (common_valid_language($uselang)) {
+            return $uselang;
+        }
+    }
+
     // If there is a user logged in and they've set a language preference
     // then return that one...
     if (_have_config() && common_logged_in()) {
         $user = common_current_user();
-        $user_language = $user->language;
 
-        if ($user->language) {
-            // Validate -- we don't want to end up with a bogus code
-            // left over from some old junk.
-            foreach (common_config('site', 'languages') as $code => $info) {
-                if ($info['lang'] == $user_language) {
-                    return $user_language;
-                }
-            }
+        if (common_valid_language($user->language)) {
+            return $user->language;
         }
     }
 
@@ -300,7 +316,10 @@ function common_set_user($user)
 
     if ($user) {
         if (Event::handle('StartSetUser', array(&$user))) {
-            if($user){
+            if (!empty($user)) {
+                if (!$user->hasRight(Right::WEBLOGIN)) {
+                    throw new AuthorizationException(_('Not allowed to log in.'));
+                }
                 common_ensure_session();
                 $_SESSION['userid'] = $user->id;
                 $_cur = $user;
@@ -784,7 +803,7 @@ function common_render_text($text)
 
     $r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
     $r = common_replace_urls_callback($r, 'common_linkify');
-    $r = preg_replace('/(^|\&quot\;|\'|\(|\[|\{|\s+)#([\pL\pN_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
+    $r = preg_replace('/(^|\&quot\;|\'|\(|\[|\{|\s+)#([\pL\pN_\-\.]{1,64})/ue', "'\\1#'.common_tag_link('\\2')", $r);
     // XXX: machine tags
     return $r;
 }
@@ -922,11 +941,11 @@ function common_linkify($url) {
     // functions
     $url = htmlspecialchars_decode($url);
 
-   if(strpos($url, '@') !== false && strpos($url, ':') === false) {
-       //url is an email address without the mailto: protocol
-       $canon = "mailto:$url";
-       $longurl = "mailto:$url";
-   }else{
+    if (strpos($url, '@') !== false && strpos($url, ':') === false && Validate::email($url)) {
+        //url is an email address without the mailto: protocol
+        $canon = "mailto:$url";
+        $longurl = "mailto:$url";
+    } else {
 
         $canon = File_redirection::_canonUrl($url);
 
@@ -1012,9 +1031,21 @@ function common_linkify($url) {
  */
 function common_shorten_links($text, $always = false, User $user=null)
 {
-    $maxLength = Notice::maxContent();
-    if (!$always && ($maxLength == 0 || mb_strlen($text) <= $maxLength)) return $text;
-    return common_replace_urls_callback($text, array('File_redirection', 'makeShort'), $user);
+    common_debug("common_shorten_links() called");
+
+    $user = common_current_user();
+
+    $maxLength = User_urlshortener_prefs::maxNoticeLength($user);
+
+    common_debug("maxLength = $maxLength");
+
+    if ($always || mb_strlen($text) > $maxLength) {
+        common_debug("Forcing shortening");
+        return common_replace_urls_callback($text, array('File_redirection', 'forceShort'), $user);
+    } else {
+        common_debug("Not forcing shortening");
+        return common_replace_urls_callback($text, array('File_redirection', 'makeShort'), $user);
+    }
 }
 
 /**
@@ -1429,14 +1460,8 @@ function common_redirect($url, $code=307)
     exit;
 }
 
-function common_broadcast_notice($notice, $remote=false)
-{
-    // DO NOTHING!
-}
+// Stick the notice on the queue
 
-/**
- * Stick the notice on the queue.
- */
 function common_enqueue_notice($notice)
 {
     static $localTransports = array('omb',
@@ -1450,18 +1475,9 @@ function common_enqueue_notice($notice)
         $transports[] = 'plugin';
     }
 
-    $xmpp = common_config('xmpp', 'enabled');
-
-    if ($xmpp) {
-        $transports[] = 'jabber';
-    }
-
     // We can skip these for gatewayed notices.
     if ($notice->isLocal()) {
         $transports = array_merge($transports, $localTransports);
-        if ($xmpp) {
-            $transports[] = 'public';
-        }
     }
 
     if (Event::handle('StartEnqueueNotice', array($notice, &$transports))) {
@@ -2000,21 +2016,6 @@ function common_session_token()
     return $_SESSION['token'];
 }
 
-function common_cache_key($extra)
-{
-    return Cache::key($extra);
-}
-
-function common_keyize($str)
-{
-    return Cache::keyize($str);
-}
-
-function common_memcache()
-{
-    return Cache::instance();
-}
-
 function common_license_terms($uri)
 {
     if(preg_match('/creativecommons.org\/licenses\/([^\/]+)/', $uri, $matches)) {
@@ -2055,33 +2056,52 @@ function common_database_tablename($tablename)
 /**
  * Shorten a URL with the current user's configured shortening service,
  * or ur1.ca if configured, or not at all if no shortening is set up.
- * Length is not considered.
  *
- * @param string $long_url
+ * @param string  $long_url original URL
  * @param User $user to specify a particular user's options
+ * @param boolean $force    Force shortening (used when notice is too long)
  * @return string may return the original URL if shortening failed
  *
  * @fixme provide a way to specify a particular shortener
  */
-function common_shorten_url($long_url, User $user=null)
+function common_shorten_url($long_url, User $user=null, $force = false)
 {
+    common_debug("Shortening URL '$long_url' (force = $force)");
+
     $long_url = trim($long_url);
-    if (empty($user)) {
-        // Current web session
-        $user = common_current_user();
-    }
-    if (empty($user)) {
-        // common current user does not find a user when called from the XMPP daemon
-        // therefore we'll set one here fix, so that XMPP given URLs may be shortened
-        $shortenerName = 'ur1.ca';
-    } else {
-        $shortenerName = $user->urlshorteningservice;
+
+    $user = common_current_user();
+
+    $maxUrlLength = User_urlshortener_prefs::maxUrlLength($user);
+    common_debug("maxUrlLength = $maxUrlLength");
+
+    // $force forces shortening even if it's not strictly needed
+    // I doubt URL shortening is ever 'strictly' needed. - ESP
+
+    if (mb_strlen($long_url) < $maxUrlLength && !$force) {
+        common_debug("Skipped shortening URL.");
+        return $long_url;
     }
 
-    if(Event::handle('StartShortenUrl', array($long_url,$shortenerName,&$shortenedUrl))){
-        //URL wasn't shortened, so return the long url
-        return $long_url;
-    }else{
+    $shortenerName = User_urlshortener_prefs::urlShorteningService($user);
+
+    common_debug("Shortener name = '$shortenerName'");
+
+    if (Event::handle('StartShortenUrl', 
+                      array($long_url, $shortenerName, &$shortenedUrl))) {
+        if ($shortenerName == 'internal') {
+            $f = File::processNew($long_url);
+            if (empty($f)) {
+                return $long_url;
+            } else {
+                $shortenedUrl = common_local_url('redirecturl',
+                                                 array('id' => $f->id));
+                return $shortenedUrl;
+            }
+        } else {
+            return $long_url;
+        }
+    } else {
         //URL was shortened, so return the result
         return trim($shortenedUrl);
     }
@@ -2183,4 +2203,41 @@ function common_nicknamize($str)
 {
     $str = preg_replace('/\W/', '', $str);
     return strtolower($str);
+}
+
+function common_perf_counter($key, $val=null)
+{
+    global $_perfCounters;
+    if (isset($_perfCounters)) {
+        if (common_config('site', 'logperf')) {
+            if (array_key_exists($key, $_perfCounters)) {
+                $_perfCounters[$key][] = $val;
+            } else {
+                $_perfCounters[$key] = array($val);
+            }
+            if (common_config('site', 'logperf_detail')) {
+                common_log(LOG_DEBUG, "PERF COUNTER HIT: $key $val");
+            }
+        }
+    }
+}
+
+function common_log_perf_counters()
+{
+    if (common_config('site', 'logperf')) {
+        global $_startTime, $_perfCounters;
+
+        if (isset($_startTime)) {
+            $endTime = microtime(true);
+            $diff = round(($endTime - $_startTime) * 1000);
+            common_log(LOG_DEBUG, "PERF runtime: ${diff}ms");
+        }
+        $counters = $_perfCounters;
+        ksort($counters);
+        foreach ($counters as $key => $values) {
+            $count = count($values);
+            $unique = count(array_unique($values));
+            common_log(LOG_DEBUG, "PERF COUNTER: $key $count ($unique unique)");
+        }
+    }
 }
