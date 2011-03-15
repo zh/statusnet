@@ -81,10 +81,10 @@ var removeRow = function() {
 };
 
 var init = function() {
-    reorder('phone-edit');
-    reorder('experience-edit');
-    reorder('education-edit');
-    reorder('im-edit');
+    reorder('phone-item');
+    reorder('experience-item');
+    reorder('education-item');
+    reorder('im-item');
 }
 
 $(document).ready(
