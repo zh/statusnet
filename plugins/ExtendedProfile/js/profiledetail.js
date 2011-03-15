@@ -84,6 +84,7 @@ var init = function() {
     reorder('phone-edit');
     reorder('experience-edit');
     reorder('education-edit');
+    reorder('im-edit');
 }
 
 $(document).ready(

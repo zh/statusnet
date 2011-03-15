@@ -109,6 +109,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
             }
 
             $this->savePhoneNumbers($user);
+            $this->saveIms($user);
             $this->saveExperiences($user);
             $this->saveEducations($user);
 
@@ -157,6 +158,44 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         }
 
         return $phoneArray;
+    }
+
+    function findIms() {
+
+        //  Form vals look like this:
+        // 'extprofile-im-0' => 'jed',
+        // 'extprofile-im-0-rel' => 'yahoo',
+
+        $ims     = $this->sliceParams('im', 2);
+        $imArray = array();
+
+        foreach ($ims as $im) {
+            list($id, $rel) = array_values($im);
+            $imArray[] = array(
+                'value' => $id,
+                'rel'   => $rel
+            );
+        }
+
+        return $imArray;
+    }
+
+    function saveIms($user) {
+        $ims = $this->findIms();
+        $this->removeAll($user, 'im');
+        $i = 0;
+        foreach($ims as $im) {
+            if (!empty($im['value'])) {
+                ++$i;
+                $this->saveField(
+                    $user,
+                    'im',
+                    $im['value'],
+                    $im['rel'],
+                    $i
+                );
+            }
+        }
     }
 
     function findExperiences() {

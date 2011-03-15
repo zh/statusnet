@@ -129,6 +129,32 @@ class ExtendedProfile
         return $pArrays;
     }
 
+    function getIms()
+    {
+        $ims = (isset($this->fields['im'])) ? $this->fields['im'] : null;
+        $iArrays = array();
+
+        if (empty($ims)) {
+            $iArrays[] = array(
+                'label' => _m('IM'),
+                'type' => 'im'
+            );
+        } else {
+            for ($i = 0; $i < sizeof($ims); $i++) {
+                $ia = array(
+                    'label' => _m('IM'),
+                    'type'  => 'im',
+                    'index' => intval($ims[$i]->value_index),
+                    'rel'   => $ims[$i]->rel,
+                    'value' => $ims[$i]->field_value,
+                );
+
+                $iArrays[] = $ia;
+            }
+        }
+        return $iArrays;
+    }
+
     function getExperiences()
     {
         $companies = (isset($this->fields['company'])) ? $this->fields['company'] : null;
@@ -248,11 +274,7 @@ class ExtendedProfile
                 'label' => _m('Contact'),
                 'fields' => array(
                     'phone' => $this->getPhones(),
-                    'im' => array(
-                        'label' => _m('IM'),
-                        'type' => 'im',
-                        'multi' => true,
-                    ),
+                    'im' => $this->getIms(),
                     'website' => array(
                         'label' => _m('Websites'),
                         'type' => 'website',

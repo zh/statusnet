@@ -106,6 +106,7 @@ class ExtendedProfileWidget extends Form
 
             switch($fieldName) {
             case 'phone':
+            case 'im':
             case 'experience':
             case 'education':
                 $this->showMultiple($fieldName, $field);
@@ -153,6 +154,53 @@ class ExtendedProfileWidget extends Form
         if (!empty($field['rel'])) {
             $this->out->text(' (' . $field['rel'] . ')');
         }
+        $this->out->elementEnd('div');
+    }
+
+    protected function showIm($name, $field)
+    {
+        $this->out->elementStart('div', array('class' => 'im-display'));
+        $this->out->text($field['value']);
+        if (!empty($field['rel'])) {
+            $this->out->text(' (' . $field['rel'] . ')');
+        }
+        $this->out->elementEnd('div');
+    }
+
+    protected function showEditableIm($name, $field)
+    {
+        $index = isset($field['index']) ? $field['index'] : 0;
+        $id    = "extprofile-$name-$index";
+        $rel   = $id . '-rel';
+        $this->out->elementStart(
+            'div', array(
+                'id' => $id . '-edit',
+                'class' => 'im-edit'
+            )
+        );
+        $this->out->input(
+            $id,
+            null,
+            isset($field['value']) ? $field['value'] : null
+        );
+        $this->out->dropdown(
+            $id . '-rel',
+            'Type',
+            array(
+                'jabber' => 'Jabber',
+                'gtalk'  => 'GTalk',
+                'aim'    => 'AIM',
+                'yahoo'  => 'Yahoo! Messenger',
+                'msn'    => 'MSN',
+                'skype'  => 'Skype',
+                'other'  => 'Other'
+            ),
+            null,
+            false,
+            isset($field['rel']) ? $field['rel'] : null
+        );
+
+        $this->showMultiControls();
         $this->out->elementEnd('div');
     }
 
@@ -373,6 +421,9 @@ class ExtendedProfileWidget extends Form
         case 'phone':
             $this->showPhone($name, $field);
             break;
+        case 'im':
+            $this->showIm($name, $field);
+            break;
         case 'experience':
             $this->showExperience($name, $field);
             break;
@@ -412,6 +463,9 @@ class ExtendedProfileWidget extends Form
             break;
         case 'phone':
             $this->showEditablePhone($name, $field);
+            break;
+        case 'im':
+            $this->showEditableIm($name, $field);
             break;
         case 'experience':
             $this->showEditableExperience($name, $field);
