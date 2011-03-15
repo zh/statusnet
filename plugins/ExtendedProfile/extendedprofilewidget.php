@@ -129,7 +129,7 @@ class ExtendedProfileWidget extends Form
     {
         $this->out->elementStart('tr');
 
-        $this->out->element('th', null, $field['label']);
+        $this->out->element('th', str_replace(' ','_',strtolower($field['label'])), $field['label']);
 
         $this->out->elementStart('td');
         if ($this->editable) {
@@ -188,7 +188,7 @@ class ExtendedProfileWidget extends Form
         $this->out->elementStart(
             'div', array(
                 'id' => $id . '-edit',
-                'class' => 'im-edit'
+                'class' => 'im-item'
             )
         );
         $this->out->input(
@@ -225,7 +225,7 @@ class ExtendedProfileWidget extends Form
         $this->out->elementStart(
             'div', array(
                 'id' => $id . '-edit',
-                'class' => 'phone-edit'
+                'class' => 'phone-item'
             )
         );
         $this->out->input(
@@ -293,6 +293,7 @@ class ExtendedProfileWidget extends Form
     protected function showExperience($name, $field)
     {
         $this->out->elementStart('div', 'experience-item');
+        $this->out->element('div', 'label', _m('Company'));
         $this->out->element('div', 'field', $field['company']);
         $this->out->element('div', 'label', _m('Start'));
         $this->out->element('div', array('class' => 'field date'), $field['start']);
@@ -315,44 +316,42 @@ class ExtendedProfileWidget extends Form
         $this->out->elementStart(
             'div', array(
                 'id' => $id . '-edit',
-                'class' => 'experience-edit'
+                'class' => 'experience-item'
             )
         );
 
+        $this->out->element('div', 'label', _m('Company'));
         $this->out->input(
             $id,
             null,
             isset($field['company']) ? $field['company'] : null
         );
 
-        $this->out->elementStart('ul', 'experience-start-and-end');
-        $this->out->elementStart('li');
+        $this->out->element('div', 'label', _m('Start'));
         $this->out->input(
             $id . '-start',
-            _m('Start'),
+            null,
             isset($field['start']) ? $field['start'] : null
         );
-        $this->out->elementEnd('li');
 
-        $this->out->elementStart('li');
+        $this->out->element('div', 'label', _m('End'));
         $this->out->input(
             $id . '-end',
-            _m('End'),
+            null,
             isset($field['end']) ? $field['end'] : null
         );
-        $this->out->elementEnd('li');
-        $this->out->elementStart('li');
         $this->out->hidden(
             $id . '-current',
             'false'
         );
+        $this->out->elementStart('div', 'current-checkbox');
         $this->out->checkbox(
             $id . '-current',
             _m('Current'),
             $field['current']
         );
-        $this->out->elementEnd('li');
-        $this->out->elementEnd('ul');
+        $this->out->elementEnd('div');
+
         $this->showMultiControls();
         $this->out->elementEnd('div');
     }
@@ -360,6 +359,7 @@ class ExtendedProfileWidget extends Form
     protected function showEducation($name, $field)
     {
         $this->out->elementStart('div', 'education-item');
+        $this->out->element('div', 'label', _m('Institution'));
         $this->out->element('div', 'field', $field['school']);
         $this->out->element('div', 'label', _m('Degree'));
         $this->out->element('div', 'field', $field['degree']);
@@ -379,9 +379,10 @@ class ExtendedProfileWidget extends Form
         $this->out->elementStart(
             'div', array(
                 'id' => $id . '-edit',
-                'class' => 'education-edit'
+                'class' => 'education-item'
             )
         );
+        $this->out->element('div', 'label', _m('Institution'));
         $this->out->input(
             $id,
             null,
@@ -404,23 +405,19 @@ class ExtendedProfileWidget extends Form
             isset($field['description']) ? $field['description'] : null
         );
 
-        $this->out->elementStart('ul', 'education-start-and-end');
-        $this->out->elementStart('li');
+        $this->out->element('div', 'label', _m('Start'));
         $this->out->input(
             $id . '-start',
-            _m('Start'),
+            null,
             isset($field['start']) ? $field['start'] : null
         );
-        $this->out->elementEnd('li');
 
-        $this->out->elementStart('li');
+        $this->out->element('div', 'label', _m('End'));
         $this->out->input(
             $id . '-end',
-            _m('End'),
+            null,
             isset($field['end']) ? $field['end'] : null
         );
-        $this->out->elementEnd('li');
-        $this->out->elementEnd('ul');
 
         $this->showMultiControls();
         $this->out->elementEnd('div');
@@ -431,21 +428,21 @@ class ExtendedProfileWidget extends Form
         $this->out->element(
             'a',
             array(
-                'class' => 'add_row',
-                'href' => 'javascript://',
-                'style' => 'display: none; '
-            ),
-            '+'
-        );
-
-        $this->out->element(
-            'a',
-            array(
                 'class' => 'remove_row',
                 'href' => 'javascript://',
                 'style' => 'display: none; '
             ),
             '-'
+        );
+
+        $this->out->element(
+            'a',
+            array(
+                'class' => 'add_row',
+                'href' => 'javascript://',
+                'style' => 'display: none; '
+            ),
+            '+'
         );
     }
 
@@ -571,7 +568,7 @@ class ExtendedProfileWidget extends Form
 
     function formClass()
     {
-        return 'form_profile_details';
+        return 'form_profile_details form_settings';
     }
 
     /**
