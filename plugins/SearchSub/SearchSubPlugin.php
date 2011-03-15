@@ -139,31 +139,61 @@ class SearchSubPlugin extends Plugin
      */
     function onStartNoticeWhoGets(Notice $notice, array &$ni)
     {
-        foreach ($notice->getTags() as $search) {
-            $searchsub = new SearchSub();
-            $searchsub->search = $search;
-            $searchsub->find();
+        // Warning: this is potentially very slow
+        // with a lot of searches!
+        $sub = new SearchSub();
+        $sub->groupBy('search');
+        $sub->find();
+        while ($sub->fetch()) {
+            $search = $sub->search;
 
-            while ($searchsub->fetch()) {
-                // These constants are currently not actually used, iirc
-                $ni[$searchsub->profile_id] = NOTICE_INBOX_SOURCE_SUB;
+            if ($this->matchSearch($notice, $search)) {
+                // Match? Find all those who subscribed to this
+                // search term and get our delivery on...
+                $searchsub = new SearchSub();
+                $searchsub->search = $search;
+                $searchsub->find();
+
+                while ($searchsub->fetch()) {
+                    // These constants are currently not actually used, iirc
+                    $ni[$searchsub->profile_id] = NOTICE_INBOX_SOURCE_SUB;
+                }
             }
         }
         return true;
     }
 
     /**
+     * Does the given notice match the given fulltext search query?
      *
-     * @param SearchAction $action
+     * Warning: not guaranteed to match other search engine behavior, etc.
+     * Currently using a basic case-insensitive substring match, which
+     * probably fits with the 'LIKE' search but not the default MySQL
+     * or Sphinx search backends.
+     *
+     * @param Notice $notice
+     * @param string $search 
+     * @return boolean
+     */
+    function matchSearch(Notice $notice, $search)
+    {
+        return (mb_stripos($notice->content, $search) !== false);
+    }
+
+    /**
+     *
+     * @param NoticeSearchAction $action
+     * @param string $q
+     * @param Notice $notice
      * @return boolean hook result
      */
-    function onStartTagShowContent(SearchAction $action)
+    function onStartNoticeSearchShowResults($action, $q, $notice)
     {
         $user = common_current_user();
         if ($user) {
-            $search = $action->trimmed('search');
+            $search = $q;
             $searchsub = SearchSub::pkeyGet(array('search' => $search,
-                                            'profile_id' => $user->id));
+                                                  'profile_id' => $user->id));
             if ($searchsub) {
                 $form = new SearchUnsubForm($action, $search);
             } else {
