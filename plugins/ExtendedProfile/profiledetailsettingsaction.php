@@ -140,26 +140,22 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
     function findPhoneNumbers() {
 
-        $phones = $this->sliceParams('phone', 2);
-        $phoneTuples = array();
+        // Form vals look like this:
+        // 'extprofile-phone-1' => '11332',
+        // 'extprofile-phone-1-rel' => 'mobile',
+
+        $phones     = $this->sliceParams('phone', 2);
+        $phoneArray = array();
 
         foreach ($phones as $phone) {
             list($number, $rel) = array_values($phone);
-            $phoneTuples[] = array(
+            $phoneArray[] = array(
                 'value' => $number,
                 'rel'   => $rel
             );
         }
 
-        return $phoneTuples;
-    }
-
-    function sliceParams($key, $size) {
-        $slice = array();
-        $params = $this->findMultiParams($key);
-        ksort($params);
-        $slice = $this->arraySplit($params, sizeof($params) / $size);
-        return $slice;
+        return $phoneArray;
     }
 
     function findExperiences() {
@@ -174,11 +170,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         $expArray = array();
 
         foreach ($experiences as $exp) {
-
-            common_debug('Experience: ' . var_export($exp, true));
-
             list($company, $current, $end, $start) = array_values($exp);
-
             $startTs = strtotime($start);
 
             if ($startTs === false) {
@@ -281,6 +273,14 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
             }
         }
         return $formVals;
+    }
+
+    function sliceParams($key, $size) {
+        $slice = array();
+        $params = $this->findMultiParams($key);
+        ksort($params);
+        $slice = $this->arraySplit($params, sizeof($params) / $size);
+        return $slice;
     }
 
     /**

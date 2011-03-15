@@ -164,6 +164,45 @@ class ExtendedProfile
         return $eArrays;
     }
 
+    function getEducation()
+    {
+        $schools = (isset($this->fields['school'])) ? $this->fields['school'] : null;
+        $degrees = (isset($this->fields['degree'])) ? $this->fields['degree'] : null;
+        $descs = (isset($this->fields['degree_description'])) ? $this->fields['degree_description'] : null;
+        $start = (isset($this->fields['school_start'])) ? $this->fields['school_start'] : null;
+        $end = (isset($this->fields['school_end'])) ? $this->fields['school_end'] : null;
+        $iArrays = array();
+
+        if (empty($schools)) {
+            $iArrays[] = array(
+                'type' => 'education',
+                'label' => _m('Institution'),
+                'school' => null,
+                'degree' => null,
+                'description' => null,
+                'start' => null,
+                'end' => null,
+                'index' => 0
+            );
+        } else {
+            for ($i = 0; $i < sizeof($schools); $i++) {
+                $ia = array(
+                    'type'    => 'education',
+                    'label'   => _m('Institution'),
+                    'school'  => $schools[$i]->field_value,
+                    'degree'  => $degrees[$i]->field_value,
+                    'description' => $descs[$i]->field_value,
+                    'index'   => intval($schools[$i]->value_index),
+                    'start'   => $start[$i]->date,
+                    'end'     => $end[$i]->date
+                );
+               $iArrays[] = $ia;
+            }
+        }
+
+        return $iArrays;
+    }
+
     /**
      *  Return all the sections of the extended profile
      *
@@ -241,16 +280,13 @@ class ExtendedProfile
             'experience' => array(
                 'label' => _m('Work experience'),
                 'fields' => array(
-                    'experience' => $this->getExperiences(),
+                    'experience' => $this->getExperiences()
                 ),
             ),
             'education' => array(
                 'label' => _m('Education'),
                 'fields' => array(
-                    'education' => array(
-                        'type' => 'education',
-                        'label' => _m('Institution'),
-                    ),
+                    'education' => $this->getEducation()
                 ),
             ),
         );

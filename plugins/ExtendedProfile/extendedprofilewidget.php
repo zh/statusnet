@@ -107,6 +107,7 @@ class ExtendedProfileWidget extends Form
             switch($fieldName) {
             case 'phone':
             case 'experience':
+            case 'education':
                 $this->showMultiple($fieldName, $field);
                 break;
             default:
@@ -257,6 +258,74 @@ class ExtendedProfileWidget extends Form
         $this->out->elementEnd('div');
     }
 
+    protected function showEducation($name, $field)
+    {
+        $this->out->elementStart('div', 'education-item');
+        $this->out->element('div', 'field', $field['school']);
+        $this->out->element('div', 'label', _m('Degree'));
+        $this->out->element('div', 'field', $field['degree']);
+        $this->out->element('div', 'label', _m('Description'));
+        $this->out->element('div', 'field', $field['description']);
+        $this->out->element('div', 'label', _m('Start'));
+        $this->out->element('div', array('class' => 'field date'), $field['start']);
+        $this->out->element('div', 'label', _m('End'));
+        $this->out->element('div', array('class' => 'field date'), $field['end']);
+        $this->out->elementEnd('div');
+    }
+
+    protected function showEditableEducation($name, $field)
+    {
+        $index = isset($field['index']) ? $field['index'] : 0;
+        $id    = "extprofile-$name-$index";
+        $this->out->elementStart(
+            'div', array(
+                'id' => $id . '-edit',
+                'class' => 'education-edit'
+            )
+        );
+        $this->out->input(
+            $id,
+            null,
+            isset($field['school']) ? $field['school'] : null
+        );
+
+        $this->out->element('div', 'label', _m('Degree'));
+        $this->out->input(
+            $id,
+            null,
+            isset($field['degree']) ? $field['degree'] : null
+        );
+
+        $this->out->element('div', 'label', _m('Description'));
+        $this->out->element('div', 'field', $field['description']);
+
+        $this->out->input(
+            $id,
+            null,
+            isset($field['description']) ? $field['description'] : null
+        );
+
+        $this->out->elementStart('ul', 'education-start-and-end');
+        $this->out->elementStart('li');
+        $this->out->input(
+            $id . '-start',
+            _m('Start'),
+            isset($field['start']) ? $field['start'] : null
+        );
+        $this->out->elementEnd('li');
+
+        $this->out->elementStart('li');
+        $this->out->input(
+            $id . '-end',
+            _m('End'),
+            isset($field['end']) ? $field['end'] : null
+        );
+        $this->out->elementEnd('ul');
+
+        $this->showMultiControls();
+        $this->out->elementEnd('div');
+    }
+
     function showMultiControls()
     {
         $this->out->element(
@@ -306,6 +375,9 @@ class ExtendedProfileWidget extends Form
         case 'experience':
             $this->showExperience($name, $field);
             break;
+        case 'education':
+            $this->showEducation($name, $field);
+            break;
         default:
             $this->out->text("TYPE: $type");
         }
@@ -342,6 +414,9 @@ class ExtendedProfileWidget extends Form
             break;
         case 'experience':
             $this->showEditableExperience($name, $field);
+            break;
+        case 'education':
+            $this->showEditableEducation($name, $field);
             break;
         default:
             $out->input($id, null, "TYPE: $type");
