@@ -106,4 +106,35 @@ class TagSub extends Managed_DataObject
         );
     }
 
+    /**
+     * Start a tag subscription!
+     *
+     * @param profile $profile subscriber
+     * @param string $tag subscribee
+     * @return TagSub
+     */
+    static function start(Profile $profile, $tag)
+    {
+        $ts = new TagSub();
+        $ts->tag = $tag;
+        $ts->profile_id = $profile->id;
+        $ts->created = common_sql_now();
+        $ts->insert();
+        return $ts;
+    }
+
+    /**
+     * End a tag subscription!
+     *
+     * @param profile $profile subscriber
+     * @param string $tag subscribee
+     */
+    static function cancel(Profile $profile, $tag)
+    {
+        $ts = TagSub::pkeyGet(array('tag' => $tag,
+                                    'profile_id' => $profile->id));
+        if ($ts) {
+            $ts->delete();
+        }
+    }
 }

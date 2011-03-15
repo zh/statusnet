@@ -73,13 +73,11 @@ class TagSubPlugin extends Plugin
 
         switch ($cls)
         {
-        case 'TagsubAction':
-        case 'TagunsubAction':
-            include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
-            return false;
         case 'TagSub':
             include_once $dir.'/'.$cls.'.php';
             return false;
+        case 'TagsubAction':
+        case 'TagunsubAction':
         case 'TagSubForm':
         case 'TagUnsubForm':
             include_once $dir.'/'.strtolower($cls).'.php';
@@ -150,6 +148,34 @@ class TagSubPlugin extends Plugin
                 // These constants are currently not actually used, iirc
                 $ni[$tagsub->profile_id] = NOTICE_INBOX_SOURCE_SUB;
             }
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @param TagAction $action
+     * @return boolean hook result
+     */
+    function onStartTagShowContent(TagAction $action)
+    {
+        $user = common_current_user();
+        if ($user) {
+            $tag = $action->trimmed('tag');
+            $tagsub = TagSub::pkeyGet(array('tag' => $tag,
+                                            'profile_id' => $user->id));
+            if ($tagsub) {
+                $form = new TagUnsubForm($action, $tag);
+            } else {
+                $form = new TagSubForm($action, $tag);
+            }
+            $action->elementStart('div', 'entity_actions');
+            $action->elementStart('ul');
+            $action->elementStart('li', 'entity_subscribe');
+            $form->show();
+            $action->elementEnd('li');
+            $action->elementEnd('ul');
+            $action->elementEnd('div');
         }
         return true;
     }
