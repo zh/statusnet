@@ -36,7 +36,7 @@ class ProfileDetailAction extends ShowstreamAction
 
     function showStylesheets() {
         parent::showStylesheets();
-        $this->cssLink('plugins/ExtendedProfile/profiledetail.css');
+        $this->cssLink('plugins/ExtendedProfile/css/profiledetail.css');
         return true;
     }
 
@@ -45,6 +45,7 @@ class ProfileDetailAction extends ShowstreamAction
         $cur = common_current_user();
         if ($cur && $cur->id == $this->profile->id) { // your own page
             $this->elementStart('div', 'entity_actions');
+            $this->elementStart('ul');
             $this->elementStart('li', 'entity_edit');
             $this->element('a', array('href' => common_local_url('profiledetailsettings'),
                                       // TRANS: Link title for link on user profile.
@@ -52,6 +53,7 @@ class ProfileDetailAction extends ShowstreamAction
                            // TRANS: Link text for link on user profile.
                            _m('Edit'));
             $this->elementEnd('li');
+            $this->elementEnd('ul');
             $this->elementEnd('div');
         }
 
