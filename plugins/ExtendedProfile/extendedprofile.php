@@ -131,24 +131,36 @@ class ExtendedProfile
 
     function getExperiences()
     {
-        $companies = (isset($this->fields['companies'])) ? $this->fields['company'] : null;
+        $companies = (isset($this->fields['company'])) ? $this->fields['company'] : null;
         $start = (isset($this->fields['start'])) ? $this->fields['start'] : null;
         $end   = (isset($this->fields['end'])) ? $this->fields['end'] : null;
 
-        $cArrays = array();
+        $eArrays = array();
 
-        if (empty($experiences)) {
+        if (empty($companies)) {
             $eArrays[] = array(
                 'label'   => _m('Employer'),
                 'type'    => 'experience',
-                'company' => "Bozotronix",
-                'start'   => '1/5/10',
-                'end'     => '2/3/11',
-                'current' => true,
+                'company' => null,
+                'start'   => null,
+                'end'     => null,
+                'current' => false,
                 'index'   => 0
             );
+        } else {
+            for ($i = 0; $i < sizeof($companies); $i++) {
+                $ea = array(
+                    'label'   => _m('Employer'),
+                    'type'    => 'experience',
+                    'company' => $companies[$i]->field_value,
+                    'index'   => intval($companies[$i]->value_index),
+                    'current' => $end[$i]->rel,
+                    'start'   => $start[$i]->date,
+                    'end'     => $end[$i]->date
+                );
+               $eArrays[] = $ea;
+            }
         }
-
         return $eArrays;
     }
 

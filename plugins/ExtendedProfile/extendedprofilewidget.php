@@ -241,6 +241,10 @@ class ExtendedProfileWidget extends Form
         );
         $this->out->elementEnd('li');
         $this->out->elementStart('li');
+        $this->out->hidden(
+            $id . '-current',
+            'false'
+        );
         $this->out->checkbox(
             $id . '-current',
             _m('Current'),

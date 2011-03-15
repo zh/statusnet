@@ -95,25 +95,26 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         $user = common_current_user();
 
         try {
-           $this->saveStandardProfileDetails($user);
+            $this->saveStandardProfileDetails($user);
+
+            $profile = $user->getProfile();
+
+            $simpleFieldNames = array('title', 'spouse', 'kids');
+
+            foreach ($simpleFieldNames as $name) {
+                $value = $this->trimmed('extprofile-' . $name);
+                if (!empty($value)) {
+                    $this->saveField($user, $name, $value);
+                }
+            }
+
+            $this->savePhoneNumbers($user);
+            $this->saveExperiences($user);
+
         } catch (Exception $e) {
             $this->showForm($e->getMessage(), false);
             return;
         }
-
-        $profile = $user->getProfile();
-
-        $simpleFieldNames = array('title', 'spouse', 'kids');
-
-        foreach ($simpleFieldNames as $name) {
-            $value = $this->trimmed('extprofile-' . $name);
-            if (!empty($value)) {
-                $this->saveField($user, $name, $value);
-            }
-        }
-
-        $this->savePhoneNumbers($user);
-        $this->saveExperiences($user);
 
         $this->showForm(_('Details saved.'), true);
 
@@ -170,11 +171,31 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         $expArray = array();
 
         foreach ($experiences as $exp) {
-            list($company, $current, $start, $end) = array_values($exp);
+
+            common_debug('Experience: ' . var_export($exp, true));
+
+            list($company, $current, $end, $start) = array_values($exp);
+
+            $startTs = strtotime($start);
+
+            if ($startTs === false) {
+                throw new Exception(
+                    sprintf(_m("Invalid start date: %s"), $start)
+                );
+            }
+
+            $endTs = strtotime($end);
+
+            if ($current === 'false' && $endTs === false) {
+                throw new Exception(
+                    sprintf(_m("Invalid end date: %s"), $start)
+                );
+            }
+
             $expArray[] = array(
                 'company' => $company,
-                'start'   => $start,
-                'end'     => $end,
+                'start'   => common_sql_date($startTs),
+                'end'     => common_sql_date($endTs),
                 'current' => $current,
             );
         }
@@ -201,7 +222,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
                     null,
                     $i
                 );
-           /*
+
                 $this->saveField(
                     $user,
                     'start',
@@ -230,7 +251,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
                         $experience['end']
                     );
                 }
-                */
+
             }
         }
     }
