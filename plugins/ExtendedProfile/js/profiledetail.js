@@ -55,9 +55,8 @@ SN_EXTENDED.addRow = function() {
     var cls = div.attr('class');
     var index = id.match(/\d+/);
     var newIndex = parseInt(index) + 1;
-    var newtr = $(div).closest('tr').clone();
+    var newtr = $(div).closest('tr').removeClass('supersizeme').clone();
     SN_EXTENDED.replaceIndex(newtr, index, newIndex);
-    $(newtr).removeClass('supersizeme');
     SN_EXTENDED.resetRow(newtr);
     $(div).closest('tr').after(newtr);
     SN_EXTENDED.reorder(cls);
