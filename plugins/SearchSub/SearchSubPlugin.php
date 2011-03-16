@@ -78,6 +78,7 @@ class SearchSubPlugin extends Plugin
             return false;
         case 'SearchsubAction':
         case 'SearchunsubAction':
+        case 'SearchsubsAction':
         case 'SearchSubForm':
         case 'SearchUnsubForm':
             include_once $dir.'/'.strtolower($cls).'.php';
@@ -103,6 +104,9 @@ class SearchSubPlugin extends Plugin
                     array('action' => 'searchunsub'),
                     array('search' => Router::REGEX_TAG));
 
+        $m->connect(':nickname/search-subscriptions',
+                    array('action' => 'searchsubs'),
+                    array('nickname' => Nickname::DISPLAY_FMT));
         return true;
     }
 
@@ -206,6 +210,62 @@ class SearchSubPlugin extends Plugin
             $action->elementEnd('li');
             $action->elementEnd('ul');
             $action->elementEnd('div');
+        }
+        return true;
+    }
+
+    /**
+     * Menu item for personal subscriptions/groups area
+     *
+     * @param Widget $widget Widget being executed
+     *
+     * @return boolean hook return
+     */
+
+    function onEndSubGroupNav($widget)
+    {
+        $action = $widget->out;
+        $action_name = $action->trimmed('action');
+
+        $action->menuItem(common_local_url('searchsubs', array('nickname' => $action->user->nickname)),
+                          // TRANS: SearchSub plugin menu item on user settings page.
+                          _m('MENU', 'Searches'),
+                          // TRANS: SearchSub plugin tooltip for user settings menu item.
+                          _m('Configure search subscriptions'),
+                          $action_name == 'searchsubs' && $action->arg('nickname') == $action->user->nickname);
+
+        return true;
+    }
+
+    /**
+     * Add a count of mirrored feeds into a user's profile sidebar stats.
+     *
+     * @param Profile $profile
+     * @param array $stats
+     * @return boolean hook return value
+     */
+    function onProfileStats($profile, &$stats)
+    {
+        $cur = common_current_user();
+        if (!empty($cur) && $cur->id == $profile->id) {
+            $searchsub = new SearchSub();
+            $searchsub ->profile_id = $profile->id;
+            $entry = array(
+                'id' => 'searchsubs',
+                'label' => _m('Search subscriptions'),
+                'link' => common_local_url('searchsubs', array('nickname' => $profile->nickname)),
+                'value' => $searchsub->count(),
+            );
+
+            $insertAt = count($stats);
+            foreach ($stats as $i => $row) {
+                if ($row['id'] == 'groups') {
+                    // Slip us in after them.
+                    $insertAt = $i + 1;
+                    break;
+                }
+            }
+            array_splice($stats, $insertAt, 0, array($entry));
         }
         return true;
     }
