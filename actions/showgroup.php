@@ -323,7 +323,7 @@ class ShowgroupAction extends GroupDesignAction
         // TRANS: Header for group statistics on a group page (h2).
         $this->element('h2', null, _('Statistics'));
 
-        $this->elementEnd('dl');
+        $this->elementStart('dl');
         $this->element('dt', null, _m('LABEL','Created'));
         $this->element('dd', 'entity_created', date('j M Y',
                                                  strtotime($this->group->created)));
