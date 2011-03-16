@@ -315,7 +315,6 @@ class Action extends HTMLOutputter // lawsuit
                 $this->showScriptMessages();
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
-                $this->inlineScript('$(document).ready(function(){ $(\'#input_forms\').tabs(); });');
                 Event::handle('EndShowStatusNetScripts', array($this));
                 Event::handle('EndShowLaconicaScripts', array($this));
             }
@@ -593,7 +592,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         $tabs = array('status' => _('Status'));
 
-        $this->elementStart('div', array('id' => 'input_forms'));
+        $this->elementStart('div', 'input_forms');
 
         if (Event::handle('StartShowEntryForms', array(&$tabs))) {
 
@@ -612,7 +611,7 @@ class Action extends HTMLOutputter // lawsuit
                 $this->elementStart('li', $attrs);
 
                 $this->element('a',
-                               array('href' => '#input_forms-'.$tag),
+                               array('href' => 'javascript:SN.U.switchInputFormTab("'.$tag.'")'),
                                $title);
                 $this->elementEnd('li');
             }
@@ -622,7 +621,7 @@ class Action extends HTMLOutputter // lawsuit
             foreach ($tabs as $tag => $title) {
 
                 $attrs = array('class' => 'input_form',
-                               'id' => 'input_forms-'.$tag);
+                               'id' => 'input_form_'.$tag);
 
                 if ($tag == 'status') {
                     $attrs['class'] .= ' current';
