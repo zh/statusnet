@@ -16,7 +16,7 @@ SN_EXTENDED.reorder = function(cls) {
     $(divs).last().find('a.add_row').show();
 
     if (divs.length == 1) {
-        $(divs).find('a.remove_row').hide();
+        $(divs).find('a.remove_row').fadeOut("slow");
     }
 };
 
