@@ -78,6 +78,7 @@ class TagSubPlugin extends Plugin
             return false;
         case 'TagsubAction':
         case 'TagunsubAction':
+        case 'TagsubsAction':
         case 'TagSubForm':
         case 'TagUnsubForm':
             include_once $dir.'/'.strtolower($cls).'.php';
@@ -196,12 +197,12 @@ class TagSubPlugin extends Plugin
         $action = $widget->out;
         $action_name = $action->trimmed('action');
 
-        $widget->item('tagsubs',
-                      array(),
-                      // TRANS: SubMirror plugin menu item on user settings page.
-                      _m('MENU', 'Tags'),
-                      // TRANS: SubMirror plugin tooltip for user settings menu item.
-                      _m('Configure tag subscriptions'));
+        $action->menuItem(common_local_url('tagsubs', array('nickname' => $action->user->nickname)),
+                          // TRANS: SubMirror plugin menu item on user settings page.
+                          _m('MENU', 'Tags'),
+                          // TRANS: SubMirror plugin tooltip for user settings menu item.
+                          _m('Configure tag subscriptions'),
+                          $action_name == 'tagsubs' && $action->arg('nickname') == $action->user->nickname);
 
         return true;
     }
@@ -222,7 +223,7 @@ class TagSubPlugin extends Plugin
             $entry = array(
                 'id' => 'tagsubs',
                 'label' => _m('Tag subscriptions'),
-                'link' => common_local_url('tagsubs'),
+                'link' => common_local_url('tagsubs', array('nickname' => $profile->nickname)),
                 'value' => $tagsub->count(),
             );
 

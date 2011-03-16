@@ -65,12 +65,12 @@ class TagSubsAction extends GalleryAction
             $this->element('p', null,
                            // TRANS: Page notice for page with an overview of all tag subscriptions
                            // TRANS: of the logged in user's own profile.
-                           _m('You have subscribed to receive all notices on this site containing the following tags.'));
+                           _m('You have subscribed to receive all notices on this site containing the following tags:'));
         } else {
             $this->element('p', null,
                            // TRANS: Page notice for page with an overview of all subscriptions of a user other
                            // TRANS: than the logged in user. %s is the user nickname.
-                           sprintf(_m('%s has subscribed to receive all notices on this site containing the following tags.'),
+                           sprintf(_m('%s has subscribed to receive all notices on this site containing the following tags:'),
                                    $this->profile->nickname));
         }
     }
@@ -87,8 +87,7 @@ class TagSubsAction extends GalleryAction
 
             $tagsub = new TagSub();
             $tagsub->profile_id = $this->user->id;
-            $tagsub->limit($limit);
-            $tagsub->offset($offset);
+            $tagsub->limit($limit, $offset);
             $tagsub->find();
 
             if ($tagsub->N) {
@@ -97,6 +96,8 @@ class TagSubsAction extends GalleryAction
                 if (0 == $cnt) {
                     $this->showEmptyListMessage();
                 }
+            } else {
+                $this->showEmptyListMessage();
             }
 
             $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
@@ -113,18 +114,13 @@ class TagSubsAction extends GalleryAction
         if (common_logged_in()) {
             $current_user = common_current_user();
             if ($this->user->id === $current_user->id) {
-                // TRANS: Subscription list text when the logged in user has no subscriptions.
-                // TRANS: This message contains Markdown URLs. The link description is between
-                // TRANS: square brackets, and the link between parentheses. Do not separate "]("
-                // TRANS: and do not change the URL part.
-                $message = _('You\'re not listening to anyone\'s notices right now, try subscribing to people you know. '.
-                             'Try [people search](%%action.peoplesearch%%), look for members in groups you\'re interested '.
-                             'in and in our [featured users](%%action.featured%%). '.
-                             'If you\'re a [Twitter user](%%action.twittersettings%%), you can automatically subscribe to '.
-                             'people you already follow there.');
+                // TRANS: Tag subscription list text when the logged in user has no tag subscriptions.
+                $message = _('You\'re not listening to any hash tags right now. You can push the "Subscribe" button ' .
+                             'on any hashtag page to automatically receive any public messages on this site that use that ' .
+                             'tag, even if you\'re not subscribed to the poster.');
             } else {
-                // TRANS: Subscription list text when looking at the subscriptions for a of a user other
-                // TRANS: than the logged in user that has no subscriptions. %s is the user nickname.
+                // TRANS: Tag subscription list text when looking at the subscriptions for a of a user other
+                // TRANS: than the logged in user that has no tag subscriptions. %s is the user nickname.
                 $message = sprintf(_('%s is not listening to any tags.'), $this->user->nickname);
             }
         }
@@ -152,22 +148,47 @@ class TagSubscriptionsList extends SubscriptionList
 
 class TagSubscriptionsListItem extends SubscriptionListItem
 {
+    function startItem()
+    {
+        $this->out->elementStart('li', array('class' => 'tagsub'));
+    }
+
     function showProfile()
     {
-        $this->startProfile();
+        $tagsub = $this->profile;
+        $tag = $tagsub->tag;
+
         // Relevant portion!
         $cur = common_current_user();
         if (!empty($cur) && $cur->id == $this->owner->id) {
             $this->showOwnerControls();
         }
-        $this->endProfile();
+        
+        $url = common_local_url('tag', array('tag' => $tag));
+        $linkline = sprintf(_m('#<a href="%s">%s</a> since %s'),
+                            htmlspecialchars($url),
+                            htmlspecialchars($tag),
+                            common_date_string($tagsub->created));
+
+        $this->out->elementStart('div', 'tagsub-item');
+        $this->out->raw($linkline);
+        $this->out->element('div', array('style' => 'clear: both'));
+        $this->out->elementEnd('div');
+    }
+
+    function showActions()
+    {
     }
 
     function showOwnerControls()
     {
+        $this->out->elementStart('div', 'entity_actions');
+
         $tagsub = $this->profile; // ?
-        $form = new TagSubForm($this->out, $tagsub->tag);
+        $form = new TagUnsubForm($this->out, $tagsub->tag);
         $form->show();
+
+        $this->out->elementEnd('div');
         return;
     }
 }
