@@ -1031,19 +1031,13 @@ function common_linkify($url) {
  */
 function common_shorten_links($text, $always = false, User $user=null)
 {
-    common_debug("common_shorten_links() called");
-
     $user = common_current_user();
 
     $maxLength = User_urlshortener_prefs::maxNoticeLength($user);
 
-    common_debug("maxLength = $maxLength");
-
     if ($always || mb_strlen($text) > $maxLength) {
-        common_debug("Forcing shortening");
         return common_replace_urls_callback($text, array('File_redirection', 'forceShort'), $user);
     } else {
-        common_debug("Not forcing shortening");
         return common_replace_urls_callback($text, array('File_redirection', 'makeShort'), $user);
     }
 }
@@ -2066,26 +2060,20 @@ function common_database_tablename($tablename)
  */
 function common_shorten_url($long_url, User $user=null, $force = false)
 {
-    common_debug("Shortening URL '$long_url' (force = $force)");
-
     $long_url = trim($long_url);
 
     $user = common_current_user();
 
     $maxUrlLength = User_urlshortener_prefs::maxUrlLength($user);
-    common_debug("maxUrlLength = $maxUrlLength");
 
     // $force forces shortening even if it's not strictly needed
     // I doubt URL shortening is ever 'strictly' needed. - ESP
 
     if (mb_strlen($long_url) < $maxUrlLength && !$force) {
-        common_debug("Skipped shortening URL.");
         return $long_url;
     }
 
     $shortenerName = User_urlshortener_prefs::urlShorteningService($user);
-
-    common_debug("Shortener name = '$shortenerName'");
 
     if (Event::handle('StartShortenUrl', 
                       array($long_url, $shortenerName, &$shortenedUrl))) {
