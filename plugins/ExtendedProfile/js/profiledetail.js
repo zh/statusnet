@@ -1,4 +1,6 @@
-var reorder = function(class) {
+var SN_EXTENDED = SN_EXTENDED || {};
+
+SN_EXTENDED.reorder = function(class) {
     console.log("QQQ Enter reorder");
 
     var divs = $.find('div[class=' + class + ']');
@@ -9,7 +11,7 @@ var reorder = function(class) {
     $(divs).each(function(i, div) {
         console.log("ROW " + i);
         $(div).find('a.remove_row').show();
-        replaceIndex(rowIndex(div), i);
+        SN_EXTENDED.replaceIndex(SN_EXTENDED.rowIndex(div), i);
     });
 
     $this = $(divs).last().closest('tr');
@@ -23,19 +25,19 @@ var reorder = function(class) {
 
 };
 
-var rowIndex = function(div) {
+SN_EXTENDED.rowIndex = function(div) {
     var idstr = $(div).attr('id');
     var id = idstr.match(/\d+/);
     console.log("id = " + id);
     return id;
 };
 
-var rowCount = function(class) {
+SN_EXTENDED.rowCount = function(class) {
     var divs = $.find('div[class=' + class + ']');
     return divs.length;
 };
 
-var replaceIndex = function(elem, oldIndex, newIndex) {
+SN_EXTENDED.replaceIndex = function(elem, oldIndex, newIndex) {
     $(elem).find('*').each(function() {
         $.each(this.attributes, function(i, attrib) {
             var regexp = /extprofile-.*-\d.*/;
@@ -49,12 +51,12 @@ var replaceIndex = function(elem, oldIndex, newIndex) {
     });
 }
 
-var resetRow = function(elem) {
+SN_EXTENDED.resetRow = function(elem) {
     $(elem).find('input').attr('value', '');
     $(elem).find("select option[value='office']").attr("selected", true);
 }
 
-var addRow = function() {
+SN_EXTENDED.addRow = function() {
     var div = $(this).closest('div');
     var id = $(div).attr('id');
     var class = $(div).attr('class');
@@ -64,44 +66,41 @@ var addRow = function() {
     var tr = $(trold).removeClass('supersizeme');
     var newtr = $(tr).clone();
     var newIndex = parseInt(index) + 1;
-    replaceIndex(newtr, index, newIndex);
-    resetRow(newtr);
+    SN_EXTENDED.replaceIndex(newtr, index, newIndex);
+    SN_EXTENDED.resetRow(newtr);
     $(tr).after(newtr);
-    reorder(class);
+    SN_EXTENDED.reorder(class);
 };
 
-var removeRow = function() {
+SN_EXTENDED.removeRow = function() {
     var div = $(this).closest('div');
     var id = $(div).attr('id');
     var class = $(div).attr('class');
 
-    cnt = rowCount(class);
+    cnt = SN_EXTENDED.rowCount(class);
     console.debug("removeRow - cnt = " + cnt);
     if (cnt > 1) {
         var target = $(this).closest('tr');
         target.remove();
-        reorder(class);
+        SN_EXTENDED.reorder(class);
     }
 };
 
-var init = function() {
-    reorder('phone-item');
-    reorder('experience-item');
-    reorder('education-item');
-    reorder('im-item');
+$(document).ready(
+
+function() {
+
+    var multifields = ["phone-item", "experience-item", "education-item", "im-item"];
+
+    for (f in multifields) {
+        SN_EXTENDED.reorder(multifields[f]);
+    }
 
     $("input#extprofile-manager").autocomplete({
         source: 'finduser',
         minLength: 2 });
 
-}
+    $('.add_row').live('click', SN_EXTENDED.addRow);
+    $('.remove_row').live('click', SN_EXTENDED.removeRow);
 
-$(document).ready(
-
-function() {
-    init();
-    $('.add_row').live('click', addRow);
-    $('.remove_row').live('click', removeRow);
-}
-
-);
+});
