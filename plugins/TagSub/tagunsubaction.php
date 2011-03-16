@@ -1,7 +1,9 @@
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2010, StatusNet, Inc.
+ * Copyright (C) 2008-2011, StatusNet, Inc.
+ *
+ * Tag subscription action.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,7 +23,8 @@
  * @category  Action
  * @package   StatusNet
  * @author    Brion Vibber <brion@status.net>
- * @copyright 2010 StatusNet, Inc.
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
  * @link      http://status.net/
  */
@@ -31,9 +34,10 @@ if (!defined('STATUSNET')) {
 }
 
 /**
+ * Tag unsubscription action
+ *
  * Takes parameters:
  *
- *    - feed: a profile ID
  *    - token: session token to prevent CSRF attacks
  *    - ajax: boolean; whether to return Ajax or full-browser results
  *
@@ -41,51 +45,45 @@ if (!defined('STATUSNET')) {
  *
  * @category  Action
  * @package   StatusNet
- * @copyright 2010 StatusNet, Inc.
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Brion Vibber <brion@status.net>
+ * @copyright 2008-2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
  * @link      http://status.net/
  */
-class AddMirrorAction extends BaseMirrorAction
+class TagunsubAction extends TagsubAction
 {
-    var $feedurl;
-
     /**
-     * Check pre-requisites and instantiate attributes
+     * Handle request
      *
-     * @param Array $args array of arguments (URL, GET, POST)
+     * Does the subscription and returns results.
      *
-     * @return boolean success flag
+     * @param Array $args unused.
+     *
+     * @return void
      */
-    function prepare($args)
+    function handle($args)
     {
-        parent::prepare($args);
-        $feedurl = $this->getFeedUrl();
-        $this->feedurl = $this->validateFeedUrl($feedurl);
-        $this->profile = $this->profileForFeed($this->feedurl);
-        return true;
-    }
+        // Throws exception on error
 
-    function getFeedUrl()
-    {
-        $provider = $this->trimmed('provider');
-        switch ($provider) {
-        case 'feed':
-            return $this->trimmed('feedurl');
-        case 'twitter':
-            $screenie = $this->trimmed('screen_name');
-            $base = 'http://api.twitter.com/1/statuses/user_timeline.atom?screen_name=';
-            return $base . urlencode($screenie);
-        default:
-            throw new Exception('Internal form error: unrecognized feed provider.');
-        }
-    }
+        TagSub::cancel($this->user->getProfile(),
+                       $this->tag);
 
-    function saveMirror()
-    {
-        if ($this->oprofile->subscribe()) {
-            SubMirror::saveMirror($this->user, $this->profile);
+        if ($this->boolean('ajax')) {
+            $this->startHTML('text/xml;charset=utf-8');
+            $this->elementStart('head');
+            // TRANS: Page title when tag unsubscription succeeded.
+            $this->element('title', null, _m('Unsubscribed'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $subscribe = new TagSubForm($this, $this->tag);
+            $subscribe->show();
+            $this->elementEnd('body');
+            $this->elementEnd('html');
         } else {
-            $this->serverError(_m("Could not subscribe to feed."));
+            $url = common_local_url('tag',
+                                    array('tag' => $this->tag));
+            common_redirect($url, 303);
         }
     }
 }

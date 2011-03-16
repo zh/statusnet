@@ -1,7 +1,9 @@
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2010, StatusNet, Inc.
+ * Copyright (C) 2008-2011, StatusNet, Inc.
+ *
+ * Tag subscription action.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,7 +23,8 @@
  * @category  Action
  * @package   StatusNet
  * @author    Brion Vibber <brion@status.net>
- * @copyright 2010 StatusNet, Inc.
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
  * @link      http://status.net/
  */
@@ -31,9 +34,10 @@ if (!defined('STATUSNET')) {
 }
 
 /**
+ * Tag subscription action
+ *
  * Takes parameters:
  *
- *    - feed: a profile ID
  *    - token: session token to prevent CSRF attacks
  *    - ajax: boolean; whether to return Ajax or full-browser results
  *
@@ -41,14 +45,16 @@ if (!defined('STATUSNET')) {
  *
  * @category  Action
  * @package   StatusNet
- * @copyright 2010 StatusNet, Inc.
+ * @author    Evan Prodromou <evan@status.net>
+ * @author    Brion Vibber <brion@status.net>
+ * @copyright 2008-2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
  * @link      http://status.net/
  */
-abstract class BaseMirrorAction extends Action
+class TagsubAction extends Action
 {
     var $user;
-    var $profile;
+    var $tag;
 
     /**
      * Check pre-requisites and instantiate attributes
@@ -60,67 +66,26 @@ abstract class BaseMirrorAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
-        return $this->sharedBoilerplate();
-    }
-
-    protected function validateFeedUrl($url)
-    {
-        if (common_valid_http_url($url)) {
-            return $url;
-        } else {
-            $this->clientError(sprintf(_m("Invalid feed URL: %s"), $url));
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true);
         }
-    }
 
-    protected function validateProfile($id)
-    {
-        $id = intval($id);
-        $profile = Profile::staticGet('id', $id);
-        if ($profile && $profile->id != $this->user->id) {
-            return $profile;
-        }
-        // TRANS: Error message returned to user when setting up feed mirroring, but we were unable to resolve the given URL to a working feed.
-        $this->clientError(_m("Invalid profile for mirroring."));
-    }
-
-    /**
-     *
-     * @param string $url
-     * @return Profile
-     */
-    protected function profileForFeed($url)
-    {
-        try {
-            // Maybe we got a web page?
-            $oprofile = Ostatus_profile::ensureProfileURL($url);
-        } catch (Exception $e) {
-            // Direct feed URL?
-            $oprofile = Ostatus_profile::ensureFeedURL($url);
-        }
-        if ($oprofile->isGroup()) {
-            $this->clientError(_m("Can't mirror a StatusNet group at this time."));
-        }
-        $this->oprofile = $oprofile; // @fixme ugly side effect :D
-        return $oprofile->localProfile();
-    }
-
-    /**
-     * @todo FIXME: none of this belongs in end classes
-     * this stuff belongs in shared code!
-     */
-    function sharedBoilerplate()
-    {
         // Only allow POST requests
+
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->clientError(_m('This action only accepts POST requests.'));
+            // TRANS: Client error displayed trying to perform any request method other than POST.
+            // TRANS: Do not translate POST.
+            $this->clientError(_('This action only accepts POST requests.'));
             return false;
         }
 
         // CSRF protection
+
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->clientError(_m('There was a problem with your session token.'.
+            // TRANS: Client error displayed when the session token is not okay.
+            $this->clientError(_('There was a problem with your session token.'.
                                  ' Try again, please.'));
             return false;
         }
@@ -130,9 +95,21 @@ abstract class BaseMirrorAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            $this->clientError(_m('Not logged in.'));
+            // TRANS: Client error displayed trying to subscribe when not logged in.
+            $this->clientError(_('Not logged in.'));
             return false;
         }
+
+        // Profile to subscribe to
+
+        $this->tag = $this->arg('tag');
+
+        if (empty($this->tag)) {
+            // TRANS: Client error displayed trying to subscribe to a non-existing profile.
+            $this->clientError(_('No such profile.'));
+            return false;
+        }
+
         return true;
     }
 
@@ -148,23 +125,25 @@ abstract class BaseMirrorAction extends Action
     function handle($args)
     {
         // Throws exception on error
-        $this->saveMirror();
+
+        TagSub::start($this->user->getProfile(),
+                      $this->tag);
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
+            // TRANS: Page title when tag subscription succeeded.
             $this->element('title', null, _m('Subscribed'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $unsubscribe = new EditMirrorForm($this, $this->profile);
+            $unsubscribe = new TagUnsubForm($this, $this->tag);
             $unsubscribe->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
-            $url = common_local_url('mirrorsettings');
+            $url = common_local_url('tag',
+                                    array('tag' => $this->tag));
             common_redirect($url, 303);
         }
     }
-
-    abstract function saveMirror();
 }
