@@ -413,6 +413,33 @@ address {
     text-transform: uppercase;
 }
 
+.profile_block_name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.profile_block_location {
+    font-weight: bold;
+}
+
+.profile_block_description {
+    line-height: 1.2em;
+}
+
+.profile_block .entity_actions {
+    float: left;
+    margin-left: 0px;
+}
+
+.profile_block .entity_moderation:hover ul,
+.profile_block .entity_role:hover ul {
+    left: 20px;
+}
+
+.profile_block a.profiledetail {
+    display: block;
+}
+
 .section ul.entities {
     width: 220px;
 }

@@ -395,25 +395,28 @@ class ExtendedProfileWidget extends Form
     {
         $this->out->elementStart('div', 'education-item');
         $this->out->element('div', 'label', _m('Institution'));
-        $this->out->element('div', 'field', $field['school']);
-        $this->out->element('div', 'label', _m('Degree'));
-        $this->out->element('div', 'field', $field['degree']);
-        $this->out->element('div', 'label', _m('Description'));
-        $this->out->element('div', 'field', $field['description']);
-        $this->out->element('div', 'label', _m('Start'));
-        $this->out->element(
-            'div',
-            array('class' => 'field date'),
-            date('j M Y', strtotime($field['start'])
-            )
-        );
-        $this->out->element('div', 'label', _m('End'));
-        $this->out->element(
-            'div',
-            array('class' => 'field date'),
-            date('j M Y', strtotime($field['end'])
-            )
-        );
+        if (!empty($field['school'])) {
+
+            $this->out->element('div', 'field', $field['school']);
+            $this->out->element('div', 'label', _m('Degree'));
+            $this->out->element('div', 'field', $field['degree']);
+            $this->out->element('div', 'label', _m('Description'));
+            $this->out->element('div', 'field', $field['description']);
+            $this->out->element('div', 'label', _m('Start'));
+            $this->out->element(
+                'div',
+                array('class' => 'field date'),
+                date('j M Y', strtotime($field['start'])
+                )
+            );
+            $this->out->element('div', 'label', _m('End'));
+            $this->out->element(
+                'div',
+                array('class' => 'field date'),
+                date('j M Y', strtotime($field['end'])
+                )
+            );
+        }
         $this->out->elementEnd('div');
     }
 
@@ -442,7 +445,6 @@ class ExtendedProfileWidget extends Form
         );
 
         $this->out->element('div', 'label', _m('Description'));
-        $this->out->element('div', 'field', $field['description']);
 
         $this->out->textarea(
             $id . '-description',
@@ -565,10 +567,11 @@ class ExtendedProfileWidget extends Form
             $out->input($id, null, $this->ext->getTextValue($name));
             break;
         case 'date':
+            $value = $this->ext->getDateValue($name);
             $out->input(
                 $id,
                 null,
-                date('j M Y', strtotime($this->ext->getDateValue($name)))
+                empty($value) ? null : date('j M Y', strtotime($value))
             );
             break;
         case 'person':

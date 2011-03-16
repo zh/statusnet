@@ -34,7 +34,7 @@ class ExtendedProfilePlugin extends Plugin
     {
         $versions[] = array('name' => 'ExtendedProfile',
                             'version' => STATUSNET_VERSION,
-                            'author' => 'Brion Vibber',
+                            'author' => 'Brion Vibber, Zach Copley',
                             'homepage' => 'http://status.net/wiki/Plugin:ExtendedProfile',
                             'rawdescription' =>
                             _m('UI extensions for additional profile fields.'));
@@ -110,22 +110,13 @@ class ExtendedProfilePlugin extends Plugin
         return true;
     }
 
-    function onEndAccountSettingsProfileMenuItem($widget, $menu)
-    {
-        // TRANS: Link title attribute in user account settings menu.
-        $title = _('Change additional profile settings');
-        // TRANS: Link description in user account settings menu.
-        $widget->showMenuItem('profiledetailsettings',_m('Details'),$title);
-        return true;
-    }
-
-    function onEndProfilePageProfileElements(HTMLOutputter $out, Profile $profile) {
+    function onStartProfilePageActionsSection(HTMLOutputter $out, Profile $profile) {
         $user = User::staticGet('id', $profile->id);
         if ($user) {
             $url = common_local_url('profiledetail', array('nickname' => $user->nickname));
-            $out->element('a', array('href' => $url), _m('More details...'));
+            $out->element('a', array('href' => $url, 'class' => 'profiledetail'), _m('More details...'));
         }
-        return;
+        return true;
     }
 
 }

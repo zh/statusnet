@@ -56,7 +56,7 @@ abstract class ProfileBlock extends Widget
 
     function show()
     {
-        $this->out->elementStart('div', 'profile_block');
+        $this->out->elementStart('div', 'profile_block section');
 
         $size = $this->avatarSize();
 

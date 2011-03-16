@@ -44,14 +44,12 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
     function showStylesheets() {
         parent::showStylesheets();
         $this->cssLink('plugins/ExtendedProfile/css/profiledetail.css');
-        $this->cssLink('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
         return true;
     }
 
     function  showScripts() {
         parent::showScripts();
         $this->script('plugins/ExtendedProfile/js/profiledetail.js');
-        $this->script('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js');
         return true;
     }
 
@@ -262,8 +260,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         $this->removeAll($user, 'website');
         $i = 0;
         foreach($sites as $site) {
-
-            if (!Validate::uri(
+            if (!empty($site['value']) && !Validate::uri(
                 $site['value'],
                 array('allowed_schemes' => array('http', 'https')))
             ) {

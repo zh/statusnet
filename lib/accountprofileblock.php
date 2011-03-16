@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Profile block to show for an account
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -63,8 +63,8 @@ class AccountProfileBlock extends ProfileBlock
         if (empty($avatar)) {
             $avatar = $this->profile->getAvatar(73);
         }
-        return (!empty($avatar)) ? 
-            $avatar->displayUrl() : 
+        return (!empty($avatar)) ?
+            $avatar->displayUrl() :
             Avatar::defaultImage(AVATAR_PROFILE_SIZE);
     }
 
@@ -95,20 +95,21 @@ class AccountProfileBlock extends ProfileBlock
 
     function showActions()
     {
-        if ($this->profile->hasRole(Profile_role::DELETED)) {
-            $this->out->elementStart('div', 'entity_actions');
-            // TRANS: H2 for user actions in a profile.
-            $this->out->element('h2', null, _('User actions'));
-            $this->out->elementStart('ul');
-            $this->out->elementStart('p', array('class' => 'profile_deleted'));
-            // TRANS: Text shown in user profile of not yet compeltely deleted users.
-            $this->out->text(_('User deletion in progress...'));
-            $this->out->elementEnd('p');
-            $this->out->elementEnd('ul');
-            $this->out->elementEnd('div');
-            return;
-        }
         if (Event::handle('StartProfilePageActionsSection', array($this->out, $this->profile))) {
+
+            if ($this->profile->hasRole(Profile_role::DELETED)) {
+                $this->out->elementStart('div', 'entity_actions');
+                // TRANS: H2 for user actions in a profile.
+                $this->out->element('h2', null, _('User actions'));
+                $this->out->elementStart('ul');
+                $this->out->elementStart('p', array('class' => 'profile_deleted'));
+                // TRANS: Text shown in user profile of not yet compeltely deleted users.
+                $this->out->text(_('User deletion in progress...'));
+                $this->out->elementEnd('p');
+                $this->out->elementEnd('ul');
+                $this->out->elementEnd('div');
+                return;
+            }
 
             $cur = common_current_user();
 
