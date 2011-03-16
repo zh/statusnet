@@ -295,10 +295,22 @@ class ExtendedProfileWidget extends Form
         $this->out->elementStart('div', 'experience-item');
         $this->out->element('div', 'label', _m('Company'));
         $this->out->element('div', 'field', $field['company']);
+
         $this->out->element('div', 'label', _m('Start'));
-        $this->out->element('div', array('class' => 'field date'), $field['start']);
+        $this->out->element(
+            'div',
+            array('class' => 'field date'),
+            date('j M Y', strtotime($field['start'])
+            )
+        );
         $this->out->element('div', 'label', _m('End'));
-        $this->out->element('div', array('class' => 'field date'), $field['end']);
+        $this->out->element(
+            'div',
+            array('class' => 'field date'),
+            date('j M Y', strtotime($field['end'])
+            )
+        );
+
         if ($field['current']) {
             $this->out->element(
                 'div',
@@ -331,14 +343,14 @@ class ExtendedProfileWidget extends Form
         $this->out->input(
             $id . '-start',
             null,
-            isset($field['start']) ? $field['start'] : null
+            isset($field['start']) ? date('j M Y', strtotime($field['start'])) : null
         );
 
         $this->out->element('div', 'label', _m('End'));
         $this->out->input(
             $id . '-end',
             null,
-            isset($field['end']) ? $field['end'] : null
+            isset($field['end']) ? date('j M Y', strtotime($field['end'])) : null
         );
         $this->out->hidden(
             $id . '-current',
@@ -366,9 +378,19 @@ class ExtendedProfileWidget extends Form
         $this->out->element('div', 'label', _m('Description'));
         $this->out->element('div', 'field', $field['description']);
         $this->out->element('div', 'label', _m('Start'));
-        $this->out->element('div', array('class' => 'field date'), $field['start']);
+        $this->out->element(
+            'div',
+            array('class' => 'field date'),
+            date('j M Y', strtotime($field['start'])
+            )
+        );
         $this->out->element('div', 'label', _m('End'));
-        $this->out->element('div', array('class' => 'field date'), $field['end']);
+        $this->out->element(
+            'div',
+            array('class' => 'field date'),
+            date('j M Y', strtotime($field['end'])
+            )
+        );
         $this->out->elementEnd('div');
     }
 
@@ -409,14 +431,14 @@ class ExtendedProfileWidget extends Form
         $this->out->input(
             $id . '-start',
             null,
-            isset($field['start']) ? $field['start'] : null
+            isset($field['start']) ? date('j M Y', strtotime($field['start'])) : null
         );
 
         $this->out->element('div', 'label', _m('End'));
         $this->out->input(
             $id . '-end',
             null,
-            isset($field['end']) ? $field['end'] : null
+            isset($field['end']) ? date('j M Y', strtotime($field['end'])) : null
         );
 
         $this->showMultiControls();
@@ -464,7 +486,11 @@ class ExtendedProfileWidget extends Form
             $this->out->text($this->ext->getTextValue($name));
             break;
         case 'date':
-            $this->out->text($this->ext->getTextValue($name));
+            $this->out->element(
+                'div',
+                array('class' => 'field date'),
+                date('j M Y', strtotime($this->ext->getTextValue($name)))
+            );
             break;
         case 'person':
             $this->out->text($this->ext->getTextValue($name));
@@ -513,7 +539,11 @@ class ExtendedProfileWidget extends Form
             $out->input($id, null, $this->ext->getTextValue($name));
             break;
         case 'date':
-            $out->input($id, null, $this->ext->getTextValue($name));
+            $out->input(
+                $id,
+                null,
+                date('j M Y', strtotime($this->ext->getTextValue($name)))
+            );
             break;
         case 'person':
             $out->input($id, null, $this->ext->getTextValue($name));
