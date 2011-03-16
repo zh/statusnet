@@ -81,6 +81,10 @@ $(document).ready(function() {
         source: 'finduser',
         minLength: 2 });
 
+    $.datepicker.formatDate('yy-mm-dd');
+
+	$("input[name$=-start], input[name$=-end], #extprofile-birthday").datepicker({ dateFormat: 'd M yy' });
+
     var multifields = ["phone-item", "experience-item", "education-item", "im-item"];
 
     for (f in multifields) {
