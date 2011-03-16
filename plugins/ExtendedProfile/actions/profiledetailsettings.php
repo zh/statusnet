@@ -139,12 +139,14 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
     function parseDate($fieldname, $datestr, $required = false)
     {
-        if (empty($datestr) && $required) {
-            $msg = sprintf(
-                _m('You must supply a date for "%s".'),
-                $fieldname
-            );
-            throw new Exception($msg);
+        if (empty($datestr)) {
+            if ($required) {
+                $msg = sprintf(
+                    _m('You must supply a date for "%s".'),
+                    $fieldname
+                );
+                throw new Exception($msg);
+            }
         } else {
             $ts = strtotime($datestr);
             if ($ts === false) {
