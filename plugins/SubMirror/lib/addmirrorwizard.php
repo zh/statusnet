@@ -60,22 +60,50 @@ class AddMirrorWizard extends Widget
     function providers()
     {
         return array(
+            /*
+            // We could accept hostname & username combos here, or
+            // webfingery combinations as for remote users.
             array(
                 'id' => 'statusnet',
                 'name' => _m('StatusNet'),
             ),
+             */
+            // Accepts a Twitter username and pulls their user timeline as a
+            // public Atom feed. Requires a working alternate hub which, one
+            // hopes, is getting timely updates.
             array(
                 'id' => 'twitter',
                 'name' => _m('Twitter'),
             ),
+            /*
+            // WordPress was on our list some whiles ago, but not sure
+            // what we can actually do here. Search on Wordpress.com hosted
+            // sites, or ?
             array(
                 'id' => 'wordpress',
                 'name' => _m('WordPress'),
             ),
+             */
+            /*
+            // In theory, Facebook lets you pull public updates over RSS,
+            // but the URLs for your own update feed that I can find from
+            // 2009-era websites no longer seem to work and there's no
+            // good current documentation. May not still be available...
+            // Mirroring from an FB account is probably better done with
+            // the dedicated plugin. (As of March 2011)
+            array(
+                'id' => 'facebook',
+                'name' => _m('Facebook'),
+            ),
+             */
+            /*
+            // LinkedIn doesn't currently seem to have public feeds
+            // for users or groups (March 2011)
             array(
                 'id' => 'linkedin',
                 'name' => _m('LinkedIn'),
             ),
+             */
             array(
                 'id' => 'feed',
                 'name' => _m('RSS or Atom feed'),
