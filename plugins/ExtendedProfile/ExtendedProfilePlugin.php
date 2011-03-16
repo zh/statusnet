@@ -32,12 +32,14 @@ class ExtendedProfilePlugin extends Plugin
 
     function onPluginVersion(&$versions)
     {
-        $versions[] = array('name' => 'ExtendedProfile',
-                            'version' => STATUSNET_VERSION,
-                            'author' => 'Brion Vibber, Zach Copley',
-                            'homepage' => 'http://status.net/wiki/Plugin:ExtendedProfile',
-                            'rawdescription' =>
-                            _m('UI extensions for additional profile fields.'));
+        $versions[] = array(
+            'name' => 'ExtendedProfile',
+            'version' => STATUSNET_VERSION,
+            'author' => 'Brion Vibber, Samantha Doherty, Zach Copley',
+            'homepage' => 'http://status.net/wiki/Plugin:ExtendedProfile',
+            'rawdescription' => _m(
+                'UI extensions for additional profile fields.')
+        );
 
         return true;
     }
