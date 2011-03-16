@@ -288,7 +288,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
                 $expArray[] = array(
                     'company' => $company,
                     'start'   => $this->parseDate('Start', $start, true),
-                    'end'     => $this->parseDate('End', $end, true),
+                    'end'     => ($current == 'false') ? $this->parseDate('End', $end, true) : null,
                     'current' => ($current == 'false') ? false : true
                 );
             }
