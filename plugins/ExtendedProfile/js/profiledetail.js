@@ -68,25 +68,25 @@ SN_EXTENDED.removeRow = function() {
     var div = $(this).closest('div');
     var id = $(div).attr('id');
     var cls = $(div).attr('class');
-    var cnt = SN_EXTENDED.rowCount(cls);
-
     var that = this;
 
     $("#confirm-dialog").dialog({
         buttons : {
             "Confirm" : function() {
+                $(this).dialog("close");
                 var target = $(that).closest('tr');
                 target.fadeOut("slow", function() {
-                    $(that).remove();
+                    $(target).remove();
+                    SN_EXTENDED.reorder(cls);
                 });
-                SN_EXTENDED.reorder(cls);
-                $(this).dialog("close");
             },
             "Cancel" : function() {
                 $(this).dialog("close");
             }
         }
     });
+
+    var cnt = SN_EXTENDED.rowCount(cls);
 
     if (cnt > 1) {
         $("#confirm-dialog").dialog("open");

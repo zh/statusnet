@@ -60,7 +60,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         // CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->show_form(
+            $this->showForm(
                 _m(
                     'There was a problem with your session token. '
                     .   'Try again, please.'
