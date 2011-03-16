@@ -105,7 +105,7 @@ $(document).ready(function() {
 
     $("input[name$=-start], input[name$=-end], #extprofile-birthday").datepicker({ dateFormat: 'd M yy' });
 
-    var multifields = ["phone-item", "experience-item", "education-item", "im-item"];
+    var multifields = ["phone-item", "experience-item", "education-item", "im-item", 'website-item'];
 
     for (f in multifields) {
         SN_EXTENDED.reorder(multifields[f]);

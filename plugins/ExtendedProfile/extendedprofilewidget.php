@@ -267,7 +267,7 @@ class ExtendedProfileWidget extends Form
         $this->out->elementStart(
             'div', array(
                 'id' => $id . '-edit',
-                'class' => 'website-edit'
+                'class' => 'website-item'
             )
         );
         $this->out->input(
