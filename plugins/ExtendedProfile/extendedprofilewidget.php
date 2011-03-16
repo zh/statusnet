@@ -313,29 +313,32 @@ class ExtendedProfileWidget extends Form
     {
         $this->out->elementStart('div', 'experience-item');
         $this->out->element('div', 'label', _m('Company'));
-        $this->out->element('div', 'field', $field['company']);
 
-        $this->out->element('div', 'label', _m('Start'));
-        $this->out->element(
-            'div',
-            array('class' => 'field date'),
-            date('j M Y', strtotime($field['start'])
-            )
-        );
-        $this->out->element('div', 'label', _m('End'));
-        $this->out->element(
-            'div',
-            array('class' => 'field date'),
-            date('j M Y', strtotime($field['end'])
-            )
-        );
+        if (!empty($field['company'])) {
+            $this->out->element('div', 'field', $field['company']);
 
-        if ($field['current']) {
+            $this->out->element('div', 'label', _m('Start'));
             $this->out->element(
                 'div',
-                array('class' => 'field current'),
-                '(' . _m('Current') . ')'
+                array('class' => 'field date'),
+                date('j M Y', strtotime($field['start'])
+                )
             );
+            $this->out->element('div', 'label', _m('End'));
+            $this->out->element(
+                'div',
+                array('class' => 'field date'),
+                date('j M Y', strtotime($field['end'])
+                )
+            );
+
+            if ($field['current']) {
+                $this->out->element(
+                    'div',
+                    array('class' => 'field current'),
+                    '(' . _m('Current') . ')'
+                );
+            }
         }
         $this->out->elementEnd('div');
     }
