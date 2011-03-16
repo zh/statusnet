@@ -53,22 +53,26 @@ class ExtendedProfilePlugin extends Plugin
      */
     function onAutoload($cls)
     {
-        $lower = strtolower($cls);
+        $dir = dirname(__FILE__);
 
-        switch ($lower)
+        switch (strtolower($cls))
         {
-        case 'extendedprofile':
-        case 'extendedprofilewidget':
         case 'profiledetailaction':
         case 'profiledetailsettingsaction':
-            require_once dirname(__FILE__) . '/' . $lower . '.php';
-            return false;
         case 'userautocompleteaction':
-            require_once dirname(__FILE__) . '/action/' . mb_substr($lower, 0, -6) . '.php';
+            include_once $dir . '/actions/'
+                . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
+            break; // Safety first!
+        case 'extendedprofile':
+        case 'extendedprofilewidget':
+            include_once $dir . '/lib/' . strtolower($cls) . '.php';
+            return false;
+            break;
         case 'profile_detail':
-            require_once dirname(__FILE__) . '/' . ucfirst($lower) . '.php';
+            include_once $dir . '/classes/' . ucfirst($cls) . '.php';
             return false;
+            break;
         default:
             return true;
         }
