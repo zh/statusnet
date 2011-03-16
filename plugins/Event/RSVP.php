@@ -54,7 +54,7 @@ class RSVP extends Managed_DataObject
     public $uri;               // varchar(255)
     public $profile_id;        // int
     public $event_id;          // varchar(36) UUID
-    public $result;            // tinyint
+    public $response;            // tinyint
     public $created;           // datetime
 
     /**
@@ -119,8 +119,9 @@ class RSVP extends Managed_DataObject
                               'length' => 36,
                               'not null' => true,
                               'description' => 'UUID'),
-                'result' => array('type' => 'tinyint',
-                                  'description' => '1, 0, or null for three-state yes, no, maybe'),
+                'response' => array('type' => 'char',
+                                  'length' => '1',
+                                  'description' => 'Y, N, or ? for three-state yes, no, maybe'),
                 'created' => array('type' => 'datetime',
                                    'not null' => true),
             ),
@@ -135,8 +136,10 @@ class RSVP extends Managed_DataObject
         );
     }
 
-    function saveNew($profile, $event, $result, $options=array())
+    function saveNew($profile, $event, $verb, $options=array())
     {
+        common_debug("RSVP::saveNew({$profile->id}, {$event->id}, '$verb', 'some options');");
+
         if (array_key_exists('uri', $options)) {
             $other = RSVP::staticGet('uri', $options['uri']);
             if (!empty($other)) {
@@ -156,7 +159,7 @@ class RSVP extends Managed_DataObject
         $rsvp->id          = UUID::gen();
         $rsvp->profile_id  = $profile->id;
         $rsvp->event_id    = $event->id;
-        $rsvp->result      = self::codeFor($result);
+        $rsvp->response      = self::codeFor($verb);
 
         if (array_key_exists('created', $options)) {
             $rsvp->created = $options['created'];
@@ -176,13 +179,13 @@ class RSVP extends Managed_DataObject
         // XXX: come up with something sexier
 
         $content = sprintf(_('RSVPed %s for an event.'),
-                           ($result == RSVP::POSITIVE) ? _('positively') :
-                           ($result == RSVP::NEGATIVE) ? _('negatively') :
+                           ($verb == RSVP::POSITIVE) ? _('positively') :
+                           ($verb == RSVP::NEGATIVE) ? _('negatively') :
                            _('possibly'));
         
         $rendered = $content;
 
-        $options = array_merge(array('object_type' => $result),
+        $options = array_merge(array('object_type' => $verb),
                                $options);
 
         if (!array_key_exists('uri', $options)) {
@@ -206,14 +209,16 @@ class RSVP extends Managed_DataObject
 
     function codeFor($verb)
     {
-        return ($verb == RSVP::POSITIVE) ? 1 :
-            ($verb == RSVP::NEGATIVE) ? 0 : null;
+        return ($verb == RSVP::POSITIVE) ? 'Y' :
+            ($verb == RSVP::NEGATIVE) ? 'N' :
+            ($verb == RSVP::POSSIBLE) ? '?' : null;
     }
 
     static function verbFor($code)
     {
-        return ($code == 1) ? RSVP::POSITIVE :
-            ($code == 0) ? RSVP::NEGATIVE : null;
+        return ($code == 'Y') ? RSVP::POSITIVE :
+            ($code == 'N') ? RSVP::NEGATIVE :
+            ($code == '?') ? RSVP::POSSIBLE : null;
     }
 
     function getNotice()
@@ -242,7 +247,7 @@ class RSVP extends Managed_DataObject
 
         if ($rsvp->find()) {
             while ($rsvp->fetch()) {
-                $verb = self::verbFor($rsvp->result);
+                $verb = self::verbFor($rsvp->response);
                 $rsvps[$verb][] = clone($rsvp);
             }
         }
