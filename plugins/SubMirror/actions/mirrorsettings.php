@@ -100,7 +100,20 @@ class MirrorSettingsAction extends SettingsAction
 
     function showAddFeedForm()
     {
-        $form = new AddMirrorForm($this);
+        switch ($this->arg('provider')) {
+        case 'statusnet':
+            break;
+        case 'twitter':
+            $form = new AddTwitterMirrorForm($this);
+            break;
+        case 'wordpress':
+            break;
+        case 'linkedin':
+            break;
+        case 'feed':
+        default:
+            $form = new AddMirrorForm($this);
+        }
         $form->show();
     }
 

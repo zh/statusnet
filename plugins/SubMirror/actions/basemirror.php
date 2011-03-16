@@ -68,7 +68,7 @@ abstract class BaseMirrorAction extends Action
         if (common_valid_http_url($url)) {
             return $url;
         } else {
-            $this->clientError(_m("Invalid feed URL."));
+            $this->clientError(sprintf(_m("Invalid feed URL: %s"), $url));
         }
     }
 
