@@ -69,19 +69,21 @@ abstract class ProfileBlock extends Widget
         $name = $this->name();
 
         if (!empty($name)) {
+            $this->out->elementStart('p', 'profile_block_name');
             $url = $this->url();
             if (!empty($url)) {
                 $this->out->element('a', array('href' => $url),
                                     $name);
             } else {
-                $this->out->element('span', 'profile_block_name', $name);
+                $this->out->text($name);
             }
+            $this->out->elementEnd('p');
         }
 
         $location = $this->location();
 
         if (!empty($location)) {
-            $this->out->element('span', 'profile_block_location', $location);
+            $this->out->element('p', 'profile_block_location', $location);
         }
 
         $homepage = $this->homepage();
