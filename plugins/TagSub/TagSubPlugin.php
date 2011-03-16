@@ -179,4 +179,60 @@ class TagSubPlugin extends Plugin
         }
         return true;
     }
+
+    /**
+     * Menu item for personal subscriptions/groups area
+     *
+     * @param Widget $widget Widget being executed
+     *
+     * @return boolean hook return
+     */
+
+    function onEndSubGroupNav($widget)
+    {
+        $action = $widget->out;
+        $action_name = $action->trimmed('action');
+
+        $widget->item('tagsubs',
+                      array(),
+                      // TRANS: SubMirror plugin menu item on user settings page.
+                      _m('MENU', 'Tags'),
+                      // TRANS: SubMirror plugin tooltip for user settings menu item.
+                      _m('Configure tag subscriptions'));
+
+        return true;
+    }
+
+    /**
+     * Add a count of mirrored feeds into a user's profile sidebar stats.
+     *
+     * @param Profile $profile
+     * @param array $stats
+     * @return boolean hook return value
+     */
+    function onProfileStats($profile, &$stats)
+    {
+        $cur = common_current_user();
+        if (!empty($cur) && $cur->id == $profile->id) {
+            $tagsub = new TagSub();
+            $tagsub->profile_id = $profile->id;
+            $entry = array(
+                'id' => 'tagsubs',
+                'label' => _m('Tag subscriptions'),
+                'link' => common_local_url('tagsubs'),
+                'value' => $tagsub->count(),
+            );
+
+            $insertAt = count($stats);
+            foreach ($stats as $i => $row) {
+                if ($row['id'] == 'groups') {
+                    // Slip us in after them.
+                    $insertAt = $i + 1;
+                    break;
+                }
+            }
+            array_splice($stats, $insertAt, 0, array($entry));
+        }
+        return true;
+    }
 }
