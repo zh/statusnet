@@ -610,4 +610,8 @@ class RegisterAction extends Action
     function showNoticeForm()
     {
     }
+
+    function showProfileBlock()
+    {
+    }
 }
