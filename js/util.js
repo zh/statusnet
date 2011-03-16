@@ -253,15 +253,33 @@ var SN = { // StatusNet
                             .attr(SN.C.S.Disabled, SN.C.S.Disabled);
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    alert(errorThrown || textStatus);
+                    // If the server end reported an error from StatusNet,
+                    // find it -- otherwise we'll see what was reported
+                    // from the browser.
+                    var errorReported = null;
+                    if (xhr.responseXML) {
+                        errorReported = $('#error', xhr.responseXML).text();
+                    }
+                    alert(errorReported || errorThrown || textStatus);
+                    
+                    // Restore the form to original state.
+                    // Hopefully. :D
+                    form
+                        .removeClass(SN.C.S.Processing)
+                        .find('.submit')
+                            .removeClass(SN.C.S.Disabled)
+                            .removeAttr(SN.C.S.Disabled);
                 },
                 success: function(data, textStatus) {
                     if (typeof($('form', data)[0]) != 'undefined') {
                         form_new = document._importNode($('form', data)[0], true);
                         form.replaceWith(form_new);
                     }
-                    else {
+                    else if (typeof($('p', data)[0]) != 'undefined') {
                         form.replaceWith(document._importNode($('p', data)[0], true));
+                    }
+                    else {
+                        alert('Unknown error.');
                     }
                 }
             });
