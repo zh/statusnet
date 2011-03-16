@@ -103,6 +103,9 @@ class TagSubPlugin extends Plugin
                     array('action' => 'tagunsub'),
                     array('tag' => Router::REGEX_TAG));
 
+        $m->connect(':nickname/tag-subscriptions',
+                    array('action' => 'tagsubs'),
+                    array('nickname' => Nickname::DISPLAY_FMT));
         return true;
     }
 
