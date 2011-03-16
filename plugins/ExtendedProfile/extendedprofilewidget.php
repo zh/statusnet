@@ -77,6 +77,13 @@ class ExtendedProfileWidget extends Form
      */
     public function formData()
     {
+        // For JQuery UI modal dialog
+        $this->out->elementStart(
+            'div', 
+            array('id' => 'confirm-dialog', 'title' => 'Confirmation Required')
+        );
+        $this->out->text('Really delete this entry?');
+        $this->out->elementEnd('div');
         $this->showSections();
     }
 

@@ -44,7 +44,7 @@ SN_EXTENDED.replaceIndex = function(elem, oldIndex, newIndex) {
 }
 
 SN_EXTENDED.resetRow = function(elem) {
-    $(elem).find('input').attr('value', '');
+    $(elem).find('input, textarea').attr('value', '');
     $(elem).find("select option[value='office']").attr("selected", true);
 };
 
@@ -63,27 +63,47 @@ SN_EXTENDED.addRow = function() {
 };
 
 SN_EXTENDED.removeRow = function() {
+
     var div = $(this).closest('div');
     var id = $(div).attr('id');
     var cls = $(div).attr('class');
-
     var cnt = SN_EXTENDED.rowCount(cls);
+
+    var that = this;
+
+    $("#confirm-dialog").dialog({
+        buttons : {
+            "Confirm" : function() {
+                var target = $(that).closest('tr');
+                target.fadeOut("slow", function() {
+                    $(that).remove();
+                });
+                SN_EXTENDED.reorder(cls);
+                $(this).dialog("close");
+            },
+            "Cancel" : function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+
     if (cnt > 1) {
-        var target = $(this).closest('tr');
-        target.remove();
-        SN_EXTENDED.reorder(cls);
+        $("#confirm-dialog").dialog("open");
     }
 };
 
 $(document).ready(function() {
 
+    $("#confirm-dialog").dialog({
+        autoOpen: false,
+        modal: true
+    });
+
     $("input#extprofile-manager").autocomplete({
         source: 'finduser',
         minLength: 2 });
 
-    $.datepicker.formatDate('yy-mm-dd');
-
-	$("input[name$=-start], input[name$=-end], #extprofile-birthday").datepicker({ dateFormat: 'd M yy' });
+    $("input[name$=-start], input[name$=-end], #extprofile-birthday").datepicker({ dateFormat: 'd M yy' });
 
     var multifields = ["phone-item", "experience-item", "education-item", "im-item"];
 
