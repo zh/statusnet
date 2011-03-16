@@ -54,6 +54,7 @@ class ExtendedProfilePlugin extends Plugin
     function onAutoload($cls)
     {
         $lower = strtolower($cls);
+
         switch ($lower)
         {
         case 'extendedprofile':
@@ -61,6 +62,9 @@ class ExtendedProfilePlugin extends Plugin
         case 'profiledetailaction':
         case 'profiledetailsettingsaction':
             require_once dirname(__FILE__) . '/' . $lower . '.php';
+            return false;
+        case 'userautocompleteaction':
+            require_once dirname(__FILE__) . '/action/' . mb_substr($lower, 0, -6) . '.php';
             return false;
         case 'profile_detail':
             require_once dirname(__FILE__) . '/' . ucfirst($lower) . '.php';
@@ -81,11 +85,19 @@ class ExtendedProfilePlugin extends Plugin
      */
     function onStartInitializeRouter($m)
     {
-        $m->connect(':nickname/detail',
-                array('action' => 'profiledetail'),
-                array('nickname' => Nickname::DISPLAY_FMT));
-        $m->connect('settings/profile/detail',
-                array('action' => 'profiledetailsettings'));
+        $m->connect(
+            ':nickname/detail',
+            array('action' => 'profiledetail'),
+            array('nickname' => Nickname::DISPLAY_FMT)
+        );
+        $m->connect(
+            '/settings/profile/finduser',
+            array('action' => 'Userautocomplete')
+        );
+        $m->connect(
+            'settings/profile/detail',
+            array('action' => 'profiledetailsettings')
+        );
 
         return true;
     }

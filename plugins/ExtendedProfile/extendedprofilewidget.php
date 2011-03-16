@@ -466,6 +466,9 @@ class ExtendedProfileWidget extends Form
         case 'date':
             $this->out->text($this->ext->getTextValue($name));
             break;
+        case 'person':
+            $this->out->text($this->ext->getTextValue($name));
+            break;
         case 'tags':
             $this->out->text($this->ext->getTags());
             break;
@@ -510,6 +513,9 @@ class ExtendedProfileWidget extends Form
             $out->input($id, null, $this->ext->getTextValue($name));
             break;
         case 'date':
+            $out->input($id, null, $this->ext->getTextValue($name));
+            break;
+        case 'person':
             $out->input($id, null, $this->ext->getTextValue($name));
             break;
         case 'textarea':

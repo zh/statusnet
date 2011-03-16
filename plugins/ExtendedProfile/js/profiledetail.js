@@ -89,6 +89,11 @@ var init = function() {
     reorder('experience-item');
     reorder('education-item');
     reorder('im-item');
+
+    $("input#extprofile-manager").autocomplete({
+        source: 'finduser',
+        minLength: 2 });
+
 }
 
 $(document).ready(
