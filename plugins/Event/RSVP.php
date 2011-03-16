@@ -161,6 +161,8 @@ class RSVP extends Managed_DataObject
         $rsvp->event_id    = $event->id;
         $rsvp->response      = self::codeFor($verb);
 
+        common_debug("Got value {$rsvp->response} for verb {$verb}");
+
         if (array_key_exists('created', $options)) {
             $rsvp->created = $options['created'];
         } else {
@@ -209,16 +211,36 @@ class RSVP extends Managed_DataObject
 
     function codeFor($verb)
     {
-        return ($verb == RSVP::POSITIVE) ? 'Y' :
-            ($verb == RSVP::NEGATIVE) ? 'N' :
-            ($verb == RSVP::POSSIBLE) ? '?' : null;
+        switch ($verb) {
+        case RSVP::POSITIVE:
+            return 'Y';
+            break;
+        case RSVP::NEGATIVE:
+            return 'N';
+            break;
+        case RSVP::POSSIBLE:
+            return '?';
+            break;
+        default:
+            throw new Exception("Unknown verb {$verb}");
+        }
     }
 
     static function verbFor($code)
     {
-        return ($code == 'Y') ? RSVP::POSITIVE :
-            ($code == 'N') ? RSVP::NEGATIVE :
-            ($code == '?') ? RSVP::POSSIBLE : null;
+        switch ($code) {
+        case 'Y':
+            return RSVP::POSITIVE;
+            break;
+        case 'N':
+            return RSVP::NEGATIVE;
+            break;
+        case '?':
+            return RSVP::POSSIBLE;
+            break;
+        default:
+            throw new Exception("Unknown code {$code}");
+        }
     }
 
     function getNotice()
