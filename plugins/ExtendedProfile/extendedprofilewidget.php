@@ -160,9 +160,11 @@ class ExtendedProfileWidget extends Form
     protected function showPhone($name, $field)
     {
         $this->out->elementStart('div', array('class' => 'phone-display'));
-        $this->out->text($field['value']);
-        if (!empty($field['rel'])) {
-            $this->out->text(' (' . $field['rel'] . ')');
+        if (!empty($field['value'])) {
+            $this->out->text($field['value']);
+            if (!empty($field['rel'])) {
+               $this->out->text(' (' . $field['rel'] . ')');
+            }
         }
         $this->out->elementEnd('div');
     }
