@@ -430,7 +430,7 @@ class ExtendedProfileWidget extends Form
             array(
                 'class' => 'remove_row',
                 'href' => 'javascript://',
-                'style' => 'display: none; '
+                'style' => 'display: none;'
             ),
             '-'
         );
@@ -440,7 +440,7 @@ class ExtendedProfileWidget extends Form
             array(
                 'class' => 'add_row',
                 'href' => 'javascript://',
-                'style' => 'display: none; '
+                'style' => 'display: none;'
             ),
             '+'
         );
