@@ -83,6 +83,11 @@ class Action extends HTMLOutputter // lawsuit
     function prepare($argarray)
     {
         $this->args =& common_copy_args($argarray);
+
+        if ($this->boolean('ajax')) {
+            StatusNet::setAjax(true);
+        }
+
         return true;
     }
 
