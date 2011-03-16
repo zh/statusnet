@@ -79,7 +79,7 @@ class ExtendedProfileWidget extends Form
     {
         // For JQuery UI modal dialog
         $this->out->elementStart(
-            'div', 
+            'div',
             array('id' => 'confirm-dialog', 'title' => 'Confirmation Required')
         );
         $this->out->text('Really delete this entry?');
@@ -180,7 +180,19 @@ class ExtendedProfileWidget extends Form
     protected function showWebsite($name, $field)
     {
         $this->out->elementStart('div', array('class' => 'website-display'));
-        $this->out->text($field['value']);
+
+        $url = $field['value'];
+
+        $this->out->element(
+            "a",
+            array(
+                'href'   => $url,
+                'class'  => 'extended-profile-link',
+                'target' => "_blank"
+            ),
+            $url
+        );
+
         if (!empty($field['rel'])) {
             $this->out->text(' (' . $field['rel'] . ')');
         }
