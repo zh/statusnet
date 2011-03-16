@@ -50,9 +50,6 @@ abstract class ProfileBlock extends Widget
     abstract function avatar();
     abstract function name();
     abstract function url();
-    abstract function canEdit();
-    abstract function editUrl();
-    abstract function editText();
     abstract function location();
     abstract function homepage();
     abstract function description();
@@ -68,11 +65,6 @@ abstract class ProfileBlock extends Widget
                                          'alt' => $this->name(),
                                          'width' => $size,
                                          'height' => $size));
-
-        if ($this->canEdit()) {
-            $this->out->element('a', array('href' => $this->editUrl()),
-                                $this->editText());
-        }
 
         $name = $this->name();
 

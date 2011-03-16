@@ -72,11 +72,6 @@ class DefaultProfileBlock extends AccountProfileBlock
             Avatar::defaultImage(AVATAR_STREAM_SIZE);
     }
 
-    function canEdit()
-    {
-        return true;
-    }
-
     function location()
     {
         return null;

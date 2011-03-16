@@ -71,22 +71,6 @@ class GroupProfileBlock extends ProfileBlock
         return $this->group->mainpage;
     }
 
-    function canEdit()
-    {
-        $user = common_current_user();
-        return ((!empty($user)) && ($user->isAdmin($this->group)));
-    }
-
-    function editUrl()
-    {
-        return common_local_url('editgroup', array('nickname' => $this->group->nickname));
-    }
-
-    function editText()
-    {
-        return _('Edit');
-    }
-
     function location()
     {
         return $this->group->location;

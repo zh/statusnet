@@ -78,22 +78,6 @@ class AccountProfileBlock extends ProfileBlock
         return $this->profile->profileurl;
     }
 
-    function canEdit()
-    {
-        $user = common_current_user();
-        return ((!empty($user)) && ($user->id == $this->profile->id));
-    }
-
-    function editUrl()
-    {
-        return common_local_url('profilesettings');
-    }
-
-    function editText()
-    {
-        return _('Edit');
-    }
-
     function location()
     {
         return $this->profile->location;
