@@ -246,11 +246,11 @@ class EventPlugin extends MicroappPlugin
 
         $obj->extra[] = array('dtstart',
                               array('xmlns' => 'urn:ietf:params:xml:ns:xcal'),
-                              common_date_iso8601($happening->start_date));
+                              common_date_iso8601($happening->start_time));
 
         $obj->extra[] = array('dtend',
                               array('xmlns' => 'urn:ietf:params:xml:ns:xcal'),
-                              common_date_iso8601($happening->end_date));
+                              common_date_iso8601($happening->end_time));
 
         // XXX: probably need other stuff here
 
@@ -355,11 +355,11 @@ class EventPlugin extends MicroappPlugin
 
         $out->elementEnd('h3'); // VEVENT/H3 OUT
 
-        $startDate = strftime("%x", $event->start_time);
-        $startTime = strftime("%R", $event->start_time);
+        $startDate = strftime("%x", strtotime($event->start_time));
+        $startTime = strftime("%R", strtotime($event->start_time));
 
-        $endDate = strftime("%x", $event->end_time);
-        $endTime = strftime("%R", $event->end_time);
+        $endDate = strftime("%x", strtotime($event->end_time));
+        $endTime = strftime("%R", strtotime($event->end_time));
 
         // FIXME: better dates
 
@@ -368,7 +368,7 @@ class EventPlugin extends MicroappPlugin
         $out->element('strong', null, _('Time:'));
 
         $out->element('abbr', array('class' => 'dtstart',
-                                    'title' => common_date_iso8601()),
+                                    'title' => common_date_iso8601($event->start_time)),
                       $startDate . ' ' . $startTime);
         $out->text(' - ');
         if ($startDate == $endDate) {
