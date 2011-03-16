@@ -260,8 +260,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         $this->removeAll($user, 'website');
         $i = 0;
         foreach($sites as $site) {
-
-            if (!Validate::uri(
+            if (!empty($site['value']) && !Validate::uri(
                 $site['value'],
                 array('allowed_schemes' => array('http', 'https')))
             ) {
