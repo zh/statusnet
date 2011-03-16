@@ -65,6 +65,10 @@
     margin-right: 8px;
 }
 
+.form_settings .extended-profile label {
+    display: none;
+}
+
 .experience-item input[type=text], .education-item input[type=text] {
     float: left;
 }
@@ -84,11 +88,8 @@
 .form_settings .extended-profile label.checkbox {
     max-width: 100%;
     float: none;
+    display: inline;
     left: -20px;
-}
-
-.phone-item label, .im-item label {
-    display: none;
 }
 
 .extended-profile select {
