@@ -486,7 +486,7 @@ class ExtendedProfileWidget extends Form
                 'href' => 'javascript://',
                 'style' => 'display: none;'
             ),
-            '+'
+            'Add another item'
         );
     }
 

@@ -69,6 +69,22 @@
     display: none;
 }
 
+.extended-profile textarea {
+    width: 280px;
+}
+
+.extended-profile input[type=text] {
+    width: 280px;
+}
+
+.extended-profile .phone-item input[type=text], .extended-profile .im-item input[type=text], .extended-profile .website-item input[type=text] {
+    width: 175px;
+}
+
+.extended-profile input.hasDatepicker {
+    width: 100px;
+}
+
 .experience-item input[type=text], .education-item input[type=text] {
     float: left;
 }
@@ -101,7 +117,6 @@
     display: block;
     height: 16px;
     width: 16px;
-    line-height: 4em;
     overflow: hidden;
     background-image: url('../../../theme/rebase/images/icons/icons-01.gif');
     background-repeat: no-repeat;
@@ -112,14 +127,18 @@
     float: right;
     position: relative;
     top: 6px;
+    line-height: 4em;
 }
 
 .extended-profile a.add_row {
     clear: both;
     position: relative;
     top: 6px;
-    left: 2px;
+    left: 2px; 
     background-position: 0px -1186px;
+    width: 120px;
+    padding-left: 20px;
+    line-height: 1.2em;
 }
 
 #content table.extended-profile .supersizeme th {
@@ -129,6 +148,11 @@
 #profiledetailsettings .experience-item, #profiledetailsettings .education-item {
     margin-bottom: 10px;
     width: 100%;
+}
+
+#profiledetailsettings .education-item textarea {
+    float: left;
+    margin-bottom: 8px;
 }
 
 #profiledetailsettings tr:last-child .experience-item, #profiledetailsettings tr:last-child .education-item {
