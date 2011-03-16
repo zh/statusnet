@@ -5,6 +5,7 @@ SN_EXTENDED.reorder = function(cls) {
     var divs = $('div[class=' + cls + ']');
 
     $(divs).each(function(i, div) {
+        $(div).find('a.add_row').hide();
         $(div).find('a.remove_row').show();
         SN_EXTENDED.replaceIndex(SN_EXTENDED.rowIndex(div), i);
     });
