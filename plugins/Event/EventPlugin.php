@@ -324,7 +324,11 @@ class EventPlugin extends MicroappPlugin
 
     function showRSVPNotice($notice, $out)
     {
-        $out->raw($notice->rendered);
+        $rsvp = RSVP::fromNotice($notice);
+
+        $out->elementStart('div', 'rsvp');
+        $out->raw($rsvp->asHTML());
+        $out->elementEnd('div');
         return;
     }
 

@@ -180,12 +180,9 @@ class RSVP extends Managed_DataObject
 
         // XXX: come up with something sexier
 
-        $content = sprintf(_('RSVPed %s for an event.'),
-                           ($verb == RSVP::POSITIVE) ? _('positively') :
-                           ($verb == RSVP::NEGATIVE) ? _('negatively') :
-                           _('possibly'));
+        $content = $rsvp->asString();
         
-        $rendered = $content;
+        $rendered = $rsvp->asHTML();
 
         $options = array_merge(array('object_type' => $verb),
                                $options);
@@ -275,5 +272,91 @@ class RSVP extends Managed_DataObject
         }
 
         return $rsvps;
+    }
+
+    function getProfile()
+    {
+        $profile = Profile::staticGet('id', $this->profile_id);
+        if (empty($profile)) {
+            throw new Exception("No profile with ID {$this->profile_id}");
+        }
+        return $profile;
+    }
+
+    function getEvent()
+    {
+        $event = Happening::staticGet('id', $this->event_id);
+        if (empty($event)) {
+            throw new Exception("No event with ID {$this->event_id}");
+        }
+        return $event;
+    }
+
+    function asHTML()
+    {
+        return self::toHTML($this->getProfile(),
+                            $this->getEvent(),
+                            $this->response);
+    }
+
+    function asString()
+    {
+        return self::toString($this->getProfile(),
+                              $this->getEvent(),
+                              $this->response);
+    }
+
+    static function toHTML($profile, $event, $response)
+    {
+        $fmt = null;
+
+        $notice = $event->getNotice();
+
+        switch ($response) {
+        case 'Y':
+            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is attending <a href='%3s'>%4s</a>.</span>");
+            break;
+        case 'N':
+            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is not attending <a href='%3s'>%4s</a>.</span>");
+            break;
+        case '?':
+            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> might attend <a href='%3s'>%4s</a>.</span>");
+            break;
+        default:
+            throw new Exception("Unknown response code {$response}");
+            break;
+        }
+
+        return sprintf($fmt,
+                       htmlspecialchars($profile->profileurl),
+                       htmlspecialchars($profile->getBestName()),
+                       htmlspecialchars($notice->bestUrl()),
+                       htmlspecialchars($event->title));
+    }
+
+    static function toString($profile, $event, $response)
+    {
+        $fmt = null;
+
+        $notice = $event->getNotice();
+
+        switch ($response) {
+        case 'Y':
+            $fmt = _("%1s is attending %2s.");
+            break;
+        case 'N':
+            $fmt = _("%1s is not attending %2s.");
+            break;
+        case '?':
+            $fmt = _("%1s might attend %2s.>");
+            break;
+        default:
+            throw new Exception("Unknown response code {$response}");
+            break;
+        }
+
+        return sprintf($fmt,
+                       $profile->getBestName(),
+                       $event->title);
     }
 }
