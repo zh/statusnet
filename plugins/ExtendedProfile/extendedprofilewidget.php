@@ -442,7 +442,6 @@ class ExtendedProfileWidget extends Form
         );
 
         $this->out->element('div', 'label', _m('Description'));
-        $this->out->element('div', 'field', $field['description']);
 
         $this->out->textarea(
             $id . '-description',
