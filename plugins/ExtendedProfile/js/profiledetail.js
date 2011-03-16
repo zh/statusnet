@@ -46,7 +46,13 @@ SN_EXTENDED.replaceIndex = function(elem, oldIndex, newIndex) {
 
 SN_EXTENDED.resetRow = function(elem) {
     $(elem).find('input, textarea').attr('value', '');
+    $(elem).find('input').removeAttr('disabled');
     $(elem).find("select option[value='office']").attr("selected", true);
+    $(elem).find("input:checkbox").attr('checked', false);
+    $(elem).find("input[name$=-start], input[name$=-end]").each(function() {
+        $(this).removeClass('hasDatepicker');
+        $(this).datepicker({ dateFormat: 'd M yy' });
+    });
 };
 
 SN_EXTENDED.addRow = function() {
@@ -117,5 +123,22 @@ $(document).ready(function() {
 
     $('.add_row').live('click', SN_EXTENDED.addRow);
     $('.remove_row').live('click', SN_EXTENDED.removeRow);
+
+    $('input:checkbox[name$=current]').each(function() {
+        var input = $(this).parent().siblings('input[id$=-end]');
+        if ($(this).is(':checked')) {
+            $(input).attr('disabled', 'true');
+        }
+    });
+
+    $('input:checkbox[name$=current]').live('click', function()  {
+        var input = $(this).parent().siblings('input[id$=-end]');
+        if ($(this).is(':checked')) {
+            $(input).val('');
+            $(input).attr('disabled', 'true');
+        } else {
+            $(input).removeAttr('disabled');
+        }
+    });
 
 });

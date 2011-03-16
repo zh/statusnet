@@ -369,6 +369,7 @@ class ExtendedProfileWidget extends Form
         );
 
         $this->out->element('div', 'label', _m('End'));
+
         $this->out->input(
             $id . '-end',
             null,

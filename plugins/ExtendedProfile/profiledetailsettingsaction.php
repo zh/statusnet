@@ -262,6 +262,14 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         $this->removeAll($user, 'website');
         $i = 0;
         foreach($sites as $site) {
+
+            if (!Validate::uri(
+                $site['value'],
+                array('allowed_schemes' => array('http', 'https')))
+            ) {
+                throw new Exception(sprintf(_m('Invalid URL: %s'), $site['value']));
+            }
+
             if (!empty($site['value'])) {
                 ++$i;
                 $this->saveField(
@@ -287,7 +295,12 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         $expArray = array();
 
         foreach ($experiences as $exp) {
-            list($company, $current, $end, $start) = array_values($exp);
+            if (sizeof($experiences) == 4) {
+                list($company, $current, $end, $start) = array_values($exp);
+            } else {
+                $end = null;
+                list($company, $current, $start) = array_values($exp);
+            }
             if (!empty($company)) {
                 $expArray[] = array(
                     'company' => $company,
