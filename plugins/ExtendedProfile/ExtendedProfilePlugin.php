@@ -114,7 +114,7 @@ class ExtendedProfilePlugin extends Plugin
         $user = User::staticGet('id', $profile->id);
         if ($user) {
             $url = common_local_url('profiledetail', array('nickname' => $user->nickname));
-            $out->element('a', array('href' => $url), _m('More details...'));
+            $out->element('a', array('href' => $url, 'class' => 'profiledetail'), _m('More details...'));
         }
         return true;
     }
