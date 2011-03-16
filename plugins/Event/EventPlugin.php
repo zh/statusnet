@@ -297,7 +297,7 @@ class EventPlugin extends MicroappPlugin
         }
 
         // @fixme we have to start the name/avatar and open this div
-        $out->elementStart('div', array('class' => 'event-info entry-content')); // EVENT-INFO.ENTRY-CONTENT IN
+        $out->elementStart('div', array('class' => 'event-info')); // EVENT-INFO.ENTRY-CONTENT IN
 
         $profile = $notice->getProfile();
         $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
@@ -336,7 +336,7 @@ class EventPlugin extends MicroappPlugin
         assert(!empty($event));
         assert(!empty($profile));
 
-        $out->elementStart('div', 'vevent'); // VEVENT IN
+        $out->elementStart('div', 'vevent event'); // VEVENT IN
 
         $out->elementStart('h3');  // VEVENT/H3 IN
 
@@ -351,39 +351,63 @@ class EventPlugin extends MicroappPlugin
 
         $out->elementEnd('h3'); // VEVENT/H3 OUT
 
+        $startDate = strftime("%x", $event->start_time);
+        $startTime = strftime("%R", $event->start_time);
+
+        $endDate = strftime("%x", $event->end_time);
+        $endTime = strftime("%R", $event->end_time);
+
         // FIXME: better dates
 
         $out->elementStart('div', 'event-times'); // VEVENT/EVENT-TIMES IN
-        $out->element('abbr', array('class' => 'dtstart',
-                                    'title' => common_date_iso8601($event->start_time)),
-                      common_exact_date($event->start_time));
-        $out->text(' - ');
-        $out->element('span', array('class' => 'dtend',
-                                    'title' => common_date_iso8601($event->end_time)),
-                      common_exact_date($event->end_time));
-        $out->elementEnd('div'); // VEVENT/EVENT-TIMES OUT
 
-        if (!empty($event->description)) {
-            $out->element('div', 'description', $event->description);
+        $out->element('strong', null, _('Time:'));
+
+        $out->element('abbr', array('class' => 'dtstart',
+                                    'title' => common_date_iso8601()),
+                      $startDate . ' ' . $startTime);
+        $out->text(' - ');
+        if ($startDate == $endDate) {
+            $out->element('span', array('class' => 'dtend',
+                                        'title' => common_date_iso8601($event->end_time)),
+                          $endTime);
+        } else {
+            $out->element('span', array('class' => 'dtend',
+                                        'title' => common_date_iso8601($event->end_time)),
+                          $endDate . ' ' . $endTime);
         }
 
+        $out->elementEnd('div'); // VEVENT/EVENT-TIMES OUT
+
         if (!empty($event->location)) {
-            $out->element('div', 'location', $event->location);
+            $out->elementStart('div', 'event-location');
+            $out->element('strong', null, _('Location: '));
+            $out->element('span', 'location', $event->location);
+            $out->elementEnd('div');
+        }
+
+        if (!empty($event->description)) {
+            $out->elementStart('div', 'event-description');
+            $out->element('strong', null, _('Description: '));
+            $out->element('span', 'description', $event->description);
+            $out->elementEnd('div');
         }
 
         $rsvps = $event->getRSVPs();
 
-        $out->element('div', 'event-rsvps',
+        $out->elementStart('div', 'event-rsvps');
+        $out->element('strong', null, _('Attending: '));
+        $out->element('span', 'event-rsvps',
                       sprintf(_('Yes: %d No: %d Maybe: %d'),
                               count($rsvps[RSVP::POSITIVE]),
                               count($rsvps[RSVP::NEGATIVE]),
                               count($rsvps[RSVP::POSSIBLE])));
+        $out->elementEnd('div');
 
         $user = common_current_user();
 
         if (!empty($user)) {
             $rsvp = $event->getRSVP($user->getProfile());
-            common_log(LOG_DEBUG, "RSVP is: " . ($rsvp ? $rsvp->id : 'none'));
 
             if (empty($rsvp)) {
                 $form = new RSVPForm($event, $out);
@@ -439,5 +463,11 @@ class EventPlugin extends MicroappPlugin
     function onEndShowScripts($action)
     {
         $action->inlineScript('$(document).ready(function() { $("#startdate").datepicker(); $("#enddate").datepicker(); });');
+    }
+
+    function onEndShowStyles($action)
+    {
+        $action->cssLink($this->path('event.css'));
+        return true;
     }
 }
