@@ -98,6 +98,15 @@ class ExtendedProfile
         }
     }
 
+    function getDateValue($name) {
+        $key = strtolower($name);
+        if (array_key_exists($key, $this->fields)) {
+            return $this->fields[$key][0]->date;
+        } else {
+            return null;
+        }
+    }
+
     // XXX: getPhones, getIms, and getWebsites pretty much do the same thing,
     //      so refactor.
     function getPhones()

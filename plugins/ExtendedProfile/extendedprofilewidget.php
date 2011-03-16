@@ -493,11 +493,14 @@ class ExtendedProfileWidget extends Form
             $this->out->text($this->ext->getTextValue($name));
             break;
         case 'date':
-            $this->out->element(
-                'div',
-                array('class' => 'field date'),
-                date('j M Y', strtotime($this->ext->getTextValue($name)))
-            );
+            $value = $this->ext->getDateValue($name);
+            if (!empty($value)) {
+                $this->out->element(
+                    'div',
+                    array('class' => 'field date'),
+                    date('j M Y', strtotime($value))
+                );
+            }
             break;
         case 'person':
             $this->out->text($this->ext->getTextValue($name));
@@ -549,7 +552,7 @@ class ExtendedProfileWidget extends Form
             $out->input(
                 $id,
                 null,
-                date('j M Y', strtotime($this->ext->getTextValue($name)))
+                date('j M Y', strtotime($this->ext->getDateValue($name)))
             );
             break;
         case 'person':

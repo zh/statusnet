@@ -113,10 +113,14 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
             foreach ($dateFieldNames as $name) {
                 $value = $this->trimmed('extprofile-' . $name);
+                $dateVal = $this->parseDate($name, $value);
                 $this->saveField(
                     $user,
                     $name,
-                    $this->parseDate($name, $value)
+                    null,
+                    null,
+                    null,
+                    $dateVal
                 );
             }
 
