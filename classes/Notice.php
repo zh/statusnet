@@ -73,6 +73,7 @@ class Notice extends Memcached_DataObject
     public $location_ns;                     // int(4)
     public $repeat_of;                       // int(4)
     public $object_type;                     // varchar(255)
+    public $scope;                           // int(4)
 
     /* Static get */
     function staticGet($k,$v=NULL)
