@@ -27,6 +27,8 @@ input, textarea, select, option {
 a {color: #3e3e8c;}
 a:hover {color: blue;}
 
+abbr {border-bottom: none;}
+
 h1 {font-size: 1.6em;}
 h2 {font-size: 1.6em;}
 h3 {font-size: 1.4em;}
@@ -1146,13 +1148,26 @@ table.profile_list tr.alt {
 
 /* Event specific styles */
 
+.notice .event div {
+    margin-bottom: 8px;
+}
+
+.event-info {
+    margin-left: 0px !important;
+    margin-top: 2px !important;
+}
+
+.notice .event-info + .notice-options {
+    margin-top: 14px;
+}
+
 #form_event_rsvp #new_rsvp_data {
     display: inline;
     margin: 10px 0px;
 }
 
 #form_event_rsvp input.submit {
-    height: 1.6em;
+    height: auto;
     padding: 0px 10px;
     margin-left: 10px;
     color:#fff;
