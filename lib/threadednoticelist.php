@@ -361,12 +361,12 @@ class ThreadedNoticeListFavesItem extends NoticeListItem
             $count = count($links);
             if ($count == 1 && $you) {
                 // darn first person being different from third person!
-                $msg = _m('FAVELIST', 'You have favored this notice');
+                $msg = _m('FAVELIST', 'You have favored this notice.');
             } else {
-                // if 'you' is the first item...
-                $msg = _m('FAVELIST', '%1$s has favored this notice', '%1$s have favored this notice', $count);
+                // if 'you' is the first item, 
+                $msg = _m('FAVELIST', '%1$s has favored this notice.', '%1$s have favored this notice.', $count);
             }
-            $out = sprintf($msg, implode(', ', $links));
+            $out = sprintf($msg, $this->magicList($links));
 
             $this->out->elementStart('li', array('class' => 'notice-faves'));
             $this->out->raw($out);
@@ -374,6 +374,20 @@ class ThreadedNoticeListFavesItem extends NoticeListItem
             return $count;
         } else {
             return 0;
+        }
+    }
+
+    function magicList($items)
+    {
+        if (count($items) == 0) {
+            return '';
+        } else if (count($items) == 1) {
+            return $items[0];
+        } else {
+            $first = array_slice($items, 0, -1);
+            $last = array_slice($items, -1, 1);
+            // TRANS For building a list such as "You, bob, mary and 5 others have favored this notice".
+            return sprintf(_m('FAVELIST', '%1$s and %2$s'), implode(', ', $first), implode(', ', $last));
         }
     }
 }
