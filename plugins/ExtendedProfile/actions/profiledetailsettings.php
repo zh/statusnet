@@ -37,7 +37,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
     function getInstructions()
     {
         // TRANS: Usage instructions for profile settings.
-        return _('You can update your personal profile info here '.
+        return _m('You can update your personal profile info here '.
                  'so people know more about you.');
     }
 
@@ -70,7 +70,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         if ($this->arg('save')) {
             $this->saveDetails();
         } else {
-            // TRANS: Message given submitting a form with an unknown action
+            // TRANS: Message given submitting a form with an unknown action.
             $this->showForm(_m('Unexpected form submission.'));
         }
     }
@@ -133,7 +133,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
             return;
         }
 
-        $this->showForm(_('Details saved.'), true);
+        $this->showForm(_m('Details saved.'), true);
 
     }
 
@@ -142,6 +142,8 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
         if (empty($datestr)) {
             if ($required) {
                 $msg = sprintf(
+                    // TRANS: Exception thrown when no date was entered in a required date field.
+                    // TRANS: %s is the field name.
                     _m('You must supply a date for "%s".'),
                     $fieldname
                 );
@@ -152,7 +154,9 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
             if ($ts === false) {
                 throw new Exception(
                     sprintf(
-                        _m('Invalid date entered for "%s": %s'),
+                        // TRANS: Exception thrown on incorrect data input.
+                        // TRANS: %1$s is a field name, %2$s is the incorrect input.
+                        _m('Invalid date entered for "%1$s": %2$s.'),
                         $fieldname,
                         $ts
                     )
@@ -266,7 +270,9 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
                 $site['value'],
                 array('allowed_schemes' => array('http', 'https')))
             ) {
-                throw new Exception(sprintf(_m('Invalid URL: %s'), $site['value']));
+                // TRANS: Exception thrown when entering an invalid URL.
+                // TRANS: %s is the invalid URL.
+                throw new Exception(sprintf(_m('Invalid URL: %s.'), $site['value']));
             }
 
             if (!empty($site['value'])) {
@@ -613,7 +619,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
             if ($result === false) {
                 common_log_db_error($profile, 'UPDATE', __FILE__);
                 // TRANS: Server error thrown when user profile settings could not be saved.
-                $this->serverError(_('Could not save profile.'));
+                $this->serverError(_m('Could not save profile.'));
                 return;
             }
 
@@ -622,7 +628,7 @@ class ProfileDetailSettingsAction extends ProfileSettingsAction
 
             if (!$result) {
                 // TRANS: Server error thrown when user profile settings tags could not be saved.
-                $this->serverError(_('Could not save tags.'));
+                $this->serverError(_m('Could not save tags.'));
                 return;
             }
 

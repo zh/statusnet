@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-11 18:15+0000\n"
-"PO-Revision-Date: 2011-03-11 18:17:16+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:38:08+0000\n"
 "Language-Team: Georgian <http://translatewiki.net/wiki/Portal:ka>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83703); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84120); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ka\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-08 01:25:01+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -584,7 +584,7 @@ msgstr "მომხმარებლ %1$s-ის გარიცხვა ჯ�
 msgid "%s's groups"
 msgstr "%s-ს ჯგუფები"
 
-#. TRANS: Used as subtitle in check for group membership. %1$s is a user name, %2$s is the site name.
+#. TRANS: Used as subtitle in check for group membership. %1$s is the site name, %2$s is a user name.
 #, php-format
 msgid "%1$s groups %2$s is a member of."
 msgstr "%1$s-ს ის ჯგუფები რომლებშიც გაერთიანებულია %2$s."
@@ -3934,6 +3934,8 @@ msgstr "ენა ძალიან გრძელია (არაუმე�
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "არასწორი სანიშნე: \"%s\""
@@ -4680,18 +4682,6 @@ msgstr ""
 msgid "%1$s group, page %2$d"
 msgstr ""
 
-#. TRANS: Label for group description or group note (dt). Text hidden by default.
-msgid "Note"
-msgstr "შენიშვნა"
-
-#. TRANS: Label for group aliases (dt). Text hidden by default.
-msgid "Aliases"
-msgstr ""
-
-#. TRANS: Group actions header (h2). Text hidden by default.
-msgid "Group actions"
-msgstr ""
-
 #. TRANS: Tooltip for feed link. %s is a group nickname.
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
@@ -4793,6 +4783,10 @@ msgstr ""
 
 msgid "Notice deleted."
 msgstr ""
+
+#, fuzzy
+msgid "Notice"
+msgstr "შეტყობინებები"
 
 #. TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
 #, fuzzy, php-format
@@ -5321,23 +5315,19 @@ msgstr ""
 msgid "Tag %s"
 msgstr "სანიშნე %s"
 
-#. TRANS: H2 for user profile information.
 msgid "User profile"
 msgstr "მომხმარებლის პროფილი"
 
 msgid "Tag user"
 msgstr "მონიშნე მომხმარებელი"
 
+#, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
 "სანიშნეები ამ მომხმარებლისთვის (ასოები, ციფრები, -, ., და _). გამოყავით "
 "მძიმით ან სივრცით"
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "არასწორი სანიშნე: \"%s\""
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -6039,6 +6029,49 @@ msgstr ""
 #, php-format
 msgid "No AtomPub API service for %s."
 msgstr ""
+
+#. TRANS: H2 for user actions in a profile.
+#. TRANS: H2 for entity actions in a profile.
+msgid "User actions"
+msgstr "მომხმარებლის მოქმედებები"
+
+#. TRANS: Text shown in user profile of not yet compeltely deleted users.
+msgid "User deletion in progress..."
+msgstr "მომხმარებლის წაშლა პროგრესშია..."
+
+#. TRANS: Link title for link on user profile.
+msgid "Edit profile settings"
+msgstr "პროფილის პარამეტრების რედაქტირება"
+
+#. TRANS: Link text for link on user profile.
+msgid "Edit"
+msgstr "რედაქტირება"
+
+#. TRANS: Link title for link on user profile.
+msgid "Send a direct message to this user"
+msgstr "გაუგზავნე პირდაპირი შეტყობინება ამ მომხმარებელს"
+
+#. TRANS: Link text for link on user profile.
+msgid "Message"
+msgstr "შეტყობინება"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "Moderate"
+msgstr "მოდერაცია"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "User role"
+msgstr "მომხმარებლის როლი"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Administrator"
+msgstr "ადმინისტრატორი"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Moderator"
+msgstr "მოდერატორი"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #, php-format
@@ -6762,46 +6795,168 @@ msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] ""
 
-#. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"groups - lists the groups you have joined\n"
-"subscriptions - list the people you follow\n"
-"subscribers - list the people that follow you\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"lose <nickname> - force user to stop following you\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"repeat #<notice_id> - repeat a notice with a given id\n"
-"repeat <nickname> - repeat the last notice from user\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
+#. TRANS: Header line of help text for commands.
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "Commands:"
+msgstr "ბრძანების შედეგები"
+
+#. TRANS: Help message for IM/SMS command "on"
+msgctxt "COMMANDHELP"
+msgid "turn on notifications"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "off"
+msgctxt "COMMANDHELP"
+msgid "turn off notifications"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "help"
+msgctxt "COMMANDHELP"
+msgid "show this help"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "follow <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "subscribe to user"
+msgstr "გამოიწერე ეს მომხმარებელი"
+
+#. TRANS: Help message for IM/SMS command "groups"
+msgctxt "COMMANDHELP"
+msgid "lists the groups you have joined"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscriptions"
+msgctxt "COMMANDHELP"
+msgid "list the people you follow"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscribers"
+msgctxt "COMMANDHELP"
+msgid "list the people that follow you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "leave <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "unsubscribe from user"
+msgstr "ამ მომხმარებლის გამოწერის გაუქმება"
+
+#. TRANS: Help message for IM/SMS command "d <nickname> <text>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "direct message to user"
+msgstr "%s-სთვის გაგზავნილი პირდაპირი შეტყობინებები"
+
+#. TRANS: Help message for IM/SMS command "get <nickname>"
+msgctxt "COMMANDHELP"
+msgid "get last notice from user"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "whois <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "get profile info on user"
+msgstr "ინფორმაცია პროფილზე"
+
+#. TRANS: Help message for IM/SMS command "lose <nickname>"
+msgctxt "COMMANDHELP"
+msgid "force user to stop following you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav <nickname>"
+msgctxt "COMMANDHELP"
+msgid "add user's last notice as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "add notice with the given id as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "repeat a notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "repeat the last notice from user"
+msgstr "შეტყობინების გამეორება"
+
+#. TRANS: Help message for IM/SMS command "reply #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "reply to notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "reply <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "reply to the last notice from user"
+msgstr "უპასუხე ამ შეტყობინებას"
+
+#. TRANS: Help message for IM/SMS command "join <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "join group"
+msgstr "უცნობი"
+
+#. TRANS: Help message for IM/SMS command "login"
+msgctxt "COMMANDHELP"
+msgid "Get a link to login to the web interface"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "drop <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "leave group"
+msgstr "მომხმარებლის წაშლა"
+
+#. TRANS: Help message for IM/SMS command "stats"
+msgctxt "COMMANDHELP"
+msgid "get your stats"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "stop"
+#. TRANS: Help message for IM/SMS command "quit"
+msgctxt "COMMANDHELP"
+msgid "same as 'off'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "sub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'follow'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "unsub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'leave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "last <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'get'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "on <nickname>"
+#. TRANS: Help message for IM/SMS command "off <nickname>"
+#. TRANS: Help message for IM/SMS command "invite <phone number>"
+#. TRANS: Help message for IM/SMS command "track <word>"
+#. TRANS: Help message for IM/SMS command "untrack <word>"
+#. TRANS: Help message for IM/SMS command "track off"
+#. TRANS: Help message for IM/SMS command "untrack all"
+#. TRANS: Help message for IM/SMS command "tracks"
+#. TRANS: Help message for IM/SMS command "tracking"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "not yet implemented."
+msgstr "ბრძანება ჯერ არ არის შემუშავებული."
+
+#. TRANS: Help message for IM/SMS command "nudge <nickname>"
+msgctxt "COMMANDHELP"
+msgid "remind a user to update."
 msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
@@ -6985,6 +7140,9 @@ msgstr ""
 "ჯგუფის მდებარეობა არსებობის შემთხვევაში. მაგ.: \"ქალაქი, ქვეყანა (ან რეგიონი)"
 "\""
 
+msgid "Aliases"
+msgstr ""
+
 #, fuzzy, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
@@ -7061,6 +7219,10 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
+msgstr ""
+
+#. TRANS: Group actions header (h2). Text hidden by default.
+msgid "Group actions"
 msgstr ""
 
 #. TRANS: Title for groups with the most members section.
@@ -7607,6 +7769,7 @@ msgstr "შეტყობინების გაგზავნა"
 msgid "What's up, %s?"
 msgstr "რა არის ახალი %s?"
 
+#. TRANS: Input label in notice form for adding an attachment.
 msgid "Attach"
 msgstr "ფაილის მიმაგრება"
 
@@ -8068,52 +8231,6 @@ msgstr "გამოწერის გაუქმება"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "მომხმარებელს პროფილი არ გააჩნია."
 
-msgid "Edit Avatar"
-msgstr "ავატარის რედაქტირება"
-
-#. TRANS: H2 for user actions in a profile.
-#. TRANS: H2 for entity actions in a profile.
-msgid "User actions"
-msgstr "მომხმარებლის მოქმედებები"
-
-#. TRANS: Text shown in user profile of not yet compeltely deleted users.
-msgid "User deletion in progress..."
-msgstr "მომხმარებლის წაშლა პროგრესშია..."
-
-#. TRANS: Link title for link on user profile.
-msgid "Edit profile settings"
-msgstr "პროფილის პარამეტრების რედაქტირება"
-
-#. TRANS: Link text for link on user profile.
-msgid "Edit"
-msgstr "რედაქტირება"
-
-#. TRANS: Link title for link on user profile.
-msgid "Send a direct message to this user"
-msgstr "გაუგზავნე პირდაპირი შეტყობინება ამ მომხმარებელს"
-
-#. TRANS: Link text for link on user profile.
-msgid "Message"
-msgstr "შეტყობინება"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "Moderate"
-msgstr "მოდერაცია"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "User role"
-msgstr "მომხმარებლის როლი"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Administrator"
-msgstr "ადმინისტრატორი"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Moderator"
-msgstr "მოდერატორი"
-
 #, fuzzy
 msgid "Not allowed to log in."
 msgstr "ავტორიზებული არ ხართ."
@@ -8186,3 +8303,6 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
+
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "არასწორი სანიშნე: \"%s\""

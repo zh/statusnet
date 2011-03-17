@@ -78,8 +78,13 @@ class SearchSubPlugin extends Plugin
             return false;
         case 'SearchsubAction':
         case 'SearchunsubAction':
+        case 'SearchsubsAction':
         case 'SearchSubForm':
         case 'SearchUnsubForm':
+        case 'SearchSubTrackCommand':
+        case 'SearchSubTrackOffCommand':
+        case 'SearchSubTrackingCommand':
+        case 'SearchSubUntrackCommand':
             include_once $dir.'/'.strtolower($cls).'.php';
             return false;
         default:
@@ -103,6 +108,9 @@ class SearchSubPlugin extends Plugin
                     array('action' => 'searchunsub'),
                     array('search' => Router::REGEX_TAG));
 
+        $m->connect(':nickname/search-subscriptions',
+                    array('action' => 'searchsubs'),
+                    array('nickname' => Nickname::DISPLAY_FMT));
         return true;
     }
 
@@ -208,5 +216,106 @@ class SearchSubPlugin extends Plugin
             $action->elementEnd('div');
         }
         return true;
+    }
+
+    /**
+     * Menu item for personal subscriptions/groups area
+     *
+     * @param Widget $widget Widget being executed
+     *
+     * @return boolean hook return
+     */
+
+    function onEndSubGroupNav($widget)
+    {
+        $action = $widget->out;
+        $action_name = $action->trimmed('action');
+
+        $action->menuItem(common_local_url('searchsubs', array('nickname' => $action->user->nickname)),
+                          // TRANS: SearchSub plugin menu item on user settings page.
+                          _m('MENU', 'Searches'),
+                          // TRANS: SearchSub plugin tooltip for user settings menu item.
+                          _m('Configure search subscriptions'),
+                          $action_name == 'searchsubs' && $action->arg('nickname') == $action->user->nickname);
+
+        return true;
+    }
+
+    /**
+     * Add a count of mirrored feeds into a user's profile sidebar stats.
+     *
+     * @param Profile $profile
+     * @param array $stats
+     * @return boolean hook return value
+     */
+    function onProfileStats($profile, &$stats)
+    {
+        $cur = common_current_user();
+        if (!empty($cur) && $cur->id == $profile->id) {
+            $searchsub = new SearchSub();
+            $searchsub ->profile_id = $profile->id;
+            $entry = array(
+                'id' => 'searchsubs',
+                'label' => _m('Search subscriptions'),
+                'link' => common_local_url('searchsubs', array('nickname' => $profile->nickname)),
+                'value' => $searchsub->count(),
+            );
+
+            $insertAt = count($stats);
+            foreach ($stats as $i => $row) {
+                if ($row['id'] == 'groups') {
+                    // Slip us in after them.
+                    $insertAt = $i + 1;
+                    break;
+                }
+            }
+            array_splice($stats, $insertAt, 0, array($entry));
+        }
+        return true;
+    }
+
+    /**
+     * Replace the built-in stub track commands with ones that control
+     * search subscriptions.
+     *
+     * @param CommandInterpreter $cmd
+     * @param string $arg
+     * @param User $user
+     * @param Command $result
+     * @return boolean hook result
+     */
+    function onEndInterpretCommand($cmd, $arg, $user, &$result)
+    {
+        if ($result instanceof TrackCommand) {
+            $result = new SearchSubTrackCommand($user, $arg);
+            return false;
+        } else if ($result instanceof TrackOffCommand) {
+            $result = new SearchSubTrackOffCommand($user);
+            return false;
+        } else if ($result instanceof TrackingCommand) {
+            $result = new SearchSubTrackingCommand($user);
+            return false;
+        } else if ($result instanceof UntrackCommand) {
+            $result = new SearchSubUntrackCommand($user, $arg);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function onHelpCommandMessages($cmd, &$commands)
+    {
+        // TRANS: Help message for IM/SMS command "track <word>"
+        $commands["track <word>"] = _m('COMMANDHELP', "Start following notices matching the given search query.");
+        // TRANS: Help message for IM/SMS command "untrack <word>"
+        $commands["untrack <word>"] = _m('COMMANDHELP', "Stop following notices matching the given search query.");
+        // TRANS: Help message for IM/SMS command "track off"
+        $commands["track off"] = _m('COMMANDHELP', "Disable all tracked search subscriptions.");
+        // TRANS: Help message for IM/SMS command "untrack all"
+        $commands["untrack all"] = _m('COMMANDHELP', "Disable all tracked search subscriptions.");
+        // TRANS: Help message for IM/SMS command "tracks"
+        $commands["tracks"] = _m('COMMANDHELP', "List all your search subscriptions.");
+        // TRANS: Help message for IM/SMS command "tracking"
+        $commands["tracking"] = _m('COMMANDHELP', "List all your search subscriptions.");
     }
 }

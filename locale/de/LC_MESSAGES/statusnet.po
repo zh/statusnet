@@ -22,17 +22,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-11 18:15+0000\n"
-"PO-Revision-Date: 2011-03-11 18:17:00+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:37:51+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83703); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84120); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-03-08 01:25:01+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -608,7 +608,7 @@ msgstr "Konnte Benutzer %1$s nicht aus der Gruppe %2$s entfernen."
 msgid "%s's groups"
 msgstr "Gruppen von %s"
 
-#. TRANS: Used as subtitle in check for group membership. %1$s is a user name, %2$s is the site name.
+#. TRANS: Used as subtitle in check for group membership. %1$s is the site name, %2$s is a user name.
 #, php-format
 msgid "%1$s groups %2$s is a member of."
 msgstr "%1$s Gruppen in denen %2$s Mitglied ist"
@@ -3968,6 +3968,8 @@ msgstr "Die eingegebene Sprache ist zu lang (maximal 50 Zeichen)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "Ungültiges Stichwort: „%s“"
@@ -4730,18 +4732,6 @@ msgstr "%s-Gruppe"
 msgid "%1$s group, page %2$d"
 msgstr "%1$s Gruppe, Seite %d"
 
-#. TRANS: Label for group description or group note (dt). Text hidden by default.
-msgid "Note"
-msgstr "Nachricht"
-
-#. TRANS: Label for group aliases (dt). Text hidden by default.
-msgid "Aliases"
-msgstr "Pseudonyme"
-
-#. TRANS: Group actions header (h2). Text hidden by default.
-msgid "Group actions"
-msgstr "Gruppenaktionen"
-
 #. TRANS: Tooltip for feed link. %s is a group nickname.
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
@@ -4850,6 +4840,9 @@ msgstr "Nachricht von %1$s auf %2$s"
 
 msgid "Notice deleted."
 msgstr "Nachricht gelöscht."
+
+msgid "Notice"
+msgstr "Nachrichten"
 
 #. TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
 #, php-format
@@ -5387,23 +5380,19 @@ msgstr "Kein ID-Argument."
 msgid "Tag %s"
 msgstr "Tag „%s“"
 
-#. TRANS: H2 for user profile information.
 msgid "User profile"
 msgstr "Benutzerprofil"
 
 msgid "Tag user"
 msgstr "Benutzer taggen"
 
+#, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
 "Tags dieses Benutzers (Buchstaben, Nummer, -, ., und _), durch Komma oder "
 "Leerzeichen getrennt"
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "Ungültiges Stichwort: „%s“"
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -6113,6 +6102,49 @@ msgstr "XRD für %s kann nicht gefunden werden."
 #, php-format
 msgid "No AtomPub API service for %s."
 msgstr "AtomPub API für %s kann nicht gefunden werden."
+
+#. TRANS: H2 for user actions in a profile.
+#. TRANS: H2 for entity actions in a profile.
+msgid "User actions"
+msgstr "Benutzeraktionen"
+
+#. TRANS: Text shown in user profile of not yet compeltely deleted users.
+msgid "User deletion in progress..."
+msgstr "Löschung des Benutzers in Arbeit …"
+
+#. TRANS: Link title for link on user profile.
+msgid "Edit profile settings"
+msgstr "Profil-Einstellungen ändern"
+
+#. TRANS: Link text for link on user profile.
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#. TRANS: Link title for link on user profile.
+msgid "Send a direct message to this user"
+msgstr "Direkte Nachricht an Benutzer versenden"
+
+#. TRANS: Link text for link on user profile.
+msgid "Message"
+msgstr "Nachricht"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "Moderate"
+msgstr "Moderieren"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "User role"
+msgstr "Benutzerrolle"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Administrator"
+msgstr "Administrator"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Moderator"
+msgstr "Moderator"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #, php-format
@@ -6838,85 +6870,171 @@ msgid_plural "You are a member of these groups:"
 msgstr[0] "Du bist Mitglied dieser Gruppe:"
 msgstr[1] "Du bist Mitglied dieser Gruppen:"
 
-#. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"groups - lists the groups you have joined\n"
-"subscriptions - list the people you follow\n"
-"subscribers - list the people that follow you\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"lose <nickname> - force user to stop following you\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"repeat #<notice_id> - repeat a notice with a given id\n"
-"repeat <nickname> - repeat the last notice from user\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
+#. TRANS: Header line of help text for commands.
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "Commands:"
+msgstr "Befehl-Ergebnisse"
+
+#. TRANS: Help message for IM/SMS command "on"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn on notifications"
+msgstr "Konnte Benachrichtigung nicht aktivieren."
+
+#. TRANS: Help message for IM/SMS command "off"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn off notifications"
+msgstr "Konnte Benachrichtigung nicht deaktivieren."
+
+#. TRANS: Help message for IM/SMS command "help"
+msgctxt "COMMANDHELP"
+msgid "show this help"
 msgstr ""
-"Befehle:\n"
-"on - Benachrichtigung einschalten\n"
-"off - Benachrichtigung ausschalten\n"
-"help - diese Hilfe anzeigen\n"
-"follow <nickname> - einem Benutzer folgen\n"
-"groups - Gruppen auflisten in denen du Mitglied bist\n"
-"subscriptions - Leute auflisten denen du folgst\n"
-"subscribers - Leute auflisten die dir folgen\n"
-"leave <nickname> - einem Benutzer nicht mehr folgen\n"
-"d <nickname> <text> - Direkte Nachricht an einen Benutzer schicken\n"
-"get <nickname> - letzte Nachricht eines Benutzers abrufen\n"
-"whois <nickname> - Profil eines Benutzers abrufen\n"
-"lose <nickname> - Benutzer zwingen dir nicht mehr zu folgen\n"
-"fav <nickname> - letzte Nachricht eines Benutzers als Favorit markieren\n"
-"fav #<notice_id> - Nachricht mit bestimmter ID als Favorit markieren\n"
-"repeat #<notice_id> - Nachricht mit bestimmter ID wiederholen\n"
-"repeat <nickname> - letzte Nachricht eines Benutzers wiederholen\n"
-"reply #<notice_id> - Nachricht mit bestimmter ID beantworten\n"
-"reply <nickname> - letzte Nachricht eines Benutzers beantworten\n"
-"join <group> - Gruppe beitreten\n"
-"login - Link zum Anmelden auf der Webseite anfordern\n"
-"drop <group> - Gruppe verlassen\n"
-"stats - deine Statistik abrufen\n"
-"stop - Äquivalent zu „off“\n"
-"quit - Äquivalent zu „off“\n"
-"sub <nickname> - Äquivalent zu „follow“\n"
-"unsub <nickname> - Äquivalent zu „leave“\n"
-"last <nickname> - Äquivalent zu „get“\n"
-"on <nickname> - noch nicht implementiert\n"
-"off <nickname> - noch nicht implementiert\n"
-"nudge <nickname> - einen Benutzer ans Aktualisieren erinnern\n"
-"invite <phone number> - noch nicht implementiert\n"
-"track <word> - noch nicht implementiert\n"
-"untrack <word> - noch nicht implementiert\n"
-"track off - noch nicht implementiert\n"
-"untrack all - noch nicht implementiert\n"
-"tracks - noch nicht implementiert\n"
-"tracking - noch nicht implementiert\n"
+
+#. TRANS: Help message for IM/SMS command "follow <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "subscribe to user"
+msgstr "Abonniere diesen Benutzer"
+
+#. TRANS: Help message for IM/SMS command "groups"
+msgctxt "COMMANDHELP"
+msgid "lists the groups you have joined"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscriptions"
+msgctxt "COMMANDHELP"
+msgid "list the people you follow"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscribers"
+msgctxt "COMMANDHELP"
+msgid "list the people that follow you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "leave <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "unsubscribe from user"
+msgstr "Abonnement von diesem Benutzer abbestellen"
+
+#. TRANS: Help message for IM/SMS command "d <nickname> <text>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "direct message to user"
+msgstr "Direkte Nachrichten an %s"
+
+#. TRANS: Help message for IM/SMS command "get <nickname>"
+msgctxt "COMMANDHELP"
+msgid "get last notice from user"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "whois <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "get profile info on user"
+msgstr "Entferntes Profil ist keine Gruppe!"
+
+#. TRANS: Help message for IM/SMS command "lose <nickname>"
+msgctxt "COMMANDHELP"
+msgid "force user to stop following you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav <nickname>"
+msgctxt "COMMANDHELP"
+msgid "add user's last notice as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "add notice with the given id as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "repeat a notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "repeat the last notice from user"
+msgstr "Diese Nachricht wiederholen"
+
+#. TRANS: Help message for IM/SMS command "reply #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "reply to notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "reply <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "reply to the last notice from user"
+msgstr "Auf diese Nachricht antworten"
+
+#. TRANS: Help message for IM/SMS command "join <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "join group"
+msgstr "Unbekannte Gruppe."
+
+#. TRANS: Help message for IM/SMS command "login"
+msgctxt "COMMANDHELP"
+msgid "Get a link to login to the web interface"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "drop <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "leave group"
+msgstr "Gruppe löschen"
+
+#. TRANS: Help message for IM/SMS command "stats"
+msgctxt "COMMANDHELP"
+msgid "get your stats"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "stop"
+#. TRANS: Help message for IM/SMS command "quit"
+msgctxt "COMMANDHELP"
+msgid "same as 'off'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "sub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'follow'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "unsub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'leave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "last <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'get'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "on <nickname>"
+#. TRANS: Help message for IM/SMS command "off <nickname>"
+#. TRANS: Help message for IM/SMS command "invite <phone number>"
+#. TRANS: Help message for IM/SMS command "track <word>"
+#. TRANS: Help message for IM/SMS command "untrack <word>"
+#. TRANS: Help message for IM/SMS command "track off"
+#. TRANS: Help message for IM/SMS command "untrack all"
+#. TRANS: Help message for IM/SMS command "tracks"
+#. TRANS: Help message for IM/SMS command "tracking"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "not yet implemented."
+msgstr "Befehl noch nicht implementiert."
+
+#. TRANS: Help message for IM/SMS command "nudge <nickname>"
+msgctxt "COMMANDHELP"
+msgid "remind a user to update."
+msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 msgid "No configuration file found."
@@ -7093,6 +7211,9 @@ msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\"."
 msgstr "Ort der Gruppe, optional, beispielsweise „Stadt, Region, Land“."
 
+msgid "Aliases"
+msgstr "Pseudonyme"
+
 #, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
@@ -7173,6 +7294,10 @@ msgstr "%s-Logo hinzufügen oder bearbeiten"
 msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
 msgstr "%s-Design hinzufügen oder bearbeiten"
+
+#. TRANS: Group actions header (h2). Text hidden by default.
+msgid "Group actions"
+msgstr "Gruppenaktionen"
 
 #. TRANS: Title for groups with the most members section.
 msgid "Groups with most members"
@@ -7743,6 +7868,7 @@ msgstr "Nachricht senden"
 msgid "What's up, %s?"
 msgstr "Was geht, %s?"
 
+#. TRANS: Input label in notice form for adding an attachment.
 msgid "Attach"
 msgstr "Anhängen"
 
@@ -8202,52 +8328,6 @@ msgstr "Abbestellen"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "Benutzer „%1$s“ (%2$d) hat kein Profil."
 
-msgid "Edit Avatar"
-msgstr "Avatar bearbeiten"
-
-#. TRANS: H2 for user actions in a profile.
-#. TRANS: H2 for entity actions in a profile.
-msgid "User actions"
-msgstr "Benutzeraktionen"
-
-#. TRANS: Text shown in user profile of not yet compeltely deleted users.
-msgid "User deletion in progress..."
-msgstr "Löschung des Benutzers in Arbeit …"
-
-#. TRANS: Link title for link on user profile.
-msgid "Edit profile settings"
-msgstr "Profil-Einstellungen ändern"
-
-#. TRANS: Link text for link on user profile.
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#. TRANS: Link title for link on user profile.
-msgid "Send a direct message to this user"
-msgstr "Direkte Nachricht an Benutzer versenden"
-
-#. TRANS: Link text for link on user profile.
-msgid "Message"
-msgstr "Nachricht"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "Moderate"
-msgstr "Moderieren"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "User role"
-msgstr "Benutzerrolle"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Administrator"
-msgstr "Administrator"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Moderator"
-msgstr "Moderator"
-
 #, fuzzy
 msgid "Not allowed to log in."
 msgstr "Nicht angemeldet."
@@ -8322,3 +8402,6 @@ msgstr "Ungültiges XML, XRD-Root fehlt."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "Hole Backup von der Datei „%s“."
+
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "Ungültiges Stichwort: „%s“"

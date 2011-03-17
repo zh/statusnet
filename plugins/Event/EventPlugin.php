@@ -297,7 +297,7 @@ class EventPlugin extends MicroappPlugin
         }
 
         // @fixme we have to start the name/avatar and open this div
-        $out->elementStart('div', array('class' => 'event-info')); // EVENT-INFO.ENTRY-CONTENT IN
+        $out->elementStart('div', array('class' => 'event-info entry-content')); // EVENT-INFO.ENTRY-CONTENT IN
 
         $profile = $notice->getProfile();
         $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
