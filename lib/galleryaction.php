@@ -168,4 +168,10 @@ class GalleryAction extends OwnerDesignAction
     {
         return array();
     }
+
+    function showProfileBlock()
+    {
+        $block = new AccountProfileBlock($this, $this->profile);
+        $block->show();
+    }
 }

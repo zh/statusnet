@@ -14,17 +14,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-08 01:03+0000\n"
-"PO-Revision-Date: 2011-03-08 01:05:19+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:38:07+0000\n"
 "Language-Team: Japanese <http://translatewiki.net/wiki/Portal:ja>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
+"X-Generator: MediaWiki 1.18alpha (r84120); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -593,7 +593,7 @@ msgstr "ユーザ %1$s をグループ %2$s から削除できません。"
 msgid "%s's groups"
 msgstr "%s のグループ"
 
-#. TRANS: Used as subtitle in check for group membership. %1$s is a user name, %2$s is the site name.
+#. TRANS: Used as subtitle in check for group membership. %1$s is the site name, %2$s is a user name.
 #, fuzzy, php-format
 msgid "%1$s groups %2$s is a member of."
 msgstr "グループ %s はメンバー"
@@ -1050,7 +1050,7 @@ msgstr "つぶやきの内容を探す"
 
 #. TRANS: Client exception thrown when trying favorite a notice without content.
 #, fuzzy
-msgid "Unknown note."
+msgid "Unknown notice."
 msgstr "不明"
 
 #. TRANS: Client exception thrown when trying favorite an already favorited notice.
@@ -1645,6 +1645,7 @@ msgstr "このユーザを削除"
 #. TRANS: Client error displayed trying to create a new direct message while not logged in.
 #. TRANS: Client error displayed trying to send a notice while not logged in.
 #. TRANS: Client error displayed trying to nudge a user without being logged in.
+#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
@@ -3168,6 +3169,10 @@ msgstr "ソースURLが必要です。"
 msgid "Could not create application."
 msgstr "アプリケーションを作成できません。"
 
+#, fuzzy
+msgid "Invalid image."
+msgstr "不正なサイズ。"
+
 #. TRANS: Title for form to create a group.
 msgid "New group"
 msgstr "新しいグループ"
@@ -3453,52 +3458,77 @@ msgstr ""
 "これはあなたの送信箱です、あなたが送ったプライベート・メッセージをリストしま"
 "す。"
 
+#. TRANS: Title for page where to change password.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Change password"
 msgstr "パスワードの変更"
 
+#. TRANS: Instructions for page where to change password.
 msgid "Change your password."
 msgstr "パスワードを変更します。"
 
+#. TRANS: Fieldset legend on page where to change password.
 #. TRANS: Fieldset legend for password reset form.
 msgid "Password change"
 msgstr "パスワード変更"
 
+#. TRANS: Field label on page where to change password.
 msgid "Old password"
 msgstr "古いパスワード"
 
+#. TRANS: Field label on page where to change password.
 #. TRANS: Field label for password reset form.
 msgid "New password"
 msgstr "新しいパスワード"
 
+#. TRANS: Field title on page where to change password.
 #, fuzzy
 msgid "6 or more characters."
 msgstr "6文字以上"
 
+#. TRANS: Field label on page where to change password. In this field the new password should be typed a second time.
+#, fuzzy
+msgctxt "LABEL"
+msgid "Confirm"
+msgstr "パスワード確認"
+
+#. TRANS: Field title on page where to change password.
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
 #, fuzzy
 msgid "Same as password above."
 msgstr "上と同じパスワード"
 
+#. TRANS: Button text on page where to change password.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Change"
 msgstr "変更"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Password must be 6 or more characters."
 msgstr "パスワードは6文字以上にする必要があります。"
 
 msgid "Passwords don't match."
 msgstr "パスワードが一致しません。"
 
-msgid "Incorrect old password"
+#. TRANS: Form validation error on page where to change password.
+#, fuzzy
+msgid "Incorrect old password."
 msgstr "古いパスワードが間違っています。"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Error saving user; invalid."
 msgstr "ユーザ保存エラー; 不正なユーザ"
 
+#. TRANS: Server error displayed on page where to change password when password change
+#. TRANS: could not be made because of a server error.
 #. TRANS: Reset password form validation error message.
 #, fuzzy
 msgid "Cannot save new password."
 msgstr "新しいパスワードを保存できません。"
 
+#. TRANS: Form validation notice on page where to change password.
 msgid "Password saved."
 msgstr "パスワードが保存されました。"
 
@@ -3548,6 +3578,7 @@ msgstr "サイト"
 msgid "Server"
 msgstr "サーバー"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Site's server hostname."
 msgstr "サイトのサーバーホスト名"
 
@@ -3555,6 +3586,7 @@ msgstr "サイトのサーバーホスト名"
 msgid "Path"
 msgstr "パス"
 
+#. TRANS: Field title in Paths admin panel.
 #, fuzzy
 msgid "Site path."
 msgstr "サイトパス"
@@ -3564,6 +3596,7 @@ msgstr "サイトパス"
 msgid "Locale directory"
 msgstr "テーマディレクトリ"
 
+#. TRANS: Field title in Paths admin panel.
 #, fuzzy
 msgid "Directory path to locales."
 msgstr "ロケールへのディレクトリパス"
@@ -3572,9 +3605,14 @@ msgstr "ロケールへのディレクトリパス"
 msgid "Fancy URLs"
 msgstr ""
 
-msgid "Use fancy (more readable and memorable) URLs?"
+#. TRANS: Field title in Paths admin panel.
+#, fuzzy
+msgid "Use fancy URLs (more readable and memorable)?"
 msgstr "Fancy URL (読みやすく忘れにくい) を使用しますか?"
 
+#. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Theme"
 msgstr "テーマ"
 
@@ -3700,6 +3738,8 @@ msgid "Directory where attachments are located."
 msgstr "ロケールへのディレクトリパス"
 
 #. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "SSL"
 msgstr "SSL"
 
@@ -3746,10 +3786,14 @@ msgstr ""
 msgid "People search"
 msgstr "ピープルサーチ"
 
+#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, php-format
 msgid "Not a valid people tag: %s."
 msgstr "有効なメールアドレスではありません。"
 
+#. TRANS: Page title for users with a certain self-tag.
+#. TRANS: %1$s is the tag, %2$s is the page number.
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "ユーザ自身がつけたタグ %1$s  - ページ %2$d"
@@ -3759,15 +3803,19 @@ msgctxt "plugin"
 msgid "Disabled"
 msgstr ""
 
+#. TRANS: Client error displayed when trying to use another method than POST.
+#. TRANS: Do not translate POST.
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
 msgstr ""
 
+#. TRANS: Client error displayed when trying to enable or disable a plugin without access rights.
 #, fuzzy
 msgid "You cannot administer plugins."
 msgstr "ユーザを削除できません"
 
+#. TRANS: Client error displayed when trying to enable or disable a non-existing plugin.
 #, fuzzy
 msgid "No such plugin."
 msgstr "そのようなページはありません。"
@@ -3778,7 +3826,8 @@ msgid "Enabled"
 msgstr ""
 
 #. TRANS: Tab and title for plugins admin panel.
-#. TRANS: Menu item for site administration
+#, fuzzy
+msgctxt "TITLE"
 msgid "Plugins"
 msgstr "プラグイン"
 
@@ -3794,15 +3843,19 @@ msgstr ""
 msgid "Default plugins"
 msgstr "ご希望の言語"
 
+#. TRANS: Text displayed on plugin admin page when no plugin are enabled.
 msgid ""
 "All default plugins have been disabled from the site's configuration file."
 msgstr ""
 
+#. TRANS: Client error displayed if the notice posted has too many characters.
 msgid "Invalid notice content."
 msgstr "不正なトークン。"
 
-#, php-format
-msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
+#. TRANS: Exception thrown if a notice's license is not compatible with the StatusNet site license.
+#. TRANS: %1$s is the notice license, %2$s is the StatusNet site's license.
+#, fuzzy, php-format
+msgid "Notice license \"%1$s\" is not compatible with site license \"%2$s\"."
 msgstr ""
 "つぶやきライセンス ‘%1$s’ はサイトライセンス ‘%2$s’ と互換性がありません。"
 
@@ -3924,6 +3977,8 @@ msgstr "言語が長すぎます。(最大50字)"
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "不正なタグ: \"%s\""
@@ -3954,29 +4009,39 @@ msgstr "設定が保存されました。"
 msgid "Restore account"
 msgstr "新しいグループを作成"
 
+#. TRANS: Client error displayed when requesting a public timeline page beyond the page limit.
+#. TRANS: %s is the page limit.
 #, fuzzy, php-format
 msgid "Beyond the page limit (%s)."
 msgstr "ページ制限を超えました (%s)"
 
+#. TRANS: Server error displayed when a public timeline cannot be retrieved.
 msgid "Could not retrieve public stream."
 msgstr "パブリックストリームを検索できません。"
 
+#. TRANS: Title for all public timeline pages but the first.
+#. TRANS: %d is the page number.
 #, php-format
 msgid "Public timeline, page %d"
 msgstr "パブリックタイムライン、ページ %d"
 
+#. TRANS: Title for the first public timeline page.
 msgid "Public timeline"
 msgstr "パブリックタイムライン"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr "パブリックストリームフィード (RSS 1.0)"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr "パブリックストリームフィード (RSS 2.0)"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (Atom)"
 msgstr "パブリックストリームフィード (Atom)"
 
+#. TRANS: Text displayed for public feed when there are no public notices.
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
@@ -3985,9 +4050,11 @@ msgstr ""
 "これは %%site.name%% のパブリックタイムラインです、しかしまだ誰も投稿していま"
 "せん。"
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a logged in user.
 msgid "Be the first to post!"
 msgstr "投稿する1番目になってください!"
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a not logged in user.
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
@@ -3995,6 +4062,8 @@ msgstr ""
 "なぜ [アカウント登録](%%action.register%%) しないのですか、そして最初の投稿を"
 "してください!"
 
+#. TRANS: Message for not logged in users at an invite-only site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4008,6 +4077,8 @@ msgstr ""
 "族そして同僚などについてのつぶやきを共有しましょう! ([もっと読む](%%doc.help%"
 "%))"
 
+#. TRANS: Message for not logged in users at a closed site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4663,18 +4734,6 @@ msgstr "%s グループ"
 msgid "%1$s group, page %2$d"
 msgstr "%1$s グループ、ページ %2$d"
 
-#. TRANS: Label for group description or group note (dt). Text hidden by default.
-msgid "Note"
-msgstr "ノート"
-
-#. TRANS: Label for group aliases (dt). Text hidden by default.
-msgid "Aliases"
-msgstr "別名"
-
-#. TRANS: Group actions header (h2). Text hidden by default.
-msgid "Group actions"
-msgstr "グループアクション"
-
 #. TRANS: Tooltip for feed link. %s is a group nickname.
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
@@ -4785,6 +4844,9 @@ msgstr "%2$s 上の %1$s からのメッセージ"
 
 msgid "Notice deleted."
 msgstr "つぶやきを削除しました。"
+
+msgid "Notice"
+msgstr "つぶやき"
 
 #. TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
 #, fuzzy, php-format
@@ -5335,22 +5397,18 @@ msgstr "ID引数がありません。"
 msgid "Tag %s"
 msgstr "タグ %s"
 
-#. TRANS: H2 for user profile information.
 msgid "User profile"
 msgstr "ユーザプロファイル"
 
 msgid "Tag user"
 msgstr "タグユーザ"
 
+#, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
 "このユーザのタグ (アルファベット、数字、-、.、_)、カンマかスペース区切り"
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "不正なタグ: \"%s\""
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -5730,6 +5788,10 @@ msgid ""
 "along with this program.  If not, see %s."
 msgstr ""
 
+#. TRANS: Menu item for site administration
+msgid "Plugins"
+msgstr "プラグイン"
+
 #. TRANS: Form input field label for application name.
 msgid "Name"
 msgstr "名前"
@@ -6037,6 +6099,53 @@ msgstr ""
 msgid "No AtomPub API service for %s."
 msgstr ""
 
+#. TRANS: H2 for user actions in a profile.
+#. TRANS: H2 for entity actions in a profile.
+msgid "User actions"
+msgstr "利用者アクション"
+
+#. TRANS: Text shown in user profile of not yet compeltely deleted users.
+msgid "User deletion in progress..."
+msgstr ""
+
+#. TRANS: Link title for link on user profile.
+msgid "Edit profile settings"
+msgstr "プロファイル設定編集"
+
+#. TRANS: Link text for link on user profile.
+msgid "Edit"
+msgstr "編集"
+
+#. TRANS: Link title for link on user profile.
+msgid "Send a direct message to this user"
+msgstr "この利用者にダイレクトメッセージを送る"
+
+#. TRANS: Link text for link on user profile.
+msgid "Message"
+msgstr "メッセージ"
+
+#. TRANS: Label text on user profile to select a user role.
+#, fuzzy
+msgid "Moderate"
+msgstr "管理"
+
+#. TRANS: Label text on user profile to select a user role.
+#, fuzzy
+msgid "User role"
+msgstr "ユーザプロファイル"
+
+#. TRANS: Role that can be set for a user profile.
+#, fuzzy
+msgctxt "role"
+msgid "Administrator"
+msgstr "管理者"
+
+#. TRANS: Role that can be set for a user profile.
+#, fuzzy
+msgctxt "role"
+msgid "Moderator"
+msgstr "管理"
+
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #, php-format
 msgid "%1$s - %2$s"
@@ -6227,6 +6336,9 @@ msgstr "saveSettings() は実装されていません。"
 #. TRANS: the admin panel Design.
 msgid "Unable to delete design setting."
 msgstr "デザイン設定を削除できません。"
+
+msgid "Home"
+msgstr "ホームページ"
 
 #. TRANS: Menu item title/tooltip
 msgid "Basic site configuration"
@@ -6760,46 +6872,170 @@ msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "あなたはこのグループのメンバーではありません:"
 
-#. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"groups - lists the groups you have joined\n"
-"subscriptions - list the people you follow\n"
-"subscribers - list the people that follow you\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"lose <nickname> - force user to stop following you\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"repeat #<notice_id> - repeat a notice with a given id\n"
-"repeat <nickname> - repeat the last notice from user\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
+#. TRANS: Header line of help text for commands.
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "Commands:"
+msgstr "コマンド結果"
+
+#. TRANS: Help message for IM/SMS command "on"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn on notifications"
+msgstr "通知をオンできません。"
+
+#. TRANS: Help message for IM/SMS command "off"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn off notifications"
+msgstr "通知をオフできません。"
+
+#. TRANS: Help message for IM/SMS command "help"
+msgctxt "COMMANDHELP"
+msgid "show this help"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "follow <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "subscribe to user"
+msgstr "このユーザーをフォロー"
+
+#. TRANS: Help message for IM/SMS command "groups"
+msgctxt "COMMANDHELP"
+msgid "lists the groups you have joined"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscriptions"
+msgctxt "COMMANDHELP"
+msgid "list the people you follow"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscribers"
+msgctxt "COMMANDHELP"
+msgid "list the people that follow you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "leave <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "unsubscribe from user"
+msgstr "この利用者からのフォローを解除する"
+
+#. TRANS: Help message for IM/SMS command "d <nickname> <text>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "direct message to user"
+msgstr "%s へのダイレクトメッセージ"
+
+#. TRANS: Help message for IM/SMS command "get <nickname>"
+msgctxt "COMMANDHELP"
+msgid "get last notice from user"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "whois <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "get profile info on user"
+msgstr "プロファイル情報"
+
+#. TRANS: Help message for IM/SMS command "lose <nickname>"
+msgctxt "COMMANDHELP"
+msgid "force user to stop following you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav <nickname>"
+msgctxt "COMMANDHELP"
+msgid "add user's last notice as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "add notice with the given id as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "repeat a notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "repeat the last notice from user"
+msgstr "このつぶやきを繰り返す"
+
+#. TRANS: Help message for IM/SMS command "reply #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "reply to notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "reply <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "reply to the last notice from user"
+msgstr "このつぶやきへ返信"
+
+#. TRANS: Help message for IM/SMS command "join <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "join group"
+msgstr "不明"
+
+#. TRANS: Help message for IM/SMS command "login"
+msgctxt "COMMANDHELP"
+msgid "Get a link to login to the web interface"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "drop <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "leave group"
+msgstr "ユーザ削除"
+
+#. TRANS: Help message for IM/SMS command "stats"
+msgctxt "COMMANDHELP"
+msgid "get your stats"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "stop"
+#. TRANS: Help message for IM/SMS command "quit"
+msgctxt "COMMANDHELP"
+msgid "same as 'off'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "sub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'follow'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "unsub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'leave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "last <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'get'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "on <nickname>"
+#. TRANS: Help message for IM/SMS command "off <nickname>"
+#. TRANS: Help message for IM/SMS command "invite <phone number>"
+#. TRANS: Help message for IM/SMS command "track <word>"
+#. TRANS: Help message for IM/SMS command "untrack <word>"
+#. TRANS: Help message for IM/SMS command "track off"
+#. TRANS: Help message for IM/SMS command "untrack all"
+#. TRANS: Help message for IM/SMS command "tracks"
+#. TRANS: Help message for IM/SMS command "tracking"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "not yet implemented."
+msgstr "コマンドはまだ実装されていません。"
+
+#. TRANS: Help message for IM/SMS command "nudge <nickname>"
+msgctxt "COMMANDHELP"
+msgid "remind a user to update."
 msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
@@ -6826,9 +7062,6 @@ msgstr "インストーラへ。"
 
 msgid "Database error"
 msgstr "データベースエラー"
-
-msgid "Home"
-msgstr "ホームページ"
 
 msgid "Public"
 msgstr "パブリック"
@@ -6987,6 +7220,9 @@ msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\"."
 msgstr "グループの場所, 例えば \"都市, 都道府県 (または 地域), 国\""
 
+msgid "Aliases"
+msgstr "別名"
+
 #, fuzzy, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
@@ -7064,6 +7300,10 @@ msgstr ""
 msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
 msgstr ""
+
+#. TRANS: Group actions header (h2). Text hidden by default.
+msgid "Group actions"
+msgstr "グループアクション"
 
 #. TRANS: Title for groups with the most members section.
 msgid "Groups with most members"
@@ -7676,6 +7916,9 @@ msgstr "このつぶやきを削除"
 msgid "Notice repeated"
 msgstr "つぶやきを繰り返しました"
 
+msgid "Update your status..."
+msgstr ""
+
 msgid "Nudge this user"
 msgstr "このユーザへ合図"
 
@@ -8058,56 +8301,6 @@ msgstr "フォロー解除"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "ユーザはプロフィールをもっていません。"
 
-msgid "Edit Avatar"
-msgstr "アバターを編集する"
-
-#. TRANS: H2 for user actions in a profile.
-#. TRANS: H2 for entity actions in a profile.
-msgid "User actions"
-msgstr "利用者アクション"
-
-#. TRANS: Text shown in user profile of not yet compeltely deleted users.
-msgid "User deletion in progress..."
-msgstr ""
-
-#. TRANS: Link title for link on user profile.
-msgid "Edit profile settings"
-msgstr "プロファイル設定編集"
-
-#. TRANS: Link text for link on user profile.
-msgid "Edit"
-msgstr "編集"
-
-#. TRANS: Link title for link on user profile.
-msgid "Send a direct message to this user"
-msgstr "この利用者にダイレクトメッセージを送る"
-
-#. TRANS: Link text for link on user profile.
-msgid "Message"
-msgstr "メッセージ"
-
-#. TRANS: Label text on user profile to select a user role.
-#, fuzzy
-msgid "Moderate"
-msgstr "管理"
-
-#. TRANS: Label text on user profile to select a user role.
-#, fuzzy
-msgid "User role"
-msgstr "ユーザプロファイル"
-
-#. TRANS: Role that can be set for a user profile.
-#, fuzzy
-msgctxt "role"
-msgid "Administrator"
-msgstr "管理者"
-
-#. TRANS: Role that can be set for a user profile.
-#, fuzzy
-msgctxt "role"
-msgid "Moderator"
-msgstr "管理"
-
 #, fuzzy
 msgid "Not allowed to log in."
 msgstr "ログインしていません。"
@@ -8180,10 +8373,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#, fuzzy
-#~ msgid "Friends timeline"
-#~ msgstr "%s のタイムライン"
-
-#, fuzzy
-#~ msgid "Everyone on this site"
-#~ msgstr "このサイトの人々を探す"
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "不正なタグ: \"%s\""

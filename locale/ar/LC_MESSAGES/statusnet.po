@@ -12,19 +12,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-08 01:03+0000\n"
-"PO-Revision-Date: 2011-03-08 01:04:58+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:37:44+0000\n"
 "Language-Team: Arabic <http://translatewiki.net/wiki/Portal:ar>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83429); Translate extension (2011-03-07)\n"
+"X-Generator: MediaWiki 1.18alpha (r84120); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == "
 "2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= "
 "99) ? 4 : 5 ) ) ) );\n"
-"X-POT-Import-Date: 2011-03-06 02:16:47+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -600,7 +600,7 @@ msgstr "لم يمكن إزالة المستخدم %1$s من المجموعة %2$
 msgid "%s's groups"
 msgstr "مجموعات %s"
 
-#. TRANS: Used as subtitle in check for group membership. %1$s is a user name, %2$s is the site name.
+#. TRANS: Used as subtitle in check for group membership. %1$s is the site name, %2$s is a user name.
 #, php-format
 msgid "%1$s groups %2$s is a member of."
 msgstr "مجموعات %1$s التي %2$s عضو فيها."
@@ -1056,7 +1056,7 @@ msgstr "ابحث عن محتويات في الإشعارات"
 
 #. TRANS: Client exception thrown when trying favorite a notice without content.
 #, fuzzy
-msgid "Unknown note."
+msgid "Unknown notice."
 msgstr "غير معروفة"
 
 #. TRANS: Client exception thrown when trying favorite an already favorited notice.
@@ -1635,6 +1635,7 @@ msgstr "احذف هذا المستخدم"
 #. TRANS: Client error displayed trying to create a new direct message while not logged in.
 #. TRANS: Client error displayed trying to send a notice while not logged in.
 #. TRANS: Client error displayed trying to nudge a user without being logged in.
+#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
 #. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error displayed trying to subscribe when not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
@@ -3091,6 +3092,10 @@ msgstr "مسار المصدر ليس صحيحا."
 msgid "Could not create application."
 msgstr "لم يمكن إنشاء التطبيق."
 
+#, fuzzy
+msgid "Invalid image."
+msgstr "حجم غير صالح."
+
 #. TRANS: Title for form to create a group.
 msgid "New group"
 msgstr "مجموعة جديدة"
@@ -3366,52 +3371,77 @@ msgstr "صندوق %s الصادر"
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr "هذا صندوق بريدك الصادر، والذي يسرد الرسائل الخاصة التي أرسلتها."
 
+#. TRANS: Title for page where to change password.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Change password"
 msgstr "تغيير كلمة السر"
 
+#. TRANS: Instructions for page where to change password.
 msgid "Change your password."
 msgstr "غيّر كلمة سرك."
 
+#. TRANS: Fieldset legend on page where to change password.
 #. TRANS: Fieldset legend for password reset form.
 msgid "Password change"
 msgstr "تغيير كلمة السر"
 
+#. TRANS: Field label on page where to change password.
 msgid "Old password"
 msgstr "كلمة السر القديمة"
 
+#. TRANS: Field label on page where to change password.
 #. TRANS: Field label for password reset form.
 msgid "New password"
 msgstr "كلمة السر الجديدة"
 
+#. TRANS: Field title on page where to change password.
 #, fuzzy
 msgid "6 or more characters."
 msgstr "6 أحرف أو أكثر"
 
+#. TRANS: Field label on page where to change password. In this field the new password should be typed a second time.
+#, fuzzy
+msgctxt "LABEL"
+msgid "Confirm"
+msgstr "أكّد"
+
+#. TRANS: Field title on page where to change password.
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
 #, fuzzy
 msgid "Same as password above."
 msgstr "نفس كلمة السر أعلاه"
 
+#. TRANS: Button text on page where to change password.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Change"
 msgstr "غيّر"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Password must be 6 or more characters."
 msgstr "يجب أن تكون كلمة السر 6 حروف أو أكثر."
 
 msgid "Passwords don't match."
 msgstr "كلمتا السر غير متطابقتين."
 
-msgid "Incorrect old password"
+#. TRANS: Form validation error on page where to change password.
+#, fuzzy
+msgid "Incorrect old password."
 msgstr "كلمة السر القديمة غير صحيحة"
 
+#. TRANS: Form validation error on page where to change password.
 msgid "Error saving user; invalid."
 msgstr "خطأ أثناء حفظ المستخدم؛ غير صالح."
 
+#. TRANS: Server error displayed on page where to change password when password change
+#. TRANS: could not be made because of a server error.
 #. TRANS: Reset password form validation error message.
 #, fuzzy
 msgid "Cannot save new password."
 msgstr "تعذّر حفظ كلمة السر الجديدة."
 
+#. TRANS: Form validation notice on page where to change password.
 msgid "Password saved."
 msgstr "حُفظت كلمة السر."
 
@@ -3462,6 +3492,7 @@ msgstr "الموقع"
 msgid "Server"
 msgstr "خادوم"
 
+#. TRANS: Field title in Paths admin panel.
 msgid "Site's server hostname."
 msgstr "اسم مضيف خادوم الموقع."
 
@@ -3469,6 +3500,7 @@ msgstr "اسم مضيف خادوم الموقع."
 msgid "Path"
 msgstr "المسار"
 
+#. TRANS: Field title in Paths admin panel.
 #, fuzzy
 msgid "Site path."
 msgstr "مسار الموقع"
@@ -3478,6 +3510,7 @@ msgstr "مسار الموقع"
 msgid "Locale directory"
 msgstr "دليل السمات"
 
+#. TRANS: Field title in Paths admin panel.
 #, fuzzy
 msgid "Directory path to locales."
 msgstr "مسار دليل المحليات"
@@ -3486,9 +3519,14 @@ msgstr "مسار دليل المحليات"
 msgid "Fancy URLs"
 msgstr "مسارات فاخرة"
 
-msgid "Use fancy (more readable and memorable) URLs?"
+#. TRANS: Field title in Paths admin panel.
+#, fuzzy
+msgid "Use fancy URLs (more readable and memorable)?"
 msgstr "أأستخدم مسارات فاخرة (يمكن قراءتها وتذكرها بسهولة أكبر)؟"
 
+#. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Theme"
 msgstr "السمة"
 
@@ -3614,6 +3652,8 @@ msgid "Directory where attachments are located."
 msgstr "مسار دليل المحليات"
 
 #. TRANS: Fieldset legend in Paths admin panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "SSL"
 msgstr "SSL"
 
@@ -3658,10 +3698,14 @@ msgstr ""
 msgid "People search"
 msgstr "بحث في الأشخاص"
 
+#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, php-format
 msgid "Not a valid people tag: %s."
 msgstr "ليس وسم أشخاص صالح: %s."
 
+#. TRANS: Page title for users with a certain self-tag.
+#. TRANS: %1$s is the tag, %2$s is the page number.
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "المستخدمون الذين وسموا أنفسهم ب%1$s - الصفحة %2$d"
@@ -3671,15 +3715,19 @@ msgctxt "plugin"
 msgid "Disabled"
 msgstr ""
 
+#. TRANS: Client error displayed when trying to use another method than POST.
+#. TRANS: Do not translate POST.
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
 msgstr "هذا الإجراء يقبل طلبات POST فقط."
 
+#. TRANS: Client error displayed when trying to enable or disable a plugin without access rights.
 #, fuzzy
 msgid "You cannot administer plugins."
 msgstr "لا يمكنك حذف المستخدمين."
 
+#. TRANS: Client error displayed when trying to enable or disable a non-existing plugin.
 #, fuzzy
 msgid "No such plugin."
 msgstr "لا صفحة كهذه."
@@ -3690,7 +3738,8 @@ msgid "Enabled"
 msgstr ""
 
 #. TRANS: Tab and title for plugins admin panel.
-#. TRANS: Menu item for site administration
+#, fuzzy
+msgctxt "TITLE"
 msgid "Plugins"
 msgstr "الملحقات"
 
@@ -3706,15 +3755,19 @@ msgstr ""
 msgid "Default plugins"
 msgstr "اللغة المبدئية"
 
+#. TRANS: Text displayed on plugin admin page when no plugin are enabled.
 msgid ""
 "All default plugins have been disabled from the site's configuration file."
 msgstr ""
 
+#. TRANS: Client error displayed if the notice posted has too many characters.
 msgid "Invalid notice content."
 msgstr "محتوى إشعار غير صالح."
 
+#. TRANS: Exception thrown if a notice's license is not compatible with the StatusNet site license.
+#. TRANS: %1$s is the notice license, %2$s is the StatusNet site's license.
 #, php-format
-msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
+msgid "Notice license \"%1$s\" is not compatible with site license \"%2$s\"."
 msgstr ""
 
 #. TRANS: Page title for profile settings.
@@ -3842,6 +3895,8 @@ msgstr "الاسم طويل جدا (الأقصى 255 حرفا)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "وسم غير صالح: \"%s\""
@@ -3872,44 +3927,58 @@ msgstr "حُفظت الإعدادات."
 msgid "Restore account"
 msgstr "أنشئ حسابًا"
 
+#. TRANS: Client error displayed when requesting a public timeline page beyond the page limit.
+#. TRANS: %s is the page limit.
 #, php-format
 msgid "Beyond the page limit (%s)."
 msgstr "بعد حد الصفحة (%s)."
 
+#. TRANS: Server error displayed when a public timeline cannot be retrieved.
 #, fuzzy
 msgid "Could not retrieve public stream."
 msgstr "تعذّر إنشاء الكنى."
 
+#. TRANS: Title for all public timeline pages but the first.
+#. TRANS: %d is the page number.
 #, php-format
 msgid "Public timeline, page %d"
 msgstr "المسار الزمني العام، صفحة %d"
 
+#. TRANS: Title for the first public timeline page.
 msgid "Public timeline"
 msgstr "المسار الزمني العام"
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr ""
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr ""
 
+#. TRANS: Link description for public timeline feed.
 msgid "Public Stream Feed (Atom)"
 msgstr ""
 
+#. TRANS: Text displayed for public feed when there are no public notices.
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr ""
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a logged in user.
 msgid "Be the first to post!"
 msgstr "كن أول من يُرسل!"
 
+#. TRANS: Additional text displayed for public feed when there are no public notices for a not logged in user.
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr ""
 
+#. TRANS: Message for not logged in users at an invite-only site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3922,6 +3991,8 @@ msgstr ""
 "الآن](%%action.register%%) لتشارك اشعاراتك مع أصدقائك وعائلتك وزملائك! "
 "([اقرأ المزيد](%%doc.help%%))"
 
+#. TRANS: Message for not logged in users at a closed site trying to view the public feed of notices.
+#. TRANS: This message contains Markdown links. Please mind the formatting.
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4537,19 +4608,6 @@ msgstr "مجموعة %s"
 msgid "%1$s group, page %2$d"
 msgstr "مجموعة %1$s، الصفحة %2$d"
 
-#. TRANS: Label for group description or group note (dt). Text hidden by default.
-msgid "Note"
-msgstr "ملاحظة"
-
-#. TRANS: Label for group aliases (dt). Text hidden by default.
-msgid "Aliases"
-msgstr "الكنى"
-
-#. TRANS: Group actions header (h2). Text hidden by default.
-#, fuzzy
-msgid "Group actions"
-msgstr "تصرفات المستخدم"
-
 #. TRANS: Tooltip for feed link. %s is a group nickname.
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
@@ -4659,6 +4717,9 @@ msgstr "نتائج البحث ل\"%1$s\" على %2$s"
 
 msgid "Notice deleted."
 msgstr "حُذف الإشعار."
+
+msgid "Notice"
+msgstr "إشعارات"
 
 #. TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
 #, fuzzy, php-format
@@ -5184,7 +5245,6 @@ msgstr "لا مدخل هوية."
 msgid "Tag %s"
 msgstr "الوسوم"
 
-#. TRANS: H2 for user profile information.
 msgid "User profile"
 msgstr "ملف المستخدم الشخصي"
 
@@ -5193,14 +5253,10 @@ msgstr "اوسم المستخدم"
 
 #, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
 "سِم نفسك (حروف وأرقام و \"-\" و \".\" و \"_\")، افصلها بفاصلة (',') أو مسافة."
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "وسم غير صالح: \"%s\""
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -5571,6 +5627,10 @@ msgid ""
 "along with this program.  If not, see %s."
 msgstr ""
 
+#. TRANS: Menu item for site administration
+msgid "Plugins"
+msgstr "الملحقات"
+
 #. TRANS: Form input field label for application name.
 msgid "Name"
 msgstr "الاسم"
@@ -5887,6 +5947,49 @@ msgstr ""
 msgid "No AtomPub API service for %s."
 msgstr ""
 
+#. TRANS: H2 for user actions in a profile.
+#. TRANS: H2 for entity actions in a profile.
+msgid "User actions"
+msgstr "تصرفات المستخدم"
+
+#. TRANS: Text shown in user profile of not yet compeltely deleted users.
+msgid "User deletion in progress..."
+msgstr "حذف المستخدم قيد التنفيذ..."
+
+#. TRANS: Link title for link on user profile.
+msgid "Edit profile settings"
+msgstr "عدّل إعدادات الملف الشخصي"
+
+#. TRANS: Link text for link on user profile.
+msgid "Edit"
+msgstr "عدّل"
+
+#. TRANS: Link title for link on user profile.
+msgid "Send a direct message to this user"
+msgstr "أرسل رسالة مباشرة إلى هذا المستخدم"
+
+#. TRANS: Link text for link on user profile.
+msgid "Message"
+msgstr "رسالة"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "Moderate"
+msgstr "راقب"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "User role"
+msgstr "دور المستخدم"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Administrator"
+msgstr "إداري"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Moderator"
+msgstr "مراقب"
+
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #, php-format
 msgid "%1$s - %2$s"
@@ -6079,6 +6182,9 @@ msgstr "الأمر لم يُجهزّ بعد."
 #. TRANS: the admin panel Design.
 msgid "Unable to delete design setting."
 msgstr "تعذّر حذف إعدادات التصميم."
+
+msgid "Home"
+msgstr "الرئيسية"
 
 #. TRANS: Menu item title/tooltip
 msgid "Basic site configuration"
@@ -6635,85 +6741,171 @@ msgstr[3] "أنت عضو في هذه المجموعات:"
 msgstr[4] ""
 msgstr[5] ""
 
-#. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"groups - lists the groups you have joined\n"
-"subscriptions - list the people you follow\n"
-"subscribers - list the people that follow you\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"lose <nickname> - force user to stop following you\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"repeat #<notice_id> - repeat a notice with a given id\n"
-"repeat <nickname> - repeat the last notice from user\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
+#. TRANS: Header line of help text for commands.
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "Commands:"
+msgstr "نتائج الأمر"
+
+#. TRANS: Help message for IM/SMS command "on"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn on notifications"
+msgstr "تعذّر تشغيل الإشعار."
+
+#. TRANS: Help message for IM/SMS command "off"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn off notifications"
+msgstr "تعذّر إطفاء الإشعارات."
+
+#. TRANS: Help message for IM/SMS command "help"
+msgctxt "COMMANDHELP"
+msgid "show this help"
 msgstr ""
-"الأوامر:\n"
-"on - شغّل الإشعار\n"
-"off - أطفئ الإشعار\n"
-"help - أظهر هذه المساعدة\n"
-"follow <nickname> - اشترك بالمستخدم\n"
-"groups - اسرد المجموعات التي أنا عضو فيها\n"
-"subscriptions - اسرد الذين أتابعهم\n"
-"subscribers - اسرد الذين يتابعونني\n"
-"leave <nickname> - ألغِ الاشتراك بمستخدم\n"
-"d <nickname> <text> - وجّه رسالة مباشرة إلى مستخدم\n"
-"get <nickname> - اجلب آخر رسالة من مستخدم\n"
-"whois <nickname> - اجلب معلومات ملف المستخدم\n"
-"lose <nickname> - أجبر المستخدم على عدم تتبعك\n"
-"fav <nickname> - اجعل آخر إشعار من المستخدم مفضلًا\n"
-"fav #<notice_id> - اجعل الإشعار ذا رقم الهوية المعطى مفضلا\n"
-"repeat #<notice_id> - كرّر الإشعار ذا رقم الهوية المعطى\n"
-"repeat <nickname> - كرّر آخر إشعار من المستخدم\n"
-"reply #<notice_id> - رُد على الإشعار ذي رقم الهوية المعطى\n"
-"reply <nickname> - رُد على آخر إشعار من المستخدم\n"
-"join <group> - انضم إلى مجموعة\n"
-"login - اجلب وصلة الولوج إلى واجهة الوب\n"
-"drop <group> - اترك المجموعة\n"
-"stats - اجلب إحصاءاتك\n"
-"stop - مثل 'off'\n"
-"quit - مثل 'off'\n"
-"sub <nickname> - مثل 'follow'\n"
-"unsub <nickname> - مثل 'leave'\n"
-"last <nickname> - مثل 'get'\n"
-"on <nickname> - لم يطبق بعد.\n"
-"off <nickname> - لم يطبق بعد.\n"
-"nudge <nickname> - ذكّر مستخدمًا بإشعار أرسلته.\n"
-"invite <phone number> - لم يطبق بعد.\n"
-"track <word> - لم يطبق بعد.\n"
-"untrack <word> - لم يطبق بعد.\n"
-"track off - لم يطبق بعد.\n"
-"untrack all - لم يطبق بعد.\n"
-"tracks - لم يطبق بعد.\n"
-"tracking - لم يطبق بعد.\n"
+
+#. TRANS: Help message for IM/SMS command "follow <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "subscribe to user"
+msgstr "اشترك بهذا المستخدم"
+
+#. TRANS: Help message for IM/SMS command "groups"
+msgctxt "COMMANDHELP"
+msgid "lists the groups you have joined"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscriptions"
+msgctxt "COMMANDHELP"
+msgid "list the people you follow"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscribers"
+msgctxt "COMMANDHELP"
+msgid "list the people that follow you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "leave <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "unsubscribe from user"
+msgstr "ألغِ الاشتراك مع هذا المستخدم"
+
+#. TRANS: Help message for IM/SMS command "d <nickname> <text>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "direct message to user"
+msgstr "رسالة مباشرة %s"
+
+#. TRANS: Help message for IM/SMS command "get <nickname>"
+msgctxt "COMMANDHELP"
+msgid "get last notice from user"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "whois <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "get profile info on user"
+msgstr "معلومات الملف الشخصي"
+
+#. TRANS: Help message for IM/SMS command "lose <nickname>"
+msgctxt "COMMANDHELP"
+msgid "force user to stop following you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav <nickname>"
+msgctxt "COMMANDHELP"
+msgid "add user's last notice as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "add notice with the given id as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "repeat a notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "repeat the last notice from user"
+msgstr "كرّر هذا الإشعار"
+
+#. TRANS: Help message for IM/SMS command "reply #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "reply to notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "reply <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "reply to the last notice from user"
+msgstr "رُد على هذا الإشعار"
+
+#. TRANS: Help message for IM/SMS command "join <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "join group"
+msgstr "غير معروفة"
+
+#. TRANS: Help message for IM/SMS command "login"
+msgctxt "COMMANDHELP"
+msgid "Get a link to login to the web interface"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "drop <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "leave group"
+msgstr "احذف المستخدم"
+
+#. TRANS: Help message for IM/SMS command "stats"
+msgctxt "COMMANDHELP"
+msgid "get your stats"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "stop"
+#. TRANS: Help message for IM/SMS command "quit"
+msgctxt "COMMANDHELP"
+msgid "same as 'off'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "sub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'follow'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "unsub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'leave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "last <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'get'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "on <nickname>"
+#. TRANS: Help message for IM/SMS command "off <nickname>"
+#. TRANS: Help message for IM/SMS command "invite <phone number>"
+#. TRANS: Help message for IM/SMS command "track <word>"
+#. TRANS: Help message for IM/SMS command "untrack <word>"
+#. TRANS: Help message for IM/SMS command "track off"
+#. TRANS: Help message for IM/SMS command "untrack all"
+#. TRANS: Help message for IM/SMS command "tracks"
+#. TRANS: Help message for IM/SMS command "tracking"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "not yet implemented."
+msgstr "الأمر لم يُجهزّ بعد."
+
+#. TRANS: Help message for IM/SMS command "nudge <nickname>"
+msgctxt "COMMANDHELP"
+msgid "remind a user to update."
+msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #, fuzzy
@@ -6736,9 +6928,6 @@ msgstr "اذهب إلى المُثبّت."
 
 msgid "Database error"
 msgstr "خطأ قاعدة بيانات"
-
-msgid "Home"
-msgstr "الرئيسية"
 
 msgid "Public"
 msgstr "عام"
@@ -6900,6 +7089,9 @@ msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\"."
 msgstr "مكان تواجدك، على سبيل المثال \"المدينة، الولاية (أو المنطقة)، الدولة\""
 
+msgid "Aliases"
+msgstr "الكنى"
+
 #, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
@@ -6980,6 +7172,11 @@ msgstr ""
 msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
 msgstr ""
+
+#. TRANS: Group actions header (h2). Text hidden by default.
+#, fuzzy
+msgid "Group actions"
+msgstr "تصرفات المستخدم"
 
 #. TRANS: Title for groups with the most members section.
 msgid "Groups with most members"
@@ -7554,6 +7751,9 @@ msgstr "احذف هذا الإشعار"
 msgid "Notice repeated"
 msgstr "الإشعار مكرر"
 
+msgid "Update your status..."
+msgstr ""
+
 msgid "Nudge this user"
 msgstr "نبّه هذا المستخدم"
 
@@ -7949,52 +8149,6 @@ msgstr "ألغِ الاشتراك"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "ليس للمستخدم ملف شخصي."
 
-msgid "Edit Avatar"
-msgstr "عدّل الأفتار"
-
-#. TRANS: H2 for user actions in a profile.
-#. TRANS: H2 for entity actions in a profile.
-msgid "User actions"
-msgstr "تصرفات المستخدم"
-
-#. TRANS: Text shown in user profile of not yet compeltely deleted users.
-msgid "User deletion in progress..."
-msgstr "حذف المستخدم قيد التنفيذ..."
-
-#. TRANS: Link title for link on user profile.
-msgid "Edit profile settings"
-msgstr "عدّل إعدادات الملف الشخصي"
-
-#. TRANS: Link text for link on user profile.
-msgid "Edit"
-msgstr "عدّل"
-
-#. TRANS: Link title for link on user profile.
-msgid "Send a direct message to this user"
-msgstr "أرسل رسالة مباشرة إلى هذا المستخدم"
-
-#. TRANS: Link text for link on user profile.
-msgid "Message"
-msgstr "رسالة"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "Moderate"
-msgstr "راقب"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "User role"
-msgstr "دور المستخدم"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Administrator"
-msgstr "إداري"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Moderator"
-msgstr "مراقب"
-
 #, fuzzy
 msgid "Not allowed to log in."
 msgstr "لست والجًا."
@@ -8087,10 +8241,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#, fuzzy
-#~ msgid "Friends timeline"
-#~ msgstr "مسار %s الزمني"
-
-#, fuzzy
-#~ msgid "Everyone on this site"
-#~ msgstr "ابحث عن أشخاص على هذا الموقع"
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "وسم غير صالح: \"%s\""

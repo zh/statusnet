@@ -253,15 +253,33 @@ var SN = { // StatusNet
                             .attr(SN.C.S.Disabled, SN.C.S.Disabled);
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    alert(errorThrown || textStatus);
+                    // If the server end reported an error from StatusNet,
+                    // find it -- otherwise we'll see what was reported
+                    // from the browser.
+                    var errorReported = null;
+                    if (xhr.responseXML) {
+                        errorReported = $('#error', xhr.responseXML).text();
+                    }
+                    alert(errorReported || errorThrown || textStatus);
+                    
+                    // Restore the form to original state.
+                    // Hopefully. :D
+                    form
+                        .removeClass(SN.C.S.Processing)
+                        .find('.submit')
+                            .removeClass(SN.C.S.Disabled)
+                            .removeAttr(SN.C.S.Disabled);
                 },
                 success: function(data, textStatus) {
                     if (typeof($('form', data)[0]) != 'undefined') {
                         form_new = document._importNode($('form', data)[0], true);
                         form.replaceWith(form_new);
                     }
-                    else {
+                    else if (typeof($('p', data)[0]) != 'undefined') {
                         form.replaceWith(document._importNode($('p', data)[0], true));
+                    }
+                    else {
+                        alert('Unknown error.');
                     }
                 }
             });
@@ -423,7 +441,6 @@ var SN = { // StatusNet
                                         .css({display:'none'})
                                         .fadeIn(2500);
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
-                                    SN.U.NoticeReplyTo($('#'+notice.id));
                                     SN.U.switchInputFormTab("placeholder");
                                 }
                             } else {
@@ -516,32 +533,20 @@ var SN = { // StatusNet
          * @access private
          */
         NoticeReply: function() {
-            if ($('#content .notice_reply').length > 0) {
-                $('#content .notice').each(function() { SN.U.NoticeReplyTo($(this)); });
-            }
-        },
-
-        /**
-         * Setup function -- DOES NOT trigger actions immediately.
-         *
-         * Sets up event handlers on the given notice's reply button to
-         * tweak the new-notice form with needed variables and focus it
-         * when pushed.
-         *
-         * (This replaces the default reply button behavior to submit
-         * directly to a form which comes back with a specialized page
-         * with the form data prefilled.)
-         *
-         * @param {jQuery} notice: jQuery object containing one or more notices
-         * @access private
-         */
-        NoticeReplyTo: function(notice) {
-            notice.find('.notice_reply').live('click', function(e) {
+            $('#content .notice_reply').live('click', function(e) {
                 e.preventDefault();
+                var notice = $(this).closest('li.notice');
                 var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
                 SN.U.NoticeInlineReplyTrigger(notice, '@' + nickname.text());
                 return false;
             });
+        },
+
+        /**
+         * Stub -- kept for compat with plugins for now.
+         * @access private
+         */
+        NoticeReplyTo: function(notice) {
         },
 
         /**
@@ -640,26 +645,23 @@ var SN = { // StatusNet
                                     '<input class="placeholder">' +
                                 '</li>');
             placeholder.find('input')
-                .val(SN.msg('reply_placeholder'))
-                .focus(function() {
-                    SN.U.NoticeInlineReplyTrigger(notice);
-                    return false;
-                });
+                .val(SN.msg('reply_placeholder'));
             list.append(placeholder);
         },
 
         /**
          * Setup function -- DOES NOT apply immediately.
          *
-         * Sets up event handlers for favor/disfavor forms to submit via XHR.
+         * Sets up event handlers for inline reply mini-form placeholders.
          * Uses 'live' rather than 'bind', so applies to future as well as present items.
          */
         NoticeInlineReplySetup: function() {
-            $('.threaded-replies').each(function() {
-                var list = $(this);
-                var notice = list.closest('.notice');
-                SN.U.NoticeInlineReplyPlaceholder(notice);
-            });
+            $('li.notice-reply-placeholder input')
+                .live('focus', function() {
+                    var notice = $(this).closest('li.notice');
+                    SN.U.NoticeInlineReplyTrigger(notice);
+                    return false;
+                });
         },
 
         /**

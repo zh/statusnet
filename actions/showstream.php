@@ -33,7 +33,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 require_once INSTALLDIR.'/lib/personalgroupnav.php';
-require_once INSTALLDIR.'/lib/userprofile.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
 require_once INSTALLDIR.'/lib/profileminilist.php';
 require_once INSTALLDIR.'/lib/groupminilist.php';
@@ -100,7 +99,6 @@ class ShowstreamAction extends ProfileAction
 
     function showContent()
     {
-        $this->showProfile();
         $this->showNotices();
     }
 
@@ -108,6 +106,12 @@ class ShowstreamAction extends ProfileAction
     {
         $nav = new SubGroupNav($this, $this->user);
         $nav->show();
+    }
+
+    function showProfileBlock()
+    {
+        $block = new AccountProfileBlock($this, $this->profile);
+        $block->show();
     }
 
     function showPageNoticeBlock()
@@ -193,12 +197,6 @@ class ShowstreamAction extends ProfileAction
                                      'href' => $rsd));
     }
 
-    function showProfile()
-    {
-        $profile = new UserProfile($this, $this->user, $this->profile);
-        $profile->show();
-    }
-
     function showEmptyListMessage()
     {
         // TRANS: First sentence of empty list message for a stream. $1%s is a user nickname.
@@ -281,6 +279,18 @@ class ShowstreamAction extends ProfileAction
 
 // We don't show the author for a profile, since we already know who it is!
 
+/**
+ * Slightly modified from standard list; the author & avatar are hidden
+ * in CSS. We used to remove them here too, but as it turns out that
+ * confuses the inline reply code... and we hide them in CSS anyway
+ * since realtime updates come through in original form.
+ *
+ * Remaining customization right now is for the repeat marker, where
+ * it'll list who the original poster was instead of who did the repeat
+ * (since the repeater is you, and the repeatee isn't shown!)
+ * This will remain inconsistent if realtime updates come through,
+ * since those'll get rendered as a regular NoticeListItem.
+ */
 class ProfileNoticeList extends NoticeList
 {
     function newListItem($notice)
@@ -291,11 +301,6 @@ class ProfileNoticeList extends NoticeList
 
 class ProfileNoticeListItem extends DoFollowListItem
 {
-    function showAuthor()
-    {
-        return;
-    }
-
     /**
      * show a link to the author of repeat
      *
