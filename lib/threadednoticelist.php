@@ -75,7 +75,15 @@ class ThreadedNoticeList extends NoticeList
                 break;
             }
 
-            $convo = $this->notice->conversation;
+            // Collapse repeats into their originals...
+            $notice = $this->notice;
+            if ($notice->repeat_of) {
+                $orig = Notice::staticGet('id', $notice->repeat_of);
+                if ($orig) {
+                    $notice = $orig;
+                }
+            }
+            $convo = $notice->conversation;
             if (!empty($conversations[$convo])) {
                 // Seen this convo already -- skip!
                 continue;
@@ -86,14 +94,14 @@ class ThreadedNoticeList extends NoticeList
             // @fixme stream goes in wrong direction, this needs sane caching
             //$notice = Notice::conversationStream($convo, 0, 1);
             //$notice->fetch();
-            $notice = new Notice();
-            $notice->conversation = $this->notice->conversation;
-            $notice->orderBy('CREATED');
-            $notice->limit(1);
-            $notice->find(true);
+            $root = new Notice();
+            $root->conversation = $notice->conversation;
+            $root->orderBy('CREATED');
+            $root->limit(1);
+            $root->find(true);
 
             try {
-                $item = $this->newListItem($notice);
+                $item = $this->newListItem($root);
                 $item->show();
             } catch (Exception $e) {
                 // we log exceptions and continue
@@ -182,8 +190,13 @@ class ThreadedNoticeListItem extends NoticeListItem
             }
 
             $this->out->elementStart('ul', 'notices threaded-replies xoxo');
+
             $item = new ThreadedNoticeListFavesItem($this->notice, $this->out);
             $hasFaves = $item->show();
+
+            $item = new ThreadedNoticeListRepeatsItem($this->notice, $this->out);
+            $hasRepeats = $item->show();
+
             if ($notices) {
                 if ($moreCutoff) {
                     $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
@@ -194,7 +207,7 @@ class ThreadedNoticeListItem extends NoticeListItem
                     $item->show();
                 }
             }
-            if ($notices || $hasFaves) {
+            if ($notices || $hasFaves || $hasRepeats) {
                 // @fixme do a proper can-post check that's consistent
                 // with the JS side
                 if (common_current_user()) {
@@ -332,49 +345,38 @@ class ThreadedNoticeListReplyItem extends NoticeListItem
 /**
  * Placeholder for showing faves...
  */
-class ThreadedNoticeListFavesItem extends NoticeListItem
+abstract class NoticeListActorsItem extends NoticeListItem
 {
+    /**
+     * @return array of profile IDs
+     */
+    abstract function getProfiles();
+
+    abstract function getListMessage($count, $you);
+
     function show()
     {
-        // @fixme caching & scalability!
-        $fave = new Fave();
-        $fave->notice_id = $this->notice->id;
-        $fave->find();
-
-        $cur = common_current_user();
-        $profiles = array();
-        $you = false;
-        while ($fave->fetch()) {
-            if ($cur && $cur->id == $fave->user_id) {
-                $you = true;
-            } else {
-                $profiles[] = $fave->user_id;
-            }
-        }
-
         $links = array();
-        if ($you) {
-            $links[] = _m('FAVELIST', 'You');
-        }
-        foreach ($profiles as $id) {
-            $profile = Profile::staticGet('id', $id);
-            if ($profile) {
-                $links[] = sprintf('<a href="%s" title="%s">%s</a>',
-                                   htmlspecialchars($profile->profileurl),
-                                   htmlspecialchars($profile->getBestName()),
-                                   htmlspecialchars($profile->nickname));
+        $you = false;
+        $cur = common_current_user();
+        foreach ($this->getProfiles() as $id) {
+            if ($cur && $cur->id == $id) {
+                $you = true;
+                array_unshift($links, _m('FAVELIST', 'You'));
+            } else {
+                $profile = Profile::staticGet('id', $id);
+                if ($profile) {
+                    $links[] = sprintf('<a href="%s" title="%s">%s</a>',
+                                       htmlspecialchars($profile->profileurl),
+                                       htmlspecialchars($profile->getBestName()),
+                                       htmlspecialchars($profile->nickname));
+                }
             }
         }
 
         if ($links) {
             $count = count($links);
-            if ($count == 1 && $you) {
-                // darn first person being different from third person!
-                $msg = _m('FAVELIST', 'You have favored this notice.');
-            } else {
-                // if 'you' is the first item, 
-                $msg = _m('FAVELIST', '%1$s has favored this notice.', '%1$s have favored this notice.', $count);
-            }
+            $msg = $this->getListMessage($count, $you);
             $out = sprintf($msg, $this->magicList($links));
 
             $this->showStart();
@@ -384,16 +386,6 @@ class ThreadedNoticeListFavesItem extends NoticeListItem
         } else {
             return 0;
         }
-    }
-
-    function showStart()
-    {
-        $this->out->elementStart('li', array('class' => 'notice-data notice-faves'));
-    }
-
-    function showEnd()
-    {
-        $this->out->elementEnd('li');
     }
 
     function magicList($items)
@@ -411,6 +403,48 @@ class ThreadedNoticeListFavesItem extends NoticeListItem
     }
 }
 
+/**
+ * Placeholder for showing faves...
+ */
+class ThreadedNoticeListFavesItem extends NoticeListActorsItem
+{
+    function getProfiles()
+    {
+        // @fixme caching & scalability!
+        $fave = new Fave();
+        $fave->notice_id = $this->notice->id;
+        $fave->find();
+
+        $profiles = array();
+        while ($fave->fetch()) {
+            $profiles[] = $fave->user_id;
+        }
+        return $profiles;
+    }
+
+    function getListMessage($count, $you)
+    {
+        if ($count == 1 && $you) {
+            // darn first person being different from third person!
+            return _m('FAVELIST', 'You have favored this notice.');
+        } else {
+            // if 'you' is the first item,
+            return _m('FAVELIST', '%1$s has favored this notice.', '%1$s have favored this notice.', $count);
+        }
+    }
+
+    function showStart()
+    {
+        $this->out->elementStart('li', array('class' => 'notice-data notice-faves'));
+    }
+
+    function showEnd()
+    {
+        $this->out->elementEnd('li');
+    }
+
+}
+
 class ThreadedNoticeListInlineFavesItem extends ThreadedNoticeListFavesItem
 {
     function showStart()
@@ -422,4 +456,46 @@ class ThreadedNoticeListInlineFavesItem extends ThreadedNoticeListFavesItem
     {
         $this->out->elementEnd('div');
     }
+}
+
+/**
+ * Placeholder for showing faves...
+ */
+class ThreadedNoticeListRepeatsItem extends NoticeListActorsItem
+{
+    function getProfiles()
+    {
+        // @fixme caching & scalability!
+        $rep = new Notice();
+        $rep->repeat_of = $this->notice->id;
+        $rep->find();
+
+        $profiles = array();
+        while ($rep->fetch()) {
+            $profiles[] = $rep->profile_id;
+        }
+        return $profiles;
+    }
+
+    function getListMessage($count, $you)
+    {
+        if ($count == 1 && $you) {
+            // darn first person being different from third person!
+            return _m('REPEATLIST', 'You have repeated this notice.');
+        } else {
+            // if 'you' is the first item,
+            return _m('REPEATLIST', '%1$s has repeated this notice.', '%1$s have repeated this notice.', $count);
+        }
+    }
+
+    function showStart()
+    {
+        $this->out->elementStart('li', array('class' => 'notice-data notice-repeats'));
+    }
+
+    function showEnd()
+    {
+        $this->out->elementEnd('li');
+    }
+
 }
