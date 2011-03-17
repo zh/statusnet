@@ -81,6 +81,10 @@ class SearchSubPlugin extends Plugin
         case 'SearchsubsAction':
         case 'SearchSubForm':
         case 'SearchUnsubForm':
+        case 'SearchSubTrackCommand':
+        case 'SearchSubTrackOffCommand':
+        case 'SearchSubTrackingCommand':
+        case 'SearchSubUntrackCommand':
             include_once $dir.'/'.strtolower($cls).'.php';
             return false;
         default:
@@ -268,5 +272,50 @@ class SearchSubPlugin extends Plugin
             array_splice($stats, $insertAt, 0, array($entry));
         }
         return true;
+    }
+
+    /**
+     * Replace the built-in stub track commands with ones that control
+     * search subscriptions.
+     *
+     * @param CommandInterpreter $cmd
+     * @param string $arg
+     * @param User $user
+     * @param Command $result
+     * @return boolean hook result
+     */
+    function onEndInterpretCommand($cmd, $arg, $user, &$result)
+    {
+        if ($result instanceof TrackCommand) {
+            $result = new SearchSubTrackCommand($user, $arg);
+            return false;
+        } else if ($result instanceof TrackOffCommand) {
+            $result = new SearchSubTrackOffCommand($user);
+            return false;
+        } else if ($result instanceof TrackingCommand) {
+            $result = new SearchSubTrackingCommand($user);
+            return false;
+        } else if ($result instanceof UntrackCommand) {
+            $result = new SearchSubUntrackCommand($user, $arg);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function onHelpCommandMessages($cmd, &$commands)
+    {
+        // TRANS: Help message for IM/SMS command "track <word>"
+        $commands["track <word>"] = _m('COMMANDHELP', "Start following notices matching the given search query.");
+        // TRANS: Help message for IM/SMS command "untrack <word>"
+        $commands["untrack <word>"] = _m('COMMANDHELP', "Stop following notices matching the given search query.");
+        // TRANS: Help message for IM/SMS command "track off"
+        $commands["track off"] = _m('COMMANDHELP', "Disable all tracked search subscriptions.");
+        // TRANS: Help message for IM/SMS command "untrack all"
+        $commands["untrack all"] = _m('COMMANDHELP', "Disable all tracked search subscriptions.");
+        // TRANS: Help message for IM/SMS command "tracks"
+        $commands["tracks"] = _m('COMMANDHELP', "List all your search subscriptions.");
+        // TRANS: Help message for IM/SMS command "tracking"
+        $commands["tracking"] = _m('COMMANDHELP', "List all your search subscriptions.");
     }
 }
