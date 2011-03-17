@@ -153,7 +153,10 @@ class ThreadedNoticeList extends NoticeList
 
 class ThreadedNoticeListItem extends NoticeListItem
 {
-    const INITIAL_ITEMS = 3;
+    function initialItems()
+    {
+        return 3;
+    }
 
     function showContext()
     {
@@ -170,8 +173,9 @@ class ThreadedNoticeListItem extends NoticeListItem
 
     function showEnd()
     {
+        $max = $this->initialItems();
         if (!$this->repeat) {
-            $notice = Notice::conversationStream($this->notice->conversation, 0, self::INITIAL_ITEMS + 2);
+            $notice = Notice::conversationStream($this->notice->conversation, 0, $max + 2);
             $notices = array();
             $cnt = 0;
             $moreCutoff = null;
@@ -181,7 +185,7 @@ class ThreadedNoticeListItem extends NoticeListItem
                     continue;
                 }
                 $cnt++;
-                if ($cnt > self::INITIAL_ITEMS) {
+                if ($cnt > $max) {
                     // boo-yah
                     $moreCutoff = clone($notice);
                     break;
@@ -289,7 +293,7 @@ class ThreadedNoticeListMoreItem extends NoticeListItem
     function showMiniForm()
     {
         $id = $this->notice->conversation;
-        $url = common_local_url('conversation', array('id' => $id)) . '#notice-' . $this->notice->id;
+        $url = common_local_url('conversationreplies', array('id' => $id));
 
         $notice = new Notice();
         $notice->conversation = $id;

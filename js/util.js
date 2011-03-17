@@ -666,6 +666,18 @@ var SN = { // StatusNet
                     SN.U.NoticeInlineReplyTrigger(notice);
                     return false;
                 });
+            $('li.notice-reply-comments a')
+                .live('click', function() {
+                    var url = $(this).attr('href');
+                    var area = $(this).closest('.threaded-replies');
+                    $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
+                        var replies = $('.threaded-replies', data);
+                        if (replies.length) {
+                            area.replaceWith(document._importNode(replies[0], true));
+                        }
+                    });
+                    return false;
+                });
         },
 
         /**
