@@ -181,10 +181,10 @@ class ThreadedNoticeListItem extends NoticeListItem
                 $notices[] = clone($notice); // *grumble* inefficient as hell
             }
 
+            $this->out->elementStart('ul', 'notices threaded-replies xoxo');
+            $item = new ThreadedNoticeListFavesItem($this->notice, $this->out);
+            $hasFaves = $item->show();
             if ($notices) {
-                $this->out->elementStart('ul', 'notices threaded-replies xoxo');
-                $item = new ThreadedNoticeListFavesItem($this->notice, $this->out);
-                $hasFaves = $item->show();
                 if ($moreCutoff) {
                     $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
                     $item->show();
@@ -193,14 +193,16 @@ class ThreadedNoticeListItem extends NoticeListItem
                     $item = new ThreadedNoticeListSubItem($notice, $this->out);
                     $item->show();
                 }
+            }
+            if ($notices || $hasFaves) {
                 // @fixme do a proper can-post check that's consistent
                 // with the JS side
                 if (common_current_user()) {
                     $item = new ThreadedNoticeListReplyItem($this->notice, $this->out);
                     $item->show();
                 }
-                $this->out->elementEnd('ul');
             }
+            $this->out->elementEnd('ul');
         }
 
         parent::showEnd();
@@ -228,6 +230,13 @@ class ThreadedNoticeListSubItem extends NoticeListItem
     function showContext()
     {
         //
+    }
+
+    function showEnd()
+    {
+        $item = new ThreadedNoticeListInlineFavesItem($this->notice, $this->out);
+        $hasFaves = $item->show();
+        parent::showEnd();
     }
 }
 
@@ -368,13 +377,23 @@ class ThreadedNoticeListFavesItem extends NoticeListItem
             }
             $out = sprintf($msg, $this->magicList($links));
 
-            $this->out->elementStart('li', array('class' => 'notice-faves'));
+            $this->showStart();
             $this->out->raw($out);
-            $this->out->elementEnd('li');
+            $this->showEnd();
             return $count;
         } else {
             return 0;
         }
+    }
+
+    function showStart()
+    {
+        $this->out->elementStart('li', array('class' => 'notice-data notice-faves'));
+    }
+
+    function showEnd()
+    {
+        $this->out->elementEnd('li');
     }
 
     function magicList($items)
@@ -389,5 +408,18 @@ class ThreadedNoticeListFavesItem extends NoticeListItem
             // TRANS For building a list such as "You, bob, mary and 5 others have favored this notice".
             return sprintf(_m('FAVELIST', '%1$s and %2$s'), implode(', ', $first), implode(', ', $last));
         }
+    }
+}
+
+class ThreadedNoticeListInlineFavesItem extends ThreadedNoticeListFavesItem
+{
+    function showStart()
+    {
+        $this->out->elementStart('div', array('class' => 'entry-content notice-faves'));
+    }
+
+    function showEnd()
+    {
+        $this->out->elementEnd('div');
     }
 }
