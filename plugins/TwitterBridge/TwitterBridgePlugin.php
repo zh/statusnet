@@ -111,7 +111,7 @@ class TwitterBridgePlugin extends Plugin
      */
     function onRouterInitialized($m)
     {
-        $m->connect('admin/twitter', array('action' => 'twitteradminpanel'));
+        $m->connect('panel/twitter', array('action' => 'twitteradminpanel'));
 
         if (self::hasKeys()) {
             $m->connect(

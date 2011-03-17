@@ -116,12 +116,28 @@ class UserDesignSettingsAction extends DesignSettingsAction
     }
 
     /**
+     * Shows the design settings form
+     *
+     * @param Design $design a working design to show
+     *
+     * @return nothing
+     */
+
+    function showDesignForm($design)
+    {
+        $form = new UserDesignForm($this, $design, $this->submitaction);
+        $form->show();
+    }
+
+    /**
      * Save or update the user's design settings
      *
      * @return void
      */
     function saveDesign()
     {
+        $this->saveDesignPreferences();
+
         foreach ($this->args as $key => $val) {
             if (preg_match('/(#ho|ho)Td.*g/i', $val)) {
                 $this->sethd();
@@ -158,7 +174,8 @@ class UserDesignSettingsAction extends DesignSettingsAction
             $tile = true;
         }
 
-        $user   = common_current_user();
+        $user = common_current_user();
+
         $design = $user->getDesign();
 
         if (!empty($design)) {
@@ -270,5 +287,66 @@ class UserDesignSettingsAction extends DesignSettingsAction
         $this->saveBackgroundImage($design);
 
         $this->showForm(_('Enjoy your hotdog!'), true);
+    }
+
+    function saveDesignPreferences()
+    {
+        $viewdesigns = $this->boolean('viewdesigns');
+
+        $user = common_current_user();
+
+        $original = clone($user);
+
+        $user->viewdesigns = $viewdesigns;
+
+        $result = $user->update($original);
+
+        if ($result === false) {
+            common_log_db_error($user, 'UPDATE', __FILE__);
+            throw new ServerException(_('Couldn\'t update user.'));
+        }
+    }
+}
+
+class UserDesignForm extends DesignForm
+{
+    function __construct($out, $design, $actionurl)
+    {
+        parent::__construct($out, $design, $actionurl);
+    }
+
+    /**
+     * Legend of the Form
+     *
+     * @return void
+     */
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Design settings'));
+    }
+
+    /**
+     * Data elements of the form
+     *
+     * @return void
+     */
+
+    function formData()
+    {
+        $user = common_current_user();
+
+        $this->out->elementStart('ul', 'form_data');
+        $this->out->elementStart('li');
+        $this->out->checkbox('viewdesigns', _('View profile designs'),
+                         -                        $user->viewdesigns, _('Show or hide profile designs.'));
+        $this->out->elementEnd('li');
+        $this->out->elementEnd('ul');
+
+        $this->out->elementEnd('fieldset');
+
+        $this->out->elementStart('fieldset');
+        $this->out->element('legend', null, _('Background file'));
+
+        parent::formData();
     }
 }

@@ -118,9 +118,9 @@ class MinifyPlugin extends Plugin
     function onStartInlineScriptElement($action,&$code,&$type)
     {
         if($this->minifyInlineJs && $type=='text/javascript'){
-            $c = common_memcache();
+            $c = Cache::instance();
             if (!empty($c)) {
-                $cacheKey = common_cache_key(self::cacheKey . ':' . crc32($code));
+                $cacheKey = Cache::key(self::cacheKey . ':' . crc32($code));
                 $out = $c->get($cacheKey);
             }
             if(empty($out)) {
@@ -138,9 +138,9 @@ class MinifyPlugin extends Plugin
     function onStartStyleElement($action,&$code,&$type,&$media)
     {
         if($this->minifyInlineCss && $type=='text/css'){
-            $c = common_memcache();
+            $c = Cache::instance();
             if (!empty($c)) {
-                $cacheKey = common_cache_key(self::cacheKey . ':' . crc32($code));
+                $cacheKey = Cache::key(self::cacheKey . ':' . crc32($code));
                 $out = $c->get($cacheKey);
             }
             if(empty($out)) {

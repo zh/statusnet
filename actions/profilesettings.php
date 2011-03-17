@@ -33,7 +33,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/accountsettingsaction.php';
+
 
 /**
  * Change profile settings
@@ -46,7 +46,8 @@ require_once INSTALLDIR.'/lib/accountsettingsaction.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class ProfilesettingsAction extends AccountSettingsAction
+
+class ProfilesettingsAction extends SettingsAction
 {
     /**
      * Title of the page

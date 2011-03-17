@@ -257,7 +257,7 @@ class Router
             // settings
 
             foreach (array('profile', 'avatar', 'password', 'im', 'oauthconnections',
-                           'oauthapps', 'email', 'sms', 'userdesign', 'other') as $s) {
+                           'oauthapps', 'email', 'sms', 'userdesign', 'url') as $s) {
                 $m->connect('settings/'.$s, array('action' => $s.'settings'));
             }
 
@@ -406,6 +406,11 @@ class Router
             // Twitter-compatible API
 
             // statuses API
+
+            $m->connect('api',
+                        array('action' => 'Redirect',
+                              'nextAction' => 'doc',
+                              'args' => array('title' => 'api')));
 
             $m->connect('api/statuses/public_timeline.:format',
                         array('action' => 'ApiTimelinePublic',
@@ -755,6 +760,12 @@ class Router
             $m->connect('api/statusnet/groups/create.:format',
                         array('action' => 'ApiGroupCreate',
                               'format' => '(xml|json)'));
+
+            $m->connect('api/statusnet/groups/update/:id.:format',
+                        array('action' => 'ApiGroupProfileUpdate',
+                              'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
             // Tags
             $m->connect('api/statusnet/tags/timeline/:tag.:format',
                         array('action' => 'ApiTimelineTag',
@@ -782,15 +793,23 @@ class Router
 
             // Admin
 
-            $m->connect('admin/site', array('action' => 'siteadminpanel'));
-            $m->connect('admin/design', array('action' => 'designadminpanel'));
-            $m->connect('admin/user', array('action' => 'useradminpanel'));
-	        $m->connect('admin/access', array('action' => 'accessadminpanel'));
-            $m->connect('admin/paths', array('action' => 'pathsadminpanel'));
-            $m->connect('admin/sessions', array('action' => 'sessionsadminpanel'));
-            $m->connect('admin/sitenotice', array('action' => 'sitenoticeadminpanel'));
-            $m->connect('admin/snapshot', array('action' => 'snapshotadminpanel'));
-            $m->connect('admin/license', array('action' => 'licenseadminpanel'));
+            $m->connect('panel/site', array('action' => 'siteadminpanel'));
+            $m->connect('panel/design', array('action' => 'designadminpanel'));
+            $m->connect('panel/user', array('action' => 'useradminpanel'));
+	        $m->connect('panel/access', array('action' => 'accessadminpanel'));
+            $m->connect('panel/paths', array('action' => 'pathsadminpanel'));
+            $m->connect('panel/sessions', array('action' => 'sessionsadminpanel'));
+            $m->connect('panel/sitenotice', array('action' => 'sitenoticeadminpanel'));
+            $m->connect('panel/snapshot', array('action' => 'snapshotadminpanel'));
+            $m->connect('panel/license', array('action' => 'licenseadminpanel'));
+
+            $m->connect('panel/plugins', array('action' => 'pluginsadminpanel'));
+            $m->connect('panel/plugins/enable/:plugin',
+                        array('action' => 'pluginenable'),
+                        array('plugin' => '[A-Za-z0-9_]+'));
+            $m->connect('panel/plugins/disable/:plugin',
+                        array('action' => 'plugindisable'),
+                        array('plugin' => '[A-Za-z0-9_]+'));
 
             $m->connect('getfile/:filename',
                         array('action' => 'getfile'),
@@ -956,6 +975,12 @@ class Router
             $m->connect('api/statusnet/app/memberships/:profile.atom',
                         array('action' => 'AtomPubMembershipFeed'),
                         array('profile' => '[0-9]+'));
+
+            // URL shortening
+
+            $m->connect('url/:id',
+                        array('action' => 'redirecturl',
+                              'id' => '[0-9]+'));
 
             // user stuff
 

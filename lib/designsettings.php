@@ -32,9 +32,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/accountsettingsaction.php';
-require_once INSTALLDIR . '/lib/webcolor.php';
-
 /**
  * Base class for setting a user or group design
  *
@@ -48,7 +45,8 @@ require_once INSTALLDIR . '/lib/webcolor.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class DesignSettingsAction extends AccountSettingsAction
+
+class DesignSettingsAction extends SettingsAction
 {
     var $submitaction = null;
 
@@ -84,195 +82,9 @@ class DesignSettingsAction extends AccountSettingsAction
      */
     function showDesignForm($design)
     {
-        $this->elementStart('form', array('method' => 'post',
-                                          'enctype' => 'multipart/form-data',
-                                          'id' => 'form_settings_design',
-                                          'class' => 'form_settings',
-                                          'action' => $this->submitaction));
-        $this->elementStart('fieldset');
-        $this->hidden('token', common_session_token());
+        $form = new DesignForm($this, $design, $this->selfUrl());
+        $form->show();
 
-        $this->elementStart('fieldset', array('id' =>
-            'settings_design_background-image'));
-        // TRANS: Fieldset legend on profile design page.
-        $this->element('legend', null, _('Change background image'));
-        $this->elementStart('ul', 'form_data');
-        $this->elementStart('li');
-        $this->element('input', array('name' => 'MAX_FILE_SIZE',
-                                      'type' => 'hidden',
-                                      'id' => 'MAX_FILE_SIZE',
-                                      'value' => ImageFile::maxFileSizeInt()));
-        $this->element('label', array('for' => 'design_background-image_file'),
-                                // TRANS: Label in form on profile design page.
-                                // TRANS: Field contains file name on user's computer that could be that user's custom profile background image.
-                                _('Upload file'));
-        $this->element('input', array('name' => 'design_background-image_file',
-                                      'type' => 'file',
-                                      'id' => 'design_background-image_file'));
-        // TRANS: Instructions for form on profile design page.
-        $this->element('p', 'form_guide', _('You can upload your personal ' .
-            'background image. The maximum file size is 2MB.'));
-        $this->elementEnd('li');
-
-        if (!empty($design->backgroundimage)) {
-            $this->elementStart('li', array('id' =>
-                'design_background-image_onoff'));
-
-            $this->element('img', array('src' =>
-                Design::url($design->backgroundimage)));
-
-            $attrs = array('name' => 'design_background-image_onoff',
-                           'type' => 'radio',
-                           'id' => 'design_background-image_on',
-                           'class' => 'radio',
-                           'value' => 'on');
-
-            if ($design->disposition & BACKGROUND_ON) {
-                $attrs['checked'] = 'checked';
-            }
-
-            $this->element('input', $attrs);
-
-            $this->element('label', array('for' => 'design_background-image_on',
-                                          'class' => 'radio'),
-                                          // TRANS: Radio button on profile design page that will enable use of the uploaded profile image.
-                                          _m('RADIO','On'));
-
-            $attrs = array('name' => 'design_background-image_onoff',
-                           'type' => 'radio',
-                           'id' => 'design_background-image_off',
-                           'class' => 'radio',
-                           'value' => 'off');
-
-            if ($design->disposition & BACKGROUND_OFF) {
-                $attrs['checked'] = 'checked';
-            }
-
-            $this->element('input', $attrs);
-
-            $this->element('label', array('for' => 'design_background-image_off',
-                                          'class' => 'radio'),
-                                          // TRANS: Radio button on profile design page that will disable use of the uploaded profile image.
-                                          _m('RADIO','Off'));
-            // TRANS: Form guide for a set of radio buttons on the profile design page that will enable or disable
-            // TRANS: use of the uploaded profile image.
-            $this->element('p', 'form_guide', _('Turn background image on or off.'));
-            $this->elementEnd('li');
-
-            $this->elementStart('li');
-            $this->checkbox('design_background-image_repeat',
-                            // TRANS: Checkbox label on profile design page that will cause the profile image to be tiled.
-                            _('Tile background image'),
-                            ($design->disposition & BACKGROUND_TILE) ? true : false);
-            $this->elementEnd('li');
-        }
-
-        $this->elementEnd('ul');
-        $this->elementEnd('fieldset');
-
-        $this->elementStart('fieldset', array('id' => 'settings_design_color'));
-        // TRANS: Fieldset legend on profile design page to change profile page colours.
-        $this->element('legend', null, _('Change colours'));
-        $this->elementStart('ul', 'form_data');
-
-        try {
-            $bgcolor = new WebColor($design->backgroundcolor);
-
-            $this->elementStart('li');
-            // TRANS: Label on profile design page for setting a profile page background colour.
-            $this->element('label', array('for' => 'swatch-1'), _('Background'));
-            $this->element('input', array('name' => 'design_background',
-                                          'type' => 'text',
-                                          'id' => 'swatch-1',
-                                          'class' => 'swatch',
-                                          'maxlength' => '7',
-                                          'size' => '7',
-                                          'value' => ''));
-            $this->elementEnd('li');
-
-            $ccolor = new WebColor($design->contentcolor);
-
-            $this->elementStart('li');
-            // TRANS: Label on profile design page for setting a profile page content colour.
-            $this->element('label', array('for' => 'swatch-2'), _('Content'));
-            $this->element('input', array('name' => 'design_content',
-                                          'type' => 'text',
-                                          'id' => 'swatch-2',
-                                          'class' => 'swatch',
-                                          'maxlength' => '7',
-                                          'size' => '7',
-                                          'value' => ''));
-            $this->elementEnd('li');
-
-            $sbcolor = new WebColor($design->sidebarcolor);
-
-            $this->elementStart('li');
-            // TRANS: Label on profile design page for setting a profile page sidebar colour.
-            $this->element('label', array('for' => 'swatch-3'), _('Sidebar'));
-            $this->element('input', array('name' => 'design_sidebar',
-                                        'type' => 'text',
-                                        'id' => 'swatch-3',
-                                        'class' => 'swatch',
-                                        'maxlength' => '7',
-                                        'size' => '7',
-                                        'value' => ''));
-            $this->elementEnd('li');
-
-            $tcolor = new WebColor($design->textcolor);
-
-            $this->elementStart('li');
-            // TRANS: Label on profile design page for setting a profile page text colour.
-            $this->element('label', array('for' => 'swatch-4'), _('Text'));
-            $this->element('input', array('name' => 'design_text',
-                                        'type' => 'text',
-                                        'id' => 'swatch-4',
-                                        'class' => 'swatch',
-                                        'maxlength' => '7',
-                                        'size' => '7',
-                                        'value' => ''));
-            $this->elementEnd('li');
-
-            $lcolor = new WebColor($design->linkcolor);
-
-            $this->elementStart('li');
-            // TRANS: Label on profile design page for setting a profile page links colour.
-            $this->element('label', array('for' => 'swatch-5'), _('Links'));
-            $this->element('input', array('name' => 'design_links',
-                                         'type' => 'text',
-                                         'id' => 'swatch-5',
-                                         'class' => 'swatch',
-                                         'maxlength' => '7',
-                                         'size' => '7',
-                                         'value' => ''));
-            $this->elementEnd('li');
-
-        } catch (WebColorException $e) {
-            common_log(LOG_ERR, 'Bad color values in design ID: ' .$design->id);
-        }
-
-        $this->elementEnd('ul');
-        $this->elementEnd('fieldset');
-
-        // TRANS: Button text on profile design page to immediately reset all colour settings to default.
-        $this->submit('defaults', _('Use defaults'), 'submit form_action-default',
-            // TRANS: Title for button on profile design page to reset all colour settings to default.
-            'defaults', _('Restore default designs'));
-
-        $this->element('input', array('id' => 'settings_design_reset',
-                                     'type' => 'reset',
-                                     // TRANS: Button text on profile design page to reset all colour settings to default without saving.
-                                     'value' => _m('BUTTON','Reset'),
-                                     'class' => 'submit form_action-primary',
-                                     // TRANS: Title for button on profile design page to reset all colour settings to default without saving.
-                                     'title' => _('Reset back to default')));
-
-        // TRANS: Button text on profile design page to save settings.
-        $this->submit('save', _m('BUTTON','Save'), 'submit form_action-secondary',
-            // TRANS: Title for button on profile design page to save settings.
-            'save', _('Save design'));
-
-        $this->elementEnd('fieldset');
-        $this->elementEnd('form');
     }
 
     /**
@@ -362,22 +174,21 @@ class DesignSettingsAction extends AccountSettingsAction
         // associated with the Design rather than the User was worth
         // it. -- Zach
 
-        if ($_FILES['design_background-image_file']['error'] ==
-            UPLOAD_ERR_OK) {
+        if (array_key_exists('design_background-image_file', $_FILES) &&
+          $_FILES['design_background-image_file']['error'] == UPLOAD_ERR_OK) {
 
             $filepath = null;
 
             try {
-                $imagefile =
-                    ImageFile::fromUpload('design_background-image_file');
+                $imagefile = ImageFile::fromUpload('design_background-image_file');
             } catch (Exception $e) {
                 $this->showForm($e->getMessage());
                 return;
             }
 
             $filename = Design::filename($design->id,
-                image_type_to_extension($imagefile->type),
-                    common_timestamp());
+                                         image_type_to_extension($imagefile->type),
+                                         common_timestamp());
 
             $filepath = Design::path($filename);
 

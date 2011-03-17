@@ -92,12 +92,6 @@ class MailboxAction extends CurrentUserDesignAction
         $this->showPage();
     }
 
-    function showLocalNav()
-    {
-        $nav = new PersonalGroupNav($this);
-        $nav->show();
-    }
-
     function showNoticeForm()
     {
         $message_form = new MessageForm($this);
@@ -167,5 +161,11 @@ class MailboxAction extends CurrentUserDesignAction
     function isReadOnly($args)
     {
          return true;
+    }
+
+    function showObjectNav()
+    {
+        $mm = new MailboxMenu($this);
+        $mm->show();
     }
 }

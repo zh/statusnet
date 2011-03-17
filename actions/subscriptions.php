@@ -215,7 +215,9 @@ class SubscriptionsListItem extends SubscriptionListItem
             return;
         }
 
-        if (!common_config('xmpp', 'enabled') && !common_config('sms', 'enabled')) {
+        $transports = array();
+        Event::handle('GetImTransports', array(&$transports));
+        if (!$transports && !common_config('sms', 'enabled')) {
             return;
         }
 
@@ -225,7 +227,7 @@ class SubscriptionsListItem extends SubscriptionListItem
                                           'action' => common_local_url('subedit')));
         $this->out->hidden('token', common_session_token());
         $this->out->hidden('profile', $this->profile->id);
-        if (common_config('xmpp', 'enabled')) {
+        if ($transports) {
             $attrs = array('name' => 'jabber',
                            'type' => 'checkbox',
                            'class' => 'checkbox',
@@ -236,7 +238,7 @@ class SubscriptionsListItem extends SubscriptionListItem
 
             $this->out->element('input', $attrs);
             // TRANS: Checkbox label for enabling Jabber messages for a profile in a subscriptions list.
-            $this->out->element('label', array('for' => 'jabber-'.$this->profile->id), _('Jabber'));
+            $this->out->element('label', array('for' => 'jabber-'.$this->profile->id), _('IM'));
         } else {
             $this->out->hidden('jabber', $sub->jabber);
         }

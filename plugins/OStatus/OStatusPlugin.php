@@ -1020,7 +1020,7 @@ class OStatusPlugin extends Plugin
 
     function onEndXrdActionLinks(&$xrd, $user)
     {
-	$xrd->links[] = array('rel' => Discovery::UPDATESFROM,
+    	$xrd->links[] = array('rel' => Discovery::UPDATESFROM,
 			      'href' => common_local_url('ApiTimelineUser',
 							 array('id' => $user->id,
 							       'format' => 'atom')),
@@ -1055,6 +1055,6 @@ class OStatusPlugin extends Plugin
         $xrd->links[] = array('rel' => 'http://ostatus.org/schema/1.0/subscribe',
                               'template' => $url );
 	
-	return true;
+    	return true;
     }
 }

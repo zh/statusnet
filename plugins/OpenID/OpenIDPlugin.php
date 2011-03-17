@@ -80,7 +80,7 @@ class OpenIDPlugin extends Plugin
         $m->connect('index.php?action=finishaddopenid',
                     array('action' => 'finishaddopenid'));
         $m->connect('main/openidserver', array('action' => 'openidserver'));
-        $m->connect('admin/openid', array('action' => 'openidadminpanel'));
+        $m->connect('panel/openid', array('action' => 'openidadminpanel'));
 
         return true;
     }
@@ -611,6 +611,28 @@ class OpenIDPlugin extends Plugin
         }
 
         return true;
+    }
+
+    /**
+     * Add OpenID information to the Account Management Control Document
+     * Event supplied by the Account Manager plugin
+     *
+     * @param array &$amcd Array that expresses the AMCD
+     *
+     * @return boolean hook value
+     */
+
+    function onEndAccountManagementControlDocument(&$amcd)
+    {
+        $amcd['auth-methods']['openid'] = array(
+            'connect' => array(
+                'method' => 'POST',
+                'path' => common_local_url('openidlogin'),
+                'params' => array(
+                    'identity' => 'openid_url'
+                )
+            )
+        );
     }
 
     /**

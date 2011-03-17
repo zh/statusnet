@@ -94,6 +94,7 @@ class LoginAction extends Action
         parent::handle($args);
 
         if (common_is_real_login()) {
+            // TRANS: Client error displayed when trying to log in while already logged in.
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->checkLogin();
@@ -116,35 +117,20 @@ class LoginAction extends Action
     {
         // XXX: login throttle
 
-        // CSRF protection - token set in NoticeForm
-        $token = $this->trimmed('token');
-        if (!$token || $token != common_session_token()) {
-	    $st = common_session_token();
-	    if (empty($token)) {
-		common_log(LOG_WARNING, 'No token provided by client.');
-	    } else if (empty($st)) {
-		common_log(LOG_WARNING, 'No session token stored.');
-	    } else {
-		common_log(LOG_WARNING, 'Token = ' . $token . ' and session token = ' . $st);
-	    }
-
-            $this->clientError(_('There was a problem with your session token. '.
-                                 'Try again, please.'));
-            return;
-        }
-
         $nickname = $this->trimmed('nickname');
         $password = $this->arg('password');
 
         $user = common_check_user($nickname, $password);
 
         if (!$user) {
+            // TRANS: Form validation error displayed when trying to log in with incorrect credentials.
             $this->showForm(_('Incorrect username or password.'));
             return;
         }
 
         // success!
         if (!common_set_user($user)) {
+            // TRANS: Server error displayed when during login a server error occurs.
             $this->serverError(_('Error setting user. You are probably not authorized.'));
             return;
         }
@@ -199,6 +185,7 @@ class LoginAction extends Action
      */
     function title()
     {
+        // TRANS: Page title for login page.
         return _('Login');
     }
 
@@ -236,26 +223,32 @@ class LoginAction extends Action
                                           'class' => 'form_settings',
                                           'action' => common_local_url('login')));
         $this->elementStart('fieldset');
+        // TRANS: Form legend on login page.
         $this->element('legend', null, _('Login to site'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
+        // TRANS: Field label on login page.
         $this->input('nickname', _('Nickname'));
         $this->elementEnd('li');
         $this->elementStart('li');
+        // TRANS: Field label on login page.
         $this->password('password', _('Password'));
         $this->elementEnd('li');
         $this->elementStart('li');
+        // TRANS: Checkbox label label on login page.
         $this->checkbox('rememberme', _('Remember me'), false,
+                        // TRANS: Checkbox title on login page.
                         _('Automatically login in the future; ' .
                           'not for shared computers!'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->submit('submit', _('Login'));
-        $this->hidden('token', common_session_token());
+        // TRANS: Button text for log in on login page.
+        $this->submit('submit', _m('BUTTON','Login'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
         $this->elementStart('p');
         $this->element('a', array('href' => common_local_url('recoverpassword')),
+                       // TRANS: Link text for link to "reset password" on login page.
                        _('Lost or forgotten password?'));
         $this->elementEnd('p');
     }
@@ -274,13 +267,17 @@ class LoginAction extends Action
             common_get_returnto()) {
             // rememberme logins have to reauthenticate before
             // changing any profile settings (cookie-stealing protection)
+            // TRANS: Form instructions on login page before being able to change user settings.
             return _('For security reasons, please re-enter your ' .
                      'user name and password ' .
                      'before changing your settings.');
         } else {
+            // TRANS: Form instructions on login page.
             $prompt = _('Login with your username and password.');
             if (!common_config('site', 'closed') && !common_config('site', 'inviteonly')) {
                 $prompt .= ' ';
+                // TRANS: Form instructions on login page. This message contains Markdown links in the form [Link text](Link).
+                // TRANS: %%action.register%% is a link to the registration page.
                 $prompt .= _('Don\'t have a username yet? ' .
                              '[Register](%%action.register%%) a new account.');
             }
@@ -299,5 +296,13 @@ class LoginAction extends Action
     {
         $nav = new LoginGroupNav($this);
         $nav->show();
+    }
+
+    function showNoticeForm()
+    {
+    }
+
+    function showProfileBlock()
+    {
     }
 }

@@ -112,7 +112,7 @@ class UsergroupsAction extends OwnerDesignAction
         $this->showPage();
     }
 
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new SubGroupNav($this, $this->user);
         $nav->show();
@@ -167,5 +167,11 @@ class UsergroupsAction extends OwnerDesignAction
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
+    }
+
+    function showProfileBlock()
+    {
+        $block = new AccountProfileBlock($this, $this->profile);
+        $block->show();
     }
 }

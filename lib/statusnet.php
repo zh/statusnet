@@ -31,6 +31,7 @@ class StatusNet
 {
     protected static $have_config;
     protected static $is_api;
+    protected static $is_ajax;
     protected static $plugins = array();
 
     /**
@@ -176,6 +177,11 @@ class StatusNet
     {
         // Load default plugins
         foreach (common_config('plugins', 'default') as $name => $params) {
+            $key = 'disable-' . $name;
+            if (common_config('plugins', $key)) {
+                continue;
+            }
+
             if (is_null($params)) {
                 addPlugin($name);
             } else if (is_array($params)) {
@@ -225,6 +231,16 @@ class StatusNet
         self::$is_api = $mode;
     }
 
+    public function isAjax()
+    {
+        return self::$is_ajax;
+    }
+
+    public function setAjax($mode)
+    {
+        self::$is_ajax = $mode;
+    }
+
     /**
      * Build default configuration array
      * @return array
@@ -240,7 +256,7 @@ class StatusNet
      * Establish default configuration based on given or default server and path
      * Sets global $_server, $_path, and $config
      */
-    protected static function initDefaults($server, $path)
+    public static function initDefaults($server, $path)
     {
         global $_server, $_path, $config;
 
@@ -356,7 +372,6 @@ class StatusNet
         }
 
         // Backwards compatibility
-
         if (array_key_exists('memcached', $config)) {
             if ($config['memcached']['enabled']) {
                 addPlugin('Memcache', array('servers' => $config['memcached']['server']));
@@ -364,6 +379,21 @@ class StatusNet
 
             if (!empty($config['memcached']['base'])) {
                 $config['cache']['base'] = $config['memcached']['base'];
+            }
+        }
+        if (array_key_exists('xmpp', $config)) {
+            if ($config['xmpp']['enabled']) {
+                addPlugin('xmpp', array(
+                    'server' => $config['xmpp']['server'],
+                    'port' => $config['xmpp']['port'],
+                    'user' => $config['xmpp']['user'],
+                    'resource' => $config['xmpp']['resource'],
+                    'encryption' => $config['xmpp']['encryption'],
+                    'password' => $config['xmpp']['password'],
+                    'host' => $config['xmpp']['host'],
+                    'debug' => $config['xmpp']['debug'],
+                    'public' => $config['xmpp']['public']
+                ));
             }
         }
     }

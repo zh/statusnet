@@ -28,7 +28,7 @@ class CasloginAction extends Action
             $this->clientError(_m('Already logged in.'));
         } else {
             global $casSettings;
-            phpCAS::client(CAS_VERSION_2_0,$casSettings['server'],$casSettings['port'],$casSettings['path']);
+            phpCAS::client(CAS_VERSION_2_0,$casSettings['server'],$casSettings['port'],$casSettings['path'],false);
             phpCAS::setNoCasServerValidation();
             phpCAS::handleLogoutRequests();
             phpCAS::forceAuthentication();

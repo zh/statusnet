@@ -125,7 +125,7 @@ class MapstractionPlugin extends Plugin
                                     urlencode($this->apikey)));
             break;
         case 'microsoft':
-            $action->script('http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6');
+            $action->script((StatusNet::isHTTPS()?'https':'http') + '://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6');
             break;
         case 'openlayers':
             // Use our included stripped & minified OpenLayers.

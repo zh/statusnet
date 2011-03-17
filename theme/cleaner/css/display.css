@@ -161,19 +161,19 @@ address {
     border-radius: 6px;
 }
 
-.form_notice label[for=notice_data-attach],
-.form_notice #notice_data-attach {
+.form_notice label.notice_data-attach,
+.form_notice input.notice_data-attach {
     top: 27px;
     right: 86px;
 }
 
-.form_notice #notice_data-geo_wrap label,
-.form_notice #notice_data-geo_wrap input {
+.form_notice .notice_data-geo_wrap label,
+.form_notice .notice_data-geo_wrap input {
     top: 52px;
     right: 86px;
 }
 
-.form_notice #notice_action-submit {
+.form_notice .submit {
     font-size: 0.9em;
     top: 80px;
 	right: -2px;
@@ -409,7 +409,7 @@ div.entry-content a.response:after {
     border: 1px solid #7B4E82;
 }
 
-.entity_send-a-message .form_notice #notice_action-submit {
+.entity_send-a-message .form_notice .submit {
     color: #fff !important;
     top: 46px;
 }
@@ -589,17 +589,17 @@ padding-right:0;
     width: 325px !important;
 }
 
-.realtime-popup .form_notice #notice_action-submit {
+.realtime-popup .form_notice .submit {
     top: 59px !important;
     right: 6px !important;
 }
 
-.realtime-popup .form_notice label[for=notice_data-attach], .realtime-popup .form_notice #notice_data-attach {
+.realtime-popup .form_notice label.notice_data-attach, .realtime-popup .form_notice input.notice_data-attach {
     right: 74px;
     top: 3px !important;
 }
 
-.realtime-popup .form_notice #notice_data-geo_wrap label, .realtime-popup .form_notice #notice_data-geo_wrap input {
+.realtime-popup .form_notice .notice_data-geo_wrap label, .realtime-popup .form_notice .notice_data-geo_wrap input {
     right: 8px;
     top: 3px !important;
 }

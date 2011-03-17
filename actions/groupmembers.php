@@ -125,7 +125,7 @@ class GroupmembersAction extends GroupDesignAction
                        _('A list of the users in this group.'));
     }
 
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new GroupNav($this, $this->group);
         $nav->show();

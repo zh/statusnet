@@ -126,11 +126,11 @@ class LdapCommon
                 }
                 throw new Exception('Could not connect to LDAP server: '.$err->getMessage());
             }
-            $c = common_memcache();
+            $c = Cache::instance();
             if (!empty($c)) {
                 $cacheObj = new MemcacheSchemaCache(
                     array('c'=>$c,
-                       'cacheKey' => common_cache_key('ldap_schema:' . $config_id)));
+                       'cacheKey' => Cache::key('ldap_schema:' . $config_id)));
                 $ldap->registerSchemaCache($cacheObj);
             }
             self::$ldap_connections[$config_id] = $ldap;

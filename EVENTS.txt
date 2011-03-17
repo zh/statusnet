@@ -762,6 +762,24 @@ StartShowContentLicense: Showing the default license for content
 EndShowContentLicense: Showing the default license for content
 - $action: the current action
 
+GetImTransports: Get IM transports that are available
+- &$transports: append your transport to this array like so: $transports[transportName]=array('display'=>display)
+
+NormalizeImScreenname: Normalize an IM screenname
+- $transport: transport the screenname is on
+- &$screenname: screenname to be normalized
+
+ValidateImScreenname: Validate an IM screenname
+- $transport: transport the screenname is on
+- $screenname: screenname to be validated
+- $valid: is the screenname valid?
+
+SendImConfirmationCode: Send a confirmation code to confirm a user owns an IM screenname
+- $transport: transport the screenname exists on
+- $screenname: screenname being confirmed
+- $code: confirmation code for confirmation URL
+- $user: user requesting the confirmation
+
 StartUserRegister: When a new user is being registered
 - &$profile: new profile data (no ID)
 - &$user: new user account (no ID or URI)
@@ -1097,3 +1115,27 @@ StartGroupProfileElements: Start showing stuff about the group on its profile pa
 EndGroupProfileElements: Start showing stuff about the group on its profile page
 - $action: action being executed (for output and params)
 - $group: group for the page
+
+StartActivityObjectOutputAtom: Called at start of Atom XML output generation for ActivityObject chunks, just inside the <activity:object>. Cancel the event to take over its output completely (you're responsible for calling the matching End event if so)
+- $obj: ActivityObject
+- $out: XMLOutputter to append custom output
+
+EndActivityObjectOutputAtom: Called at end of Atom XML output generation for ActivityObject chunks, just inside the </activity:object>
+- $obj: ActivityObject
+- $out: XMLOutputter to append custom output
+
+StartActivityObjectOutputJson: Called at start of JSON output generation for ActivityObject chunks: the array has not yet been filled out. Cancel the event to take over its output completely (you're responsible for calling the matching End event if so)
+- $obj ActivityObject
+- &$out: array to be serialized; you're free to modify it
+
+EndActivityObjectOutputJson: Called at end of JSON output generation for ActivityObject chunks: the array has not yet been filled out.
+- $obj ActivityObject
+- &$out: array to be serialized; you're free to modify it
+
+StartNoticeWhoGets: Called at start of inbox delivery prep; plugins can schedule notices to go to particular profiles that would otherwise not have reached them. Canceling will take over the entire addressing operation. Be aware that output can be cached or used several times, so should remain idempotent.
+- $notice Notice
+- &$ni: in/out array mapping profile IDs to constants: NOTICE_INBOX_SOURCE_SUB etc
+
+EndNoticeWhoGets: Called at end of inbox delivery prep; plugins can filter out profiles from receiving inbox delivery here.  Be aware that output can be cached or used several times, so should remain idempotent.
+- $notice Notice
+- &$ni: in/out array mapping profile IDs to constants: NOTICE_INBOX_SOURCE_SUB etc

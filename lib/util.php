@@ -157,22 +157,38 @@ function common_timezone()
     return common_config('site', 'timezone');
 }
 
+function common_valid_language($lang)
+{
+    if ($lang) {
+        // Validate -- we don't want to end up with a bogus code
+        // left over from some old junk.
+        foreach (common_config('site', 'languages') as $code => $info) {
+            if ($info['lang'] == $lang) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function common_language()
 {
+    // Allow ?uselang=xx override, very useful for debugging
+    // and helping translators check usage and context.
+    if (isset($_GET['uselang'])) {
+        $uselang = strval($_GET['uselang']);
+        if (common_valid_language($uselang)) {
+            return $uselang;
+        }
+    }
+
     // If there is a user logged in and they've set a language preference
     // then return that one...
     if (_have_config() && common_logged_in()) {
         $user = common_current_user();
-        $user_language = $user->language;
 
-        if ($user->language) {
-            // Validate -- we don't want to end up with a bogus code
-            // left over from some old junk.
-            foreach (common_config('site', 'languages') as $code => $info) {
-                if ($info['lang'] == $user_language) {
-                    return $user_language;
-                }
-            }
+        if (common_valid_language($user->language)) {
+            return $user->language;
         }
     }
 
@@ -1015,9 +1031,15 @@ function common_linkify($url) {
  */
 function common_shorten_links($text, $always = false, User $user=null)
 {
-    $maxLength = Notice::maxContent();
-    if (!$always && ($maxLength == 0 || mb_strlen($text) <= $maxLength)) return $text;
-    return common_replace_urls_callback($text, array('File_redirection', 'makeShort'), $user);
+    $user = common_current_user();
+
+    $maxLength = User_urlshortener_prefs::maxNoticeLength($user);
+
+    if ($always || mb_strlen($text) > $maxLength) {
+        return common_replace_urls_callback($text, array('File_redirection', 'forceShort'), $user);
+    } else {
+        return common_replace_urls_callback($text, array('File_redirection', 'makeShort'), $user);
+    }
 }
 
 /**
@@ -1432,14 +1454,8 @@ function common_redirect($url, $code=307)
     exit;
 }
 
-function common_broadcast_notice($notice, $remote=false)
-{
-    // DO NOTHING!
-}
+// Stick the notice on the queue
 
-/**
- * Stick the notice on the queue.
- */
 function common_enqueue_notice($notice)
 {
     static $localTransports = array('omb',
@@ -1453,18 +1469,9 @@ function common_enqueue_notice($notice)
         $transports[] = 'plugin';
     }
 
-    $xmpp = common_config('xmpp', 'enabled');
-
-    if ($xmpp) {
-        $transports[] = 'jabber';
-    }
-
     // We can skip these for gatewayed notices.
     if ($notice->isLocal()) {
         $transports = array_merge($transports, $localTransports);
-        if ($xmpp) {
-            $transports[] = 'public';
-        }
     }
 
     if (Event::handle('StartEnqueueNotice', array($notice, &$transports))) {
@@ -2003,21 +2010,6 @@ function common_session_token()
     return $_SESSION['token'];
 }
 
-function common_cache_key($extra)
-{
-    return Cache::key($extra);
-}
-
-function common_keyize($str)
-{
-    return Cache::keyize($str);
-}
-
-function common_memcache()
-{
-    return Cache::instance();
-}
-
 function common_license_terms($uri)
 {
     if(preg_match('/creativecommons.org\/licenses\/([^\/]+)/', $uri, $matches)) {
@@ -2058,33 +2050,46 @@ function common_database_tablename($tablename)
 /**
  * Shorten a URL with the current user's configured shortening service,
  * or ur1.ca if configured, or not at all if no shortening is set up.
- * Length is not considered.
  *
- * @param string $long_url
+ * @param string  $long_url original URL
  * @param User $user to specify a particular user's options
+ * @param boolean $force    Force shortening (used when notice is too long)
  * @return string may return the original URL if shortening failed
  *
  * @fixme provide a way to specify a particular shortener
  */
-function common_shorten_url($long_url, User $user=null)
+function common_shorten_url($long_url, User $user=null, $force = false)
 {
     $long_url = trim($long_url);
-    if (empty($user)) {
-        // Current web session
-        $user = common_current_user();
-    }
-    if (empty($user)) {
-        // common current user does not find a user when called from the XMPP daemon
-        // therefore we'll set one here fix, so that XMPP given URLs may be shortened
-        $shortenerName = 'ur1.ca';
-    } else {
-        $shortenerName = $user->urlshorteningservice;
+
+    $user = common_current_user();
+
+    $maxUrlLength = User_urlshortener_prefs::maxUrlLength($user);
+
+    // $force forces shortening even if it's not strictly needed
+    // I doubt URL shortening is ever 'strictly' needed. - ESP
+
+    if (mb_strlen($long_url) < $maxUrlLength && !$force) {
+        return $long_url;
     }
 
-    if(Event::handle('StartShortenUrl', array($long_url,$shortenerName,&$shortenedUrl))){
-        //URL wasn't shortened, so return the long url
-        return $long_url;
-    }else{
+    $shortenerName = User_urlshortener_prefs::urlShorteningService($user);
+
+    if (Event::handle('StartShortenUrl', 
+                      array($long_url, $shortenerName, &$shortenedUrl))) {
+        if ($shortenerName == 'internal') {
+            $f = File::processNew($long_url);
+            if (empty($f)) {
+                return $long_url;
+            } else {
+                $shortenedUrl = common_local_url('redirecturl',
+                                                 array('id' => $f->id));
+                return $shortenedUrl;
+            }
+        } else {
+            return $long_url;
+        }
+    } else {
         //URL was shortened, so return the result
         return trim($shortenedUrl);
     }

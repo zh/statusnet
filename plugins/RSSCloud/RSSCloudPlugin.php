@@ -209,19 +209,16 @@ class RSSCloudPlugin extends Plugin
     {
         $schema = Schema::get();
         $schema->ensureTable('rsscloud_subscription',
-                             array(new ColumnDef('subscribed', 'integer',
-                                                 null, false, 'PRI'),
-                                   new ColumnDef('url', 'varchar',
-                                                 '255', false, 'PRI'),
-                                   new ColumnDef('failures', 'integer',
-                                                 null, false, null, 0),
-                                   new ColumnDef('created', 'datetime',
-                                                 null, false),
-                                   new ColumnDef('modified', 'timestamp',
-                                                 null, false, null,
-                                                 'CURRENT_TIMESTAMP',
-                                                 'on update CURRENT_TIMESTAMP')
-                                   ));
+            array(
+                'fields' => array(
+                    'subscribed' => array('type' => 'int', 'not null' => true),
+                    'url' => array('type' => 'varchar', 'length' => '255', 'not null' => true),
+                    'failures' => array('type' => 'int', 'not null' => true, 'default' => 0),
+                    'created' => array('type' => 'datetime', 'not null' => true),
+                    'modified' => array('type' => 'timestamp', 'not null' => true),
+                ),
+                'primary key' => array('subscribed', 'url'),
+            ));
          return true;
     }
 

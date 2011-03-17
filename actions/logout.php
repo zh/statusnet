@@ -44,7 +44,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 class LogoutAction extends Action
 {
-
     /**
      * This is read only.
      *

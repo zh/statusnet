@@ -177,7 +177,7 @@ class FacebookBridgePlugin extends Plugin
     function onRouterInitialized($m)
     {
         // Always add the admin panel route
-        $m->connect('admin/facebook', array('action' => 'facebookadminpanel'));
+        $m->connect('panel/facebook', array('action' => 'facebookadminpanel'));
 
         $m->connect(
             'main/facebooklogin',
