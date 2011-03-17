@@ -15,18 +15,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-11 18:15+0000\n"
-"PO-Revision-Date: 2011-03-11 18:17:32+0000\n"
+"POT-Creation-Date: 2011-03-17 09:47+0000\n"
+"PO-Revision-Date: 2011-03-17 09:50:02+0000\n"
 "Language-Team: Simplified Chinese <http://translatewiki.net/wiki/Portal:zh-"
 "hans>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83703); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84120); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-08 01:25:01+0000\n"
+"X-POT-Import-Date: 2011-03-11 18:52:41+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -581,7 +581,7 @@ msgstr "无法把用户%1$s从%2$s小组删除"
 msgid "%s's groups"
 msgstr "%s 的小组"
 
-#. TRANS: Used as subtitle in check for group membership. %1$s is a user name, %2$s is the site name.
+#. TRANS: Used as subtitle in check for group membership. %1$s is the site name, %2$s is a user name.
 #, php-format
 msgid "%1$s groups %2$s is a member of."
 msgstr "%1$s 的小组，%2$s 是小组成员。"
@@ -4493,18 +4493,6 @@ msgstr "%s 小组"
 msgid "%1$s group, page %2$d"
 msgstr "%1$s小组，第%2$d页"
 
-#. TRANS: Label for group description or group note (dt). Text hidden by default.
-msgid "Note"
-msgstr "注释"
-
-#. TRANS: Label for group aliases (dt). Text hidden by default.
-msgid "Aliases"
-msgstr "别名"
-
-#. TRANS: Group actions header (h2). Text hidden by default.
-msgid "Group actions"
-msgstr "小组动作"
-
 #. TRANS: Tooltip for feed link. %s is a group nickname.
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
@@ -4613,6 +4601,10 @@ msgstr "来自 %1$s 的 %2$s 消息"
 
 msgid "Notice deleted."
 msgstr "消息已删除"
+
+#, fuzzy
+msgid "Notice"
+msgstr "消息"
 
 #. TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
 #, php-format
@@ -5129,7 +5121,6 @@ msgstr "没有 ID 冲突。"
 msgid "Tag %s"
 msgstr "将%s加为标签"
 
-#. TRANS: H2 for user profile information.
 msgid "User profile"
 msgstr "用户页面"
 
@@ -5802,6 +5793,49 @@ msgstr ""
 #, php-format
 msgid "No AtomPub API service for %s."
 msgstr ""
+
+#. TRANS: H2 for user actions in a profile.
+#. TRANS: H2 for entity actions in a profile.
+msgid "User actions"
+msgstr "用户动作"
+
+#. TRANS: Text shown in user profile of not yet compeltely deleted users.
+msgid "User deletion in progress..."
+msgstr "用户删除处理中……"
+
+#. TRANS: Link title for link on user profile.
+msgid "Edit profile settings"
+msgstr "编辑个人信息设置"
+
+#. TRANS: Link text for link on user profile.
+msgid "Edit"
+msgstr "编辑"
+
+#. TRANS: Link title for link on user profile.
+msgid "Send a direct message to this user"
+msgstr "给该用户发送私信"
+
+#. TRANS: Link text for link on user profile.
+msgid "Message"
+msgstr "私信"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "Moderate"
+msgstr "审核"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "User role"
+msgstr "用户权限"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Administrator"
+msgstr "管理员"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Moderator"
+msgstr "审核员"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #, php-format
@@ -6501,85 +6535,171 @@ msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "你是该小组成员："
 
-#. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"groups - lists the groups you have joined\n"
-"subscriptions - list the people you follow\n"
-"subscribers - list the people that follow you\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"lose <nickname> - force user to stop following you\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"repeat #<notice_id> - repeat a notice with a given id\n"
-"repeat <nickname> - repeat the last notice from user\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
+#. TRANS: Header line of help text for commands.
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "Commands:"
+msgstr "执行结果"
+
+#. TRANS: Help message for IM/SMS command "on"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn on notifications"
+msgstr "无法开启通知。"
+
+#. TRANS: Help message for IM/SMS command "off"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn off notifications"
+msgstr "无法关闭通知。"
+
+#. TRANS: Help message for IM/SMS command "help"
+msgctxt "COMMANDHELP"
+msgid "show this help"
 msgstr ""
-"命令：\n"
-"on - 打开提醒\n"
-"off - 关闭提醒\n"
-"help - 显示此帮助\n"
-"follow <昵称> - 关注该用户\n"
-"groups - 列出你加入的小组\n"
-"subscriptions - 列出你关注的用户\n"
-"subscribers - 列出你的关注者\n"
-"leave <昵称> - 取消关注该用户\n"
-"d <昵称> <文字> - 给该用户发送私信\n"
-"get <昵称> - 获取该用户的最后一条消息\n"
-"whois <昵称> - 获取该用户的个人信息\n"
-"lose <昵称> - 强行取消该用户对你的关注\n"
-"fav <昵称> - 将该用户最后一条消息加为'收藏'\n"
-"fav #<消息id> - 将该id的消息加为'收藏'\n"
-"repeat #<消息id> - 转发该id的消息\n"
-"repeat <昵称> - 转发该用户的最后一条消息\n"
-"reply #<消息id> - 对该id消息回复\n"
-"reply <昵称> - 对该用户的最后一条消息回复\n"
-"join <小组> - 加入小组\n"
-"login - 获取网页登录的地址\n"
-"drop <小组> - 离开小组\n"
-"stats - 获取你的统计\n"
-"stop - 和'off'相同\n"
-"quit - 和'off'相同\n"
-"sub <昵称> - 和'follow'相同\n"
-"unsub <昵称> - 和'leave'相同\n"
-"last <昵称> - 和'get'相同\n"
-"on <昵称> - 尚未实现。\n"
-"off <昵称> - 尚未实现。\n"
-"nudge <昵称> - 提醒该用户更新消息。\n"
-"invite <电话号码> - 尚未实现。\n"
-"track <word> - 尚未实现。\n"
-"untrack <word> - 尚未实现。\n"
-"track off - 尚未实现。\n"
-"untrack all - 尚未实现。\n"
-"tracks - 尚未实现。\n"
-"tracking - 尚未实现。\n"
+
+#. TRANS: Help message for IM/SMS command "follow <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "subscribe to user"
+msgstr "关注这个用户"
+
+#. TRANS: Help message for IM/SMS command "groups"
+msgctxt "COMMANDHELP"
+msgid "lists the groups you have joined"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscriptions"
+msgctxt "COMMANDHELP"
+msgid "list the people you follow"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscribers"
+msgctxt "COMMANDHELP"
+msgid "list the people that follow you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "leave <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "unsubscribe from user"
+msgstr "取消关注这个用户"
+
+#. TRANS: Help message for IM/SMS command "d <nickname> <text>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "direct message to user"
+msgstr "发给%s的私信"
+
+#. TRANS: Help message for IM/SMS command "get <nickname>"
+msgctxt "COMMANDHELP"
+msgid "get last notice from user"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "whois <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "get profile info on user"
+msgstr "远程配置文件不是一个组 ！"
+
+#. TRANS: Help message for IM/SMS command "lose <nickname>"
+msgctxt "COMMANDHELP"
+msgid "force user to stop following you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav <nickname>"
+msgctxt "COMMANDHELP"
+msgid "add user's last notice as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "add notice with the given id as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "repeat a notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "repeat the last notice from user"
+msgstr "转发"
+
+#. TRANS: Help message for IM/SMS command "reply #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "reply to notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "reply <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "reply to the last notice from user"
+msgstr "回复"
+
+#. TRANS: Help message for IM/SMS command "join <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "join group"
+msgstr "未知的组。"
+
+#. TRANS: Help message for IM/SMS command "login"
+msgctxt "COMMANDHELP"
+msgid "Get a link to login to the web interface"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "drop <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "leave group"
+msgstr "删除小组"
+
+#. TRANS: Help message for IM/SMS command "stats"
+msgctxt "COMMANDHELP"
+msgid "get your stats"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "stop"
+#. TRANS: Help message for IM/SMS command "quit"
+msgctxt "COMMANDHELP"
+msgid "same as 'off'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "sub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'follow'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "unsub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'leave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "last <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'get'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "on <nickname>"
+#. TRANS: Help message for IM/SMS command "off <nickname>"
+#. TRANS: Help message for IM/SMS command "invite <phone number>"
+#. TRANS: Help message for IM/SMS command "track <word>"
+#. TRANS: Help message for IM/SMS command "untrack <word>"
+#. TRANS: Help message for IM/SMS command "track off"
+#. TRANS: Help message for IM/SMS command "untrack all"
+#. TRANS: Help message for IM/SMS command "tracks"
+#. TRANS: Help message for IM/SMS command "tracking"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "not yet implemented."
+msgstr "命令尚未实现。"
+
+#. TRANS: Help message for IM/SMS command "nudge <nickname>"
+msgctxt "COMMANDHELP"
+msgid "remind a user to update."
+msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 msgid "No configuration file found."
@@ -6750,6 +6870,9 @@ msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\"."
 msgstr "小组的地理位置，例如“国家、省份、城市”。"
 
+msgid "Aliases"
+msgstr "别名"
+
 #, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
@@ -6825,6 +6948,10 @@ msgstr "添加或编辑 %s logo"
 msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
 msgstr "添加或编辑 %s 外观"
+
+#. TRANS: Group actions header (h2). Text hidden by default.
+msgid "Group actions"
+msgstr "小组动作"
 
 #. TRANS: Title for groups with the most members section.
 msgid "Groups with most members"
@@ -7381,6 +7508,7 @@ msgstr "发送一个通知"
 msgid "What's up, %s?"
 msgstr "%s，最近怎么样？"
 
+#. TRANS: Input label in notice form for adding an attachment.
 msgid "Attach"
 msgstr "附件"
 
@@ -7829,52 +7957,6 @@ msgstr "取消关注"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "用户 %1$s (%2$d) 没有个人信息记录。"
 
-msgid "Edit Avatar"
-msgstr "编辑头像"
-
-#. TRANS: H2 for user actions in a profile.
-#. TRANS: H2 for entity actions in a profile.
-msgid "User actions"
-msgstr "用户动作"
-
-#. TRANS: Text shown in user profile of not yet compeltely deleted users.
-msgid "User deletion in progress..."
-msgstr "用户删除处理中……"
-
-#. TRANS: Link title for link on user profile.
-msgid "Edit profile settings"
-msgstr "编辑个人信息设置"
-
-#. TRANS: Link text for link on user profile.
-msgid "Edit"
-msgstr "编辑"
-
-#. TRANS: Link title for link on user profile.
-msgid "Send a direct message to this user"
-msgstr "给该用户发送私信"
-
-#. TRANS: Link text for link on user profile.
-msgid "Message"
-msgstr "私信"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "Moderate"
-msgstr "审核"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "User role"
-msgstr "用户权限"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Administrator"
-msgstr "管理员"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Moderator"
-msgstr "审核员"
-
 msgid "Not allowed to log in."
 msgstr "不允许登录。"
 
@@ -7944,3 +8026,88 @@ msgstr "不合法的XML, 缺少XRD根"
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "从文件'%s'获取备份。"
+
+#~ msgid "Note"
+#~ msgstr "注释"
+
+#~ msgid ""
+#~ "Commands:\n"
+#~ "on - turn on notifications\n"
+#~ "off - turn off notifications\n"
+#~ "help - show this help\n"
+#~ "follow <nickname> - subscribe to user\n"
+#~ "groups - lists the groups you have joined\n"
+#~ "subscriptions - list the people you follow\n"
+#~ "subscribers - list the people that follow you\n"
+#~ "leave <nickname> - unsubscribe from user\n"
+#~ "d <nickname> <text> - direct message to user\n"
+#~ "get <nickname> - get last notice from user\n"
+#~ "whois <nickname> - get profile info on user\n"
+#~ "lose <nickname> - force user to stop following you\n"
+#~ "fav <nickname> - add user's last notice as a 'fave'\n"
+#~ "fav #<notice_id> - add notice with the given id as a 'fave'\n"
+#~ "repeat #<notice_id> - repeat a notice with a given id\n"
+#~ "repeat <nickname> - repeat the last notice from user\n"
+#~ "reply #<notice_id> - reply to notice with a given id\n"
+#~ "reply <nickname> - reply to the last notice from user\n"
+#~ "join <group> - join group\n"
+#~ "login - Get a link to login to the web interface\n"
+#~ "drop <group> - leave group\n"
+#~ "stats - get your stats\n"
+#~ "stop - same as 'off'\n"
+#~ "quit - same as 'off'\n"
+#~ "sub <nickname> - same as 'follow'\n"
+#~ "unsub <nickname> - same as 'leave'\n"
+#~ "last <nickname> - same as 'get'\n"
+#~ "on <nickname> - not yet implemented.\n"
+#~ "off <nickname> - not yet implemented.\n"
+#~ "nudge <nickname> - remind a user to update.\n"
+#~ "invite <phone number> - not yet implemented.\n"
+#~ "track <word> - not yet implemented.\n"
+#~ "untrack <word> - not yet implemented.\n"
+#~ "track off - not yet implemented.\n"
+#~ "untrack all - not yet implemented.\n"
+#~ "tracks - not yet implemented.\n"
+#~ "tracking - not yet implemented.\n"
+#~ msgstr ""
+#~ "命令：\n"
+#~ "on - 打开提醒\n"
+#~ "off - 关闭提醒\n"
+#~ "help - 显示此帮助\n"
+#~ "follow <昵称> - 关注该用户\n"
+#~ "groups - 列出你加入的小组\n"
+#~ "subscriptions - 列出你关注的用户\n"
+#~ "subscribers - 列出你的关注者\n"
+#~ "leave <昵称> - 取消关注该用户\n"
+#~ "d <昵称> <文字> - 给该用户发送私信\n"
+#~ "get <昵称> - 获取该用户的最后一条消息\n"
+#~ "whois <昵称> - 获取该用户的个人信息\n"
+#~ "lose <昵称> - 强行取消该用户对你的关注\n"
+#~ "fav <昵称> - 将该用户最后一条消息加为'收藏'\n"
+#~ "fav #<消息id> - 将该id的消息加为'收藏'\n"
+#~ "repeat #<消息id> - 转发该id的消息\n"
+#~ "repeat <昵称> - 转发该用户的最后一条消息\n"
+#~ "reply #<消息id> - 对该id消息回复\n"
+#~ "reply <昵称> - 对该用户的最后一条消息回复\n"
+#~ "join <小组> - 加入小组\n"
+#~ "login - 获取网页登录的地址\n"
+#~ "drop <小组> - 离开小组\n"
+#~ "stats - 获取你的统计\n"
+#~ "stop - 和'off'相同\n"
+#~ "quit - 和'off'相同\n"
+#~ "sub <昵称> - 和'follow'相同\n"
+#~ "unsub <昵称> - 和'leave'相同\n"
+#~ "last <昵称> - 和'get'相同\n"
+#~ "on <昵称> - 尚未实现。\n"
+#~ "off <昵称> - 尚未实现。\n"
+#~ "nudge <昵称> - 提醒该用户更新消息。\n"
+#~ "invite <电话号码> - 尚未实现。\n"
+#~ "track <word> - 尚未实现。\n"
+#~ "untrack <word> - 尚未实现。\n"
+#~ "track off - 尚未实现。\n"
+#~ "untrack all - 尚未实现。\n"
+#~ "tracks - 尚未实现。\n"
+#~ "tracking - 尚未实现。\n"
+
+#~ msgid "Edit Avatar"
+#~ msgstr "编辑头像"

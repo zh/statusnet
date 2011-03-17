@@ -12,18 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-11 18:15+0000\n"
-"PO-Revision-Date: 2011-03-11 18:17:31+0000\n"
+"POT-Creation-Date: 2011-03-17 09:47+0000\n"
+"PO-Revision-Date: 2011-03-17 09:50:00+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83703); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84120); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2011-03-08 01:25:01+0000\n"
+"X-POT-Import-Date: 2011-03-11 18:52:41+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -602,7 +602,7 @@ msgstr "Не вдалось видалити користувача %1$s зі с
 msgid "%s's groups"
 msgstr "Спільноти %s"
 
-#. TRANS: Used as subtitle in check for group membership. %1$s is a user name, %2$s is the site name.
+#. TRANS: Used as subtitle in check for group membership. %1$s is the site name, %2$s is a user name.
 #, php-format
 msgid "%1$s groups %2$s is a member of."
 msgstr "Спільноти на %1$s, до яких долучився %2$s."
@@ -1060,9 +1060,8 @@ msgid "Can only fave notices."
 msgstr "Можна лише додавати дописи до обраних."
 
 #. TRANS: Client exception thrown when trying favorite a notice without content.
-#, fuzzy
 msgid "Unknown notice."
-msgstr "Невідома примітка"
+msgstr "Невідомий допис."
 
 #. TRANS: Client exception thrown when trying favorite an already favorited notice.
 msgid "Already a favorite."
@@ -3110,9 +3109,8 @@ msgstr "Потрібна URL-адреса."
 msgid "Could not create application."
 msgstr "Не вдалося створити додаток."
 
-#, fuzzy
 msgid "Invalid image."
-msgstr "Недійсний розмір."
+msgstr "Неприпустиме зображення."
 
 #. TRANS: Title for form to create a group.
 msgid "New group"
@@ -3400,7 +3398,6 @@ msgstr ""
 "приватно."
 
 #. TRANS: Title for page where to change password.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Change password"
 msgstr "Змінити пароль"
@@ -3428,7 +3425,6 @@ msgid "6 or more characters."
 msgstr "6 або більше знаків."
 
 #. TRANS: Field label on page where to change password. In this field the new password should be typed a second time.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Confirm"
 msgstr "Підтвердити"
@@ -3439,7 +3435,6 @@ msgid "Same as password above."
 msgstr "Такий само, як і пароль вище."
 
 #. TRANS: Button text on page where to change password.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Change"
 msgstr "Змінити"
@@ -3452,9 +3447,8 @@ msgid "Passwords don't match."
 msgstr "Паролі не співпадають."
 
 #. TRANS: Form validation error on page where to change password.
-#, fuzzy
 msgid "Incorrect old password."
-msgstr "Старий пароль є неточним"
+msgstr "Неправильний старий пароль."
 
 #. TRANS: Form validation error on page where to change password.
 msgid "Error saving user; invalid."
@@ -3541,12 +3535,11 @@ msgid "Fancy URLs"
 msgstr "Надзвичайні URL-адреси"
 
 #. TRANS: Field title in Paths admin panel.
-#, fuzzy
 msgid "Use fancy URLs (more readable and memorable)?"
-msgstr "Використовувати надзвичайні (найбільш пам’ятні і визначні) URL-адреси?"
+msgstr ""
+"Використовувати короткі (що їх легше прочитати і запам’ятати) URL-адреси?"
 
 #. TRANS: Fieldset legend in Paths admin panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Theme"
 msgstr "Тема"
@@ -3660,10 +3653,9 @@ msgid "Directory where attachments are located."
 msgstr "Директорія, в якій знаходяться вкладення."
 
 #. TRANS: Fieldset legend in Paths admin panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "SSL"
-msgstr "SSL-шифрування"
+msgstr "SSL"
 
 #. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
 msgid "Never"
@@ -3745,7 +3737,6 @@ msgid "Enabled"
 msgstr "Увімкнений"
 
 #. TRANS: Tab and title for plugins admin panel.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Plugins"
 msgstr "Додатки"
@@ -3776,7 +3767,7 @@ msgstr "Недійсний зміст допису."
 
 #. TRANS: Exception thrown if a notice's license is not compatible with the StatusNet site license.
 #. TRANS: %1$s is the notice license, %2$s is the StatusNet site's license.
-#, fuzzy, php-format
+#, php-format
 msgid "Notice license \"%1$s\" is not compatible with site license \"%2$s\"."
 msgstr "Ліцензія допису «%1$s» є несумісною з ліцензією сайту «%2$s»."
 
@@ -4631,18 +4622,6 @@ msgstr "Спільнота %s"
 msgid "%1$s group, page %2$d"
 msgstr "Спільнота %1$s, сторінка %2$d"
 
-#. TRANS: Label for group description or group note (dt). Text hidden by default.
-msgid "Note"
-msgstr "Зауваження"
-
-#. TRANS: Label for group aliases (dt). Text hidden by default.
-msgid "Aliases"
-msgstr "Додаткові імена"
-
-#. TRANS: Group actions header (h2). Text hidden by default.
-msgid "Group actions"
-msgstr "Дії спільноти"
-
 #. TRANS: Tooltip for feed link. %s is a group nickname.
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
@@ -4752,6 +4731,10 @@ msgstr "Повідомлення від %1$s на %2$s"
 
 msgid "Notice deleted."
 msgstr "Допис видалено."
+
+#, fuzzy
+msgid "Notice"
+msgstr "Дописи"
 
 #. TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
 #, php-format
@@ -5286,7 +5269,6 @@ msgstr "Немає ID аргументу."
 msgid "Tag %s"
 msgstr "Позначити %s"
 
-#. TRANS: H2 for user profile information.
 msgid "User profile"
 msgstr "Профіль користувача."
 
@@ -5995,6 +5977,49 @@ msgstr "Не вдається знайти XRD для %s."
 #, php-format
 msgid "No AtomPub API service for %s."
 msgstr "Немає послуги AtomPub API для %s."
+
+#. TRANS: H2 for user actions in a profile.
+#. TRANS: H2 for entity actions in a profile.
+msgid "User actions"
+msgstr "Діяльність користувача"
+
+#. TRANS: Text shown in user profile of not yet compeltely deleted users.
+msgid "User deletion in progress..."
+msgstr "Видалення користувача у процесі..."
+
+#. TRANS: Link title for link on user profile.
+msgid "Edit profile settings"
+msgstr "Налаштування профілю"
+
+#. TRANS: Link text for link on user profile.
+msgid "Edit"
+msgstr "Правка"
+
+#. TRANS: Link title for link on user profile.
+msgid "Send a direct message to this user"
+msgstr "Надіслати пряме повідомлення цьому користувачеві"
+
+#. TRANS: Link text for link on user profile.
+msgid "Message"
+msgstr "Повідомлення"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "Moderate"
+msgstr "Модерувати"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "User role"
+msgstr "Роль користувача"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Administrator"
+msgstr "Адміністратор"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Moderator"
+msgstr "Модератор"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #, php-format
@@ -6721,82 +6746,172 @@ msgstr[0] "Ви є учасником спільноти:"
 msgstr[1] "Ви є учасником таких спільнот:"
 msgstr[2] "Ви є учасником таких спільнот:"
 
-#. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"groups - lists the groups you have joined\n"
-"subscriptions - list the people you follow\n"
-"subscribers - list the people that follow you\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"lose <nickname> - force user to stop following you\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"repeat #<notice_id> - repeat a notice with a given id\n"
-"repeat <nickname> - repeat the last notice from user\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
+#. TRANS: Header line of help text for commands.
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "Commands:"
+msgstr "Результати команди"
+
+#. TRANS: Help message for IM/SMS command "on"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn on notifications"
+msgstr "Не можна увімкнути сповіщення."
+
+#. TRANS: Help message for IM/SMS command "off"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn off notifications"
+msgstr "Не можна вимкнути сповіщення."
+
+#. TRANS: Help message for IM/SMS command "help"
+msgctxt "COMMANDHELP"
+msgid "show this help"
 msgstr ""
-"Команди:\n"
-"on — увімкнути сповіщення\n"
-"off — вимкнути сповіщення\n"
-"help — список команд\n"
-"follow <nickname> — підписатись до користувача\n"
-"groups — спільноти, до яких ви входите\n"
-"subscriptions — користувачі, до яких ви підписані\n"
-"subscribers — користувачі, які підписані до вас\n"
-"leave <nickname> — відписатись від користувача\n"
-"d <nickname> <text> — надіслати особисте повідомлення\n"
-"get <nickname> — отримати останній допис користувача\n"
-"whois <nickname> — інфо про користувача\n"
-"fav <nickname> — додати останній допис користувача до обраних\n"
-"fav #<notice_id> — додати допис до обраних\n"
-"reply #<notice_id> — відповісти на допис\n"
-"reply <nickname> — відповісти на останній допис користувача\n"
-"join <group> — приєднатися до спільноти\n"
-"login — отримати посилання входу до веб-інтерфейсу\n"
-"drop <group> — залишити спільноту\n"
-"stats — отримати статистику\n"
-"stop — те саме що і 'off'\n"
-"quit — те саме що і 'off'\n"
-"sub <nickname> — те саме що і 'follow'\n"
-"unsub <nickname> — те саме що і 'leave'\n"
-"last <nickname> — те саме що і 'get'\n"
-"on <nickname> — наразі не виконується\n"
-"off <nickname> — наразі не виконується\n"
-"nudge <nickname> — «розштовхати»\n"
-"invite <phone number> — наразі не виконується\n"
-"track <word> — наразі не виконується\n"
-"untrack <word> — наразі не виконується\n"
-"track off — наразі не виконується\n"
-"untrack all — наразі не виконується\n"
-"tracks — наразі не виконується\n"
-"tracking — наразі не виконується\n"
+
+#. TRANS: Help message for IM/SMS command "follow <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "subscribe to user"
+msgstr "Підписатись до цього користувача"
+
+#. TRANS: Help message for IM/SMS command "groups"
+msgctxt "COMMANDHELP"
+msgid "lists the groups you have joined"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscriptions"
+msgctxt "COMMANDHELP"
+msgid "list the people you follow"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscribers"
+msgctxt "COMMANDHELP"
+msgid "list the people that follow you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "leave <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "unsubscribe from user"
+msgstr "Відписатись від цього користувача"
+
+#. TRANS: Help message for IM/SMS command "d <nickname> <text>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "direct message to user"
+msgstr "Пряме повідомлення до %s"
+
+#. TRANS: Help message for IM/SMS command "get <nickname>"
+msgctxt "COMMANDHELP"
+msgid "get last notice from user"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "whois <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "get profile info on user"
+msgstr "Віддалений профіль не є спільнотою!"
+
+#. TRANS: Help message for IM/SMS command "lose <nickname>"
+msgctxt "COMMANDHELP"
+msgid "force user to stop following you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav <nickname>"
+msgctxt "COMMANDHELP"
+msgid "add user's last notice as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "add notice with the given id as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "repeat a notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "repeat the last notice from user"
+msgstr "Повторити цей допис"
+
+#. TRANS: Help message for IM/SMS command "reply #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "reply to notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "reply <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "reply to the last notice from user"
+msgstr "Відповісти на цей допис"
+
+#. TRANS: Help message for IM/SMS command "join <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "join group"
+msgstr "Невідома спільнота."
+
+#. TRANS: Help message for IM/SMS command "login"
+msgctxt "COMMANDHELP"
+msgid "Get a link to login to the web interface"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "drop <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "leave group"
+msgstr "Видалити спільноту"
+
+#. TRANS: Help message for IM/SMS command "stats"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "get your stats"
+msgstr "Оновити свій статус..."
+
+#. TRANS: Help message for IM/SMS command "stop"
+#. TRANS: Help message for IM/SMS command "quit"
+msgctxt "COMMANDHELP"
+msgid "same as 'off'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "sub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'follow'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "unsub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'leave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "last <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'get'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "on <nickname>"
+#. TRANS: Help message for IM/SMS command "off <nickname>"
+#. TRANS: Help message for IM/SMS command "invite <phone number>"
+#. TRANS: Help message for IM/SMS command "track <word>"
+#. TRANS: Help message for IM/SMS command "untrack <word>"
+#. TRANS: Help message for IM/SMS command "track off"
+#. TRANS: Help message for IM/SMS command "untrack all"
+#. TRANS: Help message for IM/SMS command "tracks"
+#. TRANS: Help message for IM/SMS command "tracking"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "not yet implemented."
+msgstr "Виконання команди ще не завершено."
+
+#. TRANS: Help message for IM/SMS command "nudge <nickname>"
+msgctxt "COMMANDHELP"
+msgid "remind a user to update."
+msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 msgid "No configuration file found."
@@ -6970,6 +7085,9 @@ msgid ""
 msgstr ""
 "Розташування спільноти, на кшталт «Місто, область (або регіон), країна»."
 
+msgid "Aliases"
+msgstr "Додаткові імена"
+
 #, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
@@ -7053,6 +7171,10 @@ msgstr "Додати або редагувати логотип %s"
 msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
 msgstr "Додати або редагувати дизайн %s"
+
+#. TRANS: Group actions header (h2). Text hidden by default.
+msgid "Group actions"
+msgstr "Дії спільноти"
 
 #. TRANS: Title for groups with the most members section.
 msgid "Groups with most members"
@@ -7630,6 +7752,7 @@ msgstr "Надіслати допис"
 msgid "What's up, %s?"
 msgstr "Що нового, %s?"
 
+#. TRANS: Input label in notice form for adding an attachment.
 msgid "Attach"
 msgstr "Вкласти"
 
@@ -7698,7 +7821,7 @@ msgid "Notice repeated"
 msgstr "Допис повторили"
 
 msgid "Update your status..."
-msgstr ""
+msgstr "Оновити свій статус..."
 
 msgid "Nudge this user"
 msgstr "«Розштовхати» користувача"
@@ -8089,52 +8212,6 @@ msgstr "Відписатись"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "Користувач %1$s (%2$d) не має профілю."
 
-msgid "Edit Avatar"
-msgstr "Аватара"
-
-#. TRANS: H2 for user actions in a profile.
-#. TRANS: H2 for entity actions in a profile.
-msgid "User actions"
-msgstr "Діяльність користувача"
-
-#. TRANS: Text shown in user profile of not yet compeltely deleted users.
-msgid "User deletion in progress..."
-msgstr "Видалення користувача у процесі..."
-
-#. TRANS: Link title for link on user profile.
-msgid "Edit profile settings"
-msgstr "Налаштування профілю"
-
-#. TRANS: Link text for link on user profile.
-msgid "Edit"
-msgstr "Правка"
-
-#. TRANS: Link title for link on user profile.
-msgid "Send a direct message to this user"
-msgstr "Надіслати пряме повідомлення цьому користувачеві"
-
-#. TRANS: Link text for link on user profile.
-msgid "Message"
-msgstr "Повідомлення"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "Moderate"
-msgstr "Модерувати"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "User role"
-msgstr "Роль користувача"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Administrator"
-msgstr "Адміністратор"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Moderator"
-msgstr "Модератор"
-
 msgid "Not allowed to log in."
 msgstr "Вхід до системи не дозволено."
 
@@ -8212,3 +8289,85 @@ msgstr "Неправильний XML, корінь XRD відсутній."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "Отримання резервної копії файлу «%s»."
+
+#~ msgid "Note"
+#~ msgstr "Зауваження"
+
+#~ msgid ""
+#~ "Commands:\n"
+#~ "on - turn on notifications\n"
+#~ "off - turn off notifications\n"
+#~ "help - show this help\n"
+#~ "follow <nickname> - subscribe to user\n"
+#~ "groups - lists the groups you have joined\n"
+#~ "subscriptions - list the people you follow\n"
+#~ "subscribers - list the people that follow you\n"
+#~ "leave <nickname> - unsubscribe from user\n"
+#~ "d <nickname> <text> - direct message to user\n"
+#~ "get <nickname> - get last notice from user\n"
+#~ "whois <nickname> - get profile info on user\n"
+#~ "lose <nickname> - force user to stop following you\n"
+#~ "fav <nickname> - add user's last notice as a 'fave'\n"
+#~ "fav #<notice_id> - add notice with the given id as a 'fave'\n"
+#~ "repeat #<notice_id> - repeat a notice with a given id\n"
+#~ "repeat <nickname> - repeat the last notice from user\n"
+#~ "reply #<notice_id> - reply to notice with a given id\n"
+#~ "reply <nickname> - reply to the last notice from user\n"
+#~ "join <group> - join group\n"
+#~ "login - Get a link to login to the web interface\n"
+#~ "drop <group> - leave group\n"
+#~ "stats - get your stats\n"
+#~ "stop - same as 'off'\n"
+#~ "quit - same as 'off'\n"
+#~ "sub <nickname> - same as 'follow'\n"
+#~ "unsub <nickname> - same as 'leave'\n"
+#~ "last <nickname> - same as 'get'\n"
+#~ "on <nickname> - not yet implemented.\n"
+#~ "off <nickname> - not yet implemented.\n"
+#~ "nudge <nickname> - remind a user to update.\n"
+#~ "invite <phone number> - not yet implemented.\n"
+#~ "track <word> - not yet implemented.\n"
+#~ "untrack <word> - not yet implemented.\n"
+#~ "track off - not yet implemented.\n"
+#~ "untrack all - not yet implemented.\n"
+#~ "tracks - not yet implemented.\n"
+#~ "tracking - not yet implemented.\n"
+#~ msgstr ""
+#~ "Команди:\n"
+#~ "on — увімкнути сповіщення\n"
+#~ "off — вимкнути сповіщення\n"
+#~ "help — список команд\n"
+#~ "follow <nickname> — підписатись до користувача\n"
+#~ "groups — спільноти, до яких ви входите\n"
+#~ "subscriptions — користувачі, до яких ви підписані\n"
+#~ "subscribers — користувачі, які підписані до вас\n"
+#~ "leave <nickname> — відписатись від користувача\n"
+#~ "d <nickname> <text> — надіслати особисте повідомлення\n"
+#~ "get <nickname> — отримати останній допис користувача\n"
+#~ "whois <nickname> — інфо про користувача\n"
+#~ "fav <nickname> — додати останній допис користувача до обраних\n"
+#~ "fav #<notice_id> — додати допис до обраних\n"
+#~ "reply #<notice_id> — відповісти на допис\n"
+#~ "reply <nickname> — відповісти на останній допис користувача\n"
+#~ "join <group> — приєднатися до спільноти\n"
+#~ "login — отримати посилання входу до веб-інтерфейсу\n"
+#~ "drop <group> — залишити спільноту\n"
+#~ "stats — отримати статистику\n"
+#~ "stop — те саме що і 'off'\n"
+#~ "quit — те саме що і 'off'\n"
+#~ "sub <nickname> — те саме що і 'follow'\n"
+#~ "unsub <nickname> — те саме що і 'leave'\n"
+#~ "last <nickname> — те саме що і 'get'\n"
+#~ "on <nickname> — наразі не виконується\n"
+#~ "off <nickname> — наразі не виконується\n"
+#~ "nudge <nickname> — «розштовхати»\n"
+#~ "invite <phone number> — наразі не виконується\n"
+#~ "track <word> — наразі не виконується\n"
+#~ "untrack <word> — наразі не виконується\n"
+#~ "track off — наразі не виконується\n"
+#~ "untrack all — наразі не виконується\n"
+#~ "tracks — наразі не виконується\n"
+#~ "tracking — наразі не виконується\n"
+
+#~ msgid "Edit Avatar"
+#~ msgstr "Аватара"

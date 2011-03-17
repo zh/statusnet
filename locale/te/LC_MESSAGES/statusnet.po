@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-11 18:15+0000\n"
-"PO-Revision-Date: 2011-03-11 18:17:29+0000\n"
+"POT-Creation-Date: 2011-03-17 09:47+0000\n"
+"PO-Revision-Date: 2011-03-17 09:49:58+0000\n"
 "Language-Team: Telugu <http://translatewiki.net/wiki/Portal:te>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r83703); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84120); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-03-08 01:25:01+0000\n"
+"X-POT-Import-Date: 2011-03-11 18:52:41+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -580,7 +580,7 @@ msgstr "వాడుకరి %1$sని %2$s గుంపు నుండి �
 msgid "%s's groups"
 msgstr "%s యొక్క గుంపులు"
 
-#. TRANS: Used as subtitle in check for group membership. %1$s is a user name, %2$s is the site name.
+#. TRANS: Used as subtitle in check for group membership. %1$s is the site name, %2$s is a user name.
 #, php-format
 msgid "%1$s groups %2$s is a member of."
 msgstr "%2$s సభ్యులుగా ఉన్న %2$s గుంపులు."
@@ -621,9 +621,8 @@ msgstr "పేరులో చిన్నబడి అక్షరాలు మ
 
 #. TRANS: API validation exception thrown when alias is the same as nickname.
 #. TRANS: Group create form validation error.
-#, fuzzy
 msgid "Alias cannot be the same as nickname."
-msgstr "మారుపేరు పేరుతో సమానంగా ఉండకూడదు."
+msgstr "మారుపేరు ముద్దుపేరూ ఒకటే కాకూడదు."
 
 #. TRANS: Client error displayed when uploading a media file has failed.
 msgid "Upload failed."
@@ -1244,9 +1243,8 @@ msgid "No file uploaded."
 msgstr "ఏ దస్త్రమూ ఎక్కింపబడలేదు."
 
 #. TRANS: Avatar upload form instruction after uploading a file.
-#, fuzzy
 msgid "Pick a square area of the image to be your avatar."
-msgstr "మీ అవతారానికి గానూ ఈ చిత్రం నుండి ఒక చతురస్రపు ప్రదేశాన్ని ఎంచుకోండి"
+msgstr "మీ అవతారంగా ఉండాల్సిన చతురస్రపు ప్రదేశాన్ని బొమ్మ నుండి ఎంచుకోండి."
 
 #. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
 #. TRANS: Server error displayed trying to crop an uploaded group logo that is no longer present.
@@ -4598,18 +4596,6 @@ msgstr "%s గుంపు"
 msgid "%1$s group, page %2$d"
 msgstr "%1$s గుంపు , %2$dవ పేజీ"
 
-#. TRANS: Label for group description or group note (dt). Text hidden by default.
-msgid "Note"
-msgstr "గమనిక"
-
-#. TRANS: Label for group aliases (dt). Text hidden by default.
-msgid "Aliases"
-msgstr "మారుపేర్లు"
-
-#. TRANS: Group actions header (h2). Text hidden by default.
-msgid "Group actions"
-msgstr "గుంపు చర్యలు"
-
 #. TRANS: Tooltip for feed link. %s is a group nickname.
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
@@ -4722,6 +4708,10 @@ msgstr "%2$sలో %1$sకి స్పందనలు!"
 
 msgid "Notice deleted."
 msgstr "నోటీసుని తొలగించాం."
+
+#, fuzzy
+msgid "Notice"
+msgstr "సందేశాలు"
 
 #. TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
 #, fuzzy, php-format
@@ -5252,7 +5242,6 @@ msgstr "జోడింపులు లేవు."
 msgid "Tag %s"
 msgstr "ట్యాగులు"
 
-#. TRANS: H2 for user profile information.
 msgid "User profile"
 msgstr "వాడుకరి ప్రొఫైలు"
 
@@ -5932,6 +5921,50 @@ msgstr ""
 #, php-format
 msgid "No AtomPub API service for %s."
 msgstr ""
+
+#. TRANS: H2 for user actions in a profile.
+#. TRANS: H2 for entity actions in a profile.
+msgid "User actions"
+msgstr "వాడుకరి చర్యలు"
+
+#. TRANS: Text shown in user profile of not yet compeltely deleted users.
+msgid "User deletion in progress..."
+msgstr "వాడుకరి తొలగింపు కొనసాగుతూంది..."
+
+#. TRANS: Link title for link on user profile.
+msgid "Edit profile settings"
+msgstr "ఫ్రొఫైలు అమరికలని మార్చు"
+
+#. TRANS: Link text for link on user profile.
+msgid "Edit"
+msgstr "మార్చు"
+
+#. TRANS: Link title for link on user profile.
+msgid "Send a direct message to this user"
+msgstr "ఈ వాడుకరికి ఒక నేరు సందేశాన్ని పంపించండి"
+
+#. TRANS: Link text for link on user profile.
+msgid "Message"
+msgstr "సందేశం"
+
+#. TRANS: Label text on user profile to select a user role.
+#, fuzzy
+msgid "Moderate"
+msgstr "సమన్వయకర్త"
+
+#. TRANS: Label text on user profile to select a user role.
+msgid "User role"
+msgstr "వాడుకరి పాత్ర"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Administrator"
+msgstr "నిర్వాహకులు"
+
+#. TRANS: Role that can be set for a user profile.
+msgctxt "role"
+msgid "Moderator"
+msgstr "సమన్వయకర్త"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #, php-format
@@ -6657,46 +6690,170 @@ msgid_plural "You are a member of these groups:"
 msgstr[0] "మీరు ఇప్పటికే లోనికి ప్రవేశించారు!"
 msgstr[1] "మీరు ఇప్పటికే లోనికి ప్రవేశించారు!"
 
-#. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
-msgid ""
-"Commands:\n"
-"on - turn on notifications\n"
-"off - turn off notifications\n"
-"help - show this help\n"
-"follow <nickname> - subscribe to user\n"
-"groups - lists the groups you have joined\n"
-"subscriptions - list the people you follow\n"
-"subscribers - list the people that follow you\n"
-"leave <nickname> - unsubscribe from user\n"
-"d <nickname> <text> - direct message to user\n"
-"get <nickname> - get last notice from user\n"
-"whois <nickname> - get profile info on user\n"
-"lose <nickname> - force user to stop following you\n"
-"fav <nickname> - add user's last notice as a 'fave'\n"
-"fav #<notice_id> - add notice with the given id as a 'fave'\n"
-"repeat #<notice_id> - repeat a notice with a given id\n"
-"repeat <nickname> - repeat the last notice from user\n"
-"reply #<notice_id> - reply to notice with a given id\n"
-"reply <nickname> - reply to the last notice from user\n"
-"join <group> - join group\n"
-"login - Get a link to login to the web interface\n"
-"drop <group> - leave group\n"
-"stats - get your stats\n"
-"stop - same as 'off'\n"
-"quit - same as 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
+#. TRANS: Header line of help text for commands.
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "Commands:"
+msgstr "ఆదేశ ఫలితాలు"
+
+#. TRANS: Help message for IM/SMS command "on"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn on notifications"
+msgstr "మీ నోటీసుని మీరే పునరావృతించలేరు."
+
+#. TRANS: Help message for IM/SMS command "off"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "turn off notifications"
+msgstr "మీ నోటీసుని మీరే పునరావృతించలేరు."
+
+#. TRANS: Help message for IM/SMS command "help"
+msgctxt "COMMANDHELP"
+msgid "show this help"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "follow <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "subscribe to user"
+msgstr "ఈ వాడుకరికి చందాచేరు"
+
+#. TRANS: Help message for IM/SMS command "groups"
+msgctxt "COMMANDHELP"
+msgid "lists the groups you have joined"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscriptions"
+msgctxt "COMMANDHELP"
+msgid "list the people you follow"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscribers"
+msgctxt "COMMANDHELP"
+msgid "list the people that follow you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "leave <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "unsubscribe from user"
+msgstr "ఈ వాడుకరి నుండి చందామాను"
+
+#. TRANS: Help message for IM/SMS command "d <nickname> <text>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "direct message to user"
+msgstr "%s కి నేరు సందేశాలు"
+
+#. TRANS: Help message for IM/SMS command "get <nickname>"
+msgctxt "COMMANDHELP"
+msgid "get last notice from user"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "whois <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "get profile info on user"
+msgstr "ప్రొఫైలు సమాచారం"
+
+#. TRANS: Help message for IM/SMS command "lose <nickname>"
+msgctxt "COMMANDHELP"
+msgid "force user to stop following you"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav <nickname>"
+msgctxt "COMMANDHELP"
+msgid "add user's last notice as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "fav #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "add notice with the given id as a 'fave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "repeat a notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "repeat <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "repeat the last notice from user"
+msgstr "ఈ నోటీసుని పునరావృతించు"
+
+#. TRANS: Help message for IM/SMS command "reply #<notice_id>"
+msgctxt "COMMANDHELP"
+msgid "reply to notice with a given id"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "reply <nickname>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "reply to the last notice from user"
+msgstr "ఈ నోటీసుపై స్పందించండి"
+
+#. TRANS: Help message for IM/SMS command "join <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "join group"
+msgstr "గుర్తుతెలియని గుంపు."
+
+#. TRANS: Help message for IM/SMS command "login"
+msgctxt "COMMANDHELP"
+msgid "Get a link to login to the web interface"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "drop <group>"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "leave group"
+msgstr "గుంపు తొలగింపు"
+
+#. TRANS: Help message for IM/SMS command "stats"
+msgctxt "COMMANDHELP"
+msgid "get your stats"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "stop"
+#. TRANS: Help message for IM/SMS command "quit"
+msgctxt "COMMANDHELP"
+msgid "same as 'off'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "sub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'follow'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "unsub <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'leave'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "last <nickname>"
+msgctxt "COMMANDHELP"
+msgid "same as 'get'"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "on <nickname>"
+#. TRANS: Help message for IM/SMS command "off <nickname>"
+#. TRANS: Help message for IM/SMS command "invite <phone number>"
+#. TRANS: Help message for IM/SMS command "track <word>"
+#. TRANS: Help message for IM/SMS command "untrack <word>"
+#. TRANS: Help message for IM/SMS command "track off"
+#. TRANS: Help message for IM/SMS command "untrack all"
+#. TRANS: Help message for IM/SMS command "tracks"
+#. TRANS: Help message for IM/SMS command "tracking"
+#, fuzzy
+msgctxt "COMMANDHELP"
+msgid "not yet implemented."
+msgstr "క్షమించండి, ఈ ఆదేశం ఇంకా అమలుపరచబడలేదు."
+
+#. TRANS: Help message for IM/SMS command "nudge <nickname>"
+msgctxt "COMMANDHELP"
+msgid "remind a user to update."
 msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
@@ -6879,6 +7036,9 @@ msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\"."
 msgstr "గుంపు యొక్క ప్రాంతం, ఉంటే, \"నగరం, రాష్ట్రం (లేదా ప్రాంతం), దేశం\""
 
+msgid "Aliases"
+msgstr "మారుపేర్లు"
+
 #, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
@@ -6955,6 +7115,10 @@ msgstr ""
 msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
 msgstr ""
+
+#. TRANS: Group actions header (h2). Text hidden by default.
+msgid "Group actions"
+msgstr "గుంపు చర్యలు"
 
 #. TRANS: Title for groups with the most members section.
 msgid "Groups with most members"
@@ -7510,6 +7674,7 @@ msgstr "సైటు గమనిక"
 msgid "What's up, %s?"
 msgstr "%s, ఏమిటి సంగతులు?"
 
+#. TRANS: Input label in notice form for adding an attachment.
 msgid "Attach"
 msgstr "జోడించు"
 
@@ -7967,53 +8132,6 @@ msgstr "చందామాను"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "వాడుకరికి ప్రొఫైలు లేదు."
 
-msgid "Edit Avatar"
-msgstr "అవతారాన్ని మార్చు"
-
-#. TRANS: H2 for user actions in a profile.
-#. TRANS: H2 for entity actions in a profile.
-msgid "User actions"
-msgstr "వాడుకరి చర్యలు"
-
-#. TRANS: Text shown in user profile of not yet compeltely deleted users.
-msgid "User deletion in progress..."
-msgstr "వాడుకరి తొలగింపు కొనసాగుతూంది..."
-
-#. TRANS: Link title for link on user profile.
-msgid "Edit profile settings"
-msgstr "ఫ్రొఫైలు అమరికలని మార్చు"
-
-#. TRANS: Link text for link on user profile.
-msgid "Edit"
-msgstr "మార్చు"
-
-#. TRANS: Link title for link on user profile.
-msgid "Send a direct message to this user"
-msgstr "ఈ వాడుకరికి ఒక నేరు సందేశాన్ని పంపించండి"
-
-#. TRANS: Link text for link on user profile.
-msgid "Message"
-msgstr "సందేశం"
-
-#. TRANS: Label text on user profile to select a user role.
-#, fuzzy
-msgid "Moderate"
-msgstr "సమన్వయకర్త"
-
-#. TRANS: Label text on user profile to select a user role.
-msgid "User role"
-msgstr "వాడుకరి పాత్ర"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Administrator"
-msgstr "నిర్వాహకులు"
-
-#. TRANS: Role that can be set for a user profile.
-msgctxt "role"
-msgid "Moderator"
-msgstr "సమన్వయకర్త"
-
 msgid "Not allowed to log in."
 msgstr "ప్రవేశించడానికి అనుమతి లేదు."
 
@@ -8087,3 +8205,9 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
+
+#~ msgid "Note"
+#~ msgstr "గమనిక"
+
+#~ msgid "Edit Avatar"
+#~ msgstr "అవతారాన్ని మార్చు"
