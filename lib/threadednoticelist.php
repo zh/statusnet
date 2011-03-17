@@ -181,8 +181,10 @@ class ThreadedNoticeListItem extends NoticeListItem
                 $notices[] = clone($notice); // *grumble* inefficient as hell
             }
 
+            $this->out->elementStart('ul', 'notices threaded-replies xoxo');
+            $item = new ThreadedNoticeListFavesItem($this->notice, $this->out);
+            $hasFaves = $item->show();
             if ($notices) {
-                $this->out->elementStart('ul', 'notices threaded-replies xoxo');
                 if ($moreCutoff) {
                     $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
                     $item->show();
@@ -191,14 +193,16 @@ class ThreadedNoticeListItem extends NoticeListItem
                     $item = new ThreadedNoticeListSubItem($notice, $this->out);
                     $item->show();
                 }
+            }
+            if ($notices || $hasFaves) {
                 // @fixme do a proper can-post check that's consistent
                 // with the JS side
                 if (common_current_user()) {
-                    $item = new ThreadedNoticeListReplyItem($notice, $this->out);
+                    $item = new ThreadedNoticeListReplyItem($this->notice, $this->out);
                     $item->show();
                 }
-                $this->out->elementEnd('ul');
             }
+            $this->out->elementEnd('ul');
         }
 
         parent::showEnd();
@@ -226,6 +230,13 @@ class ThreadedNoticeListSubItem extends NoticeListItem
     function showContext()
     {
         //
+    }
+
+    function showEnd()
+    {
+        $item = new ThreadedNoticeListInlineFavesItem($this->notice, $this->out);
+        $hasFaves = $item->show();
+        parent::showEnd();
     }
 }
 
@@ -315,5 +326,100 @@ class ThreadedNoticeListReplyItem extends NoticeListItem
     {
         $this->out->element('input', array('class' => 'placeholder',
                                            'value' => _('Write a reply...')));
+    }
+}
+
+/**
+ * Placeholder for showing faves...
+ */
+class ThreadedNoticeListFavesItem extends NoticeListItem
+{
+    function show()
+    {
+        // @fixme caching & scalability!
+        $fave = new Fave();
+        $fave->notice_id = $this->notice->id;
+        $fave->find();
+
+        $cur = common_current_user();
+        $profiles = array();
+        $you = false;
+        while ($fave->fetch()) {
+            if ($cur && $cur->id == $fave->user_id) {
+                $you = true;
+            } else {
+                $profiles[] = $fave->user_id;
+            }
+        }
+
+        $links = array();
+        if ($you) {
+            $links[] = _m('FAVELIST', 'You');
+        }
+        foreach ($profiles as $id) {
+            $profile = Profile::staticGet('id', $id);
+            if ($profile) {
+                $links[] = sprintf('<a href="%s" title="%s">%s</a>',
+                                   htmlspecialchars($profile->profileurl),
+                                   htmlspecialchars($profile->getBestName()),
+                                   htmlspecialchars($profile->nickname));
+            }
+        }
+
+        if ($links) {
+            $count = count($links);
+            if ($count == 1 && $you) {
+                // darn first person being different from third person!
+                $msg = _m('FAVELIST', 'You have favored this notice.');
+            } else {
+                // if 'you' is the first item, 
+                $msg = _m('FAVELIST', '%1$s has favored this notice.', '%1$s have favored this notice.', $count);
+            }
+            $out = sprintf($msg, $this->magicList($links));
+
+            $this->showStart();
+            $this->out->raw($out);
+            $this->showEnd();
+            return $count;
+        } else {
+            return 0;
+        }
+    }
+
+    function showStart()
+    {
+        $this->out->elementStart('li', array('class' => 'notice-data notice-faves'));
+    }
+
+    function showEnd()
+    {
+        $this->out->elementEnd('li');
+    }
+
+    function magicList($items)
+    {
+        if (count($items) == 0) {
+            return '';
+        } else if (count($items) == 1) {
+            return $items[0];
+        } else {
+            $first = array_slice($items, 0, -1);
+            $last = array_slice($items, -1, 1);
+            // TRANS For building a list such as "You, bob, mary and 5 others have favored this notice".
+            return sprintf(_m('FAVELIST', '%1$s and %2$s'), implode(', ', $first), implode(', ', $last));
+        }
+    }
+}
+
+class ThreadedNoticeListInlineFavesItem extends ThreadedNoticeListFavesItem
+{
+    function showStart()
+    {
+        $this->out->elementStart('div', array('class' => 'entry-content notice-faves'));
+    }
+
+    function showEnd()
+    {
+        $this->out->elementEnd('div');
     }
 }
