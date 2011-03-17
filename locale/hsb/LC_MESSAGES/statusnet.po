@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
-"PO-Revision-Date: 2011-03-17 09:49:39+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:38:02+0000\n"
 "Language-Team: Upper Sorbian <http://translatewiki.net/wiki/Portal:hsb>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : (n%100==3 || "
 "n%100==4) ? 2 : 3)\n"
-"X-POT-Import-Date: 2011-03-11 18:52:41+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -3782,6 +3782,8 @@ msgstr "Mjeno rěče je předołhe (maks. 50 znamješkow)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "Njepłaćiwa taflička: \"%s\"."
@@ -5066,13 +5068,9 @@ msgid "Tag user"
 msgstr ""
 
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "Njepłaćiwa taflička: \"%s\""
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -7956,8 +7954,5 @@ msgstr "Njepłaćiwy XML, korjeń XRD faluje."
 msgid "Getting backup from file '%s'."
 msgstr "Wobstaruje so zawěsćenje z dataje \"%s\"-"
 
-#~ msgid "Note"
-#~ msgstr "Přispomnjenka"
-
-#~ msgid "Edit Avatar"
-#~ msgstr "Awatar wobdźěłać"
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "Njepłaćiwa taflička: \"%s\""

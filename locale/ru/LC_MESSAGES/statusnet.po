@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
-"PO-Revision-Date: 2011-03-17 09:49:55+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:38:18+0000\n"
 "Language-Team: Russian <http://translatewiki.net/wiki/Portal:ru>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,7 +29,7 @@ msgstr ""
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2011-03-11 18:52:41+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1141,42 +1141,38 @@ msgid "No such group."
 msgstr "Нет такой группы."
 
 #. TRANS: Client exception thrown when trying to show membership of a non-subscribed group
-#, fuzzy
 msgid "Not a member."
-msgstr "Все участники"
+msgstr "Не является участником."
 
 #. TRANS: Client exception thrown when deleting someone else's membership.
-#, fuzzy
 msgid "Cannot delete someone else's membership."
-msgstr "Невозможно удалить подписку на самого себя."
+msgstr "Не удаётся удалить членство другого пользователя."
 
 #. TRANS: Client exception thrown when trying to display a subscription for a non-existing profile ID.
 #. TRANS: %d is the non-existing profile ID number.
-#, fuzzy, php-format
+#, php-format
 msgid "No such profile id: %d."
-msgstr "Нет такого профиля."
+msgstr "Нет такого профиля: %d."
 
 #. TRANS: Client exception thrown when trying to display a subscription for a non-subscribed profile ID.
 #. TRANS: %1$d is the non-existing subscriber ID number, $2$d is the ID of the profile that was not subscribed to.
-#, fuzzy, php-format
+#, php-format
 msgid "Profile %1$d not subscribed to profile %2$d."
-msgstr "Вы не подписаны на этот профиль."
+msgstr "Профиль %1$d не подписан на профиль %2$d."
 
 #. TRANS: Client exception thrown when trying to delete a subscription of another user.
-#, fuzzy
 msgid "Cannot delete someone else's subscription."
-msgstr "Невозможно удалить подписку на самого себя."
+msgstr "Невозможно удалить подписку у другого пользователя."
 
 #. TRANS: Subtitle for Atom subscription feed.
 #. TRANS: %1$s is a user nickname, %s$s is the StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "People %1$s has subscribed to on %2$s"
-msgstr "Люди подписанные на %s"
+msgstr "%1$s подписаны на %2$s"
 
 #. TRANS: Client error displayed when not using the follow verb.
-#, fuzzy
 msgid "Can only handle Follow activities."
-msgstr "Возможна обработка только POST-запросов."
+msgstr "Возможна обработка только Follow-запросов."
 
 #. TRANS: Client exception thrown when subscribing to an object that is not a person.
 msgid "Can only follow people."
@@ -1184,15 +1180,15 @@ msgstr "Можно следить только за людьми."
 
 #. TRANS: Client exception thrown when subscribing to a non-existing profile.
 #. TRANS: %s is the unknown profile ID.
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown profile %s."
-msgstr "Неподдерживаемый тип файла"
+msgstr "Неизвестный профиль %s."
 
 #. TRANS: Client error displayed trying to subscribe to an already subscribed profile.
 #. TRANS: %s is the profile the user already has a subscription on.
-#, fuzzy, php-format
+#, php-format
 msgid "Already subscribed to %s."
-msgstr "Уже подписаны!"
+msgstr "Подписка на %s уже существует."
 
 #. TRANS: Client error displayed trying to get a non-existing attachment.
 msgid "No such attachment."
@@ -1277,9 +1273,8 @@ msgid "No file uploaded."
 msgstr "Файл не загружен."
 
 #. TRANS: Avatar upload form instruction after uploading a file.
-#, fuzzy
 msgid "Pick a square area of the image to be your avatar."
-msgstr "Подберите нужный квадратный участок для вашей аватары"
+msgstr "Отметьте квадратный участок на изображении для вашей аватары."
 
 #. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
 #. TRANS: Server error displayed trying to crop an uploaded group logo that is no longer present.
@@ -1304,13 +1299,14 @@ msgid "Backup account"
 msgstr "Резервное копирование учетной записи"
 
 #. TRANS: Client exception thrown when trying to backup an account while not logged in.
-#, fuzzy
 msgid "Only logged-in users can backup their account."
-msgstr "Повторять записи могут только вошедшие пользователи."
+msgstr ""
+"Создавать резервную копию своей учётной записи могут только вошедшие "
+"пользователи."
 
 #. TRANS: Client exception thrown when trying to backup an account without having backup rights.
 msgid "You may not backup your account."
-msgstr ""
+msgstr "В не можете создавать резервную копию своей учётной записи."
 
 #. TRANS: Information displayed on the backup account page.
 msgid ""
@@ -1320,17 +1316,21 @@ msgid ""
 "addresses is not backed up. Additionally, uploaded files and direct messages "
 "are not backed up."
 msgstr ""
+"Вы можете создать резервную копию данных вышей учётной записи в формате <a "
+"href=\"http://activitystrea.ms/\">Activity Streams</a>. Эта возможность "
+"является экспериментальной и результат копирования не будет полным; личные "
+"данные, такие как email или IM-адрес не войдут в резервную копию. К тому же, "
+"прикрепленные к вашим сообщениям файлы и прямые сообщения также не войдут в "
+"резервную копию."
 
 #. TRANS: Submit button to backup an account on the backup account page.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Backup"
 msgstr "Создать резервную копию"
 
 #. TRANS: Title for submit button to backup an account on the backup account page.
-#, fuzzy
 msgid "Backup your account."
-msgstr "Резервное копирование учетной записи"
+msgstr "Создать резервную копию вашей учётной записи."
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 msgid "You already blocked that user."
@@ -1363,9 +1363,8 @@ msgid "No"
 msgstr "Нет"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
-#, fuzzy
 msgid "Do not block this user."
-msgstr "Не блокировать этого пользователя"
+msgstr "Не блокировать этого пользователя."
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
@@ -1378,9 +1377,8 @@ msgid "Yes"
 msgstr "Да"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
-#, fuzzy
 msgid "Block this user."
-msgstr "Заблокировать пользователя."
+msgstr "Заблокировать этого пользователя."
 
 #. TRANS: Server error displayed when blocking a user fails.
 msgid "Failed to save block information."
@@ -1446,13 +1444,12 @@ msgstr "Этот адрес уже подтверждён."
 msgid "Couldn't update user."
 msgstr "Не удаётся обновить пользователя."
 
-#, fuzzy
 msgid "Couldn't update user im preferences."
-msgstr "Не удаётся обновить пользовательскую запись."
+msgstr "Не удаётся обновить настройки сервиса мгновенных сообщений."
 
-#, fuzzy
 msgid "Couldn't insert user im preferences."
-msgstr "Не удаётся вставить новую подписку."
+msgstr ""
+"Не удаётся поместить настройки сервиса мгновенных сообщений в базу данных."
 
 #. TRANS: Server error displayed when an address confirmation code deletion from the
 #. TRANS: database fails in the contact address confirmation action.
@@ -1479,14 +1476,14 @@ msgid "Notices"
 msgstr "Записи"
 
 #. TRANS: Client exception displayed trying to delete a user account while not logged in.
-#, fuzzy
 msgid "Only logged-in users can delete their account."
-msgstr "Повторять записи могут только вошедшие пользователи."
+msgstr ""
+"Только пользователи, находящиеся в системе, могут удалить свою учётную "
+"запись."
 
 #. TRANS: Client exception displayed trying to delete a user account without have the rights to do that.
-#, fuzzy
 msgid "You cannot delete your account."
-msgstr "Вы не можете удалять пользователей."
+msgstr "Вы не можете удалить свою учётную запись."
 
 #. TRANS: Confirmation text for user deletion. The user has to type this exactly the same, including punctuation.
 msgid "I am sure."
@@ -1496,24 +1493,24 @@ msgstr "Я уверен."
 #. TRANS: %s is the text that needs to be input.
 #, php-format
 msgid "You must write \"%s\" exactly in the box."
-msgstr ""
+msgstr "Вы должны написать «%s» прямо в этом поле."
 
 #. TRANS: Confirmation that a user account has been deleted.
-#, fuzzy
 msgid "Account deleted."
-msgstr "Аватар удалён."
+msgstr "Учётная запись удалена."
 
 #. TRANS: Page title for page on which a user account can be deleted.
 #. TRANS: Option in profile settings to delete the account of the currently logged in user.
-#, fuzzy
 msgid "Delete account"
-msgstr "Создать новый аккаунт"
+msgstr "Удаление учётной записи"
 
 #. TRANS: Form text for user deletion form.
 msgid ""
 "This will <strong>permanently delete</strong> your account data from this "
 "server."
 msgstr ""
+"Это действие приведёт <strong>удалению</strong> всех данных вашей учётной "
+"записи с этого сервера <strong>без возможности восстановления</strong>."
 
 #. TRANS: Additional form text for user deletion form shown if a user has account backup rights.
 #. TRANS: %s is a URL to the backup page.
@@ -1522,6 +1519,8 @@ msgid ""
 "You are strongly advised to <a href=\"%s\">back up your data</a> before "
 "deletion."
 msgstr ""
+"Настоятельно советуем вам <a href=\"%s\">сделать резервную копию</a> данных "
+"вашей учётной записи, прежде чем удалять её с сервера."
 
 #. TRANS: Field label for delete account confirmation entry.
 #. TRANS: Field label for password reset form where the password has to be typed again.
@@ -1530,14 +1529,14 @@ msgstr "Подтверждение"
 
 #. TRANS: Input title for the delete account field.
 #. TRANS: %s is the text that needs to be input.
-#, fuzzy, php-format
+#, php-format
 msgid "Enter \"%s\" to confirm that you want to delete your account."
-msgstr "Вы не можете удалять пользователей."
+msgstr ""
+"Введите «%s» для подтверждения своего согласия на удаление учётной записи."
 
 #. TRANS: Button title for user account deletion.
-#, fuzzy
 msgid "Permanently delete your account"
-msgstr "Вы не можете удалять пользователей."
+msgstr "Навсегда удалить учётную запись"
 
 #. TRANS: Client error displayed trying to delete an application while not logged in.
 msgid "You must be logged in to delete an application."
@@ -1572,14 +1571,12 @@ msgstr ""
 "пользователей."
 
 #. TRANS: Submit button title for 'No' when deleting an application.
-#, fuzzy
 msgid "Do not delete this application."
-msgstr "Не удаляйте это приложение"
+msgstr "Не удалять это приложение."
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
-#, fuzzy
 msgid "Delete this application."
-msgstr "Удалить это приложение"
+msgstr "Удалить это приложение."
 
 #. TRANS: Client error when trying to delete group while not logged in.
 msgid "You must be logged in to delete a group."
@@ -1623,14 +1620,12 @@ msgstr ""
 "записи в этой группе по прежнему останутся в личных лентах."
 
 #. TRANS: Submit button title for 'No' when deleting a group.
-#, fuzzy
 msgid "Do not delete this group."
-msgstr "Не удаляйте эту группу"
+msgstr "Не удалять эту группу."
 
 #. TRANS: Submit button title for 'Yes' when deleting a group.
-#, fuzzy
 msgid "Delete this group."
-msgstr "Удалить эту группу"
+msgstr "Удалить эту группу."
 
 #. TRANS: Error message displayed trying to delete a notice while not logged in.
 #. TRANS: Client error displayed when trying to remove a favorite while not logged in.
@@ -1668,14 +1663,12 @@ msgid "Are you sure you want to delete this notice?"
 msgstr "Вы уверены, что хотите удалить эту запись?"
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
-#, fuzzy
 msgid "Do not delete this notice."
-msgstr "Не удалять эту запись"
+msgstr "Не удалять эту запись."
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#, fuzzy
 msgid "Delete this notice."
-msgstr "Удалить эту запись"
+msgstr "Удалить эту запись."
 
 #. TRANS: Client error displayed when trying to delete a user without having the right to delete users.
 msgid "You cannot delete users."
@@ -1686,10 +1679,9 @@ msgid "You can only delete local users."
 msgstr "Вы можете удалять только внутренних пользователей."
 
 #. TRANS: Title of delete user page.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Delete user"
-msgstr "Удалить пользователя"
+msgstr "Удаление пользователя"
 
 #. TRANS: Fieldset legend on delete user page.
 msgid "Delete user"
@@ -1704,14 +1696,12 @@ msgstr ""
 "всех данных о пользователе из базы данных без возможности восстановления."
 
 #. TRANS: Submit button title for 'No' when deleting a user.
-#, fuzzy
 msgid "Do not delete this user."
-msgstr "Не удаляйте эту группу"
+msgstr "Не удалять этого пользователя."
 
 #. TRANS: Submit button title for 'Yes' when deleting a user.
-#, fuzzy
 msgid "Delete this user."
-msgstr "Удалить этого пользователя"
+msgstr "Удалить этого пользователя."
 
 #. TRANS: Message used as title for design settings for the site.
 msgid "Design"
@@ -1806,9 +1796,8 @@ msgid "Tile background image"
 msgstr "Растянуть фоновое изображение"
 
 #. TRANS: Fieldset legend for theme colors.
-#, fuzzy
 msgid "Change colors"
-msgstr "Изменение цветовой гаммы"
+msgstr "Изменение цвета"
 
 #. TRANS: Field label for content color selector.
 #. TRANS: Label on profile design page for setting a profile page content colour.
@@ -1839,25 +1828,21 @@ msgid "Custom CSS"
 msgstr "Особый CSS"
 
 #. TRANS: Button text for resetting theme settings.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Use defaults"
 msgstr "Использовать значения по умолчанию"
 
 #. TRANS: Title for button for resetting theme settings.
-#, fuzzy
 msgid "Restore default designs."
-msgstr "Восстановить оформление по умолчанию"
+msgstr "Восстановить оформление по умолчанию."
 
 #. TRANS: Title for button for resetting theme settings.
-#, fuzzy
 msgid "Reset back to default."
-msgstr "Восстановить значения по умолчанию"
+msgstr "Восстановить значения по умолчанию."
 
 #. TRANS: Title for button for saving theme settings.
-#, fuzzy
 msgid "Save design."
-msgstr "Сохранить оформление"
+msgstr "Сохранить оформление."
 
 #. TRANS: Client error displayed when trying to remove favorite status for a notice that is not a favorite.
 msgid "This notice is not a favorite!"
@@ -1869,9 +1854,9 @@ msgstr "Добавить в любимые"
 
 #. TRANS: Client exception thrown when requesting a document from the documentation that does not exist.
 #. TRANS: %s is the non-existing document.
-#, fuzzy, php-format
+#, php-format
 msgid "No such document \"%s\"."
-msgstr "Нет такого документа «%s»"
+msgstr "Нет такого документа «%s»."
 
 #. TRANS: Title for "Edit application" form.
 #. TRANS: Form legend.
@@ -2051,6 +2036,8 @@ msgid ""
 "To send notices via email, we need to create a unique email address for you "
 "on this server:"
 msgstr ""
+"Для отправки сообщений по электронной почте мы должны создать для вас "
+"уникальный email-адрес на этом сервере:"
 
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
@@ -2817,9 +2804,9 @@ msgstr[2] ""
 #. TRANS: e-mail addresses to which invitations were sent.
 msgid "Invitation sent to the following person:"
 msgid_plural "Invitations sent to the following people:"
-msgstr[0] "Приглашение отправлено следующему адресату:"
-msgstr[1] "Приглашения отправлены следующим адресатам:"
-msgstr[2] ""
+msgstr[0] "Список адресов, на которые отправлены приглашения:"
+msgstr[1] "Список адресов, на которые отправлены приглашения:"
+msgstr[2] "Список адресов, на которые отправлены приглашения:"
 
 #. TRANS: Generic message displayed after sending out one or more invitations to
 #. TRANS: people to join a StatusNet site.
@@ -3959,6 +3946,8 @@ msgstr "Слишком длинный язык (максимум 50 символ
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "Неверный тег: «%s»"
@@ -4822,7 +4811,6 @@ msgstr "Сообщение от %1$s на %2$s"
 msgid "Notice deleted."
 msgstr "Запись удалена."
 
-#, fuzzy
 msgid "Notice"
 msgstr "Записи"
 
@@ -5371,16 +5359,13 @@ msgstr "Профиль пользователя"
 msgid "Tag user"
 msgstr "Теги для пользователя"
 
+#, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
 "Теги для этого пользователя (буквы, цифры, -, ., и _), разделённые запятой "
 "или пробелом"
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "Неверный тег: «%s»"
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -8410,87 +8395,5 @@ msgstr "Неверный XML, отсутствует корень XRD."
 msgid "Getting backup from file '%s'."
 msgstr "Получение резервной копии из файла «%s»."
 
-#~ msgid "Note"
-#~ msgstr "Запись"
-
-#~ msgid ""
-#~ "Commands:\n"
-#~ "on - turn on notifications\n"
-#~ "off - turn off notifications\n"
-#~ "help - show this help\n"
-#~ "follow <nickname> - subscribe to user\n"
-#~ "groups - lists the groups you have joined\n"
-#~ "subscriptions - list the people you follow\n"
-#~ "subscribers - list the people that follow you\n"
-#~ "leave <nickname> - unsubscribe from user\n"
-#~ "d <nickname> <text> - direct message to user\n"
-#~ "get <nickname> - get last notice from user\n"
-#~ "whois <nickname> - get profile info on user\n"
-#~ "lose <nickname> - force user to stop following you\n"
-#~ "fav <nickname> - add user's last notice as a 'fave'\n"
-#~ "fav #<notice_id> - add notice with the given id as a 'fave'\n"
-#~ "repeat #<notice_id> - repeat a notice with a given id\n"
-#~ "repeat <nickname> - repeat the last notice from user\n"
-#~ "reply #<notice_id> - reply to notice with a given id\n"
-#~ "reply <nickname> - reply to the last notice from user\n"
-#~ "join <group> - join group\n"
-#~ "login - Get a link to login to the web interface\n"
-#~ "drop <group> - leave group\n"
-#~ "stats - get your stats\n"
-#~ "stop - same as 'off'\n"
-#~ "quit - same as 'off'\n"
-#~ "sub <nickname> - same as 'follow'\n"
-#~ "unsub <nickname> - same as 'leave'\n"
-#~ "last <nickname> - same as 'get'\n"
-#~ "on <nickname> - not yet implemented.\n"
-#~ "off <nickname> - not yet implemented.\n"
-#~ "nudge <nickname> - remind a user to update.\n"
-#~ "invite <phone number> - not yet implemented.\n"
-#~ "track <word> - not yet implemented.\n"
-#~ "untrack <word> - not yet implemented.\n"
-#~ "track off - not yet implemented.\n"
-#~ "untrack all - not yet implemented.\n"
-#~ "tracks - not yet implemented.\n"
-#~ "tracking - not yet implemented.\n"
-#~ msgstr ""
-#~ "Команды:\n"
-#~ "on — включить уведомления\n"
-#~ "off — отключить уведомления\n"
-#~ "help — показать эту справку\n"
-#~ "follow <nickname> — подписаться на пользователя\n"
-#~ "groups — список групп, к которым вы присоединены\n"
-#~ "subscriptions — список людей, за которыми вы следите\n"
-#~ "subscribers — список людей, следящих на вами\n"
-#~ "leave <nickname> — отписаться от пользователя\n"
-#~ "d <nickname> <text> — прямое сообщение пользователю\n"
-#~ "get <nickname> — получить последнюю запись от пользователя\n"
-#~ "whois <nickname> — получить информацию из профиля пользователя\n"
-#~ "lose <nickname> — отменить подписку пользователя на вас\n"
-#~ "fav <nickname> — добавить последнюю запись пользователя в число любимых\n"
-#~ "fav #<notice_id> — добавить запись с заданным id в число любимых\n"
-#~ "repeat #<notice_id> — повторить уведомление с заданным id\n"
-#~ "repeat <nickname> — повторить последнее уведомление от пользователя\n"
-#~ "reply #<notice_id> — ответить на запись с заданным id\n"
-#~ "reply <nickname> — ответить на последнюю запись пользователя\n"
-#~ "join <group> — присоединиться к группе\n"
-#~ "login — получить ссылку на вход в веб-интрефейсе\n"
-#~ "drop <group> — покинуть группу\n"
-#~ "stats — получить свою статистику\n"
-#~ "stop — то же, что и 'off'\n"
-#~ "quit — то же, что и 'off'\n"
-#~ "sub <nickname> — то же, что и 'follow'\n"
-#~ "unsub <nickname> — то же, что и 'leave'\n"
-#~ "last <nickname> — то же, что и 'get'\n"
-#~ "on <nickname> — пока не реализовано.\n"
-#~ "off <nickname> — пока не реализовано.\n"
-#~ "nudge <nickname> — напомнить пользователю обновиться.\n"
-#~ "invite <phone number> — пока не реализовано.\n"
-#~ "track <word> — пока не реализовано.\n"
-#~ "untrack <word> — пока не реализовано.\n"
-#~ "track off — пока не реализовано.\n"
-#~ "untrack all — пока не реализовано.\n"
-#~ "tracks — пока не реализовано.\n"
-#~ "tracking — пока не реализовано.\n"
-
-#~ msgid "Edit Avatar"
-#~ msgstr "Изменить аватару"
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "Неверный тег: «%s»"

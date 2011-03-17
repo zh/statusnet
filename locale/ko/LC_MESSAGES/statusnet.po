@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
-"PO-Revision-Date: 2011-03-17 09:49:46+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:38:09+0000\n"
 "Language-Team: Korean <http://translatewiki.net/wiki/Portal:ko>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Language-Code: ko\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-11 18:52:41+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -3910,6 +3910,8 @@ msgstr "언어가 너무 깁니다. (최대 50글자)"
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "올바르지 않은 태그: \"%s\""
@@ -4741,7 +4743,6 @@ msgstr "%1$s에서 %2$s까지 메시지"
 msgid "Notice deleted."
 msgstr "게시글이 등록되었습니다."
 
-#, fuzzy
 msgid "Notice"
 msgstr "통지"
 
@@ -5270,16 +5271,13 @@ msgstr "이용자 프로필"
 msgid "Tag user"
 msgstr "태그 사용자"
 
+#, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
 "사용자를 위한 태그 (문자,숫자, -, . ,그리고 _), 콤마 혹은 공백으로 분리하세"
 "요."
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "올바르지 않은 태그: \"%s\""
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -8170,8 +8168,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Note"
-#~ msgstr "설명"
-
-#~ msgid "Edit Avatar"
-#~ msgstr "아바타 편집"
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "올바르지 않은 태그: \"%s\""

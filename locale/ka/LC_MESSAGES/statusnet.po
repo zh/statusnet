@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
-"PO-Revision-Date: 2011-03-17 09:49:45+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:38:08+0000\n"
 "Language-Team: Georgian <http://translatewiki.net/wiki/Portal:ka>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Language-Code: ka\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-11 18:52:41+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -3934,6 +3934,8 @@ msgstr "ენა ძალიან გრძელია (არაუმე�
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "არასწორი სანიშნე: \"%s\""
@@ -5319,16 +5321,13 @@ msgstr "მომხმარებლის პროფილი"
 msgid "Tag user"
 msgstr "მონიშნე მომხმარებელი"
 
+#, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
 "სანიშნეები ამ მომხმარებლისთვის (ასოები, ციფრები, -, ., და _). გამოყავით "
 "მძიმით ან სივრცით"
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "არასწორი სანიშნე: \"%s\""
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -8305,8 +8304,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Note"
-#~ msgstr "შენიშვნა"
-
-#~ msgid "Edit Avatar"
-#~ msgstr "ავატარის რედაქტირება"
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "არასწორი სანიშნე: \"%s\""

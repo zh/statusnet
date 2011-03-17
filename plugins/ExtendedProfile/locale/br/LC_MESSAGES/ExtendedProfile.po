@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - ExtendedProfile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
-"PO-Revision-Date: 2011-03-17 09:50:37+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:38:58+0000\n"
 "Language-Team: Breton <http://translatewiki.net/wiki/Portal:br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-11 18:53:18+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:30+0000\n"
 "X-Generator: MediaWiki 1.18alpha (r84120); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
@@ -24,23 +24,37 @@ msgstr ""
 msgid "Extended profile settings"
 msgstr "Arventennoù ledanet ar profil"
 
+#. TRANS: Usage instructions for profile settings.
+msgid ""
+"You can update your personal profile info here so people know more about you."
+msgstr ""
+
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
-#. TRANS: Message given submitting a form with an unknown action
+#. TRANS: Message given submitting a form with an unknown action.
 msgid "Unexpected form submission."
 msgstr ""
 
+msgid "Details saved."
+msgstr ""
+
+#. TRANS: Exception thrown when no date was entered in a required date field.
+#. TRANS: %s is the field name.
 #, php-format
 msgid "You must supply a date for \"%s\"."
 msgstr ""
 
+#. TRANS: Exception thrown on incorrect data input.
+#. TRANS: %1$s is a field name, %2$s is the incorrect input.
 #, php-format
-msgid "Invalid date entered for \"%s\": %s"
+msgid "Invalid date entered for \"%1$s\": %2$s."
 msgstr ""
 
+#. TRANS: Exception thrown when entering an invalid URL.
+#. TRANS: %s is the invalid URL.
 #, php-format
-msgid "Invalid URL: %s"
+msgid "Invalid URL: %s."
 msgstr ""
 
 msgid "Could not save profile details."
@@ -50,6 +64,14 @@ msgstr ""
 #. TRANS: %s is an invalid tag.
 #, php-format
 msgid "Invalid tag: \"%s\"."
+msgstr ""
+
+#. TRANS: Server error thrown when user profile settings could not be saved.
+msgid "Could not save profile."
+msgstr ""
+
+#. TRANS: Server error thrown when user profile settings tags could not be saved.
+msgid "Could not save tags."
 msgstr ""
 
 #. TRANS: Link title for link on user profile.
@@ -142,6 +164,3 @@ msgstr "Skiant-prenet"
 
 msgid "Education"
 msgstr "Deskadurezh"
-
-#~ msgid "Details"
-#~ msgstr "Munudoù"

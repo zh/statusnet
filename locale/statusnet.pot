@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,9 +88,9 @@ msgstr ""
 #: actions/licenseadminpanel.php:335 actions/pathsadminpanel.php:517
 #: actions/profilesettings.php:198 actions/sitenoticeadminpanel.php:197
 #: actions/smssettings.php:204 actions/subscriptions.php:261
-#: actions/urlsettings.php:152 actions/useradminpanel.php:298
-#: lib/applicationeditform.php:355 lib/designform.php:320
-#: lib/groupeditform.php:201
+#: actions/tagother.php:134 actions/urlsettings.php:152
+#: actions/useradminpanel.php:298 lib/applicationeditform.php:355
+#: lib/designform.php:320 lib/groupeditform.php:201
 msgctxt "BUTTON"
 msgid "Save"
 msgstr ""
@@ -857,7 +857,7 @@ msgstr ""
 #: actions/profilesettings.php:218 actions/recoverpassword.php:387
 #: actions/register.php:157 actions/remotesubscribe.php:76
 #: actions/repeat.php:82 actions/smssettings.php:249 actions/subedit.php:40
-#: actions/subscribe.php:87 actions/tagother.php:145
+#: actions/subscribe.php:87 actions/tagother.php:146
 #: actions/unsubscribe.php:69 actions/urlsettings.php:171
 #: actions/userauthorization.php:53 lib/designsettings.php:122
 msgid "There was a problem with your session token. Try again, please."
@@ -2005,7 +2005,7 @@ msgstr ""
 #: actions/groupblock.php:60 actions/groupunblock.php:60 actions/logout.php:69
 #: actions/makeadmin.php:62 actions/newmessage.php:89 actions/newnotice.php:87
 #: actions/nudge.php:64 actions/pluginenable.php:98 actions/subedit.php:33
-#: actions/subscribe.php:98 actions/tagother.php:33 actions/unsubscribe.php:52
+#: actions/subscribe.php:98 actions/tagother.php:34 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:71 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
 msgid "Not logged in."
@@ -2819,7 +2819,7 @@ msgstr ""
 #. TRANS: Client error displayed trying a change a subscription for a non-existant profile ID.
 #. TRANS: Client error displayed when trying to change user options without specifying an existing user to work on.
 #: actions/groupblock.php:77 actions/groupunblock.php:77
-#: actions/makeadmin.php:79 actions/subedit.php:57 actions/tagother.php:46
+#: actions/makeadmin.php:79 actions/subedit.php:57 actions/tagother.php:47
 #: actions/unsubscribe.php:84 lib/profileformaction.php:87
 msgid "No profile with that ID."
 msgstr ""
@@ -4549,8 +4549,8 @@ msgid "Share my current location when posting notices"
 msgstr ""
 
 #. TRANS: Field label in form for profile settings.
-#: actions/profilesettings.php:162 actions/tagother.php:128
-#: actions/tagother.php:188 lib/subscriptionlist.php:104
+#: actions/profilesettings.php:162 actions/tagother.php:129
+#: actions/tagother.php:191 lib/subscriptionlist.php:104
 #: lib/subscriptionlist.php:106
 msgid "Tags"
 msgstr ""
@@ -4610,7 +4610,9 @@ msgstr ""
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
-#: actions/profilesettings.php:292
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
+#: actions/profilesettings.php:292 actions/tagother.php:160
 #, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr ""
@@ -4627,7 +4629,7 @@ msgid "Could not save location prefs."
 msgstr ""
 
 #. TRANS: Server error thrown when user profile settings tags could not be saved.
-#: actions/profilesettings.php:428 actions/tagother.php:179
+#: actions/profilesettings.php:428 actions/tagother.php:182
 msgid "Could not save tags."
 msgstr ""
 
@@ -5312,8 +5314,7 @@ msgstr ""
 
 #. TRANS: Submit button title.
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/snapshotadminpanel.php:245 actions/tagother.php:133
-#: lib/applicationeditform.php:357
+#: actions/snapshotadminpanel.php:245 lib/applicationeditform.php:357
 msgid "Save"
 msgstr ""
 
@@ -6163,40 +6164,35 @@ msgstr ""
 msgid "Notice feed for tag %s (Atom)"
 msgstr ""
 
-#: actions/tagother.php:39
+#: actions/tagother.php:40
 msgid "No ID argument."
 msgstr ""
 
-#: actions/tagother.php:65
+#: actions/tagother.php:66
 #, php-format
 msgid "Tag %s"
 msgstr ""
 
-#: actions/tagother.php:77
+#: actions/tagother.php:78
 msgid "User profile"
 msgstr ""
 
-#: actions/tagother.php:120
+#: actions/tagother.php:121
 msgid "Tag user"
 msgstr ""
 
-#: actions/tagother.php:130
+#: actions/tagother.php:131
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
 
-#: actions/tagother.php:157
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr ""
-
-#: actions/tagother.php:172
+#: actions/tagother.php:175
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
 
-#: actions/tagother.php:215
+#: actions/tagother.php:218
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
 

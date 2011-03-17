@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,39 +20,65 @@ msgstr ""
 msgid "Extended profile settings"
 msgstr ""
 
+#. TRANS: Usage instructions for profile settings.
+#: actions/profiledetailsettings.php:40
+msgid ""
+"You can update your personal profile info here so people know more about you."
+msgstr ""
+
 #: actions/profiledetailsettings.php:63
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
-#. TRANS: Message given submitting a form with an unknown action
+#. TRANS: Message given submitting a form with an unknown action.
 #: actions/profiledetailsettings.php:74
 msgid "Unexpected form submission."
 msgstr ""
 
-#: actions/profiledetailsettings.php:145
+#: actions/profiledetailsettings.php:136
+msgid "Details saved."
+msgstr ""
+
+#. TRANS: Exception thrown when no date was entered in a required date field.
+#. TRANS: %s is the field name.
+#: actions/profiledetailsettings.php:147
 #, php-format
 msgid "You must supply a date for \"%s\"."
 msgstr ""
 
-#: actions/profiledetailsettings.php:155
+#. TRANS: Exception thrown on incorrect data input.
+#. TRANS: %1$s is a field name, %2$s is the incorrect input.
+#: actions/profiledetailsettings.php:159
 #, php-format
-msgid "Invalid date entered for \"%s\": %s"
+msgid "Invalid date entered for \"%1$s\": %2$s."
 msgstr ""
 
-#: actions/profiledetailsettings.php:269
+#. TRANS: Exception thrown when entering an invalid URL.
+#. TRANS: %s is the invalid URL.
+#: actions/profiledetailsettings.php:275
 #, php-format
-msgid "Invalid URL: %s"
+msgid "Invalid URL: %s."
 msgstr ""
 
-#: actions/profiledetailsettings.php:517 actions/profiledetailsettings.php:529
+#: actions/profiledetailsettings.php:523 actions/profiledetailsettings.php:535
 msgid "Could not save profile details."
 msgstr ""
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
-#: actions/profiledetailsettings.php:574
+#: actions/profiledetailsettings.php:580
 #, php-format
 msgid "Invalid tag: \"%s\"."
+msgstr ""
+
+#. TRANS: Server error thrown when user profile settings could not be saved.
+#: actions/profiledetailsettings.php:622
+msgid "Could not save profile."
+msgstr ""
+
+#. TRANS: Server error thrown when user profile settings tags could not be saved.
+#: actions/profiledetailsettings.php:631
+msgid "Could not save tags."
 msgstr ""
 
 #. TRANS: Link title for link on user profile.

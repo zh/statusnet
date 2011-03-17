@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
-"PO-Revision-Date: 2011-03-17 09:49:23+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:37:46+0000\n"
 "Language-Team: Bulgarian <http://translatewiki.net/wiki/Portal:bg>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Language-Code: bg\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-03-11 18:52:41+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -3935,6 +3935,8 @@ msgstr "Името на езика е твърде дълго (може да е 
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "Неправилен етикет: \"%s\""
@@ -4760,7 +4762,6 @@ msgstr "Съобщение от %1$s в %2$s"
 msgid "Notice deleted."
 msgstr "Бележката е изтрита."
 
-#, fuzzy
 msgid "Notice"
 msgstr "Бележки"
 
@@ -5291,13 +5292,9 @@ msgid "Tag user"
 msgstr "Етикети"
 
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "Неправилен етикет: \"%s\""
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -8231,8 +8228,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Note"
-#~ msgstr "Бележка"
-
-#~ msgid "Edit Avatar"
-#~ msgstr "Редактиране на аватара"
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "Неправилен етикет: \"%s\""

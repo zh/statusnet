@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
-"PO-Revision-Date: 2011-03-17 09:49:59+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:38:22+0000\n"
 "Language-Team: Turkish <http://translatewiki.net/wiki/Portal:tr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Language-Code: tr\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-11 18:52:41+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -3916,6 +3916,8 @@ msgstr "Dil çok uzun (maksimum: 50 karakter)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "Geçersiz büyüklük."
@@ -5274,14 +5276,13 @@ msgstr "Kullanıcının profili yok."
 msgid "Tag user"
 msgstr "Kullanıcıyı etiketle"
 
+#, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "Geçersiz büyüklük."
+"Kendiniz için etiketler (harf, sayı, -. ., ve _ kullanılabilir), virgül veya "
+"boşlukla ayırabilirsiniz"
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -8179,9 +8180,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Note"
-#~ msgstr "Not"
-
-#, fuzzy
-#~ msgid "Edit Avatar"
-#~ msgstr "Avatar"
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "Geçersiz büyüklük."

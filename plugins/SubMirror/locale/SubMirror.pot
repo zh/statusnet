@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,33 +16,36 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: actions/basemirror.php:71
+#. TRANS: Client error displayed when entering an invalid URL for a feed.
+#. TRANS: %s is the invalid feed URL.
+#: actions/basemirror.php:73
 #, php-format
-msgid "Invalid feed URL: %s"
+msgid "Invalid feed URL: %s."
 msgstr ""
 
-#. TRANS: Error message returned to user when setting up feed mirroring, but we were unable to resolve the given URL to a working feed.
-#: actions/basemirror.php:83
+#. TRANS: Error message returned to user when setting up feed mirroring,
+#. TRANS: but we were unable to resolve the given URL to a working feed.
+#: actions/basemirror.php:86
 msgid "Invalid profile for mirroring."
 msgstr ""
 
-#: actions/basemirror.php:101
-msgid "Can't mirror a StatusNet group at this time."
+#: actions/basemirror.php:104
+msgid "Cannot mirror a StatusNet group at this time."
 msgstr ""
 
-#: actions/basemirror.php:115
+#: actions/basemirror.php:118
 msgid "This action only accepts POST requests."
 msgstr ""
 
-#: actions/basemirror.php:123
+#: actions/basemirror.php:126
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
-#: actions/basemirror.php:133
+#: actions/basemirror.php:136
 msgid "Not logged in."
 msgstr ""
 
-#: actions/basemirror.php:156
+#: actions/basemirror.php:159
 msgid "Subscribed"
 msgstr ""
 

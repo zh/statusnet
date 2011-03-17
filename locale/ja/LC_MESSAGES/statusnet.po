@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
-"PO-Revision-Date: 2011-03-17 09:49:43+0000\n"
+"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"PO-Revision-Date: 2011-03-17 12:38:07+0000\n"
 "Language-Team: Japanese <http://translatewiki.net/wiki/Portal:ja>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Language-Code: ja\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-11 18:52:41+0000\n"
+"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -3977,6 +3977,8 @@ msgstr "言語が長すぎます。(最大50字)"
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
+#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: %s is the invalid tag.
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr "不正なタグ: \"%s\""
@@ -4843,7 +4845,6 @@ msgstr "%2$s 上の %1$s からのメッセージ"
 msgid "Notice deleted."
 msgstr "つぶやきを削除しました。"
 
-#, fuzzy
 msgid "Notice"
 msgstr "つぶやき"
 
@@ -5402,15 +5403,12 @@ msgstr "ユーザプロファイル"
 msgid "Tag user"
 msgstr "タグユーザ"
 
+#, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
+"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
+"spaces."
 msgstr ""
 "このユーザのタグ (アルファベット、数字、-、.、_)、カンマかスペース区切り"
-
-#, php-format
-msgid "Invalid tag: \"%s\""
-msgstr "不正なタグ: \"%s\""
 
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -8375,8 +8373,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Note"
-#~ msgstr "ノート"
-
-#~ msgid "Edit Avatar"
-#~ msgstr "アバターを編集する"
+#~ msgid "Invalid tag: \"%s\""
+#~ msgstr "不正なタグ: \"%s\""
