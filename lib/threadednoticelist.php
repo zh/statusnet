@@ -183,7 +183,7 @@ class ThreadedNoticeListItem extends NoticeListItem
 
             if ($notices) {
                 $this->out->elementStart('ul', 'notices threaded-replies xoxo');
-                $item = new ThreadedNoticeListFavesItem($notice, $this->out);
+                $item = new ThreadedNoticeListFavesItem($this->notice, $this->out);
                 $hasFaves = $item->show();
                 if ($moreCutoff) {
                     $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
@@ -196,7 +196,7 @@ class ThreadedNoticeListItem extends NoticeListItem
                 // @fixme do a proper can-post check that's consistent
                 // with the JS side
                 if (common_current_user()) {
-                    $item = new ThreadedNoticeListReplyItem($notice, $this->out);
+                    $item = new ThreadedNoticeListReplyItem($this->notice, $this->out);
                     $item->show();
                 }
                 $this->out->elementEnd('ul');
@@ -327,13 +327,6 @@ class ThreadedNoticeListFavesItem extends NoticeListItem
 {
     function show()
     {
-        return $this->showFaves();
-    }
-
-    function showFaves()
-    {
-        $this->out->text('(QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ)');
-        return 0;
         // @fixme caching & scalability!
         $fave = new Fave();
         $fave->notice_id = $this->notice->id;
@@ -366,7 +359,13 @@ class ThreadedNoticeListFavesItem extends NoticeListItem
 
         if ($links) {
             $count = count($links);
-            $msg = _m('%1$s has favored this notice', '%1$s have favored this notice', $count);
+            if ($count == 1 && $you) {
+                // darn first person being different from third person!
+                $msg = _m('FAVELIST', 'You have favored this notice');
+            } else {
+                // if 'you' is the first item...
+                $msg = _m('FAVELIST', '%1$s has favored this notice', '%1$s have favored this notice', $count);
+            }
             $out = sprintf($msg, implode(', ', $links));
 
             $this->out->elementStart('li', array('class' => 'notice-faves'));
