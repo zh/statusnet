@@ -90,6 +90,10 @@ class Notice extends Memcached_DataObject
     const LOCAL_NONPUBLIC = -1;
     const GATEWAY         = -2;
 
+    const SITE_SCOPE      = 1;
+    const ADDRESSEE_SCOPE = 2;
+    const FOLLOWER_SCOPE  = 4;
+
     function getProfile()
     {
         $profile = Profile::staticGet('id', $this->profile_id);
