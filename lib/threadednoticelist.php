@@ -183,6 +183,8 @@ class ThreadedNoticeListItem extends NoticeListItem
 
             if ($notices) {
                 $this->out->elementStart('ul', 'notices threaded-replies xoxo');
+                $item = new ThreadedNoticeListFavesItem($notice, $this->out);
+                $hasFaves = $item->show();
                 if ($moreCutoff) {
                     $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
                     $item->show();
@@ -315,5 +317,64 @@ class ThreadedNoticeListReplyItem extends NoticeListItem
     {
         $this->out->element('input', array('class' => 'placeholder',
                                            'value' => _('Write a reply...')));
+    }
+}
+
+/**
+ * Placeholder for showing faves...
+ */
+class ThreadedNoticeListFavesItem extends NoticeListItem
+{
+    function show()
+    {
+        return $this->showFaves();
+    }
+
+    function showFaves()
+    {
+        $this->out->text('(QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ)');
+        return 0;
+        // @fixme caching & scalability!
+        $fave = new Fave();
+        $fave->notice_id = $this->notice->id;
+        $fave->find();
+
+        $cur = common_current_user();
+        $profiles = array();
+        $you = false;
+        while ($fave->fetch()) {
+            if ($cur && $cur->id == $fave->user_id) {
+                $you = true;
+            } else {
+                $profiles[] = $fave->user_id;
+            }
+        }
+
+        $links = array();
+        if ($you) {
+            $links[] = _m('FAVELIST', 'You');
+        }
+        foreach ($profiles as $id) {
+            $profile = Profile::staticGet('id', $id);
+            if ($profile) {
+                $links[] = sprintf('<a href="%s" title="%s">%s</a>',
+                                   htmlspecialchars($profile->profileurl),
+                                   htmlspecialchars($profile->getBestName()),
+                                   htmlspecialchars($profile->nickname));
+            }
+        }
+
+        if ($links) {
+            $count = count($links);
+            $msg = _m('%1$s has favored this notice', '%1$s have favored this notice', $count);
+            $out = sprintf($msg, implode(', ', $links));
+
+            $this->out->elementStart('li', array('class' => 'notice-faves'));
+            $this->out->raw($out);
+            $this->out->elementEnd('li');
+            return $count;
+        } else {
+            return 0;
+        }
     }
 }
