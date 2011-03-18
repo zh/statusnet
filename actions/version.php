@@ -277,5 +277,6 @@ class VersionAction extends Action
                               'mEDI',
                               'Brett Taylor',
                               'Brigitte Schuster',
-                              'Brion Vibber');
+                              'Brion Vibber',
+                              'Siebrand Mazeland');
 }
