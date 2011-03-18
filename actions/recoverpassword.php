@@ -162,8 +162,8 @@ class RecoverpasswordAction extends Action
                                  ' the email address you have stored' .
                                  ' in your account.'));
             } else if ($this->mode == 'reset') {
-                // TRANS: Page notice for password change page.
                 $this->element('p', null,
+                               // TRANS: Page notice for password change page.
                                _('You have been identified. Enter a' .
                                  ' new password below.'));
             }
