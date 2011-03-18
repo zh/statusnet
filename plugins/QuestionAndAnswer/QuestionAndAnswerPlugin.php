@@ -81,16 +81,18 @@ class QuestionAndAnswerPlugin extends MicroappPlugin
         case 'NewanswerAction':
         case 'ShowquestionAction':
         case 'ShowanswerAction':
-            include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
+            include_once $dir . '/actions/'
+                . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'QuestionForm':
         case 'AnswerForm':
-            include_once $dir . '/'.strtolower($cls).'.php';
+            include_once $dir . '/lib/' . strtolower($cls).'.php';
             break;
         case 'Question':
         case 'Answer':
-            include_once $dir . '/'.$cls.'.php';
+            include_once $dir . '/classes/' . $cls.'.php';
             return false;
+            break;
         default:
             return true;
         }
@@ -141,13 +143,10 @@ class QuestionAndAnswerPlugin extends MicroappPlugin
     }
 
     function types() {
-        /*
-        return array(Happening::OBJECT_TYPE,
-                     RSVP::POSITIVE,
-                     RSVP::NEGATIVE,
-                     RSVP::POSSIBLE);
-
-         */
+        return array(
+            Question::OBJECT_TYPE,
+            Answer::NORMAL
+        );
     }
 
     /**
@@ -423,7 +422,7 @@ class QuestionAndAnswerPlugin extends MicroappPlugin
 
     function onEndShowStyles($action)
     {
-        $action->cssLink($this->path('questionandanswer.css'));
+        $action->cssLink($this->path('css/questionandanswer.css'));
         return true;
     }
 }
