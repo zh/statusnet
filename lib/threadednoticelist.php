@@ -414,11 +414,7 @@ class ThreadedNoticeListFavesItem extends NoticeListActorsItem
 {
     function getProfiles()
     {
-        // @fixme caching & scalability!
-        $fave = new Fave();
-        $fave->notice_id = $this->notice->id;
-        $fave->find();
-
+        $fave = Fave::byNotice($this->notice->id);
         $profiles = array();
         while ($fave->fetch()) {
             $profiles[] = $fave->user_id;
@@ -469,10 +465,7 @@ class ThreadedNoticeListRepeatsItem extends NoticeListActorsItem
 {
     function getProfiles()
     {
-        // @fixme caching & scalability!
-        $rep = new Notice();
-        $rep->repeat_of = $this->notice->id;
-        $rep->find();
+        $rep = $this->notice->repeatStream();
 
         $profiles = array();
         while ($rep->fetch()) {

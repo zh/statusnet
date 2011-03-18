@@ -496,6 +496,8 @@ class Notice extends Memcached_DataObject
         if ($this->isPublic()) {
             self::blow('public;last');
         }
+
+        self::blow('fave:by_notice', $this->id);
     }
 
     /** save all urls in the notice to the db
