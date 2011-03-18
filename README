@@ -1148,6 +1148,9 @@ ssl: Whether to use SSL for JavaScript files. Default is null, which means
 sslserver: SSL server to use when page is HTTPS-encrypted. If
     unspecified, site ssl server and so on will be used.
 sslpath: If sslserver if defined, path to use when page is HTTPS-encrypted.
+bustframes: If true, all web pages will break out of framesets. If false,
+	    can comfortably live in a frame or iframe... probably. Default
+	    to true.
 
 xmpp
 ----
