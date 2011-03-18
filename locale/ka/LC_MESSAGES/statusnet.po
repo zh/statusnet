@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 12:35+0000\n"
-"PO-Revision-Date: 2011-03-17 12:38:08+0000\n"
+"POT-Creation-Date: 2011-03-18 19:45+0000\n"
+"PO-Revision-Date: 2011-03-18 19:47:52+0000\n"
 "Language-Team: Georgian <http://translatewiki.net/wiki/Portal:ka>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r84120); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84232); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ka\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-17 10:19:27+0000\n"
+"X-POT-Import-Date: 2011-03-17 13:01:02+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -117,9 +117,14 @@ msgstr "ასეთი გვერდი არ არსებობს."
 #. TRANS: Client error displayed trying to make a micro summary without providing a valid user.
 #. TRANS: Client error displayed trying to send a direct message to a non-existing user.
 #. TRANS: Client error displayed trying to use "one time password login" without using an existing user.
+#. TRANS: Form validation error on page for remote subscribe when no user was provided.
+#. TRANS: Form validation error on page for remote subscribe when no user profile was found.
+#. TRANS: Client error displayed when trying to reply to a non-exsting user.
 #. TRANS: Client error displayed when providing a non-existing nickname in a RSS 1.0 action.
+#. TRANS: Client error.
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
 #. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
+#. TRANS: Client error displayed requesting groups for a non-existing user.
 #. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when calling a profile action without specifying a user.
@@ -182,6 +187,8 @@ msgstr ""
 
 #. TRANS: Encoutagement displayed on empty timeline user pages for anonymous users.
 #. TRANS: %s is a user nickname. This message contains Markdown links. Keep "](" together.
+#. TRANS: Empty list message for page with replies for a user for not logged in users.
+#. TRANS: %1$s is a user nickname. This message contains a Markdown link in the form [link text](link).
 #. TRANS: Second sentence of empty message for anonymous users. %s is a user nickname.
 #. TRANS: This message contains a Markdown link. Keep "](" together.
 #, php-format
@@ -238,12 +245,14 @@ msgstr ""
 "sms, im, none."
 
 #. TRANS: Server error displayed when a user's delivery device cannot be updated.
+#. TRANS: Server error displayed when confirming an e-mail address or IM address fails.
 #. TRANS: Server error thrown on database error updating e-mail preferences.
 #. TRANS: Server error thrown on database error removing a registered e-mail address.
 #. TRANS: Server error thrown when user profile settings could not be updated.
 #. TRANS: Server error thrown on database error updating SMS preferences.
 #. TRANS: Server error thrown on database error removing a registered SMS phone number.
 #. TRANS: Server error displayed when "Other" settings in user profile could not be updated on the server.
+#. TRANS: Server exception thrown on Profile design page when updating design settings fails.
 msgid "Could not update user."
 msgstr "მომხმარებლის განახლება ვერ მოხერხდა."
 
@@ -255,6 +264,8 @@ msgstr "მომხმარებლის განახლება ვე�
 #. TRANS: Client error displayed trying to get an avatar for a user without a profile.
 #. TRANS: Server error displayed when requesting Friends of a Friend feed for a user for which the profile could not be found.
 #. TRANS: Server error displayed when trying to get a user hCard for a user without a profile.
+#. TRANS: Server error displayed when trying to reply to a user without a profile.
+#. TRANS: Server error displayed requesting groups for a user without a profile.
 #. TRANS: Server error displayed when calling a profile action while the specified user does not have a profile.
 msgid "User has no profile."
 msgstr "მომხმარებელს პროფილი არ გააჩნია."
@@ -283,11 +294,14 @@ msgstr[0] ""
 #. TRANS: Client error displayed when a database error occurs inserting profile colours.
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
 #. TRANS: Form validation error displayed when group design settings could not be saved because of an application issue.
+#. TRANS: Form validation error on Profile design page when saving design settings has failed.
+#. TRANS: Form validation error on Profile design page when updating design settings has failed.
 msgid "Unable to save your design settings."
 msgstr "სამწუხაროდ თქვენი დიზაინის პარამეტრების შენახვა ვერ მოხერხდა."
 
 #. TRANS: Error displayed when updating design settings fails.
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
+#. TRANS: Form validation error on Profile design page when updating design settings has failed.
 msgid "Could not update your design."
 msgstr "დიზაინის განახლება ვერ მოხერხდა."
 
@@ -446,6 +460,7 @@ msgstr "სასურველი მომხმარებელი ვე�
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Form validation error displayed when trying to register with an existing nickname.
 msgid "Nickname already in use. Try another one."
 msgstr "მეტსახელი უკვე გამოყენებულია. სცადე სხვა."
 
@@ -454,6 +469,7 @@ msgstr "მეტსახელი უკვე გამოყენებუ�
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Form validation error displayed when trying to register with an invalid nickname.
 msgid "Not a valid nickname."
 msgstr "მეტსახელი არასწორია."
 
@@ -464,6 +480,7 @@ msgstr "მეტსახელი არასწორია."
 #. TRANS: Validation error shown when providing an invalid homepage URL in the "New application" form.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Form validation error displayed when trying to register with an invalid homepage URL.
 msgid "Homepage is not a valid URL."
 msgstr "სასტარტო გვერდი არასწორი URL-ია."
 
@@ -472,6 +489,7 @@ msgstr "სასტარტო გვერდი არასწორი URL
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Form validation error displayed when trying to register with a too long full name.
 #, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
 msgstr "სრული სახელი ძალიან გრძელია (არაუმეტეს 255 სიმბოლო)."
@@ -497,6 +515,7 @@ msgstr[0] "აღწერა ძალიან გრძელია (არ�
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Form validation error displayed when trying to register with a too long location.
 #, fuzzy
 msgid "Location is too long (maximum 255 characters)."
 msgstr "ადგილმდებარეობა ძალიან გრძელია (არაუმეტეს 255 სიმბოლო)."
@@ -590,7 +609,8 @@ msgid "%1$s groups %2$s is a member of."
 msgstr "%1$s-ს ის ჯგუფები რომლებშიც გაერთიანებულია %2$s."
 
 #. TRANS: Message is used as a title when listing the lastest 20 groups. %s is a site name.
-#. TRANS: Message is used as a page title. %s is a nick name.
+#. TRANS: Page title for first page of groups for a user.
+#. TRANS: %s is a nickname.
 #, php-format
 msgid "%s groups"
 msgstr "%s ჯგუფები"
@@ -719,11 +739,14 @@ msgstr "ანგარიში"
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label on login page.
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Field label on account registration page.
+#. TRANS: Label for nickname on user authorisation page.
 msgid "Nickname"
 msgstr "მეტსახელი"
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label on login page.
+#. TRANS: Field label on account registration page.
 msgid "Password"
 msgstr "პაროლი"
 
@@ -924,6 +947,8 @@ msgstr "მეთოდი განუხორციელებელია."
 msgid "Repeated to %s"
 msgstr ""
 
+#. TRANS: Subtitle for API action that shows most recent notices that are repeats in user's inbox.
+#. TRANS: %1$s is the sitename, %2$s is a user nickname, %3$s is a user profile name.
 #, fuzzy, php-format
 msgid "%1$s notices that were to repeated to %2$s / %3$s."
 msgstr "განახლებები არჩეული %1$s-ს მიერ %2$s-ზე!"
@@ -1207,6 +1232,7 @@ msgstr ""
 
 #. TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
 #. TRANS: Server error displayed coming across a request from a user without a profile.
+#. TRANS: Server error displayed on page for remote subscribe when user does not have a matching profile.
 #. TRANS: Server error displayed when trying to authorise a remote subscription request
 #. TRANS: while the user has no profile.
 msgid "User without matching profile."
@@ -1417,18 +1443,19 @@ msgid "Unrecognized address type %s"
 msgstr "მისამართის ამოუცნობი ტიპი %s."
 
 #. TRANS: Client error for an already confirmed email/jabber/sms address.
+#. TRANS: Client error for an already confirmed IM address.
 msgid "That address has already been confirmed."
 msgstr "ეს მისამართი უკვე დადასტურებულია."
 
-msgid "Couldn't update user."
-msgstr "მომხმარებლის განახლება ვერ მოხერხდა."
-
+#. TRANS: Server error displayed when updating IM preferences fails.
+#. TRANS: Server error thrown on database error removing a registered IM address.
 #, fuzzy
-msgid "Couldn't update user im preferences."
+msgid "Could not update user IM preferences."
 msgstr "მომხმარებლის ჩანაწერის განახლება ვერ მოხერხდა."
 
+#. TRANS: Server error displayed when adding IM preferences fails.
 #, fuzzy
-msgid "Couldn't insert user im preferences."
+msgid "Could not insert user IM preferences."
 msgstr "ახალი გამოწერის ჩასმა ვერ მოხერხდა."
 
 #. TRANS: Server error displayed when an address confirmation code deletion from the
@@ -1454,6 +1481,12 @@ msgstr "საუბარი"
 #. TRANS: Header on conversation page. Hidden by default (h2).
 #. TRANS: Label for user statistics.
 msgid "Notices"
+msgstr "შეტყობინებები"
+
+#. TRANS: Title for conversation page.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Notice"
 msgstr "შეტყობინებები"
 
 #. TRANS: Client exception displayed trying to delete a user account while not logged in.
@@ -2082,6 +2115,7 @@ msgid "Cannot normalize that email address."
 msgstr "Jabber ID-ს ნორმალიზაცია ვერ ხერხდება"
 
 #. TRANS: Message given saving e-mail address that not valid.
+#. TRANS: Form validation error displayed when trying to register without a valid e-mail address.
 msgid "Not a valid email address."
 msgstr "არასწორი ელ. ფოსტის მისამართი."
 
@@ -2120,7 +2154,6 @@ msgid "That is the wrong email address."
 msgstr "ეს არასწორი ელ. ფოსტის მისამართია."
 
 #. TRANS: Server error thrown on database error canceling e-mail address confirmation.
-#. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
 #, fuzzy
 msgid "Could not delete email confirmation."
 msgstr "ელ. ფოსტის დადასტურების წაშლა ვერ მოხერხდა."
@@ -2262,6 +2295,7 @@ msgid "User being listened to does not exist."
 msgstr "მისადევნებელი მომხმარებელი არ არსებობს."
 
 #. TRANS: Client error displayed when subscribing to a remote profile that is a local profile.
+#. TRANS: Client error displayed when using remote subscribe for a local entity.
 msgid "You can use the local subscription!"
 msgstr "შეგიძლიათ გამოიყენოთ ადგილობრივი გამოწერა!"
 
@@ -2294,10 +2328,12 @@ msgid "Cannot read file."
 msgstr "ფაილის წაკითხვა ვერ ხერხდება."
 
 #. TRANS: Client error displayed when trying to assign an invalid role to a user.
+#. TRANS: Client error displayed when trying to revoke an invalid role.
 msgid "Invalid role."
 msgstr "არასწორი როლი."
 
 #. TRANS: Client error displayed when trying to assign an reserved role to a user.
+#. TRANS: Client error displayed when trying to revoke a reserved role.
 msgid "This role is reserved and cannot be set."
 msgstr "ეს როლი დარეზერვებულია და გამოყენება შეუძლებელია."
 
@@ -2401,6 +2437,7 @@ msgid "Unable to update your design settings."
 msgstr "სამწუხაროდ თქვენი დიზაინის პარამეტრების შენახვა ვერ მოხერხდა."
 
 #. TRANS: Form text to confirm saved group design settings.
+#. TRANS: Confirmation message on Profile design page when saving design settings has succeeded.
 msgid "Design preferences saved."
 msgstr "დიზაინის პარამეტრები შენახულია."
 
@@ -2517,6 +2554,7 @@ msgstr ""
 "[შექმენით საკუთარი!](%%%%action.newgroup%%%%)"
 
 #. TRANS: Link to create a new group on the group list page.
+#. TRANS: Link text on group page to create a new group.
 msgid "Create a new group"
 msgstr "შექმენი ახალი ჯგუფი"
 
@@ -2592,23 +2630,26 @@ msgstr ""
 msgid "IM is not available."
 msgstr "IM არ არის ხელმისაწვდომი."
 
+#. TRANS: Form note in IM settings form. %s is the type of IM address that was confirmed.
 #, fuzzy, php-format
 msgid "Current confirmed %s address."
 msgstr "მიმდინარე დადასტურებული ელ. ფოსტის მისამართი."
 
 #. TRANS: Form note in IM settings form.
-#. TRANS: %s is the IM address set for the site.
+#. TRANS: %s is the IM service name, %2$s is the IM address set.
 #, fuzzy, php-format
 msgid ""
-"Awaiting confirmation on this address. Check your %s account for a message "
-"with further instructions. (Did you add %s to your buddy list?)"
+"Awaiting confirmation on this address. Check your %1$s account for a message "
+"with further instructions. (Did you add %2$s to your buddy list?)"
 msgstr ""
 "ამ მისამართის დადასტურება მოლოდინშია. შეამოწმეთ თქვენი Jabber/GTalk ანგარიში "
 "შეტყობინებისათვის შემდგომი ინსტრუქციებით. (დაიმატეთ %s მეგობრების სიაში?)"
 
+#. TRANS: Field label for IM address.
 msgid "IM address"
 msgstr "IM მისამართი"
 
+#. TRANS: Field title for IM address. %s is the IM service name.
 #, php-format
 msgid "%s screenname."
 msgstr ""
@@ -2641,7 +2682,7 @@ msgstr "გამოაქვეყნე MicroID ჩემი ელ. ფოს
 
 #. TRANS: Server error thrown on database error updating IM preferences.
 #, fuzzy
-msgid "Couldn't update IM preferences."
+msgid "Could not update IM preferences."
 msgstr "მომხმარებლის განახლება ვერ მოხერხდა."
 
 #. TRANS: Confirmation message for successful IM preferences save.
@@ -2654,18 +2695,19 @@ msgstr "პარამეტრები შენახულია."
 msgid "No screenname."
 msgstr "მეტსახელი უცნობია."
 
+#. TRANS: Form validation error when no transport is available setting an IM address.
 #, fuzzy
 msgid "No transport."
 msgstr "შეტყობინება არ არის."
 
 #. TRANS: Message given saving IM address that cannot be normalised.
 #, fuzzy
-msgid "Cannot normalize that screenname"
+msgid "Cannot normalize that screenname."
 msgstr "Jabber ID-ს ნორმალიზაცია ვერ ხერხდება"
 
 #. TRANS: Message given saving IM address that not valid.
 #, fuzzy
-msgid "Not a valid screenname"
+msgid "Not a valid screenname."
 msgstr "მეტსახელი არასწორია."
 
 #. TRANS: Message given saving IM address that is already set for another user.
@@ -2686,7 +2728,7 @@ msgstr "ეს არასწორი IM მისამართია."
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
 #, fuzzy
-msgid "Couldn't delete confirmation."
+msgid "Could not delete confirmation."
 msgstr "IM დასტურის წაშლა ვერ მოხერხდა."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
@@ -2698,11 +2740,6 @@ msgstr "IM დასტური გაუქმდა."
 #, fuzzy
 msgid "That is not your screenname."
 msgstr "ეს არ არის თქვენი ნომერი."
-
-#. TRANS: Server error thrown on database error removing a registered IM address.
-#, fuzzy
-msgid "Couldn't update user im prefs."
-msgstr "მომხმარებლის ჩანაწერის განახლება ვერ მოხერხდა."
 
 #. TRANS: Message given after successfully removing a registered Instant Messaging address.
 msgid "The IM address was removed."
@@ -3026,6 +3063,7 @@ msgstr "საიტის პარამეტრების შენახ�
 
 #. TRANS: Client error displayed when trying to log in while already logged in.
 #. TRANS: Client error displayed trying to use "one time password login" when already logged in.
+#. TRANS: Client error displayed when trying to register while already logged in.
 msgid "Already logged in."
 msgstr "უკვე ავტორიზირებული ხართ."
 
@@ -3047,10 +3085,12 @@ msgid "Login to site"
 msgstr "საიტზე შესვლა"
 
 #. TRANS: Checkbox label label on login page.
+#. TRANS: Checkbox label on account registration page.
 msgid "Remember me"
 msgstr "დამიმახსოვრე"
 
 #. TRANS: Checkbox title on login page.
+#. TRANS: Checkbox title on account registration page.
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "მომავალში ავტომატურად შემიყვანე; არა საზიარო კომპიუტერებისათვის!"
 
@@ -3134,6 +3174,7 @@ msgstr "წყაროს URL სავალდებულოა."
 msgid "Could not create application."
 msgstr "აპლიკაციის შექმნა ვერ მოხერხდა."
 
+#. TRANS: Form validation error on New application page when providing an invalid image upload.
 #, fuzzy
 msgid "Invalid image."
 msgstr "ზომა არასწორია."
@@ -3443,6 +3484,7 @@ msgid "New password"
 msgstr "ახალი პაროლი"
 
 #. TRANS: Field title on page where to change password.
+#. TRANS: Field title on account registration page.
 #, fuzzy
 msgid "6 or more characters."
 msgstr "6 ან მეტი სიმბოლო"
@@ -3455,6 +3497,7 @@ msgstr "ვადასტურებ"
 
 #. TRANS: Field title on page where to change password.
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
+#. TRANS: Field title on account registration page.
 #, fuzzy
 msgid "Same as password above."
 msgstr "იგივე რაც ზედა პაროლი"
@@ -3466,10 +3509,14 @@ msgid "Change"
 msgstr "შეცვლა"
 
 #. TRANS: Form validation error on page where to change password.
+#. TRANS: Form validation error displayed when trying to register with too short a password.
 msgid "Password must be 6 or more characters."
 msgstr "პაროლი უნდა შედგებოდეს 6 ან მეტი სიმბოლოსგან."
 
-msgid "Passwords don't match."
+#. TRANS: Form validation error on password change when password confirmation does not match.
+#. TRANS: Form validation error displayed when trying to register with non-matching passwords.
+#, fuzzy
+msgid "Passwords do not match."
 msgstr "პაროლები არ ემთხვევა."
 
 #. TRANS: Form validation error on page where to change password.
@@ -3710,6 +3757,7 @@ msgstr "ზოგჯერ"
 msgid "Always"
 msgstr "მუდამ"
 
+#. TRANS: Drop down label in Paths admin panel.
 msgid "Use SSL"
 msgstr "გამოიყენე SSL"
 
@@ -3831,20 +3879,24 @@ msgid "Profile information"
 msgstr "ინფორმაცია პროფილზე"
 
 #. TRANS: Tooltip for field label in form for profile settings.
+#. TRANS: Field title on account registration page.
 #, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1–64 პატარა ასოები ან ციფრები. პუნქტუაციები ან სივრცეები დაუშვებელია"
 
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Field label on account registration page.
 msgid "Full name"
 msgstr "სრული სახელი"
 
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Field label on account registration page.
 #. TRANS: Form input field label.
 msgid "Homepage"
 msgstr "ვებ. გვერსი"
 
 #. TRANS: Tooltip for field label in form for profile settings.
+#. TRANS: Field title on account registration page.
 #, fuzzy
 msgid "URL of your homepage, blog, or profile on another site."
 msgstr "თქვენი ვებ. გვერდის URL, ბლოგი, ან პროფილი სხვა საიტზე"
@@ -3863,10 +3915,12 @@ msgstr "აღწერეთ საკუთარი თავი და თ�
 
 #. TRANS: Text area label in form for profile settings where users can provide.
 #. TRANS: their biography.
+#. TRANS: Text area label on account registration page.
 msgid "Bio"
 msgstr "ბიოგრაფია"
 
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Field label on account registration page.
 msgid "Location"
 msgstr "მდებარეობა"
 
@@ -3918,6 +3972,8 @@ msgstr ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
+#. TRANS: Form validation error on registration page when providing too long a bio text.
+#. TRANS: %d is the maximum number of characters for bio; used for plural.
 #, fuzzy, php-format
 msgid "Bio is too long (maximum %d character)."
 msgid_plural "Bio is too long (maximum %d characters)."
@@ -4116,6 +4172,7 @@ msgstr ""
 "თუ დაგავიწყდათ, ან დაკარგეთ თქვენი პაროლი, შეგიძლიათ მიიღოთ ახალი, თქვენს "
 "ანგარიშში მითითებულ ელ. ფოსტის მისამართზე."
 
+#. TRANS: Page notice for password change page.
 msgid "You have been identified. Enter a new password below."
 msgstr "თქვენ იდენტიფიცირებული ხართ, შეიყვანეთ ახალი პაროლი ქვევით."
 
@@ -4213,6 +4270,7 @@ msgid "Password and confirmation do not match."
 msgstr "პაროლი და დასტური არ ემთხვევა."
 
 #. TRANS: Server error displayed when something does wrong with the user object during password reset.
+#. TRANS: Server error displayed when saving fails during user registration.
 msgid "Error setting user."
 msgstr "მომხმარებელის დაყენებისას მოხდა შეცდომა."
 
@@ -4220,38 +4278,52 @@ msgstr "მომხმარებელის დაყენებისა�
 msgid "New password successfully saved. You are now logged in."
 msgstr "ახალი პაროლი წარმატებით იქნა შენახული. თქვენ ახლა ავტორიზირებული ხართ."
 
-msgid "No id parameter"
-msgstr ""
+#. TRANS: Client exception thrown when no ID parameter was provided.
+#, fuzzy
+msgid "No id parameter."
+msgstr "კოდი არ არის შეყვანილი"
 
+#. TRANS: Client exception thrown when an invalid ID parameter was provided for a file.
+#. TRANS: %d is the provided ID for which the file is not present (number).
 #, fuzzy, php-format
-msgid "No such file \"%d\""
+msgid "No such file \"%d\"."
 msgstr "ასეთი ფაილი არ არსებობს."
 
+#. TRANS: Client error displayed when trying to register to an invite-only site without an invitation.
 msgid "Sorry, only invited people can register."
 msgstr "ბოდიშს გიხდით, დარეგისტრირება მხოლოდ მოწვევითაა შესაძლებელი."
 
+#. TRANS: Client error displayed when trying to register to an invite-only site without a valid invitation.
 msgid "Sorry, invalid invitation code."
 msgstr "ბოდიშს გიხდით, მოსაწვევი კოდი არასწორია."
 
+#. TRANS: Title for registration page after a succesful registration.
 msgid "Registration successful"
 msgstr "რეგისტრაცია წარმატებით დასრულდა"
 
+#. TRANS: Title for registration page.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Register"
 msgstr "რეგისტრაცია"
 
+#. TRANS: Client error displayed when trying to register to a closed site.
 msgid "Registration not allowed."
 msgstr "რეგისტრაცია არ არის დაშვებული."
 
+#. TRANS: Form validation error displayed when trying to register without agreeing to the site license.
 #, fuzzy
-msgid "You cannot register if you don't agree to the license."
+msgid "You cannot register if you do not agree to the license."
 msgstr "ვერ დარეგისტრირდებით თუ არ დაეთანხმებით ლიცენზიის პირობებს."
 
 msgid "Email address already exists."
 msgstr "ელ. ფოსტის მისამართი უკვე არსებობს."
 
+#. TRANS: Form validation error displayed when trying to register with an invalid username or password.
 msgid "Invalid username or password."
 msgstr "არასწორი მომხმარებლის სახელი ან პაროლი."
 
+#. TRANS: Page notice on registration page.
 #, fuzzy
 msgid ""
 "With this form you can create a new account. You can then post notices and "
@@ -4260,22 +4332,55 @@ msgstr ""
 "ამ ფორმით შეგიძლიათ შექმნათ ახალი ანგარიში. შემდგომ შეძლებთ შეტყობინებების "
 "დაპოსტვას და მეგობრებთან და კოლეგებთან ურთიერთობას. "
 
+#. TRANS: Field label on account registration page. In this field the password has to be entered a second time.
+#, fuzzy
+msgctxt "PASSWORD"
+msgid "Confirm"
+msgstr "ვადასტურებ"
+
+#. TRANS: Field label on account registration page.
+#, fuzzy
+msgctxt "LABEL"
 msgid "Email"
 msgstr "ელ. ფოსტა"
 
+#. TRANS: Field title on account registration page.
 #, fuzzy
 msgid "Used only for updates, announcements, and password recovery."
 msgstr ""
 "გამოიყენება მხოლოდ განახლებებისთვის, განცხადებებისთვის და პაროლის აღსადგენად"
 
+#. TRANS: Field title on account registration page.
 #, fuzzy
 msgid "Longer name, preferably your \"real\" name."
 msgstr "გრძელი სახელი, სასურველია თქვენი ნამდვილი სახელი"
 
+#. TRANS: Text area title in form for account registration. Plural
+#. TRANS: is decided by the number of characters available for the
+#. TRANS: biography (%d).
+#, fuzzy, php-format
+msgid "Describe yourself and your interests in %d character."
+msgid_plural "Describe yourself and your interests in %d characters."
+msgstr[0] "აღწერეთ საკუთარი თავი და თქვენი ინტერესები %d სიმბოლოთი"
+
+#. TRANS: Text area title on account registration page.
+#, fuzzy
+msgid "Describe yourself and your interests."
+msgstr "აღწერეთ საკუთარი თავი და თქვენი ინტერესები"
+
+#. TRANS: Field title on account registration page.
 #, fuzzy
 msgid "Where you are, like \"City, State (or Region), Country\"."
 msgstr "რომელ ქალაქში, რეგიონში, ქვეყანაში ხართ?"
 
+#. TRANS: Field label on account registration page.
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Register"
+msgstr "რეგისტრაცია"
+
+#. TRANS: Copyright checkbox label in registration dialog, for private sites.
+#. TRANS: %1$s is the StatusNet sitename.
 #, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
@@ -4283,6 +4388,8 @@ msgstr ""
 "მე ვაცნობიერებ, რომ %1$s–ის შიგთავსი და მონაცემები არის პირადული და "
 "კონციდენციალური."
 
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with a specified copyright owner.
+#. TRANS: %1$s is the license owner.
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr "ჩემი ტექსტის და ფაილების საავტორო უფლება ეკუტვნის %1$s–ს."
@@ -4304,6 +4411,10 @@ msgstr ""
 "ჩემი ტექსტი და ფაილები ხელმისაწვდომია %s–ით, გარდა ამ პირადი ინფორმაციისა: "
 "პაროლი, ელ. ფოსტის მისამართი, IM მისამართი და ტელეფონის ნომერი."
 
+#. TRANS: Text displayed after successful account registration.
+#. TRANS: %1$s is the registered nickname, %2$s is the profile URL.
+#. TRANS: This message contains Markdown links in the form [link text](link)
+#. TRANS: and variables in the form %%%%variable%%%%. Please mind the syntax.
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -4336,6 +4447,7 @@ msgstr ""
 "\n"
 "გმადლობთ რომ დარეგისტრირდით. იმედი გვაქვს ისიამოვნებთ ამ სერვისით."
 
+#. TRANS: Instruction text on how to deal with the e-mail address confirmation e-mail.
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -4343,6 +4455,8 @@ msgstr ""
 "(თქვენ უნდა მიიღოს ელ. წერილი მომენტალურად. ინსტრუქციებით, თუ როგორ "
 "დაადასტუროთ თქვენი ელ. ფოსტის მისამართი.)"
 
+#. TRANS: Page notice for remote subscribe. This message contains Markdown links.
+#. TRANS: Ensure to keep the correct markup of [link description](link).
 #, php-format
 msgid ""
 "To subscribe, you can [login](%%action.login%%), or [register](%%action."
@@ -4354,87 +4468,119 @@ msgstr ""
 "ანგარიში [თავსებად მიკრობლოგინგის საიტზე](%%doc.openmublog%%), მაშინ "
 "შეიყვანეთ თქვენი პროფილის URL ქვევით."
 
+#. TRANS: Page title for Remote subscribe.
 msgid "Remote subscribe"
 msgstr "დაშორებული გამოწერა"
 
+#. TRANS: Field legend on page for remote subscribe.
 msgid "Subscribe to a remote user"
 msgstr "გამოიწერე დაშორებული მომხმარებელი"
 
+#. TRANS: Field label on page for remote subscribe.
 msgid "User nickname"
 msgstr "მომხმარებლის მეტსახელი"
 
+#. TRANS: Field title on page for remote subscribe.
 #, fuzzy
 msgid "Nickname of the user you want to follow."
 msgstr "მომხმარებლის მეტსახელი რომელსაც გინდათ რომ მიჰყვეთ"
 
+#. TRANS: Field label on page for remote subscribe.
 msgid "Profile URL"
 msgstr "პროფილის URL"
 
+#. TRANS: Field title on page for remote subscribe.
 #, fuzzy
 msgid "URL of your profile on another compatible microblogging service."
 msgstr "თქვენი პროფილის URL სხვა თავსებად მიკრობლოგინგის სერვისზე"
 
-#. TRANS: Link text for link that will subscribe to a remote profile.
+#. TRANS: Button text on page for remote subscribe.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr "გამოწერა"
 
+#. TRANS: Form validation error on page for remote subscribe when an invalid profile URL was provided.
 #, fuzzy
 msgid "Invalid profile URL (bad format)."
 msgstr "პროფილის არასწორი URL (ცუდი ფორმატი)"
 
+#. TRANS: Form validation error on page for remote subscribe when no the provided profile URL
+#. TRANS: does not contain expected data.
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
 "ეს არ არის პროფილის სწორი URL (YADIS დოკუმენტი არ არის, ან არასწორი XRDS–ა "
 "განსაზღვრული)."
 
+#. TRANS: Form validation error on page for remote subscribe.
 #, fuzzy
 msgid "That is a local profile! Login to subscribe."
 msgstr "ეს ადგილობრივი პროფილია! შედით რომ გამოიწეროთ."
 
+#. TRANS: Form validation error on page for remote subscribe when the remote service is not providing a request token.
 #, fuzzy
 msgid "Could not get a request token."
 msgstr "შეტყობინების ჩასმა ვერ მოხერხდა."
 
+#. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
 msgstr "მხოლოდ ავტორიზირებულ მომხმარებლებს შეუძლიათ შეტყობინებების გამეორება."
 
+#. TRANS: Client error displayed when trying to repeat a notice while not providing a notice ID.
+#. TRANS: Client error displayed when trying to repeat a non-existing notice.
 msgid "No notice specified."
 msgstr "შეტყობინება მითითებული არ არის."
 
+#. TRANS: Client error displayed when trying to repeat an own notice.
 #, fuzzy
 msgid "You cannot repeat your own notice."
 msgstr "საკუთარი შეტყობინების გამეორება არ შეიძლება."
 
+#. TRANS: Client error displayed when trying to repeat an already repeated notice.
 msgid "You already repeated that notice."
 msgstr "თქვენ უკვე გაიმეორეთ ეს შეტყობინება."
 
+#. TRANS: Title after repeating a notice.
 msgid "Repeated"
 msgstr "გამეორებული"
 
+#. TRANS: Confirmation text after repeating a notice.
 msgid "Repeated!"
 msgstr "გამეორებული!"
 
+#. TRANS: Title for first page of replies for a user.
+#. TRANS: %s is a user nickname.
 #. TRANS: RSS reply feed title. %s is a user nickname.
 #, php-format
 msgid "Replies to %s"
 msgstr "პასუხები %s–ს"
 
+#. TRANS: Title for all but the first page of replies for a user.
+#. TRANS: %1$s is a user nickname, %2$d is a page number.
 #, php-format
 msgid "Replies to %1$s, page %2$d"
 msgstr "პასუხები %1$s–ს, გვერდი %2$d"
 
+#. TRANS: Link for feed with replies for a user.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgid "Replies feed for %s (RSS 1.0)"
 msgstr ""
 
+#. TRANS: Link for feed with replies for a user.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgid "Replies feed for %s (RSS 2.0)"
 msgstr ""
 
+#. TRANS: Link for feed with replies for a user.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgid "Replies feed for %s (Atom)"
 msgstr ""
 
+#. TRANS: Empty list message for page with replies for a user.
+#. TRANS: %1$s and %s$s are the user nickname.
 #, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
@@ -4443,6 +4589,8 @@ msgstr ""
 "ეს არის პასუხების ნაკადი %1$s–სთვის, მაგრამ %2$s–ს ჯერ არ მიუღია შეტყობინება "
 "მათ შესახებ."
 
+#. TRANS: Empty list message for page with replies for a user for the logged in user.
+#. TRANS: This message contains a Markdown link in the form [link text](link).
 #, php-format
 msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
@@ -4451,6 +4599,8 @@ msgstr ""
 "თქვენ შეგიძლიათ ჩაერთოთ საუბარში სხვა მომხმარებლებთან ერთად, გამოიწეროთ მეტი "
 "პიროვნებების განახლებები, ან [გაწევრიანდეთ ჯგუფში](%%action.groups%%)."
 
+#. TRANS: Empty list message for page with replies for a user for all logged in users but the user themselves.
+#. TRANS: %1$s, %2$s and %3$s are a user nickname. This message contains a Markdown link in the form [link text](link).
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
@@ -4540,12 +4690,17 @@ msgstr ""
 msgid "Upload the file"
 msgstr "ფაილის ატვირთვა"
 
+#. TRANS: Client error displayed when trying to revoke a role without having the right to do that.
 msgid "You cannot revoke user roles on this site."
 msgstr "თქვენ არ შეგიძლიათ მომხმარებლის როლის გაუქმება ამ საიტზე."
 
-msgid "User doesn't have this role."
+#. TRANS: Client error displayed when trying to revoke a role that is not set.
+#, fuzzy
+msgid "User does not have this role."
 msgstr "მომხმარებელს არ გააჩნია ეს როლი."
 
+#. TRANS: Engine name for RSD.
+#. TRANS: Engine name.
 msgid "StatusNet"
 msgstr "StatusNet"
 
@@ -4924,6 +5079,9 @@ msgstr "მომწოდებლის URL"
 msgid "URL used for credits link in footer of each page"
 msgstr "URL გამოყენებული კრედიტებისათვის თითოეული გვერდი ბოლოს"
 
+msgid "Email"
+msgstr "ელ. ფოსტა"
+
 msgid "Contact email address for your site"
 msgstr "თქვენი საიტის საკონტაქტო ელ. ფოსტის მისამართი"
 
@@ -5083,6 +5241,11 @@ msgstr ""
 #. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
 msgid "That is the wrong confirmation number."
 msgstr "ეს დასტურის კოდი არასწორია."
+
+#. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
+#, fuzzy
+msgid "Could not delete SMS confirmation."
+msgstr "IM დასტურის წაშლა ვერ მოხერხდა."
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 msgid "SMS confirmation cancelled."
@@ -5615,10 +5778,12 @@ msgstr "ვერ ვკითხულობ ავატარის URL ‘%s
 msgid "Wrong image type for avatar URL \"%s\"."
 msgstr "ავატარის სურათის ფორმატი არასწორია URL ‘%s’."
 
+#. TRANS: Title for profile design page.
 #. TRANS: Page title for profile design page.
 msgid "Profile design"
 msgstr "პროფილის დიზაინი"
 
+#. TRANS: Instructions for Profile design page.
 #. TRANS: Instructions for profile design page.
 msgid ""
 "Customize the way your profile looks with a background image and a colour "
@@ -5627,35 +5792,46 @@ msgstr ""
 "აირჩიეთ, როგორ გნებავთ გამოიყურებოდეს თქვენი პროფილი ფონური სურათისა და "
 "ფერთა პალიტრის შეცვლით."
 
+#. TRANS: Succes message on Profile design page when finding an easter egg.
 msgid "Enjoy your hotdog!"
 msgstr "ისიამოვნეთ ჰოთ დოგით!"
 
+#. TRANS: Form legend on Profile design page.
 #, fuzzy
 msgid "Design settings"
 msgstr "საიტის პარამეტრების შენახვა"
 
+#. TRANS: Checkbox label on Profile design page.
 msgid "View profile designs"
 msgstr "პროფილის დიზაინების ნახვა"
 
+#. TRANS: Title for checkbox on Profile design page.
 msgid "Show or hide profile designs."
 msgstr "აჩვენე ან დამალე პროფილის დიზაინები."
 
+#. TRANS: Form legend on Profile design page for form to choose a background image.
 #, fuzzy
 msgid "Background file"
 msgstr "ფონი"
 
-#. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
+#. TRANS: Page title for all but the first page of groups for a user.
+#. TRANS: %1$s is a nickname, %2$d is a page number.
 #, php-format
 msgid "%1$s groups, page %2$d"
 msgstr "%1$s ჯგუფი, გვერდი %2$d"
 
+#. TRANS: Link text on group page to search for groups.
 msgid "Search for more groups"
 msgstr "მოძებნე მეტი ჯგუფები"
 
+#. TRANS: Text on group page for a user that is not a member of any group.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgid "%s is not a member of any group."
 msgstr "მომხმარებელი %s არ არის არცერთი ჯგუფის წევრი."
 
+#. TRANS: Text on group page for a user that is not a member of any group. This message contains
+#. TRANS: a Markdown link in the form [link text](link) and a variable that should not be changed.
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr "სცადეთ [ჯგუფების მოძებნა](%%action.groupsearch%%) გაერთიენდით მათში."
@@ -5669,10 +5845,13 @@ msgstr "სცადეთ [ჯგუფების მოძებნა](%%ac
 msgid "Updates from %1$s on %2$s!"
 msgstr "%1$s-ს განახლებები %2$s-ზე!"
 
+#. TRANS: Title for version page. %s is the StatusNet version.
 #, php-format
 msgid "StatusNet %s"
 msgstr "StatusNet %s"
 
+#. TRANS: Content part of StatusNet version page.
+#. TRANS: %1$s is the engine name (StatusNet) and %2$s is the StatusNet version.
 #, php-format
 msgid ""
 "This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
@@ -5681,13 +5860,16 @@ msgstr ""
 "ეს საიტი მუშაობს %1$s-ის %2$s ვერსიაზე, ყველა უფლება დაცულია 2008-2010 "
 "StatusNet, Inc. და წვლილის შემომტანები."
 
+#. TRANS: Header for StatusNet contributors section on the version page.
 msgid "Contributors"
 msgstr "წვლილის შემომტანები"
 
+#. TRANS: Header for StatusNet license section on the version page.
 #. TRANS: Menu item for site administration
 msgid "License"
 msgstr "ლიცენზია"
 
+#. TRANS: Content part of StatusNet version page.
 msgid ""
 "StatusNet is free software: you can redistribute it and/or modify it under "
 "the terms of the GNU Affero General Public License as published by the Free "
@@ -5699,6 +5881,7 @@ msgstr ""
 "გამოქვეყნებულია Free Software Foundation-ის მიერ, ან ლიცენზიის 3 ვერსიით, ან "
 "ნებისმიერი უფრო ახალი ვერსიით. "
 
+#. TRANS: Content part of StatusNet version page.
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -5710,6 +5893,8 @@ msgstr ""
 "კონკრეტული მიზნისთვის თავსებადობაზე. იხილეთ GNU Affero ძირითადი საჯარო "
 "ლიცენზია მეტი ინფორმაციისთვის."
 
+#. TRANS: Content part of StatusNet version page.
+#. TRANS: %s is a link to the AGPL license with link description "http://www.gnu.org/licenses/agpl.html".
 #, php-format
 msgid ""
 "You should have received a copy of the GNU Affero General Public License "
@@ -5718,22 +5903,32 @@ msgstr ""
 "თქვენ უნდა მიგეღოთ GNU Affero ძირითადი საჯარო ლიცენზიის ასლი ამ პროგრამასთან "
 "ერთად. თუ არა, იხილეთ %s."
 
+#. TRANS: Header for StatusNet plugins section on the version page.
 #. TRANS: Menu item for site administration
 msgid "Plugins"
 msgstr "დამატებები"
 
-#. TRANS: Form input field label for application name.
+#. TRANS: Column header for plugins table on version page.
+#, fuzzy
+msgctxt "HEADER"
 msgid "Name"
 msgstr "დასახელება"
 
-#. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
+#. TRANS: Column header for plugins table on version page.
+#, fuzzy
+msgctxt "HEADER"
 msgid "Version"
 msgstr "ვერსია"
 
+#. TRANS: Column header for plugins table on version page.
+#, fuzzy
+msgctxt "HEADER"
 msgid "Author(s)"
 msgstr "ავტორი(ები)"
 
-#. TRANS: Form input field label.
+#. TRANS: Column header for plugins table on version page.
+#, fuzzy
+msgctxt "HEADER"
 msgid "Description"
 msgstr "აღწერა"
 
@@ -6073,6 +6268,10 @@ msgctxt "role"
 msgid "Moderator"
 msgstr "მოდერატორი"
 
+#. TRANS: Link text for link that will subscribe to a remote profile.
+msgid "Subscribe"
+msgstr "გამოწერა"
+
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #, php-format
 msgid "%1$s - %2$s"
@@ -6094,6 +6293,7 @@ msgid "Reply"
 msgstr "პასუხი"
 
 #. TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
+#. TRANS: Field label for reply mini form.
 msgid "Write a reply..."
 msgstr ""
 
@@ -6398,6 +6598,10 @@ msgstr ""
 msgid "Icon for this application"
 msgstr "ამ აპლიკაციის ხატულა"
 
+#. TRANS: Form input field label for application name.
+msgid "Name"
+msgstr "დასახელება"
+
 #. TRANS: Form input field instructions.
 #. TRANS: %d is the number of available characters for the description.
 #, fuzzy, php-format
@@ -6408,6 +6612,10 @@ msgstr[0] "აღწერეთ თქვენი აპლიკაცია 
 #. TRANS: Form input field instructions.
 msgid "Describe your application"
 msgstr "აღწერეთ თქვენი აპლიკაცია"
+
+#. TRANS: Form input field label.
+msgid "Description"
+msgstr "აღწერა"
 
 #. TRANS: Form input field instructions.
 msgid "URL of the homepage of this application"
@@ -8063,6 +8271,10 @@ msgstr "პირადი"
 msgid "Source"
 msgstr "წყარო"
 
+#. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
+msgid "Version"
+msgstr "ვერსია"
+
 #. TRANS: Secondary navigation menu option leading to e-mail contact information on the
 #. TRANS: StatusNet site, where to report bugs, ...
 msgid "Contact"
@@ -8193,11 +8405,60 @@ msgstr "თემა შეიცავს ფაილის ტიპს '.%s'
 msgid "Error opening theme archive."
 msgstr "თემის არქივის გახსნისას მოხდა შეცდომა."
 
+#. TRANS: Header for Notices section.
+#, fuzzy
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "შეტყობინებები"
+
+#. TRANS: Link to show replies for a notice.
+#. TRANS: %d is the number of replies to a notice and used for plural.
 #, php-format
-msgid "Show %d reply"
+msgid "Show reply"
 msgid_plural "Show all %d replies"
 msgstr[0] ""
 
+#. TRANS: Reference to the logged in user in favourite list.
+msgctxt "FAVELIST"
+msgid "You"
+msgstr ""
+
+#. TRANS: Separator in list of user names like "You, Bob, Mary".
+msgid ", "
+msgstr ""
+
+#. TRANS: For building a list such as "You, bob, mary and 5 others have favored this notice".
+#. TRANS: %1$s is a list of users, separated by a separator (default: ", "), %2$s is the last user in the list.
+#, fuzzy, php-format
+msgctxt "FAVELIST"
+msgid "%1$s and %2$s"
+msgstr "%1$s - %2$s"
+
+#. TRANS: List message for notice favoured by logged in user.
+#, fuzzy
+msgctxt "FAVELIST"
+msgid "You have favored this notice."
+msgstr "ჩაამატე რჩეულებში ეს შეტყობინება"
+
+#, fuzzy, php-format
+msgctxt "FAVELIST"
+msgid "One person has favored this notice."
+msgid_plural "%d people have favored this notice."
+msgstr[0] "ამოშალე რჩეულებიდან ეს შეტყობინება"
+
+#. TRANS: List message for notice repeated by logged in user.
+#, fuzzy
+msgctxt "REPEATLIST"
+msgid "You have repeated this notice."
+msgstr "თქვენ უკვე გაიმეორეთ ეს შეტყობინება."
+
+#, fuzzy, php-format
+msgctxt "REPEATLIST"
+msgid "One person has repeated this notice."
+msgid_plural "%d people have repeated this notice."
+msgstr[0] "ეს შეტყობინება უკვე გამეორებულია."
+
+#. TRANS: Title for top posters section.
 msgid "Top posters"
 msgstr "საუკეთესო მპოსტავები"
 
@@ -8207,21 +8468,32 @@ msgctxt "TITLE"
 msgid "Unblock"
 msgstr "ბლოკირების მოხსნა"
 
+#. TRANS: Title for unsandbox form.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Unsandbox"
 msgstr "იზოლირების მოხსნა"
 
+#. TRANS: Description for unsandbox form.
 msgid "Unsandbox this user"
 msgstr "ამ მომხმარებლის იზოლირების მოხსნა"
 
+#. TRANS: Title for unsilence form.
 msgid "Unsilence"
 msgstr "დადუმების მოხსნა"
 
+#. TRANS: Form description for unsilence form.
 msgid "Unsilence this user"
 msgstr "ამ მომხმარებლის დადუმების მოხსნა"
 
+#. TRANS: Form legend on unsubscribe form.
+#. TRANS: Button title on unsubscribe form.
 msgid "Unsubscribe from this user"
 msgstr "ამ მომხმარებლის გამოწერის გაუქმება"
 
+#. TRANS: Button text on unsubscribe form.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Unsubscribe"
 msgstr "გამოწერის გაუქმება"
 
@@ -8231,6 +8503,7 @@ msgstr "გამოწერის გაუქმება"
 msgid "User %1$s (%2$d) has no profile record."
 msgstr "მომხმარებელს პროფილი არ გააჩნია."
 
+#. TRANS: Authorisation exception thrown when a user a not allowed to login.
 #, fuzzy
 msgid "Not allowed to log in."
 msgstr "ავტორიზებული არ ხართ."
@@ -8304,5 +8577,9 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Invalid tag: \"%s\""
-#~ msgstr "არასწორი სანიშნე: \"%s\""
+#~ msgid "Couldn't update user."
+#~ msgstr "მომხმარებლის განახლება ვერ მოხერხდა."
+
+#, fuzzy
+#~ msgid "Couldn't update user im prefs."
+#~ msgstr "მომხმარებლის ჩანაწერის განახლება ვერ მოხერხდა."
