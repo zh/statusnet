@@ -91,17 +91,13 @@ class ThreadedNoticeList extends NoticeList
             $conversations[$convo] = true;
 
             // Get the convo's root notice
-            // @fixme stream goes in wrong direction, this needs sane caching
-            //$notice = Notice::conversationStream($convo, 0, 1);
-            //$notice->fetch();
-            $root = new Notice();
-            $root->conversation = $notice->conversation;
-            $root->orderBy('CREATED');
-            $root->limit(1);
-            $root->find(true);
+            $root = $notice->conversationRoot();
+            if ($root) {
+                $notice = $root;
+            }
 
             try {
-                $item = $this->newListItem($root);
+                $item = $this->newListItem($notice);
                 $item->show();
             } catch (Exception $e) {
                 // we log exceptions and continue

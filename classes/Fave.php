@@ -44,7 +44,7 @@ class Fave extends Memcached_DataObject
                 common_log_db_error($fave, 'INSERT', __FILE__);
                 return false;
             }
-            self::blow('fave:by_notice', $fave->notice_id);
+            self::blow('fave:by_notice:%d', $fave->notice_id);
 
             Event::handle('EndFavorNotice', array($profile, $notice));
         }
@@ -62,7 +62,7 @@ class Fave extends Memcached_DataObject
         if (Event::handle('StartDisfavorNotice', array($profile, $notice, &$result))) {
 
             $result = parent::delete();
-            self::blow('fave:by_notice', $this->notice_id);
+            self::blow('fave:by_notice:%d', $this->notice_id);
 
             if ($result) {
                 Event::handle('EndDisfavorNotice', array($profile, $notice));
@@ -219,7 +219,7 @@ class Fave extends Memcached_DataObject
     static function byNotice($noticeId)
     {
         $c = self::memcache();
-        $key = Cache::key('fave:by_notice', $noticeId);
+        $key = Cache::key('fave:by_notice:' . $noticeId);
 
         $wrapper = $c->get($key);
         if (!$wrapper) {
@@ -228,7 +228,7 @@ class Fave extends Memcached_DataObject
             $fave->notice_id = $noticeId;
             $fave->find();
 
-            $profiles = array();
+            $list = array();
             while ($fave->fetch()) {
                 $list[] = clone($fave);
             }
