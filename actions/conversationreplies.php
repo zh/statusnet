@@ -47,7 +47,6 @@ require_once INSTALLDIR.'/lib/noticelist.php';
  */
 class ConversationRepliesAction extends ConversationAction
 {
-
     function handle($args)
     {
         if ($this->boolean('ajax')) {
@@ -80,7 +79,8 @@ class ConversationRepliesAction extends ConversationAction
         $this->xw->startDocument('1.0', 'UTF-8');
         $this->elementStart('html');
         $this->elementStart('head');
-        $this->element('title', null, _('Notice'));
+        // TRANS: Title for conversation page.
+        $this->element('title', null, _m('TITLE','Notice'));
         $this->elementEnd('head');
         $this->elementStart('body');
         $this->showContent();
