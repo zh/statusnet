@@ -496,6 +496,13 @@ class Notice extends Memcached_DataObject
         if ($this->isPublic()) {
             self::blow('public;last');
         }
+
+        self::blow('fave:by_notice', $this->id);
+
+        if ($this->conversation) {
+            // In case we're the first, will need to calc a new root.
+            self::blow('notice:conversation_root:%d', $this->conversation);
+        }
     }
 
     /** save all urls in the notice to the db
@@ -774,6 +781,35 @@ class Notice extends Memcached_DataObject
         return false;
     }
 
+    /**
+     * Grab the earliest notice from this conversation.
+     *
+     * @return Notice or null
+     */
+    function conversationRoot()
+    {
+        if (!empty($this->conversation)) {
+            $c = self::memcache();
+
+            $key = Cache::key('notice:conversation_root:' . $this->conversation);
+            $notice = $c->get($key);
+            if ($notice) {
+                return $notice;
+            }
+
+            $notice = new Notice();
+            $notice->conversation = $this->conversation;
+            $notice->orderBy('CREATED');
+            $notice->limit(1);
+            $notice->find(true);
+
+            if ($notice->N) {
+                $c->set($key, $notice);
+                return $notice;
+            }
+        }
+        return null;
+    }
     /**
      * Pull up a full list of local recipients who will be getting
      * this notice in their inbox. Results will be cached, so don't
