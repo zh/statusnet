@@ -275,10 +275,7 @@ class AtompubmembershipfeedAction extends ApiAuthAction
                 throw new ClientException(_('Blocked by admin.'));
             }
 
-            if (Event::handle('StartJoinGroup', array($group, $this->auth_user))) {
-                $membership = Group_member::join($group->id, $this->auth_user->id);
-                Event::handle('EndJoinGroup', array($group, $this->auth_user));
-            }
+            $this->auth_user->joinGroup($group);
 
             Event::handle('EndAtomPubNewActivity', array($activity, $membership));
         }

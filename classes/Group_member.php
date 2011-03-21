@@ -28,6 +28,7 @@ class Group_member extends Memcached_DataObject
 
     /**
      * Method to add a user to a group.
+     * In most cases, you should call Profile->joinGroup() instead.
      *
      * @param integer $group_id   Group to add to
      * @param integer $profile_id Profile being added

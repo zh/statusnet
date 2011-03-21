@@ -352,10 +352,7 @@ class JoinCommand extends Command
         }
 
         try {
-            if (Event::handle('StartJoinGroup', array($group, $cur))) {
-                Group_member::join($group->id, $cur->id);
-                Event::handle('EndJoinGroup', array($group, $cur));
-            }
+            $cur->joinGroup($group);
         } catch (Exception $e) {
             // TRANS: Message given having failed to add a user to a group.
             // TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
@@ -400,10 +397,7 @@ class DropCommand extends Command
         }
 
         try {
-            if (Event::handle('StartLeaveGroup', array($group, $cur))) {
-                Group_member::leave($group->id, $cur->id);
-                Event::handle('EndLeaveGroup', array($group, $cur));
-            }
+            $cur->leaveGroup($group);
         } catch (Exception $e) {
             // TRANS: Message given having failed to remove a user from a group.
             // TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.

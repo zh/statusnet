@@ -339,6 +339,36 @@ class Profile extends Memcached_DataObject
         return $groups;
     }
 
+    /**
+     * Request to join the given group.
+     * May throw exceptions on failure.
+     *
+     * @param User_group $group
+     * @return Group_member
+     */
+    function joinGroup(User_group $group)
+    {
+        $ok = null;
+        if (Event::handle('StartJoinGroup', array($group, $this))) {
+            $ok = Group_member::join($group->id, $this->id);
+            Event::handle('EndJoinGroup', array($group, $this));
+        }
+        return $ok;
+    }
+
+    /**
+     * Leave a group that this profile is a member of.
+     *
+     * @param User_group $group 
+     */
+    function leaveGroup(User_group $group)
+    {
+        if (Event::handle('StartLeaveGroup', array($this->group, $this))) {
+            Group_member::leave($this->group->id, $this->id);
+            Event::handle('EndLeaveGroup', array($this->group, $this));
+        }
+    }
+
     function avatarUrl($size=AVATAR_PROFILE_SIZE)
     {
         $avatar = $this->getAvatar($size);
