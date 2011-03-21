@@ -1,9 +1,9 @@
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2011, StatusNet, Inc.
+ * Copyright (C) 2010, StatusNet, Inc.
  *
- * Show a question
+ * Show an answer to a question
  *
  * PHP version 5
  *
@@ -23,7 +23,7 @@
  * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2011 StatusNet, Inc.
+ * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
@@ -35,18 +35,19 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Show a question
+ * Show an answer to a question, and associated data
  *
  * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2011 StatusNet, Inc.
+ * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class ShowquestionAction extends ShownoticeAction
+
+class QnashowanswerAction extends ShownoticeAction
 {
-    protected $question = null;
+    protected $answer = null;
 
     /**
      * For initializing members of the class.
@@ -55,39 +56,36 @@ class ShowquestionAction extends ShownoticeAction
      *
      * @return boolean true
      */
+
     function prepare($argarray)
     {
         OwnerDesignAction::prepare($argarray);
 
         $this->id = $this->trimmed('id');
 
-        $this->question = Question::staticGet('id', $this->id);
+        $this->answer = Answer::staticGet('id', $this->id);
 
-        if (empty($this->question)) {
-            // TRANS: Client exception thrown trying to view a non-existing question.
-            throw new ClientException(_m('No such question.'), 404);
+        if (empty($this->answer)) {
+            throw new ClientException(_('No such answer.'), 404);
         }
 
-        $this->notice = $this->question->getNotice();
+        $this->notice = Notice::staticGet('uri', $this->answer->uri);
 
         if (empty($this->notice)) {
             // Did we used to have it, and it got deleted?
-            // TRANS: Client exception thrown trying to view a non-existing question notice.
-            throw new ClientException(_m('No such question notice.'), 404);
+            throw new ClientException(_('No such answer.'), 404);
         }
 
-        $this->user = User::staticGet('id', $this->question->profile_id);
+        $this->user = User::staticGet('id', $this->answer->profile_id);
 
         if (empty($this->user)) {
-            // TRANS: Client exception thrown trying to view a question of a non-existing user.
-            throw new ClientException(_m('No such user.'), 404);
+            throw new ClientException(_('No such user.'), 404);
         }
 
         $this->profile = $this->user->getProfile();
 
         if (empty($this->profile)) {
-            // TRANS: Server exception thrown trying to view a question for a user for which the profile could not be loaded.
-            throw new ServerException(_m('User without a profile.'));
+            throw new ServerException(_('User without a profile.'));
         }
 
         $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -102,29 +100,26 @@ class ShowquestionAction extends ShownoticeAction
      *
      * @return string page tile
      */
+
     function title()
     {
-        // TRANS: Page title for a question.
-        // TRANS: %1$s is the nickname of the user who asked the question, %2$s is the question.
-        return sprintf(_m('%1$s\'s question: %2$s'),
+        return sprintf(_('%s\'s answer to "%s"'),
                        $this->user->nickname,
-                       $this->question->question);
+                       $this->answer->title);
     }
 
     /**
-     * @fixme combine the notice time with question update time
+     * Overload page title display to show answer link
+     *
+     * @return void
      */
-    function lastModified()
-    {
-        return Action::lastModified();
-    }
 
-
-    /**
-     * @fixme combine the notice time with question update time
-     */
-    function etag()
+    function showPageTitle()
     {
-        return Action::etag();
+        $this->elementStart('h1');
+        $this->element('a',
+                       array('href' => $this->answer->url),
+                       $this->asnwer->title);
+        $this->elementEnd('h1');
     }
 }

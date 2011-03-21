@@ -44,7 +44,7 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class AnswerForm extends Form
+class QnaanswerForm extends Form
 {
     protected $question;
 
@@ -89,7 +89,7 @@ class AnswerForm extends Form
      */
     function action()
     {
-        return common_local_url('answer', array('id' => $this->question->id));
+        return common_local_url('qnanewanswer', array('id' => $this->question->id));
     }
 
     /**

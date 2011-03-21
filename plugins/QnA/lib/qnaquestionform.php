@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Form for answering a question
+ * Form for adding a new question
  *
  * PHP version 5
  *
@@ -22,7 +22,7 @@
  *
  * @category  QnA
  * @package   StatusNet
- * @author    Zach Copley <zach@status.net>
+ * @author    Zach Copley <zach@copley.name>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
@@ -35,31 +35,32 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Form to add a new answer to a question
+ * Form to add a new question
  *
  * @category  QnA
  * @package   StatusNet
- * @author    Zach Copley <zach@status.net>
+ * @author    Zach Copley <zach@copley.name>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class AnswerForm extends Form
+class QnaquestionForm extends Form
 {
-    protected $question;
+    protected $title;
+    protected $description;
 
     /**
-     * Construct a new answer form
+     * Construct a new question form
      *
-     * @param QnA_Question $question
      * @param HTMLOutputter $out output channel
      *
      * @return void
      */
-    function __construct(QnA_Question $question, HTMLOutputter $out)
+    function __construct($out = null, $title = null, $description = null, $options = null)
     {
         parent::__construct($out);
-        $this->question = $question;
+        $this->title       = $title;
+        $this->description = $description;
     }
 
     /**
@@ -69,7 +70,7 @@ class AnswerForm extends Form
      */
     function id()
     {
-        return 'answer-form';
+        return 'newquestion-form';
     }
 
     /**
@@ -79,7 +80,7 @@ class AnswerForm extends Form
      */
     function formClass()
     {
-        return 'form_settings ajax';
+        return 'form_settings ajax-notice';
     }
 
     /**
@@ -89,7 +90,7 @@ class AnswerForm extends Form
      */
     function action()
     {
-        return common_local_url('answer', array('id' => $this->question->id));
+        return common_local_url('qnanewquestion');
     }
 
     /**
@@ -99,12 +100,28 @@ class AnswerForm extends Form
      */
     function formData()
     {
-        $question = $this->question;
-        $out      = $this->out;
-        $id       = "question-" . $question->id;
+        $this->out->elementStart('fieldset', array('id' => 'newquestion-data'));
+        $this->out->elementStart('ul', 'form_data');
 
-        $out->element('p', 'answer', $question->question);
-        $out->element('input', array('type' => 'text', 'name' => 'answer'));
+        $this->li();
+        $this->out->input(
+            'title',
+            _m('Title'),
+            $this->title,
+            _m('Title of your question')
+        );
+        $this->unli();
+        $this->li();
+        $this->out->textarea(
+            'description',
+            _m('Description'),
+            $this->description,
+            _m('Your question in detail')
+        );
+        $this->unli();
+
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
     }
 
     /**
@@ -114,8 +131,7 @@ class AnswerForm extends Form
      */
     function formActions()
     {
-        // TRANS: Button text for submitting a poll response.
-        $this->out->submit('submit', _m('BUTTON', 'Submit'));
+        // TRANS: Button text for saving a new question.
+        $this->out->submit('submit', _m('BUTTON', 'Save'));
     }
 }
-

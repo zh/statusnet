@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Answer a question
+ * Add a new Question
  *
  * PHP version 5
  *
@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  QuestonAndAnswer
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -34,23 +34,22 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Answer a question
+ * Add a new Question
  *
- * @category  QnA
+ * @category  Plugin
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class AnswerAction extends Action
+class QnanewquestionAction extends Action
 {
     protected $user        = null;
     protected $error       = null;
     protected $complete    = null;
-
-    protected $qustion     = null;
-    protected $answer      = null;
+    protected $title       = null;
+    protected $description = null;
 
     /**
      * Returns the title of the action
@@ -59,8 +58,8 @@ class AnswerAction extends Action
      */
     function title()
     {
-        // TRANS: Page title for and answer to a question.
-        return _m('Answer');
+        // TRANS: Title for Question page.
+        return _m('New question');
     }
 
     /**
@@ -73,31 +72,23 @@ class AnswerAction extends Action
     function prepare($argarray)
     {
         parent::prepare($argarray);
-        if ($this->boolean('ajax')) {
-            StatusNet::setApi(true);
-        }
 
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            // TRANS: Client exception thrown trying to answer a question while not logged in.
-            throw new ClientException(_m("You must be logged in to answer to a question."),
-                                      403);
+            // TRANS: Client exception thrown trying to create a Question while not logged in.
+            throw new ClientException(
+                _m('You must be logged in to post a question.'),
+                403
+            );
         }
 
         if ($this->isPost()) {
             $this->checkSessionToken();
         }
 
-        $id = $this->trimmed('id');
-        $this->question = Question::staticGet('id', $id);
-        if (empty($this->question)) {
-            // TRANS: Client exception thrown trying to respond to a non-existing question.
-            throw new ClientException(_m('Invalid or missing question.'), 404);
-        }
-
-        $answer = $this->trimmed('answer');
-
+        $this->title       = $this->trimmed('title');
+        $this->description = $this->trimmed('description');
 
         return true;
     }
@@ -114,7 +105,7 @@ class AnswerAction extends Action
         parent::handle($argarray);
 
         if ($this->isPost()) {
-            $this->answer();
+            $this->newQuestion();
         } else {
             $this->showPage();
         }
@@ -123,17 +114,25 @@ class AnswerAction extends Action
     }
 
     /**
-     * Add a new answer
+     * Add a new Question
      *
      * @return void
      */
-    function answer()
+    function newQuestion()
     {
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true);
+        }
         try {
-            $notice = Answer::saveNew(
+            if (empty($this->title)) {
+                // TRANS: Client exception thrown trying to create a question without a title.
+                throw new ClientException(_m('Question must have a title.'));
+            }
+
+            $saved = QnA_Question::saveNew(
                 $this->user->getProfile(),
-                $this->question,
-                $this->answer
+                $this->title,
+                $this->description
             );
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
@@ -146,21 +145,36 @@ class AnswerAction extends Action
             $this->xw->startDocument('1.0', 'UTF-8');
             $this->elementStart('html');
             $this->elementStart('head');
-            // TRANS: Page title after sending an answer.
-            $this->element('title', null, _m('Answers'));
+            // TRANS: Page title after sending a notice.
+            $this->element('title', null, _m('Question posted'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $form = new Answer($this->question, $this);
-            $form->show();
+            $this->showNotice($saved);
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
-            common_redirect($this->question->bestUrl(), 303);
+            common_redirect($saved->bestUrl(), 303);
         }
     }
 
     /**
-     * Show the Answer form
+     * Output a notice
+     *
+     * Used to generate the notice code for Ajax results.
+     *
+     * @param Notice $notice Notice that was saved
+     *
+     * @return void
+     */
+    function showNotice($notice)
+    {
+        class_exists('NoticeList'); // @fixme hack for autoloader
+        $nli = new NoticeListItem($notice, $this);
+        $nli->show();
+    }
+
+    /**
+     * Show the Question form
      *
      * @return void
      */
@@ -170,7 +184,11 @@ class AnswerAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new AnswerForm($this->question, $this);
+        $form = new QuestionForm(
+            $this,
+            $this->title,
+            $this->description
+        );
 
         $form->show();
 

@@ -150,7 +150,7 @@ class Qnavote extends Action
             $this->element('title', null, _m('Answers'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $form = new Answer($this->question, $this);
+            $form = new QnA_Answer($this->question, $this);
             $form->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
@@ -170,7 +170,7 @@ class Qnavote extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new AnswerForm($this->question, $this);
+        $form = new QnaanswerForm($this->question, $this);
 
         $form->show();
 

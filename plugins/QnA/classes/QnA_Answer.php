@@ -45,7 +45,7 @@ if (!defined('STATUSNET')) {
 class QnA_Answer extends Managed_DataObject
 {
     const  OBJECT_TYPE = 'http://activityschema.org/object/answer';
-    
+
     public $__table = 'qna_answer'; // table name
     public $id;          // char(36) primary key not null -> UUID
     public $question_id; // char(36) -> question.id UUID
@@ -95,19 +95,19 @@ class QnA_Answer extends Managed_DataObject
             'description' => 'Record of answers to questions',
             'fields' => array(
                 'id' => array(
-                    'type'     => 'char', 
-                    'length'   => 36, 
+                    'type'     => 'char',
+                    'length'   => 36,
                     'not null' => true, 'description' => 'UUID of the response'),
                     'uri'      => array(
-                        'type'        => 'varchar', 
-                        'length'      => 255, 
-                        'not null'    => true, 
+                        'type'        => 'varchar',
+                        'length'      => 255,
+                        'not null'    => true,
                         'description' => 'UUID to the answer notice'
                     ),
                     'question_id' => array(
-                        'type'     => 'char', 
-                        'length'   => 36, 
-                        'not null' => true, 
+                        'type'     => 'char',
+                        'length'   => 36,
+                        'not null' => true,
                         'description' => 'UUID of question being responded to'
                     ),
                     'best'     => array('type' => 'int', 'size' => 'tiny'),
@@ -164,7 +164,7 @@ class QnA_Answer extends Managed_DataObject
 
     static function fromNotice($notice)
     {
-        return QnA_Answer::staticGet('uri', $notice->uri);
+        return self::staticGet('uri', $notice->uri);
     }
 
     /**
@@ -182,7 +182,7 @@ class QnA_Answer extends Managed_DataObject
             $options = array();
         }
 
-        $answer              = new Answer();
+        $answer              = new QnA_Answer();
         $answer->id          = UUID::gen();
         $answer->profile_id  = $profile->id;
         $answer->question_id = $question->id;
@@ -191,7 +191,7 @@ class QnA_Answer extends Managed_DataObject
             'showanswer',
             array('id' => $answer->id)
         );
-        
+
         common_log(LOG_DEBUG, "Saving answer: $answer->id, $answer->uri");
         $answer->insert();
 
@@ -201,6 +201,7 @@ class QnA_Answer extends Managed_DataObject
             _m('answered "%s"'),
             $answer->uri
         );
+
         $link = '<a href="' . htmlspecialchars($answer->uri) . '">' . htmlspecialchars($answer) . '</a>';
         // TRANS: Rendered version of the notice content answering a question.
         // TRANS: %s a link to the question with question title as the link content.
