@@ -129,9 +129,9 @@ class ModPlusPlugin extends Plugin
      * Currently only adds output for remote profiles, nothing for local users.
      *
      * @param HTMLOutputter $out
-     * @param Profile $profile
+     * @param Profile $profile (may also be an ArrayWrapper... sigh)
      */
-    protected function showProfileOptions(HTMLOutputter $out, Profile $profile)
+    protected function showProfileOptions(HTMLOutputter $out, $profile)
     {
         $isRemote = !(User::staticGet('id', $profile->id));
         if ($isRemote) {
