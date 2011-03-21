@@ -36,7 +36,7 @@ if (!defined('STATUSNET')) {
 /**
  * Answer a question
  *
- * @category  QuestionAndAnswer
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2010 StatusNet, Inc.

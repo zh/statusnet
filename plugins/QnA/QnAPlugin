@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  QuestionAndAnswer
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -44,8 +44,13 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class QuestionAndAnswerPlugin extends MicroappPlugin
+class QnAPlugin extends MicroAppPlugin
 {
+  
+    // @fixme which domain should we use for these namespaces?
+    const QUESTION_OBJECT = 'http://activityschema.org/object/question';
+    const ANSWER_OBJECT   = 'http://activityschema.org/object/answer';
+  
     /**
      * Set up our tables (question and answer)
      *
@@ -58,9 +63,10 @@ class QuestionAndAnswerPlugin extends MicroappPlugin
     {
         $schema = Schema::get();
 
-        $schema->ensureTable('question', Question::schemaDef());
-        $schema->ensureTable('answer', Answer::schemaDef());
-
+        $schema->ensureTable('qna_question', QnA_Question::schemaDef());
+        $schema->ensureTable('qna_answer', QnA_Answer::schemaDef());
+        $schema->ensureTable('qna_vote', QnA_Vote::schemaDef());
+        
         return true;
     }
 
@@ -81,15 +87,18 @@ class QuestionAndAnswerPlugin extends MicroappPlugin
         case 'NewanswerAction':
         case 'ShowquestionAction':
         case 'ShowanswerAction':
+        case 'QnavoteAction':
             include_once $dir . '/actions/'
                 . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'QuestionForm':
         case 'AnswerForm':
+        case 'VoteForm';
             include_once $dir . '/lib/' . strtolower($cls).'.php';
             break;
-        case 'Question':
-        case 'Answer':
+        case 'QnA_Question':
+        case 'QnA_Answer':
+        case 'QnA_Vote':
             include_once $dir . '/classes/' . $cls.'.php';
             return false;
             break;
@@ -108,26 +117,47 @@ class QuestionAndAnswerPlugin extends MicroappPlugin
 
     function onRouterInitialized($m)
     {
-        $m->connect('main/question/new',
-                    array('action' => 'newquestion'));
-        $m->connect('main/question/answer',
-                    array('action' => 'newanswer'));
-        $m->connect('question/:id',
-                    array('action' => 'showquestion'),
-                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
-        $m->connect('answer/:id',
-                    array('action' => 'showanswer'),
-                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
+        $regexId = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
+      
+        $m->connect(
+            'main/question/new', 
+            array('action' => 'newquestion')
+        );
+        $m->connect(
+            'main/question/answer',
+            array('action' => 'newanswer')
+        );
+        $m->connect(
+            'question/vote/:id',
+            array('action' => 'qnavote', 'type' => 'question'),
+            array('id' => $regexId)
+        );
+        $m->connect(
+            'question/:id',
+            array('action' => 'showquestion'),
+            array('id' => $regexId)
+        );
+        $m->connect(
+            'answer/vote/:id',
+            array('action' => 'qnavote', 'type' => 'answer'),
+            array('id' => $regexId)
+        );
+        $m->connect(
+            'answer/:id',
+            array('action' => 'showanswer'),
+            array('id' => $regexId)
+        );
+        
         return true;
     }
 
     function onPluginVersion(&$versions)
     {
         $versions[] = array(
-            'name'        => 'QuestionAndAnswer',
+            'name'        => 'QnA',
             'version'     => STATUSNET_VERSION,
             'author'      => 'Zach Copley',
-            'homepage'    => 'http://status.net/wiki/Plugin:QuestionAndAnswer',
+            'homepage'    => 'http://status.net/wiki/Plugin:QnA',
             'description' =>
              _m('Question and Answers micro-app.')
         );
@@ -167,7 +197,7 @@ class QuestionAndAnswerPlugin extends MicroappPlugin
 
         $questionObj = $activity->objects[0];
 
-        if ($questinoObj->type != Question::OBJECT_TYPE) {
+        if ($questinoObj->type != QnA_Question::OBJECT_TYPE) {
             throw new Exception('Wrong type for object.');
         }
 
@@ -184,13 +214,12 @@ class QuestionAndAnswerPlugin extends MicroappPlugin
             );
             break;
         case Answer::NORMAL:
-        case Answer::ANONYMOUS:
-            $question = Question::staticGet('uri', $questionObj->id);
+            $question = QnA_Question::staticGet('uri', $questionObj->id);
             if (empty($question)) {
                 // FIXME: save the question
                 throw new Exception("Answer to unknown question.");
             }
-            $notice = Answer::saveNew($actor, $question, $activity->verb, $options);
+            $notice = QnA_Answer::saveNew($actor, $question, $activity->verb, $options);
             break;
         default:
             throw new Exception("Unknown verb for question");

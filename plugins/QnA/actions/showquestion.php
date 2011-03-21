@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  QuestionAndAnswer
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -37,7 +37,7 @@ if (!defined('STATUSNET')) {
 /**
  * Show a question
  *
- * @category  QuestionAndAnswer
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2011 StatusNet, Inc.

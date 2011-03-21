@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * @category QuestionAndAnswer
+ * @category QnA
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
 /**
  * For storing answers
  *
- * @category QuestionAndAnswer
+ * @category QnA
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
@@ -42,13 +42,14 @@ if (!defined('STATUSNET')) {
  *
  * @see      DB_DataObject
  */
-class Answer extends Managed_DataObject
+class QnA_Answer extends Managed_DataObject
 {
-    public $__table = 'answer'; // table name
+    CONST ANSWER = 'http://activityschema.org/object/answer';
+    
+    public $__table = 'qna_answer'; // table name
     public $id;          // char(36) primary key not null -> UUID
     public $question_id; // char(36) -> question.id UUID
     public $profile_id;  // int -> question.id
-    public $votes;       // int -> total number of votes (up & down)
     public $best;        // (int) boolean -> whether the question asker has marked this as the best answer
     public $created;     // datetime
 
@@ -57,15 +58,15 @@ class Answer extends Managed_DataObject
      *
      * This is a utility method to get a single instance with a given key value.
      *
-     * @param string $k Key to use to lookup (usually 'user_id' for this class)
+     * @param string $k Key to use to lookup
      * @param mixed  $v Value to lookup
      *
-     * @return User_greeting_count object found, or null for no hits
+     * @return QnA_Answer object found, or null for no hits
      *
      */
     function staticGet($k, $v=null)
     {
-        return Memcached_DataObject::staticGet('Answer', $k, $v);
+        return Memcached_DataObject::staticGet('QnA_Answer', $k, $v);
     }
 
     /**
@@ -77,12 +78,12 @@ class Answer extends Managed_DataObject
      *
      * @param array $kv array of key-value mappings
      *
-     * @return Bookmark object found, or null for no hits
+     * @return QA_Answer object found, or null for no hits
      *
      */
     function pkeyGet($kv)
     {
-        return Memcached_DataObject::pkeyGet('Answer', $kv);
+        return Memcached_DataObject::pkeyGet('QnA_Answer', $kv);
     }
 
     /**
@@ -93,13 +94,25 @@ class Answer extends Managed_DataObject
         return array(
             'description' => 'Record of answers to questions',
             'fields' => array(
-                'id' => array('type' => 'char', 'length' => 36, 'not null' => true, 'description' => 'UUID of the response'),
-                'uri' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'UUID to the answer notice'),
-                'question_id' => array('type' => 'char', 'length' => 36, 'not null' => true, 'description' => 'UUID of question being responded to'),
-                'votes' => array('type' => 'int'),
-                'best'  => array('type' => 'int'),
-                'profile_id' => array('type' => 'int'),
-                'created' => array('type' => 'datetime', 'not null' => true),
+                'id' => array(
+                    'type'     => 'char', 
+                    'length'   => 36, 
+                    'not null' => true, 'description' => 'UUID of the response'),
+                    'uri'      => array(
+                        'type'        => 'varchar', 
+                        'length'      => 255, 
+                        'not null'    => true, 
+                        'description' => 'UUID to the answer notice'
+                    ),
+                    'question_id' => array(
+                        'type'     => 'char', 
+                        'length'   => 36, 
+                        'not null' => true, 
+                        'description' => 'UUID of question being responded to'
+                    ),
+                    'best'     => array('type' => 'int', 'size' => 'tiny'),
+                    'profile_id'  => array('type' => 'int'),
+                    'created'     => array('type' => 'datetime', 'not null' => true),
             ),
             'primary key' => array('id'),
             'unique keys' => array(
@@ -107,7 +120,7 @@ class Answer extends Managed_DataObject
                 'question_id_profile_id_key' => array('question_id', 'profile_id'),
             ),
             'indexes' => array(
-                'profile_id_question_Id_index' => array('profile_id', 'question_id'),
+                'profile_id_question_id_index' => array('profile_id', 'question_id'),
             )
         );
     }
@@ -117,7 +130,7 @@ class Answer extends Managed_DataObject
      *
      * @param Notice $notice Notice to check for
      *
-     * @return Answer found response or null
+     * @return QnA_Answer found response or null
      */
     function getByNotice($notice)
     {
@@ -142,12 +155,13 @@ class Answer extends Managed_DataObject
     /**
      * Get the Question this is an answer to
      *
-     * @return Question
+     * @return QnA_Question
      */
     function getQuestion()
     {
         return Question::staticGet('id', $this->question_id);
     }
+
     /**
      * Save a new answer notice
      *
@@ -184,29 +198,34 @@ class Answer extends Managed_DataObject
         );
         $link = '<a href="' . htmlspecialchars($question->uri) . '">' . htmlspecialchars($answer) . '</a>';
         // TRANS: Rendered version of the notice content answering a question.
-        // TRANS: %s a link to the question with the chosen option as link description.
+        // TRANS: %s a link to the question with question title as the link content.
         $rendered = sprintf(_m('answered "%s"'), $link);
 
         $tags    = array();
         $replies = array();
 
-        $options = array_merge(array('urls' => array(),
-                                     'rendered' => $rendered,
-                                     'tags' => $tags,
-                                     'replies' => $replies,
-                                     'reply_to' => $question->getNotice()->id,
-                                     'object_type' => QuestionAndAnswer::ANSWER_OBJECT),
-                               $options);
+        $options = array_merge(
+            array(
+                'urls' => array(),
+                'rendered' => $rendered,
+                'tags' => $tags,
+                'replies' => $replies,
+                'reply_to' => $question->getNotice()->id,
+                'object_type' => QnA::ANSWER_OBJECT),
+                $options
+            );
 
         if (!array_key_exists('uri', $options)) {
             $options['uri'] = $pr->uri;
         }
 
-        $saved = Notice::saveNew($profile->id,
-                                 $content,
-                                 array_key_exists('source', $options) ?
-                                 $options['source'] : 'web',
-                                 $options);
+        $saved = Notice::saveNew(
+            $profile->id,
+            $content,
+            array_key_exists('source', $options) ?
+            $options['source'] : 'web',
+            $options
+        );
 
         return $saved;
     }

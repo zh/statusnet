@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * @category QuestionAndAnswer
+ * @category QnA
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
 /**
  * For storing a question
  *
- * @category QuestionAndAnswer
+ * @category QnA
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
@@ -43,14 +43,18 @@ if (!defined('STATUSNET')) {
  * @see      DB_DataObject
  */
 
-class Question extends Managed_DataObject
+class QnA_Question extends Managed_DataObject
 {
-    public $__table = 'question'; // table name
+    
+    const QUESTION = 'http://activityschema.org/object/question';
+    
+    public $__table = 'qna_question'; // table name
     public $id;          // char(36) primary key not null -> UUID
     public $uri;
     public $profile_id;  // int -> profile.id
     public $title;       // text
     public $description; // text
+    public $closed;      // int (boolean) whether a question is closed
     public $created;     // datetime
 
     /**
@@ -58,15 +62,15 @@ class Question extends Managed_DataObject
      *
      * This is a utility method to get a single instance with a given key value.
      *
-     * @param string $k Key to use to lookup (usually 'user_id' for this class)
+     * @param string $k Key to use to lookup
      * @param mixed  $v Value to lookup
      *
-     * @return User_greeting_count object found, or null for no hits
+     * @return QnA_Question object found, or null for no hits
      *
      */
     function staticGet($k, $v=null)
     {
-        return Memcached_DataObject::staticGet('Question', $k, $v);
+        return Memcached_DataObject::staticGet('QnA_Question', $k, $v);
     }
 
     /**
@@ -83,7 +87,7 @@ class Question extends Managed_DataObject
      */
     function pkeyGet($kv)
     {
-        return Memcached_DataObject::pkeyGet('Question', $kv);
+        return Memcached_DataObject::pkeyGet('QnA_Question', $kv);
     }
 
     /**
@@ -92,14 +96,27 @@ class Question extends Managed_DataObject
     public static function schemaDef()
     {
         return array(
-            'description' => 'Per-notice question data for QuestionAndAnswer plugin',
+            'description' => 'Per-notice question data for QNA plugin',
             'fields' => array(
-                'id' => array('type' => 'char', 'length' => 36, 'not null' => true, 'description' => 'UUID'),
-                'uri' => array('type' => 'varchar', 'length' => 255, 'not null' => true),
-                'profile_id' => array('type' => 'int'),
-                'title' => array('type' => 'text'),
+                'id' => array(
+                    'type'        => 'char', 
+                    'length'      => 36, 
+                    'not null'    => true, 
+                    'description' => 'UUID'
+                ),
+                'uri' => array(
+                    'type'     => 'varchar', 
+                    'length'   => 255, 
+                    'not null' => true
+                ),
+                'profile_id'  => array('type' => 'int'),
+                'title'       => array('type' => 'text'),
+                'closed'      => array('type' => 'int', size => 'tiny'),
                 'description' => array('type' => 'text'),
-                'created' => array('type' => 'datetime', 'not null' => true),
+                'created'     => array(
+                    'type' => 'datetime', 
+                    'not null' => true
+                ),
             ),
             'primary key' => array('id'),
             'unique keys' => array(
@@ -139,7 +156,7 @@ class Question extends Managed_DataObject
      */
     function getAnswer(Profile $profile)
     {
-        $a = new Answer();
+        $a = new QnA_Answer();
         $a->question_id = $this->id;
         $a->profile_id = $profile->id;
         $a->find();
@@ -152,8 +169,7 @@ class Question extends Managed_DataObject
 
     function countAnswers()
     {
-        $a = new Answer();
-        
+        $a              = new QnA_Answer();
         $a->question_id = $this->id;
         return $a-count();
     }
@@ -171,7 +187,7 @@ class Question extends Managed_DataObject
      */
     static function saveNew($profile, $question, $title, $description, $options = array())
     {
-        $q = new Question();
+        $q = new QnA_Question();
 
         $q->id          = UUID::gen();
         $q->profile_id  = $profile->id;
@@ -218,7 +234,7 @@ class Question extends Managed_DataObject
                 'rendered'    => $rendered,
                 'tags'        => $tags,
                 'replies'     => $replies,
-                'object_type' => QuestionAndAnswerPlugin::QUESTION_OBJECT
+                'object_type' => QnAPlugin::QUESTION_OBJECT
             ),
             $options
         );

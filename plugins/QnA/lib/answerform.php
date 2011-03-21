@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  QuestionAndAnswer
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -37,7 +37,7 @@ if (!defined('STATUSNET')) {
 /**
  * Form to add a new answer to a question
  *
- * @category  QuestionAndAnswer
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -51,12 +51,12 @@ class AnswerForm extends Form
     /**
      * Construct a new answer form
      *
-     * @param Question $question
+     * @param QnA_Question $question
      * @param HTMLOutputter $out output channel
      *
      * @return void
      */
-    function __construct(Question $question, HTMLOutputter $out)
+    function __construct(QnA_Question $question, HTMLOutputter $out)
     {
         parent::__construct($out);
         $this->question = $question;
@@ -100,12 +100,11 @@ class AnswerForm extends Form
     function formData()
     {
         $question = $this->question;
-        $out = $this->out;
-        $id = "question-" . $question->id;
+        $out      = $this->out;
+        $id       = "question-" . $question->id;
 
         $out->element('p', 'answer', $question->question);
         $out->element('input', array('type' => 'text', 'name' => 'answer'));
-        
     }
 
     /**

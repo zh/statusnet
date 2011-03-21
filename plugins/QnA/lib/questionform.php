@@ -37,7 +37,7 @@ if (!defined('STATUSNET')) {
 /**
  * Form to add a new question
  *
- * @category  QuestionAndAnswer
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@copley.name>
  * @copyright 2011 StatusNet, Inc.
