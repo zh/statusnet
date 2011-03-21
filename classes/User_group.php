@@ -153,6 +153,36 @@ class User_group extends Memcached_DataObject
         return $members;
     }
 
+    /**
+     * Get pending members, who have not yet been approved.
+     *
+     * @param int $offset
+     * @param int $limit
+     * @return Profile
+     */
+    function getRequests($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN group_join_queue '.
+          'ON profile.id = group_join_queue.profile_id ' .
+          'WHERE group_join_queue.group_id = %d ' .
+          'ORDER BY group_join_queue.created DESC ';
+
+        if ($limit != null) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $members = new Profile();
+
+        $members->query(sprintf($qry, $this->id));
+        return $members;
+    }
+
     function getMemberCount()
     {
         // XXX: WORM cache this

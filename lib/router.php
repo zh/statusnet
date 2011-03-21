@@ -393,6 +393,10 @@ class Router
                         array('action' => 'makeadmin'),
                         array('nickname' => Nickname::DISPLAY_FMT));
 
+            $m->connect('group/:nickname/members/pending',
+                        array('action' => 'groupqueue'),
+                        array('nickname' => Nickname::DISPLAY_FMT));
+
             $m->connect('group/:id/id',
                         array('action' => 'groupbyid'),
                         array('id' => '[0-9]+'));
