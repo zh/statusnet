@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  QuestonAndAnswer
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@copley.name>
  * @copyright 2011 StatusNet, Inc.
@@ -44,9 +44,10 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class NewQuestionForm extends Form
+class QuestionForm extends Form
 {
-    protected $question = null;
+    protected $title;
+    protected $description;
 
     /**
      * Construct a new question form
@@ -55,9 +56,11 @@ class NewQuestionForm extends Form
      *
      * @return void
      */
-    function __construct($out=null, $question=null, $options=null)
+    function __construct($out = null, $title = null, $description = null, $options = null)
     {
         parent::__construct($out);
+        $this->title       = $title;
+        $this->description = $description;
     }
 
     /**
@@ -101,12 +104,20 @@ class NewQuestionForm extends Form
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->out->input('question',
-                          // TRANS: Field label on the page to create a question.
-                          _m('Question'),
-                          $this->question,
-                          // TRANS: Field title on the page to create a question.
-                          _m('What is your question?'));
+        $this->out->input(
+            'title',
+            _m('Title'),
+            $this->title,
+            _m('Title of your question')
+        );
+        $this->unli();
+        $this->li();
+        $this->out->textarea(
+            'description',
+            _m('Description'),
+            $this->description,
+            _m('Your question in detail')
+        );
         $this->unli();
 
         $this->out->elementEnd('ul');

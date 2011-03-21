@@ -48,8 +48,8 @@ class NewquestionAction extends Action
     protected $user        = null;
     protected $error       = null;
     protected $complete    = null;
-
-    protected $question    = null;
+    protected $title       = null;
+    protected $description = null;
 
     /**
      * Returns the title of the action
@@ -77,13 +77,18 @@ class NewquestionAction extends Action
 
         if (empty($this->user)) {
             // TRANS: Client exception thrown trying to create a Question while not logged in.
-            throw new ClientException(_m('You must be logged in to post a question.'),
-                                      403);
+            throw new ClientException(
+                _m('You must be logged in to post a question.'),
+                403
+            );
         }
 
         if ($this->isPost()) {
             $this->checkSessionToken();
         }
+
+        $this->title       = $this->trimmed('title');
+        $this->description = $this->trimmed('description');
 
         return true;
     }
@@ -119,14 +124,15 @@ class NewquestionAction extends Action
             StatusNet::setApi(true);
         }
         try {
-            if (empty($this->question)) {
-            // TRANS: Client exception thrown trying to create a Question without a question.
-                throw new ClientException(_m('Question must have a question.'));
+            if (empty($this->title)) {
+                // TRANS: Client exception thrown trying to create a question without a title.
+                throw new ClientException(_m('Question must have a title.'));
             }
 
-            $saved = Question::saveNew(
+            $saved = QnA_Question::saveNew(
                 $this->user->getProfile(),
-                $this->question
+                $this->title,
+                $this->description
             );
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
@@ -140,7 +146,7 @@ class NewquestionAction extends Action
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Page title after sending a notice.
-            $this->element('title', null, _m('Notice posted'));
+            $this->element('title', null, _m('Question posted'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->showNotice($saved);
@@ -178,10 +184,10 @@ class NewquestionAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new NewQuestionForm(
+        $form = new QuestionForm(
             $this,
-            $this->question,
-            $this->options
+            $this->title,
+            $this->description
         );
 
         $form->show();
@@ -208,4 +214,3 @@ class NewquestionAction extends Action
         }
     }
 }
-

@@ -103,7 +103,7 @@ class AnswerForm extends Form
         $out      = $this->out;
         $id       = "question-" . $question->id;
 
-        $out->element('p', 'answer', $question->question);
+        $out->element('p', 'answer', $question->title);
         $out->element('input', array('type' => 'text', 'name' => 'answer'));
     }
 

@@ -45,9 +45,8 @@ if (!defined('STATUSNET')) {
 
 class QnA_Question extends Managed_DataObject
 {
-    
-    const QUESTION = 'http://activityschema.org/object/question';
-    
+    const OBJECT_TYPE = 'http://activityschema.org/object/question';
+
     public $__table = 'qna_question'; // table name
     public $id;          // char(36) primary key not null -> UUID
     public $uri;
@@ -99,22 +98,22 @@ class QnA_Question extends Managed_DataObject
             'description' => 'Per-notice question data for QNA plugin',
             'fields' => array(
                 'id' => array(
-                    'type'        => 'char', 
-                    'length'      => 36, 
-                    'not null'    => true, 
+                    'type'        => 'char',
+                    'length'      => 36,
+                    'not null'    => true,
                     'description' => 'UUID'
                 ),
                 'uri' => array(
-                    'type'     => 'varchar', 
-                    'length'   => 255, 
+                    'type'     => 'varchar',
+                    'length'   => 255,
                     'not null' => true
                 ),
                 'profile_id'  => array('type' => 'int'),
                 'title'       => array('type' => 'text'),
-                'closed'      => array('type' => 'int', size => 'tiny'),
+                'closed'      => array('type' => 'int', 'size' => 'tiny'),
                 'description' => array('type' => 'text'),
                 'created'     => array(
-                    'type' => 'datetime', 
+                    'type' => 'datetime',
                     'not null' => true
                 ),
             ),
@@ -174,6 +173,12 @@ class QnA_Question extends Managed_DataObject
         return $a-count();
     }
 
+    static function fromNotice($notice)
+    {
+        common_debug('xxxxxxxxxxxxxxx notice-uri = ' . $notice->uri);
+        return QnA_Question::staticGet('uri', $notice->uri);
+    }
+
     /**
      * Save a new question notice
      *
@@ -185,7 +190,7 @@ class QnA_Question extends Managed_DataObject
      *
      * @return Notice saved notice
      */
-    static function saveNew($profile, $question, $title, $description, $options = array())
+    static function saveNew($profile, $title, $description, $options = array())
     {
         $q = new QnA_Question();
 
@@ -219,7 +224,7 @@ class QnA_Question extends Managed_DataObject
             $title,
             $q->uri
         );
-        
+
         $link = '<a href="' . htmlspecialchars($q->uri) . '">' . htmlspecialchars($title) . '</a>';
         // TRANS: Rendered version of the notice content creating a question.
         // TRANS: %s a link to the question as link description.
@@ -234,13 +239,13 @@ class QnA_Question extends Managed_DataObject
                 'rendered'    => $rendered,
                 'tags'        => $tags,
                 'replies'     => $replies,
-                'object_type' => QnAPlugin::QUESTION_OBJECT
+                'object_type' => self::OBJECT_TYPE
             ),
             $options
         );
 
         if (!array_key_exists('uri', $options)) {
-            $options['uri'] = $p->uri;
+            $options['uri'] = $q->uri;
         }
 
         $saved = Notice::saveNew(

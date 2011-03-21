@@ -44,7 +44,7 @@ if (!defined('STATUSNET')) {
  */
 class QnA_Answer extends Managed_DataObject
 {
-    CONST ANSWER = 'http://activityschema.org/object/answer';
+    const  OBJECT_TYPE = 'http://activityschema.org/object/answer';
     
     public $__table = 'qna_answer'; // table name
     public $id;          // char(36) primary key not null -> UUID
@@ -162,6 +162,11 @@ class QnA_Answer extends Managed_DataObject
         return Question::staticGet('id', $this->question_id);
     }
 
+    static function fromNotice($notice)
+    {
+        return QnA_Answer::staticGet('uri', $notice->uri);
+    }
+
     /**
      * Save a new answer notice
      *
@@ -171,32 +176,32 @@ class QnA_Answer extends Managed_DataObject
      *
      * @return Notice saved notice
      */
-    static function saveNew($profile, $question, $options=null)
+    static function saveNew($profile, $question, $options = null)
     {
         if (empty($options)) {
             $options = array();
         }
 
-        $a = new Answer();
-        $a->id          = UUID::gen();
-        $a->profile_id  = $profile->id;
-        $a->question_id = $question->id;
-        $a->created     = common_sql_now();
-        $a->uri         = common_local_url(
+        $answer              = new Answer();
+        $answer->id          = UUID::gen();
+        $answer->profile_id  = $profile->id;
+        $answer->question_id = $question->id;
+        $answer->created     = common_sql_now();
+        $answer->uri         = common_local_url(
             'showanswer',
-            array('id' => $pr->id)
+            array('id' => $answer->id)
         );
         
-        common_log(LOG_DEBUG, "Saving answer: $pr->id $pr->uri");
-        $a->insert();
+        common_log(LOG_DEBUG, "Saving answer: $answer->id, $answer->uri");
+        $answer->insert();
 
         // TRANS: Notice content answering a question.
         // TRANS: %s is the answer
         $content  = sprintf(
             _m('answered "%s"'),
-            $answer
+            $answer->uri
         );
-        $link = '<a href="' . htmlspecialchars($question->uri) . '">' . htmlspecialchars($answer) . '</a>';
+        $link = '<a href="' . htmlspecialchars($answer->uri) . '">' . htmlspecialchars($answer) . '</a>';
         // TRANS: Rendered version of the notice content answering a question.
         // TRANS: %s a link to the question with question title as the link content.
         $rendered = sprintf(_m('answered "%s"'), $link);
@@ -206,17 +211,17 @@ class QnA_Answer extends Managed_DataObject
 
         $options = array_merge(
             array(
-                'urls' => array(),
-                'rendered' => $rendered,
-                'tags' => $tags,
-                'replies' => $replies,
-                'reply_to' => $question->getNotice()->id,
-                'object_type' => QnA::ANSWER_OBJECT),
+                'urls'        => array(),
+                'rendered'    => $rendered,
+                'tags'        => $tags,
+                'replies'     => $replies,
+                'reply_to'    => $question->getNotice()->id,
+                'object_type' => self::OBJECT_TYPE),
                 $options
             );
 
         if (!array_key_exists('uri', $options)) {
-            $options['uri'] = $pr->uri;
+            $options['uri'] = $answer->uri;
         }
 
         $saved = Notice::saveNew(

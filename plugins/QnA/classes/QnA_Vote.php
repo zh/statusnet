@@ -47,11 +47,11 @@ class QnA_Vote extends Managed_DataObject
     const UP   = 'http://activitystrea.ms/schema/1.0/like';
     const DOWN = 'http://activityschema.org/object/dislike'; // Gar!
     
-    public $__table = 'qa_vote'; // table name
+    public $__table = 'qna_vote'; // table name
     public $id;          // char(36) primary key not null -> UUID
     public $question_id; // char(36) -> question.id UUID
     public $answer_id;   // char(36) -> question.id UUID
-    public $type         // tinyint -> vote: up (1) or down (-1)
+    public $type;        // tinyint -> vote: up (1) or down (-1)
     public $profile_id;  // int -> question.id
     public $created;     // datetime
 

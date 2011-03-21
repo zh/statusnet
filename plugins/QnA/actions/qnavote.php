@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Answer a question
+ * Vote on a questino or answer
  *
  * PHP version 5
  *
@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  QuestonAndAnswer
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Answer a question
+ * Vote on a question or answer
  *
  * @category  QnA
  * @package   StatusNet
@@ -43,13 +43,13 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class AnswerAction extends Action
+class Qnavote extends Action
 {
     protected $user        = null;
     protected $error       = null;
     protected $complete    = null;
 
-    protected $qustion     = null;
+    protected $question    = null;
     protected $answer      = null;
 
     /**
