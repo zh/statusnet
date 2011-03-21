@@ -313,6 +313,13 @@ class Profile extends Memcached_DataObject
         }
     }
 
+    function isPendingMember($group)
+    {
+        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
+                                                   'group_id' => $group->id));
+        return !empty($request);
+    }
+
     function getGroups($offset=0, $limit=null)
     {
         $qry =
@@ -358,6 +365,23 @@ class Profile extends Memcached_DataObject
             }
         }
         return $ok;
+    }
+
+    /**
+     * Cancel a pending group join...
+     *
+     * @param User_group $group
+     */
+    function cancelJoinGroup(User_group $group)
+    {
+        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
+                                                   'group_id' => $group->id));
+        if ($request) {
+            if (Event::handle('StartCancelJoinGroup', array($group, $this))) {
+                $request->delete();
+                Event::handle('EndCancelJoinGroup', array($group, $this));
+            }
+        }
     }
 
     /**

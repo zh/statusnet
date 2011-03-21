@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Join a group
+ * Leave a group
  *
  * PHP version 5
  *
@@ -32,9 +32,9 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 /**
- * Join a group
+ * Leave a group
  *
- * This is the action for joining a group. It works more or less like the subscribe action
+ * This is the action for leaving a group. It works more or less like the subscribe action
  * for users.
  *
  * @category Group
@@ -43,7 +43,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class JoingroupAction extends Action
+class CancelgroupAction extends Action
 {
     var $group = null;
 
@@ -55,8 +55,8 @@ class JoingroupAction extends Action
         parent::prepare($args);
 
         if (!common_logged_in()) {
-            // TRANS: Client error displayed when trying to join a group while not logged in.
-            $this->clientError(_('You must be logged in to join a group.'));
+            // TRANS: Client error displayed when trying to leave a group while not logged in.
+            $this->clientError(_('You must be logged in to leave a group.'));
             return false;
         }
 
@@ -78,38 +78,33 @@ class JoingroupAction extends Action
             $local = Local_group::staticGet('nickname', $nickname);
 
             if (!$local) {
-                // TRANS: Client error displayed when trying to join a non-local group.
+                // TRANS: Client error displayed when trying to leave a non-local group.
                 $this->clientError(_('No such group.'), 404);
                 return false;
             }
 
             $this->group = User_group::staticGet('id', $local->group_id);
         } else {
-            // TRANS: Client error displayed when trying to join a group without providing a group name or group ID.
+            // TRANS: Client error displayed when trying to leave a group without providing a group name or group ID.
             $this->clientError(_('No nickname or ID.'), 404);
             return false;
         }
 
         if (!$this->group) {
-            // TRANS: Client error displayed when trying to join a non-existing group.
+            // TRANS: Client error displayed when trying to leave a non-existing group.
             $this->clientError(_('No such group.'), 404);
             return false;
         }
 
         $cur = common_current_user();
+        $this->profile = $cur->getProfile();
 
-        if ($cur->isMember($this->group)) {
-            // TRANS: Client error displayed when trying to join a group while already a member.
-            $this->clientError(_('You are already a member of that group.'), 403);
-            return false;
+        $this->request = Group_join_queue::pkeyGet(array('profile_id' => $this->profile->id,
+                                                         'group_id' => $this->group->id));
+
+        if (empty($this->request)) {
+            $this->clientError(_('You are not in the moderation queue for this group.'), 403);
         }
-
-        if (Group_block::isBlocked($this->group, $cur->getProfile())) {
-            // TRANS: Client error displayed when trying to join a group while being blocked form joining it.
-            $this->clientError(_('You have been blocked from that group by the admin.'), 403);
-            return false;
-        }
-
         return true;
     }
 
@@ -126,37 +121,28 @@ class JoingroupAction extends Action
     {
         parent::handle($args);
 
-        $cur = common_current_user();
-
         try {
-            $result = $cur->joinGroup($this->group);
+            $this->profile->cancelJoinGroup($this->group);
         } catch (Exception $e) {
-            // TRANS: Server error displayed when joining a group failed in the database.
-            // TRANS: %1$s is the joining user's nickname, $2$s is the group nickname for which the join failed.
-            $this->serverError(sprintf(_('Could not join user %1$s to group %2$s.'),
-                                       $cur->nickname, $this->group->nickname));
+            common_log(LOG_ERROR, "Exception canceling group sub: " . $e->getMessage());
+            // TRANS: Server error displayed when cancelling a queued group join request fails.
+            // TRANS: %1$s is the leaving user's nickname, $2$s is the group nickname for which the leave failed.
+            $this->serverError(sprintf(_('Could not cancel request for user %1$s to join group %2$s.'),
+                                       $this->profile->nickname, $this->group->nickname));
             return;
         }
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            // TRANS: Title for join group page after joining.
-            $this->element('title', null, sprintf(_m('TITLE','%1$s joined group %2$s'),
-                                                  $cur->nickname,
+            // TRANS: Title for leave group page after leaving.
+            $this->element('title', null, sprintf(_m('TITLE','%1$s left group %2$s'),
+                                                  $this->profile->nickname,
                                                   $this->group->nickname));
             $this->elementEnd('head');
             $this->elementStart('body');
-
-            if ($result instanceof Group_member) {
-                $form = new LeaveForm($this, $this->group);
-            } else if ($result instanceof Group_join_queue) {
-                $form = new CancelGroupForm($this, $this->group);
-            } else {
-                // wtf?
-                throw new Exception(_m("Unknown error joining group."));
-            }
-            $form->show();
+            $jf = new JoinForm($this, $this->group);
+            $jf->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
