@@ -1027,4 +1027,4 @@ $schema['schema_version'] = array(
     'primary key' => array('table_name'),
 );
 
-$schema['request_queue'] = Request_queue::schemaDef();
+$schema['group_join_queue'] = Group_join_queue::schemaDef();

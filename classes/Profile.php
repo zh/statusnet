@@ -344,14 +344,18 @@ class Profile extends Memcached_DataObject
      * May throw exceptions on failure.
      *
      * @param User_group $group
-     * @return Group_member
+     * @return mixed: Group_member on success, Group_join_queue if pending approval, null on some cancels?
      */
     function joinGroup(User_group $group)
     {
         $ok = null;
-        if (Event::handle('StartJoinGroup', array($group, $this))) {
-            $ok = Group_member::join($group->id, $this->id);
-            Event::handle('EndJoinGroup', array($group, $this));
+        if ($group->join_policy == User_group::JOIN_POLICY_MODERATE) {
+            $ok = Group_join_queue::saveNew($this, $group);
+        } else {
+            if (Event::handle('StartJoinGroup', array($group, $this))) {
+                $ok = Group_member::join($group->id, $this->id);
+                Event::handle('EndJoinGroup', array($group, $this));
+            }
         }
         return $ok;
     }
@@ -363,9 +367,9 @@ class Profile extends Memcached_DataObject
      */
     function leaveGroup(User_group $group)
     {
-        if (Event::handle('StartLeaveGroup', array($this->group, $this))) {
-            Group_member::leave($this->group->id, $this->id);
-            Event::handle('EndLeaveGroup', array($this->group, $this));
+        if (Event::handle('StartLeaveGroup', array($group, $this))) {
+            Group_member::leave($group->id, $this->id);
+            Event::handle('EndLeaveGroup', array($group, $this));
         }
     }
 

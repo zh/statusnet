@@ -189,11 +189,11 @@ class GroupEditForm extends Form
             $this->out->elementStart('li');
             $this->out->dropdown('join_policy',
                                  _('Membership policy'),
-                                 array(0 => _('Open to all'),
-                                       1 => _('Admin must approve all members')),
+                                 array(User_group::JOIN_POLICY_OPEN     => _('Open to all'),
+                                       User_group::JOIN_POLICY_MODERATE => _('Admin must approve all members')),
                                  _('Whether admin approval is required to join this group.'),
                                  false,
-                                 (empty($this->group->join_policy)) ? 0 : $this->group->join_policy);
+                                 (empty($this->group->join_policy)) ? User_group::JOIN_POLICY_OPEN : $this->group->join_policy);
             $this->out->elementEnd('li');
             Event::handle('EndGroupEditFormData', array($this));
         }

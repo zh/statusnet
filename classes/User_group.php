@@ -5,6 +5,9 @@
 
 class User_group extends Memcached_DataObject
 {
+    const JOIN_POLICY_OPEN = 0;
+    const JOIN_POLICY_MODERATE = 1;
+
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
