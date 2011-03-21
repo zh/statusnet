@@ -163,7 +163,8 @@ class PasswordsettingsAction extends SettingsAction
             $this->showForm(_('Password must be 6 or more characters.'));
             return;
         } else if (0 != strcmp($newpassword, $confirm)) {
-            $this->showForm(_('Passwords don\'t match.'));
+            // TRANS: Form validation error on password change when password confirmation does not match.
+            $this->showForm(_('Passwords do not match.'));
             return;
         }
 

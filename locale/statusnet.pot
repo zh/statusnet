@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 12:35+0000\n"
+"POT-Creation-Date: 2011-03-18 19:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,7 +84,7 @@ msgstr ""
 #. TRANS: Button label in the "Edit application" form.
 #. TRANS: Button text on profile design page to save settings.
 #: actions/accessadminpanel.php:193 actions/designadminpanel.php:732
-#: actions/emailsettings.php:251 actions/imsettings.php:199
+#: actions/emailsettings.php:251 actions/imsettings.php:201
 #: actions/licenseadminpanel.php:335 actions/pathsadminpanel.php:517
 #: actions/profilesettings.php:198 actions/sitenoticeadminpanel.php:197
 #: actions/smssettings.php:204 actions/subscriptions.php:261
@@ -133,9 +133,14 @@ msgstr ""
 #. TRANS: Client error displayed trying to make a micro summary without providing a valid user.
 #. TRANS: Client error displayed trying to send a direct message to a non-existing user.
 #. TRANS: Client error displayed trying to use "one time password login" without using an existing user.
+#. TRANS: Form validation error on page for remote subscribe when no user was provided.
+#. TRANS: Form validation error on page for remote subscribe when no user profile was found.
+#. TRANS: Client error displayed when trying to reply to a non-exsting user.
 #. TRANS: Client error displayed when providing a non-existing nickname in a RSS 1.0 action.
+#. TRANS: Client error.
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
 #. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
+#. TRANS: Client error displayed requesting groups for a non-existing user.
 #. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when calling a profile action without specifying a user.
@@ -155,10 +160,10 @@ msgstr ""
 #: actions/apitimelineuser.php:79 actions/avatarbynickname.php:79
 #: actions/favoritesrss.php:72 actions/foaf.php:42 actions/foaf.php:61
 #: actions/hcard.php:67 actions/microsummary.php:63 actions/newmessage.php:119
-#: actions/otp.php:78 actions/remotesubscribe.php:144
-#: actions/remotesubscribe.php:153 actions/replies.php:73
-#: actions/repliesrss.php:38 actions/rsd.php:113 actions/showfavorites.php:106
-#: actions/userbyid.php:75 actions/usergroups.php:93 actions/userrss.php:40
+#: actions/otp.php:78 actions/remotesubscribe.php:155
+#: actions/remotesubscribe.php:165 actions/replies.php:72
+#: actions/repliesrss.php:38 actions/rsd.php:114 actions/showfavorites.php:106
+#: actions/userbyid.php:75 actions/usergroups.php:95 actions/userrss.php:40
 #: actions/userxrd.php:59 actions/xrds.php:71 lib/command.php:509
 #: lib/galleryaction.php:59 lib/mailbox.php:80 lib/profileaction.php:77
 msgid "No such user."
@@ -226,9 +231,11 @@ msgstr ""
 
 #. TRANS: Encoutagement displayed on empty timeline user pages for anonymous users.
 #. TRANS: %s is a user nickname. This message contains Markdown links. Keep "](" together.
+#. TRANS: Empty list message for page with replies for a user for not logged in users.
+#. TRANS: %1$s is a user nickname. This message contains a Markdown link in the form [link text](link).
 #. TRANS: Second sentence of empty message for anonymous users. %s is a user nickname.
 #. TRANS: This message contains a Markdown link. Keep "](" together.
-#: actions/all.php:149 actions/replies.php:198 actions/showstream.php:219
+#: actions/all.php:149 actions/replies.php:214 actions/showstream.php:219
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -287,7 +294,7 @@ msgstr ""
 #: actions/apitimelinefavorites.php:182 actions/apitimelinefriends.php:276
 #: actions/apitimelinegroup.php:148 actions/apitimelinehome.php:181
 #: actions/apitimelinementions.php:182 actions/apitimelinepublic.php:247
-#: actions/apitimelineretweetedtome.php:147
+#: actions/apitimelineretweetedtome.php:150
 #: actions/apitimelineretweetsofme.php:147 actions/apitimelinetag.php:165
 #: actions/apitimelineuser.php:217 actions/apiusershow.php:100
 msgid "API method not found."
@@ -318,16 +325,19 @@ msgid ""
 msgstr ""
 
 #. TRANS: Server error displayed when a user's delivery device cannot be updated.
+#. TRANS: Server error displayed when confirming an e-mail address or IM address fails.
 #. TRANS: Server error thrown on database error updating e-mail preferences.
 #. TRANS: Server error thrown on database error removing a registered e-mail address.
 #. TRANS: Server error thrown when user profile settings could not be updated.
 #. TRANS: Server error thrown on database error updating SMS preferences.
 #. TRANS: Server error thrown on database error removing a registered SMS phone number.
 #. TRANS: Server error displayed when "Other" settings in user profile could not be updated on the server.
+#. TRANS: Server exception thrown on Profile design page when updating design settings fails.
 #: actions/apiaccountupdatedeliverydevice.php:136
-#: actions/emailsettings.php:353 actions/emailsettings.php:499
-#: actions/profilesettings.php:323 actions/smssettings.php:300
-#: actions/smssettings.php:453 actions/urlsettings.php:211
+#: actions/confirmaddress.php:122 actions/emailsettings.php:353
+#: actions/emailsettings.php:499 actions/profilesettings.php:323
+#: actions/smssettings.php:300 actions/smssettings.php:453
+#: actions/urlsettings.php:211 actions/userdesignsettings.php:315
 msgid "Could not update user."
 msgstr ""
 
@@ -339,6 +349,8 @@ msgstr ""
 #. TRANS: Client error displayed trying to get an avatar for a user without a profile.
 #. TRANS: Server error displayed when requesting Friends of a Friend feed for a user for which the profile could not be found.
 #. TRANS: Server error displayed when trying to get a user hCard for a user without a profile.
+#. TRANS: Server error displayed when trying to reply to a user without a profile.
+#. TRANS: Server error displayed requesting groups for a user without a profile.
 #. TRANS: Server error displayed when calling a profile action while the specified user does not have a profile.
 #: actions/apiaccountupdateprofile.php:111
 #: actions/apiaccountupdateprofilebackgroundimage.php:199
@@ -346,7 +358,7 @@ msgstr ""
 #: actions/apiaccountupdateprofileimage.php:131
 #: actions/apiuserprofileimage.php:88 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:85 actions/foaf.php:69 actions/hcard.php:75
-#: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
+#: actions/replies.php:80 actions/usergroups.php:103 lib/galleryaction.php:66
 #: lib/profileaction.php:85
 msgid "User has no profile."
 msgstr ""
@@ -381,21 +393,24 @@ msgstr[1] ""
 #. TRANS: Client error displayed when a database error occurs inserting profile colours.
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
 #. TRANS: Form validation error displayed when group design settings could not be saved because of an application issue.
+#. TRANS: Form validation error on Profile design page when saving design settings has failed.
+#. TRANS: Form validation error on Profile design page when updating design settings has failed.
 #: actions/apiaccountupdateprofilebackgroundimage.php:138
 #: actions/apiaccountupdateprofilebackgroundimage.php:149
 #: actions/apiaccountupdateprofilecolors.php:160
 #: actions/apiaccountupdateprofilecolors.php:171
 #: actions/groupdesignsettings.php:295 actions/groupdesignsettings.php:306
-#: actions/userdesignsettings.php:218 actions/userdesignsettings.php:228
-#: actions/userdesignsettings.php:270 actions/userdesignsettings.php:280
+#: actions/userdesignsettings.php:222 actions/userdesignsettings.php:233
+#: actions/userdesignsettings.php:276 actions/userdesignsettings.php:287
 msgid "Unable to save your design settings."
 msgstr ""
 
 #. TRANS: Error displayed when updating design settings fails.
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
+#. TRANS: Form validation error on Profile design page when updating design settings has failed.
 #: actions/apiaccountupdateprofilebackgroundimage.php:191
 #: actions/apiaccountupdateprofilecolors.php:139
-#: actions/userdesignsettings.php:196
+#: actions/userdesignsettings.php:199
 msgid "Could not update your design."
 msgstr ""
 
@@ -585,9 +600,10 @@ msgstr ""
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Form validation error displayed when trying to register with an existing nickname.
 #: actions/apigroupcreate.php:156 actions/apigroupprofileupdate.php:256
 #: actions/editgroup.php:191 actions/newgroup.php:137
-#: actions/profilesettings.php:274 actions/register.php:199
+#: actions/profilesettings.php:274 actions/register.php:209
 msgid "Nickname already in use. Try another one."
 msgstr ""
 
@@ -596,9 +612,10 @@ msgstr ""
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Form validation error displayed when trying to register with an invalid nickname.
 #: actions/apigroupcreate.php:164 actions/apigroupprofileupdate.php:261
 #: actions/editgroup.php:195 actions/newgroup.php:141
-#: actions/profilesettings.php:244 actions/register.php:201
+#: actions/profilesettings.php:244 actions/register.php:212
 msgid "Not a valid nickname."
 msgstr ""
 
@@ -609,10 +626,11 @@ msgstr ""
 #. TRANS: Validation error shown when providing an invalid homepage URL in the "New application" form.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Form validation error displayed when trying to register with an invalid homepage URL.
 #: actions/apigroupcreate.php:181 actions/apigroupprofileupdate.php:280
 #: actions/editapplication.php:235 actions/editgroup.php:202
 #: actions/newapplication.php:221 actions/newgroup.php:148
-#: actions/profilesettings.php:249 actions/register.php:208
+#: actions/profilesettings.php:249 actions/register.php:220
 msgid "Homepage is not a valid URL."
 msgstr ""
 
@@ -621,9 +639,10 @@ msgstr ""
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Form validation error displayed when trying to register with a too long full name.
 #: actions/apigroupcreate.php:191 actions/apigroupprofileupdate.php:290
 #: actions/editgroup.php:206 actions/newgroup.php:152
-#: actions/profilesettings.php:253 actions/register.php:211
+#: actions/profilesettings.php:253 actions/register.php:224
 msgid "Full name is too long (maximum 255 characters)."
 msgstr ""
 
@@ -652,9 +671,10 @@ msgstr[1] ""
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Form validation error displayed when trying to register with a too long location.
 #: actions/apigroupcreate.php:215 actions/apigroupprofileupdate.php:312
 #: actions/editgroup.php:218 actions/newgroup.php:164
-#: actions/profilesettings.php:266 actions/register.php:220
+#: actions/profilesettings.php:266 actions/register.php:236
 msgid "Location is too long (maximum 255 characters)."
 msgstr ""
 
@@ -766,7 +786,8 @@ msgid "%1$s groups %2$s is a member of."
 msgstr ""
 
 #. TRANS: Message is used as a title when listing the lastest 20 groups. %s is a site name.
-#. TRANS: Message is used as a page title. %s is a nick name.
+#. TRANS: Page title for first page of groups for a user.
+#. TRANS: %s is a nickname.
 #: actions/apigrouplistall.php:88 actions/usergroups.php:63
 #, php-format
 msgid "%s groups"
@@ -849,14 +870,14 @@ msgstr ""
 #: actions/deletenotice.php:177 actions/disfavor.php:75
 #: actions/emailsettings.php:292 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:65 actions/grouplogo.php:321
-#: actions/groupunblock.php:65 actions/imsettings.php:241
+#: actions/groupunblock.php:65 actions/imsettings.php:243
 #: actions/invite.php:60 actions/makeadmin.php:67 actions/newmessage.php:140
 #: actions/newnotice.php:104 actions/nudge.php:81
 #: actions/oauthappssettings.php:162 actions/oauthconnectionssettings.php:135
 #: actions/passwordsettings.php:146 actions/pluginenable.php:87
 #: actions/profilesettings.php:218 actions/recoverpassword.php:387
-#: actions/register.php:157 actions/remotesubscribe.php:76
-#: actions/repeat.php:82 actions/smssettings.php:249 actions/subedit.php:40
+#: actions/register.php:163 actions/remotesubscribe.php:77
+#: actions/repeat.php:85 actions/smssettings.php:249 actions/subedit.php:40
 #: actions/subscribe.php:87 actions/tagother.php:146
 #: actions/unsubscribe.php:69 actions/urlsettings.php:171
 #: actions/userauthorization.php:53 lib/designsettings.php:122
@@ -888,7 +909,7 @@ msgstr ""
 #: actions/apioauthauthorize.php:294 actions/avatarsettings.php:294
 #: actions/designadminpanel.php:100 actions/editapplication.php:144
 #: actions/emailsettings.php:311 actions/grouplogo.php:332
-#: actions/imsettings.php:256 actions/newapplication.php:124
+#: actions/imsettings.php:258 actions/newapplication.php:124
 #: actions/oauthconnectionssettings.php:144 actions/recoverpassword.php:46
 #: actions/smssettings.php:270 lib/designsettings.php:133
 msgid "Unexpected form submission."
@@ -934,16 +955,19 @@ msgstr ""
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label on login page.
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Field label on account registration page.
+#. TRANS: Label for nickname on user authorisation page.
 #: actions/apioauthauthorize.php:459 actions/login.php:231
-#: actions/profilesettings.php:107 actions/register.php:411
-#: actions/userauthorization.php:145 lib/groupeditform.php:145
+#: actions/profilesettings.php:107 actions/register.php:436
+#: actions/userauthorization.php:146 lib/groupeditform.php:145
 msgid "Nickname"
 msgstr ""
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label on login page.
+#. TRANS: Field label on account registration page.
 #: actions/apioauthauthorize.php:463 actions/login.php:235
-#: actions/register.php:415 lib/settingsnav.php:93
+#: actions/register.php:442 lib/settingsnav.php:93
 msgid "Password"
 msgstr ""
 
@@ -1181,7 +1205,9 @@ msgstr ""
 msgid "Repeated to %s"
 msgstr ""
 
-#: actions/apitimelineretweetedtome.php:98
+#. TRANS: Subtitle for API action that shows most recent notices that are repeats in user's inbox.
+#. TRANS: %1$s is the sitename, %2$s is a user nickname, %3$s is a user profile name.
+#: actions/apitimelineretweetedtome.php:101
 #, php-format
 msgid "%1$s notices that were to repeated to %2$s / %3$s."
 msgstr ""
@@ -1518,10 +1544,11 @@ msgstr ""
 
 #. TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
 #. TRANS: Server error displayed coming across a request from a user without a profile.
+#. TRANS: Server error displayed on page for remote subscribe when user does not have a matching profile.
 #. TRANS: Server error displayed when trying to authorise a remote subscription request
 #. TRANS: while the user has no profile.
 #: actions/avatarsettings.php:108 actions/avatarsettings.php:192
-#: actions/grouplogo.php:184 actions/remotesubscribe.php:190
+#: actions/grouplogo.php:184 actions/remotesubscribe.php:208
 #: actions/userauthorization.php:75 actions/userrss.php:108
 msgid "User without matching profile."
 msgstr ""
@@ -1766,37 +1793,36 @@ msgid "Unrecognized address type %s"
 msgstr ""
 
 #. TRANS: Client error for an already confirmed email/jabber/sms address.
-#: actions/confirmaddress.php:103 actions/confirmaddress.php:136
+#. TRANS: Client error for an already confirmed IM address.
+#: actions/confirmaddress.php:103 actions/confirmaddress.php:138
 msgid "That address has already been confirmed."
 msgstr ""
 
-#: actions/confirmaddress.php:121 actions/imsettings.php:444
-#: actions/userdesignsettings.php:306
-msgid "Couldn't update user."
+#. TRANS: Server error displayed when updating IM preferences fails.
+#. TRANS: Server error thrown on database error removing a registered IM address.
+#: actions/confirmaddress.php:147 actions/imsettings.php:446
+msgid "Could not update user IM preferences."
 msgstr ""
 
-#: actions/confirmaddress.php:144
-msgid "Couldn't update user im preferences."
-msgstr ""
-
-#: actions/confirmaddress.php:156
-msgid "Couldn't insert user im preferences."
+#. TRANS: Server error displayed when adding IM preferences fails.
+#: actions/confirmaddress.php:160
+msgid "Could not insert user IM preferences."
 msgstr ""
 
 #. TRANS: Server error displayed when an address confirmation code deletion from the
 #. TRANS: database fails in the contact address confirmation action.
-#: actions/confirmaddress.php:169
+#: actions/confirmaddress.php:173
 msgid "Could not delete address confirmation."
 msgstr ""
 
 #. TRANS: Title for the contact address confirmation action.
-#: actions/confirmaddress.php:185
+#: actions/confirmaddress.php:189
 msgid "Confirm address"
 msgstr ""
 
 #. TRANS: Success message for the contact address confirmation action.
 #. TRANS: %s can be 'email', 'jabber', or 'sms'.
-#: actions/confirmaddress.php:200
+#: actions/confirmaddress.php:204
 #, php-format
 msgid "The address \"%s\" has been confirmed for your account."
 msgstr ""
@@ -1810,8 +1836,13 @@ msgstr ""
 #. TRANS: Label for user statistics.
 #: actions/conversation.php:149 lib/noticelist.php:87
 #: lib/profileaction.php:246 lib/searchgroupnav.php:78
-#: lib/threadednoticelist.php:66
 msgid "Notices"
+msgstr ""
+
+#. TRANS: Title for conversation page.
+#: actions/conversationreplies.php:83
+msgctxt "TITLE"
+msgid "Notice"
 msgstr ""
 
 #. TRANS: Client exception displayed trying to delete a user account while not logged in.
@@ -1866,7 +1897,6 @@ msgstr ""
 #. TRANS: Field label for delete account confirmation entry.
 #. TRANS: Field label for password reset form where the password has to be typed again.
 #: actions/deleteaccount.php:300 actions/recoverpassword.php:262
-#: actions/register.php:419
 msgid "Confirm"
 msgstr ""
 
@@ -1902,7 +1932,7 @@ msgstr ""
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:131
 #: actions/newapplication.php:112 actions/showapplication.php:113
-#: lib/action.php:1448
+#: lib/action.php:1456
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -2440,7 +2470,7 @@ msgstr ""
 #. TRANS: Button label for adding an e-mail address in e-mail settings form.
 #. TRANS: Button label for adding an IM address in IM settings form.
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
-#: actions/emailsettings.php:141 actions/imsettings.php:147
+#: actions/emailsettings.php:141 actions/imsettings.php:149
 #: actions/smssettings.php:157
 msgctxt "BUTTON"
 msgid "Add"
@@ -2534,7 +2564,8 @@ msgid "Cannot normalize that email address."
 msgstr ""
 
 #. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:394 actions/register.php:197
+#. TRANS: Form validation error displayed when trying to register without a valid e-mail address.
+#: actions/emailsettings.php:394 actions/register.php:206
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr ""
@@ -2552,7 +2583,7 @@ msgstr ""
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding Instant Messaging confirmation code.
 #. TRANS: Server error thrown on database error adding SMS confirmation code.
-#: actions/emailsettings.php:419 actions/imsettings.php:362
+#: actions/emailsettings.php:419 actions/imsettings.php:365
 #: actions/smssettings.php:364
 msgid "Could not insert confirmation code."
 msgstr ""
@@ -2567,7 +2598,7 @@ msgstr ""
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
 #. TRANS: Message given canceling Instant Messaging address confirmation that is not pending.
 #. TRANS: Message given canceling SMS phone number confirmation that is not pending.
-#: actions/emailsettings.php:446 actions/imsettings.php:391
+#: actions/emailsettings.php:446 actions/imsettings.php:394
 #: actions/smssettings.php:398
 msgid "No pending confirmation to cancel."
 msgstr ""
@@ -2578,8 +2609,7 @@ msgid "That is the wrong email address."
 msgstr ""
 
 #. TRANS: Server error thrown on database error canceling e-mail address confirmation.
-#. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
-#: actions/emailsettings.php:460 actions/smssettings.php:412
+#: actions/emailsettings.php:460
 msgid "Could not delete email confirmation."
 msgstr ""
 
@@ -2743,7 +2773,8 @@ msgid "User being listened to does not exist."
 msgstr ""
 
 #. TRANS: Client error displayed when subscribing to a remote profile that is a local profile.
-#: actions/finishremotesubscribe.php:89 actions/remotesubscribe.php:58
+#. TRANS: Client error displayed when using remote subscribe for a local entity.
+#: actions/finishremotesubscribe.php:89 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
 msgstr ""
 
@@ -2783,11 +2814,13 @@ msgid "Cannot read file."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to assign an invalid role to a user.
-#: actions/grantrole.php:61 actions/revokerole.php:62
+#. TRANS: Client error displayed when trying to revoke an invalid role.
+#: actions/grantrole.php:61 actions/revokerole.php:61
 msgid "Invalid role."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to assign an reserved role to a user.
+#. TRANS: Client error displayed when trying to revoke a reserved role.
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
 msgstr ""
@@ -2907,7 +2940,8 @@ msgid "Unable to update your design settings."
 msgstr ""
 
 #. TRANS: Form text to confirm saved group design settings.
-#: actions/groupdesignsettings.php:317 actions/userdesignsettings.php:239
+#. TRANS: Confirmation message on Profile design page when saving design settings has succeeded.
+#: actions/groupdesignsettings.php:317 actions/userdesignsettings.php:245
 msgid "Design preferences saved."
 msgstr ""
 
@@ -3037,7 +3071,8 @@ msgid ""
 msgstr ""
 
 #. TRANS: Link to create a new group on the group list page.
-#: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:115
+#. TRANS: Link text on group page to create a new group.
+#: actions/groups.php:107 actions/usergroups.php:130 lib/groupeditform.php:115
 msgid "Create a new group"
 msgstr ""
 
@@ -3116,122 +3151,121 @@ msgstr ""
 msgid "IM is not available."
 msgstr ""
 
+#. TRANS: Form note in IM settings form. %s is the type of IM address that was confirmed.
 #: actions/imsettings.php:116
 #, php-format
 msgid "Current confirmed %s address."
 msgstr ""
 
 #. TRANS: Form note in IM settings form.
-#. TRANS: %s is the IM address set for the site.
+#. TRANS: %s is the IM service name, %2$s is the IM address set.
 #: actions/imsettings.php:128
 #, php-format
 msgid ""
-"Awaiting confirmation on this address. Check your %s account for a message "
-"with further instructions. (Did you add %s to your buddy list?)"
+"Awaiting confirmation on this address. Check your %1$s account for a message "
+"with further instructions. (Did you add %2$s to your buddy list?)"
 msgstr ""
 
-#: actions/imsettings.php:140
+#. TRANS: Field label for IM address.
+#: actions/imsettings.php:141
 msgid "IM address"
 msgstr ""
 
-#: actions/imsettings.php:142
+#. TRANS: Field title for IM address. %s is the IM service name.
+#: actions/imsettings.php:144
 #, php-format
 msgid "%s screenname."
 msgstr ""
 
 #. TRANS: Header for IM preferences form.
-#: actions/imsettings.php:163
+#: actions/imsettings.php:165
 msgid "IM Preferences"
 msgstr ""
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:174
+#: actions/imsettings.php:176
 msgid "Send me notices"
 msgstr ""
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:176
+#: actions/imsettings.php:178
 msgid "Post a notice when my status changes."
 msgstr ""
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:178
+#: actions/imsettings.php:180
 msgid "Send me replies from people I'm not subscribed to."
 msgstr ""
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:181
+#: actions/imsettings.php:183
 msgid "Publish a MicroID"
 msgstr ""
 
 #. TRANS: Server error thrown on database error updating IM preferences.
-#: actions/imsettings.php:291
-msgid "Couldn't update IM preferences."
+#: actions/imsettings.php:293
+msgid "Could not update IM preferences."
 msgstr ""
 
 #. TRANS: Confirmation message for successful IM preferences save.
 #. TRANS: Confirmation message after saving preferences.
-#: actions/imsettings.php:298 actions/urlsettings.php:244
+#: actions/imsettings.php:300 actions/urlsettings.php:244
 msgid "Preferences saved."
 msgstr ""
 
 #. TRANS: Message given saving IM address without having provided one.
-#: actions/imsettings.php:320
+#: actions/imsettings.php:322
 msgid "No screenname."
 msgstr ""
 
-#: actions/imsettings.php:325
+#. TRANS: Form validation error when no transport is available setting an IM address.
+#: actions/imsettings.php:328
 msgid "No transport."
 msgstr ""
 
 #. TRANS: Message given saving IM address that cannot be normalised.
-#: actions/imsettings.php:333
-msgid "Cannot normalize that screenname"
+#: actions/imsettings.php:336
+msgid "Cannot normalize that screenname."
 msgstr ""
 
 #. TRANS: Message given saving IM address that not valid.
-#: actions/imsettings.php:340
-msgid "Not a valid screenname"
+#: actions/imsettings.php:343
+msgid "Not a valid screenname."
 msgstr ""
 
 #. TRANS: Message given saving IM address that is already set for another user.
-#: actions/imsettings.php:344
+#: actions/imsettings.php:347
 msgid "Screenname already belongs to another user."
 msgstr ""
 
 #. TRANS: Message given saving valid IM address that is to be confirmed.
-#: actions/imsettings.php:369
+#: actions/imsettings.php:372
 msgid "A confirmation code was sent to the IM address you added."
 msgstr ""
 
 #. TRANS: Message given canceling IM address confirmation for the wrong IM address.
-#: actions/imsettings.php:396
+#: actions/imsettings.php:399
 msgid "That is the wrong IM address."
 msgstr ""
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
-#: actions/imsettings.php:405
-msgid "Couldn't delete confirmation."
+#: actions/imsettings.php:408
+msgid "Could not delete confirmation."
 msgstr ""
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
-#: actions/imsettings.php:410
+#: actions/imsettings.php:413
 msgid "IM confirmation cancelled."
 msgstr ""
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
-#: actions/imsettings.php:434
+#: actions/imsettings.php:437
 msgid "That is not your screenname."
 msgstr ""
 
-#. TRANS: Server error thrown on database error removing a registered IM address.
-#: actions/imsettings.php:443
-msgid "Couldn't update user im prefs."
-msgstr ""
-
 #. TRANS: Message given after successfully removing a registered Instant Messaging address.
-#: actions/imsettings.php:451
+#: actions/imsettings.php:453
 msgid "The IM address was removed."
 msgstr ""
 
@@ -3565,7 +3599,8 @@ msgstr ""
 
 #. TRANS: Client error displayed when trying to log in while already logged in.
 #. TRANS: Client error displayed trying to use "one time password login" when already logged in.
-#: actions/login.php:98 actions/otp.php:62 actions/register.php:130
+#. TRANS: Client error displayed when trying to register while already logged in.
+#: actions/login.php:98 actions/otp.php:62 actions/register.php:136
 msgid "Already logged in."
 msgstr ""
 
@@ -3591,12 +3626,14 @@ msgid "Login to site"
 msgstr ""
 
 #. TRANS: Checkbox label label on login page.
-#: actions/login.php:239 actions/register.php:469
+#. TRANS: Checkbox label on account registration page.
+#: actions/login.php:239 actions/register.php:512
 msgid "Remember me"
 msgstr ""
 
 #. TRANS: Checkbox title on login page.
-#: actions/login.php:241 actions/register.php:471
+#. TRANS: Checkbox title on account registration page.
+#: actions/login.php:241 actions/register.php:515
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 
@@ -3689,7 +3726,8 @@ msgstr ""
 msgid "Could not create application."
 msgstr ""
 
-#: actions/newapplication.php:297
+#. TRANS: Form validation error on New application page when providing an invalid image upload.
+#: actions/newapplication.php:298
 msgid "Invalid image."
 msgstr ""
 
@@ -4047,7 +4085,8 @@ msgid "New password"
 msgstr ""
 
 #. TRANS: Field title on page where to change password.
-#: actions/passwordsettings.php:115 actions/register.php:416
+#. TRANS: Field title on account registration page.
+#: actions/passwordsettings.php:115 actions/register.php:444
 msgid "6 or more characters."
 msgstr ""
 
@@ -4059,8 +4098,9 @@ msgstr ""
 
 #. TRANS: Field title on page where to change password.
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
+#. TRANS: Field title on account registration page.
 #: actions/passwordsettings.php:121 actions/recoverpassword.php:264
-#: actions/register.php:420
+#: actions/register.php:450
 msgid "Same as password above."
 msgstr ""
 
@@ -4071,33 +4111,36 @@ msgid "Change"
 msgstr ""
 
 #. TRANS: Form validation error on page where to change password.
-#: actions/passwordsettings.php:163 actions/register.php:223
+#. TRANS: Form validation error displayed when trying to register with too short a password.
+#: actions/passwordsettings.php:163 actions/register.php:240
 msgid "Password must be 6 or more characters."
 msgstr ""
 
-#: actions/passwordsettings.php:166 actions/register.php:226
-msgid "Passwords don't match."
+#. TRANS: Form validation error on password change when password confirmation does not match.
+#. TRANS: Form validation error displayed when trying to register with non-matching passwords.
+#: actions/passwordsettings.php:167 actions/register.php:244
+msgid "Passwords do not match."
 msgstr ""
 
 #. TRANS: Form validation error on page where to change password.
-#: actions/passwordsettings.php:175
+#: actions/passwordsettings.php:176
 msgid "Incorrect old password."
 msgstr ""
 
 #. TRANS: Form validation error on page where to change password.
-#: actions/passwordsettings.php:192
+#: actions/passwordsettings.php:193
 msgid "Error saving user; invalid."
 msgstr ""
 
 #. TRANS: Server error displayed on page where to change password when password change
 #. TRANS: could not be made because of a server error.
 #. TRANS: Reset password form validation error message.
-#: actions/passwordsettings.php:199 actions/recoverpassword.php:422
+#: actions/passwordsettings.php:200 actions/recoverpassword.php:422
 msgid "Cannot save new password."
 msgstr ""
 
 #. TRANS: Form validation notice on page where to change password.
-#: actions/passwordsettings.php:206
+#: actions/passwordsettings.php:207
 msgid "Password saved."
 msgstr ""
 
@@ -4358,6 +4401,7 @@ msgstr ""
 msgid "Always"
 msgstr ""
 
+#. TRANS: Drop down label in Paths admin panel.
 #: actions/pathsadminpanel.php:490
 msgid "Use SSL"
 msgstr ""
@@ -4489,32 +4533,36 @@ msgid "Profile information"
 msgstr ""
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:110 actions/register.php:412
+#. TRANS: Field title on account registration page.
+#: actions/profilesettings.php:110 actions/register.php:438
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr ""
 
 #. TRANS: Field label in form for profile settings.
-#: actions/profilesettings.php:114 actions/register.php:434
+#. TRANS: Field label on account registration page.
+#: actions/profilesettings.php:114 actions/register.php:469
 #: lib/groupeditform.php:150
 msgid "Full name"
 msgstr ""
 
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Field label on account registration page.
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:119 actions/register.php:439
+#: actions/profilesettings.php:119 actions/register.php:476
 #: lib/applicationeditform.php:236 lib/groupeditform.php:154
 msgid "Homepage"
 msgstr ""
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:122 actions/register.php:441
+#. TRANS: Field title on account registration page.
+#: actions/profilesettings.php:122 actions/register.php:479
 msgid "URL of your homepage, blog, or profile on another site."
 msgstr ""
 
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#: actions/profilesettings.php:130 actions/register.php:450
+#: actions/profilesettings.php:130
 #, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
@@ -4522,18 +4570,20 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:136 actions/register.php:455
+#: actions/profilesettings.php:136
 msgid "Describe yourself and your interests"
 msgstr ""
 
 #. TRANS: Text area label in form for profile settings where users can provide.
 #. TRANS: their biography.
-#: actions/profilesettings.php:140 actions/register.php:457
+#. TRANS: Text area label on account registration page.
+#: actions/profilesettings.php:140 actions/register.php:497
 msgid "Bio"
 msgstr ""
 
 #. TRANS: Field label in form for profile settings.
-#: actions/profilesettings.php:146 actions/register.php:462
+#. TRANS: Field label on account registration page.
+#: actions/profilesettings.php:146 actions/register.php:503
 #: lib/groupeditform.php:173
 msgid "Location"
 msgstr ""
@@ -4591,7 +4641,9 @@ msgstr ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
-#: actions/profilesettings.php:259 actions/register.php:214
+#. TRANS: Form validation error on registration page when providing too long a bio text.
+#. TRANS: %d is the maximum number of characters for bio; used for plural.
+#: actions/profilesettings.php:259 actions/register.php:229
 #, php-format
 msgid "Bio is too long (maximum %d character)."
 msgid_plural "Bio is too long (maximum %d characters)."
@@ -4811,6 +4863,7 @@ msgid ""
 "the email address you have stored in your account."
 msgstr ""
 
+#. TRANS: Page notice for password change page.
 #: actions/recoverpassword.php:167
 msgid "You have been identified. Enter a new password below."
 msgstr ""
@@ -4922,7 +4975,8 @@ msgid "Password and confirmation do not match."
 msgstr ""
 
 #. TRANS: Server error displayed when something does wrong with the user object during password reset.
-#: actions/recoverpassword.php:430 actions/register.php:241
+#. TRANS: Server error displayed when saving fails during user registration.
+#: actions/recoverpassword.php:430 actions/register.php:261
 msgid "Error setting user."
 msgstr ""
 
@@ -4931,100 +4985,151 @@ msgstr ""
 msgid "New password successfully saved. You are now logged in."
 msgstr ""
 
+#. TRANS: Client exception thrown when no ID parameter was provided.
 #: actions/redirecturl.php:70
-msgid "No id parameter"
+msgid "No id parameter."
 msgstr ""
 
-#: actions/redirecturl.php:76
+#. TRANS: Client exception thrown when an invalid ID parameter was provided for a file.
+#. TRANS: %d is the provided ID for which the file is not present (number).
+#: actions/redirecturl.php:78
 #, php-format
-msgid "No such file \"%d\""
+msgid "No such file \"%d\"."
 msgstr ""
 
-#: actions/register.php:80 actions/register.php:181 actions/register.php:392
+#. TRANS: Client error displayed when trying to register to an invite-only site without an invitation.
+#: actions/register.php:81 actions/register.php:188 actions/register.php:415
 msgid "Sorry, only invited people can register."
 msgstr ""
 
-#: actions/register.php:87
+#. TRANS: Client error displayed when trying to register to an invite-only site without a valid invitation.
+#: actions/register.php:89
 msgid "Sorry, invalid invitation code."
 msgstr ""
 
-#: actions/register.php:106
+#. TRANS: Title for registration page after a succesful registration.
+#: actions/register.php:109
 msgid "Registration successful"
 msgstr ""
 
-#: actions/register.php:108 actions/register.php:490
+#. TRANS: Title for registration page.
+#: actions/register.php:112
+msgctxt "TITLE"
 msgid "Register"
 msgstr ""
 
-#: actions/register.php:128
+#. TRANS: Client error displayed when trying to register to a closed site.
+#: actions/register.php:133
 msgid "Registration not allowed."
 msgstr ""
 
-#: actions/register.php:194
-msgid "You cannot register if you don't agree to the license."
+#. TRANS: Form validation error displayed when trying to register without agreeing to the site license.
+#: actions/register.php:202
+msgid "You cannot register if you do not agree to the license."
 msgstr ""
 
-#: actions/register.php:203
+#: actions/register.php:214
 msgid "Email address already exists."
 msgstr ""
 
-#: actions/register.php:236 actions/register.php:258
+#. TRANS: Form validation error displayed when trying to register with an invalid username or password.
+#: actions/register.php:255 actions/register.php:279
 msgid "Invalid username or password."
 msgstr ""
 
-#: actions/register.php:333
+#. TRANS: Page notice on registration page.
+#: actions/register.php:355
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues."
 msgstr ""
 
-#: actions/register.php:424 actions/register.php:428
-#: actions/siteadminpanel.php:238 lib/settingsnav.php:98
+#. TRANS: Field label on account registration page. In this field the password has to be entered a second time.
+#: actions/register.php:448
+msgctxt "PASSWORD"
+msgid "Confirm"
+msgstr ""
+
+#. TRANS: Field label on account registration page.
+#: actions/register.php:455 actions/register.php:461
+msgctxt "LABEL"
 msgid "Email"
 msgstr ""
 
-#: actions/register.php:425 actions/register.php:429
+#. TRANS: Field title on account registration page.
+#: actions/register.php:457 actions/register.php:463
 msgid "Used only for updates, announcements, and password recovery."
 msgstr ""
 
-#: actions/register.php:436
+#. TRANS: Field title on account registration page.
+#: actions/register.php:472
 msgid "Longer name, preferably your \"real\" name."
 msgstr ""
 
-#: actions/register.php:464
+#. TRANS: Text area title in form for account registration. Plural
+#. TRANS: is decided by the number of characters available for the
+#. TRANS: biography (%d).
+#: actions/register.php:488
+#, php-format
+msgid "Describe yourself and your interests in %d character."
+msgid_plural "Describe yourself and your interests in %d characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANS: Text area title on account registration page.
+#: actions/register.php:494
+msgid "Describe yourself and your interests."
+msgstr ""
+
+#. TRANS: Field title on account registration page.
+#: actions/register.php:506
 msgid "Where you are, like \"City, State (or Region), Country\"."
 msgstr ""
 
-#: actions/register.php:503
+#. TRANS: Field label on account registration page.
+#: actions/register.php:535
+msgctxt "BUTTON"
+msgid "Register"
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for private sites.
+#. TRANS: %1$s is the StatusNet sitename.
+#: actions/register.php:548
 #, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
 msgstr ""
 
-#: actions/register.php:513
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with a specified copyright owner.
+#. TRANS: %1$s is the license owner.
+#: actions/register.php:559
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
-#: actions/register.php:517
+#: actions/register.php:563
 msgid "My text and files remain under my own copyright."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
-#: actions/register.php:520
+#: actions/register.php:566
 msgid "All rights reserved."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:525
+#: actions/register.php:571
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
 
-#: actions/register.php:566
+#. TRANS: Text displayed after successful account registration.
+#. TRANS: %1$s is the registered nickname, %2$s is the profile URL.
+#. TRANS: This message contains Markdown links in the form [link text](link)
+#. TRANS: and variables in the form %%%%variable%%%%. Please mind the syntax.
+#: actions/register.php:616
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -5043,13 +5148,16 @@ msgid ""
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
 
-#: actions/register.php:590
+#. TRANS: Instruction text on how to deal with the e-mail address confirmation e-mail.
+#: actions/register.php:641
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
 
-#: actions/remotesubscribe.php:97
+#. TRANS: Page notice for remote subscribe. This message contains Markdown links.
+#. TRANS: Ensure to keep the correct markup of [link description](link).
+#: actions/remotesubscribe.php:100
 #, php-format
 msgid ""
 "To subscribe, you can [login](%%action.login%%), or [register](%%action."
@@ -5057,76 +5165,96 @@ msgid ""
 "microblogging site](%%doc.openmublog%%),  enter your profile URL below."
 msgstr ""
 
-#: actions/remotesubscribe.php:111
+#. TRANS: Page title for Remote subscribe.
+#: actions/remotesubscribe.php:115
 msgid "Remote subscribe"
 msgstr ""
 
-#: actions/remotesubscribe.php:123
+#. TRANS: Field legend on page for remote subscribe.
+#: actions/remotesubscribe.php:128
 msgid "Subscribe to a remote user"
 msgstr ""
 
-#: actions/remotesubscribe.php:128
+#. TRANS: Field label on page for remote subscribe.
+#: actions/remotesubscribe.php:134
 msgid "User nickname"
 msgstr ""
 
-#: actions/remotesubscribe.php:129
+#. TRANS: Field title on page for remote subscribe.
+#: actions/remotesubscribe.php:136
 msgid "Nickname of the user you want to follow."
 msgstr ""
 
-#: actions/remotesubscribe.php:132
+#. TRANS: Field label on page for remote subscribe.
+#: actions/remotesubscribe.php:140
 msgid "Profile URL"
 msgstr ""
 
-#: actions/remotesubscribe.php:133
+#. TRANS: Field title on page for remote subscribe.
+#: actions/remotesubscribe.php:142
 msgid "URL of your profile on another compatible microblogging service."
 msgstr ""
 
-#. TRANS: Link text for link that will subscribe to a remote profile.
-#: actions/remotesubscribe.php:136 lib/accountprofileblock.php:288
-#: lib/subscribeform.php:139
+#. TRANS: Button text on page for remote subscribe.
+#: actions/remotesubscribe.php:146
+msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr ""
 
-#: actions/remotesubscribe.php:158
+#. TRANS: Form validation error on page for remote subscribe when an invalid profile URL was provided.
+#: actions/remotesubscribe.php:171
 msgid "Invalid profile URL (bad format)."
 msgstr ""
 
-#: actions/remotesubscribe.php:167
+#. TRANS: Form validation error on page for remote subscribe when no the provided profile URL
+#. TRANS: does not contain expected data.
+#: actions/remotesubscribe.php:182
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
 
-#: actions/remotesubscribe.php:175
+#. TRANS: Form validation error on page for remote subscribe.
+#: actions/remotesubscribe.php:191
 msgid "That is a local profile! Login to subscribe."
 msgstr ""
 
-#: actions/remotesubscribe.php:182
+#. TRANS: Form validation error on page for remote subscribe when the remote service is not providing a request token.
+#: actions/remotesubscribe.php:199
 msgid "Could not get a request token."
 msgstr ""
 
+#. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 #: actions/repeat.php:56
 msgid "Only logged-in users can repeat notices."
 msgstr ""
 
-#: actions/repeat.php:63 actions/repeat.php:70
+#. TRANS: Client error displayed when trying to repeat a notice while not providing a notice ID.
+#. TRANS: Client error displayed when trying to repeat a non-existing notice.
+#: actions/repeat.php:64 actions/repeat.php:72
 msgid "No notice specified."
 msgstr ""
 
-#: actions/repeat.php:75
+#. TRANS: Client error displayed when trying to repeat an own notice.
+#: actions/repeat.php:78
 msgid "You cannot repeat your own notice."
 msgstr ""
 
-#: actions/repeat.php:89
+#. TRANS: Client error displayed when trying to repeat an already repeated notice.
+#: actions/repeat.php:93
 msgid "You already repeated that notice."
 msgstr ""
 
-#: actions/repeat.php:112 lib/noticelistitem.php:602
+#. TRANS: Title after repeating a notice.
+#: actions/repeat.php:115 lib/noticelistitem.php:602
 msgid "Repeated"
 msgstr ""
 
-#: actions/repeat.php:117
+#. TRANS: Confirmation text after repeating a notice.
+#: actions/repeat.php:121
 msgid "Repeated!"
 msgstr ""
 
+#. TRANS: Title for first page of replies for a user.
+#. TRANS: %s is a user nickname.
 #. TRANS: RSS reply feed title. %s is a user nickname.
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:86
@@ -5134,41 +5262,55 @@ msgstr ""
 msgid "Replies to %s"
 msgstr ""
 
-#: actions/replies.php:128
+#. TRANS: Title for all but the first page of replies for a user.
+#. TRANS: %1$s is a user nickname, %2$d is a page number.
+#: actions/replies.php:130
 #, php-format
 msgid "Replies to %1$s, page %2$d"
 msgstr ""
 
-#: actions/replies.php:145
+#. TRANS: Link for feed with replies for a user.
+#. TRANS: %s is a user nickname.
+#: actions/replies.php:148
 #, php-format
 msgid "Replies feed for %s (RSS 1.0)"
 msgstr ""
 
-#: actions/replies.php:152
+#. TRANS: Link for feed with replies for a user.
+#. TRANS: %s is a user nickname.
+#: actions/replies.php:157
 #, php-format
 msgid "Replies feed for %s (RSS 2.0)"
 msgstr ""
 
-#: actions/replies.php:159
+#. TRANS: Link for feed with replies for a user.
+#. TRANS: %s is a user nickname.
+#: actions/replies.php:166
 #, php-format
 msgid "Replies feed for %s (Atom)"
 msgstr ""
 
-#: actions/replies.php:187
+#. TRANS: Empty list message for page with replies for a user.
+#. TRANS: %1$s and %s$s are the user nickname.
+#: actions/replies.php:195
 #, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to them yet."
 msgstr ""
 
-#: actions/replies.php:192
+#. TRANS: Empty list message for page with replies for a user for the logged in user.
+#. TRANS: This message contains a Markdown link in the form [link text](link).
+#: actions/replies.php:204
 #, php-format
 msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
 
-#: actions/replies.php:194
+#. TRANS: Empty list message for page with replies for a user for all logged in users but the user themselves.
+#. TRANS: %1$s, %2$s and %3$s are a user nickname. This message contains a Markdown link in the form [link text](link).
+#: actions/replies.php:208
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
@@ -5266,15 +5408,19 @@ msgstr ""
 msgid "Upload the file"
 msgstr ""
 
-#: actions/revokerole.php:75
+#. TRANS: Client error displayed when trying to revoke a role without having the right to do that.
+#: actions/revokerole.php:76
 msgid "You cannot revoke user roles on this site."
 msgstr ""
 
-#: actions/revokerole.php:82
-msgid "User doesn't have this role."
+#. TRANS: Client error displayed when trying to revoke a role that is not set.
+#: actions/revokerole.php:84
+msgid "User does not have this role."
 msgstr ""
 
-#: actions/rsd.php:142 actions/version.php:159
+#. TRANS: Engine name for RSD.
+#. TRANS: Engine name.
+#: actions/rsd.php:144 actions/version.php:156
 msgid "StatusNet"
 msgstr ""
 
@@ -5725,6 +5871,10 @@ msgstr ""
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
+#: actions/siteadminpanel.php:238 lib/settingsnav.php:98
+msgid "Email"
+msgstr ""
+
 #: actions/siteadminpanel.php:239
 msgid "Contact email address for your site"
 msgstr ""
@@ -5909,6 +6059,11 @@ msgstr ""
 #. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
 #: actions/smssettings.php:403
 msgid "That is the wrong confirmation number."
+msgstr ""
+
+#. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
+#: actions/smssettings.php:412
+msgid "Could not delete SMS confirmation."
 msgstr ""
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
@@ -6397,38 +6552,38 @@ msgid ""
 msgstr ""
 
 #. TRANS: Button text on Authorise Subscription page.
-#: actions/userauthorization.php:200
+#: actions/userauthorization.php:202
 msgctxt "BUTTON"
 msgid "Accept"
 msgstr ""
 
 #. TRANS: Title for button on Authorise Subscription page.
-#: actions/userauthorization.php:202
+#: actions/userauthorization.php:204
 msgid "Subscribe to this user."
 msgstr ""
 
 #. TRANS: Button text on Authorise Subscription page.
-#: actions/userauthorization.php:204
+#: actions/userauthorization.php:207
 msgctxt "BUTTON"
 msgid "Reject"
 msgstr ""
 
 #. TRANS: Title for button on Authorise Subscription page.
-#: actions/userauthorization.php:206
+#: actions/userauthorization.php:209
 msgid "Reject this subscription."
 msgstr ""
 
 #. TRANS: Client error displayed for an empty authorisation request.
-#: actions/userauthorization.php:219
+#: actions/userauthorization.php:222
 msgid "No authorization request!"
 msgstr ""
 
 #. TRANS: Accept message header from Authorise subscription page.
-#: actions/userauthorization.php:242
+#: actions/userauthorization.php:245
 msgid "Subscription authorized"
 msgstr ""
 
-#: actions/userauthorization.php:245
+#: actions/userauthorization.php:248
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
@@ -6436,11 +6591,11 @@ msgid ""
 msgstr ""
 
 #. TRANS: Reject message header from Authorise subscription page.
-#: actions/userauthorization.php:256
+#: actions/userauthorization.php:259
 msgid "Subscription rejected"
 msgstr ""
 
-#: actions/userauthorization.php:259
+#: actions/userauthorization.php:262
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
@@ -6449,35 +6604,35 @@ msgstr ""
 
 #. TRANS: Exception thrown when no valid user is found for an authorisation request.
 #. TRANS: %s is a listener URI.
-#: actions/userauthorization.php:296
+#: actions/userauthorization.php:299
 #, php-format
 msgid "Listener URI \"%s\" not found here."
 msgstr ""
 
 #. TRANS: Exception thrown when listenee URI is too long for an authorisation request.
 #. TRANS: %s is a listenee URI.
-#: actions/userauthorization.php:303
+#: actions/userauthorization.php:306
 #, php-format
 msgid "Listenee URI \"%s\" is too long."
 msgstr ""
 
 #. TRANS: Exception thrown when listenee URI is a local user for an authorisation request.
 #. TRANS: %s is a listenee URI.
-#: actions/userauthorization.php:311
+#: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI \"%s\" is a local user."
 msgstr ""
 
 #. TRANS: Exception thrown when profile URL is a local user for an authorisation request.
 #. TRANS: %s is a profile URL.
-#: actions/userauthorization.php:329
+#: actions/userauthorization.php:332
 #, php-format
 msgid "Profile URL \"%s\" is for a local user."
 msgstr ""
 
 #. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
 #. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
-#: actions/userauthorization.php:339
+#: actions/userauthorization.php:342
 #, php-format
 msgid ""
 "Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
@@ -6486,73 +6641,86 @@ msgstr ""
 
 #. TRANS: Exception thrown when avatar URL is invalid for an authorisation request.
 #. TRANS: %s is an avatar URL.
-#: actions/userauthorization.php:349
+#: actions/userauthorization.php:352
 #, php-format
 msgid "Avatar URL \"%s\" is not valid."
 msgstr ""
 
 #. TRANS: Exception thrown when avatar URL could not be read for an authorisation request.
 #. TRANS: %s is an avatar URL.
-#: actions/userauthorization.php:356
+#: actions/userauthorization.php:359
 #, php-format
 msgid "Cannot read avatar URL \"%s\"."
 msgstr ""
 
 #. TRANS: Exception thrown when avatar URL return an invalid image type for an authorisation request.
 #. TRANS: %s is an avatar URL.
-#: actions/userauthorization.php:363
+#: actions/userauthorization.php:366
 #, php-format
 msgid "Wrong image type for avatar URL \"%s\"."
 msgstr ""
 
+#. TRANS: Title for profile design page.
 #. TRANS: Page title for profile design page.
-#: actions/userdesignsettings.php:74 lib/designsettings.php:61
+#: actions/userdesignsettings.php:75 lib/designsettings.php:61
 msgid "Profile design"
 msgstr ""
 
+#. TRANS: Instructions for Profile design page.
 #. TRANS: Instructions for profile design page.
-#: actions/userdesignsettings.php:84 lib/designsettings.php:72
+#: actions/userdesignsettings.php:86 lib/designsettings.php:72
 msgid ""
 "Customize the way your profile looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
 
-#: actions/userdesignsettings.php:289
+#. TRANS: Succes message on Profile design page when finding an easter egg.
+#: actions/userdesignsettings.php:297
 msgid "Enjoy your hotdog!"
 msgstr ""
 
-#: actions/userdesignsettings.php:325
+#. TRANS: Form legend on Profile design page.
+#: actions/userdesignsettings.php:335
 msgid "Design settings"
 msgstr ""
 
-#: actions/userdesignsettings.php:340
+#. TRANS: Checkbox label on Profile design page.
+#: actions/userdesignsettings.php:351
 msgid "View profile designs"
 msgstr ""
 
-#: actions/userdesignsettings.php:341
+#. TRANS: Title for checkbox on Profile design page.
+#: actions/userdesignsettings.php:353
 msgid "Show or hide profile designs."
 msgstr ""
 
-#: actions/userdesignsettings.php:348
+#. TRANS: Form legend on Profile design page for form to choose a background image.
+#: actions/userdesignsettings.php:361
 msgid "Background file"
 msgstr ""
 
-#. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
-#: actions/usergroups.php:66
+#. TRANS: Page title for all but the first page of groups for a user.
+#. TRANS: %1$s is a nickname, %2$d is a page number.
+#: actions/usergroups.php:67
 #, php-format
 msgid "%1$s groups, page %2$d"
 msgstr ""
 
-#: actions/usergroups.php:132
+#. TRANS: Link text on group page to search for groups.
+#: actions/usergroups.php:137
 msgid "Search for more groups"
 msgstr ""
 
-#: actions/usergroups.php:159
+#. TRANS: Text on group page for a user that is not a member of any group.
+#. TRANS: %s is a user nickname.
+#: actions/usergroups.php:166
 #, php-format
 msgid "%s is not a member of any group."
 msgstr ""
 
-#: actions/usergroups.php:164
+#. TRANS: Text on group page for a user that is not a member of any group. This message contains
+#. TRANS: a Markdown link in the form [link text](link) and a variable that should not be changed.
+#: actions/usergroups.php:173
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
@@ -6568,27 +6736,33 @@ msgstr ""
 msgid "Updates from %1$s on %2$s!"
 msgstr ""
 
-#: actions/version.php:75
+#. TRANS: Title for version page. %s is the StatusNet version.
+#: actions/version.php:73
 #, php-format
 msgid "StatusNet %s"
 msgstr ""
 
-#: actions/version.php:155
+#. TRANS: Content part of StatusNet version page.
+#. TRANS: %1$s is the engine name (StatusNet) and %2$s is the StatusNet version.
+#: actions/version.php:151
 #, php-format
 msgid ""
 "This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
 "Inc. and contributors."
 msgstr ""
 
-#: actions/version.php:163
+#. TRANS: Header for StatusNet contributors section on the version page.
+#: actions/version.php:161
 msgid "Contributors"
 msgstr ""
 
+#. TRANS: Header for StatusNet license section on the version page.
 #. TRANS: Menu item for site administration
-#: actions/version.php:167 lib/adminpanelnav.php:150
+#: actions/version.php:166 lib/adminpanelnav.php:150
 msgid "License"
 msgstr ""
 
+#. TRANS: Content part of StatusNet version page.
 #: actions/version.php:170
 msgid ""
 "StatusNet is free software: you can redistribute it and/or modify it under "
@@ -6597,7 +6771,8 @@ msgid ""
 "any later version. "
 msgstr ""
 
-#: actions/version.php:176
+#. TRANS: Content part of StatusNet version page.
+#: actions/version.php:177
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -6605,46 +6780,53 @@ msgid ""
 "for more details. "
 msgstr ""
 
-#: actions/version.php:182
+#. TRANS: Content part of StatusNet version page.
+#. TRANS: %s is a link to the AGPL license with link description "http://www.gnu.org/licenses/agpl.html".
+#: actions/version.php:185
 #, php-format
 msgid ""
 "You should have received a copy of the GNU Affero General Public License "
 "along with this program.  If not, see %s."
 msgstr ""
 
+#. TRANS: Header for StatusNet plugins section on the version page.
 #. TRANS: Menu item for site administration
-#: actions/version.php:191 lib/adminpanelnav.php:158
+#: actions/version.php:195 lib/adminpanelnav.php:158
 msgid "Plugins"
 msgstr ""
 
-#. TRANS: Form input field label for application name.
-#: actions/version.php:197 lib/applicationeditform.php:190
+#. TRANS: Column header for plugins table on version page.
+#: actions/version.php:202
+msgctxt "HEADER"
 msgid "Name"
 msgstr ""
 
-#. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/secondarynav.php:78
+#. TRANS: Column header for plugins table on version page.
+#: actions/version.php:204
+msgctxt "HEADER"
 msgid "Version"
 msgstr ""
 
-#: actions/version.php:199
+#. TRANS: Column header for plugins table on version page.
+#: actions/version.php:206
+msgctxt "HEADER"
 msgid "Author(s)"
 msgstr ""
 
-#. TRANS: Form input field label.
-#: actions/version.php:200 lib/applicationeditform.php:208
-#: lib/groupeditform.php:168
+#. TRANS: Column header for plugins table on version page.
+#: actions/version.php:208
+msgctxt "HEADER"
 msgid "Description"
 msgstr ""
 
 #. TRANS: Activity title when marking a notice as favorite.
-#: classes/Fave.php:164
+#: classes/Fave.php:166
 msgid "Favor"
 msgstr ""
 
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
-#: classes/Fave.php:167
+#: classes/Fave.php:169
 #, php-format
 msgid "%1$s marked notice %2$s as a favorite."
 msgstr ""
@@ -6818,25 +7000,25 @@ msgid "Problem saving notice."
 msgstr ""
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:944
+#: classes/Notice.php:980
 msgid "Bad type provided to saveKnownGroups."
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1043
+#: classes/Notice.php:1079
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1159
+#: classes/Notice.php:1195
 #, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1678
+#: classes/Notice.php:1714
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -7030,35 +7212,41 @@ msgctxt "role"
 msgid "Moderator"
 msgstr ""
 
+#. TRANS: Link text for link that will subscribe to a remote profile.
+#: lib/accountprofileblock.php:288 lib/subscribeform.php:139
+msgid "Subscribe"
+msgstr ""
+
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
-#: lib/action.php:166
+#: lib/action.php:168
 #, php-format
 msgid "%1$s - %2$s"
 msgstr ""
 
 #. TRANS: Page title for a page without a title set.
-#: lib/action.php:182
+#: lib/action.php:184
 msgid "Untitled page"
 msgstr ""
 
 #. TRANS: Localized tooltip for '...' expansion button on overlong remote messages.
-#: lib/action.php:355
+#: lib/action.php:357
 msgctxt "TOOLTIP"
 msgid "Show more"
 msgstr ""
 
 #. TRANS: Inline reply form submit button: submits a reply comment.
-#: lib/action.php:358
+#: lib/action.php:360
 msgctxt "BUTTON"
 msgid "Reply"
 msgstr ""
 
 #. TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
-#: lib/action.php:361 lib/threadednoticelist.php:317
+#. TRANS: Field label for reply mini form.
+#: lib/action.php:363 lib/threadednoticelist.php:333
 msgid "Write a reply..."
 msgstr ""
 
-#: lib/action.php:607
+#: lib/action.php:612
 msgid "Status"
 msgstr ""
 
@@ -7066,7 +7254,7 @@ msgstr ""
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
-#: lib/action.php:978
+#: lib/action.php:986
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -7074,7 +7262,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:981
+#: lib/action.php:989
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr ""
@@ -7083,7 +7271,7 @@ msgstr ""
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: %s is the version of StatusNet that is being used.
-#: lib/action.php:988
+#: lib/action.php:996
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -7093,39 +7281,39 @@ msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:1006
+#: lib/action.php:1014
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:1013
+#: lib/action.php:1021
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:1017
+#: lib/action.php:1025
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
 #. TRANS: license message in footer.
 #. TRANS: %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:1049
+#: lib/action.php:1057
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1392
+#: lib/action.php:1400
 msgid "After"
 msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1402
+#: lib/action.php:1410
 msgid "Before"
 msgstr ""
 
@@ -7405,6 +7593,11 @@ msgstr ""
 msgid "Icon for this application"
 msgstr ""
 
+#. TRANS: Form input field label for application name.
+#: lib/applicationeditform.php:190
+msgid "Name"
+msgstr ""
+
 #. TRANS: Form input field instructions.
 #. TRANS: %d is the number of available characters for the description.
 #: lib/applicationeditform.php:201
@@ -7417,6 +7610,11 @@ msgstr[1] ""
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:205
 msgid "Describe your application"
+msgstr ""
+
+#. TRANS: Form input field label.
+#: lib/applicationeditform.php:208 lib/groupeditform.php:168
+msgid "Description"
 msgstr ""
 
 #. TRANS: Form input field instructions.
@@ -9180,7 +9378,7 @@ msgid "Revoke the \"%s\" role from this user"
 msgstr ""
 
 #. TRANS: Client error on action trying to visit a non-existing page.
-#: lib/router.php:1001
+#: lib/router.php:1004
 msgid "Page not found."
 msgstr ""
 
@@ -9253,6 +9451,11 @@ msgstr ""
 #. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
 #: lib/secondarynav.php:75
 msgid "Source"
+msgstr ""
+
+#. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
+#: lib/secondarynav.php:78
+msgid "Version"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to e-mail contact information on the
@@ -9422,13 +9625,69 @@ msgstr ""
 msgid "Error opening theme archive."
 msgstr ""
 
-#: lib/threadednoticelist.php:273
+#. TRANS: Header for Notices section.
+#: lib/threadednoticelist.php:65
+msgctxt "HEADER"
+msgid "Notices"
+msgstr ""
+
+#. TRANS: Link to show replies for a notice.
+#. TRANS: %d is the number of replies to a notice and used for plural.
+#: lib/threadednoticelist.php:292
 #, php-format
-msgid "Show %d reply"
+msgid "Show reply"
 msgid_plural "Show all %d replies"
 msgstr[0] ""
 msgstr[1] ""
 
+#. TRANS: Reference to the logged in user in favourite list.
+#: lib/threadednoticelist.php:358
+msgctxt "FAVELIST"
+msgid "You"
+msgstr ""
+
+#. TRANS: Separator in list of user names like "You, Bob, Mary".
+#: lib/threadednoticelist.php:394
+msgid ", "
+msgstr ""
+
+#. TRANS: For building a list such as "You, bob, mary and 5 others have favored this notice".
+#. TRANS: %1$s is a list of users, separated by a separator (default: ", "), %2$s is the last user in the list.
+#: lib/threadednoticelist.php:397
+#, php-format
+msgctxt "FAVELIST"
+msgid "%1$s and %2$s"
+msgstr ""
+
+#. TRANS: List message for notice favoured by logged in user.
+#: lib/threadednoticelist.php:422
+msgctxt "FAVELIST"
+msgid "You have favored this notice."
+msgstr ""
+
+#: lib/threadednoticelist.php:428
+#, php-format
+msgctxt "FAVELIST"
+msgid "One person has favored this notice."
+msgid_plural "%d people have favored this notice."
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANS: List message for notice repeated by logged in user.
+#: lib/threadednoticelist.php:482
+msgctxt "REPEATLIST"
+msgid "You have repeated this notice."
+msgstr ""
+
+#: lib/threadednoticelist.php:488
+#, php-format
+msgctxt "REPEATLIST"
+msgid "One person has repeated this notice."
+msgid_plural "%d people have repeated this notice."
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANS: Title for top posters section.
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr ""
@@ -9439,27 +9698,36 @@ msgctxt "TITLE"
 msgid "Unblock"
 msgstr ""
 
-#: lib/unsandboxform.php:69
+#. TRANS: Title for unsandbox form.
+#: lib/unsandboxform.php:67
+msgctxt "TITLE"
 msgid "Unsandbox"
 msgstr ""
 
-#: lib/unsandboxform.php:80
+#. TRANS: Description for unsandbox form.
+#: lib/unsandboxform.php:78
 msgid "Unsandbox this user"
 msgstr ""
 
-#: lib/unsilenceform.php:67
+#. TRANS: Title for unsilence form.
+#: lib/unsilenceform.php:65
 msgid "Unsilence"
 msgstr ""
 
-#: lib/unsilenceform.php:78
+#. TRANS: Form description for unsilence form.
+#: lib/unsilenceform.php:76
 msgid "Unsilence this user"
 msgstr ""
 
-#: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
+#. TRANS: Form legend on unsubscribe form.
+#. TRANS: Button title on unsubscribe form.
+#: lib/unsubscribeform.php:109 lib/unsubscribeform.php:134
 msgid "Unsubscribe from this user"
 msgstr ""
 
-#: lib/unsubscribeform.php:137
+#. TRANS: Button text on unsubscribe form.
+#: lib/unsubscribeform.php:132
+msgctxt "BUTTON"
 msgid "Unsubscribe"
 msgstr ""
 
@@ -9470,22 +9738,23 @@ msgstr ""
 msgid "User %1$s (%2$d) has no profile record."
 msgstr ""
 
-#: lib/util.php:321
+#. TRANS: Authorisation exception thrown when a user a not allowed to login.
+#: lib/util.php:322
 msgid "Not allowed to log in."
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1331
+#: lib/util.php:1332
 msgid "a few seconds ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1334
+#: lib/util.php:1335
 msgid "about a minute ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1338
+#: lib/util.php:1339
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -9493,12 +9762,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1341
+#: lib/util.php:1342
 msgid "about an hour ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1345
+#: lib/util.php:1346
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -9506,12 +9775,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1348
+#: lib/util.php:1349
 msgid "about a day ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1352
+#: lib/util.php:1353
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -9519,12 +9788,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1355
+#: lib/util.php:1356
 msgid "about a month ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1359
+#: lib/util.php:1360
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -9532,7 +9801,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1362
+#: lib/util.php:1363
 msgid "about a year ago"
 msgstr ""
 
