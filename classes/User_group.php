@@ -24,6 +24,7 @@ class User_group extends Memcached_DataObject
     public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
     public $uri;                             // varchar(255)  unique_key
     public $mainpage;                        // varchar(255)
+    public $join_policy;                     // tinyint
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User_group',$k,$v); }
@@ -511,6 +512,11 @@ class User_group extends Memcached_DataObject
         $group->uri         = $uri;
         $group->mainpage    = $mainpage;
         $group->created     = common_sql_now();
+        if (isset($fields['join_policy'])) {
+            $group->join_policy = intval($fields['join_policy']);
+        } else {
+            $group->join_policy = 0;
+        }
 
         if (Event::handle('StartGroupSave', array(&$group))) {
 
