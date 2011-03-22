@@ -47,7 +47,7 @@ require_once INSTALLDIR.'/lib/form.php';
  * @see      UnsubscribeForm
  */
 
-class CancelGroupForm extends Form
+class ApproveGroupForm extends Form
 {
     /**
      * group for user to leave
@@ -90,7 +90,7 @@ class CancelGroupForm extends Form
 
     function formClass()
     {
-        return 'form_group_leave ajax';
+        return 'form_group_join ajax';
     }
 
     /**
@@ -105,7 +105,7 @@ class CancelGroupForm extends Form
         if ($this->profile) {
             $params['profile_id'] = $this->profile->id;
         }
-        return common_local_url('cancelgroup',
+        return common_local_url('approvegroup',
                                 array('id' => $this->group->id), $params);
     }
 
@@ -117,6 +117,6 @@ class CancelGroupForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Cancel join request'));
+        $this->out->submit('submit', _('Approve'));
     }
 }

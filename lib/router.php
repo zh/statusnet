@@ -366,7 +366,7 @@ class Router
 
             $m->connect('group/new', array('action' => 'newgroup'));
 
-            foreach (array('edit', 'join', 'leave', 'delete', 'cancel') as $v) {
+            foreach (array('edit', 'join', 'leave', 'delete', 'cancel', 'approve') as $v) {
                 $m->connect('group/:nickname/'.$v,
                             array('action' => $v.'group'),
                             array('nickname' => Nickname::DISPLAY_FMT));

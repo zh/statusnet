@@ -385,6 +385,28 @@ class Profile extends Memcached_DataObject
     }
 
     /**
+     * Complete a pending group join on our end...
+     *
+     * @param User_group $group
+     */
+    function completeJoinGroup(User_group $group)
+    {
+        $ok = null;
+        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
+                                                   'group_id' => $group->id));
+        if ($request) {
+            if (Event::handle('StartJoinGroup', array($group, $this))) {
+                $ok = Group_member::join($group->id, $this->id);
+                $request->delete();
+                Event::handle('EndJoinGroup', array($group, $this));
+            }
+        } else {
+            throw new Exception(_m('Invalid group join approval: not pending.'));
+        }
+        return $ok;
+    }
+
+    /**
      * Leave a group that this profile is a member of.
      *
      * @param User_group $group 

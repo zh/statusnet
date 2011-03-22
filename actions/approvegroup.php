@@ -43,7 +43,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class CancelgroupAction extends Action
+class ApprovegroupAction extends Action
 {
     var $group = null;
 
@@ -109,7 +109,8 @@ class CancelgroupAction extends Action
                 return false;
             }
         } else {
-            $this->profile = $cur->getProfile();
+            $this->clientError(_('Must specify a profile.'));
+            return false;
         }
 
         $this->request = Group_join_queue::pkeyGet(array('profile_id' => $this->profile->id,
@@ -135,7 +136,7 @@ class CancelgroupAction extends Action
         parent::handle($args);
 
         try {
-            $this->profile->cancelJoinGroup($this->group);
+            $this->profile->completeJoinGroup($this->group);
         } catch (Exception $e) {
             common_log(LOG_ERROR, "Exception canceling group sub: " . $e->getMessage());
             // TRANS: Server error displayed when cancelling a queued group join request fails.
