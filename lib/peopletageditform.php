@@ -173,7 +173,7 @@ class PeopletagEditForm extends Form
         $this->out->element('h2', null, 'Add or remove people');
 
         $this->out->elementStart('div', 'profile_search_wrap');
-        $this->out->element('h3', null, 'Add user');
+        $this->out->element('h3', null, _m('BUTTON', 'Search'));
         $search = new SearchProfileForm($this->out, $this->peopletag);
         $search->show();
         $this->out->element('ul', array('id' => 'profile_search_results', 'class' => 'empty'));

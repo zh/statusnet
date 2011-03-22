@@ -100,6 +100,7 @@ abstract class ProfileBlock extends Widget
                                 $description);
         }
 
+        $this->showTags();
         $this->showActions();
 
         $this->out->elementEnd('div');
@@ -108,6 +109,10 @@ abstract class ProfileBlock extends Widget
     function avatarSize()
     {
         return AVATAR_PROFILE_SIZE;
+    }
+
+    function showTags()
+    {
     }
 
     function showActions()
