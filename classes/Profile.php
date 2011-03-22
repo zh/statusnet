@@ -355,16 +355,20 @@ class Profile extends Memcached_DataObject
      */
     function joinGroup(User_group $group)
     {
-        $ok = null;
+        $join = null;
         if ($group->join_policy == User_group::JOIN_POLICY_MODERATE) {
-            $ok = Group_join_queue::saveNew($this, $group);
+            $join = Group_join_queue::saveNew($this, $group);
         } else {
             if (Event::handle('StartJoinGroup', array($group, $this))) {
-                $ok = Group_member::join($group->id, $this->id);
+                $join = Group_member::join($group->id, $this->id);
                 Event::handle('EndJoinGroup', array($group, $this));
             }
         }
-        return $ok;
+        if ($join) {
+            // Send any applicable notifications...
+            $join->notify();
+        }
+        return $join;
     }
 
     /**
@@ -391,19 +395,22 @@ class Profile extends Memcached_DataObject
      */
     function completeJoinGroup(User_group $group)
     {
-        $ok = null;
+        $join = null;
         $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
                                                    'group_id' => $group->id));
         if ($request) {
             if (Event::handle('StartJoinGroup', array($group, $this))) {
-                $ok = Group_member::join($group->id, $this->id);
+                $join = Group_member::join($group->id, $this->id);
                 $request->delete();
                 Event::handle('EndJoinGroup', array($group, $this));
             }
         } else {
             throw new Exception(_m('Invalid group join approval: not pending.'));
         }
-        return $ok;
+        if ($join) {
+            $join->notify();
+        }
+        return $join;
     }
 
     /**

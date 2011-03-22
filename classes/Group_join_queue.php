@@ -55,4 +55,15 @@ class Group_join_queue extends Managed_DataObject
         $rq->insert();
         return $rq;
     }
+
+    /**
+     * Send notifications via email etc to group administrators about
+     * this exciting new pending moderation queue item!
+     */
+    public function notify()
+    {
+        $joiner = Profile::staticGet('id', $this->profile_id);
+        $group = User_group::staticGet('id', $this->group_id);
+        mail_notify_group_join_pending($group, $joiner);
+    }
 }
