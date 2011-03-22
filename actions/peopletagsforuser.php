@@ -95,12 +95,6 @@ class PeopletagsforuserAction extends OwnerDesignAction
         $this->showPage();
     }
 
-    function showLocalNav()
-    {
-        $nav = new PersonalGroupNav($this);
-        $nav->show();
-    }
-
     function showAnonymousMessage()
     {
         $notice =

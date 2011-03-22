@@ -179,7 +179,7 @@ class ShowprofiletagAction extends Action
         );
     }
 
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new PeopletagGroupNav($this);
         $nav->show();

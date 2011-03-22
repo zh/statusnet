@@ -181,7 +181,7 @@ class EditpeopletagAction extends OwnerDesignAction
         $this->showPage();
     }
 
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new PeopletagGroupNav($this, $this->peopletag);
         $nav->show();
