@@ -92,7 +92,8 @@ class Notice extends Memcached_DataObject
 
     const SITE_SCOPE      = 1;
     const ADDRESSEE_SCOPE = 2;
-    const FOLLOWER_SCOPE  = 4;
+    const GROUP_SCOPE     = 4;
+    const FOLLOWER_SCOPE  = 8;
 
     function getProfile()
     {
@@ -2185,5 +2186,85 @@ class Notice extends Memcached_DataObject
             return (($this->is_local != Notice::LOCAL_NONPUBLIC) &&
                     ($this->is_local != Notice::GATEWAY));
         }
+    }
+
+    /**
+     * Check that the given profile is allowed to read, respond to, or otherwise
+     * act on this notice.
+     * 
+     * The $scope member is a bitmask of scopes, representing a logical AND of the
+     * scope requirement. So, 0x03 (Notice::ADDRESSEE_SCOPE | Notice::SITE_SCOPE) means
+     * "only visible to people who are mentioned in the notice AND are users on this site."
+     * Users on the site who are not mentioned in the notice will not be able to see the
+     * notice.
+     *
+     * @param Profile $profile The profile to check
+     *
+     * @return boolean whether the profile is in the notice's scope
+     */
+
+    function inScope($profile)
+    {
+        // If there's any scope, and there's no logged-in user,
+        // not allowed.
+
+        if ($this->scope > 0 && empty($profile)) {
+            return false;
+        }
+
+        // Only for users on this site
+
+        if ($this->scope & Notice::SITE_SCOPE) {
+            $user = $profile->getUser();
+            if (empty($user)) {
+                return false;
+            }
+        }
+
+        // Only for users mentioned in the notice
+
+        if ($this->scope & Notice::ADDRESSEE_SCOPE) {
+
+            // XXX: just query for the single reply
+
+            $replies = $this->getReplies();
+
+            if (!in_array($profile->id, $replies)) {
+                return false;
+            }
+        }
+
+        // Only for members of the given group
+
+        if ($this->scope & Notice::GROUP_SCOPE) {
+
+            // XXX: just query for the single membership
+
+            $groups = $this->getGroups();
+
+            $foundOne = false;
+
+            foreach ($groups as $group) {
+                if ($profile->isMember($group)) {
+                    $foundOne = true;
+                    break;
+                }
+            }
+
+            if (!$foundOne) {
+                return false;
+            }
+        }
+
+        // Only for followers of the author
+
+        if ($this->scope & Notice::FOLLOWER_SCOPE) {
+            $author = $this->getProfile();
+            if (!Subscription::exists($profile, $author)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
