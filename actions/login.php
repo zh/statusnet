@@ -297,4 +297,12 @@ class LoginAction extends Action
         $nav = new LoginGroupNav($this);
         $nav->show();
     }
+
+    function showNoticeForm()
+    {
+    }
+
+    function showProfileBlock()
+    {
+    }
 }

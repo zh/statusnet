@@ -70,7 +70,7 @@ class SearchAction extends Action
      * @return void
      * @see SearchGroupNav
      */
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new SearchGroupNav($this, $this->trimmed('q'));
         $nav->show();
@@ -167,8 +167,6 @@ E_O_T
         }
         $this->elementStart('div', 'help instructions');
         $this->raw(common_markup_to_html($message));
-        $this->elementEnd('div');
-
         $this->elementEnd('div');
     }
 }

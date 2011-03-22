@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-03 17:24+0000\n"
+"POT-Creation-Date: 2011-03-18 19:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,229 +16,28 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: openidsettings.php:58 openidadminpanel.php:65
-msgid "OpenID settings"
+#: openidtrust.php:52
+msgid "OpenID Identity Verification"
 msgstr ""
 
-#: openidsettings.php:69
+#: openidtrust.php:70
+msgid ""
+"This page should only be reached during OpenID processing, not directly."
+msgstr ""
+
+#: openidtrust.php:118
 #, php-format
 msgid ""
-"[OpenID](%%doc.openid%%) lets you log into many sites with the same user "
-"account. Manage your associated OpenIDs from here."
+"%s  has asked to verify your identity. Click Continue to verify your "
+"identity and login without creating a new password."
 msgstr ""
 
-#: openidsettings.php:100
-msgid "Add OpenID"
+#: openidtrust.php:136
+msgid "Continue"
 msgstr ""
 
-#: openidsettings.php:103
-msgid ""
-"If you want to add an OpenID to your account, enter it in the box below and "
-"click \"Add\"."
-msgstr ""
-
-#. TRANS: OpenID plugin logon form field label.
-#: openidsettings.php:108 OpenIDPlugin.php:703 openidlogin.php:152
-msgid "OpenID URL"
-msgstr ""
-
-#: openidsettings.php:118
-msgid "Add"
-msgstr ""
-
-#: openidsettings.php:130
-msgid "Remove OpenID"
-msgstr ""
-
-#: openidsettings.php:135
-msgid ""
-"Removing your only OpenID would make it impossible to log in! If you need to "
-"remove it, add another OpenID first."
-msgstr ""
-
-#: openidsettings.php:150
-msgid ""
-"You can remove an OpenID from your account by clicking the button marked "
-"\"Remove\"."
-msgstr ""
-
-#: openidsettings.php:173 openidsettings.php:214
-msgid "Remove"
-msgstr ""
-
-#: openidsettings.php:187
-msgid "OpenID Trusted Sites"
-msgstr ""
-
-#: openidsettings.php:190
-msgid ""
-"The following sites are allowed to access your identity and log you in. You "
-"can remove a site from this list to deny it access to your OpenID."
-msgstr ""
-
-#. TRANS: Message given when there is a problem with the user's session token.
-#: openidsettings.php:232 finishopenidlogin.php:42
-msgid "There was a problem with your session token. Try again, please."
-msgstr ""
-
-#: openidsettings.php:239
-msgid "Can't add new providers."
-msgstr ""
-
-#: openidsettings.php:252
-msgid "Something weird happened."
-msgstr ""
-
-#: openidsettings.php:276
-msgid "No such OpenID trustroot."
-msgstr ""
-
-#: openidsettings.php:280
-msgid "Trustroots removed"
-msgstr ""
-
-#: openidsettings.php:303
-msgid "No such OpenID."
-msgstr ""
-
-#: openidsettings.php:308
-msgid "That OpenID does not belong to you."
-msgstr ""
-
-#: openidsettings.php:312
-msgid "OpenID removed."
-msgstr ""
-
-#: openidadminpanel.php:54
-msgid "OpenID"
-msgstr ""
-
-#: openidadminpanel.php:147
-msgid "Invalid provider URL. Max length is 255 characters."
-msgstr ""
-
-#: openidadminpanel.php:153
-msgid "Invalid team name. Max length is 255 characters."
-msgstr ""
-
-#: openidadminpanel.php:210
-msgid "Trusted provider"
-msgstr ""
-
-#: openidadminpanel.php:212
-msgid ""
-"By default, users are allowed to authenticate with any OpenID provider. If "
-"you are using your own OpenID service for shared sign-in, you can restrict "
-"access to only your own users here."
-msgstr ""
-
-#: openidadminpanel.php:220
-msgid "Provider URL"
-msgstr ""
-
-#: openidadminpanel.php:221
-msgid ""
-"All OpenID logins will be sent to this URL; other providers may not be used."
-msgstr ""
-
-#: openidadminpanel.php:228
-msgid "Append a username to base URL"
-msgstr ""
-
-#: openidadminpanel.php:230
-msgid ""
-"Login form will show the base URL and prompt for a username to add at the "
-"end. Use when OpenID provider URL should be the profile page for individual "
-"users."
-msgstr ""
-
-#: openidadminpanel.php:238
-msgid "Required team"
-msgstr ""
-
-#: openidadminpanel.php:239
-msgid "Only allow logins from users in the given team (Launchpad extension)."
-msgstr ""
-
-#: openidadminpanel.php:251
-msgid "Options"
-msgstr ""
-
-#: openidadminpanel.php:258
-msgid "Enable OpenID-only mode"
-msgstr ""
-
-#: openidadminpanel.php:260
-msgid ""
-"Require all users to login via OpenID. Warning: disables password "
-"authentication for all users!"
-msgstr ""
-
-#: openidadminpanel.php:278
-msgid "Save OpenID settings"
-msgstr ""
-
-#. TRANS: OpenID plugin server error.
-#: openid.php:138
-msgid "Cannot instantiate OpenID consumer object."
-msgstr ""
-
-#. TRANS: OpenID plugin message. Given when an OpenID is not valid.
-#: openid.php:150
-msgid "Not a valid OpenID."
-msgstr ""
-
-#. TRANS: OpenID plugin server error. Given when the OpenID authentication request fails.
-#. TRANS: %s is the failure message.
-#: openid.php:155
-#, php-format
-msgid "OpenID failure: %s"
-msgstr ""
-
-#. TRANS: OpenID plugin server error. Given when the OpenID authentication request cannot be redirected.
-#. TRANS: %s is the failure message.
-#: openid.php:205
-#, php-format
-msgid "Could not redirect to server: %s"
-msgstr ""
-
-#. TRANS: OpenID plugin user instructions.
-#: openid.php:244
-msgid ""
-"This form should automatically submit itself. If not, click the submit "
-"button to go to your OpenID provider."
-msgstr ""
-
-#. TRANS: OpenID plugin server error.
-#: openid.php:280
-msgid "Error saving the profile."
-msgstr ""
-
-#. TRANS: OpenID plugin server error.
-#: openid.php:292
-msgid "Error saving the user."
-msgstr ""
-
-#. TRANS: OpenID plugin client exception (403).
-#: openid.php:322
-msgid "Unauthorized URL used for OpenID login."
-msgstr ""
-
-#. TRANS: Title
-#: openid.php:370
-msgid "OpenID Login Submission"
-msgstr ""
-
-#. TRANS: OpenID plugin message used while requesting authorization user's OpenID login provider.
-#: openid.php:381
-msgid "Requesting authorization from your login provider..."
-msgstr ""
-
-#. TRANS: OpenID plugin message. User instruction while requesting authorization user's OpenID login provider.
-#: openid.php:385
-msgid ""
-"If you are not redirected to your login provider in a few seconds, try "
-"pushing the button below."
+#: openidtrust.php:137
+msgid "Cancel"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Login"
@@ -331,25 +130,24 @@ msgstr ""
 msgid "You will be sent to the provider's site for authentication."
 msgstr ""
 
+#. TRANS: OpenID plugin logon form field label.
+#: OpenIDPlugin.php:703 openidsettings.php:108 openidlogin.php:152
+msgid "OpenID URL"
+msgstr ""
+
 #. TRANS: OpenID plugin logon form field instructions.
 #: OpenIDPlugin.php:706 openidlogin.php:155
 msgid "Your OpenID URL"
 msgstr ""
 
-#. TRANS: OpenID plugin client error given trying to add an unauthorised OpenID to a user (403).
-#: openidserver.php:116
-#, php-format
-msgid "You are not authorized to use the identity %s."
-msgstr ""
-
-#. TRANS: OpenID plugin client error given when not getting a response for a given OpenID provider (500).
-#: openidserver.php:137
-msgid "Just an OpenID provider. Nothing to see here, move along..."
-msgstr ""
-
 #. TRANS: Client error message trying to log on with OpenID while already logged on.
 #: finishopenidlogin.php:37 openidlogin.php:33
 msgid "Already logged in."
+msgstr ""
+
+#. TRANS: Message given when there is a problem with the user's session token.
+#: finishopenidlogin.php:42 openidsettings.php:232
+msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
 #. TRANS: Message given if user does not agree with the site's license.
@@ -487,66 +285,140 @@ msgstr ""
 msgid "Error connecting user to OpenID."
 msgstr ""
 
-#. TRANS: OpenID plugin message. Rememberme logins have to reauthenticate before changing any profile settings.
-#. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
-#: openidlogin.php:74
+#. TRANS: OpenID plugin server error.
+#: openid.php:138
+msgid "Cannot instantiate OpenID consumer object."
+msgstr ""
+
+#. TRANS: OpenID plugin message. Given when an OpenID is not valid.
+#: openid.php:150
+msgid "Not a valid OpenID."
+msgstr ""
+
+#. TRANS: OpenID plugin server error. Given when the OpenID authentication request fails.
+#. TRANS: %s is the failure message.
+#: openid.php:155
 #, php-format
-msgid ""
-"For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
-"before changing your settings."
+msgid "OpenID failure: %s"
 msgstr ""
 
-#. TRANS: OpenID plugin message.
-#. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
-#: openidlogin.php:80
+#. TRANS: OpenID plugin server error. Given when the OpenID authentication request cannot be redirected.
+#. TRANS: %s is the failure message.
+#: openid.php:205
 #, php-format
-msgid "Login with an [OpenID](%%doc.openid%%) account."
+msgid "Could not redirect to server: %s"
 msgstr ""
 
-#. TRANS: OpenID plugin message. Title.
-#. TRANS: Title after getting the status of the OpenID authorisation request.
-#: openidlogin.php:114 finishaddopenid.php:187
-msgid "OpenID Login"
-msgstr ""
-
-#. TRANS: OpenID plugin logon form checkbox label for setting to put the OpenID information in a cookie.
-#: openidlogin.php:160
-msgid "Remember me"
-msgstr ""
-
-#. TRANS: OpenID plugin logon form field instructions.
-#: openidlogin.php:162
-msgid "Automatically login in the future; not for shared computers!"
-msgstr ""
-
-#. TRANS: OpenID plugin logon form button label to start logon with the data provided in the logon form.
-#: openidlogin.php:167
-msgctxt "BUTTON"
-msgid "Login"
-msgstr ""
-
-#: openidtrust.php:52
-msgid "OpenID Identity Verification"
-msgstr ""
-
-#: openidtrust.php:70
+#. TRANS: OpenID plugin user instructions.
+#: openid.php:244
 msgid ""
-"This page should only be reached during OpenID processing, not directly."
+"This form should automatically submit itself. If not, click the submit "
+"button to go to your OpenID provider."
 msgstr ""
 
-#: openidtrust.php:118
-#, php-format
+#. TRANS: OpenID plugin server error.
+#: openid.php:280
+msgid "Error saving the profile."
+msgstr ""
+
+#. TRANS: OpenID plugin server error.
+#: openid.php:292
+msgid "Error saving the user."
+msgstr ""
+
+#. TRANS: OpenID plugin client exception (403).
+#: openid.php:322
+msgid "Unauthorized URL used for OpenID login."
+msgstr ""
+
+#. TRANS: Title
+#: openid.php:370
+msgid "OpenID Login Submission"
+msgstr ""
+
+#. TRANS: OpenID plugin message used while requesting authorization user's OpenID login provider.
+#: openid.php:381
+msgid "Requesting authorization from your login provider..."
+msgstr ""
+
+#. TRANS: OpenID plugin message. User instruction while requesting authorization user's OpenID login provider.
+#: openid.php:385
 msgid ""
-"%s  has asked to verify your identity. Click Continue to verify your "
-"identity and login without creating a new password."
+"If you are not redirected to your login provider in a few seconds, try "
+"pushing the button below."
 msgstr ""
 
-#: openidtrust.php:136
-msgid "Continue"
+#: openidadminpanel.php:54
+msgid "OpenID"
 msgstr ""
 
-#: openidtrust.php:137
-msgid "Cancel"
+#: openidadminpanel.php:65 openidsettings.php:58
+msgid "OpenID settings"
+msgstr ""
+
+#: openidadminpanel.php:147
+msgid "Invalid provider URL. Max length is 255 characters."
+msgstr ""
+
+#: openidadminpanel.php:153
+msgid "Invalid team name. Max length is 255 characters."
+msgstr ""
+
+#: openidadminpanel.php:210
+msgid "Trusted provider"
+msgstr ""
+
+#: openidadminpanel.php:212
+msgid ""
+"By default, users are allowed to authenticate with any OpenID provider. If "
+"you are using your own OpenID service for shared sign-in, you can restrict "
+"access to only your own users here."
+msgstr ""
+
+#: openidadminpanel.php:220
+msgid "Provider URL"
+msgstr ""
+
+#: openidadminpanel.php:221
+msgid ""
+"All OpenID logins will be sent to this URL; other providers may not be used."
+msgstr ""
+
+#: openidadminpanel.php:228
+msgid "Append a username to base URL"
+msgstr ""
+
+#: openidadminpanel.php:230
+msgid ""
+"Login form will show the base URL and prompt for a username to add at the "
+"end. Use when OpenID provider URL should be the profile page for individual "
+"users."
+msgstr ""
+
+#: openidadminpanel.php:238
+msgid "Required team"
+msgstr ""
+
+#: openidadminpanel.php:239
+msgid "Only allow logins from users in the given team (Launchpad extension)."
+msgstr ""
+
+#: openidadminpanel.php:251
+msgid "Options"
+msgstr ""
+
+#: openidadminpanel.php:258
+msgid "Enable OpenID-only mode"
+msgstr ""
+
+#: openidadminpanel.php:260
+msgid ""
+"Require all users to login via OpenID. Warning: disables password "
+"authentication for all users!"
+msgstr ""
+
+#: openidadminpanel.php:278
+msgid "Save OpenID settings"
 msgstr ""
 
 #. TRANS: Client error message
@@ -572,4 +444,132 @@ msgstr ""
 #. TRANS: message in case the user or the user profile cannot be saved in StatusNet.
 #: finishaddopenid.php:145
 msgid "Error updating profile"
+msgstr ""
+
+#. TRANS: Title after getting the status of the OpenID authorisation request.
+#. TRANS: OpenID plugin message. Title.
+#: finishaddopenid.php:187 openidlogin.php:114
+msgid "OpenID Login"
+msgstr ""
+
+#: openidsettings.php:69
+#, php-format
+msgid ""
+"[OpenID](%%doc.openid%%) lets you log into many sites with the same user "
+"account. Manage your associated OpenIDs from here."
+msgstr ""
+
+#: openidsettings.php:100
+msgid "Add OpenID"
+msgstr ""
+
+#: openidsettings.php:103
+msgid ""
+"If you want to add an OpenID to your account, enter it in the box below and "
+"click \"Add\"."
+msgstr ""
+
+#: openidsettings.php:118
+msgid "Add"
+msgstr ""
+
+#: openidsettings.php:130
+msgid "Remove OpenID"
+msgstr ""
+
+#: openidsettings.php:135
+msgid ""
+"Removing your only OpenID would make it impossible to log in! If you need to "
+"remove it, add another OpenID first."
+msgstr ""
+
+#: openidsettings.php:150
+msgid ""
+"You can remove an OpenID from your account by clicking the button marked "
+"\"Remove\"."
+msgstr ""
+
+#: openidsettings.php:173 openidsettings.php:214
+msgid "Remove"
+msgstr ""
+
+#: openidsettings.php:187
+msgid "OpenID Trusted Sites"
+msgstr ""
+
+#: openidsettings.php:190
+msgid ""
+"The following sites are allowed to access your identity and log you in. You "
+"can remove a site from this list to deny it access to your OpenID."
+msgstr ""
+
+#: openidsettings.php:239
+msgid "Can't add new providers."
+msgstr ""
+
+#: openidsettings.php:252
+msgid "Something weird happened."
+msgstr ""
+
+#: openidsettings.php:276
+msgid "No such OpenID trustroot."
+msgstr ""
+
+#: openidsettings.php:280
+msgid "Trustroots removed"
+msgstr ""
+
+#: openidsettings.php:303
+msgid "No such OpenID."
+msgstr ""
+
+#: openidsettings.php:308
+msgid "That OpenID does not belong to you."
+msgstr ""
+
+#: openidsettings.php:312
+msgid "OpenID removed."
+msgstr ""
+
+#. TRANS: OpenID plugin client error given trying to add an unauthorised OpenID to a user (403).
+#: openidserver.php:116
+#, php-format
+msgid "You are not authorized to use the identity %s."
+msgstr ""
+
+#. TRANS: OpenID plugin client error given when not getting a response for a given OpenID provider (500).
+#: openidserver.php:137
+msgid "Just an OpenID provider. Nothing to see here, move along..."
+msgstr ""
+
+#. TRANS: OpenID plugin message. Rememberme logins have to reauthenticate before changing any profile settings.
+#. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
+#: openidlogin.php:74
+#, php-format
+msgid ""
+"For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
+"before changing your settings."
+msgstr ""
+
+#. TRANS: OpenID plugin message.
+#. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
+#: openidlogin.php:80
+#, php-format
+msgid "Login with an [OpenID](%%doc.openid%%) account."
+msgstr ""
+
+#. TRANS: OpenID plugin logon form checkbox label for setting to put the OpenID information in a cookie.
+#: openidlogin.php:160
+msgid "Remember me"
+msgstr ""
+
+#. TRANS: OpenID plugin logon form field instructions.
+#: openidlogin.php:162
+msgid "Automatically login in the future; not for shared computers!"
+msgstr ""
+
+#. TRANS: OpenID plugin logon form button label to start logon with the data provided in the logon form.
+#: openidlogin.php:167
+msgctxt "BUTTON"
+msgid "Login"
 msgstr ""

@@ -163,10 +163,20 @@ class GroupDesignSettingsAction extends DesignSettingsAction
      *
      * @return nothing
      */
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new GroupNav($this, $this->group);
         $nav->show();
+    }
+
+    /**
+     * Override to show default nav stuff
+     *
+     * @return nothing
+     */
+    function showLocalNav()
+    {
+        Action::showLocalNav();
     }
 
     /**

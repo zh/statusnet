@@ -147,6 +147,6 @@ class DisfavorForm extends Form
      */
     function formClass()
     {
-        return 'form_disfavor';
+        return 'form_disfavor ajax';
     }
 }

@@ -55,7 +55,8 @@ class PasswordsettingsAction extends SettingsAction
 
     function title()
     {
-        return _('Change password');
+        // TRANS: Title for page where to change password.
+        return _m('TITLE','Change password');
     }
 
     /**
@@ -66,6 +67,7 @@ class PasswordsettingsAction extends SettingsAction
 
     function getInstructions()
     {
+        // TRANS: Instructions for page where to change password.
         return _('Change your password.');
     }
 
@@ -93,6 +95,7 @@ class PasswordsettingsAction extends SettingsAction
                                           'action' =>
                                           common_local_url('passwordsettings')));
         $this->elementStart('fieldset');
+        // TRANS: Fieldset legend on page where to change password.
         $this->element('legend', null, _('Password change'));
         $this->hidden('token', common_session_token());
 
@@ -101,20 +104,26 @@ class PasswordsettingsAction extends SettingsAction
         // Users who logged in with OpenID won't have a pwd
         if ($user->password) {
             $this->elementStart('li');
+            // TRANS: Field label on page where to change password.
             $this->password('oldpassword', _('Old password'));
             $this->elementEnd('li');
         }
         $this->elementStart('li');
+        // TRANS: Field label on page where to change password.
         $this->password('newpassword', _('New password'),
+                        // TRANS: Field title on page where to change password.
                         _('6 or more characters.'));
         $this->elementEnd('li');
         $this->elementStart('li');
-        $this->password('confirm', _('Confirm'),
+        // TRANS: Field label on page where to change password. In this field the new password should be typed a second time.
+        $this->password('confirm', _m('LABEL','Confirm'),
+                        // TRANS: Field title on page where to change password.
                         _('Same as password above.'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
-        $this->submit('changepass', _('Change'));
+        // TRANS: Button text on page where to change password.
+        $this->submit('changepass', _m('BUTTON','Change'));
 
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
@@ -150,10 +159,12 @@ class PasswordsettingsAction extends SettingsAction
         # Some validation
 
         if (strlen($newpassword) < 6) {
+            // TRANS: Form validation error on page where to change password.
             $this->showForm(_('Password must be 6 or more characters.'));
             return;
         } else if (0 != strcmp($newpassword, $confirm)) {
-            $this->showForm(_('Passwords don\'t match.'));
+            // TRANS: Form validation error on password change when password confirmation does not match.
+            $this->showForm(_('Passwords do not match.'));
             return;
         }
 
@@ -161,7 +172,8 @@ class PasswordsettingsAction extends SettingsAction
             $oldpassword = $this->arg('oldpassword');
 
             if (!common_check_user($user->nickname, $oldpassword)) {
-                $this->showForm(_('Incorrect old password'));
+                // TRANS: Form validation error on page where to change password.
+                $this->showForm(_('Incorrect old password.'));
                 return;
             }
         }else{
@@ -177,17 +189,21 @@ class PasswordsettingsAction extends SettingsAction
 
             $val = $user->validate();
             if ($val !== true) {
+                // TRANS: Form validation error on page where to change password.
                 $this->showForm(_('Error saving user; invalid.'));
                 return;
             }
 
             if (!$user->update($original)) {
-                $this->serverError(_('Cannot save new password.'));
+            // TRANS: Server error displayed on page where to change password when password change
+            // TRANS: could not be made because of a server error.
+            $this->serverError(_('Cannot save new password.'));
                 return;
             }
             Event::handle('EndChangePassword', array($user));
         }
 
+        // TRANS: Form validation notice on page where to change password.
         $this->showForm(_('Password saved.'), true);
     }
 }

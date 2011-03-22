@@ -68,7 +68,11 @@ class ErrorAction extends InfoAction
 
     function showPage()
     {
-        if ($this->minimal) {
+        if (StatusNet::isAjax()) {
+            $this->extraHeaders();
+            $this->ajaxErrorMsg();
+            exit();
+        } if ($this->minimal) {
             // Even more minimal -- we're in a machine API
             // and don't want to flood the output.
             $this->extraHeaders();
@@ -91,6 +95,30 @@ class ErrorAction extends InfoAction
         $this->element('div', array('class' => 'error'), $this->message);
     }
 
+    function showNoticeForm()
+    {
+    }
 
+    /**
+     * Show an Ajax-y error message
+     *
+     * Goes back to the browser, where it's shown in a popup.
+     *
+     * @param string $msg Message to show
+     *
+     * @return void
+     */
 
+    function ajaxErrorMsg()
+    {
+        $this->startHTML('text/xml;charset=utf-8', true);
+        $this->elementStart('head');
+        // TRANS: Page title after an AJAX error occurs on the send notice page.
+        $this->element('title', null, _('Ajax Error'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $this->element('p', array('id' => 'error'), $this->message);
+        $this->elementEnd('body');
+        $this->elementEnd('html');
+    }
 }

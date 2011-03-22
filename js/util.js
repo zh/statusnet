@@ -31,7 +31,8 @@ var SN = { // StatusNet
             CounterBlackout: false,
             MaxLength: 140,
             PatternUsername: /^[0-9a-zA-Z\-_.]*$/,
-            HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307]
+            HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307],
+            NoticeFormMaster: null // to be cloned from the one at top
         },
 
         /**
@@ -103,7 +104,7 @@ var SN = { // StatusNet
 
                 SN.U.Counter(form);
 
-                NDT = form.find('[name=status_textarea]');
+                NDT = form.find('.notice_data-text:first');
 
                 NDT.bind('keyup', function(e) {
                     SN.U.Counter(form);
@@ -182,7 +183,7 @@ var SN = { // StatusNet
          * @return number of chars
          */
         CharacterCount: function(form) {
-            return form.find('[name=status_textarea]').val().length;
+            return form.find('.notice_data-text:first').val().length;
         },
 
         /**
@@ -227,6 +228,9 @@ var SN = { // StatusNet
          * will be extracted and copied in, replacing the original form.
          * If there's no form, the first paragraph will be used.
          *
+         * This will automatically be applied on the 'submit' event for
+         * any form with the 'ajax' class.
+         *
          * @fixme can sometimes explode confusingly if returnd data is bogus
          * @fixme error handling is pretty vague
          * @fixme can't submit file uploads
@@ -249,15 +253,33 @@ var SN = { // StatusNet
                             .attr(SN.C.S.Disabled, SN.C.S.Disabled);
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    alert(errorThrown || textStatus);
+                    // If the server end reported an error from StatusNet,
+                    // find it -- otherwise we'll see what was reported
+                    // from the browser.
+                    var errorReported = null;
+                    if (xhr.responseXML) {
+                        errorReported = $('#error', xhr.responseXML).text();
+                    }
+                    alert(errorReported || errorThrown || textStatus);
+                    
+                    // Restore the form to original state.
+                    // Hopefully. :D
+                    form
+                        .removeClass(SN.C.S.Processing)
+                        .find('.submit')
+                            .removeClass(SN.C.S.Disabled)
+                            .removeAttr(SN.C.S.Disabled);
                 },
                 success: function(data, textStatus) {
                     if (typeof($('form', data)[0]) != 'undefined') {
                         form_new = document._importNode($('form', data)[0], true);
                         form.replaceWith(form_new);
                     }
-                    else {
+                    else if (typeof($('p', data)[0]) != 'undefined') {
                         form.replaceWith(document._importNode($('p', data)[0], true));
+                    }
+                    else {
+                        alert('Unknown error.');
                     }
                 }
             });
@@ -323,7 +345,7 @@ var SN = { // StatusNet
                 dataType: 'xml',
                 timeout: '60000',
                 beforeSend: function(formData) {
-                    if (form.find('[name=status_textarea]').val() == '') {
+                    if (form.find('.notice_data-text:first').val() == '') {
                         form.addClass(SN.C.S.Warning);
                         return false;
                     }
@@ -390,16 +412,20 @@ var SN = { // StatusNet
                             var replyItem = form.closest('li.notice-reply');
 
                             if (replyItem.length > 0) {
-                                // If this is an inline reply, insert it in place.
+                                // If this is an inline reply, remove the form...
+                                var list = form.closest('.threaded-replies');
+                                var placeholder = list.find('.notice-reply-placeholder');
+                                replyItem.remove();
+
                                 var id = $(notice).attr('id');
                                 if ($("#"+id).length == 0) {
-                                    var parentNotice = replyItem.closest('li.notice');
-                                    replyItem.replaceWith(notice);
-                                    SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                    $(notice).insertBefore(placeholder);
                                 } else {
                                     // Realtime came through before us...
-                                    replyItem.remove();
                                 }
+
+                                // ...and show the placeholder form.
+                                placeholder.show();
                             } else if (notices.length > 0 && SN.U.belongsOnTimeline(notice)) {
                                 // Not a reply. If on our timeline, show it at the top!
 
@@ -419,7 +445,7 @@ var SN = { // StatusNet
                                         .css({display:'none'})
                                         .fadeIn(2500);
                                     SN.U.NoticeWithAttachment($('#'+notice.id));
-                                    SN.U.NoticeReplyTo($('#'+notice.id));
+                                    SN.U.switchInputFormTab("placeholder");
                                 }
                             } else {
                                 // Not on a timeline that this belongs on?
@@ -580,32 +606,20 @@ var SN = { // StatusNet
          * @access private
          */
         NoticeReply: function() {
-            if ($('#content .notice_reply').length > 0) {
-                $('#content .notice').each(function() { SN.U.NoticeReplyTo($(this)); });
-            }
-        },
-
-        /**
-         * Setup function -- DOES NOT trigger actions immediately.
-         *
-         * Sets up event handlers on the given notice's reply button to
-         * tweak the new-notice form with needed variables and focus it
-         * when pushed.
-         *
-         * (This replaces the default reply button behavior to submit
-         * directly to a form which comes back with a specialized page
-         * with the form data prefilled.)
-         *
-         * @param {jQuery} notice: jQuery object containing one or more notices
-         * @access private
-         */
-        NoticeReplyTo: function(notice) {
-            notice.find('.notice_reply').live('click', function(e) {
+            $('#content .notice_reply').live('click', function(e) {
                 e.preventDefault();
+                var notice = $(this).closest('li.notice');
                 var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
                 SN.U.NoticeInlineReplyTrigger(notice, '@' + nickname.text());
                 return false;
             });
+        },
+
+        /**
+         * Stub -- kept for compat with plugins for now.
+         * @access private
+         */
+        NoticeReplyTo: function(notice) {
         },
 
         /**
@@ -663,40 +677,39 @@ var SN = { // StatusNet
                 // Update the existing form...
                 nextStep();
             } else {
-                // Remove placeholder if any
-                $('li.notice-reply-placeholder').remove();
+                // Hide the placeholder...
+                var placeholder = list.find('li.notice-reply-placeholder').hide();
 
                 // Create the reply form entry at the end
                 var replyItem = $('li.notice-reply', list);
                 if (replyItem.length == 0) {
-                    var url = $('#form_notice').attr('action');
                     replyItem = $('<li class="notice-reply"></li>');
-                    $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
-                        var formEl = document._importNode($('form', data)[0], true);
+
+                    var intermediateStep = function(formMaster) {
+                        var formEl = document._importNode(formMaster, true);
                         replyItem.append(formEl);
-                        list.append(replyItem);
+                        list.append(replyItem); // *after* the placeholder
 
                         var form = replyForm = $(formEl);
-                        SN.U.NoticeLocationAttach(form);
-                        SN.U.FormNoticeXHR(form);
-                        SN.U.FormNoticeEnhancements(form);
-                        SN.U.NoticeDataAttach(form);
+                        SN.Init.NoticeFormSetup(form);
 
                         nextStep();
-                    });
+                    };
+                    if (SN.C.I.NoticeFormMaster) {
+                        // We've already saved a master copy of the form.
+                        // Clone it in!
+                        intermediateStep(SN.C.I.NoticeFormMaster);
+                    } else {
+                        // Fetch a fresh copy of the notice form over AJAX.
+                        // Warning: this can have a delay, which looks bad.
+                        // @fixme this fallback may or may not work
+                        var url = $('#form_notice').attr('action');
+                        $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
+                            intermediateStep($('form', data)[0]);
+                        });
+                    }
                 }
             }
-        },
-
-        /**
-         * Setup function -- DOES NOT apply immediately.
-         *
-         * Sets up event handlers for favor/disfavor forms to submit via XHR.
-         * Uses 'live' rather than 'bind', so applies to future as well as present items.
-         */
-        NoticeFavor: function() {
-            $('.form_favor').live('click', function() { SN.U.FormXHR($(this)); return false; });
-            $('.form_disfavor').live('click', function() { SN.U.FormXHR($(this)); return false; });
         },
 
         NoticeInlineReplyPlaceholder: function(notice) {
@@ -704,25 +717,36 @@ var SN = { // StatusNet
             var placeholder = $('<li class="notice-reply-placeholder">' +
                                     '<input class="placeholder">' +
                                 '</li>');
-            placeholder.click(function() {
-                SN.U.NoticeInlineReplyTrigger(notice);
-            });
-            placeholder.find('input').val(SN.msg('reply_placeholder'));
+            placeholder.find('input')
+                .val(SN.msg('reply_placeholder'));
             list.append(placeholder);
         },
 
         /**
          * Setup function -- DOES NOT apply immediately.
          *
-         * Sets up event handlers for favor/disfavor forms to submit via XHR.
+         * Sets up event handlers for inline reply mini-form placeholders.
          * Uses 'live' rather than 'bind', so applies to future as well as present items.
          */
         NoticeInlineReplySetup: function() {
-            $('.threaded-replies').each(function() {
-                var list = $(this);
-                var notice = list.closest('.notice');
-                SN.U.NoticeInlineReplyPlaceholder(notice);
-            });
+            $('li.notice-reply-placeholder input')
+                .live('focus', function() {
+                    var notice = $(this).closest('li.notice');
+                    SN.U.NoticeInlineReplyTrigger(notice);
+                    return false;
+                });
+            $('li.notice-reply-comments a')
+                .live('click', function() {
+                    var url = $(this).attr('href');
+                    var area = $(this).closest('.threaded-replies');
+                    $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
+                        var replies = $('.threaded-replies', data);
+                        if (replies.length) {
+                            area.replaceWith(document._importNode(replies[0], true));
+                        }
+                    });
+                    return false;
+                });
         },
 
         /**
@@ -1081,8 +1105,7 @@ var SN = { // StatusNet
                 }
 
                 var NGW = form.find('.notice_data-geo_wrap');
-                var geocodeURL = NGW.attr('title');
-                NGW.removeAttr('title');
+                var geocodeURL = NGW.attr('data-api');
 
                 label
                     .attr('title', label.text());
@@ -1182,6 +1205,7 @@ var SN = { // StatusNet
                 wrapper = $('<div class="'+SN.C.S.Success+' geo_status_wrapper"><button class="close" style="float:right">&#215;</button><div class="geo_status"></div></div>');
                 wrapper.find('button.close').click(function() {
                     form.find('[name=notice_data-geo]').removeAttr('checked').change();
+                    return false;
                 });
                 form.append(wrapper);
             }
@@ -1326,7 +1350,7 @@ var SN = { // StatusNet
 
             var profileLink = $('#nav_profile a').attr('href');
             if (profileLink) {
-                var authorUrl = $(notice).find('.entry-title .author a.url').attr('href');
+                var authorUrl = $(notice).find('.vcard.author a.url').attr('href');
                 if (authorUrl == profileLink) {
                     if (action == 'all' || action == 'showstream') {
                         // Posts always show on your own friends and profile streams.
@@ -1341,7 +1365,35 @@ var SN = { // StatusNet
             // UI links currently on the page use malleable names.
 
             return false;
-        }
+        },
+
+        /**
+         * Switch to another active input sub-form.
+         * This will hide the current form (if any), show the new one, and
+         * update the input type tab selection state.
+         *
+         * @param {String} tag
+         */
+	switchInputFormTab: function(tag) {
+	    // The one that's current isn't current anymore
+	    $('.input_form_nav_tab.current').removeClass('current');
+            if (tag == 'placeholder') {
+                // Hack: when showing the placeholder, mark the tab
+                // as current for 'Status'.
+                $('#input_form_nav_status').addClass('current');
+            } else {
+                $('#input_form_nav_'+tag).addClass('current');
+            }
+
+	    $('.input_form.current').removeClass('current');
+	    $('#input_form_'+tag)
+                .addClass('current')
+                .find('.ajax-notice').each(function() {
+                    var form = $(this);
+                    SN.Init.NoticeFormSetup(form);
+                })
+                .find('textarea:first').focus();
+	}
     },
 
     Init: {
@@ -1355,13 +1407,67 @@ var SN = { // StatusNet
          */
         NoticeForm: function() {
             if ($('body.user_in').length > 0) {
-                $('.'+SN.C.S.FormNotice).each(function() {
-                    var form = $(this);
-                    SN.U.NoticeLocationAttach(form);
-                    SN.U.FormNoticeXHR(form);
-                    SN.U.FormNoticeEnhancements(form);
-                    SN.U.NoticeDataAttach(form);
+                // SN.Init.NoticeFormSetup() will get run
+                // when forms get displayed for the first time...
+
+                // Hack to initialize the placeholder at top
+                $('#input_form_placeholder input.placeholder').focus(function() {
+                    SN.U.switchInputFormTab("status");
                 });
+
+                // Make inline reply forms self-close when clicking out.
+                $('body').bind('click', function(e) {
+                    var currentForm = $('#content .input_forms div.current');
+                    if (currentForm.length > 0) {
+                        if ($('#content .input_forms').has(e.target).length == 0) {
+                            // If all fields are empty, switch back to the placeholder.
+                            var fields = currentForm.find('textarea, input[type=text], input[type=""]');
+                            var anything = false;
+                            fields.each(function() {
+                                anything = anything || $(this).val();
+                            });
+                            if (!anything) {
+                                SN.U.switchInputFormTab("placeholder");
+                            }
+                        }
+                    }
+
+                    var openReplies = $('li.notice-reply');
+                    if (openReplies.length > 0) {
+                        var target = $(e.target);
+                        openReplies.each(function() {
+                            // Did we click outside this one?
+                            var replyItem = $(this);
+                            if (replyItem.has(e.target).length == 0) {
+                                var textarea = replyItem.find('.notice_data-text:first');
+                                var cur = $.trim(textarea.val());
+                                // Only close if there's been no edit.
+                                if (cur == '' || cur == textarea.data('initialText')) {
+                                    var parentNotice = replyItem.closest('li.notice');
+                                    replyItem.remove();
+                                    parentNotice.find('li.notice-reply-placeholder').show();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        },
+
+        /**
+         * Encapsulate notice form setup for a single form.
+         * Plugins can add extra setup by monkeypatching this
+         * function.
+         *
+         * @param {jQuery} form
+         */
+        NoticeFormSetup: function(form) {
+            if (!form.data('NoticeFormSetup')) {
+                SN.U.NoticeLocationAttach(form);
+                SN.U.FormNoticeXHR(form);
+                SN.U.FormNoticeEnhancements(form);
+                SN.U.NoticeDataAttach(form);
+                form.data('NoticeFormSetup', true);
             }
         },
 
@@ -1373,7 +1479,10 @@ var SN = { // StatusNet
          */
         Notices: function() {
             if ($('body.user_in').length > 0) {
-                SN.U.NoticeFavor();
+                var masterForm = $('.form_notice:first');
+                if (masterForm.length > 0) {
+                    SN.C.I.NoticeFormMaster = document._importNode(masterForm[0], true);
+                }
                 SN.U.NoticeRepeat();
                 SN.U.NoticeReply();
                 SN.U.NoticeInlineReplySetup();
@@ -1474,6 +1583,16 @@ var SN = { // StatusNet
         },
 
         /**
+         * Set up any generic 'ajax' form so it submits via AJAX with auto-replacement.
+         */
+        AjaxForms: function() {
+            $('form.ajax').live('submit', function() {
+                SN.U.FormXHR($(this));
+                return false;
+            });
+        },
+
+        /**
          * Add logic to any file upload forms to handle file size limits,
          * on browsers that support basic FileAPI.
          */
@@ -1509,6 +1628,7 @@ var SN = { // StatusNet
  * don't start them loading until after DOM-ready time!
  */
 $(document).ready(function(){
+    SN.Init.AjaxForms();
     SN.Init.UploadForms();
     if ($('.'+SN.C.S.FormNotice).length > 0) {
         SN.Init.NoticeForm();

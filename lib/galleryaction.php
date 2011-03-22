@@ -94,7 +94,7 @@ class GalleryAction extends OwnerDesignAction
         $this->showPage();
     }
 
-    function showLocalNav()
+    function showObjectNav()
     {
         $nav = new SubGroupNav($this, $this->user);
         $nav->show();
@@ -167,5 +167,11 @@ class GalleryAction extends OwnerDesignAction
     function getAllTags()
     {
         return array();
+    }
+
+    function showProfileBlock()
+    {
+        $block = new AccountProfileBlock($this, $this->profile);
+        $block->show();
     }
 }

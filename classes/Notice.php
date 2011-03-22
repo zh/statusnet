@@ -72,6 +72,7 @@ class Notice extends Memcached_DataObject
     public $location_id;                     // int(4)
     public $location_ns;                     // int(4)
     public $repeat_of;                       // int(4)
+    public $object_type;                     // varchar(255)
 
     /* Static get */
     function staticGet($k,$v=NULL)
@@ -241,6 +242,7 @@ class Notice extends Memcached_DataObject
      *              array 'urls' list of attached/referred URLs to save with the
      *                           notice in place of extracting links from content
      *              boolean 'distribute' whether to distribute the notice, default true
+     *              string 'object_type' URL of the associated object type (default ActivityObject::NOTE)
      *
      * @fixme tag override
      *
@@ -358,6 +360,12 @@ class Notice extends Memcached_DataObject
             $notice->rendered = $rendered;
         } else {
             $notice->rendered = common_render_content($final, $notice);
+        }
+
+        if (empty($object_type)) {
+            $notice->object_type = (empty($notice->reply_to)) ? ActivityObject::NOTE : ActivityObject::COMMENT;
+        } else {
+            $notice->object_type = $object_type;
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
@@ -493,6 +501,13 @@ class Notice extends Memcached_DataObject
 
         if ($this->isPublic()) {
             self::blow('public;last');
+        }
+
+        self::blow('fave:by_notice', $this->id);
+
+        if ($this->conversation) {
+            // In case we're the first, will need to calc a new root.
+            self::blow('notice:conversation_root:%d', $this->conversation);
         }
     }
 
@@ -773,6 +788,35 @@ class Notice extends Memcached_DataObject
     }
 
     /**
+     * Grab the earliest notice from this conversation.
+     *
+     * @return Notice or null
+     */
+    function conversationRoot()
+    {
+        if (!empty($this->conversation)) {
+            $c = self::memcache();
+
+            $key = Cache::key('notice:conversation_root:' . $this->conversation);
+            $notice = $c->get($key);
+            if ($notice) {
+                return $notice;
+            }
+
+            $notice = new Notice();
+            $notice->conversation = $this->conversation;
+            $notice->orderBy('CREATED');
+            $notice->limit(1);
+            $notice->find(true);
+
+            if ($notice->N) {
+                $c->set($key, $notice);
+                return $notice;
+            }
+        }
+        return null;
+    }
+    /**
      * Pull up a full list of local recipients who will be getting
      * this notice in their inbox. Results will be cached, so don't
      * change the input data wily-nilly!
@@ -811,18 +855,21 @@ class Notice extends Memcached_DataObject
 
         $ni = array();
 
-        foreach ($users as $id) {
-            $ni[$id] = NOTICE_INBOX_SOURCE_SUB;
-        }
+        // Give plugins a chance to add folks in at start...
+        if (Event::handle('StartNoticeWhoGets', array($this, &$ni))) {
 
-        foreach ($groups as $group) {
-            $users = $group->getUserMembers();
             foreach ($users as $id) {
-                if (!array_key_exists($id, $ni)) {
-                    $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
+                $ni[$id] = NOTICE_INBOX_SOURCE_SUB;
+            }
+
+            foreach ($groups as $group) {
+                $users = $group->getUserMembers();
+                foreach ($users as $id) {
+                    if (!array_key_exists($id, $ni)) {
+                        $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
+                    }
                 }
             }
-        }
 
         foreach ($ptags as $ptag) {
             $users = $ptag->getUserSubscribers();
@@ -840,24 +887,27 @@ class Notice extends Memcached_DataObject
             if (!array_key_exists($recipient, $ni)) {
                 $ni[$recipient] = NOTICE_INBOX_SOURCE_REPLY;
             }
-        }
 
-        // Exclude any deleted, non-local, or blocking recipients.
-        $profile = $this->getProfile();
-        $originalProfile = null;
-        if ($this->repeat_of) {
-            // Check blocks against the original notice's poster as well.
-            $original = Notice::staticGet('id', $this->repeat_of);
-            if ($original) {
-                $originalProfile = $original->getProfile();
+            // Exclude any deleted, non-local, or blocking recipients.
+            $profile = $this->getProfile();
+            $originalProfile = null;
+            if ($this->repeat_of) {
+                // Check blocks against the original notice's poster as well.
+                $original = Notice::staticGet('id', $this->repeat_of);
+                if ($original) {
+                    $originalProfile = $original->getProfile();
+                }
             }
-        }
-        foreach ($ni as $id => $source) {
-            $user = User::staticGet('id', $id);
-            if (empty($user) || $user->hasBlocked($profile) ||
-                ($originalProfile && $user->hasBlocked($originalProfile))) {
-                unset($ni[$id]);
+            foreach ($ni as $id => $source) {
+                $user = User::staticGet('id', $id);
+                if (empty($user) || $user->hasBlocked($profile) ||
+                    ($originalProfile && $user->hasBlocked($originalProfile))) {
+                    unset($ni[$id]);
+                }
             }
+
+            // Give plugins a chance to filter out...
+            Event::handle('EndNoticeWhoGets', array($this, &$ni));
         }
 
         if (!empty($c)) {
@@ -2106,6 +2156,11 @@ class Notice extends Memcached_DataObject
                 $this->is_local == Notice::LOCAL_NONPUBLIC);
     }
 
+    /**
+     * Get the list of hash tags saved with this notice.
+     *
+     * @return array of strings
+     */
     public function getTags()
     {
         $tags = array();

@@ -51,6 +51,8 @@ class AutocompletePlugin extends Plugin
 
     function onEndShowScripts($action){
         if (common_logged_in()) {
+            $action->element('span', array('id' => 'autocomplete-api',
+                                           'data-url' => common_local_url('autocomplete')));
             $action->script($this->path('jquery-autocomplete/jquery.autocomplete.pack.js'));
             $action->script($this->path('Autocomplete.js'));
         }

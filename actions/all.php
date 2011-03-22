@@ -127,12 +127,6 @@ class AllAction extends ProfileAction
         );
     }
 
-    function showLocalNav()
-    {
-        $nav = new PersonalGroupNav($this);
-        $nav->show();
-    }
-
     function showEmptyListMessage()
     {
         // TRANS: Empty list message. %s is a user nickname.

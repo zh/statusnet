@@ -232,18 +232,21 @@ class OStatusPlugin extends Plugin
         return false;
     }
 
-    function onStartGroupSubscribe($output, $group)
+    function onStartGroupSubscribe($widget, $group)
     {
         $cur = common_current_user();
 
         if (empty($cur)) {
-            // Add an OStatus subscribe
+            $output->elementStart('li', 'entity_subscribe');
+            $profile = $peopletag->getTagger();
             $url = common_local_url('ostatusinit',
                                     array('group' => $group->nickname));
-            $output->element('a', array('href' => $url,
+            $widget->out->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
-                                _m('Join'));
+                                _m('Subscribe'));
 
+            $output->elementEnd('li');
+            return false;
         }
 
         return true;

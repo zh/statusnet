@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-03 17:24+0000\n"
+"POT-Creation-Date: 2011-03-18 19:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,24 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#: Group_message.php:137
-#, php-format
-msgid "That's too long. Maximum message size is %d character."
-msgid_plural "That's too long. Maximum message size is %d characters."
-msgstr[0] ""
-msgstr[1] ""
-
-#: groupinbox.php:125
-msgid "This group has not received any private messages."
-msgstr ""
-
-#. TRANS: Instructions for user inbox page.
-#: groupinbox.php:206
-msgid ""
-"This is the group inbox, which lists all incoming private messages for this "
-"group."
-msgstr ""
 
 #: GroupPrivateMessagePlugin.php:210
 msgid "Inbox"
@@ -47,7 +29,25 @@ msgstr ""
 msgid "Allow posting DMs to a group."
 msgstr ""
 
+#: groupinbox.php:125
+msgid "This group has not received any private messages."
+msgstr ""
+
+#. TRANS: Instructions for user inbox page.
+#: groupinbox.php:206
+msgid ""
+"This is the group inbox, which lists all incoming private messages for this "
+"group."
+msgstr ""
+
 #: groupmessageform.php:164
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr ""
+
+#: Group_message.php:137
+#, php-format
+msgid "That's too long. Maximum message size is %d character."
+msgid_plural "That's too long. Maximum message size is %d characters."
+msgstr[0] ""
+msgstr[1] ""

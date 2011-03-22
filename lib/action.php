@@ -83,6 +83,11 @@ class Action extends HTMLOutputter // lawsuit
     function prepare($argarray)
     {
         $this->args =& common_copy_args($argarray);
+
+        if ($this->boolean('ajax')) {
+            StatusNet::setAjax(true);
+        }
+
         return true;
     }
 
@@ -95,10 +100,12 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowHTML', array($this))) {
             $this->startHTML();
+            $this->flush();
             Event::handle('EndShowHTML', array($this));
         }
         if (Event::handle('StartShowHead', array($this))) {
             $this->showHead();
+            $this->flush();
             Event::handle('EndShowHead', array($this));
         }
         if (Event::handle('StartShowBody', array($this))) {
@@ -222,6 +229,8 @@ class Action extends HTMLOutputter // lawsuit
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
 
+            $this->cssLink(common_path('js/css/smoothness/jquery-ui.css'));
+
             if (Event::handle('StartShowUAStyles', array($this))) {
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
                                'href="'.Theme::path('css/ie.css', 'base').'?version='.STATUSNET_VERSION.'" /><![endif]');
@@ -267,9 +276,16 @@ class Action extends HTMLOutputter // lawsuit
 
     function primaryCssLink($mainTheme=null, $media=null)
     {
+        $theme = new Theme($mainTheme);
+
+        // Some themes may have external stylesheets, such as using the
+        // Google Font APIs to load webfonts.
+        foreach ($theme->getExternals() as $url) {
+            $this->cssLink($url, $mainTheme, $media);
+        }
+
         // If the currently-selected theme has dependencies on other themes,
         // we'll need to load their display.css files as well in order.
-        $theme = new Theme($mainTheme);
         $baseThemes = $theme->getDeps();
         foreach ($baseThemes as $baseTheme) {
             $this->cssLink('css/display.css', $baseTheme, $media);
@@ -286,12 +302,21 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowScripts', array($this))) {
             if (Event::handle('StartShowJQueryScripts', array($this))) {
-                $this->script('jquery.min.js');
-                $this->script('jquery.form.min.js');
-                $this->script('jquery.cookie.min.js');
-                $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
-                $this->script('jquery.joverlay.min.js');
-                $this->inlineScript('function _loadTagInput(init) { $.getScript("'.common_path('js/jquery.timers.js'). '"); $.getScript("'.common_path('js/jquery.tagInput.js').'", init); } var _peopletagAC = "' . common_local_url('peopletagautocomplete') . '";');
+                if (common_config('site', 'minify')) {
+                    $this->script('jquery.min.js');
+                    $this->script('jquery.form.min.js');
+                    $this->script('jquery-ui.min.js');
+                    $this->script('jquery.cookie.min.js');
+                    $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
+                    $this->script('jquery.joverlay.min.js');
+                } else {
+                    $this->script('jquery.js');
+                    $this->script('jquery.form.js');
+                    $this->script('jquery-ui.min.js');
+                    $this->script('jquery.cookie.js');
+                    $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.js').'"); }');
+                    $this->script('jquery.joverlay.js');
+                }
 
                 Event::handle('EndShowJQueryScripts', array($this));
             }
@@ -303,7 +328,12 @@ class Action extends HTMLOutputter // lawsuit
                     $this->script('util.js');
                     $this->script('xbImportNode.js');
                     $this->script('geometa.js');
+
                 }
+                $this->inlineScript('function _loadTagInput(init) { $.getScript("'.common_path('js/jquery.timers.js') .
+                    '"); $.getScript("'.common_path('js/jquery.tagInput.js').'", init); } var _peopletagAC = "' .
+
+                    common_local_url('peopletagautocomplete') . '";');
                 $this->showScriptMessages();
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
@@ -449,11 +479,14 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'wrap'));
         if (Event::handle('StartShowHeader', array($this))) {
             $this->showHeader();
+            $this->flush();
             Event::handle('EndShowHeader', array($this));
         }
         $this->showCore();
+        $this->flush();
         if (Event::handle('StartShowFooter', array($this))) {
             $this->showFooter();
+            $this->flush();
             Event::handle('EndShowFooter', array($this));
         }
         $this->elementEnd('div');
@@ -478,14 +511,7 @@ class Action extends HTMLOutputter // lawsuit
 
             Event::handle('EndShowSiteNotice', array($this));
         }
-        if (common_logged_in()) {
-            if (Event::handle('StartShowNoticeForm', array($this))) {
-                $this->showNoticeForm();
-                Event::handle('EndShowNoticeForm', array($this));
-            }
-        } else {
-            $this->showAnonymousMessage();
-        }
+
         $this->elementEnd('div');
     }
 
@@ -557,69 +583,10 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showPrimaryNav()
     {
-        $user = common_current_user();
-        $this->elementStart('ul', array('class' => 'nav',
-                                        'id' => 'site_nav_global_primary'));
-        if (Event::handle('StartPrimaryNav', array($this))) {
-            if (!empty($user)) {
-                $this->menuItem(common_local_url('all', 
-                                                 array('nickname' => $user->nickname)),
-                                _m('Home'),
-                                _m('Friends timeline'),
-                                false,
-                                'nav_home');
-                $this->menuItem(common_local_url('showstream', 
-                                                 array('nickname' => $user->nickname)),
-                                _m('Profile'),
-                                _m('Your profile'),
-                                false,
-                                'nav_profile');
-                $this->menuItem(common_local_url('public'),
-                                _m('Public'),
-                                _m('Everyone on this site'),
-                                false,
-                                'nav_public');
-                $this->menuItem(common_local_url('profilesettings'),
-                                _m('Settings'),
-                                _m('Change your personal settings'),
-                                false,
-                                'nav_account');
-                if ($user->hasRight(Right::CONFIGURESITE)) {
-                    $this->menuItem(common_local_url('siteadminpanel'),
-                                    _m('Admin'), 
-                                    _m('Site configuration'),
-                                    false,
-                                    'nav_admin');
-                }
-                $this->menuItem(common_local_url('logout'),
-                                _m('Logout'), 
-                                _m('Logout from the site'),
-                                false,
-                                'nav_logout');
-            } else {
-                $this->menuItem(common_local_url('public'),
-                                _m('Public'),
-                                _m('Everyone on this site'),
-                                false,
-                                'nav_public');
-                $this->menuItem(common_local_url('login'),
-                                _m('Login'), 
-                                _m('Login to the site'),
-                                false,
-                                'nav_login');
-            }
-
-            if (!empty($user) || !common_config('site', 'private')) {
-                $this->menuItem(common_local_url('noticesearch'),
-                                _m('Search'),
-                                _m('Search the site'),
-                                false,
-                                'nav_search');
-            }
-
-            Event::handle('EndPrimaryNav', array($this));
-        }
-        $this->elementEnd('ul');
+        $this->elementStart('div', array('id' => 'site_nav_global_primary'));
+        $pn = new PrimaryNav($this);
+        $pn->show();
+        $this->elementEnd('div');
     }
 
     /**
@@ -648,8 +615,68 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showNoticeForm()
     {
-        $notice_form = new NoticeForm($this);
-        $notice_form->show();
+        $tabs = array('status' => _('Status'));
+
+        $this->elementStart('div', 'input_forms');
+
+        if (Event::handle('StartShowEntryForms', array(&$tabs))) {
+
+            $this->elementStart('ul', array('class' => 'nav',
+                                            'id' => 'input_form_nav'));
+
+            foreach ($tabs as $tag => $title) {
+
+                $attrs = array('id' => 'input_form_nav_'.$tag,
+                               'class' => 'input_form_nav_tab');
+
+                if ($tag == 'status') {
+                    // We're actually showing the placeholder form,
+                    // but we special-case the 'Status' tab as if
+                    // it were a small version of it.
+                    $attrs['class'] .= ' current';
+                }
+                $this->elementStart('li', $attrs);
+
+                $this->element('a',
+                               array('href' => 'javascript:SN.U.switchInputFormTab("'.$tag.'")'),
+                               $title);
+                $this->elementEnd('li');
+            }
+
+            $this->elementEnd('ul');
+
+            $attrs = array('class' => 'input_form current',
+                           'id' => 'input_form_placeholder');
+            $this->elementStart('div', $attrs);
+            $form = new NoticePlaceholderForm($this);
+            $form->show();
+            $this->elementEnd('div');
+
+            foreach ($tabs as $tag => $title) {
+
+                $attrs = array('class' => 'input_form',
+                               'id' => 'input_form_'.$tag);
+
+                $this->elementStart('div', $attrs);
+
+                $form = null;
+
+                if (Event::handle('StartMakeEntryForm', array($tag, $this, &$form))) {
+                    if ($tag == 'status') {
+                        $form = new NoticeForm($this);
+                    }
+                    Event::handle('EndMakeEntryForm', array($tag, $this, $form));
+                }
+
+                if (!empty($form)) {
+                    $form->show();
+                }
+
+                $this->elementEnd('div');
+            }
+        }
+
+        $this->elementEnd('div');
     }
 
     /**
@@ -674,18 +701,27 @@ class Action extends HTMLOutputter // lawsuit
     function showCore()
     {
         $this->elementStart('div', array('id' => 'core'));
+        $this->elementStart('div', array('id' => 'aside_primary_wrapper'));
+        $this->elementStart('div', array('id' => 'content_wrapper'));
+        $this->elementStart('div', array('id' => 'site_nav_local_views_wrapper'));
         if (Event::handle('StartShowLocalNavBlock', array($this))) {
             $this->showLocalNavBlock();
+            $this->flush();
             Event::handle('EndShowLocalNavBlock', array($this));
         }
         if (Event::handle('StartShowContentBlock', array($this))) {
             $this->showContentBlock();
+            $this->flush();
             Event::handle('EndShowContentBlock', array($this));
         }
         if (Event::handle('StartShowAside', array($this))) {
             $this->showAside();
+            $this->flush();
             Event::handle('EndShowAside', array($this));
         }
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+        $this->elementEnd('div');
         $this->elementEnd('div');
     }
 
@@ -699,8 +735,23 @@ class Action extends HTMLOutputter // lawsuit
         // Need to have this ID for CSS; I'm too lazy to add it to
         // all menus
         $this->elementStart('div', array('id' => 'site_nav_local_views'));
+        // Cheat cheat cheat!
         $this->showLocalNav();
         $this->elementEnd('div');
+    }
+
+    /**
+     * If there's a logged-in user, show a bit of login context
+     *
+     * @return nothing
+     */
+
+    function showProfileBlock()
+    {
+        if (common_logged_in()) {
+            $block = new DefaultProfileBlock($this);
+            $block->show();
+        }
     }
 
     /**
@@ -712,7 +763,43 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showLocalNav()
     {
-        // does nothing by default
+        $nav = new DefaultLocalNav($this);
+        $nav->show();
+    }
+
+    /**
+     * Show menu for an object (group, profile)
+     *
+     * This block will only show if a subclass has overridden
+     * the showObjectNav() method.
+     *
+     * @return nothing
+     */
+    function showObjectNavBlock()
+    {
+        $rmethod = new ReflectionMethod($this, 'showObjectNav');
+        $dclass = $rmethod->getDeclaringClass()->getName();
+
+        if ($dclass != 'Action') {
+            // Need to have this ID for CSS; I'm too lazy to add it to
+            // all menus
+            $this->elementStart('div', array('id' => 'site_nav_object',
+                                             'class' => 'section'));
+            $this->showObjectNav();
+            $this->elementEnd('div');
+        }
+    }
+
+    /**
+     * Show object navigation.
+     *
+     * If there are things to do with this object, show it here.
+     *
+     * @return nothing
+     */
+    function showObjectNav()
+    {
+        /* Nothing here. */
     }
 
     /**
@@ -723,6 +810,12 @@ class Action extends HTMLOutputter // lawsuit
     function showContentBlock()
     {
         $this->elementStart('div', array('id' => 'content'));
+        if (common_logged_in()) {
+            if (Event::handle('StartShowNoticeForm', array($this))) {
+                $this->showNoticeForm();
+                Event::handle('EndShowNoticeForm', array($this));
+            }
+        }
         if (Event::handle('StartShowPageTitle', array($this))) {
             $this->showPageTitle();
             Event::handle('EndShowPageTitle', array($this));
@@ -804,6 +897,11 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
+        $this->showProfileBlock();
+        if (Event::handle('StartShowObjectNavBlock', array($this))) {
+            $this->showObjectNavBlock();
+            Event::handle('EndShowObjectNavBlock', array($this));
+        }
         if (Event::handle('StartShowSections', array($this))) {
             $this->showSections();
             Event::handle('EndShowSections', array($this));
@@ -864,43 +962,8 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showSecondaryNav()
     {
-        $this->elementStart('ul', array('class' => 'nav',
-                                        'id' => 'site_nav_global_secondary'));
-        if (Event::handle('StartSecondaryNav', array($this))) {
-            $this->menuItem(common_local_url('doc', array('title' => 'help')),
-                            // TRANS: Secondary navigation menu option leading to help on StatusNet.
-                            _('Help'));
-            $this->menuItem(common_local_url('doc', array('title' => 'about')),
-                            // TRANS: Secondary navigation menu option leading to text about StatusNet site.
-                            _('About'));
-            $this->menuItem(common_local_url('doc', array('title' => 'faq')),
-                            // TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-                            _('FAQ'));
-            $bb = common_config('site', 'broughtby');
-            if (!empty($bb)) {
-                $this->menuItem(common_local_url('doc', array('title' => 'tos')),
-                                // TRANS: Secondary navigation menu option leading to Terms of Service.
-                                _('TOS'));
-            }
-            $this->menuItem(common_local_url('doc', array('title' => 'privacy')),
-                            // TRANS: Secondary navigation menu option leading to privacy policy.
-                            _('Privacy'));
-            $this->menuItem(common_local_url('doc', array('title' => 'source')),
-                            // TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
-                            _('Source'));
-            $this->menuItem(common_local_url('version'),
-                            // TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-                            _('Version'));
-            $this->menuItem(common_local_url('doc', array('title' => 'contact')),
-                            // TRANS: Secondary navigation menu option leading to e-mail contact information on the
-                            // TRANS: StatusNet site, where to report bugs, ...
-                            _('Contact'));
-            $this->menuItem(common_local_url('doc', array('title' => 'badge')),
-                            // TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
-                            _('Badge'));
-            Event::handle('EndSecondaryNav', array($this));
-        }
-        $this->elementEnd('ul');
+        $sn = new SecondaryNav($this);
+        $sn->show();
     }
 
     /**

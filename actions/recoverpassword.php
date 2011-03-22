@@ -162,8 +162,8 @@ class RecoverpasswordAction extends Action
                                  ' the email address you have stored' .
                                  ' in your account.'));
             } else if ($this->mode == 'reset') {
-                // TRANS: Page notice for password change page.
                 $this->element('p', null,
+                               // TRANS: Page notice for password change page.
                                _('You have been identified. Enter a' .
                                  ' new password below.'));
             }
@@ -282,7 +282,11 @@ class RecoverpasswordAction extends Action
         $user = User::staticGet('email', common_canonical_email($nore));
 
         if (!$user) {
-            $user = User::staticGet('nickname', common_canonical_nickname($nore));
+            try {
+                $user = User::staticGet('nickname', common_canonical_nickname($nore));
+            } catch (NicknameException $e) {
+                // invalid
+            }
         }
 
         # See if it's an unconfirmed email address

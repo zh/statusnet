@@ -163,4 +163,19 @@ class SettingsAction extends CurrentUserDesignAction
         $menu = new SettingsNav($this);
         $menu->show();
     }
+
+    /**
+     * Show notice form.
+     *
+     * @return nothing
+     */
+
+    function showNoticeForm()
+    {
+        return;
+    }
+
+    function showProfileBlock()
+    {
+    }
 }
