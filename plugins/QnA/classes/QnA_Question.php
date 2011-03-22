@@ -113,7 +113,7 @@ class QnA_Question extends Managed_DataObject
                 'closed'      => array('type' => 'int', 'size' => 'tiny'),
                 'description' => array('type' => 'text'),
                 'created'     => array(
-                    'type' => 'datetime',
+                    'type'     => 'datetime',
                     'not null' => true
                 ),
             ),
@@ -175,7 +175,6 @@ class QnA_Question extends Managed_DataObject
 
     static function fromNotice($notice)
     {
-        common_debug('xxxxxxxxxxxxxxx notice-uri = ' . $notice->uri);
         return QnA_Question::staticGet('uri', $notice->uri);
     }
 
@@ -209,7 +208,7 @@ class QnA_Question extends Managed_DataObject
             $q->uri = $options['uri'];
         } else {
             $q->uri = common_local_url(
-                'showquestion',
+                'qnashowquestion',
                 array('id' => $q->id)
             );
         }

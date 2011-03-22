@@ -61,7 +61,7 @@ class QnashowquestionAction extends ShownoticeAction
 
         $this->id = $this->trimmed('id');
 
-        $this->question = Question::staticGet('id', $this->id);
+        $this->question = QnA_Question::staticGet('id', $this->id);
 
         if (empty($this->question)) {
             // TRANS: Client exception thrown trying to view a non-existing question.
@@ -108,7 +108,7 @@ class QnashowquestionAction extends ShownoticeAction
         // TRANS: %1$s is the nickname of the user who asked the question, %2$s is the question.
         return sprintf(_m('%1$s\'s question: %2$s'),
                        $this->user->nickname,
-                       $this->question->question);
+                       $this->question->title);
     }
 
     /**

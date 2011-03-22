@@ -63,7 +63,7 @@ class QnashowanswerAction extends ShownoticeAction
 
         $this->id = $this->trimmed('id');
 
-        $this->answer = Answer::staticGet('id', $this->id);
+        $this->answer = QnA_Answer::staticGet('id', $this->id);
 
         if (empty($this->answer)) {
             throw new ClientException(_('No such answer.'), 404);
@@ -117,9 +117,11 @@ class QnashowanswerAction extends ShownoticeAction
     function showPageTitle()
     {
         $this->elementStart('h1');
-        $this->element('a',
-                       array('href' => $this->answer->url),
-                       $this->asnwer->title);
+        $this->element(
+            'a',
+            array('href' => $this->answer->url),
+            $this->answer->title
+        );
         $this->elementEnd('h1');
     }
 }

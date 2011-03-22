@@ -50,7 +50,9 @@ class QnA_Answer extends Managed_DataObject
     public $id;          // char(36) primary key not null -> UUID
     public $question_id; // char(36) -> question.id UUID
     public $profile_id;  // int -> question.id
-    public $best;        // (int) boolean -> whether the question asker has marked this as the best answer
+    public $best;        // (boolean) int -> whether the question asker has marked this as the best answer
+    public $revisions;   // int -> count of revisions to this answer
+    public $text;        // text -> response text
     public $created;     // datetime
 
     /**
@@ -105,14 +107,15 @@ class QnA_Answer extends Managed_DataObject
                         'description' => 'UUID to the answer notice'
                     ),
                     'question_id' => array(
-                        'type'     => 'char',
-                        'length'   => 36,
-                        'not null' => true,
+                        'type'        => 'char',
+                        'length'      => 36,
+                        'not null'    => true,
                         'description' => 'UUID of question being responded to'
                     ),
-                    'best'     => array('type' => 'int', 'size' => 'tiny'),
-                    'profile_id'  => array('type' => 'int'),
-                    'created'     => array('type' => 'datetime', 'not null' => true),
+                    'best'       => array('type' => 'int', 'size' => 'tiny'),
+                    'revisions'  => array('type' => 'int'),
+                    'profile_id' => array('type' => 'int'),
+                    'created'    => array('type' => 'datetime', 'not null' => true),
             ),
             'primary key' => array('id'),
             'unique keys' => array(
@@ -134,7 +137,11 @@ class QnA_Answer extends Managed_DataObject
      */
     function getByNotice($notice)
     {
-        return self::staticGet('uri', $notice->uri);
+        $answer = self::staticGet('uri', $notice->uri);
+        if (empty($answer)) {
+            throw new Exception("No answer with URI {$this->notice->uri}");
+        }
+        return $answer;
     }
 
     /**
@@ -159,13 +166,92 @@ class QnA_Answer extends Managed_DataObject
      */
     function getQuestion()
     {
-        return Question::staticGet('id', $this->question_id);
+        $question = self::staticGet('id', $this->question_id);
+        if (empty($question)) {
+            throw new Exception("No question with ID {$this->question_id}");
+        }
+        return question;
+    }
+    
+    function getProfile()
+    {
+        $profile = Profile::staticGet('id', $this->profile_id);
+        if (empty($profile)) {
+            throw new Exception("No profile with ID {$this->profile_id}");
+        }
+        return $profile;
     }
 
-    static function fromNotice($notice)
+    function asHTML()
     {
-        return self::staticGet('uri', $notice->uri);
+        return self::toHTML(
+            $this->getProfile(),
+            $this->getQuestion()
+        );
     }
+
+    function asString()
+    {
+        return self::toString(
+            $this->getProfile(),
+            $this->getQuestion()
+        );
+    }
+
+    static function toHTML($profile, $event, $response)
+    {
+        $fmt = null;
+
+        $notice = $event->getNotice();
+
+        switch ($response) {
+        case 'Y':
+            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is attending <a href='%3s'>%4s</a>.</span>");
+            break;
+        case 'N':
+            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is not attending <a href='%3s'>%4s</a>.</span>");
+            break;
+        case '?':
+            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> might attend <a href='%3s'>%4s</a>.</span>");
+            break;
+        default:
+            throw new Exception("Unknown response code {$response}");
+            break;
+        }
+
+        return sprintf($fmt,
+                       htmlspecialchars($profile->profileurl),
+                       htmlspecialchars($profile->getBestName()),
+                       htmlspecialchars($notice->bestUrl()),
+                       htmlspecialchars($event->title));
+    }
+
+    static function toString($profile, $event, $response)
+    {
+        $fmt = null;
+
+        $notice = $event->getNotice();
+
+        switch ($response) {
+        case 'Y':
+            $fmt = _("%1s is attending %2s.");
+            break;
+        case 'N':
+            $fmt = _("%1s is not attending %2s.");
+            break;
+        case '?':
+            $fmt = _("%1s might attend %2s.>");
+            break;
+        default:
+            throw new Exception("Unknown response code {$response}");
+            break;
+        }
+
+        return sprintf($fmt,
+                       $profile->getBestName(),
+                       $event->title);
+    }
+
 
     /**
      * Save a new answer notice
@@ -176,7 +262,7 @@ class QnA_Answer extends Managed_DataObject
      *
      * @return Notice saved notice
      */
-    static function saveNew($profile, $question, $options = null)
+    static function saveNew($profile, $question, $text, $options = null)
     {
         if (empty($options)) {
             $options = array();
@@ -186,23 +272,24 @@ class QnA_Answer extends Managed_DataObject
         $answer->id          = UUID::gen();
         $answer->profile_id  = $profile->id;
         $answer->question_id = $question->id;
+        $answer->revisions   = 0;
+        $answer->best        = 0;
+        $answer->text        = $text;
         $answer->created     = common_sql_now();
         $answer->uri         = common_local_url(
-            'showanswer',
+            'qnashowanswer',
             array('id' => $answer->id)
         );
 
         common_log(LOG_DEBUG, "Saving answer: $answer->id, $answer->uri");
         $answer->insert();
 
-        // TRANS: Notice content answering a question.
-        // TRANS: %s is the answer
         $content  = sprintf(
             _m('answered "%s"'),
-            $answer->uri
+            $question->title
         );
 
-        $link = '<a href="' . htmlspecialchars($answer->uri) . '">' . htmlspecialchars($answer) . '</a>';
+        $link = '<a href="' . htmlspecialchars($answer->uri) . '">' . htmlspecialchars($question->title) . '</a>';
         // TRANS: Rendered version of the notice content answering a question.
         // TRANS: %s a link to the question with question title as the link content.
         $rendered = sprintf(_m('answered "%s"'), $link);
@@ -213,13 +300,15 @@ class QnA_Answer extends Managed_DataObject
         $options = array_merge(
             array(
                 'urls'        => array(),
+                'content'     => $content,
                 'rendered'    => $rendered,
                 'tags'        => $tags,
                 'replies'     => $replies,
                 'reply_to'    => $question->getNotice()->id,
-                'object_type' => self::OBJECT_TYPE),
-                $options
-            );
+                'object_type' => self::OBJECT_TYPE
+            ),
+            $options
+        );
 
         if (!array_key_exists('uri', $options)) {
             $options['uri'] = $answer->uri;

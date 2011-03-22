@@ -88,7 +88,8 @@ class QnAPlugin extends MicroAppPlugin
             return false;
         case 'QnaquestionForm':
         case 'QnaanswerForm':
-        case 'QnavoteForm';
+        case 'QnaansweredForm':
+        case 'QnavoteForm':
             include_once $dir . '/lib/' . strtolower($cls).'.php';
             break;
         case 'QnA_Question':
@@ -201,24 +202,23 @@ class QnAPlugin extends MicroAppPlugin
 
         switch ($activity->verb) {
         case ActivityVerb::POST:
-            $notice = Question::saveNew(
+            $notice = QnA_Question::saveNew(
                 $actor,
-                $questionObj->title
-               // null,
-               // $questionObj->summary,
-               // $options
+                $questionObj->title,
+                $questionObj->summary,
+                $options
             );
             break;
-        case Answer::NORMAL:
+        case Answer::ObjectType:
             $question = QnA_Question::staticGet('uri', $questionObj->id);
             if (empty($question)) {
                 // FIXME: save the question
                 throw new Exception("Answer to unknown question.");
             }
-            $notice = QnA_Answer::saveNew($actor, $question, $activity->verb, $options);
+            $notice = QnA_Answer::saveNew($actor, $question, $options);
             break;
         default:
-            throw new Exception("Unknown verb for question");
+            throw new Exception("Unknown object type received by QnA Plugin");
         }
 
         return $notice;
@@ -292,127 +292,67 @@ class QnAPlugin extends MicroAppPlugin
      * @param Notice $notice
      * @param HTMLOutputter $out
      */
-
     function showNotice($notice, $out)
     {
         switch ($notice->object_type) {
         case QnA_Question::OBJECT_TYPE:
-            $this->showQuestionNotice($notice, $out);
-            break;
+            return $this->showNoticeQuestion($notice, $out);
         case QnA_Answer::OBJECT_TYPE:
-            $this->showAnswerNotice($notice, $out);
-            break;
-        }
-
-        // bad craziness
-        $out->elementStart('div', array('class' => 'question'));
-
-        $profile = $notice->getProfile();
-        $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
-
-        $out->element(
-            'img',
-            array(
-                'src'    => ($avatar)
-                    ? $avatar->displayUrl()
-                    : Avatar::defaultImage(AVATAR_MINI_SIZE),
-                'class'  => 'avatar photo question-avatar',
-                'width'  => AVATAR_MINI_SIZE,
-                'height' => AVATAR_MINI_SIZE,
-                'alt'    => $profile->getBestName()
-            )
-        );
-
-        $out->raw('&#160;'); // avoid &nbsp; for AJAX XML compatibility
-
-        // hack for belongsOnTimeline; JS needs to be able to find the author
-        $out->elementStart('span', 'vcard author');
-        $out->element(
-            'a',
-            array(
-                'class' => 'url',
-                'href'  => $profile->profileurl,
-                'title' => $profile->getBestName()
-            ),
-            $profile->nickname
-        );
-
-        $out->elementEnd('span');
-    }
-
-    function showAnswerNotice($notice, $out)
-    {
-        $answer = QnA_Answer::fromNotice($notice);
-
-        assert(!empty($answer));
-
-        $out->elementStart('div', 'answer');
-        $out->raw($answer->asHTML());
-        $out->elementEnd('div');
-    }
-
-    function showQuestionNotice($notice, $out)
-    {
-        $profile  = $notice->getProfile();
-        $question = QnA_Question::fromNotice($notice);
-
-        assert(!empty($question));
-        assert(!empty($profile));
-
-        $out->elementStart('div', 'question-notice');
-
-        $out->elementStart('h3');
-
-        if (!empty($question->url)) {
-            $out->element(
-                'a',
-                array(
-                    'href'  => $question->url,
-                    'class' => 'question-title'
-                ),
-                $question->title
+            return $this->showNoticeAnswer($notice, $out);
+        default:
+            // TRANS: Exception thrown when performing an unexpected action on a question.
+            // TRANS: %s is the unpexpected object type.
+            throw new Exception(
+                sprintf(
+                    _m('Unexpected type for QnA plugin: %s.'), 
+                    $notice->object_type
+                )
             );
-        } else {
-            $out->text($question->title);
         }
-
-        if (!empty($question->location)) {
-            $out->elementStart('div', 'question-location');
-            $out->element('strong', null, _('Location: '));
-            $out->element('span', 'location', $question->location);
-            $out->elementEnd('div');
-        }
-
-        if (!empty($question->description)) {
-            $out->elementStart('div', 'question-description');
-            $out->element('strong', null, _('Description: '));
-            $out->element('span', 'description', $question->description);
-            $out->elementEnd('div');
-        }
-
-        //$answers = $question->getAnswers();
-
-        $out->elementStart('div', 'question-answers');
-        $out->element('strong', null, _('Answer: '));
-        $out->element('span', 'question-answer');
-
-        $out->elementEnd('div');
-
+    }
+    
+    function showNoticeQuestion($notice, $out)
+    {
         $user = common_current_user();
 
-        if (!empty($user)) {
+        // @hack we want regular rendering, then just add stuff after that
+        $nli = new NoticeListItem($notice, $out);
+        $nli->showNotice();
 
-            $answer = $question->getAnswer($user->getProfile());
-
-            if (empty($answer)) {
-                $form = new QnaanswerForm($question, $out);
+        $out->elementStart('div', array('class' => 'entry-content question-content'));
+        $question = QnA_Question::getByNotice($notice);
+        
+        if ($question) {
+            if ($user) {
+                $profile = $user->getProfile();
+                $answer = $question->getAnswer($profile);
+                if ($answer) {
+                    // User has already answer; show the results.
+                    $form = new QnaansweredForm($answer, $out);
+                } else {
+                    $form = new QnaanswerForm($question, $out);
+                }
                 $form->show();
             }
-
-
+        } else {
+            $out->text(_m('Question data is missing'));
         }
-
         $out->elementEnd('div');
+
+        // @fixme
+        $out->elementStart('div', array('class' => 'entry-content'));
+    }
+
+    function showNoticeAnswer($notice, $out)
+    {
+        $user = common_current_user();
+
+        // @hack we want regular rendering, then just add stuff after that
+        $nli = new NoticeListItem($notice, $out);
+        $nli->showNotice();
+
+        // @fixme
+        $out->elementStart('div', array('class' => 'entry-content'));
     }
 
     /**
