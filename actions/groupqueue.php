@@ -43,7 +43,7 @@ require_once INSTALLDIR.'/lib/publicgroupnav.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class GroupmembersAction extends GroupDesignAction
+class GroupqueueAction extends GroupDesignAction
 {
     var $page = null;
 
@@ -52,6 +52,7 @@ class GroupmembersAction extends GroupDesignAction
         return true;
     }
 
+    // fixme most of this belongs in a base class, sounds common to most group actions?
     function prepare($args)
     {
         parent::prepare($args);
@@ -67,7 +68,7 @@ class GroupmembersAction extends GroupDesignAction
             if ($this->page != 1) {
                 $args['page'] = $this->page;
             }
-            common_redirect(common_local_url('groupmembers', $args), 301);
+            common_redirect(common_local_url('groupqueue', $args), 301);
             return false;
         }
 
@@ -93,20 +94,25 @@ class GroupmembersAction extends GroupDesignAction
             return false;
         }
 
+        $cur = common_current_user();
+        if (!$cur || !$cur->isAdmin($this->group)) {
+            $this->clientError(_('Only the group admin may approve users.'));
+            return false;
+        }
         return true;
     }
 
     function title()
     {
         if ($this->page == 1) {
-            // TRANS: Title of the page showing group members.
+            // TRANS: Title of the page showing pending group members still awaiting approval to join the group.
             // TRANS: %s is the name of the group.
-            return sprintf(_('%s group members'),
+            return sprintf(_('%s group members awaiting approval'),
                            $this->group->nickname);
         } else {
-            // TRANS: Title of the page showing group members.
+            // TRANS: Title of the page showing pending group members still awaiting approval to join the group.
             // TRANS: %1$s is the name of the group, %2$d is the page number of the members list.
-            return sprintf(_('%1$s group members, page %2$d'),
+            return sprintf(_('%1$s group members awaiting approval, page %2$d'),
                            $this->group->nickname,
                            $this->page);
         }
@@ -122,7 +128,7 @@ class GroupmembersAction extends GroupDesignAction
     {
         $this->element('p', 'instructions',
                        // TRANS: Page notice for group members page.
-                       _('A list of the users in this group.'));
+                       _('A list of users awaiting approval to join this group.'));
     }
 
     function showObjectNav()
@@ -138,10 +144,11 @@ class GroupmembersAction extends GroupDesignAction
 
         $cnt = 0;
 
-        $members = $this->group->getMembers($offset, $limit);
+        $members = $this->group->getRequests($offset, $limit);
 
         if ($members) {
-            $member_list = new GroupMemberList($members, $this->group, $this);
+            // @fixme change!
+            $member_list = new GroupQueueList($members, $this->group, $this);
             $cnt = $member_list->show();
         }
 
@@ -150,5 +157,43 @@ class GroupmembersAction extends GroupDesignAction
         $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
                           $this->page, 'groupmembers',
                           array('nickname' => $this->group->nickname));
+    }
+}
+
+class GroupQueueList extends GroupMemberList
+{
+    function newListItem($profile)
+    {
+        return new GroupQueueListItem($profile, $this->group, $this->action);
+    }
+}
+
+class GroupQueueListItem extends GroupMemberListItem
+{
+    function showActions()
+    {
+        $this->startActions();
+        if (Event::handle('StartProfileListItemActionElements', array($this))) {
+            $this->showApproveButton();
+            $this->showCancelButton();
+            Event::handle('EndProfileListItemActionElements', array($this));
+        }
+        $this->endActions();
+    }
+
+    function showApproveButton()
+    {
+        $this->out->elementStart('li', 'entity_join');
+        $form = new ApproveGroupForm($this->out, $this->group, $this->profile);
+        $form->show();
+        $this->out->elementEnd('li');
+    }
+
+    function showCancelButton()
+    {
+        $this->out->elementStart('li', 'entity_leave');
+        $bf = new CancelGroupForm($this->out, $this->group, $this->profile);
+        $bf->show();
+        $this->out->elementEnd('li');
     }
 }

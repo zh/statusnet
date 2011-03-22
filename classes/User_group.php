@@ -5,6 +5,9 @@
 
 class User_group extends Memcached_DataObject
 {
+    const JOIN_POLICY_OPEN = 0;
+    const JOIN_POLICY_MODERATE = 1;
+
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
@@ -24,6 +27,7 @@ class User_group extends Memcached_DataObject
     public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
     public $uri;                             // varchar(255)  unique_key
     public $mainpage;                        // varchar(255)
+    public $join_policy;                     // tinyint
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User_group',$k,$v); }
@@ -134,6 +138,36 @@ class User_group extends Memcached_DataObject
           'ON profile.id = group_member.profile_id ' .
           'WHERE group_member.group_id = %d ' .
           'ORDER BY group_member.created DESC ';
+
+        if ($limit != null) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $members = new Profile();
+
+        $members->query(sprintf($qry, $this->id));
+        return $members;
+    }
+
+    /**
+     * Get pending members, who have not yet been approved.
+     *
+     * @param int $offset
+     * @param int $limit
+     * @return Profile
+     */
+    function getRequests($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN group_join_queue '.
+          'ON profile.id = group_join_queue.profile_id ' .
+          'WHERE group_join_queue.group_id = %d ' .
+          'ORDER BY group_join_queue.created DESC ';
 
         if ($limit != null) {
             if (common_config('db','type') == 'pgsql') {
@@ -511,6 +545,11 @@ class User_group extends Memcached_DataObject
         $group->uri         = $uri;
         $group->mainpage    = $mainpage;
         $group->created     = common_sql_now();
+        if (isset($fields['join_policy'])) {
+            $group->join_policy = intval($fields['join_policy']);
+        } else {
+            $group->join_policy = 0;
+        }
 
         if (Event::handle('StartGroupSave', array(&$group))) {
 

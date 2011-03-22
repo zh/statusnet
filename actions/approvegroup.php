@@ -43,7 +43,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class LeavegroupAction extends Action
+class ApprovegroupAction extends Action
 {
     var $group = null;
 
@@ -97,13 +97,28 @@ class LeavegroupAction extends Action
         }
 
         $cur = common_current_user();
-
-        if (!$cur->isMember($this->group)) {
-            // TRANS: Client error displayed when trying to join a group while already a member.
-            $this->clientError(_('You are not a member of that group.'), 403);
+        if (empty($cur)) {
+            $this->clientError(_('Must be logged in.'), 403);
+            return false;
+        }
+        if ($this->arg('profile_id')) {
+            if ($cur->isAdmin($this->group)) {
+                $this->profile = Profile::staticGet('id', $this->arg('profile_id'));
+            } else {
+                $this->clientError(_('Only group admin can approve or cancel join requests.'), 403);
+                return false;
+            }
+        } else {
+            $this->clientError(_('Must specify a profile.'));
             return false;
         }
 
+        $this->request = Group_join_queue::pkeyGet(array('profile_id' => $this->profile->id,
+                                                         'group_id' => $this->group->id));
+
+        if (empty($this->request)) {
+            $this->clientError(sprintf(_('%s is not in the moderation queue for this group.'), $this->profile->nickname), 403);
+        }
         return true;
     }
 
@@ -120,15 +135,14 @@ class LeavegroupAction extends Action
     {
         parent::handle($args);
 
-        $cur = common_current_user();
-
         try {
-            $cur->leaveGroup($this->group);
+            $this->profile->completeJoinGroup($this->group);
         } catch (Exception $e) {
-            // TRANS: Server error displayed when leaving a group failed in the database.
+            common_log(LOG_ERROR, "Exception canceling group sub: " . $e->getMessage());
+            // TRANS: Server error displayed when cancelling a queued group join request fails.
             // TRANS: %1$s is the leaving user's nickname, $2$s is the group nickname for which the leave failed.
-            $this->serverError(sprintf(_('Could not remove user %1$s from group %2$s.'),
-                                       $cur->nickname, $this->group->nickname));
+            $this->serverError(sprintf(_('Could not cancel request for user %1$s to join group %2$s.'),
+                                       $this->profile->nickname, $this->group->nickname));
             return;
         }
 
@@ -137,7 +151,7 @@ class LeavegroupAction extends Action
             $this->elementStart('head');
             // TRANS: Title for leave group page after leaving.
             $this->element('title', null, sprintf(_m('TITLE','%1$s left group %2$s'),
-                                                  $cur->nickname,
+                                                  $this->profile->nickname,
                                                   $this->group->nickname));
             $this->elementEnd('head');
             $this->elementStart('body');

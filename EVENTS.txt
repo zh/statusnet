@@ -742,19 +742,19 @@ EndUnsubscribe: when an unsubscribe is done
 
 StartJoinGroup: when a user is joining a group
 - $group: the group being joined
-- $user: the user joining
+- $profile: the local or remote user joining
 
 EndJoinGroup: when a user finishes joining a group
 - $group: the group being joined
-- $user: the user joining
+- $profile: the local or remote user joining
 
 StartLeaveGroup: when a user is leaving a group
 - $group: the group being left
-- $user: the user leaving
+- $profile: the local or remote user leaving
 
 EndLeaveGroup: when a user has left a group
 - $group: the group being left
-- $user: the user leaving
+- $profile: the local or remote user leaving
 
 StartShowContentLicense: Showing the default license for content
 - $action: the current action

@@ -313,6 +313,13 @@ class Profile extends Memcached_DataObject
         }
     }
 
+    function isPendingMember($group)
+    {
+        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
+                                                   'group_id' => $group->id));
+        return !empty($request);
+    }
+
     function getGroups($offset=0, $limit=null)
     {
         $qry =
@@ -514,6 +521,79 @@ class Profile extends Memcached_DataObject
         $lists->find();
 
         return $lists;
+    }
+
+    /**
+     * Request to join the given group.
+     * May throw exceptions on failure.
+     *
+     * @param User_group $group
+     * @return mixed: Group_member on success, Group_join_queue if pending approval, null on some cancels?
+     */
+    function joinGroup(User_group $group)
+    {
+        $ok = null;
+        if ($group->join_policy == User_group::JOIN_POLICY_MODERATE) {
+            $ok = Group_join_queue::saveNew($this, $group);
+        } else {
+            if (Event::handle('StartJoinGroup', array($group, $this))) {
+                $ok = Group_member::join($group->id, $this->id);
+                Event::handle('EndJoinGroup', array($group, $this));
+            }
+        }
+        return $ok;
+    }
+
+    /**
+     * Cancel a pending group join...
+     *
+     * @param User_group $group
+     */
+    function cancelJoinGroup(User_group $group)
+    {
+        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
+                                                   'group_id' => $group->id));
+        if ($request) {
+            if (Event::handle('StartCancelJoinGroup', array($group, $this))) {
+                $request->delete();
+                Event::handle('EndCancelJoinGroup', array($group, $this));
+            }
+        }
+    }
+
+    /**
+     * Complete a pending group join on our end...
+     *
+     * @param User_group $group
+     */
+    function completeJoinGroup(User_group $group)
+    {
+        $ok = null;
+        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
+                                                   'group_id' => $group->id));
+        if ($request) {
+            if (Event::handle('StartJoinGroup', array($group, $this))) {
+                $ok = Group_member::join($group->id, $this->id);
+                $request->delete();
+                Event::handle('EndJoinGroup', array($group, $this));
+            }
+        } else {
+            throw new Exception(_m('Invalid group join approval: not pending.'));
+        }
+        return $ok;
+    }
+
+    /**
+     * Leave a group that this profile is a member of.
+     *
+     * @param User_group $group 
+     */
+    function leaveGroup(User_group $group)
+    {
+        if (Event::handle('StartLeaveGroup', array($group, $this))) {
+            Group_member::leave($group->id, $this->id);
+            Event::handle('EndLeaveGroup', array($group, $this));
+        }
     }
 
     function avatarUrl($size=AVATAR_PROFILE_SIZE)

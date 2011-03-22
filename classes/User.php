@@ -68,6 +68,9 @@ class User extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    /**
+     * @return Profile
+     */
     function getProfile()
     {
         $profile = Profile::staticGet('id', $this->id);
@@ -594,6 +597,30 @@ class User extends Memcached_DataObject
     {
         $profile = $this->getProfile();
         return $profile->getGroups($offset, $limit);
+    }
+
+    /**
+     * Request to join the given group.
+     * May throw exceptions on failure.
+     *
+     * @param User_group $group
+     * @return Group_member
+     */
+    function joinGroup(User_group $group)
+    {
+        $profile = $this->getProfile();
+        return $profile->joinGroup($group);
+    }
+
+    /**
+     * Leave a group that this user is a member of.
+     *
+     * @param User_group $group
+     */
+    function leaveGroup(User_group $group)
+    {
+        $profile = $this->getProfile();
+        return $profile->leaveGroup($group);
     }
 
     function getSubscriptions($offset=0, $limit=null)

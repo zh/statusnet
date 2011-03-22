@@ -100,6 +100,18 @@ class GroupNav extends Menu
             $cur = common_current_user();
 
             if ($cur && $cur->isAdmin($this->group)) {
+                $pending = $this->countPendingMembers();
+                if ($pending || $this->group->join_policy == User_group::JOIN_POLICY_MODERATE) {
+                    $this->out->menuItem(common_local_url('groupqueue', array('nickname' =>
+                                                                              $nickname)),
+                                         // TRANS: Menu item in the group navigation page. Only shown for group administrators.
+                                         sprintf(_m('MENU','Pending members (%d)'), $pending),
+                                         // TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+                                         // TRANS: %s is the nickname of the group.
+                                         sprintf(_m('TOOLTIP','%s pending members'), $nickname),
+                                         $action_name == 'groupqueue',
+                                         'nav_group_pending');
+                }
                 $this->out->menuItem(common_local_url('blockedfromgroup', array('nickname' =>
                                                                                 $nickname)),
                                      // TRANS: Menu item in the group navigation page. Only shown for group administrators.
@@ -140,5 +152,12 @@ class GroupNav extends Menu
             Event::handle('EndGroupGroupNav', array($this));
         }
         $this->out->elementEnd('ul');
+    }
+
+    function countPendingMembers()
+    {
+        $req = new Group_join_queue();
+        $req->group_id = $this->group->id;
+        return $req->count();
     }
 }
