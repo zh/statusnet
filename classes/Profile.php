@@ -93,7 +93,7 @@ class Profile extends Memcached_DataObject
         $avatar->url = Avatar::url($filename);
         $avatar->created = DB_DataObject_Cast::dateTime(); # current time
 
-        # XXX: start a transaction here
+        // XXX: start a transaction here
 
         if (!$this->delete_avatars() || !$avatar->insert()) {
             @unlink(Avatar::path($filename));
@@ -101,7 +101,7 @@ class Profile extends Memcached_DataObject
         }
 
         foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
-            # We don't do a scaled one if original is our scaled size
+            // We don't do a scaled one if original is our scaled size
             if (!($avatar->width == $size && $avatar->height == $size)) {
                 $scaled_filename = $imagefile->resize($size);
 

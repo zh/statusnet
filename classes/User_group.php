@@ -306,11 +306,11 @@ class User_group extends Memcached_DataObject
 
         $oldaliases = $this->getAliases();
 
-        # Delete stuff that's old that not in new
+        // Delete stuff that's old that not in new
 
         $to_delete = array_diff($oldaliases, $newaliases);
 
-        # Insert stuff that's in new and not in old
+        // Insert stuff that's in new and not in old
 
         $to_insert = array_diff($newaliases, $oldaliases);
 

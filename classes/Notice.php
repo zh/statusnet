@@ -312,7 +312,7 @@ class Notice extends Memcached_DataObject
 
         $autosource = common_config('public', 'autosource');
 
-        # Sandboxed are non-false, but not 1, either
+        // Sandboxed are non-false, but not 1, either
 
         if (!$profile->hasRight(Right::PUBLICNOTICE) ||
             ($source && $autosource && in_array($source, $autosource))) {
@@ -410,8 +410,8 @@ class Notice extends Memcached_DataObject
 
         }
 
-        # Clear the cache for subscribed users, so they'll update at next request
-        # XXX: someone clever could prepend instead of clearing the cache
+        // Clear the cache for subscribed users, so they'll update at next request
+        // XXX: someone clever could prepend instead of clearing the cache
 
         $notice->blowOnInsert();
 
@@ -559,8 +559,8 @@ class Notice extends Memcached_DataObject
                 }
             }
         }
-        # If we get here, oldest item in cache window is not
-        # old enough for dupe limit; do direct check against DB
+        // If we get here, oldest item in cache window is not
+        // old enough for dupe limit; do direct check against DB
         $notice = new Notice();
         $notice->profile_id = $profile_id;
         $notice->content = $content;
@@ -576,16 +576,16 @@ class Notice extends Memcached_DataObject
         if (empty($profile)) {
             return false;
         }
-        # Get the Nth notice
+        // Get the Nth notice
         $notice = $profile->getNotices(common_config('throttle', 'count') - 1, 1);
         if ($notice && $notice->fetch()) {
-            # If the Nth notice was posted less than timespan seconds ago
+            // If the Nth notice was posted less than timespan seconds ago
             if (time() - strtotime($notice->created) <= common_config('throttle', 'timespan')) {
-                # Then we throttle
+                // Then we throttle
                 return false;
             }
         }
-        # Either not N notices in the stream, OR the Nth was not posted within timespan seconds
+        // Either not N notices in the stream, OR the Nth was not posted within timespan seconds
         return true;
     }
 
@@ -695,7 +695,7 @@ class Notice extends Memcached_DataObject
         if (common_config('public', 'localonly')) {
             $notice->whereAdd('is_local = ' . Notice::LOCAL_PUBLIC);
         } else {
-            # -1 == blacklisted, -2 == gateway (i.e. Twitter)
+            // -1 == blacklisted, -2 == gateway (i.e. Twitter)
             $notice->whereAdd('is_local !='. Notice::LOCAL_NONPUBLIC);
             $notice->whereAdd('is_local !='. Notice::GATEWAY);
         }

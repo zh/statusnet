@@ -84,7 +84,7 @@ class GalleryAction extends OwnerDesignAction
     {
         parent::handle($args);
 
-		# Post from the tag dropdown; redirect to a GET
+		// Post from the tag dropdown; redirect to a GET
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		    common_redirect($this->selfUrl(), 303);

@@ -48,7 +48,7 @@ define('NOTICE_INBOX_SOURCE_REPLY', 3);
 define('NOTICE_INBOX_SOURCE_FORWARD', 4);
 define('NOTICE_INBOX_SOURCE_GATEWAY', -1);
 
-# append our extlib dir as the last-resort place to find libs
+// append our extlib dir as the last-resort place to find libs
 
 set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/');
 
@@ -69,7 +69,7 @@ if (!function_exists('dl')) {
     }
 }
 
-# global configuration object
+// global configuration object
 
 require_once('PEAR.php');
 require_once('PEAR/Exception.php');
