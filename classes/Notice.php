@@ -1546,8 +1546,17 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0)
+    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0, $profile=0)
     {
+        if ($profile === 0) {
+            $user = common_current_user();
+            if (empty($user)) {
+                $profile = null;
+            } else {
+                $profile = $user->getProfile();
+            }
+        }
+
         $cache = Cache::instance();
 
         if (empty($cache) ||
