@@ -119,6 +119,15 @@ class ApprovegroupAction extends Action
         if (empty($this->request)) {
             $this->clientError(sprintf(_('%s is not in the moderation queue for this group.'), $this->profile->nickname), 403);
         }
+
+        $this->approve = (bool)$this->arg('approve');
+        $this->cancel = (bool)$this->arg('cancel');
+        if (!$this->approve && !$this->cancel) {
+            $this->clientError(_('Internal error: received neither cancel nor abort.'));
+        }
+        if ($this->approve && $this->cancel) {
+            $this->clientError(_('Internal error: received both cancel and abort.'));
+        }
         return true;
     }
 
@@ -136,7 +145,11 @@ class ApprovegroupAction extends Action
         parent::handle($args);
 
         try {
-            $this->profile->completeJoinGroup($this->group);
+            if ($this->approve) {
+                $this->profile->completeJoinGroup($this->group);
+            } elseif ($this->cancel) {
+                $this->profile->cancelJoinGroup($this->group);
+            }
         } catch (Exception $e) {
             common_log(LOG_ERROR, "Exception canceling group sub: " . $e->getMessage());
             // TRANS: Server error displayed when cancelling a queued group join request fails.
@@ -149,14 +162,17 @@ class ApprovegroupAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            // TRANS: Title for leave group page after leaving.
-            $this->element('title', null, sprintf(_m('TITLE','%1$s left group %2$s'),
+            // TRANS: Title for leave group page after group join request is approved/disapproved.
+            $this->element('title', null, sprintf(_m('TITLE','%1$s\'s request for %2$s'),
                                                   $this->profile->nickname,
                                                   $this->group->nickname));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $jf = new JoinForm($this, $this->group);
-            $jf->show();
+            if ($this->approve) {
+                $this->element('p', 'success', _m('Join request approved.'));
+            } elseif ($this->cancel) {
+                $this->element('p', 'success', _m('Join request canceled.'));
+            }
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {

@@ -174,26 +174,17 @@ class GroupQueueListItem extends GroupMemberListItem
     {
         $this->startActions();
         if (Event::handle('StartProfileListItemActionElements', array($this))) {
-            $this->showApproveButton();
-            $this->showCancelButton();
+            $this->showApproveButtons();
             Event::handle('EndProfileListItemActionElements', array($this));
         }
         $this->endActions();
     }
 
-    function showApproveButton()
+    function showApproveButtons()
     {
-        $this->out->elementStart('li', 'entity_join');
+        $this->out->elementStart('li', 'entity_approval');
         $form = new ApproveGroupForm($this->out, $this->group, $this->profile);
         $form->show();
-        $this->out->elementEnd('li');
-    }
-
-    function showCancelButton()
-    {
-        $this->out->elementStart('li', 'entity_leave');
-        $bf = new CancelGroupForm($this->out, $this->group, $this->profile);
-        $bf->show();
         $this->out->elementEnd('li');
     }
 }
