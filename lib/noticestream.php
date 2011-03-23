@@ -62,7 +62,7 @@ class NoticeStream
     {
         $ids = $this->getNoticeIds($offset, $limit, $sinceId, $maxId);
 
-        $notices = $this->getStreamByIds($ids);
+        $notices = self::getStreamByIds($ids);
 
         return $notices;
     }
@@ -136,7 +136,7 @@ class NoticeStream
         return $ids;
     }
 
-    function getStreamByIds($ids)
+    static function getStreamByIds($ids)
     {
         $cache = Cache::instance();
 
