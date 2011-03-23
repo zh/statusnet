@@ -449,12 +449,11 @@ class File extends Memcached_DataObject
 
     function stream($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Notice::stream(array($this, '_streamDirect'),
-                              array(),
-                              'file:notice-ids:'.$this->url,
-                              $offset, $limit, $since_id, $max_id);
+        $stream = new NoticeStream(array($this, '_streamDirect'),
+                                   array(),
+                                   'file:notice-ids:'.$this->url);
 
-        return Notice::getStreamByIds($ids);
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     /**

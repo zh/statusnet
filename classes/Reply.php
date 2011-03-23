@@ -38,11 +38,11 @@ class Reply extends Memcached_DataObject
 
     function stream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Notice::stream(array('Reply', '_streamDirect'),
-                              array($user_id),
-                              'reply:stream:' . $user_id,
-                              $offset, $limit, $since_id, $max_id);
-        return $ids;
+        $stream = new NoticeStream(array('Reply', '_streamDirect'),
+                                   array($user_id),
+                                   'reply:stream:' . $user_id);
+
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function _streamDirect($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)

@@ -198,22 +198,20 @@ class Profile extends Memcached_DataObject
 
     function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Notice::stream(array($this, '_streamTaggedDirect'),
-                              array($tag),
-                              'profile:notice_ids_tagged:' . $this->id . ':' . $tag,
-                              $offset, $limit, $since_id, $max_id);
-        return Notice::getStreamByIds($ids);
+        $stream = new NoticeStream(array($this, '_streamTaggedDirect'),
+                                   array($tag),
+                                   'profile:notice_ids_tagged:'.$this->id.':'.$tag);
+
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        // XXX: I'm not sure this is going to be any faster. It probably isn't.
-        $ids = Notice::stream(array($this, '_streamDirect'),
-                              array(),
-                              'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $max_id);
+        $stream = new NoticeStream(array($this, '_streamDirect'),
+                                   array(),
+                                   'profile:notice_ids:' . $this->id);
 
-        return Notice::getStreamByIds($ids);
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id)

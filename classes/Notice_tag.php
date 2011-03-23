@@ -36,14 +36,13 @@ class Notice_tag extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    static function getStream($tag, $offset=0, $limit=20) {
-
-        $ids = Notice::stream(array('Notice_tag', '_streamDirect'),
-                              array($tag),
-                              'notice_tag:notice_ids:' . Cache::keyize($tag),
-                              $offset, $limit);
-
-        return Notice::getStreamByIds($ids);
+    static function getStream($tag, $offset=0, $limit=20, $sinceId=0, $maxId=0)
+    {
+        $stream = new NoticeStream(array('Notice_tag', '_streamDirect'),
+                                   array($tag),
+                                   'notice_tag:notice_ids:' . Cache::keyize($tag));
+        
+        return $stream->getNotices($offset, $limit, $sinceId, $maxId);
     }
 
     function _streamDirect($tag, $offset, $limit, $since_id, $max_id)
