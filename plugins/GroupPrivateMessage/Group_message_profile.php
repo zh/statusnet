@@ -174,7 +174,7 @@ class Group_message_profile extends Memcached_DataObject
                         $from_profile->getBestName(),
                         $from_profile->nickname,
                         $group->nickname,
-                        $this->content,
+                        $gm->content,
                         common_local_url('newmessage', array('to' => $from_profile->id)),
                         common_config('site', 'name'));
 
