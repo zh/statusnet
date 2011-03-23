@@ -45,7 +45,7 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 /* We keep 200 notices, the max number of notices available per API request,
  * in the memcached cache. */
 
-define('NOTICE_CACHE_WINDOW', 200);
+define('NOTICE_CACHE_WINDOW', NoticeStream::CACHE_WINDOW);
 
 define('MAX_BOXCARS', 128);
 
@@ -548,7 +548,7 @@ class Notice extends Memcached_DataObject
         if (empty($profile)) {
             return false;
         }
-        $notice = $profile->getNotices(0, NOTICE_CACHE_WINDOW);
+        $notice = $profile->getNotices(0, NoticeStream::CACHE_WINDOW);
         if (!empty($notice)) {
             $last = 0;
             while ($notice->fetch()) {
@@ -1656,7 +1656,7 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        return Notice::getStreamByIds($ids);
+        return NoticeStream::getStreamByIds($ids);
     }
 
     function _repeatStreamDirect($limit)

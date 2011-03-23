@@ -47,6 +47,8 @@ if (!defined('STATUSNET')) {
 
 class NoticeStream
 {
+    const CACHE_WINDOW = 200;
+
     public $generator = null;
     public $args      = null;
     public $cachekey  = null;
@@ -71,13 +73,13 @@ class NoticeStream
     {
         $cache = Cache::instance();
 
-        // We cache NOTICE_CACHE_WINDOW elements at the tip of the stream.
+        // We cache self::CACHE_WINDOW elements at the tip of the stream.
         // If the cache won't be hit, just generate directly.
 
         if (empty($cache) ||
             $sinceId != 0 || $maxId != 0 ||
             is_null($limit) ||
-            ($offset + $limit) > NOTICE_CACHE_WINDOW) {
+            ($offset + $limit) > self::CACHE_WINDOW) {
             return $this->generate($offset, $limit, $sinceId, $maxId);
         }
 
@@ -105,7 +107,7 @@ class NoticeStream
         if ($laststr !== false) {
             $window = explode(',', $laststr);
             $last_id = $window[0];
-            $new_ids = $this->generate(0, NOTICE_CACHE_WINDOW, $last_id, 0);
+            $new_ids = $this->generate(0, self::CACHE_WINDOW, $last_id, 0);
 
             $new_window = array_merge($new_ids, $window);
 
@@ -122,7 +124,7 @@ class NoticeStream
         // No cache hits :( Generate directly and stick the results
         // into the cache. Note we generate the full cache window.
 
-        $window = $this->generate(0, NOTICE_CACHE_WINDOW, 0, 0);
+        $window = $this->generate(0, self::CACHE_WINDOW, 0, 0);
 
         $windowstr = implode(',', $window);
 

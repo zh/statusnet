@@ -550,7 +550,7 @@ class Profile extends Memcached_DataObject
             // This is the stream of favorite notices, in rev chron
             // order. This forces it into cache.
 
-            $ids = Fave::stream($this->id, 0, NOTICE_CACHE_WINDOW);
+            $ids = Fave::idStream($this->id, 0, NoticeStream::CACHE_WINDOW);
 
             // If it's in the list, then it's a fave
 
@@ -562,7 +562,7 @@ class Profile extends Memcached_DataObject
             // then the cache has all available faves, so this one
             // is not a fave.
 
-            if (count($ids) < NOTICE_CACHE_WINDOW) {
+            if (count($ids) < NoticeStream::CACHE_WINDOW) {
                 return false;
             }
 
