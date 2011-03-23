@@ -198,22 +198,20 @@ class Profile extends Memcached_DataObject
 
     function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Notice::stream(array($this, '_streamTaggedDirect'),
-                              array($tag),
-                              'profile:notice_ids_tagged:' . $this->id . ':' . $tag,
-                              $offset, $limit, $since_id, $max_id);
-        return Notice::getStreamByIds($ids);
+        $stream = new NoticeStream(array($this, '_streamTaggedDirect'),
+                                   array($tag),
+                                   'profile:notice_ids_tagged:'.$this->id.':'.$tag);
+
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        // XXX: I'm not sure this is going to be any faster. It probably isn't.
-        $ids = Notice::stream(array($this, '_streamDirect'),
-                              array(),
-                              'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $max_id);
+        $stream = new NoticeStream(array($this, '_streamDirect'),
+                                   array(),
+                                   'profile:notice_ids:' . $this->id);
 
-        return Notice::getStreamByIds($ids);
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id)
@@ -355,16 +353,20 @@ class Profile extends Memcached_DataObject
      */
     function joinGroup(User_group $group)
     {
-        $ok = null;
+        $join = null;
         if ($group->join_policy == User_group::JOIN_POLICY_MODERATE) {
-            $ok = Group_join_queue::saveNew($this, $group);
+            $join = Group_join_queue::saveNew($this, $group);
         } else {
             if (Event::handle('StartJoinGroup', array($group, $this))) {
-                $ok = Group_member::join($group->id, $this->id);
+                $join = Group_member::join($group->id, $this->id);
                 Event::handle('EndJoinGroup', array($group, $this));
             }
         }
-        return $ok;
+        if ($join) {
+            // Send any applicable notifications...
+            $join->notify();
+        }
+        return $join;
     }
 
     /**
@@ -391,19 +393,22 @@ class Profile extends Memcached_DataObject
      */
     function completeJoinGroup(User_group $group)
     {
-        $ok = null;
+        $join = null;
         $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
                                                    'group_id' => $group->id));
         if ($request) {
             if (Event::handle('StartJoinGroup', array($group, $this))) {
-                $ok = Group_member::join($group->id, $this->id);
+                $join = Group_member::join($group->id, $this->id);
                 $request->delete();
                 Event::handle('EndJoinGroup', array($group, $this));
             }
         } else {
             throw new Exception(_m('Invalid group join approval: not pending.'));
         }
-        return $ok;
+        if ($join) {
+            $join->notify();
+        }
+        return $join;
     }
 
     /**
@@ -545,7 +550,7 @@ class Profile extends Memcached_DataObject
             // This is the stream of favorite notices, in rev chron
             // order. This forces it into cache.
 
-            $ids = Fave::stream($this->id, 0, NOTICE_CACHE_WINDOW);
+            $ids = Fave::idStream($this->id, 0, NoticeStream::CACHE_WINDOW);
 
             // If it's in the list, then it's a fave
 
@@ -557,7 +562,7 @@ class Profile extends Memcached_DataObject
             // then the cache has all available faves, so this one
             // is not a fave.
 
-            if (count($ids) < NOTICE_CACHE_WINDOW) {
+            if (count($ids) < NoticeStream::CACHE_WINDOW) {
                 return false;
             }
 

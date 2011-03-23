@@ -162,4 +162,13 @@ class Group_member extends Memcached_DataObject
 
         return $act;
     }
+
+    /**
+     * Send notifications via email etc to group administrators about
+     * this exciting new membership!
+     */
+    public function notify()
+    {
+        mail_notify_group_join($this->getGroup(), $this->getMember());
+    }
 }
