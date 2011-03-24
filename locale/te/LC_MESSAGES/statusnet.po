@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 19:45+0000\n"
-"PO-Revision-Date: 2011-03-18 19:48:05+0000\n"
+"POT-Creation-Date: 2011-03-24 11:10+0000\n"
+"PO-Revision-Date: 2011-03-24 11:13:00+0000\n"
 "Language-Team: Telugu <http://translatewiki.net/wiki/Portal:te>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r84232); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84667); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-03-17 13:01:02+0000\n"
+"X-POT-Import-Date: 2011-03-18 20:10:59+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -71,6 +71,8 @@ msgstr "అందుబాటు అమరికలను భద్రపరచ�
 #. TRANS: Button text in the license admin panel.
 #. TRANS: Button text to store form data in the Paths admin panel.
 #. TRANS: Button to save input in profile settings.
+#. TRANS: Submit button text on the sessions administration panel.
+#. TRANS: Button text for saving site settings.
 #. TRANS: Button text for saving site notice in admin panel.
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
@@ -78,6 +80,7 @@ msgstr "అందుబాటు అమరికలను భద్రపరచ�
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
 #. TRANS: Button text on profile design page to save settings.
+#. TRANS: Text for save button on group edit form.
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "భద్రపరచు"
@@ -737,6 +740,7 @@ msgstr "ఖాతా"
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Label for nickname on user authorisation page.
+#. TRANS: Field label on group edit form.
 msgid "Nickname"
 msgstr "పేరు"
 
@@ -814,6 +818,7 @@ msgstr "ఇతర వాడుకరుల స్థితిని మీరు
 #. TRANS: Client error displayed trying to display redents of a non-exiting notice.
 #. TRANS: Client exception thrown when referencing a non-existing notice.
 #. TRANS: Error message displayed trying to delete a non-existing notice.
+#. TRANS: Client error displayed trying to show a non-existing notice.
 msgid "No such notice."
 msgstr "అటువంటి సందేశమేమీ లేదు."
 
@@ -1022,6 +1027,103 @@ msgstr "నిర్ధారణ సంకేతం కనబడలేదు."
 msgid "User not found."
 msgstr "వాడుకరి దొరకలేదు."
 
+#. TRANS: Client error displayed when trying to leave a group while not logged in.
+msgid "You must be logged in to leave a group."
+msgstr "గుంపుని వదిలివెళ్ళడానికి మీరు ప్రవేశించి ఉండాలి."
+
+#. TRANS: Client error displayed when trying to leave a non-local group.
+#. TRANS: Client error displayed when trying to leave a non-existing group.
+#. TRANS: Client exception thrown when referencing a non-existing group.
+#. TRANS: Client error displayed when requesting a list of blocked users for a non-local group.
+#. TRANS: Client error displayed when requesting a list of blocked users for a non-existing group.
+#. TRANS: Client error displayed when trying to leave a non-local group.
+#. TRANS: Client error displayed when trying to leave a non-existing group.
+#. TRANS: Client error when trying to delete a non-local group.
+#. TRANS: Client error when trying to delete a non-existing group.
+#. TRANS: Client error displayed trying to edit a non-existing group.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed without providing a group nickname.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed for a non-local group.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed for a nickname that is not a group.
+#. TRANS: Client error displayed trying to block a user from a group while specifying a non-existing group.
+#. TRANS: Client error displayed referring to a group's permalink for a non-existing group ID.
+#. TRANS: Client error displayed trying to change group design settings while providing a nickname for a non-existing group.
+#. TRANS: Client error displayed when trying to update logo settings for a non-existing group.
+#. TRANS: Client error displayed when trying to view group members for a non-existing group.
+#. TRANS: Client error displayed when trying to view group members for an object that is not a group.
+#. TRANS: Client error displayed when trying to view group members for a non-existing group.
+#. TRANS: Client error displayed when trying to view group members for an object that is not a group.
+#. TRANS: Client error displayed when requesting a group RSS feed for group that does not exist.
+#. TRANS: Client error displayed when requesting a group RSS feed for an object that is not a group.
+#. TRANS: Client error displayed when trying to unblock a user from a non-existing group.
+#. TRANS: Client error displayed when trying to join a non-local group.
+#. TRANS: Client error displayed when trying to join a non-existing group.
+#. TRANS: Client error displayed when trying to leave a non-local group.
+#. TRANS: Client error displayed when trying to leave a non-existing group.
+#. TRANS: Client error displayed when providing an invalid group ID on the Make Admin page.
+#. TRANS: Client error displayed if no remote group with a given name was found requesting group page.
+#. TRANS: Client error displayed if no local group with a given name was found requesting group page.
+#. TRANS: Command exception text shown when a group is requested that does not exist.
+#. TRANS: Error text shown when trying to leave a group that does not exist.
+msgid "No such group."
+msgstr "అటువంటి గుంపు లేదు."
+
+#. TRANS: Client error displayed when trying to leave a group without providing a group name or group ID.
+#. TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
+#. TRANS: Client error displayed when trying to join a group without providing a group name or group ID.
+#. TRANS: Client error displayed when trying to leave a group without providing a group name or group ID.
+msgid "No nickname or ID."
+msgstr "Jabber ID లేదు."
+
+#. TRANS: Client error displayed trying to approve group membership while not logged in.
+#. TRANS: Client error displayed when trying to leave a group while not logged in.
+#, fuzzy
+msgid "Must be logged in."
+msgstr "లోనికి ప్రవేశించలేదు."
+
+#. TRANS: Client error displayed trying to approve group membership while not a group administrator.
+#. TRANS: Client error displayed when trying to approve or cancel a group join request without
+#. TRANS: being a group administrator.
+msgid "Only group admin can approve or cancel join requests."
+msgstr ""
+
+#. TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
+#, fuzzy
+msgid "Must specify a profile."
+msgstr "వాడుకరికి ప్రొఫైలు లేదు."
+
+#. TRANS: Client error displayed trying to approve group membership for a non-existing request.
+#. TRANS: Client error displayed when trying to approve a non-existing group join request.
+#. TRANS: %s is a user nickname.
+#, fuzzy, php-format
+msgid "%s is not in the moderation queue for this group."
+msgstr "ఈ గుంపులో వాడుకరులు జాబితా."
+
+#. TRANS: Client error displayed trying to approve/deny group membership.
+msgid "Internal error: received neither cancel nor abort."
+msgstr ""
+
+#. TRANS: Client error displayed trying to approve/deny group membership.
+msgid "Internal error: received both cancel and abort."
+msgstr ""
+
+#. TRANS: Server error displayed when cancelling a queued group join request fails.
+#. TRANS: %1$s is the leaving user's nickname, $2$s is the group nickname for which the leave failed.
+#, fuzzy, php-format
+msgid "Could not cancel request for user %1$s to join group %2$s."
+msgstr "వాడుకరి %1$sని %2$s గుంపులో చేర్చలేకపోయాం"
+
+#. TRANS: Title for leave group page after group join request is approved/disapproved.
+#, fuzzy, php-format
+msgctxt "TITLE"
+msgid "%1$s's request for %2$s"
+msgstr "%2$sలో %1$s యొక్క స్థితి"
+
+msgid "Join request approved."
+msgstr ""
+
+msgid "Join request canceled."
+msgstr ""
+
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
 #. TRANS: Client error displayed trying to subscribe to a non-existing profile.
@@ -1102,36 +1204,6 @@ msgstr "అటువంటి ఇష్టాంశం లేదు."
 #. TRANS: Client exception thrown when trying to remove a favorite notice of another user.
 msgid "Cannot delete someone else's favorite."
 msgstr "మరొకరి ఇష్టాంశాన్ని తొలగించలేరు."
-
-#. TRANS: Client exception thrown when referencing a non-existing group.
-#. TRANS: Client error displayed when requesting a list of blocked users for a non-local group.
-#. TRANS: Client error displayed when requesting a list of blocked users for a non-existing group.
-#. TRANS: Client error when trying to delete a non-local group.
-#. TRANS: Client error when trying to delete a non-existing group.
-#. TRANS: Client error displayed trying to edit a non-existing group.
-#. TRANS: Client error displayed when requesting Friends of a Friend feed without providing a group nickname.
-#. TRANS: Client error displayed when requesting Friends of a Friend feed for a non-local group.
-#. TRANS: Client error displayed when requesting Friends of a Friend feed for a nickname that is not a group.
-#. TRANS: Client error displayed trying to block a user from a group while specifying a non-existing group.
-#. TRANS: Client error displayed referring to a group's permalink for a non-existing group ID.
-#. TRANS: Client error displayed trying to change group design settings while providing a nickname for a non-existing group.
-#. TRANS: Client error displayed when trying to update logo settings for a non-existing group.
-#. TRANS: Client error displayed when trying to view group members for a non-existing group.
-#. TRANS: Client error displayed when trying to view group members for an object that is not a group.
-#. TRANS: Client error displayed when requesting a group RSS feed for group that does not exist.
-#. TRANS: Client error displayed when requesting a group RSS feed for an object that is not a group.
-#. TRANS: Client error displayed when trying to unblock a user from a non-existing group.
-#. TRANS: Client error displayed when trying to join a non-local group.
-#. TRANS: Client error displayed when trying to join a non-existing group.
-#. TRANS: Client error displayed when trying to leave a non-local group.
-#. TRANS: Client error displayed when trying to leave a non-existing group.
-#. TRANS: Client error displayed when providing an invalid group ID on the Make Admin page.
-#. TRANS: Client error displayed if no remote group with a given name was found requesting group page.
-#. TRANS: Client error displayed if no local group with a given name was found requesting group page.
-#. TRANS: Command exception text shown when a group is requested that does not exist.
-#. TRANS: Error text shown when trying to leave a group that does not exist.
-msgid "No such group."
-msgstr "అటువంటి గుంపు లేదు."
 
 #. TRANS: Client exception thrown when trying to show membership of a non-subscribed group
 msgid "Not a member."
@@ -1249,6 +1321,7 @@ msgstr "మునుజూపు"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
 #. TRANS: Button text for user account deletion.
+#. TRANS: Submit button text the OAuth application page to delete an application.
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "తొలగించు"
@@ -1410,6 +1483,14 @@ msgstr "ఈ వాడుకరిని నిరోధించు"
 msgid "Post to %s"
 msgstr "%sకి టపాచెయ్యి"
 
+#. TRANS: Title for leave group page after leaving.
+#. TRANS: %s$s is the leaving user's name, %2$s is the group name.
+#. TRANS: Title for leave group page after leaving.
+#, fuzzy, php-format
+msgctxt "TITLE"
+msgid "%1$s left group %2$s"
+msgstr "%2$s గుంపు నుండి %1$s వైదొలిగారు"
+
 #. TRANS: Client error displayed when not providing a confirmation code in the contact address confirmation action.
 msgid "No confirmation code."
 msgstr "నిర్ధారణ సంకేతం లేదు."
@@ -1469,15 +1550,15 @@ msgid "Notices"
 msgstr "సందేశాలు"
 
 #. TRANS: Title for conversation page.
+#. TRANS: Title for page that shows a notice.
 #, fuzzy
 msgctxt "TITLE"
 msgid "Notice"
 msgstr "సందేశాలు"
 
 #. TRANS: Client exception displayed trying to delete a user account while not logged in.
-#, fuzzy
 msgid "Only logged-in users can delete their account."
-msgstr "కేవలం ప్రవేశించిన వాడుకరులు మాత్రమే నోటీసులని పునరావృతించగలరు."
+msgstr "కేవలం ప్రవేశించిన వాడుకరులు మాత్రమే వారి ఖాతాను తొలగించుకోగలరు."
 
 #. TRANS: Client exception displayed trying to delete a user account without have the rights to do that.
 msgid "You cannot delete your account."
@@ -1541,6 +1622,7 @@ msgstr "ఉపకరణం కనబడలేదు."
 
 #. TRANS: Client error displayed trying to delete an application the current user does not own.
 #. TRANS: Client error displayed trying to edit an application while not being its owner.
+#. TRANS: Client error displayed trying to display an OAuth application for which the logged in user is not the owner.
 msgid "You are not the owner of this application."
 msgstr "మీరు ఈ ఉపకరణం యొక్క యజమాని కాదు."
 
@@ -1573,12 +1655,6 @@ msgstr "ఈ ఉపకరణాన్ని తొలగించు."
 #. TRANS: Client error when trying to delete group while not logged in.
 msgid "You must be logged in to delete a group."
 msgstr "గుంపుని తొలగించడానికి మీరు ప్రవేశించి ఉండాలి."
-
-#. TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
-#. TRANS: Client error displayed when trying to join a group without providing a group name or group ID.
-#. TRANS: Client error displayed when trying to leave a group without providing a group name or group ID.
-msgid "No nickname or ID."
-msgstr "Jabber ID లేదు."
 
 #. TRANS: Client error when trying to delete a group without having the rights to delete it.
 msgid "You are not allowed to delete this group."
@@ -1862,6 +1938,7 @@ msgid "You must be logged in to edit an application."
 msgstr "ఉపకరణాలని మార్చడానికి మీరు ప్రవేశించి ఉండాలి."
 
 #. TRANS: Client error displayed trying to edit an application that does not exist.
+#. TRANS: Client error displayed trying to display a non-existing OAuth application.
 msgid "No such application."
 msgstr "అటువంటి ఉపకరణం లేదు."
 
@@ -2082,6 +2159,7 @@ msgstr "ప్రస్తుత నిర్ధారిత ఈమెయిల�
 
 #. TRANS: Message given saving e-mail address that not valid.
 #. TRANS: Form validation error displayed when trying to register without a valid e-mail address.
+#. TRANS: Client error displayed trying to save site settings without a valid contact address.
 msgid "Not a valid email address."
 msgstr "సరైన ఈమెయిల్ చిరునామా కాదు:"
 
@@ -2451,33 +2529,26 @@ msgstr "%1$s గుంపు సభ్యులు, పేజీ %2$d"
 msgid "A list of the users in this group."
 msgstr "ఈ గుంపులో వాడుకరులు జాబితా."
 
-#. TRANS: Indicator in group members list that this user is a group administrator.
-msgid "Admin"
-msgstr "నిర్వాహకులు"
-
-#. TRANS: Button text for the form that will block a user from a group.
-msgctxt "BUTTON"
-msgid "Block"
-msgstr "నిరోధించు"
-
-#. TRANS: Submit button title.
-msgctxt "TOOLTIP"
-msgid "Block this user"
-msgstr "ఈ వాడుకరిని నిరోధించు"
-
-#. TRANS: Form legend for form to make a user a group admin.
-msgid "Make user an admin of the group"
-msgstr "వాడుకరిని గుంపుకి ఒక నిర్వాహకునిగా చేయి"
-
-#. TRANS: Button text for the form that will make a user administrator.
-msgctxt "BUTTON"
-msgid "Make Admin"
+#. TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
+msgid "Only the group admin may approve users."
 msgstr ""
 
-#. TRANS: Submit button title.
-msgctxt "TOOLTIP"
-msgid "Make this user an admin"
-msgstr ""
+#. TRANS: Title of the first page showing pending group members still awaiting approval to join the group.
+#. TRANS: %s is the name of the group.
+#, fuzzy, php-format
+msgid "%s group members awaiting approval"
+msgstr "%s గుంపు సభ్యత్వాలు"
+
+#. TRANS: Title of all but the first page showing pending group members still awaiting approval to join the group.
+#. TRANS: %1$s is the name of the group, %2$d is the page number of the members list.
+#, fuzzy, php-format
+msgid "%1$s group members awaiting approval, page %2$d"
+msgstr "%1$s గుంపు సభ్యులు, పేజీ %2$d"
+
+#. TRANS: Page notice for group members page.
+#, fuzzy
+msgid "A list of users awaiting approval to join this group."
+msgstr "ఈ గుంపులో వాడుకరులు జాబితా."
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #, php-format
@@ -2514,6 +2585,7 @@ msgstr ""
 
 #. TRANS: Link to create a new group on the group list page.
 #. TRANS: Link text on group page to create a new group.
+#. TRANS: Form legend for group edit form.
 msgid "Create a new group"
 msgstr "కొత్త గుంపుని సృష్టించు"
 
@@ -2538,7 +2610,7 @@ msgstr "ఫలితాలేమీ లేవు."
 
 #. TRANS: Additional text on page where groups can be searched if no results were found for a query for a logged in user.
 #. TRANS: This message contains Markdown links in the form [link text](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "If you cannot find the group you're looking for, you can [create it](%%"
 "action.newgroup%%) yourself."
@@ -2586,9 +2658,9 @@ msgid "IM is not available."
 msgstr "IM అందుబాటులో లేదు."
 
 #. TRANS: Form note in IM settings form. %s is the type of IM address that was confirmed.
-#, fuzzy, php-format
+#, php-format
 msgid "Current confirmed %s address."
-msgstr "ప్రస్తుత నిర్ధారిత ఈమెయిలు చిరునామా."
+msgstr "ప్రస్తుత నిర్ధారిత %s చిరునామా."
 
 #. TRANS: Form note in IM settings form.
 #. TRANS: %s is the IM service name, %2$s is the IM address set.
@@ -2610,7 +2682,6 @@ msgid "%s screenname."
 msgstr ""
 
 #. TRANS: Header for IM preferences form.
-#, fuzzy
 msgid "IM Preferences"
 msgstr "IM అభిరుచులు"
 
@@ -2625,7 +2696,7 @@ msgstr ""
 
 #. TRANS: Checkbox label in IM preferences form.
 msgid "Send me replies from people I'm not subscribed to."
-msgstr ""
+msgstr "నేను చందాచేరని వ్యక్తుల నుండి వచ్చే స్పందనలను కూడా నాకు పంపించు."
 
 #. TRANS: Checkbox label in IM preferences form.
 #, fuzzy
@@ -2882,20 +2953,15 @@ msgctxt "TITLE"
 msgid "%1$s joined group %2$s"
 msgstr "%1$s %2$s గుంపులో చేరారు"
 
-#. TRANS: Client error displayed when trying to leave a group while not logged in.
-msgid "You must be logged in to leave a group."
-msgstr "గుంపుని వదిలివెళ్ళడానికి మీరు ప్రవేశించి ఉండాలి."
+#. TRANS: Exception thrown when there is an unknown error joining a group.
+#, fuzzy
+msgid "Unknown error joining group."
+msgstr "గుర్తుతెలియని గుంపు."
 
 #. TRANS: Client error displayed when trying to join a group while already a member.
 #. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
 msgid "You are not a member of that group."
 msgstr "మీరు ఆ గుంపులో సభ్యులు కాదు."
-
-#. TRANS: Title for leave group page after leaving.
-#, fuzzy, php-format
-msgctxt "TITLE"
-msgid "%1$s left group %2$s"
-msgstr "%2$s గుంపు నుండి %1$s వైదొలిగారు"
 
 #. TRANS: User admin panel title
 msgctxt "TITLE"
@@ -3316,10 +3382,13 @@ msgid "Notice %s not found."
 msgstr "నిర్ధారణ సంకేతం కనబడలేదు."
 
 #. TRANS: Server error displayed in oEmbed action when notice has not profile.
+#. TRANS: Server error displayed trying to show a notice without a connected profile.
 msgid "Notice has no profile."
 msgstr "నోటీసుకి ప్రొఫైలు లేదు."
 
 #. TRANS: oEmbed title. %1$s is the author name, %2$s is the creation date.
+#. TRANS: Title of the page that shows a notice.
+#. TRANS: %1$s is a user name, %2$s is the notice creation date/time.
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%2$sలో %1$s యొక్క స్థితి"
@@ -3750,9 +3819,8 @@ msgid "This action only accepts POST requests."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to enable or disable a plugin without access rights.
-#, fuzzy
 msgid "You cannot administer plugins."
-msgstr "మీరు వాడుకరులని తొలగించలేరు."
+msgstr "మీరు ప్లగిన్లను నిర్వహించలేరు."
 
 #. TRANS: Client error displayed when trying to enable or disable a non-existing plugin.
 #, fuzzy
@@ -3814,18 +3882,21 @@ msgstr "ప్రొఫైలు సమాచారం"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #. TRANS: Field title on account registration page.
+#. TRANS: Field title on group edit form.
 #, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1-64 చిన్నబడి అక్షరాలు లేదా అంకెలు, విరామచిహ్నాలు మరియు ఖాళీలు తప్ప"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
+#. TRANS: Field label on group edit form.
 msgid "Full name"
 msgstr "పూర్తి పేరు"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Form input field label.
+#. TRANS: Field label on group edit form; points to "more info" for a group.
 msgid "Homepage"
 msgstr "హోమ్ పేజీ"
 
@@ -3856,6 +3927,7 @@ msgstr "స్వపరిచయం"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
+#. TRANS: Field label on group edit form.
 msgid "Location"
 msgstr "ప్రాంతం"
 
@@ -3911,6 +3983,7 @@ msgstr[0] "స్వపరిచయం చాలా పెద్దగా ఉం
 msgstr[1] "స్వపరిచయం చాలా పెద్దగా ఉంది (%d అక్షరాలు గరిష్ఠం)."
 
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Client error displayed trying to save site settings without a timezone.
 msgid "Timezone not selected."
 msgstr "కాలమండలాన్ని ఎంచుకోలేదు."
 
@@ -4041,7 +4114,7 @@ msgstr "ట్యాగు మేఘం"
 #. TRANS: %s is the StatusNet sitename.
 #, php-format
 msgid "These are most popular recent tags on %s"
-msgstr ""
+msgstr "%sలో అత్యంత ప్రాచుర్యమైన ట్యాగులు ఇవి"
 
 #. TRANS: This message contains a Markdown URL. The link description is between
 #. TRANS: square brackets, and the link between parentheses. Do not separate "]("
@@ -4418,10 +4491,9 @@ msgid "URL of your profile on another compatible microblogging service."
 msgstr ""
 
 #. TRANS: Button text on page for remote subscribe.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Subscribe"
-msgstr "చందాచేరు"
+msgstr "చందాచేరండి"
 
 #. TRANS: Form validation error on page for remote subscribe when an invalid profile URL was provided.
 msgid "Invalid profile URL (bad format)."
@@ -4452,7 +4524,6 @@ msgid "No notice specified."
 msgstr "గుంపు ఏమీ పేర్కొనలేదు."
 
 #. TRANS: Client error displayed when trying to repeat an own notice.
-#, fuzzy
 msgid "You cannot repeat your own notice."
 msgstr "మీ నోటీసుని మీరే పునరావృతించలేరు."
 
@@ -4619,69 +4690,99 @@ msgstr "వాడుకరికి ఈ పాత్ర లేదు."
 msgid "StatusNet"
 msgstr "స్టేటస్‌నెట్"
 
+#. TRANS: Client error displayed trying to sandbox users on a site where the feature is not enabled.
 msgid "You cannot sandbox users on this site."
 msgstr "ఈ సైటులో మీరు వాడుకరలకి పాత్రలను ఇవ్వలేరు."
 
+#. TRANS: Client error displayed trying to sandbox an already sandboxed user.
 #, fuzzy
 msgid "User is already sandboxed."
 msgstr "వాడుకరిని ఇప్పటికే గుంపునుండి నిరోధించారు."
 
-#. TRANS: Menu item for site administration
+#. TRANS: Title for the sessions administration panel.
 #, fuzzy
+msgctxt "TITLE"
 msgid "Sessions"
 msgstr "సంచిక"
 
+#. TRANS: Instructions for the sessions administration panel.
 msgid "Session settings for this StatusNet site"
 msgstr ""
 
+#. TRANS: Fieldset legend on the sessions administration panel.
+#, fuzzy
+msgctxt "LEGEND"
+msgid "Sessions"
+msgstr "సంచిక"
+
+#. TRANS: Checkbox title on the sessions administration panel.
+#. TRANS: Indicates if StatusNet should handle session administration.
 msgid "Handle sessions"
 msgstr ""
 
+#. TRANS: Checkbox title on the sessions administration panel.
+#. TRANS: Indicates if StatusNet should handle session administration.
 #, fuzzy
-msgid "Whether to handle sessions ourselves."
+msgid "Handle sessions ourselves."
 msgstr "వాడుకరులను కొత్త వారిని ఆహ్వానించడానికి అనుమతించాలా వద్దా."
 
+#. TRANS: Checkbox label on the sessions administration panel.
+#. TRANS: Indicates if StatusNet should write session debugging output.
 msgid "Session debugging"
 msgstr ""
 
-msgid "Turn on debugging output for sessions."
+#. TRANS: Checkbox title on the sessions administration panel.
+msgid "Enable debugging output for sessions."
 msgstr ""
 
-#. TRANS: Submit button title.
-msgid "Save"
-msgstr "భద్రపరచు"
+#. TRANS: Title for submit button on the sessions administration panel.
+#, fuzzy
+msgid "Save session settings"
+msgstr "అందుబాటు అమరికలను భద్రపరచు"
 
-msgid "Save site settings"
-msgstr "సైటు అమరికలను భద్రపరచు"
-
+#. TRANS: Client error displayed trying to display an OAuth application while not logged in.
 msgid "You must be logged in to view an application."
 msgstr "ఉపకరణాలని చూడడానికి మీరు తప్పనిసరిగా ప్రవేశించి ఉండాలి."
 
+#. TRANS: Header on the OAuth application page.
 msgid "Application profile"
 msgstr "ఉపకరణ ప్రవర"
 
-#, php-format
-msgid "Created by %1$s - %2$s access by default - %3$d users"
-msgstr "సృష్టించినది %1$s - అప్రమేయ అందుబాటు %2$s  - %3$d వాడుకరులు"
+#. TRANS: Information output on an OAuth application page.
+#. TRANS: %1$s is the application creator, %2$s is "read-only" or "read-write",
+#. TRANS: %3$d is the number of users using the OAuth application.
+#, fuzzy, php-format
+msgid "Created by %1$s - %2$s access by default - %3$d user"
+msgid_plural "Created by %1$s - %2$s access by default - %3$d users"
+msgstr[0] "సృష్టించినది %1$s - అప్రమేయ అందుబాటు %2$s  - %3$d వాడుకరులు"
+msgstr[1] "సృష్టించినది %1$s - అప్రమేయ అందుబాటు %2$s  - %3$d వాడుకరులు"
 
+#. TRANS: Header on the OAuth application page.
 msgid "Application actions"
 msgstr "ఉపకరణ చర్యలు"
 
+#. TRANS: Link text to edit application on the OAuth application page.
+#, fuzzy
+msgctxt "EDITAPP"
+msgid "Edit"
+msgstr "మార్చు"
+
+#. TRANS: Button text on the OAuth application page.
+#. TRANS: Resets the OAuth consumer key and secret.
 msgid "Reset key & secret"
 msgstr ""
 
-#. TRANS: Title of form for deleting a user.
-msgid "Delete"
-msgstr "తొలగించు"
-
+#. TRANS: Header on the OAuth application page.
 msgid "Application info"
 msgstr "ఉపకరణ సమాచారం"
 
+#. TRANS: Note on the OAuth application page about signature support.
 msgid ""
-"Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
-"signature method."
+"Note: HMAC-SHA1 signatures are supported. The plaintext signature method is "
+"not supported."
 msgstr ""
 
+#. TRANS: Text in confirmation dialog to reset consumer key and secret for an OAuth application.
 #, fuzzy
 msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr "మీరు నిజంగానే ఈ నోటీసుని తొలగించాలనుకుంటున్నారా?"
@@ -4793,6 +4894,7 @@ msgstr "అందరు సభ్యులూ"
 msgid "Statistics"
 msgstr "గణాంకాలు"
 
+#. TRANS: Label for group creation date.
 #, fuzzy
 msgctxt "LABEL"
 msgid "Created"
@@ -4839,7 +4941,9 @@ msgstr ""
 "చాల వాటిలో భాగస్తులవ్వడానికి [ఇప్పుడే చేరండి](%%%%action.register%%%%)! ([మరింత చదవండి](%%%%"
 "doc.help%%%%))"
 
-#. TRANS: Header for list of group administrators on a group page (h2).
+#. TRANS: Title for list of group administrators on a group page.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Admins"
 msgstr "నిర్వాహకులు"
 
@@ -4863,14 +4967,12 @@ msgstr "%2$sలో %1$sకి స్పందనలు!"
 msgid "Message from %1$s on %2$s"
 msgstr "%2$sలో %1$sకి స్పందనలు!"
 
+#. TRANS: Client error displayed trying to show a deleted notice.
 msgid "Notice deleted."
 msgstr "నోటీసుని తొలగించాం."
 
-#, fuzzy
-msgid "Notice"
-msgstr "సందేశాలు"
-
-#. TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
+#. TRANS: Page title showing tagged notices in one user's stream.
+#. TRANS: %1$s is the username, %2$s is the hash tag.
 #, fuzzy, php-format
 msgid "%1$s tagged %2$s"
 msgstr "%1$s, %2$dవ పేజీ"
@@ -4905,6 +5007,8 @@ msgstr "%s కొరకు స్పందనల ఫీడు (RSS 1.0)"
 msgid "Notice feed for %s (RSS 2.0)"
 msgstr "%s కొరకు స్పందనల ఫీడు (RSS 2.0)"
 
+#. TRANS: Title for link to notice feed.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgid "Notice feed for %s (Atom)"
 msgstr "%s కొరకు స్పందనల ఫీడు (ఆటమ్)"
@@ -4968,90 +5072,138 @@ msgstr ""
 msgid "Repeat of %s"
 msgstr "%s యొక్క పునరావృతం"
 
+#. TRANS: Client error displayed trying to silence a user on a site where the feature is not enabled.
 #, fuzzy
 msgid "You cannot silence users on this site."
 msgstr "ఈ సైటులో మీరు వాడుకరలకి పాత్రలను ఇవ్వలేరు."
 
+#. TRANS: Client error displayed trying to silence an already silenced user.
 #, fuzzy
 msgid "User is already silenced."
 msgstr "వాడుకరిని ఇప్పటికే గుంపునుండి నిరోధించారు."
 
+#. TRANS: Title for site administration panel.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Site"
+msgstr "సైటు"
+
+#. TRANS: Instructions for site administration panel.
 msgid "Basic settings for this StatusNet site"
 msgstr "ఈ స్టేటస్&zwnj;నెట్ సైటుకి ప్రాధమిక అమరికలు"
 
+#. TRANS: Client error displayed trying to save an empty site name.
 msgid "Site name must have non-zero length."
 msgstr "సైటు పేరు తప్పనిసరిగా సున్నా కంటే ఎక్కువ పొడవుండాలి."
 
+#. TRANS: Client error displayed trying to save site settings without a contact address.
 msgid "You must have a valid contact email address."
 msgstr "మీకు సరైన సంప్రదింపు ఈమెయిలు చిరునామా ఉండాలి."
 
+#. TRANS: Client error displayed trying to save site settings with an invalid language code.
+#. TRANS: %s is the invalid language code.
 #, php-format
 msgid "Unknown language \"%s\"."
 msgstr "గుర్తు తెలియని భాష \"%s\"."
 
+#. TRANS: Client error displayed trying to save site settings with a text limit below 0.
 msgid "Minimum text limit is 0 (unlimited)."
 msgstr "కనిష్ఠ పాఠ్య పరిమితి 0 (అపరిమితం)."
 
+#. TRANS: Client error displayed trying to save site settings with a text limit below 1.
 msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
+#. TRANS: Fieldset legend on site settings panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "General"
 msgstr "సాధారణ"
 
+#. TRANS: Field label on site settings panel.
+#, fuzzy
+msgctxt "LABEL"
 msgid "Site name"
 msgstr "సైటు పేరు"
 
-msgid "The name of your site, like \"Yourcompany Microblog\""
+#. TRANS: Field title on site settings panel.
+#, fuzzy
+msgid "The name of your site, like \"Yourcompany Microblog\"."
 msgstr "మీ సైటు యొక్క పేరు, ఇలా \"మీకంపెనీ మైక్రోబ్లాగు\""
 
+#. TRANS: Field label on site settings panel.
 msgid "Brought by"
 msgstr "అందిస్తున్నవారు"
 
-msgid "Text used for credits link in footer of each page"
+#. TRANS: Field title on site settings panel.
+msgid "Text used for credits link in footer of each page."
 msgstr ""
 
+#. TRANS: Field label on site settings panel.
 msgid "Brought by URL"
 msgstr "అందిస్తున్నవారి URL"
 
-msgid "URL used for credits link in footer of each page"
+#. TRANS: Field title on site settings panel.
+msgid "URL used for credits link in footer of each page."
 msgstr ""
 
+#. TRANS: Field label on site settings panel.
 msgid "Email"
 msgstr "ఈమెయిల్"
 
-msgid "Contact email address for your site"
+#. TRANS: Field title on site settings panel.
+#, fuzzy
+msgid "Contact email address for your site."
 msgstr "మీ సైటుకి సంప్రదింపుల ఈమెయిల్ చిరునామా"
 
+#. TRANS: Fieldset legend on site settings panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Local"
 msgstr "స్థానిక"
 
+#. TRANS: Dropdown label on site settings panel.
 msgid "Default timezone"
 msgstr "అప్రమేయ కాలమండలం"
 
+#. TRANS: Dropdown title on site settings panel.
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
+#. TRANS: Dropdown label on site settings panel.
 msgid "Default language"
 msgstr "అప్రమేయ భాష"
 
+#. TRANS: Dropdown title on site settings panel.
 msgid "Site language when autodetection from browser settings is not available"
 msgstr "విహారిణి అమరికల నుండి భాషని స్వయంచాలకంగా పొందలేకపోయినప్పుడు ఉపయోగించే సైటు భాష"
 
+#. TRANS: Fieldset legend on site settings panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Limits"
 msgstr "పరిమితులు"
 
+#. TRANS: Field label on site settings panel.
 msgid "Text limit"
 msgstr "పాఠ్యపు పరిమితి"
 
+#. TRANS: Field title on site settings panel.
 msgid "Maximum number of characters for notices."
 msgstr "సందేశాలలోని అక్షరాల గరిష్ఠ సంఖ్య."
 
+#. TRANS: Field label on site settings panel.
 #, fuzzy
 msgid "Dupe limit"
 msgstr "పాఠ్యపు పరిమితి"
 
+#. TRANS: Field title on site settings panel.
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr "అదే విషయాన్ని మళ్ళీ టపా చేయడానికి వాడుకరులు ఎంత సమయం (క్షణాల్లో) వేచివుండాలి."
+
+#. TRANS: Button title for saving site settings.
+msgid "Save site settings"
+msgstr "సైటు అమరికలను భద్రపరచు"
 
 #. TRANS: Page title for site-wide notice tab in admin panel.
 msgid "Site Notice"
@@ -5146,9 +5298,8 @@ msgid ""
 msgstr ""
 
 #. TRANS: Confirmation message for successful SMS preferences save.
-#, fuzzy
 msgid "SMS preferences saved."
-msgstr "అభిరుచులు భద్రమయ్యాయి."
+msgstr "SMS అభిరుచులు భద్రమయ్యాయి."
 
 #. TRANS: Message given saving SMS phone number without having provided one.
 msgid "No phone number."
@@ -5258,6 +5409,10 @@ msgstr ""
 
 msgid "Snapshots will be sent to this URL"
 msgstr ""
+
+#. TRANS: Submit button title.
+msgid "Save"
+msgstr "భద్రపరచు"
 
 #, fuzzy
 msgid "Save snapshot settings"
@@ -5593,6 +5748,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: Button text on Authorise Subscription page.
+#. TRANS: Submit button text to accept a group membership request on approve group form.
 msgctxt "BUTTON"
 msgid "Accept"
 msgstr "అంగీకరించు"
@@ -5602,6 +5758,7 @@ msgid "Subscribe to this user."
 msgstr "ఈ వాడుకరికి చందాచేరండి."
 
 #. TRANS: Button text on Authorise Subscription page.
+#. TRANS: Submit button text to reject a group membership request on approve group form.
 msgctxt "BUTTON"
 msgid "Reject"
 msgstr "తిరస్కరించు"
@@ -6007,6 +6164,10 @@ msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
 
+#. TRANS: Exception thrown trying to approve a non-existing group join request.
+msgid "Invalid group join approval: not pending."
+msgstr ""
+
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #, php-format
@@ -6357,6 +6518,9 @@ msgstr "మీ రూపురేఖల అమరికలని భద్రప
 msgid "Home"
 msgstr "ముంగిలి"
 
+msgid "Admin"
+msgstr "నిర్వాహకులు"
+
 #. TRANS: Menu item title/tooltip
 msgid "Basic site configuration"
 msgstr "ప్రాథమిక సైటు స్వరూపణం"
@@ -6396,6 +6560,11 @@ msgstr "వాడుకరి స్వరూపణం"
 #, fuzzy
 msgid "Sessions configuration"
 msgstr "రూపకల్పన స్వరూపణం"
+
+#. TRANS: Menu item for site administration
+#, fuzzy
+msgid "Sessions"
+msgstr "సంచిక"
 
 #. TRANS: Menu item title/tooltip
 msgid "Edit site notice"
@@ -6503,6 +6672,7 @@ msgid "Describe your application"
 msgstr "మీ ఉపకరణాన్ని వివరించండి"
 
 #. TRANS: Form input field label.
+#. TRANS: Text area label on group edit form; contains description of group.
 msgid "Description"
 msgstr "వివరణ"
 
@@ -6619,6 +6789,10 @@ msgstr "నిరోధించు"
 msgid "Block this user"
 msgstr "ఈ వాడుకరిని నిరోధించు"
 
+#. TRANS: Submit button text on form to cancel group join request.
+msgid "BUTTON"
+msgstr ""
+
 #. TRANS: Title for command results.
 msgid "Command results"
 msgstr "ఆదేశ ఫలితాలు"
@@ -6721,14 +6895,14 @@ msgid "Fullname: %s"
 msgstr "పూర్తిపేరు: %s"
 
 #. TRANS: Whois output. %s is the location of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail.
+#. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is a location.
 #, php-format
 msgid "Location: %s"
 msgstr "ప్రాంతం: %s"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail.
+#. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is a homepage.
 #, php-format
 msgid "Homepage: %s"
@@ -6917,13 +7091,12 @@ msgstr "మీ నోటీసుని మీరే పునరావృతి
 #. TRANS: Help message for IM/SMS command "help"
 msgctxt "COMMANDHELP"
 msgid "show this help"
-msgstr ""
+msgstr "ఈ సహాయాన్ని చూపిస్తుంది"
 
 #. TRANS: Help message for IM/SMS command "follow <nickname>"
-#, fuzzy
 msgctxt "COMMANDHELP"
 msgid "subscribe to user"
-msgstr "ఈ వాడుకరికి చందాచేరు"
+msgstr "వాడుకరికి చందాచేరండి"
 
 #. TRANS: Help message for IM/SMS command "groups"
 msgctxt "COMMANDHELP"
@@ -7020,7 +7193,7 @@ msgstr "గుంపు తొలగింపు"
 #. TRANS: Help message for IM/SMS command "stats"
 msgctxt "COMMANDHELP"
 msgid "get your stats"
-msgstr ""
+msgstr "మీ గణాంకాలను చూపిస్తుంది"
 
 #. TRANS: Help message for IM/SMS command "stop"
 #. TRANS: Help message for IM/SMS command "quit"
@@ -7088,6 +7261,10 @@ msgstr ""
 
 msgid "Public"
 msgstr "ప్రజా"
+
+#. TRANS: Title of form for deleting a user.
+msgid "Delete"
+msgstr "తొలగించు"
 
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
@@ -7221,30 +7398,46 @@ msgstr "వెళ్ళు"
 msgid "Grant this user the \"%s\" role"
 msgstr ""
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr "1-64 చిన్నబడి అక్షరాలు లేదా అంకెలు, విరామచిహ్నాలు మరియు ఖాళీలు తప్ప"
+#. TRANS: Button text for the form that will block a user from a group.
+msgctxt "BUTTON"
+msgid "Block"
+msgstr "నిరోధించు"
 
+#. TRANS: Submit button title.
+msgctxt "TOOLTIP"
+msgid "Block this user"
+msgstr "ఈ వాడుకరిని నిరోధించు"
+
+#. TRANS: Field title on group edit form.
 #, fuzzy
 msgid "URL of the homepage or blog of the group or topic."
 msgstr "ఈ ఉపకరణం యొక్క హోమ్&zwnj;పేజీ చిరునామా"
 
-msgid "Describe the group or topic"
+#. TRANS: Text area title for group description when there is no text limit.
+#, fuzzy
+msgid "Describe the group or topic."
 msgstr "గుంపుని లేదా విషయాన్ని వివరించండి"
 
+#. TRANS: Text area title for group description.
+#. TRANS: %d is the number of characters available for the description.
 #, fuzzy, php-format
-msgid "Describe the group or topic in %d character or less"
-msgid_plural "Describe the group or topic in %d characters or less"
+msgid "Describe the group or topic in %d character or less."
+msgid_plural "Describe the group or topic in %d characters or less."
 msgstr[0] "గుంపు లేదా విషయాన్ని గురించి %d అక్షరాల్లో వివరించండి"
 msgstr[1] "గుంపు లేదా విషయాన్ని గురించి %d అక్షరాల్లో వివరించండి"
 
+#. TRANS: Field title on group edit form.
 #, fuzzy
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\"."
 msgstr "గుంపు యొక్క ప్రాంతం, ఉంటే, \"నగరం, రాష్ట్రం (లేదా ప్రాంతం), దేశం\""
 
+#. TRANS: Field label on group edit form.
 msgid "Aliases"
 msgstr "మారుపేర్లు"
 
+#. TRANS: Input field title for group aliases.
+#. TRANS: %d is the maximum number of group aliases available.
 #, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
@@ -7254,6 +7447,27 @@ msgid_plural ""
 "aliases allowed."
 msgstr[0] ""
 msgstr[1] ""
+
+#. TRANS: Dropdown fieldd label on group edit form.
+#, fuzzy
+msgid "Membership policy"
+msgstr "సభ్యులైన తేదీ"
+
+msgid "Open to all"
+msgstr ""
+
+msgid "Admin must approve all members"
+msgstr ""
+
+#. TRANS: Dropdown field title on group edit form.
+msgid "Whether admin approval is required to join this group."
+msgstr ""
+
+#. TRANS: Indicator in group members list that this user is a group administrator.
+#, fuzzy
+msgctxt "GROUPADMIN"
+msgid "Admin"
+msgstr "నిర్వాహకులు"
 
 #. TRANS: Menu item in the group navigation page.
 msgctxt "MENU"
@@ -7280,6 +7494,22 @@ msgid "%s group members"
 msgstr "%s సమూహ సభ్యులు"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %d is the number of pending members.
+#, php-format
+msgctxt "MENU"
+msgid "Pending members (%d)"
+msgid_plural "Pending members (%d)"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#, fuzzy, php-format
+msgctxt "TOOLTIP"
+msgid "%s pending members"
+msgstr "%s గుంపు సభ్యులు"
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 msgctxt "MENU"
 msgid "Blocked"
 msgstr ""
@@ -7301,7 +7531,7 @@ msgstr "నిర్వాహకులు"
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "%s గుంపు లక్షణాలను మార్చండి"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 msgctxt "MENU"
@@ -7437,7 +7667,7 @@ msgstr "ఈమెయిల్ చిరునామా నిర్ధారణ"
 #. TRANS: Body for address confirmation email.
 #. TRANS: %1$s is the addressed user's nickname, %2$s is the StatusNet sitename,
 #. TRANS: %3$s is the URL to confirm at.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hey, %1$s.\n"
 "\n"
@@ -7452,50 +7682,37 @@ msgid ""
 "Thanks for your time, \n"
 "%2$s\n"
 msgstr ""
-"హోయి, %s.\n"
+"హాయ్, %1$s.\n"
 "\n"
-"%sలో ఎవరో మీ ఈమెయిలు చిరునామాని ఇచ్చారు.\n"
+"%2$sలో ఎవరో మీ ఈమెయిలు చిరునామాను ఇచ్చారు.\n"
 "\n"
-"అది మీరే అయితే, మరియు మీ పద్దుని మీరు నిర్ధారించాలనుకుంటే, క్రింది చిరునామాపై నొక్కండి:\n"
+"అది మీరే అయితే, మరియు మీ పద్దుని మీరు నిర్ధారించాలనుకుంటే, క్రింది లంకెపై నొక్కండి:\n"
 "\n"
-"%s\n"
+"%3$s\n"
 "\n"
 "మీరు కాకపోతే, ఈ సందేశాన్ని పట్టించుకోకండి.\n"
 "\n"
 "మీ సమయానికి కృతజ్ఞతలు, \n"
-"%s\n"
+"%2$s\n"
 
 #. TRANS: Subject of new-subscriber notification e-mail.
 #. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
+#. TRANS: Main body of new-subscriber notification e-mail.
+#. TRANS: %1$s is the subscriber's long name, %2$s is the StatusNet sitename.
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s ఇప్పుడు %2$sలో మీ నోటీసులని వింటున్నారు."
 
-#. TRANS: This is a paragraph in a new-subscriber e-mail.
-#. TRANS: %s is a URL where the subscriber can be reported as abusive.
-#, php-format
-msgid ""
-"If you believe this account is being used abusively, you can block them from "
-"your subscribers list and report as spam to site administrators at %s"
-msgstr ""
-
-#. TRANS: Main body of new-subscriber notification e-mail.
-#. TRANS: %1$s is the subscriber's long name, %2$s is the StatusNet sitename,
-#. TRANS: %3$s is the subscriber's profile URL, %4$s is the subscriber's location (or empty)
-#. TRANS: %5$s is the subscriber's homepage URL (or empty), %6%s is the subscriber's bio (or empty)
-#. TRANS: %7$s is a link to the addressed user's e-mail settings.
+#. TRANS: Common footer block for StatusNet notification emails.
+#. TRANS: %1$s is the StatusNet sitename,
+#. TRANS: %2$s is a link to the addressed user's e-mail settings.
 #, fuzzy, php-format
 msgid ""
-"%1$s is now listening to your notices on %2$s.\n"
-"\n"
-"\t%3$s\n"
-"\n"
-"%4$s%5$s%6$s\n"
 "Faithfully yours,\n"
-"%2$s.\n"
+"%1$s.\n"
 "\n"
 "----\n"
-"Change your email address or notification options at %7$s\n"
+"Change your email address or notification options at %2$s"
 msgstr ""
 "%1$s ఇప్పుడు %2$sలో మీ నోటీసులని వింటున్నారు.\n"
 "\n"
@@ -7508,11 +7725,25 @@ msgstr ""
 "----\n"
 "మీ ఈమెయిలు చిరునామాని లేదా గమనింపుల ఎంపికలను %8$s వద్ద మార్చుకోండి\n"
 
-#. TRANS: Profile info line in new-subscriber notification e-mail.
+#. TRANS: Profile info line in notification e-mail.
+#. TRANS: %s is a URL.
+#, fuzzy, php-format
+msgid "Profile: %s"
+msgstr "ప్రొఫైలు"
+
+#. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is biographical information.
 #, php-format
 msgid "Bio: %s"
 msgstr "స్వపరిచయం: %s"
+
+#. TRANS: This is a paragraph in a new-subscriber e-mail.
+#. TRANS: %s is a URL where the subscriber can be reported as abusive.
+#, php-format
+msgid ""
+"If you believe this account is being used abusively, you can block them from "
+"your subscribers list and report as spam to site administrators at %s."
+msgstr ""
 
 #. TRANS: Subject of notification mail for new posting email address.
 #. TRANS: %s is the StatusNet sitename.
@@ -7529,10 +7760,7 @@ msgid ""
 "\n"
 "Send email to %2$s to post new messages.\n"
 "\n"
-"More email instructions at %3$s.\n"
-"\n"
-"Faithfully yours,\n"
-"%1$s"
+"More email instructions at %3$s."
 msgstr ""
 
 #. TRANS: Subject line for SMS-by-email notification messages.
@@ -7559,8 +7787,8 @@ msgstr "చందాచేరడం నుండి మిమ్మల్ని 
 
 #. TRANS: Body for 'nudge' notification email.
 #. TRANS: %1$s is the nuding user's long name, $2$s is the nudging user's nickname,
-#. TRANS: %3$s is a URL to post notices at, %4$s is the StatusNet sitename.
-#, php-format
+#. TRANS: %3$s is a URL to post notices at.
+#, fuzzy, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
 "to post some news.\n"
@@ -7569,10 +7797,7 @@ msgid ""
 "\n"
 "%3$s\n"
 "\n"
-"Don't reply to this email; it won't get to them.\n"
-"\n"
-"With kind regards,\n"
-"%4$s\n"
+"Don't reply to this email; it won't get to them."
 msgstr ""
 "%1$s (%2$s) మీరేం చేస్తున్నారో అని విస్మయం చెందుతున్నారు మరియు ఏవైనా విశేషాలని వ్రాయమని మిమ్మల్ని "
 "ఆహ్వానిస్తున్నారు.\n"
@@ -7595,8 +7820,7 @@ msgstr "%s నుండి కొత్త అంతరంగిక సందే
 #. TRANS: Body for direct-message notification email.
 #. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
 #. TRANS: %3$s is the message content, %4$s a URL to the message,
-#. TRANS: %5$s is the StatusNet sitename.
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
 "\n"
@@ -7608,10 +7832,7 @@ msgid ""
 "\n"
 "%4$s\n"
 "\n"
-"Don't reply to this email; it won't get to them.\n"
-"\n"
-"With kind regards,\n"
-"%5$s\n"
+"Don't reply to this email; it won't get to them."
 msgstr ""
 "%1$s (%2$s) మీకు ఒక అంతరంగిక సందేశాన్ని పంపించారు:\n"
 "\n"
@@ -7639,7 +7860,7 @@ msgstr "%1$s (@%2$s) మీ నోటీసుని ఇష్టపడ్డా
 #. TRANS: %3$s is a URL to the faved notice, %4$s is the faved notice text,
 #. TRANS: %5$s is a URL to all faves of the adding user, %6$s is the StatusNet sitename,
 #. TRANS: %7$s is the adding user's nickname.
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
 "\n"
@@ -7653,10 +7874,7 @@ msgid ""
 "\n"
 "You can see the list of %1$s's favorites here:\n"
 "\n"
-"%5$s\n"
-"\n"
-"Faithfully yours,\n"
-"%6$s\n"
+"%5$s"
 msgstr ""
 "%2$s లోని మీ నోటీసుని %1$s (@%7$s) తన ఇష్టాంశాలలో ఇప్పుడే చేర్చుకున్నారు.\n"
 "\n"
@@ -7693,14 +7911,13 @@ msgid "%1$s (@%2$s) sent a notice to your attention"
 msgstr "%1$s (@%2$s) మీ దృష్టికి ఒక నోటిసుని పంపించారు"
 
 #. TRANS: Body of @-reply notification e-mail.
-#. TRANS: %1$s is the sending user's long name, $2$s is the StatusNet sitename,
+#. TRANS: %1$s is the sending user's name, $2$s is the StatusNet sitename,
 #. TRANS: %3$s is a URL to the notice, %4$s is the notice text,
 #. TRANS: %5$s is a URL to the full conversion if it exists (otherwise empty),
-#. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replied for the addressed user,
-#. TRANS: %8$s is a URL to the addressed user's e-mail settings, %9$s is the sender's nickname.
-#, php-format
+#. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replies for the addressed user,
+#, fuzzy, php-format
 msgid ""
-"%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
+"%1$s just sent a notice to your attention (an '@-reply') on %2$s.\n"
 "\n"
 "The notice is here:\n"
 "\n"
@@ -7716,12 +7933,7 @@ msgid ""
 "\n"
 "The list of all @-replies for you here:\n"
 "\n"
-"%7$s\n"
-"\n"
-"Faithfully yours,\n"
-"%2$s\n"
-"\n"
-"P.S. You can turn off these email notifications here: %8$s\n"
+"%7$s"
 msgstr ""
 "%2$sలో %1$s (@%9$s) ఒక నోటీసుని మీ దృష్టికి ('@-స్పందన') పంపించారు.\n"
 "\n"
@@ -7745,6 +7957,31 @@ msgstr ""
 "%2$s\n"
 "\n"
 "తా.క. ఈ ఈమెయిలు గమనింపులని మీరు ఇక్కడ నిలిపివేసుకోవచ్చు: %8$s\n"
+
+#. TRANS: Subject of group join notification e-mail.
+#. TRANS: %1$s is the joining user's nickname, %2$s is the group name, and %3$s is the StatusNet sitename.
+#. TRANS: Main body of group join notification e-mail.
+#. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
+#. TRANS: %4$s is a block of profile info about the subscriber.
+#. TRANS: %5$s is a link to the addressed user's e-mail settings.
+#, fuzzy, php-format
+msgid "%1$s has joined your group %2$s on %3$s."
+msgstr "%1$s %2$s గుంపులో చేరారు."
+
+#. TRANS: Subject of pending group join request notification e-mail.
+#. TRANS: %1$s is the joining user's nickname, %2$s is the group name, and %3$s is the StatusNet sitename.
+#, fuzzy, php-format
+msgid "%1$s wants to join your group %2$s on %3$s."
+msgstr "%1$s %2$s గుంపులో చేరారు."
+
+#. TRANS: Main body of pending group join request notification e-mail.
+#. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
+#. TRANS: %3$s is the URL to the moderation queue page.
+#, php-format
+msgid ""
+"%1$s would like to join your group %2$s on %3$s. You may approve or reject "
+"their group membership at %4$s"
+msgstr ""
 
 msgid "Only the user can read their own mailboxes."
 msgstr "ఎవరి తపాలాపెట్టెలను ఆ వాడుకరి మాత్రమే చదవలగరు."
@@ -7785,6 +8022,20 @@ msgstr "క్షమించండి, అది మీ లోనికివ�
 #, fuzzy, php-format
 msgid "Unsupported message type: %s"
 msgstr "%s కి నేరు సందేశాలు"
+
+#. TRANS: Form legend for form to make a user a group admin.
+msgid "Make user an admin of the group"
+msgstr "వాడుకరిని గుంపుకి ఒక నిర్వాహకునిగా చేయి"
+
+#. TRANS: Button text for the form that will make a user administrator.
+msgctxt "BUTTON"
+msgid "Make Admin"
+msgstr ""
+
+#. TRANS: Submit button title.
+msgctxt "TOOLTIP"
+msgid "Make this user an admin"
+msgstr ""
 
 #. TRANS: Client exception thrown when a database error was thrown during a file upload operation.
 msgid "There was a database error while saving your file. Please try again."
@@ -7828,9 +8079,8 @@ msgid "Select recipient:"
 msgstr ""
 
 #. TRANS Entry in drop-down selection box in direct-message inbox/outbox when no one is available to message.
-#, fuzzy
 msgid "No mutual subscribers."
-msgstr "చందాదార్లు"
+msgstr "పరస్పర చందాదార్లు ఎవరూలేరు."
 
 msgid "To"
 msgstr ""
@@ -8321,18 +8571,18 @@ msgstr[1] "మరింత చూపించు"
 #. TRANS: Reference to the logged in user in favourite list.
 msgctxt "FAVELIST"
 msgid "You"
-msgstr ""
+msgstr "మీరు"
 
 #. TRANS: Separator in list of user names like "You, Bob, Mary".
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #. TRANS: For building a list such as "You, bob, mary and 5 others have favored this notice".
 #. TRANS: %1$s is a list of users, separated by a separator (default: ", "), %2$s is the last user in the list.
-#, fuzzy, php-format
+#, php-format
 msgctxt "FAVELIST"
 msgid "%1$s and %2$s"
-msgstr "%1$s - %2$s"
+msgstr "%1$s మరియు %2$s"
 
 #. TRANS: List message for notice favoured by logged in user.
 #, fuzzy
@@ -8348,10 +8598,9 @@ msgstr[0] "ఈ నోటీసుని తొలగించు"
 msgstr[1] "ఈ నోటీసుని తొలగించు"
 
 #. TRANS: List message for notice repeated by logged in user.
-#, fuzzy
 msgctxt "REPEATLIST"
 msgid "You have repeated this notice."
-msgstr "మీరు ఇప్పటికే ఆ నోటీసుని పునరావృతించారు."
+msgstr "మీరు ఈ నోటీసును పునరావృతించారు."
 
 #, fuzzy, php-format
 msgctxt "REPEATLIST"
@@ -8479,9 +8728,9 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Couldn't update user."
-#~ msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
-
 #, fuzzy
-#~ msgid "Couldn't update user im prefs."
-#~ msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
+#~ msgid "Notice"
+#~ msgstr "సందేశాలు"
+
+#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#~ msgstr "1-64 చిన్నబడి అక్షరాలు లేదా అంకెలు, విరామచిహ్నాలు మరియు ఖాళీలు తప్ప"
