@@ -1,4 +1,5 @@
 <?php
+// @todo FIXME: add documentation.
 
 class GroupMemberListItem extends ProfileListItem
 {
@@ -17,7 +18,7 @@ class GroupMemberListItem extends ProfileListItem
         if ($this->profile->isAdmin($this->group)) {
             $this->out->text(' '); // for separating the classes.
             // TRANS: Indicator in group members list that this user is a group administrator.
-            $this->out->element('span', 'role', _('Admin'));
+            $this->out->element('span', 'role', _m('GROUPADMIN','Admin'));
         }
     }
 
@@ -102,4 +103,3 @@ class GroupMemberListItem extends ProfileListItem
         return $args;
     }
 }
-

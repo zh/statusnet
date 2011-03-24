@@ -154,7 +154,8 @@ class JoingroupAction extends Action
                 $form = new CancelGroupForm($this, $this->group);
             } else {
                 // wtf?
-                throw new Exception(_m("Unknown error joining group."));
+                // TRANS: Exception thrown when there is an unknown error joining a group.
+                throw new Exception(_("Unknown error joining group."));
             }
             $form->show();
             $this->elementEnd('body');

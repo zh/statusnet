@@ -98,6 +98,7 @@ class ApprovegroupAction extends Action
 
         $cur = common_current_user();
         if (empty($cur)) {
+            // TRANS: Client error displayed trying to approve group membership while not logged in.
             $this->clientError(_('Must be logged in.'), 403);
             return false;
         }
@@ -105,10 +106,12 @@ class ApprovegroupAction extends Action
             if ($cur->isAdmin($this->group)) {
                 $this->profile = Profile::staticGet('id', $this->arg('profile_id'));
             } else {
+                // TRANS: Client error displayed trying to approve group membership while not a group administrator.
                 $this->clientError(_('Only group admin can approve or cancel join requests.'), 403);
                 return false;
             }
         } else {
+            // TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
             $this->clientError(_('Must specify a profile.'));
             return false;
         }
@@ -117,15 +120,18 @@ class ApprovegroupAction extends Action
                                                          'group_id' => $this->group->id));
 
         if (empty($this->request)) {
+            // TRANS: Client error displayed trying to approve group membership for a non-existing request.
             $this->clientError(sprintf(_('%s is not in the moderation queue for this group.'), $this->profile->nickname), 403);
         }
 
         $this->approve = (bool)$this->arg('approve');
         $this->cancel = (bool)$this->arg('cancel');
         if (!$this->approve && !$this->cancel) {
+            // TRANS: Client error displayed trying to approve/deny group membership.
             $this->clientError(_('Internal error: received neither cancel nor abort.'));
         }
         if ($this->approve && $this->cancel) {
+            // TRANS: Client error displayed trying to approve/deny group membership.
             $this->clientError(_('Internal error: received both cancel and abort.'));
         }
         return true;

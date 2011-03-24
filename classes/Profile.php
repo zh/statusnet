@@ -403,7 +403,8 @@ class Profile extends Memcached_DataObject
                 Event::handle('EndJoinGroup', array($group, $this));
             }
         } else {
-            throw new Exception(_m('Invalid group join approval: not pending.'));
+            // TRANS: Exception thrown trying to approve a non-existing group join request.
+            throw new Exception(_('Invalid group join approval: not pending.'));
         }
         if ($join) {
             $join->notify();
@@ -414,7 +415,7 @@ class Profile extends Memcached_DataObject
     /**
      * Leave a group that this profile is a member of.
      *
-     * @param User_group $group 
+     * @param User_group $group
      */
     function leaveGroup(User_group $group)
     {

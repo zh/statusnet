@@ -277,7 +277,7 @@ function mail_footer_block()
  * Format a block of profile info for a plaintext notification email.
  *
  * @param Profile $profile
- * @return string 
+ * @return string
  */
 function mail_profile_block($profile)
 {
@@ -313,9 +313,9 @@ function mail_profile_block($profile)
 
     // TRANS: This is a paragraph in a new-subscriber e-mail.
     // TRANS: %s is a URL where the subscriber can be reported as abusive.
-    $out[] = sprintf(_("If you believe this account is being used abusively, " .
-                       "you can block them from your subscribers list and " .
-                       "report as spam to site administrators at %s"),
+    $out[] = sprintf(_('If you believe this account is being used abusively, ' .
+                       'you can block them from your subscribers list and ' .
+                       'report as spam to site administrators at %s.'),
                      $blocklink);
     $out[] = "";
 
@@ -498,7 +498,7 @@ function mail_confirm_sms($code, $nickname, $address)
 
     // TRANS: Main body heading for SMS-by-email address confirmation message.
     // TRANS: %s is the addressed user's nickname.
-    $body  = sprintf(_("%s: confirm you own this phone number with this code:"), $nickname);
+    $body  = sprintf(_('%s: confirm you own this phone number with this code:'), $nickname);
     $body .= "\n\n";
     $body .= $code;
     $body .= "\n\n";

@@ -46,7 +46,6 @@ require_once INSTALLDIR.'/lib/form.php';
  *
  * @see      UnsubscribeForm
  */
-
 class CancelGroupForm extends Form
 {
     /**
@@ -62,7 +61,6 @@ class CancelGroupForm extends Form
      * @param HTMLOutputter $out   output channel
      * @param group         $group group to leave
      */
-
     function __construct($out=null, $group=null, $profile=null)
     {
         parent::__construct($out);
@@ -76,7 +74,6 @@ class CancelGroupForm extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
         return 'group-cancel-' . $this->group->id;
@@ -87,7 +84,6 @@ class CancelGroupForm extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
         return 'form_group_leave ajax';
@@ -98,7 +94,6 @@ class CancelGroupForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         $params = array();
@@ -114,9 +109,9 @@ class CancelGroupForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
-        $this->out->submit('submit', _('Cancel join request'));
+        // TRANS: Submit button text on form to cancel group join request.
+        $this->out->submit('submit', _('BUTTON','Cancel join request'));
     }
 }

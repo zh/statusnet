@@ -1,4 +1,5 @@
 <?php
+// @todo FIXME: add documentation.
 
 class GroupMemberList extends ProfileList
 {

@@ -1,5 +1,5 @@
 <?php
-
+// @todo FIXME: standard file header missing.
 /**
  * Form for blocking a user from a group
  *
