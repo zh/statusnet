@@ -68,6 +68,9 @@ class User extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    /**
+     * @return Profile
+     */
     function getProfile()
     {
         $profile = Profile::staticGet('id', $this->id);
@@ -445,8 +448,7 @@ class User extends Memcached_DataObject
 
     function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        $ids = Reply::stream($this->id, $offset, $limit, $since_id, $before_id);
-        return Notice::getStreamByIds($ids);
+        return Reply::stream($this->id, $offset, $limit, $since_id, $before_id);
     }
 
     function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
@@ -462,8 +464,7 @@ class User extends Memcached_DataObject
 
     function favoriteNotices($own=false, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Fave::stream($this->id, $offset, $limit, $own, $since_id, $max_id);
-        return Notice::getStreamByIds($ids);
+        return Fave::stream($this->id, $offset, $limit, $own, $since_id, $max_id);
     }
 
     function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
@@ -594,6 +595,30 @@ class User extends Memcached_DataObject
     {
         $profile = $this->getProfile();
         return $profile->getGroups($offset, $limit);
+    }
+
+    /**
+     * Request to join the given group.
+     * May throw exceptions on failure.
+     *
+     * @param User_group $group
+     * @return Group_member
+     */
+    function joinGroup(User_group $group)
+    {
+        $profile = $this->getProfile();
+        return $profile->joinGroup($group);
+    }
+
+    /**
+     * Leave a group that this user is a member of.
+     *
+     * @param User_group $group
+     */
+    function leaveGroup(User_group $group)
+    {
+        $profile = $this->getProfile();
+        return $profile->leaveGroup($group);
     }
 
     function getSubscriptions($offset=0, $limit=null)
@@ -742,12 +767,11 @@ class User extends Memcached_DataObject
 
     function repeatedByMe($offset=0, $limit=20, $since_id=null, $max_id=null)
     {
-        $ids = Notice::stream(array($this, '_repeatedByMeDirect'),
-                              array(),
-                              'user:repeated_by_me:'.$this->id,
-                              $offset, $limit, $since_id, $max_id, null);
+        $stream = new NoticeStream(array($this, '_repeatedByMeDirect'),
+                                   array(),
+                                   'user:repeated_by_me:'.$this->id);
 
-        return Notice::getStreamByIds($ids);
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function _repeatedByMeDirect($offset, $limit, $since_id, $max_id)
@@ -785,12 +809,11 @@ class User extends Memcached_DataObject
 
     function repeatsOfMe($offset=0, $limit=20, $since_id=null, $max_id=null)
     {
-        $ids = Notice::stream(array($this, '_repeatsOfMeDirect'),
-                              array(),
-                              'user:repeats_of_me:'.$this->id,
-                              $offset, $limit, $since_id, $max_id);
+        $stream = new NoticeStream(array($this, '_repeatsOfMeDirect'),
+                                   array(),
+                                   'user:repeats_of_me:'.$this->id);
 
-        return Notice::getStreamByIds($ids);
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function _repeatsOfMeDirect($offset, $limit, $since_id, $max_id)

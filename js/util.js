@@ -1464,6 +1464,18 @@ var SN = { // StatusNet
                 SN.U.FormXHR($(this));
                 return false;
             });
+            $('form.ajax input[type=submit]').live('click', function() {
+                // Some forms rely on knowing which submit button was clicked.
+                // Save a hidden input field which'll be picked up during AJAX
+                // submit...
+                var button = $(this);
+                var form = button.closest('form');
+                form.find('.hidden-submit-button').remove();
+                $('<input class="hidden-submit-button" type="hidden" />')
+                    .attr('name', button.attr('name'))
+                    .val(button.val())
+                    .appendTo(form);
+            });
         },
 
         /**

@@ -156,7 +156,7 @@ class PasswordsettingsAction extends SettingsAction
         $newpassword = $this->arg('newpassword');
         $confirm     = $this->arg('confirm');
 
-        # Some validation
+        // Some validation
 
         if (strlen($newpassword) < 6) {
             // TRANS: Form validation error on page where to change password.

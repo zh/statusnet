@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 19:45+0000\n"
-"PO-Revision-Date: 2011-03-18 19:47:55+0000\n"
+"POT-Creation-Date: 2011-03-24 11:10+0000\n"
+"PO-Revision-Date: 2011-03-24 11:12:45+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r84232); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84667); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2011-03-17 13:01:02+0000\n"
+"X-POT-Import-Date: 2011-03-18 20:10:59+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -73,6 +73,8 @@ msgstr "Зачувај нагодувања на пристап"
 #. TRANS: Button text in the license admin panel.
 #. TRANS: Button text to store form data in the Paths admin panel.
 #. TRANS: Button to save input in profile settings.
+#. TRANS: Submit button text on the sessions administration panel.
+#. TRANS: Button text for saving site settings.
 #. TRANS: Button text for saving site notice in admin panel.
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
@@ -80,6 +82,7 @@ msgstr "Зачувај нагодувања на пристап"
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
 #. TRANS: Button text on profile design page to save settings.
+#. TRANS: Text for save button on group edit form.
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Зачувај"
@@ -752,6 +755,7 @@ msgstr "Сметка"
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Label for nickname on user authorisation page.
+#. TRANS: Field label on group edit form.
 msgid "Nickname"
 msgstr "Прекар"
 
@@ -831,6 +835,7 @@ msgstr "Не можете да избришете статус на друг к�
 #. TRANS: Client error displayed trying to display redents of a non-exiting notice.
 #. TRANS: Client exception thrown when referencing a non-existing notice.
 #. TRANS: Error message displayed trying to delete a non-existing notice.
+#. TRANS: Client error displayed trying to show a non-existing notice.
 msgid "No such notice."
 msgstr "Нема таква забелешка."
 
@@ -1040,6 +1045,103 @@ msgstr "API-методот е во изработка."
 msgid "User not found."
 msgstr "Корисникот не е пронајден."
 
+#. TRANS: Client error displayed when trying to leave a group while not logged in.
+msgid "You must be logged in to leave a group."
+msgstr "Мора да сте најавени за да можете да ја напуштите групата."
+
+#. TRANS: Client error displayed when trying to leave a non-local group.
+#. TRANS: Client error displayed when trying to leave a non-existing group.
+#. TRANS: Client exception thrown when referencing a non-existing group.
+#. TRANS: Client error displayed when requesting a list of blocked users for a non-local group.
+#. TRANS: Client error displayed when requesting a list of blocked users for a non-existing group.
+#. TRANS: Client error displayed when trying to leave a non-local group.
+#. TRANS: Client error displayed when trying to leave a non-existing group.
+#. TRANS: Client error when trying to delete a non-local group.
+#. TRANS: Client error when trying to delete a non-existing group.
+#. TRANS: Client error displayed trying to edit a non-existing group.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed without providing a group nickname.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed for a non-local group.
+#. TRANS: Client error displayed when requesting Friends of a Friend feed for a nickname that is not a group.
+#. TRANS: Client error displayed trying to block a user from a group while specifying a non-existing group.
+#. TRANS: Client error displayed referring to a group's permalink for a non-existing group ID.
+#. TRANS: Client error displayed trying to change group design settings while providing a nickname for a non-existing group.
+#. TRANS: Client error displayed when trying to update logo settings for a non-existing group.
+#. TRANS: Client error displayed when trying to view group members for a non-existing group.
+#. TRANS: Client error displayed when trying to view group members for an object that is not a group.
+#. TRANS: Client error displayed when trying to view group members for a non-existing group.
+#. TRANS: Client error displayed when trying to view group members for an object that is not a group.
+#. TRANS: Client error displayed when requesting a group RSS feed for group that does not exist.
+#. TRANS: Client error displayed when requesting a group RSS feed for an object that is not a group.
+#. TRANS: Client error displayed when trying to unblock a user from a non-existing group.
+#. TRANS: Client error displayed when trying to join a non-local group.
+#. TRANS: Client error displayed when trying to join a non-existing group.
+#. TRANS: Client error displayed when trying to leave a non-local group.
+#. TRANS: Client error displayed when trying to leave a non-existing group.
+#. TRANS: Client error displayed when providing an invalid group ID on the Make Admin page.
+#. TRANS: Client error displayed if no remote group with a given name was found requesting group page.
+#. TRANS: Client error displayed if no local group with a given name was found requesting group page.
+#. TRANS: Command exception text shown when a group is requested that does not exist.
+#. TRANS: Error text shown when trying to leave a group that does not exist.
+msgid "No such group."
+msgstr "Нема таква група."
+
+#. TRANS: Client error displayed when trying to leave a group without providing a group name or group ID.
+#. TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
+#. TRANS: Client error displayed when trying to join a group without providing a group name or group ID.
+#. TRANS: Client error displayed when trying to leave a group without providing a group name or group ID.
+msgid "No nickname or ID."
+msgstr "Нема прекар или ID."
+
+#. TRANS: Client error displayed trying to approve group membership while not logged in.
+#. TRANS: Client error displayed when trying to leave a group while not logged in.
+#, fuzzy
+msgid "Must be logged in."
+msgstr "Не сте најавени."
+
+#. TRANS: Client error displayed trying to approve group membership while not a group administrator.
+#. TRANS: Client error displayed when trying to approve or cancel a group join request without
+#. TRANS: being a group administrator.
+msgid "Only group admin can approve or cancel join requests."
+msgstr ""
+
+#. TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
+#, fuzzy
+msgid "Must specify a profile."
+msgstr "Недостасува профил."
+
+#. TRANS: Client error displayed trying to approve group membership for a non-existing request.
+#. TRANS: Client error displayed when trying to approve a non-existing group join request.
+#. TRANS: %s is a user nickname.
+#, fuzzy, php-format
+msgid "%s is not in the moderation queue for this group."
+msgstr "Список на корисниците на оваа група."
+
+#. TRANS: Client error displayed trying to approve/deny group membership.
+msgid "Internal error: received neither cancel nor abort."
+msgstr ""
+
+#. TRANS: Client error displayed trying to approve/deny group membership.
+msgid "Internal error: received both cancel and abort."
+msgstr ""
+
+#. TRANS: Server error displayed when cancelling a queued group join request fails.
+#. TRANS: %1$s is the leaving user's nickname, $2$s is the group nickname for which the leave failed.
+#, fuzzy, php-format
+msgid "Could not cancel request for user %1$s to join group %2$s."
+msgstr "Не можам да го зачленам корисникот %1$s во групата 2$s."
+
+#. TRANS: Title for leave group page after group join request is approved/disapproved.
+#, fuzzy, php-format
+msgctxt "TITLE"
+msgid "%1$s's request for %2$s"
+msgstr "%1$s статус на %2$s"
+
+msgid "Join request approved."
+msgstr ""
+
+msgid "Join request canceled."
+msgstr ""
+
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
 #. TRANS: Client error displayed trying to subscribe to a non-existing profile.
@@ -1113,36 +1215,6 @@ msgstr "Нема таква бендисана ставка."
 #. TRANS: Client exception thrown when trying to remove a favorite notice of another user.
 msgid "Cannot delete someone else's favorite."
 msgstr "Не можам да избришам туѓo бендисанo."
-
-#. TRANS: Client exception thrown when referencing a non-existing group.
-#. TRANS: Client error displayed when requesting a list of blocked users for a non-local group.
-#. TRANS: Client error displayed when requesting a list of blocked users for a non-existing group.
-#. TRANS: Client error when trying to delete a non-local group.
-#. TRANS: Client error when trying to delete a non-existing group.
-#. TRANS: Client error displayed trying to edit a non-existing group.
-#. TRANS: Client error displayed when requesting Friends of a Friend feed without providing a group nickname.
-#. TRANS: Client error displayed when requesting Friends of a Friend feed for a non-local group.
-#. TRANS: Client error displayed when requesting Friends of a Friend feed for a nickname that is not a group.
-#. TRANS: Client error displayed trying to block a user from a group while specifying a non-existing group.
-#. TRANS: Client error displayed referring to a group's permalink for a non-existing group ID.
-#. TRANS: Client error displayed trying to change group design settings while providing a nickname for a non-existing group.
-#. TRANS: Client error displayed when trying to update logo settings for a non-existing group.
-#. TRANS: Client error displayed when trying to view group members for a non-existing group.
-#. TRANS: Client error displayed when trying to view group members for an object that is not a group.
-#. TRANS: Client error displayed when requesting a group RSS feed for group that does not exist.
-#. TRANS: Client error displayed when requesting a group RSS feed for an object that is not a group.
-#. TRANS: Client error displayed when trying to unblock a user from a non-existing group.
-#. TRANS: Client error displayed when trying to join a non-local group.
-#. TRANS: Client error displayed when trying to join a non-existing group.
-#. TRANS: Client error displayed when trying to leave a non-local group.
-#. TRANS: Client error displayed when trying to leave a non-existing group.
-#. TRANS: Client error displayed when providing an invalid group ID on the Make Admin page.
-#. TRANS: Client error displayed if no remote group with a given name was found requesting group page.
-#. TRANS: Client error displayed if no local group with a given name was found requesting group page.
-#. TRANS: Command exception text shown when a group is requested that does not exist.
-#. TRANS: Error text shown when trying to leave a group that does not exist.
-msgid "No such group."
-msgstr "Нема таква група."
 
 #. TRANS: Client exception thrown when trying to show membership of a non-subscribed group
 msgid "Not a member."
@@ -1259,6 +1331,7 @@ msgstr "Преглед"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
 #. TRANS: Button text for user account deletion.
+#. TRANS: Submit button text the OAuth application page to delete an application.
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "Избриши"
@@ -1424,6 +1497,14 @@ msgstr "Одблокирај го овој корсник"
 msgid "Post to %s"
 msgstr "Објави во %s"
 
+#. TRANS: Title for leave group page after leaving.
+#. TRANS: %s$s is the leaving user's name, %2$s is the group name.
+#. TRANS: Title for leave group page after leaving.
+#, php-format
+msgctxt "TITLE"
+msgid "%1$s left group %2$s"
+msgstr "%1$s ја напушти групата %2$s"
+
 #. TRANS: Client error displayed when not providing a confirmation code in the contact address confirmation action.
 msgid "No confirmation code."
 msgstr "Нема потврден код."
@@ -1448,12 +1529,10 @@ msgstr "Оваа адреса веќе е потврдена."
 
 #. TRANS: Server error displayed when updating IM preferences fails.
 #. TRANS: Server error thrown on database error removing a registered IM address.
-#, fuzzy
 msgid "Could not update user IM preferences."
-msgstr "Не можев да ги подновам корисничките нагодувања."
+msgstr "Не можев да ги подновам нагодувањата за IM."
 
 #. TRANS: Server error displayed when adding IM preferences fails.
-#, fuzzy
 msgid "Could not insert user IM preferences."
 msgstr "Не можев да се вметнам кориснички нагодувања за IM."
 
@@ -1482,10 +1561,10 @@ msgid "Notices"
 msgstr "Забелешки"
 
 #. TRANS: Title for conversation page.
-#, fuzzy
+#. TRANS: Title for page that shows a notice.
 msgctxt "TITLE"
 msgid "Notice"
-msgstr "Забелешки"
+msgstr "Забелешка"
 
 #. TRANS: Client exception displayed trying to delete a user account while not logged in.
 msgid "Only logged-in users can delete their account."
@@ -1556,6 +1635,7 @@ msgstr "Програмот не е пронајден."
 
 #. TRANS: Client error displayed trying to delete an application the current user does not own.
 #. TRANS: Client error displayed trying to edit an application while not being its owner.
+#. TRANS: Client error displayed trying to display an OAuth application for which the logged in user is not the owner.
 msgid "You are not the owner of this application."
 msgstr "Не сте сопственик на овој програм."
 
@@ -1589,12 +1669,6 @@ msgstr "Избриши го програмов."
 #. TRANS: Client error when trying to delete group while not logged in.
 msgid "You must be logged in to delete a group."
 msgstr "Мора да сте најавени за да избришете група."
-
-#. TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
-#. TRANS: Client error displayed when trying to join a group without providing a group name or group ID.
-#. TRANS: Client error displayed when trying to leave a group without providing a group name or group ID.
-msgid "No nickname or ID."
-msgstr "Нема прекар или ID."
 
 #. TRANS: Client error when trying to delete a group without having the rights to delete it.
 msgid "You are not allowed to delete this group."
@@ -1876,6 +1950,7 @@ msgid "You must be logged in to edit an application."
 msgstr "Мора да сте најавени за да можете да уредувате програми."
 
 #. TRANS: Client error displayed trying to edit an application that does not exist.
+#. TRANS: Client error displayed trying to display a non-existing OAuth application.
 msgid "No such application."
 msgstr "Нема таков програм."
 
@@ -2095,6 +2170,7 @@ msgstr "Не можам да ја нормализирам таа е-поште�
 
 #. TRANS: Message given saving e-mail address that not valid.
 #. TRANS: Form validation error displayed when trying to register without a valid e-mail address.
+#. TRANS: Client error displayed trying to save site settings without a valid contact address.
 msgid "Not a valid email address."
 msgstr "Неправилна адреса за е-пошта."
 
@@ -2466,33 +2542,26 @@ msgstr "Членови на групата %1$s, стр. %2$d"
 msgid "A list of the users in this group."
 msgstr "Список на корисниците на оваа група."
 
-#. TRANS: Indicator in group members list that this user is a group administrator.
-msgid "Admin"
-msgstr "Администратор"
+#. TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
+msgid "Only the group admin may approve users."
+msgstr ""
 
-#. TRANS: Button text for the form that will block a user from a group.
-msgctxt "BUTTON"
-msgid "Block"
-msgstr "Блокирај"
+#. TRANS: Title of the first page showing pending group members still awaiting approval to join the group.
+#. TRANS: %s is the name of the group.
+#, fuzzy, php-format
+msgid "%s group members awaiting approval"
+msgstr "Членства на групата %s"
 
-#. TRANS: Submit button title.
-msgctxt "TOOLTIP"
-msgid "Block this user"
-msgstr "Блокирај го корисников"
+#. TRANS: Title of all but the first page showing pending group members still awaiting approval to join the group.
+#. TRANS: %1$s is the name of the group, %2$d is the page number of the members list.
+#, fuzzy, php-format
+msgid "%1$s group members awaiting approval, page %2$d"
+msgstr "Членови на групата %1$s, стр. %2$d"
 
-#. TRANS: Form legend for form to make a user a group admin.
-msgid "Make user an admin of the group"
-msgstr "Направи го корисникот администратор на групата"
-
-#. TRANS: Button text for the form that will make a user administrator.
-msgctxt "BUTTON"
-msgid "Make Admin"
-msgstr "Назначи за администратор"
-
-#. TRANS: Submit button title.
-msgctxt "TOOLTIP"
-msgid "Make this user an admin"
-msgstr "Назначи го корисников за администратор"
+#. TRANS: Page notice for group members page.
+#, fuzzy
+msgid "A list of users awaiting approval to join this group."
+msgstr "Список на корисниците на оваа група."
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #, php-format
@@ -2531,6 +2600,7 @@ msgstr ""
 
 #. TRANS: Link to create a new group on the group list page.
 #. TRANS: Link text on group page to create a new group.
+#. TRANS: Form legend for group edit form.
 msgid "Create a new group"
 msgstr "Создај нова група"
 
@@ -2612,13 +2682,13 @@ msgstr "Тековна потврдена адреса на %s."
 
 #. TRANS: Form note in IM settings form.
 #. TRANS: %s is the IM service name, %2$s is the IM address set.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Awaiting confirmation on this address. Check your %1$s account for a message "
 "with further instructions. (Did you add %2$s to your buddy list?)"
 msgstr ""
-"Чекам потврда за оваа адреса. Проверете ја Вашата сметка на %s - треба да "
-"добиете порака со понатамошни напатствија. (Дали го/ја додадовте %s на "
+"Чекам потврда за оваа адреса. Проверете ја Вашата сметка на %1$s - треба да "
+"добиете порака со понатамошни напатствија. (Дали го/ја додадовте %2$s на "
 "Вашиот список со пријатели?)"
 
 #. TRANS: Field label for IM address.
@@ -2651,7 +2721,6 @@ msgid "Publish a MicroID"
 msgstr "Објави MicroID"
 
 #. TRANS: Server error thrown on database error updating IM preferences.
-#, fuzzy
 msgid "Could not update IM preferences."
 msgstr "Не можев да ги подновам нагодувањата за IM."
 
@@ -2669,14 +2738,12 @@ msgid "No transport."
 msgstr "Нема пренос."
 
 #. TRANS: Message given saving IM address that cannot be normalised.
-#, fuzzy
 msgid "Cannot normalize that screenname."
-msgstr "Не можам да го нормализирам тој прекар"
+msgstr "Не можам да го нормализирам тој прекар."
 
 #. TRANS: Message given saving IM address that not valid.
-#, fuzzy
 msgid "Not a valid screenname."
-msgstr "Ова не е важечки прекар"
+msgstr "Ова не е важечки прекар."
 
 #. TRANS: Message given saving IM address that is already set for another user.
 msgid "Screenname already belongs to another user."
@@ -2691,7 +2758,6 @@ msgid "That is the wrong IM address."
 msgstr "Ова е погрешната IM адреса."
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
-#, fuzzy
 msgid "Could not delete confirmation."
 msgstr "Не можев да ја избришам потврдата."
 
@@ -2901,20 +2967,15 @@ msgctxt "TITLE"
 msgid "%1$s joined group %2$s"
 msgstr "%1$s се зачлени во групата %2$s"
 
-#. TRANS: Client error displayed when trying to leave a group while not logged in.
-msgid "You must be logged in to leave a group."
-msgstr "Мора да сте најавени за да можете да ја напуштите групата."
+#. TRANS: Exception thrown when there is an unknown error joining a group.
+#, fuzzy
+msgid "Unknown error joining group."
+msgstr "Непозната група."
 
 #. TRANS: Client error displayed when trying to join a group while already a member.
 #. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
 msgid "You are not a member of that group."
 msgstr "Не членувате во таа група."
-
-#. TRANS: Title for leave group page after leaving.
-#, php-format
-msgctxt "TITLE"
-msgid "%1$s left group %2$s"
-msgstr "%1$s ја напушти групата %2$s"
 
 #. TRANS: User admin panel title
 msgctxt "TITLE"
@@ -3346,10 +3407,13 @@ msgid "Notice %s not found."
 msgstr "Забелешката %s не е пронајдена."
 
 #. TRANS: Server error displayed in oEmbed action when notice has not profile.
+#. TRANS: Server error displayed trying to show a notice without a connected profile.
 msgid "Notice has no profile."
 msgstr "Забелешката нема профил."
 
 #. TRANS: oEmbed title. %1$s is the author name, %2$s is the creation date.
+#. TRANS: Title of the page that shows a notice.
+#. TRANS: %1$s is a user name, %2$s is the notice creation date/time.
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%1$s статус на %2$s"
@@ -3477,7 +3541,6 @@ msgstr "Лозинката мора да содржи барем 6 знаци."
 
 #. TRANS: Form validation error on password change when password confirmation does not match.
 #. TRANS: Form validation error displayed when trying to register with non-matching passwords.
-#, fuzzy
 msgid "Passwords do not match."
 msgstr "Лозинките не се совпаѓаат."
 
@@ -3825,17 +3888,20 @@ msgstr "Информации за профил"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #. TRANS: Field title on account registration page.
+#. TRANS: Field title on group edit form.
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1-64 мали букви или бројки, без интерпукциски знаци и празни места."
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
+#. TRANS: Field label on group edit form.
 msgid "Full name"
 msgstr "Име и презиме"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Form input field label.
+#. TRANS: Field label on group edit form; points to "more info" for a group.
 msgid "Homepage"
 msgstr "Домашна страница"
 
@@ -3866,6 +3932,7 @@ msgstr "Биографија"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
+#. TRANS: Field label on group edit form.
 msgid "Location"
 msgstr "Местоположба"
 
@@ -3925,6 +3992,7 @@ msgstr[0] "Биографијата е предолга (највеќе до %d 
 msgstr[1] "Биографијата е предолга (највеќе до %d знаци)."
 
 #. TRANS: Validation error in form for profile settings.
+#. TRANS: Client error displayed trying to save site settings without a timezone.
 msgid "Timezone not selected."
 msgstr "Не е избрана часовна зона."
 
@@ -4223,15 +4291,14 @@ msgid "New password successfully saved. You are now logged in."
 msgstr "Новата лозинка е успешно зачувана. Сега сте најавени."
 
 #. TRANS: Client exception thrown when no ID parameter was provided.
-#, fuzzy
 msgid "No id parameter."
-msgstr "Нема параметар за ID"
+msgstr "Нема параметар за ID."
 
 #. TRANS: Client exception thrown when an invalid ID parameter was provided for a file.
 #. TRANS: %d is the provided ID for which the file is not present (number).
-#, fuzzy, php-format
+#, php-format
 msgid "No such file \"%d\"."
-msgstr "Нема податотека „%d“"
+msgstr "Нема податотека „%d“."
 
 #. TRANS: Client error displayed when trying to register to an invite-only site without an invitation.
 msgid "Sorry, only invited people can register."
@@ -4246,17 +4313,15 @@ msgid "Registration successful"
 msgstr "Регистрацијата е успешна"
 
 #. TRANS: Title for registration page.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Register"
-msgstr "Регистрирај се"
+msgstr "Регистрација"
 
 #. TRANS: Client error displayed when trying to register to a closed site.
 msgid "Registration not allowed."
 msgstr "Регистрирањето не е дозволено."
 
 #. TRANS: Form validation error displayed when trying to register without agreeing to the site license.
-#, fuzzy
 msgid "You cannot register if you do not agree to the license."
 msgstr "Не може да се регистрирате ако не ја прифаќате лиценцата."
 
@@ -4276,13 +4341,11 @@ msgstr ""
 "објавувате забелешки и да се поврзувате со пријатели и колеги."
 
 #. TRANS: Field label on account registration page. In this field the password has to be entered a second time.
-#, fuzzy
 msgctxt "PASSWORD"
 msgid "Confirm"
 msgstr "Потврди"
 
 #. TRANS: Field label on account registration page.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Email"
 msgstr "Е-пошта"
@@ -4298,26 +4361,24 @@ msgstr "Подолго име, по можност Вашето „вистин�
 #. TRANS: Text area title in form for account registration. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d character."
 msgid_plural "Describe yourself and your interests in %d characters."
 msgstr[0] "Опишете се себеси и своите интереси со %d знак."
 msgstr[1] "Опишете се себеси и своите интереси со %d знаци."
 
 #. TRANS: Text area title on account registration page.
-#, fuzzy
 msgid "Describe yourself and your interests."
-msgstr "Опишете се себеси и Вашите интереси"
+msgstr "Опишете се себеси и Вашите интереси."
 
 #. TRANS: Field title on account registration page.
 msgid "Where you are, like \"City, State (or Region), Country\"."
 msgstr "Каде се наоѓате, на пр. „Град, Сојуз. држава (или Област), Земја“."
 
 #. TRANS: Field label on account registration page.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Register"
-msgstr "Регистрирај се"
+msgstr "Регистрација"
 
 #. TRANS: Copyright checkbox label in registration dialog, for private sites.
 #. TRANS: %1$s is the StatusNet sitename.
@@ -4434,7 +4495,6 @@ msgid "URL of your profile on another compatible microblogging service."
 msgstr "!URL на Вашиот профил на друга складна служба за микроблогирање."
 
 #. TRANS: Button text on page for remote subscribe.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr "Претплати се"
@@ -4633,7 +4693,6 @@ msgid "You cannot revoke user roles on this site."
 msgstr "На ова мрежно место не можете да одземате кориснички улоги."
 
 #. TRANS: Client error displayed when trying to revoke a role that is not set.
-#, fuzzy
 msgid "User does not have this role."
 msgstr "Корисникот ја нема оваа улога."
 
@@ -4642,68 +4701,102 @@ msgstr "Корисникот ја нема оваа улога."
 msgid "StatusNet"
 msgstr "StatusNet"
 
+#. TRANS: Client error displayed trying to sandbox users on a site where the feature is not enabled.
 msgid "You cannot sandbox users on this site."
 msgstr "Не можете да ставате корисници во песочен режим на ова мрежно место."
 
+#. TRANS: Client error displayed trying to sandbox an already sandboxed user.
 msgid "User is already sandboxed."
 msgstr "Корисникот е веќе во песочен режим."
 
-#. TRANS: Menu item for site administration
+#. TRANS: Title for the sessions administration panel.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Sessions"
 msgstr "Сесии"
 
+#. TRANS: Instructions for the sessions administration panel.
 msgid "Session settings for this StatusNet site"
 msgstr "Сесиски нагодувања за ова StatusNet-мрежно место"
 
+#. TRANS: Fieldset legend on the sessions administration panel.
+#, fuzzy
+msgctxt "LEGEND"
+msgid "Sessions"
+msgstr "Сесии"
+
+#. TRANS: Checkbox title on the sessions administration panel.
+#. TRANS: Indicates if StatusNet should handle session administration.
 msgid "Handle sessions"
 msgstr "Раководење со сесии"
 
-msgid "Whether to handle sessions ourselves."
+#. TRANS: Checkbox title on the sessions administration panel.
+#. TRANS: Indicates if StatusNet should handle session administration.
+#, fuzzy
+msgid "Handle sessions ourselves."
 msgstr "Дали самите да си раководиме со сесиите."
 
+#. TRANS: Checkbox label on the sessions administration panel.
+#. TRANS: Indicates if StatusNet should write session debugging output.
 msgid "Session debugging"
 msgstr "Поправка на грешки во сесија"
 
-msgid "Turn on debugging output for sessions."
+#. TRANS: Checkbox title on the sessions administration panel.
+#, fuzzy
+msgid "Enable debugging output for sessions."
 msgstr "Вклучи извод од поправка на грешки за сесии."
 
-#. TRANS: Submit button title.
-msgid "Save"
-msgstr "Зачувај"
+#. TRANS: Title for submit button on the sessions administration panel.
+#, fuzzy
+msgid "Save session settings"
+msgstr "Зачувај нагодувања на пристап"
 
-msgid "Save site settings"
-msgstr "Зачувај нагодувања на мреж. место"
-
+#. TRANS: Client error displayed trying to display an OAuth application while not logged in.
 msgid "You must be logged in to view an application."
 msgstr "Мора да сте најавени за да можете да го видите програмот."
 
+#. TRANS: Header on the OAuth application page.
 msgid "Application profile"
 msgstr "Профил на програмот"
 
-#, php-format
-msgid "Created by %1$s - %2$s access by default - %3$d users"
-msgstr "Создадено од %1$s - основен пристап: %2$s - %3$d корисници"
+#. TRANS: Information output on an OAuth application page.
+#. TRANS: %1$s is the application creator, %2$s is "read-only" or "read-write",
+#. TRANS: %3$d is the number of users using the OAuth application.
+#, fuzzy, php-format
+msgid "Created by %1$s - %2$s access by default - %3$d user"
+msgid_plural "Created by %1$s - %2$s access by default - %3$d users"
+msgstr[0] "Создадено од %1$s - основен пристап: %2$s - %3$d корисници"
+msgstr[1] "Создадено од %1$s - основен пристап: %2$s - %3$d корисници"
 
+#. TRANS: Header on the OAuth application page.
 msgid "Application actions"
 msgstr "Дејства на програмот"
 
+#. TRANS: Link text to edit application on the OAuth application page.
+#, fuzzy
+msgctxt "EDITAPP"
+msgid "Edit"
+msgstr "Уреди"
+
+#. TRANS: Button text on the OAuth application page.
+#. TRANS: Resets the OAuth consumer key and secret.
 msgid "Reset key & secret"
 msgstr "Клуч за промена и тајна"
 
-#. TRANS: Title of form for deleting a user.
-msgid "Delete"
-msgstr "Избриши"
-
+#. TRANS: Header on the OAuth application page.
 msgid "Application info"
 msgstr "Инфо за програмот"
 
+#. TRANS: Note on the OAuth application page about signature support.
+#, fuzzy
 msgid ""
-"Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
-"signature method."
+"Note: HMAC-SHA1 signatures are supported. The plaintext signature method is "
+"not supported."
 msgstr ""
 "Напомена: Поддржуваме HMAC-SHA1 потписи. Не поддржуваме потпишување со прост "
 "текст."
 
+#. TRANS: Text in confirmation dialog to reset consumer key and secret for an OAuth application.
 msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr ""
 "Дали сте сигурни дека сакате да го смените Вашиот кориснички клуч и тајна?"
@@ -4820,6 +4913,7 @@ msgstr "Сите членови"
 msgid "Statistics"
 msgstr "Статистики"
 
+#. TRANS: Label for group creation date.
 msgctxt "LABEL"
 msgid "Created"
 msgstr "Создадено"
@@ -4863,7 +4957,9 @@ msgstr ""
 "слободната програмска алатка [StatusNet](http://status.net/). Нејзините "
 "членови си разменуваат кратки пораки за нивниот живот и интереси. "
 
-#. TRANS: Header for list of group administrators on a group page (h2).
+#. TRANS: Title for list of group administrators on a group page.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Admins"
 msgstr "Администратори"
 
@@ -4887,13 +4983,12 @@ msgstr "Порака за %1$s на %2$s"
 msgid "Message from %1$s on %2$s"
 msgstr "Порака од %1$s на %2$s"
 
+#. TRANS: Client error displayed trying to show a deleted notice.
 msgid "Notice deleted."
 msgstr "Избришана забелешка"
 
-msgid "Notice"
-msgstr "Забелешки"
-
-#. TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
+#. TRANS: Page title showing tagged notices in one user's stream.
+#. TRANS: %1$s is the username, %2$s is the hash tag.
 #, php-format
 msgid "%1$s tagged %2$s"
 msgstr "%1$s го/ја означи %2$s"
@@ -4928,6 +5023,8 @@ msgstr "Канал со забелешки за %s (RSS 1.0)"
 msgid "Notice feed for %s (RSS 2.0)"
 msgstr "Канал со забелешки за %s (RSS 2.0)"
 
+#. TRANS: Title for link to notice feed.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgid "Notice feed for %s (Atom)"
 msgstr "Канал со забелешки за %s (Atom)"
@@ -4993,93 +5090,143 @@ msgstr ""
 msgid "Repeat of %s"
 msgstr "Повторувања на %s"
 
+#. TRANS: Client error displayed trying to silence a user on a site where the feature is not enabled.
 msgid "You cannot silence users on this site."
 msgstr "Не можете да замолчувате корисници на ова мрежно место."
 
+#. TRANS: Client error displayed trying to silence an already silenced user.
 msgid "User is already silenced."
 msgstr "Корисникот е веќе замолчен."
 
+#. TRANS: Title for site administration panel.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Site"
+msgstr "Мреж. место"
+
+#. TRANS: Instructions for site administration panel.
 msgid "Basic settings for this StatusNet site"
 msgstr "Основни поставки за оваа StatusNet-мрежно место."
 
+#. TRANS: Client error displayed trying to save an empty site name.
 msgid "Site name must have non-zero length."
 msgstr "Должината на името на мрежното место не може да изнесува нула."
 
+#. TRANS: Client error displayed trying to save site settings without a contact address.
 msgid "You must have a valid contact email address."
 msgstr "Мора да имате важечка контактна е-поштенска адреса."
 
+#. TRANS: Client error displayed trying to save site settings with an invalid language code.
+#. TRANS: %s is the invalid language code.
 #, php-format
 msgid "Unknown language \"%s\"."
 msgstr "Непознат јазик „%s“"
 
+#. TRANS: Client error displayed trying to save site settings with a text limit below 0.
 msgid "Minimum text limit is 0 (unlimited)."
 msgstr "Минималниот дозволен текст изнесува 0 (неограничено)."
 
+#. TRANS: Client error displayed trying to save site settings with a text limit below 1.
 msgid "Dupe limit must be one or more seconds."
 msgstr "Ограничувањето на дуплирањето мора да изнесува барем 1 секунда."
 
+#. TRANS: Fieldset legend on site settings panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "General"
 msgstr "Општи"
 
+#. TRANS: Field label on site settings panel.
+#, fuzzy
+msgctxt "LABEL"
 msgid "Site name"
 msgstr "Име на мрежното место"
 
-msgid "The name of your site, like \"Yourcompany Microblog\""
+#. TRANS: Field title on site settings panel.
+#, fuzzy
+msgid "The name of your site, like \"Yourcompany Microblog\"."
 msgstr "Името на Вашето мрежно место, како на пр. „Микроблог на Вашафирма“"
 
+#. TRANS: Field label on site settings panel.
 msgid "Brought by"
 msgstr "Овозможено од"
 
-msgid "Text used for credits link in footer of each page"
+#. TRANS: Field title on site settings panel.
+#, fuzzy
+msgid "Text used for credits link in footer of each page."
 msgstr ""
 "Текст за врската за наведување на авторите во долната колонцифра на секоја "
 "страница"
 
+#. TRANS: Field label on site settings panel.
 msgid "Brought by URL"
 msgstr "URL-адреса на овозможувачот на услугите"
 
-msgid "URL used for credits link in footer of each page"
+#. TRANS: Field title on site settings panel.
+#, fuzzy
+msgid "URL used for credits link in footer of each page."
 msgstr ""
 "URL-адресата која е користи за врски за автори во долната колоцифра на "
 "секоја страница"
 
+#. TRANS: Field label on site settings panel.
 msgid "Email"
 msgstr "Е-пошта"
 
-msgid "Contact email address for your site"
+#. TRANS: Field title on site settings panel.
+#, fuzzy
+msgid "Contact email address for your site."
 msgstr "Контактна е-пошта за Вашето мрежното место"
 
+#. TRANS: Fieldset legend on site settings panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Local"
 msgstr "Локално"
 
+#. TRANS: Dropdown label on site settings panel.
 msgid "Default timezone"
 msgstr "Основна часовна зона"
 
+#. TRANS: Dropdown title on site settings panel.
 msgid "Default timezone for the site; usually UTC."
 msgstr "Матична часовна зона за мрежното место; обично UTC."
 
+#. TRANS: Dropdown label on site settings panel.
 msgid "Default language"
 msgstr "Основен јазик"
 
+#. TRANS: Dropdown title on site settings panel.
 msgid "Site language when autodetection from browser settings is not available"
 msgstr "Јазик на мрежното место ако прелистувачот не може да го препознае сам"
 
+#. TRANS: Fieldset legend on site settings panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Limits"
 msgstr "Ограничувања"
 
+#. TRANS: Field label on site settings panel.
 msgid "Text limit"
 msgstr "Ограничување на текстот"
 
+#. TRANS: Field title on site settings panel.
 msgid "Maximum number of characters for notices."
 msgstr "Максимален број на знаци за забелешки."
 
+#. TRANS: Field label on site settings panel.
 msgid "Dupe limit"
 msgstr "Ограничување на дуплирањето"
 
+#. TRANS: Field title on site settings panel.
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "Колку долго треба да почекаат корисниците (во секунди) за да можат повторно "
 "да го објават истото."
+
+#. TRANS: Button title for saving site settings.
+msgid "Save site settings"
+msgstr "Зачувај нагодувања на мреж. место"
 
 #. TRANS: Page title for site-wide notice tab in admin panel.
 msgid "Site Notice"
@@ -5205,9 +5352,8 @@ msgid "That is the wrong confirmation number."
 msgstr "Ова е погрешен потврден број."
 
 #. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
-#, fuzzy
 msgid "Could not delete SMS confirmation."
-msgstr "Не можев да ја избришам потврдата."
+msgstr "Не можев да ја избришам потврдата на СМС."
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 msgid "SMS confirmation cancelled."
@@ -5284,6 +5430,10 @@ msgstr "URL на извештајот"
 
 msgid "Snapshots will be sent to this URL"
 msgstr "Снимките ќе се испраќаат на оваа URL-адреса"
+
+#. TRANS: Submit button title.
+msgid "Save"
+msgstr "Зачувај"
 
 msgid "Save snapshot settings"
 msgstr "Зачувај поставки за снимки"
@@ -5629,6 +5779,7 @@ msgstr ""
 "стиснете на „Одбиј“."
 
 #. TRANS: Button text on Authorise Subscription page.
+#. TRANS: Submit button text to accept a group membership request on approve group form.
 msgctxt "BUTTON"
 msgid "Accept"
 msgstr "Прифати"
@@ -5638,6 +5789,7 @@ msgid "Subscribe to this user."
 msgstr "Претплати се на корисников."
 
 #. TRANS: Button text on Authorise Subscription page.
+#. TRANS: Submit button text to reject a group membership request on approve group form.
 msgctxt "BUTTON"
 msgid "Reject"
 msgstr "Одбиј"
@@ -5858,25 +6010,21 @@ msgid "Plugins"
 msgstr "Приклучоци"
 
 #. TRANS: Column header for plugins table on version page.
-#, fuzzy
 msgctxt "HEADER"
 msgid "Name"
 msgstr "Име"
 
 #. TRANS: Column header for plugins table on version page.
-#, fuzzy
 msgctxt "HEADER"
 msgid "Version"
 msgstr "Верзија"
 
 #. TRANS: Column header for plugins table on version page.
-#, fuzzy
 msgctxt "HEADER"
 msgid "Author(s)"
 msgstr "Автор(и)"
 
 #. TRANS: Column header for plugins table on version page.
-#, fuzzy
 msgctxt "HEADER"
 msgid "Description"
 msgstr "Опис"
@@ -6070,6 +6218,10 @@ msgstr "RT @%1$s %2$s"
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
+
+#. TRANS: Exception thrown trying to approve a non-existing group join request.
+msgid "Invalid group join approval: not pending."
+msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
@@ -6422,6 +6574,9 @@ msgstr "Не можам да ги избришам нагодувањата за
 msgid "Home"
 msgstr "Домашна страница"
 
+msgid "Admin"
+msgstr "Администратор"
+
 #. TRANS: Menu item title/tooltip
 msgid "Basic site configuration"
 msgstr "Основни нагодувања на мрежното место"
@@ -6460,6 +6615,10 @@ msgstr "Поставки на патеки"
 #. TRANS: Menu item title/tooltip
 msgid "Sessions configuration"
 msgstr "Поставки на сесиите"
+
+#. TRANS: Menu item for site administration
+msgid "Sessions"
+msgstr "Сесии"
 
 #. TRANS: Menu item title/tooltip
 msgid "Edit site notice"
@@ -6566,6 +6725,7 @@ msgid "Describe your application"
 msgstr "Опишете го Вашиот програм"
 
 #. TRANS: Form input field label.
+#. TRANS: Text area label on group edit form; contains description of group.
 msgid "Description"
 msgstr "Опис"
 
@@ -6680,6 +6840,10 @@ msgstr "Блокирај"
 msgid "Block this user"
 msgstr "Блокирај го корисников"
 
+#. TRANS: Submit button text on form to cancel group join request.
+msgid "BUTTON"
+msgstr ""
+
 #. TRANS: Title for command results.
 msgid "Command results"
 msgstr "Резултати од наредбата"
@@ -6778,14 +6942,14 @@ msgid "Fullname: %s"
 msgstr "Име и презиме: %s"
 
 #. TRANS: Whois output. %s is the location of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail.
+#. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is a location.
 #, php-format
 msgid "Location: %s"
 msgstr "Местоположба: %s"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail.
+#. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is a homepage.
 #, php-format
 msgid "Homepage: %s"
@@ -7134,6 +7298,10 @@ msgstr "Грешка во базата на податоци"
 msgid "Public"
 msgstr "Јавен"
 
+#. TRANS: Title of form for deleting a user.
+msgid "Delete"
+msgstr "Избриши"
+
 #. TRANS: Description of form for deleting a user.
 msgid "Delete this user"
 msgstr "Избриши овој корисник"
@@ -7261,29 +7429,45 @@ msgstr "Оди"
 msgid "Grant this user the \"%s\" role"
 msgstr "Додели улога „%s“ на корисников"
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr "1-64 мали букви или бројки, без интерпукциски знаци и празни места."
+#. TRANS: Button text for the form that will block a user from a group.
+msgctxt "BUTTON"
+msgid "Block"
+msgstr "Блокирај"
 
+#. TRANS: Submit button title.
+msgctxt "TOOLTIP"
+msgid "Block this user"
+msgstr "Блокирај го корисников"
+
+#. TRANS: Field title on group edit form.
 msgid "URL of the homepage or blog of the group or topic."
 msgstr "URL на страницата или блогот на групата или темата"
 
-msgid "Describe the group or topic"
+#. TRANS: Text area title for group description when there is no text limit.
+#, fuzzy
+msgid "Describe the group or topic."
 msgstr "Опишете ја групата или темата"
 
-#, php-format
-msgid "Describe the group or topic in %d character or less"
-msgid_plural "Describe the group or topic in %d characters or less"
+#. TRANS: Text area title for group description.
+#. TRANS: %d is the number of characters available for the description.
+#, fuzzy, php-format
+msgid "Describe the group or topic in %d character or less."
+msgid_plural "Describe the group or topic in %d characters or less."
 msgstr[0] "Опишете ја групата или темата со највеќе %d знак"
 msgstr[1] "Опишете ја групата или темата со највеќе %d знаци"
 
+#. TRANS: Field title on group edit form.
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\"."
 msgstr ""
 "Местоположба на групата (ако има). На пр. „Град, Сој. држава/област, Земја“"
 
+#. TRANS: Field label on group edit form.
 msgid "Aliases"
 msgstr "Алијаси"
 
+#. TRANS: Input field title for group aliases.
+#. TRANS: %d is the maximum number of group aliases available.
 #, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
@@ -7297,6 +7481,27 @@ msgstr[0] ""
 msgstr[1] ""
 "Дополнителни прекари за групата, одделени со запирка или празно место, "
 "највеќе до %d"
+
+#. TRANS: Dropdown fieldd label on group edit form.
+#, fuzzy
+msgid "Membership policy"
+msgstr "Член од"
+
+msgid "Open to all"
+msgstr ""
+
+msgid "Admin must approve all members"
+msgstr ""
+
+#. TRANS: Dropdown field title on group edit form.
+msgid "Whether admin approval is required to join this group."
+msgstr ""
+
+#. TRANS: Indicator in group members list that this user is a group administrator.
+#, fuzzy
+msgctxt "GROUPADMIN"
+msgid "Admin"
+msgstr "Администратор"
 
 #. TRANS: Menu item in the group navigation page.
 msgctxt "MENU"
@@ -7321,6 +7526,22 @@ msgstr "Членови"
 msgctxt "TOOLTIP"
 msgid "%s group members"
 msgstr "Членови на групата „%s“"
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %d is the number of pending members.
+#, php-format
+msgctxt "MENU"
+msgid "Pending members (%d)"
+msgid_plural "Pending members (%d)"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#, fuzzy, php-format
+msgctxt "TOOLTIP"
+msgid "%s pending members"
+msgstr "Членови на групата %s"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 msgctxt "MENU"
@@ -7517,38 +7738,22 @@ msgstr ""
 
 #. TRANS: Subject of new-subscriber notification e-mail.
 #. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
+#. TRANS: Main body of new-subscriber notification e-mail.
+#. TRANS: %1$s is the subscriber's long name, %2$s is the StatusNet sitename.
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s сега ги следи Вашите забелешки на %2$s."
 
-#. TRANS: This is a paragraph in a new-subscriber e-mail.
-#. TRANS: %s is a URL where the subscriber can be reported as abusive.
-#, php-format
+#. TRANS: Common footer block for StatusNet notification emails.
+#. TRANS: %1$s is the StatusNet sitename,
+#. TRANS: %2$s is a link to the addressed user's e-mail settings.
+#, fuzzy, php-format
 msgid ""
-"If you believe this account is being used abusively, you can block them from "
-"your subscribers list and report as spam to site administrators at %s"
-msgstr ""
-"Доколку сметате дека сметкава се злоупотребува, тогаш можете да ја блокирате "
-"од списокот на претплатници и да ја пријавите како спам кај администраторите "
-"на %s"
-
-#. TRANS: Main body of new-subscriber notification e-mail.
-#. TRANS: %1$s is the subscriber's long name, %2$s is the StatusNet sitename,
-#. TRANS: %3$s is the subscriber's profile URL, %4$s is the subscriber's location (or empty)
-#. TRANS: %5$s is the subscriber's homepage URL (or empty), %6%s is the subscriber's bio (or empty)
-#. TRANS: %7$s is a link to the addressed user's e-mail settings.
-#, php-format
-msgid ""
-"%1$s is now listening to your notices on %2$s.\n"
-"\n"
-"\t%3$s\n"
-"\n"
-"%4$s%5$s%6$s\n"
 "Faithfully yours,\n"
-"%2$s.\n"
+"%1$s.\n"
 "\n"
 "----\n"
-"Change your email address or notification options at %7$s\n"
+"Change your email address or notification options at %2$s"
 msgstr ""
 "%1$s сега ги следи Вашите забелешки на %2$s.\n"
 "\n"
@@ -7562,11 +7767,28 @@ msgstr ""
 "Изменете си ја е-поштенската адреса или ги нагодувањата за известувања на %7"
 "$s\n"
 
-#. TRANS: Profile info line in new-subscriber notification e-mail.
+#. TRANS: Profile info line in notification e-mail.
+#. TRANS: %s is a URL.
+#, fuzzy, php-format
+msgid "Profile: %s"
+msgstr "Профил"
+
+#. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is biographical information.
 #, php-format
 msgid "Bio: %s"
 msgstr "Биографија: %s"
+
+#. TRANS: This is a paragraph in a new-subscriber e-mail.
+#. TRANS: %s is a URL where the subscriber can be reported as abusive.
+#, fuzzy, php-format
+msgid ""
+"If you believe this account is being used abusively, you can block them from "
+"your subscribers list and report as spam to site administrators at %s."
+msgstr ""
+"Доколку сметате дека сметкава се злоупотребува, тогаш можете да ја блокирате "
+"од списокот на претплатници и да ја пријавите како спам кај администраторите "
+"на %s"
 
 #. TRANS: Subject of notification mail for new posting email address.
 #. TRANS: %s is the StatusNet sitename.
@@ -7577,16 +7799,13 @@ msgstr "Нова е-поштенска адреса за објавување н
 #. TRANS: Body of notification mail for new posting email address.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is the e-mail address to send
 #. TRANS: to to post by e-mail, %3$s is a URL to more instructions.
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
 "Send email to %2$s to post new messages.\n"
 "\n"
-"More email instructions at %3$s.\n"
-"\n"
-"Faithfully yours,\n"
-"%1$s"
+"More email instructions at %3$s."
 msgstr ""
 "Имате нова адреса за објавување пораки на %1$s.\n"
 "\n"
@@ -7621,8 +7840,8 @@ msgstr "%s Ве подбуцна"
 
 #. TRANS: Body for 'nudge' notification email.
 #. TRANS: %1$s is the nuding user's long name, $2$s is the nudging user's nickname,
-#. TRANS: %3$s is a URL to post notices at, %4$s is the StatusNet sitename.
-#, php-format
+#. TRANS: %3$s is a URL to post notices at.
+#, fuzzy, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
 "to post some news.\n"
@@ -7631,10 +7850,7 @@ msgid ""
 "\n"
 "%3$s\n"
 "\n"
-"Don't reply to this email; it won't get to them.\n"
-"\n"
-"With kind regards,\n"
-"%4$s\n"
+"Don't reply to this email; it won't get to them."
 msgstr ""
 "%1$s (%2$s) се прашува што се случува со Вас во последно време и Ве поканува "
 "да објавите што има ново.\n"
@@ -7657,8 +7873,7 @@ msgstr "Нова приватна порака од %s"
 #. TRANS: Body for direct-message notification email.
 #. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
 #. TRANS: %3$s is the message content, %4$s a URL to the message,
-#. TRANS: %5$s is the StatusNet sitename.
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
 "\n"
@@ -7670,10 +7885,7 @@ msgid ""
 "\n"
 "%4$s\n"
 "\n"
-"Don't reply to this email; it won't get to them.\n"
-"\n"
-"With kind regards,\n"
-"%5$s\n"
+"Don't reply to this email; it won't get to them."
 msgstr ""
 "%1$s (%2$s) Ви испрати приватна порака:\n"
 "\n"
@@ -7701,7 +7913,7 @@ msgstr "%1$s (@%2$s) ја бендиса вашата забелешка"
 #. TRANS: %3$s is a URL to the faved notice, %4$s is the faved notice text,
 #. TRANS: %5$s is a URL to all faves of the adding user, %6$s is the StatusNet sitename,
 #. TRANS: %7$s is the adding user's nickname.
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
 "\n"
@@ -7715,10 +7927,7 @@ msgid ""
 "\n"
 "You can see the list of %1$s's favorites here:\n"
 "\n"
-"%5$s\n"
-"\n"
-"Faithfully yours,\n"
-"%6$s\n"
+"%5$s"
 msgstr ""
 "%1$s (@%7$s) штотуку ја бендиса Вашата забелешка од %2$s.\n"
 "\n"
@@ -7755,14 +7964,13 @@ msgid "%1$s (@%2$s) sent a notice to your attention"
 msgstr "%1$s (@%2$s) Ви испрати забелешка што сака да ја прочитате"
 
 #. TRANS: Body of @-reply notification e-mail.
-#. TRANS: %1$s is the sending user's long name, $2$s is the StatusNet sitename,
+#. TRANS: %1$s is the sending user's name, $2$s is the StatusNet sitename,
 #. TRANS: %3$s is a URL to the notice, %4$s is the notice text,
 #. TRANS: %5$s is a URL to the full conversion if it exists (otherwise empty),
-#. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replied for the addressed user,
-#. TRANS: %8$s is a URL to the addressed user's e-mail settings, %9$s is the sender's nickname.
-#, php-format
+#. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replies for the addressed user,
+#, fuzzy, php-format
 msgid ""
-"%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
+"%1$s just sent a notice to your attention (an '@-reply') on %2$s.\n"
 "\n"
 "The notice is here:\n"
 "\n"
@@ -7778,12 +7986,7 @@ msgid ""
 "\n"
 "The list of all @-replies for you here:\n"
 "\n"
-"%7$s\n"
-"\n"
-"Faithfully yours,\n"
-"%2$s\n"
-"\n"
-"P.S. You can turn off these email notifications here: %8$s\n"
+"%7$s"
 msgstr ""
 "%1$s (@%9$s) штотуку Ви даде на знаење за забелешката ('@-одговор') на %2"
 "$s.\n"
@@ -7808,6 +8011,31 @@ msgstr ""
 "%2$s\n"
 "\n"
 "П.С. Можете да ги исклучите овие известувања по е-пошта тука: %8$s\n"
+
+#. TRANS: Subject of group join notification e-mail.
+#. TRANS: %1$s is the joining user's nickname, %2$s is the group name, and %3$s is the StatusNet sitename.
+#. TRANS: Main body of group join notification e-mail.
+#. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
+#. TRANS: %4$s is a block of profile info about the subscriber.
+#. TRANS: %5$s is a link to the addressed user's e-mail settings.
+#, fuzzy, php-format
+msgid "%1$s has joined your group %2$s on %3$s."
+msgstr "%1$s се зачлени во групата %2$s."
+
+#. TRANS: Subject of pending group join request notification e-mail.
+#. TRANS: %1$s is the joining user's nickname, %2$s is the group name, and %3$s is the StatusNet sitename.
+#, fuzzy, php-format
+msgid "%1$s wants to join your group %2$s on %3$s."
+msgstr "%1$s се зачлени во групата %2$s."
+
+#. TRANS: Main body of pending group join request notification e-mail.
+#. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
+#. TRANS: %3$s is the URL to the moderation queue page.
+#, php-format
+msgid ""
+"%1$s would like to join your group %2$s on %3$s. You may approve or reject "
+"their group membership at %4$s"
+msgstr ""
 
 msgid "Only the user can read their own mailboxes."
 msgstr "Само корисникот може да го чита своето сандаче."
@@ -7847,6 +8075,20 @@ msgstr "Жалиме, приемната пошта не е дозволена."
 #, php-format
 msgid "Unsupported message type: %s"
 msgstr "Неподдржан формат на порака: %s"
+
+#. TRANS: Form legend for form to make a user a group admin.
+msgid "Make user an admin of the group"
+msgstr "Направи го корисникот администратор на групата"
+
+#. TRANS: Button text for the form that will make a user administrator.
+msgctxt "BUTTON"
+msgid "Make Admin"
+msgstr "Назначи за администратор"
+
+#. TRANS: Submit button title.
+msgctxt "TOOLTIP"
+msgid "Make this user an admin"
+msgstr "Назначи го корисников за администратор"
 
 #. TRANS: Client exception thrown when a database error was thrown during a file upload operation.
 msgid "There was a database error while saving your file. Please try again."
@@ -8361,60 +8603,57 @@ msgid "Error opening theme archive."
 msgstr "Грешка при отворањето на архивот за мотив."
 
 #. TRANS: Header for Notices section.
-#, fuzzy
 msgctxt "HEADER"
 msgid "Notices"
 msgstr "Забелешки"
 
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
-#, fuzzy, php-format
+#, php-format
 msgid "Show reply"
 msgid_plural "Show all %d replies"
-msgstr[0] "Прикажи %d одговор"
+msgstr[0] "Прикажи одговор"
 msgstr[1] "Прикажи ги сите %d одговори"
 
 #. TRANS: Reference to the logged in user in favourite list.
 msgctxt "FAVELIST"
 msgid "You"
-msgstr ""
+msgstr "Вие"
 
 #. TRANS: Separator in list of user names like "You, Bob, Mary".
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #. TRANS: For building a list such as "You, bob, mary and 5 others have favored this notice".
 #. TRANS: %1$s is a list of users, separated by a separator (default: ", "), %2$s is the last user in the list.
-#, fuzzy, php-format
+#, php-format
 msgctxt "FAVELIST"
 msgid "%1$s and %2$s"
-msgstr "%1$s - %2$s"
+msgstr "%1$s и %2$s"
 
 #. TRANS: List message for notice favoured by logged in user.
-#, fuzzy
 msgctxt "FAVELIST"
 msgid "You have favored this notice."
-msgstr "Бендисај ја забелешкава"
+msgstr "Ја бендисавте забелешкава."
 
-#, fuzzy, php-format
+#, php-format
 msgctxt "FAVELIST"
 msgid "One person has favored this notice."
 msgid_plural "%d people have favored this notice."
-msgstr[0] "Одбендисај ја забелешкава"
-msgstr[1] "Одбендисај ја забелешкава"
+msgstr[0] "Белешкава ја бендиса едно лице."
+msgstr[1] "Белешкава ја бендисаа %d лица."
 
 #. TRANS: List message for notice repeated by logged in user.
-#, fuzzy
 msgctxt "REPEATLIST"
 msgid "You have repeated this notice."
-msgstr "Веќе ја имате повторено таа забелешка."
+msgstr "Ја повторивте забелешкава."
 
-#, fuzzy, php-format
+#, php-format
 msgctxt "REPEATLIST"
 msgid "One person has repeated this notice."
 msgid_plural "%d people have repeated this notice."
-msgstr[0] "Забелешката е веќе повторена."
-msgstr[1] "Забелешката е веќе повторена."
+msgstr[0] "Забелешкава ја има повторено едно лице."
+msgstr[1] "Забелешкава ја имаат повторено %d лица."
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -8426,7 +8665,6 @@ msgid "Unblock"
 msgstr "Одблокирај"
 
 #. TRANS: Title for unsandbox form.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Unsandbox"
 msgstr "Извади од песочен режим"
@@ -8449,10 +8687,9 @@ msgid "Unsubscribe from this user"
 msgstr "Откажи претплата од овој корсиник"
 
 #. TRANS: Button text on unsubscribe form.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Unsubscribe"
-msgstr "Откажи ја претплатата"
+msgstr "Отпиши се"
 
 #. TRANS: Exception text shown when no profile can be found for a user.
 #. TRANS: %1$s is a user nickname, $2$d is a user ID (number).
@@ -8536,8 +8773,8 @@ msgstr "Неважечки XML. Нема XRD-корен."
 msgid "Getting backup from file '%s'."
 msgstr "Земам резерва на податотеката „%s“."
 
-#~ msgid "Couldn't update user."
-#~ msgstr "Не можев да го подновам корисникот."
+#~ msgid "Notice"
+#~ msgstr "Забелешки"
 
-#~ msgid "Couldn't update user im prefs."
-#~ msgstr "Не можев да ги подновам корисничките нагодувања за IM."
+#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#~ msgstr "1-64 мали букви или бројки, без интерпукциски знаци и празни места."

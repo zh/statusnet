@@ -366,7 +366,7 @@ class Router
 
             $m->connect('group/new', array('action' => 'newgroup'));
 
-            foreach (array('edit', 'join', 'leave', 'delete') as $v) {
+            foreach (array('edit', 'join', 'leave', 'delete', 'cancel', 'approve') as $v) {
                 $m->connect('group/:nickname/'.$v,
                             array('action' => $v.'group'),
                             array('nickname' => Nickname::DISPLAY_FMT));
@@ -391,6 +391,10 @@ class Router
 
             $m->connect('group/:nickname/makeadmin',
                         array('action' => 'makeadmin'),
+                        array('nickname' => Nickname::DISPLAY_FMT));
+
+            $m->connect('group/:nickname/members/pending',
+                        array('action' => 'groupqueue'),
                         array('nickname' => Nickname::DISPLAY_FMT));
 
             $m->connect('group/:id/id',

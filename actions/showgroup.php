@@ -324,6 +324,8 @@ class ShowgroupAction extends GroupDesignAction
         $this->element('h2', null, _('Statistics'));
 
         $this->elementStart('dl');
+
+        // TRANS: Label for group creation date.
         $this->element('dt', null, _m('LABEL','Created'));
         $this->element('dd', 'entity_created', date('j M Y',
                                                  strtotime($this->group->created)));
@@ -382,8 +384,8 @@ class GroupAdminSection extends ProfileSection
 
     function title()
     {
-        // TRANS: Header for list of group administrators on a group page (h2).
-        return _('Admins');
+        // TRANS: Title for list of group administrators on a group page.
+        return _m('TITLE','Admins');
     }
 
     function divId()

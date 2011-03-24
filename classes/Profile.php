@@ -93,7 +93,7 @@ class Profile extends Memcached_DataObject
         $avatar->url = Avatar::url($filename);
         $avatar->created = DB_DataObject_Cast::dateTime(); # current time
 
-        # XXX: start a transaction here
+        // XXX: start a transaction here
 
         if (!$this->delete_avatars() || !$avatar->insert()) {
             @unlink(Avatar::path($filename));
@@ -101,7 +101,7 @@ class Profile extends Memcached_DataObject
         }
 
         foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
-            # We don't do a scaled one if original is our scaled size
+            // We don't do a scaled one if original is our scaled size
             if (!($avatar->width == $size && $avatar->height == $size)) {
                 $scaled_filename = $imagefile->resize($size);
 
@@ -198,22 +198,20 @@ class Profile extends Memcached_DataObject
 
     function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Notice::stream(array($this, '_streamTaggedDirect'),
-                              array($tag),
-                              'profile:notice_ids_tagged:' . $this->id . ':' . $tag,
-                              $offset, $limit, $since_id, $max_id);
-        return Notice::getStreamByIds($ids);
+        $stream = new NoticeStream(array($this, '_streamTaggedDirect'),
+                                   array($tag),
+                                   'profile:notice_ids_tagged:'.$this->id.':'.$tag);
+
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        // XXX: I'm not sure this is going to be any faster. It probably isn't.
-        $ids = Notice::stream(array($this, '_streamDirect'),
-                              array(),
-                              'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $max_id);
+        $stream = new NoticeStream(array($this, '_streamDirect'),
+                                   array(),
+                                   'profile:notice_ids:' . $this->id);
 
-        return Notice::getStreamByIds($ids);
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id)
@@ -313,6 +311,13 @@ class Profile extends Memcached_DataObject
         }
     }
 
+    function isPendingMember($group)
+    {
+        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
+                                                   'group_id' => $group->id));
+        return !empty($request);
+    }
+
     function getGroups($offset=0, $limit=null)
     {
         $qry =
@@ -337,6 +342,87 @@ class Profile extends Memcached_DataObject
         $cnt = $groups->query(sprintf($qry, $this->id));
 
         return $groups;
+    }
+
+    /**
+     * Request to join the given group.
+     * May throw exceptions on failure.
+     *
+     * @param User_group $group
+     * @return mixed: Group_member on success, Group_join_queue if pending approval, null on some cancels?
+     */
+    function joinGroup(User_group $group)
+    {
+        $join = null;
+        if ($group->join_policy == User_group::JOIN_POLICY_MODERATE) {
+            $join = Group_join_queue::saveNew($this, $group);
+        } else {
+            if (Event::handle('StartJoinGroup', array($group, $this))) {
+                $join = Group_member::join($group->id, $this->id);
+                Event::handle('EndJoinGroup', array($group, $this));
+            }
+        }
+        if ($join) {
+            // Send any applicable notifications...
+            $join->notify();
+        }
+        return $join;
+    }
+
+    /**
+     * Cancel a pending group join...
+     *
+     * @param User_group $group
+     */
+    function cancelJoinGroup(User_group $group)
+    {
+        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
+                                                   'group_id' => $group->id));
+        if ($request) {
+            if (Event::handle('StartCancelJoinGroup', array($group, $this))) {
+                $request->delete();
+                Event::handle('EndCancelJoinGroup', array($group, $this));
+            }
+        }
+    }
+
+    /**
+     * Complete a pending group join on our end...
+     *
+     * @param User_group $group
+     */
+    function completeJoinGroup(User_group $group)
+    {
+        $join = null;
+        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
+                                                   'group_id' => $group->id));
+        if ($request) {
+            if (Event::handle('StartJoinGroup', array($group, $this))) {
+                $join = Group_member::join($group->id, $this->id);
+                $request->delete();
+                Event::handle('EndJoinGroup', array($group, $this));
+            }
+        } else {
+            // TRANS: Exception thrown trying to approve a non-existing group join request.
+            throw new Exception(_('Invalid group join approval: not pending.'));
+        }
+        if ($join) {
+            $join->notify();
+        }
+        return $join;
+    }
+
+    /**
+     * Leave a group that this profile is a member of.
+     *
+     * @param User_group $group
+     */
+    function leaveGroup(User_group $group)
+    {
+        if (Event::handle('StartLeaveGroup', array($group, $this))) {
+            Group_member::leave($group->id, $this->id);
+            Event::handle('EndLeaveGroup', array($group, $this));
+        }
     }
 
     function avatarUrl($size=AVATAR_PROFILE_SIZE)
@@ -465,7 +551,7 @@ class Profile extends Memcached_DataObject
             // This is the stream of favorite notices, in rev chron
             // order. This forces it into cache.
 
-            $ids = Fave::stream($this->id, 0, NOTICE_CACHE_WINDOW);
+            $ids = Fave::idStream($this->id, 0, NoticeStream::CACHE_WINDOW);
 
             // If it's in the list, then it's a fave
 
@@ -477,7 +563,7 @@ class Profile extends Memcached_DataObject
             // then the cache has all available faves, so this one
             // is not a fave.
 
-            if (count($ids) < NOTICE_CACHE_WINDOW) {
+            if (count($ids) < NoticeStream::CACHE_WINDOW) {
                 return false;
             }
 

@@ -675,7 +675,7 @@ class OStatusPlugin extends Plugin
      * it'll be left with a stray membership record.
      *
      * @param User_group $group
-     * @param User $user
+     * @param Profile $user
      *
      * @return mixed hook return value
      */
