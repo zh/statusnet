@@ -363,6 +363,47 @@ class Profile extends Memcached_DataObject
         }
     }
 
+    /**
+     * Request a subscription to another local or remote profile.
+     * This will result in either the subscription going through
+     * immediately, being queued for approval, or being rejected
+     * immediately.
+     *
+     * @param Profile $profile
+     * @return mixed: Subscription or Subscription_queue object on success
+     * @throws Exception of various types on invalid state
+     */
+    function subscribe($profile)
+    {
+        //
+    }
+
+    /**
+     * Cancel an outstanding subscription request to the other profile.
+     *
+     * @param Profile $profile
+     */
+    function cancelSubscribe($profile)
+    {
+        $request = Subscribe_join_queue::pkeyGet(array('subscriber' => $this->id,
+                                                       'subscribed' => $profile->id));
+        if ($request) {
+            if (Event::handle('StartCancelSubscription', array($this, $profile))) {
+                $request->delete();
+                Event::handle('EndCancelSubscription', array($this, $profile));
+            }
+        }
+    }
+
+    /**
+     *
+     * @param <type> $profile 
+     */
+    function completeSubscribe($profile)
+    {
+
+    }
+
     function getSubscriptions($offset=0, $limit=null)
     {
         $subs = Subscription::bySubscriber($this->id,
