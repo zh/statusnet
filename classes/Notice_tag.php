@@ -38,40 +38,9 @@ class Notice_tag extends Memcached_DataObject
 
     static function getStream($tag, $offset=0, $limit=20, $sinceId=0, $maxId=0)
     {
-        $stream = new NoticeStream(array('Notice_tag', '_streamDirect'),
-                                   array($tag),
-                                   'notice_tag:notice_ids:' . Cache::keyize($tag));
+        $stream = new TagNoticeStream($tag);
         
         return $stream->getNotices($offset, $limit, $sinceId, $maxId);
-    }
-
-    function _streamDirect($tag, $offset, $limit, $since_id, $max_id)
-    {
-        $nt = new Notice_tag();
-
-        $nt->tag = $tag;
-
-        $nt->selectAdd();
-        $nt->selectAdd('notice_id');
-
-        Notice::addWhereSinceId($nt, $since_id, 'notice_id');
-        Notice::addWhereMaxId($nt, $max_id, 'notice_id');
-
-        $nt->orderBy('created DESC, notice_id DESC');
-
-        if (!is_null($offset)) {
-            $nt->limit($offset, $limit);
-        }
-
-        $ids = array();
-
-        if ($nt->find()) {
-            while ($nt->fetch()) {
-                $ids[] = $nt->notice_id;
-            }
-        }
-
-        return $ids;
     }
 
     function blowCache($blowLast=false)

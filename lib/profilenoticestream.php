@@ -3,8 +3,8 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * A stream of notices
- *
+ * Stream of notices by a profile
+ * 
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -35,66 +35,71 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Class for notice streams
+ * Stream of notices by a profile
  *
- * @category  Stream
+ * @category  General
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-abstract class NoticeStream
+
+class ProfileNoticeStream extends CachingNoticeStream
 {
-    abstract function getNoticeIds($offset, $limit, $sinceId, $maxId);
-
-    function getNotices($offset=0, $limit=20, $sinceId=0, $maxId=0)
+    function __construct($profile)
     {
-        $ids = $this->getNoticeIds($offset, $limit, $sinceId, $maxId);
+        parent::__construct(new RawProfileNoticeStream($profile),
+                            'profile:notice_ids:' . $profile->id);
+    }
+}
 
-        $notices = self::getStreamByIds($ids);
+/**
+ * Raw stream of notices by a profile
+ *
+ * @category  General
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2011 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
 
-        return $notices;
+class RawProfileNoticeStream extends NoticeStream
+{
+    protected $profile;
+
+    function __construct($profile)
+    {
+        $this->profile = $profile;
     }
 
-    static function getStreamByIds($ids)
+    function getNoticeIds($offset, $limit, $since_id, $max_id)
     {
-        $cache = Cache::instance();
+        $notice = new Notice();
 
-        if (!empty($cache)) {
-            $notices = array();
-            foreach ($ids as $id) {
-                $n = Notice::staticGet('id', $id);
-                if (!empty($n)) {
-                    $notices[] = $n;
-                }
-            }
-            return new ArrayWrapper($notices);
-        } else {
-            $notice = new Notice();
-            if (empty($ids)) {
-                //if no IDs requested, just return the notice object
-                return $notice;
-            }
-            $notice->whereAdd('id in (' . implode(', ', $ids) . ')');
+        $notice->profile_id = $this->profile->id;
 
-            $notice->find();
+        $notice->selectAdd();
+        $notice->selectAdd('id');
 
-            $temp = array();
+        Notice::addWhereSinceId($notice, $since_id);
+        Notice::addWhereMaxId($notice, $max_id);
 
-            while ($notice->fetch()) {
-                $temp[$notice->id] = clone($notice);
-            }
+        $notice->orderBy('created DESC, id DESC');
 
-            $wrapped = array();
-
-            foreach ($ids as $id) {
-                if (array_key_exists($id, $temp)) {
-                    $wrapped[] = $temp[$id];
-                }
-            }
-
-            return new ArrayWrapper($wrapped);
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
         }
+
+        $notice->find();
+
+        $ids = array();
+
+        while ($notice->fetch()) {
+            $ids[] = $notice->id;
+        }
+
+        return $ids;
     }
 }

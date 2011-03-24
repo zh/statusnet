@@ -45,7 +45,7 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 /* We keep 200 notices, the max number of notices available per API request,
  * in the memcached cache. */
 
-define('NOTICE_CACHE_WINDOW', NoticeStream::CACHE_WINDOW);
+define('NOTICE_CACHE_WINDOW', CachingNoticeStream::CACHE_WINDOW);
 
 define('MAX_BOXCARS', 128);
 
@@ -548,7 +548,7 @@ class Notice extends Memcached_DataObject
         if (empty($profile)) {
             return false;
         }
-        $notice = $profile->getNotices(0, NoticeStream::CACHE_WINDOW);
+        $notice = $profile->getNotices(0, CachingNoticeStream::CACHE_WINDOW);
         if (!empty($notice)) {
             $last = 0;
             while ($notice->fetch()) {
@@ -632,90 +632,16 @@ class Notice extends Memcached_DataObject
 
     function publicStream($offset=0, $limit=20, $since_id=0, $max_id=0)
     {
-        $stream = new NoticeStream(array('Notice', '_publicStreamDirect'),
-                                   array(),
-                                   'public');
-
+        $stream = new PublicNoticeStream();
         return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
-    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0)
-    {
-        $notice = new Notice();
-
-        $notice->selectAdd(); // clears it
-        $notice->selectAdd('id');
-
-        $notice->orderBy('created DESC, id DESC');
-
-        if (!is_null($offset)) {
-            $notice->limit($offset, $limit);
-        }
-
-        if (common_config('public', 'localonly')) {
-            $notice->whereAdd('is_local = ' . Notice::LOCAL_PUBLIC);
-        } else {
-            // -1 == blacklisted, -2 == gateway (i.e. Twitter)
-            $notice->whereAdd('is_local !='. Notice::LOCAL_NONPUBLIC);
-            $notice->whereAdd('is_local !='. Notice::GATEWAY);
-        }
-
-        Notice::addWhereSinceId($notice, $since_id);
-        Notice::addWhereMaxId($notice, $max_id);
-
-        $ids = array();
-
-        if ($notice->find()) {
-            while ($notice->fetch()) {
-                $ids[] = $notice->id;
-            }
-        }
-
-        $notice->free();
-        $notice = NULL;
-
-        return $ids;
-    }
 
     function conversationStream($id, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
-        $stream = new NoticeStream(array('Notice', '_conversationStreamDirect'),
-                                   array($id),
-                                   'notice:conversation_ids:'.$id);
+        $stream = new ConversationNoticeStream($id);
 
         return $stream->getNotices($offset, $limit, $since_id, $max_id);
-    }
-
-    function _conversationStreamDirect($id, $offset=0, $limit=20, $since_id=0, $max_id=0)
-    {
-        $notice = new Notice();
-
-        $notice->selectAdd(); // clears it
-        $notice->selectAdd('id');
-
-        $notice->conversation = $id;
-
-        $notice->orderBy('created DESC, id DESC');
-
-        if (!is_null($offset)) {
-            $notice->limit($offset, $limit);
-        }
-
-        Notice::addWhereSinceId($notice, $since_id);
-        Notice::addWhereMaxId($notice, $max_id);
-
-        $ids = array();
-
-        if ($notice->find()) {
-            while ($notice->fetch()) {
-                $ids[] = $notice->id;
-            }
-        }
-
-        $notice->free();
-        $notice = NULL;
-
-        return $ids;
     }
 
     /**

@@ -767,93 +767,18 @@ class User extends Memcached_DataObject
 
     function repeatedByMe($offset=0, $limit=20, $since_id=null, $max_id=null)
     {
-        $stream = new NoticeStream(array($this, '_repeatedByMeDirect'),
-                                   array(),
-                                   'user:repeated_by_me:'.$this->id);
-
+        $stream = new RepeatedByMeNoticeStream($this);
         return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
-    function _repeatedByMeDirect($offset, $limit, $since_id, $max_id)
-    {
-        $notice = new Notice();
-
-        $notice->selectAdd(); // clears it
-        $notice->selectAdd('id');
-
-        $notice->profile_id = $this->id;
-        $notice->whereAdd('repeat_of IS NOT NULL');
-
-        $notice->orderBy('created DESC, id DESC');
-
-        if (!is_null($offset)) {
-            $notice->limit($offset, $limit);
-        }
-
-        Notice::addWhereSinceId($notice, $since_id);
-        Notice::addWhereMaxId($notice, $max_id);
-
-        $ids = array();
-
-        if ($notice->find()) {
-            while ($notice->fetch()) {
-                $ids[] = $notice->id;
-            }
-        }
-
-        $notice->free();
-        $notice = NULL;
-
-        return $ids;
-    }
 
     function repeatsOfMe($offset=0, $limit=20, $since_id=null, $max_id=null)
     {
-        $stream = new NoticeStream(array($this, '_repeatsOfMeDirect'),
-                                   array(),
-                                   'user:repeats_of_me:'.$this->id);
+        $stream = new RepeatsOfMeNoticeStream($this);
 
         return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
-    function _repeatsOfMeDirect($offset, $limit, $since_id, $max_id)
-    {
-        $qry =
-          'SELECT DISTINCT original.id AS id ' .
-          'FROM notice original JOIN notice rept ON original.id = rept.repeat_of ' .
-          'WHERE original.profile_id = ' . $this->id . ' ';
-
-        $since = Notice::whereSinceId($since_id, 'original.id', 'original.created');
-        if ($since) {
-            $qry .= "AND ($since) ";
-        }
-
-        $max = Notice::whereMaxId($max_id, 'original.id', 'original.created');
-        if ($max) {
-            $qry .= "AND ($max) ";
-        }
-
-        $qry .= 'ORDER BY original.created, original.id DESC ';
-
-        if (!is_null($offset)) {
-            $qry .= "LIMIT $limit OFFSET $offset";
-        }
-
-        $ids = array();
-
-        $notice = new Notice();
-
-        $notice->query($qry);
-
-        while ($notice->fetch()) {
-            $ids[] = $notice->id;
-        }
-
-        $notice->free();
-        $notice = NULL;
-
-        return $ids;
-    }
 
     function repeatedToMe($offset=0, $limit=20, $since_id=null, $max_id=null)
     {

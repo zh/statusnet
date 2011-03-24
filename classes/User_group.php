@@ -87,41 +87,11 @@ class User_group extends Memcached_DataObject
 
     function getNotices($offset, $limit, $since_id=null, $max_id=null)
     {
-        $stream = new NoticeStream(array($this, '_streamDirect'),
-                                   array(),
-                                   'user_group:notice_ids:' . $this->id);
+        $stream = new GroupNoticeStream($this);
 
         return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
-    function _streamDirect($offset, $limit, $since_id, $max_id)
-    {
-        $inbox = new Group_inbox();
-
-        $inbox->group_id = $this->id;
-
-        $inbox->selectAdd();
-        $inbox->selectAdd('notice_id');
-
-        Notice::addWhereSinceId($inbox, $since_id, 'notice_id');
-        Notice::addWhereMaxId($inbox, $max_id, 'notice_id');
-
-        $inbox->orderBy('created DESC, notice_id DESC');
-
-        if (!is_null($offset)) {
-            $inbox->limit($offset, $limit);
-        }
-
-        $ids = array();
-
-        if ($inbox->find()) {
-            while ($inbox->fetch()) {
-                $ids[] = $inbox->notice_id;
-            }
-        }
-
-        return $ids;
-    }
 
     function allowedNickname($nickname)
     {

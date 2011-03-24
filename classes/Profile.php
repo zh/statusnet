@@ -198,88 +198,16 @@ class Profile extends Memcached_DataObject
 
     function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $stream = new NoticeStream(array($this, '_streamTaggedDirect'),
-                                   array($tag),
-                                   'profile:notice_ids_tagged:'.$this->id.':'.$tag);
+        $stream = new TaggedProfileNoticeStream($this, $tag);
 
         return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $stream = new NoticeStream(array($this, '_streamDirect'),
-                                   array(),
-                                   'profile:notice_ids:' . $this->id);
+        $stream = new ProfileNoticeStream($this);
 
         return $stream->getNotices($offset, $limit, $since_id, $max_id);
-    }
-
-    function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id)
-    {
-        // XXX It would be nice to do this without a join
-        // (necessary to do it efficiently on accounts with long history)
-
-        $notice = new Notice();
-
-        $query =
-          "select id from notice join notice_tag on id=notice_id where tag='".
-          $notice->escape($tag) .
-          "' and profile_id=" . intval($this->id);
-
-        $since = Notice::whereSinceId($since_id, 'id', 'notice.created');
-        if ($since) {
-            $query .= " and ($since)";
-        }
-
-        $max = Notice::whereMaxId($max_id, 'id', 'notice.created');
-        if ($max) {
-            $query .= " and ($max)";
-        }
-
-        $query .= ' order by notice.created DESC, id DESC';
-
-        if (!is_null($offset)) {
-            $query .= " LIMIT " . intval($limit) . " OFFSET " . intval($offset);
-        }
-
-        $notice->query($query);
-
-        $ids = array();
-
-        while ($notice->fetch()) {
-            $ids[] = $notice->id;
-        }
-
-        return $ids;
-    }
-
-    function _streamDirect($offset, $limit, $since_id, $max_id)
-    {
-        $notice = new Notice();
-
-        $notice->profile_id = $this->id;
-
-        $notice->selectAdd();
-        $notice->selectAdd('id');
-
-        Notice::addWhereSinceId($notice, $since_id);
-        Notice::addWhereMaxId($notice, $max_id);
-
-        $notice->orderBy('created DESC, id DESC');
-
-        if (!is_null($offset)) {
-            $notice->limit($offset, $limit);
-        }
-
-        $notice->find();
-
-        $ids = array();
-
-        while ($notice->fetch()) {
-            $ids[] = $notice->id;
-        }
-
-        return $ids;
     }
 
     function isMember($group)
@@ -551,7 +479,7 @@ class Profile extends Memcached_DataObject
             // This is the stream of favorite notices, in rev chron
             // order. This forces it into cache.
 
-            $ids = Fave::idStream($this->id, 0, NoticeStream::CACHE_WINDOW);
+            $ids = Fave::idStream($this->id, 0, CachingNoticeStream::CACHE_WINDOW);
 
             // If it's in the list, then it's a fave
 
@@ -563,7 +491,7 @@ class Profile extends Memcached_DataObject
             // then the cache has all available faves, so this one
             // is not a fave.
 
-            if (count($ids) < NoticeStream::CACHE_WINDOW) {
+            if (count($ids) < CachingNoticeStream::CACHE_WINDOW) {
                 return false;
             }
 

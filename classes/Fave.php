@@ -79,80 +79,16 @@ class Fave extends Memcached_DataObject
 
     function stream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $own=false, $since_id=0, $max_id=0)
     {
-        $stream = new NoticeStream(array('Fave', '_streamDirect'),
-                                   array($user_id, $own),
-                                   ($own) ? 'fave:ids_by_user_own:'.$user_id :
-                                   'fave:ids_by_user:'.$user_id);
+        $stream = new FaveNoticeStream($user_id, $own);
 
         return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function idStream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $own=false, $since_id=0, $max_id=0)
     {
-        $stream = new NoticeStream(array('Fave', '_streamDirect'),
-                                   array($user_id, $own),
-                                   ($own) ? 'fave:ids_by_user_own:'.$user_id :
-                                   'fave:ids_by_user:'.$user_id);
+        $stream = new FaveNoticeStream($user_id, $own);
 
         return $stream->getNoticeIds($offset, $limit, $since_id, $max_id);
-    }
-
-    /**
-     * Note that the sorting for this is by order of *fave* not order of *notice*.
-     *
-     * @fixme add since_id, max_id support?
-     *
-     * @param <type> $user_id
-     * @param <type> $own
-     * @param <type> $offset
-     * @param <type> $limit
-     * @param <type> $since_id
-     * @param <type> $max_id
-     * @return <type>
-     */
-    function _streamDirect($user_id, $own, $offset, $limit, $since_id, $max_id)
-    {
-        $fav = new Fave();
-        $qry = null;
-
-        if ($own) {
-            $qry  = 'SELECT fave.* FROM fave ';
-            $qry .= 'WHERE fave.user_id = ' . $user_id . ' ';
-        } else {
-             $qry =  'SELECT fave.* FROM fave ';
-             $qry .= 'INNER JOIN notice ON fave.notice_id = notice.id ';
-             $qry .= 'WHERE fave.user_id = ' . $user_id . ' ';
-             $qry .= 'AND notice.is_local != ' . Notice::GATEWAY . ' ';
-        }
-
-        if ($since_id != 0) {
-            $qry .= 'AND notice_id > ' . $since_id . ' ';
-        }
-
-        if ($max_id != 0) {
-            $qry .= 'AND notice_id <= ' . $max_id . ' ';
-        }
-
-        // NOTE: we sort by fave time, not by notice time!
-
-        $qry .= 'ORDER BY modified DESC ';
-
-        if (!is_null($offset)) {
-            $qry .= "LIMIT $limit OFFSET $offset";
-        }
-
-        $fav->query($qry);
-
-        $ids = array();
-
-        while ($fav->fetch()) {
-            $ids[] = $fav->notice_id;
-        }
-
-        $fav->free();
-        unset($fav);
-
-        return $ids;
     }
 
     function asActivity()
