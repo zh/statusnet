@@ -79,7 +79,7 @@ class ApproveGroupForm extends Form
 
     function id()
     {
-        return 'group-cancel-' . $this->group->id;
+        return 'group-queue-' . $this->group->id;
     }
 
     /**
@@ -90,7 +90,7 @@ class ApproveGroupForm extends Form
 
     function formClass()
     {
-        return 'form_group_join ajax';
+        return 'form_group_queue ajax';
     }
 
     /**
@@ -117,6 +117,7 @@ class ApproveGroupForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Approve'));
+        $this->out->submit('approve', _('Accept'));
+        $this->out->submit('cancel', _('Reject'));
     }
 }
