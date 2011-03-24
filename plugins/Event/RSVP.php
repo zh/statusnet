@@ -294,23 +294,25 @@ class RSVP extends Managed_DataObject
 
     function asHTML()
     {
+        $event = Happening::staticGet('id', $this->event_id);
+
         return self::toHTML($this->getProfile(),
-                            $this->getEvent(),
+                            $event,
                             $this->response);
     }
 
     function asString()
     {
+        $event = Happening::staticGet('id', $this->event_id);
+
         return self::toString($this->getProfile(),
-                              $this->getEvent(),
+                              $event,
                               $this->response);
     }
 
     static function toHTML($profile, $event, $response)
     {
         $fmt = null;
-
-        $notice = $event->getNotice();
 
         switch ($response) {
         case 'Y':
@@ -327,18 +329,25 @@ class RSVP extends Managed_DataObject
             break;
         }
 
+        if (empty($event)) {
+            $eventUrl = '#';
+            $eventTitle = _('an unknown event');
+        } else {
+            $notice = $event->getNotice();
+            $eventUrl = $notice->bestUrl();
+            $eventTitle = $event->title;
+        }
+
         return sprintf($fmt,
                        htmlspecialchars($profile->profileurl),
                        htmlspecialchars($profile->getBestName()),
-                       htmlspecialchars($notice->bestUrl()),
-                       htmlspecialchars($event->title));
+                       htmlspecialchars($eventUrl),
+                       htmlspecialchars($eventTitle));
     }
 
     static function toString($profile, $event, $response)
     {
         $fmt = null;
-
-        $notice = $event->getNotice();
 
         switch ($response) {
         case 'Y':
@@ -355,8 +364,15 @@ class RSVP extends Managed_DataObject
             break;
         }
 
+        if (empty($event)) {
+            $eventTitle = _('an unknown event');
+        } else {
+            $notice = $event->getNotice();
+            $eventTitle = $event->title;
+        }
+
         return sprintf($fmt,
                        $profile->getBestName(),
-                       $event->title);
+                       $eventTitle);
     }
 }
