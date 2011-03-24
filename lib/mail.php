@@ -832,7 +832,7 @@ function mail_notify_group_join_pending($group, $joiner)
 
             // TRANS: Main body of pending group join request notification e-mail.
             // TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
-            // TRANS: %3$s is the URL to the moderation queue page.
+            // TRANS: %4$s is the URL to the moderation queue page.
             $body = sprintf(_('%1$s would like to join your group %2$s on %3$s. ' .
                               'You may approve or reject their group membership at %4$s'),
                             $joiner->getFancyName(),
