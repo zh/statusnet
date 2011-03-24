@@ -65,7 +65,8 @@ class ShowstreamAction extends ProfileAction
         $base = $this->profile->getFancyName();
         if (!empty($this->tag)) {
             if ($this->page == 1) {
-                // TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
+                // TRANS: Page title showing tagged notices in one user's stream.
+                // TRANS: %1$s is the username, %2$s is the hash tag.
                 return sprintf(_('%1$s tagged %2$s'), $base, $this->tag);
             } else {
                 // TRANS: Page title showing tagged notices in one user's stream.
@@ -153,6 +154,8 @@ class ShowstreamAction extends ProfileAction
                                                array(
                                                     'id' => $this->user->id,
                                                     'format' => 'atom')),
+                              // TRANS: Title for link to notice feed.
+                              // TRANS: %s is a user nickname.
                               sprintf(_('Notice feed for %s (Atom)'),
                                       $this->user->nickname)),
                      new Feed(Feed::FOAF,
