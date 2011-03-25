@@ -169,15 +169,18 @@ class ApprovegroupAction extends Action
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
             // TRANS: Title for leave group page after group join request is approved/disapproved.
+            // TRANS: %1$s is the user nickname, %2$s is the group nickname.
             $this->element('title', null, sprintf(_m('TITLE','%1$s\'s request for %2$s'),
                                                   $this->profile->nickname,
                                                   $this->group->nickname));
             $this->elementEnd('head');
             $this->elementStart('body');
             if ($this->approve) {
-                $this->element('p', 'success', _m('Join request approved.'));
+                // TRANS: Message on page for group admin after approving a join request. 
+                $this->element('p', 'success', _('Join request approved.'));
             } elseif ($this->cancel) {
-                $this->element('p', 'success', _m('Join request canceled.'));
+                // TRANS: Message on page for group admin after rejecting a join request. 
+                $this->element('p', 'success', _('Join request canceled.'));
             }
             $this->elementEnd('body');
             $this->elementEnd('html');

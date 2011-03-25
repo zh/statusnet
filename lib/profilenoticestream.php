@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Stream of notices by a profile
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
