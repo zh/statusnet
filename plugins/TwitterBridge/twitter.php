@@ -83,7 +83,6 @@ function save_twitter_user($twitter_id, $screen_name)
                                          $screen_name,
                                          $oldname));
         }
-
     } else {
         // Kill any old, invalid records for this screen name
         $fuser = Foreign_user::getByNickname($screen_name, TWITTER_SERVICE);
@@ -279,7 +278,6 @@ function broadcast_oauth($notice, $flink) {
     }
 
     if (empty($status)) {
-
         // This could represent a failure posting,
         // or the Twitter API might just be behaving flakey.
         $errmsg = sprintf('Twitter bridge - No data returned by Twitter API when ' .
@@ -426,10 +424,14 @@ function mail_twitter_bridge_removed($user)
 
     common_switch_locale($user->language);
 
-    $subject = sprintf(_m('Your Twitter bridge has been disabled.'));
+    // TRANS: Mail subject after forwarding notices to Twitter has stopped working.
+    $subject = sprintf(_m('Your Twitter bridge has been disabled'));
 
     $site_name = common_config('site', 'name');
 
+    // TRANS: Mail body after forwarding notices to Twitter has stopped working.
+    // TRANS: %1$ is the name of the user the mail is sent to, %2$s is a URL to the
+    // TRANS: Twitter settings, %3$s is the StatusNet sitename.
     $body = sprintf(_m('Hi, %1$s. We\'re sorry to inform you that your ' .
         'link to Twitter has been disabled. We no longer seem to have ' .
     'permission to update your Twitter status. Did you maybe revoke ' .
