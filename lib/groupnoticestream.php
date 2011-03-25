@@ -1,4 +1,4 @@
-<?
+<?php
 
 class GroupNoticeStream extends CachingNoticeStream
 {
