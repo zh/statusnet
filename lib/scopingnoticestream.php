@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Stream of notices with a given tag
+ * Filtering notice stream that recognizes notice scope
  * 
  * PHP version 5
  *
@@ -35,7 +35,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Stream of notices with a given tag
+ * Class comment
  *
  * @category  Stream
  * @package   StatusNet
@@ -45,61 +45,34 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class TagNoticeStream extends ScopingNoticeStream
+class ScopingNoticeStream extends FilteringNoticeStream
 {
-    function __construct($tag)
+    protected $profile;
+
+    function __construct($upstream, $profile = null)
     {
-        parent::__construct(new CachingNoticeStream(new RawTagNoticeStream($tag),
-                                                    'notice_tag:notice_ids:' . Cache::keyize($tag)));
-    }
-}
+        parent::__construct($upstream);
 
-/**
- * Raw stream of notices with a given tag
- *
- * @category  Stream
- * @package   StatusNet
- * @author    Evan Prodromou <evan@status.net>
- * @copyright 2011 StatusNet, Inc.
- * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
- * @link      http://status.net/
- */
-
-class RawTagNoticeStream extends NoticeStream
-{
-    protected $tag;
-
-    function __construct($tag)
-    {
-        $this->tag = $tag;
-    }
-
-    function getNoticeIds($offset, $limit, $since_id, $max_id)
-    {
-        $nt = new Notice_tag();
-
-        $nt->tag = $this->tag;
-
-        $nt->selectAdd();
-        $nt->selectAdd('notice_id');
-
-        Notice::addWhereSinceId($nt, $since_id, 'notice_id');
-        Notice::addWhereMaxId($nt, $max_id, 'notice_id');
-
-        $nt->orderBy('created DESC, notice_id DESC');
-
-        if (!is_null($offset)) {
-            $nt->limit($offset, $limit);
-        }
-
-        $ids = array();
-
-        if ($nt->find()) {
-            while ($nt->fetch()) {
-                $ids[] = $nt->notice_id;
+        if (empty($profile)) {
+            $user = common_current_user();
+            if (!empty($user)) {
+                $profile = $user->getProfile();
             }
         }
-
-        return $ids;
+        $this->profile = $profile;
     }
+
+    /**
+     * Only return notices where the profile is in scope
+     *
+     * @param Notice $notice The notice to check
+     *
+     * @return boolean whether to include the notice
+     */
+
+    function filter($notice)
+    {
+        return $notice->inScope($this->profile);
+    }
+    
 }

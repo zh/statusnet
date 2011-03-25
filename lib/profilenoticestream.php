@@ -45,12 +45,12 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class ProfileNoticeStream extends CachingNoticeStream
+class ProfileNoticeStream extends ScopingNoticeStream
 {
     function __construct($profile)
     {
-        parent::__construct(new RawProfileNoticeStream($profile),
-                            'profile:notice_ids:' . $profile->id);
+        parent::__construct(new CachingNoticeStream(new RawProfileNoticeStream($profile),
+                                                    'profile:notice_ids:' . $profile->id));
     }
 }
 
