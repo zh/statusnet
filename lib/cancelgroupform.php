@@ -112,6 +112,6 @@ class CancelGroupForm extends Form
     function formActions()
     {
         // TRANS: Submit button text on form to cancel group join request.
-        $this->out->submit('submit', _('BUTTON','Cancel join request'));
+        $this->out->submit('submit', _m('BUTTON','Cancel join request'));
     }
 }
