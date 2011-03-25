@@ -46,9 +46,9 @@ if (!defined('STATUSNET')) {
  */
 abstract class NoticeStream
 {
-    abstract function getNoticeIds($offset, $limit, $sinceId, $maxId);
+    abstract function getNoticeIds($offset, $limit, $since_id, $max_id);
 
-    function getNotices($offset=0, $limit=20, $sinceId=0, $maxId=0)
+    function getNotices($offset, $limit, $sinceId, $maxId)
     {
         $ids = $this->getNoticeIds($offset, $limit, $sinceId, $maxId);
 

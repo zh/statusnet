@@ -74,7 +74,7 @@ class RawReplyNoticeStream extends NoticeStream
         $this->userId = $userId;
     }
 
-    function getNoticeIds($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
+    function getNoticeIds($offset, $limit, $since_id, $max_id)
     {
         $reply = new Reply();
         $reply->profile_id = $this->userId;

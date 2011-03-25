@@ -58,7 +58,7 @@ class CachingNoticeStream extends NoticeStream
         $this->cachekey = $cachekey;
     }
 
-    function getNoticeIds($offset=0, $limit=20, $sinceId=0, $maxId=0)
+    function getNoticeIds($offset, $limit, $sinceId, $maxId)
     {
         $cache = Cache::instance();
 
