@@ -18,7 +18,7 @@ class RawConversationNoticeStream extends NoticeStream
         $this->id = $id;
     }
 
-    function getNoticeIds($offset=0, $limit=20, $since_id=0, $max_id=0)
+    function getNoticeIds($offset, $limit, $since_id, $max_id)
     {
         $notice = new Notice();
 
