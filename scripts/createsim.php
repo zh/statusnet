@@ -76,25 +76,26 @@ function newNotice($i, $tagmax)
     $n = rand(0, $i - 1);
     $user = User::staticGet('nickname', sprintf('%s%d', $userprefix, $n));
 
-    $is_reply = rand(0, 4);
+    $is_reply = rand(0, 1);
 
     $content = 'Test notice content';
 
     if ($is_reply == 0) {
-        $r = rand(0, max($i - 1, 0));
-        $rnick = sprintf('%s%d', $userprefix, $r);
-        $ruser = User::staticGet('nickname', $rnick);
         common_set_user($user);
-        $notices = $ruser->getNotices(0, 5);
+        $notices = $user->noticesWithFriends(0, 20);
         if ($notices->N > 0) {
-            $nval = rand(0, $notices->N);
+            $nval = rand(0, $notices->N - 1);
             $notices->fetch(); // go to 0th
             for ($i = 0; $i < $nval; $i++) {
                 $notices->fetch();
             }
             $options['reply_to'] = $notices->id;
+            $dont_use_nickname = rand(0, 2);
+            if ($dont_use_nickname != 0) {
+                $rprofile = $notices->getProfile();
+                $content = "@".$rprofile->nickname." ".$content;
+            }
         }
-        $content = "@$rnick " . $content;
     }
 
     $has_hash = rand(0, 2);
@@ -112,7 +113,7 @@ function newNotice($i, $tagmax)
     if ($in_group == 0) {
         $groups = $user->getGroups();
         if ($groups->N > 0) {
-            $gval = rand(0, $group->N);
+            $gval = rand(0, $group->N - 1);
             $groups->fetch(); // go to 0th
             for ($i = 0; $i < $gval; $i++) {
                 $groups->fetch();
