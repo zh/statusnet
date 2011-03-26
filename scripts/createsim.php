@@ -103,6 +103,21 @@ function newNotice($i, $tagmax)
         }
     }
 
+    $in_group = rand(0, 5);
+
+    if ($in_group == 0) {
+        $groups = $user->getGroups();
+        if ($groups->N > 0) {
+            $gval = rand(0, $group->N);
+            $groups->fetch(); // go to 0th
+            for ($i = 0; $i < $gval; $i++) {
+                $groups->fetch();
+            }
+            $options['groups'] = array($groups->id);
+            $content = "!".$groups->nickname." ".$content;
+        }
+    }
+
     $notice = Notice::saveNew($user->id, $content, 'system', $options);
 }
 
