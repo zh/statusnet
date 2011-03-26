@@ -2058,7 +2058,7 @@ class Notice extends Memcached_DataObject
         // Author is always in scope
 
         if ($this->profile_id == $profile->id) {
-            return false;
+            return true;
         }
 
         // Only for users on this site
