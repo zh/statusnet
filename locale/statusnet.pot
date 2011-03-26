@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-24 11:10+0000\n"
+"POT-Creation-Date: 2011-03-26 11:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -823,7 +823,7 @@ msgstr ""
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
 #: actions/apigroupprofileupdate.php:195 actions/editgroup.php:283
-#: classes/User_group.php:578
+#: classes/User_group.php:548
 msgid "Could not create aliases."
 msgstr ""
 
@@ -1420,17 +1420,20 @@ msgid "Could not cancel request for user %1$s to join group %2$s."
 msgstr ""
 
 #. TRANS: Title for leave group page after group join request is approved/disapproved.
-#: actions/approvegroup.php:172
+#. TRANS: %1$s is the user nickname, %2$s is the group nickname.
+#: actions/approvegroup.php:173
 #, php-format
 msgctxt "TITLE"
 msgid "%1$s's request for %2$s"
 msgstr ""
 
-#: actions/approvegroup.php:178
+#. TRANS: Message on page for group admin after approving a join request.
+#: actions/approvegroup.php:180
 msgid "Join request approved."
 msgstr ""
 
-#: actions/approvegroup.php:180
+#. TRANS: Message on page for group admin after rejecting a join request.
+#: actions/approvegroup.php:183
 msgid "Join request canceled."
 msgstr ""
 
@@ -3816,7 +3819,7 @@ msgid "New group"
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to create a group while banned.
-#: actions/newgroup.php:73 classes/User_group.php:518
+#: actions/newgroup.php:73 classes/User_group.php:488
 msgid "You are not allowed to create groups on this site."
 msgstr ""
 
@@ -6984,13 +6987,13 @@ msgid "Description"
 msgstr ""
 
 #. TRANS: Activity title when marking a notice as favorite.
-#: classes/Fave.php:176
+#: classes/Fave.php:112
 msgid "Favor"
 msgstr ""
 
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
-#: classes/Fave.php:179
+#: classes/Fave.php:115
 #, php-format
 msgid "%1$s marked notice %2$s as a favorite."
 msgstr ""
@@ -7164,51 +7167,51 @@ msgid "Problem saving notice."
 msgstr ""
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:939
+#: classes/Notice.php:865
 msgid "Bad type provided to saveKnownGroups."
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1038
+#: classes/Notice.php:964
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1154
+#: classes/Notice.php:1080
 #, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1618
+#: classes/Notice.php:1544
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
 #. TRANS: Full name of a profile or group followed by nickname in parens
-#: classes/Profile.php:172 classes/User_group.php:275
+#: classes/Profile.php:172 classes/User_group.php:245
 #, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
 msgstr ""
 
 #. TRANS: Exception thrown trying to approve a non-existing group join request.
-#: classes/Profile.php:407
+#: classes/Profile.php:335
 msgid "Invalid group join approval: not pending."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:865
+#: classes/Profile.php:793
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:874
+#: classes/Profile.php:802
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -7278,32 +7281,32 @@ msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/User.php:946
+#: classes/User.php:871
 msgid "No single user defined for single-user mode."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/User.php:950
+#: classes/User.php:875
 msgid "Single-user mode code called when not enabled."
 msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:560
+#: classes/User_group.php:530
 msgid "Could not create group."
 msgstr ""
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:570
+#: classes/User_group.php:540
 msgid "Could not set group URI."
 msgstr ""
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:593
+#: classes/User_group.php:563
 msgid "Could not set group membership."
 msgstr ""
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:608
+#: classes/User_group.php:578
 msgid "Could not save local group info."
 msgstr ""
 
@@ -7935,7 +7938,8 @@ msgstr ""
 
 #. TRANS: Submit button text on form to cancel group join request.
 #: lib/cancelgroupform.php:115
-msgid "BUTTON"
+msgctxt "BUTTON"
+msgid "Cancel join request"
 msgstr ""
 
 #. TRANS: Title for command results.
@@ -8083,7 +8087,7 @@ msgstr ""
 
 #. TRANS: Message given if content is too long. %1$sd is used for plural.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:494
+#: lib/command.php:494 lib/implugin.php:486
 #, php-format
 msgid "Message too long - maximum is %1$d character, you sent %2$d."
 msgid_plural "Message too long - maximum is %1$d characters, you sent %2$d."
@@ -8904,11 +8908,6 @@ msgstr ""
 msgid "Unknown inbox source %d."
 msgstr ""
 
-#: lib/implugin.php:485
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr ""
-
 #: lib/leaveform.php:114
 msgid "Leave"
 msgstr ""
@@ -9186,7 +9185,7 @@ msgstr ""
 
 #. TRANS: Main body of pending group join request notification e-mail.
 #. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
-#. TRANS: %3$s is the URL to the moderation queue page.
+#. TRANS: %4$s is the URL to the moderation queue page.
 #: lib/mail.php:836
 #, php-format
 msgid ""
@@ -9941,7 +9940,7 @@ msgctxt "FAVELIST"
 msgid "You have favored this notice."
 msgstr ""
 
-#: lib/threadednoticelist.php:428
+#: lib/threadednoticelist.php:427
 #, php-format
 msgctxt "FAVELIST"
 msgid "One person has favored this notice."
@@ -9950,12 +9949,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: List message for notice repeated by logged in user.
-#: lib/threadednoticelist.php:482
+#: lib/threadednoticelist.php:481
 msgctxt "REPEATLIST"
 msgid "You have repeated this notice."
 msgstr ""
 
-#: lib/threadednoticelist.php:488
+#: lib/threadednoticelist.php:486
 #, php-format
 msgctxt "REPEATLIST"
 msgid "One person has repeated this notice."

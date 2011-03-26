@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-24 11:10+0000\n"
-"PO-Revision-Date: 2011-03-24 11:12:42+0000\n"
+"POT-Creation-Date: 2011-03-26 11:02+0000\n"
+"PO-Revision-Date: 2011-03-26 11:04:59+0000\n"
 "Language-Team: Georgian <http://translatewiki.net/wiki/Portal:ka>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r84667); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84791); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ka\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-03-18 20:10:59+0000\n"
+"X-POT-Import-Date: 2011-03-24 15:23:28+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1120,14 +1120,17 @@ msgid "Could not cancel request for user %1$s to join group %2$s."
 msgstr "ვერ მოხერხდა მომხმარებელ %1$s-სთან ერთად ჯგუფ %2$s-ში გაერთიანება."
 
 #. TRANS: Title for leave group page after group join request is approved/disapproved.
+#. TRANS: %1$s is the user nickname, %2$s is the group nickname.
 #, fuzzy, php-format
 msgctxt "TITLE"
 msgid "%1$s's request for %2$s"
 msgstr "%1$s–ის სტატუსი %2$s–ზე"
 
+#. TRANS: Message on page for group admin after approving a join request.
 msgid "Join request approved."
 msgstr ""
 
+#. TRANS: Message on page for group admin after rejecting a join request.
 msgid "Join request canceled."
 msgstr ""
 
@@ -6912,7 +6915,8 @@ msgid "Block this user"
 msgstr "დაბლოკე ეს მომხმარებელი"
 
 #. TRANS: Submit button text on form to cancel group join request.
-msgid "BUTTON"
+msgctxt "BUTTON"
+msgid "Cancel join request"
 msgstr ""
 
 #. TRANS: Title for command results.
@@ -7747,12 +7751,6 @@ msgstr ""
 msgid "Unknown inbox source %d."
 msgstr ""
 
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr ""
-"შეტყობინება ძალიან გრძელია - დასაშვები რაოდენობაა %1$d სიმბოლომდე, თქვენ "
-"გააგზავნეთ %2$d."
-
 msgid "Leave"
 msgstr "დატოვება"
 
@@ -8081,7 +8079,7 @@ msgstr "%1$s გაწევრიანდა ჯგუფში %2$s."
 
 #. TRANS: Main body of pending group join request notification e-mail.
 #. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
-#. TRANS: %3$s is the URL to the moderation queue page.
+#. TRANS: %4$s is the URL to the moderation queue page.
 #, php-format
 msgid ""
 "%1$s would like to join your group %2$s on %3$s. You may approve or reject "
@@ -8836,10 +8834,7 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#, fuzzy
-#~ msgid "Notice"
-#~ msgstr "შეტყობინებები"
-
-#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#~ msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 #~ msgstr ""
-#~ "1–64 პატარა ასოები ან ციფრები. პუნქტუაციები ან სივრცეები დაუშვებელია"
+#~ "შეტყობინება ძალიან გრძელია - დასაშვები რაოდენობაა %1$d სიმბოლომდე, თქვენ "
+#~ "გააგზავნეთ %2$d."

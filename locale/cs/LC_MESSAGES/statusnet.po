@@ -4,6 +4,7 @@
 # Author: Brion
 # Author: Koo6
 # Author: Kuvaly
+# Author: Veritaslibero
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -11,18 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-24 11:10+0000\n"
-"PO-Revision-Date: 2011-03-24 11:12:17+0000\n"
+"POT-Creation-Date: 2011-03-26 11:02+0000\n"
+"PO-Revision-Date: 2011-03-26 11:04:41+0000\n"
 "Language-Team: Czech <http://translatewiki.net/wiki/Portal:cs>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r84667); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84791); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ( (n >= 2 && n <= 4) ? 1 : "
 "2 );\n"
-"X-POT-Import-Date: 2011-03-18 20:10:59+0000\n"
+"X-POT-Import-Date: 2011-03-24 15:23:28+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -820,12 +821,14 @@ msgid ""
 "Please return to the application and enter the following security code to "
 "complete the process."
 msgstr ""
+"Prosím vraťte se do aplikace a zadejte následující bezpečnostní kód k "
+"dokončení procesu."
 
 #. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
-#, fuzzy, php-format
+#, php-format
 msgid "You have successfully authorized %s"
-msgstr "Nejste autorizován."
+msgstr "Úspěšně jste autorizoval %s"
 
 #. TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
@@ -868,9 +871,8 @@ msgstr "Již jste zopakoval toto oznámení."
 #. TRANS: Client exception thrown when using an unsupported HTTP method.
 #. TRANS: Client error shown when using a non-supported HTTP method.
 #. TRANS: Client exception thrown when using an unsupported HTTP method.
-#, fuzzy
 msgid "HTTP method not supported."
-msgstr " API metoda nebyla nalezena."
+msgstr "Metoda HTTP není podporována."
 
 #. TRANS: Exception thrown requesting an unsupported notice output format.
 #. TRANS: %s is the requested output format.
@@ -892,7 +894,6 @@ msgstr ""
 
 #. TRANS: Client error displayed when a user has no rights to delete notices of other users.
 #. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
-#, fuzzy
 msgid "Cannot delete this notice."
 msgstr "Toto oznámení nelze odstranit."
 
@@ -1119,7 +1120,7 @@ msgstr "Nejste přihlášen(a)."
 #. TRANS: Client error displayed when trying to approve or cancel a group join request without
 #. TRANS: being a group administrator.
 msgid "Only group admin can approve or cancel join requests."
-msgstr ""
+msgstr "Pouze správce skupiny smí schválit nebo zrušit požadavky k připojení."
 
 #. TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
 #, fuzzy
@@ -1148,14 +1149,17 @@ msgid "Could not cancel request for user %1$s to join group %2$s."
 msgstr "Nemohu připojit uživatele %1$s do skupiny %2$s."
 
 #. TRANS: Title for leave group page after group join request is approved/disapproved.
+#. TRANS: %1$s is the user nickname, %2$s is the group nickname.
 #, fuzzy, php-format
 msgctxt "TITLE"
 msgid "%1$s's request for %2$s"
 msgstr "status %1 na %2"
 
+#. TRANS: Message on page for group admin after approving a join request.
 msgid "Join request approved."
 msgstr ""
 
+#. TRANS: Message on page for group admin after rejecting a join request.
 msgid "Join request canceled."
 msgstr ""
 
@@ -1408,7 +1412,7 @@ msgstr "Avatar smazán."
 #. TRANS: Title for backup account page.
 #. TRANS: Option in profile settings to create a backup of the account of the currently logged in user.
 msgid "Backup account"
-msgstr ""
+msgstr "Zálohovat účet"
 
 #. TRANS: Client exception thrown when trying to backup an account while not logged in.
 #, fuzzy
@@ -1436,7 +1440,7 @@ msgstr "Pozadí"
 
 #. TRANS: Title for submit button to backup an account on the backup account page.
 msgid "Backup your account."
-msgstr ""
+msgstr "Zálohovat váš účet."
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 msgid "You already blocked that user."
@@ -6976,7 +6980,8 @@ msgid "Block this user"
 msgstr "Zablokovat tohoto uživatele"
 
 #. TRANS: Submit button text on form to cancel group join request.
-msgid "BUTTON"
+msgctxt "BUTTON"
+msgid "Cancel join request"
 msgstr ""
 
 #. TRANS: Title for command results.
@@ -7832,10 +7837,6 @@ msgstr ""
 msgid "Unknown inbox source %d."
 msgstr "Neznámý zdroj inboxu %d."
 
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr "Zpráva je příliš dlouhá - maximum je %1$d znaků, poslal jsi %2$d."
-
 msgid "Leave"
 msgstr "Opustit"
 
@@ -8186,7 +8187,7 @@ msgstr "%1$s se připojil(a) ke skupině %2$s."
 
 #. TRANS: Main body of pending group join request notification e-mail.
 #. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
-#. TRANS: %3$s is the URL to the moderation queue page.
+#. TRANS: %4$s is the URL to the moderation queue page.
 #, php-format
 msgid ""
 "%1$s would like to join your group %2$s on %3$s. You may approve or reject "
@@ -8954,9 +8955,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#, fuzzy
-#~ msgid "Notice"
-#~ msgstr "Sdělení"
-
-#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-#~ msgstr "1-64 znaků nebo čísel, bez teček, čárek a mezer"
+#~ msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+#~ msgstr "Zpráva je příliš dlouhá - maximum je %1$d znaků, poslal jsi %2$d."

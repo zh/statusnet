@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-24 11:10+0000\n"
-"PO-Revision-Date: 2011-03-24 11:12:37+0000\n"
+"POT-Creation-Date: 2011-03-26 11:02+0000\n"
+"PO-Revision-Date: 2011-03-26 11:04:55+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r84667); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84791); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-03-18 20:10:59+0000\n"
+"X-POT-Import-Date: 2011-03-24 15:23:28+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1092,53 +1092,57 @@ msgstr "Nulle pseudonymo o ID."
 
 #. TRANS: Client error displayed trying to approve group membership while not logged in.
 #. TRANS: Client error displayed when trying to leave a group while not logged in.
-#, fuzzy
 msgid "Must be logged in."
-msgstr "Tu non ha aperite un session."
+msgstr "Es necessari aperir session."
 
 #. TRANS: Client error displayed trying to approve group membership while not a group administrator.
 #. TRANS: Client error displayed when trying to approve or cancel a group join request without
 #. TRANS: being a group administrator.
 msgid "Only group admin can approve or cancel join requests."
 msgstr ""
+"Solmente un administrator del gruppo pote approbar o cancellar le requestas "
+"de adhesion."
 
 #. TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
-#, fuzzy
 msgid "Must specify a profile."
-msgstr "Profilo mancante."
+msgstr "Es necessari specificar un profilo."
 
 #. TRANS: Client error displayed trying to approve group membership for a non-existing request.
 #. TRANS: Client error displayed when trying to approve a non-existing group join request.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not in the moderation queue for this group."
-msgstr "Un lista de usatores in iste gruppo."
+msgstr "%s non es in le cauda de moderation pro iste gruppo."
 
 #. TRANS: Client error displayed trying to approve/deny group membership.
 msgid "Internal error: received neither cancel nor abort."
-msgstr ""
+msgstr "Error interne: ni cancellation ni abortamento recipite."
 
 #. TRANS: Client error displayed trying to approve/deny group membership.
 msgid "Internal error: received both cancel and abort."
-msgstr ""
+msgstr "Error interne: e cancellation e abortamento recipite."
 
 #. TRANS: Server error displayed when cancelling a queued group join request fails.
 #. TRANS: %1$s is the leaving user's nickname, $2$s is the group nickname for which the leave failed.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not cancel request for user %1$s to join group %2$s."
-msgstr "Non poteva inscriber le usator %1$s in le gruppo %2$s."
+msgstr ""
+"Non poteva cancellar le requesta de adhesion del usator %1$s al gruppo %2$s."
 
 #. TRANS: Title for leave group page after group join request is approved/disapproved.
-#, fuzzy, php-format
+#. TRANS: %1$s is the user nickname, %2$s is the group nickname.
+#, php-format
 msgctxt "TITLE"
 msgid "%1$s's request for %2$s"
-msgstr "Le stato de %1$s in %2$s"
+msgstr "Le requesta de %1$s pro %2$s"
 
+#. TRANS: Message on page for group admin after approving a join request.
 msgid "Join request approved."
-msgstr ""
+msgstr "Requesta de adhesion approbate."
 
+#. TRANS: Message on page for group admin after rejecting a join request.
 msgid "Join request canceled."
-msgstr ""
+msgstr "Requesta de adhesion cancellate."
 
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
@@ -2539,24 +2543,23 @@ msgstr "Un lista de usatores in iste gruppo."
 
 #. TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
 msgid "Only the group admin may approve users."
-msgstr ""
+msgstr "Solmente un administrator del gruppo pote approbar usatores."
 
 #. TRANS: Title of the first page showing pending group members still awaiting approval to join the group.
 #. TRANS: %s is the name of the group.
-#, fuzzy, php-format
+#, php-format
 msgid "%s group members awaiting approval"
-msgstr "Membratos del gruppo %s"
+msgstr "Membros attendente approbation del gruppo %s"
 
 #. TRANS: Title of all but the first page showing pending group members still awaiting approval to join the group.
 #. TRANS: %1$s is the name of the group, %2$d is the page number of the members list.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group members awaiting approval, page %2$d"
-msgstr "Membros del gruppo %1$s, pagina %2$d"
+msgstr "Membros attendente approbation del gruppo %1$s, pagina %2$d"
 
 #. TRANS: Page notice for group members page.
-#, fuzzy
 msgid "A list of users awaiting approval to join this group."
-msgstr "Un lista de usatores in iste gruppo."
+msgstr "Un lista de usatores attendente approbation a adherer a iste gruppo."
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #, php-format
@@ -2963,9 +2966,8 @@ msgid "%1$s joined group %2$s"
 msgstr "%1$s se jungeva al gruppo %2$s"
 
 #. TRANS: Exception thrown when there is an unknown error joining a group.
-#, fuzzy
 msgid "Unknown error joining group."
-msgstr "Gruppo incognite."
+msgstr "Error incognite durante le adhesion al gruppo."
 
 #. TRANS: Client error displayed when trying to join a group while already a member.
 #. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
@@ -4693,7 +4695,6 @@ msgid "User is already sandboxed."
 msgstr "Usator es ja in cassa de sablo."
 
 #. TRANS: Title for the sessions administration panel.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Sessions"
 msgstr "Sessiones"
@@ -4703,7 +4704,6 @@ msgid "Session settings for this StatusNet site"
 msgstr "Parametros de session pro iste sito StatusNet"
 
 #. TRANS: Fieldset legend on the sessions administration panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Sessions"
 msgstr "Sessiones"
@@ -4715,9 +4715,8 @@ msgstr "Gerer sessiones"
 
 #. TRANS: Checkbox title on the sessions administration panel.
 #. TRANS: Indicates if StatusNet should handle session administration.
-#, fuzzy
 msgid "Handle sessions ourselves."
-msgstr "Si nos debe gerer le sessiones nos mesme."
+msgstr "Gerer le sessiones nos mesme."
 
 #. TRANS: Checkbox label on the sessions administration panel.
 #. TRANS: Indicates if StatusNet should write session debugging output.
@@ -4725,14 +4724,12 @@ msgid "Session debugging"
 msgstr "Cercar defectos de session"
 
 #. TRANS: Checkbox title on the sessions administration panel.
-#, fuzzy
 msgid "Enable debugging output for sessions."
-msgstr "Producer informationes technic pro cercar defectos in sessiones."
+msgstr "Activar informationes technic pro cercar defectos in sessiones."
 
 #. TRANS: Title for submit button on the sessions administration panel.
-#, fuzzy
 msgid "Save session settings"
-msgstr "Salveguardar configurationes de accesso"
+msgstr "Salveguardar configurationes de session"
 
 #. TRANS: Client error displayed trying to display an OAuth application while not logged in.
 msgid "You must be logged in to view an application."
@@ -4745,10 +4742,10 @@ msgstr "Profilo del application"
 #. TRANS: Information output on an OAuth application page.
 #. TRANS: %1$s is the application creator, %2$s is "read-only" or "read-write",
 #. TRANS: %3$d is the number of users using the OAuth application.
-#, fuzzy, php-format
+#, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d user"
 msgid_plural "Created by %1$s - %2$s access by default - %3$d users"
-msgstr[0] "Create per %1$s - accesso %2$s per predefinition - %3$d usatores"
+msgstr[0] "Create per %1$s - accesso %2$s per predefinition - %3$d usator"
 msgstr[1] "Create per %1$s - accesso %2$s per predefinition - %3$d usatores"
 
 #. TRANS: Header on the OAuth application page.
@@ -4756,7 +4753,6 @@ msgid "Application actions"
 msgstr "Actiones de application"
 
 #. TRANS: Link text to edit application on the OAuth application page.
-#, fuzzy
 msgctxt "EDITAPP"
 msgid "Edit"
 msgstr "Modificar"
@@ -4771,13 +4767,12 @@ msgid "Application info"
 msgstr "Info del application"
 
 #. TRANS: Note on the OAuth application page about signature support.
-#, fuzzy
 msgid ""
 "Note: HMAC-SHA1 signatures are supported. The plaintext signature method is "
 "not supported."
 msgstr ""
-"Nota: Nos supporta le signaturas HMAC-SHA1. Nos non accepta signaturas in "
-"texto simple."
+"Nota: Le signaturas HMAC-SHA1 es supportate. Le methodo de signaturas in "
+"texto simple non es supportate."
 
 #. TRANS: Text in confirmation dialog to reset consumer key and secret for an OAuth application.
 msgid "Are you sure you want to reset your consumer key and secret?"
@@ -4939,7 +4934,6 @@ msgstr ""
 "lor vita e interesses. "
 
 #. TRANS: Title for list of group administrators on a group page.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Admins"
 msgstr "Administratores"
@@ -5081,7 +5075,6 @@ msgid "User is already silenced."
 msgstr "Usator es ja silentiate."
 
 #. TRANS: Title for site administration panel.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Site"
 msgstr "Sito"
@@ -5113,19 +5106,16 @@ msgid "Dupe limit must be one or more seconds."
 msgstr "Le limite de duplicatos debe esser un o plus secundas."
 
 #. TRANS: Fieldset legend on site settings panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "General"
 msgstr "General"
 
 #. TRANS: Field label on site settings panel.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Site name"
 msgstr "Nomine del sito"
 
 #. TRANS: Field title on site settings panel.
-#, fuzzy
 msgid "The name of your site, like \"Yourcompany Microblog\"."
 msgstr "Le nomine de tu sito, como \"Le microblog de TuCompania\""
 
@@ -5134,30 +5124,26 @@ msgid "Brought by"
 msgstr "Realisate per"
 
 #. TRANS: Field title on site settings panel.
-#, fuzzy
 msgid "Text used for credits link in footer of each page."
-msgstr "Le texto usate pro le ligamine al creditos in le pede de cata pagina"
+msgstr "Le texto usate pro le ligamine al creditos in le pede de cata pagina."
 
 #. TRANS: Field label on site settings panel.
 msgid "Brought by URL"
 msgstr "URL pro \"Realisate per\""
 
 #. TRANS: Field title on site settings panel.
-#, fuzzy
 msgid "URL used for credits link in footer of each page."
-msgstr "URL usate pro le ligamine al creditos in le pede de cata pagina"
+msgstr "URL usate pro le ligamine al creditos in le pede de cata pagina."
 
 #. TRANS: Field label on site settings panel.
 msgid "Email"
 msgstr "E-mail"
 
 #. TRANS: Field title on site settings panel.
-#, fuzzy
 msgid "Contact email address for your site."
-msgstr "Le adresse de e-mail de contacto pro tu sito"
+msgstr "Le adresse de e-mail de contacto pro tu sito."
 
 #. TRANS: Fieldset legend on site settings panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Local"
 msgstr "Local"
@@ -5181,7 +5167,6 @@ msgstr ""
 "navigator non es disponibile"
 
 #. TRANS: Fieldset legend on site settings panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Limits"
 msgstr "Limites"
@@ -6194,7 +6179,7 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown trying to approve a non-existing group join request.
 msgid "Invalid group join approval: not pending."
-msgstr ""
+msgstr "Approbation de adhesion a gruppo invalide: non pendente."
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
@@ -6817,7 +6802,8 @@ msgid "Block this user"
 msgstr "Blocar iste usator"
 
 #. TRANS: Submit button text on form to cancel group join request.
-msgid "BUTTON"
+msgctxt "BUTTON"
+msgid "Cancel join request"
 msgstr ""
 
 #. TRANS: Title for command results.
@@ -7416,17 +7402,16 @@ msgid "URL of the homepage or blog of the group or topic."
 msgstr "URL del pagina initial o blog del gruppo o topico."
 
 #. TRANS: Text area title for group description when there is no text limit.
-#, fuzzy
 msgid "Describe the group or topic."
-msgstr "Describe le gruppo o topico"
+msgstr "Describe le gruppo o topico."
 
 #. TRANS: Text area title for group description.
 #. TRANS: %d is the number of characters available for the description.
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the group or topic in %d character or less."
 msgid_plural "Describe the group or topic in %d characters or less."
-msgstr[0] "Describe le gruppo o topico in %d character o minus"
-msgstr[1] "Describe le gruppo o topico in %d characteres o minus"
+msgstr[0] "Describe le gruppo o topico in %d character o minus."
+msgstr[1] "Describe le gruppo o topico in %d characteres o minus."
 
 #. TRANS: Field title on group edit form.
 msgid ""
@@ -7454,22 +7439,21 @@ msgstr[1] ""
 "maximo de %d aliases es permittite."
 
 #. TRANS: Dropdown fieldd label on group edit form.
-#, fuzzy
 msgid "Membership policy"
-msgstr "Membro depost"
+msgstr "Politica de adhesion"
 
 msgid "Open to all"
-msgstr ""
+msgstr "Aperte a totes"
 
 msgid "Admin must approve all members"
-msgstr ""
+msgstr "Administrator debe approbar tote le membros"
 
 #. TRANS: Dropdown field title on group edit form.
 msgid "Whether admin approval is required to join this group."
 msgstr ""
+"Si approbation per administrator es necessari pro adherer a iste gruppo."
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
-#, fuzzy
 msgctxt "GROUPADMIN"
 msgid "Admin"
 msgstr "Administrator"
@@ -7504,15 +7488,15 @@ msgstr "Membros del gruppo %s"
 msgctxt "MENU"
 msgid "Pending members (%d)"
 msgid_plural "Pending members (%d)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Membro pendente"
+msgstr[1] "Membros pendente (%d)"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
-#, fuzzy, php-format
+#, php-format
 msgctxt "TOOLTIP"
 msgid "%s pending members"
-msgstr "Membros del gruppo %s"
+msgstr "%s membros pendente"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 msgctxt "MENU"
@@ -7645,10 +7629,6 @@ msgstr ""
 msgid "Unknown inbox source %d."
 msgstr "Fonte de cassa de entrata \"%s\" incognite"
 
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr "Message troppo longe - maximo es %1$d characteres, tu inviava %2$d."
-
 msgid "Leave"
 msgstr "Quitar"
 
@@ -7716,7 +7696,7 @@ msgstr "%1$s seque ora tu notas in %2$s."
 #. TRANS: Common footer block for StatusNet notification emails.
 #. TRANS: %1$s is the StatusNet sitename,
 #. TRANS: %2$s is a link to the addressed user's e-mail settings.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Faithfully yours,\n"
 "%1$s.\n"
@@ -7724,22 +7704,17 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %2$s"
 msgstr ""
-"%1$s seque ora tu notas in %2$s.\n"
-"\n"
-"%3$s\n"
-"\n"
-"%4$s%5$s%6$s\n"
-"Cordialmente,\n"
-"%2$s.\n"
+"Con optime salutes,\n"
+"%1$s.\n"
 "\n"
 "----\n"
-"Cambia tu adresse de e-mail o optiones de notification a %7$s\n"
+"Cambia tu adresse de e-mail o optiones de notification a %2$s"
 
 #. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is a URL.
-#, fuzzy, php-format
+#, php-format
 msgid "Profile: %s"
-msgstr "Profilo"
+msgstr "Profilo: %s"
 
 #. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is biographical information.
@@ -7749,14 +7724,14 @@ msgstr "Bio: %s"
 
 #. TRANS: This is a paragraph in a new-subscriber e-mail.
 #. TRANS: %s is a URL where the subscriber can be reported as abusive.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "If you believe this account is being used abusively, you can block them from "
 "your subscribers list and report as spam to site administrators at %s."
 msgstr ""
 "Si tu crede que iste conto es usate abusivemente, tu pote blocar lo de tu "
 "lista de subscriptores e reportar lo como spam al administratores del sito a "
-"%s"
+"%s."
 
 #. TRANS: Subject of notification mail for new posting email address.
 #. TRANS: %s is the StatusNet sitename.
@@ -7767,7 +7742,7 @@ msgstr "Nove adresse de e-mail pro publicar in %s"
 #. TRANS: Body of notification mail for new posting email address.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is the e-mail address to send
 #. TRANS: to to post by e-mail, %3$s is a URL to more instructions.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
@@ -7779,10 +7754,7 @@ msgstr ""
 "\n"
 "Invia e-mail a %2$s pro publicar nove messages.\n"
 "\n"
-"Ulterior informationes se trova a %3$s.\n"
-"\n"
-"Cordialmente,\n"
-"%1$s"
+"Ulterior instructiones super e-mail se trova a %3$s."
 
 #. TRANS: Subject line for SMS-by-email notification messages.
 #. TRANS: %s is the posting user's nickname.
@@ -7809,7 +7781,7 @@ msgstr "%s te ha pulsate"
 #. TRANS: Body for 'nudge' notification email.
 #. TRANS: %1$s is the nuding user's long name, $2$s is the nudging user's nickname,
 #. TRANS: %3$s is a URL to post notices at.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
 "to post some news.\n"
@@ -7820,17 +7792,14 @@ msgid ""
 "\n"
 "Don't reply to this email; it won't get to them."
 msgstr ""
-"%1$s (%2$s) se demanda lo que tu face iste dies e te invita a scriber alique "
-"de nove.\n"
+"%1$s (%2$s) se demanda lo que tu face iste dies e te invita a scriber "
+"qualcosa de nove.\n"
 "\n"
-"Dunque face audir de te :)\n"
+"Dunque, face nos audir de te :)\n"
 "\n"
 "%3$s\n"
 "\n"
-"Non responde a iste message; le responsa non arrivara.\n"
-"\n"
-"Con salutes cordial,\n"
-"%4$s\n"
+"Non responde a iste message; le responsa non arrivara."
 
 #. TRANS: Subject for direct-message notification email.
 #. TRANS: %s is the sending user's nickname.
@@ -7841,7 +7810,7 @@ msgstr "Nove message private de %s"
 #. TRANS: Body for direct-message notification email.
 #. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
 #. TRANS: %3$s is the message content, %4$s a URL to the message,
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
 "\n"
@@ -7865,10 +7834,7 @@ msgstr ""
 "\n"
 "%4$s\n"
 "\n"
-"Non responde per e-mail; le responsa non arrivara.\n"
-"\n"
-"Con salutes cordial,\n"
-"%5$s\n"
+"Non responde per e-mail; le responsa non arrivara."
 
 #. TRANS: Subject for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
@@ -7881,7 +7847,7 @@ msgstr "%1$s (@%2$s) ha addite tu nota como favorite"
 #. TRANS: %3$s is a URL to the faved notice, %4$s is the faved notice text,
 #. TRANS: %5$s is a URL to all faves of the adding user, %6$s is the StatusNet sitename,
 #. TRANS: %7$s is the adding user's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
 "\n"
@@ -7897,8 +7863,7 @@ msgid ""
 "\n"
 "%5$s"
 msgstr ""
-"%1$s (@%7$s) addeva ante un momento tu nota de %2$s como un de su "
-"favorites.\n"
+"%1$s (@%7$s) ha justo addite tu nota de %2$s como un de su favorites.\n"
 "\n"
 "Le URL de tu nota es:\n"
 "\n"
@@ -7910,10 +7875,7 @@ msgstr ""
 "\n"
 "Tu pote vider le lista del favorites de %1$s hic:\n"
 "\n"
-"%5$s\n"
-"\n"
-"Cordialmente,\n"
-"%6$s\n"
+"%5$s"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
 #, php-format
@@ -7937,7 +7899,7 @@ msgstr "%1$s (@%2$s) ha inviate un nota a tu attention"
 #. TRANS: %3$s is a URL to the notice, %4$s is the notice text,
 #. TRANS: %5$s is a URL to the full conversion if it exists (otherwise empty),
 #. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replies for the addressed user,
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s just sent a notice to your attention (an '@-reply') on %2$s.\n"
 "\n"
@@ -7957,7 +7919,7 @@ msgid ""
 "\n"
 "%7$s"
 msgstr ""
-"%1$s (@%9$s) ha inviate un nota a tu attention (un '@-responsa') in %2$s.\n"
+"%1$s ha inviate un nota a tu attention (un \"responsa @\") in %2$s.\n"
 "\n"
 "Le nota es hic:\n"
 "\n"
@@ -7971,14 +7933,9 @@ msgstr ""
 "\n"
 "%6$s\n"
 "\n"
-"Le lista de tote le @-responsas pro te es hic:\n"
+"Le lista de tote le \"responsas @\" pro te es hic:\n"
 "\n"
-"%7$s\n"
-"\n"
-"Cordialmente,\n"
-"%2$s\n"
-"\n"
-"P.S. Tu pote disactivar iste notificationes electronic hic: %8$s\n"
+"%7$s"
 
 #. TRANS: Subject of group join notification e-mail.
 #. TRANS: %1$s is the joining user's nickname, %2$s is the group name, and %3$s is the StatusNet sitename.
@@ -7986,24 +7943,26 @@ msgstr ""
 #. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
 #. TRANS: %4$s is a block of profile info about the subscriber.
 #. TRANS: %5$s is a link to the addressed user's e-mail settings.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s has joined your group %2$s on %3$s."
-msgstr "%1$s se ha jungite al gruppo %2$s."
+msgstr "%1$s ha adherite al gruppo %2$s in %3$s."
 
 #. TRANS: Subject of pending group join request notification e-mail.
 #. TRANS: %1$s is the joining user's nickname, %2$s is the group name, and %3$s is the StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s wants to join your group %2$s on %3$s."
-msgstr "%1$s se ha jungite al gruppo %2$s."
+msgstr "%1$s ha adherite al gruppo %2$s in %3$s."
 
 #. TRANS: Main body of pending group join request notification e-mail.
 #. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
-#. TRANS: %3$s is the URL to the moderation queue page.
+#. TRANS: %4$s is the URL to the moderation queue page.
 #, php-format
 msgid ""
 "%1$s would like to join your group %2$s on %3$s. You may approve or reject "
 "their group membership at %4$s"
 msgstr ""
+"%1$s vole adherer a tu gruppo %2$s in %3$s. Tu pote approbar o rejectar su "
+"adhesion al gruppo a %4$s"
 
 msgid "Only the user can read their own mailboxes."
 msgstr "Solmente le usator pote leger su proprie cassas postal."
@@ -8745,8 +8704,5 @@ msgstr "XML invalide, radice XRD mancante."
 msgid "Getting backup from file '%s'."
 msgstr "Obtene copia de reserva ex file '%s'."
 
-#~ msgid "Notice"
-#~ msgstr "Nota"
-
-#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-#~ msgstr "1-64 minusculas o numeros, sin punctuation o spatios"
+#~ msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+#~ msgstr "Message troppo longe - maximo es %1$d characteres, tu inviava %2$d."

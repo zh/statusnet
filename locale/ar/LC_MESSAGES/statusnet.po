@@ -12,19 +12,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-24 11:10+0000\n"
-"PO-Revision-Date: 2011-03-24 11:12:09+0000\n"
+"POT-Creation-Date: 2011-03-26 11:02+0000\n"
+"PO-Revision-Date: 2011-03-26 11:04:35+0000\n"
 "Language-Team: Arabic <http://translatewiki.net/wiki/Portal:ar>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r84667); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84791); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == "
 "2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= "
 "99) ? 4 : 5 ) ) ) );\n"
-"X-POT-Import-Date: 2011-03-18 20:10:59+0000\n"
+"X-POT-Import-Date: 2011-03-24 15:23:28+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1143,14 +1143,17 @@ msgid "Could not cancel request for user %1$s to join group %2$s."
 msgstr "لم يمكن ضم المستخدم %1$s إلى المجموعة %2$s."
 
 #. TRANS: Title for leave group page after group join request is approved/disapproved.
+#. TRANS: %1$s is the user nickname, %2$s is the group nickname.
 #, fuzzy, php-format
 msgctxt "TITLE"
 msgid "%1$s's request for %2$s"
 msgstr "حالة %1$s في يوم %2$s"
 
+#. TRANS: Message on page for group admin after approving a join request.
 msgid "Join request approved."
 msgstr ""
 
+#. TRANS: Message on page for group admin after rejecting a join request.
 msgid "Join request canceled."
 msgstr ""
 
@@ -2959,15 +2962,15 @@ msgstr "لست عضوا في تلك المجموعة."
 #. TRANS: User admin panel title
 msgctxt "TITLE"
 msgid "License"
-msgstr ""
+msgstr "الرخصة"
 
 #. TRANS: Form instructions for the site license admin panel.
 msgid "License for this StatusNet site"
-msgstr ""
+msgstr "رخصة موقع ستاتس نت هذا"
 
 #. TRANS: Client error displayed selecting an invalid license in the license admin panel.
 msgid "Invalid license selection."
-msgstr ""
+msgstr "اختيار غير صالح للرخصة."
 
 #. TRANS: Client error displayed when not specifying an owner for the all rights reserved license in the license admin panel.
 msgid ""
@@ -6757,7 +6760,8 @@ msgid "Block this user"
 msgstr "امنع هذا المستخدم"
 
 #. TRANS: Submit button text on form to cancel group join request.
-msgid "BUTTON"
+msgctxt "BUTTON"
+msgid "Cancel join request"
 msgstr ""
 
 #. TRANS: Title for command results.
@@ -7643,10 +7647,6 @@ msgstr ""
 msgid "Unknown inbox source %d."
 msgstr "مصدر صندوق وارد غير معروف %d."
 
-#, fuzzy, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr "هذه طويلة جدًا. أطول حجم للإشعار %d  حرفًا."
-
 msgid "Leave"
 msgstr "غادر"
 
@@ -7918,7 +7918,7 @@ msgstr "الإشعارات التي فضلها %1$s في %2$s!"
 
 #. TRANS: Main body of pending group join request notification e-mail.
 #. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
-#. TRANS: %3$s is the URL to the moderation queue page.
+#. TRANS: %4$s is the URL to the moderation queue page.
 #, php-format
 msgid ""
 "%1$s would like to join your group %2$s on %3$s. You may approve or reject "
@@ -8291,7 +8291,7 @@ msgid "No return-to arguments."
 msgstr "لا مدخلات رجوع إلى."
 
 msgid "Repeat this notice?"
-msgstr "أأكرّر هذا الإشعار؟ّ"
+msgstr "أأكرّر هذا الإشعار؟"
 
 msgid "Yes"
 msgstr "نعم"
@@ -8326,7 +8326,7 @@ msgstr "الكلمات المفتاحية"
 #. TRANS: Button text for searching site.
 msgctxt "BUTTON"
 msgid "Search"
-msgstr ""
+msgstr "ابحث"
 
 msgid "People"
 msgstr "أشخاص"
@@ -8699,8 +8699,6 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Notice"
-#~ msgstr "إشعارات"
-
-#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-#~ msgstr "1-64 حرفًا إنجليزيًا أو رقمًا بدون نقاط أو مسافات"
+#, fuzzy
+#~ msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+#~ msgstr "هذه طويلة جدًا. أطول حجم للإشعار %d  حرفًا."
