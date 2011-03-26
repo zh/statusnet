@@ -67,6 +67,8 @@ function newNotice($i, $tagmax)
 {
     global $userprefix;
 
+    $options = array();
+
     $n = rand(0, $i - 1);
     $user = User::staticGet('nickname', sprintf('%s%d', $userprefix, $n));
 
@@ -75,8 +77,20 @@ function newNotice($i, $tagmax)
     $content = 'Test notice content';
 
     if ($is_reply == 0) {
-        $n = rand(0, $i - 1);
-        $content = "@$userprefix$n " . $content;
+        $r = rand(0, max($i - 1, 0));
+        $rnick = sprintf('%s%d', $userprefix, $r);
+        $ruser = User::staticGet('nickname', $rnick);
+        common_set_user($user);
+        $notices = $ruser->getNotices(0, 5);
+        if ($notices->N > 0) {
+            $nval = rand(0, $notices->N);
+            $notices->fetch(); // go to 0th
+            for ($i = 0; $i < $nval; $i++) {
+                $notices->fetch();
+            }
+            $options['reply_to'] = $notices->id;
+        }
+        $content = "@$rnick " . $content;
     }
 
     $has_hash = rand(0, 2);
@@ -89,10 +103,7 @@ function newNotice($i, $tagmax)
         }
     }
 
-    $notice = Notice::saveNew($user->id, $content, 'system');
-
-    $user->free();
-    $notice->free();
+    $notice = Notice::saveNew($user->id, $content, 'system', $options);
 }
 
 function newSub($i)
@@ -182,27 +193,31 @@ function main($usercount, $groupcount, $noticeavg, $subsavg, $joinsavg, $tagmax)
     $st = $nt + ($usercount * $subsavg);
     $jt = $st + ($usercount * $joinsavg);
 
+    printfv("$events events ($ut, $gt, $nt, $st, $jt)\n");
+
     for ($i = 0; $i < $events; $i++)
     {
         $e = rand(0, $events);
 
         if ($e > 0 && $e <= $ut) {
-            printfv("Creating user $n\n");
+            printfv("$i Creating user $n\n");
             newUser($n);
             $n++;
         } else if ($e > $ut && $e <= $gt) {
-            printfv("Creating group $g\n");
+            printfv("$i Creating group $g\n");
             newGroup($g);
             $g++;
         } else if ($e > $gt && $e <= $nt) {
-            printfv("Making a new notice\n");
+            printfv("$i Making a new notice\n");
             newNotice($n, $tagmax);
         } else if ($e > $nt && $e <= $st) {
-            printfv("Making a new subscription\n");
+            printfv("$i Making a new subscription\n");
             newSub($n);
         } else if ($e > $st && $e <= $jt) {
-            printfv("Making a new group join\n");
+            printfv("$i Making a new group join\n");
             newJoin($n, $g);
+        } else {
+            printfv("No event for $i!");
         }
     }
 }
@@ -216,4 +231,8 @@ $tagmax      = (have_option('t', 'tags')) ? get_option_value('t', 'tags') : 1000
 $userprefix  = (have_option('x', 'prefix')) ? get_option_value('x', 'prefix') : 'testuser';
 $groupprefix = (have_option('z', 'groupprefix')) ? get_option_value('z', 'groupprefix') : 'testgroup';
 
-main($usercount, $groupcount, $noticeavg, $subsavg, $joinsavg, $tagmax);
+try {
+    main($usercount, $groupcount, $noticeavg, $subsavg, $joinsavg, $tagmax);
+} catch (Exception $e) {
+    printfv("Got an exception: ".$e->getMessage());
+}
