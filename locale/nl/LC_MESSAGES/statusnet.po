@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-24 11:10+0000\n"
-"PO-Revision-Date: 2011-03-24 11:12:49+0000\n"
+"POT-Creation-Date: 2011-03-26 11:02+0000\n"
+"PO-Revision-Date: 2011-03-26 11:05:04+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r84667); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84791); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-03-18 20:10:59+0000\n"
+"X-POT-Import-Date: 2011-03-24 15:23:28+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1105,53 +1105,58 @@ msgstr "Geen gebruikersnaam of ID."
 
 #. TRANS: Client error displayed trying to approve group membership while not logged in.
 #. TRANS: Client error displayed when trying to leave a group while not logged in.
-#, fuzzy
 msgid "Must be logged in."
-msgstr "Niet aangemeld."
+msgstr "U moet aangemeld zijn."
 
 #. TRANS: Client error displayed trying to approve group membership while not a group administrator.
 #. TRANS: Client error displayed when trying to approve or cancel a group join request without
 #. TRANS: being a group administrator.
 msgid "Only group admin can approve or cancel join requests."
 msgstr ""
+"Alleen de beheerdersgroep kan verzoeken om lid te worden accepteren of "
+"afwijzen."
 
 #. TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
-#, fuzzy
 msgid "Must specify a profile."
-msgstr "Ontbrekend profiel."
+msgstr "Er moet een profiel opgegeven worden."
 
 #. TRANS: Client error displayed trying to approve group membership for a non-existing request.
 #. TRANS: Client error displayed when trying to approve a non-existing group join request.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not in the moderation queue for this group."
-msgstr "Ledenlijst van deze groep"
+msgstr "%s heeft geen openstaand verzoek voor deze groep."
 
 #. TRANS: Client error displayed trying to approve/deny group membership.
 msgid "Internal error: received neither cancel nor abort."
-msgstr ""
+msgstr "Interne fout: zowel annuleren als afbreken is niet ontvangen."
 
 #. TRANS: Client error displayed trying to approve/deny group membership.
 msgid "Internal error: received both cancel and abort."
-msgstr ""
+msgstr "Interne fout: er is zowel annuleren als afbreken ontvangen."
 
 #. TRANS: Server error displayed when cancelling a queued group join request fails.
 #. TRANS: %1$s is the leaving user's nickname, $2$s is the group nickname for which the leave failed.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not cancel request for user %1$s to join group %2$s."
-msgstr "Het was niet mogelijk gebruiker %1$s toe te voegen aan de groep %2$s."
+msgstr ""
+"Het was niet mogelijk het verzoek van gebruiker %1$s om lid te worden van de "
+"groep %2$s te annuleren."
 
 #. TRANS: Title for leave group page after group join request is approved/disapproved.
-#, fuzzy, php-format
+#. TRANS: %1$s is the user nickname, %2$s is the group nickname.
+#, php-format
 msgctxt "TITLE"
 msgid "%1$s's request for %2$s"
-msgstr "Status van %1$s op %2$s"
+msgstr "Verzoek van %1$s voor %2$s."
 
+#. TRANS: Message on page for group admin after approving a join request.
 msgid "Join request approved."
-msgstr ""
+msgstr "Uw verzoek om lid te worden is geaccepteerd."
 
+#. TRANS: Message on page for group admin after rejecting a join request.
 msgid "Join request canceled."
-msgstr ""
+msgstr "Het verzoek voor lidmaatschap is geweigerd."
 
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
@@ -2571,24 +2576,27 @@ msgstr "Ledenlijst van deze groep"
 
 #. TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
 msgid "Only the group admin may approve users."
-msgstr ""
+msgstr "Alleen groepsbeheerders mogen gebruikers accepteren."
 
 #. TRANS: Title of the first page showing pending group members still awaiting approval to join the group.
 #. TRANS: %s is the name of the group.
-#, fuzzy, php-format
+#, php-format
 msgid "%s group members awaiting approval"
-msgstr "groepslidmaatschappen van %s"
+msgstr "Groepslidmaatschapsaanvragen voor %s die wachten op goedkeuring"
 
 #. TRANS: Title of all but the first page showing pending group members still awaiting approval to join the group.
 #. TRANS: %1$s is the name of the group, %2$d is the page number of the members list.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group members awaiting approval, page %2$d"
-msgstr "%1$s groeps leden, pagina %2$d"
+msgstr ""
+"Groepslidmaatschapsaanvragen voor %1$s die wachten op goedkeuring, pagina %2"
+"$d"
 
 #. TRANS: Page notice for group members page.
-#, fuzzy
 msgid "A list of users awaiting approval to join this group."
-msgstr "Ledenlijst van deze groep"
+msgstr ""
+"Een lijst met gebruikers die wachten om geaccepteerd te worden voor deze "
+"groep."
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #, php-format
@@ -2996,9 +3004,8 @@ msgid "%1$s joined group %2$s"
 msgstr "%1$s is lid geworden van de groep %2$s"
 
 #. TRANS: Exception thrown when there is an unknown error joining a group.
-#, fuzzy
 msgid "Unknown error joining group."
-msgstr "Onbekende groep."
+msgstr "Er is een onbekende fout opgetreden bij het lid worden van de groep."
 
 #. TRANS: Client error displayed when trying to join a group while already a member.
 #. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
@@ -4741,7 +4748,6 @@ msgid "User is already sandboxed."
 msgstr "Deze gebruiker is al in de zandbak geplaatst."
 
 #. TRANS: Title for the sessions administration panel.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Sessions"
 msgstr "Sessies"
@@ -4751,7 +4757,6 @@ msgid "Session settings for this StatusNet site"
 msgstr "Sessieinstellingen voor deze StatusNet-website"
 
 #. TRANS: Fieldset legend on the sessions administration panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Sessions"
 msgstr "Sessies"
@@ -4763,9 +4768,8 @@ msgstr "Sessieafhandeling"
 
 #. TRANS: Checkbox title on the sessions administration panel.
 #. TRANS: Indicates if StatusNet should handle session administration.
-#, fuzzy
 msgid "Handle sessions ourselves."
-msgstr "Of sessies door de software zelf afgehandeld moeten worden."
+msgstr "De software moet sessies zelf afhandelen."
 
 #. TRANS: Checkbox label on the sessions administration panel.
 #. TRANS: Indicates if StatusNet should write session debugging output.
@@ -4773,14 +4777,12 @@ msgid "Session debugging"
 msgstr "Sessies debuggen"
 
 #. TRANS: Checkbox title on the sessions administration panel.
-#, fuzzy
 msgid "Enable debugging output for sessions."
 msgstr "Debuguitvoer voor sessies inschakelen."
 
 #. TRANS: Title for submit button on the sessions administration panel.
-#, fuzzy
 msgid "Save session settings"
-msgstr "Toegangsinstellingen opslaan"
+msgstr "Sessie-instellingen opslaan"
 
 #. TRANS: Client error displayed trying to display an OAuth application while not logged in.
 msgid "You must be logged in to view an application."
@@ -4793,10 +4795,10 @@ msgstr "Applicatieprofiel"
 #. TRANS: Information output on an OAuth application page.
 #. TRANS: %1$s is the application creator, %2$s is "read-only" or "read-write",
 #. TRANS: %3$d is the number of users using the OAuth application.
-#, fuzzy, php-format
+#, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d user"
 msgid_plural "Created by %1$s - %2$s access by default - %3$d users"
-msgstr[0] "Aangemaakt door %1$s - standaardtoegang \"%2$s\" - %3$d gebruikers"
+msgstr[0] "Aangemaakt door %1$s - standaardtoegang \"%2$s\" - %3$d gebruiker"
 msgstr[1] "Aangemaakt door %1$s - standaardtoegang \"%2$s\" - %3$d gebruikers"
 
 #. TRANS: Header on the OAuth application page.
@@ -4804,7 +4806,6 @@ msgid "Application actions"
 msgstr "Applicatiehandelingen"
 
 #. TRANS: Link text to edit application on the OAuth application page.
-#, fuzzy
 msgctxt "EDITAPP"
 msgid "Edit"
 msgstr "Bewerken"
@@ -4819,7 +4820,6 @@ msgid "Application info"
 msgstr "Applicatieinformatie"
 
 #. TRANS: Note on the OAuth application page about signature support.
-#, fuzzy
 msgid ""
 "Note: HMAC-SHA1 signatures are supported. The plaintext signature method is "
 "not supported."
@@ -4990,7 +4990,6 @@ msgstr ""
 "over hun ervaringen en interesses. "
 
 #. TRANS: Title for list of group administrators on a group page.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Admins"
 msgstr "Beheerders"
@@ -5132,7 +5131,6 @@ msgid "User is already silenced."
 msgstr "Deze gebruiker is al gemuilkorfd."
 
 #. TRANS: Title for site administration panel.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Site"
 msgstr "Website"
@@ -5165,55 +5163,48 @@ msgid "Dupe limit must be one or more seconds."
 msgstr "De duplicaatlimiet moet één of meer seconden zijn."
 
 #. TRANS: Fieldset legend on site settings panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "General"
 msgstr "Algemeen"
 
 #. TRANS: Field label on site settings panel.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Site name"
 msgstr "Websitenaam"
 
 #. TRANS: Field title on site settings panel.
-#, fuzzy
 msgid "The name of your site, like \"Yourcompany Microblog\"."
-msgstr "De naam van de website, zoals \"UwBedrijf Microblog\""
+msgstr "De naam van de website, zoals \"UwBedrijf Microblog\"."
 
 #. TRANS: Field label on site settings panel.
 msgid "Brought by"
 msgstr "Mogelijk gemaakt door"
 
 #. TRANS: Field title on site settings panel.
-#, fuzzy
 msgid "Text used for credits link in footer of each page."
 msgstr ""
 "De tekst die gebruikt worden in de \"creditsverwijzing\" in de voettekst van "
-"iedere pagina"
+"iedere pagina."
 
 #. TRANS: Field label on site settings panel.
 msgid "Brought by URL"
 msgstr "\"Mogelijk gemaakt door\"-URL"
 
 #. TRANS: Field title on site settings panel.
-#, fuzzy
 msgid "URL used for credits link in footer of each page."
 msgstr ""
-"URL die wordt gebruikt voor de verwijzing naar de hoster en dergelijke in de "
-"voettekst van iedere pagina"
+"De URL die wordt gebruikt voor de verwijzing de credits in de voettekst van "
+"iedere pagina."
 
 #. TRANS: Field label on site settings panel.
 msgid "Email"
 msgstr "E-mail"
 
 #. TRANS: Field title on site settings panel.
-#, fuzzy
 msgid "Contact email address for your site."
-msgstr "E-mailadres om contact op te nemen met de websitebeheerder"
+msgstr "E-mailadres om contact op te nemen met de websitebeheerder."
 
 #. TRANS: Fieldset legend on site settings panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Local"
 msgstr "Lokaal"
@@ -5237,7 +5228,6 @@ msgstr ""
 "kan worden"
 
 #. TRANS: Fieldset legend on site settings panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Limits"
 msgstr "Limieten"
@@ -6262,7 +6252,7 @@ msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown trying to approve a non-existing group join request.
 msgid "Invalid group join approval: not pending."
-msgstr ""
+msgstr "Ongeldig groepslidmaatschapverzoek: niet in behandeling."
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
@@ -6893,7 +6883,8 @@ msgid "Block this user"
 msgstr "Deze gebruiker blokkeren"
 
 #. TRANS: Submit button text on form to cancel group join request.
-msgid "BUTTON"
+msgctxt "BUTTON"
+msgid "Cancel join request"
 msgstr ""
 
 #. TRANS: Title for command results.
@@ -7504,17 +7495,16 @@ msgid "URL of the homepage or blog of the group or topic."
 msgstr "De URL van de thuispagina of de blog van de groep of het onderwerp"
 
 #. TRANS: Text area title for group description when there is no text limit.
-#, fuzzy
 msgid "Describe the group or topic."
-msgstr "Beschrijf de groep of het onderwerp"
+msgstr "Beschrijf de groep of het onderwerp."
 
 #. TRANS: Text area title for group description.
 #. TRANS: %d is the number of characters available for the description.
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the group or topic in %d character or less."
 msgid_plural "Describe the group or topic in %d characters or less."
-msgstr[0] "Beschrijf de group in %d teken of minder"
-msgstr[1] "Beschrijf de group in %d tekens of minder"
+msgstr[0] "Beschrijf de groep in %d teken of minder."
+msgstr[1] "Beschrijf de groep in %d tekens of minder."
 
 #. TRANS: Field title on group edit form.
 msgid ""
@@ -7541,22 +7531,21 @@ msgstr[1] ""
 "aliasen toegestaan."
 
 #. TRANS: Dropdown fieldd label on group edit form.
-#, fuzzy
 msgid "Membership policy"
-msgstr "Lid sinds"
+msgstr "Lidmaatschapsbeleid"
 
 msgid "Open to all"
-msgstr ""
+msgstr "Open voor iedereen"
 
 msgid "Admin must approve all members"
-msgstr ""
+msgstr "Beheerders moeten alle leden accepteren"
 
 #. TRANS: Dropdown field title on group edit form.
 msgid "Whether admin approval is required to join this group."
 msgstr ""
+"Voor lidmaatschap van de groep is toestemming van de groepsbeheerder vereist."
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
-#, fuzzy
 msgctxt "GROUPADMIN"
 msgid "Admin"
 msgstr "Beheerder"
@@ -7591,15 +7580,15 @@ msgstr "Leden van de groep %s"
 msgctxt "MENU"
 msgid "Pending members (%d)"
 msgid_plural "Pending members (%d)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Opstaande aanvraag voor groepslidmaatschap"
+msgstr[1] "Openstaande aanvragen voor groepslidmaatschap (%d)"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
-#, fuzzy, php-format
+#, php-format
 msgctxt "TOOLTIP"
 msgid "%s pending members"
-msgstr "leden van de groep %s"
+msgstr "Groepslidmaatschapsaanvragen voor de groep %s"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 msgctxt "MENU"
@@ -7732,12 +7721,6 @@ msgstr ""
 msgid "Unknown inbox source %d."
 msgstr "Onbekende bron Postvak IN %d."
 
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr ""
-"Het bericht te is lang. De maximale lengte is %1$d tekens. De lengte van uw "
-"bericht was %2$d."
-
 msgid "Leave"
 msgstr "Verlaten"
 
@@ -7806,7 +7789,7 @@ msgstr "%1$s volgt nu uw berichten %2$s."
 #. TRANS: Common footer block for StatusNet notification emails.
 #. TRANS: %1$s is the StatusNet sitename,
 #. TRANS: %2$s is a link to the addressed user's e-mail settings.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Faithfully yours,\n"
 "%1$s.\n"
@@ -7814,22 +7797,17 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %2$s"
 msgstr ""
-"%1$s volgt nu uw medelingen op %2$s.\n"
-"\n"
-"%3$s\n"
-"\n"
-"%4$s%5$s%6$s\n"
-"\n"
 "Met vriendelijke groet,\n"
-"%2$s.\n"
+"%1$s.\n"
+"\n"
 "----\n"
-"Wijzig uw e-mailadres of instellingen op %7$s\n"
+"Wijzig uw e-mailadres of instellingen op %2$s"
 
 #. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is a URL.
-#, fuzzy, php-format
+#, php-format
 msgid "Profile: %s"
-msgstr "Profiel"
+msgstr "Profiel: %s"
 
 #. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is biographical information.
@@ -7839,13 +7817,14 @@ msgstr "Beschrijving: %s"
 
 #. TRANS: This is a paragraph in a new-subscriber e-mail.
 #. TRANS: %s is a URL where the subscriber can be reported as abusive.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "If you believe this account is being used abusively, you can block them from "
 "your subscribers list and report as spam to site administrators at %s."
 msgstr ""
 "Als u denkt dat deze gebruiker wordt misbruikt, dan kunt u deze voor uw "
-"abonnees blokkeren en als spam rapporteren naar de websitebeheerders op %s."
+"abonnees blokkeren en als spam rapporteren naar de websitebeheerders via de "
+"volgende verwijzing: %s."
 
 #. TRANS: Subject of notification mail for new posting email address.
 #. TRANS: %s is the StatusNet sitename.
@@ -7856,7 +7835,7 @@ msgstr "Nieuw e-mailadres om e-mail te versturen aan %s"
 #. TRANS: Body of notification mail for new posting email address.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is the e-mail address to send
 #. TRANS: to to post by e-mail, %3$s is a URL to more instructions.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
@@ -7868,10 +7847,7 @@ msgstr ""
 "\n"
 "Zend een e-mail naar %2$s om nieuwe berichten te versturen.\n"
 "\n"
-"Meer informatie over e-mailen vindt u op %3$s.\n"
-"\n"
-"Met vriendelijke groet,\n"
-"%1$s"
+"Meer informatie over e-mailen vindt u op %3$s."
 
 #. TRANS: Subject line for SMS-by-email notification messages.
 #. TRANS: %s is the posting user's nickname.
@@ -7898,7 +7874,7 @@ msgstr "%s heeft u gepord"
 #. TRANS: Body for 'nudge' notification email.
 #. TRANS: %1$s is the nuding user's long name, $2$s is the nudging user's nickname,
 #. TRANS: %3$s is a URL to post notices at.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
 "to post some news.\n"
@@ -7917,10 +7893,7 @@ msgstr ""
 "%3$s\n"
 "\n"
 "Schrijf geen antwoord op deze e-mail. Die komt niet aan bij de juiste "
-"gebruiker.\n"
-"\n"
-"Met vriendelijke groet,\n"
-"%4$s\n"
+"gebruiker."
 
 #. TRANS: Subject for direct-message notification email.
 #. TRANS: %s is the sending user's nickname.
@@ -7931,7 +7904,7 @@ msgstr "U hebt een nieuw privébericht van %s."
 #. TRANS: Body for direct-message notification email.
 #. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
 #. TRANS: %3$s is the message content, %4$s a URL to the message,
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
 "\n"
@@ -7956,10 +7929,7 @@ msgstr ""
 "%4$s\n"
 "\n"
 "Schrijf geen antwoord op deze e-mail. Die komt niet aan bij de juiste "
-"gebruiker.\n"
-"\n"
-"Met vriendelijke groet,\n"
-"%5$s\n"
+"gebruiker."
 
 #. TRANS: Subject for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
@@ -7972,7 +7942,7 @@ msgstr "%1$s (@%2$s) heeft uw mededeling als favoriet toegevoegd"
 #. TRANS: %3$s is a URL to the faved notice, %4$s is the faved notice text,
 #. TRANS: %5$s is a URL to all faves of the adding user, %6$s is the StatusNet sitename,
 #. TRANS: %7$s is the adding user's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
 "\n"
@@ -8001,10 +7971,7 @@ msgstr ""
 "\n"
 "U kunt de favorietenlijst van %1$s via de volgende verwijzing bekijken:\n"
 "\n"
-"%5$s\n"
-"\n"
-"Met vriendelijke groet,\n"
-"%6$s\n"
+"%5$s"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
 #, php-format
@@ -8028,7 +7995,7 @@ msgstr "%1$s (@%2$s) heeft u een mededeling gestuurd"
 #. TRANS: %3$s is a URL to the notice, %4$s is the notice text,
 #. TRANS: %5$s is a URL to the full conversion if it exists (otherwise empty),
 #. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replies for the addressed user,
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s just sent a notice to your attention (an '@-reply') on %2$s.\n"
 "\n"
@@ -8048,8 +8015,7 @@ msgid ""
 "\n"
 "%7$s"
 msgstr ""
-"%1$s (@%9$s) heeft u zojuist een mededeling gezonden (een '@-antwoord') op %2"
-"$s.\n"
+"%1$s heeft u zojuist een mededeling gezonden (een '@-antwoord') op %2$s.\n"
 "\n"
 "De mededeling is hier te vinden:\n"
 "\n"
@@ -8065,12 +8031,7 @@ msgstr ""
 "\n"
 "De lijst met alle @-antwoorden aan u:\n"
 "\n"
-"%7$s\n"
-"\n"
-"Groet,\n"
-"%2$s\n"
-"\n"
-"Ps. U kunt de e-mailmeldingen hier uitschakelen: %8$s\n"
+"%7$s"
 
 #. TRANS: Subject of group join notification e-mail.
 #. TRANS: %1$s is the joining user's nickname, %2$s is the group name, and %3$s is the StatusNet sitename.
@@ -8078,24 +8039,26 @@ msgstr ""
 #. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
 #. TRANS: %4$s is a block of profile info about the subscriber.
 #. TRANS: %5$s is a link to the addressed user's e-mail settings.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s has joined your group %2$s on %3$s."
-msgstr "%1$s is lid geworden van de groep %2$s."
+msgstr "%1$s is lid geworden van de groep %2$s op %3$s."
 
 #. TRANS: Subject of pending group join request notification e-mail.
 #. TRANS: %1$s is the joining user's nickname, %2$s is the group name, and %3$s is the StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s wants to join your group %2$s on %3$s."
-msgstr "%1$s is lid geworden van de groep %2$s."
+msgstr "%1$s wil lid worden van de groep %2$s op %3$s."
 
 #. TRANS: Main body of pending group join request notification e-mail.
 #. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
-#. TRANS: %3$s is the URL to the moderation queue page.
+#. TRANS: %4$s is the URL to the moderation queue page.
 #, php-format
 msgid ""
 "%1$s would like to join your group %2$s on %3$s. You may approve or reject "
 "their group membership at %4$s"
 msgstr ""
+"%1$s wil lid worden van de groep %2$s op %3$s. U kunt dit verzoek accepteren "
+"of weigeren via de volgende verwijzing: %4$s."
 
 msgid "Only the user can read their own mailboxes."
 msgstr "Gebruikers kunnen alleen hun eigen postvakken lezen."
@@ -8840,8 +8803,10 @@ msgstr "Ongeldige XML. De XRD-root mist."
 msgid "Getting backup from file '%s'."
 msgstr "De back-up wordt uit het bestand \"%s\" geladen."
 
-#~ msgid "Notice"
-#~ msgstr "Mededeling"
+#~ msgid "BUTTON"
+#~ msgstr "X"
 
-#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-#~ msgstr "1-64 kleine letters of cijfers, geen leestekens of spaties."
+#~ msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+#~ msgstr ""
+#~ "Het bericht te is lang. De maximale lengte is %1$d tekens. De lengte van "
+#~ "uw bericht was %2$d."

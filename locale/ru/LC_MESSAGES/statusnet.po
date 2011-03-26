@@ -18,18 +18,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-24 11:10+0000\n"
-"PO-Revision-Date: 2011-03-24 11:12:57+0000\n"
+"POT-Creation-Date: 2011-03-26 11:02+0000\n"
+"PO-Revision-Date: 2011-03-26 11:05:10+0000\n"
 "Language-Team: Russian <http://translatewiki.net/wiki/Portal:ru>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r84667); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r84791); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2011-03-18 20:10:59+0000\n"
+"X-POT-Import-Date: 2011-03-24 15:23:28+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1144,14 +1144,17 @@ msgid "Could not cancel request for user %1$s to join group %2$s."
 msgstr "Не удаётся присоединить пользователя %1$s к группе %2$s."
 
 #. TRANS: Title for leave group page after group join request is approved/disapproved.
+#. TRANS: %1$s is the user nickname, %2$s is the group nickname.
 #, fuzzy, php-format
 msgctxt "TITLE"
 msgid "%1$s's request for %2$s"
 msgstr "Статус %1$s на %2$s"
 
+#. TRANS: Message on page for group admin after approving a join request.
 msgid "Join request approved."
 msgstr ""
 
+#. TRANS: Message on page for group admin after rejecting a join request.
 msgid "Join request canceled."
 msgstr ""
 
@@ -3900,8 +3903,7 @@ msgstr "Настройки профиля"
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr ""
-"Вы можете обновить ваш профиль ниже, так что люди узнают о вас немного "
-"больше."
+"Ниже вы можете обновить свой профиль, чтобы люди узнали о вас немного больше."
 
 #. TRANS: Profile settings form legend.
 msgid "Profile information"
@@ -3956,7 +3958,7 @@ msgstr "Биография"
 #. TRANS: Field label on account registration page.
 #. TRANS: Field label on group edit form.
 msgid "Location"
-msgstr "Месторасположение"
+msgstr "Местоположение"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 msgid "Where you are, like \"City, State (or Region), Country\""
@@ -6584,7 +6586,7 @@ msgid "Home"
 msgstr "Главная"
 
 msgid "Admin"
-msgstr "Настройки"
+msgstr "Администрирование"
 
 #. TRANS: Menu item title/tooltip
 msgid "Basic site configuration"
@@ -6848,7 +6850,8 @@ msgid "Block this user"
 msgstr "Заблокировать пользователя."
 
 #. TRANS: Submit button text on form to cancel group join request.
-msgid "BUTTON"
+msgctxt "BUTTON"
+msgid "Cancel join request"
 msgstr ""
 
 #. TRANS: Title for command results.
@@ -7696,11 +7699,6 @@ msgstr ""
 msgid "Unknown inbox source %d."
 msgstr "Неизвестный источник входящих сообщений %d."
 
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr ""
-"Сообщение слишком длинное — не больше %1$d символов, вы отправили %2$d."
-
 msgid "Leave"
 msgstr "Покинуть"
 
@@ -8050,7 +8048,7 @@ msgstr "%1$s присоединился к группе %2$s."
 
 #. TRANS: Main body of pending group join request notification e-mail.
 #. TRANS: %1$s is the subscriber's long name, %2$s is the group name, and %3$s is the StatusNet sitename,
-#. TRANS: %3$s is the URL to the moderation queue page.
+#. TRANS: %4$s is the URL to the moderation queue page.
 #, php-format
 msgid ""
 "%1$s would like to join your group %2$s on %3$s. You may approve or reject "
@@ -8163,7 +8161,7 @@ msgstr "Для"
 
 msgctxt "Send button for sending notice"
 msgid "Send"
-msgstr "Отправить"
+msgstr "↵"
 
 msgid "Messages"
 msgstr "Сообщения"
@@ -8806,8 +8804,6 @@ msgstr "Неверный XML, отсутствует корень XRD."
 msgid "Getting backup from file '%s'."
 msgstr "Получение резервной копии из файла «%s»."
 
-#~ msgid "Notice"
-#~ msgstr "Записи"
-
-#~ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-#~ msgstr "1-64 латинских строчных буквы или цифры, без пробелов"
+#~ msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+#~ msgstr ""
+#~ "Сообщение слишком длинное — не больше %1$d символов, вы отправили %2$d."
