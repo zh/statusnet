@@ -51,16 +51,20 @@ function newUser($i)
     }
 }
 
-function newGroup($i)
+function newGroup($i, $j)
 {
     global $groupprefix;
+    global $userprefix;
 
-    $user = User_group::register(array('nickname' => sprintf('%s%d', $groupprefix, $i),
-                                       'local'    => true,
-                                       'fullname' => sprintf('Test Group %d', $i)));
-    if (!empty($user)) {
-        $user->free();
-    }
+    // Pick a random user to be the admin
+
+    $n = rand(0, max($j - 1, 0));
+    $user = User::staticGet('nickname', sprintf('%s%d', $userprefix, $n));
+
+    $group = User_group::register(array('nickname' => sprintf('%s%d', $groupprefix, $i),
+                                        'local'    => true,
+                                        'userid'   => $user->id,
+                                        'fullname' => sprintf('Test Group %d', $i)));
 }
 
 function newNotice($i, $tagmax)
@@ -196,7 +200,7 @@ function main($usercount, $groupcount, $noticeavg, $subsavg, $joinsavg, $tagmax)
     $g = 1;
 
     newUser(0);
-    newGroup(0);
+    newGroup(0, $n);
 
     // # registrations + # notices + # subs
 
@@ -214,13 +218,13 @@ function main($usercount, $groupcount, $noticeavg, $subsavg, $joinsavg, $tagmax)
     {
         $e = rand(0, $events);
 
-        if ($e > 0 && $e <= $ut) {
+        if ($e >= 0 && $e <= $ut) {
             printfv("$i Creating user $n\n");
             newUser($n);
             $n++;
         } else if ($e > $ut && $e <= $gt) {
             printfv("$i Creating group $g\n");
-            newGroup($g);
+            newGroup($g, $n);
             $g++;
         } else if ($e > $gt && $e <= $nt) {
             printfv("$i Making a new notice\n");
