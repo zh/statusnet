@@ -2043,10 +2043,21 @@ class Notice extends Memcached_DataObject
 
     function inScope($profile)
     {
-        // If there's any scope, and there's no logged-in user,
-        // not allowed.
+        // If there's no scope, anyone (even anon) is in scope.
 
-        if ($this->scope > 0 && empty($profile)) {
+        if ($this->scope == 0) {
+            return true;
+        }
+
+        // If there's scope, anon cannot be in scope
+
+        if (empty($profile)) {
+            return false;
+        }
+
+        // Author is always in scope
+
+        if ($this->profile_id == $profile->id) {
             return false;
         }
 
