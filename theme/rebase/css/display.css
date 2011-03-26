@@ -1156,6 +1156,11 @@ width:auto;
 margin-left:0;
 }
 
+.limited-scope .entry-content .timestamp:before {
+content:'☠';
+font-size:150%;
+}
+
 /* override OStatus plugin style */
 
 #form_ostatus_connect.form_settings.dialogbox, #form_ostatus_sub.dialogbox {
