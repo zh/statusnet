@@ -249,6 +249,7 @@ class Notice extends Memcached_DataObject
      *                           notice in place of extracting links from content
      *              boolean 'distribute' whether to distribute the notice, default true
      *              string 'object_type' URL of the associated object type (default ActivityObject::NOTE)
+     *              int 'scope' Scope bitmask; default to SITE_SCOPE on private sites, 0 otherwise
      *
      * @fixme tag override
      *
@@ -260,6 +261,7 @@ class Notice extends Memcached_DataObject
                           'url' => null,
                           'reply_to' => null,
                           'repeat_of' => null,
+                          'scope' => null,
                           'distribute' => true);
 
         if (!empty($options)) {
@@ -372,6 +374,12 @@ class Notice extends Memcached_DataObject
             $notice->object_type = (empty($notice->reply_to)) ? ActivityObject::NOTE : ActivityObject::COMMENT;
         } else {
             $notice->object_type = $object_type;
+        }
+
+        if (is_null($scope)) { // 0 is a valid value
+            $notice->scope = common_config('notice', 'defaultscope');
+        } else {
+            $notice->scope = $scope;
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
