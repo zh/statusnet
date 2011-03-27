@@ -141,7 +141,7 @@ class AtompubmembershipfeedAction extends ApiAuthAction
 
         // TRANS: Title for group membership feed.
         // TRANS: %s is a username.
-        $feed->setTitle(sprintf(_("%s group memberships"),
+        $feed->setTitle(sprintf(_('Group memberships of %s'),
                                 $this->_profile->getBestName()));
 
         // TRANS: Subtitle for group membership feed.
