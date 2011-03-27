@@ -237,8 +237,7 @@ class AtompubmembershipfeedAction extends ApiAuthAction
 
         if (Event::handle('StartAtomPubNewActivity', array(&$activity))) {
             if ($activity->verb != ActivityVerb::JOIN) {
-                // TRANS: Client error displayed when not using the POST verb.
-                // TRANS: Do not translate POST.
+                // TRANS: Client error displayed when not using the join verb.
                 throw new ClientException(_('Can only handle join activities.'));
                 return;
             }
