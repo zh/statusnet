@@ -83,7 +83,7 @@ class NoticeForm extends Form
     var $to_group;
 
     /** select this user from the drop-down by default. */
-    var $to_user;
+    var $to_profile;
 
     /** Pre-click the private checkbox. */
     var $private;
@@ -241,7 +241,7 @@ class NoticeForm extends Form
             $this->out->elementStart('div');
             $toWidget = new ToSelector($this->out,
                                        $this->user,
-                                       (!empty($this->to_group) ? $this->to_group : $this->to_user));
+                                       (!empty($this->to_group) ? $this->to_group : $this->to_profile));
 
             $toWidget->show();
             $this->out->elementEnd('div');
