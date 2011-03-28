@@ -90,6 +90,12 @@ class User extends Memcached_DataObject
         return $profile->isSubscribed($other);
     }
 
+    function hasPendingSubscription($other)
+    {
+        $profile = $this->getProfile();
+        return $profile->hasPendingSubscription($other);
+    }
+
     // 'update' won't write key columns, so we have to do it ourselves.
 
     function updateKeys(&$orig)

@@ -36,24 +36,31 @@ class Subscription_queue extends Managed_DataObject
             ),
             'primary key' => array('subscriber', 'subscribed'),
             'indexes' => array(
-                'group_join_queue_profile_id_created_idx' => array('subscriber', 'created'),
-                'group_join_queue_group_id_created_idx' => array('subscribed', 'created'),
+                'subscription_queue_subscriber_created_idx' => array('subscriber', 'created'),
+                'subscription_queue_subscribed_created_idx' => array('subscribed', 'created'),
             ),
             'foreign keys' => array(
-                'group_join_queue_subscriber_fkey' => array('profile', array('subscriber' => 'id')),
-                'group_join_queue_subscribed_fkey' => array('profile', array('subscribed' => 'id')),
+                'subscription_queue_subscriber_fkey' => array('profile', array('subscriber' => 'id')),
+                'subscription_queue_subscribed_fkey' => array('profile', array('subscribed' => 'id')),
             )
         );
     }
 
-    public static function saveNew(Profile $subscriber, Profile $other)
+    public static function saveNew(Profile $subscriber, Profile $subscribed)
     {
-        $rq = new Group_join_queue();
+        $rq = new Subscription_queue();
         $rq->subscriber = $subscriber->id;
         $rq->subscribed = $subscribed->id;
         $rq->created = common_sql_now();
         $rq->insert();
         return $rq;
+    }
+
+    function exists($subscriber, $other)
+    {
+        $sub = Subscription_queue::pkeyGet(array('subscriber' => $subscriber->id,
+                                                 'subscribed' => $other->id));
+        return (empty($sub)) ? false : true;
     }
 
     /**
@@ -93,6 +100,6 @@ class Subscription_queue extends Managed_DataObject
     {
         $subscriber = Profile::staticGet('id', $this->subscriber);
         $subscribed = Profile::staticGet('id', $this->subscribed);
-        mail_notify_subscription_pending($subscribed, $subscriber);
+        //mail_notify_subscription_pending($subscribed, $subscriber);
     }
 }

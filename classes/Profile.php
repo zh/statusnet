@@ -413,6 +413,17 @@ class Profile extends Memcached_DataObject
     {
         return Subscription::exists($this, $other);
     }
+    
+    /**
+     * Check if a pending subscription request is outstanding for this...
+     *
+     * @param Profile $other
+     * @return boolean
+     */
+    function hasPendingSubscription($other)
+    {
+        return Subscription_queue::exists($this, $other);
+    }
 
     /**
      * Are these two profiles subscribed to each other?

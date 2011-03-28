@@ -199,7 +199,8 @@ class Router
             // main stuff is repetitive
 
             $main = array('login', 'logout', 'register', 'subscribe',
-                          'unsubscribe', 'confirmaddress', 'recoverpassword',
+                          'unsubscribe', 'cancelsubscription',
+                          'confirmaddress', 'recoverpassword',
                           'invite', 'favor', 'disfavor', 'sup',
                           'block', 'unblock', 'subedit',
                           'groupblock', 'groupunblock',
