@@ -238,7 +238,7 @@ class NoticeForm extends Form
             }
             $this->out->hidden('notice_in-reply-to', $this->inreplyto, 'inreplyto');
 
-            $this->out->elementStart('div');
+            $this->out->elementStart('div', 'to-selector');
             $toWidget = new ToSelector($this->out,
                                        $this->user,
                                        (!empty($this->to_group) ? $this->to_group : $this->to_profile));
