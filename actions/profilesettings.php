@@ -192,6 +192,17 @@ class ProfilesettingsAction extends SettingsAction
                             ($this->arg('autosubscribe')) ?
                             $this->boolean('autosubscribe') : $user->autosubscribe);
             $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->dropdown('subscribe_policy',
+                            // TRANS: Dropdown field label on profile settings, for what policies to apply when someone else tries to subscribe to your updates.
+                            _('Subscription policy'),
+                            array(User::SUBSCRIBE_POLICY_OPEN     => _('Let anyone follow me'),
+                                  User::SUBSCRIBE_POLICY_MODERATE => _('Ask me first')),
+                            // TRANS: Dropdown field title on group edit form.
+                            _('Whether other users need your permission to follow your updates.'),
+                            false,
+                            (empty($user->subscribe_policy)) ? User::SUBSCRIBE_POLICY_OPEN : $user->subscribe_policy);
+            $this->elementEnd('li');
         }
         $this->elementEnd('ul');
         // TRANS: Button to save input in profile settings.
@@ -234,6 +245,7 @@ class ProfilesettingsAction extends SettingsAction
             $bio = $this->trimmed('bio');
             $location = $this->trimmed('location');
             $autosubscribe = $this->boolean('autosubscribe');
+            $subscribe_policy = $this->trimmed('subscribe_policy');
             $language = $this->trimmed('language');
             $timezone = $this->trimmed('timezone');
             $tagstring = $this->trimmed('tags');
@@ -333,11 +345,12 @@ class ProfilesettingsAction extends SettingsAction
             }
 
             // XXX: XOR
-            if ($user->autosubscribe ^ $autosubscribe) {
+            if (($user->autosubscribe ^ $autosubscribe) || $user->subscribe_policy != $subscribe_policy) {
 
                 $original = clone($user);
 
                 $user->autosubscribe = $autosubscribe;
+                $user->subscribe_policy = $subscribe_policy;
 
                 $result = $user->update($original);
 
@@ -345,7 +358,7 @@ class ProfilesettingsAction extends SettingsAction
                     common_log_db_error($user, 'UPDATE', __FILE__);
                     // TRANS: Server error thrown when user profile settings could not be updated to
                     // TRANS: automatically subscribe to any subscriber.
-                    $this->serverError(_('Could not update user for autosubscribe.'));
+                    $this->serverError(_('Could not update user for autosubscribe or subscribe_policy.'));
                     return;
                 }
             }

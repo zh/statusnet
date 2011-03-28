@@ -152,9 +152,9 @@ class ApprovegroupAction extends Action
 
         try {
             if ($this->approve) {
-                $this->profile->completeJoinGroup($this->group);
+                $this->request->complete();
             } elseif ($this->cancel) {
-                $this->profile->cancelJoinGroup($this->group);
+                $this->request->abort();
             }
         } catch (Exception $e) {
             common_log(LOG_ERROR, "Exception canceling group sub: " . $e->getMessage());

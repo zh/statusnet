@@ -30,6 +30,9 @@ require_once 'Validate.php';
 
 class User extends Memcached_DataObject
 {
+    const SUBSCRIBE_POLICY_OPEN = 0;
+    const SUBSCRIBE_POLICY_MODERATE = 1;
+
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
@@ -55,6 +58,7 @@ class User extends Memcached_DataObject
     public $smsemail;                        // varchar(255)
     public $uri;                             // varchar(255)  unique_key
     public $autosubscribe;                   // tinyint(1)
+    public $subscribe_policy;                // tinyint(1)
     public $urlshorteningservice;            // varchar(50)   default_ur1.ca
     public $inboxed;                         // tinyint(1)
     public $design_id;                       // int(4)

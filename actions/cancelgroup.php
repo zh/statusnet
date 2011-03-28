@@ -139,7 +139,7 @@ class CancelgroupAction extends Action
         parent::handle($args);
 
         try {
-            $this->profile->cancelJoinGroup($this->group);
+            $this->request->abort();
         } catch (Exception $e) {
             common_log(LOG_ERROR, "Exception canceling group sub: " . $e->getMessage());
             // TRANS: Server error displayed when cancelling a queued group join request fails.

@@ -57,6 +57,35 @@ class Subscription_queue extends Managed_DataObject
     }
 
     /**
+     * Complete a pending subscription, as we've got approval of some sort.
+     *
+     * @return Subscription
+     */
+    public function complete()
+    {
+        $subscriber = Profile::staticGet('id', $this->subscriber);
+        $subscribed = Profile::staticGet('id', $this->subscribed);
+        $sub = Subscription::start($subscriber, $other, Subscription::FORCE);
+        if ($sub) {
+            $this->delete();
+        }
+        return $sub;
+    }
+
+    /**
+     * Cancel an outstanding subscription request to the other profile.
+     */
+    public function abort($profile)
+    {
+        $subscriber = Profile::staticGet('id', $this->subscriber);
+        $subscribed = Profile::staticGet('id', $this->subscribed);
+        if (Event::handle('StartCancelSubscription', array($subscriber, $subscribed))) {
+            $this->delete();
+            Event::handle('EndCancelSubscription', array($subscriber, $subscribed));
+        }
+    }
+
+    /**
      * Send notifications via email etc to group administrators about
      * this exciting new pending moderation queue item!
      */

@@ -298,49 +298,6 @@ class Profile extends Memcached_DataObject
     }
 
     /**
-     * Cancel a pending group join...
-     *
-     * @param User_group $group
-     */
-    function cancelJoinGroup(User_group $group)
-    {
-        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
-                                                   'group_id' => $group->id));
-        if ($request) {
-            if (Event::handle('StartCancelJoinGroup', array($group, $this))) {
-                $request->delete();
-                Event::handle('EndCancelJoinGroup', array($group, $this));
-            }
-        }
-    }
-
-    /**
-     * Complete a pending group join on our end...
-     *
-     * @param User_group $group
-     */
-    function completeJoinGroup(User_group $group)
-    {
-        $join = null;
-        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
-                                                   'group_id' => $group->id));
-        if ($request) {
-            if (Event::handle('StartJoinGroup', array($group, $this))) {
-                $join = Group_member::join($group->id, $this->id);
-                $request->delete();
-                Event::handle('EndJoinGroup', array($group, $this));
-            }
-        } else {
-            // TRANS: Exception thrown trying to approve a non-existing group join request.
-            throw new Exception(_('Invalid group join approval: not pending.'));
-        }
-        if ($join) {
-            $join->notify();
-        }
-        return $join;
-    }
-
-    /**
      * Leave a group that this profile is a member of.
      *
      * @param User_group $group
@@ -361,47 +318,6 @@ class Profile extends Memcached_DataObject
         } else {
             return Avatar::defaultImage($size);
         }
-    }
-
-    /**
-     * Request a subscription to another local or remote profile.
-     * This will result in either the subscription going through
-     * immediately, being queued for approval, or being rejected
-     * immediately.
-     *
-     * @param Profile $profile
-     * @return mixed: Subscription or Subscription_queue object on success
-     * @throws Exception of various types on invalid state
-     */
-    function subscribe($profile)
-    {
-        //
-    }
-
-    /**
-     * Cancel an outstanding subscription request to the other profile.
-     *
-     * @param Profile $profile
-     */
-    function cancelSubscribe($profile)
-    {
-        $request = Subscribe_join_queue::pkeyGet(array('subscriber' => $this->id,
-                                                       'subscribed' => $profile->id));
-        if ($request) {
-            if (Event::handle('StartCancelSubscription', array($this, $profile))) {
-                $request->delete();
-                Event::handle('EndCancelSubscription', array($this, $profile));
-            }
-        }
-    }
-
-    /**
-     *
-     * @param <type> $profile 
-     */
-    function completeSubscribe($profile)
-    {
-
     }
 
     function getSubscriptions($offset=0, $limit=null)
