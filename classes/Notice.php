@@ -351,6 +351,10 @@ class Notice extends Memcached_DataObject
 
         if (!empty($notice->reply_to)) {
             $reply = Notice::staticGet('id', $notice->reply_to);
+            if (!$reply->inScope($profile)) {
+                throw new ClientException(sprintf(_("%s has no access to notice %d"),
+                                                  $profile->nickname, $reply->id), 403);
+            }
             $notice->conversation = $reply->conversation;
         }
 
