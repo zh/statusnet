@@ -104,7 +104,7 @@ class Group_join_queue extends Managed_DataObject
      *
      * @return Group_member object on success
      */
-    function complete(User_group $group)
+    function complete()
     {
         $join = null;
         $profile = $this->getMember();
