@@ -83,6 +83,8 @@ class ShowrsvpAction extends ShownoticeAction
             throw new ClientException(_('No such RSVP.'), 404);
         }
 
+        $cur = common_current_user();
+
         if (!empty($cur)) {
             $curProfile = $cur->getProfile();
         } else {

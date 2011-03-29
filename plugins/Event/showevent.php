@@ -77,6 +77,8 @@ class ShoweventAction extends ShownoticeAction
             throw new ClientException(_('No such event.'), 404);
         }
 
+        $cur = common_current_user();
+
         if (!empty($cur)) {
             $curProfile = $cur->getProfile();
         } else {
