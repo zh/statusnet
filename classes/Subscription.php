@@ -122,7 +122,7 @@ class Subscription extends Memcached_DataObject
             Event::handle('EndSubscribe', array($subscriber, $other));
         }
 
-        return true;
+        return $sub;
     }
 
     /**

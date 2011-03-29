@@ -72,7 +72,7 @@ class Subscription_queue extends Managed_DataObject
     {
         $subscriber = Profile::staticGet('id', $this->subscriber);
         $subscribed = Profile::staticGet('id', $this->subscribed);
-        $sub = Subscription::start($subscriber, $other, Subscription::FORCE);
+        $sub = Subscription::start($subscriber, $subscribed, Subscription::FORCE);
         if ($sub) {
             $this->delete();
         }
@@ -82,7 +82,7 @@ class Subscription_queue extends Managed_DataObject
     /**
      * Cancel an outstanding subscription request to the other profile.
      */
-    public function abort($profile)
+    public function abort()
     {
         $subscriber = Profile::staticGet('id', $this->subscriber);
         $subscribed = Profile::staticGet('id', $this->subscribed);
