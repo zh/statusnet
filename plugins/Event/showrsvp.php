@@ -49,17 +49,8 @@ class ShowrsvpAction extends ShownoticeAction
     protected $rsvp = null;
     protected $event = null;
 
-    /**
-     * For initializing members of the class.
-     *
-     * @param array $argarray misc. arguments
-     *
-     * @return boolean true
-     */
-    function prepare($argarray)
+    function getNotice()
     {
-        OwnerDesignAction::prepare($argarray);
-
         $this->id = $this->trimmed('id');
 
         $this->rsvp = RSVP::staticGet('id', $this->id);
@@ -77,45 +68,16 @@ class ShowrsvpAction extends ShownoticeAction
             throw new ClientException(_m('No such Event.'), 404);
         }
 
-        $this->notice = $this->rsvp->getNotice();
+        $notice = $this->rsvp->getNotice();
 
-        if (empty($this->notice)) {
+        if (empty($notice)) {
             // Did we used to have it, and it got deleted?
             // TRANS: Client exception thrown when referring to a non-existing RSVP.
             // TRANS: RSVP stands for "Please reply".
             throw new ClientException(_m('No such RSVP.'), 404);
         }
 
-        $cur = common_current_user();
-
-        if (!empty($cur)) {
-            $curProfile = $cur->getProfile();
-        } else {
-            $curProfile = null;
-        }
-
-        if (!$this->notice->inScope($curProfile)) {
-            // TRANS: Client exception thrown when referring to an event the user has no access to.
-            throw new ClientException(_m('Not available.'), 403);
-        }
-
-        $this->user = User::staticGet('id', $this->rsvp->profile_id);
-
-        if (empty($this->user)) {
-            // TRANS: Client exception thrown when referring to a non-existing user.
-            throw new ClientException(_m('No such user.'), 404);
-        }
-
-        $this->profile = $this->user->getProfile();
-
-        if (empty($this->profile)) {
-            // TRANS: Server exception thrown when referring to a user without a profile.
-            throw new ServerException(_m('User without a profile.'));
-        }
-
-        $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
-
-        return true;
+        return $notice;
     }
 
     /**

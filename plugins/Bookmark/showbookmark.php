@@ -48,16 +48,8 @@ class ShowbookmarkAction extends ShownoticeAction
 {
     protected $bookmark = null;
 
-    /**
-     * For initializing members of the class.
-     *
-     * @param array $argarray misc. arguments
-     *
-     * @return boolean true
-     */
-    function prepare($argarray)
+    function getNotice()
     {
-        OwnerDesignAction::prepare($argarray);
 
         $this->id = $this->trimmed('id');
 
@@ -68,42 +60,15 @@ class ShowbookmarkAction extends ShownoticeAction
             throw new ClientException(_m('No such bookmark.'), 404);
         }
 
-        $this->notice = Notice::staticGet('uri', $this->bookmark->uri);
+        $notice = Notice::staticGet('uri', $this->bookmark->uri);
 
-        if (empty($this->notice)) {
+        if (empty($notice)) {
             // Did we used to have it, and it got deleted?
             // TRANS: Client exception thrown when referring to a non-existing bookmark.
             throw new ClientException(_m('No such bookmark.'), 404);
         }
 
-        if (!empty($cur)) {
-            $curProfile = $cur->getProfile();
-        } else {
-            $curProfile = null;
-        }
-
-        if (!$this->notice->inScope($curProfile)) {
-            // TRANS: Client exception thrown when referring to a bookmark the user has no access to.
-            throw new ClientException(_m('Not available.'), 403);
-        }
-
-        $this->user = User::staticGet('id', $this->bookmark->profile_id);
-
-        if (empty($this->user)) {
-            // TRANS: Client exception thrown when referring to a bookmark for a non-existing user.
-            throw new ClientException(_m('No such user.'), 404);
-        }
-
-        $this->profile = $this->user->getProfile();
-
-        if (empty($this->profile)) {
-            // TRANS: Client exception thrown when referring to a bookmark for a non-existing profile.
-            throw new ServerException(_m('User without a profile.'));
-        }
-
-        $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
-
-        return true;
+        return $notice;
     }
 
     /**

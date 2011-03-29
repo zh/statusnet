@@ -77,22 +77,7 @@ class ShownoticeAction extends OwnerDesignAction
             StatusNet::setApi(true);
         }
 
-        $id = $this->arg('notice');
-
-        $this->notice = Notice::staticGet('id', $id);
-
-        if (empty($this->notice)) {
-            // Did we used to have it, and it got deleted?
-            $deleted = Deleted_notice::staticGet($id);
-            if (!empty($deleted)) {
-                // TRANS: Client error displayed trying to show a deleted notice.
-                $this->clientError(_('Notice deleted.'), 410);
-            } else {
-                // TRANS: Client error displayed trying to show a non-existing notice.
-                $this->clientError(_('No such notice.'), 404);
-            }
-            return false;
-        }
+        $this->notice = $this->getNotice();
 
         $cur = common_current_user();
 
@@ -120,6 +105,33 @@ class ShownoticeAction extends OwnerDesignAction
         $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
 
         return true;
+    }
+
+    /**
+     * Fetch the notice to show. This may be overridden by child classes to
+     * customize what we fetch without duplicating all of the prepare() method.
+     *
+     * @return Notice
+     */
+    function getNotice()
+    {
+        $id = $this->arg('notice');
+
+        $notice = Notice::staticGet('id', $id);
+
+        if (empty($notice)) {
+            // Did we used to have it, and it got deleted?
+            $deleted = Deleted_notice::staticGet($id);
+            if (!empty($deleted)) {
+                // TRANS: Client error displayed trying to show a deleted notice.
+                $this->clientError(_('Notice deleted.'), 410);
+            } else {
+                // TRANS: Client error displayed trying to show a non-existing notice.
+                $this->clientError(_('No such notice.'), 404);
+            }
+            return false;
+        }
+        return $notice;
     }
 
     /**
