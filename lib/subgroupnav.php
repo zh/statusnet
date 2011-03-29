@@ -96,6 +96,20 @@ class SubGroupNav extends Menu
                                          $this->user->nickname),
                                  $action == 'subscribers',
                                  'nav_subscribers');
+            if ($cur && $cur->id == $this->user->id) {
+                // Possibly site admins should be able to get in here too
+                $pending = $this->countPendingSubs();
+                if ($pending || $cur->subscribe_policy == User::SUBSCRIBE_POLICY_MODERATE) {
+                    $this->out->menuItem(common_local_url('subqueue',
+                                                          array('nickname' =>
+                                                                $this->user->nickname)),
+                                         sprintf(_('Pending (%d)'), $pending),
+                                         sprintf(_('Approve pending subscription requests'),
+                                                 $this->user->nickname),
+                                         $action == 'subqueueaction',
+                                         'nav_subscribers');
+                }
+            }
             $this->out->menuItem(common_local_url('usergroups',
                                                   array('nickname' =>
                                                         $this->user->nickname)),
@@ -117,5 +131,12 @@ class SubGroupNav extends Menu
         }
 
         $this->out->elementEnd('ul');
+    }
+
+    function countPendingSubs()
+    {
+        $req = new Subscription_queue();
+        $req->subscribed = $this->user->id;
+        return $req->count();
     }
 }

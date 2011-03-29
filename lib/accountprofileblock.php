@@ -144,6 +144,9 @@ class AccountProfileBlock extends ProfileBlock
                         if ($cur->isSubscribed($this->profile)) {
                             $usf = new UnsubscribeForm($this->out, $this->profile);
                             $usf->show();
+                        } else if ($cur->hasPendingSubscription($this->profile)) {
+                            $sf = new CancelSubscriptionForm($this->out, $this->profile);
+                            $sf->show();
                         } else {
                             $sf = new SubscribeForm($this->out, $this->profile);
                             $sf->show();
