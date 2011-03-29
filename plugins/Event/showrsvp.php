@@ -83,6 +83,16 @@ class ShowrsvpAction extends ShownoticeAction
             throw new ClientException(_('No such RSVP.'), 404);
         }
 
+        if (!empty($cur)) {
+            $curProfile = $cur->getProfile();
+        } else {
+            $curProfile = null;
+        }
+
+        if (!$this->notice->inScope($curProfile)) {
+            throw new ClientException(_('Not available.'), 403);
+        }
+
         $this->user = User::staticGet('id', $this->rsvp->profile_id);
 
         if (empty($this->user)) {
