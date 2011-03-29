@@ -278,6 +278,18 @@ class ShowstreamAction extends ProfileAction
         $cloud = new PersonalTagCloudSection($this, $this->user);
         $cloud->show();
     }
+
+    function noticeFormOptions()
+    {
+        $options = parent::noticeFormOptions();
+        $cur = common_current_user();
+
+        if (empty($cur) || $cur->id != $this->profile->id) {
+            $options['to_profile'] =  $this->profile;
+        }
+
+        return $options;
+    }
 }
 
 // We don't show the author for a profile, since we already know who it is!

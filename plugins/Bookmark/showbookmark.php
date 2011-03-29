@@ -76,6 +76,16 @@ class ShowbookmarkAction extends ShownoticeAction
             throw new ClientException(_('No such bookmark.'), 404);
         }
 
+        if (!empty($cur)) {
+            $curProfile = $cur->getProfile();
+        } else {
+            $curProfile = null;
+        }
+
+        if (!$this->notice->inScope($curProfile)) {
+            throw new ClientException(_('Not available.'), 403);
+        }
+
         $this->user = User::staticGet('id', $this->bookmark->profile_id);
 
         if (empty($this->user)) {

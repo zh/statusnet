@@ -79,7 +79,7 @@ class ShownoticeAction extends OwnerDesignAction
 
         $id = $this->arg('notice');
 
-        $this->notice = Notice::staticGet($id);
+        $this->notice = Notice::staticGet('id', $id);
 
         if (empty($this->notice)) {
             // Did we used to have it, and it got deleted?
@@ -92,6 +92,18 @@ class ShownoticeAction extends OwnerDesignAction
                 $this->clientError(_('No such notice.'), 404);
             }
             return false;
+        }
+
+        $cur = common_current_user();
+
+        if (!empty($cur)) {
+            $curProfile = $cur->getProfile();
+        } else {
+            $curProfile = null;
+        }
+
+        if (!$this->notice->inScope($curProfile)) {
+            throw new ClientException(_('Not available.'), 403);
         }
 
         $this->profile = $this->notice->getProfile();

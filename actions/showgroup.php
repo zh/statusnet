@@ -365,6 +365,18 @@ class ShowgroupAction extends GroupDesignAction
         $this->raw(common_markup_to_html($m));
         $this->elementEnd('div');
     }
+
+    function noticeFormOptions()
+    {
+        $options = parent::noticeFormOptions();
+        $cur = common_current_user();
+
+        if (!empty($cur) && $cur->isMember($this->group)) {
+            $options['to_group'] =  $this->group;
+        }
+
+        return $options;
+    }
 }
 
 class GroupAdminSection extends ProfileSection

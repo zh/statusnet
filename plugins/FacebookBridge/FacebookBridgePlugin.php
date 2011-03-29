@@ -455,7 +455,7 @@ ENDOFSCRIPT;
      */
     function onStartEnqueueNotice($notice, &$transports)
     {
-        if (self::hasApplication() && $notice->isLocal()) {
+        if (self::hasApplication() && $notice->isLocal() && $notice->inScope(null)) {
             array_push($transports, 'facebook');
         }
         return true;

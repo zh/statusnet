@@ -209,6 +209,10 @@ class NewnoticeAction extends Action
         $author_id = $user->id;
         $text      = $content_shortened;
 
+        // Does the heavy-lifting for getting "To:" information
+
+        ToSelector::fillOptions($this, $options);
+
         if (Event::handle('StartNoticeSaveWeb', array($this, &$author_id, &$text, &$options))) {
 
             $notice = Notice::saveNew($user->id, $content_shortened, 'web', $options);

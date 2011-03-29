@@ -657,7 +657,8 @@ class Action extends HTMLOutputter // lawsuit
 
                 if (Event::handle('StartMakeEntryForm', array($tag, $this, &$form))) {
                     if ($tag == 'status') {
-                        $form = new NoticeForm($this);
+                        $options = $this->noticeFormOptions();
+                        $form = new NoticeForm($this, $options);
                     }
                     Event::handle('EndMakeEntryForm', array($tag, $this, $form));
                 }
@@ -671,6 +672,11 @@ class Action extends HTMLOutputter // lawsuit
         }
 
         $this->elementEnd('div');
+    }
+
+    function noticeFormOptions()
+    {
+        return array();
     }
 
     /**

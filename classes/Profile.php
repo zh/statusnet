@@ -1087,4 +1087,44 @@ class Profile extends Memcached_DataObject
 
         return $profile;
     }
+
+    function canRead(Notice $notice)
+    {
+        if ($notice->scope & Notice::SITE_SCOPE) {
+            $user = $this->getUser();
+            if (empty($user)) {
+                return false;
+            }
+        }
+
+        if ($notice->scope & Notice::ADDRESSEE_SCOPE) {
+            $replies = $notice->getReplies();
+
+            if (!in_array($this->id, $replies)) {
+                $groups = $notice->getGroups();
+
+                $foundOne = false;
+
+                foreach ($groups as $group) {
+                    if ($this->isMember($group)) {
+                        $foundOne = true;
+                        break;
+                    }
+                }
+
+                if (!$foundOne) {
+                    return false;
+                }
+            }
+        }
+
+        if ($notice->scope & Notice::FOLLOWER_SCOPE) {
+            $author = $notice->getProfile();
+            if (!Subscription::exists($this, $author)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

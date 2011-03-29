@@ -73,6 +73,7 @@ class Notice extends Memcached_DataObject
     public $location_ns;                     // int(4)
     public $repeat_of;                       // int(4)
     public $object_type;                     // varchar(255)
+    public $scope;                           // int(4)
 
     /* Static get */
     function staticGet($k,$v=NULL)
@@ -88,6 +89,12 @@ class Notice extends Memcached_DataObject
     const REMOTE_OMB      =  0;
     const LOCAL_NONPUBLIC = -1;
     const GATEWAY         = -2;
+
+    const PUBLIC_SCOPE    = 0; // Useful fake constant
+    const SITE_SCOPE      = 1;
+    const ADDRESSEE_SCOPE = 2;
+    const GROUP_SCOPE     = 4;
+    const FOLLOWER_SCOPE  = 8;
 
     function getProfile()
     {
@@ -243,6 +250,7 @@ class Notice extends Memcached_DataObject
      *                           notice in place of extracting links from content
      *              boolean 'distribute' whether to distribute the notice, default true
      *              string 'object_type' URL of the associated object type (default ActivityObject::NOTE)
+     *              int 'scope' Scope bitmask; default to SITE_SCOPE on private sites, 0 otherwise
      *
      * @fixme tag override
      *
@@ -254,6 +262,7 @@ class Notice extends Memcached_DataObject
                           'url' => null,
                           'reply_to' => null,
                           'repeat_of' => null,
+                          'scope' => null,
                           'distribute' => true);
 
         if (!empty($options)) {
@@ -336,6 +345,19 @@ class Notice extends Memcached_DataObject
         // Handle repeat case
 
         if (isset($repeat_of)) {
+
+            // Check for a private one
+
+            $repeat = Notice::staticGet('id', $repeat_of);
+
+            if (!empty($repeat) &&
+                $repeat->scope != Notice::SITE_SCOPE &&
+                $repeat->scope != Notice::PUBLIC_SCOPE) {
+                throw new ClientException(_('Cannot repeat a private notice.'), 403);
+            }
+
+            // XXX: Check for access...?
+
             $notice->repeat_of = $repeat_of;
         } else {
             $notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
@@ -343,6 +365,10 @@ class Notice extends Memcached_DataObject
 
         if (!empty($notice->reply_to)) {
             $reply = Notice::staticGet('id', $notice->reply_to);
+            if (!$reply->inScope($profile)) {
+                throw new ClientException(sprintf(_("%s has no access to notice %d"),
+                                                  $profile->nickname, $reply->id), 403);
+            }
             $notice->conversation = $reply->conversation;
         }
 
@@ -366,6 +392,12 @@ class Notice extends Memcached_DataObject
             $notice->object_type = (empty($notice->reply_to)) ? ActivityObject::NOTE : ActivityObject::COMMENT;
         } else {
             $notice->object_type = $object_type;
+        }
+
+        if (is_null($scope)) { // 0 is a valid value
+            $notice->scope = common_config('notice', 'defaultscope');
+        } else {
+            $notice->scope = $scope;
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
@@ -1556,8 +1588,13 @@ class Notice extends Memcached_DataObject
             $content = mb_substr($content, 0, $maxlen - 4) . ' ...';
         }
 
-        return self::saveNew($repeater_id, $content, $source,
-                             array('repeat_of' => $this->id));
+        // Scope is same as this one's
+
+        return self::saveNew($repeater_id,
+                             $content,
+                             $source,
+                             array('repeat_of' => $this->id,
+                                   'scope' => $this->scope));
     }
 
     // These are supposed to be in chron order!
@@ -2010,5 +2047,96 @@ class Notice extends Memcached_DataObject
             return (($this->is_local != Notice::LOCAL_NONPUBLIC) &&
                     ($this->is_local != Notice::GATEWAY));
         }
+    }
+
+    /**
+     * Check that the given profile is allowed to read, respond to, or otherwise
+     * act on this notice.
+     * 
+     * The $scope member is a bitmask of scopes, representing a logical AND of the
+     * scope requirement. So, 0x03 (Notice::ADDRESSEE_SCOPE | Notice::SITE_SCOPE) means
+     * "only visible to people who are mentioned in the notice AND are users on this site."
+     * Users on the site who are not mentioned in the notice will not be able to see the
+     * notice.
+     *
+     * @param Profile $profile The profile to check
+     *
+     * @return boolean whether the profile is in the notice's scope
+     */
+
+    function inScope($profile)
+    {
+        // If there's no scope, anyone (even anon) is in scope.
+
+        if ($this->scope == 0) {
+            return true;
+        }
+
+        // If there's scope, anon cannot be in scope
+
+        if (empty($profile)) {
+            return false;
+        }
+
+        // Author is always in scope
+
+        if ($this->profile_id == $profile->id) {
+            return true;
+        }
+
+        // Only for users on this site
+
+        if ($this->scope & Notice::SITE_SCOPE) {
+            $user = $profile->getUser();
+            if (empty($user)) {
+                return false;
+            }
+        }
+
+        // Only for users mentioned in the notice
+
+        if ($this->scope & Notice::ADDRESSEE_SCOPE) {
+
+            // XXX: just query for the single reply
+
+            $replies = $this->getReplies();
+
+            if (!in_array($profile->id, $replies)) {
+                return false;
+            }
+        }
+
+        // Only for members of the given group
+
+        if ($this->scope & Notice::GROUP_SCOPE) {
+
+            // XXX: just query for the single membership
+
+            $groups = $this->getGroups();
+
+            $foundOne = false;
+
+            foreach ($groups as $group) {
+                if ($profile->isMember($group)) {
+                    $foundOne = true;
+                    break;
+                }
+            }
+
+            if (!$foundOne) {
+                return false;
+            }
+        }
+
+        // Only for followers of the author
+
+        if ($this->scope & Notice::FOLLOWER_SCOPE) {
+            $author = $this->getProfile();
+            if (!Subscription::exists($profile, $author)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

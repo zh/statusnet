@@ -111,7 +111,9 @@ class OStatusPlugin extends Plugin
      */
     function onStartEnqueueNotice($notice, &$transports)
     {
-        if ($notice->isLocal()) {
+        // FIXME: we don't do privacy-controlled OStatus updates yet.
+        // once that happens, finer grain of control here.
+        if ($notice->isLocal() && $notice->inScope(null)) {
             // put our transport first, in case there's any conflict (like OMB)
             array_unshift($transports, 'ostatus');
         }

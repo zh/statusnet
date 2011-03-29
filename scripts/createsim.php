@@ -71,7 +71,7 @@ function newNotice($i, $tagmax)
 {
     global $userprefix;
 
-    $options = array();
+    $options = array('scope' => common_config('notice', 'defaultscope'));
 
     $n = rand(0, $i - 1);
     $user = User::staticGet('nickname', sprintf('%s%d', $userprefix, $n));
@@ -94,6 +94,10 @@ function newNotice($i, $tagmax)
             if ($dont_use_nickname != 0) {
                 $rprofile = $notices->getProfile();
                 $content = "@".$rprofile->nickname." ".$content;
+            }
+            $private_to_addressees = rand(0, 4);
+            if ($private_to_addressees == 0) {
+                $options['scope'] |= Notice::ADDRESSEE_SCOPE;
             }
         }
     }
@@ -120,7 +124,17 @@ function newNotice($i, $tagmax)
             }
             $options['groups'] = array($groups->id);
             $content = "!".$groups->nickname." ".$content;
+            $private_to_group = rand(0, 2);
+            if ($private_to_group == 0) {
+                $options['scope'] |= Notice::GROUP_SCOPE;
+            }
         }
+    }
+
+    $private_to_site = rand(0, 4);
+
+    if ($private_to_site == 0) {
+        $options['scope'] |= Notice::SITE_SCOPE;
     }
 
     $notice = Notice::saveNew($user->id, $content, 'system', $options);
