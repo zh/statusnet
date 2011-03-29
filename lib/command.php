@@ -537,44 +537,15 @@ class RepeatCommand extends Command
     {
         $notice = $this->getNotice($this->other);
 
-        if($this->user->id == $notice->profile_id)
-        {
-            // TRANS: Error text shown when trying to repeat an own notice.
-            $channel->error($this->user, _('Cannot repeat your own notice.'));
-            return;
-        }
-
-        // Is it OK to repeat that notice (general enough scope)?
-
-        if ($notice->scope != Notice::SITE_SCOPE &&
-            $notice->scope != Notice::PUBLIC_SCOPE) {
-            $channel->error($this->user, _('You may not repeat a private notice.'));
-        }
-
-        $profile = $this->user->getProfile();
-
-        // Can the profile actually see that notice?
-
-        if (!$notice->inScope($profile)) {
-            $channel->error($this->user, _('You have no access to that notice.'));
-        }
-
-        if ($profile->hasRepeated($notice->id)) {
-            // TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
-            $channel->error($this->user, _('Already repeated that notice.'));
-            return;
-        }
-
-        $repeat = $notice->repeat($this->user->id, $channel->source);
-
-        if ($repeat) {
+        try {
+            $repeat = $notice->repeat($this->user->id, $channel->source());
+            $recipient = $notice->getProfile();
 
             // TRANS: Message given having repeated a notice from another user.
             // TRANS: %s is the name of the user for which the notice was repeated.
             $channel->output($this->user, sprintf(_('Notice from %s repeated.'), $recipient->nickname));
-        } else {
-            // TRANS: Error text shown when repeating a notice fails with an unknown reason.
-            $channel->error($this->user, _('Error repeating notice.'));
+        } catch (Exception $e) {
+            $channel->error($this->user, $e->getMessage());
         }
     }
 }

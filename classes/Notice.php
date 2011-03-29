@@ -350,13 +350,31 @@ class Notice extends Memcached_DataObject
 
             $repeat = Notice::staticGet('id', $repeat_of);
 
-            if (!empty($repeat) &&
-                $repeat->scope != Notice::SITE_SCOPE &&
+            if (empty($repeat)) {
+                throw new ClientException(_('Cannot repeat; original notice is missing or deleted.'));
+            }
+
+            if ($profile->id == $repeat->profile_id) {
+                // TRANS: Client error displayed when trying to repeat an own notice.
+                throw new ClientException(_('You cannot repeat your own notice.'));
+            }
+
+            if ($repeat->scope != Notice::SITE_SCOPE &&
                 $repeat->scope != Notice::PUBLIC_SCOPE) {
+                // TRANS: Client error displayed when trying to repeat a non-public notice.
                 throw new ClientException(_('Cannot repeat a private notice.'), 403);
             }
 
-            // XXX: Check for access...?
+            if (!$repeat->inScope($profile)) {
+                // The generic checks above should cover this, but let's be sure!
+                // TRANS: Client error displayed when trying to repeat a notice you cannot access.
+                throw new ClientException(_('Cannot repeat a notice you cannot read.'), 403);
+            }
+
+            if ($profile->hasRepeated($repeat->id)) {
+                // TRANS: Client error displayed when trying to repeat an already repeated notice.
+                throw new ClientException(_('You already repeated that notice.'));
+            }
 
             $notice->repeat_of = $repeat_of;
         } else {
@@ -1567,6 +1585,15 @@ class Notice extends Memcached_DataObject
         return $location;
     }
 
+    /**
+     * Convenience function for posting a repeat of an existing message.
+     *
+     * @param int $repeater_id: profile ID of user doing the repeat
+     * @param string $source: posting source key, eg 'web', 'api', etc
+     * @return Notice
+     *
+     * @throws Exception on failure or permission problems
+     */
     function repeat($repeater_id, $source)
     {
         $author = Profile::staticGet('id', $this->profile_id);
