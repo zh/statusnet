@@ -1588,8 +1588,13 @@ class Notice extends Memcached_DataObject
             $content = mb_substr($content, 0, $maxlen - 4) . ' ...';
         }
 
-        return self::saveNew($repeater_id, $content, $source,
-                             array('repeat_of' => $this->id));
+        // Scope is same as this one's
+
+        return self::saveNew($repeater_id,
+                             $content,
+                             $source,
+                             array('repeat_of' => $this->id,
+                                   'scope' => $this->scope));
     }
 
     // These are supposed to be in chron order!
