@@ -107,7 +107,7 @@ abstract class FilteringNoticeStream extends NoticeStream
         $ids = array();
 
         while ($notices->fetch()) {
-            $ids[] = $notice->id;
+            $ids[] = $notices->id;
         }
 
         return $ids;
