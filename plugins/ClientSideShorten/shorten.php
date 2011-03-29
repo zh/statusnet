@@ -57,7 +57,7 @@ class ShortenAction extends Action
         return true;
     }
 
-    function handle($args)
+    function handle($args=null)
     {
         parent::handle($args);
         header('Content-Type: text/plain');
