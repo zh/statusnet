@@ -544,7 +544,22 @@ class RepeatCommand extends Command
             return;
         }
 
-        if ($this->user->getProfile()->hasRepeated($notice->id)) {
+        // Is it OK to repeat that notice (general enough scope)?
+
+        if ($notice->scope != Notice::SITE_SCOPE &&
+            $notice->scope != Notice::PUBLIC_SCOPE) {
+            $channel->error($this->user, _('You may not repeat a private notice.'));
+        }
+
+        $profile = $this->user->getProfile();
+
+        // Can the profile actually see that notice?
+
+        if (!$notice->inScope($profile)) {
+            $channel->error($this->user, _('You have no access to that notice.'));
+        }
+
+        if ($profile->hasRepeated($notice->id)) {
             // TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
             $channel->error($this->user, _('Already repeated that notice.'));
             return;

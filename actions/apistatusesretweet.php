@@ -85,7 +85,26 @@ class ApiStatusesRetweetAction extends ApiAuthAction
             return false;
         }
 
+        // Is it OK to repeat that notice (general enough scope)?
+
+        if ($this->original->scope != Notice::SITE_SCOPE &&
+            $this->original->scope != Notice::PUBLIC_SCOPE) {
+            $this->clientError(_('You may not repeat a private notice.'),
+                               403,
+                               $this->format);
+            return false;
+        }
+
         $profile = $this->user->getProfile();
+
+        // Can the profile actually see that notice?
+
+        if (!$this->original->inScope($profile)) {
+            $this->clientError(_('No access to that notice.'),
+                               403,
+                               $this->format);
+            return false;
+        }
 
         if ($profile->hasRepeated($id)) {
             // TRANS: Client error displayed trying to re-repeat a notice through the API.
@@ -93,6 +112,7 @@ class ApiStatusesRetweetAction extends ApiAuthAction
                                400, $this->format);
             return false;
         }
+
 
         return true;
     }

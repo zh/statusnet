@@ -73,6 +73,14 @@ class RepeatAction extends Action
             return false;
         }
 
+        // Is it OK to repeat that notice (general enough scope)?
+
+        if ($this->notice->scope != Notice::SITE_SCOPE &&
+            $this->notice->scope != Notice::PUBLIC_SCOPE) {
+            $this->clientError(_('You may not repeat a private notice.'),
+                               403);
+        }
+
         if ($this->user->id == $this->notice->profile_id) {
             // TRANS: Client error displayed when trying to repeat an own notice.
             $this->clientError(_('You cannot repeat your own notice.'));
@@ -87,6 +95,13 @@ class RepeatAction extends Action
         }
 
         $profile = $this->user->getProfile();
+
+        // Can the profile actually see that notice?
+
+        if (!$this->notice->inScope($profile)) {
+            $this->clientError(_('No access to that notice.'), 403);
+        }
+
 
         if ($profile->hasRepeated($id)) {
             // TRANS: Client error displayed when trying to repeat an already repeated notice.

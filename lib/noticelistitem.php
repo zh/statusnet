@@ -596,17 +596,21 @@ class NoticeListItem extends Widget
 
     function showRepeatForm()
     {
-        $user = common_current_user();
-        if ($user && $user->id != $this->notice->profile_id) {
-            $this->out->text(' ');
-            $profile = $user->getProfile();
-            if ($profile->hasRepeated($this->notice->id)) {
-                $this->out->element('span', array('class' => 'repeated',
-                                                  'title' => _('Notice repeated')),
-                                            _('Repeated'));
-            } else {
-                $rf = new RepeatForm($this->out, $this->notice);
-                $rf->show();
+        if ($this->notice->scope == Notice::PUBLIC_SCOPE ||
+            $this->notice->scope == Notice::SITE_SCOPE) {
+            $user = common_current_user();
+            if (!empty($user) &&
+                $user->id != $this->notice->profile_id) {
+                $this->out->text(' ');
+                $profile = $user->getProfile();
+                if ($profile->hasRepeated($this->notice->id)) {
+                    $this->out->element('span', array('class' => 'repeated',
+                                                      'title' => _('Notice repeated')),
+                                        _('Repeated'));
+                } else {
+                    $rf = new RepeatForm($this->out, $this->notice);
+                    $rf->show();
+                }
             }
         }
     }

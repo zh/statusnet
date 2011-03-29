@@ -90,6 +90,7 @@ class Notice extends Memcached_DataObject
     const LOCAL_NONPUBLIC = -1;
     const GATEWAY         = -2;
 
+    const PUBLIC_SCOPE    = 0; // Useful fake constant
     const SITE_SCOPE      = 1;
     const ADDRESSEE_SCOPE = 2;
     const GROUP_SCOPE     = 4;
@@ -344,6 +345,19 @@ class Notice extends Memcached_DataObject
         // Handle repeat case
 
         if (isset($repeat_of)) {
+
+            // Check for a private one
+
+            $repeat = Notice::staticGet('id', $repeat_of);
+
+            if (!empty($repeat) &&
+                $repeat->scope != Notice::SITE_SCOPE &&
+                $repeat->scope != Notice::PUBLIC_SCOPE) {
+                throw new ClientException(_('Cannot repeat a private notice.'), 403);
+            }
+
+            // XXX: Check for access...?
+
             $notice->repeat_of = $repeat_of;
         } else {
             $notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
