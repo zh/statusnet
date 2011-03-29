@@ -168,7 +168,7 @@ class Profile extends Memcached_DataObject
     function getFancyName()
     {
         if ($this->fullname) {
-            // TRANS: Full name of a profile or group followed by nickname in parens
+            // TRANS: Full name of a profile or group (%1$s) followed by nickname (%2$s) in parentheses.
             return sprintf(_m('FANCYNAME','%1$s (%2$s)'), $this->fullname, $this->nickname);
         } else {
             return $this->nickname;
@@ -180,7 +180,6 @@ class Profile extends Memcached_DataObject
      *
      * @return mixed Notice or null
      */
-
     function getCurrentNotice()
     {
         $notice = $this->getNotices(0, 1);
@@ -443,7 +442,7 @@ class Profile extends Memcached_DataObject
     {
         return Subscription::exists($this, $other);
     }
-    
+
     /**
      * Check if a pending subscription request is outstanding for this...
      *

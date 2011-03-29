@@ -33,8 +33,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-
-
 /**
  * Change profile settings
  *
@@ -46,7 +44,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ProfilesettingsAction extends SettingsAction
 {
     /**
@@ -127,15 +124,15 @@ class ProfilesettingsAction extends SettingsAction
                 // TRANS: Tooltip for field label in form for profile settings. Plural
                 // TRANS: is decided by the number of characters available for the
                 // TRANS: biography (%d).
-                $bioInstr = sprintf(_m('Describe yourself and your interests in %d character',
-                                       'Describe yourself and your interests in %d characters',
+                $bioInstr = sprintf(_m('Describe yourself and your interests in %d character.',
+                                       'Describe yourself and your interests in %d characters.',
                                        $maxBio),
                                     $maxBio);
             } else {
                 // TRANS: Tooltip for field label in form for profile settings.
-                $bioInstr = _('Describe yourself and your interests');
+                $bioInstr = _('Describe yourself and your interests.');
             }
-            // TRANS: Text area label in form for profile settings where users can provide.
+            // TRANS: Text area label in form for profile settings where users can provide
             // TRANS: their biography.
             $this->textarea('bio', _('Bio'),
                             ($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
@@ -146,7 +143,7 @@ class ProfilesettingsAction extends SettingsAction
             $this->input('location', _('Location'),
                          ($this->arg('location')) ? $this->arg('location') : $profile->location,
                          // TRANS: Tooltip for field label in form for profile settings.
-                         _('Where you are, like "City, State (or Region), Country"'));
+                         _('Where you are, like "City, State (or Region), Country".'));
             $this->elementEnd('li');
             if (common_config('location', 'share') == 'user') {
                 $this->elementStart('li');
@@ -196,7 +193,9 @@ class ProfilesettingsAction extends SettingsAction
             $this->dropdown('subscribe_policy',
                             // TRANS: Dropdown field label on profile settings, for what policies to apply when someone else tries to subscribe to your updates.
                             _('Subscription policy'),
+                            // TRANS: Dropdown field option for following policy.
                             array(User::SUBSCRIBE_POLICY_OPEN     => _('Let anyone follow me'),
+                                  // TRANS: Dropdown field option for following policy.
                                   User::SUBSCRIBE_POLICY_MODERATE => _('Ask me first')),
                             // TRANS: Dropdown field title on group edit form.
                             _('Whether other users need your permission to follow your updates.'),

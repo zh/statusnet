@@ -46,7 +46,6 @@ require_once INSTALLDIR.'/lib/form.php';
  *
  * @see      UnsubscribeForm
  */
-
 class CancelSubscriptionForm extends Form
 {
     /**
@@ -61,7 +60,6 @@ class CancelSubscriptionForm extends Form
      * @param HTMLOutputter $out   output channel
      * @param Profile       $profile being subscribed to
      */
-
     function __construct($out=null, $profile=null)
     {
         parent::__construct($out);
@@ -74,7 +72,6 @@ class CancelSubscriptionForm extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
         return 'subscription-cancel-' . $this->profile->id;
@@ -85,7 +82,6 @@ class CancelSubscriptionForm extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
         return 'form_unsubscribe ajax';
@@ -96,7 +92,6 @@ class CancelSubscriptionForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('cancelsubscription',
@@ -121,9 +116,9 @@ class CancelSubscriptionForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
-        $this->out->submit('submit', _('Cancel sub request'));
+        // TRANS: Button text for form action to cancel a subscription request.
+        $this->out->submit('submit', _m('BUTTON','Cancel subscription request'));
     }
 }

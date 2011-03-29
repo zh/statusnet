@@ -267,8 +267,8 @@ class Subscription extends Memcached_DataObject
                                   common_date_iso8601($this->created));
 
         $act->time    = strtotime($this->created);
-        // TRANS: Activity tile when subscribing to another person.
-        $act->title   = _("Follow");
+        // TRANS: Activity title when subscribing to another person.
+        $act->title = _m('TITLE','Follow');
         // TRANS: Notification given when one person starts following another.
         // TRANS: %1$s is the subscriber, %2$s is the subscribed.
         $act->content = sprintf(_('%1$s is now following %2$s.'),
@@ -301,7 +301,6 @@ class Subscription extends Memcached_DataObject
      *
      * @return Subscription stream of subscriptions; use fetch() to iterate
      */
-
     static function bySubscriber($subscriberId,
                                  $offset = 0,
                                  $limit = PROFILES_PER_PAGE)
@@ -362,7 +361,6 @@ class Subscription extends Memcached_DataObject
      *
      * @return Subscription stream of subscriptions; use fetch() to iterate
      */
-
     static function bySubscribed($subscribedId,
                                  $offset = 0,
                                  $limit = PROFILES_PER_PAGE)
@@ -420,7 +418,6 @@ class Subscription extends Memcached_DataObject
      *
      * @return boolean success flag.
      */
-
     function update($orig=null)
     {
         $result = parent::update($orig);

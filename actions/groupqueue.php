@@ -161,6 +161,7 @@ class GroupqueueAction extends GroupDesignAction
     }
 }
 
+// @todo FIXME: documentation missing.
 class GroupQueueList extends GroupMemberList
 {
     function newListItem($profile)
@@ -169,6 +170,7 @@ class GroupQueueList extends GroupMemberList
     }
 }
 
+// @todo FIXME: documentation missing.
 class GroupQueueListItem extends GroupMemberListItem
 {
     function showActions()

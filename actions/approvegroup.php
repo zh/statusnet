@@ -121,6 +121,7 @@ class ApprovegroupAction extends Action
 
         if (empty($this->request)) {
             // TRANS: Client error displayed trying to approve group membership for a non-existing request.
+            // TRANS: %s is a nickname.
             $this->clientError(sprintf(_('%s is not in the moderation queue for this group.'), $this->profile->nickname), 403);
         }
 
@@ -176,10 +177,10 @@ class ApprovegroupAction extends Action
             $this->elementEnd('head');
             $this->elementStart('body');
             if ($this->approve) {
-                // TRANS: Message on page for group admin after approving a join request. 
+                // TRANS: Message on page for group admin after approving a join request.
                 $this->element('p', 'success', _('Join request approved.'));
             } elseif ($this->cancel) {
-                // TRANS: Message on page for group admin after rejecting a join request. 
+                // TRANS: Message on page for group admin after rejecting a join request.
                 $this->element('p', 'success', _('Join request canceled.'));
             }
             $this->elementEnd('body');

@@ -641,7 +641,7 @@ function mail_notify_message($message, $from=null, $to=null)
 }
 
 /**
- * notify a user that one of their notices has been chosen as a 'fave'
+ * Notify a user that one of their notices has been chosen as a 'fave'
  *
  * Doesn't check that the user has an email address nor if they
  * want to receive notification of faves. Maybe this happens higher
@@ -704,7 +704,7 @@ function mail_notify_fave($other, $user, $notice)
 }
 
 /**
- * notify a user that they have received an "attn:" message AKA "@-reply"
+ * Notify a user that they have received an "attn:" message AKA "@-reply"
  *
  * @param User   $user   The user who recevied the notice
  * @param Notice $notice The notice that was sent
