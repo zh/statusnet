@@ -298,49 +298,6 @@ class Profile extends Memcached_DataObject
     }
 
     /**
-     * Cancel a pending group join...
-     *
-     * @param User_group $group
-     */
-    function cancelJoinGroup(User_group $group)
-    {
-        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
-                                                   'group_id' => $group->id));
-        if ($request) {
-            if (Event::handle('StartCancelJoinGroup', array($group, $this))) {
-                $request->delete();
-                Event::handle('EndCancelJoinGroup', array($group, $this));
-            }
-        }
-    }
-
-    /**
-     * Complete a pending group join on our end...
-     *
-     * @param User_group $group
-     */
-    function completeJoinGroup(User_group $group)
-    {
-        $join = null;
-        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
-                                                   'group_id' => $group->id));
-        if ($request) {
-            if (Event::handle('StartJoinGroup', array($group, $this))) {
-                $join = Group_member::join($group->id, $this->id);
-                $request->delete();
-                Event::handle('EndJoinGroup', array($group, $this));
-            }
-        } else {
-            // TRANS: Exception thrown trying to approve a non-existing group join request.
-            throw new Exception(_('Invalid group join approval: not pending.'));
-        }
-        if ($join) {
-            $join->notify();
-        }
-        return $join;
-    }
-
-    /**
      * Leave a group that this profile is a member of.
      *
      * @param User_group $group
@@ -399,6 +356,36 @@ class Profile extends Memcached_DataObject
         return new ArrayWrapper($profiles);
     }
 
+    /**
+     * Get pending subscribers, who have not yet been approved.
+     *
+     * @param int $offset
+     * @param int $limit
+     * @return Profile
+     */
+    function getRequests($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN subscription_queue '.
+          'ON profile.id = subscription_queue.subscriber ' .
+          'WHERE subscription_queue.subscribed = %d ' .
+          'ORDER BY subscription_queue.created DESC ';
+
+        if ($limit != null) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $members = new Profile();
+
+        $members->query(sprintf($qry, $this->id));
+        return $members;
+    }
+
     function subscriptionCount()
     {
         $c = Cache::instance();
@@ -455,6 +442,17 @@ class Profile extends Memcached_DataObject
     function isSubscribed($other)
     {
         return Subscription::exists($this, $other);
+    }
+    
+    /**
+     * Check if a pending subscription request is outstanding for this...
+     *
+     * @param Profile $other
+     * @return boolean
+     */
+    function hasPendingSubscription($other)
+    {
+        return Subscription_queue::exists($this, $other);
     }
 
     /**

@@ -199,7 +199,8 @@ class Router
             // main stuff is repetitive
 
             $main = array('login', 'logout', 'register', 'subscribe',
-                          'unsubscribe', 'confirmaddress', 'recoverpassword',
+                          'unsubscribe', 'cancelsubscription', 'approvesub',
+                          'confirmaddress', 'recoverpassword',
                           'invite', 'favor', 'disfavor', 'sup',
                           'block', 'unblock', 'subedit',
                           'groupblock', 'groupunblock',
@@ -843,6 +844,10 @@ class Router
                                 array('tag' => self::REGEX_TAG));
                 }
 
+                $m->connect('subscribers/pending',
+                            array('action' => 'subqueue',
+                                  'nickname' => $nickname));
+
                 foreach (array('rss', 'groups') as $a) {
                     $m->connect($a,
                                 array('action' => 'user'.$a,
@@ -899,6 +904,9 @@ class Router
                                 array('action' => $a),
                                 array('nickname' => Nickname::DISPLAY_FMT));
                 }
+                $m->connect(':nickname/subscribers/pending',
+                            array('action' => 'subqueue'),
+                            array('nickname' => Nickname::DISPLAY_FMT));
 
                 foreach (array('subscriptions', 'subscribers') as $a) {
                     $m->connect(':nickname/'.$a.'/:tag',

@@ -32,7 +32,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 require_once(INSTALLDIR.'/lib/profilelist.php');
-require_once INSTALLDIR.'/lib/publicgroupnav.php';
 
 /**
  * List of group members
@@ -43,7 +42,7 @@ require_once INSTALLDIR.'/lib/publicgroupnav.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class GroupqueueAction extends GroupDesignAction
+class SubqueueAction extends GalleryAction
 {
     var $page = null;
 
@@ -56,48 +55,11 @@ class GroupqueueAction extends GroupDesignAction
     function prepare($args)
     {
         parent::prepare($args);
-        $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-
-        $nickname_arg = $this->arg('nickname');
-        $nickname = common_canonical_nickname($nickname_arg);
-
-        // Permanent redirect on non-canonical nickname
-
-        if ($nickname_arg != $nickname) {
-            $args = array('nickname' => $nickname);
-            if ($this->page != 1) {
-                $args['page'] = $this->page;
-            }
-            common_redirect(common_local_url('groupqueue', $args), 301);
-            return false;
-        }
-
-        if (!$nickname) {
-            // TRANS: Client error displayed when trying to view group members without providing a group nickname.
-            $this->clientError(_('No nickname.'), 404);
-            return false;
-        }
-
-        $local = Local_group::staticGet('nickname', $nickname);
-
-        if (!$local) {
-            // TRANS: Client error displayed when trying to view group members for a non-existing group.
-            $this->clientError(_('No such group.'), 404);
-            return false;
-        }
-
-        $this->group = User_group::staticGet('id', $local->group_id);
-
-        if (!$this->group) {
-            // TRANS: Client error displayed when trying to view group members for an object that is not a group.
-            $this->clientError(_('No such group.'), 404);
-            return false;
-        }
 
         $cur = common_current_user();
-        if (!$cur || !$cur->isAdmin($this->group)) {
+        if (!$cur || $cur->id != $this->profile->id) {
             // TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
-            $this->clientError(_('Only the group admin may approve users.'));
+            $this->clientError(_('You may only approve your own pending subscriptions.'));
             return false;
         }
         return true;
@@ -106,37 +68,26 @@ class GroupqueueAction extends GroupDesignAction
     function title()
     {
         if ($this->page == 1) {
-            // TRANS: Title of the first page showing pending group members still awaiting approval to join the group.
-            // TRANS: %s is the name of the group.
-            return sprintf(_('%s group members awaiting approval'),
-                           $this->group->nickname);
+            // TRANS: Title of the first page showing pending subscribers still awaiting approval.
+            // TRANS: %s is the name of the user.
+            return sprintf(_('%s subscribers awaiting approval'),
+                           $this->profile->nickname);
         } else {
-            // TRANS: Title of all but the first page showing pending group members still awaiting approval to join the group.
-            // TRANS: %1$s is the name of the group, %2$d is the page number of the members list.
-            return sprintf(_('%1$s group members awaiting approval, page %2$d'),
-                           $this->group->nickname,
+            // TRANS: Title of all but the first page showing pending subscribersmembers still awaiting approval.
+            // TRANS: %1$s is the name of the user, %2$d is the page number of the members list.
+            return sprintf(_('%1$s subscribers awaiting approval, page %2$d'),
+                           $this->profile->nickname,
                            $this->page);
         }
-    }
-
-    function handle($args)
-    {
-        parent::handle($args);
-        $this->showPage();
     }
 
     function showPageNotice()
     {
         $this->element('p', 'instructions',
                        // TRANS: Page notice for group members page.
-                       _('A list of users awaiting approval to join this group.'));
+                       _('A list of users awaiting approval to subscribe to you.'));
     }
 
-    function showObjectNav()
-    {
-        $nav = new GroupNav($this, $this->group);
-        $nav->show();
-    }
 
     function showContent()
     {
@@ -145,31 +96,31 @@ class GroupqueueAction extends GroupDesignAction
 
         $cnt = 0;
 
-        $members = $this->group->getRequests($offset, $limit);
+        $members = $this->profile->getRequests($offset, $limit);
 
         if ($members) {
             // @fixme change!
-            $member_list = new GroupQueueList($members, $this->group, $this);
+            $member_list = new SubQueueList($members, $this);
             $cnt = $member_list->show();
         }
 
         $members->free();
 
         $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
-                          $this->page, 'groupqueue',
-                          array('nickname' => $this->group->nickname));
+                          $this->page, 'subqueue',
+                          array('nickname' => $this->profile->nickname)); // urgh
     }
 }
 
-class GroupQueueList extends GroupMemberList
+class SubQueueList extends ProfileList
 {
     function newListItem($profile)
     {
-        return new GroupQueueListItem($profile, $this->group, $this->action);
+        return new SubQueueListItem($profile, $this->action);
     }
 }
 
-class GroupQueueListItem extends GroupMemberListItem
+class SubQueueListItem extends ProfileListItem
 {
     function showActions()
     {
@@ -184,7 +135,7 @@ class GroupQueueListItem extends GroupMemberListItem
     function showApproveButtons()
     {
         $this->out->elementStart('li', 'entity_approval');
-        $form = new ApproveGroupForm($this->out, $this->group, $this->profile);
+        $form = new ApproveSubForm($this->out, $this->profile);
         $form->show();
         $this->out->elementEnd('li');
     }
