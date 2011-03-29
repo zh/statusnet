@@ -84,7 +84,7 @@ abstract class FilteringNoticeStream extends NoticeStream
             while ($raw->fetch()) {
                 if ($this->filter($raw)) {
                     $filtered[] = clone($raw);
-                    if (count($filtered >= $total)) {
+                    if (count($filtered) >= $total) {
                         break;
                     }
                 }
