@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class ShoweventAction extends ShownoticeAction
 {
     protected $id    = null;
@@ -57,7 +56,6 @@ class ShoweventAction extends ShownoticeAction
      *
      * @return boolean true
      */
-
     function prepare($argarray)
     {
         OwnerDesignAction::prepare($argarray);
@@ -67,14 +65,16 @@ class ShoweventAction extends ShownoticeAction
         $this->event = Happening::staticGet('id', $this->id);
 
         if (empty($this->event)) {
-            throw new ClientException(_('No such event.'), 404);
+            // TRANS: Client exception thrown when referring to a non-existing event.
+            throw new ClientException(_m('No such event.'), 404);
         }
 
         $this->notice = $this->event->getNotice();
 
         if (empty($this->notice)) {
             // Did we used to have it, and it got deleted?
-            throw new ClientException(_('No such event.'), 404);
+            // TRANS: Client exception thrown when referring to a non-existing event.
+            throw new ClientException(_m('No such event.'), 404);
         }
 
         $cur = common_current_user();
@@ -86,19 +86,22 @@ class ShoweventAction extends ShownoticeAction
         }
 
         if (!$this->notice->inScope($curProfile)) {
-            throw new ClientException(_('Not available.'), 403);
+            // TRANS: Client exception thrown when referring to an event the user has no access to.
+            throw new ClientException(_m('Not available.'), 403);
         }
 
         $this->user = User::staticGet('id', $this->event->profile_id);
 
         if (empty($this->user)) {
-            throw new ClientException(_('No such user.'), 404);
+            // TRANS: Client exception thrown when referring to a non-existing user.
+            throw new ClientException(_m('No such user.'), 404);
         }
 
         $this->profile = $this->user->getProfile();
 
         if (empty($this->profile)) {
-            throw new ServerException(_('User without a profile.'));
+            // TRANS: Server exception thrown when referring to a user without a profile.
+            throw new ServerException(_m('User without a profile.'));
         }
 
         $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -113,7 +116,6 @@ class ShoweventAction extends ShownoticeAction
      *
      * @return string page tile
      */
-
     function title()
     {
         return $this->event->title;

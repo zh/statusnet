@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class FaveNoticeStream extends ScopingNoticeStream
 {
     function __construct($user_id, $own)
@@ -69,7 +68,6 @@ class FaveNoticeStream extends ScopingNoticeStream
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class RawFaveNoticeStream extends NoticeStream
 {
     protected $user_id;

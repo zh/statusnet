@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class ShowbookmarkAction extends ShownoticeAction
 {
     protected $bookmark = null;
@@ -56,7 +55,6 @@ class ShowbookmarkAction extends ShownoticeAction
      *
      * @return boolean true
      */
-
     function prepare($argarray)
     {
         OwnerDesignAction::prepare($argarray);
@@ -66,14 +64,16 @@ class ShowbookmarkAction extends ShownoticeAction
         $this->bookmark = Bookmark::staticGet('id', $this->id);
 
         if (empty($this->bookmark)) {
-            throw new ClientException(_('No such bookmark.'), 404);
+            // TRANS: Client exception thrown when referring to a non-existing bookmark.
+            throw new ClientException(_m('No such bookmark.'), 404);
         }
 
         $this->notice = Notice::staticGet('uri', $this->bookmark->uri);
 
         if (empty($this->notice)) {
             // Did we used to have it, and it got deleted?
-            throw new ClientException(_('No such bookmark.'), 404);
+            // TRANS: Client exception thrown when referring to a non-existing bookmark.
+            throw new ClientException(_m('No such bookmark.'), 404);
         }
 
         if (!empty($cur)) {
@@ -83,19 +83,22 @@ class ShowbookmarkAction extends ShownoticeAction
         }
 
         if (!$this->notice->inScope($curProfile)) {
-            throw new ClientException(_('Not available.'), 403);
+            // TRANS: Client exception thrown when referring to a bookmark the user has no access to.
+            throw new ClientException(_m('Not available.'), 403);
         }
 
         $this->user = User::staticGet('id', $this->bookmark->profile_id);
 
         if (empty($this->user)) {
-            throw new ClientException(_('No such user.'), 404);
+            // TRANS: Client exception thrown when referring to a bookmark for a non-existing user.
+            throw new ClientException(_m('No such user.'), 404);
         }
 
         $this->profile = $this->user->getProfile();
 
         if (empty($this->profile)) {
-            throw new ServerException(_('User without a profile.'));
+            // TRANS: Client exception thrown when referring to a bookmark for a non-existing profile.
+            throw new ServerException(_m('User without a profile.'));
         }
 
         $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -110,10 +113,11 @@ class ShowbookmarkAction extends ShownoticeAction
      *
      * @return string page tile
      */
-
     function title()
     {
-        return sprintf(_('%s\'s bookmark for "%s"'),
+        // TRANS: Title for bookmark.
+        // TRANS: %1$s is a user nickname, %2$s is a bookmark title.
+        return sprintf(_('%1s$\'s bookmark for "%2$s"'),
                        $this->user->nickname,
                        $this->bookmark->title);
     }
@@ -123,7 +127,6 @@ class ShowbookmarkAction extends ShownoticeAction
      *
      * @return void
      */
-
     function showPageTitle()
     {
         $this->elementStart('h1');

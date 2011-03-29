@@ -77,6 +77,7 @@ class RepeatAction extends Action
 
         if ($this->notice->scope != Notice::SITE_SCOPE &&
             $this->notice->scope != Notice::PUBLIC_SCOPE) {
+            // TRANS: Client error displayed when trying to repeat a private notice.
             $this->clientError(_('You may not repeat a private notice.'),
                                403);
         }
@@ -99,6 +100,7 @@ class RepeatAction extends Action
         // Can the profile actually see that notice?
 
         if (!$this->notice->inScope($profile)) {
+            // TRANS: Client error displayed when trying to repeat a notice the user has no access to.
             $this->clientError(_('No access to that notice.'), 403);
         }
 

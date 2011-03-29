@@ -353,6 +353,7 @@ class Notice extends Memcached_DataObject
             if (!empty($repeat) &&
                 $repeat->scope != Notice::SITE_SCOPE &&
                 $repeat->scope != Notice::PUBLIC_SCOPE) {
+                // TRANS: Client exception thrown when trying to repeat a private notice.
                 throw new ClientException(_('Cannot repeat a private notice.'), 403);
             }
 
@@ -366,7 +367,9 @@ class Notice extends Memcached_DataObject
         if (!empty($notice->reply_to)) {
             $reply = Notice::staticGet('id', $notice->reply_to);
             if (!$reply->inScope($profile)) {
-                throw new ClientException(sprintf(_("%s has no access to notice %d"),
+                // TRANS: Client error displayed when trying to reply to a notice a the target has no access to.
+                // TRANS: %1$s is a user nickname, %2$d is a notice ID (number).
+                throw new ClientException(sprintf(_('%1$s has no access to notice %2$d.'),
                                                   $profile->nickname, $reply->id), 403);
             }
             $notice->conversation = $reply->conversation;
@@ -2063,7 +2066,6 @@ class Notice extends Memcached_DataObject
      *
      * @return boolean whether the profile is in the notice's scope
      */
-
     function inScope($profile)
     {
         // If there's no scope, anyone (even anon) is in scope.

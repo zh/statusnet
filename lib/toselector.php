@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Widget showing a drop-down of potential addressees
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class ToSelector extends Widget
 {
     protected $user;
@@ -84,12 +83,15 @@ class ToSelector extends Widget
         $default = 'public:site';
 
         if (!common_config('site', 'private')) {
-            $choices['public:everyone'] = _('Everyone');
+            // TRANS: Option in drop-down of potential addressees.
+            $choices['public:everyone'] = _m('SENDTO','Everyone');
             $default = 'public:everyone';
         }
         // XXX: better name...?
+        // TRANS: Option in drop-down of potential addressees.
+        // TRANS: %s is a StatusNet sitename.
         $choices['public:site'] = sprintf(_('My colleagues at %s'), common_config('site', 'name'));
-        
+
         $groups = $this->user->getGroups();
 
         while ($groups->fetch()) {
@@ -109,13 +111,15 @@ class ToSelector extends Widget
         }
 
         $this->out->dropdown($this->id,
-                             _('To:'),
+                             // TRANS: Label for drop-down of potential addressees.
+                             _m('LABEL','To:'),
                              $choices,
                              null,
                              false,
                              $default);
 
         $this->out->checkbox('notice_private',
+                             // TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
                              _('Private'),
                              $this->private);
     }
@@ -149,7 +153,8 @@ class ToSelector extends Widget
             }
             break;
         default:
-            throw new ClientException('Unknown to value: ' . toArg);
+            // TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
+            throw new ClientException(sprintf(_('Unknown to value: "%s".'),$toArg));
             break;
         }
     }

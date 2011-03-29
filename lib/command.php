@@ -548,6 +548,7 @@ class RepeatCommand extends Command
 
         if ($notice->scope != Notice::SITE_SCOPE &&
             $notice->scope != Notice::PUBLIC_SCOPE) {
+            // TRANS: Client error displayed when trying to repeat a private notice.
             $channel->error($this->user, _('You may not repeat a private notice.'));
         }
 
@@ -556,6 +557,7 @@ class RepeatCommand extends Command
         // Can the profile actually see that notice?
 
         if (!$notice->inScope($profile)) {
+            // TRANS: Client error displayed when trying to repeat a notice the user has no access to.
             $channel->error($this->user, _('You have no access to that notice.'));
         }
 
