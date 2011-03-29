@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class ShowrsvpAction extends ShownoticeAction
 {
     protected $rsvp = null;
@@ -57,7 +56,6 @@ class ShowrsvpAction extends ShownoticeAction
      *
      * @return boolean true
      */
-
     function prepare($argarray)
     {
         OwnerDesignAction::prepare($argarray);
@@ -67,20 +65,25 @@ class ShowrsvpAction extends ShownoticeAction
         $this->rsvp = RSVP::staticGet('id', $this->id);
 
         if (empty($this->rsvp)) {
-            throw new ClientException(_('No such RSVP.'), 404);
+            // TRANS: Client exception thrown when referring to a non-existing RSVP.
+            // TRANS: RSVP stands for "Please reply".
+            throw new ClientException(_m('No such RSVP.'), 404);
         }
 
         $this->event = $this->rsvp->getEvent();
 
         if (empty($this->event)) {
-            throw new ClientException(_('No such Event.'), 404);
+            // TRANS: Client exception thrown when referring to a non-existing event.
+            throw new ClientException(_m('No such Event.'), 404);
         }
 
         $this->notice = $this->rsvp->getNotice();
 
         if (empty($this->notice)) {
             // Did we used to have it, and it got deleted?
-            throw new ClientException(_('No such RSVP.'), 404);
+            // TRANS: Client exception thrown when referring to a non-existing RSVP.
+            // TRANS: RSVP stands for "Please reply".
+            throw new ClientException(_m('No such RSVP.'), 404);
         }
 
         $cur = common_current_user();
@@ -92,19 +95,22 @@ class ShowrsvpAction extends ShownoticeAction
         }
 
         if (!$this->notice->inScope($curProfile)) {
-            throw new ClientException(_('Not available.'), 403);
+            // TRANS: Client exception thrown when referring to an event the user has no access to.
+            throw new ClientException(_m('Not available.'), 403);
         }
 
         $this->user = User::staticGet('id', $this->rsvp->profile_id);
 
         if (empty($this->user)) {
-            throw new ClientException(_('No such user.'), 404);
+            // TRANS: Client exception thrown when referring to a non-existing user.
+            throw new ClientException(_m('No such user.'), 404);
         }
 
         $this->profile = $this->user->getProfile();
 
         if (empty($this->profile)) {
-            throw new ServerException(_('User without a profile.'));
+            // TRANS: Server exception thrown when referring to a user without a profile.
+            throw new ServerException(_m('User without a profile.'));
         }
 
         $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -119,10 +125,11 @@ class ShowrsvpAction extends ShownoticeAction
      *
      * @return string page tile
      */
-
     function title()
     {
-        return sprintf(_('%s\'s RSVP for "%s"'),
+        // TRANS: Title for event.
+	// TRANS: %1$s is a user nickname, %2$s is an event title.
+        return sprintf(_('%1$s\'s RSVP for "%2$s"'),
                        $this->user->nickname,
                        $this->event->title);
     }

@@ -103,6 +103,7 @@ class ShownoticeAction extends OwnerDesignAction
         }
 
         if (!$this->notice->inScope($curProfile)) {
+            // TRANS: Client exception thrown when trying a view a notice the user has no access to.
             throw new ClientException(_('Not available.'), 403);
         }
 

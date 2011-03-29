@@ -51,19 +51,15 @@ if (!defined('STATUSNET')) {
  * @see      NoticeList
  * @see      ProfileNoticeListItem
  */
-
 class NoticeListItem extends Widget
 {
     /** The notice this item will show. */
-
     var $notice = null;
 
     /** The notice that was repeated. */
-
     var $repeat = null;
 
     /** The profile of the author of the notice, extracted once for convenience. */
-
     var $profile = null;
 
     /**
@@ -73,7 +69,6 @@ class NoticeListItem extends Widget
      *
      * @param Notice $notice The notice we'll display
      */
-
     function __construct($notice, $out=null)
     {
         parent::__construct($out);
@@ -99,7 +94,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function show()
     {
         if (empty($this->notice)) {
@@ -165,7 +159,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showStart()
     {
         if (Event::handle('StartOpenNoticeListItemElement', array($this))) {
@@ -185,7 +178,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showFaveForm()
     {
         if (Event::handle('StartShowFaveForm', array($this))) {
@@ -210,7 +202,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showAuthor()
     {
         $this->out->elementStart('span', 'vcard author');
@@ -235,7 +226,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showAvatar()
     {
         $avatar_size = $this->avatarSize();
@@ -266,7 +256,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showNickname()
     {
         $this->out->raw('<span class="nickname fn">' .
@@ -283,7 +272,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showContent()
     {
         // FIXME: URL, image, video, audio
@@ -314,7 +302,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showNoticeLink()
     {
         $noticeurl = $this->notice->bestUrl();
@@ -342,7 +329,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showNoticeLocation()
     {
         $id = $this->notice->id;
@@ -423,7 +409,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showNoticeSource()
     {
         $ns = $this->notice->getSource();
@@ -479,7 +464,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showContext()
     {
         if ($this->notice->hasConversation()) {
@@ -514,7 +498,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showRepeat()
     {
         if (!empty($this->repeat)) {
@@ -548,7 +531,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showReplyLink()
     {
         if (common_logged_in()) {
@@ -570,7 +552,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showDeleteLink()
     {
         $user = common_current_user();
@@ -593,7 +574,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showRepeatForm()
     {
         if ($this->notice->scope == Notice::PUBLIC_SCOPE ||
@@ -605,7 +585,9 @@ class NoticeListItem extends Widget
                 $profile = $user->getProfile();
                 if ($profile->hasRepeated($this->notice->id)) {
                     $this->out->element('span', array('class' => 'repeated',
-                                                      'title' => _('Notice repeated')),
+                                                      // TRANS: Title for repeat form status in notice list when a notice has been repeated.
+                                                      'title' => _('Notice repeated.')),
+                                        // TRANS: Repeat form status in notice list when a notice has been repeated.
                                         _('Repeated'));
                 } else {
                     $rf = new RepeatForm($this->out, $this->notice);
@@ -622,7 +604,6 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
-
     function showEnd()
     {
         if (Event::handle('StartCloseNoticeListItemElement', array($this))) {
