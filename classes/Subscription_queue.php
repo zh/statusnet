@@ -98,8 +98,8 @@ class Subscription_queue extends Managed_DataObject
      */
     public function notify()
     {
-        $listenee = User::staticGet('id', $this->subscriber);
-        $other = Profile::staticGet('id', $this->subscribed);
+        $other = Profile::staticGet('id', $this->subscriber);
+        $listenee = User::staticGet('id', $this->subscribed);
         mail_subscribe_pending_notify_profile($listenee, $other);
     }
 }
