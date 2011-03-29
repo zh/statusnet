@@ -76,6 +76,18 @@ class ShowPollAction extends ShownoticeAction
             throw new ClientException(_m('No such poll notice.'), 404);
         }
 
+        $cur = common_current_user();
+
+        if (!empty($cur)) {
+            $curProfile = $cur->getProfile();
+        } else {
+            $curProfile = null;
+        }
+
+        if (!$this->notice->inScope($curProfile)) {
+            throw new ClientException(_('Not available.'), 403);
+        }
+
         $this->user = User::staticGet('id', $this->poll->profile_id);
 
         if (empty($this->user)) {
