@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Leave a group
+ * Approve group subscription request
  *
  * PHP version 5
  *

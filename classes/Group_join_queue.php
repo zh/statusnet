@@ -63,7 +63,7 @@ class Group_join_queue extends Managed_DataObject
         if (empty($member)) {
             // TRANS: Exception thrown providing an invalid profile ID.
             // TRANS: %s is the invalid profile ID.
-            throw new Exception(sprintf(_("Profile ID %s is invalid."),$this->profile_id));
+            throw new Exception(sprintf(_('Profile ID %s is invalid.'),$this->profile_id));
         }
 
         return $member;
@@ -76,7 +76,7 @@ class Group_join_queue extends Managed_DataObject
         if (empty($group)) {
             // TRANS: Exception thrown providing an invalid group ID.
             // TRANS: %s is the invalid group ID.
-            throw new Exception(sprintf(_("Group ID %s is invalid."),$this->group_id));
+            throw new Exception(sprintf(_('Group ID %s is invalid.'),$this->group_id));
         }
 
         return $group;

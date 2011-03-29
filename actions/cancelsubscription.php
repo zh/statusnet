@@ -53,6 +53,7 @@ class CancelsubscriptionAction extends Action
             StatusNet::setApi(true);
         }
         if (!common_logged_in()) {
+            // TRANS: Client error displayed when trying to leave a group while not logged in.
             $this->clientError(_('Not logged in.'));
             return;
         }
@@ -78,6 +79,7 @@ class CancelsubscriptionAction extends Action
         $other_id = $this->arg('unsubscribeto');
 
         if (!$other_id) {
+            // TRANS: Client error displayed when trying to leave a group without specifying an ID.
             $this->clientError(_('No profile ID in request.'));
             return;
         }
@@ -85,6 +87,7 @@ class CancelsubscriptionAction extends Action
         $other = Profile::staticGet('id', $other_id);
 
         if (!$other) {
+            // TRANS: Client error displayed when trying to leave a non-existing group.
             $this->clientError(_('No profile with that ID.'));
             return;
         }
@@ -103,7 +106,8 @@ class CancelsubscriptionAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            $this->element('title', null, _('Unsubscribed'));
+            // TRANS: Title after unsubscribing from a group.
+            $this->element('title', null, _m('TITLE','Unsubscribed'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $subscribe = new SubscribeForm($this, $other);

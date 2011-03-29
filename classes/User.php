@@ -965,5 +965,4 @@ class User extends Memcached_DataObject
 
         return $apps;
     }
-
 }
