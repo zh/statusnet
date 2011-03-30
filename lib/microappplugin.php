@@ -512,7 +512,7 @@ abstract class MicroAppPlugin extends Plugin
     function onEndActivityObjectOutputJson(ActivityObject $obj, array &$out)
     {
         if (in_array($obj->type, $this->types())) {
-            $this->activityObjectOutputJson($obj, &$out);
+            $this->activityObjectOutputJson($obj, $out);
         }
         return true;
     }
