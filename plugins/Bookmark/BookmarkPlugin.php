@@ -450,7 +450,7 @@ class BookmarkPlugin extends Plugin
 
     function onPluginVersion(&$versions)
     {
-        $versions[] = array('name' => 'Sample',
+        $versions[] = array('name' => 'Bookmark',
                             'version' => self::VERSION,
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:Bookmark',
