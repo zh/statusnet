@@ -95,6 +95,11 @@ class QnashowquestionAction extends ShownoticeAction
         return true;
     }
 
+    function showContent()
+    {
+        $this->raw($this->question->asHTML());
+    }
+
     /**
      * Title of the page
      *

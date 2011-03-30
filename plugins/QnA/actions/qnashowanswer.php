@@ -103,9 +103,11 @@ class QnashowanswerAction extends ShownoticeAction
 
     function title()
     {
+        $question = $this->answer->getQuestion();
+
         return sprintf(_('%s\'s answer to "%s"'),
                        $this->user->nickname,
-                       $this->answer->title);
+                       $question->title);
     }
 
     /**

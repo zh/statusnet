@@ -146,6 +146,15 @@ class QnA_Question extends Managed_DataObject
         return $this->getNotice()->bestUrl();
     }
 
+    function getProfile()
+    {
+        $profile = Profile::staticGet('id', $this->profile_id);
+        if (empty($profile)) {
+            throw new Exception("No profile with ID {$this->profile_id}");
+        }
+        return $profile;
+    }
+
     /**
      * Get the answer from a particular user to this question, if any.
      *
@@ -166,6 +175,18 @@ class QnA_Question extends Managed_DataObject
         }
     }
 
+    function getAnswers()
+    {
+        $a = new QnA_Answer();
+        $a->question_id = $this->id;
+        $cnt = $a->find();
+        if (!empty($cnt)) {
+            return $a;
+        } else {
+            return null;
+        }
+    }
+
     function countAnswers()
     {
         $a              = new QnA_Answer();
@@ -176,6 +197,70 @@ class QnA_Question extends Managed_DataObject
     static function fromNotice($notice)
     {
         return QnA_Question::staticGet('uri', $notice->uri);
+    }
+
+    function asHTML()
+    {
+        return self::toHTML(
+            $this->getProfile(),
+            $this,
+            $this->getAnswers()
+        );
+    }
+
+    function asString()
+    {
+        return self::toString(
+            $this->getProfile(),
+            $this,
+            $this->getAnswers()
+        );
+    }
+
+    static function toHTML($profile, $question, $answer)
+    {
+        $notice = $question->getNotice();
+
+        $fmt =  '<div class="qna_question">';
+        $fmt .= '<span class="question_title"><a href="%1s">%2s</a></span>';
+        $fmt .= '<span class="question_description">%3s</span>';
+        $fmt .= '<span class="question_author">asked by <a href="%4s">%5s</a></span>';
+        $fmt .= '</div>';
+
+        $q = sprintf(
+            $fmt,
+            htmlspecialchars($notice->bestUrl()),
+            htmlspecialchars($question->title),
+            htmlspecialchars($question->description),
+            htmlspecialchars($profile->profileurl),
+            htmlspecialchars($profile->getBestName())
+        );
+
+        $ans = array();
+
+        $ans[] = '<div class="qna_answers">';
+
+        while($answer->fetch()) {
+            $ans[] = $answer->asHTML();
+        }
+
+        $ans[] .= '</div>';
+
+        return $q . implode($ans);
+    }
+
+    static function toString($profile, $question, $answers)
+    {
+        $fmt = _(
+            '%1s asked the question "%2s": %3s'
+        );
+
+        return sprintf(
+            $fmt,
+            htmlspecialchars($profile->getBestName()),
+            htmlspecialchars($question->title),
+            htmlspecialchars($question->description)
+        );
     }
 
     /**

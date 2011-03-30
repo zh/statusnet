@@ -50,7 +50,7 @@ class QnanewanswerAction extends Action
     protected $complete    = null;
 
     protected $question    = null;
-    protected $answerText  = null;
+    protected $content     = null;
 
     /**
      * Returns the title of the action
@@ -155,7 +155,7 @@ class QnanewanswerAction extends Action
             $this->element('title', null, _m('Answers'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $form = new QnA_Answer($this->question, $this);
+            $form = new QnaanswerForm($this->question, $this);
             $form->show();
             $this->elementEnd('body');
             $this->elementEnd('html');

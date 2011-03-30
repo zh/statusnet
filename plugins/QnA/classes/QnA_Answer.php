@@ -52,7 +52,7 @@ class QnA_Answer extends Managed_DataObject
     public $profile_id;  // int -> question.id
     public $best;        // (boolean) int -> whether the question asker has marked this as the best answer
     public $revisions;   // int -> count of revisions to this answer
-    public $text;        // text -> response text
+    public $content;     // text -> response text
     public $created;     // datetime
 
     /**
@@ -112,6 +112,7 @@ class QnA_Answer extends Managed_DataObject
                         'not null'    => true,
                         'description' => 'UUID of question being responded to'
                     ),
+                    'content'    => array('type' => 'text'), // got a better name?
                     'best'       => array('type' => 'int', 'size' => 'tiny'),
                     'revisions'  => array('type' => 'int'),
                     'profile_id' => array('type' => 'int'),
@@ -172,7 +173,7 @@ class QnA_Answer extends Managed_DataObject
         }
         return question;
     }
-    
+
     function getProfile()
     {
         $profile = Profile::staticGet('id', $this->profile_id);
@@ -186,7 +187,8 @@ class QnA_Answer extends Managed_DataObject
     {
         return self::toHTML(
             $this->getProfile(),
-            $this->getQuestion()
+            $this->getQuestion(),
+            $this
         );
     }
 
@@ -194,64 +196,42 @@ class QnA_Answer extends Managed_DataObject
     {
         return self::toString(
             $this->getProfile(),
-            $this->getQuestion()
+            $this->getQuestion(),
+            $this
         );
     }
 
-    static function toHTML($profile, $event, $response)
+    static function toHTML($profile, $question, $answer)
     {
-        $fmt = null;
+        $notice = $question->getNotice();
 
-        $notice = $event->getNotice();
+        $fmt   = '<span class="answer_author"><a href="%1s">answer</a> by <a href="%2s">%3s</a></span>';
+        $fmt  .= '<span class="answer_content">%4s</span>';
 
-        switch ($response) {
-        case 'Y':
-            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is attending <a href='%3s'>%4s</a>.</span>");
-            break;
-        case 'N':
-            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is not attending <a href='%3s'>%4s</a>.</span>");
-            break;
-        case '?':
-            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> might attend <a href='%3s'>%4s</a>.</span>");
-            break;
-        default:
-            throw new Exception("Unknown response code {$response}");
-            break;
-        }
-
-        return sprintf($fmt,
-                       htmlspecialchars($profile->profileurl),
-                       htmlspecialchars($profile->getBestName()),
-                       htmlspecialchars($notice->bestUrl()),
-                       htmlspecialchars($event->title));
+        return sprintf(
+            $fmt,
+            htmlspecialchars($notice->bestUrl()),
+            htmlspecialchars($profile->profileurl),
+            htmlspecialchars($profile->getBestName()),
+            htmlspecialchars($answer->content)
+        );
     }
 
-    static function toString($profile, $event, $response)
+    static function toString($profile, $question, $answer)
     {
-        $fmt = null;
+        $notice = $question->getNotice();
 
-        $notice = $event->getNotice();
+        $fmt = _(
+            '%1s answered the question "%2s": %3s'
+        );
 
-        switch ($response) {
-        case 'Y':
-            $fmt = _("%1s is attending %2s.");
-            break;
-        case 'N':
-            $fmt = _("%1s is not attending %2s.");
-            break;
-        case '?':
-            $fmt = _("%1s might attend %2s.>");
-            break;
-        default:
-            throw new Exception("Unknown response code {$response}");
-            break;
-        }
-
-        return sprintf($fmt,
-                       $profile->getBestName(),
-                       $event->title);
+        return sprintf(
+            $fmt,
+            htmlspecialchars($profile->getBestName()),
+            htmlspecialchars($question->title),
+            htmlspecialchars($answer->content)
+        );
     }
-
 
     /**
      * Save a new answer notice
@@ -274,7 +254,7 @@ class QnA_Answer extends Managed_DataObject
         $answer->question_id = $question->id;
         $answer->revisions   = 0;
         $answer->best        = 0;
-        $answer->text        = $text;
+        $answer->content     = $text;
         $answer->created     = common_sql_now();
         $answer->uri         = common_local_url(
             'qnashowanswer',
