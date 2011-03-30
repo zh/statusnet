@@ -156,8 +156,8 @@ class Happening extends Managed_DataObject
 
         $content = sprintf(_('"%s" %s - %s (%s): %s'),
                            $title,
-                           common_exact_date($start_time),
-                           common_exact_date($end_time),
+                           common_exact_date($ev->start_time),
+                           common_exact_date($ev->end_time),
                            $location,
                            $description);
 
@@ -169,10 +169,10 @@ class Happening extends Managed_DataObject
                               '<span class="description">%s</span> '.
                               '</span>'),
                             htmlspecialchars($title),
-                            htmlspecialchars(common_date_iso8601($start_time)),
-                            htmlspecialchars(common_exact_date($start_time)),
-                            htmlspecialchars(common_date_iso8601($end_time)),
-                            htmlspecialchars(common_exact_date($end_time)),
+                            htmlspecialchars(common_date_iso8601($ev->start_time)),
+                            htmlspecialchars(common_exact_date($ev->start_time)),
+                            htmlspecialchars(common_date_iso8601($ev->end_time)),
+                            htmlspecialchars(common_exact_date($ev->end_time)),
                             htmlspecialchars($location),
                             htmlspecialchars($description));
 
