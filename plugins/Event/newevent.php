@@ -63,7 +63,7 @@ class NeweventAction extends Action
 
     function title()
     {
-        return _('New event');
+        return _m('New event');
     }
 
     /**
@@ -81,7 +81,7 @@ class NeweventAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_("Must be logged in to post a event."),
+            throw new ClientException(_m("Must be logged in to post a event."),
                                       403);
         }
 
@@ -92,7 +92,7 @@ class NeweventAction extends Action
         $this->title       = $this->trimmed('title');
 
         if (empty($this->title)) {
-            throw new ClientException(_('Title required.'));
+            throw new ClientException(_m('Title required.'));
         }
 
         $this->location    = $this->trimmed('location');
@@ -102,7 +102,7 @@ class NeweventAction extends Action
         $startDate = $this->trimmed('startdate');
 
         if (empty($startDate)) {
-            throw new ClientException(_('Start date required.'));
+            throw new ClientException(_m('Start date required.'));
         }
 
         $startTime = $this->trimmed('starttime');
@@ -114,7 +114,7 @@ class NeweventAction extends Action
         $endDate   = $this->trimmed('enddate');
 
         if (empty($endDate)) {
-            throw new ClientException(_('End date required.'));
+            throw new ClientException(_m('End date required.'));
         }
 
         $endTime   = $this->trimmed('endtime');
@@ -135,13 +135,13 @@ class NeweventAction extends Action
         $this->endTime   = strtotime($end);
 
         if ($this->startTime == 0) {
-            throw new Exception(sprintf(_('Could not parse date "%s"'),
+            throw new Exception(sprintf(_m('Could not parse date "%s"'),
                                         $start));
         }
 
 
         if ($this->endTime == 0) {
-            throw new Exception(sprintf(_('Could not parse date "%s"'),
+            throw new Exception(sprintf(_m('Could not parse date "%s"'),
                                         $end));
         }
 
@@ -179,15 +179,15 @@ class NeweventAction extends Action
     {
         try {
             if (empty($this->title)) {
-                throw new ClientException(_('Event must have a title.'));
+                throw new ClientException(_m('Event must have a title.'));
             }
 
             if (empty($this->startTime)) {
-                throw new ClientException(_('Event must have a start time.'));
+                throw new ClientException(_m('Event must have a start time.'));
             }
 
             if (empty($this->endTime)) {
-                throw new ClientException(_('Event must have an end time.'));
+                throw new ClientException(_m('Event must have an end time.'));
             }
 
             $profile = $this->user->getProfile();
@@ -216,7 +216,7 @@ class NeweventAction extends Action
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Page title after sending a notice.
-            $this->element('title', null, _('Event saved'));
+            $this->element('title', null, _m('Event saved'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->showNotice($saved);

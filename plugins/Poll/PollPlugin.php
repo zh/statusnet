@@ -444,7 +444,7 @@ class PollPlugin extends MicroAppPlugin
                 $form->show();
             }
         } else {
-            $out->text(_('Poll data is missing'));
+            $out->text(_m('Poll data is missing'));
         }
         $out->elementEnd('div');
 

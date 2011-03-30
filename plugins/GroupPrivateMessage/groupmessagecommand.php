@@ -77,7 +77,7 @@ class GroupMessageCommand extends Command
         $gm = Group_message::send($this->user, $group, $this->text);
 
         $channel->output($this->user, 
-                         sprintf(_('Direct message to group %s sent.'), 
+                         sprintf(_m('Direct message to group %s sent.'), 
                                  $group->nickname));
 
         return true;

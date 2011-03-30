@@ -58,7 +58,7 @@ class CancelrsvpAction extends Action
 
     function title()
     {
-        return _('Cancel RSVP');
+        return _m('Cancel RSVP');
     }
 
     /**
@@ -79,25 +79,25 @@ class CancelrsvpAction extends Action
         $rsvpId = $this->trimmed('rsvp');
 
         if (empty($rsvpId)) {
-            throw new ClientException(_('No such rsvp.'));
+            throw new ClientException(_m('No such RSVP.'));
         }
 
         $this->rsvp = RSVP::staticGet('id', $rsvpId);
 
         if (empty($this->rsvp)) {
-            throw new ClientException(_('No such rsvp.'));
+            throw new ClientException(_m('No such RSVP.'));
         }
 
         $this->event = Happening::staticGet('id', $this->rsvp->event_id);
 
         if (empty($this->event)) {
-            throw new ClientException(_('No such event.'));
+            throw new ClientException(_m('No such event.'));
         }
 
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_('You must be logged in to RSVP for an event.'));
+            throw new ClientException(_m('You must be logged in to RSVP for an event.'));
         }
 
         return true;
@@ -154,7 +154,7 @@ class CancelrsvpAction extends Action
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Page title after sending a notice.
-            $this->element('title', null, _('Event saved'));
+            $this->element('title', null, _m('Event saved'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->elementStart('body');

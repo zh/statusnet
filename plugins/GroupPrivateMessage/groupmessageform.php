@@ -87,7 +87,7 @@ class GroupMessageForm extends Form
     {
         $this->out->element('legend',
                             null,
-                            sprintf(_('Message to %s'), $this->group->nickname));
+                            sprintf(_m('Message to %s'), $this->group->nickname));
     }
 
     /**
@@ -128,7 +128,7 @@ class GroupMessageForm extends Form
     {
         $this->out->element('label', array('for' => 'notice_data-text',
                                            'id' => 'notice_data-text-label'),
-                            sprintf(_('Direct message to %s'), $this->group->nickname));
+                            sprintf(_m('Direct message to %s'), $this->group->nickname));
 
         $this->out->element('textarea', array('id' => 'notice_data-text',
                                               'cols' => 35,
@@ -140,7 +140,7 @@ class GroupMessageForm extends Form
 
         if ($contentLimit > 0) {
             $this->out->elementStart('dl', 'form_note');
-            $this->out->element('dt', null, _('Available characters'));
+            $this->out->element('dt', null, _m('Available characters'));
             $this->out->element('dd', array('class' => 'count'),
                                 $contentLimit);
             $this->out->elementEnd('dl');

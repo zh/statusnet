@@ -67,7 +67,7 @@ class NoticebyurlAction extends Action
         $this->file = File::staticGet('id', $this->trimmed('id'));
 
         if (empty($this->file)) {
-            throw new ClientException(_('Unknown URL'));
+            throw new ClientException(_m('Unknown URL'));
         }
 
         $pageArg = $this->trimmed('page');
@@ -89,9 +89,9 @@ class NoticebyurlAction extends Action
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_("Notices linking to %s"), $this->file->url);
+            return sprintf(_m("Notices linking to %s"), $this->file->url);
         } else {
-            return sprintf(_("Notices linking to %s, page %d"),
+            return sprintf(_m("Notices linking to %1$s, page %2$d"),
                            $this->file->url,
                            $this->page);
         }

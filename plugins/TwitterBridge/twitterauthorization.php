@@ -392,8 +392,8 @@ class TwitterauthorizationAction extends Action
                      _m('1-64 lowercase letters or numbers, no punctuation or spaces'));
         $this->elementEnd('li');
         $this->elementStart('li');
-        $this->input('email', _('Email'), $this->getEmail(),
-                     _('Used only for updates, announcements, '.
+        $this->input('email', _m('LABEL','Email'), $this->getEmail(),
+                     _m('Used only for updates, announcements, '.
                        'and password recovery'));
         $this->elementEnd('li');
 

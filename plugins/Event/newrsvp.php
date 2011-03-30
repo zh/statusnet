@@ -58,7 +58,7 @@ class NewrsvpAction extends Action
 
     function title()
     {
-        return _('New RSVP');
+        return _m('New RSVP');
     }
 
     /**
@@ -79,19 +79,19 @@ class NewrsvpAction extends Action
         $eventId = $this->trimmed('event');
 
         if (empty($eventId)) {
-            throw new ClientException(_('No such event.'));
+            throw new ClientException(_m('No such event.'));
         }
 
         $this->event = Happening::staticGet('id', $eventId);
 
         if (empty($this->event)) {
-            throw new ClientException(_('No such event.'));
+            throw new ClientException(_m('No such event.'));
         }
 
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_('You must be logged in to RSVP for an event.'));
+            throw new ClientException(_m('You must be logged in to RSVP for an event.'));
         }
 
         common_debug(print_r($this->args, true));
@@ -159,7 +159,7 @@ class NewrsvpAction extends Action
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Page title after sending a notice.
-            $this->element('title', null, _('Event saved'));
+            $this->element('title', null, _m('Event saved'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->elementStart('body');

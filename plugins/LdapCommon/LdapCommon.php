@@ -165,7 +165,7 @@ class LdapCommon
     function changePassword($username,$oldpassword,$newpassword)
     {
         if(! isset($this->attributes['password']) || !isset($this->password_encoding)){
-            //throw new Exception(_('Sorry, changing LDAP passwords is not supported at this time'));
+            //throw new Exception(_m('Sorry, changing LDAP passwords is not supported at this time.'));
             return false;
         }
         $entry = $this->get_user($username,array('dn' => 'dn'));

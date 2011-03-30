@@ -233,6 +233,10 @@ class BitlyAdminPanelForm extends AdminForm
 
     function formActions()
     {
-        $this->out->submit('submit', _('Save'), 'submit', null, _m('Save bit.ly settings'));
+        $this->out->submit('submit',
+                           _m('BUTTON','Save'),
+                           'submit',
+                           null,
+                           _m('Save bit.ly settings'));
     }
 }

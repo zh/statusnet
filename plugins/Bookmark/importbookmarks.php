@@ -75,7 +75,7 @@ function getBookmarksFile()
     }
 
     // TRANS: %s is the filename that contains a backup for a user.
-    printfv(_("Getting backup from file '%s'.")."\n", $filename);
+    printfv(_m("Getting backup from file \"%s\".")."\n", $filename);
 
     $html = file_get_contents($filename);
 
