@@ -123,6 +123,7 @@ $schema['user'] = array(
         'inboxed' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'has an inbox been created for this user?'),
         'design_id' => array('type' => 'int', 'description' => 'id of a design'),
         'viewdesigns' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'whether to view user-provided designs'),
+        'private_stream' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'whether to limit all notices to followers only'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
