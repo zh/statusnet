@@ -653,7 +653,8 @@ $schema['user_group'] = array(
 
         'uri' => array('type' => 'varchar', 'length' => 255, 'description' => 'universal identifier'),
         'mainpage' => array('type' => 'varchar', 'length' => 255, 'description' => 'page for group info to link to'),
-        'join_policy' => array('type' => 'int', 'size' => 'tiny', 'description' => '0=open; 1=requires admin approval'),
+        'join_policy' => array('type' => 'int', 'size' => 'tiny', 'description' => '0=open; 1=requires admin approval'),      
+        'force_scope' => array('type' => 'int', 'size' => 'tiny', 'description' => '0=never,1=sometimes,-1=always'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
