@@ -63,6 +63,7 @@ class User extends Memcached_DataObject
     public $inboxed;                         // tinyint(1)
     public $design_id;                       // int(4)
     public $viewdesigns;                     // tinyint(1)   default_1
+    public $private_stream;                  // tinyint(1)   default_0
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
