@@ -111,7 +111,7 @@ class UserauthorizationAction extends Action
 
     function showPageNotice()
     {
-        // TRANS: Page notice on "Auhtorize subscription" page.
+        // TRANS: Page notice on "Authorize subscription" page.
         $this->element('p', null, _('Please check these details to make sure '.
                                     'that you want to subscribe to this ' .
                                     'user’s notices. If you didn’t just ask ' .
@@ -243,10 +243,10 @@ class UserauthorizationAction extends Action
     {
         // TRANS: Accept message header from Authorise subscription page.
         common_show_header(_('Subscription authorized'));
-        // TRANS: Accept message text from Authorise subscription page.
         $this->element('p', null,
+                       // TRANS: Accept message text from Authorise subscription page.
                        _('The subscription has been authorized, but no '.
-                         'callback URL was passed. Check with the site’s ' .
+                         'callback URL was passed. Check with the site\'s ' .
                          'instructions for details on how to authorize the ' .
                          'subscription. Your subscription token is:'));
         $this->element('blockquote', 'token', $tok);
@@ -257,10 +257,10 @@ class UserauthorizationAction extends Action
     {
         // TRANS: Reject message header from Authorise subscription page.
         common_show_header(_('Subscription rejected'));
-        // TRANS: Reject message from Authorise subscription page.
         $this->element('p', null,
+                       // TRANS: Reject message from Authorise subscription page.
                        _('The subscription has been rejected, but no '.
-                         'callback URL was passed. Check with the site’s ' .
+                         'callback URL was passed. Check with the site\'s ' .
                          'instructions for details on how to fully reject ' .
                          'the subscription.'));
         common_show_footer();

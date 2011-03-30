@@ -87,42 +87,11 @@ class User_group extends Memcached_DataObject
 
     function getNotices($offset, $limit, $since_id=null, $max_id=null)
     {
-        $ids = Notice::stream(array($this, '_streamDirect'),
-                              array(),
-                              'user_group:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $max_id);
+        $stream = new GroupNoticeStream($this);
 
-        return Notice::getStreamByIds($ids);
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
-    function _streamDirect($offset, $limit, $since_id, $max_id)
-    {
-        $inbox = new Group_inbox();
-
-        $inbox->group_id = $this->id;
-
-        $inbox->selectAdd();
-        $inbox->selectAdd('notice_id');
-
-        Notice::addWhereSinceId($inbox, $since_id, 'notice_id');
-        Notice::addWhereMaxId($inbox, $max_id, 'notice_id');
-
-        $inbox->orderBy('created DESC, notice_id DESC');
-
-        if (!is_null($offset)) {
-            $inbox->limit($offset, $limit);
-        }
-
-        $ids = array();
-
-        if ($inbox->find()) {
-            while ($inbox->fetch()) {
-                $ids[] = $inbox->notice_id;
-            }
-        }
-
-        return $ids;
-    }
 
     function allowedNickname($nickname)
     {
@@ -306,11 +275,11 @@ class User_group extends Memcached_DataObject
 
         $oldaliases = $this->getAliases();
 
-        # Delete stuff that's old that not in new
+        // Delete stuff that's old that not in new
 
         $to_delete = array_diff($oldaliases, $newaliases);
 
-        # Insert stuff that's in new and not in old
+        // Insert stuff that's in new and not in old
 
         $to_insert = array_diff($newaliases, $oldaliases);
 

@@ -209,6 +209,10 @@ class NewnoticeAction extends Action
         $author_id = $user->id;
         $text      = $content_shortened;
 
+        // Does the heavy-lifting for getting "To:" information
+
+        ToSelector::fillOptions($this, $options);
+
         if (Event::handle('StartNoticeSaveWeb', array($this, &$author_id, &$text, &$options))) {
 
             $notice = Notice::saveNew($user->id, $content_shortened, 'web', $options);
@@ -344,7 +348,9 @@ class NewnoticeAction extends Action
             $inreplyto = null;
         }
 
-        $notice_form = new NoticeForm($this, '', $content, null, $inreplyto);
+        $notice_form = new NoticeForm($this, array('content' => $content, 
+                                                   'inreplyto' => $inreplyto));
+
         $notice_form->show();
     }
 

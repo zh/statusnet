@@ -44,25 +44,21 @@ require_once INSTALLDIR.'/lib/feedlist.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ShownoticeAction extends OwnerDesignAction
 {
     /**
      * Notice object to show
      */
-
     var $notice = null;
 
     /**
      * Profile of the notice object
      */
-
     var $profile = null;
 
     /**
      * Avatar of the profile of the notice object
      */
-
     var $avatar = null;
 
     /**
@@ -74,7 +70,6 @@ class ShownoticeAction extends OwnerDesignAction
      *
      * @return success flag
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -82,24 +77,25 @@ class ShownoticeAction extends OwnerDesignAction
             StatusNet::setApi(true);
         }
 
-        $id = $this->arg('notice');
+        $this->notice = $this->getNotice();
 
-        $this->notice = Notice::staticGet($id);
+        $cur = common_current_user();
 
-        if (empty($this->notice)) {
-            // Did we used to have it, and it got deleted?
-            $deleted = Deleted_notice::staticGet($id);
-            if (!empty($deleted)) {
-                $this->clientError(_('Notice deleted.'), 410);
-            } else {
-                $this->clientError(_('No such notice.'), 404);
-            }
-            return false;
+        if (!empty($cur)) {
+            $curProfile = $cur->getProfile();
+        } else {
+            $curProfile = null;
+        }
+
+        if (!$this->notice->inScope($curProfile)) {
+            // TRANS: Client exception thrown when trying a view a notice the user has no access to.
+            throw new ClientException(_('Not available.'), 403);
         }
 
         $this->profile = $this->notice->getProfile();
 
         if (empty($this->profile)) {
+            // TRANS: Server error displayed trying to show a notice without a connected profile.
             $this->serverError(_('Notice has no profile.'), 500);
             return false;
         }
@@ -112,11 +108,37 @@ class ShownoticeAction extends OwnerDesignAction
     }
 
     /**
+     * Fetch the notice to show. This may be overridden by child classes to
+     * customize what we fetch without duplicating all of the prepare() method.
+     *
+     * @return Notice
+     */
+    function getNotice()
+    {
+        $id = $this->arg('notice');
+
+        $notice = Notice::staticGet('id', $id);
+
+        if (empty($notice)) {
+            // Did we used to have it, and it got deleted?
+            $deleted = Deleted_notice::staticGet($id);
+            if (!empty($deleted)) {
+                // TRANS: Client error displayed trying to show a deleted notice.
+                $this->clientError(_('Notice deleted.'), 410);
+            } else {
+                // TRANS: Client error displayed trying to show a non-existing notice.
+                $this->clientError(_('No such notice.'), 404);
+            }
+            return false;
+        }
+        return $notice;
+    }
+
+    /**
      * Is this action read-only?
      *
      * @return boolean true
      */
-
     function isReadOnly($args)
     {
         return true;
@@ -130,7 +152,6 @@ class ShownoticeAction extends OwnerDesignAction
      *
      * @return int last-modified date as unix timestamp
      */
-
     function lastModified()
     {
         return max(strtotime($this->notice->modified),
@@ -147,7 +168,6 @@ class ShownoticeAction extends OwnerDesignAction
      *
      * @return string etag
      */
-
     function etag()
     {
         $avtime = ($this->avatar) ?
@@ -167,11 +187,12 @@ class ShownoticeAction extends OwnerDesignAction
      *
      * @return string title of the page
      */
-
     function title()
     {
         $base = $this->profile->getFancyName();
 
+        // TRANS: Title of the page that shows a notice.
+        // TRANS: %1$s is a user name, %2$s is the notice creation date/time.
         return sprintf(_('%1$s\'s status on %2$s'),
                        $base,
                        common_exact_date($this->notice->created));
@@ -186,7 +207,6 @@ class ShownoticeAction extends OwnerDesignAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -218,7 +238,6 @@ class ShownoticeAction extends OwnerDesignAction
      *
      * @return void
      */
-
     function showLocalNavBlock()
     {
     }
@@ -230,7 +249,6 @@ class ShownoticeAction extends OwnerDesignAction
      *
      * @return void
      */
-
     function showContent()
     {
         $this->elementStart('ol', array('class' => 'notices xoxo'));
@@ -245,7 +263,8 @@ class ShownoticeAction extends OwnerDesignAction
         $this->xw->startDocument('1.0', 'UTF-8');
         $this->elementStart('html');
         $this->elementStart('head');
-        $this->element('title', null, _('Notice'));
+        // TRANS: Title for page that shows a notice.
+        $this->element('title', null, _m('TITLE','Notice'));
         $this->elementEnd('head');
         $this->elementStart('body');
         $nli = new NoticeListItem($this->notice, $this);
@@ -259,7 +278,6 @@ class ShownoticeAction extends OwnerDesignAction
      *
      * @return void
      */
-
     function showPageNoticeBlock()
     {
     }
@@ -269,7 +287,6 @@ class ShownoticeAction extends OwnerDesignAction
      *
      * @return void
      */
-
     function showAside() {
     }
 
@@ -280,7 +297,6 @@ class ShownoticeAction extends OwnerDesignAction
      *
      * @return void
      */
-
     function extraHead()
     {
         $user = User::staticGet($this->profile->id);
@@ -323,16 +339,16 @@ class ShownoticeAction extends OwnerDesignAction
     }
 }
 
+// @todo FIXME: Class documentation missing.
 class SingleNoticeItem extends DoFollowListItem
 {
     /**
-     * recipe function for displaying a single notice.
+     * Recipe function for displaying a single notice.
      *
      * We overload to show attachments.
      *
      * @return void
      */
-
     function show()
     {
         $this->showStart();
@@ -363,7 +379,6 @@ class SingleNoticeItem extends DoFollowListItem
      *
      * @return void
      */
-
     function showAvatar()
     {
 	$avatar_size = AVATAR_PROFILE_SIZE;

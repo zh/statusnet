@@ -118,6 +118,7 @@ $schema['user'] = array(
         'smsemail' => array('type' => 'varchar', 'length' => 255, 'description' => 'built from sms and carrier'),
         'uri' => array('type' => 'varchar', 'length' => 255, 'description' => 'universally unique identifier, usually a tag URI'),
         'autosubscribe' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'automatically subscribe to users who subscribe to us'),
+        'subscribe_policy' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => '0 = anybody can subscribe; 1 = require approval'),
         'urlshorteningservice' => array('type' => 'varchar', 'length' => 50, 'default' => 'internal', 'description' => 'service to use for auto-shortening URLs'),
         'inboxed' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'has an inbox been created for this user?'),
         'design_id' => array('type' => 'int', 'description' => 'id of a design'),
@@ -202,6 +203,9 @@ $schema['notice'] = array(
         'location_ns' => array('type' => 'int', 'description' => 'namespace for location'),
         'repeat_of' => array('type' => 'int', 'description' => 'notice this is a repeat of'),
         'object_type' => array('type' => 'varchar', 'length' => 255, 'description' => 'URI representing activity streams object type', 'default' => 'http://activitystrea.ms/schema/1.0/note'),
+        'scope' => array('type' => 'int',
+                         'default' => '1',
+                         'description' => 'bit map for distribution scope; 0 = everywhere; 1 = this server only; 2 = addressees; 4 = followers'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -1099,3 +1103,5 @@ $schema['schema_version'] = array(
 );
 
 $schema['group_join_queue'] = Group_join_queue::schemaDef();
+
+$schema['subscription_queue'] = Subscription_queue::schemaDef();

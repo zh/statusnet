@@ -30,6 +30,9 @@ require_once 'Validate.php';
 
 class User extends Memcached_DataObject
 {
+    const SUBSCRIBE_POLICY_OPEN = 0;
+    const SUBSCRIBE_POLICY_MODERATE = 1;
+
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
@@ -55,6 +58,7 @@ class User extends Memcached_DataObject
     public $smsemail;                        // varchar(255)
     public $uri;                             // varchar(255)  unique_key
     public $autosubscribe;                   // tinyint(1)
+    public $subscribe_policy;                // tinyint(1)
     public $urlshorteningservice;            // varchar(50)   default_ur1.ca
     public $inboxed;                         // tinyint(1)
     public $design_id;                       // int(4)
@@ -84,6 +88,12 @@ class User extends Memcached_DataObject
     {
         $profile = $this->getProfile();
         return $profile->isSubscribed($other);
+    }
+
+    function hasPendingSubscription($other)
+    {
+        $profile = $this->getProfile();
+        return $profile->hasPendingSubscription($other);
     }
 
     // 'update' won't write key columns, so we have to do it ourselves.
@@ -448,8 +458,7 @@ class User extends Memcached_DataObject
 
     function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        $ids = Reply::stream($this->id, $offset, $limit, $since_id, $before_id);
-        return Notice::getStreamByIds($ids);
+        return Reply::stream($this->id, $offset, $limit, $since_id, $before_id);
     }
 
     function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
@@ -465,8 +474,7 @@ class User extends Memcached_DataObject
 
     function favoriteNotices($own=false, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Fave::stream($this->id, $offset, $limit, $own, $since_id, $max_id);
-        return Notice::getStreamByIds($ids);
+        return Fave::stream($this->id, $offset, $limit, $own, $since_id, $max_id);
     }
 
     function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
@@ -769,95 +777,18 @@ class User extends Memcached_DataObject
 
     function repeatedByMe($offset=0, $limit=20, $since_id=null, $max_id=null)
     {
-        $ids = Notice::stream(array($this, '_repeatedByMeDirect'),
-                              array(),
-                              'user:repeated_by_me:'.$this->id,
-                              $offset, $limit, $since_id, $max_id, null);
-
-        return Notice::getStreamByIds($ids);
+        $stream = new RepeatedByMeNoticeStream($this);
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
-    function _repeatedByMeDirect($offset, $limit, $since_id, $max_id)
-    {
-        $notice = new Notice();
-
-        $notice->selectAdd(); // clears it
-        $notice->selectAdd('id');
-
-        $notice->profile_id = $this->id;
-        $notice->whereAdd('repeat_of IS NOT NULL');
-
-        $notice->orderBy('created DESC, id DESC');
-
-        if (!is_null($offset)) {
-            $notice->limit($offset, $limit);
-        }
-
-        Notice::addWhereSinceId($notice, $since_id);
-        Notice::addWhereMaxId($notice, $max_id);
-
-        $ids = array();
-
-        if ($notice->find()) {
-            while ($notice->fetch()) {
-                $ids[] = $notice->id;
-            }
-        }
-
-        $notice->free();
-        $notice = NULL;
-
-        return $ids;
-    }
 
     function repeatsOfMe($offset=0, $limit=20, $since_id=null, $max_id=null)
     {
-        $ids = Notice::stream(array($this, '_repeatsOfMeDirect'),
-                              array(),
-                              'user:repeats_of_me:'.$this->id,
-                              $offset, $limit, $since_id, $max_id);
+        $stream = new RepeatsOfMeNoticeStream($this);
 
-        return Notice::getStreamByIds($ids);
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
-    function _repeatsOfMeDirect($offset, $limit, $since_id, $max_id)
-    {
-        $qry =
-          'SELECT DISTINCT original.id AS id ' .
-          'FROM notice original JOIN notice rept ON original.id = rept.repeat_of ' .
-          'WHERE original.profile_id = ' . $this->id . ' ';
-
-        $since = Notice::whereSinceId($since_id, 'original.id', 'original.created');
-        if ($since) {
-            $qry .= "AND ($since) ";
-        }
-
-        $max = Notice::whereMaxId($max_id, 'original.id', 'original.created');
-        if ($max) {
-            $qry .= "AND ($max) ";
-        }
-
-        $qry .= 'ORDER BY original.created, original.id DESC ';
-
-        if (!is_null($offset)) {
-            $qry .= "LIMIT $limit OFFSET $offset";
-        }
-
-        $ids = array();
-
-        $notice = new Notice();
-
-        $notice->query($qry);
-
-        while ($notice->fetch()) {
-            $ids[] = $notice->id;
-        }
-
-        $notice->free();
-        $notice = NULL;
-
-        return $ids;
-    }
 
     function repeatedToMe($offset=0, $limit=20, $since_id=null, $max_id=null)
     {
@@ -1034,5 +965,4 @@ class User extends Memcached_DataObject
 
         return $apps;
     }
-
 }

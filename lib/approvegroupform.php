@@ -46,7 +46,6 @@ require_once INSTALLDIR.'/lib/form.php';
  *
  * @see      UnsubscribeForm
  */
-
 class ApproveGroupForm extends Form
 {
     /**
@@ -62,7 +61,6 @@ class ApproveGroupForm extends Form
      * @param HTMLOutputter $out   output channel
      * @param group         $group group to leave
      */
-
     function __construct($out=null, $group=null, $profile=null)
     {
         parent::__construct($out);
@@ -76,10 +74,9 @@ class ApproveGroupForm extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
-        return 'group-cancel-' . $this->group->id;
+        return 'group-queue-' . $this->group->id;
     }
 
     /**
@@ -87,10 +84,9 @@ class ApproveGroupForm extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
-        return 'form_group_join ajax';
+        return 'form_group_queue ajax';
     }
 
     /**
@@ -98,7 +94,6 @@ class ApproveGroupForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         $params = array();
@@ -117,6 +112,9 @@ class ApproveGroupForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Approve'));
+        // TRANS: Submit button text to accept a group membership request on approve group form.
+        $this->out->submit('approve', _m('BUTTON','Accept'));
+        // TRANS: Submit button text to reject a group membership request on approve group form.
+        $this->out->submit('cancel', _m('BUTTON','Reject'));
     }
 }

@@ -52,7 +52,7 @@ class GroupqueueAction extends GroupDesignAction
         return true;
     }
 
-    // fixme most of this belongs in a base class, sounds common to most group actions?
+    // @todo FIXME: most of this belongs in a base class, sounds common to most group actions?
     function prepare($args)
     {
         parent::prepare($args);
@@ -96,6 +96,7 @@ class GroupqueueAction extends GroupDesignAction
 
         $cur = common_current_user();
         if (!$cur || !$cur->isAdmin($this->group)) {
+            // TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
             $this->clientError(_('Only the group admin may approve users.'));
             return false;
         }
@@ -105,12 +106,12 @@ class GroupqueueAction extends GroupDesignAction
     function title()
     {
         if ($this->page == 1) {
-            // TRANS: Title of the page showing pending group members still awaiting approval to join the group.
+            // TRANS: Title of the first page showing pending group members still awaiting approval to join the group.
             // TRANS: %s is the name of the group.
             return sprintf(_('%s group members awaiting approval'),
                            $this->group->nickname);
         } else {
-            // TRANS: Title of the page showing pending group members still awaiting approval to join the group.
+            // TRANS: Title of all but the first page showing pending group members still awaiting approval to join the group.
             // TRANS: %1$s is the name of the group, %2$d is the page number of the members list.
             return sprintf(_('%1$s group members awaiting approval, page %2$d'),
                            $this->group->nickname,
@@ -155,11 +156,12 @@ class GroupqueueAction extends GroupDesignAction
         $members->free();
 
         $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
-                          $this->page, 'groupmembers',
+                          $this->page, 'groupqueue',
                           array('nickname' => $this->group->nickname));
     }
 }
 
+// @todo FIXME: documentation missing.
 class GroupQueueList extends GroupMemberList
 {
     function newListItem($profile)
@@ -168,32 +170,24 @@ class GroupQueueList extends GroupMemberList
     }
 }
 
+// @todo FIXME: documentation missing.
 class GroupQueueListItem extends GroupMemberListItem
 {
     function showActions()
     {
         $this->startActions();
         if (Event::handle('StartProfileListItemActionElements', array($this))) {
-            $this->showApproveButton();
-            $this->showCancelButton();
+            $this->showApproveButtons();
             Event::handle('EndProfileListItemActionElements', array($this));
         }
         $this->endActions();
     }
 
-    function showApproveButton()
+    function showApproveButtons()
     {
-        $this->out->elementStart('li', 'entity_join');
+        $this->out->elementStart('li', 'entity_approval');
         $form = new ApproveGroupForm($this->out, $this->group, $this->profile);
         $form->show();
-        $this->out->elementEnd('li');
-    }
-
-    function showCancelButton()
-    {
-        $this->out->elementStart('li', 'entity_leave');
-        $bf = new CancelGroupForm($this->out, $this->group, $this->profile);
-        $bf->show();
         $this->out->elementEnd('li');
     }
 }

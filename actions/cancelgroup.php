@@ -68,7 +68,6 @@ class CancelgroupAction extends Action
             $nickname = common_canonical_nickname($nickname_arg);
 
             // Permanent redirect on non-canonical nickname
-
             if ($nickname_arg != $nickname) {
                 $args = array('nickname' => $nickname);
                 common_redirect(common_local_url('leavegroup', $args), 301);
@@ -98,6 +97,7 @@ class CancelgroupAction extends Action
 
         $cur = common_current_user();
         if (empty($cur)) {
+            // TRANS: Client error displayed when trying to leave a group while not logged in.
             $this->clientError(_('Must be logged in.'), 403);
             return false;
         }
@@ -105,6 +105,8 @@ class CancelgroupAction extends Action
             if ($cur->isAdmin($this->group)) {
                 $this->profile = Profile::staticGet('id', $this->arg('profile_id'));
             } else {
+                // TRANS: Client error displayed when trying to approve or cancel a group join request without
+                // TRANS: being a group administrator.
                 $this->clientError(_('Only group admin can approve or cancel join requests.'), 403);
                 return false;
             }
@@ -116,6 +118,8 @@ class CancelgroupAction extends Action
                                                          'group_id' => $this->group->id));
 
         if (empty($this->request)) {
+            // TRANS: Client error displayed when trying to approve a non-existing group join request.
+            // TRANS: %s is a user nickname.
             $this->clientError(sprintf(_('%s is not in the moderation queue for this group.'), $this->profile->nickname), 403);
         }
         return true;
@@ -135,9 +139,9 @@ class CancelgroupAction extends Action
         parent::handle($args);
 
         try {
-            $this->profile->cancelJoinGroup($this->group);
+            $this->request->abort();
         } catch (Exception $e) {
-            common_log(LOG_ERROR, "Exception canceling group sub: " . $e->getMessage());
+            common_log(LOG_ERR, "Exception canceling group sub: " . $e->getMessage());
             // TRANS: Server error displayed when cancelling a queued group join request fails.
             // TRANS: %1$s is the leaving user's nickname, $2$s is the group nickname for which the leave failed.
             $this->serverError(sprintf(_('Could not cancel request for user %1$s to join group %2$s.'),
@@ -149,6 +153,7 @@ class CancelgroupAction extends Action
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
             // TRANS: Title for leave group page after leaving.
+            // TRANS: %s$s is the leaving user's name, %2$s is the group name.
             $this->element('title', null, sprintf(_m('TITLE','%1$s left group %2$s'),
                                                   $this->profile->nickname,
                                                   $this->group->nickname));

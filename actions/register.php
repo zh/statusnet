@@ -531,7 +531,7 @@ class RegisterAction extends Action
             $this->elementEnd('li');
         }
         $this->elementEnd('ul');
-        // TRANS: Field label on account registration page.
+        // TRANS: Button text to register a user on account registration page.
         $this->submit('submit', _m('BUTTON','Register'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');

@@ -93,7 +93,7 @@ class Profile extends Memcached_DataObject
         $avatar->url = Avatar::url($filename);
         $avatar->created = DB_DataObject_Cast::dateTime(); # current time
 
-        # XXX: start a transaction here
+        // XXX: start a transaction here
 
         if (!$this->delete_avatars() || !$avatar->insert()) {
             @unlink(Avatar::path($filename));
@@ -101,7 +101,7 @@ class Profile extends Memcached_DataObject
         }
 
         foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
-            # We don't do a scaled one if original is our scaled size
+            // We don't do a scaled one if original is our scaled size
             if (!($avatar->width == $size && $avatar->height == $size)) {
                 $scaled_filename = $imagefile->resize($size);
 
@@ -168,7 +168,7 @@ class Profile extends Memcached_DataObject
     function getFancyName()
     {
         if ($this->fullname) {
-            // TRANS: Full name of a profile or group followed by nickname in parens
+            // TRANS: Full name of a profile or group (%1$s) followed by nickname (%2$s) in parentheses.
             return sprintf(_m('FANCYNAME','%1$s (%2$s)'), $this->fullname, $this->nickname);
         } else {
             return $this->nickname;
@@ -180,7 +180,6 @@ class Profile extends Memcached_DataObject
      *
      * @return mixed Notice or null
      */
-
     function getCurrentNotice()
     {
         $notice = $this->getNotices(0, 1);
@@ -198,90 +197,16 @@ class Profile extends Memcached_DataObject
 
     function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Notice::stream(array($this, '_streamTaggedDirect'),
-                              array($tag),
-                              'profile:notice_ids_tagged:' . $this->id . ':' . $tag,
-                              $offset, $limit, $since_id, $max_id);
-        return Notice::getStreamByIds($ids);
+        $stream = new TaggedProfileNoticeStream($this, $tag);
+
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        // XXX: I'm not sure this is going to be any faster. It probably isn't.
-        $ids = Notice::stream(array($this, '_streamDirect'),
-                              array(),
-                              'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $max_id);
+        $stream = new ProfileNoticeStream($this);
 
-        return Notice::getStreamByIds($ids);
-    }
-
-    function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id)
-    {
-        // XXX It would be nice to do this without a join
-        // (necessary to do it efficiently on accounts with long history)
-
-        $notice = new Notice();
-
-        $query =
-          "select id from notice join notice_tag on id=notice_id where tag='".
-          $notice->escape($tag) .
-          "' and profile_id=" . intval($this->id);
-
-        $since = Notice::whereSinceId($since_id, 'id', 'notice.created');
-        if ($since) {
-            $query .= " and ($since)";
-        }
-
-        $max = Notice::whereMaxId($max_id, 'id', 'notice.created');
-        if ($max) {
-            $query .= " and ($max)";
-        }
-
-        $query .= ' order by notice.created DESC, id DESC';
-
-        if (!is_null($offset)) {
-            $query .= " LIMIT " . intval($limit) . " OFFSET " . intval($offset);
-        }
-
-        $notice->query($query);
-
-        $ids = array();
-
-        while ($notice->fetch()) {
-            $ids[] = $notice->id;
-        }
-
-        return $ids;
-    }
-
-    function _streamDirect($offset, $limit, $since_id, $max_id)
-    {
-        $notice = new Notice();
-
-        $notice->profile_id = $this->id;
-
-        $notice->selectAdd();
-        $notice->selectAdd('id');
-
-        Notice::addWhereSinceId($notice, $since_id);
-        Notice::addWhereMaxId($notice, $max_id);
-
-        $notice->orderBy('created DESC, id DESC');
-
-        if (!is_null($offset)) {
-            $notice->limit($offset, $limit);
-        }
-
-        $notice->find();
-
-        $ids = array();
-
-        while ($notice->fetch()) {
-            $ids[] = $notice->id;
-        }
-
-        return $ids;
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     function isMember($group)
@@ -532,61 +457,26 @@ class Profile extends Memcached_DataObject
      */
     function joinGroup(User_group $group)
     {
-        $ok = null;
+        $join = null;
         if ($group->join_policy == User_group::JOIN_POLICY_MODERATE) {
-            $ok = Group_join_queue::saveNew($this, $group);
+            $join = Group_join_queue::saveNew($this, $group);
         } else {
             if (Event::handle('StartJoinGroup', array($group, $this))) {
-                $ok = Group_member::join($group->id, $this->id);
+                $join = Group_member::join($group->id, $this->id);
                 Event::handle('EndJoinGroup', array($group, $this));
             }
         }
-        return $ok;
-    }
-
-    /**
-     * Cancel a pending group join...
-     *
-     * @param User_group $group
-     */
-    function cancelJoinGroup(User_group $group)
-    {
-        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
-                                                   'group_id' => $group->id));
-        if ($request) {
-            if (Event::handle('StartCancelJoinGroup', array($group, $this))) {
-                $request->delete();
-                Event::handle('EndCancelJoinGroup', array($group, $this));
-            }
+        if ($join) {
+            // Send any applicable notifications...
+            $join->notify();
         }
-    }
-
-    /**
-     * Complete a pending group join on our end...
-     *
-     * @param User_group $group
-     */
-    function completeJoinGroup(User_group $group)
-    {
-        $ok = null;
-        $request = Group_join_queue::pkeyGet(array('profile_id' => $this->id,
-                                                   'group_id' => $group->id));
-        if ($request) {
-            if (Event::handle('StartJoinGroup', array($group, $this))) {
-                $ok = Group_member::join($group->id, $this->id);
-                $request->delete();
-                Event::handle('EndJoinGroup', array($group, $this));
-            }
-        } else {
-            throw new Exception(_m('Invalid group join approval: not pending.'));
-        }
-        return $ok;
+        return $join;
     }
 
     /**
      * Leave a group that this profile is a member of.
      *
-     * @param User_group $group 
+     * @param User_group $group
      */
     function leaveGroup(User_group $group)
     {
@@ -642,7 +532,6 @@ class Profile extends Memcached_DataObject
         return new ArrayWrapper($profiles);
     }
 
-
     function getTaggedSubscribers($tag)
     {
         $qry =
@@ -666,6 +555,36 @@ class Profile extends Memcached_DataObject
             $tagged[] = clone($profile);
         }
         return $tagged;
+    }
+
+    /**
+     * Get pending subscribers, who have not yet been approved.
+     *
+     * @param int $offset
+     * @param int $limit
+     * @return Profile
+     */
+    function getRequests($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN subscription_queue '.
+          'ON profile.id = subscription_queue.subscriber ' .
+          'WHERE subscription_queue.subscribed = %d ' .
+          'ORDER BY subscription_queue.created DESC ';
+
+        if ($limit != null) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $members = new Profile();
+
+        $members->query(sprintf($qry, $this->id));
+        return $members;
     }
 
     function subscriptionCount()
@@ -727,6 +646,17 @@ class Profile extends Memcached_DataObject
     }
 
     /**
+     * Check if a pending subscription request is outstanding for this...
+     *
+     * @param Profile $other
+     * @return boolean
+     */
+    function hasPendingSubscription($other)
+    {
+        return Subscription_queue::exists($this, $other);
+    }
+
+    /**
      * Are these two profiles subscribed to each other?
      *
      * @param Profile $other
@@ -748,7 +678,7 @@ class Profile extends Memcached_DataObject
             // This is the stream of favorite notices, in rev chron
             // order. This forces it into cache.
 
-            $ids = Fave::stream($this->id, 0, NOTICE_CACHE_WINDOW);
+            $ids = Fave::idStream($this->id, 0, CachingNoticeStream::CACHE_WINDOW);
 
             // If it's in the list, then it's a fave
 
@@ -760,7 +690,7 @@ class Profile extends Memcached_DataObject
             // then the cache has all available faves, so this one
             // is not a fave.
 
-            if (count($ids) < NOTICE_CACHE_WINDOW) {
+            if (count($ids) < CachingNoticeStream::CACHE_WINDOW) {
                 return false;
             }
 
@@ -1358,5 +1288,45 @@ class Profile extends Memcached_DataObject
         }
 
         return $profile;
+    }
+
+    function canRead(Notice $notice)
+    {
+        if ($notice->scope & Notice::SITE_SCOPE) {
+            $user = $this->getUser();
+            if (empty($user)) {
+                return false;
+            }
+        }
+
+        if ($notice->scope & Notice::ADDRESSEE_SCOPE) {
+            $replies = $notice->getReplies();
+
+            if (!in_array($this->id, $replies)) {
+                $groups = $notice->getGroups();
+
+                $foundOne = false;
+
+                foreach ($groups as $group) {
+                    if ($this->isMember($group)) {
+                        $foundOne = true;
+                        break;
+                    }
+                }
+
+                if (!$foundOne) {
+                    return false;
+                }
+            }
+        }
+
+        if ($notice->scope & Notice::FOLLOWER_SCOPE) {
+            $author = $notice->getProfile();
+            if (!Subscription::exists($this, $author)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

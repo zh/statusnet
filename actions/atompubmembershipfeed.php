@@ -141,7 +141,7 @@ class AtompubmembershipfeedAction extends ApiAuthAction
 
         // TRANS: Title for group membership feed.
         // TRANS: %s is a username.
-        $feed->setTitle(sprintf(_("%s group memberships"),
+        $feed->setTitle(sprintf(_('Group memberships of %s'),
                                 $this->_profile->getBestName()));
 
         // TRANS: Subtitle for group membership feed.
@@ -237,8 +237,7 @@ class AtompubmembershipfeedAction extends ApiAuthAction
 
         if (Event::handle('StartAtomPubNewActivity', array(&$activity))) {
             if ($activity->verb != ActivityVerb::JOIN) {
-                // TRANS: Client error displayed when not using the POST verb.
-                // TRANS: Do not translate POST.
+                // TRANS: Client error displayed when not using the join verb.
                 throw new ClientException(_('Can only handle join activities.'));
                 return;
             }

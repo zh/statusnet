@@ -391,7 +391,7 @@ abstract class NoticeListActorsItem extends NoticeListItem
             $first = array_slice($items, 0, -1);
             $last = array_slice($items, -1, 1);
             // TRANS: Separator in list of user names like "You, Bob, Mary".
-            $sepataror = _(', ');
+            $separator = _(', ');
             // TRANS: For building a list such as "You, bob, mary and 5 others have favored this notice".
             // TRANS: %1$s is a list of users, separated by a separator (default: ", "), %2$s is the last user in the list.
             return sprintf(_m('FAVELIST', '%1$s and %2$s'), implode($separator, $first), implode($separator, $last));
@@ -423,8 +423,7 @@ class ThreadedNoticeListFavesItem extends NoticeListActorsItem
         } else {
             // TRANS: List message for favoured notices.
             // TRANS: %d is the number of users that have favoured a notice.
-            return sprintf(_m(
-                              'FAVELIST',
+            return sprintf(_m('FAVELIST',
                               'One person has favored this notice.',
                               '%d people have favored this notice.',
                               $count),
@@ -483,8 +482,7 @@ class ThreadedNoticeListRepeatsItem extends NoticeListActorsItem
         } else {
             // TRANS: List message for repeated notices.
             // TRANS: %d is the number of users that have repeated a notice.
-            return sprintf(_m(
-                              'REPEATLIST',
+            return sprintf(_m('REPEATLIST',
                               'One person has repeated this notice.',
                               '%d people have repeated this notice.',
                               $count),

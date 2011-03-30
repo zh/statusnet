@@ -139,8 +139,8 @@ class SubscribeAction extends Action
     {
         // Throws exception on error
 
-        Subscription::start($this->user->getProfile(),
-                            $this->other);
+        $sub = Subscription::start($this->user->getProfile(),
+                                   $this->other);
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
@@ -149,8 +149,12 @@ class SubscribeAction extends Action
             $this->element('title', null, _('Subscribed'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $unsubscribe = new UnsubscribeForm($this, $this->other);
-            $unsubscribe->show();
+            if ($sub instanceof Subscription) {
+                $form = new UnsubscribeForm($this, $this->other);
+            } else {
+                $form = new CancelSubscriptionForm($this, $this->other);
+            }
+            $form->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {

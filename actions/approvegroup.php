@@ -98,6 +98,7 @@ class ApprovegroupAction extends Action
 
         $cur = common_current_user();
         if (empty($cur)) {
+            // TRANS: Client error displayed trying to approve group membership while not logged in.
             $this->clientError(_('Must be logged in.'), 403);
             return false;
         }
@@ -105,10 +106,12 @@ class ApprovegroupAction extends Action
             if ($cur->isAdmin($this->group)) {
                 $this->profile = Profile::staticGet('id', $this->arg('profile_id'));
             } else {
+                // TRANS: Client error displayed trying to approve group membership while not a group administrator.
                 $this->clientError(_('Only group admin can approve or cancel join requests.'), 403);
                 return false;
             }
         } else {
+            // TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
             $this->clientError(_('Must specify a profile.'));
             return false;
         }
@@ -117,7 +120,20 @@ class ApprovegroupAction extends Action
                                                          'group_id' => $this->group->id));
 
         if (empty($this->request)) {
+            // TRANS: Client error displayed trying to approve group membership for a non-existing request.
+            // TRANS: %s is a nickname.
             $this->clientError(sprintf(_('%s is not in the moderation queue for this group.'), $this->profile->nickname), 403);
+        }
+
+        $this->approve = (bool)$this->arg('approve');
+        $this->cancel = (bool)$this->arg('cancel');
+        if (!$this->approve && !$this->cancel) {
+            // TRANS: Client error displayed trying to approve/deny group membership.
+            $this->clientError(_('Internal error: received neither cancel nor abort.'));
+        }
+        if ($this->approve && $this->cancel) {
+            // TRANS: Client error displayed trying to approve/deny group membership.
+            $this->clientError(_('Internal error: received both cancel and abort.'));
         }
         return true;
     }
@@ -136,9 +152,13 @@ class ApprovegroupAction extends Action
         parent::handle($args);
 
         try {
-            $this->profile->completeJoinGroup($this->group);
+            if ($this->approve) {
+                $this->request->complete();
+            } elseif ($this->cancel) {
+                $this->request->abort();
+            }
         } catch (Exception $e) {
-            common_log(LOG_ERROR, "Exception canceling group sub: " . $e->getMessage());
+            common_log(LOG_ERR, "Exception canceling group sub: " . $e->getMessage());
             // TRANS: Server error displayed when cancelling a queued group join request fails.
             // TRANS: %1$s is the leaving user's nickname, $2$s is the group nickname for which the leave failed.
             $this->serverError(sprintf(_('Could not cancel request for user %1$s to join group %2$s.'),
@@ -149,14 +169,20 @@ class ApprovegroupAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            // TRANS: Title for leave group page after leaving.
-            $this->element('title', null, sprintf(_m('TITLE','%1$s left group %2$s'),
+            // TRANS: Title for leave group page after group join request is approved/disapproved.
+            // TRANS: %1$s is the user nickname, %2$s is the group nickname.
+            $this->element('title', null, sprintf(_m('TITLE','%1$s\'s request for %2$s'),
                                                   $this->profile->nickname,
                                                   $this->group->nickname));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $jf = new JoinForm($this, $this->group);
-            $jf->show();
+            if ($this->approve) {
+                // TRANS: Message on page for group admin after approving a join request.
+                $this->element('p', 'success', _('Join request approved.'));
+            } elseif ($this->cancel) {
+                // TRANS: Message on page for group admin after rejecting a join request.
+                $this->element('p', 'success', _('Join request canceled.'));
+            }
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {

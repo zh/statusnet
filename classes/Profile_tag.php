@@ -106,11 +106,11 @@ class Profile_tag extends Memcached_DataObject
 
         $ptag = new Profile_tag();
 
-        # Delete stuff that's in old and not in new
+        // Delete stuff that's in old and not in new
 
         $to_delete = array_diff($oldtags, $newtags);
 
-        # Insert stuff that's in new and not in old
+        // Insert stuff that's in new and not in old
 
         $to_insert = array_diff($newtags, $oldtags);
 
@@ -268,6 +268,21 @@ class Profile_tag extends Memcached_DataObject
     static function blowCaches($tagger, $tagged) {
         foreach (array(0, 1) as $perm) {
             self::blow(sprintf('profile_tag:tagger_tagged_privacy:%d-%d-%d', $tagger, $tagged, $perm));
+        }
+        return true;
+    }
+
+    // Return profiles with a given tag
+    static function getTagged($tagger, $tag) {
+        $profile = new Profile();
+        $profile->query('SELECT profile.* ' .
+                        'FROM profile JOIN profile_tag ' .
+                        'ON profile.id = profile_tag.tagged ' .
+                        'WHERE profile_tag.tagger = ' . $tagger . ' ' .
+                        'AND profile_tag.tag = "' . $tag . '" ');
+        $tagged = array();
+        while ($profile->fetch()) {
+            $tagged[] = clone($profile);
         }
         return true;
     }

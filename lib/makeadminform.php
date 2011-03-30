@@ -1,4 +1,5 @@
 <?php
+// @todo FIXME: add standard file header.
 
 /**
  * Form for making a user an admin for a group

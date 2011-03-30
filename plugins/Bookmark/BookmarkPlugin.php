@@ -459,6 +459,7 @@ class BookmarkPlugin extends MicroAppPlugin
                    "Formatting notice {$notice->uri} as a bookmark.");
 
         $object = new ActivityObject();
+        $nb = Bookmark::getByNotice($notice);
 
         $object->id      = $notice->uri;
         $object->type    = ActivityObject::BOOKMARK;
