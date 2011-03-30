@@ -2088,7 +2088,7 @@ class Notice extends Memcached_DataObject
      * Users on the site who are not mentioned in the notice will not be able to see the
      * notice.
      *
-     * @param Profile $profile The profile to check
+     * @param Profile $profile The profile to check; pass null to check for public/unauthenticated users.
      *
      * @return boolean whether the profile is in the notice's scope
      */
