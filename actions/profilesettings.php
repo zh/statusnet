@@ -205,7 +205,7 @@ class ProfilesettingsAction extends SettingsAction
         }
         $this->elementStart('li');
         $this->checkbox('private_stream',
-                        // TRANS: 
+                        // TRANS: Checkbox label in profile settings.
                         _('Make updates visible only to my followers'),
                         ($this->arg('private_stream')) ?
                         $this->boolean('private_stream') : $user->private_stream);

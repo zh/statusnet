@@ -351,6 +351,7 @@ class Notice extends Memcached_DataObject
             $repeat = Notice::staticGet('id', $repeat_of);
 
             if (empty($repeat)) {
+                // TRANS: Client exception thrown in notice when trying to repeat a missing or deleted notice.
                 throw new ClientException(_('Cannot repeat; original notice is missing or deleted.'));
             }
 
