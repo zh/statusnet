@@ -79,6 +79,12 @@ class DeliciousBackupImporter extends QueueHandler
 
         $doc = $this->importHTML($body);
 
+        // If we can't parse it, it's no good
+
+        if (empty($doc)) {
+            return true;
+        }
+
         $dls = $doc->getElementsByTagName('dl');
 
         if ($dls->length != 1) {
@@ -112,9 +118,11 @@ class DeliciousBackupImporter extends QueueHandler
                 case 'dd':
                     $dd = $child;
 
-                    // This <dd> contains a description for the bookmark in
-                    // the preceding <dt> node.
-                    $saved = $this->importBookmark($user, $dt, $dd);
+                    if (!empty($dt)) {
+                        // This <dd> contains a description for the bookmark in
+                        // the preceding <dt> node.
+                        $saved = $this->importBookmark($user, $dt, $dd);
+                    }
 
                     $dt = null;
                     $dd = null;
