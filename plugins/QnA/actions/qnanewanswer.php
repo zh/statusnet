@@ -45,12 +45,12 @@ if (!defined('STATUSNET')) {
  */
 class QnanewanswerAction extends Action
 {
-    protected $user        = null;
-    protected $error       = null;
-    protected $complete    = null;
+    protected $user     = null;
+    protected $error    = null;
+    protected $complete = null;
 
-    protected $question    = null;
-    protected $content     = null;
+    protected $question = null;
+    protected $content  = null;
 
     /**
      * Returns the title of the action
@@ -91,19 +91,22 @@ class QnanewanswerAction extends Action
             $this->checkSessionToken();
         }
 
-        $id = $this->trimmed('id');
+        $id = substr($this->trimmed('id'), 9);
+
+        common_debug("XXXXXXXXXXXXXXXXXX id = " . $id);
+
         $this->question = QnA_Question::staticGet('id', $id);
-        
+
         if (empty($this->question)) {
             // TRANS: Client exception thrown trying to respond to a non-existing question.
             throw new ClientException(
-                _m('Invalid or missing question.'), 
+                _m('Invalid or missing question.'),
                 404
             );
         }
 
         $this->answerText = $this->trimmed('answer');
-        
+
         return true;
     }
 
@@ -145,8 +148,8 @@ class QnanewanswerAction extends Action
             $this->showPage();
             return;
         }
-
         if ($this->boolean('ajax')) {
+            common_debug("ajaxy part");
             header('Content-Type: text/xml;charset=utf-8');
             $this->xw->startDocument('1.0', 'UTF-8');
             $this->elementStart('html');
@@ -176,7 +179,6 @@ class QnanewanswerAction extends Action
         }
 
         $form = new QnaanswerForm($this->question, $this);
-
         $form->show();
 
         return;

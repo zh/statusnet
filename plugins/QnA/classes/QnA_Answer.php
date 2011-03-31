@@ -167,11 +167,11 @@ class QnA_Answer extends Managed_DataObject
      */
     function getQuestion()
     {
-        $question = self::staticGet('id', $this->question_id);
+        $question = QnA_Question::staticGet('id', $this->question_id);
         if (empty($question)) {
             throw new Exception("No question with ID {$this->question_id}");
         }
-        return question;
+        return $question;
     }
 
     function getProfile()

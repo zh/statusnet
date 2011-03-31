@@ -89,7 +89,7 @@ class QnaanswerForm extends Form
      */
     function action()
     {
-        return common_local_url('qnanewanswer', array('id' => $this->question->id));
+        return common_local_url('qnanewanswer');
     }
 
     /**
@@ -104,6 +104,7 @@ class QnaanswerForm extends Form
         $id       = "question-" . $question->id;
 
         $out->element('p', 'answer', $question->title);
+        $out->hidden('id', $id);
         $out->element('input', array('type' => 'text', 'name' => 'answer'));
     }
 

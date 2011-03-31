@@ -120,9 +120,8 @@ class QnAPlugin extends MicroAppPlugin
             array('action' => 'qnanewquestion')
         );
         $m->connect(
-            'main/qna/newanswer/:id',
-            array('action' => 'qnanewanswer'),
-            array('id' => $UUIDregex)
+            'main/qna/newanswer',
+            array('action' => 'qnanewanswer')
         );
         $m->connect(
             'question/vote/:id',
@@ -304,13 +303,13 @@ class QnAPlugin extends MicroAppPlugin
             // TRANS: %s is the unpexpected object type.
             throw new Exception(
                 sprintf(
-                    _m('Unexpected type for QnA plugin: %s.'), 
+                    _m('Unexpected type for QnA plugin: %s.'),
                     $notice->object_type
                 )
             );
         }
     }
-    
+
     function showNoticeQuestion($notice, $out)
     {
         $user = common_current_user();
@@ -321,7 +320,7 @@ class QnAPlugin extends MicroAppPlugin
 
         $out->elementStart('div', array('class' => 'entry-content question-content'));
         $question = QnA_Question::getByNotice($notice);
-        
+
         if ($question) {
             if ($user) {
                 $profile = $user->getProfile();

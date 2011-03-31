@@ -60,7 +60,7 @@ class QnaansweredForm extends Form
     function __construct(QnA_Answer $answer, HTMLOutputter $out)
     {
         parent::__construct($out);
-        $this->question = $answer->getQuestion(); 
+        $this->question = $answer->getQuestion();
         $this->answer   = $answer;
     }
 

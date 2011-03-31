@@ -69,6 +69,12 @@ class QnashowanswerAction extends ShownoticeAction
             throw new ClientException(_('No such answer.'), 404);
         }
 
+        $this->question = $this->answer->getQuestion();
+
+        if (empty($this->question)) {
+            throw new ClientException(_('No question for this answer.'), 404);
+        }
+
         $this->notice = Notice::staticGet('uri', $this->answer->uri);
 
         if (empty($this->notice)) {
@@ -105,9 +111,11 @@ class QnashowanswerAction extends ShownoticeAction
     {
         $question = $this->answer->getQuestion();
 
-        return sprintf(_('%s\'s answer to "%s"'),
-                       $this->user->nickname,
-                       $question->title);
+        return sprintf(
+            _('%s\'s answer to "%s"'),
+            $this->user->nickname,
+            $question->title
+        );
     }
 
     /**
@@ -121,9 +129,14 @@ class QnashowanswerAction extends ShownoticeAction
         $this->elementStart('h1');
         $this->element(
             'a',
-            array('href' => $this->answer->url),
-            $this->answer->title
+            array('href' => $this->answer->uri),
+            $this->question->title
         );
         $this->elementEnd('h1');
+    }
+
+    function showContent()
+    {
+        $this->raw($this->answer->asHTML());
     }
 }
