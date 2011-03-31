@@ -238,8 +238,23 @@ class Bookmark extends Memcached_DataObject
         if (array_key_exists('uri', $options)) {
             $nb->uri = $options['uri'];
         } else {
-            $nb->uri = common_local_url('showbookmark',
-                                        array('id' => $nb->id));
+            // FIXME: hacks to work around router bugs in
+            // queue daemons
+
+            $r = Router::get();
+
+            $path = $r->build('showbookmark',
+                              array('id' => $nb->id));
+
+            if (empty($path)) {
+                $nb->uri = common_path('bookmark/'.$nb->id, false, false);
+            } else {
+                $nb->uri = common_local_url('showbookmark',
+                                            array('id' => $nb->id),
+                                            null,
+                                            null,
+                                            false);
+            }
         }
 
         $nb->insert();
