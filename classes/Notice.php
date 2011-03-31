@@ -420,6 +420,18 @@ class Notice extends Memcached_DataObject
             $notice->scope = $scope;
         }
 
+        // For private streams
+
+        $user = $profile->getUser();
+
+        if (!empty($user)) {
+            if ($user->private_stream &&
+                ($notice->scope == Notice::PUBLIC_SCOPE ||
+                 $notice->scope == Notice::SITE_SCOPE)) {
+                $notice->scope |= Notice::FOLLOWER_SCOPE;
+            }
+        }
+
         if (Event::handle('StartNoticeSave', array(&$notice))) {
 
             // XXX: some of these functions write to the DB
