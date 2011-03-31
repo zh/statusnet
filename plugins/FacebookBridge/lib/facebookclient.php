@@ -48,7 +48,12 @@ class Facebookclient
     protected $notice        = null; // The user's notice
     protected $user          = null; // Sender of the notice
 
-    function __construct($notice)
+    /**
+     *
+     * @param Notice $notice the notice to manipulate
+     * @param Profile $profile local user to act as; if left empty, the notice's poster will be used.
+     */
+    function __construct($notice, $profile=null)
     {
         $this->facebook = self::getFacebook();
 
@@ -60,8 +65,9 @@ class Facebookclient
 
         $this->notice = $notice;
 
+        $profile_id = $profile ? $profile->id : $notice->profile_id;
         $this->flink = Foreign_link::getByUserID(
-            $notice->profile_id,
+            $profile_id,
             FACEBOOK_SERVICE
         );
 
