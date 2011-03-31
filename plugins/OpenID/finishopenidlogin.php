@@ -125,12 +125,12 @@ class FinishopenidloginAction extends Action
         $this->elementStart('li');
         $this->input('newname', _m('New nickname'),
                      ($this->username) ? $this->username : '',
-                     _m('1-64 lowercase letters or numbers, no punctuation or spaces'));
+                     _m('1-64 lowercase letters or numbers, no punctuation or spaces.'));
         $this->elementEnd('li');
         $this->elementStart('li');
-        $this->input('email', _('Email'), $this->getEmail(),
-                     _('Used only for updates, announcements, '.
-                       'and password recovery'));
+        $this->input('email', _m('Email'), $this->getEmail(),
+                     _m('Used only for updates, announcements, '.
+                       'and password recovery.'));
         $this->elementEnd('li');
 
         // Hook point for captcha etc
@@ -146,7 +146,7 @@ class FinishopenidloginAction extends Action
                                           'class' => 'checkbox'));
         // TRANS: OpenID plugin link text.
         // TRANS: %s is a link to a licese with the license name as link text.
-        $message = _('My text and files are available under %s ' .
+        $message = _m('My text and files are available under %s ' .
                      'except this private data: password, ' .
                      'email address, IM address, and phone number.');
         $link = '<a href="' .

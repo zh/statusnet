@@ -618,7 +618,7 @@ class ExtendedProfileWidget extends Form
             _m('BUTTON','Save'),
             'submit form_action-secondary',
             'save',
-            _('Save details')
+            _m('Save details')
        );
     }
 

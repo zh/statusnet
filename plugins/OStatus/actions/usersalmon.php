@@ -157,7 +157,7 @@ class UsersalmonAction extends SalmonAction
 
         if (!empty($old)) {
             // TRANS: Client exception.
-            throw new ClientException(_('This is already a favorite.'));
+            throw new ClientException(_m('This is already a favorite.'));
         }
 
         if (!Fave::addNew($profile, $notice)) {
@@ -179,7 +179,7 @@ class UsersalmonAction extends SalmonAction
                                    'notice_id' => $notice->id));
         if (empty($fave)) {
             // TRANS: Client exception.
-            throw new ClientException(_('Notice wasn\'t favorited!'));
+            throw new ClientException(_m('Notice was not favorited!'));
         }
 
         $fave->delete();

@@ -143,7 +143,7 @@ class RSVP extends Managed_DataObject
         if (array_key_exists('uri', $options)) {
             $other = RSVP::staticGet('uri', $options['uri']);
             if (!empty($other)) {
-                throw new ClientException(_('RSVP already exists.'));
+                throw new ClientException(_m('RSVP already exists.'));
             }
         }
 
@@ -151,7 +151,7 @@ class RSVP extends Managed_DataObject
                                      'event_id' => $event->id));
 
         if (!empty($other)) {
-            throw new ClientException(_('RSVP already exists.'));
+            throw new ClientException(_m('RSVP already exists.'));
         }
 
         $rsvp = new RSVP();
@@ -316,13 +316,13 @@ class RSVP extends Managed_DataObject
 
         switch ($response) {
         case 'Y':
-            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is attending <a href='%3s'>%4s</a>.</span>");
+            $fmt = _m("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is attending <a href='%3s'>%4s</a>.</span>");
             break;
         case 'N':
-            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is not attending <a href='%3s'>%4s</a>.</span>");
+            $fmt = _m("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is not attending <a href='%3s'>%4s</a>.</span>");
             break;
         case '?':
-            $fmt = _("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> might attend <a href='%3s'>%4s</a>.</span>");
+            $fmt = _m("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> might attend <a href='%3s'>%4s</a>.</span>");
             break;
         default:
             throw new Exception("Unknown response code {$response}");
@@ -331,7 +331,7 @@ class RSVP extends Managed_DataObject
 
         if (empty($event)) {
             $eventUrl = '#';
-            $eventTitle = _('an unknown event');
+            $eventTitle = _m('an unknown event');
         } else {
             $notice = $event->getNotice();
             $eventUrl = $notice->bestUrl();
@@ -351,13 +351,13 @@ class RSVP extends Managed_DataObject
 
         switch ($response) {
         case 'Y':
-            $fmt = _("%1s is attending %2s.");
+            $fmt = _m("%1s is attending %2s.");
             break;
         case 'N':
-            $fmt = _("%1s is not attending %2s.");
+            $fmt = _m("%1s is not attending %2s.");
             break;
         case '?':
-            $fmt = _("%1s might attend %2s.>");
+            $fmt = _m("%1s might attend %2s.>");
             break;
         default:
             throw new Exception("Unknown response code {$response}");
@@ -365,7 +365,7 @@ class RSVP extends Managed_DataObject
         }
 
         if (empty($event)) {
-            $eventTitle = _('an unknown event');
+            $eventTitle = _m('an unknown event');
         } else {
             $notice = $event->getNotice();
             $eventTitle = $event->title;

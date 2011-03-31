@@ -111,7 +111,7 @@ class FacebooksettingsAction extends SettingsAction {
      * @return instructions for use
      */
     function getInstructions() {
-        return _('Facebook settings');
+        return _m('Facebook settings');
     }
 
     /*

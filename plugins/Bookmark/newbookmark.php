@@ -62,7 +62,7 @@ class NewbookmarkAction extends Action
 
     function title()
     {
-        return _('New bookmark');
+        return _m('New bookmark');
     }
 
     /**
@@ -80,7 +80,7 @@ class NewbookmarkAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_("Must be logged in to post a bookmark."),
+            throw new ClientException(_m("Must be logged in to post a bookmark."),
                                       403);
         }
 
@@ -130,11 +130,11 @@ class NewbookmarkAction extends Action
         }
         try {
             if (empty($this->title)) {
-                throw new ClientException(_('Bookmark must have a title.'));
+                throw new ClientException(_m('Bookmark must have a title.'));
             }
 
             if (empty($this->url)) {
-                throw new ClientException(_('Bookmark must have an URL.'));
+                throw new ClientException(_m('Bookmark must have an URL.'));
             }
 
 
@@ -156,7 +156,7 @@ class NewbookmarkAction extends Action
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Page title after sending a notice.
-            $this->element('title', null, _('Notice posted'));
+            $this->element('title', null, _m('Notice posted'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->showNotice($saved);

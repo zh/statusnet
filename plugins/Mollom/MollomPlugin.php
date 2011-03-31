@@ -86,7 +86,7 @@ class MollomPlugin extends Plugin
         );
         $response = $this->mollom('mollom.checkContent', $data);
         if ($response['spam'] == MOLLOM_ANALYSIS_SPAM) {
-          throw new ClientException(_("Spam Detected"), 400);
+          throw new ClientException(_m("Spam Detected."), 400);
         }
         if ($response['spam'] == MOLLOM_ANALYSIS_UNSURE) {
           //if unsure, let through

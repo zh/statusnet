@@ -93,7 +93,7 @@ class RecaptchaPlugin extends Plugin
 
         if (!$resp->is_valid) {
             if($this->display_errors) {
-                $action->showForm(sprintf(_("(reCAPTCHA error: %s)", $resp->error)));
+                $action->showForm(sprintf(_m("(reCAPTCHA error: %s)", $resp->error)));
             }
             $action->showForm(_m("Captcha does not match!"));
             return false;

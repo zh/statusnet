@@ -156,27 +156,27 @@ class Group_message_profile extends Memcached_DataObject
 
         // TRANS: Subject for direct-message notification email.
         // TRANS: %s is the sending user's nickname.
-        $subject = sprintf(_('New private message from %s to group %s'), $from_profile->nickname, $group->nickname);
+        $subject = sprintf(_m('New private message from %1$s to group %2$s'), $from_profile->nickname, $group->nickname);
 
         // TRANS: Body for direct-message notification email.
         // TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
         // TRANS: %3$s is the message content, %4$s a URL to the message,
         // TRANS: %5$s is the StatusNet sitename.
-        $body = sprintf(_("%1\$s (%2\$s) sent a private message to group %3\$s:\n\n".
+        $body = sprintf(_m("%1\$s (%2\$s) sent a private message to group %3\$s:\n\n".
                           "------------------------------------------------------\n".
                           "%4\$s\n".
                           "------------------------------------------------------\n\n".
                           "You can reply to their message here:\n\n".
                           "%5\$s\n\n".
-                          "Don't reply to this email; it won't get to them.\n\n".
+                          "Do not reply to this email; it will not get to them.\n\n".
                           "With kind regards,\n".
-                          "%6\$s\n"),
+                          "%6\$s"),
                         $from_profile->getBestName(),
                         $from_profile->nickname,
                         $group->nickname,
                         $gm->content,
                         common_local_url('newmessage', array('to' => $from_profile->id)),
-                        common_config('site', 'name'));
+                        common_config('site', 'name')) . "\n";
 
         $headers = _mail_prepare_headers('message', $to->nickname, $from_profile->nickname);
 

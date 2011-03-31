@@ -75,7 +75,7 @@ class SearchsubAction extends Action
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             // TRANS: Client error displayed trying to perform any request method other than POST.
             // TRANS: Do not translate POST.
-            $this->clientError(_('This action only accepts POST requests.'));
+            $this->clientError(_m('This action only accepts POST requests.'));
             return false;
         }
 
@@ -85,7 +85,7 @@ class SearchsubAction extends Action
 
         if (!$token || $token != common_session_token()) {
             // TRANS: Client error displayed when the session token is not okay.
-            $this->clientError(_('There was a problem with your session token.'.
+            $this->clientError(_m('There was a problem with your session token.'.
                                  ' Try again, please.'));
             return false;
         }
@@ -96,7 +96,7 @@ class SearchsubAction extends Action
 
         if (empty($this->user)) {
             // TRANS: Client error displayed trying to subscribe when not logged in.
-            $this->clientError(_('Not logged in.'));
+            $this->clientError(_m('Not logged in.'));
             return false;
         }
 
@@ -106,7 +106,7 @@ class SearchsubAction extends Action
 
         if (empty($this->search)) {
             // TRANS: Client error displayed trying to subscribe to a non-existing profile.
-            $this->clientError(_('No such profile.'));
+            $this->clientError(_m('No such profile.'));
             return false;
         }
 

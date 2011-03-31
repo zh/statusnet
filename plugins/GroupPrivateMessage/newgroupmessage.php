@@ -66,11 +66,11 @@ class NewgroupmessageAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_('Must be logged in.'), 403);
+            throw new ClientException(_m('Must be logged in.'), 403);
         }
 
         if (!$this->user->hasRight(Right::NEWMESSAGE)) {
-            throw new Exception(sprintf(_('User %s not allowed to send private messages.'),
+            throw new Exception(sprintf(_m('User %s not allowed to send private messages.'),
                                         $this->user->nickname));
         }
 
@@ -87,13 +87,13 @@ class NewgroupmessageAction extends Action
         $localGroup = Local_group::staticGet('nickname', $nickname);
 
         if (empty($localGroup)) {
-            throw new ClientException(_('No such group'), 404);
+            throw new ClientException(_m('No such group.'), 404);
         }
 
         $this->group = User_group::staticGet('id', $localGroup->group_id);
 
         if (empty($this->group)) {
-            throw new ClientException(_('No such group'), 404);
+            throw new ClientException(_m('No such group.'), 404);
         }
 
         // This throws an exception on error
@@ -140,12 +140,12 @@ class NewgroupmessageAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            $this->element('title', null, _('Message sent'));
+            $this->element('title', null, _m('Message sent'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->element('p',
                            array('id' => 'command_result'),
-                           sprintf(_('Direct message to %s sent.'),
+                           sprintf(_m('Direct message to %s sent.'),
                                    $this->group->nickname));
             $this->elementEnd('body');
             $this->elementEnd('html');
@@ -156,6 +156,6 @@ class NewgroupmessageAction extends Action
 
     function title()
     {
-        return sprintf(_('New message to group %s'), $this->group->nickname);
+        return sprintf(_m('New message to group %s'), $this->group->nickname);
     }
 }

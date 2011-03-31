@@ -102,13 +102,13 @@ class CancelRSVPForm extends Form
 
         switch (RSVP::verbFor($this->rsvp->response)) {
         case RSVP::POSITIVE:
-            $this->out->text(_('You will attend this event.'));
+            $this->out->text(_m('You will attend this event.'));
             break;
         case RSVP::NEGATIVE:
-            $this->out->text(_('You will not attend this event.'));
+            $this->out->text(_m('You will not attend this event.'));
             break;
         case RSVP::POSSIBLE:
-            $this->out->text(_('You might attend this event.'));
+            $this->out->text(_m('You might attend this event.'));
             break;
         }
 
