@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-26 11:02+0000\n"
-"PO-Revision-Date: 2011-03-26 11:04:55+0000\n"
+"POT-Creation-Date: 2011-03-31 21:06+0000\n"
+"PO-Revision-Date: 2011-03-31 21:08:21+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r84791); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85082); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-03-24 15:23:28+0000\n"
+"X-POT-Import-Date: 2011-03-26 11:23:47+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -74,7 +74,9 @@ msgstr "Salveguardar configurationes de accesso"
 #. TRANS: Button text for saving site settings.
 #. TRANS: Button text for saving site notice in admin panel.
 #. TRANS: Button label to save SMS preferences.
+#. TRANS: Button text to save snapshot settings.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
+#. TRANS: Button text for saving tags for other users.
 #. TRANS: Button text for saving "Other settings" in profile.
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
@@ -86,6 +88,7 @@ msgstr "Salveguardar"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
+#. TRANS: Server error when page not found (404).
 msgid "No such page."
 msgstr "Pagina non existe."
 
@@ -836,16 +839,6 @@ msgstr "Tu non pote deler le stato de un altere usator."
 msgid "No such notice."
 msgstr "Nota non trovate."
 
-#. TRANS: Client error displayed trying to repeat an own notice through the API.
-#. TRANS: Error text shown when trying to repeat an own notice.
-msgid "Cannot repeat your own notice."
-msgstr "Non pote repeter tu proprie nota."
-
-#. TRANS: Client error displayed trying to re-repeat a notice through the API.
-#. TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
-msgid "Already repeated that notice."
-msgstr "Iste nota ha ja essite repetite."
-
 #. TRANS: Client error displayed calling an unsupported HTTP error in API status show.
 #. TRANS: Client exception thrown when using an unsupported HTTP method.
 #. TRANS: Client exception thrown using an unsupported HTTP method.
@@ -989,6 +982,8 @@ msgstr "Notas con etiquetta %s"
 
 #. TRANS: Subtitle for timeline with lastest notices with a given tag.
 #. TRANS: %1$s is the tag, $2$s is the StatusNet sitename.
+#. TRANS: Tag feed description.
+#. TRANS: %1$s is the tag name, %2$s is the StatusNet sitename.
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Actualisationes con etiquetta %1$s in %2$s!"
@@ -1104,10 +1099,12 @@ msgstr ""
 "de adhesion."
 
 #. TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
+#. TRANS: Client error displayed trying to approve subscriptionswithout specifying a profile to approve.
 msgid "Must specify a profile."
 msgstr "Es necessari specificar un profilo."
 
 #. TRANS: Client error displayed trying to approve group membership for a non-existing request.
+#. TRANS: %s is a nickname.
 #. TRANS: Client error displayed when trying to approve a non-existing group join request.
 #. TRANS: %s is a user nickname.
 #, php-format
@@ -1115,10 +1112,12 @@ msgid "%s is not in the moderation queue for this group."
 msgstr "%s non es in le cauda de moderation pro iste gruppo."
 
 #. TRANS: Client error displayed trying to approve/deny group membership.
+#. TRANS: Client error displayed trying to approve/deny subscription.
 msgid "Internal error: received neither cancel nor abort."
 msgstr "Error interne: ni cancellation ni abortamento recipite."
 
 #. TRANS: Client error displayed trying to approve/deny group membership.
+#. TRANS: Client error displayed trying to approve/deny  subscription
 msgid "Internal error: received both cancel and abort."
 msgstr "Error interne: e cancellation e abortamento recipite."
 
@@ -1143,6 +1142,35 @@ msgstr "Requesta de adhesion approbate."
 #. TRANS: Message on page for group admin after rejecting a join request.
 msgid "Join request canceled."
 msgstr "Requesta de adhesion cancellate."
+
+#. TRANS: Client error displayed trying to approve subscription for a non-existing request.
+#, fuzzy, php-format
+msgid "%s is not in the moderation queue for your subscriptions."
+msgstr "%s non es in le cauda de moderation pro iste gruppo."
+
+#. TRANS: Server error displayed when cancelling a queued subscription request fails.
+#. TRANS: %1$s is the leaving user's nickname, $2$s is the nickname for which the leave failed.
+#, fuzzy, php-format
+msgid "Could not cancel or approve request for user %1$s to join group %2$s."
+msgstr ""
+"Non poteva cancellar le requesta de adhesion del usator %1$s al gruppo %2$s."
+
+#. TRANS: Title for subscription approval ajax return
+#. TRANS: %1$s is the approved user's nickname
+#, fuzzy, php-format
+msgctxt "TITLE"
+msgid "%1$s's request"
+msgstr "Le requesta de %1$s pro %2$s"
+
+#. TRANS: Message on page for user after approving a subscription request.
+#, fuzzy
+msgid "Subscription approved."
+msgstr "Subscription autorisate"
+
+#. TRANS: Message on page for user after rejecting a subscription request.
+#, fuzzy
+msgid "Subscription canceled."
+msgstr "Autorisation cancellate."
 
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
@@ -1179,8 +1207,8 @@ msgstr "Es ja favorite."
 
 #. TRANS: Title for group membership feed.
 #. TRANS: %s is a username.
-#, php-format
-msgid "%s group memberships"
+#, fuzzy, php-format
+msgid "Group memberships of %s"
 msgstr "Membratos del gruppo %s"
 
 #. TRANS: Subtitle for group membership feed.
@@ -1193,8 +1221,7 @@ msgstr "Gruppos del quales %1$s es membro in %2$s"
 msgid "Cannot add someone else's membership."
 msgstr "Non es possibile adder le membrato de un altere persona."
 
-#. TRANS: Client error displayed when not using the POST verb.
-#. TRANS: Do not translate POST.
+#. TRANS: Client error displayed when not using the join verb.
 msgid "Can only handle join activities."
 msgstr "Solmente le activitates de adhesion es possibile."
 
@@ -1506,6 +1533,49 @@ msgctxt "TITLE"
 msgid "%1$s left group %2$s"
 msgstr "%1$s quitava le gruppo %2$s"
 
+#. TRANS: Client error displayed when trying to leave a group while not logged in.
+#. TRANS: Error message displayed trying to delete a notice while not logged in.
+#. TRANS: Client error displayed when trying to remove a favorite while not logged in.
+#. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
+#. TRANS: Client error displayed trying to block a user from a group while not logged in.
+#. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
+#. TRANS: Client error displayed trying to log out when not logged in.
+#. TRANS: Client error displayed when trying to access the "make admin" page while not logged in.
+#. TRANS: Client error displayed trying to create a new direct message while not logged in.
+#. TRANS: Client error displayed trying to send a notice while not logged in.
+#. TRANS: Client error displayed trying to nudge a user without being logged in.
+#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
+#. TRANS: Client error displayed trying a change a subscription while not logged in.
+#. TRANS: Client error displayed trying to subscribe when not logged in.
+#. TRANS: Client error displayed on user tag page when trying to add tags while not logged in.
+#. TRANS: Client error displayed when trying to unsubscribe while not logged in.
+#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
+#. TRANS: Client error displayed when trying to change user options while not logged in.
+msgid "Not logged in."
+msgstr "Tu non ha aperite un session."
+
+#. TRANS: Client error displayed when trying to leave a group without specifying an ID.
+#. TRANS: Client error displayed when trying to unsubscribe without providing a profile ID.
+msgid "No profile ID in request."
+msgstr "Nulle ID de profilo in requesta."
+
+#. TRANS: Client error displayed when trying to leave a non-existing group.
+#. TRANS: Client error displayed trying to block a user from a group while specifying a non-existing profile.
+#. TRANS: Client error displayed when trying to unblock a user from a group without providing an existing profile.
+#. TRANS: Client error displayed when specifying an invalid profile ID on the Make Admin page.
+#. TRANS: Client error displayed trying a change a subscription for a non-existant profile ID.
+#. TRANS: Client error displayed on user tag page when trying to add tags providing a non-existing user ID.
+#. TRANS: Client error displayed when trying to unsubscribe while providing a non-existing profile ID.
+#. TRANS: Client error displayed when trying to change user options without specifying an existing user to work on.
+msgid "No profile with that ID."
+msgstr "Non existe un profilo con iste ID."
+
+#. TRANS: Title after unsubscribing from a group.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Unsubscribed"
+msgstr "Subscription cancellate"
+
 #. TRANS: Client error displayed when not providing a confirmation code in the contact address confirmation action.
 msgid "No confirmation code."
 msgstr "Nulle codice de confirmation."
@@ -1710,24 +1780,6 @@ msgstr "Non deler iste gruppo."
 #. TRANS: Submit button title for 'Yes' when deleting a group.
 msgid "Delete this group."
 msgstr "Deler iste gruppo."
-
-#. TRANS: Error message displayed trying to delete a notice while not logged in.
-#. TRANS: Client error displayed when trying to remove a favorite while not logged in.
-#. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
-#. TRANS: Client error displayed trying to block a user from a group while not logged in.
-#. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
-#. TRANS: Client error displayed trying to log out when not logged in.
-#. TRANS: Client error displayed when trying to access the "make admin" page while not logged in.
-#. TRANS: Client error displayed trying to create a new direct message while not logged in.
-#. TRANS: Client error displayed trying to send a notice while not logged in.
-#. TRANS: Client error displayed trying to nudge a user without being logged in.
-#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
-#. TRANS: Client error displayed trying a change a subscription while not logged in.
-#. TRANS: Client error displayed trying to subscribe when not logged in.
-#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#. TRANS: Client error displayed when trying to change user options while not logged in.
-msgid "Not logged in."
-msgstr "Tu non ha aperite un session."
 
 #. TRANS: Instructions for deleting a notice.
 msgid ""
@@ -2406,14 +2458,6 @@ msgstr "Le usator ha ja iste rolo."
 msgid "No profile specified."
 msgstr "Nulle profilo specificate."
 
-#. TRANS: Client error displayed trying to block a user from a group while specifying a non-existing profile.
-#. TRANS: Client error displayed when trying to unblock a user from a group without providing an existing profile.
-#. TRANS: Client error displayed when specifying an invalid profile ID on the Make Admin page.
-#. TRANS: Client error displayed trying a change a subscription for a non-existant profile ID.
-#. TRANS: Client error displayed when trying to change user options without specifying an existing user to work on.
-msgid "No profile with that ID."
-msgstr "Non existe un profilo con iste ID."
-
 #. TRANS: Client error displayed trying to block a user from a group while not specifying a group to block a profile from.
 #. TRANS: Client error displayed when trying to unblock a user from a group without providing a group.
 #. TRANS: Client error displayed when not providing a group ID on the Make Admin page.
@@ -3020,6 +3064,7 @@ msgid "License selection"
 msgstr "Selection de licentia"
 
 #. TRANS: License option in the license admin panel.
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 msgid "Private"
 msgstr "Private"
 
@@ -3748,6 +3793,7 @@ msgid "SSL"
 msgstr "SSL"
 
 #. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#. TRANS: Option in dropdown for snapshot method in admin panel for snapshots.
 msgid "Never"
 msgstr "Nunquam"
 
@@ -3906,17 +3952,21 @@ msgstr "URL de tu pagina personal, blog o profilo in un altere sito."
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
+#. TRANS: Text area title in form for account registration. Plural
+#. TRANS: is decided by the number of characters available for the
+#. TRANS: biography (%d).
 #, php-format
-msgid "Describe yourself and your interests in %d character"
-msgid_plural "Describe yourself and your interests in %d characters"
-msgstr[0] "Describe te e tu interesses in %d character"
-msgstr[1] "Describe te e tu interesses in %d characteres"
+msgid "Describe yourself and your interests in %d character."
+msgid_plural "Describe yourself and your interests in %d characters."
+msgstr[0] "Describe te e tu interesses in %d character."
+msgstr[1] "Describe te e tu interesses in %d characteres."
 
 #. TRANS: Tooltip for field label in form for profile settings.
-msgid "Describe yourself and your interests"
-msgstr "Describe te e tu interesses"
+#. TRANS: Text area title on account registration page.
+msgid "Describe yourself and your interests."
+msgstr "Describe te e tu interesses."
 
-#. TRANS: Text area label in form for profile settings where users can provide.
+#. TRANS: Text area label in form for profile settings where users can provide
 #. TRANS: their biography.
 #. TRANS: Text area label on account registration page.
 msgid "Bio"
@@ -3929,14 +3979,16 @@ msgid "Location"
 msgstr "Loco"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr "Ubi tu es, como \"Citate, Stato (o Region), Pais\""
+#. TRANS: Field title on account registration page.
+msgid "Where you are, like \"City, State (or Region), Country\"."
+msgstr "Ubi tu es, como \"Citate, Stato (o Region), Pais\"."
 
 #. TRANS: Checkbox label in form for profile settings.
 msgid "Share my current location when posting notices"
 msgstr "Divulgar mi loco actual quando io publica notas"
 
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Field label for inputting tags on "tag other users" page.
 msgid "Tags"
 msgstr "Etiquettas"
 
@@ -3971,6 +4023,28 @@ msgstr ""
 "Subscriber me automaticamente a qui se subscribe a me (utile pro non-"
 "humanos)."
 
+#. TRANS: Dropdown field label on profile settings, for what policies to apply when someone else tries to subscribe to your updates.
+#, fuzzy
+msgid "Subscription policy"
+msgstr "Subscriptiones"
+
+#. TRANS: Dropdown field option for following policy.
+#, fuzzy
+msgid "Let anyone follow me"
+msgstr "Pote solmente sequer personas."
+
+#. TRANS: Dropdown field option for following policy.
+msgid "Ask me first"
+msgstr ""
+
+#. TRANS: Dropdown field title on group edit form.
+msgid "Whether other users need your permission to follow your updates."
+msgstr ""
+
+#. TRANS: Checkbox label in profile settings.
+msgid "Make updates visible only to my followers"
+msgstr ""
+
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
@@ -4001,7 +4075,8 @@ msgstr "Etiquetta invalide: \"%s\"."
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
-msgid "Could not update user for autosubscribe."
+#, fuzzy
+msgid "Could not update user for autosubscribe or subscribe_policy."
 msgstr "Non poteva actualisar le usator pro autosubscription."
 
 #. TRANS: Server error thrown when user profile location preference settings could not be updated.
@@ -4009,6 +4084,7 @@ msgid "Could not save location prefs."
 msgstr "Non poteva salveguardar le preferentias de loco."
 
 #. TRANS: Server error thrown when user profile settings tags could not be saved.
+#. TRANS: Client error on "tag other users" page when saving tags fails server side.
 msgid "Could not save tags."
 msgstr "Non poteva salveguardar etiquettas."
 
@@ -4348,24 +4424,7 @@ msgstr ""
 msgid "Longer name, preferably your \"real\" name."
 msgstr "Nomine plus longe, preferibilemente tu nomine \"real\"."
 
-#. TRANS: Text area title in form for account registration. Plural
-#. TRANS: is decided by the number of characters available for the
-#. TRANS: biography (%d).
-#, php-format
-msgid "Describe yourself and your interests in %d character."
-msgid_plural "Describe yourself and your interests in %d characters."
-msgstr[0] "Describe te e tu interesses in %d character."
-msgstr[1] "Describe te e tu interesses in %d characteres."
-
-#. TRANS: Text area title on account registration page.
-msgid "Describe yourself and your interests."
-msgstr "Describe te e tu interesses."
-
-#. TRANS: Field title on account registration page.
-msgid "Where you are, like \"City, State (or Region), Country\"."
-msgstr "Ubi tu es, como \"Citate, Stato (o Region), Pais\"."
-
-#. TRANS: Field label on account registration page.
+#. TRANS: Button text to register a user on account registration page.
 msgctxt "BUTTON"
 msgid "Register"
 msgstr "Crear conto"
@@ -4483,6 +4542,7 @@ msgid "URL of your profile on another compatible microblogging service."
 msgstr "URL de tu profilo in un altere servicio de microblogging compatibile."
 
 #. TRANS: Button text on page for remote subscribe.
+#. TRANS: Link text for link that will subscribe to a remote profile.
 msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr "Subscriber"
@@ -4515,15 +4575,8 @@ msgstr "Solmente usatores authenticate pote repeter notas."
 msgid "No notice specified."
 msgstr "Nulle nota specificate."
 
-#. TRANS: Client error displayed when trying to repeat an own notice.
-msgid "You cannot repeat your own notice."
-msgstr "Tu non pote repeter tu proprie nota."
-
-#. TRANS: Client error displayed when trying to repeat an already repeated notice.
-msgid "You already repeated that notice."
-msgstr "Tu ha ja repetite iste nota."
-
 #. TRANS: Title after repeating a notice.
+#. TRANS: Repeat form status in notice list when a notice has been repeated.
 msgid "Repeated"
 msgstr "Repetite"
 
@@ -4687,6 +4740,7 @@ msgid "StatusNet"
 msgstr "StatusNet"
 
 #. TRANS: Client error displayed trying to sandbox users on a site where the feature is not enabled.
+#. TRANS: Client error on page to unsandbox a user when the feature is not enabled.
 msgid "You cannot sandbox users on this site."
 msgstr "Tu non pote mitter usatores in le cassa de sablo in iste sito."
 
@@ -4958,27 +5012,32 @@ msgstr "Message a %1$s in %2$s"
 msgid "Message from %1$s on %2$s"
 msgstr "Message de %1$s in %2$s"
 
+#. TRANS: Client exception thrown when trying a view a notice the user has no access to.
+#, fuzzy
+msgid "Not available."
+msgstr "Messageria instantanee non disponibile."
+
 #. TRANS: Client error displayed trying to show a deleted notice.
 msgid "Notice deleted."
 msgstr "Nota delite."
 
 #. TRANS: Page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$s is the hash tag.
-#, php-format
-msgid "%1$s tagged %2$s"
+#, fuzzy, php-format
+msgid "Notices by %1$s tagged %2$s"
 msgstr "%1$s etiquettate con %2$s"
 
 #. TRANS: Page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$s is the hash tag, %3$d is the page number.
-#, php-format
-msgid "%1$s tagged %2$s, page %3$d"
+#, fuzzy, php-format
+msgid "Notices by %1$s tagged %2$s, page %3$d"
 msgstr "%1$s etiquettate con %2$s, pagina %3$d"
 
 #. TRANS: Extended page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$d is the page number.
-#, php-format
-msgid "%1$s, page %2$d"
-msgstr "%1$s, pagina %2$d"
+#, fuzzy, php-format
+msgid "Notices by %1$s, page %2$d"
+msgstr "Notas etiquettate con %1$s, pagina %2$d"
 
 #. TRANS: Title for link to notice feed.
 #. TRANS: %1$s is a user nickname, %2$s is a hashtag.
@@ -5067,6 +5126,7 @@ msgid "Repeat of %s"
 msgstr "Repetition de %s"
 
 #. TRANS: Client error displayed trying to silence a user on a site where the feature is not enabled.
+#. TRANS: Client error on page to unsilence a user when the feature is not enabled.
 msgid "You cannot silence users on this site."
 msgstr "Tu non pote silentiar usatores in iste sito."
 
@@ -5353,51 +5413,72 @@ msgstr ""
 msgid "No code entered."
 msgstr "Nulle codice entrate."
 
-#. TRANS: Menu item for site administration
+#. TRANS: Title for admin panel to configure snapshots.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Snapshots"
 msgstr "Instantaneos"
 
+#. TRANS: Instructions for admin panel to configure snapshots.
 msgid "Manage snapshot configuration"
 msgstr "Gerer configuration de instantaneos"
 
+#. TRANS: Client error displayed on admin panel for snapshots when providing an invalid run value.
 msgid "Invalid snapshot run value."
 msgstr "Valor de execution de instantaneo invalide."
 
+#. TRANS: Client error displayed on admin panel for snapshots when providing an invalid value for frequency.
 msgid "Snapshot frequency must be a number."
 msgstr "Le frequentia de instantaneos debe esser un numero."
 
+#. TRANS: Client error displayed on admin panel for snapshots when providing an invalid report URL.
 msgid "Invalid snapshot report URL."
 msgstr "Le URL pro reportar instantaneos es invalide."
 
+#. TRANS: Fieldset legend on admin panel for snapshots.
+#, fuzzy
+msgctxt "LEGEND"
+msgid "Snapshots"
+msgstr "Instantaneos"
+
+#. TRANS: Option in dropdown for snapshot method in admin panel for snapshots.
 msgid "Randomly during web hit"
 msgstr "Aleatorimente durante un accesso web"
 
+#. TRANS: Option in dropdown for snapshot method in admin panel for snapshots.
 msgid "In a scheduled job"
 msgstr "In un processo planificate"
 
+#. TRANS: Dropdown label for snapshot method in admin panel for snapshots.
 msgid "Data snapshots"
 msgstr "Instantaneos de datos"
 
-msgid "When to send statistical data to status.net servers"
+#. TRANS: Dropdown title for snapshot method in admin panel for snapshots.
+#, fuzzy
+msgid "When to send statistical data to status.net servers."
 msgstr "Quando inviar datos statistic al servitores de status.net"
 
+#. TRANS: Input field label for snapshot frequency in admin panel for snapshots.
 msgid "Frequency"
 msgstr "Frequentia"
 
-msgid "Snapshots will be sent once every N web hits"
+#. TRANS: Input field title for snapshot frequency in admin panel for snapshots.
+#, fuzzy
+msgid "Snapshots will be sent once every N web hits."
 msgstr "Un instantaneo essera inviate a cata N accessos web"
 
+#. TRANS: Input field label for snapshot report URL in admin panel for snapshots.
 msgid "Report URL"
 msgstr "URL pro reporto"
 
-msgid "Snapshots will be sent to this URL"
+#. TRANS: Input field title for snapshot report URL in admin panel for snapshots.
+#, fuzzy
+msgid "Snapshots will be sent to this URL."
 msgstr "Le instantaneos essera inviate a iste URL"
 
-#. TRANS: Submit button title.
-msgid "Save"
-msgstr "Salveguardar"
-
-msgid "Save snapshot settings"
+#. TRANS: Title for button to save snapshot settings.
+#, fuzzy
+msgid "Save snapshot settings."
 msgstr "Salveguardar configuration de instantaneos"
 
 #. TRANS: Client error displayed trying a change a subscription for a non-subscribed profile.
@@ -5408,6 +5489,27 @@ msgstr "Tu non es subscribite a iste profilo."
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
 msgid "Could not save subscription."
 msgstr "Non poteva salveguardar le subscription."
+
+#. TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
+msgid "You may only approve your own pending subscriptions."
+msgstr ""
+
+#. TRANS: Title of the first page showing pending subscribers still awaiting approval.
+#. TRANS: %s is the name of the user.
+#, fuzzy, php-format
+msgid "%s subscribers awaiting approval"
+msgstr "Membros attendente approbation del gruppo %s"
+
+#. TRANS: Title of all but the first page showing pending subscribersmembers still awaiting approval.
+#. TRANS: %1$s is the name of the user, %2$d is the page number of the members list.
+#, fuzzy, php-format
+msgid "%1$s subscribers awaiting approval, page %2$d"
+msgstr "Membros attendente approbation del gruppo %1$s, pagina %2$d"
+
+#. TRANS: Page notice for group members page.
+#, fuzzy
+msgid "A list of users awaiting approval to subscribe to you."
+msgstr "Un lista de usatores attendente approbation a adherer a iste gruppo."
 
 #. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
@@ -5530,31 +5632,43 @@ msgstr "SMS"
 msgid "Notices tagged with %1$s, page %2$d"
 msgstr "Notas etiquettate con %1$s, pagina %2$d"
 
+#. TRANS: Link label for feed on "notices with tag" page.
+#. TRANS: %s is the tag the feed is for.
 #, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
 msgstr "Syndication de notas pro le etiquetta %s (RSS 1.0)"
 
+#. TRANS: Link label for feed on "notices with tag" page.
+#. TRANS: %s is the tag the feed is for.
 #, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
 msgstr "Syndication de notas pro le etiquetta %s (RSS 2.0)"
 
+#. TRANS: Link label for feed on "notices with tag" page.
+#. TRANS: %s is the tag the feed is for.
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Syndication de notas pro le etiquetta %s (Atom)"
 
+#. TRANS: Client error displayed on user tag page when trying to add tags without providing a user ID.
 msgid "No ID argument."
 msgstr "Nulle parametro de ID."
 
+#. TRANS: Title for "tag other users" page.
+#. TRANS: %s is the user nickname.
 #, php-format
 msgid "Tag %s"
 msgstr "Etiquetta %s"
 
+#. TRANS: Header for user details on "tag other users" page.
 msgid "User profile"
 msgstr "Profilo del usator"
 
+#. TRANS: Fieldset legend on "tag other users" page.
 msgid "Tag user"
 msgstr "Etiquettar usator"
 
+#. TRANS: Title for input field for inputting tags on "tag other users" page.
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), separated by commas or "
 "spaces."
@@ -5562,16 +5676,25 @@ msgstr ""
 "Etiquettas pro iste usator (litteras, numeros, -, . e _), separate per "
 "commas o spatios."
 
+#. TRANS: Client error on "tag other users" page when tagging a user is not possible because of missing mutual subscriptions.
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
 "Tu pote solmente etiquettar personas a qui tu es subscribite o qui es "
 "subscribite a te."
 
+#. TRANS: Title of "tag other users" page.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Tags"
+msgstr "Etiquettas"
+
+#. TRANS: Page notice on "tag other users" page.
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
 "Usa iste formulario pro adder etiquettas a tu subscriptores o subscriptiones."
 
+#. TRANS: Client error when requesting a tag feed for a non-existing tag.
 msgid "No such tag."
 msgstr "Etiquetta non existe."
 
@@ -5579,25 +5702,31 @@ msgstr "Etiquetta non existe."
 msgid "You haven't blocked that user."
 msgstr "Tu non ha blocate iste usator."
 
+#. TRANS: Client error on page to unsilence a user when the to be unsandboxed user has not been sandboxed.
 msgid "User is not sandboxed."
 msgstr "Le usator non es in le cassa de sablo."
 
+#. TRANS: Client error on page to unsilence a user when the to be unsilenced user has not been silenced.
 msgid "User is not silenced."
 msgstr "Le usator non es silentiate."
 
-msgid "No profile ID in request."
-msgstr "Nulle ID de profilo in requesta."
-
+#. TRANS: Page title for page to unsubscribe.
 msgid "Unsubscribed"
 msgstr "Subscription cancellate"
 
+#. TRANS: Client error displayed when trying to update profile with an incompatible license.
+#. TRANS: %1$s is the license incompatible with site license %2$s.
+#. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
+#. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
 #, php-format
 msgid ""
-"Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
+"Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
+"\"."
 msgstr ""
-"Le licentia del fluxo que tu ascolta, ‘%1$s’, non es compatibile con le "
-"licentia del sito ‘%2$s’."
+"Le licentia del fluxo que tu ascolta, \"%1$s\", non es compatibile con le "
+"licentia del sito \"%2$s\"."
 
+#. TRANS: Title of URL settings tab in profile settings.
 msgid "URL settings"
 msgstr "Configuration de URL"
 
@@ -5611,9 +5740,11 @@ msgstr "Gestion de varie altere optiones."
 msgid " (free service)"
 msgstr " (servicio libere)"
 
+#. TRANS: Default value for URL shortening settings.
 msgid "[none]"
 msgstr "[nulle]"
 
+#. TRANS: Default value for URL shortening settings.
 msgid "[internal]"
 msgstr "[interne]"
 
@@ -5625,16 +5756,20 @@ msgstr "Accurtar URLs con"
 msgid "Automatic shortening service to use."
 msgstr "Le servicio de accurtamento automatic a usar."
 
+#. TRANS: Field label in URL settings in profile.
 msgid "URL longer than"
 msgstr "URL plus longe que"
 
+#. TRANS: Field title in URL settings in profile.
 msgid "URLs longer than this will be shortened, 0 means always shorten."
 msgstr ""
 "Le URLs plus longe que isto essera abbreviate. 0 significa abbreviar sempre."
 
+#. TRANS: Field label in URL settings in profile.
 msgid "Text longer than"
 msgstr "Texto plus longe que"
 
+#. TRANS: Field title in URL settings in profile.
 msgid ""
 "URLs in notices longer than this will be shortened, 0 means always shorten."
 msgstr ""
@@ -5646,12 +5781,17 @@ msgid "URL shortening service is too long (maximum 50 characters)."
 msgstr ""
 "Le servicio de accurtamento de URL es troppo longe (maximo 50 characteres)."
 
-msgid "Invalid number for max url length."
+#. TRANS: Client exception thrown when the maximum URL settings value is invalid in profile URL settings.
+#, fuzzy
+msgid "Invalid number for maximum URL length."
 msgstr "Numero invalide pro longitude maxime de URL."
 
-msgid "Invalid number for max notice length."
+#. TRANS: Client exception thrown when the maximum notice length settings value is invalid in profile URL settings.
+#, fuzzy
+msgid "Invalid number for maximum notice length."
 msgstr "Numero invalide pro longitude maxime de nota."
 
+#. TRANS: Server exception thrown in profile URL settings when preferences could not be saved.
 msgid "Error saving user URL shortening preferences."
 msgstr ""
 "Error durante le salveguarda del preferentias de usator pro le abbreviation "
@@ -5731,7 +5871,7 @@ msgstr "Salveguardar configurationes de usator."
 msgid "Authorize subscription"
 msgstr "Autorisar subscription"
 
-#. TRANS: Page notice on "Auhtorize subscription" page.
+#. TRANS: Page notice on "Authorize subscription" page.
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
@@ -5743,6 +5883,7 @@ msgstr ""
 
 #. TRANS: Button text on Authorise Subscription page.
 #. TRANS: Submit button text to accept a group membership request on approve group form.
+#. TRANS: Submit button text to accept a subscription request on approve sub form.
 msgctxt "BUTTON"
 msgid "Accept"
 msgstr "Acceptar"
@@ -5753,6 +5894,7 @@ msgstr "Subscriber a iste usator."
 
 #. TRANS: Button text on Authorise Subscription page.
 #. TRANS: Submit button text to reject a group membership request on approve group form.
+#. TRANS: Submit button text to reject a subscription request on approve sub form.
 msgctxt "BUTTON"
 msgid "Reject"
 msgstr "Rejectar"
@@ -5769,9 +5911,11 @@ msgstr "Nulle requesta de autorisation!"
 msgid "Subscription authorized"
 msgstr "Subscription autorisate"
 
+#. TRANS: Accept message text from Authorise subscription page.
+#, fuzzy
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
-"with the site’s instructions for details on how to authorize the "
+"with the site's instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
 "Le subscription ha essite autorisate, ma nulle URL de retorno ha essite "
@@ -5782,9 +5926,11 @@ msgstr ""
 msgid "Subscription rejected"
 msgstr "Subscription rejectate"
 
+#. TRANS: Reject message from Authorise subscription page.
+#, fuzzy
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
-"with the site’s instructions for details on how to fully reject the "
+"with the site's instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
 "Le subscription ha essite rejectate, ma nulle URL de retorno ha essite "
@@ -5814,16 +5960,6 @@ msgstr "URI de ascoltato \"%s\" es un usator local."
 #, php-format
 msgid "Profile URL \"%s\" is for a local user."
 msgstr "URL de profilo \"%s\" es de un usator local."
-
-#. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
-#. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
-#, php-format
-msgid ""
-"Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
-"\"."
-msgstr ""
-"Le licentia del fluxo que tu ascolta, \"%1$s\", non es compatibile con le "
-"licentia del sito \"%2$s\"."
 
 #. TRANS: Exception thrown when avatar URL is invalid for an authorisation request.
 #. TRANS: %s is an avatar URL.
@@ -6048,18 +6184,6 @@ msgstr[1] "Un file de iste dimension excederea tu quota mensual de %d bytes."
 msgid "Invalid filename."
 msgstr "Nomine de file invalide."
 
-#. TRANS: Exception thrown when joining a group fails.
-msgid "Group join failed."
-msgstr "Le inscription al gruppo ha fallite."
-
-#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
-msgid "Not part of group."
-msgstr "Non es membro del gruppo."
-
-#. TRANS: Exception thrown when trying to leave a group fails.
-msgid "Group leave failed."
-msgstr "Le cancellation del membrato del gruppo ha fallite."
-
 #. TRANS: Exception thrown providing an invalid profile ID.
 #. TRANS: %s is the invalid profile ID.
 #, php-format
@@ -6071,6 +6195,18 @@ msgstr "Le ID de profilo %s es invalide."
 #, php-format
 msgid "Group ID %s is invalid."
 msgstr "Le ID de gruppo %s es invalide."
+
+#. TRANS: Exception thrown when joining a group fails.
+msgid "Group join failed."
+msgstr "Le inscription al gruppo ha fallite."
+
+#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
+msgid "Not part of group."
+msgstr "Non es membro del gruppo."
+
+#. TRANS: Exception thrown when trying to leave a group fails.
+msgid "Group leave failed."
+msgstr "Le cancellation del membrato del gruppo ha fallite."
 
 #. TRANS: Activity title.
 msgid "Join"
@@ -6146,6 +6282,35 @@ msgstr ""
 msgid "You are banned from posting notices on this site."
 msgstr "Il te es prohibite publicar notas in iste sito."
 
+#. TRANS: Client exception thrown in notice when trying to repeat a missing or deleted notice.
+#, fuzzy
+msgid "Cannot repeat; original notice is missing or deleted."
+msgstr "Non pote repeter tu proprie nota."
+
+#. TRANS: Client error displayed when trying to repeat an own notice.
+msgid "You cannot repeat your own notice."
+msgstr "Tu non pote repeter tu proprie nota."
+
+#. TRANS: Client error displayed when trying to repeat a non-public notice.
+#, fuzzy
+msgid "Cannot repeat a private notice."
+msgstr "Non pote repeter tu proprie nota."
+
+#. TRANS: Client error displayed when trying to repeat a notice you cannot access.
+#, fuzzy
+msgid "Cannot repeat a notice you cannot read."
+msgstr "Non pote repeter tu proprie nota."
+
+#. TRANS: Client error displayed when trying to repeat an already repeated notice.
+msgid "You already repeated that notice."
+msgstr "Tu ha ja repetite iste nota."
+
+#. TRANS: Client error displayed when trying to reply to a notice a the target has no access to.
+#. TRANS: %1$s is a user nickname, %2$d is a notice ID (number).
+#, fuzzy, php-format
+msgid "%1$s has no access to notice %2$d."
+msgstr "Le usator non ha un ultime nota."
+
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
 msgid "Problem saving notice."
@@ -6171,15 +6336,12 @@ msgstr "Non poteva salveguardar le responsa pro %1$d, %2$d."
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
+#. TRANS: Full name of a profile or group (%1$s) followed by nickname (%2$s) in parentheses.
 #. TRANS: Full name of a profile or group followed by nickname in parens
 #, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
-
-#. TRANS: Exception thrown trying to approve a non-existing group join request.
-msgid "Invalid group join approval: not pending."
-msgstr "Approbation de adhesion a gruppo invalide: non pendente."
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
@@ -6231,7 +6393,9 @@ msgstr "Non poteva deler le indicio OMB del subscription."
 msgid "Could not delete subscription."
 msgstr "Non poteva deler subscription."
 
-#. TRANS: Activity tile when subscribing to another person.
+#. TRANS: Activity title when subscribing to another person.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Follow"
 msgstr "Sequer"
 
@@ -6299,18 +6463,24 @@ msgid "User deletion in progress..."
 msgstr "Deletion del usator in curso…"
 
 #. TRANS: Link title for link on user profile.
-msgid "Edit profile settings"
+#, fuzzy
+msgid "Edit profile settings."
 msgstr "Modificar configuration de profilo"
 
 #. TRANS: Link text for link on user profile.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Edit"
 msgstr "Modificar"
 
 #. TRANS: Link title for link on user profile.
-msgid "Send a direct message to this user"
+#, fuzzy
+msgid "Send a direct message to this user."
 msgstr "Inviar un message directe a iste usator"
 
 #. TRANS: Link text for link on user profile.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Message"
 msgstr "Message"
 
@@ -6331,10 +6501,6 @@ msgstr "Administrator"
 msgctxt "role"
 msgid "Moderator"
 msgstr "Moderator"
-
-#. TRANS: Link text for link that will subscribe to a remote profile.
-msgid "Subscribe"
-msgstr "Subscriber"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #, php-format
@@ -6589,6 +6755,10 @@ msgstr "Aviso del sito"
 msgid "Snapshots configuration"
 msgstr "Configuration del instantaneos"
 
+#. TRANS: Menu item for site administration
+msgid "Snapshots"
+msgstr "Instantaneos"
+
 #. TRANS: Menu item title/tooltip
 msgid "Set site license"
 msgstr "Definir licentia del sito"
@@ -6743,6 +6913,10 @@ msgstr ""
 msgid "Cancel"
 msgstr "Cancellar"
 
+#. TRANS: Submit button title.
+msgid "Save"
+msgstr "Salveguardar"
+
 msgid " by "
 msgstr " per "
 
@@ -6804,7 +6978,13 @@ msgstr "Blocar iste usator"
 #. TRANS: Submit button text on form to cancel group join request.
 msgctxt "BUTTON"
 msgid "Cancel join request"
-msgstr ""
+msgstr "Cancellar requesta de adhesion"
+
+#. TRANS: Button text for form action to cancel a subscription request.
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Cancel subscription request"
+msgstr "Cancellar requesta de adhesion"
 
 #. TRANS: Title for command results.
 msgid "Command results"
@@ -6953,10 +7133,6 @@ msgstr "Error durante le invio del message directe."
 #, php-format
 msgid "Notice from %s repeated."
 msgstr "Nota de %s repetite."
-
-#. TRANS: Error text shown when repeating a notice fails with an unknown reason.
-msgid "Error repeating notice."
-msgstr "Error durante le repetition del nota."
 
 #. TRANS: Message given if content of a notice for a reply is too long. %1$d is used for plural.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
@@ -7693,6 +7869,22 @@ msgstr ""
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s seque ora tu notas in %2$s."
 
+#. TRANS: Subject of pending new-subscriber notification e-mail.
+#. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
+#, fuzzy, php-format
+msgid "%1$s would like to listen to your notices on %2$s."
+msgstr "%1$s seque ora tu notas in %2$s."
+
+#. TRANS: Main body of pending new-subscriber notification e-mail.
+#. TRANS: %1$s is the subscriber's long name, %2$s is the StatusNet sitename.
+#, fuzzy, php-format
+msgid ""
+"%1$s would like to listen to your notices on %2$s. You may approve or reject "
+"their subscription at %3$s"
+msgstr ""
+"%1$s vole adherer a tu gruppo %2$s in %3$s. Tu pote approbar o rejectar su "
+"adhesion al gruppo a %4$s"
+
 #. TRANS: Common footer block for StatusNet notification emails.
 #. TRANS: %1$s is the StatusNet sitename,
 #. TRANS: %2$s is a link to the addressed user's e-mail settings.
@@ -8175,7 +8367,9 @@ msgstr "Responder"
 msgid "Delete this notice"
 msgstr "Deler iste nota"
 
-msgid "Notice repeated"
+#. TRANS: Title for repeat form status in notice list when a notice has been repeated.
+#, fuzzy
+msgid "Notice repeated."
 msgstr "Nota repetite"
 
 msgid "Update your status..."
@@ -8452,27 +8646,76 @@ msgstr "Silentiar"
 msgid "Silence this user"
 msgstr "Silentiar iste usator"
 
-#, php-format
-msgid "People %s subscribes to"
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Profile"
+msgstr "Profilo"
+
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Subscriptions"
+msgstr "Subscriptiones"
+
+#. TRANS: Menu item title in local navigation menu.
+#. TRANS: %s is a user nickname.
+#, fuzzy, php-format
+msgid "People %s subscribes to."
 msgstr "Personas que %s seque"
 
-#, php-format
-msgid "People subscribed to %s"
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Subscribers"
+msgstr "Subscriptores"
+
+#. TRANS: Menu item title in local navigation menu.
+#. TRANS: %s is a user nickname.
+#, fuzzy, php-format
+msgid "People subscribed to %s."
 msgstr "Personas qui seque %s"
 
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy, php-format
+msgctxt "MENU"
+msgid "Pending (%d)"
+msgstr "Membro pendente"
+
+#. TRANS: Menu item title in local navigation menu.
 #, php-format
-msgid "Groups %s is a member of"
+msgid "Approve pending subscription requests."
+msgstr ""
+
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Groups"
+msgstr "Gruppos"
+
+#. TRANS: Menu item title in local navigation menu.
+#. TRANS: %s is a user nickname.
+#, fuzzy, php-format
+msgid "Groups %s is a member of."
 msgstr "Gruppos del quales %s es membro"
 
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
 msgid "Invite"
 msgstr "Invitar"
 
-#, php-format
-msgid "Invite friends and colleagues to join you on %s"
+#. TRANS: Menu item title in local navigation menu.
+#. TRANS: %s is a user nickname.
+#, fuzzy, php-format
+msgid "Invite friends and colleagues to join you on %s."
 msgstr "Invitar amicos e collegas a accompaniar te in %s"
 
 msgid "Subscribe to this user"
 msgstr "Subscriber a iste usator"
+
+msgid "Subscribe"
+msgstr "Subscriber"
 
 msgid "People Tagcloud as self-tagged"
 msgstr "Etiquettario de personas como auto-etiquettate"
@@ -8591,6 +8834,28 @@ msgstr[1] "%d personas ha repetite iste nota."
 msgid "Top posters"
 msgstr "Qui scribe le plus"
 
+#. TRANS: Option in drop-down of potential addressees.
+msgctxt "SENDTO"
+msgid "Everyone"
+msgstr ""
+
+#. TRANS: Option in drop-down of potential addressees.
+#. TRANS: %s is a StatusNet sitename.
+#, php-format
+msgid "My colleagues at %s"
+msgstr ""
+
+#. TRANS: Label for drop-down of potential addressees.
+#, fuzzy
+msgctxt "LABEL"
+msgid "To:"
+msgstr "A"
+
+#. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
+#, fuzzy, php-format
+msgid "Unknown to value: \"%s\"."
+msgstr "Verbo incognite: \"%s\"."
+
 #. TRANS: Title for the form to unblock a user.
 msgctxt "TITLE"
 msgid "Unblock"
@@ -8704,5 +8969,31 @@ msgstr "XML invalide, radice XRD mancante."
 msgid "Getting backup from file '%s'."
 msgstr "Obtene copia de reserva ex file '%s'."
 
-#~ msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-#~ msgstr "Message troppo longe - maximo es %1$d characteres, tu inviava %2$d."
+#~ msgid "Already repeated that notice."
+#~ msgstr "Iste nota ha ja essite repetite."
+
+#~ msgid "Describe yourself and your interests in %d character"
+#~ msgid_plural "Describe yourself and your interests in %d characters"
+#~ msgstr[0] "Describe te e tu interesses in %d character"
+#~ msgstr[1] "Describe te e tu interesses in %d characteres"
+
+#~ msgid "Describe yourself and your interests"
+#~ msgstr "Describe te e tu interesses"
+
+#~ msgid "Where you are, like \"City, State (or Region), Country\""
+#~ msgstr "Ubi tu es, como \"Citate, Stato (o Region), Pais\""
+
+#~ msgid "%1$s, page %2$d"
+#~ msgstr "%1$s, pagina %2$d"
+
+#~ msgid ""
+#~ "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
+#~ msgstr ""
+#~ "Le licentia del fluxo que tu ascolta, ‘%1$s’, non es compatibile con le "
+#~ "licentia del sito ‘%2$s’."
+
+#~ msgid "Invalid group join approval: not pending."
+#~ msgstr "Approbation de adhesion a gruppo invalide: non pendente."
+
+#~ msgid "Error repeating notice."
+#~ msgstr "Error durante le repetition del nota."

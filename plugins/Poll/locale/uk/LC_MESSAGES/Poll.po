@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Poll\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 19:45+0000\n"
-"PO-Revision-Date: 2011-03-18 19:49:32+0000\n"
+"POT-Creation-Date: 2011-03-31 21:06+0000\n"
+"PO-Revision-Date: 2011-03-31 21:10:17+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-17 10:19:34+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r84232); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-03-24 15:25:44+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85082); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-poll\n"
@@ -29,14 +29,6 @@ msgstr "Немає такого опитування."
 #. TRANS: Client exception thrown trying to view a non-existing poll notice.
 msgid "No such poll notice."
 msgstr "Немає допису щодо опитування."
-
-#. TRANS: Client exception thrown trying to view a poll of a non-existing user.
-msgid "No such user."
-msgstr "Такого користувача немає."
-
-#. TRANS: Server exception thrown trying to view a poll for a user for which the profile could not be loaded.
-msgid "User without a profile."
-msgstr "Користувач без профілю."
 
 #. TRANS: Page title for a poll.
 #. TRANS: %1$s is the nickname of the user that created the poll, %2$s is the poll question.
@@ -80,6 +72,9 @@ msgstr "Неправильна відповідь на опитування: н�
 #, php-format
 msgid "Unexpected type for poll plugin: %s."
 msgstr "Неочікувана дія для додатку опитувань: %s."
+
+msgid "Poll data is missing"
+msgstr ""
 
 #. TRANS: Application title.
 msgctxt "APPTITLE"
@@ -151,3 +146,9 @@ msgstr "Невірне або відсутнє опитування."
 #. TRANS: Page title after sending a poll response.
 msgid "Poll results"
 msgstr "Результати опитування"
+
+#~ msgid "No such user."
+#~ msgstr "Такого користувача немає."
+
+#~ msgid "User without a profile."
+#~ msgstr "Користувач без профілю."

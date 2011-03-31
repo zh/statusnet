@@ -12,13 +12,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-26 11:02+0000\n"
-"PO-Revision-Date: 2011-03-26 11:04:54+0000\n"
+"POT-Creation-Date: 2011-03-31 21:06+0000\n"
+"PO-Revision-Date: 2011-03-31 21:08:20+0000\n"
 "Language-Team: Hungarian <http://translatewiki.net/wiki/Portal:hu>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-24 15:23:28+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r84791); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-03-26 11:23:47+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85082); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hu\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -79,7 +79,9 @@ msgstr "Hozzáférések beállításainak mentése"
 #. TRANS: Button text for saving site settings.
 #. TRANS: Button text for saving site notice in admin panel.
 #. TRANS: Button label to save SMS preferences.
+#. TRANS: Button text to save snapshot settings.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
+#. TRANS: Button text for saving tags for other users.
 #. TRANS: Button text for saving "Other settings" in profile.
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
@@ -91,6 +93,7 @@ msgstr "Mentés"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
+#. TRANS: Server error when page not found (404).
 msgid "No such page."
 msgstr "Nincs ilyen lap."
 
@@ -834,16 +837,6 @@ msgstr "Nem törölheted más felhasználók állapotait."
 msgid "No such notice."
 msgstr "Nincs ilyen hír."
 
-#. TRANS: Client error displayed trying to repeat an own notice through the API.
-#. TRANS: Error text shown when trying to repeat an own notice.
-msgid "Cannot repeat your own notice."
-msgstr "Nem ismételheted meg a saját híredet."
-
-#. TRANS: Client error displayed trying to re-repeat a notice through the API.
-#. TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
-msgid "Already repeated that notice."
-msgstr "Már megismételted azt a hírt."
-
 #. TRANS: Client error displayed calling an unsupported HTTP error in API status show.
 #. TRANS: Client exception thrown when using an unsupported HTTP method.
 #. TRANS: Client exception thrown using an unsupported HTTP method.
@@ -987,6 +980,8 @@ msgstr "Hírek %s címkével"
 
 #. TRANS: Subtitle for timeline with lastest notices with a given tag.
 #. TRANS: %1$s is the tag, $2$s is the StatusNet sitename.
+#. TRANS: Tag feed description.
+#. TRANS: %1$s is the tag name, %2$s is the StatusNet sitename.
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr ""
@@ -1103,11 +1098,13 @@ msgid "Only group admin can approve or cancel join requests."
 msgstr ""
 
 #. TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
+#. TRANS: Client error displayed trying to approve subscriptionswithout specifying a profile to approve.
 #, fuzzy
 msgid "Must specify a profile."
 msgstr "Nincs ilyen profil."
 
 #. TRANS: Client error displayed trying to approve group membership for a non-existing request.
+#. TRANS: %s is a nickname.
 #. TRANS: Client error displayed when trying to approve a non-existing group join request.
 #. TRANS: %s is a user nickname.
 #, fuzzy, php-format
@@ -1115,10 +1112,12 @@ msgid "%s is not in the moderation queue for this group."
 msgstr "A csoportban lévő felhasználók listája."
 
 #. TRANS: Client error displayed trying to approve/deny group membership.
+#. TRANS: Client error displayed trying to approve/deny subscription.
 msgid "Internal error: received neither cancel nor abort."
 msgstr ""
 
 #. TRANS: Client error displayed trying to approve/deny group membership.
+#. TRANS: Client error displayed trying to approve/deny  subscription
 msgid "Internal error: received both cancel and abort."
 msgstr ""
 
@@ -1142,6 +1141,34 @@ msgstr ""
 #. TRANS: Message on page for group admin after rejecting a join request.
 msgid "Join request canceled."
 msgstr ""
+
+#. TRANS: Client error displayed trying to approve subscription for a non-existing request.
+#, fuzzy, php-format
+msgid "%s is not in the moderation queue for your subscriptions."
+msgstr "A csoportban lévő felhasználók listája."
+
+#. TRANS: Server error displayed when cancelling a queued subscription request fails.
+#. TRANS: %1$s is the leaving user's nickname, $2$s is the nickname for which the leave failed.
+#, fuzzy, php-format
+msgid "Could not cancel or approve request for user %1$s to join group %2$s."
+msgstr "Nem sikerült %1$s felhasználót hozzáadni a %2$s csoporthoz."
+
+#. TRANS: Title for subscription approval ajax return
+#. TRANS: %1$s is the approved user's nickname
+#, fuzzy, php-format
+msgctxt "TITLE"
+msgid "%1$s's request"
+msgstr "%1$s / %2$s kedvencei"
+
+#. TRANS: Message on page for user after approving a subscription request.
+#, fuzzy
+msgid "Subscription approved."
+msgstr "Feliratkozások"
+
+#. TRANS: Message on page for user after rejecting a subscription request.
+#, fuzzy
+msgid "Subscription canceled."
+msgstr "Feliratkozások"
 
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
@@ -1184,7 +1211,7 @@ msgstr "Hozzáadás a kedvencekhez"
 #. TRANS: Title for group membership feed.
 #. TRANS: %s is a username.
 #, fuzzy, php-format
-msgid "%s group memberships"
+msgid "Group memberships of %s"
 msgstr "%s csoport tagjai"
 
 #. TRANS: Subtitle for group membership feed.
@@ -1198,8 +1225,7 @@ msgstr ""
 msgid "Cannot add someone else's membership."
 msgstr "Nem sikerült törölni a kedvencet."
 
-#. TRANS: Client error displayed when not using the POST verb.
-#. TRANS: Do not translate POST.
+#. TRANS: Client error displayed when not using the join verb.
 #, fuzzy
 msgid "Can only handle join activities."
 msgstr "Keressünk a hírek tartalmában"
@@ -1518,6 +1544,49 @@ msgctxt "TITLE"
 msgid "%1$s left group %2$s"
 msgstr "%1$s csatlakozott a(z) %2$s csoporthoz"
 
+#. TRANS: Client error displayed when trying to leave a group while not logged in.
+#. TRANS: Error message displayed trying to delete a notice while not logged in.
+#. TRANS: Client error displayed when trying to remove a favorite while not logged in.
+#. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
+#. TRANS: Client error displayed trying to block a user from a group while not logged in.
+#. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
+#. TRANS: Client error displayed trying to log out when not logged in.
+#. TRANS: Client error displayed when trying to access the "make admin" page while not logged in.
+#. TRANS: Client error displayed trying to create a new direct message while not logged in.
+#. TRANS: Client error displayed trying to send a notice while not logged in.
+#. TRANS: Client error displayed trying to nudge a user without being logged in.
+#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
+#. TRANS: Client error displayed trying a change a subscription while not logged in.
+#. TRANS: Client error displayed trying to subscribe when not logged in.
+#. TRANS: Client error displayed on user tag page when trying to add tags while not logged in.
+#. TRANS: Client error displayed when trying to unsubscribe while not logged in.
+#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
+#. TRANS: Client error displayed when trying to change user options while not logged in.
+msgid "Not logged in."
+msgstr "Nem vagy bejelentkezve."
+
+#. TRANS: Client error displayed when trying to leave a group without specifying an ID.
+#. TRANS: Client error displayed when trying to unsubscribe without providing a profile ID.
+msgid "No profile ID in request."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to leave a non-existing group.
+#. TRANS: Client error displayed trying to block a user from a group while specifying a non-existing profile.
+#. TRANS: Client error displayed when trying to unblock a user from a group without providing an existing profile.
+#. TRANS: Client error displayed when specifying an invalid profile ID on the Make Admin page.
+#. TRANS: Client error displayed trying a change a subscription for a non-existant profile ID.
+#. TRANS: Client error displayed on user tag page when trying to add tags providing a non-existing user ID.
+#. TRANS: Client error displayed when trying to unsubscribe while providing a non-existing profile ID.
+#. TRANS: Client error displayed when trying to change user options without specifying an existing user to work on.
+msgid "No profile with that ID."
+msgstr "Nincs ilyen azonosítóval rendelkező profil."
+
+#. TRANS: Title after unsubscribing from a group.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Unsubscribed"
+msgstr "Kövessük"
+
 #. TRANS: Client error displayed when not providing a confirmation code in the contact address confirmation action.
 msgid "No confirmation code."
 msgstr "Nincs megerősítő kód."
@@ -1731,24 +1800,6 @@ msgstr "Ne töröljük ezt a hírt"
 #, fuzzy
 msgid "Delete this group."
 msgstr "Töröljük ezt a felhasználót"
-
-#. TRANS: Error message displayed trying to delete a notice while not logged in.
-#. TRANS: Client error displayed when trying to remove a favorite while not logged in.
-#. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
-#. TRANS: Client error displayed trying to block a user from a group while not logged in.
-#. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
-#. TRANS: Client error displayed trying to log out when not logged in.
-#. TRANS: Client error displayed when trying to access the "make admin" page while not logged in.
-#. TRANS: Client error displayed trying to create a new direct message while not logged in.
-#. TRANS: Client error displayed trying to send a notice while not logged in.
-#. TRANS: Client error displayed trying to nudge a user without being logged in.
-#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
-#. TRANS: Client error displayed trying a change a subscription while not logged in.
-#. TRANS: Client error displayed trying to subscribe when not logged in.
-#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#. TRANS: Client error displayed when trying to change user options while not logged in.
-msgid "Not logged in."
-msgstr "Nem vagy bejelentkezve."
 
 #. TRANS: Instructions for deleting a notice.
 msgid ""
@@ -2437,14 +2488,6 @@ msgstr "A felhasználónak már van ilyen szerepe."
 msgid "No profile specified."
 msgstr "Nincs profil megadva."
 
-#. TRANS: Client error displayed trying to block a user from a group while specifying a non-existing profile.
-#. TRANS: Client error displayed when trying to unblock a user from a group without providing an existing profile.
-#. TRANS: Client error displayed when specifying an invalid profile ID on the Make Admin page.
-#. TRANS: Client error displayed trying a change a subscription for a non-existant profile ID.
-#. TRANS: Client error displayed when trying to change user options without specifying an existing user to work on.
-msgid "No profile with that ID."
-msgstr "Nincs ilyen azonosítóval rendelkező profil."
-
 #. TRANS: Client error displayed trying to block a user from a group while not specifying a group to block a profile from.
 #. TRANS: Client error displayed when trying to unblock a user from a group without providing a group.
 #. TRANS: Client error displayed when not providing a group ID on the Make Admin page.
@@ -3031,6 +3074,7 @@ msgid "License selection"
 msgstr ""
 
 #. TRANS: License option in the license admin panel.
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 msgid "Private"
 msgstr "Privát"
 
@@ -3774,6 +3818,7 @@ msgid "SSL"
 msgstr "SSL"
 
 #. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#. TRANS: Option in dropdown for snapshot method in admin panel for snapshots.
 msgid "Never"
 msgstr "Soha"
 
@@ -3934,17 +3979,22 @@ msgstr ""
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
+#. TRANS: Text area title in form for account registration. Plural
+#. TRANS: is decided by the number of characters available for the
+#. TRANS: biography (%d).
 #, fuzzy, php-format
-msgid "Describe yourself and your interests in %d character"
-msgid_plural "Describe yourself and your interests in %d characters"
+msgid "Describe yourself and your interests in %d character."
+msgid_plural "Describe yourself and your interests in %d characters."
 msgstr[0] "Jellemezd önmagad és az érdeklődési köröd %d karakterben"
 msgstr[1] "Jellemezd önmagad és az érdeklődési köröd %d karakterben"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-msgid "Describe yourself and your interests"
+#. TRANS: Text area title on account registration page.
+#, fuzzy
+msgid "Describe yourself and your interests."
 msgstr "Jellemezd önmagad és az érdeklődési köröd"
 
-#. TRANS: Text area label in form for profile settings where users can provide.
+#. TRANS: Text area label in form for profile settings where users can provide
 #. TRANS: their biography.
 #. TRANS: Text area label on account registration page.
 msgid "Bio"
@@ -3957,7 +4007,9 @@ msgid "Location"
 msgstr "Helyszín"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-msgid "Where you are, like \"City, State (or Region), Country\""
+#. TRANS: Field title on account registration page.
+#, fuzzy
+msgid "Where you are, like \"City, State (or Region), Country\"."
 msgstr "Merre vagy, mint pl. \"Város, Megye, Ország\""
 
 #. TRANS: Checkbox label in form for profile settings.
@@ -3965,6 +4017,7 @@ msgid "Share my current location when posting notices"
 msgstr "Tegyük közzé az aktuális tartózkodási helyem amikor híreket küldök"
 
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Field label for inputting tags on "tag other users" page.
 msgid "Tags"
 msgstr "Címkék"
 
@@ -4002,6 +4055,27 @@ msgstr ""
 "Automatikusan iratkozzunk fel mindazok híreire, aki feliratkoznak a mieinkre "
 "(nem embereknek való)"
 
+#. TRANS: Dropdown field label on profile settings, for what policies to apply when someone else tries to subscribe to your updates.
+#, fuzzy
+msgid "Subscription policy"
+msgstr "Feliratkozások"
+
+#. TRANS: Dropdown field option for following policy.
+msgid "Let anyone follow me"
+msgstr ""
+
+#. TRANS: Dropdown field option for following policy.
+msgid "Ask me first"
+msgstr ""
+
+#. TRANS: Dropdown field title on group edit form.
+msgid "Whether other users need your permission to follow your updates."
+msgstr ""
+
+#. TRANS: Checkbox label in profile settings.
+msgid "Make updates visible only to my followers"
+msgstr ""
+
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
@@ -4034,7 +4108,7 @@ msgstr "Érvénytelen címke: \"%s\""
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
 #, fuzzy
-msgid "Could not update user for autosubscribe."
+msgid "Could not update user for autosubscribe or subscribe_policy."
 msgstr "Nem sikerült a felhasználónak automatikus feliratkozást beállítani."
 
 #. TRANS: Server error thrown when user profile location preference settings could not be updated.
@@ -4043,6 +4117,7 @@ msgid "Could not save location prefs."
 msgstr "Nem sikerült a helyszín beállításait elmenteni."
 
 #. TRANS: Server error thrown when user profile settings tags could not be saved.
+#. TRANS: Client error on "tag other users" page when saving tags fails server side.
 msgid "Could not save tags."
 msgstr ""
 
@@ -4380,26 +4455,7 @@ msgstr ""
 msgid "Longer name, preferably your \"real\" name."
 msgstr "Hosszabb név, célszerűen a \"valódi\" neved"
 
-#. TRANS: Text area title in form for account registration. Plural
-#. TRANS: is decided by the number of characters available for the
-#. TRANS: biography (%d).
-#, fuzzy, php-format
-msgid "Describe yourself and your interests in %d character."
-msgid_plural "Describe yourself and your interests in %d characters."
-msgstr[0] "Jellemezd önmagad és az érdeklődési köröd %d karakterben"
-msgstr[1] "Jellemezd önmagad és az érdeklődési köröd %d karakterben"
-
-#. TRANS: Text area title on account registration page.
-#, fuzzy
-msgid "Describe yourself and your interests."
-msgstr "Jellemezd önmagad és az érdeklődési köröd"
-
-#. TRANS: Field title on account registration page.
-#, fuzzy
-msgid "Where you are, like \"City, State (or Region), Country\"."
-msgstr "Merre vagy, mint pl. \"Város, Megye, Ország\""
-
-#. TRANS: Field label on account registration page.
+#. TRANS: Button text to register a user on account registration page.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Register"
@@ -4497,6 +4553,7 @@ msgid "URL of your profile on another compatible microblogging service."
 msgstr ""
 
 #. TRANS: Button text on page for remote subscribe.
+#. TRANS: Link text for link that will subscribe to a remote profile.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Subscribe"
@@ -4530,16 +4587,8 @@ msgstr ""
 msgid "No notice specified."
 msgstr "Nincs hír megjelölve."
 
-#. TRANS: Client error displayed when trying to repeat an own notice.
-#, fuzzy
-msgid "You cannot repeat your own notice."
-msgstr "Nem ismételheted meg a saját híredet."
-
-#. TRANS: Client error displayed when trying to repeat an already repeated notice.
-msgid "You already repeated that notice."
-msgstr ""
-
 #. TRANS: Title after repeating a notice.
+#. TRANS: Repeat form status in notice list when a notice has been repeated.
 msgid "Repeated"
 msgstr ""
 
@@ -4697,6 +4746,7 @@ msgid "StatusNet"
 msgstr "StatusNet"
 
 #. TRANS: Client error displayed trying to sandbox users on a site where the feature is not enabled.
+#. TRANS: Client error on page to unsandbox a user when the feature is not enabled.
 msgid "You cannot sandbox users on this site."
 msgstr ""
 
@@ -4963,6 +5013,11 @@ msgstr ""
 msgid "Message from %1$s on %2$s"
 msgstr ""
 
+#. TRANS: Client exception thrown when trying a view a notice the user has no access to.
+#, fuzzy
+msgid "Not available."
+msgstr "IM nem elérhető."
+
 #. TRANS: Client error displayed trying to show a deleted notice.
 msgid "Notice deleted."
 msgstr "A hírt töröltük."
@@ -4970,20 +5025,20 @@ msgstr "A hírt töröltük."
 #. TRANS: Page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$s is the hash tag.
 #, fuzzy, php-format
-msgid "%1$s tagged %2$s"
+msgid "Notices by %1$s tagged %2$s"
 msgstr "  %s megcímkézve"
 
 #. TRANS: Page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$s is the hash tag, %3$d is the page number.
 #, fuzzy, php-format
-msgid "%1$s tagged %2$s, page %3$d"
+msgid "Notices by %1$s tagged %2$s, page %3$d"
 msgstr "%1$s és barátai, %2$d oldal"
 
 #. TRANS: Extended page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$d is the page number.
-#, php-format
-msgid "%1$s, page %2$d"
-msgstr ""
+#, fuzzy, php-format
+msgid "Notices by %1$s, page %2$d"
+msgstr "%1$s kimenő postafiókja - %2$d. oldal"
 
 #. TRANS: Title for link to notice feed.
 #. TRANS: %1$s is a user nickname, %2$s is a hashtag.
@@ -5067,6 +5122,7 @@ msgid "Repeat of %s"
 msgstr "%s ismétlése"
 
 #. TRANS: Client error displayed trying to silence a user on a site where the feature is not enabled.
+#. TRANS: Client error on page to unsilence a user when the feature is not enabled.
 msgid "You cannot silence users on this site."
 msgstr "Ezen a webhelyen nem hallgattathatod el a felhasználókat."
 
@@ -5351,52 +5407,70 @@ msgstr ""
 msgid "No code entered."
 msgstr "Nincs kód megadva"
 
-#. TRANS: Menu item for site administration
+#. TRANS: Title for admin panel to configure snapshots.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Snapshots"
 msgstr "Pillanatképek"
 
+#. TRANS: Instructions for admin panel to configure snapshots.
 msgid "Manage snapshot configuration"
 msgstr ""
 
+#. TRANS: Client error displayed on admin panel for snapshots when providing an invalid run value.
 msgid "Invalid snapshot run value."
 msgstr ""
 
+#. TRANS: Client error displayed on admin panel for snapshots when providing an invalid value for frequency.
 msgid "Snapshot frequency must be a number."
 msgstr ""
 
+#. TRANS: Client error displayed on admin panel for snapshots when providing an invalid report URL.
 msgid "Invalid snapshot report URL."
 msgstr ""
 
+#. TRANS: Fieldset legend on admin panel for snapshots.
+#, fuzzy
+msgctxt "LEGEND"
+msgid "Snapshots"
+msgstr "Pillanatképek"
+
+#. TRANS: Option in dropdown for snapshot method in admin panel for snapshots.
 msgid "Randomly during web hit"
 msgstr ""
 
+#. TRANS: Option in dropdown for snapshot method in admin panel for snapshots.
 msgid "In a scheduled job"
 msgstr ""
 
+#. TRANS: Dropdown label for snapshot method in admin panel for snapshots.
 msgid "Data snapshots"
 msgstr "Adat pillanatképek"
 
-msgid "When to send statistical data to status.net servers"
+#. TRANS: Dropdown title for snapshot method in admin panel for snapshots.
+msgid "When to send statistical data to status.net servers."
 msgstr ""
 
+#. TRANS: Input field label for snapshot frequency in admin panel for snapshots.
 msgid "Frequency"
 msgstr "Gyakoriság"
 
-msgid "Snapshots will be sent once every N web hits"
+#. TRANS: Input field title for snapshot frequency in admin panel for snapshots.
+msgid "Snapshots will be sent once every N web hits."
 msgstr ""
 
+#. TRANS: Input field label for snapshot report URL in admin panel for snapshots.
 msgid "Report URL"
 msgstr "URL jelentése"
 
-msgid "Snapshots will be sent to this URL"
+#. TRANS: Input field title for snapshot report URL in admin panel for snapshots.
+msgid "Snapshots will be sent to this URL."
 msgstr ""
 
-#. TRANS: Submit button title.
-msgid "Save"
-msgstr "Mentés"
-
-msgid "Save snapshot settings"
-msgstr ""
+#. TRANS: Title for button to save snapshot settings.
+#, fuzzy
+msgid "Save snapshot settings."
+msgstr "Mentsük el a webhely beállításait"
 
 #. TRANS: Client error displayed trying a change a subscription for a non-subscribed profile.
 msgid "You are not subscribed to that profile."
@@ -5406,6 +5480,27 @@ msgstr ""
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
 msgid "Could not save subscription."
 msgstr ""
+
+#. TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
+msgid "You may only approve your own pending subscriptions."
+msgstr ""
+
+#. TRANS: Title of the first page showing pending subscribers still awaiting approval.
+#. TRANS: %s is the name of the user.
+#, fuzzy, php-format
+msgid "%s subscribers awaiting approval"
+msgstr "%s csoport tagjai"
+
+#. TRANS: Title of all but the first page showing pending subscribersmembers still awaiting approval.
+#. TRANS: %1$s is the name of the user, %2$d is the page number of the members list.
+#, fuzzy, php-format
+msgid "%1$s subscribers awaiting approval, page %2$d"
+msgstr "%1$s csoport, %2$d. oldal"
+
+#. TRANS: Page notice for group members page.
+#, fuzzy
+msgid "A list of users awaiting approval to subscribe to you."
+msgstr "A csoportban lévő felhasználók listája."
 
 #. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
@@ -5518,31 +5613,43 @@ msgstr "SMS"
 msgid "Notices tagged with %1$s, page %2$d"
 msgstr ""
 
+#. TRANS: Link label for feed on "notices with tag" page.
+#. TRANS: %s is the tag the feed is for.
 #, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
 msgstr "%s címke RSS 1.0 hírcsatornája"
 
+#. TRANS: Link label for feed on "notices with tag" page.
+#. TRANS: %s is the tag the feed is for.
 #, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
 msgstr "%s címke RSS 2.0 hírcsatornája"
 
+#. TRANS: Link label for feed on "notices with tag" page.
+#. TRANS: %s is the tag the feed is for.
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
 msgstr "%s címke Atom hírcsatornája"
 
+#. TRANS: Client error displayed on user tag page when trying to add tags without providing a user ID.
 msgid "No ID argument."
 msgstr ""
 
+#. TRANS: Title for "tag other users" page.
+#. TRANS: %s is the user nickname.
 #, php-format
 msgid "Tag %s"
 msgstr ""
 
+#. TRANS: Header for user details on "tag other users" page.
 msgid "User profile"
 msgstr "Felhasználói profil"
 
+#. TRANS: Fieldset legend on "tag other users" page.
 msgid "Tag user"
 msgstr ""
 
+#. TRANS: Title for input field for inputting tags on "tag other users" page.
 #, fuzzy
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), separated by commas or "
@@ -5551,13 +5658,22 @@ msgstr ""
 "Címkék magadhoz (betűk, számok, -, ., és _), vesszővel vagy szóközzel "
 "elválasztva"
 
+#. TRANS: Client error on "tag other users" page when tagging a user is not possible because of missing mutual subscriptions.
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
 
+#. TRANS: Title of "tag other users" page.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Tags"
+msgstr "Címkék"
+
+#. TRANS: Page notice on "tag other users" page.
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
 
+#. TRANS: Client error when requesting a tag feed for a non-existing tag.
 msgid "No such tag."
 msgstr "Nincs ilyen címke."
 
@@ -5565,23 +5681,29 @@ msgstr "Nincs ilyen címke."
 msgid "You haven't blocked that user."
 msgstr ""
 
+#. TRANS: Client error on page to unsilence a user when the to be unsandboxed user has not been sandboxed.
 msgid "User is not sandboxed."
 msgstr ""
 
+#. TRANS: Client error on page to unsilence a user when the to be unsilenced user has not been silenced.
 msgid "User is not silenced."
 msgstr ""
 
-msgid "No profile ID in request."
-msgstr ""
-
+#. TRANS: Page title for page to unsubscribe.
 msgid "Unsubscribed"
 msgstr ""
 
-#, php-format
+#. TRANS: Client error displayed when trying to update profile with an incompatible license.
+#. TRANS: %1$s is the license incompatible with site license %2$s.
+#. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
+#. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
+#, fuzzy, php-format
 msgid ""
-"Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
-msgstr ""
+"Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
+"\"."
+msgstr "A hír licence ‘%1$s’ nem kompatibilis a webhely licencével ‘%2$s’."
 
+#. TRANS: Title of URL settings tab in profile settings.
 #, fuzzy
 msgid "URL settings"
 msgstr "IM beállítások"
@@ -5596,9 +5718,11 @@ msgstr "Számos egyéb beállítás kezelése."
 msgid " (free service)"
 msgstr " (ingyenes szolgáltatás)"
 
+#. TRANS: Default value for URL shortening settings.
 msgid "[none]"
 msgstr ""
 
+#. TRANS: Default value for URL shortening settings.
 msgid "[internal]"
 msgstr ""
 
@@ -5610,15 +5734,19 @@ msgstr ""
 msgid "Automatic shortening service to use."
 msgstr ""
 
+#. TRANS: Field label in URL settings in profile.
 msgid "URL longer than"
 msgstr ""
 
+#. TRANS: Field title in URL settings in profile.
 msgid "URLs longer than this will be shortened, 0 means always shorten."
 msgstr ""
 
+#. TRANS: Field label in URL settings in profile.
 msgid "Text longer than"
 msgstr ""
 
+#. TRANS: Field title in URL settings in profile.
 msgid ""
 "URLs in notices longer than this will be shortened, 0 means always shorten."
 msgstr ""
@@ -5628,13 +5756,17 @@ msgstr ""
 msgid "URL shortening service is too long (maximum 50 characters)."
 msgstr "A nyelv túl hosszú (legfeljebb 50 karakter lehet)."
 
-msgid "Invalid number for max url length."
-msgstr ""
-
+#. TRANS: Client exception thrown when the maximum URL settings value is invalid in profile URL settings.
 #, fuzzy
-msgid "Invalid number for max notice length."
+msgid "Invalid number for maximum URL length."
 msgstr "Érvénytelen megjegyzéstartalom."
 
+#. TRANS: Client exception thrown when the maximum notice length settings value is invalid in profile URL settings.
+#, fuzzy
+msgid "Invalid number for maximum notice length."
+msgstr "Érvénytelen megjegyzéstartalom."
+
+#. TRANS: Server exception thrown in profile URL settings when preferences could not be saved.
 msgid "Error saving user URL shortening preferences."
 msgstr ""
 
@@ -5715,7 +5847,7 @@ msgstr "Mentsük el a webhely beállításait"
 msgid "Authorize subscription"
 msgstr "Feliratkozás engedélyezése"
 
-#. TRANS: Page notice on "Auhtorize subscription" page.
+#. TRANS: Page notice on "Authorize subscription" page.
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
@@ -5724,6 +5856,7 @@ msgstr ""
 
 #. TRANS: Button text on Authorise Subscription page.
 #. TRANS: Submit button text to accept a group membership request on approve group form.
+#. TRANS: Submit button text to accept a subscription request on approve sub form.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Accept"
@@ -5736,6 +5869,7 @@ msgstr "Ezen felhasználók híreire már feliratkoztál:"
 
 #. TRANS: Button text on Authorise Subscription page.
 #. TRANS: Submit button text to reject a group membership request on approve group form.
+#. TRANS: Submit button text to reject a subscription request on approve sub form.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Reject"
@@ -5754,9 +5888,10 @@ msgstr ""
 msgid "Subscription authorized"
 msgstr ""
 
+#. TRANS: Accept message text from Authorise subscription page.
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
-"with the site’s instructions for details on how to authorize the "
+"with the site's instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
 
@@ -5764,9 +5899,10 @@ msgstr ""
 msgid "Subscription rejected"
 msgstr ""
 
+#. TRANS: Reject message from Authorise subscription page.
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
-"with the site’s instructions for details on how to fully reject the "
+"with the site's instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
 
@@ -5793,14 +5929,6 @@ msgstr ""
 #, php-format
 msgid "Profile URL \"%s\" is for a local user."
 msgstr ""
-
-#. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
-#. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
-#, fuzzy, php-format
-msgid ""
-"Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
-"\"."
-msgstr "A hír licence ‘%1$s’ nem kompatibilis a webhely licencével ‘%2$s’."
 
 #. TRANS: Exception thrown when avatar URL is invalid for an authorisation request.
 #. TRANS: %s is an avatar URL.
@@ -6012,18 +6140,6 @@ msgstr[1] ""
 msgid "Invalid filename."
 msgstr ""
 
-#. TRANS: Exception thrown when joining a group fails.
-msgid "Group join failed."
-msgstr ""
-
-#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
-msgid "Not part of group."
-msgstr ""
-
-#. TRANS: Exception thrown when trying to leave a group fails.
-msgid "Group leave failed."
-msgstr ""
-
 #. TRANS: Exception thrown providing an invalid profile ID.
 #. TRANS: %s is the invalid profile ID.
 #, php-format
@@ -6035,6 +6151,18 @@ msgstr ""
 #, fuzzy, php-format
 msgid "Group ID %s is invalid."
 msgstr "Hiba a felhasználó mentésekor; érvénytelen."
+
+#. TRANS: Exception thrown when joining a group fails.
+msgid "Group join failed."
+msgstr ""
+
+#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
+msgid "Not part of group."
+msgstr ""
+
+#. TRANS: Exception thrown when trying to leave a group fails.
+msgid "Group leave failed."
+msgstr ""
 
 #. TRANS: Activity title.
 msgid "Join"
@@ -6106,6 +6234,36 @@ msgstr ""
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
+#. TRANS: Client exception thrown in notice when trying to repeat a missing or deleted notice.
+#, fuzzy
+msgid "Cannot repeat; original notice is missing or deleted."
+msgstr "Nem ismételheted meg a saját híredet."
+
+#. TRANS: Client error displayed when trying to repeat an own notice.
+#, fuzzy
+msgid "You cannot repeat your own notice."
+msgstr "Nem ismételheted meg a saját híredet."
+
+#. TRANS: Client error displayed when trying to repeat a non-public notice.
+#, fuzzy
+msgid "Cannot repeat a private notice."
+msgstr "Nem ismételheted meg a saját híredet."
+
+#. TRANS: Client error displayed when trying to repeat a notice you cannot access.
+#, fuzzy
+msgid "Cannot repeat a notice you cannot read."
+msgstr "Nem ismételheted meg a saját híredet."
+
+#. TRANS: Client error displayed when trying to repeat an already repeated notice.
+msgid "You already repeated that notice."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to reply to a notice a the target has no access to.
+#. TRANS: %1$s is a user nickname, %2$d is a notice ID (number).
+#, fuzzy, php-format
+msgid "%1$s has no access to notice %2$d."
+msgstr "%1$s feliratkozott a híreidre a %2$s webhelyen."
+
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
 msgid "Problem saving notice."
@@ -6131,15 +6289,12 @@ msgstr "Nem sikerült menteni a profilt."
 msgid "RT @%1$s %2$s"
 msgstr ""
 
+#. TRANS: Full name of a profile or group (%1$s) followed by nickname (%2$s) in parentheses.
 #. TRANS: Full name of a profile or group followed by nickname in parens
 #, fuzzy, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
 msgstr "%1$s - %2$s"
-
-#. TRANS: Exception thrown trying to approve a non-existing group join request.
-msgid "Invalid group join approval: not pending."
-msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
@@ -6189,9 +6344,11 @@ msgstr ""
 msgid "Could not delete subscription."
 msgstr ""
 
-#. TRANS: Activity tile when subscribing to another person.
+#. TRANS: Activity title when subscribing to another person.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Follow"
-msgstr ""
+msgstr "Engedjük"
 
 #. TRANS: Notification given when one person starts following another.
 #. TRANS: %1$s is the subscriber, %2$s is the subscribed.
@@ -6257,18 +6414,24 @@ msgid "User deletion in progress..."
 msgstr ""
 
 #. TRANS: Link title for link on user profile.
-msgid "Edit profile settings"
-msgstr ""
+#, fuzzy
+msgid "Edit profile settings."
+msgstr "Profilbeállítások"
 
 #. TRANS: Link text for link on user profile.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Edit"
 msgstr "Szerkesztés"
 
 #. TRANS: Link title for link on user profile.
-msgid "Send a direct message to this user"
-msgstr ""
+#, fuzzy
+msgid "Send a direct message to this user."
+msgstr "Közvetlen üzenetek neki: %s"
 
 #. TRANS: Link text for link on user profile.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Message"
 msgstr "Üzenet"
 
@@ -6289,10 +6452,6 @@ msgstr "Adminisztrátor"
 msgctxt "role"
 msgid "Moderator"
 msgstr "Moderátor"
-
-#. TRANS: Link text for link that will subscribe to a remote profile.
-msgid "Subscribe"
-msgstr "Kövessük"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #, php-format
@@ -6542,6 +6701,10 @@ msgstr "A webhely híre"
 msgid "Snapshots configuration"
 msgstr ""
 
+#. TRANS: Menu item for site administration
+msgid "Snapshots"
+msgstr "Pillanatképek"
+
 #. TRANS: Menu item title/tooltip
 msgid "Set site license"
 msgstr ""
@@ -6690,6 +6853,10 @@ msgstr ""
 msgid "Cancel"
 msgstr "Mégse"
 
+#. TRANS: Submit button title.
+msgid "Save"
+msgstr "Mentés"
+
 msgid " by "
 msgstr ""
 
@@ -6755,6 +6922,12 @@ msgstr "Felhasználó blokkolása"
 msgctxt "BUTTON"
 msgid "Cancel join request"
 msgstr ""
+
+#. TRANS: Button text for form action to cancel a subscription request.
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Cancel subscription request"
+msgstr "Összes feliratkozás"
 
 #. TRANS: Title for command results.
 msgid "Command results"
@@ -6903,10 +7076,6 @@ msgstr "Hiba a közvetlen üzenet küldése közben."
 #, php-format
 msgid "Notice from %s repeated."
 msgstr ""
-
-#. TRANS: Error text shown when repeating a notice fails with an unknown reason.
-msgid "Error repeating notice."
-msgstr "Hiba a hír ismétlésekor."
 
 #. TRANS: Message given if content of a notice for a reply is too long. %1$d is used for plural.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
@@ -7658,6 +7827,20 @@ msgstr ""
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s feliratkozott a híreidre a %2$s webhelyen."
 
+#. TRANS: Subject of pending new-subscriber notification e-mail.
+#. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
+#, fuzzy, php-format
+msgid "%1$s would like to listen to your notices on %2$s."
+msgstr "%1$s feliratkozott a híreidre a %2$s webhelyen."
+
+#. TRANS: Main body of pending new-subscriber notification e-mail.
+#. TRANS: %1$s is the subscriber's long name, %2$s is the StatusNet sitename.
+#, php-format
+msgid ""
+"%1$s would like to listen to your notices on %2$s. You may approve or reject "
+"their subscription at %3$s"
+msgstr ""
+
 #. TRANS: Common footer block for StatusNet notification emails.
 #. TRANS: %1$s is the StatusNet sitename,
 #. TRANS: %2$s is a link to the addressed user's e-mail settings.
@@ -8127,7 +8310,9 @@ msgstr "Válasz"
 msgid "Delete this notice"
 msgstr "Töröljük ezt a hírt"
 
-msgid "Notice repeated"
+#. TRANS: Title for repeat form status in notice list when a notice has been repeated.
+#, fuzzy
+msgid "Notice repeated."
 msgstr "A hírt megismételtük"
 
 msgid "Update your status..."
@@ -8410,27 +8595,78 @@ msgstr ""
 msgid "Silence this user"
 msgstr ""
 
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Profile"
+msgstr "Profil"
+
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Subscriptions"
+msgstr "Feliratkozások"
+
+#. TRANS: Menu item title in local navigation menu.
+#. TRANS: %s is a user nickname.
+#, fuzzy, php-format
+msgid "People %s subscribes to."
+msgstr "Senkinek sem iratkoztál fel a híreire."
+
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Subscribers"
+msgstr "Feliratkozók"
+
+#. TRANS: Menu item title in local navigation menu.
+#. TRANS: %s is a user nickname.
+#, fuzzy, php-format
+msgid "People subscribed to %s."
+msgstr "Már feliratkoztál!"
+
+#. TRANS: Menu item in local navigation menu.
 #, php-format
-msgid "People %s subscribes to"
+msgctxt "MENU"
+msgid "Pending (%d)"
 msgstr ""
 
+#. TRANS: Menu item title in local navigation menu.
 #, php-format
-msgid "People subscribed to %s"
+msgid "Approve pending subscription requests."
 msgstr ""
 
-#, php-format
-msgid "Groups %s is a member of"
-msgstr ""
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Groups"
+msgstr "Csoportok"
 
+#. TRANS: Menu item title in local navigation menu.
+#. TRANS: %s is a user nickname.
+#, fuzzy, php-format
+msgid "Groups %s is a member of."
+msgstr "A legtöbb tagból álló csoportok"
+
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
 msgid "Invite"
 msgstr "Meghívás"
 
-#, php-format
-msgid "Invite friends and colleagues to join you on %s"
+#. TRANS: Menu item title in local navigation menu.
+#. TRANS: %s is a user nickname.
+#, fuzzy, php-format
+msgid "Invite friends and colleagues to join you on %s."
 msgstr ""
+"Ezen űrlap segítségével meghívhatsz barátokat és kollégákat erre a "
+"szolgáltatásra."
 
 msgid "Subscribe to this user"
 msgstr ""
+
+msgid "Subscribe"
+msgstr "Kövessük"
 
 msgid "People Tagcloud as self-tagged"
 msgstr ""
@@ -8542,6 +8778,28 @@ msgstr[1] "Már megismételted azt a hírt."
 #. TRANS: Title for top posters section.
 msgid "Top posters"
 msgstr ""
+
+#. TRANS: Option in drop-down of potential addressees.
+msgctxt "SENDTO"
+msgid "Everyone"
+msgstr ""
+
+#. TRANS: Option in drop-down of potential addressees.
+#. TRANS: %s is a StatusNet sitename.
+#, php-format
+msgid "My colleagues at %s"
+msgstr ""
+
+#. TRANS: Label for drop-down of potential addressees.
+#, fuzzy
+msgctxt "LABEL"
+msgid "To:"
+msgstr "Címzett"
+
+#. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
+#, fuzzy, php-format
+msgid "Unknown to value: \"%s\"."
+msgstr "Ismeretlen nyelv: \"%s\"."
 
 #. TRANS: Title for the form to unblock a user.
 #, fuzzy
@@ -8661,6 +8919,20 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
+#~ msgid "Already repeated that notice."
+#~ msgstr "Már megismételted azt a hírt."
+
 #, fuzzy
-#~ msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-#~ msgstr "Az túl hosszú. Egy hír legfeljebb %d karakterből állhat."
+#~ msgid "Describe yourself and your interests in %d character"
+#~ msgid_plural "Describe yourself and your interests in %d characters"
+#~ msgstr[0] "Jellemezd önmagad és az érdeklődési köröd %d karakterben"
+#~ msgstr[1] "Jellemezd önmagad és az érdeklődési köröd %d karakterben"
+
+#~ msgid "Describe yourself and your interests"
+#~ msgstr "Jellemezd önmagad és az érdeklődési köröd"
+
+#~ msgid "Where you are, like \"City, State (or Region), Country\""
+#~ msgstr "Merre vagy, mint pl. \"Város, Megye, Ország\""
+
+#~ msgid "Error repeating notice."
+#~ msgstr "Hiba a hír ismétlésekor."

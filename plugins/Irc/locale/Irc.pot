@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 19:45+0000\n"
+"POT-Creation-Date: 2011-03-31 21:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,16 @@ msgstr ""
 
 #: IrcPlugin.php:79
 msgid "IRC"
+msgstr ""
+
+#: IrcPlugin.php:293
+#, php-format
+msgid ""
+"User \"%1$s\" on %2$s has said that your %3$s screenname belongs to them. If "
+"that's true, you can confirm by clicking on this URL: %4$s . (If you cannot "
+"click it, copy-and-paste it into the address bar of your browser). If that "
+"user is not you, or if you did not request this confirmation, just ignore "
+"this message."
 msgstr ""
 
 #: IrcPlugin.php:393
@@ -32,4 +42,9 @@ msgstr ""
 
 #: ircmanager.php:234
 msgid "Your nickname is not registered so IRC connectivity cannot be enabled"
+msgstr ""
+
+#. TRANS: Server error thrown on database error canceling IM address confirmation.
+#: ircmanager.php:247
+msgid "Could not delete confirmation."
 msgstr ""
