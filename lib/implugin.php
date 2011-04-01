@@ -262,9 +262,9 @@ abstract class ImPlugin extends Plugin
         // TRANS: Body text for confirmation code e-mail.
         // TRANS: %1$s is a user nickname, %2$s is the StatusNet sitename,
         // TRANS: %3$s is the display name of an IM plugin.
-        $body = sprintf(_('User "%1$s" on %2$s has said that your %2$s screenname belongs to them. ' .
+        $body = sprintf(_('User "%1$s" on %2$s has said that your %3$s screenname belongs to them. ' .
           'If that is true, you can confirm by clicking on this URL: ' .
-          '%3$s' .
+          '%4$s' .
           ' . (If you cannot click it, copy-and-paste it into the ' .
           'address bar of your browser). If that user is not you, ' .
           'or if you did not request this confirmation, just ignore this message.'),
