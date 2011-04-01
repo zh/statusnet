@@ -81,7 +81,7 @@ class NeweventAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_m("Must be logged in to post a event."),
+            throw new ClientException(_m('Must be logged in to post a event.'),
                                       403);
         }
 
@@ -135,13 +135,13 @@ class NeweventAction extends Action
         $this->endTime   = strtotime($end);
 
         if ($this->startTime == 0) {
-            throw new Exception(sprintf(_m('Could not parse date "%s"'),
+            throw new Exception(sprintf(_m('Could not parse date "%s".'),
                                         $start));
         }
 
 
         if ($this->endTime == 0) {
-            throw new Exception(sprintf(_m('Could not parse date "%s"'),
+            throw new Exception(sprintf(_m('Could not parse date "%s".'),
                                         $end));
         }
 

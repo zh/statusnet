@@ -168,7 +168,7 @@ class EventPlugin extends MicroappPlugin
         $happeningObj = $activity->objects[0];
 
         if ($happeningObj->type != Happening::OBJECT_TYPE) {
-            throw new Exception('Wrong type for object.');
+            throw new Exception(_m('Wrong type for object.'));
         }
 
         $notice = null;
@@ -189,12 +189,12 @@ class EventPlugin extends MicroappPlugin
             $happening = Happening::staticGet('uri', $happeningObj->id);
             if (empty($happening)) {
                 // FIXME: save the event
-                throw new Exception("RSVP for unknown event.");
+                throw new Exception(_m('RSVP for unknown event.'));
             }
             $notice = RSVP::saveNew($actor, $happening, $activity->verb, $options);
             break;
         default:
-            throw new Exception("Unknown verb for events");
+            throw new Exception(_m('Unknown verb for events'));
         }
 
         return $notice;
@@ -225,13 +225,13 @@ class EventPlugin extends MicroappPlugin
         }
 
         if (empty($happening)) {
-            throw new Exception("Unknown object type.");
+            throw new Exception(_m('Unknown object type.'));
         }
 
         $notice = $happening->getNotice();
 
         if (empty($notice)) {
-            throw new Exception("Unknown event notice.");
+            throw new Exception(_m('Unknown event notice.'));
         }
 
         $obj = new ActivityObject();

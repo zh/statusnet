@@ -219,7 +219,7 @@ class RSVP extends Managed_DataObject
             return '?';
             break;
         default:
-            throw new Exception("Unknown verb {$verb}");
+            throw new Exception(sprintf(_m('Unknown verb "%s"'),$verb));
         }
     }
 
@@ -236,7 +236,7 @@ class RSVP extends Managed_DataObject
             return RSVP::POSSIBLE;
             break;
         default:
-            throw new Exception("Unknown code {$code}");
+            throw new Exception(sprintf(_m('Unknown code "%s".'),$code));
         }
     }
 
@@ -244,7 +244,7 @@ class RSVP extends Managed_DataObject
     {
         $notice = Notice::staticGet('uri', $this->uri);
         if (empty($notice)) {
-            throw new ServerException("RSVP {$this->id} does not correspond to a notice in the DB.");
+            throw new ServerException(sprintf(_m('RSVP %s does not correspond to a notice in the database.'),$this->id));
         }
         return $notice;
     }
@@ -278,7 +278,7 @@ class RSVP extends Managed_DataObject
     {
         $profile = Profile::staticGet('id', $this->profile_id);
         if (empty($profile)) {
-            throw new Exception("No profile with ID {$this->profile_id}");
+            throw new Exception(sprintf(_m('No profile with ID %s.'),$this->profile_id));
         }
         return $profile;
     }
@@ -287,7 +287,7 @@ class RSVP extends Managed_DataObject
     {
         $event = Happening::staticGet('id', $this->event_id);
         if (empty($event)) {
-            throw new Exception("No event with ID {$this->event_id}");
+            throw new Exception(sprintf(_m('No event with ID %s.'),$this->event_id));
         }
         return $event;
     }
@@ -316,16 +316,16 @@ class RSVP extends Managed_DataObject
 
         switch ($response) {
         case 'Y':
-            $fmt = _m("<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is attending <a href='%3$s'>%4$s</a>.</span>");
+            $fmt = _m("<span class='automatic event-rsvp'><a href='%1\$s'>%2\$s</a> is attending <a href='%3\$s'>%4\$s</a>.</span>");
             break;
         case 'N':
-            $fmt = _m("<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is not attending <a href='%3$s'>%4$s</a>.</span>");
+            $fmt = _m("<span class='automatic event-rsvp'><a href='%1\$s'>%2\$s</a> is not attending <a href='%3\$s'>%4\$s</a>.</span>");
             break;
         case '?':
-            $fmt = _m("<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> might attend <a href='%3$s'>%4$s</a>.</span>");
+            $fmt = _m("<span class='automatic event-rsvp'><a href='%1\$s'>%2\$s</a> might attend <a href='%3\$s'>%4\$s</a>.</span>");
             break;
         default:
-            throw new Exception(sprintf(_('Unknown response code %s.'),$response));
+            throw new Exception(sprintf(_m('Unknown response code %s.'),$response));
             break;
         }
 
@@ -351,16 +351,16 @@ class RSVP extends Managed_DataObject
 
         switch ($response) {
         case 'Y':
-            $fmt = _m("%1$s is attending %2$s.");
+            $fmt = _m('%1$s is attending %2$s.');
             break;
         case 'N':
-            $fmt = _m("%1$s is not attending %2$s.");
+            $fmt = _m('%1$s is not attending %2$s.');
             break;
         case '?':
-            $fmt = _m("%1$s might attend %2$s.>");
+            $fmt = _m('%1$s might attend %2$s.');
             break;
         default:
-            throw new Exception("Unknown response code {$response}");
+            throw new Exception(sprintf(_m('Unknown response code %s.'),$response));
             break;
         }
 
