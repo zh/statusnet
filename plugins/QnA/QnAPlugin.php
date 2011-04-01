@@ -82,13 +82,14 @@ class QnAPlugin extends MicroAppPlugin
         case 'QnanewanswerAction':
         case 'QnashowquestionAction':
         case 'QnashowanswerAction':
+        case 'QnareviseanswerAction':
         case 'QnavoteAction':
             include_once $dir . '/actions/'
                 . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'QnaquestionForm':
         case 'QnaanswerForm':
-        case 'QnaansweredForm':
+        case 'QnareviseanswerForm':
         case 'QnavoteForm':
             include_once $dir . '/lib/' . strtolower($cls).'.php';
             break;
@@ -327,7 +328,7 @@ class QnAPlugin extends MicroAppPlugin
                 $answer = $question->getAnswer($profile);
                 if ($answer) {
                     // User has already answer; show the results.
-                    $form = new QnaansweredForm($answer, $out);
+                    $form = new QnareviseanswerForm($answer, $out);
                 } else {
                     $form = new QnaanswerForm($question, $out);
                 }

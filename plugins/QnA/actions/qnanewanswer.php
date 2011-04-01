@@ -158,8 +158,7 @@ class QnanewanswerAction extends Action
             $this->element('title', null, _m('Answers'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $form = new QnaanswerForm($this->question, $this);
-            $form->show();
+            $this->raw()
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {

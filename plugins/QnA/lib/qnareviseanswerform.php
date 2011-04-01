@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Form for answering a question
+ * Form for revising a question
  *
  * PHP version 5
  *
@@ -35,7 +35,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Form to add a new answer to a question
+ * Form to revise a question
  *
  * @category  QnA
  * @package   StatusNet
@@ -44,7 +44,7 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class QnaansweredForm extends Form
+class QnareviseanswerForm extends Form
 {
     protected $question;
     protected $answer;
@@ -106,7 +106,7 @@ class QnaansweredForm extends Form
         $id       = "question-" . $question->id;
 
         $out->element('p', 'Your answer to:', $question->title);
-        $out->element('input', array('type' => 'text', 'name' => 'answer'));
+        $out->textarea('answerText', 'You said:', $this->answer->content);
     }
 
     /**
