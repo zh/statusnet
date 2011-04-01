@@ -329,11 +329,20 @@ class Bookmark extends Memcached_DataObject
             $options['uri'] = $nb->uri;
         }
 
-        $saved = Notice::saveNew($profile->id,
-                                 $content,
-                                 array_key_exists('source', $options) ?
-                                 $options['source'] : 'web',
-                                 $options);
+        try {
+            $saved = Notice::saveNew($profile->id,
+                                     $content,
+                                     array_key_exists('source', $options) ?
+                                     $options['source'] : 'web',
+                                     $options);
+        } catch (Exception $e) {
+            $nb->delete();
+            throw $e;
+        }
+
+        if (empty($saved)) {
+            $nb->delete();
+        }
 
         return $saved;
     }
