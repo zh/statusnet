@@ -10,20 +10,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-31 21:06+0000\n"
-"PO-Revision-Date: 2011-03-31 21:08:28+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
+"PO-Revision-Date: 2011-04-01 20:48:03+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85082); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85150); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2011-03-26 11:23:47+0000\n"
+"X-POT-Import-Date: 2011-03-31 21:35:53+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
-#. TRANS: Menu item for site administration
 msgid "Access"
 msgstr "Пристап"
 
@@ -136,6 +135,7 @@ msgstr "Нема таква страница."
 #. TRANS: Client error displayed requesting groups for a non-existing user.
 #. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
+#. TRANS: Client error displayed when trying to perform a gallery action with an unknown user.
 #. TRANS: Client error displayed when calling a profile action without specifying a user.
 msgid "No such user."
 msgstr "Нема таков корисник."
@@ -149,6 +149,12 @@ msgstr "%1$s и пријателите, стр. %2$d"
 #. TRANS: H1 text for page. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Timeline title for user and friends. %s is a user nickname.
+#. TRANS: Menu item title in administrator navigation panel.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in personal group navigation menu.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in settings navigation panel.
+#. TRANS: %s is a username.
 #, php-format
 msgid "%s and friends"
 msgstr "%s и пријатели"
@@ -276,6 +282,7 @@ msgstr "Не можев да го подновам корисникот."
 #. TRANS: Server error displayed when trying to get a user hCard for a user without a profile.
 #. TRANS: Server error displayed when trying to reply to a user without a profile.
 #. TRANS: Server error displayed requesting groups for a user without a profile.
+#. TRANS: Server error displayed when trying to perform a gallery action with a user without a profile.
 #. TRANS: Server error displayed when calling a profile action while the specified user does not have a profile.
 msgid "User has no profile."
 msgstr "Корисникот нема профил."
@@ -1146,34 +1153,32 @@ msgid "Join request canceled."
 msgstr "Барањето за зачленување е откажано."
 
 #. TRANS: Client error displayed trying to approve subscription for a non-existing request.
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not in the moderation queue for your subscriptions."
-msgstr "%s не е редицата за модерација на оваа група."
+msgstr "%s не е во редицата за модерација на Вашите претплати."
 
 #. TRANS: Server error displayed when cancelling a queued subscription request fails.
 #. TRANS: %1$s is the leaving user's nickname, $2$s is the nickname for which the leave failed.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not cancel or approve request for user %1$s to join group %2$s."
 msgstr ""
-"Не можев да го откажам барањето да го зачленам корисникот %1$s во групата %2"
-"$s."
+"Не можев да го откажам или одобрам барањето да го зачленам корисникот %1$s "
+"во групата %2$s."
 
 #. TRANS: Title for subscription approval ajax return
 #. TRANS: %1$s is the approved user's nickname
-#, fuzzy, php-format
+#, php-format
 msgctxt "TITLE"
 msgid "%1$s's request"
-msgstr "Барањето на %1$s за %2$s"
+msgstr "Барањето на %1$s"
 
 #. TRANS: Message on page for user after approving a subscription request.
-#, fuzzy
 msgid "Subscription approved."
-msgstr "Претплатата е одобрена"
+msgstr "Претплатата е одобрена."
 
 #. TRANS: Message on page for user after rejecting a subscription request.
-#, fuzzy
 msgid "Subscription canceled."
-msgstr "Овластувањето е откажано."
+msgstr "Претплатата е откажана."
 
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
@@ -1210,9 +1215,9 @@ msgstr "Веќе е бендисано."
 
 #. TRANS: Title for group membership feed.
 #. TRANS: %s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "Group memberships of %s"
-msgstr "Членства на групата %s"
+msgstr "Членувања на %s"
 
 #. TRANS: Subtitle for group membership feed.
 #. TRANS: %1$s is a username, %2$s is the StatusNet sitename.
@@ -1575,7 +1580,6 @@ msgid "No profile with that ID."
 msgstr "Нема профил со тоа ID."
 
 #. TRANS: Title after unsubscribing from a group.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Unsubscribed"
 msgstr "Претплатата е откажана"
@@ -1972,14 +1976,17 @@ msgid "Use defaults"
 msgstr "Користи по основно"
 
 #. TRANS: Title for button for resetting theme settings.
+#. TRANS: Title for button on profile design page to reset all colour settings to default.
 msgid "Restore default designs."
 msgstr "Врати ги изгледите по основно."
 
 #. TRANS: Title for button for resetting theme settings.
+#. TRANS: Title for button on profile design page to reset all colour settings to default without saving.
 msgid "Reset back to default."
 msgstr "Врати по основно."
 
 #. TRANS: Title for button for saving theme settings.
+#. TRANS: Title for button on profile design page to save settings.
 msgid "Save design."
 msgstr "Зачувај изглед."
 
@@ -2311,6 +2318,7 @@ msgstr "Тргни од бендисани."
 
 #. TRANS: Page title for first page of favorited notices.
 #. TRANS: Title for favourited notices section.
+#. TRANS: Menu item title in search group navigation panel.
 msgid "Popular notices"
 msgstr "Популарни забелешки"
 
@@ -2352,6 +2360,8 @@ msgstr ""
 #. TRANS: %s is a user's nickname.
 #. TRANS: Title for first page of favourite notices of a user.
 #. TRANS: %s is the user for whom the favourite notices are displayed.
+#. TRANS: Menu item title in personal group navigation menu.
+#. TRANS: %s is a username.
 #, php-format
 msgid "%s's favorite notices"
 msgstr "Бендисани забелешки на %s"
@@ -2364,6 +2374,7 @@ msgstr "Подновувања, бендисани од %1$s на %2$s!"
 
 #. TRANS: Page title for first page of featured users.
 #. TRANS: Title for featured users section.
+#. TRANS: Menu item title in search group navigation panel.
 msgid "Featured users"
 msgstr "Избрани корисници"
 
@@ -3612,7 +3623,6 @@ msgid "Password saved."
 msgstr "Лозинката е зачувана."
 
 #. TRANS: Title for Paths admin panel.
-#. TRANS: Menu item for site administration
 msgid "Paths"
 msgstr "Патеки"
 
@@ -4037,26 +4047,25 @@ msgstr ""
 "ботови и сл.)."
 
 #. TRANS: Dropdown field label on profile settings, for what policies to apply when someone else tries to subscribe to your updates.
-#, fuzzy
 msgid "Subscription policy"
-msgstr "Претплати"
+msgstr "Правило за претплата"
 
 #. TRANS: Dropdown field option for following policy.
-#, fuzzy
 msgid "Let anyone follow me"
-msgstr "Може само да следи луѓе."
+msgstr "Нека ме следи секој"
 
 #. TRANS: Dropdown field option for following policy.
 msgid "Ask me first"
-msgstr ""
+msgstr "Прво прашај ме"
 
 #. TRANS: Dropdown field title on group edit form.
 msgid "Whether other users need your permission to follow your updates."
 msgstr ""
+"Дали на корисниците да им треба Ваша дозвола за да ги следат Вашите поднови."
 
 #. TRANS: Checkbox label in profile settings.
 msgid "Make updates visible only to my followers"
-msgstr ""
+msgstr "Подновите нека се видливи само за моите следбеници"
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
@@ -4088,9 +4097,10 @@ msgstr "Неважечка ознака: „%s“."
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
-#, fuzzy
 msgid "Could not update user for autosubscribe or subscribe_policy."
-msgstr "Не можев да го подновам корисникот за автопретплата."
+msgstr ""
+"Не можев да го подновам правилото за автопретплата или претплата во "
+"корисничкиот профил."
 
 #. TRANS: Server error thrown when user profile location preference settings could not be updated.
 msgid "Could not save location prefs."
@@ -4128,6 +4138,7 @@ msgid "Public timeline, page %d"
 msgstr "Јавна историја, стр. %d"
 
 #. TRANS: Title for the first public timeline page.
+#. TRANS: Menu item title in search group navigation panel.
 msgid "Public timeline"
 msgstr "Јавна историја"
 
@@ -4603,6 +4614,8 @@ msgstr "Повторено!"
 #. TRANS: Title for first page of replies for a user.
 #. TRANS: %s is a user nickname.
 #. TRANS: RSS reply feed title. %s is a user nickname.
+#. TRANS: Menu item title in personal group navigation menu.
+#. TRANS: %s is a username.
 #, php-format
 msgid "Replies to %s"
 msgstr "Одговори испратени до %s"
@@ -4717,6 +4730,7 @@ msgid "System error uploading file."
 msgstr "Системска грешка при подигањето на податотеката."
 
 #. TRANS: Client exception thrown when a feed is not an Atom feed.
+#. TRANS: Client exception thrown when an imported feed is not an Atom feed.
 msgid "Not an Atom feed."
 msgstr "Ова не е Atom-канал."
 
@@ -5034,9 +5048,8 @@ msgid "Message from %1$s on %2$s"
 msgstr "Порака од %1$s на %2$s"
 
 #. TRANS: Client exception thrown when trying a view a notice the user has no access to.
-#, fuzzy
 msgid "Not available."
-msgstr "IM е недостапно."
+msgstr "Недостапно."
 
 #. TRANS: Client error displayed trying to show a deleted notice.
 msgid "Notice deleted."
@@ -5044,21 +5057,21 @@ msgstr "Избришана забелешка"
 
 #. TRANS: Page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$s is the hash tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Notices by %1$s tagged %2$s"
-msgstr "%1$s го/ја означи %2$s"
+msgstr "Забелешки од %1$s означени со %2$s"
 
 #. TRANS: Page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$s is the hash tag, %3$d is the page number.
 #, fuzzy, php-format
 msgid "Notices by %1$s tagged %2$s, page %3$d"
-msgstr "%1$s го/ја означи %2$s, страница %3$d"
+msgstr "Забелешки на %2$s, означени со %2$s, страница %3$d"
 
 #. TRANS: Extended page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$d is the page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Notices by %1$s, page %2$d"
-msgstr "Забелешки означени со %1$s, стр. %2$d"
+msgstr "Забелешки на %1$s, страница %2$d"
 
 #. TRANS: Title for link to notice feed.
 #. TRANS: %1$s is a user nickname, %2$s is a hashtag.
@@ -5516,7 +5529,7 @@ msgstr "Не можев да ја зачувам претплатата."
 
 #. TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
 msgid "You may only approve your own pending subscriptions."
-msgstr ""
+msgstr "Можете да одобрувате само Ваши претплати во исчекување."
 
 #. TRANS: Title of the first page showing pending subscribers still awaiting approval.
 #. TRANS: %s is the name of the user.
@@ -5821,7 +5834,7 @@ msgstr ""
 "Грешка при зачувувањето на корисничките нагодувања за скратување на URL-"
 "адреси."
 
-#. TRANS: User admin panel title
+#. TRANS: User admin panel title.
 msgctxt "TITLE"
 msgid "User"
 msgstr "Корисник"
@@ -5844,6 +5857,9 @@ msgstr "Неважечки текст за добредојде. Дозволе�
 msgid "Invalid default subscripton: \"%1$s\" is not a user."
 msgstr "Неважечки опис по основно: „%1$s“ не е корисник."
 
+#. TRANS: Fieldset legend in user administration panel.
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Profile"
 msgstr "Профил"
 
@@ -5936,7 +5952,6 @@ msgid "Subscription authorized"
 msgstr "Претплатата е одобрена"
 
 #. TRANS: Accept message text from Authorise subscription page.
-#, fuzzy
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site's instructions for details on how to authorize the "
@@ -5951,7 +5966,6 @@ msgid "Subscription rejected"
 msgstr "Претплатата е одбиена"
 
 #. TRANS: Reject message from Authorise subscription page.
-#, fuzzy
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site's instructions for details on how to fully reject the "
@@ -6089,7 +6103,6 @@ msgid "Contributors"
 msgstr "Учесници"
 
 #. TRANS: Header for StatusNet license section on the version page.
-#. TRANS: Menu item for site administration
 msgid "License"
 msgstr "Лиценца"
 
@@ -6128,7 +6141,6 @@ msgstr ""
 "овој програм.  Ако ја немате, погледајте %s."
 
 #. TRANS: Header for StatusNet plugins section on the version page.
-#. TRANS: Menu item for site administration
 msgid "Plugins"
 msgstr "Приклучоци"
 
@@ -6557,6 +6569,9 @@ msgstr "Одговори"
 msgid "Write a reply..."
 msgstr "Напишете одговор..."
 
+#. TRANS: Tab on the notice form.
+#, fuzzy
+msgctxt "TAB"
 msgid "Status"
 msgstr "Статус"
 
@@ -6676,8 +6691,9 @@ msgstr "Не презапишувам авторски податоци за н�
 msgid "No content for notice %s."
 msgstr "Нема содржина за забелешката %s."
 
-#, php-format
-msgid "No such user %s."
+#. TRANS: Exception thrown if no user is provided. %s is a user ID.
+#, fuzzy, php-format
+msgid "No such user \"%s\"."
 msgstr "Нема корисник по име %s."
 
 #. TRANS: Client exception thrown when post to collection fails with a 400 status.
@@ -6724,78 +6740,127 @@ msgstr "saveSettings() не е имплементирано."
 msgid "Unable to delete design setting."
 msgstr "Не можам да ги избришам нагодувањата за изглед."
 
+#. TRANS: Header in administrator navigation panel.
+#. TRANS: Header in settings navigation panel.
+#, fuzzy
+msgctxt "HEADER"
 msgid "Home"
 msgstr "Домашна страница"
 
+#. TRANS: Menu item in administrator navigation panel.
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in personal group navigation menu.
+#. TRANS: Menu item in settings navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "Home"
+msgstr "Домашна страница"
+
+#. TRANS: Header in administrator navigation panel.
+#, fuzzy
+msgctxt "HEADER"
 msgid "Admin"
 msgstr "Администратор"
 
-#. TRANS: Menu item title/tooltip
+#. TRANS: Menu item title in administrator navigation panel.
 msgid "Basic site configuration"
 msgstr "Основни нагодувања на мрежното место"
 
-#. TRANS: Menu item for site administration
+#. TRANS: Menu item in administrator navigation panel.
 msgctxt "MENU"
 msgid "Site"
 msgstr "Мреж. место"
 
-#. TRANS: Menu item title/tooltip
+#. TRANS: Menu item title in administrator navigation panel.
 msgid "Design configuration"
 msgstr "Поставки на изгледот"
 
-#. TRANS: Menu item for site administration
+#. TRANS: Menu item in administrator navigation panel.
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: Menu item in settings navigation panel.
 msgctxt "MENU"
 msgid "Design"
 msgstr "Изглед"
 
-#. TRANS: Menu item title/tooltip
+#. TRANS: Menu item title in administrator navigation panel.
 msgid "User configuration"
 msgstr "Кориснички поставки"
 
-#. TRANS: Menu item for site administration
+#. TRANS: Menu item in administrator navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "User"
 msgstr "Корисник"
 
-#. TRANS: Menu item title/tooltip
+#. TRANS: Menu item title in administrator navigation panel.
 msgid "Access configuration"
 msgstr "Поставки на пристапот"
 
-#. TRANS: Menu item title/tooltip
+#. TRANS: Menu item in administrator navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "Access"
+msgstr "Пристап"
+
+#. TRANS: Menu item title in administrator navigation panel.
 msgid "Paths configuration"
 msgstr "Поставки на патеки"
 
-#. TRANS: Menu item title/tooltip
+#. TRANS: Menu item in administrator navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "Paths"
+msgstr "Патеки"
+
+#. TRANS: Menu item title in administrator navigation panel.
 msgid "Sessions configuration"
 msgstr "Поставки на сесиите"
 
-#. TRANS: Menu item for site administration
+#. TRANS: Menu item in administrator navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Sessions"
 msgstr "Сесии"
 
-#. TRANS: Menu item title/tooltip
+#. TRANS: Menu item title in administrator navigation panel.
 msgid "Edit site notice"
 msgstr "Уреди објава за мрежното место"
 
-#. TRANS: Menu item for site administration
+#. TRANS: Menu item in administrator navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Site notice"
 msgstr "Напомена за мрежното место"
 
-#. TRANS: Menu item title/tooltip
+#. TRANS: Menu item title in administrator navigation panel.
 msgid "Snapshots configuration"
 msgstr "Поставки за снимки"
 
-#. TRANS: Menu item for site administration
+#. TRANS: Menu item in administrator navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Snapshots"
 msgstr "Снимки"
 
-#. TRANS: Menu item title/tooltip
+#. TRANS: Menu item title in administrator navigation panel.
 msgid "Set site license"
 msgstr "Постави лиценца за мреж. место"
 
-#. TRANS: Menu item title/tooltip
+#. TRANS: Menu item in administrator navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "License"
+msgstr "Лиценца"
+
+#. TRANS: Menu item title in administrator navigation panel.
 msgid "Plugins configuration"
 msgstr "Поставки за приклучоци"
+
+#. TRANS: Menu item in administrator navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "Plugins"
+msgstr "Приклучоци"
 
 #. TRANS: Client error 401.
 msgid "API resource requires read-write access, but you only have read access."
@@ -6807,6 +6872,7 @@ msgstr ""
 msgid "No application for that consumer key."
 msgstr "Нема програм за тој потрошувачки клуч."
 
+#. TRANS: Authorization exception thrown when a user without API access tries to access the API.
 msgid "Not allowed to use API."
 msgstr "Не е дозволено да се користи API."
 
@@ -6840,11 +6906,13 @@ msgstr "Не можев да пронајдам профил и програм �
 msgid "Could not issue access token."
 msgstr "Не можев да го издадам жетонот за пристап."
 
+#. TRANS: Exception thrown when a database error occurs.
 msgid "Database error inserting OAuth application user."
 msgstr ""
 "Грешка во базата на податоци при вметнувањето на корисникот на OAuth-"
 "програмот."
 
+#. TRANS: Exception thrown when a database error occurs.
 msgid "Database error updating OAuth application user."
 msgstr ""
 "Грешка во базата на податоци при подновата на корисникот на OAuth-програмот."
@@ -6943,6 +7011,13 @@ msgstr "Откажи"
 msgid "Save"
 msgstr "Зачувај"
 
+#. TRANS: Name for an anonymous application in application list.
+#, fuzzy
+msgid "Unknown application"
+msgstr "Непознато дејство"
+
+#. TRANS: Message has a leading space and a trailing space. Used in application list.
+#. TRANS: Before this message the application name is put, behind it the organisation that manages it.
 msgid " by "
 msgstr " од "
 
@@ -6965,11 +7040,12 @@ msgstr "Одобрено %1$s - „%2$s“ пристап."
 msgid "Access token starting with: %s"
 msgstr "Пристапен жетон што почнува со: %s"
 
-#. TRANS: Button label
+#. TRANS: Button label in application list to revoke access to user data.
 msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Одземи"
 
+#. TRANS: Atom feed exception thrown when an author element does not contain a name element.
 msgid "Author element must contain a name element."
 msgstr "Авторскиот елемент мора да содржи елемент за име."
 
@@ -7140,6 +7216,8 @@ msgstr ""
 
 #. TRANS: Message given if content is too long. %1$sd is used for plural.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+#. TRANS: Message given when a status is too long. %1$s is the maximum number of characters,
+#. TRANS: %2$s is the number of characters sent (used for plural).
 #, php-format
 msgid "Message too long - maximum is %1$d character, you sent %2$d."
 msgid_plural "Message too long - maximum is %1$d characters, you sent %2$d."
@@ -7456,9 +7534,14 @@ msgstr "Препорачуваме да го пуштите инсталатер
 msgid "Go to the installer."
 msgstr "Оди на инсталаторот."
 
+#. TRANS: Page title for when a database error occurs.
 msgid "Database error"
 msgstr "Грешка во базата на податоци"
 
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in search group navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Public"
 msgstr "Јавен"
 
@@ -7470,6 +7553,7 @@ msgstr "Избриши"
 msgid "Delete this user"
 msgstr "Избриши овој корисник"
 
+#. TRANS: Form legend of form for changing the page design.
 msgid "Change design"
 msgstr "Измени изглед"
 
@@ -7481,22 +7565,15 @@ msgstr "Промена на бои"
 msgid "Use defaults"
 msgstr "Користи по основно"
 
-#. TRANS: Title for button on profile design page to reset all colour settings to default.
-msgid "Restore default designs"
-msgstr "Врати основно-зададени нагодувања"
-
-#. TRANS: Title for button on profile design page to reset all colour settings to default without saving.
-msgid "Reset back to default"
-msgstr "Врати по основно"
-
 #. TRANS: Label in form on profile design page.
 #. TRANS: Field contains file name on user's computer that could be that user's custom profile background image.
 msgid "Upload file"
 msgstr "Подигање"
 
 #. TRANS: Instructions for form on profile design page.
+#, fuzzy
 msgid ""
-"You can upload your personal background image. The maximum file size is 2Mb."
+"You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
 "Можете да подигнете Ваша лична позадинска слика. Максималната дозволена "
 "големина изнесува 2 МБ."
@@ -7510,10 +7587,6 @@ msgstr "Вкл."
 msgctxt "RADIO"
 msgid "Off"
 msgstr "Искл."
-
-#. TRANS: Title for button on profile design page to save settings.
-msgid "Save design"
-msgstr "Зачувај изглед"
 
 #. TRANS: Error message displayed if design settings could not be saved.
 #. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
@@ -7549,46 +7622,62 @@ msgctxt "BUTTON"
 msgid "Favor"
 msgstr "Бендисај"
 
+#. TRANS: Feed type name.
 msgid "RSS 1.0"
 msgstr "RSS 1.0"
 
+#. TRANS: Feed type name.
 msgid "RSS 2.0"
 msgstr "RSS 2.0"
 
+#. TRANS: Feed type name.
 msgid "Atom"
 msgstr "Atom"
 
+#. TRANS: Feed type name. FOAF stands for Friend of a Friend.
 msgid "FOAF"
 msgstr "FOAF"
 
-msgid "Not an atom feed."
-msgstr "Ова не е Atom-канал."
-
+#. TRANS: Client exception thrown when an imported feed does not have an author.
 msgid "No author in the feed."
 msgstr "Нема автор во емитувањето."
 
-msgid "Can't import without a user."
+#. TRANS: Client exception thrown when an imported feed does not have an author that
+#. TRANS: can be associated with a user.
+#, fuzzy
+msgid "Cannot import without a user."
 msgstr "Не можам да увезам без корисник."
 
 #. TRANS: Header for feed links (h2).
 msgid "Feeds"
 msgstr "Канали"
 
+#. TRANS: List element on gallery action page to show all tags.
+#, fuzzy
+msgctxt "TAGS"
 msgid "All"
 msgstr "Сè"
 
+#. TRANS: Fieldset legend on gallery action page.
 msgid "Select tag to filter"
 msgstr "Одберете ознака за филтрирање"
 
+#. TRANS: Dropdown field label on gallery action page for a list containing tags.
 msgid "Tag"
 msgstr "Ознака"
 
-msgid "Choose a tag to narrow list"
+#. TRANS: Dropdown field title on gallery action page for a list containing tags.
+#, fuzzy
+msgid "Choose a tag to narrow list."
 msgstr "Одберете ознака за да го ограничите списокот"
 
+#. TRANS: Submit button text on gallery action page.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Go"
 msgstr "Оди"
 
+#. TRANS: Description on form for granting a role.
 #, php-format
 msgid "Grant this user the \"%s\" role"
 msgstr "Додели улога „%s“ на корисников"
@@ -7649,9 +7738,11 @@ msgstr[1] ""
 msgid "Membership policy"
 msgstr "Правило за членство"
 
+#. TRANS: Group membership policy option.
 msgid "Open to all"
 msgstr "Отворено за сите"
 
+#. TRANS: Group membership policy option.
 msgid "Admin must approve all members"
 msgstr "Администраторот мора да ги одобри сите членови"
 
@@ -7717,6 +7808,7 @@ msgid "%s blocked users"
 msgstr "Блокирани корисници од групата „%s“"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: Menu item in primary navigation panel.
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Админ"
@@ -7817,13 +7909,16 @@ msgid_plural "%dB"
 msgstr[0] "%d Б"
 msgstr[1] "%d Б"
 
-#, php-format
+#. TRANS: Body text for confirmation code e-mail.
+#. TRANS: %1$s is a user nickname, %2$s is the StatusNet sitename,
+#. TRANS: %3$s is the display name of an IM plugin.
+#, fuzzy, php-format
 msgid ""
-"User \"%s\" on %s has said that your %s screenname belongs to them. If "
-"that's true, you can confirm by clicking on this URL: %s . (If you cannot "
+"User \"%1$s\" on %2$s has said that your %2$s screenname belongs to them. If "
+"that is true, you can confirm by clicking on this URL: %3$s . (If you cannot "
 "click it, copy-and-paste it into the address bar of your browser). If that "
-"user isn't you, or if you didn't request this confirmation, just ignore this "
-"message."
+"user is not you, or if you did not request this confirmation, just ignore "
+"this message."
 msgstr ""
 "Корисникот „%s“ на %s има изјавено дека Вашиот прекар на %s е негов. Ако ова "
 "е вистина, можете да потврдите стискајќи на оваа URL-адреса: %s . (Ако не "
@@ -7831,14 +7926,28 @@ msgstr ""
 "Ако ова не сте Вие, или ако не ја имате побарано оваа потврда, слободно "
 "занемарете ја поракава."
 
+#. TRANS: Exception thrown when trying to deliver a notice to an unknown inbox.
+#. TRANS: %d is the unknown inbox ID (number).
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr "Непознат извор на приемна пошта %d."
 
+#. TRANS: Server exception thrown trying to initialise an IM plugin without meeting all prerequisites.
+msgid "Queueing must be enabled to use IM plugins."
+msgstr ""
+
+#. TRANS: Server exception thrown trying to initialise an IM plugin without a transport method.
+msgid "Transport cannot be null."
+msgstr ""
+
+#. TRANS: Button text on form to leave a group.
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Leave"
 msgstr "Напушти"
 
 #. TRANS: Menu item for logging in to the StatusNet site.
+#. TRANS: Menu item in primary navigation panel.
 msgctxt "MENU"
 msgid "Login"
 msgstr "Најава"
@@ -8202,6 +8311,7 @@ msgstr ""
 msgid "Inbox"
 msgstr "Примени"
 
+#. TRANS: Menu item title in personal group navigation menu.
 msgid "Your incoming messages"
 msgstr "Ваши приемни пораки"
 
@@ -8432,14 +8542,40 @@ msgstr "Дуплирана забелешка."
 msgid "Couldn't insert new subscription."
 msgstr "Не може да се внесе нова претплата."
 
+#. TRANS: Menu item in personal group navigation menu.
+#. TRANS: Menu item in settings navigation panel.
+#. TRANS: Menu item in local navigation menu.
+msgctxt "MENU"
+msgid "Profile"
+msgstr "Профил"
+
+#. TRANS: Menu item title in personal group navigation menu.
 msgid "Your profile"
 msgstr "Профил на група"
 
+#. TRANS: Menu item in personal group navigation menu.
+#, fuzzy
+msgctxt "MENU"
 msgid "Replies"
 msgstr "Одговори"
 
+#. TRANS: Menu item in personal group navigation menu.
+#, fuzzy
+msgctxt "MENU"
 msgid "Favorites"
 msgstr "Бендисани"
+
+#. TRANS: Replaces %s in '%s\'s favorite notices'. (Yes, we know we need to fix this.)
+#, fuzzy
+msgctxt "FIXME"
+msgid "User"
+msgstr "Корисник"
+
+#. TRANS: Menu item in personal group navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Messages"
+msgstr "Пораки"
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
 #, php-format
@@ -8464,27 +8600,40 @@ msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr "(Описите на приклучоците не се достапни ако е оневозможено.)"
 
+#. TRANS: Menu item in primary navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Settings"
 msgstr "Нагодувања за СМС"
 
+#. TRANS: Menu item title in primary navigation panel.
 msgid "Change your personal settings"
 msgstr "Измена на лични поставки"
 
+#. TRANS: Menu item title in primary navigation panel.
 msgid "Site configuration"
 msgstr "Поставки на мреж. место"
 
+#. TRANS: Menu item in primary navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Logout"
 msgstr "Одјава"
 
 msgid "Logout from the site"
 msgstr "Одјава"
 
+#. TRANS: Menu item title in primary navigation panel.
 msgid "Login to the site"
 msgstr "Најава"
 
+#. TRANS: Menu item in primary navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Search"
 msgstr "Барај"
 
+#. TRANS: Menu item title in primary navigation panel.
 msgid "Search the site"
 msgstr "Пребарај по мрежното место"
 
@@ -8532,15 +8681,36 @@ msgstr "Сите групи"
 msgid "Unimplemented method."
 msgstr "Неимплементиран метод."
 
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Groups"
+msgstr "Групи"
+
+#. TRANS: Menu item title in search group navigation panel.
 msgid "User groups"
 msgstr "Кориснички групи"
 
+#. TRANS: Menu item in search group navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Recent tags"
 msgstr "Скорешни ознаки"
 
+#. TRANS: Menu item title in search group navigation panel.
+msgid "Recent tags"
+msgstr "Скорешни ознаки"
+
+#. TRANS: Menu item in search group navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Featured"
 msgstr "Избрани"
 
+#. TRANS: Menu item in search group navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Popular"
 msgstr "Популарно"
 
@@ -8584,52 +8754,82 @@ msgctxt "BUTTON"
 msgid "Search"
 msgstr "Пребарај"
 
+#. TRANS: Menu item in search group navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "People"
 msgstr "Луѓе"
 
+#. TRANS: Menu item title in search group navigation panel.
 msgid "Find people on this site"
 msgstr "Пронајдете луѓе на ова мрежно место"
 
+#. TRANS: Menu item in search group navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "Notices"
+msgstr "Забелешки"
+
+#. TRANS: Menu item title in search group navigation panel.
 msgid "Find content of notices"
 msgstr "Пронајдете содржини на забелешките"
 
+#. TRANS: Menu item title in search group navigation panel.
 msgid "Find groups on this site"
 msgstr "Пронајдете групи на ова мрежно место"
 
-#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+#. TRANS: Secondary navigation menu item leading to help on StatusNet.
+#, fuzzy
+msgctxt "MENU"
 msgid "Help"
 msgstr "Помош"
 
-#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+#. TRANS: Secondary navigation menu item leading to text about StatusNet site.
+#, fuzzy
+msgctxt "MENU"
 msgid "About"
 msgstr "За нас"
 
-#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+#. TRANS: Secondary navigation menu item leading to Frequently Asked Questions.
+#, fuzzy
+msgctxt "MENU"
 msgid "FAQ"
 msgstr "ЧПП"
 
-#. TRANS: Secondary navigation menu option leading to Terms of Service.
+#. TRANS: Secondary navigation menu item leading to Terms of Service.
+#, fuzzy
+msgctxt "MENU"
 msgid "TOS"
 msgstr "Услови"
 
-#. TRANS: Secondary navigation menu option leading to privacy policy.
+#. TRANS: Secondary navigation menu item leading to privacy policy.
+#, fuzzy
+msgctxt "MENU"
 msgid "Privacy"
 msgstr "Приватност"
 
-#. TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
+#. TRANS: Secondary navigation menu item. Leads to information about StatusNet and its license.
+#, fuzzy
+msgctxt "MENU"
 msgid "Source"
 msgstr "Изворен код"
 
-#. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
+#. TRANS: Secondary navigation menu item leading to version information on the StatusNet site.
+#, fuzzy
+msgctxt "MENU"
 msgid "Version"
 msgstr "Верзија"
 
-#. TRANS: Secondary navigation menu option leading to e-mail contact information on the
+#. TRANS: Secondary navigation menu item leading to e-mail contact information on the
 #. TRANS: StatusNet site, where to report bugs, ...
+#, fuzzy
+msgctxt "MENU"
 msgid "Contact"
 msgstr "Контакт"
 
-#. TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
+#. TRANS: Secondary navigation menu item. Leads to information about embedding a timeline widget.
+#, fuzzy
+msgctxt "MENU"
 msgid "Badge"
 msgstr "Значка"
 
@@ -8639,36 +8839,87 @@ msgstr "Заглавие без наслов"
 msgid "More..."
 msgstr "Повеќе..."
 
+#. TRANS: Header in settings navigation panel.
+#, fuzzy
+msgctxt "HEADER"
+msgid "Settings"
+msgstr "Нагодувања за СМС"
+
+#. TRANS: Menu item title in settings navigation panel.
 msgid "Change your profile settings"
 msgstr "Смени профилни нагодувања"
 
+#. TRANS: Menu item in settings navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "Avatar"
+msgstr "Аватар"
+
+#. TRANS: Menu item title in settings navigation panel.
 msgid "Upload an avatar"
 msgstr "Подигни аватар"
 
+#. TRANS: Menu item in settings navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "Password"
+msgstr "Лозинка"
+
+#. TRANS: Menu item title in settings navigation panel.
 msgid "Change your password"
 msgstr "Смени лозинка"
 
+#. TRANS: Menu item in settings navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "Email"
+msgstr "Е-пошта"
+
+#. TRANS: Menu item title in settings navigation panel.
 msgid "Change email handling"
 msgstr "Смени ракување со е-пошта"
 
+#. TRANS: Menu item title in settings navigation panel.
 msgid "Design your profile"
 msgstr "Наместете изглед на Вашиот профил"
 
+#. TRANS: Menu item in settings navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "URL"
 msgstr "URL"
 
+#. TRANS: Menu item title in settings navigation panel.
 msgid "URL shorteners"
 msgstr "Скратувачи на URL"
 
+#. TRANS: Menu item in settings navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "IM"
+msgstr "IM"
+
+#. TRANS: Menu item title in settings navigation panel.
 msgid "Updates by instant messenger (IM)"
 msgstr "Подновувања преку инстант-пораки (IM)"
 
+#. TRANS: Menu item in settings navigation panel.
+#, fuzzy
+msgctxt "MENU"
+msgid "SMS"
+msgstr "СМС"
+
+#. TRANS: Menu item title in settings navigation panel.
 msgid "Updates by SMS"
 msgstr "Подновувања по СМС"
 
+#. TRANS: Menu item in settings navigation panel.
+#, fuzzy
+msgctxt "MENU"
 msgid "Connections"
 msgstr "Сврзувања"
 
+#. TRANS: Menu item title in settings navigation panel.
 msgid "Authorized connected applications"
 msgstr "Овластени поврзани програми"
 
@@ -8677,12 +8928,6 @@ msgstr "Замолчи"
 
 msgid "Silence this user"
 msgstr "Замолчи го овој корисник"
-
-#. TRANS: Menu item in local navigation menu.
-#, fuzzy
-msgctxt "MENU"
-msgid "Profile"
-msgstr "Профил"
 
 #. TRANS: Menu item in local navigation menu.
 #, fuzzy
@@ -8709,6 +8954,7 @@ msgid "People subscribed to %s."
 msgstr "Луѓе претплатени на %s"
 
 #. TRANS: Menu item in local navigation menu.
+#. TRANS: %d is the number of pending subscription requests.
 #, fuzzy, php-format
 msgctxt "MENU"
 msgid "Pending (%d)"
@@ -8717,13 +8963,7 @@ msgstr "Член во исчекување (%d)"
 #. TRANS: Menu item title in local navigation menu.
 #, php-format
 msgid "Approve pending subscription requests."
-msgstr ""
-
-#. TRANS: Menu item in local navigation menu.
-#, fuzzy
-msgctxt "MENU"
-msgid "Groups"
-msgstr "Групи"
+msgstr "Одобри барања за претплата во исчекување."
 
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
@@ -8732,7 +8972,6 @@ msgid "Groups %s is a member of."
 msgstr "Групи кадешто членува %s"
 
 #. TRANS: Menu item in local navigation menu.
-#, fuzzy
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Покани"
@@ -8873,15 +9112,14 @@ msgid "My colleagues at %s"
 msgstr ""
 
 #. TRANS: Label for drop-down of potential addressees.
-#, fuzzy
 msgctxt "LABEL"
 msgid "To:"
-msgstr "За"
+msgstr "За:"
 
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown to value: \"%s\"."
-msgstr "Непознат глагол: „%s“."
+msgstr "Непозната вредност за примач: „%s“."
 
 #. TRANS: Title for the form to unblock a user.
 msgctxt "TITLE"
@@ -8997,31 +9235,14 @@ msgstr "Неважечки XML. Нема XRD-корен."
 msgid "Getting backup from file '%s'."
 msgstr "Земам резерва на податотеката „%s“."
 
-#~ msgid "Already repeated that notice."
-#~ msgstr "Забелешката е веќе повторена."
+#~ msgid "Restore default designs"
+#~ msgstr "Врати основно-зададени нагодувања"
 
-#~ msgid "Describe yourself and your interests in %d character"
-#~ msgid_plural "Describe yourself and your interests in %d characters"
-#~ msgstr[0] "Опишете се себеси и своите интереси со %d знак."
-#~ msgstr[1] "Опишете се себеси и своите интереси со %d знаци."
+#~ msgid "Reset back to default"
+#~ msgstr "Врати по основно"
 
-#~ msgid "Describe yourself and your interests"
-#~ msgstr "Опишете се себеси и Вашите интереси"
+#~ msgid "Save design"
+#~ msgstr "Зачувај изглед"
 
-#~ msgid "Where you are, like \"City, State (or Region), Country\""
-#~ msgstr "Каде се наоѓате, на пр. „Град, Област, Земја“."
-
-#~ msgid "%1$s, page %2$d"
-#~ msgstr "%1$s, стр. %2$d"
-
-#~ msgid ""
-#~ "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
-#~ msgstr ""
-#~ "Лиценцата на каналот на следачот „%1$s“ не е соодветна на лиценцата на "
-#~ "мрежното место „%2$s“."
-
-#~ msgid "Invalid group join approval: not pending."
-#~ msgstr "Неважечко одобрение за членство: не е во исчекување."
-
-#~ msgid "Error repeating notice."
-#~ msgstr "Грешка при повторувањето на белешката."
+#~ msgid "Not an atom feed."
+#~ msgstr "Ова не е Atom-канал."

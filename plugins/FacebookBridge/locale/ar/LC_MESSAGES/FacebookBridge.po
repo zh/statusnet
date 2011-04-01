@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-31 21:06+0000\n"
-"PO-Revision-Date: 2011-03-31 21:09:20+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
+"PO-Revision-Date: 2011-04-01 20:48:59+0000\n"
 "Language-Team: Arabic <http://translatewiki.net/wiki/Portal:ar>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-24 15:25:03+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85082); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-03-31 21:37:22+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85150); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -40,10 +40,10 @@ msgstr ""
 msgid "Facebook integration settings"
 msgstr ""
 
-msgid "Invalid Facebook ID. Max length is 255 characters."
+msgid "Invalid Facebook ID. Maximum length is 255 characters."
 msgstr ""
 
-msgid "Invalid Facebook secret. Max length is 255 characters."
+msgid "Invalid Facebook secret. Maximum length is 255 characters."
 msgstr ""
 
 msgid "Facebook application settings"
@@ -52,19 +52,22 @@ msgstr ""
 msgid "Application ID"
 msgstr ""
 
-msgid "ID of your Facebook application"
+msgid "ID of your Facebook application."
 msgstr ""
 
 msgid "Secret"
 msgstr ""
 
-msgid "Application secret"
+msgid "Application secret."
 msgstr ""
 
+#. TRANS: Submit button to save synchronisation settings.
+msgctxt "BUTTON"
 msgid "Save"
 msgstr "احفظ"
 
-msgid "Save Facebook settings"
+#, fuzzy
+msgid "Save Facebook settings."
 msgstr "احفظ إعدادات فيسبك"
 
 msgid "There was a problem with your session token. Try again, please."
@@ -83,11 +86,6 @@ msgstr "انشر إشعاراتي على فيسبك."
 
 msgid "Send \"@\" replies to Facebook."
 msgstr "أرسل الردود \"@\" إلى فيسبك."
-
-#. TRANS: Submit button to save synchronisation settings.
-msgctxt "BUTTON"
-msgid "Save"
-msgstr "احفظ"
 
 #. TRANS: Legend.
 msgid "Disconnect my account from Facebook"
@@ -120,7 +118,8 @@ msgstr ""
 msgid "Sync preferences saved."
 msgstr "حُفظت تفضيلات المزامنة."
 
-msgid "Couldn't delete link to Facebook."
+#, fuzzy
+msgid "Could not delete link to Facebook."
 msgstr "تعذر حذف وصلة فيسبك."
 
 msgid "You have disconnected from Facebook."
@@ -133,7 +132,7 @@ msgstr ""
 msgid "There is already a local account linked with that Facebook account."
 msgstr ""
 
-msgid "You can't register if you don't agree to the license."
+msgid "You cannot register if you do not agree to the license."
 msgstr ""
 
 msgid "An unknown error has occured."
@@ -141,7 +140,7 @@ msgstr ""
 
 #, php-format
 msgid ""
-"This is the first time you've logged into %s so we must connect your "
+"This is the first time you have logged into %s so we must connect your "
 "Facebook to a local account. You can either create a new local account, or "
 "connect with an existing local account."
 msgstr ""
@@ -174,7 +173,7 @@ msgstr ""
 msgid "New nickname"
 msgstr "الاسم المستعار الجديد"
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr ""
 
 #. TRANS: Submit button.
@@ -246,3 +245,6 @@ msgstr ""
 #, php-format
 msgid "Contact the %s administrator to retrieve your account"
 msgstr ""
+
+#~ msgid "Save"
+#~ msgstr "احفظ"

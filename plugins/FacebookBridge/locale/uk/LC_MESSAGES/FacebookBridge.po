@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-31 21:06+0000\n"
-"PO-Revision-Date: 2011-03-31 21:09:21+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
+"PO-Revision-Date: 2011-04-01 20:49:00+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-24 15:25:03+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85082); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-03-31 21:37:22+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85150); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -39,11 +39,13 @@ msgstr "Facebook"
 msgid "Facebook integration settings"
 msgstr "Налаштування інтеграції з Facebook"
 
-msgid "Invalid Facebook ID. Max length is 255 characters."
+#, fuzzy
+msgid "Invalid Facebook ID. Maximum length is 255 characters."
 msgstr ""
 "Неприпустимий ідентифікатор Facebook. Максимальна довжина — 255 символів."
 
-msgid "Invalid Facebook secret. Max length is 255 characters."
+#, fuzzy
+msgid "Invalid Facebook secret. Maximum length is 255 characters."
 msgstr "Помилковий секретний код Facebook. Максимальна довжина — 255 символів."
 
 msgid "Facebook application settings"
@@ -52,19 +54,24 @@ msgstr "Налаштування додатку для Facebook"
 msgid "Application ID"
 msgstr "Ідентифікатор додатку"
 
-msgid "ID of your Facebook application"
+#, fuzzy
+msgid "ID of your Facebook application."
 msgstr "Ідентифікатор вашого додатку Facebook"
 
 msgid "Secret"
 msgstr "Секретний код"
 
-msgid "Application secret"
+#, fuzzy
+msgid "Application secret."
 msgstr "Секретний код додатку"
 
+#. TRANS: Submit button to save synchronisation settings.
+msgctxt "BUTTON"
 msgid "Save"
 msgstr "Зберегти"
 
-msgid "Save Facebook settings"
+#, fuzzy
+msgid "Save Facebook settings."
 msgstr "Зберегти налаштування Facebook"
 
 msgid "There was a problem with your session token. Try again, please."
@@ -83,11 +90,6 @@ msgstr "Публікувати мої дописи у Facebook."
 
 msgid "Send \"@\" replies to Facebook."
 msgstr "Надсилати «@» відповіді до Facebook."
-
-#. TRANS: Submit button to save synchronisation settings.
-msgctxt "BUTTON"
-msgid "Save"
-msgstr "Зберегти"
 
 #. TRANS: Legend.
 msgid "Disconnect my account from Facebook"
@@ -121,7 +123,8 @@ msgstr "Виникла проблема при збереженні параме
 msgid "Sync preferences saved."
 msgstr "Параметри синхронізації збережено."
 
-msgid "Couldn't delete link to Facebook."
+#, fuzzy
+msgid "Could not delete link to Facebook."
 msgstr "Не можу видалити посилання на Facebook."
 
 msgid "You have disconnected from Facebook."
@@ -136,15 +139,16 @@ msgstr ""
 msgid "There is already a local account linked with that Facebook account."
 msgstr "Один з тутешніх акаунтів вже прив’язаний до цього профілю у Facebook."
 
-msgid "You can't register if you don't agree to the license."
+#, fuzzy
+msgid "You cannot register if you do not agree to the license."
 msgstr "Ви не зможете зареєструватись, якщо не погодитесь з умовами ліцензії."
 
 msgid "An unknown error has occured."
 msgstr "Сталася невідома помилка."
 
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"This is the first time you've logged into %s so we must connect your "
+"This is the first time you have logged into %s so we must connect your "
 "Facebook to a local account. You can either create a new local account, or "
 "connect with an existing local account."
 msgstr ""
@@ -180,7 +184,8 @@ msgstr "Створити нового користувача з цим нікн�
 msgid "New nickname"
 msgstr "Новий псевдонім"
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr ""
 "1-64 літери нижнього регістру і цифри, ніякої пунктуації або інтервалів"
 
@@ -255,3 +260,6 @@ msgstr "З’єднання з Facebook було видалено"
 #, php-format
 msgid "Contact the %s administrator to retrieve your account"
 msgstr "Зверніться до адміністратора %s, аби відновити свій обліковий запис"
+
+#~ msgid "Save"
+#~ msgstr "Зберегти"

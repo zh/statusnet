@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-31 21:06+0000\n"
-"PO-Revision-Date: 2011-03-31 21:09:20+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
+"PO-Revision-Date: 2011-04-01 20:48:59+0000\n"
 "Language-Team: Breton <http://translatewiki.net/wiki/Portal:br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-24 15:25:03+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85082); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-03-31 21:37:22+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85150); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -38,10 +38,10 @@ msgstr "Facebook"
 msgid "Facebook integration settings"
 msgstr "Arventennoù enframmañ Facebook"
 
-msgid "Invalid Facebook ID. Max length is 255 characters."
+msgid "Invalid Facebook ID. Maximum length is 255 characters."
 msgstr ""
 
-msgid "Invalid Facebook secret. Max length is 255 characters."
+msgid "Invalid Facebook secret. Maximum length is 255 characters."
 msgstr ""
 
 msgid "Facebook application settings"
@@ -50,19 +50,24 @@ msgstr "Arventennoù poellad Facebook"
 msgid "Application ID"
 msgstr "ID ar poellad"
 
-msgid "ID of your Facebook application"
+#, fuzzy
+msgid "ID of your Facebook application."
 msgstr "ID ho poellad Facebook"
 
 msgid "Secret"
 msgstr "Kuzh"
 
-msgid "Application secret"
-msgstr ""
+#, fuzzy
+msgid "Application secret."
+msgstr "ID ar poellad"
 
+#. TRANS: Submit button to save synchronisation settings.
+msgctxt "BUTTON"
 msgid "Save"
 msgstr "Enrollañ"
 
-msgid "Save Facebook settings"
+#, fuzzy
+msgid "Save Facebook settings."
 msgstr "Enrollañ arventennoù Facebook"
 
 msgid "There was a problem with your session token. Try again, please."
@@ -81,11 +86,6 @@ msgstr ""
 
 msgid "Send \"@\" replies to Facebook."
 msgstr "Kas respontoù \"@\" da Facebook."
-
-#. TRANS: Submit button to save synchronisation settings.
-msgctxt "BUTTON"
-msgid "Save"
-msgstr "Enrollañ"
 
 #. TRANS: Legend.
 msgid "Disconnect my account from Facebook"
@@ -115,7 +115,8 @@ msgstr ""
 msgid "Sync preferences saved."
 msgstr ""
 
-msgid "Couldn't delete link to Facebook."
+#, fuzzy
+msgid "Could not delete link to Facebook."
 msgstr "N'eus ket bet gallet diverkañ al liamm war-du Facebook."
 
 msgid "You have disconnected from Facebook."
@@ -128,7 +129,8 @@ msgstr ""
 msgid "There is already a local account linked with that Facebook account."
 msgstr "Un implijer lec'hel liammet d'ar gont Facebook-se a zo dija."
 
-msgid "You can't register if you don't agree to the license."
+#, fuzzy
+msgid "You cannot register if you do not agree to the license."
 msgstr ""
 "Rankout a rit bezañ a-du gant termenoù an aotre-implijout evit krouiñ ur "
 "gont."
@@ -138,7 +140,7 @@ msgstr "Ur gudenn dizanv a zo bet."
 
 #, php-format
 msgid ""
-"This is the first time you've logged into %s so we must connect your "
+"This is the first time you have logged into %s so we must connect your "
 "Facebook to a local account. You can either create a new local account, or "
 "connect with an existing local account."
 msgstr ""
@@ -169,7 +171,8 @@ msgstr "Krouiñ un implijer nevez gant al lesanv-se."
 msgid "New nickname"
 msgstr "Lesanv nevez"
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1 da 64 lizherenn vihan pe sifr, hep poentaouiñ nag esaouenn"
 
 #. TRANS: Submit button.
@@ -241,3 +244,6 @@ msgstr ""
 #, php-format
 msgid "Contact the %s administrator to retrieve your account"
 msgstr ""
+
+#~ msgid "Save"
+#~ msgstr "Enrollañ"

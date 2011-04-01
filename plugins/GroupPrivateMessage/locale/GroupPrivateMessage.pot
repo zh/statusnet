@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-31 21:06+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,9 +21,9 @@ msgstr ""
 msgid "Must be logged in."
 msgstr ""
 
-#: newgroupmessage.php:73
+#: newgroupmessage.php:73 Group_message.php:126
 #, php-format
-msgid "User %s not allowed to send private messages."
+msgid "User %s is not allowed to send private messages."
 msgstr ""
 
 #: newgroupmessage.php:90 newgroupmessage.php:96 groupinbox.php:82
@@ -46,7 +46,7 @@ msgid "New message to group %s"
 msgstr ""
 
 #. TRANS: Subject for direct-message notification email.
-#. TRANS: %s is the sending user's nickname.
+#. TRANS: %1$s is the sending user's nickname, %2$s is the group nickname.
 #: Group_message_profile.php:159
 #, php-format
 msgid "New private message from %1$s to group %2$s"
@@ -76,11 +76,12 @@ msgid ""
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:210
+msgctxt "MENU"
 msgid "Inbox"
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:211
-msgid "Private messages for this group"
+msgid "Private messages for this group."
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:258
@@ -100,11 +101,11 @@ msgid "Never"
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:262
-msgid "Whether to allow private messages to this group"
+msgid "Whether to allow private messages to this group."
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:268
-msgid "Private sender"
+msgid "Private senders"
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:269
@@ -120,11 +121,11 @@ msgid "Admin"
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:272
-msgid "Who can send private messages to the group"
+msgid "Who can send private messages to the group."
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:373
-msgid "Send a direct message to this group"
+msgid "Send a direct message to this group."
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:374
@@ -140,7 +141,7 @@ msgid "Private"
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:504
-msgid "Allow posting DMs to a group."
+msgid "Allow posting private messages to groups."
 msgstr ""
 
 #: groupinbox.php:66
@@ -218,11 +219,6 @@ msgstr ""
 msgid "Unknown privacy settings for group %s."
 msgstr ""
 
-#: Group_message.php:126
-#, php-format
-msgid "User %s is not allowed to send private messages."
-msgstr ""
-
 #: Group_message.php:137
 #, php-format
 msgid "That's too long. Maximum message size is %d character."
@@ -231,11 +227,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: Group_message.php:180
-msgid "No group for group message"
+msgid "No group for group message."
 msgstr ""
 
 #: Group_message.php:189
-msgid "No sender for group message"
+msgid "No sender for group message."
 msgstr ""
 
 #: showgroupmessage.php:70
