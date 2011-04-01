@@ -257,7 +257,7 @@ class FacebooksettingsAction extends SettingsAction {
 
         if ($result === false) {
             common_log_db_error($user, 'DELETE', __FILE__);
-            $this->serverError(_m('Couldn\'t delete link to Facebook.'));
+            $this->serverError(_m('Could not delete link to Facebook.'));
             return;
         }
 
