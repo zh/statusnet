@@ -316,16 +316,16 @@ class RSVP extends Managed_DataObject
 
         switch ($response) {
         case 'Y':
-            $fmt = _m("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is attending <a href='%3s'>%4s</a>.</span>");
+            $fmt = _m("<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is attending <a href='%3$s'>%4$s</a>.</span>");
             break;
         case 'N':
-            $fmt = _m("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is not attending <a href='%3s'>%4s</a>.</span>");
+            $fmt = _m("<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is not attending <a href='%3$s'>%4$s</a>.</span>");
             break;
         case '?':
-            $fmt = _m("<span class='automatic event-rsvp'><a href='%1s'>%2s</a> might attend <a href='%3s'>%4s</a>.</span>");
+            $fmt = _m("<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> might attend <a href='%3$s'>%4$s</a>.</span>");
             break;
         default:
-            throw new Exception("Unknown response code {$response}");
+            throw new Exception(sprintf(_('Unknown response code %s.'),$response));
             break;
         }
 
@@ -351,13 +351,13 @@ class RSVP extends Managed_DataObject
 
         switch ($response) {
         case 'Y':
-            $fmt = _m("%1s is attending %2s.");
+            $fmt = _m("%1$s is attending %2$s.");
             break;
         case 'N':
-            $fmt = _m("%1s is not attending %2s.");
+            $fmt = _m("%1$s is not attending %2$s.");
             break;
         case '?':
-            $fmt = _m("%1s might attend %2s.>");
+            $fmt = _m("%1$s might attend %2$s.>");
             break;
         default:
             throw new Exception("Unknown response code {$response}");
