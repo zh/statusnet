@@ -155,7 +155,7 @@ class Group_message_profile extends Memcached_DataObject
         common_switch_locale($to->language);
 
         // TRANS: Subject for direct-message notification email.
-        // TRANS: %s is the sending user's nickname.
+        // TRANS: %1$s is the sending user's nickname, %2$s is the group nickname.
         $subject = sprintf(_m('New private message from %1$s to group %2$s'), $from_profile->nickname, $group->nickname);
 
         // TRANS: Body for direct-message notification email.
