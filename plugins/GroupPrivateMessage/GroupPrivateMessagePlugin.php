@@ -207,8 +207,8 @@ class GroupPrivateMessagePlugin extends Plugin
 
         $action->menuItem(common_local_url('groupinbox',
                                            array('nickname' => $group->nickname)),
-                          _m('Inbox'),
-                          _m('Private messages for this group'),
+                          _m('MENU','Inbox'),
+                          _m('Private messages for this group.'),
                           $action->trimmed('action') == 'groupinbox',
                           'nav_group_inbox');
         return true;
@@ -259,17 +259,17 @@ class GroupPrivateMessagePlugin extends Plugin
                              array(Group_privacy_settings::SOMETIMES => _m('Sometimes'),
                                    Group_privacy_settings::ALWAYS => _m('Always'),
                                    Group_privacy_settings::NEVER => _m('Never')),
-                             _m('Whether to allow private messages to this group'),
+                             _m('Whether to allow private messages to this group.'),
                              false,
                              (empty($gps)) ? Group_privacy_settings::SOMETIMES : $gps->allow_privacy);
         $form->out->elementEnd('li');
         $form->out->elementStart('li');
         $form->out->dropdown('allow_sender',
-                             _m('Private sender'),
+                             _m('Private senders'),
                              array(Group_privacy_settings::EVERYONE => _m('Everyone'),
                                    Group_privacy_settings::MEMBER => _m('Member'),
                                    Group_privacy_settings::ADMIN => _m('Admin')),
-                             _m('Who can send private messages to the group'),
+                             _m('Who can send private messages to the group.'),
                              false,
                              (empty($gps)) ? Group_privacy_settings::MEMBER : $gps->allow_sender);
         $form->out->elementEnd('li');
@@ -370,7 +370,7 @@ class GroupPrivateMessagePlugin extends Plugin
 
         $action->elementStart('li', 'entity_send-a-message');
         $action->element('a', array('href' => common_local_url('newgroupmessage', array('nickname' => $group->nickname)),
-                                    'title' => _m('Send a direct message to this group')),
+                                    'title' => _m('Send a direct message to this group.')),
                          _m('Message'));
         // $form = new GroupMessageForm($action, $group);
         // $form->hidden = true;
@@ -501,7 +501,7 @@ class GroupPrivateMessagePlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:GroupPrivateMessage',
                             'rawdescription' =>
-                            _m('Allow posting DMs to a group.'));
+                            _m('Allow posting private messages to groups.'));
         return true;
     }
 }
