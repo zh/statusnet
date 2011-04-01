@@ -205,8 +205,8 @@ class QnA_Answer extends Managed_DataObject
     {
         $notice = $question->getNotice();
 
-        $fmt   = '<span class="answer_author"><a href="%1s">answer</a> by <a href="%2s">%3s</a></span>';
-        $fmt  .= '<span class="answer_content">%4s</span>';
+        $fmt   = '<span class="answer_author"><a href="%1$s">answer</a> by <a href="%2$s">%3$s</a></span>';
+        $fmt  .= '<span class="answer_content">%4$s</span>';
 
         return sprintf(
             $fmt,
@@ -221,8 +221,8 @@ class QnA_Answer extends Managed_DataObject
     {
         $notice = $question->getNotice();
 
-        $fmt = _(
-            '%1s answered the question "%2s": %3s'
+        $fmt = _m(
+            '%1$s answered the question "%2$s": %3$s'
         );
 
         return sprintf(

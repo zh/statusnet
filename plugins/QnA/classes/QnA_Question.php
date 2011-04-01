@@ -222,9 +222,9 @@ class QnA_Question extends Managed_DataObject
         $notice = $question->getNotice();
 
         $fmt =  '<div class="qna_question">';
-        $fmt .= '<span class="question_title"><a href="%1s">%2s</a></span>';
-        $fmt .= '<span class="question_description">%3s</span>';
-        $fmt .= '<span class="question_author">asked by <a href="%4s">%5s</a></span>';
+        $fmt .= '<span class="question_title"><a href="%1$s">%2$s</a></span>';
+        $fmt .= '<span class="question_description">%3$s</span>';
+        $fmt .= '<span class="question_author">asked by <a href="%4$s">%5$s</a></span>';
         $fmt .= '</div>';
 
         $q = sprintf(
@@ -251,8 +251,8 @@ class QnA_Question extends Managed_DataObject
 
     static function toString($profile, $question, $answers)
     {
-        $fmt = _(
-            '%1s asked the question "%2s": %3s'
+        $fmt = _m(
+            '%1$s asked the question "%2$s": %3$s'
         );
 
         return sprintf(

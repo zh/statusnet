@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class QnashowanswerAction extends ShownoticeAction
 {
     protected $answer = null;
@@ -56,7 +55,6 @@ class QnashowanswerAction extends ShownoticeAction
      *
      * @return boolean true
      */
-
     function prepare($argarray)
     {
         OwnerDesignAction::prepare($argarray);
@@ -66,32 +64,32 @@ class QnashowanswerAction extends ShownoticeAction
         $this->answer = QnA_Answer::staticGet('id', $this->id);
 
         if (empty($this->answer)) {
-            throw new ClientException(_('No such answer.'), 404);
+            throw new ClientException(_m('No such answer.'), 404);
         }
 
         $this->question = $this->answer->getQuestion();
 
         if (empty($this->question)) {
-            throw new ClientException(_('No question for this answer.'), 404);
+            throw new ClientException(_m('No question for this answer.'), 404);
         }
 
         $this->notice = Notice::staticGet('uri', $this->answer->uri);
 
         if (empty($this->notice)) {
             // Did we used to have it, and it got deleted?
-            throw new ClientException(_('No such answer.'), 404);
+            throw new ClientException(_m('No such answer.'), 404);
         }
 
         $this->user = User::staticGet('id', $this->answer->profile_id);
 
         if (empty($this->user)) {
-            throw new ClientException(_('No such user.'), 404);
+            throw new ClientException(_m('No such user.'), 404);
         }
 
         $this->profile = $this->user->getProfile();
 
         if (empty($this->profile)) {
-            throw new ServerException(_('User without a profile.'));
+            throw new ServerException(_m('User without a profile.'));
         }
 
         $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -106,13 +104,12 @@ class QnashowanswerAction extends ShownoticeAction
      *
      * @return string page tile
      */
-
     function title()
     {
         $question = $this->answer->getQuestion();
 
         return sprintf(
-            _('%s\'s answer to "%s"'),
+            _m('%s\'s answer to "%s"'),
             $this->user->nickname,
             $question->title
         );
@@ -123,7 +120,6 @@ class QnashowanswerAction extends ShownoticeAction
      *
      * @return void
      */
-
     function showPageTitle()
     {
         $this->elementStart('h1');
