@@ -125,6 +125,10 @@ class QnAPlugin extends MicroAppPlugin
             array('action' => 'qnanewanswer')
         );
         $m->connect(
+            'main/qna/reviseanswer',
+            array('action' => 'qnareviseanswer')
+        );
+        $m->connect(
             'question/vote/:id',
             array('action' => 'qnavote', 'type' => 'question'),
             array('id' => $UUIDregex)

@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Answer a question
+ * Revise an answer
  *
  * PHP version 5
  *
@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Answer a question
+ * Revise an answer
  *
  * @category  QnA
  * @package   StatusNet
@@ -43,13 +43,12 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class QnanewanswerAction extends Action
+class QnareviseanswerAction extends Action
 {
     protected $user     = null;
     protected $error    = null;
-    protected $complete = null;
-
     protected $question = null;
+    protected $answer   = null;
     protected $content  = null;
 
     /**
@@ -59,8 +58,8 @@ class QnanewanswerAction extends Action
      */
     function title()
     {
-        // TRANS: Page title for and answer to a question.
-        return _m('Answer');
+        // TRANS: Page title for revising a question
+        return _m('Revise answer');
     }
 
     /**
@@ -91,16 +90,17 @@ class QnanewanswerAction extends Action
             $this->checkSessionToken();
         }
 
-        $id = substr($this->trimmed('id'), 9);
+        $id = substr($this->trimmed('id'), 7);
 
         common_debug("XXXXXXXXXXXXXXXXXX id = " . $id);
 
-        $this->question = QnA_Question::staticGet('id', $id);
+        $this->answer   = QnA_Answer::staticGet('id', $id);
+        $this->question = $this->answer->getQuestion(); 
 
-        if (empty($this->question)) {
+        if (empty($this->answer) || empty($this->question)) {
             // TRANS: Client exception thrown trying to respond to a non-existing question.
             throw new ClientException(
-                _m('Invalid or missing question.'),
+                _m('Invalid or missing answer.'),
                 404
             );
         }
@@ -122,7 +122,7 @@ class QnanewanswerAction extends Action
         parent::handle($argarray);
 
         if ($this->isPost()) {
-            $this->newAnswer();
+            $this->reviseAnswer();
         } else {
             $this->showPage();
         }
@@ -131,18 +131,19 @@ class QnanewanswerAction extends Action
     }
 
     /**
-     * Add a new answer
+     * Revise the answer
      *
      * @return void
      */
-    function newAnswer()
+    function reviseAnswer()
     {
+        $answer = $this->answer;
+        
         try {
-            $notice = QnA_Answer::saveNew(
-                $this->user->getProfile(),
-                $this->question,
-                $this->answerText
-            );
+            $orig = clone($answer);
+            $answer->content = $this->answerText;
+            $answer->revisions++;
+            $result = $answer->update($orig);
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
             $this->showPage();
@@ -155,19 +156,19 @@ class QnanewanswerAction extends Action
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Page title after sending an answer.
-            $this->element('title', null, _m('Answers'));
+            $this->element('title', null, _m('Answer'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->raw($this->answer->asHTML());
+            $this->raw($answer->asHTML());
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
-            common_redirect($this->question->bestUrl(), 303);
+            common_redirect($this->answer->bestUrl(), 303);
         }
     }
 
     /**
-     * Show the Answer form
+     * Show the revise answer form
      *
      * @return void
      */
@@ -177,7 +178,7 @@ class QnanewanswerAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new QnaanswerForm($this->question, $this);
+        $form = new QnareviseanswerForm($this->answer, $this);
         $form->show();
 
         return;
