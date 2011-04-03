@@ -291,6 +291,50 @@ class QnAPlugin extends MicroAppPlugin
     }
 
     /**
+     * Output our CSS class for QnA notice list elements
+     *
+     * @param NoticeListItem $nli The item being shown
+     *
+     * @return boolean hook value
+     */
+
+    function onStartOpenNoticeListItemElement($nli)
+    {
+
+        $type = $nli->notice->object_type;
+
+        switch($type)
+        {
+        case QnA_Question::OBJECT_TYPE:
+            $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
+            $nli->out->elementStart(
+                'li', array(
+                    'class' => 'hentry notice question',
+                    'id'    => 'notice-' . $id
+                )
+            );
+            Event::handle('EndOpenNoticeListItemElement', array($nli));
+            return false;
+            break;
+        case QnA_Answer::OBJECT_TYPE:
+            $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
+            $nli->out->elementStart(
+                'li', array(
+                    'class' => 'hentry notice answer',
+                    'id'    => 'notice-' . $id
+                )
+            );
+            Event::handle('EndOpenNoticeListItemElement', array($nli));
+            return false;
+            break;
+        default:
+            return true;
+        }
+
+        return true;
+    }
+
+    /**
      * Custom HTML output for our notices
      *
      * @param Notice $notice
@@ -323,23 +367,34 @@ class QnAPlugin extends MicroAppPlugin
         $nli = new NoticeListItem($notice, $out);
         $nli->showNotice();
 
-        $out->elementStart('div', array('class' => 'entry-content question-content'));
+
+
+        $out->elementStart('div', array('class' => 'entry-content question-desciption'));
+
         $question = QnA_Question::getByNotice($notice);
 
-        if ($question) {
-            if ($user) {
-                $profile = $user->getProfile();
-                $answer = $question->getAnswer($profile);
-                if ($answer) {
-                    // User has already answer; show the results.
-                    $form = new QnareviseanswerForm($answer, $out);
-                } else {
-                    $form = new QnaanswerForm($question, $out);
+        if (!empty($question)) {
+
+            $short = $question->description;
+            $out->raw($question->description);
+
+            // Don't prompt user for an answer if the question is closed or
+            // the current user posed the question in the first place
+            if (empty($question->closed)) {
+                if (!empty($user) && ($user->id != $question->profile_id)) {
+                    $profile = $user->getProfile();
+                    $answer = $question->getAnswer($profile);
+                    if ($answer) {
+                        // User has already answered; show the results.
+                        $form = new QnareviseanswerForm($answer, $out);
+                    } else {
+                        $form = new QnaanswerForm($question, $out);
+                    }
+                    $form->show();
                 }
-                $form->show();
             }
         } else {
-            $out->text(_m('Question data is missing'));
+            $out->text(_m('Question data is missing.'));
         }
         $out->elementEnd('div');
 
@@ -354,6 +409,19 @@ class QnAPlugin extends MicroAppPlugin
         // @hack we want regular rendering, then just add stuff after that
         $nli = new NoticeListItem($notice, $out);
         $nli->showNotice();
+
+        $out->elementStart('div', array('class' => 'entry-content answer-content'));
+
+        $answer = QnA_Answer::staticGet('uri', $notice->uri);
+
+        if (!empty($answer)) {
+            $short = $answer->content;
+            $out->raw($answer->content);
+        } else {
+            $out->text(_m('Answer data is missing.'));
+        }
+
+        $out->elementEnd('div');
 
         // @fixme
         $out->elementStart('div', array('class' => 'entry-content'));

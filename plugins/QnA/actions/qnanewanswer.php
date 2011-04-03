@@ -137,9 +137,11 @@ class QnanewanswerAction extends Action
      */
     function newAnswer()
     {
+        $profile = $this->user->getProfile();
+
         try {
             $notice = QnA_Answer::saveNew(
-                $this->user->getProfile(),
+                $profile,
                 $this->question,
                 $this->answerText
             );
@@ -150,6 +152,7 @@ class QnanewanswerAction extends Action
         }
         if ($this->boolean('ajax')) {
             common_debug("ajaxy part");
+            $answer = $this->question->getAnswer($profile);
             header('Content-Type: text/xml;charset=utf-8');
             $this->xw->startDocument('1.0', 'UTF-8');
             $this->elementStart('html');
@@ -158,7 +161,7 @@ class QnanewanswerAction extends Action
             $this->element('title', null, _m('Answers'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->raw($this->answer->asHTML());
+            $this->raw($answer->asHTML());
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
