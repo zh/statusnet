@@ -111,7 +111,7 @@ class QnashowanswerAction extends ShownoticeAction
         return sprintf(
             // TRANS: Page title.
             // TRANS: %1$s is the user who answered a question, %2$s is the question.
-            _m('1$%s\'s answer to "%2$s"'),
+            _m('%1$s\'s answer to "%2$s"'),
             $this->user->nickname,
             $question->title
         );
