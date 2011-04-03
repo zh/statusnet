@@ -214,7 +214,7 @@ class DesignSettingsAction extends SettingsAction
             if ($result === false) {
                 common_log_db_error($design, 'UPDATE', __FILE__);
                 // TRANS: Error message displayed if design settings could not be saved.
-                $this->showForm(_('Couldn\'t update your design.'));
+                $this->showForm(_('Could not update your design.'));
                 return;
             }
         }
@@ -236,7 +236,7 @@ class DesignSettingsAction extends SettingsAction
             if ($result === false) {
                 common_log_db_error($design, 'DELETE', __FILE__);
                 // TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
-                $this->showForm(_('Couldn\'t update your design.'));
+                $this->showForm(_('Could not update your design.'));
                 return;
             }
         }
