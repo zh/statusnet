@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-01 20:45+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,6 +151,7 @@ msgstr ""
 #. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when trying to perform a gallery action with an unknown user.
+#. TRANS: Client error displayed when trying to access a mailbox without providing a user.
 #. TRANS: Client error displayed when calling a profile action without specifying a user.
 #: actions/all.php:80 actions/allrss.php:69
 #: actions/apiaccountupdatedeliverydevice.php:110
@@ -173,7 +174,7 @@ msgstr ""
 #: actions/repliesrss.php:38 actions/rsd.php:114 actions/showfavorites.php:106
 #: actions/userbyid.php:75 actions/usergroups.php:95 actions/userrss.php:40
 #: actions/userxrd.php:59 actions/xrds.php:71 lib/command.php:503
-#: lib/galleryaction.php:61 lib/mailbox.php:80 lib/profileaction.php:77
+#: lib/galleryaction.php:61 lib/mailbox.php:79 lib/profileaction.php:77
 msgid "No such user."
 msgstr ""
 
@@ -1128,8 +1129,9 @@ msgstr ""
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
+#. TRANS: Error message in incoming mail handler used when an incoming e-mail contains too many characters.
 #: actions/apistatusesupdate.php:244 actions/newnotice.php:160
-#: lib/mailhandler.php:60
+#: lib/mailhandler.php:65
 #, php-format
 msgid "That's too long. Maximum notice size is %d character."
 msgid_plural "That's too long. Maximum notice size is %d characters."
@@ -1841,9 +1843,11 @@ msgstr ""
 #. TRANS: Button label on the delete notice form.
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
+#. TRANS: Button text to repeat a notice on notice repeat form.
 #: actions/block.php:161 actions/deleteapplication.php:164
 #: actions/deletegroup.php:227 actions/deletenotice.php:162
 #: actions/deleteuser.php:161 actions/groupblock.php:194
+#: lib/repeatform.php:126
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr ""
@@ -2972,7 +2976,8 @@ msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 
 #. TRANS: Server error displayed when subscribing to a remote profile fails because the remote profile could not be updated.
-#: actions/finishremotesubscribe.php:145 lib/oauthstore.php:317
+#. TRANS: Exception thrown when updating a remote profile fails in OAuth store.
+#: actions/finishremotesubscribe.php:145 lib/oauthstore.php:316
 msgid "Error updating remote profile."
 msgstr ""
 
@@ -4760,8 +4765,10 @@ msgstr ""
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label for inputting tags on "tag other users" page.
+#. TRANS: Description for link to "tag other users" in widget to show a list of profiles.
+#. TRANS: Text widget to show a list of profiles with their tags.
 #: actions/profilesettings.php:159 actions/tagother.php:137
-#: lib/subscriptionlist.php:104 lib/subscriptionlist.php:106
+#: lib/subscriptionlist.php:104 lib/subscriptionlist.php:107
 msgid "Tags"
 msgstr ""
 
@@ -5365,7 +5372,9 @@ msgstr ""
 
 #. TRANS: Button text on page for remote subscribe.
 #. TRANS: Link text for link that will subscribe to a remote profile.
+#. TRANS: Button text to subscribe to a user.
 #: actions/remotesubscribe.php:146 lib/accountprofileblock.php:290
+#: lib/subscribeform.php:130
 msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr ""
@@ -5404,7 +5413,7 @@ msgstr ""
 
 #. TRANS: Title after repeating a notice.
 #. TRANS: Repeat form status in notice list when a notice has been repeated.
-#: actions/repeat.php:101 lib/noticelistitem.php:591
+#: actions/repeat.php:101 lib/noticelistitem.php:604
 msgid "Repeated"
 msgstr ""
 
@@ -5805,9 +5814,11 @@ msgstr ""
 #. TRANS: Text for user subscription statistics if the user has no subscriptions.
 #. TRANS: Text for user subscriber statistics if user has no subscribers.
 #. TRANS: Text for user user group membership statistics if user is not a member of any group.
+#. TRANS: Default content for section/sidebar widget.
+#. TRANS: Text if there are no tags in widget to show a list of profiles by tag.
 #: actions/showgroup.php:284 lib/profileaction.php:137
 #: lib/profileaction.php:174 lib/profileaction.php:298 lib/section.php:95
-#: lib/subscriptionlist.php:123 lib/tagcloudsection.php:71
+#: lib/subscriptionlist.php:125
 msgid "(None)"
 msgstr ""
 
@@ -6879,7 +6890,8 @@ msgid "Accept"
 msgstr ""
 
 #. TRANS: Title for button on Authorise Subscription page.
-#: actions/userauthorization.php:204
+#. TRANS: Button title to subscribe to a user.
+#: actions/userauthorization.php:204 lib/subscribeform.php:132
 msgid "Subscribe to this user."
 msgstr ""
 
@@ -7403,7 +7415,8 @@ msgid "Unable to save tag."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
-#: classes/Subscription.php:79 lib/oauthstore.php:482
+#. TRANS: Error message displayed to a banned user when they try to subscribe.
+#: classes/Subscription.php:79 lib/oauthstore.php:483
 msgid "You have been banned from subscribing."
 msgstr ""
 
@@ -8199,7 +8212,8 @@ msgid "AJAX error"
 msgstr ""
 
 #. TRANS: E-mail subject when a command has completed.
-#: lib/channel.php:177 lib/mailhandler.php:143
+#. TRANS: E-mail subject for reply to an e-mail command.
+#: lib/channel.php:177 lib/mailhandler.php:147
 msgid "Command complete"
 msgstr ""
 
@@ -8719,8 +8733,9 @@ msgid "Public"
 msgstr ""
 
 #. TRANS: Title of form for deleting a user.
+#. TRANS: Link text in notice list item to delete a notice.
 #: lib/deletegroupform.php:121 lib/deleteuserform.php:64
-#: lib/noticelistitem.php:568
+#: lib/noticelistitem.php:581
 msgid "Delete"
 msgstr ""
 
@@ -9146,8 +9161,8 @@ msgstr[1] ""
 #: lib/implugin.php:265
 #, php-format
 msgid ""
-"User \"%1$s\" on %2$s has said that your %2$s screenname belongs to them. If "
-"that is true, you can confirm by clicking on this URL: %3$s . (If you cannot "
+"User \"%1$s\" on %2$s has said that your %3$s screenname belongs to them. If "
+"that is true, you can confirm by clicking on this URL: %4$s . (If you cannot "
 "click it, copy-and-paste it into the address bar of your browser). If that "
 "user is not you, or if you did not request this confirmation, just ignore "
 "this message."
@@ -9474,52 +9489,65 @@ msgid ""
 "their group membership at %4$s"
 msgstr ""
 
+#. TRANS: Client error displayed when trying to access a mailbox that is not of the logged in user.
 #: lib/mailbox.php:87
 msgid "Only the user can read their own mailboxes."
 msgstr ""
 
-#: lib/mailbox.php:119
+#. TRANS: Message displayed when there are no private messages in the inbox of a user.
+#: lib/mailbox.php:120
 msgid ""
 "You have no private messages. You can send private message to engage other "
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
+#. TRANS: Menu item in mailbox menu. Leads to incoming private messages.
 #: lib/mailboxmenu.php:59
+msgctxt "MENU"
 msgid "Inbox"
 msgstr ""
 
-#. TRANS: Menu item title in personal group navigation menu.
-#: lib/mailboxmenu.php:60 lib/personalgroupnav.php:117
-msgid "Your incoming messages"
+#. TRANS: Menu item title in mailbox menu. Leads to incoming private messages.
+#: lib/mailboxmenu.php:61
+msgid "Your incoming messages."
 msgstr ""
 
-#: lib/mailboxmenu.php:64
+#. TRANS: Menu item in mailbox menu. Leads to outgoing private messages.
+#: lib/mailboxmenu.php:66
+msgctxt "MENU"
 msgid "Outbox"
 msgstr ""
 
-#: lib/mailboxmenu.php:65
-msgid "Your sent messages"
+#. TRANS: Menu item title in mailbox menu. Leads to outgoing private messages.
+#: lib/mailboxmenu.php:68
+msgid "Your sent messages."
 msgstr ""
 
-#: lib/mailhandler.php:37
+#. TRANS: Error message in incoming mail handler used when an incoming e-mail cannot be processed.
+#: lib/mailhandler.php:38
 msgid "Could not parse message."
 msgstr ""
 
-#: lib/mailhandler.php:42
+#. TRANS: Error message in incoming mail handler used when an incoming e-mail is not from a registered user.
+#: lib/mailhandler.php:44
 msgid "Not a registered user."
 msgstr ""
 
-#: lib/mailhandler.php:46
+#. TRANS: Error message in incoming mail handler used when an incoming e-mail is not from a user's incoming e-mail address.
+#: lib/mailhandler.php:49
 msgid "Sorry, that is not your incoming email address."
 msgstr ""
 
-#: lib/mailhandler.php:50
+#. TRANS: Error message in incoming mail handler used when no incoming e-mail is allowed.
+#: lib/mailhandler.php:54
 msgid "Sorry, no incoming email allowed."
 msgstr ""
 
-#: lib/mailhandler.php:229
+#. TRANS: Error message in incoming mail handler used when an incoming e-mail is of an unsupported type.
+#. TRANS: %s is the unsupported type.
+#: lib/mailhandler.php:235
 #, php-format
-msgid "Unsupported message type: %s"
+msgid "Unsupported message type: %s."
 msgstr ""
 
 #. TRANS: Form legend for form to make a user a group admin.
@@ -9578,51 +9606,93 @@ msgstr ""
 msgid "\"%s\" is not a supported file type on this server."
 msgstr ""
 
-#: lib/messageform.php:120
+#. TRANS: Form legend for direct notice.
+#: lib/messageform.php:114
 msgid "Send a direct notice"
 msgstr ""
 
-#. TRANS Label entry in drop-down selection box in direct-message inbox/outbox. This is the default entry in the drop-down box, doubling as instructions and a brake against accidental submissions with the first user in the list.
-#: lib/messageform.php:137
+#. TRANS: Label entry in drop-down selection box in direct-message inbox/outbox.
+#. TRANS: This is the default entry in the drop-down box, doubling as instructions
+#. TRANS: and a brake against accidental submissions with the first user in the list.
+#: lib/messageform.php:132
 msgid "Select recipient:"
 msgstr ""
 
 #. TRANS Entry in drop-down selection box in direct-message inbox/outbox when no one is available to message.
-#: lib/messageform.php:150
+#: lib/messageform.php:145
 msgid "No mutual subscribers."
 msgstr ""
 
-#: lib/messageform.php:153
+#. TRANS: Dropdown label in direct notice form.
+#: lib/messageform.php:149
 msgid "To"
 msgstr ""
 
-#: lib/messageform.php:183
+#. TRANS: Button text for sending a direct notice.
+#: lib/messageform.php:179
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr ""
 
+#. TRANS: Header in message list.
 #: lib/messagelist.php:77
 msgid "Messages"
 msgstr ""
 
-#: lib/messagelistitem.php:123 lib/noticelistitem.php:421
+#. TRANS: Followed by notice source (usually the client used to send the notice).
+#. TRANS: Followed by notice source.
+#: lib/messagelistitem.php:123 lib/noticelistitem.php:428
 msgid "from"
 msgstr ""
 
-#: lib/microappplugin.php:340
-msgid "Can't get author for activity."
+#. TRANS: A possible notice source (web interface).
+#: lib/messagelistitem.php:144 lib/noticelistitem.php:423
+msgctxt "SOURCE"
+msgid "web"
 msgstr ""
 
-#: lib/microappplugin.php:377
+#. TRANS: A possible notice source (XMPP).
+#: lib/messagelistitem.php:146
+msgctxt "SOURCE"
+msgid "xmpp"
+msgstr ""
+
+#. TRANS: A possible notice source (e-mail).
+#: lib/messagelistitem.php:148
+msgctxt "SOURCE"
+msgid "mail"
+msgstr ""
+
+#. TRANS: A possible notice source (OpenMicroBlogging).
+#: lib/messagelistitem.php:150
+msgctxt "SOURCE"
+msgid "omb"
+msgstr ""
+
+#. TRANS: A possible notice source (Application Programming Interface).
+#: lib/messagelistitem.php:152
+msgctxt "SOURCE"
+msgid "api"
+msgstr ""
+
+#. TRANS: Client exception thrown when no author for an activity was found.
+#: lib/microappplugin.php:336
+msgid "Cannot get author for activity."
+msgstr ""
+
+#. TRANS: Client exception.
+#: lib/microappplugin.php:374
 msgid "Bookmark not posted to this group."
 msgstr ""
 
-#: lib/microappplugin.php:390
+#. TRANS: Client exception.
+#: lib/microappplugin.php:388
 msgid "Object not posted to this user."
 msgstr ""
 
-#: lib/microappplugin.php:394
-msgid "Don't know how to handle this kind of target."
+#. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
+#: lib/microappplugin.php:392
+msgid "Do not know how to handle this kind of target."
 msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
@@ -9676,88 +9746,103 @@ msgid ""
 "try again later"
 msgstr ""
 
-#. TRANS: Used in coordinates as abbreviation of north
+#. TRANS: Used in coordinates as abbreviation of north.
 #: lib/noticelistitem.php:352
 msgid "N"
 msgstr ""
 
-#. TRANS: Used in coordinates as abbreviation of south
+#. TRANS: Used in coordinates as abbreviation of south.
 #: lib/noticelistitem.php:354
 msgid "S"
 msgstr ""
 
-#. TRANS: Used in coordinates as abbreviation of east
+#. TRANS: Used in coordinates as abbreviation of east.
 #: lib/noticelistitem.php:356
 msgid "E"
 msgstr ""
 
-#. TRANS: Used in coordinates as abbreviation of west
+#. TRANS: Used in coordinates as abbreviation of west.
 #: lib/noticelistitem.php:358
 msgid "W"
 msgstr ""
 
-#: lib/noticelistitem.php:360
+#. TRANS: Coordinates message.
+#. TRANS: %1$s is lattitude degrees, %2$s is lattitude minutes,
+#. TRANS: %3$s is lattitude seconds, %4$s is N (north) or S (south) depending on lattitude,
+#. TRANS: %5$s is longitude degrees, %6$s is longitude minutes,
+#. TRANS: %7$s is longitude seconds, %8$s is E (east) or W (west) depending on longitude,
+#: lib/noticelistitem.php:365
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelistitem.php:369
+#. TRANS: Followed by geo location.
+#: lib/noticelistitem.php:375
 msgid "at"
 msgstr ""
 
-#: lib/noticelistitem.php:417
-msgid "web"
-msgstr ""
-
-#: lib/noticelistitem.php:482
+#. TRANS: Addition in notice list item if notice is part of a conversation.
+#: lib/noticelistitem.php:489
 msgid "in context"
 msgstr ""
 
-#: lib/noticelistitem.php:516
+#. TRANS: Addition in notice list item if notice was repeated. Followed by a span with a nickname.
+#: lib/noticelistitem.php:524
 msgid "Repeated by"
 msgstr ""
 
-#: lib/noticelistitem.php:542
+#. TRANS: Link title in notice list item to reply to a notice.
+#: lib/noticelistitem.php:551
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelistitem.php:543
+#. TRANS: Link text in notice list item to reply to a notice.
+#: lib/noticelistitem.php:553
 msgid "Reply"
 msgstr ""
 
-#: lib/noticelistitem.php:568
+#. TRANS: Link title in notice list item to delete a notice.
+#: lib/noticelistitem.php:579
 msgid "Delete this notice"
 msgstr ""
 
 #. TRANS: Title for repeat form status in notice list when a notice has been repeated.
-#: lib/noticelistitem.php:589
+#: lib/noticelistitem.php:602
 msgid "Notice repeated."
 msgstr ""
 
-#: lib/noticeplaceholderform.php:54
+#. TRANS: Field label for notice text.
+#: lib/noticeplaceholderform.php:55
 msgid "Update your status..."
 msgstr ""
 
-#: lib/nudgeform.php:116
+#. TRANS: Form legend of form to nudge/ping another user.
+#: lib/nudgeform.php:111
 msgid "Nudge this user"
 msgstr ""
 
-#: lib/nudgeform.php:128
+#. TRANS: Button text to nudge/ping another user.
+#: lib/nudgeform.php:124
+msgctxt "BUTTON"
 msgid "Nudge"
 msgstr ""
 
+#. TRANS: Button title to nudge/ping another user.
 #: lib/nudgeform.php:128
-msgid "Send a nudge to this user"
+msgid "Send a nudge to this user."
 msgstr ""
 
-#: lib/oauthstore.php:294
+#. TRANS: Exception thrown when creating a new profile fails in OAuth store.
+#: lib/oauthstore.php:291
 msgid "Error inserting new profile."
 msgstr ""
 
-#: lib/oauthstore.php:302
+#. TRANS: Exception thrown when creating a new avatar fails in OAuth store.
+#: lib/oauthstore.php:300
 msgid "Error inserting avatar."
 msgstr ""
 
+#. TRANS: Exception thrown when creating a remote profile fails in OAuth store.
 #: lib/oauthstore.php:322
 msgid "Error inserting remote profile."
 msgstr ""
@@ -9767,8 +9852,9 @@ msgstr ""
 msgid "Duplicate notice."
 msgstr ""
 
-#: lib/oauthstore.php:507
-msgid "Couldn't insert new subscription."
+#. TRANS: Exception thrown when creating a new subscription fails in OAuth store.
+#: lib/oauthstore.php:509
+msgid "Could not insert new subscription."
 msgstr ""
 
 #. TRANS: Menu item in personal group navigation menu.
@@ -9806,6 +9892,11 @@ msgstr ""
 #: lib/personalgroupnav.php:115
 msgctxt "MENU"
 msgid "Messages"
+msgstr ""
+
+#. TRANS: Menu item title in personal group navigation menu.
+#: lib/personalgroupnav.php:117
+msgid "Your incoming messages"
 msgstr ""
 
 #. TRANS: Title for personal tag cloud section. %s is a user nickname.
@@ -9967,23 +10058,23 @@ msgctxt "MENU"
 msgid "Popular"
 msgstr ""
 
-#: lib/redirectingaction.php:95
+#. TRANS: Client error displayed when return-to was defined without a target.
+#: lib/redirectingaction.php:93
 msgid "No return-to arguments."
 msgstr ""
 
-#: lib/repeatform.php:107
+#. TRANS: For legend for notice repeat form.
+#: lib/repeatform.php:102
 msgid "Repeat this notice?"
 msgstr ""
 
-#: lib/repeatform.php:132
-msgid "Yes"
+#. TRANS: Button title to repeat a notice on notice repeat form.
+#: lib/repeatform.php:128
+msgid "Repeat this notice."
 msgstr ""
 
-#: lib/repeatform.php:132
-msgid "Repeat this notice"
-msgstr ""
-
-#: lib/revokeroleform.php:91
+#. TRANS: Description of role revoke form. %s is the role to be revoked.
+#: lib/revokeroleform.php:88
 #, php-format
 msgid "Revoke the \"%s\" role from this user"
 msgstr ""
@@ -9993,11 +10084,14 @@ msgstr ""
 msgid "Page not found."
 msgstr ""
 
-#: lib/sandboxform.php:67
+#. TRANS: Title of form to sandbox a user.
+#: lib/sandboxform.php:65
+msgctxt "TITLE"
 msgid "Sandbox"
 msgstr ""
 
-#: lib/sandboxform.php:78
+#. TRANS: Description of form to sandbox a user.
+#: lib/sandboxform.php:76
 msgid "Sandbox this user"
 msgstr ""
 
@@ -10100,11 +10194,13 @@ msgctxt "MENU"
 msgid "Badge"
 msgstr ""
 
-#: lib/section.php:89
+#. TRANS: Default title for section/sidebar widget.
+#: lib/section.php:88
 msgid "Untitled section"
 msgstr ""
 
-#: lib/section.php:106
+#. TRANS: Default "More..." title for section/sidebar widget.
+#: lib/section.php:107
 msgid "More..."
 msgstr ""
 
@@ -10201,11 +10297,14 @@ msgstr ""
 msgid "Authorized connected applications"
 msgstr ""
 
-#: lib/silenceform.php:67
+#. TRANS: Title of form to silence a user.
+#: lib/silenceform.php:65
+msgctxt "TITLE"
 msgid "Silence"
 msgstr ""
 
-#: lib/silenceform.php:78
+#. TRANS: Description of form to silence a user.
+#: lib/silenceform.php:76
 msgid "Silence this user"
 msgstr ""
 
@@ -10269,25 +10368,26 @@ msgstr ""
 msgid "Invite friends and colleagues to join you on %s."
 msgstr ""
 
-#: lib/subscribeform.php:115 lib/subscribeform.php:139
+#. TRANS: Form of form to subscribe to a user.
+#: lib/subscribeform.php:107
 msgid "Subscribe to this user"
 msgstr ""
 
-#: lib/subscribeform.php:139
-msgid "Subscribe"
-msgstr ""
-
+#. TRANS: Title of personal tag cloud section.
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
 msgstr ""
 
+#. TRANS: Title of personal tag cloud section.
 #: lib/subscriberspeopletagcloudsection.php:48
 #: lib/subscriptionspeopletagcloudsection.php:48
 msgid "People Tagcloud as tagged"
 msgstr ""
 
-#: lib/tagcloudsection.php:56
+#. TRANS: Content displayed in a tag cloud section if there are no tags.
+#: lib/tagcloudsection.php:56 lib/tagcloudsection.php:72
+msgctxt "NOTAGS"
 msgid "None"
 msgstr ""
 
@@ -10296,25 +10396,32 @@ msgstr ""
 msgid "Invalid theme name."
 msgstr ""
 
-#: lib/themeuploader.php:50
+#. TRANS: Exception thrown when a compressed theme is uploaded while no support present in PHP configuration.
+#: lib/themeuploader.php:51
 msgid "This server cannot handle theme uploads without ZIP support."
 msgstr ""
 
-#: lib/themeuploader.php:58 lib/themeuploader.php:61
+#. TRANS: Server exception thrown when uploading a theme fails.
+#: lib/themeuploader.php:60 lib/themeuploader.php:64
 msgid "The theme file is missing or the upload failed."
 msgstr ""
 
-#: lib/themeuploader.php:91 lib/themeuploader.php:102
-#: lib/themeuploader.php:279 lib/themeuploader.php:283
-#: lib/themeuploader.php:291 lib/themeuploader.php:298
+#. TRANS: Server exception thrown when saving an uploaded theme after decompressing it fails.
+#. TRANS: Server exception thrown when an uploaded theme cannot be saved during extraction.
+#: lib/themeuploader.php:95 lib/themeuploader.php:107
+#: lib/themeuploader.php:293 lib/themeuploader.php:298
+#: lib/themeuploader.php:307 lib/themeuploader.php:315
 msgid "Failed saving theme."
 msgstr ""
 
-#: lib/themeuploader.php:147
-msgid "Invalid theme: bad directory structure."
+#. TRANS: Server exception thrown when an uploaded theme has an incorrect structure.
+#: lib/themeuploader.php:153
+msgid "Invalid theme: Bad directory structure."
 msgstr ""
 
-#: lib/themeuploader.php:166
+#. TRANS: Client exception thrown when an uploaded theme is larger than the limit.
+#. TRANS: %d is the number of bytes of the uncompressed theme.
+#: lib/themeuploader.php:174
 #, php-format
 msgid "Uploaded theme is too large; must be less than %d byte uncompressed."
 msgid_plural ""
@@ -10322,26 +10429,32 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/themeuploader.php:179
-msgid "Invalid theme archive: missing file css/display.css"
+#. TRANS: Server exception thrown when an uploaded theme is incomplete.
+#: lib/themeuploader.php:188
+msgid "Invalid theme archive: Missing file css/display.css"
 msgstr ""
 
-#: lib/themeuploader.php:219
+#. TRANS: Server exception thrown when an uploaded theme has an incorrect file or folder name.
+#: lib/themeuploader.php:229
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
 
-#: lib/themeuploader.php:225
+#. TRANS: Server exception thrown when an uploaded theme contains files with unsafe file extensions.
+#: lib/themeuploader.php:236
 msgid "Theme contains unsafe file extension names; may be unsafe."
 msgstr ""
 
-#: lib/themeuploader.php:242
+#. TRANS: Server exception thrown when an uploaded theme contains a file type that is not allowed.
+#. TRANS: %s is the file type that is not allowed.
+#: lib/themeuploader.php:255
 #, php-format
-msgid "Theme contains file of type '.%s', which is not allowed."
+msgid "Theme contains file of type \".%s\", which is not allowed."
 msgstr ""
 
-#: lib/themeuploader.php:260
+#. TRANS: Server exception thrown when an uploaded compressed theme cannot be opened.
+#: lib/themeuploader.php:273
 msgid "Error opening theme archive."
 msgstr ""
 
@@ -10385,23 +10498,25 @@ msgctxt "FAVELIST"
 msgid "You have favored this notice."
 msgstr ""
 
-#: lib/threadednoticelist.php:427
+#. TRANS: List message for favoured notices.
+#. TRANS: %d is the number of users that have favoured a notice.
+#: lib/threadednoticelist.php:426
 #, php-format
-msgctxt "FAVELIST"
 msgid "One person has favored this notice."
 msgid_plural "%d people have favored this notice."
 msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: List message for notice repeated by logged in user.
-#: lib/threadednoticelist.php:481
+#: lib/threadednoticelist.php:480
 msgctxt "REPEATLIST"
 msgid "You have repeated this notice."
 msgstr ""
 
-#: lib/threadednoticelist.php:486
+#. TRANS: List message for repeated notices.
+#. TRANS: %d is the number of users that have repeated a notice.
+#: lib/threadednoticelist.php:484
 #, php-format
-msgctxt "REPEATLIST"
 msgid "One person has repeated this notice."
 msgid_plural "%d people have repeated this notice."
 msgstr[0] ""

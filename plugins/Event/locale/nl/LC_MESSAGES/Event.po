@@ -1,6 +1,7 @@
 # Translation of StatusNet - Event to Dutch (Nederlands)
 # Exported from translatewiki.net
 #
+# Author: McDutchie
 # Author: Siebrand
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -9,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Event\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-01 20:45+0000\n"
-"PO-Revision-Date: 2011-04-01 20:48:53+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:20:37+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-31 21:37:18+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85150); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-01 21:05:08+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-event\n"
@@ -45,7 +46,7 @@ msgstr ""
 #. TRANS: Client exception thrown when referring to a non-existing RSVP.
 #. TRANS: RSVP stands for "Please reply".
 msgid "No such RSVP."
-msgstr "Geen dergelijk verzoek tot antwoorden."
+msgstr "Het verzoek tot antwoorden kon niet worden gevonden."
 
 #. TRANS: Client exception thrown when referring to a non-existing event.
 msgid "No such event."
@@ -103,65 +104,57 @@ msgctxt "LABEL"
 msgid "Title"
 msgstr "Naam"
 
-#, fuzzy
 msgid "Title of the event."
-msgstr "Naam van het evenement"
+msgstr "Naam van het evenement."
 
 msgctxt "LABEL"
 msgid "Start date"
 msgstr "Begindatum"
 
-#, fuzzy
 msgid "Date the event starts."
-msgstr "Datum waarop het evenement begint"
+msgstr "Datum waarop het evenement begint."
 
 msgctxt "LABEL"
 msgid "Start time"
 msgstr "Starttijd"
 
-#, fuzzy
 msgid "Time the event starts."
-msgstr "Tijd waarop het evenement start"
+msgstr "Tijd waarop het evenement begint."
 
 msgctxt "LABEL"
 msgid "End date"
 msgstr "Einddatum"
 
-#, fuzzy
 msgid "Date the event ends."
-msgstr "Datum waarop het evenement eindigt"
+msgstr "Datum waarop het evenement eindigt."
 
 msgctxt "LABEL"
 msgid "End time"
 msgstr "Eindtijd"
 
-#, fuzzy
 msgid "Time the event ends."
-msgstr "Tijd waarop het evenement eindigt"
+msgstr "Tijd waarop het evenement eindigt."
 
 msgctxt "LABEL"
 msgid "Location"
 msgstr "Locatie"
 
-#, fuzzy
 msgid "Event location."
-msgstr "Locatie waar het evenement plaatsvindt"
+msgstr "Locatie waar het evenement plaatsvindt."
 
 msgctxt "LABEL"
 msgid "URL"
 msgstr "URL"
 
-#, fuzzy
 msgid "URL for more information."
-msgstr "URL met meer gegevens"
+msgstr "URL met meer gegevens."
 
 msgctxt "LABEL"
 msgid "Description"
 msgstr "Beschrijving"
 
-#, fuzzy
 msgid "Description of the event."
-msgstr "Beschrijving van het evenement"
+msgstr "Beschrijving van het evenement."
 
 msgctxt "BUTTON"
 msgid "Save"
@@ -174,22 +167,19 @@ msgid "Event"
 msgstr "Evenement"
 
 msgid "Wrong type for object."
-msgstr ""
+msgstr "Verkeerde type voor object."
 
-#, fuzzy
 msgid "RSVP for unknown event."
-msgstr "een onbekend evenement"
+msgstr "Antwoord gevraagd voor onbekend evenement."
 
-#, fuzzy
 msgid "Unknown verb for events"
-msgstr "een onbekend evenement"
+msgstr "Onbekend werkwoord voor evenementen"
 
 msgid "Unknown object type."
-msgstr ""
+msgstr "Onbekend objecttype."
 
-#, fuzzy
 msgid "Unknown event notice."
-msgstr "een onbekend evenement"
+msgstr "Onbekend mededeling over evenement."
 
 msgid "Time:"
 msgstr "Tijd:"
@@ -214,66 +204,68 @@ msgstr "Het verzoek tot antwoorden bestaat al."
 
 #, php-format
 msgid "Unknown verb \"%s\""
-msgstr ""
+msgstr "Onbekend werkwoord: \"%s\"."
 
 #, php-format
 msgid "Unknown code \"%s\"."
-msgstr ""
+msgstr "Onbekende code \"%s\"."
 
 #, php-format
 msgid "RSVP %s does not correspond to a notice in the database."
 msgstr ""
+"Verzoek tot antwoorden %s komt niet overeen met een mededeling in de "
+"database."
 
 #, php-format
 msgid "No profile with ID %s."
-msgstr ""
+msgstr "Er is geen profiel met ID %s."
 
 #, php-format
 msgid "No event with ID %s."
-msgstr ""
+msgstr "Geen evenement met ID %s."
 
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is attending <a "
 "href='%3$s'>%4$s</a>.</span>"
 msgstr ""
-"<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is aanwezig bij <a "
-"href='%3s'>%4s</a>.</span>"
+"<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is aanwezig bij "
+"<a href='%3$s'>%4$s</a>.</span>"
 
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is not attending "
 "<a href='%3$s'>%4$s</a>.</span>"
 msgstr ""
-"<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is niet aanwezig "
-"bij <a href='%3s'>%4s</a>.</span>"
+"<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is niet aanwezig "
+"bij <a href='%3$s'>%4$s</a>.</span>"
 
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> might attend <a "
 "href='%3$s'>%4$s</a>.</span>"
 msgstr ""
-"<span class='automatic event-rsvp'><a href='%1s'>%2s</a> is misschien "
-"aanwezig bij <a href='%3s'>%4s</a>.</span>"
+"<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is misschien "
+"aanwezig bij <a href='%3$s'>%4$s</a>.</span>"
 
 #, php-format
 msgid "Unknown response code %s."
-msgstr ""
+msgstr "Onbekende antwoordcode %s ."
 
 msgid "an unknown event"
 msgstr "een onbekend evenement"
 
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s is attending %2$s."
-msgstr "%1s is aanwezig bij %2s."
+msgstr "%1$s is aanwezig bij %2$s."
 
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s is not attending %2$s."
-msgstr "%1s is niet aanwezig bij %2s."
+msgstr "%1$s is niet aanwezig bij %2$s."
 
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s might attend %2$s."
-msgstr "%1s is misschien aanwezig bij %2s.>"
+msgstr "%1$s is misschien aanwezig bij %2$s."
 
 msgid "New event"
 msgstr "Nieuw evenement"
@@ -290,7 +282,7 @@ msgstr "De begindatum is vereist."
 msgid "End date required."
 msgstr "De einddatum is vereist."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Could not parse date \"%s\"."
 msgstr "Het was niet mogelijk de datum \"%s\" te verwerken."
 
@@ -302,6 +294,3 @@ msgstr "Een evenement moet een begintijd hebben."
 
 msgid "Event must have an end time."
 msgstr "Een evenement moet een eindtijd hebben."
-
-#~ msgid "No such Event."
-#~ msgstr "Dat evenement bestaat niet."
