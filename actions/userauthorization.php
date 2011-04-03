@@ -50,6 +50,7 @@ class UserauthorizationAction extends Action
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
                 $srv = $this->getStoredParams();
+                // TRANS: Client error displayed when the session token does not match or is not given.
                 $this->showForm($srv->getRemoteUser(), _('There was a problem ' .
                                         'with your session token. Try again, ' .
                                         'please.'));

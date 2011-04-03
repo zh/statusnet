@@ -108,6 +108,7 @@ class SubGroupNav extends Menu
                                                           array('nickname' =>
                                                                 $this->user->nickname)),
                                          // TRANS: Menu item in local navigation menu.
+                                         // TRANS: %d is the number of pending subscription requests.
                                          sprintf(_m('MENU','Pending (%d)'), $pending),
                                          // TRANS: Menu item title in local navigation menu.
                                          sprintf(_('Approve pending subscription requests.'),

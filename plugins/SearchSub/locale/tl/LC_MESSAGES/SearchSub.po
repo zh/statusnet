@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - SearchSub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-24 11:10+0000\n"
-"PO-Revision-Date: 2011-03-24 11:14:43+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:22:16+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-18 20:15:51+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r84667); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-01 21:06:38+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85253); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-searchsub\n"
@@ -96,12 +96,34 @@ msgstr ""
 msgid "You are no longer subscribed to the search \"%s\"."
 msgstr "Hindi ka na nagpapasipi sa paghahanap ng \"%s\"."
 
+#. TRANS: Client error displayed trying to perform any request method other than POST.
+#. TRANS: Do not translate POST.
+msgid "This action only accepts POST requests."
+msgstr ""
+
+#. TRANS: Client error displayed when the session token is not okay.
+msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
+#. TRANS: Client error displayed trying to subscribe when not logged in.
+msgid "Not logged in."
+msgstr ""
+
+#. TRANS: Client error displayed trying to subscribe to a non-existing profile.
+msgid "No such profile."
+msgstr ""
+
 #. TRANS: Page title when search subscription succeeded.
 msgid "Subscribed"
 msgstr "Nagpapasipi na"
 
 msgid "Unsubscribe from this search"
 msgstr "Huwag nang magpasipi mula sa paghahanap na ito"
+
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Unsubscribe"
+msgstr "Hindi na nagpapasipi"
 
 #. TRANS: Page title when search unsubscription succeeded.
 msgid "Unsubscribed"
@@ -178,6 +200,11 @@ msgstr "Sinusubaybayan mo ang mga paghahanap para sa: %s"
 
 msgid "Subscribe to this search"
 msgstr "Magpasipi para sa paghahanap na ito"
+
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Subscribe"
+msgstr "Nagpapasipi na"
 
 #. TRANS: Message given having failed to cancel one of the search subs with 'track off' command.
 #, php-format

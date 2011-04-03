@@ -65,7 +65,7 @@ class ShowrsvpAction extends ShownoticeAction
 
         if (empty($this->event)) {
             // TRANS: Client exception thrown when referring to a non-existing event.
-            throw new ClientException(_m('No such Event.'), 404);
+            throw new ClientException(_m('No such event.'), 404);
         }
 
         $notice = $this->rsvp->getNotice();

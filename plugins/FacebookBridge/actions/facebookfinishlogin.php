@@ -147,7 +147,7 @@ class FacebookfinishloginAction extends Action
 
             if (!$this->boolean('license')) {
                 $this->showForm(
-                    _m('You can\'t register if you don\'t agree to the license.'),
+                    _m('You cannot register if you do not agree to the license.'),
                     $this->trimmed('newname')
                 );
                 return;
@@ -182,7 +182,7 @@ class FacebookfinishloginAction extends Action
                 'div', 'instructions',
                 // TRANS: %s is the site name.
                 sprintf(
-                    _m('This is the first time you\'ve logged into %s so we must connect your Facebook to a local account. You can either create a new local account, or connect with an existing local account.'),
+                    _m('This is the first time you have logged into %s so we must connect your Facebook to a local account. You can either create a new local account, or connect with an existing local account.'),
                     common_config('site', 'name')
                 )
             );
@@ -265,7 +265,7 @@ class FacebookfinishloginAction extends Action
         // TRANS: Field label.
         $this->input('newname', _m('New nickname'),
                      ($this->username) ? $this->username : '',
-                     _m('1-64 lowercase letters or numbers, no punctuation or spaces'));
+                     _m('1-64 lowercase letters or numbers, no punctuation or spaces.'));
         $this->elementEnd('li');
 
         // Hook point for captcha etc

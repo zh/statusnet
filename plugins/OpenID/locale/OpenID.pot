@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 19:46+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,7 +188,24 @@ msgid "New nickname"
 msgstr ""
 
 #: finishopenidlogin.php:128
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
+msgstr ""
+
+#: finishopenidlogin.php:131
+msgid "Email"
+msgstr ""
+
+#: finishopenidlogin.php:132
+msgid "Used only for updates, announcements, and password recovery."
+msgstr ""
+
+#. TRANS: OpenID plugin link text.
+#. TRANS: %s is a link to a licese with the license name as link text.
+#: finishopenidlogin.php:149
+#, php-format
+msgid ""
+"My text and files are available under %s except this private data: password, "
+"email address, IM address, and phone number."
 msgstr ""
 
 #. TRANS: Button label in form in which to create a new user on the site for an OpenID.
@@ -418,7 +435,11 @@ msgid ""
 msgstr ""
 
 #: openidadminpanel.php:278
-msgid "Save OpenID settings"
+msgid "Save"
+msgstr ""
+
+#: openidadminpanel.php:278
+msgid "Save OpenID settings."
 msgstr ""
 
 #. TRANS: Client error message

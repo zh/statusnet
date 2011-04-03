@@ -45,7 +45,6 @@ require_once INSTALLDIR.'/lib/widget.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class Section extends Widget
 {
     /**
@@ -56,7 +55,6 @@ class Section extends Widget
      * @return void
      * @see Widget::show()
      */
-
     function show()
     {
         $this->out->elementStart('div',
@@ -86,12 +84,14 @@ class Section extends Widget
 
     function title()
     {
+        // TRANS: Default title for section/sidebar widget.
         return _('Untitled section');
     }
 
     function showContent()
     {
         $this->out->element('p', null,
+                            // TRANS: Default content for section/sidebar widget.
                             _('(None)'));
         return false;
     }
@@ -103,6 +103,7 @@ class Section extends Widget
 
     function moreTitle()
     {
+        // TRANS: Default "More..." title for section/sidebar widget.
         return _('More...');
     }
 }

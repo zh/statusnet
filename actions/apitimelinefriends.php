@@ -204,6 +204,8 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
         $profile    = $this->user->getProfile();
         $avatar     = $profile->getAvatar(AVATAR_PROFILE_SIZE);
         $sitename   = common_config('site', 'name');
+        // TRANS: Title of API timeline for a user and friends.
+        // TRANS: %s is a username.
         $title      = sprintf(_("%s and friends"), $this->user->nickname);
         $taguribase = TagURI::base();
         $id         = "tag:$taguribase:FriendsTimeline:" . $this->user->id;
@@ -272,7 +274,7 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
             $this->raw($doc->asString());
             break;
         default:
-            // TRANS: Client error displayed when trying to handle an unknown API method.
+            // TRANS: Client error displayed when coming across a non-supported API method.
             $this->clientError(_('API method not found.'), $code = 404);
             break;
         }

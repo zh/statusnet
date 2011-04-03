@@ -95,56 +95,56 @@ class EventForm extends Form
         $this->out->input('title',
                           _m('LABEL','Title'),
                           null,
-                          _m('Title of the event'));
+                          _m('Title of the event.'));
         $this->unli();
 
         $this->li();
         $this->out->input('startdate',
                           _m('LABEL','Start date'),
                           null,
-                          _m('Date the event starts'));
+                          _m('Date the event starts.'));
         $this->unli();
 
         $this->li();
         $this->out->input('starttime',
                           _m('LABEL','Start time'),
                           null,
-                          _m('Time the event starts'));
+                          _m('Time the event starts.'));
         $this->unli();
 
         $this->li();
         $this->out->input('enddate',
                           _m('LABEL','End date'),
                           null,   
-                          _m('Date the event ends'));
+                          _m('Date the event ends.'));
         $this->unli();
 
         $this->li();
         $this->out->input('endtime',
                           _m('LABEL','End time'),
                           null,
-                          _m('Time the event ends'));
+                          _m('Time the event ends.'));
         $this->unli();
 
         $this->li();
         $this->out->input('location',
                           _m('LABEL','Location'),
                           null,
-                          _m('Event location'));
+                          _m('Event location.'));
         $this->unli();
 
         $this->li();
         $this->out->input('url',
                           _m('LABEL','URL'),
                           null,
-                          _m('URL for more information'));
+                          _m('URL for more information.'));
         $this->unli();
 
         $this->li();
         $this->out->input('description',
                           _m('LABEL','Description'),
                           null,
-                          _m('Description of the event'));
+                          _m('Description of the event.'));
         $this->unli();
 
         $this->out->elementEnd('ul');

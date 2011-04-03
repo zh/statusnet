@@ -9,28 +9,200 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Bookmark\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 19:45+0000\n"
-"PO-Revision-Date: 2011-03-18 19:48:23+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:20:15+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-11 18:52:29+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r84232); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-01 21:04:35+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-bookmark\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
 
+msgid "Bad import file."
+msgstr "Неправилна податотека за увоз."
+
+msgid "No <A> tag in a <DT>."
+msgstr "Нема ознака <A> во <DT>."
+
+msgid "Skipping private bookmark."
+msgstr "Прескокнувам приватнен одбележувач."
+
+#. TRANS: Client exception thrown when referring to a non-existing bookmark.
+msgid "No such bookmark."
+msgstr "Нема таков одбележувач."
+
+#. TRANS: Title for bookmark.
+#. TRANS: %1$s is a user nickname, %2$s is a bookmark title.
+#, php-format
+msgid "%1$s's bookmark for \"%2$s\""
+msgstr "Одбележувачот на %1$s за „%2$s“"
+
 msgid "Simple extension for supporting bookmarks."
 msgstr "Прост додаток за поддршка на обележувачи."
 
+msgid "Import del.icio.us bookmarks"
+msgstr "Увези одбележувачи del.icio.us"
+
+msgid "Expected exactly 1 link rel=related in a Bookmark."
+msgstr "Очекував точно 1 врска rel=related во одбележувач."
+
+msgid "Bookmark notice with the wrong number of attachments."
+msgstr "Одбележи забелешка со погрешен број на прилози."
+
 msgid "Bookmark"
 msgstr "Одбележи"
+
+#, php-format
+msgid "Bookmark on %s"
+msgstr "Одбележи на %s"
+
+msgid "Bookmark already exists."
+msgstr "Одбележувачот веќе постои."
+
+#. TRANS: %1$s is a title, %2$s is a short URL, %3$s is a description,
+#. TRANS: %4$s is space separated list of hash tags.
+#, php-format
+msgid "\"%1$s\" %2$s %3$s %4$s"
+msgstr "„%1$s“ %2$s %3$s %4$s"
+
+#, php-format
+msgid ""
+"<span class=\"xfolkentry\"><a class=\"taggedlink\" href=\"%1$s\">%2$s</a> "
+"<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
+"span>"
+msgstr ""
+"<span class=\"xfolkentry\"><a class=\"taggedlink\" href=\"%1$s\">%2$s</a> "
+"<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
+"span>"
+
+msgid "Unknown URL"
+msgstr "Непозната URL-адреса"
+
+#, php-format
+msgid "Notices linking to %s"
+msgstr "Забелешки со врски до %s"
+
+msgid "Only logged-in users can import del.icio.us backups."
+msgstr "Само најавени корисници можат да увезуваат резерви del.icio.us."
+
+msgid "You may not restore your account."
+msgstr "Не можете да ја вратите Вашата сметка."
+
+msgid "No uploaded file."
+msgstr "Нема подигната податотека."
+
+#. TRANS: Client exception thrown when an uploaded file is too large.
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr ""
+"Подигнатата податотека ја надминува директивата upload_max_filesize во php."
+"ini."
+
+#. TRANS: Client exception.
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form."
+msgstr ""
+"Подигнатата податотека ја надминува директивата the MAX_FILE_SIZE назначена "
+"во HTML-образецот."
+
+#. TRANS: Client exception.
+msgid "The uploaded file was only partially uploaded."
+msgstr "Подигнатата податотека е само делумно подигната."
+
+#. TRANS: Client exception thrown when a temporary folder is not present
+msgid "Missing a temporary folder."
+msgstr "Недостасува привремена папка."
+
+#. TRANS: Client exception thrown when writing to disk is not possible
+msgid "Failed to write file to disk."
+msgstr "Податотеката не може да се запише на дискот."
+
+#. TRANS: Client exception thrown when a file upload has been stopped
+msgid "File upload stopped by extension."
+msgstr "Подигањето на податотеката е запрено од додатокот."
+
+#. TRANS: Client exception thrown when a file upload operation has failed
+msgid "System error uploading file."
+msgstr "Системска грешка при подигањето на податотеката."
+
+#, php-format
+msgid "Getting backup from file '%s'."
+msgstr "Земам резерва на податотеката „%s“."
+
+msgid ""
+"Bookmarks have been imported. Your bookmarks should now appear in search and "
+"your profile page."
+msgstr ""
+"Одележувачите се увезени. Сега треба да се појават во пребарувањето и во "
+"Вашата профилна страница."
+
+msgid "Bookmarks are being imported. Please wait a few minutes for results."
+msgstr "Одбележувачите се увезуваат. Почекајте неколку минути."
+
+msgid "You can upload a backed-up delicious.com bookmarks file."
+msgstr ""
+"Можете да подигнете резервен приемерок на податотека со одбележувачи backed-"
+"up delicious.com"
 
 msgctxt "BUTTON"
 msgid "Upload"
 msgstr "Подигни"
 
+msgid "Upload the file"
+msgstr "Подигни ја податотеката"
+
+msgctxt "LABEL"
+msgid "Title"
+msgstr "Назив"
+
+msgid "Title of the bookmark"
+msgstr "Назив на одбележувачот"
+
+msgctxt "LABEL"
+msgid "URL"
+msgstr "URL"
+
+msgid "URL to bookmark"
+msgstr "URL за одбележување"
+
+msgctxt "LABEL"
+msgid "Tags"
+msgstr "Ознаки"
+
+msgid "Comma- or space-separated list of tags"
+msgstr "Список на ознаки одделен со запирки или празни места"
+
+msgctxt "LABEL"
+msgid "Description"
+msgstr "Опис"
+
+msgid "Description of the URL"
+msgstr "Опис на URL-адресата"
+
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Зачувај"
+
+msgid "New bookmark"
+msgstr "Ново бележење"
+
+msgid "Must be logged in to post a bookmark."
+msgstr "Мора да сте најавени за да објавите одбележувач."
+
+msgid "Bookmark must have a title."
+msgstr "Одбележувачот мора да има наслов."
+
+msgid "Bookmark must have an URL."
+msgstr "Одбележувачот мора да има URL-адреса."
+
+#. TRANS: Page title after sending a notice.
+msgid "Notice posted"
+msgstr "Забелешката е објавена"
+
+#. TRANS: %s is the filename that contains a backup for a user.
+#, php-format
+msgid "Getting backup from file \"%s\"."
+msgstr "Земам резерва на податотеката „%s“."

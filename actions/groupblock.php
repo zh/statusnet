@@ -62,6 +62,7 @@ class GroupblockAction extends RedirectingAction
         }
         $token = $this->trimmed('token');
         if (empty($token) || $token != common_session_token()) {
+            // TRANS: Client error displayed when the session token does not match or is not given.
             $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }

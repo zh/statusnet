@@ -70,7 +70,7 @@ class NewgroupmessageAction extends Action
         }
 
         if (!$this->user->hasRight(Right::NEWMESSAGE)) {
-            throw new Exception(sprintf(_m('User %s not allowed to send private messages.'),
+            throw new Exception(sprintf(_m('User %s is not allowed to send private messages.'),
                                         $this->user->nickname));
         }
 

@@ -824,7 +824,7 @@ class SubscriptionsCommand extends Command
             // TRANS: Text shown after requesting other users a user is subscribed to.
             // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribed users.
-            $out = ngettext('You are subscribed to this person:',
+            $out = _m('You are subscribed to this person:',
                 'You are subscribed to these people:',
                 count($nicknames));
             $out .= ' ';
@@ -851,7 +851,7 @@ class SubscribersCommand extends Command
             // TRANS: Text shown after requesting other users that are subscribed to a user (followers).
             // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribing users.
-            $out = ngettext('This person is subscribed to you:',
+            $out = _m('This person is subscribed to you:',
                 'These people are subscribed to you:',
                 count($nicknames));
             $out .= ' ';
@@ -878,7 +878,7 @@ class GroupsCommand extends Command
             // TRANS: Text shown after requesting groups a user is subscribed to.
             // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribed groups.
-            $out = ngettext('You are a member of this group:',
+            $out = _m('You are a member of this group:',
                 'You are a member of these groups:',
                 count($nicknames));
             $out.=implode(', ',$groups);

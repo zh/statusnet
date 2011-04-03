@@ -177,7 +177,7 @@ class Group_message extends Memcached_DataObject
     {
         $group = User_group::staticGet('id', $this->to_group);
         if (empty($group)) {
-            throw new ServerException(_m('No group for group message'));
+            throw new ServerException(_m('No group for group message.'));
         }
         return $group;
     }
@@ -186,7 +186,7 @@ class Group_message extends Memcached_DataObject
     {
         $sender = Profile::staticGet('id', $this->from_profile);
         if (empty($sender)) {
-            throw new ServerException(_m('No sender for group message'));
+            throw new ServerException(_m('No sender for group message.'));
         }
         return $sender;
     }

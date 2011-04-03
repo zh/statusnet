@@ -160,6 +160,7 @@ class RegisterAction extends Action
         if (Event::handle('StartRegistrationTry', array($this))) {
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
+                // TRANS: Client error displayed when the session token does not match or is not given.
                 $this->showForm(_('There was a problem with your session token. '.
                                   'Try again, please.'));
                 return;
@@ -211,6 +212,7 @@ class RegisterAction extends Action
                 // TRANS: Form validation error displayed when trying to register with an invalid nickname.
                 $this->showForm(_('Not a valid nickname.'));
             } else if ($this->emailExists($email)) {
+                // TRANS: Form validation error displayed when trying to register with an already registered e-mail address.
                 $this->showForm(_('Email address already exists.'));
             } else if (!is_null($homepage) && (strlen($homepage) > 0) &&
                        !Validate::uri($homepage,

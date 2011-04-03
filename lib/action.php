@@ -165,7 +165,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->element('title', null,
                        // TRANS: Page title. %1$s is the title, %2$s is the site name.
-                       sprintf(_("%1\$s - %2\$s"),
+                       sprintf(_('%1$s - %2$s'),
                                $this->title(),
                                common_config('site', 'name')));
     }
@@ -181,7 +181,7 @@ class Action extends HTMLOutputter // lawsuit
     function title()
     {
         // TRANS: Page title for a page without a title set.
-        return _("Untitled page");
+        return _('Untitled page');
     }
 
     /**
@@ -609,17 +609,16 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showNoticeForm()
     {
-        $tabs = array('status' => _('Status'));
+        // TRANS: Tab on the notice form.
+        $tabs = array('status' => _m('TAB','Status'));
 
         $this->elementStart('div', 'input_forms');
 
         if (Event::handle('StartShowEntryForms', array(&$tabs))) {
-
             $this->elementStart('ul', array('class' => 'nav',
                                             'id' => 'input_form_nav'));
 
             foreach ($tabs as $tag => $title) {
-
                 $attrs = array('id' => 'input_form_nav_'.$tag,
                                'class' => 'input_form_nav_tab');
 
@@ -647,7 +646,6 @@ class Action extends HTMLOutputter // lawsuit
             $this->elementEnd('div');
 
             foreach ($tabs as $tag => $title) {
-
                 $attrs = array('class' => 'input_form',
                                'id' => 'input_form_'.$tag);
 

@@ -329,7 +329,7 @@ class ThreadedNoticeListReplyItem extends NoticeListItem
     function showMiniForm()
     {
         $this->out->element('input', array('class' => 'placeholder',
-                                            // TRANS: Field label for reply mini form.
+                                           // TRANS: Field label for reply mini form.
                                            'value' => _('Write a reply...')));
     }
 }
@@ -423,8 +423,7 @@ class ThreadedNoticeListFavesItem extends NoticeListActorsItem
         } else {
             // TRANS: List message for favoured notices.
             // TRANS: %d is the number of users that have favoured a notice.
-            return sprintf(_m('FAVELIST',
-                              'One person has favored this notice.',
+            return sprintf(_m('One person has favored this notice.',
                               '%d people have favored this notice.',
                               $count),
                            $count);
@@ -482,8 +481,7 @@ class ThreadedNoticeListRepeatsItem extends NoticeListActorsItem
         } else {
             // TRANS: List message for repeated notices.
             // TRANS: %d is the number of users that have repeated a notice.
-            return sprintf(_m('REPEATLIST',
-                              'One person has repeated this notice.',
+            return sprintf(_m('One person has repeated this notice.',
                               '%d people have repeated this notice.',
                               $count),
                            $count);

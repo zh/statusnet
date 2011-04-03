@@ -101,6 +101,7 @@ class NewnoticeAction extends Action
             // CSRF protection
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
+                // TRANS: Client error displayed when the session token does not match or is not given.
                 $this->clientError(_('There was a problem with your session token. '.
                                      'Try again, please.'));
             }
@@ -180,6 +181,8 @@ class NewnoticeAction extends Action
 
             if (Notice::contentTooLong($content_shortened)) {
                 $upload->delete();
+                // TRANS: Client error displayed exceeding the maximum notice length.
+                // TRANS: %d is the maximum length for a notice.
                 $this->clientError(sprintf(_m('Maximum notice size is %d character, including attachment URL.',
                                               'Maximum notice size is %d characters, including attachment URL.',
                                               Notice::maxContent()),
