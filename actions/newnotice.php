@@ -101,6 +101,7 @@ class NewnoticeAction extends Action
             // CSRF protection
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
+                // TRANS: Client error displayed when the session token does not match or is not given.
                 $this->clientError(_('There was a problem with your session token. '.
                                      'Try again, please.'));
             }

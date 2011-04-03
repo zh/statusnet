@@ -72,6 +72,7 @@ class FavorAction extends Action
         $notice = Notice::staticGet($id);
         $token  = $this->trimmed('token-'.$notice->id);
         if (!$token || $token != common_session_token()) {
+            // TRANS: Client error displayed when the session token does not match or is not given.
             $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
