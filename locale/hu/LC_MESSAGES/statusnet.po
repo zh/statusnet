@@ -12,17 +12,52 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 13:16+0000\n"
-"PO-Revision-Date: 2011-04-03 13:19:19+0000\n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
+"PO-Revision-Date: 2011-04-03 23:13:57+0000\n"
 "Language-Team: Hungarian <http://translatewiki.net/wiki/Portal:hu>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-01 21:04:32+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hu\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. TRANS: Database error message.
+#, php-format
+msgid ""
+"The database for %1$s is not responding correctly, so the site will not work "
+"properly. The site admins probably know about the problem, but you can "
+"contact them at %2$s to make sure. Otherwise, wait a few minutes and try "
+"again."
+msgstr ""
+
+#. TRANS: Error message.
+msgid ""
+"An important error occured, probably related to email setup. Check logfiles "
+"for more info."
+msgstr ""
+
+#. TRANS: Error message.
+msgid "An error occurred."
+msgstr ""
+
+#. TRANS: Error message displayed when there is no StatusNet configuration file.
+#, php-format
+msgid ""
+"No configuration file found. Try running the installation program first."
+msgstr ""
+
+#. TRANS: Error message displayed when trying to access a non-existing page.
+#, fuzzy
+msgid "Unknown page"
+msgstr "Ismeretlen fájltípus"
+
+#. TRANS: Error message displayed when trying to perform an undefined action.
+#. TRANS: Title for password recovery page when an unknown action has been specified.
+msgid "Unknown action"
+msgstr "Ismeretlen művelet"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 msgid "Access"
@@ -111,6 +146,7 @@ msgstr "Nincs ilyen lap."
 #. TRANS: Client error displayed when checking group membership for a non-existing user.
 #. TRANS: Client error displayed when trying to have a non-existing user join a group.
 #. TRANS: Client error displayed when trying to have a non-existing user leave a group.
+#. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed when not providing a user or an invalid user.
 #. TRANS: Client error displayed when updating a status for a non-existing user.
 #. TRANS: Client error displayed when requesting a list of followers for a non-existing user.
@@ -135,6 +171,7 @@ msgstr "Nincs ilyen lap."
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
 #. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
 #. TRANS: Client error displayed requesting groups for a non-existing user.
+#. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when trying to perform a gallery action with an unknown user.
@@ -151,6 +188,8 @@ msgstr "%1$s és barátai, %2$d oldal"
 #. TRANS: Page title. %s is user nickname
 #. TRANS: H1 text for page. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
 #. TRANS: Timeline title for user and friends. %s is a user nickname.
 #. TRANS: Menu item title in administrator navigation panel.
 #. TRANS: %s is a username.
@@ -225,28 +264,14 @@ msgstr "Te és a barátaid"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Frissítések %1$s felhasználótól, és barátok a következő oldalon: %2$s!"
 
-#. TRANS: Client error displayed handling a non-existing API method.
+#. TRANS: Client error displayed when coming across a non-supported API method.
 #. TRANS: Client error displayed when trying to handle an unknown API method.
-#. TRANS: Client error displayed trying to execute an unknown API method updating profile colours.
-#. TRANS: Client error displayed trying to execute an unknown API method verifying user credentials.
-#. TRANS: Client error given when an API method was not found (404).
-#. TRANS: Client error displayed when trying to handle an unknown API method.
-#. TRANS: Client error displayed trying to execute an unknown API method showing friendship.
-#. TRANS: Client error given when an API method was not found (404).
-#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
-#. TRANS: Client error displayed trying to execute an unknown API method joining a group.
-#. TRANS: Client error displayed trying to execute an unknown API method leaving a group.
-#. TRANS: Client error displayed trying to execute an unknown API method checking group membership.
-#. TRANS: Client error displayed trying to execute an unknown API method listing the latest 20 groups.
-#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
-#. TRANS: Client error displayed when using an unsupported API format.
-#. TRANS: Client error displayed trying to execute an unknown API method showing a group.
-#. TRANS: Client error displayed trying to execute an unknown API method testing API connectivity.
-#. TRANS: Client error displayed trying to execute an unknown API method deleting a status.
-#. TRANS: Client error displayed when trying to handle an unknown API method.
+#. TRANS: Client error displayed when coming across a non-supported API method.
 msgid "API method not found."
 msgstr "Az API-metódus nem található."
 
+#. TRANS: Client error message. POST is a HTTP command. It should not be translated.
+#. TRANS: Client error. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error message. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
 msgid "This method requires a POST."
@@ -320,6 +345,8 @@ msgstr "Nem sikerült elmenteni a megjelenítési beállításaid."
 #. TRANS: Error displayed when updating design settings fails.
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
 #. TRANS: Form validation error on Profile design page when updating design settings has failed.
+#. TRANS: Error message displayed if design settings could not be saved.
+#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
 msgid "Could not update your design."
 msgstr "Nem sikerült frissíteni a megjelenítést."
 
@@ -695,9 +722,12 @@ msgstr "Nincs jogosultságod."
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
 #. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Form validation error.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Client error displayed when the session token is not okay.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Probléma volt a munkameneted tokenjével. Kérlek, próbáld újra."
 
@@ -888,6 +918,8 @@ msgstr "Hír törlése"
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum length for a notice.
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail contains too many characters.
@@ -904,6 +936,8 @@ msgstr "Az API-metódus nem található."
 
 #. TRANS: Client error displayed exceeding the maximum notice length.
 #. TRANS: %d is the maximum lenth for a notice.
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum length for a notice.
 #, fuzzy, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
@@ -975,6 +1009,8 @@ msgstr ""
 msgid "Repeats of %s"
 msgstr ""
 
+#. TRANS: Subtitle of API time with retweets of me.
+#. TRANS: %1$s is the StatusNet sitename, %2$s is the user nickname, %3$s is the user profile name.
 #, fuzzy, php-format
 msgid "%1$s notices that %2$s / %3$s has repeated."
 msgstr "%s (@%s) az általad küldött hírt hozzáadta a kedvenceihez"
@@ -1354,6 +1390,7 @@ msgstr "Feltöltheted a személyes avatarodat. A fájl maximális mérete %s leh
 #. TRANS: Server error displayed on page for remote subscribe when user does not have a matching profile.
 #. TRANS: Server error displayed when trying to authorise a remote subscription request
 #. TRANS: while the user has no profile.
+#. TRANS: Server error displayed in user RSS when user does not have a matching profile.
 msgid "User without matching profile."
 msgstr ""
 
@@ -1380,6 +1417,7 @@ msgstr "Előnézet"
 #. TRANS: Button on avatar upload page to delete current avatar.
 #. TRANS: Button text for user account deletion.
 #. TRANS: Submit button text the OAuth application page to delete an application.
+#. TRANS: Button text for deleting a group.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Delete"
@@ -1554,24 +1592,7 @@ msgctxt "TITLE"
 msgid "%1$s left group %2$s"
 msgstr "%1$s csatlakozott a(z) %2$s csoporthoz"
 
-#. TRANS: Client error displayed when trying to leave a group while not logged in.
-#. TRANS: Error message displayed trying to delete a notice while not logged in.
-#. TRANS: Client error displayed when trying to remove a favorite while not logged in.
-#. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
-#. TRANS: Client error displayed trying to block a user from a group while not logged in.
-#. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
-#. TRANS: Client error displayed trying to log out when not logged in.
-#. TRANS: Client error displayed when trying to access the "make admin" page while not logged in.
-#. TRANS: Client error displayed trying to create a new direct message while not logged in.
-#. TRANS: Client error displayed trying to send a notice while not logged in.
-#. TRANS: Client error displayed trying to nudge a user without being logged in.
-#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
-#. TRANS: Client error displayed trying a change a subscription while not logged in.
-#. TRANS: Client error displayed trying to subscribe when not logged in.
-#. TRANS: Client error displayed on user tag page when trying to add tags while not logged in.
-#. TRANS: Client error displayed when trying to unsubscribe while not logged in.
-#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#. TRANS: Client error displayed when trying to change user options while not logged in.
+#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
 msgstr "Nem vagy bejelentkezve."
 
@@ -1737,6 +1758,7 @@ msgstr ""
 msgid "You are not the owner of this application."
 msgstr ""
 
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Client error text when there is a problem with the session token.
 msgid "There was a problem with your session token."
 msgstr ""
@@ -3329,6 +3351,9 @@ msgid "Ajax Error"
 msgstr "Ajax-hiba"
 
 #. TRANS: Page title for sending a new notice.
+#. TRANS: Title for form to send a new notice.
+#, fuzzy
+msgctxt "TITLE"
 msgid "New notice"
 msgstr "Új hír"
 
@@ -4340,10 +4365,6 @@ msgstr "Jelszó visszaállítás kérvényezve"
 msgid "Password saved"
 msgstr "Jelszó elmentve."
 
-#. TRANS: Title for password recovery page when an unknown action has been specified.
-msgid "Unknown action"
-msgstr "Ismeretlen művelet"
-
 #. TRANS: Title for field label for password reset form.
 #, fuzzy
 msgid "6 or more characters, and do not forget it!"
@@ -4438,6 +4459,7 @@ msgstr "A regisztráció nem megengedett."
 msgid "You cannot register if you do not agree to the license."
 msgstr "Nem tudsz regisztrálni ha nem fogadod el a licencet."
 
+#. TRANS: Form validation error displayed when trying to register with an already registered e-mail address.
 msgid "Email address already exists."
 msgstr "Az e-mail cím már létezik."
 
@@ -7526,11 +7548,6 @@ msgctxt "RADIO"
 msgid "Off"
 msgstr "Ki"
 
-#. TRANS: Error message displayed if design settings could not be saved.
-#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
-msgid "Couldn't update your design."
-msgstr "Nem sikerült frissíteni a designt."
-
 #. TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
 msgid "Design defaults restored."
 msgstr ""
@@ -7879,6 +7896,12 @@ msgstr ""
 #. TRANS: Server exception thrown trying to initialise an IM plugin without a transport method.
 msgid "Transport cannot be null."
 msgstr ""
+
+#. TRANS: Button text for joining a group.
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Join"
+msgstr "Csatlakozzunk"
 
 #. TRANS: Button text on form to leave a group.
 #, fuzzy
@@ -8445,6 +8468,13 @@ msgid ""
 "try again later"
 msgstr ""
 
+#. TRANS: Header in notice list.
+#. TRANS: Header for Notices section.
+#, fuzzy
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "Hírek"
+
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
 msgstr "É"
@@ -8611,12 +8641,12 @@ msgstr "SMS beállítások"
 
 #. TRANS: Menu item title in primary navigation panel.
 #, fuzzy
-msgid "Change your personal settings"
+msgid "Change your personal settings."
 msgstr "Változtasd meg a jelszavad"
 
 #. TRANS: Menu item title in primary navigation panel.
 #, fuzzy
-msgid "Site configuration"
+msgid "Site configuration."
 msgstr "A felhasználók beállításai"
 
 #. TRANS: Menu item in primary navigation panel.
@@ -8625,11 +8655,14 @@ msgctxt "MENU"
 msgid "Logout"
 msgstr "Kijelentkezés"
 
-msgid "Logout from the site"
+#. TRANS: Menu item title in primary navigation panel.
+#, fuzzy
+msgid "Logout from the site."
 msgstr "Kijelentkezés a webhelyről"
 
 #. TRANS: Menu item title in primary navigation panel.
-msgid "Login to the site"
+#, fuzzy
+msgid "Login to the site."
 msgstr "Bejelentkezés a webhelyre"
 
 #. TRANS: Menu item in primary navigation panel.
@@ -8640,7 +8673,7 @@ msgstr "Keresés"
 
 #. TRANS: Menu item title in primary navigation panel.
 #, fuzzy
-msgid "Search the site"
+msgid "Search the site."
 msgstr "A webhely témája."
 
 #. TRANS: H2 text for user subscription statistics.
@@ -8764,6 +8797,28 @@ msgstr ""
 #. TRANS: Button text for searching site.
 msgctxt "BUTTON"
 msgid "Search"
+msgstr ""
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+msgid ""
+"* Make sure all words are spelled correctly.\n"
+"* Try different keywords.\n"
+"* Try more general keywords.\n"
+"* Try fewer keywords.\n"
+msgstr ""
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+#, php-format
+msgid ""
+"\n"
+"You can also try your search on other engines:\n"
+"\n"
+"* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
+"site.server%%%%)\n"
+"* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
+"* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)\n"
 msgstr ""
 
 #. TRANS: Menu item in search group navigation panel.
@@ -9075,12 +9130,6 @@ msgstr ""
 msgid "Error opening theme archive."
 msgstr ""
 
-#. TRANS: Header for Notices section.
-#, fuzzy
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "Hírek"
-
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, php-format
@@ -9277,8 +9326,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Yes"
-#~ msgstr "Igen"
-
-#~ msgid "Subscribe"
-#~ msgstr "Kövessük"
+#~ msgid "Couldn't update your design."
+#~ msgstr "Nem sikerült frissíteni a designt."

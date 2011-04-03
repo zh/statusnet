@@ -10,17 +10,52 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 13:16+0000\n"
-"PO-Revision-Date: 2011-04-03 13:19:48+0000\n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
+"PO-Revision-Date: 2011-04-03 23:14:20+0000\n"
 "Language-Team: Telugu <http://translatewiki.net/wiki/Portal:te>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-01 21:04:32+0000\n"
+"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+
+#. TRANS: Database error message.
+#, php-format
+msgid ""
+"The database for %1$s is not responding correctly, so the site will not work "
+"properly. The site admins probably know about the problem, but you can "
+"contact them at %2$s to make sure. Otherwise, wait a few minutes and try "
+"again."
+msgstr ""
+
+#. TRANS: Error message.
+msgid ""
+"An important error occured, probably related to email setup. Check logfiles "
+"for more info."
+msgstr ""
+
+#. TRANS: Error message.
+msgid "An error occurred."
+msgstr ""
+
+#. TRANS: Error message displayed when there is no StatusNet configuration file.
+#, php-format
+msgid ""
+"No configuration file found. Try running the installation program first."
+msgstr ""
+
+#. TRANS: Error message displayed when trying to access a non-existing page.
+#, fuzzy
+msgid "Unknown page"
+msgstr "తెలియని చర్య"
+
+#. TRANS: Error message displayed when trying to perform an undefined action.
+#. TRANS: Title for password recovery page when an unknown action has been specified.
+msgid "Unknown action"
+msgstr "తెలియని చర్య"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 msgid "Access"
@@ -107,6 +142,7 @@ msgstr "అటువంటి పేజీ లేదు."
 #. TRANS: Client error displayed when checking group membership for a non-existing user.
 #. TRANS: Client error displayed when trying to have a non-existing user join a group.
 #. TRANS: Client error displayed when trying to have a non-existing user leave a group.
+#. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed when not providing a user or an invalid user.
 #. TRANS: Client error displayed when updating a status for a non-existing user.
 #. TRANS: Client error displayed when requesting a list of followers for a non-existing user.
@@ -131,6 +167,7 @@ msgstr "అటువంటి పేజీ లేదు."
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
 #. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
 #. TRANS: Client error displayed requesting groups for a non-existing user.
+#. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when trying to perform a gallery action with an unknown user.
@@ -147,6 +184,8 @@ msgstr "%1$s మరియు మిత్రులు, పేజీ %2$d"
 #. TRANS: Page title. %s is user nickname
 #. TRANS: H1 text for page. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
 #. TRANS: Timeline title for user and friends. %s is a user nickname.
 #. TRANS: Menu item title in administrator navigation panel.
 #. TRANS: %s is a username.
@@ -220,28 +259,14 @@ msgstr "మీరు మరియు మీ స్నేహితులు"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "%2$sలో %1$s మరియు స్నేహితుల నుండి తాజాకరణలు!"
 
-#. TRANS: Client error displayed handling a non-existing API method.
+#. TRANS: Client error displayed when coming across a non-supported API method.
 #. TRANS: Client error displayed when trying to handle an unknown API method.
-#. TRANS: Client error displayed trying to execute an unknown API method updating profile colours.
-#. TRANS: Client error displayed trying to execute an unknown API method verifying user credentials.
-#. TRANS: Client error given when an API method was not found (404).
-#. TRANS: Client error displayed when trying to handle an unknown API method.
-#. TRANS: Client error displayed trying to execute an unknown API method showing friendship.
-#. TRANS: Client error given when an API method was not found (404).
-#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
-#. TRANS: Client error displayed trying to execute an unknown API method joining a group.
-#. TRANS: Client error displayed trying to execute an unknown API method leaving a group.
-#. TRANS: Client error displayed trying to execute an unknown API method checking group membership.
-#. TRANS: Client error displayed trying to execute an unknown API method listing the latest 20 groups.
-#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
-#. TRANS: Client error displayed when using an unsupported API format.
-#. TRANS: Client error displayed trying to execute an unknown API method showing a group.
-#. TRANS: Client error displayed trying to execute an unknown API method testing API connectivity.
-#. TRANS: Client error displayed trying to execute an unknown API method deleting a status.
-#. TRANS: Client error displayed when trying to handle an unknown API method.
+#. TRANS: Client error displayed when coming across a non-supported API method.
 msgid "API method not found."
 msgstr "API పద్ధతి లేదు."
 
+#. TRANS: Client error message. POST is a HTTP command. It should not be translated.
+#. TRANS: Client error. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error message. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
 msgid "This method requires a POST."
@@ -312,6 +337,8 @@ msgstr "మీ రూపురేఖల అమరికలని భద్రప
 #. TRANS: Error displayed when updating design settings fails.
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
 #. TRANS: Form validation error on Profile design page when updating design settings has failed.
+#. TRANS: Error message displayed if design settings could not be saved.
+#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
 #, fuzzy
 msgid "Could not update your design."
 msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
@@ -684,9 +711,12 @@ msgstr "మీకు అధీకరణ లేదు."
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
 #. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Form validation error.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Client error displayed when the session token is not okay.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
@@ -875,6 +905,8 @@ msgstr "%d నోటీసుని తొలగించాం"
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum length for a notice.
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail contains too many characters.
@@ -891,6 +923,8 @@ msgstr "నిర్ధారణ సంకేతం కనబడలేదు."
 
 #. TRANS: Client error displayed exceeding the maximum notice length.
 #. TRANS: %d is the maximum lenth for a notice.
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum length for a notice.
 #, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
@@ -960,6 +994,8 @@ msgstr "%s యొక్క మైక్రోబ్లాగు"
 msgid "Repeats of %s"
 msgstr "%s యొక్క పునరావృతాలు"
 
+#. TRANS: Subtitle of API time with retweets of me.
+#. TRANS: %1$s is the StatusNet sitename, %2$s is the user nickname, %3$s is the user profile name.
 #, fuzzy, php-format
 msgid "%1$s notices that %2$s / %3$s has repeated."
 msgstr "%2$s నోటీసుని %1$s ఇష్టాంశంగా గుర్తించారు."
@@ -1332,6 +1368,7 @@ msgstr "మీ వ్యక్తిగత అవతారాన్ని మీ
 #. TRANS: Server error displayed on page for remote subscribe when user does not have a matching profile.
 #. TRANS: Server error displayed when trying to authorise a remote subscription request
 #. TRANS: while the user has no profile.
+#. TRANS: Server error displayed in user RSS when user does not have a matching profile.
 #, fuzzy
 msgid "User without matching profile."
 msgstr "వాడుకరికి ప్రొఫైలు లేదు."
@@ -1359,6 +1396,7 @@ msgstr "మునుజూపు"
 #. TRANS: Button on avatar upload page to delete current avatar.
 #. TRANS: Button text for user account deletion.
 #. TRANS: Submit button text the OAuth application page to delete an application.
+#. TRANS: Button text for deleting a group.
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "తొలగించు"
@@ -1529,24 +1567,7 @@ msgctxt "TITLE"
 msgid "%1$s left group %2$s"
 msgstr "%2$s గుంపు నుండి %1$s వైదొలిగారు"
 
-#. TRANS: Client error displayed when trying to leave a group while not logged in.
-#. TRANS: Error message displayed trying to delete a notice while not logged in.
-#. TRANS: Client error displayed when trying to remove a favorite while not logged in.
-#. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
-#. TRANS: Client error displayed trying to block a user from a group while not logged in.
-#. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
-#. TRANS: Client error displayed trying to log out when not logged in.
-#. TRANS: Client error displayed when trying to access the "make admin" page while not logged in.
-#. TRANS: Client error displayed trying to create a new direct message while not logged in.
-#. TRANS: Client error displayed trying to send a notice while not logged in.
-#. TRANS: Client error displayed trying to nudge a user without being logged in.
-#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
-#. TRANS: Client error displayed trying a change a subscription while not logged in.
-#. TRANS: Client error displayed trying to subscribe when not logged in.
-#. TRANS: Client error displayed on user tag page when trying to add tags while not logged in.
-#. TRANS: Client error displayed when trying to unsubscribe while not logged in.
-#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#. TRANS: Client error displayed when trying to change user options while not logged in.
+#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
 msgstr "లోనికి ప్రవేశించలేదు."
 
@@ -1708,6 +1729,7 @@ msgstr "ఉపకరణం కనబడలేదు."
 msgid "You are not the owner of this application."
 msgstr "మీరు ఈ ఉపకరణం యొక్క యజమాని కాదు."
 
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Client error text when there is a problem with the session token.
 msgid "There was a problem with your session token."
 msgstr ""
@@ -3298,6 +3320,9 @@ msgid "Ajax Error"
 msgstr "అజాక్స్ పొరపాటు"
 
 #. TRANS: Page title for sending a new notice.
+#. TRANS: Title for form to send a new notice.
+#, fuzzy
+msgctxt "TITLE"
 msgid "New notice"
 msgstr "కొత్త సందేశం"
 
@@ -4298,10 +4323,6 @@ msgstr ""
 msgid "Password saved"
 msgstr "సంకేతపదం భద్రమయ్యింది"
 
-#. TRANS: Title for password recovery page when an unknown action has been specified.
-msgid "Unknown action"
-msgstr "తెలియని చర్య"
-
 #. TRANS: Title for field label for password reset form.
 msgid "6 or more characters, and do not forget it!"
 msgstr "6 లేదా అంతకంటే ఎక్కువ అక్షరాలు, మర్చిపోకండి!"
@@ -4393,6 +4414,7 @@ msgstr "నమోదు అనుమతించబడదు."
 msgid "You cannot register if you do not agree to the license."
 msgstr "ఈ లైసెన్సుకి అంగీకరించకపోతే మీరు నమోదుచేసుకోలేరు."
 
+#. TRANS: Form validation error displayed when trying to register with an already registered e-mail address.
 msgid "Email address already exists."
 msgstr "ఈమెయిల్ చిరునామా ఇప్పటికే ఉంది."
 
@@ -7514,11 +7536,6 @@ msgctxt "RADIO"
 msgid "Off"
 msgstr "ఆఫ్"
 
-#. TRANS: Error message displayed if design settings could not be saved.
-#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
-msgid "Couldn't update your design."
-msgstr "మీ రూపురేఖలని తాజాకరించలేకపోయాం."
-
 #. TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
 msgid "Design defaults restored."
 msgstr ""
@@ -7857,6 +7874,12 @@ msgstr ""
 #. TRANS: Server exception thrown trying to initialise an IM plugin without a transport method.
 msgid "Transport cannot be null."
 msgstr ""
+
+#. TRANS: Button text for joining a group.
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Join"
+msgstr "చేరు"
 
 #. TRANS: Button text on form to leave a group.
 #, fuzzy
@@ -8449,6 +8472,13 @@ msgstr ""
 "క్షమించండి, మీ భౌగోళిక ప్రాంతాన్ని తెలుసుకోవడం అనుకున్నదానికంటే ఎక్కవ సమయం తీసుకుంటూంది, దయచేసి "
 "కాసేపాగి ప్రయత్నించండి"
 
+#. TRANS: Header in notice list.
+#. TRANS: Header for Notices section.
+#, fuzzy
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "సందేశాలు"
+
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
 msgstr "ఉ"
@@ -8616,11 +8646,12 @@ msgstr "SMS అమరికలు"
 
 #. TRANS: Menu item title in primary navigation panel.
 #, fuzzy
-msgid "Change your personal settings"
+msgid "Change your personal settings."
 msgstr "ఫ్రొఫైలు అమరికలని మార్చు"
 
 #. TRANS: Menu item title in primary navigation panel.
-msgid "Site configuration"
+#, fuzzy
+msgid "Site configuration."
 msgstr "సైటు స్వరూపణం"
 
 #. TRANS: Menu item in primary navigation panel.
@@ -8628,11 +8659,14 @@ msgctxt "MENU"
 msgid "Logout"
 msgstr "నిష్క్రమించు"
 
-msgid "Logout from the site"
+#. TRANS: Menu item title in primary navigation panel.
+#, fuzzy
+msgid "Logout from the site."
 msgstr "సైటు నుండి నిష్క్రమించు"
 
 #. TRANS: Menu item title in primary navigation panel.
-msgid "Login to the site"
+#, fuzzy
+msgid "Login to the site."
 msgstr "సైటులోని ప్రవేశించు"
 
 #. TRANS: Menu item in primary navigation panel.
@@ -8642,7 +8676,7 @@ msgstr "వెతుకు"
 
 #. TRANS: Menu item title in primary navigation panel.
 #, fuzzy
-msgid "Search the site"
+msgid "Search the site."
 msgstr "సైటుని వెతుకు"
 
 #. TRANS: H2 text for user subscription statistics.
@@ -8768,6 +8802,28 @@ msgstr "కీపదము(లు)"
 msgctxt "BUTTON"
 msgid "Search"
 msgstr "వెతుకు"
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+msgid ""
+"* Make sure all words are spelled correctly.\n"
+"* Try different keywords.\n"
+"* Try more general keywords.\n"
+"* Try fewer keywords.\n"
+msgstr ""
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+#, php-format
+msgid ""
+"\n"
+"You can also try your search on other engines:\n"
+"\n"
+"* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
+"site.server%%%%)\n"
+"* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
+"* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)\n"
+msgstr ""
 
 #. TRANS: Menu item in search group navigation panel.
 #, fuzzy
@@ -9072,12 +9128,6 @@ msgstr ""
 msgid "Error opening theme archive."
 msgstr "నిరోధాన్ని తొలగించడంలో పొరపాటు."
 
-#. TRANS: Header for Notices section.
-#, fuzzy
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "సందేశాలు"
-
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, fuzzy, php-format
@@ -9268,8 +9318,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Yes"
-#~ msgstr "అవును"
-
-#~ msgid "Subscribe"
-#~ msgstr "చందాచేరు"
+#~ msgid "Couldn't update your design."
+#~ msgstr "మీ రూపురేఖలని తాజాకరించలేకపోయాం."

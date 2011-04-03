@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: ArianHT
+# Author: Bersam
 # Author: Brion
 # Author: Choxos
 # Author: Ebraminio
@@ -17,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 13:16+0000\n"
-"PO-Revision-Date: 2011-04-03 13:19:09+0000\n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
+"PO-Revision-Date: 2011-04-03 23:13:49+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian <http://translatewiki.net/wiki/Portal:fa>\n"
 "MIME-Version: 1.0\n"
@@ -27,9 +28,44 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
-"X-POT-Import-Date: 2011-04-01 21:04:32+0000\n"
+"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+
+#. TRANS: Database error message.
+#, php-format
+msgid ""
+"The database for %1$s is not responding correctly, so the site will not work "
+"properly. The site admins probably know about the problem, but you can "
+"contact them at %2$s to make sure. Otherwise, wait a few minutes and try "
+"again."
+msgstr ""
+
+#. TRANS: Error message.
+msgid ""
+"An important error occured, probably related to email setup. Check logfiles "
+"for more info."
+msgstr ""
+
+#. TRANS: Error message.
+msgid "An error occurred."
+msgstr ""
+
+#. TRANS: Error message displayed when there is no StatusNet configuration file.
+#, php-format
+msgid ""
+"No configuration file found. Try running the installation program first."
+msgstr ""
+
+#. TRANS: Error message displayed when trying to access a non-existing page.
+#, fuzzy
+msgid "Unknown page"
+msgstr "ناشناخته"
+
+#. TRANS: Error message displayed when trying to perform an undefined action.
+#. TRANS: Title for password recovery page when an unknown action has been specified.
+msgid "Unknown action"
+msgstr "عمل نامعلوم"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 msgid "Access"
@@ -116,6 +152,7 @@ msgstr "چنین صفحه‌ای وجود ندارد."
 #. TRANS: Client error displayed when checking group membership for a non-existing user.
 #. TRANS: Client error displayed when trying to have a non-existing user join a group.
 #. TRANS: Client error displayed when trying to have a non-existing user leave a group.
+#. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed when not providing a user or an invalid user.
 #. TRANS: Client error displayed when updating a status for a non-existing user.
 #. TRANS: Client error displayed when requesting a list of followers for a non-existing user.
@@ -140,6 +177,7 @@ msgstr "چنین صفحه‌ای وجود ندارد."
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
 #. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
 #. TRANS: Client error displayed requesting groups for a non-existing user.
+#. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when trying to perform a gallery action with an unknown user.
@@ -156,6 +194,8 @@ msgstr "%1$s و دوستان، صفحهٔ %2$d"
 #. TRANS: Page title. %s is user nickname
 #. TRANS: H1 text for page. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
 #. TRANS: Timeline title for user and friends. %s is a user nickname.
 #. TRANS: Menu item title in administrator navigation panel.
 #. TRANS: %s is a username.
@@ -232,28 +272,14 @@ msgstr "شما و دوستان"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "به روز رسانی از %1$s و دوستان در %2$s"
 
-#. TRANS: Client error displayed handling a non-existing API method.
+#. TRANS: Client error displayed when coming across a non-supported API method.
 #. TRANS: Client error displayed when trying to handle an unknown API method.
-#. TRANS: Client error displayed trying to execute an unknown API method updating profile colours.
-#. TRANS: Client error displayed trying to execute an unknown API method verifying user credentials.
-#. TRANS: Client error given when an API method was not found (404).
-#. TRANS: Client error displayed when trying to handle an unknown API method.
-#. TRANS: Client error displayed trying to execute an unknown API method showing friendship.
-#. TRANS: Client error given when an API method was not found (404).
-#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
-#. TRANS: Client error displayed trying to execute an unknown API method joining a group.
-#. TRANS: Client error displayed trying to execute an unknown API method leaving a group.
-#. TRANS: Client error displayed trying to execute an unknown API method checking group membership.
-#. TRANS: Client error displayed trying to execute an unknown API method listing the latest 20 groups.
-#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
-#. TRANS: Client error displayed when using an unsupported API format.
-#. TRANS: Client error displayed trying to execute an unknown API method showing a group.
-#. TRANS: Client error displayed trying to execute an unknown API method testing API connectivity.
-#. TRANS: Client error displayed trying to execute an unknown API method deleting a status.
-#. TRANS: Client error displayed when trying to handle an unknown API method.
+#. TRANS: Client error displayed when coming across a non-supported API method.
 msgid "API method not found."
 msgstr "رابط مورد نظر پیدا نشد."
 
+#. TRANS: Client error message. POST is a HTTP command. It should not be translated.
+#. TRANS: Client error. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error message. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
 msgid "This method requires a POST."
@@ -324,6 +350,8 @@ msgstr "نمی‌توان تنظیمات طرح‌تان را ذخیره کرد.
 #. TRANS: Error displayed when updating design settings fails.
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
 #. TRANS: Form validation error on Profile design page when updating design settings has failed.
+#. TRANS: Error message displayed if design settings could not be saved.
+#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
 msgid "Could not update your design."
 msgstr "نمی‌توان طرح‌تان به‌هنگام‌سازی کرد."
 
@@ -411,7 +439,6 @@ msgid "Recipient user not found."
 msgstr "کاربر گیرنده یافت نشد."
 
 #. TRANS: Client error displayed trying to direct message another user who's not a friend (403).
-#, fuzzy
 msgid "Cannot send direct messages to users who aren't your friend."
 msgstr "نمی‌توان پیام مستقیم را به کاربرانی که دوست شما نیستند، فرستاد."
 
@@ -512,7 +539,6 @@ msgstr "صفحهٔ خانگی یک نشانی معتبر نیست."
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with a too long full name.
-#, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
 msgstr "نام کامل خیلی طولانی است (حداکثر ۲۵۵ نویسه)."
 
@@ -667,9 +693,8 @@ msgstr "لقب باید شامل حروف کوچک و اعداد و بدون ف�
 
 #. TRANS: API validation exception thrown when alias is the same as nickname.
 #. TRANS: Group create form validation error.
-#, fuzzy
 msgid "Alias cannot be the same as nickname."
-msgstr "نام و نام مستعار شما نمی تواند یکی باشد ."
+msgstr "نام و نام مستعار شما نمی‌تواند یکی باشد ."
 
 #. TRANS: Client error displayed when uploading a media file has failed.
 msgid "Upload failed."
@@ -697,9 +722,12 @@ msgstr "شما شناسایی نشده اید."
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
 #. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Form validation error.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Client error displayed when the session token is not okay.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 msgid "There was a problem with your session token. Try again, please."
 msgstr "مشکلی در دریافت نشست شما وجود دارد. لطفا بعدا سعی کنید."
 
@@ -763,7 +791,6 @@ msgstr ""
 "بدهید."
 
 #. TRANS: Fieldset legend.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Account"
 msgstr "حساب کاربری"
@@ -794,7 +821,6 @@ msgid "Cancel"
 msgstr "انصراف"
 
 #. TRANS: Button text that when clicked will allow access to an account by an external application.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Allow"
 msgstr "اجازه دادن"
@@ -816,15 +842,15 @@ msgid "The request token %s has been revoked."
 msgstr "نشانهٔ درخواست %s پذیرفته نشد و لغو شد."
 
 #. TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
-#, fuzzy
 msgid "You have successfully authorized the application"
-msgstr "شما شناسایی نشده اید."
+msgstr "شما با موفقیت برنامه را تایید کردید."
 
 #. TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 msgid ""
 "Please return to the application and enter the following security code to "
 "complete the process."
 msgstr ""
+"لطفا به نرم‌افزار بازگردید و برای تکمیل فرایند، کد امنیتی زیر را وارد کنید"
 
 #. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
@@ -839,6 +865,7 @@ msgid ""
 "Please return to %s and enter the following security code to complete the "
 "process."
 msgstr ""
+"لطفا به نرم‌افزار %s بازگردید و برای تکمیل فرایند، کد امنیتی زیر را وارد کنید"
 
 #. TRANS: Client error displayed trying to delete a status not using POST or DELETE.
 #. TRANS: POST and DELETE should not be translated.
@@ -900,6 +927,8 @@ msgstr "پیام را پاک کن"
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum length for a notice.
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail contains too many characters.
@@ -915,6 +944,8 @@ msgstr "رابط مورد نظر پیدا نشد."
 
 #. TRANS: Client error displayed exceeding the maximum notice length.
 #. TRANS: %d is the maximum lenth for a notice.
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum length for a notice.
 #, fuzzy, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
@@ -984,6 +1015,8 @@ msgstr "%1$s به روز رسانی هایی که در پاسخ به $2$s / %3$s
 msgid "Repeats of %s"
 msgstr "تکرار %s"
 
+#. TRANS: Subtitle of API time with retweets of me.
+#. TRANS: %1$s is the StatusNet sitename, %2$s is the user nickname, %3$s is the user profile name.
 #, fuzzy, php-format
 msgid "%1$s notices that %2$s / %3$s has repeated."
 msgstr "پیام شما را به برگزیده‌های خود اضافه کرد %s (@%s)"
@@ -1113,7 +1146,7 @@ msgstr "شما به سیستم وارد نشده اید."
 #. TRANS: Client error displayed when trying to approve or cancel a group join request without
 #. TRANS: being a group administrator.
 msgid "Only group admin can approve or cancel join requests."
-msgstr ""
+msgstr "فقط مدیر گروه می‌تواند که درخواست‌های عضویت را تایید یا لغو کند."
 
 #. TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
 #. TRANS: Client error displayed trying to approve subscriptionswithout specifying a profile to approve.
@@ -1154,11 +1187,11 @@ msgstr "وضعیت %1$s در %2$s"
 
 #. TRANS: Message on page for group admin after approving a join request.
 msgid "Join request approved."
-msgstr ""
+msgstr "درخواست عضویت تایید شد."
 
 #. TRANS: Message on page for group admin after rejecting a join request.
 msgid "Join request canceled."
-msgstr ""
+msgstr "درخواست عضویت لغو شد."
 
 #. TRANS: Client error displayed trying to approve subscription for a non-existing request.
 #, fuzzy, php-format
@@ -1258,7 +1291,7 @@ msgstr "همهٔ اعضا"
 
 #. TRANS: Client exception thrown when trying to subscribe to group while blocked from that group.
 msgid "Blocked by admin."
-msgstr ""
+msgstr "توسط مدیر مسدود شده است."
 
 #. TRANS: Client exception thrown when referencing a non-existing favorite.
 #, fuzzy
@@ -1362,6 +1395,7 @@ msgstr ""
 #. TRANS: Server error displayed on page for remote subscribe when user does not have a matching profile.
 #. TRANS: Server error displayed when trying to authorise a remote subscription request
 #. TRANS: while the user has no profile.
+#. TRANS: Server error displayed in user RSS when user does not have a matching profile.
 msgid "User without matching profile."
 msgstr "کاربر نمایهٔ تطبیق ندارد."
 
@@ -1388,6 +1422,7 @@ msgstr "پیش‌نمایش"
 #. TRANS: Button on avatar upload page to delete current avatar.
 #. TRANS: Button text for user account deletion.
 #. TRANS: Submit button text the OAuth application page to delete an application.
+#. TRANS: Button text for deleting a group.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Delete"
@@ -1434,7 +1469,7 @@ msgstr "چهره پاک شد."
 #. TRANS: Title for backup account page.
 #. TRANS: Option in profile settings to create a backup of the account of the currently logged in user.
 msgid "Backup account"
-msgstr ""
+msgstr "تهیه نسخهٔ پشتیبان از حساب کاربری"
 
 #. TRANS: Client exception thrown when trying to backup an account while not logged in.
 #, fuzzy
@@ -1443,7 +1478,7 @@ msgstr "تنها کاربران وارد شده می توانند پیام‌ه�
 
 #. TRANS: Client exception thrown when trying to backup an account without having backup rights.
 msgid "You may not backup your account."
-msgstr ""
+msgstr "شما نمی‌توانید از حساب کاربری خود نسخهٔ پشتیبان تهیه کنید."
 
 #. TRANS: Information displayed on the backup account page.
 msgid ""
@@ -1461,7 +1496,7 @@ msgstr "پشتیبان‌گیری"
 
 #. TRANS: Title for submit button to backup an account on the backup account page.
 msgid "Backup your account."
-msgstr ""
+msgstr "از حساب کاربری خود نسخهٔ پشتیبان تهیه کنید."
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 msgid "You already blocked that user."
@@ -1495,9 +1530,8 @@ msgid "No"
 msgstr "خیر"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
-#, fuzzy
 msgid "Do not block this user."
-msgstr "کاربر را مسدود نکن"
+msgstr "کاربر را مسدود نکن."
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
@@ -1511,7 +1545,6 @@ msgid "Yes"
 msgstr "بله"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
-#, fuzzy
 msgid "Block this user."
 msgstr "کاربر را مسدود کن"
 
@@ -1540,10 +1573,9 @@ msgid "Unblock user from group"
 msgstr "آزاد کردن کاربر در پیوستن به گروه"
 
 #. TRANS: Button text for unblocking a user from a group.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Unblock"
-msgstr "آزاد سازی"
+msgstr "باز شود"
 
 #. TRANS: Tooltip for button for unblocking a user from a group.
 #. TRANS: Description of the form to unblock a user.
@@ -1559,29 +1591,12 @@ msgstr "فرستادن به %s"
 #. TRANS: Title for leave group page after leaving.
 #. TRANS: %s$s is the leaving user's name, %2$s is the group name.
 #. TRANS: Title for leave group page after leaving.
-#, fuzzy, php-format
+#, php-format
 msgctxt "TITLE"
 msgid "%1$s left group %2$s"
 msgstr "%1$s گروه %2$s را ترک کرد"
 
-#. TRANS: Client error displayed when trying to leave a group while not logged in.
-#. TRANS: Error message displayed trying to delete a notice while not logged in.
-#. TRANS: Client error displayed when trying to remove a favorite while not logged in.
-#. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
-#. TRANS: Client error displayed trying to block a user from a group while not logged in.
-#. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
-#. TRANS: Client error displayed trying to log out when not logged in.
-#. TRANS: Client error displayed when trying to access the "make admin" page while not logged in.
-#. TRANS: Client error displayed trying to create a new direct message while not logged in.
-#. TRANS: Client error displayed trying to send a notice while not logged in.
-#. TRANS: Client error displayed trying to nudge a user without being logged in.
-#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
-#. TRANS: Client error displayed trying a change a subscription while not logged in.
-#. TRANS: Client error displayed trying to subscribe when not logged in.
-#. TRANS: Client error displayed on user tag page when trying to add tags while not logged in.
-#. TRANS: Client error displayed when trying to unsubscribe while not logged in.
-#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#. TRANS: Client error displayed when trying to change user options while not logged in.
+#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
 msgstr "شما به سیستم وارد نشده اید."
 
@@ -1602,7 +1617,6 @@ msgid "No profile with that ID."
 msgstr "کاربری با چنین شناسه‌ای وجود ندارد."
 
 #. TRANS: Title after unsubscribing from a group.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Unsubscribed"
 msgstr "لغو اشتراک شده"
@@ -1673,14 +1687,12 @@ msgid "Notice"
 msgstr "پیام‌ها"
 
 #. TRANS: Client exception displayed trying to delete a user account while not logged in.
-#, fuzzy
 msgid "Only logged-in users can delete their account."
-msgstr "تنها کاربران وارد شده می توانند پیام‌ها را تکرار کنند."
+msgstr "تنها کاربران وارد شده می توانند حساب کاربری خود را حذف کنند."
 
 #. TRANS: Client exception displayed trying to delete a user account without have the rights to do that.
-#, fuzzy
 msgid "You cannot delete your account."
-msgstr "شما نمی‌توانید کاربران را پاک کنید."
+msgstr "شما نمی‌توانید حساب کاربری خود را حذف کنید."
 
 #. TRANS: Confirmation text for user deletion. The user has to type this exactly the same, including punctuation.
 msgid "I am sure."
@@ -1690,7 +1702,7 @@ msgstr "من مطمئن هستم."
 #. TRANS: %s is the text that needs to be input.
 #, php-format
 msgid "You must write \"%s\" exactly in the box."
-msgstr ""
+msgstr "شما باید عبارت \"%s\" را در کادر بنویسید."
 
 #. TRANS: Confirmation that a user account has been deleted.
 msgid "Account deleted."
@@ -1745,6 +1757,7 @@ msgstr "برنامه یافت نشد."
 msgid "You are not the owner of this application."
 msgstr "شما مالک این برنامه نیستید."
 
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Client error text when there is a problem with the session token.
 msgid "There was a problem with your session token."
 msgstr "یک مشکل با رمز نشست شما وجود داشت."
@@ -1839,12 +1852,10 @@ msgid "Are you sure you want to delete this notice?"
 msgstr "آیا اطمینان دارید که می‌خواهید این پیام را پاک کنید؟"
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
-#, fuzzy
 msgid "Do not delete this notice."
 msgstr "این پیام را پاک نکن"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#, fuzzy
 msgid "Delete this notice."
 msgstr "این پیام را پاک کن"
 
@@ -1857,7 +1868,6 @@ msgid "You can only delete local users."
 msgstr "شما فقط می‌توانید کاربران محلی را پاک کنید."
 
 #. TRANS: Title of delete user page.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Delete user"
 msgstr "حذف کاربر"
@@ -1875,9 +1885,8 @@ msgstr ""
 "پاک و بدون برگشت خواهند بود."
 
 #. TRANS: Submit button title for 'No' when deleting a user.
-#, fuzzy
 msgid "Do not delete this user."
-msgstr "این پیام را پاک نکن"
+msgstr "این کاربر را حذف نکن"
 
 #. TRANS: Submit button title for 'Yes' when deleting a user.
 msgid "Delete this user."
@@ -2231,6 +2240,8 @@ msgid ""
 "To send notices via email, we need to create a unique email address for you "
 "on this server:"
 msgstr ""
+"برای ارسال اطلاعیه‌ها از طریق ایمیل، ما نیاز داریم تا یک ایمیل منحصر به فرد "
+"برای شما بر روی این سرور ایجاد کنیم."
 
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
@@ -2654,7 +2665,7 @@ msgstr "یک فهرست از کاربران در این گروه"
 
 #. TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
 msgid "Only the group admin may approve users."
-msgstr ""
+msgstr "فقط مدیر گروه اجازه دارد تا عضویت کاربران را تایید کند."
 
 #. TRANS: Title of the first page showing pending group members still awaiting approval to join the group.
 #. TRANS: %s is the name of the group.
@@ -2807,7 +2818,7 @@ msgstr "نشانی پیام‌رسان فوری"
 #. TRANS: Field title for IM address. %s is the IM service name.
 #, php-format
 msgid "%s screenname."
-msgstr ""
+msgstr "%s نام کاربری."
 
 #. TRANS: Header for IM preferences form.
 #, fuzzy
@@ -3103,7 +3114,7 @@ msgstr "شما یک کاربر این گروه نیستید."
 #. TRANS: User admin panel title
 msgctxt "TITLE"
 msgid "License"
-msgstr ""
+msgstr "مجوز"
 
 #. TRANS: Form instructions for the site license admin panel.
 msgid "License for this StatusNet site"
@@ -3118,6 +3129,8 @@ msgid ""
 "You must specify the owner of the content when using the All Rights Reserved "
 "license."
 msgstr ""
+"هنگامی که شما از گزینه‌ی «تمام حقوق محفوظ است» استفاده می‌کنید، باید نام صاحب "
+"اثر را مشخص کنید."
 
 #. TRANS: Client error displayed selecting a too long license title in the license admin panel.
 #, fuzzy
@@ -3142,7 +3155,7 @@ msgstr ""
 
 #. TRANS: Form legend in the license admin panel.
 msgid "License selection"
-msgstr ""
+msgstr "انتخاب مجوز"
 
 #. TRANS: License option in the license admin panel.
 #. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
@@ -3151,15 +3164,15 @@ msgstr "خصوصی"
 
 #. TRANS: License option in the license admin panel.
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "تمام حقوق محفوظ است."
 
 #. TRANS: License option in the license admin panel.
 msgid "Creative Commons"
-msgstr ""
+msgstr "کریتیو کامانز"
 
 #. TRANS: Dropdown field label in the license admin panel.
 msgid "Type"
-msgstr ""
+msgstr "نوع"
 
 #. TRANS: Dropdown field instructions in the license admin panel.
 #, fuzzy
@@ -3172,7 +3185,7 @@ msgstr ""
 
 #. TRANS: Field label in the license admin panel.
 msgid "Owner"
-msgstr ""
+msgstr "صاحب"
 
 #. TRANS: Field title in the license admin panel.
 msgid "Name of the owner of the site's content (if applicable)."
@@ -3180,7 +3193,7 @@ msgstr ""
 
 #. TRANS: Field label in the license admin panel.
 msgid "License Title"
-msgstr ""
+msgstr "عنوان مجوز"
 
 #. TRANS: Field title in the license admin panel.
 msgid "The title of the license."
@@ -3383,6 +3396,9 @@ msgid "Ajax Error"
 msgstr "خطای آژاکس"
 
 #. TRANS: Page title for sending a new notice.
+#. TRANS: Title for form to send a new notice.
+#, fuzzy
+msgctxt "TITLE"
 msgid "New notice"
 msgstr "پیام جدید"
 
@@ -4143,11 +4159,11 @@ msgstr "اشتراک‌ها"
 
 #. TRANS: Dropdown field option for following policy.
 msgid "Let anyone follow me"
-msgstr ""
+msgstr "به همه اجازه دهید تا من را دنبال کند."
 
 #. TRANS: Dropdown field option for following policy.
 msgid "Ask me first"
-msgstr ""
+msgstr "اول از من بپرس"
 
 #. TRANS: Dropdown field title on group edit form.
 msgid "Whether other users need your permission to follow your updates."
@@ -4411,10 +4427,6 @@ msgstr "بازیابی گذرواژه درخواست شد"
 msgid "Password saved"
 msgstr "گذرواژه ذخیره شد."
 
-#. TRANS: Title for password recovery page when an unknown action has been specified.
-msgid "Unknown action"
-msgstr "عمل نامعلوم"
-
 #. TRANS: Title for field label for password reset form.
 #, fuzzy
 msgid "6 or more characters, and do not forget it!"
@@ -4511,6 +4523,7 @@ msgstr "اجازهٔ ثبت‌نام داده نشده است."
 msgid "You cannot register if you do not agree to the license."
 msgstr "شما نمی توانید ثبت نام کنید اگر با لیسانس( جواز ) موافقت نکنید."
 
+#. TRANS: Form validation error displayed when trying to register with an already registered e-mail address.
 msgid "Email address already exists."
 msgstr "نشانی پست الکترونیکی از قبل وجود دارد."
 
@@ -7725,11 +7738,6 @@ msgctxt "RADIO"
 msgid "Off"
 msgstr "خاموش"
 
-#. TRANS: Error message displayed if design settings could not be saved.
-#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
-msgid "Couldn't update your design."
-msgstr "نمی‌توان ظاهر را به روز کرد."
-
 #. TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
 msgid "Design defaults restored."
 msgstr "پیش‌فرض‌های طراحی برگردانده شدند."
@@ -8069,6 +8077,12 @@ msgstr ""
 #. TRANS: Server exception thrown trying to initialise an IM plugin without a transport method.
 msgid "Transport cannot be null."
 msgstr ""
+
+#. TRANS: Button text for joining a group.
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Join"
+msgstr "مشارکت کردن"
 
 #. TRANS: Button text on form to leave a group.
 #, fuzzy
@@ -8670,6 +8684,13 @@ msgstr ""
 "متاسفیم، دریافت محل جغرافیایی شما بیش از انتظار طول کشیده است، لطفا بعدا "
 "دوباره تلاش کنید."
 
+#. TRANS: Header in notice list.
+#. TRANS: Header for Notices section.
+#, fuzzy
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "پیام‌ها"
+
 #. TRANS: Used in coordinates as abbreviation of north.
 #, fuzzy
 msgid "N"
@@ -8837,12 +8858,12 @@ msgstr "تنظیمات پیامک"
 
 #. TRANS: Menu item title in primary navigation panel.
 #, fuzzy
-msgid "Change your personal settings"
+msgid "Change your personal settings."
 msgstr "تنظیمات نمایه‌تان را تغییر دهید"
 
 #. TRANS: Menu item title in primary navigation panel.
 #, fuzzy
-msgid "Site configuration"
+msgid "Site configuration."
 msgstr "پیکربندی کاربر"
 
 #. TRANS: Menu item in primary navigation panel.
@@ -8850,11 +8871,14 @@ msgctxt "MENU"
 msgid "Logout"
 msgstr "خروج"
 
-msgid "Logout from the site"
+#. TRANS: Menu item title in primary navigation panel.
+#, fuzzy
+msgid "Logout from the site."
 msgstr "خارج شدن از سایت ."
 
 #. TRANS: Menu item title in primary navigation panel.
-msgid "Login to the site"
+#, fuzzy
+msgid "Login to the site."
 msgstr "ورود به وب‌گاه"
 
 #. TRANS: Menu item in primary navigation panel.
@@ -8864,7 +8888,7 @@ msgstr "جست‌وجو"
 
 #. TRANS: Menu item title in primary navigation panel.
 #, fuzzy
-msgid "Search the site"
+msgid "Search the site."
 msgstr "جست‌وجوی وب‌گاه"
 
 #. TRANS: H2 text for user subscription statistics.
@@ -8991,6 +9015,28 @@ msgstr "کلمه(های) کلیدی"
 #. TRANS: Button text for searching site.
 msgctxt "BUTTON"
 msgid "Search"
+msgstr ""
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+msgid ""
+"* Make sure all words are spelled correctly.\n"
+"* Try different keywords.\n"
+"* Try more general keywords.\n"
+"* Try fewer keywords.\n"
+msgstr ""
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+#, php-format
+msgid ""
+"\n"
+"You can also try your search on other engines:\n"
+"\n"
+"* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
+"site.server%%%%)\n"
+"* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
+"* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)\n"
 msgstr ""
 
 #. TRANS: Menu item in search group navigation panel.
@@ -9300,12 +9346,6 @@ msgstr ""
 msgid "Error opening theme archive."
 msgstr "خطا هنگام به‌هنگام‌سازی نمایهٔ از راه دور."
 
-#. TRANS: Header for Notices section.
-#, fuzzy
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "پیام‌ها"
-
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, php-format
@@ -9496,8 +9536,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Yes"
-#~ msgstr "بله"
-
-#~ msgid "Subscribe"
-#~ msgstr "اشتراک"
+#~ msgid "Couldn't update your design."
+#~ msgstr "نمی‌توان ظاهر را به روز کرد."

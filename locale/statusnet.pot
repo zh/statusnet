@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#. TRANS: Database error message.
+#: index.php:110
+#, php-format
+msgid ""
+"The database for %1$s is not responding correctly, so the site will not work "
+"properly. The site admins probably know about the problem, but you can "
+"contact them at %2$s to make sure. Otherwise, wait a few minutes and try "
+"again."
+msgstr ""
+
+#. TRANS: Error message.
+#: index.php:121
+msgid ""
+"An important error occured, probably related to email setup. Check logfiles "
+"for more info."
+msgstr ""
+
+#. TRANS: Error message.
+#: index.php:131
+msgid "An error occurred."
+msgstr ""
+
+#. TRANS: Error message displayed when there is no StatusNet configuration file.
+#: index.php:255
+#, php-format
+msgid ""
+"No configuration file found. Try running the installation program first."
+msgstr ""
+
+#. TRANS: Error message displayed when trying to access a non-existing page.
+#: index.php:286
+msgid "Unknown page"
+msgstr ""
+
+#. TRANS: Error message displayed when trying to perform an undefined action.
+#. TRANS: Title for password recovery page when an unknown action has been specified.
+#: index.php:341 actions/recoverpassword.php:232
+msgid "Unknown action"
+msgstr ""
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #: actions/accessadminpanel.php:53
@@ -124,6 +164,7 @@ msgstr ""
 #. TRANS: Client error displayed when checking group membership for a non-existing user.
 #. TRANS: Client error displayed when trying to have a non-existing user join a group.
 #. TRANS: Client error displayed when trying to have a non-existing user leave a group.
+#. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed when not providing a user or an invalid user.
 #. TRANS: Client error displayed when updating a status for a non-existing user.
 #. TRANS: Client error displayed when requesting a list of followers for a non-existing user.
@@ -148,6 +189,7 @@ msgstr ""
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
 #. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
 #. TRANS: Client error displayed requesting groups for a non-existing user.
+#. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when trying to perform a gallery action with an unknown user.
@@ -162,18 +204,18 @@ msgstr ""
 #: actions/apidirectmessage.php:75 actions/apidirectmessagenew.php:72
 #: actions/apigroupcreate.php:111 actions/apigroupismember.php:89
 #: actions/apigroupjoin.php:98 actions/apigroupleave.php:98
-#: actions/apigrouplist.php:70 actions/apigroupprofileupdate.php:106
+#: actions/apigrouplist.php:71 actions/apigroupprofileupdate.php:107
 #: actions/apistatusesupdate.php:230 actions/apisubscriptions.php:85
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:173
 #: actions/apitimelinehome.php:78 actions/apitimelinementions.php:77
 #: actions/apitimelineuser.php:79 actions/avatarbynickname.php:79
 #: actions/favoritesrss.php:72 actions/foaf.php:42 actions/foaf.php:61
 #: actions/hcard.php:67 actions/microsummary.php:63 actions/newmessage.php:119
-#: actions/otp.php:78 actions/remotesubscribe.php:155
-#: actions/remotesubscribe.php:165 actions/replies.php:72
+#: actions/otp.php:78 actions/remotesubscribe.php:156
+#: actions/remotesubscribe.php:166 actions/replies.php:72
 #: actions/repliesrss.php:38 actions/rsd.php:114 actions/showfavorites.php:106
-#: actions/userbyid.php:75 actions/usergroups.php:95 actions/userrss.php:40
-#: actions/userxrd.php:59 actions/xrds.php:71 lib/command.php:503
+#: actions/userbyid.php:75 actions/usergroups.php:95 actions/userrss.php:41
+#: actions/userxrd.php:60 actions/xrds.php:71 lib/command.php:503
 #: lib/galleryaction.php:61 lib/mailbox.php:79 lib/profileaction.php:77
 msgid "No such user."
 msgstr ""
@@ -187,6 +229,8 @@ msgstr ""
 #. TRANS: Page title. %s is user nickname
 #. TRANS: H1 text for page. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
 #. TRANS: Timeline title for user and friends. %s is a user nickname.
 #. TRANS: Menu item title in administrator navigation panel.
 #. TRANS: %s is a username.
@@ -195,7 +239,7 @@ msgstr ""
 #. TRANS: Menu item title in settings navigation panel.
 #. TRANS: %s is a username.
 #: actions/all.php:94 actions/all.php:185 actions/allrss.php:117
-#: actions/apitimelinefriends.php:207 actions/apitimelinehome.php:113
+#: actions/apitimelinefriends.php:209 actions/apitimelinehome.php:113
 #: lib/adminpanelnav.php:73 lib/personalgroupnav.php:77 lib/settingsnav.php:73
 #, php-format
 msgid "%s and friends"
@@ -264,32 +308,16 @@ msgstr ""
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
-#: actions/allrss.php:122 actions/apitimelinefriends.php:213
+#: actions/allrss.php:122 actions/apitimelinefriends.php:215
 #: actions/apitimelinehome.php:119
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr ""
 
-#. TRANS: Client error displayed handling a non-existing API method.
+#. TRANS: Client error displayed when coming across a non-supported API method.
 #. TRANS: Client error displayed when trying to handle an unknown API method.
-#. TRANS: Client error displayed trying to execute an unknown API method updating profile colours.
-#. TRANS: Client error displayed trying to execute an unknown API method verifying user credentials.
-#. TRANS: Client error given when an API method was not found (404).
-#. TRANS: Client error displayed when trying to handle an unknown API method.
-#. TRANS: Client error displayed trying to execute an unknown API method showing friendship.
-#. TRANS: Client error given when an API method was not found (404).
-#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
-#. TRANS: Client error displayed trying to execute an unknown API method joining a group.
-#. TRANS: Client error displayed trying to execute an unknown API method leaving a group.
-#. TRANS: Client error displayed trying to execute an unknown API method checking group membership.
-#. TRANS: Client error displayed trying to execute an unknown API method listing the latest 20 groups.
-#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
-#. TRANS: Client error displayed when using an unsupported API format.
-#. TRANS: Client error displayed trying to execute an unknown API method showing a group.
-#. TRANS: Client error displayed trying to execute an unknown API method testing API connectivity.
-#. TRANS: Client error displayed trying to execute an unknown API method deleting a status.
-#. TRANS: Client error displayed when trying to handle an unknown API method.
-#: actions/apiaccountratelimitstatus.php:69
+#. TRANS: Client error displayed when coming across a non-supported API method.
+#: actions/apiaccountratelimitstatus.php:70
 #: actions/apiaccountupdatedeliverydevice.php:92
 #: actions/apiaccountupdateprofile.php:94
 #: actions/apiaccountupdateprofilebackgroundimage.php:92
@@ -299,22 +327,24 @@ msgstr ""
 #: actions/apifriendshipscreate.php:99 actions/apifriendshipsdestroy.php:99
 #: actions/apifriendshipsshow.php:124 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:115 actions/apigroupjoin.php:148
-#: actions/apigroupleave.php:138 actions/apigrouplist.php:134
+#: actions/apigroupleave.php:138 actions/apigrouplist.php:135
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:105
-#: actions/apigroupprofileupdate.php:97 actions/apigroupprofileupdate.php:215
+#: actions/apigroupprofileupdate.php:98 actions/apigroupprofileupdate.php:216
 #: actions/apigroupshow.php:114 actions/apihelptest.php:84
 #: actions/apistatusesdestroy.php:101 actions/apistatusesretweets.php:110
 #: actions/apistatusesshow.php:105 actions/apistatusnetconfig.php:139
 #: actions/apistatusnetversion.php:91 actions/apisubscriptions.php:109
-#: actions/apitimelinefavorites.php:182 actions/apitimelinefriends.php:276
+#: actions/apitimelinefavorites.php:182 actions/apitimelinefriends.php:278
 #: actions/apitimelinegroup.php:148 actions/apitimelinehome.php:181
 #: actions/apitimelinementions.php:182 actions/apitimelinepublic.php:247
 #: actions/apitimelineretweetedtome.php:150
-#: actions/apitimelineretweetsofme.php:147 actions/apitimelinetag.php:165
+#: actions/apitimelineretweetsofme.php:149 actions/apitimelinetag.php:165
 #: actions/apitimelineuser.php:217 actions/apiusershow.php:100
 msgid "API method not found."
 msgstr ""
 
+#. TRANS: Client error message. POST is a HTTP command. It should not be translated.
+#. TRANS: Client error. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error message. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
 #: actions/apiaccountupdatedeliverydevice.php:83
@@ -326,7 +356,7 @@ msgstr ""
 #: actions/apifavoritecreate.php:88 actions/apifavoritedestroy.php:88
 #: actions/apifriendshipscreate.php:89 actions/apifriendshipsdestroy.php:89
 #: actions/apigroupcreate.php:102 actions/apigroupjoin.php:89
-#: actions/apigroupleave.php:89 actions/apigroupprofileupdate.php:88
+#: actions/apigroupleave.php:89 actions/apigroupprofileupdate.php:89
 #: actions/apimediaupload.php:66 actions/apistatusesretweet.php:63
 #: actions/apistatusesupdate.php:194
 msgid "This method requires a POST."
@@ -351,8 +381,8 @@ msgstr ""
 #: actions/apiaccountupdatedeliverydevice.php:136
 #: actions/confirmaddress.php:122 actions/emailsettings.php:353
 #: actions/emailsettings.php:499 actions/profilesettings.php:342
-#: actions/smssettings.php:300 actions/smssettings.php:453
-#: actions/urlsettings.php:212 actions/userdesignsettings.php:315
+#: actions/smssettings.php:301 actions/smssettings.php:454
+#: actions/urlsettings.php:213 actions/userdesignsettings.php:315
 msgid "Could not update user."
 msgstr ""
 
@@ -424,9 +454,12 @@ msgstr ""
 #. TRANS: Error displayed when updating design settings fails.
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
 #. TRANS: Form validation error on Profile design page when updating design settings has failed.
+#. TRANS: Error message displayed if design settings could not be saved.
+#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
 #: actions/apiaccountupdateprofilebackgroundimage.php:191
 #: actions/apiaccountupdateprofilecolors.php:139
-#: actions/userdesignsettings.php:199
+#: actions/userdesignsettings.php:199 lib/designsettings.php:217
+#: lib/designsettings.php:239
 msgid "Could not update your design."
 msgstr ""
 
@@ -441,7 +474,7 @@ msgstr ""
 #. TRANS: Title in atom group notice feed. %s is a group name.
 #. TRANS: Title in atom user notice feed. %s is a user name.
 #: actions/apiatomservice.php:93 actions/grouprss.php:138
-#: actions/userrss.php:94 lib/atomgroupnoticefeed.php:63
+#: actions/userrss.php:95 lib/atomgroupnoticefeed.php:63
 #: lib/atomusernoticefeed.php:88
 #, php-format
 msgid "%s timeline"
@@ -520,7 +553,7 @@ msgstr ""
 #. TRANS: %d is the maximum number of characters for a message.
 #. TRANS: Form validation error displayed when message content is too long.
 #. TRANS: %d is the maximum number of characters for a message.
-#: actions/apidirectmessagenew.php:127 actions/newmessage.php:158
+#: actions/apidirectmessagenew.php:127 actions/newmessage.php:159
 #, php-format
 msgid "That's too long. Maximum message size is %d character."
 msgid_plural "That's too long. Maximum message size is %d characters."
@@ -559,7 +592,7 @@ msgstr ""
 #. TRANS: Client error displayed when marking a notice as favourite fails.
 #. TRANS: Server error displayed when trying to mark a notice as favorite fails in the database.
 #. TRANS: Error message text shown when a favorite could not be set.
-#: actions/apifavoritecreate.php:132 actions/favor.php:86 lib/command.php:306
+#: actions/apifavoritecreate.php:132 actions/favor.php:87 lib/command.php:306
 msgid "Could not create favorite."
 msgstr ""
 
@@ -617,9 +650,9 @@ msgstr ""
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with an existing nickname.
-#: actions/apigroupcreate.php:156 actions/apigroupprofileupdate.php:256
+#: actions/apigroupcreate.php:156 actions/apigroupprofileupdate.php:257
 #: actions/editgroup.php:192 actions/newgroup.php:138
-#: actions/profilesettings.php:293 actions/register.php:209
+#: actions/profilesettings.php:293 actions/register.php:210
 msgid "Nickname already in use. Try another one."
 msgstr ""
 
@@ -629,9 +662,9 @@ msgstr ""
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with an invalid nickname.
-#: actions/apigroupcreate.php:164 actions/apigroupprofileupdate.php:261
+#: actions/apigroupcreate.php:164 actions/apigroupprofileupdate.php:262
 #: actions/editgroup.php:196 actions/newgroup.php:142
-#: actions/profilesettings.php:263 actions/register.php:212
+#: actions/profilesettings.php:263 actions/register.php:213
 msgid "Not a valid nickname."
 msgstr ""
 
@@ -643,10 +676,10 @@ msgstr ""
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with an invalid homepage URL.
-#: actions/apigroupcreate.php:181 actions/apigroupprofileupdate.php:280
-#: actions/editapplication.php:235 actions/editgroup.php:203
-#: actions/newapplication.php:221 actions/newgroup.php:149
-#: actions/profilesettings.php:268 actions/register.php:220
+#: actions/apigroupcreate.php:181 actions/apigroupprofileupdate.php:281
+#: actions/editapplication.php:236 actions/editgroup.php:203
+#: actions/newapplication.php:222 actions/newgroup.php:149
+#: actions/profilesettings.php:268 actions/register.php:222
 msgid "Homepage is not a valid URL."
 msgstr ""
 
@@ -656,9 +689,9 @@ msgstr ""
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with a too long full name.
-#: actions/apigroupcreate.php:191 actions/apigroupprofileupdate.php:290
+#: actions/apigroupcreate.php:191 actions/apigroupprofileupdate.php:291
 #: actions/editgroup.php:207 actions/newgroup.php:153
-#: actions/profilesettings.php:272 actions/register.php:224
+#: actions/profilesettings.php:272 actions/register.php:226
 msgid "Full name is too long (maximum 255 characters)."
 msgstr ""
 
@@ -673,9 +706,9 @@ msgstr ""
 #. TRANS: %d is the maximum number of characters for the description.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed characters.
-#: actions/apigroupcreate.php:201 actions/apigroupprofileupdate.php:300
-#: actions/editapplication.php:202 actions/editgroup.php:212
-#: actions/newapplication.php:182 actions/newgroup.php:158
+#: actions/apigroupcreate.php:201 actions/apigroupprofileupdate.php:301
+#: actions/editapplication.php:203 actions/editgroup.php:212
+#: actions/newapplication.php:183 actions/newgroup.php:158
 #, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
@@ -688,9 +721,9 @@ msgstr[1] ""
 #. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with a too long location.
-#: actions/apigroupcreate.php:215 actions/apigroupprofileupdate.php:312
+#: actions/apigroupcreate.php:215 actions/apigroupprofileupdate.php:313
 #: actions/editgroup.php:219 actions/newgroup.php:165
-#: actions/profilesettings.php:285 actions/register.php:236
+#: actions/profilesettings.php:285 actions/register.php:238
 msgid "Location is too long (maximum 255 characters)."
 msgstr ""
 
@@ -702,7 +735,7 @@ msgstr ""
 #. TRANS: %d is the maximum number of allowed aliases.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed aliases.
-#: actions/apigroupcreate.php:236 actions/apigroupprofileupdate.php:331
+#: actions/apigroupcreate.php:236 actions/apigroupprofileupdate.php:332
 #: actions/editgroup.php:232 actions/newgroup.php:178
 #, php-format
 msgid "Too many aliases! Maximum %d allowed."
@@ -714,7 +747,7 @@ msgstr[1] ""
 #. TRANS: %s is the invalid alias.
 #. TRANS: API validation exception thrown when aliases does not validate.
 #. TRANS: %s is the invalid alias.
-#: actions/apigroupcreate.php:253 actions/apigroupprofileupdate.php:349
+#: actions/apigroupcreate.php:253 actions/apigroupprofileupdate.php:350
 #, php-format
 msgid "Invalid alias: \"%s\"."
 msgstr ""
@@ -725,7 +758,7 @@ msgstr ""
 #. TRANS: %s is the already used alias.
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error. %s is the already used alias.
-#: actions/apigroupcreate.php:264 actions/apigroupprofileupdate.php:360
+#: actions/apigroupcreate.php:264 actions/apigroupprofileupdate.php:361
 #: actions/editgroup.php:247 actions/newgroup.php:194
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
@@ -746,7 +779,7 @@ msgstr ""
 #. TRANS: Client error displayed requesting most recent notices to a group for a non-existing group.
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:71
-#: actions/apigroupprofileupdate.php:112 actions/apigroupshow.php:81
+#: actions/apigroupprofileupdate.php:113 actions/apigroupshow.php:81
 #: actions/apitimelinegroup.php:89
 msgid "Group not found."
 msgstr ""
@@ -790,13 +823,13 @@ msgid "Could not remove user %1$s from group %2$s."
 msgstr ""
 
 #. TRANS: Used as title in check for group membership. %s is a user name.
-#: actions/apigrouplist.php:94
+#: actions/apigrouplist.php:95
 #, php-format
 msgid "%s's groups"
 msgstr ""
 
 #. TRANS: Used as subtitle in check for group membership. %1$s is the site name, %2$s is a user name.
-#: actions/apigrouplist.php:104
+#: actions/apigrouplist.php:105
 #, php-format
 msgid "%1$s groups %2$s is a member of."
 msgstr ""
@@ -819,7 +852,7 @@ msgstr ""
 #. TRANS: Client error displayed trying to edit a group while not being a group admin.
 #. TRANS: Client error displayed trying to change group design settings without being a (group) admin.
 #. TRANS: Client error displayed when trying to change group logo settings while not being a group admin.
-#: actions/apigroupprofileupdate.php:118 actions/editgroup.php:110
+#: actions/apigroupprofileupdate.php:119 actions/editgroup.php:110
 #: actions/editgroup.php:176 actions/groupdesignsettings.php:109
 #: actions/grouplogo.php:111
 msgid "You must be an admin to edit the group."
@@ -827,27 +860,27 @@ msgstr ""
 
 #. TRANS: Server error displayed when group update fails.
 #. TRANS: Server error displayed when editing a group fails.
-#: actions/apigroupprofileupdate.php:172 actions/editgroup.php:276
+#: actions/apigroupprofileupdate.php:173 actions/editgroup.php:276
 msgid "Could not update group."
 msgstr ""
 
 #. TRANS: Server error displayed when adding group aliases fails.
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/apigroupprofileupdate.php:195 actions/editgroup.php:283
+#: actions/apigroupprofileupdate.php:196 actions/editgroup.php:283
 #: classes/User_group.php:548
 msgid "Could not create aliases."
 msgstr ""
 
 #. TRANS: API validation exception thrown when nickname does not validate.
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
-#: actions/apigroupprofileupdate.php:251 lib/nickname.php:165
+#: actions/apigroupprofileupdate.php:252 lib/nickname.php:165
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
 
 #. TRANS: API validation exception thrown when alias is the same as nickname.
 #. TRANS: Group create form validation error.
-#: actions/apigroupprofileupdate.php:369 actions/newgroup.php:201
+#: actions/apigroupprofileupdate.php:370 actions/newgroup.php:201
 msgid "Alias cannot be the same as nickname."
 msgstr ""
 
@@ -879,24 +912,27 @@ msgstr ""
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
 #. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Form validation error.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Client error displayed when the session token is not okay.
-#: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
-#: actions/cancelsubscription.php:74 actions/deletenotice.php:177
-#: actions/disfavor.php:75 actions/emailsettings.php:292 actions/favor.php:75
-#: actions/geocode.php:55 actions/groupblock.php:65 actions/grouplogo.php:321
-#: actions/groupunblock.php:65 actions/imsettings.php:243
-#: actions/invite.php:60 actions/makeadmin.php:67 actions/newmessage.php:140
-#: actions/newnotice.php:104 actions/nudge.php:81
-#: actions/oauthappssettings.php:162 actions/oauthconnectionssettings.php:135
-#: actions/passwordsettings.php:146 actions/pluginenable.php:87
+#. TRANS: Client error displayed when the session token does not match or is not given.
+#: actions/apioauthauthorize.php:147 actions/avatarsettings.php:281
+#: actions/cancelsubscription.php:75 actions/deletenotice.php:178
+#: actions/disfavor.php:75 actions/emailsettings.php:293 actions/favor.php:76
+#: actions/geocode.php:56 actions/groupblock.php:66 actions/grouplogo.php:321
+#: actions/groupunblock.php:66 actions/imsettings.php:244
+#: actions/invite.php:61 actions/makeadmin.php:68 actions/newmessage.php:141
+#: actions/newnotice.php:105 actions/nudge.php:82
+#: actions/oauthappssettings.php:162 actions/oauthconnectionssettings.php:136
+#: actions/passwordsettings.php:147 actions/pluginenable.php:88
 #: actions/profilesettings.php:235 actions/recoverpassword.php:387
-#: actions/register.php:163 actions/remotesubscribe.php:77
-#: actions/repeat.php:79 actions/smssettings.php:249 actions/subedit.php:40
-#: actions/subscribe.php:87 actions/tagother.php:156
-#: actions/unsubscribe.php:69 actions/urlsettings.php:170
-#: actions/userauthorization.php:53 lib/designsettings.php:122
+#: actions/register.php:164 actions/remotesubscribe.php:78
+#: actions/repeat.php:80 actions/smssettings.php:250 actions/subedit.php:41
+#: actions/subscribe.php:87 actions/tagother.php:157
+#: actions/unsubscribe.php:70 actions/urlsettings.php:171
+#: actions/userauthorization.php:54 lib/designsettings.php:123
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
@@ -922,12 +958,12 @@ msgstr ""
 #. TRANS: Client error displayed when unexpected data is posted in the password recovery form.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
 #. TRANS: Unknown form validation error in design settings form.
-#: actions/apioauthauthorize.php:294 actions/avatarsettings.php:294
-#: actions/designadminpanel.php:100 actions/editapplication.php:144
-#: actions/emailsettings.php:311 actions/grouplogo.php:332
-#: actions/imsettings.php:258 actions/newapplication.php:124
-#: actions/oauthconnectionssettings.php:144 actions/recoverpassword.php:46
-#: actions/smssettings.php:270 lib/designsettings.php:133
+#: actions/apioauthauthorize.php:294 actions/avatarsettings.php:295
+#: actions/designadminpanel.php:100 actions/editapplication.php:145
+#: actions/emailsettings.php:312 actions/grouplogo.php:332
+#: actions/imsettings.php:259 actions/newapplication.php:125
+#: actions/oauthconnectionssettings.php:145 actions/recoverpassword.php:46
+#: actions/smssettings.php:271 lib/designsettings.php:134
 msgid "Unexpected form submission."
 msgstr ""
 
@@ -975,8 +1011,8 @@ msgstr ""
 #. TRANS: Label for nickname on user authorisation page.
 #. TRANS: Field label on group edit form.
 #: actions/apioauthauthorize.php:459 actions/login.php:231
-#: actions/profilesettings.php:104 actions/register.php:436
-#: actions/userauthorization.php:146 lib/groupeditform.php:147
+#: actions/profilesettings.php:104 actions/register.php:438
+#: actions/userauthorization.php:147 lib/groupeditform.php:147
 msgid "Nickname"
 msgstr ""
 
@@ -984,7 +1020,7 @@ msgstr ""
 #. TRANS: Field label on login page.
 #. TRANS: Field label on account registration page.
 #: actions/apioauthauthorize.php:463 actions/login.php:235
-#: actions/register.php:442
+#: actions/register.php:444
 msgid "Password"
 msgstr ""
 
@@ -1127,10 +1163,12 @@ msgstr ""
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum length for a notice.
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail contains too many characters.
-#: actions/apistatusesupdate.php:244 actions/newnotice.php:160
+#: actions/apistatusesupdate.php:244 actions/newnotice.php:161
 #: lib/mailhandler.php:65
 #, php-format
 msgid "That's too long. Maximum notice size is %d character."
@@ -1145,7 +1183,9 @@ msgstr ""
 
 #. TRANS: Client error displayed exceeding the maximum notice length.
 #. TRANS: %d is the maximum lenth for a notice.
-#: actions/apistatusesupdate.php:308 actions/newnotice.php:183
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum length for a notice.
+#: actions/apistatusesupdate.php:308 actions/newnotice.php:186
 #, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
@@ -1226,7 +1266,9 @@ msgstr ""
 msgid "Repeats of %s"
 msgstr ""
 
-#: actions/apitimelineretweetsofme.php:104
+#. TRANS: Subtitle of API time with retweets of me.
+#. TRANS: %1$s is the StatusNet sitename, %2$s is the user nickname, %3$s is the user profile name.
+#: actions/apitimelineretweetsofme.php:106
 #, php-format
 msgid "%1$s notices that %2$s / %3$s has repeated."
 msgstr ""
@@ -1357,13 +1399,13 @@ msgstr ""
 #: actions/cancelgroup.php:94 actions/deletegroup.php:87
 #: actions/deletegroup.php:100 actions/editgroup.php:102
 #: actions/foafgroup.php:46 actions/foafgroup.php:65 actions/foafgroup.php:73
-#: actions/groupblock.php:89 actions/groupbyid.php:83
+#: actions/groupblock.php:90 actions/groupbyid.php:83
 #: actions/groupdesignsettings.php:101 actions/grouplogo.php:103
 #: actions/groupmembers.php:84 actions/groupmembers.php:92
 #: actions/groupqueue.php:85 actions/groupqueue.php:93 actions/grouprss.php:97
-#: actions/grouprss.php:105 actions/groupunblock.php:89
+#: actions/grouprss.php:105 actions/groupunblock.php:90
 #: actions/joingroup.php:82 actions/joingroup.php:95 actions/leavegroup.php:82
-#: actions/leavegroup.php:95 actions/makeadmin.php:91
+#: actions/leavegroup.php:95 actions/makeadmin.php:92
 #: actions/showgroup.php:134 actions/showgroup.php:143 lib/command.php:168
 #: lib/command.php:389
 msgid "No such group."
@@ -1404,7 +1446,7 @@ msgstr ""
 #. TRANS: Client error displayed when trying to approve a non-existing group join request.
 #. TRANS: %s is a user nickname.
 #: actions/approvegroup.php:125 actions/cancelgroup.php:123
-#: actions/cancelsubscription.php:101
+#: actions/cancelsubscription.php:102
 #, php-format
 msgid "%s is not in the moderation queue for this group."
 msgstr ""
@@ -1677,9 +1719,10 @@ msgstr ""
 #. TRANS: Server error displayed on page for remote subscribe when user does not have a matching profile.
 #. TRANS: Server error displayed when trying to authorise a remote subscription request
 #. TRANS: while the user has no profile.
+#. TRANS: Server error displayed in user RSS when user does not have a matching profile.
 #: actions/avatarsettings.php:108 actions/avatarsettings.php:192
-#: actions/grouplogo.php:184 actions/remotesubscribe.php:208
-#: actions/userauthorization.php:75 actions/userrss.php:108
+#: actions/grouplogo.php:184 actions/remotesubscribe.php:209
+#: actions/userauthorization.php:76 actions/userrss.php:110
 msgid "User without matching profile."
 msgstr ""
 
@@ -1712,8 +1755,9 @@ msgstr ""
 #. TRANS: Button on avatar upload page to delete current avatar.
 #. TRANS: Button text for user account deletion.
 #. TRANS: Submit button text the OAuth application page to delete an application.
+#. TRANS: Button text for deleting a group.
 #: actions/avatarsettings.php:155 actions/deleteaccount.php:319
-#: actions/showapplication.php:242
+#: actions/showapplication.php:243 lib/deletegroupform.php:115
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr ""
@@ -1732,33 +1776,33 @@ msgid "Crop"
 msgstr ""
 
 #. TRANS: Validation error on avatar upload form when no file was uploaded.
-#: actions/avatarsettings.php:318
+#: actions/avatarsettings.php:319
 msgid "No file uploaded."
 msgstr ""
 
 #. TRANS: Avatar upload form instruction after uploading a file.
-#: actions/avatarsettings.php:345
+#: actions/avatarsettings.php:346
 msgid "Pick a square area of the image to be your avatar."
 msgstr ""
 
 #. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
 #. TRANS: Server error displayed trying to crop an uploaded group logo that is no longer present.
-#: actions/avatarsettings.php:360 actions/grouplogo.php:391
+#: actions/avatarsettings.php:361 actions/grouplogo.php:391
 msgid "Lost our file data."
 msgstr ""
 
 #. TRANS: Success message for having updated a user avatar.
-#: actions/avatarsettings.php:384
+#: actions/avatarsettings.php:385
 msgid "Avatar updated."
 msgstr ""
 
 #. TRANS: Error displayed on the avatar upload page if the avatar could not be updated for an unknown reason.
-#: actions/avatarsettings.php:388
+#: actions/avatarsettings.php:389
 msgid "Failed updating avatar."
 msgstr ""
 
 #. TRANS: Success message for deleting a user avatar.
-#: actions/avatarsettings.php:412
+#: actions/avatarsettings.php:413
 msgid "Avatar deleted."
 msgstr ""
 
@@ -1807,7 +1851,7 @@ msgstr ""
 #. TRANS: Title for block user page.
 #. TRANS: Legend for block user form.
 #. TRANS: Fieldset legend for block user from group form.
-#: actions/block.php:106 actions/block.php:136 actions/groupblock.php:165
+#: actions/block.php:106 actions/block.php:136 actions/groupblock.php:166
 msgid "Block user"
 msgstr ""
 
@@ -1825,9 +1869,9 @@ msgstr ""
 #. TRANS: Button label on the delete notice form.
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
-#: actions/block.php:154 actions/deleteapplication.php:157
+#: actions/block.php:154 actions/deleteapplication.php:158
 #: actions/deletegroup.php:220 actions/deletenotice.php:155
-#: actions/deleteuser.php:154 actions/groupblock.php:187
+#: actions/deleteuser.php:154 actions/groupblock.php:188
 msgctxt "BUTTON"
 msgid "No"
 msgstr ""
@@ -1844,9 +1888,9 @@ msgstr ""
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
 #. TRANS: Button text to repeat a notice on notice repeat form.
-#: actions/block.php:161 actions/deleteapplication.php:164
+#: actions/block.php:161 actions/deleteapplication.php:165
 #: actions/deletegroup.php:227 actions/deletenotice.php:162
-#: actions/deleteuser.php:161 actions/groupblock.php:194
+#: actions/deleteuser.php:161 actions/groupblock.php:195
 #: lib/repeatform.php:126
 msgctxt "BUTTON"
 msgid "Yes"
@@ -1914,38 +1958,21 @@ msgctxt "TITLE"
 msgid "%1$s left group %2$s"
 msgstr ""
 
-#. TRANS: Client error displayed when trying to leave a group while not logged in.
-#. TRANS: Error message displayed trying to delete a notice while not logged in.
-#. TRANS: Client error displayed when trying to remove a favorite while not logged in.
-#. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
-#. TRANS: Client error displayed trying to block a user from a group while not logged in.
-#. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
-#. TRANS: Client error displayed trying to log out when not logged in.
-#. TRANS: Client error displayed when trying to access the "make admin" page while not logged in.
-#. TRANS: Client error displayed trying to create a new direct message while not logged in.
-#. TRANS: Client error displayed trying to send a notice while not logged in.
-#. TRANS: Client error displayed trying to nudge a user without being logged in.
-#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
-#. TRANS: Client error displayed trying a change a subscription while not logged in.
-#. TRANS: Client error displayed trying to subscribe when not logged in.
-#. TRANS: Client error displayed on user tag page when trying to add tags while not logged in.
-#. TRANS: Client error displayed when trying to unsubscribe while not logged in.
-#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#. TRANS: Client error displayed when trying to change user options while not logged in.
+#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 #: actions/cancelsubscription.php:57 actions/deletenotice.php:52
 #: actions/disfavor.php:61 actions/favor.php:62 actions/groupblock.php:60
 #: actions/groupunblock.php:60 actions/logout.php:69 actions/makeadmin.php:62
 #: actions/newmessage.php:89 actions/newnotice.php:87 actions/nudge.php:64
-#: actions/pluginenable.php:98 actions/subedit.php:33 actions/subscribe.php:98
+#: actions/pluginenable.php:99 actions/subedit.php:33 actions/subscribe.php:98
 #: actions/tagother.php:35 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:71 lib/profileformaction.php:63
-#: lib/settingsaction.php:72
+#: lib/settingsaction.php:73
 msgid "Not logged in."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to leave a group without specifying an ID.
 #. TRANS: Client error displayed when trying to unsubscribe without providing a profile ID.
-#: actions/cancelsubscription.php:83 actions/unsubscribe.php:78
+#: actions/cancelsubscription.php:84 actions/unsubscribe.php:79
 msgid "No profile ID in request."
 msgstr ""
 
@@ -1957,15 +1984,15 @@ msgstr ""
 #. TRANS: Client error displayed on user tag page when trying to add tags providing a non-existing user ID.
 #. TRANS: Client error displayed when trying to unsubscribe while providing a non-existing profile ID.
 #. TRANS: Client error displayed when trying to change user options without specifying an existing user to work on.
-#: actions/cancelsubscription.php:91 actions/groupblock.php:77
-#: actions/groupunblock.php:77 actions/makeadmin.php:79 actions/subedit.php:57
-#: actions/tagother.php:50 actions/unsubscribe.php:86
+#: actions/cancelsubscription.php:92 actions/groupblock.php:78
+#: actions/groupunblock.php:78 actions/makeadmin.php:80 actions/subedit.php:58
+#: actions/tagother.php:50 actions/unsubscribe.php:87
 #: lib/profileformaction.php:87
 msgid "No profile with that ID."
 msgstr ""
 
 #. TRANS: Title after unsubscribing from a group.
-#: actions/cancelsubscription.php:110
+#: actions/cancelsubscription.php:111
 msgctxt "TITLE"
 msgid "Unsubscribed"
 msgstr ""
@@ -1999,7 +2026,7 @@ msgstr ""
 
 #. TRANS: Server error displayed when updating IM preferences fails.
 #. TRANS: Server error thrown on database error removing a registered IM address.
-#: actions/confirmaddress.php:147 actions/imsettings.php:446
+#: actions/confirmaddress.php:147 actions/imsettings.php:447
 msgid "Could not update user IM preferences."
 msgstr ""
 
@@ -2033,8 +2060,7 @@ msgstr ""
 
 #. TRANS: Header on conversation page. Hidden by default (h2).
 #. TRANS: Label for user statistics.
-#: actions/conversation.php:149 lib/noticelist.php:87
-#: lib/profileaction.php:246
+#: actions/conversation.php:149 lib/profileaction.php:246
 msgid "Notices"
 msgstr ""
 
@@ -2130,21 +2156,22 @@ msgstr ""
 msgid "You are not the owner of this application."
 msgstr ""
 
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Client error text when there is a problem with the session token.
-#: actions/deleteapplication.php:102 actions/editapplication.php:131
-#: actions/newapplication.php:112 actions/showapplication.php:116
+#: actions/deleteapplication.php:103 actions/editapplication.php:132
+#: actions/newapplication.php:113 actions/showapplication.php:117
 #: lib/action.php:1460
 msgid "There was a problem with your session token."
 msgstr ""
 
 #. TRANS: Title for delete application page.
 #. TRANS: Fieldset legend on delete application page.
-#: actions/deleteapplication.php:124 actions/deleteapplication.php:149
+#: actions/deleteapplication.php:125 actions/deleteapplication.php:150
 msgid "Delete application"
 msgstr ""
 
 #. TRANS: Confirmation text on delete application page.
-#: actions/deleteapplication.php:152
+#: actions/deleteapplication.php:153
 msgid ""
 "Are you sure you want to delete this application? This will clear all data "
 "about the application from the database, including all existing user "
@@ -2152,12 +2179,12 @@ msgid ""
 msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting an application.
-#: actions/deleteapplication.php:161
+#: actions/deleteapplication.php:162
 msgid "Do not delete this application."
 msgstr ""
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
-#: actions/deleteapplication.php:167
+#: actions/deleteapplication.php:168
 msgid "Delete this application."
 msgstr ""
 
@@ -2484,76 +2511,76 @@ msgid "No such application."
 msgstr ""
 
 #. TRANS: Instructions for "Edit application" form.
-#: actions/editapplication.php:167
+#: actions/editapplication.php:168
 msgid "Use this form to edit your application."
 msgstr ""
 
 #. TRANS: Validation error shown when not providing a name in the "Edit application" form.
 #. TRANS: Validation error shown when not providing a name in the "New application" form.
-#: actions/editapplication.php:184 actions/newapplication.php:164
+#: actions/editapplication.php:185 actions/newapplication.php:165
 msgid "Name is required."
 msgstr ""
 
 #. TRANS: Validation error shown when providing too long a name in the "Edit application" form.
 #. TRANS: Validation error shown when providing too long a name in the "New application" form.
-#: actions/editapplication.php:188 actions/newapplication.php:172
+#: actions/editapplication.php:189 actions/newapplication.php:173
 msgid "Name is too long (maximum 255 characters)."
 msgstr ""
 
 #. TRANS: Validation error shown when providing a name for an application that already exists in the "Edit application" form.
 #. TRANS: Validation error shown when providing a name for an application that already exists in the "New application" form.
-#: actions/editapplication.php:192 actions/newapplication.php:168
+#: actions/editapplication.php:193 actions/newapplication.php:169
 msgid "Name already in use. Try another one."
 msgstr ""
 
 #. TRANS: Validation error shown when not providing a description in the "Edit application" form.
 #. TRANS: Validation error shown when not providing a description in the "New application" form.
-#: actions/editapplication.php:196 actions/newapplication.php:176
+#: actions/editapplication.php:197 actions/newapplication.php:177
 msgid "Description is required."
 msgstr ""
 
 #. TRANS: Validation error shown when providing too long a source URL in the "Edit application" form.
-#: actions/editapplication.php:209
+#: actions/editapplication.php:210
 msgid "Source URL is too long."
 msgstr ""
 
 #. TRANS: Validation error shown when providing an invalid source URL in the "Edit application" form.
 #. TRANS: Validation error shown when providing an invalid source URL in the "New application" form.
-#: actions/editapplication.php:216 actions/newapplication.php:199
+#: actions/editapplication.php:217 actions/newapplication.php:200
 msgid "Source URL is not valid."
 msgstr ""
 
 #. TRANS: Validation error shown when not providing an organisation in the "Edit application" form.
 #. TRANS: Validation error shown when not providing an organisation in the "New application" form.
-#: actions/editapplication.php:220 actions/newapplication.php:203
+#: actions/editapplication.php:221 actions/newapplication.php:204
 msgid "Organization is required."
 msgstr ""
 
 #. TRANS: Validation error shown when providing too long an arganisation name in the "Edit application" form.
-#: actions/editapplication.php:224 actions/newapplication.php:207
+#: actions/editapplication.php:225 actions/newapplication.php:208
 msgid "Organization is too long (maximum 255 characters)."
 msgstr ""
 
 #. TRANS: Form validation error show when an organisation name has not been provided in the edit application form.
 #. TRANS: Form validation error show when an organisation name has not been provided in the new application form.
-#: actions/editapplication.php:228 actions/newapplication.php:211
+#: actions/editapplication.php:229 actions/newapplication.php:212
 msgid "Organization homepage is required."
 msgstr ""
 
 #. TRANS: Validation error shown when providing too long a callback URL in the "Edit application" form.
 #. TRANS: Validation error shown when providing too long a callback URL in the "New application" form.
-#: actions/editapplication.php:239 actions/newapplication.php:225
+#: actions/editapplication.php:240 actions/newapplication.php:226
 msgid "Callback is too long."
 msgstr ""
 
 #. TRANS: Validation error shown when providing an invalid callback URL in the "Edit application" form.
 #. TRANS: Validation error shown when providing an invalid callback URL in the "New application" form.
-#: actions/editapplication.php:247 actions/newapplication.php:235
+#: actions/editapplication.php:248 actions/newapplication.php:236
 msgid "Callback URL is not valid."
 msgstr ""
 
 #. TRANS: Server error occuring when an application could not be updated from the "Edit application" form.
-#: actions/editapplication.php:284
+#: actions/editapplication.php:285
 msgid "Could not update application."
 msgstr ""
 
@@ -2738,7 +2765,7 @@ msgstr ""
 #. TRANS: Message given saving e-mail address that not valid.
 #. TRANS: Form validation error displayed when trying to register without a valid e-mail address.
 #. TRANS: Client error displayed trying to save site settings without a valid contact address.
-#: actions/emailsettings.php:394 actions/register.php:206
+#: actions/emailsettings.php:394 actions/register.php:207
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr ""
@@ -2756,8 +2783,8 @@ msgstr ""
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding Instant Messaging confirmation code.
 #. TRANS: Server error thrown on database error adding SMS confirmation code.
-#: actions/emailsettings.php:419 actions/imsettings.php:365
-#: actions/smssettings.php:364
+#: actions/emailsettings.php:419 actions/imsettings.php:366
+#: actions/smssettings.php:365
 msgid "Could not insert confirmation code."
 msgstr ""
 
@@ -2771,8 +2798,8 @@ msgstr ""
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
 #. TRANS: Message given canceling Instant Messaging address confirmation that is not pending.
 #. TRANS: Message given canceling SMS phone number confirmation that is not pending.
-#: actions/emailsettings.php:446 actions/imsettings.php:394
-#: actions/smssettings.php:398
+#: actions/emailsettings.php:446 actions/imsettings.php:395
+#: actions/smssettings.php:399
 msgid "No pending confirmation to cancel."
 msgstr ""
 
@@ -2803,7 +2830,7 @@ msgid "The email address was removed."
 msgstr ""
 
 #. TRANS: Form validation error displayed when trying to remove an incoming e-mail address while no address has been set.
-#: actions/emailsettings.php:519 actions/smssettings.php:554
+#: actions/emailsettings.php:519 actions/smssettings.php:555
 msgid "No incoming email address."
 msgstr ""
 
@@ -2811,29 +2838,29 @@ msgstr ""
 #. TRANS: Server error thrown on database error adding incoming e-mail address.
 #. TRANS: Server error displayed when the user could not be updated in SMS settings.
 #: actions/emailsettings.php:531 actions/emailsettings.php:555
-#: actions/smssettings.php:565 actions/smssettings.php:590
+#: actions/smssettings.php:566 actions/smssettings.php:591
 msgid "Could not update user record."
 msgstr ""
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
 #. TRANS: Confirmation text after updating SMS settings.
-#: actions/emailsettings.php:535 actions/smssettings.php:569
+#: actions/emailsettings.php:535 actions/smssettings.php:570
 msgid "Incoming email address removed."
 msgstr ""
 
 #. TRANS: Message given after successfully adding an incoming e-mail address.
 #. TRANS: Confirmation text after updating SMS settings.
-#: actions/emailsettings.php:559 actions/smssettings.php:594
+#: actions/emailsettings.php:559 actions/smssettings.php:595
 msgid "New incoming email address added."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to mark a notice as favorite that already is a favorite.
-#: actions/favor.php:80
+#: actions/favor.php:81
 msgid "This notice is already a favorite!"
 msgstr ""
 
 #. TRANS: Page title for page on which favorite notices can be unfavourited.
-#: actions/favor.php:95
+#: actions/favor.php:96
 msgid "Disfavor favorite."
 msgstr ""
 
@@ -3018,8 +3045,8 @@ msgstr ""
 #. TRANS: Client error displayed when not providing a profile ID on the Make Admin page.
 #. TRANS: Client error displayed trying a change a subscription without providing a profile.
 #. TRANS: Client error displayed when trying to change user options without specifying a user to work on.
-#: actions/groupblock.php:71 actions/groupunblock.php:71
-#: actions/makeadmin.php:73 actions/subedit.php:49
+#: actions/groupblock.php:72 actions/groupunblock.php:72
+#: actions/makeadmin.php:74 actions/subedit.php:50
 #: lib/profileformaction.php:79
 msgid "No profile specified."
 msgstr ""
@@ -3027,35 +3054,35 @@ msgstr ""
 #. TRANS: Client error displayed trying to block a user from a group while not specifying a group to block a profile from.
 #. TRANS: Client error displayed when trying to unblock a user from a group without providing a group.
 #. TRANS: Client error displayed when not providing a group ID on the Make Admin page.
-#: actions/groupblock.php:83 actions/groupunblock.php:83
-#: actions/makeadmin.php:85
+#: actions/groupblock.php:84 actions/groupunblock.php:84
+#: actions/makeadmin.php:86
 msgid "No group specified."
 msgstr ""
 
 #. TRANS: Client error displayed trying to block a user from a group while not being an admin user.
-#: actions/groupblock.php:95
+#: actions/groupblock.php:96
 msgid "Only an admin can block group members."
 msgstr ""
 
 #. TRANS: Client error displayed trying to block a user from a group while user is already blocked from the given group.
-#: actions/groupblock.php:100
+#: actions/groupblock.php:101
 msgid "User is already blocked from group."
 msgstr ""
 
 #. TRANS: Client error displayed trying to block a user from a group while user is not a member of given group.
-#: actions/groupblock.php:106
+#: actions/groupblock.php:107
 msgid "User is not a member of group."
 msgstr ""
 
 #. TRANS: Title for block user from group page.
 #. TRANS: Form legend for form to block user from a group.
-#: actions/groupblock.php:141 lib/groupblockform.php:91
+#: actions/groupblock.php:142 lib/groupblockform.php:91
 msgid "Block user from group"
 msgstr ""
 
 #. TRANS: Explanatory text for block user from group form before setting the block.
 #. TRANS: %1$s is that to be blocked user, %2$s is the group the user will be blocked from.
-#: actions/groupblock.php:169
+#: actions/groupblock.php:170
 #, php-format
 msgid ""
 "Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
@@ -3064,17 +3091,17 @@ msgid ""
 msgstr ""
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
-#: actions/groupblock.php:191
+#: actions/groupblock.php:192
 msgid "Do not block this user from this group."
 msgstr ""
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
-#: actions/groupblock.php:198
+#: actions/groupblock.php:199
 msgid "Block this user from this group."
 msgstr ""
 
 #. TRANS: Server error displayed when trying to block a user from a group fails because of an application error.
-#: actions/groupblock.php:215
+#: actions/groupblock.php:216
 msgid "Database error blocking user from group."
 msgstr ""
 
@@ -3274,18 +3301,18 @@ msgid ""
 msgstr ""
 
 #. TRANS: Client error displayed when trying to unblock a user from a group without being an administrator for the group.
-#: actions/groupunblock.php:95
+#: actions/groupunblock.php:96
 msgid "Only an admin can unblock group members."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to unblock a non-blocked user from a group.
-#: actions/groupunblock.php:100
+#: actions/groupunblock.php:101
 msgid "User is not blocked from group."
 msgstr ""
 
 #. TRANS: Server error displayed when unblocking a user from a group fails because of an unknown error.
 #. TRANS: Server error displayed when removing a user block.
-#: actions/groupunblock.php:132 actions/unblock.php:86
+#: actions/groupunblock.php:133 actions/unblock.php:86
 msgid "Error removing the block."
 msgstr ""
 
@@ -3361,69 +3388,69 @@ msgid "Publish a MicroID"
 msgstr ""
 
 #. TRANS: Server error thrown on database error updating IM preferences.
-#: actions/imsettings.php:293
+#: actions/imsettings.php:294
 msgid "Could not update IM preferences."
 msgstr ""
 
 #. TRANS: Confirmation message for successful IM preferences save.
 #. TRANS: Confirmation message after saving preferences.
-#: actions/imsettings.php:300 actions/urlsettings.php:246
+#: actions/imsettings.php:301 actions/urlsettings.php:247
 msgid "Preferences saved."
 msgstr ""
 
 #. TRANS: Message given saving IM address without having provided one.
-#: actions/imsettings.php:322
+#: actions/imsettings.php:323
 msgid "No screenname."
 msgstr ""
 
 #. TRANS: Form validation error when no transport is available setting an IM address.
-#: actions/imsettings.php:328
+#: actions/imsettings.php:329
 msgid "No transport."
 msgstr ""
 
 #. TRANS: Message given saving IM address that cannot be normalised.
-#: actions/imsettings.php:336
+#: actions/imsettings.php:337
 msgid "Cannot normalize that screenname."
 msgstr ""
 
 #. TRANS: Message given saving IM address that not valid.
-#: actions/imsettings.php:343
+#: actions/imsettings.php:344
 msgid "Not a valid screenname."
 msgstr ""
 
 #. TRANS: Message given saving IM address that is already set for another user.
-#: actions/imsettings.php:347
+#: actions/imsettings.php:348
 msgid "Screenname already belongs to another user."
 msgstr ""
 
 #. TRANS: Message given saving valid IM address that is to be confirmed.
-#: actions/imsettings.php:372
+#: actions/imsettings.php:373
 msgid "A confirmation code was sent to the IM address you added."
 msgstr ""
 
 #. TRANS: Message given canceling IM address confirmation for the wrong IM address.
-#: actions/imsettings.php:399
+#: actions/imsettings.php:400
 msgid "That is the wrong IM address."
 msgstr ""
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
-#: actions/imsettings.php:408
+#: actions/imsettings.php:409
 msgid "Could not delete confirmation."
 msgstr ""
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
-#: actions/imsettings.php:413
+#: actions/imsettings.php:414
 msgid "IM confirmation cancelled."
 msgstr ""
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
-#: actions/imsettings.php:437
+#: actions/imsettings.php:438
 msgid "That is not your screenname."
 msgstr ""
 
 #. TRANS: Message given after successfully removing a registered Instant Messaging address.
-#: actions/imsettings.php:453
+#: actions/imsettings.php:454
 msgid "The IM address was removed."
 msgstr ""
 
@@ -3460,18 +3487,18 @@ msgstr ""
 
 #. TRANS: Form validation message when providing an e-mail address that does not validate.
 #. TRANS: %s is an invalid e-mail address.
-#: actions/invite.php:78
+#: actions/invite.php:79
 #, php-format
 msgid "Invalid email address: %s."
 msgstr ""
 
 #. TRANS: Page title when invitations have been sent.
-#: actions/invite.php:117
+#: actions/invite.php:118
 msgid "Invitations sent"
 msgstr ""
 
 #. TRANS: Page title when inviting potential users.
-#: actions/invite.php:120
+#: actions/invite.php:121
 msgid "Invite new users"
 msgstr ""
 
@@ -3479,7 +3506,7 @@ msgstr ""
 #. TRANS: is already subscribed to one or more users with the given e-mail address(es).
 #. TRANS: Plural form is based on the number of reported already subscribed e-mail addresses.
 #. TRANS: Followed by a bullet list.
-#: actions/invite.php:140
+#: actions/invite.php:141
 msgid "You are already subscribed to this user:"
 msgid_plural "You are already subscribed to these users:"
 msgstr[0] ""
@@ -3487,7 +3514,7 @@ msgstr[1] ""
 
 #. TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
 #. TRANS: Used as list item for already registered people (%1$s is nickname, %2$s is e-mail address).
-#: actions/invite.php:146 actions/invite.php:160
+#: actions/invite.php:147 actions/invite.php:161
 #, php-format
 msgctxt "INVITE"
 msgid "%1$s (%2$s)"
@@ -3496,7 +3523,7 @@ msgstr ""
 #. TRANS: Message displayed inviting users to use a StatusNet site while the invited user
 #. TRANS: already uses a this StatusNet site. Plural form is based on the number of
 #. TRANS: reported already present people. Followed by a bullet list.
-#: actions/invite.php:154
+#: actions/invite.php:155
 msgid "This person is already a user and you were automatically subscribed:"
 msgid_plural ""
 "These people are already users and you were automatically subscribed to them:"
@@ -3506,7 +3533,7 @@ msgstr[1] ""
 #. TRANS: Message displayed inviting users to use a StatusNet site. Plural form is
 #. TRANS: based on the number of invitations sent. Followed by a bullet list of
 #. TRANS: e-mail addresses to which invitations were sent.
-#: actions/invite.php:168
+#: actions/invite.php:169
 msgid "Invitation sent to the following person:"
 msgid_plural "Invitations sent to the following people:"
 msgstr[0] ""
@@ -3514,41 +3541,41 @@ msgstr[1] ""
 
 #. TRANS: Generic message displayed after sending out one or more invitations to
 #. TRANS: people to join a StatusNet site.
-#: actions/invite.php:178
+#: actions/invite.php:179
 msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
 msgstr ""
 
 #. TRANS: Form instructions.
-#: actions/invite.php:191
+#: actions/invite.php:192
 msgid ""
 "Use this form to invite your friends and colleagues to use this service."
 msgstr ""
 
 #. TRANS: Field label for a list of e-mail addresses.
-#: actions/invite.php:218
+#: actions/invite.php:219
 msgid "Email addresses"
 msgstr ""
 
 #. TRANS: Tooltip for field label for a list of e-mail addresses.
-#: actions/invite.php:221
+#: actions/invite.php:222
 msgid "Addresses of friends to invite (one per line)."
 msgstr ""
 
 #. TRANS: Field label for a personal message to send to invitees.
-#: actions/invite.php:225
+#: actions/invite.php:226
 msgid "Personal message"
 msgstr ""
 
 #. TRANS: Tooltip for field label for a personal message to send to invitees.
-#: actions/invite.php:228
+#: actions/invite.php:229
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
 #. TRANS: Send button for inviting friends
 #. TRANS: Button text for sending notice.
-#: actions/invite.php:232 lib/noticeform.php:301
+#: actions/invite.php:233 lib/noticeform.php:302
 msgctxt "BUTTON"
 msgid "Send"
 msgstr ""
@@ -3556,7 +3583,7 @@ msgstr ""
 #. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral
 #. TRANS: singular 3rd-person pronoun in English. %1$s is the inviting user, $2$s is
 #. TRANS: the StatusNet sitename.
-#: actions/invite.php:264
+#: actions/invite.php:265
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr ""
@@ -3566,7 +3593,7 @@ msgstr ""
 #. TRANS: StatusNet sitename, %3$s is the site URL, %4$s is the personal message from the
 #. TRANS: inviting user, %s%5 a link to the timeline for the inviting user, %s$6 is a link
 #. TRANS: to register with the StatusNet site.
-#: actions/invite.php:271
+#: actions/invite.php:272
 #, php-format
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
@@ -3779,13 +3806,13 @@ msgstr ""
 
 #. TRANS: Checkbox label label on login page.
 #. TRANS: Checkbox label on account registration page.
-#: actions/login.php:239 actions/register.php:512
+#: actions/login.php:239 actions/register.php:514
 msgid "Remember me"
 msgstr ""
 
 #. TRANS: Checkbox title on login page.
 #. TRANS: Checkbox title on account registration page.
-#: actions/login.php:241 actions/register.php:515
+#: actions/login.php:241 actions/register.php:517
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 
@@ -3821,13 +3848,13 @@ msgid ""
 msgstr ""
 
 #. TRANS: Client error displayed when trying to make another user admin on the Make Admin page while not an admin.
-#: actions/makeadmin.php:98
+#: actions/makeadmin.php:99
 msgid "Only an admin can make another user an admin."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to make another user admin on the Make Admin page who already is admin.
 #. TRANS: %1$s is the user that is already admin, %2$s is the group user is already admin for.
-#: actions/makeadmin.php:104
+#: actions/makeadmin.php:105
 #, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr ""
@@ -3835,7 +3862,7 @@ msgstr ""
 #. TRANS: Server error displayed when trying to make another user admin on the Make Admin page fails
 #. TRANS: because the group membership record could not be gotten.
 #. TRANS: %1$s is the to be admin user, %2$s is the group user should be admin for.
-#: actions/makeadmin.php:144
+#: actions/makeadmin.php:145
 #, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr ""
@@ -3843,7 +3870,7 @@ msgstr ""
 #. TRANS: Server error displayed when trying to make another user admin on the Make Admin page fails
 #. TRANS: because the group adminship record coud not be saved properly.
 #. TRANS: %1$s is the to be admin user, %2$s is the group user is already admin for.
-#: actions/makeadmin.php:160
+#: actions/makeadmin.php:161
 #, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr ""
@@ -3864,22 +3891,22 @@ msgid "You must be logged in to register an application."
 msgstr ""
 
 #. TRANS: Form instructions for registering a new application.
-#: actions/newapplication.php:147
+#: actions/newapplication.php:148
 msgid "Use this form to register a new application."
 msgstr ""
 
 #. TRANS: Validation error shown when not providing a source URL in the "New application" form.
-#: actions/newapplication.php:189
+#: actions/newapplication.php:190
 msgid "Source URL is required."
 msgstr ""
 
 #. TRANS: Server error displayed when an application could not be registered in the database through the "New application" form.
-#: actions/newapplication.php:279 actions/newapplication.php:289
+#: actions/newapplication.php:280 actions/newapplication.php:290
 msgid "Could not create application."
 msgstr ""
 
 #. TRANS: Form validation error on New application page when providing an invalid image upload.
-#: actions/newapplication.php:298
+#: actions/newapplication.php:299
 msgid "Invalid image."
 msgstr ""
 
@@ -3900,13 +3927,13 @@ msgstr ""
 
 #. TRANS: Page title for new direct message page.
 #. TRANS: Page title on page for sending a direct message.
-#: actions/newmessage.php:72 actions/newmessage.php:249
+#: actions/newmessage.php:72 actions/newmessage.php:250
 msgid "New message"
 msgstr ""
 
 #. TRANS: Client error displayed trying to send a direct message to a user while sender and
 #. TRANS: receiver are not subscribed to each other.
-#: actions/newmessage.php:126 actions/newmessage.php:173
+#: actions/newmessage.php:126 actions/newmessage.php:174
 msgid "You cannot send a message to this user."
 msgstr ""
 
@@ -3914,25 +3941,25 @@ msgstr ""
 #. TRANS: Client error displayed trying to send a notice without content.
 #. TRANS: Command exception text shown when trying to send a direct message to another user without content.
 #. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
-#: actions/newmessage.php:150 actions/newnotice.php:139 lib/command.php:484
+#: actions/newmessage.php:151 actions/newnotice.php:140 lib/command.php:484
 #: lib/command.php:573
 msgid "No content!"
 msgstr ""
 
 #. TRANS: Form validation error displayed trying to send a direct message without specifying a recipient.
-#: actions/newmessage.php:168
+#: actions/newmessage.php:169
 msgid "No recipient specified."
 msgstr ""
 
 #. TRANS: Client error displayed trying to send a direct message to self.
 #. TRANS: Error text shown when trying to send a direct message to self.
-#: actions/newmessage.php:177 lib/command.php:511
+#: actions/newmessage.php:178 lib/command.php:511
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
 
 #. TRANS: Page title after sending a direct message.
-#: actions/newmessage.php:195
+#: actions/newmessage.php:196
 msgid "Message sent"
 msgstr ""
 
@@ -3940,24 +3967,26 @@ msgstr ""
 #. TRANS: %s is the direct message recipient.
 #. TRANS: Message given have sent a direct message to another user.
 #. TRANS: %s is the name of the other user.
-#: actions/newmessage.php:201 lib/command.php:519
+#: actions/newmessage.php:202 lib/command.php:519
 #, php-format
 msgid "Direct message to %s sent."
 msgstr ""
 
 #. TRANS: Page title after an AJAX error occurred on the "send direct message" page.
 #. TRANS: Page title after an AJAX error occurs on the send notice page.
-#: actions/newmessage.php:227 actions/newnotice.php:268 lib/error.php:117
+#: actions/newmessage.php:228 actions/newnotice.php:271 lib/error.php:117
 msgid "Ajax Error"
 msgstr ""
 
 #. TRANS: Page title for sending a new notice.
-#: actions/newnotice.php:67 actions/newnotice.php:289
+#. TRANS: Title for form to send a new notice.
+#: actions/newnotice.php:67 actions/newnotice.php:293
+msgctxt "TITLE"
 msgid "New notice"
 msgstr ""
 
 #. TRANS: Page title after sending a notice.
-#: actions/newnotice.php:234
+#: actions/newnotice.php:237
 msgid "Notice posted"
 msgstr ""
 
@@ -4014,19 +4043,19 @@ msgid "Updates matching search term \"%1$s\" on %2$s."
 msgstr ""
 
 #. TRANS: Client error displayed trying to nudge a user that cannot be nudged.
-#: actions/nudge.php:87
+#: actions/nudge.php:88
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email "
 "address yet."
 msgstr ""
 
 #. TRANS: Page title after sending a nudge.
-#: actions/nudge.php:97
+#: actions/nudge.php:98
 msgid "Nudge sent"
 msgstr ""
 
 #. TRANS: Confirmation text after sending a nudge.
-#: actions/nudge.php:101
+#: actions/nudge.php:102
 msgid "Nudge sent!"
 msgstr ""
 
@@ -4062,20 +4091,20 @@ msgid "The following connections exist for your account."
 msgstr ""
 
 #. TRANS: Client error when trying to revoke access for an application while not being a user of it.
-#: actions/oauthconnectionssettings.php:165
+#: actions/oauthconnectionssettings.php:166
 msgid "You are not a user of that application."
 msgstr ""
 
 #. TRANS: Client error when revoking access has failed for some reason.
 #. TRANS: %s is the application ID revoking access failed for.
-#: actions/oauthconnectionssettings.php:180
+#: actions/oauthconnectionssettings.php:181
 #, php-format
 msgid "Unable to revoke access for application: %s."
 msgstr ""
 
 #. TRANS: Success message after revoking access for an application.
 #. TRANS: %1$s is the application name, %2$s is the first part of the user token.
-#: actions/oauthconnectionssettings.php:199
+#: actions/oauthconnectionssettings.php:200
 #, php-format
 msgid ""
 "You have successfully revoked access for %1$s and the access token starting "
@@ -4083,14 +4112,14 @@ msgid ""
 msgstr ""
 
 #. TRANS: Empty list message when no applications have been authorised yet.
-#: actions/oauthconnectionssettings.php:210
+#: actions/oauthconnectionssettings.php:211
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
 #. TRANS: Note for developers in the OAuth connection settings form.
 #. TRANS: This message contains a Markdown link. Do not separate "](".
 #. TRANS: %s is the URL to the OAuth settings.
-#: actions/oauthconnectionssettings.php:230
+#: actions/oauthconnectionssettings.php:231
 #, php-format
 msgid ""
 "Are you a developer? [Register an OAuth client application](%s) to use with "
@@ -4241,7 +4270,7 @@ msgstr ""
 
 #. TRANS: Field title on page where to change password.
 #. TRANS: Field title on account registration page.
-#: actions/passwordsettings.php:115 actions/register.php:444
+#: actions/passwordsettings.php:115 actions/register.php:446
 msgid "6 or more characters."
 msgstr ""
 
@@ -4255,7 +4284,7 @@ msgstr ""
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
 #. TRANS: Field title on account registration page.
 #: actions/passwordsettings.php:121 actions/recoverpassword.php:264
-#: actions/register.php:450
+#: actions/register.php:452
 msgid "Same as password above."
 msgstr ""
 
@@ -4267,35 +4296,35 @@ msgstr ""
 
 #. TRANS: Form validation error on page where to change password.
 #. TRANS: Form validation error displayed when trying to register with too short a password.
-#: actions/passwordsettings.php:163 actions/register.php:240
+#: actions/passwordsettings.php:164 actions/register.php:242
 msgid "Password must be 6 or more characters."
 msgstr ""
 
 #. TRANS: Form validation error on password change when password confirmation does not match.
 #. TRANS: Form validation error displayed when trying to register with non-matching passwords.
-#: actions/passwordsettings.php:167 actions/register.php:244
+#: actions/passwordsettings.php:168 actions/register.php:246
 msgid "Passwords do not match."
 msgstr ""
 
 #. TRANS: Form validation error on page where to change password.
-#: actions/passwordsettings.php:176
+#: actions/passwordsettings.php:177
 msgid "Incorrect old password."
 msgstr ""
 
 #. TRANS: Form validation error on page where to change password.
-#: actions/passwordsettings.php:193
+#: actions/passwordsettings.php:194
 msgid "Error saving user; invalid."
 msgstr ""
 
 #. TRANS: Server error displayed on page where to change password when password change
 #. TRANS: could not be made because of a server error.
 #. TRANS: Reset password form validation error message.
-#: actions/passwordsettings.php:200 actions/recoverpassword.php:422
+#: actions/passwordsettings.php:201 actions/recoverpassword.php:422
 msgid "Cannot save new password."
 msgstr ""
 
 #. TRANS: Form validation notice on page where to change password.
-#: actions/passwordsettings.php:207
+#: actions/passwordsettings.php:208
 msgid "Password saved."
 msgstr ""
 
@@ -4619,17 +4648,17 @@ msgid "This action only accepts POST requests."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to enable or disable a plugin without access rights.
-#: actions/pluginenable.php:104
+#: actions/pluginenable.php:105
 msgid "You cannot administer plugins."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to enable or disable a non-existing plugin.
-#: actions/pluginenable.php:112
+#: actions/pluginenable.php:113
 msgid "No such plugin."
 msgstr ""
 
 #. TRANS: Page title for AJAX form return when enabling a plugin.
-#: actions/pluginenable.php:161
+#: actions/pluginenable.php:162
 msgctxt "plugin"
 msgid "Enabled"
 msgstr ""
@@ -4690,7 +4719,7 @@ msgstr ""
 #. TRANS: Tooltip for field label in form for profile settings.
 #. TRANS: Field title on account registration page.
 #. TRANS: Field title on group edit form.
-#: actions/profilesettings.php:107 actions/register.php:438
+#: actions/profilesettings.php:107 actions/register.php:440
 #: lib/groupeditform.php:150
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr ""
@@ -4698,7 +4727,7 @@ msgstr ""
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Field label on group edit form.
-#: actions/profilesettings.php:111 actions/register.php:469
+#: actions/profilesettings.php:111 actions/register.php:471
 #: lib/groupeditform.php:154
 msgid "Full name"
 msgstr ""
@@ -4707,14 +4736,14 @@ msgstr ""
 #. TRANS: Field label on account registration page.
 #. TRANS: Form input field label.
 #. TRANS: Field label on group edit form; points to "more info" for a group.
-#: actions/profilesettings.php:116 actions/register.php:476
+#: actions/profilesettings.php:116 actions/register.php:478
 #: lib/applicationeditform.php:236 lib/groupeditform.php:159
 msgid "Homepage"
 msgstr ""
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #. TRANS: Field title on account registration page.
-#: actions/profilesettings.php:119 actions/register.php:479
+#: actions/profilesettings.php:119 actions/register.php:481
 msgid "URL of your homepage, blog, or profile on another site."
 msgstr ""
 
@@ -4724,7 +4753,7 @@ msgstr ""
 #. TRANS: Text area title in form for account registration. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#: actions/profilesettings.php:127 actions/register.php:488
+#: actions/profilesettings.php:127 actions/register.php:490
 #, php-format
 msgid "Describe yourself and your interests in %d character."
 msgid_plural "Describe yourself and your interests in %d characters."
@@ -4733,28 +4762,28 @@ msgstr[1] ""
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #. TRANS: Text area title on account registration page.
-#: actions/profilesettings.php:133 actions/register.php:494
+#: actions/profilesettings.php:133 actions/register.php:496
 msgid "Describe yourself and your interests."
 msgstr ""
 
 #. TRANS: Text area label in form for profile settings where users can provide
 #. TRANS: their biography.
 #. TRANS: Text area label on account registration page.
-#: actions/profilesettings.php:137 actions/register.php:497
+#: actions/profilesettings.php:137 actions/register.php:499
 msgid "Bio"
 msgstr ""
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Field label on group edit form.
-#: actions/profilesettings.php:143 actions/register.php:503
+#: actions/profilesettings.php:143 actions/register.php:505
 #: lib/groupeditform.php:184
 msgid "Location"
 msgstr ""
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #. TRANS: Field title on account registration page.
-#: actions/profilesettings.php:146 actions/register.php:506
+#: actions/profilesettings.php:146 actions/register.php:508
 msgid "Where you are, like \"City, State (or Region), Country\"."
 msgstr ""
 
@@ -4835,7 +4864,7 @@ msgstr ""
 #. TRANS: characters for the biography (%d).
 #. TRANS: Form validation error on registration page when providing too long a bio text.
 #. TRANS: %d is the maximum number of characters for bio; used for plural.
-#: actions/profilesettings.php:278 actions/register.php:229
+#: actions/profilesettings.php:278 actions/register.php:231
 #, php-format
 msgid "Bio is too long (maximum %d character)."
 msgid_plural "Bio is too long (maximum %d characters)."
@@ -4857,7 +4886,7 @@ msgstr ""
 #. TRANS: %s is an invalid tag.
 #. TRANS: Form validation error when entering an invalid tag.
 #. TRANS: %s is the invalid tag.
-#: actions/profilesettings.php:311 actions/tagother.php:170
+#: actions/profilesettings.php:311 actions/tagother.php:171
 #, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr ""
@@ -4875,7 +4904,7 @@ msgstr ""
 
 #. TRANS: Server error thrown when user profile settings tags could not be saved.
 #. TRANS: Client error on "tag other users" page when saving tags fails server side.
-#: actions/profilesettings.php:451 actions/tagother.php:194
+#: actions/profilesettings.php:451 actions/tagother.php:195
 msgid "Could not save tags."
 msgstr ""
 
@@ -5110,11 +5139,6 @@ msgstr ""
 msgid "Password saved"
 msgstr ""
 
-#. TRANS: Title for password recovery page when an unknown action has been specified.
-#: actions/recoverpassword.php:232
-msgid "Unknown action"
-msgstr ""
-
 #. TRANS: Title for field label for password reset form.
 #: actions/recoverpassword.php:258
 msgid "6 or more characters, and do not forget it!"
@@ -5171,7 +5195,7 @@ msgstr ""
 
 #. TRANS: Server error displayed when something does wrong with the user object during password reset.
 #. TRANS: Server error displayed when saving fails during user registration.
-#: actions/recoverpassword.php:430 actions/register.php:261
+#: actions/recoverpassword.php:430 actions/register.php:263
 msgid "Error setting user."
 msgstr ""
 
@@ -5193,7 +5217,7 @@ msgid "No such file \"%d\"."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to register to an invite-only site without an invitation.
-#: actions/register.php:81 actions/register.php:188 actions/register.php:415
+#: actions/register.php:81 actions/register.php:189 actions/register.php:417
 msgid "Sorry, only invited people can register."
 msgstr ""
 
@@ -5219,57 +5243,58 @@ msgid "Registration not allowed."
 msgstr ""
 
 #. TRANS: Form validation error displayed when trying to register without agreeing to the site license.
-#: actions/register.php:202
+#: actions/register.php:203
 msgid "You cannot register if you do not agree to the license."
 msgstr ""
 
-#: actions/register.php:214
+#. TRANS: Form validation error displayed when trying to register with an already registered e-mail address.
+#: actions/register.php:216
 msgid "Email address already exists."
 msgstr ""
 
 #. TRANS: Form validation error displayed when trying to register with an invalid username or password.
-#: actions/register.php:255 actions/register.php:279
+#: actions/register.php:257 actions/register.php:281
 msgid "Invalid username or password."
 msgstr ""
 
 #. TRANS: Page notice on registration page.
-#: actions/register.php:355
+#: actions/register.php:357
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues."
 msgstr ""
 
 #. TRANS: Field label on account registration page. In this field the password has to be entered a second time.
-#: actions/register.php:448
+#: actions/register.php:450
 msgctxt "PASSWORD"
 msgid "Confirm"
 msgstr ""
 
 #. TRANS: Field label on account registration page.
-#: actions/register.php:455 actions/register.php:461
+#: actions/register.php:457 actions/register.php:463
 msgctxt "LABEL"
 msgid "Email"
 msgstr ""
 
 #. TRANS: Field title on account registration page.
-#: actions/register.php:457 actions/register.php:463
+#: actions/register.php:459 actions/register.php:465
 msgid "Used only for updates, announcements, and password recovery."
 msgstr ""
 
 #. TRANS: Field title on account registration page.
-#: actions/register.php:472
+#: actions/register.php:474
 msgid "Longer name, preferably your \"real\" name."
 msgstr ""
 
 #. TRANS: Button text to register a user on account registration page.
-#: actions/register.php:535
+#: actions/register.php:537
 msgctxt "BUTTON"
 msgid "Register"
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for private sites.
 #. TRANS: %1$s is the StatusNet sitename.
-#: actions/register.php:548
+#: actions/register.php:550
 #, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
@@ -5277,23 +5302,23 @@ msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with a specified copyright owner.
 #. TRANS: %1$s is the license owner.
-#: actions/register.php:559
+#: actions/register.php:561
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
-#: actions/register.php:563
+#: actions/register.php:565
 msgid "My text and files remain under my own copyright."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
-#: actions/register.php:566
+#: actions/register.php:568
 msgid "All rights reserved."
 msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:571
+#: actions/register.php:573
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -5304,7 +5329,7 @@ msgstr ""
 #. TRANS: %1$s is the registered nickname, %2$s is the profile URL.
 #. TRANS: This message contains Markdown links in the form [link text](link)
 #. TRANS: and variables in the form %%%%variable%%%%. Please mind the syntax.
-#: actions/register.php:616
+#: actions/register.php:618
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -5324,7 +5349,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: Instruction text on how to deal with the e-mail address confirmation e-mail.
-#: actions/register.php:641
+#: actions/register.php:643
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -5332,7 +5357,7 @@ msgstr ""
 
 #. TRANS: Page notice for remote subscribe. This message contains Markdown links.
 #. TRANS: Ensure to keep the correct markup of [link description](link).
-#: actions/remotesubscribe.php:100
+#: actions/remotesubscribe.php:101
 #, php-format
 msgid ""
 "To subscribe, you can [login](%%action.login%%), or [register](%%action."
@@ -5341,62 +5366,62 @@ msgid ""
 msgstr ""
 
 #. TRANS: Page title for Remote subscribe.
-#: actions/remotesubscribe.php:115
+#: actions/remotesubscribe.php:116
 msgid "Remote subscribe"
 msgstr ""
 
 #. TRANS: Field legend on page for remote subscribe.
-#: actions/remotesubscribe.php:128
+#: actions/remotesubscribe.php:129
 msgid "Subscribe to a remote user"
 msgstr ""
 
 #. TRANS: Field label on page for remote subscribe.
-#: actions/remotesubscribe.php:134
+#: actions/remotesubscribe.php:135
 msgid "User nickname"
 msgstr ""
 
 #. TRANS: Field title on page for remote subscribe.
-#: actions/remotesubscribe.php:136
+#: actions/remotesubscribe.php:137
 msgid "Nickname of the user you want to follow."
 msgstr ""
 
 #. TRANS: Field label on page for remote subscribe.
-#: actions/remotesubscribe.php:140
+#: actions/remotesubscribe.php:141
 msgid "Profile URL"
 msgstr ""
 
 #. TRANS: Field title on page for remote subscribe.
-#: actions/remotesubscribe.php:142
+#: actions/remotesubscribe.php:143
 msgid "URL of your profile on another compatible microblogging service."
 msgstr ""
 
 #. TRANS: Button text on page for remote subscribe.
 #. TRANS: Link text for link that will subscribe to a remote profile.
 #. TRANS: Button text to subscribe to a user.
-#: actions/remotesubscribe.php:146 lib/accountprofileblock.php:290
+#: actions/remotesubscribe.php:147 lib/accountprofileblock.php:290
 #: lib/subscribeform.php:130
 msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr ""
 
 #. TRANS: Form validation error on page for remote subscribe when an invalid profile URL was provided.
-#: actions/remotesubscribe.php:171
+#: actions/remotesubscribe.php:172
 msgid "Invalid profile URL (bad format)."
 msgstr ""
 
 #. TRANS: Form validation error on page for remote subscribe when no the provided profile URL
 #. TRANS: does not contain expected data.
-#: actions/remotesubscribe.php:182
+#: actions/remotesubscribe.php:183
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
 
 #. TRANS: Form validation error on page for remote subscribe.
-#: actions/remotesubscribe.php:191
+#: actions/remotesubscribe.php:192
 msgid "That is a local profile! Login to subscribe."
 msgstr ""
 
 #. TRANS: Form validation error on page for remote subscribe when the remote service is not providing a request token.
-#: actions/remotesubscribe.php:199
+#: actions/remotesubscribe.php:200
 msgid "Could not get a request token."
 msgstr ""
 
@@ -5413,12 +5438,12 @@ msgstr ""
 
 #. TRANS: Title after repeating a notice.
 #. TRANS: Repeat form status in notice list when a notice has been repeated.
-#: actions/repeat.php:101 lib/noticelistitem.php:604
+#: actions/repeat.php:102 lib/noticelistitem.php:605
 msgid "Repeated"
 msgstr ""
 
 #. TRANS: Confirmation text after repeating a notice.
-#: actions/repeat.php:107
+#: actions/repeat.php:108
 msgid "Repeated!"
 msgstr ""
 
@@ -5658,14 +5683,14 @@ msgid "You must be logged in to view an application."
 msgstr ""
 
 #. TRANS: Header on the OAuth application page.
-#: actions/showapplication.php:155
+#: actions/showapplication.php:156
 msgid "Application profile"
 msgstr ""
 
 #. TRANS: Information output on an OAuth application page.
 #. TRANS: %1$s is the application creator, %2$s is "read-only" or "read-write",
 #. TRANS: %3$d is the number of users using the OAuth application.
-#: actions/showapplication.php:186
+#: actions/showapplication.php:187
 #, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d user"
 msgid_plural "Created by %1$s - %2$s access by default - %3$d users"
@@ -5673,36 +5698,36 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Header on the OAuth application page.
-#: actions/showapplication.php:199
+#: actions/showapplication.php:200
 msgid "Application actions"
 msgstr ""
 
 #. TRANS: Link text to edit application on the OAuth application page.
-#: actions/showapplication.php:206
+#: actions/showapplication.php:207
 msgctxt "EDITAPP"
 msgid "Edit"
 msgstr ""
 
 #. TRANS: Button text on the OAuth application page.
 #. TRANS: Resets the OAuth consumer key and secret.
-#: actions/showapplication.php:225
+#: actions/showapplication.php:226
 msgid "Reset key & secret"
 msgstr ""
 
 #. TRANS: Header on the OAuth application page.
-#: actions/showapplication.php:252
+#: actions/showapplication.php:253
 msgid "Application info"
 msgstr ""
 
 #. TRANS: Note on the OAuth application page about signature support.
-#: actions/showapplication.php:271
+#: actions/showapplication.php:272
 msgid ""
 "Note: HMAC-SHA1 signatures are supported. The plaintext signature method is "
 "not supported."
 msgstr ""
 
 #. TRANS: Text in confirmation dialog to reset consumer key and secret for an OAuth application.
-#: actions/showapplication.php:292
+#: actions/showapplication.php:293
 msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr ""
 
@@ -6275,76 +6300,76 @@ msgid ""
 msgstr ""
 
 #. TRANS: Confirmation message for successful SMS preferences save.
-#: actions/smssettings.php:307
+#: actions/smssettings.php:308
 msgid "SMS preferences saved."
 msgstr ""
 
 #. TRANS: Message given saving SMS phone number without having provided one.
-#: actions/smssettings.php:329
+#: actions/smssettings.php:330
 msgid "No phone number."
 msgstr ""
 
 #. TRANS: Message given saving SMS phone number without having selected a carrier.
-#: actions/smssettings.php:335
+#: actions/smssettings.php:336
 msgid "No carrier selected."
 msgstr ""
 
 #. TRANS: Message given saving SMS phone number that is already set.
-#: actions/smssettings.php:343
+#: actions/smssettings.php:344
 msgid "That is already your phone number."
 msgstr ""
 
 #. TRANS: Message given saving SMS phone number that is already set for another user.
-#: actions/smssettings.php:347
+#: actions/smssettings.php:348
 msgid "That phone number already belongs to another user."
 msgstr ""
 
 #. TRANS: Message given saving valid SMS phone number that is to be confirmed.
-#: actions/smssettings.php:375
+#: actions/smssettings.php:376
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your phone "
 "for the code and instructions on how to use it."
 msgstr ""
 
 #. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
-#: actions/smssettings.php:403
+#: actions/smssettings.php:404
 msgid "That is the wrong confirmation number."
 msgstr ""
 
 #. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
-#: actions/smssettings.php:412
+#: actions/smssettings.php:413
 msgid "Could not delete SMS confirmation."
 msgstr ""
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
-#: actions/smssettings.php:417
+#: actions/smssettings.php:418
 msgid "SMS confirmation cancelled."
 msgstr ""
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
-#: actions/smssettings.php:437
+#: actions/smssettings.php:438
 msgid "That is not your phone number."
 msgstr ""
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
-#: actions/smssettings.php:459
+#: actions/smssettings.php:460
 msgid "The SMS phone number was removed."
 msgstr ""
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
-#: actions/smssettings.php:498
+#: actions/smssettings.php:499
 msgid "Mobile carrier"
 msgstr ""
 
 #. TRANS: Default option for mobile carrier dropdown menu in SMS settings.
-#: actions/smssettings.php:503
+#: actions/smssettings.php:504
 msgid "Select a carrier"
 msgstr ""
 
 #. TRANS: Form instructions for mobile carrier dropdown menu in SMS settings.
 #. TRANS: %s is an administrative contact's e-mail address.
-#: actions/smssettings.php:512
+#: actions/smssettings.php:513
 #, php-format
 msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
@@ -6352,7 +6377,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: Message given saving SMS phone number confirmation code without having provided one.
-#: actions/smssettings.php:534
+#: actions/smssettings.php:535
 msgid "No code entered."
 msgstr ""
 
@@ -6434,13 +6459,13 @@ msgid "Save snapshot settings."
 msgstr ""
 
 #. TRANS: Client error displayed trying a change a subscription for a non-subscribed profile.
-#: actions/subedit.php:75
+#: actions/subedit.php:76
 msgid "You are not subscribed to that profile."
 msgstr ""
 
 #. TRANS: Server error displayed when updating a subscription fails with a database error.
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
-#: actions/subedit.php:89 classes/Subscription.php:147
+#: actions/subedit.php:90 classes/Subscription.php:147
 msgid "Could not save subscription."
 msgstr ""
 
@@ -6648,19 +6673,19 @@ msgid ""
 msgstr ""
 
 #. TRANS: Client error on "tag other users" page when tagging a user is not possible because of missing mutual subscriptions.
-#: actions/tagother.php:186
+#: actions/tagother.php:187
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
 
 #. TRANS: Title of "tag other users" page.
-#: actions/tagother.php:204
+#: actions/tagother.php:205
 msgctxt "TITLE"
 msgid "Tags"
 msgstr ""
 
 #. TRANS: Page notice on "tag other users" page.
-#: actions/tagother.php:232
+#: actions/tagother.php:233
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
 
@@ -6685,7 +6710,7 @@ msgid "User is not silenced."
 msgstr ""
 
 #. TRANS: Page title for page to unsubscribe.
-#: actions/unsubscribe.php:101
+#: actions/unsubscribe.php:102
 msgid "Unsubscribed"
 msgstr ""
 
@@ -6693,7 +6718,7 @@ msgstr ""
 #. TRANS: %1$s is the license incompatible with site license %2$s.
 #. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
 #. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
-#: actions/updateprofile.php:65 actions/userauthorization.php:342
+#: actions/updateprofile.php:65 actions/userauthorization.php:343
 #, php-format
 msgid ""
 "Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
@@ -6759,22 +6784,22 @@ msgid ""
 msgstr ""
 
 #. TRANS: Form validation error for form "Other settings" in user profile.
-#: actions/urlsettings.php:179
+#: actions/urlsettings.php:180
 msgid "URL shortening service is too long (maximum 50 characters)."
 msgstr ""
 
 #. TRANS: Client exception thrown when the maximum URL settings value is invalid in profile URL settings.
-#: actions/urlsettings.php:187
+#: actions/urlsettings.php:188
 msgid "Invalid number for maximum URL length."
 msgstr ""
 
 #. TRANS: Client exception thrown when the maximum notice length settings value is invalid in profile URL settings.
-#: actions/urlsettings.php:194
+#: actions/urlsettings.php:195
 msgid "Invalid number for maximum notice length."
 msgstr ""
 
 #. TRANS: Server exception thrown in profile URL settings when preferences could not be saved.
-#: actions/urlsettings.php:240
+#: actions/urlsettings.php:241
 msgid "Error saving user URL shortening preferences."
 msgstr ""
 
@@ -6868,12 +6893,12 @@ msgid "Save user settings."
 msgstr ""
 
 #. TRANS: Page title.
-#: actions/userauthorization.php:109
+#: actions/userauthorization.php:110
 msgid "Authorize subscription"
 msgstr ""
 
 #. TRANS: Page notice on "Authorize subscription" page.
-#: actions/userauthorization.php:115
+#: actions/userauthorization.php:116
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
@@ -6883,7 +6908,7 @@ msgstr ""
 #. TRANS: Button text on Authorise Subscription page.
 #. TRANS: Submit button text to accept a group membership request on approve group form.
 #. TRANS: Submit button text to accept a subscription request on approve sub form.
-#: actions/userauthorization.php:202 lib/approvegroupform.php:116
+#: actions/userauthorization.php:203 lib/approvegroupform.php:116
 #: lib/approvesubform.php:110
 msgctxt "BUTTON"
 msgid "Accept"
@@ -6891,36 +6916,36 @@ msgstr ""
 
 #. TRANS: Title for button on Authorise Subscription page.
 #. TRANS: Button title to subscribe to a user.
-#: actions/userauthorization.php:204 lib/subscribeform.php:132
+#: actions/userauthorization.php:205 lib/subscribeform.php:132
 msgid "Subscribe to this user."
 msgstr ""
 
 #. TRANS: Button text on Authorise Subscription page.
 #. TRANS: Submit button text to reject a group membership request on approve group form.
 #. TRANS: Submit button text to reject a subscription request on approve sub form.
-#: actions/userauthorization.php:207 lib/approvegroupform.php:118
+#: actions/userauthorization.php:208 lib/approvegroupform.php:118
 #: lib/approvesubform.php:112
 msgctxt "BUTTON"
 msgid "Reject"
 msgstr ""
 
 #. TRANS: Title for button on Authorise Subscription page.
-#: actions/userauthorization.php:209
+#: actions/userauthorization.php:210
 msgid "Reject this subscription."
 msgstr ""
 
 #. TRANS: Client error displayed for an empty authorisation request.
-#: actions/userauthorization.php:222
+#: actions/userauthorization.php:223
 msgid "No authorization request!"
 msgstr ""
 
 #. TRANS: Accept message header from Authorise subscription page.
-#: actions/userauthorization.php:245
+#: actions/userauthorization.php:246
 msgid "Subscription authorized"
 msgstr ""
 
 #. TRANS: Accept message text from Authorise subscription page.
-#: actions/userauthorization.php:248
+#: actions/userauthorization.php:249
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site's instructions for details on how to authorize the "
@@ -6928,12 +6953,12 @@ msgid ""
 msgstr ""
 
 #. TRANS: Reject message header from Authorise subscription page.
-#: actions/userauthorization.php:259
+#: actions/userauthorization.php:260
 msgid "Subscription rejected"
 msgstr ""
 
 #. TRANS: Reject message from Authorise subscription page.
-#: actions/userauthorization.php:262
+#: actions/userauthorization.php:263
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site's instructions for details on how to fully reject the "
@@ -6942,49 +6967,49 @@ msgstr ""
 
 #. TRANS: Exception thrown when no valid user is found for an authorisation request.
 #. TRANS: %s is a listener URI.
-#: actions/userauthorization.php:299
+#: actions/userauthorization.php:300
 #, php-format
 msgid "Listener URI \"%s\" not found here."
 msgstr ""
 
 #. TRANS: Exception thrown when listenee URI is too long for an authorisation request.
 #. TRANS: %s is a listenee URI.
-#: actions/userauthorization.php:306
+#: actions/userauthorization.php:307
 #, php-format
 msgid "Listenee URI \"%s\" is too long."
 msgstr ""
 
 #. TRANS: Exception thrown when listenee URI is a local user for an authorisation request.
 #. TRANS: %s is a listenee URI.
-#: actions/userauthorization.php:314
+#: actions/userauthorization.php:315
 #, php-format
 msgid "Listenee URI \"%s\" is a local user."
 msgstr ""
 
 #. TRANS: Exception thrown when profile URL is a local user for an authorisation request.
 #. TRANS: %s is a profile URL.
-#: actions/userauthorization.php:332
+#: actions/userauthorization.php:333
 #, php-format
 msgid "Profile URL \"%s\" is for a local user."
 msgstr ""
 
 #. TRANS: Exception thrown when avatar URL is invalid for an authorisation request.
 #. TRANS: %s is an avatar URL.
-#: actions/userauthorization.php:352
+#: actions/userauthorization.php:353
 #, php-format
 msgid "Avatar URL \"%s\" is not valid."
 msgstr ""
 
 #. TRANS: Exception thrown when avatar URL could not be read for an authorisation request.
 #. TRANS: %s is an avatar URL.
-#: actions/userauthorization.php:359
+#: actions/userauthorization.php:360
 #, php-format
 msgid "Cannot read avatar URL \"%s\"."
 msgstr ""
 
 #. TRANS: Exception thrown when avatar URL return an invalid image type for an authorisation request.
 #. TRANS: %s is an avatar URL.
-#: actions/userauthorization.php:366
+#: actions/userauthorization.php:367
 #, php-format
 msgid "Wrong image type for avatar URL \"%s\"."
 msgstr ""
@@ -7059,7 +7084,7 @@ msgstr ""
 #. TRANS: %1$s is a group name, %2$s is a site name.
 #. TRANS: Message is used as a subtitle in atom user notice feed.
 #. TRANS: %1$s is a user name, %2$s is a site name.
-#: actions/userrss.php:97 lib/atomgroupnoticefeed.php:70
+#: actions/userrss.php:98 lib/atomgroupnoticefeed.php:70
 #: lib/atomusernoticefeed.php:95
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -7236,7 +7261,7 @@ msgid "Group leave failed."
 msgstr ""
 
 #. TRANS: Activity title.
-#: classes/Group_member.php:148 lib/joinform.php:114
+#: classes/Group_member.php:148
 msgid "Join"
 msgstr ""
 
@@ -8734,8 +8759,7 @@ msgstr ""
 
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
-#: lib/deletegroupform.php:121 lib/deleteuserform.php:64
-#: lib/noticelistitem.php:581
+#: lib/deleteuserform.php:64 lib/noticelistitem.php:582
 msgid "Delete"
 msgstr ""
 
@@ -8783,14 +8807,8 @@ msgctxt "RADIO"
 msgid "Off"
 msgstr ""
 
-#. TRANS: Error message displayed if design settings could not be saved.
-#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
-#: lib/designsettings.php:216 lib/designsettings.php:238
-msgid "Couldn't update your design."
-msgstr ""
-
 #. TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
-#: lib/designsettings.php:244
+#: lib/designsettings.php:245
 msgid "Design defaults restored."
 msgstr ""
 
@@ -9185,6 +9203,12 @@ msgstr ""
 msgid "Transport cannot be null."
 msgstr ""
 
+#. TRANS: Button text for joining a group.
+#: lib/joinform.php:108
+msgctxt "BUTTON"
+msgid "Join"
+msgstr ""
+
 #. TRANS: Button text on form to leave a group.
 #: lib/leaveform.php:109
 msgctxt "BUTTON"
@@ -9193,7 +9217,7 @@ msgstr ""
 
 #. TRANS: Menu item for logging in to the StatusNet site.
 #. TRANS: Menu item in primary navigation panel.
-#: lib/logingroupnav.php:64 lib/primarynav.php:81
+#: lib/logingroupnav.php:64 lib/primarynav.php:82
 msgctxt "MENU"
 msgid "Login"
 msgstr ""
@@ -9641,12 +9665,12 @@ msgstr ""
 
 #. TRANS: Followed by notice source (usually the client used to send the notice).
 #. TRANS: Followed by notice source.
-#: lib/messagelistitem.php:123 lib/noticelistitem.php:428
+#: lib/messagelistitem.php:123 lib/noticelistitem.php:429
 msgid "from"
 msgstr ""
 
 #. TRANS: A possible notice source (web interface).
-#: lib/messagelistitem.php:144 lib/noticelistitem.php:423
+#: lib/messagelistitem.php:144 lib/noticelistitem.php:424
 msgctxt "SOURCE"
 msgid "web"
 msgstr ""
@@ -9730,20 +9754,27 @@ msgid "Attach a file."
 msgstr ""
 
 #. TRANS: Field label to add location to a notice.
-#: lib/noticeform.php:270
+#: lib/noticeform.php:271
 msgid "Share my location"
 msgstr ""
 
 #. TRANS: Text to not share location for a notice in notice form.
-#: lib/noticeform.php:275
+#: lib/noticeform.php:276
 msgid "Do not share my location"
 msgstr ""
 
 #. TRANS: Timeout error text for location retrieval in notice form.
-#: lib/noticeform.php:277
+#: lib/noticeform.php:278
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
+msgstr ""
+
+#. TRANS: Header in notice list.
+#. TRANS: Header for Notices section.
+#: lib/noticelist.php:85 lib/threadednoticelist.php:65
+msgctxt "HEADER"
+msgid "Notices"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of north.
@@ -9782,32 +9813,32 @@ msgid "at"
 msgstr ""
 
 #. TRANS: Addition in notice list item if notice is part of a conversation.
-#: lib/noticelistitem.php:489
+#: lib/noticelistitem.php:490
 msgid "in context"
 msgstr ""
 
 #. TRANS: Addition in notice list item if notice was repeated. Followed by a span with a nickname.
-#: lib/noticelistitem.php:524
+#: lib/noticelistitem.php:525
 msgid "Repeated by"
 msgstr ""
 
 #. TRANS: Link title in notice list item to reply to a notice.
-#: lib/noticelistitem.php:551
+#: lib/noticelistitem.php:552
 msgid "Reply to this notice"
 msgstr ""
 
 #. TRANS: Link text in notice list item to reply to a notice.
-#: lib/noticelistitem.php:553
+#: lib/noticelistitem.php:554
 msgid "Reply"
 msgstr ""
 
 #. TRANS: Link title in notice list item to delete a notice.
-#: lib/noticelistitem.php:579
+#: lib/noticelistitem.php:580
 msgid "Delete this notice"
 msgstr ""
 
 #. TRANS: Title for repeat form status in notice list when a notice has been repeated.
-#: lib/noticelistitem.php:602
+#: lib/noticelistitem.php:603
 msgid "Notice repeated."
 msgstr ""
 
@@ -9935,12 +9966,12 @@ msgstr ""
 
 #. TRANS: Menu item title in primary navigation panel.
 #: lib/primarynav.php:60
-msgid "Change your personal settings"
+msgid "Change your personal settings."
 msgstr ""
 
 #. TRANS: Menu item title in primary navigation panel.
 #: lib/primarynav.php:68
-msgid "Site configuration"
+msgid "Site configuration."
 msgstr ""
 
 #. TRANS: Menu item in primary navigation panel.
@@ -9949,24 +9980,25 @@ msgctxt "MENU"
 msgid "Logout"
 msgstr ""
 
-#: lib/primarynav.php:75
-msgid "Logout from the site"
+#. TRANS: Menu item title in primary navigation panel.
+#: lib/primarynav.php:76
+msgid "Logout from the site."
 msgstr ""
 
 #. TRANS: Menu item title in primary navigation panel.
-#: lib/primarynav.php:83
-msgid "Login to the site"
+#: lib/primarynav.php:84
+msgid "Login to the site."
 msgstr ""
 
 #. TRANS: Menu item in primary navigation panel.
-#: lib/primarynav.php:91
+#: lib/primarynav.php:92
 msgctxt "MENU"
 msgid "Search"
 msgstr ""
 
 #. TRANS: Menu item title in primary navigation panel.
-#: lib/primarynav.php:93
-msgid "Search the site"
+#: lib/primarynav.php:94
+msgid "Search the site."
 msgstr ""
 
 #. TRANS: H2 text for user subscription statistics.
@@ -10110,6 +10142,30 @@ msgstr ""
 #: lib/searchaction.php:130
 msgctxt "BUTTON"
 msgid "Search"
+msgstr ""
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+#: lib/searchaction.php:143
+msgid ""
+"* Make sure all words are spelled correctly.\n"
+"* Try different keywords.\n"
+"* Try more general keywords.\n"
+"* Try fewer keywords.\n"
+msgstr ""
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+#: lib/searchaction.php:152
+#, php-format
+msgid ""
+"\n"
+"You can also try your search on other engines:\n"
+"\n"
+"* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
+"site.server%%%%)\n"
+"* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
+"* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)\n"
 msgstr ""
 
 #. TRANS: Menu item in search group navigation panel.
@@ -10456,12 +10512,6 @@ msgstr ""
 #. TRANS: Server exception thrown when an uploaded compressed theme cannot be opened.
 #: lib/themeuploader.php:273
 msgid "Error opening theme archive."
-msgstr ""
-
-#. TRANS: Header for Notices section.
-#: lib/threadednoticelist.php:65
-msgctxt "HEADER"
-msgid "Notices"
 msgstr ""
 
 #. TRANS: Link to show replies for a notice.

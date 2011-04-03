@@ -12,18 +12,53 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 13:16+0000\n"
-"PO-Revision-Date: 2011-04-03 13:19:50+0000\n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
+"PO-Revision-Date: 2011-04-03 23:14:21+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2011-04-01 21:04:32+0000\n"
+"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+
+#. TRANS: Database error message.
+#, php-format
+msgid ""
+"The database for %1$s is not responding correctly, so the site will not work "
+"properly. The site admins probably know about the problem, but you can "
+"contact them at %2$s to make sure. Otherwise, wait a few minutes and try "
+"again."
+msgstr ""
+
+#. TRANS: Error message.
+msgid ""
+"An important error occured, probably related to email setup. Check logfiles "
+"for more info."
+msgstr ""
+
+#. TRANS: Error message.
+msgid "An error occurred."
+msgstr ""
+
+#. TRANS: Error message displayed when there is no StatusNet configuration file.
+#, php-format
+msgid ""
+"No configuration file found. Try running the installation program first."
+msgstr ""
+
+#. TRANS: Error message displayed when trying to access a non-existing page.
+#, fuzzy
+msgid "Unknown page"
+msgstr "Невідомо"
+
+#. TRANS: Error message displayed when trying to perform an undefined action.
+#. TRANS: Title for password recovery page when an unknown action has been specified.
+msgid "Unknown action"
+msgstr "Дія невідома"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 msgid "Access"
@@ -112,6 +147,7 @@ msgstr "Немає такої сторінки."
 #. TRANS: Client error displayed when checking group membership for a non-existing user.
 #. TRANS: Client error displayed when trying to have a non-existing user join a group.
 #. TRANS: Client error displayed when trying to have a non-existing user leave a group.
+#. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed when not providing a user or an invalid user.
 #. TRANS: Client error displayed when updating a status for a non-existing user.
 #. TRANS: Client error displayed when requesting a list of followers for a non-existing user.
@@ -136,6 +172,7 @@ msgstr "Немає такої сторінки."
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
 #. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
 #. TRANS: Client error displayed requesting groups for a non-existing user.
+#. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed providing a non-existing nickname.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #. TRANS: Client error displayed when trying to perform a gallery action with an unknown user.
@@ -152,6 +189,8 @@ msgstr "%1$s та друзі, сторінка %2$d"
 #. TRANS: Page title. %s is user nickname
 #. TRANS: H1 text for page. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
 #. TRANS: Timeline title for user and friends. %s is a user nickname.
 #. TRANS: Menu item title in administrator navigation panel.
 #. TRANS: %s is a username.
@@ -228,28 +267,14 @@ msgstr "Ви з друзями"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Оновлення від %1$s та друзів на %2$s!"
 
-#. TRANS: Client error displayed handling a non-existing API method.
+#. TRANS: Client error displayed when coming across a non-supported API method.
 #. TRANS: Client error displayed when trying to handle an unknown API method.
-#. TRANS: Client error displayed trying to execute an unknown API method updating profile colours.
-#. TRANS: Client error displayed trying to execute an unknown API method verifying user credentials.
-#. TRANS: Client error given when an API method was not found (404).
-#. TRANS: Client error displayed when trying to handle an unknown API method.
-#. TRANS: Client error displayed trying to execute an unknown API method showing friendship.
-#. TRANS: Client error given when an API method was not found (404).
-#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
-#. TRANS: Client error displayed trying to execute an unknown API method joining a group.
-#. TRANS: Client error displayed trying to execute an unknown API method leaving a group.
-#. TRANS: Client error displayed trying to execute an unknown API method checking group membership.
-#. TRANS: Client error displayed trying to execute an unknown API method listing the latest 20 groups.
-#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
-#. TRANS: Client error displayed when using an unsupported API format.
-#. TRANS: Client error displayed trying to execute an unknown API method showing a group.
-#. TRANS: Client error displayed trying to execute an unknown API method testing API connectivity.
-#. TRANS: Client error displayed trying to execute an unknown API method deleting a status.
-#. TRANS: Client error displayed when trying to handle an unknown API method.
+#. TRANS: Client error displayed when coming across a non-supported API method.
 msgid "API method not found."
 msgstr "API метод не знайдено."
 
+#. TRANS: Client error message. POST is a HTTP command. It should not be translated.
+#. TRANS: Client error. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error message. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
 msgid "This method requires a POST."
@@ -327,6 +352,8 @@ msgstr "Не маю можливості зберегти налаштуванн
 #. TRANS: Error displayed when updating design settings fails.
 #. TRANS: Client error displayed when a database error occurs updating profile colours.
 #. TRANS: Form validation error on Profile design page when updating design settings has failed.
+#. TRANS: Error message displayed if design settings could not be saved.
+#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
 msgid "Could not update your design."
 msgstr "Не вдалося оновити ваш дизайн."
 
@@ -707,9 +734,12 @@ msgstr "Токен запиту вже авторизовано."
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
 #. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Form validation error.
 #. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Client error displayed when the session token is not okay.
+#. TRANS: Client error displayed when the session token does not match or is not given.
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 "Виникли певні проблеми з токеном поточної сесії. Спробуйте знов, будь ласка."
@@ -906,6 +936,8 @@ msgstr "Вилучене повідомлення %d"
 msgid "Client must provide a 'status' parameter with a value."
 msgstr "Клієнт мусить надати параметр «статус» зі значенням."
 
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum length for a notice.
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail contains too many characters.
@@ -922,6 +954,8 @@ msgstr "Початковий допис не знайдено."
 
 #. TRANS: Client error displayed exceeding the maximum notice length.
 #. TRANS: %d is the maximum lenth for a notice.
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum length for a notice.
 #, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
@@ -998,6 +1032,8 @@ msgstr "Дописи %1$s, що вони були повторені %2$s / %3$s
 msgid "Repeats of %s"
 msgstr "Повторення %s"
 
+#. TRANS: Subtitle of API time with retweets of me.
+#. TRANS: %1$s is the StatusNet sitename, %2$s is the user nickname, %3$s is the user profile name.
 #, php-format
 msgid "%1$s notices that %2$s / %3$s has repeated."
 msgstr "Дописи %1$s, які повторював %2$s / %3$s."
@@ -1367,6 +1403,7 @@ msgstr "Ви можете завантажити аватару. Максима�
 #. TRANS: Server error displayed on page for remote subscribe when user does not have a matching profile.
 #. TRANS: Server error displayed when trying to authorise a remote subscription request
 #. TRANS: while the user has no profile.
+#. TRANS: Server error displayed in user RSS when user does not have a matching profile.
 msgid "User without matching profile."
 msgstr "Користувач без відповідного профілю."
 
@@ -1393,6 +1430,7 @@ msgstr "Перегляд"
 #. TRANS: Button on avatar upload page to delete current avatar.
 #. TRANS: Button text for user account deletion.
 #. TRANS: Submit button text the OAuth application page to delete an application.
+#. TRANS: Button text for deleting a group.
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "Видалити"
@@ -1569,24 +1607,7 @@ msgctxt "TITLE"
 msgid "%1$s left group %2$s"
 msgstr "%1$s залишив спільноту %2$s"
 
-#. TRANS: Client error displayed when trying to leave a group while not logged in.
-#. TRANS: Error message displayed trying to delete a notice while not logged in.
-#. TRANS: Client error displayed when trying to remove a favorite while not logged in.
-#. TRANS: Client error displayed when trying to mark a notice as favorite without being logged in.
-#. TRANS: Client error displayed trying to block a user from a group while not logged in.
-#. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
-#. TRANS: Client error displayed trying to log out when not logged in.
-#. TRANS: Client error displayed when trying to access the "make admin" page while not logged in.
-#. TRANS: Client error displayed trying to create a new direct message while not logged in.
-#. TRANS: Client error displayed trying to send a notice while not logged in.
-#. TRANS: Client error displayed trying to nudge a user without being logged in.
-#. TRANS: Client error displayed when trying to enable or disable a plugin while not logged in.
-#. TRANS: Client error displayed trying a change a subscription while not logged in.
-#. TRANS: Client error displayed trying to subscribe when not logged in.
-#. TRANS: Client error displayed on user tag page when trying to add tags while not logged in.
-#. TRANS: Client error displayed when trying to unsubscribe while not logged in.
-#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#. TRANS: Client error displayed when trying to change user options while not logged in.
+#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
 msgstr "Не увійшли."
 
@@ -1748,6 +1769,7 @@ msgstr "Додаток не виявлено."
 msgid "You are not the owner of this application."
 msgstr "Ви не є власником цього додатку."
 
+#. TRANS: Client error displayed when the session token does not match or is not given.
 #. TRANS: Client error text when there is a problem with the session token.
 msgid "There was a problem with your session token."
 msgstr "Виникли певні проблеми з токеном поточної сесії."
@@ -3351,6 +3373,9 @@ msgid "Ajax Error"
 msgstr "Помилка в Ajax"
 
 #. TRANS: Page title for sending a new notice.
+#. TRANS: Title for form to send a new notice.
+#, fuzzy
+msgctxt "TITLE"
 msgid "New notice"
 msgstr "Новий допис"
 
@@ -4350,10 +4375,6 @@ msgstr "Запит на відновлення паролю відправлен
 msgid "Password saved"
 msgstr "Пароль збережено"
 
-#. TRANS: Title for password recovery page when an unknown action has been specified.
-msgid "Unknown action"
-msgstr "Дія невідома"
-
 #. TRANS: Title for field label for password reset form.
 msgid "6 or more characters, and do not forget it!"
 msgstr "6 або більше знаків, і не забудьте їх!"
@@ -4445,6 +4466,7 @@ msgstr "Реєстрацію не дозволено."
 msgid "You cannot register if you do not agree to the license."
 msgstr "Ви не можете зареєструватись, якщо не погодитесь з умовами ліцензії."
 
+#. TRANS: Form validation error displayed when trying to register with an already registered e-mail address.
 msgid "Email address already exists."
 msgstr "Ця адреса вже використовується."
 
@@ -7616,11 +7638,6 @@ msgctxt "RADIO"
 msgid "Off"
 msgstr "Вимк."
 
-#. TRANS: Error message displayed if design settings could not be saved.
-#. TRANS: Error message displayed if design settings could not be saved after clicking "Use defaults".
-msgid "Couldn't update your design."
-msgstr "Не вдалося оновити дизайн."
-
 #. TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
 msgid "Design defaults restored."
 msgstr "Дизайн за замовчуванням відновлено."
@@ -7958,11 +7975,11 @@ msgid ""
 "user is not you, or if you did not request this confirmation, just ignore "
 "this message."
 msgstr ""
-"Користувач «%s» на сайті %s повідомив, що псевдонім %s належить йому. Якщо це "
-"дійсно так, ви можете підтвердити це просто перейшовши за наступною ланкою: %"
-"s. (Якщо ви не можете натиснути на посилання, то скопіюйте адресу до "
-"адресного рядка вашого веб-оглядача.) Якщо ви не є згаданим користувачем, не "
-"підтверджуйте нічого, просто проігноруйте це повідомлення."
+"Користувач «%1$s» на сайті %s повідомив, що псевдонім %2$s належить йому. "
+"Якщо це дійсно так, ви можете підтвердити це просто перейшовши за наступною "
+"ланкою: %s. (Якщо ви не можете натиснути на посилання, то скопіюйте адресу "
+"до адресного рядка вашого веб-оглядача.) Якщо ви не є згаданим користувачем, "
+"не підтверджуйте нічого, просто проігноруйте це повідомлення."
 
 #. TRANS: Exception thrown when trying to deliver a notice to an unknown inbox.
 #. TRANS: %d is the unknown inbox ID (number).
@@ -7977,6 +7994,12 @@ msgstr ""
 #. TRANS: Server exception thrown trying to initialise an IM plugin without a transport method.
 msgid "Transport cannot be null."
 msgstr ""
+
+#. TRANS: Button text for joining a group.
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Join"
+msgstr "Приєднатись"
 
 #. TRANS: Button text on form to leave a group.
 #, fuzzy
@@ -8351,7 +8374,6 @@ msgstr ""
 "лише ви."
 
 #. TRANS: Menu item in mailbox menu. Leads to incoming private messages.
-#, fuzzy
 msgctxt "MENU"
 msgid "Inbox"
 msgstr "Вхідні"
@@ -8362,7 +8384,6 @@ msgid "Your incoming messages."
 msgstr "Ваші вхідні повідомлення"
 
 #. TRANS: Menu item in mailbox menu. Leads to outgoing private messages.
-#, fuzzy
 msgctxt "MENU"
 msgid "Outbox"
 msgstr "Вихідні"
@@ -8566,6 +8587,12 @@ msgstr ""
 "На жаль, отримання інформації щодо вашого розташування займе більше часу, "
 "ніж очікувалось; будь ласка, спробуйте пізніше"
 
+#. TRANS: Header in notice list.
+#. TRANS: Header for Notices section.
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "Дописи"
+
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
 msgstr "Півн."
@@ -8727,11 +8754,13 @@ msgid "Settings"
 msgstr "Налаштування СМС"
 
 #. TRANS: Menu item title in primary navigation panel.
-msgid "Change your personal settings"
+#, fuzzy
+msgid "Change your personal settings."
 msgstr "Змінити персональні налаштування"
 
 #. TRANS: Menu item title in primary navigation panel.
-msgid "Site configuration"
+#, fuzzy
+msgid "Site configuration."
 msgstr "Конфігурація сайту"
 
 #. TRANS: Menu item in primary navigation panel.
@@ -8739,11 +8768,14 @@ msgctxt "MENU"
 msgid "Logout"
 msgstr "Вийти"
 
-msgid "Logout from the site"
+#. TRANS: Menu item title in primary navigation panel.
+#, fuzzy
+msgid "Logout from the site."
 msgstr "Вийти з сайту"
 
 #. TRANS: Menu item title in primary navigation panel.
-msgid "Login to the site"
+#, fuzzy
+msgid "Login to the site."
 msgstr "Увійти на сайт"
 
 #. TRANS: Menu item in primary navigation panel.
@@ -8752,7 +8784,8 @@ msgid "Search"
 msgstr "Пошук"
 
 #. TRANS: Menu item title in primary navigation panel.
-msgid "Search the site"
+#, fuzzy
+msgid "Search the site."
 msgstr "Пошук на сайті"
 
 #. TRANS: H2 text for user subscription statistics.
@@ -8877,6 +8910,28 @@ msgstr "Ключові слова"
 msgctxt "BUTTON"
 msgid "Search"
 msgstr "Пошук"
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+msgid ""
+"* Make sure all words are spelled correctly.\n"
+"* Try different keywords.\n"
+"* Try more general keywords.\n"
+"* Try fewer keywords.\n"
+msgstr ""
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+#, php-format
+msgid ""
+"\n"
+"You can also try your search on other engines:\n"
+"\n"
+"* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
+"site.server%%%%)\n"
+"* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
+"* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)\n"
+msgstr ""
 
 #. TRANS: Menu item in search group navigation panel.
 #, fuzzy
@@ -9193,11 +9248,6 @@ msgstr "Тема містить файл типу «.%s», який є непр�
 msgid "Error opening theme archive."
 msgstr "Помилка при відкритті архіву з темою."
 
-#. TRANS: Header for Notices section.
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "Дописи"
-
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, php-format
@@ -9394,8 +9444,5 @@ msgstr "Неправильний XML, корінь XRD відсутній."
 msgid "Getting backup from file '%s'."
 msgstr "Отримання резервної копії файлу «%s»."
 
-#~ msgid "Yes"
-#~ msgstr "Так"
-
-#~ msgid "Subscribe"
-#~ msgstr "Підписатись"
+#~ msgid "Couldn't update your design."
+#~ msgstr "Не вдалося оновити дизайн."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-01 20:45+0000\n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,9 +53,11 @@ msgstr ""
 msgid "User without a profile."
 msgstr ""
 
-#: actions/qnashowanswer.php:112
+#. TRANS: Page title.
+#. TRANS: %1$s is the user who answered a question, %2$s is the question.
+#: actions/qnashowanswer.php:114
 #, php-format
-msgid "%s's answer to \"%s\""
+msgid "1$%s's answer to \"%2$s\""
 msgstr ""
 
 #. TRANS: Client exception thrown trying to view a non-existing question.
@@ -109,7 +111,7 @@ msgid "Unexpected type for QnA plugin: %s."
 msgstr ""
 
 #: QnAPlugin.php:338
-msgid "Question data is missing"
+msgid "Question data is missing."
 msgstr ""
 
 #: classes/QnA_Answer.php:225
