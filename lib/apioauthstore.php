@@ -66,7 +66,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                     $id = $app->insert();
 
                     if (!$id) {
-			// TRANS: Server error displayed when trying to create an anynymous OAuth application.
+                        // TRANS: Server error displayed when trying to create an anynymous OAuth application.
                         $this->serverError(_("Could not create anonymous OAuth application."));
                     }
                 }
