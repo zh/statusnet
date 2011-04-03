@@ -420,6 +420,7 @@ class NoticeListItem extends Widget
         $ns = $this->notice->getSource();
 
         if ($ns) {
+            // TRANS: A possible notice source (web interface).
             $source_name = (empty($ns->name)) ? ($ns->code ? _($ns->code) : _m('SOURCE','web')) : _($ns->name);
             $this->out->text(' ');
             $this->out->elementStart('span', 'source');

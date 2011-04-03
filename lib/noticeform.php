@@ -256,6 +256,7 @@ class NoticeForm extends Form
                                                       'data-api' => common_local_url('geocode')));
 
                 // @fixme checkbox method allows no way to change the id without changing the name
+                //// TRANS: Checkbox label to allow sharing geo location in notices.
                 //$this->out->checkbox('notice_data-geo', _('Share my location'), true);
                 $this->out->elementStart('label', 'notice_data-geo');
                 $this->out->element('input', array(

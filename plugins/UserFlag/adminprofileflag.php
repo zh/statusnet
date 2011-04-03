@@ -61,6 +61,7 @@ class AdminprofileflagAction extends Action
         // User must be logged in.
 
         if (!common_logged_in()) {
+            // TRANS: Error message displayed when trying to perform an action that requires a logged in user.
             $this->clientError(_m('Not logged in.'));
             return;
         }

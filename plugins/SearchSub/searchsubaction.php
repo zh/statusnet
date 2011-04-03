@@ -95,7 +95,7 @@ class SearchsubAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            // TRANS: Client error displayed trying to subscribe when not logged in.
+            // TRANS: Error message displayed when trying to perform an action that requires a logged in user.
             $this->clientError(_m('Not logged in.'));
             return false;
         }

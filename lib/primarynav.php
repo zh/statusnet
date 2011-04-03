@@ -57,7 +57,7 @@ class PrimaryNav extends Menu
                                 // TRANS: Menu item in primary navigation panel.
                                 _m('MENU','Settings'),
                                 // TRANS: Menu item title in primary navigation panel.
-                                _('Change your personal settings'),
+                                _('Change your personal settings.'),
                                 false,
                                 'nav_account');
                 if ($user->hasRight(Right::CONFIGURESITE)) {
@@ -65,14 +65,15 @@ class PrimaryNav extends Menu
                                     // TRANS: Menu item in primary navigation panel.
                                     _m('MENU','Admin'),
                                     // TRANS: Menu item title in primary navigation panel.
-                                    _('Site configuration'),
+                                    _('Site configuration.'),
                                     false,
                                     'nav_admin');
                 }
                 $this->action->menuItem(common_local_url('logout'),
                                 // TRANS: Menu item in primary navigation panel.
                                 _m('MENU','Logout'),
-                                _('Logout from the site'),
+                                // TRANS: Menu item title in primary navigation panel.
+                                _('Logout from the site.'),
                                 false,
                                 'nav_logout');
             } else {
@@ -80,7 +81,7 @@ class PrimaryNav extends Menu
                                 // TRANS: Menu item in primary navigation panel.
                                 _m('MENU','Login'),
                                 // TRANS: Menu item title in primary navigation panel.
-                                _('Login to the site'),
+                                _('Login to the site.'),
                                 false,
                                 'nav_login');
             }
@@ -90,7 +91,7 @@ class PrimaryNav extends Menu
                                 // TRANS: Menu item in primary navigation panel.
                                 _m('MENU','Search'),
                                 // TRANS: Menu item title in primary navigation panel.
-                                _('Search the site'),
+                                _('Search the site.'),
                                 false,
                                 'nav_search');
             }
