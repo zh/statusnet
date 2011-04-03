@@ -116,7 +116,7 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
             break;
         default:
             $this->clientError(
-                // TRANS: Client error displayed trying to execute an unknown API method listing the latest 20 groups.
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format

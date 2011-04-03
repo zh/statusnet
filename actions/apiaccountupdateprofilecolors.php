@@ -111,7 +111,7 @@ class ApiAccountUpdateProfileColorsAction extends ApiAuthAction
 
         if (!in_array($this->format, array('xml', 'json'))) {
             $this->clientError(
-                // TRANS: Client error displayed trying to execute an unknown API method updating profile colours.
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format

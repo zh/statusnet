@@ -212,6 +212,7 @@ class RegisterAction extends Action
                 // TRANS: Form validation error displayed when trying to register with an invalid nickname.
                 $this->showForm(_('Not a valid nickname.'));
             } else if ($this->emailExists($email)) {
+                // TRANS: Form validation error displayed when trying to register with an already registered e-mail address.
                 $this->showForm(_('Email address already exists.'));
             } else if (!is_null($homepage) && (strlen($homepage) > 0) &&
                        !Validate::uri($homepage,

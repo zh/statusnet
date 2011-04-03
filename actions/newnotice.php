@@ -181,6 +181,8 @@ class NewnoticeAction extends Action
 
             if (Notice::contentTooLong($content_shortened)) {
                 $upload->delete();
+                // TRANS: Client error displayed exceeding the maximum notice length.
+                // TRANS: %d is the maximum length for a notice.
                 $this->clientError(sprintf(_m('Maximum notice size is %d character, including attachment URL.',
                                               'Maximum notice size is %d characters, including attachment URL.',
                                               Notice::maxContent()),
