@@ -335,7 +335,7 @@ class QnAPlugin extends MicroAppPlugin
                 $form->show();
             }
         } else {
-            $out->text(_m('Question data is missing'));
+            $out->text(_m('Question data is missing.'));
         }
         $out->elementEnd('div');
 
