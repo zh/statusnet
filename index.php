@@ -107,20 +107,18 @@ function handleError($error)
 
             $msg = sprintf(
                 // TRANS: Database error message.
-                _(
-                    'The database for %1$s is not responding correctly, '.
-                    'so the site will not work properly. '.
-                    'The site admins probably know about the problem, '.
-                    'but you can contact them at %2$s to make sure. '.
-                    'Otherwise, wait a few minutes and try again.'
+                _('The database for %1$s is not responding correctly, '.
+                  'so the site will not work properly. '.
+                  'The site admins probably know about the problem, '.
+                  'but you can contact them at %2$s to make sure. '.
+                  'Otherwise, wait a few minutes and try again.'
                 ),
                 common_config('site', 'name'),
                 common_config('site', 'email')
             );
         } else {
             // TRANS: Error message.
-            $msg = _(
-                'An important error occured, probably related to email setup. '.
+            $msg = _('An important error occured, probably related to email setup. '.
                 'Check logfiles for more info.'
             );
         }
@@ -254,9 +252,8 @@ function main()
     if (!_have_config()) {
         $msg = sprintf(
             // TRANS: Error message displayed when there is no StatusNet configuration file.
-            _(
-                "No configuration file found. Try running ".
-                "the installation program first."
+            _("No configuration file found. Try running ".
+              "the installation program first."
             )
         );
         $sac = new ServerErrorAction($msg);
