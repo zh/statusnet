@@ -140,7 +140,7 @@ class QnA_Answer extends Managed_DataObject
     {
         $answer = self::staticGet('uri', $notice->uri);
         if (empty($answer)) {
-            throw new Exception("No answer with URI {$this->notice->uri}");
+            throw new Exception("No answer with URI {$notice->uri}");
         }
         return $answer;
     }
@@ -205,8 +205,23 @@ class QnA_Answer extends Managed_DataObject
     {
         $notice = $question->getNotice();
 
-        $fmt   = '<span class="answer_author"><a href="%1$s">answer</a> by <a href="%2$s">%3$s</a></span>';
-        $fmt  .= '<span class="answer_content">%4$s</span>';
+        $fmt = '';
+
+        if (!empty($answer->best)) {
+            $fmt  = '<p class="qna_answer best">';
+        } else {
+            $fmt  = '<p class="qna_answer">';
+        }
+
+        $fmt .= '<span class="answer_author"><a href="%1$s">answer</a> by <a href="%2$s">%3$s</a></span>';
+        $fmt .= '<span class="answer_content">%4$s</span>';
+        if (!empty($answer->revisions)) {
+            $fmt .= '<span class="answer_revisions">'
+                 . $answer->revisions
+                 . _m('revisions')
+                 . '</span>';
+        }
+        $fmt .= '</p>';
 
         return sprintf(
             $fmt,

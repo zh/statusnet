@@ -221,11 +221,11 @@ class QnA_Question extends Managed_DataObject
     {
         $notice = $question->getNotice();
 
-        $fmt =  '<div class="qna_question">';
+        $fmt =  '<p class="qna_question">';
         $fmt .= '<span class="question_title"><a href="%1$s">%2$s</a></span>';
         $fmt .= '<span class="question_description">%3$s</span>';
         $fmt .= '<span class="question_author">asked by <a href="%4$s">%5$s</a></span>';
-        $fmt .= '</div>';
+        $fmt .= '</p>';
 
         $q = sprintf(
             $fmt,

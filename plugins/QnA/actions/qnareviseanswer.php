@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Answer a question
+ * Revise an answer
  *
  * PHP version 5
  *
@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Answer a question
+ * Revise an answer
  *
  * @category  QnA
  * @package   StatusNet
@@ -43,13 +43,12 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class QnanewanswerAction extends Action
+class QnareviseanswerAction extends Action
 {
     protected $user     = null;
     protected $error    = null;
-    protected $complete = null;
-
     protected $question = null;
+    protected $answer   = null;
     protected $content  = null;
 
     /**
@@ -59,8 +58,8 @@ class QnanewanswerAction extends Action
      */
     function title()
     {
-        // TRANS: Page title for and answer to a question.
-        return _m('Answer');
+        // TRANS: Page title for revising a question
+        return _m('Revise answer');
     }
 
     /**
@@ -87,20 +86,15 @@ class QnanewanswerAction extends Action
             );
         }
 
-        if ($this->isPost()) {
-            $this->checkSessionToken();
-        }
+        $id = substr($this->trimmed('id'), 7);
 
-        $id = substr($this->trimmed('id'), 9);
+        $this->answer   = QnA_Answer::staticGet('id', $id);
+        $this->question = $this->answer->getQuestion(); 
 
-        common_debug("XXXXXXXXXXXXXXXXXX id = " . $id);
-
-        $this->question = QnA_Question::staticGet('id', $id);
-
-        if (empty($this->question)) {
+        if (empty($this->answer) || empty($this->question)) {
             // TRANS: Client exception thrown trying to respond to a non-existing question.
             throw new ClientException(
-                _m('Invalid or missing question.'),
+                _m('Invalid or missing answer.'),
                 404
             );
         }
@@ -122,29 +116,38 @@ class QnanewanswerAction extends Action
         parent::handle($argarray);
 
         if ($this->isPost()) {
-            $this->newAnswer();
-        } else {
-            $this->showPage();
+            $this->checkSessionToken();
+            if ($this->arg('revise')) {
+                $this->showContent();
+                return;
+            } else if ($this->arg('best')) {
+                if ($this->user->id == $this->question->profile_id) {
+                    $this->markBest();
+                    return;
+                }
+            } else {
+                $this->reviseAnswer();
+                return;
+            }
         }
 
-        return;
+        $this->showPage();
     }
 
     /**
-     * Add a new answer
+     * Revise the answer
      *
      * @return void
      */
-    function newAnswer()
+    function reviseAnswer()
     {
-        $profile = $this->user->getProfile();
-
+        $answer = $this->answer;
+        
         try {
-            $notice = QnA_Answer::saveNew(
-                $profile,
-                $this->question,
-                $this->answerText
-            );
+            $orig = clone($answer);
+            $answer->content = $this->answerText;
+            $answer->revisions++;
+            $result = $answer->update($orig);
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
             $this->showPage();
@@ -152,25 +155,69 @@ class QnanewanswerAction extends Action
         }
         if ($this->boolean('ajax')) {
             common_debug("ajaxy part");
-            $answer = $this->question->getAnswer($profile);
             header('Content-Type: text/xml;charset=utf-8');
             $this->xw->startDocument('1.0', 'UTF-8');
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Page title after sending an answer.
-            $this->element('title', null, _m('Answers'));
+            $this->element('title', null, _m('Answer'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->raw($answer->asHTML());
+            $form = new QnashowanswerForm($this, $answer);
+            $form->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
-            common_redirect($this->question->bestUrl(), 303);
+            common_redirect($this->answer->bestUrl(), 303);
         }
     }
 
     /**
-     * Show the Answer form
+     * Mark the answer as the "best" answer
+     *
+     * @return void
+     */
+    function markBest()
+    {
+        $question = $this->question;
+        $answer   = $this->answer;
+       
+        try {
+            // close the question to further answers
+            $orig = clone($question);
+            $question->closed = 1;
+            $result = $question->update($orig);
+            
+            // mark this answer an the best answer
+            $orig = clone($answer);
+            $answer->best = 1;
+            $result = $answer->update($orig);
+        } catch (ClientException $ce) {
+            $this->error = $ce->getMessage();
+            $this->showPage();
+            return;
+        }
+        if ($this->boolean('ajax')) {
+            common_debug("ajaxy part");
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            // TRANS: Page title after sending an answer.
+            $this->element('title', null, _m('Answer'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $form = new QnashowanswerForm($this, $answer);
+            $form->show();
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            common_redirect($this->answer->bestUrl(), 303);
+        }
+    }
+
+    /**
+     * Show the revise answer form
      *
      * @return void
      */
@@ -180,10 +227,29 @@ class QnanewanswerAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new QnanewanswerForm($this->question, $this);
-        $form->show();
+        if ($this->boolean('ajax')) {
+            $this->showAjaxReviseForm();
+        } else {
+            $form = new QnareviseanswerForm($this->answer, $this);
+            $form->show();
+        }
 
         return;
+    }
+
+    function showAjaxReviseForm()
+    {
+        header('Content-Type: text/xml;charset=utf-8');
+        $this->xw->startDocument('1.0', 'UTF-8');
+        $this->elementStart('html');
+        $this->elementStart('head');
+        $this->element('title', null, _m('Answer'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $form = new QnareviseanswerForm($this->answer, $this);
+        $form->show();
+        $this->elementEnd('body');
+        $this->elementEnd('html');
     }
 
     /**
