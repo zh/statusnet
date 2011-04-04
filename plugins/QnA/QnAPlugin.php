@@ -384,7 +384,7 @@ class QnAPlugin extends MicroAppPlugin
         $nli = new NoticeListItem($notice, $out);
         $nli->showNotice();
 
-        $out->elementStart('div', array('class' => 'entry-content question-desciption'));
+        $out->elementStart('div', array('class' => 'entry-content question-description'));
 
         $question = QnA_Question::getByNotice($notice);
 

@@ -213,14 +213,12 @@ class QnA_Question extends Managed_DataObject
     {
         $notice = $question->getNotice();
 
-        $fmt = '<span class="question_description">%s</span>';
+        $out = new XMLStringer();
+        $out->elementStart('span', 'question_description');
+        $out->raw(QnAPlugin::shorten($question->description, $notice));
+        $out->elementEnd('span');
 
-        $q = sprintf(
-            $fmt,
-            htmlspecialchars($question->description)
-        );
-
-        return $q;
+        return $out->getString();
     }
 
     static function toString($profile, $question, $answers)

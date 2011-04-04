@@ -205,31 +205,31 @@ class QnA_Answer extends Managed_DataObject
     {
         $notice = $question->getNotice();
 
-        $fmt = '';
+        $out = new XMLStringer();
 
+        $cls = array('qna_answer');
         if (!empty($answer->best)) {
-            $fmt  = '<p class="qna_answer best">';
-        } else {
-            $fmt  = '<p class="qna_answer">';
+            $cls[] = 'best';
         }
 
-        $fmt .= '<span class="answer_author"><a href="%1$s">answer</a> by <a href="%2$s">%3$s</a></span>';
-        $fmt .= '<span class="answer_content">%4$s</span>';
+        $out->elementStart('p', array('class' => implode(' ', $cls)));
+        $out->elementStart('span', 'answer-content');
+        $out->raw(QnAPlugin::shorten($answer->content, $notice));
+        $out->elementEnd('span');
+
         if (!empty($answer->revisions)) {
-            $fmt .= '<span class="answer_revisions">'
-                 . $answer->revisions
-                 . _m('revisions')
-                 . '</span>';
+            $out->elementstart('span', 'answer-revisions');
+            $out->text(
+                htmlspecialchars(
+                    sprintf(_m('%s revisions'), $answer->revisions)
+                )
+            );
+            $out->elementEnd('span');
         }
-        $fmt .= '</p>';
 
-        return sprintf(
-            $fmt,
-            htmlspecialchars($notice->bestUrl()),
-            htmlspecialchars($profile->profileurl),
-            htmlspecialchars($profile->getBestName()),
-            htmlspecialchars($answer->content)
-        );
+        $out->elementEnd('p');
+
+        return $out->getString();
     }
 
     static function toString($profile, $question, $answer)
