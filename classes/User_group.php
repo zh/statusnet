@@ -515,10 +515,17 @@ class User_group extends Memcached_DataObject
         $group->uri         = $uri;
         $group->mainpage    = $mainpage;
         $group->created     = common_sql_now();
+
         if (isset($fields['join_policy'])) {
             $group->join_policy = intval($fields['join_policy']);
         } else {
             $group->join_policy = 0;
+        }
+
+        if (isset($fields['force_scope'])) {
+            $group->force_scope = intval($fields['force_scope']);
+        } else {
+            $group->force_scope = 0;
         }
 
         if (Event::handle('StartGroupSave', array(&$group))) {
@@ -643,5 +650,11 @@ class User_group extends Memcached_DataObject
             common_log(LOG_WARN, "Ambiguous user_group->delete(); skipping related tables.");
         }
         parent::delete();
+    }
+
+    function isPrivate()
+    {
+        return ($this->join_policy == self::JOIN_POLICY_MODERATE &&
+                $this->force_scope == 1);
     }
 }
