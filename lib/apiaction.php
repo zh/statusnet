@@ -202,6 +202,8 @@ class ApiAction extends Action
     {
         $twitter_user = array();
 
+        $user = $profile->getUser();
+
         $twitter_user['id'] = intval($profile->id);
         $twitter_user['name'] = $profile->getBestName();
         $twitter_user['screen_name'] = $profile->nickname;
@@ -213,11 +215,10 @@ class ApiAction extends Action
             Avatar::defaultImage(AVATAR_STREAM_SIZE);
 
         $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : null;
-        $twitter_user['protected'] = false; # not supported by StatusNet yet
+        $twitter_user['protected'] = ($user->private_stream) ? true : false;
         $twitter_user['followers_count'] = $profile->subscriberCount();
 
-        $design        = null;
-        $user          = $profile->getUser();
+        $design = null;
 
         // Note: some profiles don't have an associated user
 
