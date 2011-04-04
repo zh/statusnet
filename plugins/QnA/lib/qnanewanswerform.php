@@ -56,7 +56,7 @@ class QnanewanswerForm extends Form
      *
      * @return void
      */
-    function __construct(QnA_Question $question, HTMLOutputter $out)
+    function __construct(HTMLOutputter $out, QnA_Question $question)
     {
         parent::__construct($out);
         $this->question = $question;
@@ -102,6 +102,8 @@ class QnanewanswerForm extends Form
         $question = $this->question;
         $out      = $this->out;
         $id       = "question-" . $question->id;
+
+        $out->raw($this->question->asHTML());
 
         $out->element('p', 'answer', 'Your answer');
         $out->hidden('id', $id);
