@@ -103,9 +103,9 @@ class QnanewanswerForm extends Form
         $out      = $this->out;
         $id       = "question-" . $question->id;
 
-        $out->element('p', 'answer', $question->title);
+        $out->element('p', 'answer', 'Your answer');
         $out->hidden('id', $id);
-        $out->element('input', array('type' => 'text', 'name' => 'answer'));
+        $out->textarea('answer', 'answer');
     }
 
     /**

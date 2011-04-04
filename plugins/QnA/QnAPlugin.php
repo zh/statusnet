@@ -391,7 +391,7 @@ class QnAPlugin extends MicroAppPlugin
             // Don't prompt user for an answer if the question is closed or
             // the current user posed the question in the first place
             if (empty($question->closed)) {
-                if (!empty($user) && ($user->id != $question->profile_id)) {
+                if (!empty($user)) {
                     $profile = $user->getProfile();
                     $answer = $question->getAnswer($profile);
                     if (!$answer) {
