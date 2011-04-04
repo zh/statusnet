@@ -202,17 +202,10 @@ class GroupEditForm extends Form
                 $this->out->elementEnd('li');
             }
             $this->out->elementStart('li');
-            $this->out->dropdown('join_policy',
-                                 // TRANS: Dropdown fieldd label on group edit form.
-                                 _('Membership policy'),
-                                 // TRANS: Group membership policy option.
-                                 array(User_group::JOIN_POLICY_OPEN     => _('Open to all'),
-                                       // TRANS: Group membership policy option.
-                                       User_group::JOIN_POLICY_MODERATE => _('Admin must approve all members')),
-                                 // TRANS: Dropdown field title on group edit form.
-                                 _('Whether admin approval is required to join this group.'),
-                                 false,
-                                 (empty($this->group->join_policy)) ? User_group::JOIN_POLICY_OPEN : $this->group->join_policy);
+            $this->out->checkbox('private', _('Private'), 
+                                  ($this->out->arg('private')) ? $this->out->arg('private') :
+                                 ((!empty($this->group)) ? $this->group->isPrivate() : false),
+                                 _('New members must be approved by admin and all posts are forced to be private'));
             $this->out->elementEnd('li');
             Event::handle('EndGroupEditFormData', array($this));
         }
