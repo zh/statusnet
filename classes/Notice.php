@@ -342,6 +342,8 @@ class Notice extends Memcached_DataObject
         $notice->uri = $uri;
         $notice->url = $url;
 
+        $reply = null;
+
         // Handle repeat case
 
         if (isset($repeat_of)) {
@@ -379,18 +381,21 @@ class Notice extends Memcached_DataObject
 
             $notice->repeat_of = $repeat_of;
         } else {
-            $notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
-        }
+            $reply = self::getReplyTo($reply_to, $profile_id, $source, $final);
 
-        if (!empty($notice->reply_to)) {
-            $reply = Notice::staticGet('id', $notice->reply_to);
-            if (!$reply->inScope($profile)) {
-                // TRANS: Client error displayed when trying to reply to a notice a the target has no access to.
-                // TRANS: %1$s is a user nickname, %2$d is a notice ID (number).
-                throw new ClientException(sprintf(_('%1$s has no access to notice %2$d.'),
-                                                  $profile->nickname, $reply->id), 403);
+            if (!empty($reply)) {
+
+                if (!$reply->inScope($profile)) {
+                    // TRANS: Client error displayed when trying to reply to a notice a the target has no access to.
+                    // TRANS: %1$s is a user nickname, %2$d is a notice ID (number).
+                    throw new ClientException(sprintf(_('%1$s has no access to notice %2$d.'),
+                                                      $profile->nickname, $reply->id), 403);
+                }
+
+                $notice->reply_to     = $reply->id;
+                $notice->conversation = $reply->conversation;
+                // Scope set below
             }
-            $notice->conversation = $reply->conversation;
         }
 
         if (!empty($lat) && !empty($lon)) {
@@ -416,7 +421,11 @@ class Notice extends Memcached_DataObject
         }
 
         if (is_null($scope)) { // 0 is a valid value
-            $notice->scope = common_config('notice', 'defaultscope');
+            if (!empty($reply)) {
+                $notice->scope = $reply->scope;
+            } else {
+                $notice->scope = common_config('notice', 'defaultscope');
+            }
         } else {
             $notice->scope = $scope;
         }
@@ -1529,7 +1538,7 @@ class Notice extends Memcached_DataObject
         if (!empty($reply_to)) {
             $reply_notice = Notice::staticGet('id', $reply_to);
             if (!empty($reply_notice)) {
-                return $reply_to;
+                return $reply_notice;
             }
         }
 
@@ -1568,8 +1577,10 @@ class Notice extends Memcached_DataObject
         $last = $recipient->getCurrentNotice();
 
         if (!empty($last)) {
-            return $last->id;
+            return $last;
         }
+
+        return null;
     }
 
     static function maxContent()
