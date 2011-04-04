@@ -101,13 +101,11 @@ class QnareviseanswerForm extends Form
      */
     function formData()
     {
-        $out      = $this->out;
-
-        $out->element('p', 'Your answer to:', $this->question->title);
-
+        $out = $this->out;
+        $out->element('p', 'revise-answer', 'Your answer');
         $id = "answer-" . $this->answer->id;
         $out->hidden('id', $id);
-        $out->textarea('answer', 'You said:', $this->answer->content);
+        $out->textarea('answer', 'answer', $this->answer->content);
     }
 
     /**
