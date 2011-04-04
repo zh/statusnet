@@ -81,18 +81,19 @@ class QnAPlugin extends MicroAppPlugin
         case 'QnanewquestionAction':
         case 'QnanewanswerAction':
         case 'QnashowquestionAction':
+        case 'QnaclosequestionAction':
         case 'QnashowanswerAction':
         case 'QnareviseanswerAction':
         case 'QnavoteAction':
             include_once $dir . '/actions/'
                 . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
-        case 'QnaquestionForm':
-        case 'QnashowanswerForm':
+        case 'QnanewquestionForm':
+        case 'QnashowquestionForm':
         case 'QnanewanswerForm':
+        case 'QnashowanswerForm':
         case 'QnareviseanswerForm':
         case 'QnavoteForm':
-        case 'AnswerNoticeListItem':
             include_once $dir . '/lib/' . strtolower($cls).'.php';
             break;
         case 'QnA_Question':
@@ -121,6 +122,10 @@ class QnAPlugin extends MicroAppPlugin
         $m->connect(
             'main/qna/newquestion',
             array('action' => 'qnanewquestion')
+        );
+        $m->connect(
+            'answer/qna/closequestion',
+            array('action' => 'qnaclosequestion')
         );
         $m->connect(
             'main/qna/newanswer',
@@ -384,23 +389,19 @@ class QnAPlugin extends MicroAppPlugin
         $question = QnA_Question::getByNotice($notice);
 
         if (!empty($question)) {
-
-            $short = $this->shorten($question->description, $notice);
-            $out->raw($short);
-
-            // Don't prompt user for an answer if the question is closed or
-            // the current user posed the question in the first place
-            if (empty($question->closed)) {
-                if (!empty($user)) {
-                    $profile = $user->getProfile();
-                    $answer = $question->getAnswer($profile);
-                    if (!$answer) {
-                        $form = new QnanewanswerForm($question, $out);
-                        $form->show();
-                    }
-                }
+            if (empty($user)) {
+                $form = new QnashowquestionForm($out, $question);
+                $form->show();
             } else {
-                $out->element('span', 'closed', _m('This question is closed.'));
+                $profile = $user->getProfile();
+                $answer = $question->getAnswer($profile);
+                if (empty($answer)) {
+                    $form = new QnanewanswerForm($out, $question);
+                    $form->show();
+                } else {
+                    $form = new QnashowquestionForm($out, $question);
+                    $form->show();
+                }
             }
         } else {
             $out->text(_m('Question data is missing.'));
@@ -465,7 +466,7 @@ class QnAPlugin extends MicroAppPlugin
 
     function entryForm($out)
     {
-        return new QnaquestionForm($out);
+        return new QnanewquestionForm($out);
     }
 
     /**

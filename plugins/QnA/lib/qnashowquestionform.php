@@ -34,7 +34,7 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR . '/lib/form.php';
 
 /**
- * Form for showing / revising an answer
+ * Form for showing a question
  *
  * @category Form
  * @package  StatusNet
@@ -43,30 +43,23 @@ require_once INSTALLDIR . '/lib/form.php';
  * @link     http://status.net/
  *
  */
-class QnashowanswerForm extends Form
+class QnashowquestionForm extends Form
 {
     /**
-     * The answer to revise
-     */
-    var $answer = null;
-
-    /**
-     * The question this is an answer to
+     * The question to show
      */
     var $question = null;
 
     /**
      * Constructor
      *
-     * @param HTMLOutputter $out    output channel
-     * @param QnA_Answer    $answer answer to revise
+     * @param HTMLOutputter $out      output channel
+     * @param QnA_Question  $question the question to show
      */
-    function __construct($out = null, $answer = null)
+    function __construct($out = null, $question = null)
     {
         parent::__construct($out);
-
-        $this->answer       = $answer;
-        $this->question     = $answer->getQuestion();
+        $this->question = $question;
     }
 
     /**
@@ -76,7 +69,7 @@ class QnashowanswerForm extends Form
      */
     function id()
     {
-        return 'revise-' . $this->answer->id;
+        return 'question-' . $this->question->id;
     }
 
     /**
@@ -86,7 +79,7 @@ class QnashowanswerForm extends Form
      */
     function action()
     {
-        return common_local_url('qnareviseanswer');
+        return common_local_url('qnaclosequestion');
     }
 
     /**
@@ -110,7 +103,7 @@ class QnashowanswerForm extends Form
     function formLegend()
     {
         // TRANS: Form legend for revising the answer.
-        $this->out->element('legend', null, _('Revise your answer'));
+        $this->out->element('legend', null, _('Question'));
     }
 
     /**
@@ -122,10 +115,10 @@ class QnashowanswerForm extends Form
     {
         $this->out->hidden(
             'id',
-            'revise-' . $this->answer->id
+            'question-' . $this->question->id
         );
-        
-        $this->out->raw($this->answer->asHTML());
+
+        $this->out->raw($this->question->asHTML());        
     }
 
     /**
@@ -142,30 +135,16 @@ class QnashowanswerForm extends Form
 
         if (empty($this->question->closed)) {
             if ($user->id == $this->question->profile_id) {
-                if (empty($this->answer->best)) {
-                    $this->out->submit(
-                        'best',
-                        // TRANS: Button text for marking an answer as "best"
-                        _m('BUTTON', 'Best'),
-                        'submit',
-                        null,
-                        // TRANS: Title for button text marking an answer as "best"
-                        _('Mark as best answer')
-                    );
-        
-                }
-            }
-            if ($user->id == $this->answer->profile_id) {
-                $this->out->submit(
-                    'revise',
-                    // TRANS: Button text for revising an answer
-                    _m('BUTTON', 'Revise'),
-                    'submit',
-                    null,
-                    // TRANS: Title for button text for revising an answer
-                    _('Revise your answer')
-                );
-            }
+             $this->out->submit(
+                'close',
+                // TRANS: Button text for closing a question
+                _m('BUTTON', 'Close'),
+                'submit',
+                null,
+                // TRANS: Title for button text for closing a question
+                _('Close the question')
+             );
+            }            
         }
     }
 
@@ -176,6 +155,6 @@ class QnashowanswerForm extends Form
      */
     function formClass()
     {
-        return 'form_revise ajax';
+        return 'form_close ajax';
     }
 }

@@ -201,66 +201,31 @@ class QnA_Question extends Managed_DataObject
 
     function asHTML()
     {
-        return self::toHTML(
-            $this->getProfile(),
-            $this,
-            $this->getAnswers()
-        );
+        return self::toHTML($this->getProfile(), $this);
     }
 
     function asString()
     {
-        return self::toString(
-            $this->getProfile(),
-            $this,
-            $this->getAnswers()
-        );
+        return self::toString($this->getProfile(), $this);
     }
 
-    static function toHTML($profile, $question, $answer)
+    static function toHTML($profile, $question)
     {
         $notice = $question->getNotice();
 
-        $fmt =  '<p class="qna_question">';
-        $fmt .= '<span class="question_title"><a href="%1$s">%2$s</a></span>';
-        $fmt .= '<span class="question_description">%3$s</span>';
-        $fmt .= '<span class="question_author">asked by <a href="%4$s">%5$s</a></span>';
-        $fmt .= '</p>';
+        $fmt = '<span class="question_description">%s</span>';
 
         $q = sprintf(
             $fmt,
-            htmlspecialchars($notice->bestUrl()),
-            htmlspecialchars($question->title),
-            htmlspecialchars($question->description),
-            htmlspecialchars($profile->profileurl),
-            htmlspecialchars($profile->getBestName())
+            htmlspecialchars($question->description)
         );
 
-        $ans = array();
-
-        $ans[] = '<div class="qna_answers">';
-
-        while($answer->fetch()) {
-            $ans[] = $answer->asHTML();
-        }
-
-        $ans[] .= '</div>';
-
-        return $q . implode($ans);
+        return $q;
     }
 
     static function toString($profile, $question, $answers)
     {
-        $fmt = _m(
-            '%1$s asked the question "%2$s": %3$s'
-        );
-
-        return sprintf(
-            $fmt,
-            htmlspecialchars($profile->getBestName()),
-            htmlspecialchars($question->title),
-            htmlspecialchars($question->description)
-        );
+        return sprintf(htmlspecialchars($question->description));
     }
 
     /**
