@@ -11,13 +11,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 19:46+0000\n"
-"PO-Revision-Date: 2011-03-18 19:49:18+0000\n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
+"PO-Revision-Date: 2011-04-03 23:15:51+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-06 02:18:35+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r84232); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-03 13:41:42+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -176,8 +176,23 @@ msgstr "Neues Benutzerkonto mit diesem Benutzernamen erstellen."
 msgid "New nickname"
 msgstr "Neuer Benutzername"
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1-64 Kleinbuchstaben oder Zahlen, keine Satz- oder Leerzeichen"
+
+msgid "Email"
+msgstr ""
+
+msgid "Used only for updates, announcements, and password recovery."
+msgstr ""
+
+#. TRANS: OpenID plugin link text.
+#. TRANS: %s is a link to a licese with the license name as link text.
+#, php-format
+msgid ""
+"My text and files are available under %s except this private data: password, "
+"email address, IM address, and phone number."
+msgstr ""
 
 #. TRANS: Button label in form in which to create a new user on the site for an OpenID.
 msgctxt "BUTTON"
@@ -383,10 +398,14 @@ msgstr ""
 "Von allen Benutzern OpenID-Anmeldung verlangen. Warnung: deaktiviert "
 "Passwort-Authentifizierung aller Benutzer!"
 
-msgid "Save OpenID settings"
+msgid "Save"
+msgstr ""
+
+#, fuzzy
+msgid "Save OpenID settings."
 msgstr "OpenId-Einstellungen speichern"
 
-#. TRANS: Client error message
+#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
 msgstr "Nicht angemeldet."
 

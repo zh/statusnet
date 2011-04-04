@@ -64,7 +64,7 @@ class FinishaddopenidAction extends Action
     {
         parent::handle($args);
         if (!common_logged_in()) {
-            // TRANS: Client error message
+            // TRANS: Error message displayed when trying to perform an action that requires a logged in user.
             $this->clientError(_m('Not logged in.'));
         } else {
             $this->tryLogin();

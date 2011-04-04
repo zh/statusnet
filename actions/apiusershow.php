@@ -96,7 +96,7 @@ class ApiUserShowAction extends ApiPrivateAuthAction
         }
 
         if (!in_array($this->format, array('xml', 'json'))) {
-            // TRANS: Client error displayed when trying to handle an unknown API method.
+            // TRANS: Client error displayed when coming across a non-supported API method.
             $this->clientError(_('API method not found.'), $code = 404);
             return;
         }

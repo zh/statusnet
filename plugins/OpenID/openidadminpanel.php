@@ -275,6 +275,6 @@ class OpenIDAdminPanelForm extends AdminForm
 
     function formActions()
     {
-        $this->out->submit('submit', _('Save'), 'submit', null, _m('Save OpenID settings'));
+        $this->out->submit('submit', _m('Save'), 'submit', null, _m('Save OpenID settings.'));
     }
 }

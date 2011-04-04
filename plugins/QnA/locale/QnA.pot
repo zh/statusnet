@@ -1,0 +1,173 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. TRANS: Title for Question page.
+#: actions/qnanewquestion.php:62
+msgid "New question"
+msgstr ""
+
+#: actions/qnanewquestion.php:81
+msgid "You must be logged in to post a question."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to create a question without a title.
+#: actions/qnanewquestion.php:129
+msgid "Question must have a title."
+msgstr ""
+
+#. TRANS: Page title after sending a notice.
+#: actions/qnanewquestion.php:149
+msgid "Question posted"
+msgstr ""
+
+#: actions/qnashowanswer.php:67 actions/qnashowanswer.php:80
+msgid "No such answer."
+msgstr ""
+
+#: actions/qnashowanswer.php:73
+msgid "No question for this answer."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to view a question of a non-existing user.
+#: actions/qnashowanswer.php:86 actions/qnashowquestion.php:83
+msgid "No such user."
+msgstr ""
+
+#. TRANS: Server exception thrown trying to view a question for a user for which the profile could not be loaded.
+#: actions/qnashowanswer.php:92 actions/qnashowquestion.php:90
+msgid "User without a profile."
+msgstr ""
+
+#. TRANS: Page title.
+#. TRANS: %1$s is the user who answered a question, %2$s is the question.
+#: actions/qnashowanswer.php:114
+#, php-format
+msgid "1$%s's answer to \"%2$s\""
+msgstr ""
+
+#. TRANS: Client exception thrown trying to view a non-existing question.
+#: actions/qnashowquestion.php:68
+msgid "No such question."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to view a non-existing question notice.
+#: actions/qnashowquestion.php:76
+msgid "No such question notice."
+msgstr ""
+
+#. TRANS: Page title for a question.
+#. TRANS: %1$s is the nickname of the user who asked the question, %2$s is the question.
+#: actions/qnashowquestion.php:114
+#, php-format
+msgid "%1$s's question: %2$s"
+msgstr ""
+
+#. TRANS: Page title for and answer to a question.
+#: actions/qnanewanswer.php:63 actions/qnavote.php:63
+msgid "Answer"
+msgstr ""
+
+#. TRANS: Client exception thrown trying to answer a question while not logged in.
+#: actions/qnanewanswer.php:85 actions/qnavote.php:84
+msgid "You must be logged in to answer to a question."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to respond to a non-existing question.
+#: actions/qnanewanswer.php:103 actions/qnavote.php:96
+msgid "Invalid or missing question."
+msgstr ""
+
+#. TRANS: Page title after sending an answer.
+#: actions/qnanewanswer.php:158 actions/qnavote.php:150
+msgid "Answers"
+msgstr ""
+
+#: QnAPlugin.php:159
+msgid "Question and Answers micro-app."
+msgstr ""
+
+#: QnAPlugin.php:165
+msgid "Question"
+msgstr ""
+
+#: QnAPlugin.php:307
+#, php-format
+msgid "Unexpected type for QnA plugin: %s."
+msgstr ""
+
+#: QnAPlugin.php:338
+msgid "Question data is missing."
+msgstr ""
+
+#: classes/QnA_Answer.php:225
+#, php-format
+msgid "%1$s answered the question \"%2$s\": %3$s"
+msgstr ""
+
+#. TRANS: Rendered version of the notice content answering a question.
+#. TRANS: %s a link to the question with question title as the link content.
+#: classes/QnA_Answer.php:268 classes/QnA_Answer.php:275
+#, php-format
+msgid "answered \"%s\""
+msgstr ""
+
+#: classes/QnA_Question.php:255
+#, php-format
+msgid "%1$s asked the question \"%2$s\": %3$s"
+msgstr ""
+
+#: classes/QnA_Question.php:307
+#, php-format
+msgid "question: %1$s %2$s"
+msgstr ""
+
+#. TRANS: Rendered version of the notice content creating a question.
+#. TRANS: %s a link to the question as link description.
+#: classes/QnA_Question.php:315
+#, php-format
+msgid "Question: %s"
+msgstr ""
+
+#. TRANS: Button text for submitting a poll response.
+#: lib/qnareviseanswerform.php:120 lib/qnavoteform.php:118
+#: lib/qnaanswerform.php:119
+msgctxt "BUTTON"
+msgid "Submit"
+msgstr ""
+
+#: lib/qnaquestionform.php:109
+msgid "Title"
+msgstr ""
+
+#: lib/qnaquestionform.php:111
+msgid "Title of your question"
+msgstr ""
+
+#: lib/qnaquestionform.php:117
+msgid "Description"
+msgstr ""
+
+#: lib/qnaquestionform.php:119
+msgid "Your question in detail"
+msgstr ""
+
+#. TRANS: Button text for saving a new question.
+#: lib/qnaquestionform.php:135
+msgctxt "BUTTON"
+msgid "Save"
+msgstr ""

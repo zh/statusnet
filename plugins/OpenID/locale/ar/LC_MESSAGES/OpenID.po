@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-24 11:10+0000\n"
-"PO-Revision-Date: 2011-03-24 11:14:18+0000\n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
+"PO-Revision-Date: 2011-04-03 23:15:51+0000\n"
 "Language-Team: Arabic <http://translatewiki.net/wiki/Portal:ar>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-18 20:08:25+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r84667); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-03 13:41:42+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -164,7 +164,21 @@ msgstr "أنشئ مستخدمًا جديدًا بهذا الاسم المستع�
 msgid "New nickname"
 msgstr "الاسم المستعار الجديد"
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Used only for updates, announcements, and password recovery."
+msgstr ""
+
+#. TRANS: OpenID plugin link text.
+#. TRANS: %s is a link to a licese with the license name as link text.
+#, php-format
+msgid ""
+"My text and files are available under %s except this private data: password, "
+"email address, IM address, and phone number."
 msgstr ""
 
 #. TRANS: Button label in form in which to create a new user on the site for an OpenID.
@@ -351,10 +365,14 @@ msgid ""
 "authentication for all users!"
 msgstr ""
 
-msgid "Save OpenID settings"
+msgid "Save"
 msgstr ""
 
-#. TRANS: Client error message
+#, fuzzy
+msgid "Save OpenID settings."
+msgstr "إعدادات الهوية المفتوحة"
+
+#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
 msgstr "لست والجًا."
 

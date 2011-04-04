@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Default local nav
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class DefaultLocalNav extends Menu
 {
     function show()
@@ -55,11 +54,13 @@ class DefaultLocalNav extends Menu
 
         if (!empty($user)) {
             $pn = new PersonalGroupNav($this->action);
-            $this->submenu(_m('Home'), $pn);
+            // TRANS: Menu item in default local navigation panel.
+            $this->submenu(_m('MENU','Home'), $pn);
         }
 
         $bn = new PublicGroupNav($this->action);
-        $this->submenu(_('Public'), $bn);
+        // TRANS: Menu item in default local navigation panel.
+        $this->submenu(_m('MENU','Public'), $bn);
 
         $this->action->elementEnd('ul');
     }

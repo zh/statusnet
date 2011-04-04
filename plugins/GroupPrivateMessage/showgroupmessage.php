@@ -67,7 +67,7 @@ class ShowgroupmessageAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            throw new ClientException(_('Only logged-in users can view private messages.'),
+            throw new ClientException(_m('Only logged-in users can view private messages.'),
                                       403);
         }
 
@@ -76,23 +76,23 @@ class ShowgroupmessageAction extends Action
         $this->gm = Group_message::staticGet('id', $id);
 
         if (empty($this->gm)) {
-            throw new ClientException(_('No such message'), 404);
+            throw new ClientException(_m('No such message.'), 404);
         }
 
         $this->group = User_group::staticGet('id', $this->gm->to_group);
 
         if (empty($this->group)) {
-            throw new ServerException(_('Group not found.'));
+            throw new ServerException(_m('Group not found.'));
         }
 
         if (!$this->user->isMember($this->group)) {
-            throw new ClientException(_('Cannot read message.'), 403);
+            throw new ClientException(_m('Cannot read message.'), 403);
         }
 
         $this->sender = Profile::staticGet('id', $this->gm->from_profile);
 
         if (empty($this->sender)) {
-            throw new ServerException(_('No sender found.'));
+            throw new ServerException(_m('No sender found.'));
         }
 
         return true;
@@ -117,7 +117,7 @@ class ShowgroupmessageAction extends Action
 
     function title()
     {
-        return sprintf(_('Message from %1$s to group %2$s on %3$s'),
+        return sprintf(_m('Message from %1$s to group %2$s on %3$s'),
                        $this->sender->nickname,
                        $this->group->nickname,
                        common_exact_date($this->gm->created));

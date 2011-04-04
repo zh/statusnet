@@ -82,7 +82,7 @@ class DeliciousBackupImporter extends QueueHandler
         $dls = $doc->getElementsByTagName('dl');
 
         if ($dls->length != 1) {
-            throw new ClientException(_("Bad import file."));
+            throw new ClientException(_m("Bad import file."));
         }
 
         $dl = $dls->item(0);
@@ -165,7 +165,7 @@ class DeliciousBackupImporter extends QueueHandler
         $as = $dt->getElementsByTagName('a');
 
         if ($as->length == 0) {
-            throw new ClientException(_("No <A> tag in a <DT>."));
+            throw new ClientException(_m("No <A> tag in a <DT>."));
         }
 
         $a = $as->item(0);
@@ -173,7 +173,7 @@ class DeliciousBackupImporter extends QueueHandler
         $private = $a->getAttribute('private');
 
         if ($private != 0) {
-            throw new ClientException(_('Skipping private bookmark.'));
+            throw new ClientException(_m('Skipping private bookmark.'));
         }
 
         if (!empty($dd)) {

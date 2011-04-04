@@ -111,7 +111,7 @@ class FacebooksettingsAction extends SettingsAction {
      * @return instructions for use
      */
     function getInstructions() {
-        return _('Facebook settings');
+        return _m('Facebook settings');
     }
 
     /*
@@ -257,7 +257,7 @@ class FacebooksettingsAction extends SettingsAction {
 
         if ($result === false) {
             common_log_db_error($user, 'DELETE', __FILE__);
-            $this->serverError(_m('Couldn\'t delete link to Facebook.'));
+            $this->serverError(_m('Could not delete link to Facebook.'));
             return;
         }
 

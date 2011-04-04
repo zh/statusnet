@@ -98,7 +98,7 @@ class RSVPForm extends Form
     {
         $this->out->elementStart('fieldset', array('id' => 'new_rsvp_data'));
 
-        $this->out->text(_('RSVP: '));
+        $this->out->text(_m('RSVP:'));
 
         $this->out->hidden('event', $this->event->id);
         $this->out->hidden('submitvalue', '');

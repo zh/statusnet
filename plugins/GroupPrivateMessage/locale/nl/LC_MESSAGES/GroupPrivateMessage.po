@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Siebrand
+# Author: TBloemink
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -9,29 +10,151 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - GroupPrivateMessage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 19:46+0000\n"
-"PO-Revision-Date: 2011-03-18 19:48:51+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:21:00+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-08 01:22:07+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r84232); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-01 21:05:29+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-groupprivatemessage\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Must be logged in."
+msgstr "U moet aangemeld zijn."
+
+#, php-format
+msgid "User %s is not allowed to send private messages."
+msgstr "Gebruiker %s mag geen privéberichten verzenden."
+
+msgid "No such group."
+msgstr "De opgegeven groep bestaat niet."
+
+msgid "Message sent"
+msgstr "Bericht verzonden"
+
+#, php-format
+msgid "Direct message to %s sent."
+msgstr "Het directe bericht aan %s is verzonden."
+
+#, php-format
+msgid "New message to group %s"
+msgstr "Nieuw bericht voor de groep %s"
+
+#. TRANS: Subject for direct-message notification email.
+#. TRANS: %1$s is the sending user's nickname, %2$s is the group nickname.
+#, php-format
+msgid "New private message from %1$s to group %2$s"
+msgstr "Nieuwe privéberichten van %1$s voor de groep %2$s"
+
+#. TRANS: Body for direct-message notification email.
+#. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
+#. TRANS: %3$s is the message content, %4$s a URL to the message,
+#. TRANS: %5$s is the StatusNet sitename.
+#, php-format
+msgid ""
+"%1$s (%2$s) sent a private message to group %3$s:\n"
+"\n"
+"------------------------------------------------------\n"
+"%4$s\n"
+"------------------------------------------------------\n"
+"\n"
+"You can reply to their message here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Do not reply to this email; it will not get to them.\n"
+"\n"
+"With kind regards,\n"
+"%6$s"
+msgstr ""
+"%1$s (%2$s) heeft een privébericht gezonden aan de groep %3$s:\n"
+"\n"
+"------------------------------------------------------\n"
+"%4$s\n"
+"------------------------------------------------------\n"
+"\n"
+"U kunt hier op het bericht antwoorden:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Antwoord niet op deze e-mail. Dit komt niet aan.\n"
+"\n"
+"Met vriendelijke groet,\n"
+"%6$s"
+
+msgctxt "MENU"
 msgid "Inbox"
 msgstr "Postvak IN"
 
-msgid "Private messages for this group"
-msgstr "Privéberichten voor deze groep"
+msgid "Private messages for this group."
+msgstr "Privéberichten voor deze groep."
 
-msgid "Allow posting DMs to a group."
-msgstr "Verzenden van Directe berichten naar een groep toestaan."
+msgid "Private messages"
+msgstr "Privéberichten"
+
+msgid "Sometimes"
+msgstr "Soms"
+
+msgid "Always"
+msgstr "Altijd"
+
+msgid "Never"
+msgstr "Nooit"
+
+msgid "Whether to allow private messages to this group."
+msgstr "Of privéberichten voor deze groep zijn toegestaan."
+
+msgid "Private senders"
+msgstr "Gebruikers die privéberichten mogen verzenden"
+
+msgid "Everyone"
+msgstr "Iedereen"
+
+msgid "Member"
+msgstr "Lid"
+
+msgid "Admin"
+msgstr "Beheerder"
+
+msgid "Who can send private messages to the group."
+msgstr "Wie privéberichten kan verzenden aan de groep."
+
+msgid "Send a direct message to this group."
+msgstr "Privébericht naar deze groep verzenden."
+
+msgid "Message"
+msgstr "Bericht"
+
+msgid "Forced notice to private group message."
+msgstr "Van mededelingen in deze groep privéberichten aan de groep maken."
+
+msgid "Private"
+msgstr "Privé"
+
+msgid "Allow posting private messages to groups."
+msgstr "Verzenden van privéberichten aan de groep toestaan."
+
+msgid "Only for logged-in users."
+msgstr "Alleen voor aangemelde gebruikers."
+
+msgid "Only for members."
+msgstr "Alleen voor leden."
 
 msgid "This group has not received any private messages."
 msgstr "Deze groep heeft geen privéberichten ontvangen."
+
+#, php-format
+msgid "%s group inbox"
+msgstr "Postvak IN van de groep %s"
+
+#. TRANS: Page title for any but first group page.
+#. TRANS: %1$s is a group name, $2$s is a page number.
+#, php-format
+msgid "%1$s group inbox, page %2$d"
+msgstr "Postvak IN van de groep %1$s, pagina %2$d"
 
 #. TRANS: Instructions for user inbox page.
 msgid ""
@@ -41,12 +164,72 @@ msgstr ""
 "Dit is het Postvak IN van de groep waarom alle inkomende privéberichten voor "
 "deze groep worden weergegeven."
 
+#, php-format
+msgid "Message to %s"
+msgstr "Bericht aan %s"
+
+#, php-format
+msgid "Direct message to %s"
+msgstr "Privébericht aan %s"
+
+msgid "Available characters"
+msgstr "Beschikbare tekens"
+
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Verzenden"
+
+#, php-format
+msgid "Group %s does not allow private messages."
+msgstr "De groep %s staat geen privéberichten toe."
+
+#, php-format
+msgid "User %1$s is blocked from group %2$s."
+msgstr "Gebruiker %1$s is verbannen uit groep %2$s."
+
+#, php-format
+msgid "User %1$s is not a member of group %2$s."
+msgstr "De gebruiker %1$s is geen lid van de groep %2$s."
+
+#, php-format
+msgid "User %1$s is not an administrator of group %2$s."
+msgstr "De gebruiker %1$s is geen beheerder van de groep %2$s."
+
+#, php-format
+msgid "Unknown privacy settings for group %s."
+msgstr "Onbekende privacyinstellingen voor de groep %s."
 
 #, php-format
 msgid "That's too long. Maximum message size is %d character."
 msgid_plural "That's too long. Maximum message size is %d characters."
 msgstr[0] "Dat is te lang. De maximale berichtlengte is %d teken."
 msgstr[1] "Dat is te lang. De maximale berichtlengte is %d tekens."
+
+msgid "No group for group message."
+msgstr "Er is geen groep voor het groepsbericht."
+
+msgid "No sender for group message."
+msgstr "Er is geen afzender voor het groepsbericht."
+
+msgid "Only logged-in users can view private messages."
+msgstr "Alleen aangemelde gebruikers kunnen privéberichten zien."
+
+msgid "No such message."
+msgstr "Dat bericht bestaat niet."
+
+msgid "Group not found."
+msgstr "De groep is niet aangetroffen."
+
+msgid "Cannot read message."
+msgstr "Kan het bericht niet lezen."
+
+msgid "No sender found."
+msgstr "Geen afzender gevonden."
+
+#, php-format
+msgid "Message from %1$s to group %2$s on %3$s"
+msgstr "Bericht van %1$s aan groep %2$s op %3$s"
+
+#, php-format
+msgid "Direct message to group %s sent."
+msgstr "Privébericht aan groep %s verzonden."

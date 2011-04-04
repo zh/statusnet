@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 19:45+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,11 @@ msgid "Facebook integration settings"
 msgstr ""
 
 #: actions/facebookadminpanel.php:123
-msgid "Invalid Facebook ID. Max length is 255 characters."
+msgid "Invalid Facebook ID. Maximum length is 255 characters."
 msgstr ""
 
 #: actions/facebookadminpanel.php:129
-msgid "Invalid Facebook secret. Max length is 255 characters."
+msgid "Invalid Facebook secret. Maximum length is 255 characters."
 msgstr ""
 
 #: actions/facebookadminpanel.php:178
@@ -55,7 +55,7 @@ msgid "Application ID"
 msgstr ""
 
 #: actions/facebookadminpanel.php:185
-msgid "ID of your Facebook application"
+msgid "ID of your Facebook application."
 msgstr ""
 
 #: actions/facebookadminpanel.php:193
@@ -63,15 +63,17 @@ msgid "Secret"
 msgstr ""
 
 #: actions/facebookadminpanel.php:194
-msgid "Application secret"
+msgid "Application secret."
 msgstr ""
 
-#: actions/facebookadminpanel.php:210
+#. TRANS: Submit button to save synchronisation settings.
+#: actions/facebookadminpanel.php:210 actions/facebooksettings.php:183
+msgctxt "BUTTON"
 msgid "Save"
 msgstr ""
 
 #: actions/facebookadminpanel.php:210
-msgid "Save Facebook settings"
+msgid "Save Facebook settings."
 msgstr ""
 
 #: actions/facebooksettings.php:86 actions/facebookfinishlogin.php:141
@@ -80,7 +82,8 @@ msgstr ""
 
 #. TRANS: Page title for Facebook settings.
 #. TRANS: Tooltip for menu item "Facebook".
-#: actions/facebooksettings.php:105 FacebookBridgePlugin.php:300
+#: actions/facebooksettings.php:105 actions/facebooksettings.php:114
+#: FacebookBridgePlugin.php:300
 msgid "Facebook settings"
 msgstr ""
 
@@ -94,12 +97,6 @@ msgstr ""
 
 #: actions/facebooksettings.php:174
 msgid "Send \"@\" replies to Facebook."
-msgstr ""
-
-#. TRANS: Submit button to save synchronisation settings.
-#: actions/facebooksettings.php:183
-msgctxt "BUTTON"
-msgid "Save"
 msgstr ""
 
 #. TRANS: Legend.
@@ -137,7 +134,7 @@ msgid "Sync preferences saved."
 msgstr ""
 
 #: actions/facebooksettings.php:260
-msgid "Couldn't delete link to Facebook."
+msgid "Could not delete link to Facebook."
 msgstr ""
 
 #: actions/facebooksettings.php:264
@@ -154,7 +151,7 @@ msgid "There is already a local account linked with that Facebook account."
 msgstr ""
 
 #: actions/facebookfinishlogin.php:150
-msgid "You can't register if you don't agree to the license."
+msgid "You cannot register if you do not agree to the license."
 msgstr ""
 
 #: actions/facebookfinishlogin.php:167
@@ -164,7 +161,7 @@ msgstr ""
 #: actions/facebookfinishlogin.php:185
 #, php-format
 msgid ""
-"This is the first time you've logged into %s so we must connect your "
+"This is the first time you have logged into %s so we must connect your "
 "Facebook to a local account. You can either create a new local account, or "
 "connect with an existing local account."
 msgstr ""
@@ -202,7 +199,7 @@ msgid "New nickname"
 msgstr ""
 
 #: actions/facebookfinishlogin.php:268
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr ""
 
 #. TRANS: Submit button.
@@ -285,11 +282,11 @@ msgstr ""
 msgid "A plugin for integrating StatusNet with Facebook."
 msgstr ""
 
-#: lib/facebookclient.php:786
+#: lib/facebookclient.php:792
 msgid "Your Facebook connection has been removed"
 msgstr ""
 
-#: lib/facebookclient.php:845
+#: lib/facebookclient.php:851
 #, php-format
 msgid "Contact the %s administrator to retrieve your account"
 msgstr ""

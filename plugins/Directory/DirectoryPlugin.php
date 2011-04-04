@@ -165,8 +165,8 @@ class DirectoryPlugin extends Plugin
 
         $nav->out->menuItem(
             common_local_url('userdirectory'),
-            _('Directory'),
-            _('User Directory'),
+            _m('Directory'),
+            _m('User Directory'),
             $actionName == 'userdirectory',
             'nav_directory'
         );

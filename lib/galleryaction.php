@@ -27,6 +27,7 @@ require_once INSTALLDIR.'/lib/profilelist.php';
 
 define('AVATARS_PER_PAGE', 80);
 
+// @todo FIXME: Class documentation missing.
 class GalleryAction extends OwnerDesignAction
 {
     var $profile = null;
@@ -56,6 +57,7 @@ class GalleryAction extends OwnerDesignAction
         $this->user = User::staticGet('nickname', $nickname);
 
         if (!$this->user) {
+            // TRANS: Client error displayed when trying to perform a gallery action with an unknown user.
             $this->clientError(_('No such user.'), 404);
             return false;
         }
@@ -63,6 +65,7 @@ class GalleryAction extends OwnerDesignAction
         $this->profile = $this->user->getProfile();
 
         if (!$this->profile) {
+            // TRANS: Server error displayed when trying to perform a gallery action with a user without a profile.
             $this->serverError(_('User has no profile.'));
             return false;
         }
@@ -125,7 +128,8 @@ class GalleryAction extends OwnerDesignAction
                                  common_local_url($this->trimmed('action'),
                                                   array('nickname' =>
                                                         $this->user->nickname))),
-                           _('All'));
+                           // TRANS: List element on gallery action page to show all tags.
+                           _m('TAGS','All'));
             $this->elementEnd('li');
             $this->elementStart('li', array('id'=>'filter_tags_item'));
             $this->elementStart('form', array('name' => 'bytag',
@@ -133,11 +137,15 @@ class GalleryAction extends OwnerDesignAction
                                               'action' => common_path('?action=' . $this->trimmed('action')),
                                                'method' => 'post'));
             $this->elementStart('fieldset');
+            // TRANS: Fieldset legend on gallery action page.
             $this->element('legend', null, _('Select tag to filter'));
+            // TRANS: Dropdown field label on gallery action page for a list containing tags.
             $this->dropdown('tag', _('Tag'), $content,
-                            _('Choose a tag to narrow list'), false, $tag);
+                            // TRANS: Dropdown field title on gallery action page for a list containing tags.
+                            _('Choose a tag to narrow list.'), false, $tag);
             $this->hidden('nickname', $this->user->nickname);
-            $this->submit('submit', _('Go'));
+            // TRANS: Submit button text on gallery action page.
+            $this->submit('submit', _m('BUTTON','Go'));
             $this->elementEnd('fieldset');
             $this->elementEnd('form');
             $this->elementEnd('li');
@@ -146,7 +154,6 @@ class GalleryAction extends OwnerDesignAction
     }
 
     // Get list of tags we tagged other users with
-
     function getTags($lst, $usr)
     {
         $profile_tag = new Notice_tag();

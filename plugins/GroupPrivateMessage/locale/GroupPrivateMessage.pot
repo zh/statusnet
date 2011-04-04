@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-24 11:10+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,20 +17,155 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: newgroupmessage.php:69
+msgid "Must be logged in."
+msgstr ""
+
+#: newgroupmessage.php:73 Group_message.php:126
+#, php-format
+msgid "User %s is not allowed to send private messages."
+msgstr ""
+
+#: newgroupmessage.php:90 newgroupmessage.php:96 groupinbox.php:82
+#: groupinbox.php:88
+msgid "No such group."
+msgstr ""
+
+#: newgroupmessage.php:143
+msgid "Message sent"
+msgstr ""
+
+#: newgroupmessage.php:148
+#, php-format
+msgid "Direct message to %s sent."
+msgstr ""
+
+#: newgroupmessage.php:159
+#, php-format
+msgid "New message to group %s"
+msgstr ""
+
+#. TRANS: Subject for direct-message notification email.
+#. TRANS: %1$s is the sending user's nickname, %2$s is the group nickname.
+#: Group_message_profile.php:159
+#, php-format
+msgid "New private message from %1$s to group %2$s"
+msgstr ""
+
+#. TRANS: Body for direct-message notification email.
+#. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
+#. TRANS: %3$s is the message content, %4$s a URL to the message,
+#. TRANS: %5$s is the StatusNet sitename.
+#: Group_message_profile.php:165
+#, php-format
+msgid ""
+"%1$s (%2$s) sent a private message to group %3$s:\n"
+"\n"
+"------------------------------------------------------\n"
+"%4$s\n"
+"------------------------------------------------------\n"
+"\n"
+"You can reply to their message here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Do not reply to this email; it will not get to them.\n"
+"\n"
+"With kind regards,\n"
+"%6$s"
+msgstr ""
+
 #: GroupPrivateMessagePlugin.php:210
+msgctxt "MENU"
 msgid "Inbox"
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:211
-msgid "Private messages for this group"
+msgid "Private messages for this group."
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:258
+msgid "Private messages"
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:259
+msgid "Sometimes"
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:260
+msgid "Always"
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:261
+msgid "Never"
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:262
+msgid "Whether to allow private messages to this group."
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:268
+msgid "Private senders"
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:269
+msgid "Everyone"
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:270
+msgid "Member"
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:271
+msgid "Admin"
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:272
+msgid "Who can send private messages to the group."
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:373
+msgid "Send a direct message to this group."
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:374
+msgid "Message"
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:457
+msgid "Forced notice to private group message."
+msgstr ""
+
+#: GroupPrivateMessagePlugin.php:479
+msgid "Private"
 msgstr ""
 
 #: GroupPrivateMessagePlugin.php:504
-msgid "Allow posting DMs to a group."
+msgid "Allow posting private messages to groups."
+msgstr ""
+
+#: groupinbox.php:66
+msgid "Only for logged-in users."
+msgstr ""
+
+#: groupinbox.php:92
+msgid "Only for members."
 msgstr ""
 
 #: groupinbox.php:125
 msgid "This group has not received any private messages."
+msgstr ""
+
+#: groupinbox.php:170
+#, php-format
+msgid "%s group inbox"
+msgstr ""
+
+#. TRANS: Page title for any but first group page.
+#. TRANS: %1$s is a group name, $2$s is a page number.
+#: groupinbox.php:174
+#, php-format
+msgid "%1$s group inbox, page %2$d"
 msgstr ""
 
 #. TRANS: Instructions for user inbox page.
@@ -40,9 +175,48 @@ msgid ""
 "group."
 msgstr ""
 
+#: groupmessageform.php:90
+#, php-format
+msgid "Message to %s"
+msgstr ""
+
+#: groupmessageform.php:131
+#, php-format
+msgid "Direct message to %s"
+msgstr ""
+
+#: groupmessageform.php:143
+msgid "Available characters"
+msgstr ""
+
 #: groupmessageform.php:164
 msgctxt "Send button for sending notice"
 msgid "Send"
+msgstr ""
+
+#: Group_privacy_settings.php:167
+#, php-format
+msgid "Group %s does not allow private messages."
+msgstr ""
+
+#: Group_privacy_settings.php:175
+#, php-format
+msgid "User %1$s is blocked from group %2$s."
+msgstr ""
+
+#: Group_privacy_settings.php:182
+#, php-format
+msgid "User %1$s is not a member of group %2$s."
+msgstr ""
+
+#: Group_privacy_settings.php:189
+#, php-format
+msgid "User %1$s is not an administrator of group %2$s."
+msgstr ""
+
+#: Group_privacy_settings.php:195
+#, php-format
+msgid "Unknown privacy settings for group %s."
 msgstr ""
 
 #: Group_message.php:137
@@ -51,3 +225,41 @@ msgid "That's too long. Maximum message size is %d character."
 msgid_plural "That's too long. Maximum message size is %d characters."
 msgstr[0] ""
 msgstr[1] ""
+
+#: Group_message.php:180
+msgid "No group for group message."
+msgstr ""
+
+#: Group_message.php:189
+msgid "No sender for group message."
+msgstr ""
+
+#: showgroupmessage.php:70
+msgid "Only logged-in users can view private messages."
+msgstr ""
+
+#: showgroupmessage.php:79
+msgid "No such message."
+msgstr ""
+
+#: showgroupmessage.php:85
+msgid "Group not found."
+msgstr ""
+
+#: showgroupmessage.php:89
+msgid "Cannot read message."
+msgstr ""
+
+#: showgroupmessage.php:95
+msgid "No sender found."
+msgstr ""
+
+#: showgroupmessage.php:120
+#, php-format
+msgid "Message from %1$s to group %2$s on %3$s"
+msgstr ""
+
+#: groupmessagecommand.php:80
+#, php-format
+msgid "Direct message to group %s sent."
+msgstr ""

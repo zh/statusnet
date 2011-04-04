@@ -290,12 +290,12 @@ class IrcPlugin extends ImPlugin {
      * @return boolean success value
      */
     public function sendConfirmationCode($screenname, $code, $user, $checked = false) {
-        $body = sprintf(_('User "%s" on %s has said that your %s screenname belongs to them. ' .
+        $body = sprintf(_m('User "%1$s" on %2$s has said that your %3$s screenname belongs to them. ' .
           'If that\'s true, you can confirm by clicking on this URL: ' .
-          '%s' .
+          '%4$s' .
           ' . (If you cannot click it, copy-and-paste it into the ' .
-          'address bar of your browser). If that user isn\'t you, ' .
-          'or if you didn\'t request this confirmation, just ignore this message.'),
+          'address bar of your browser). If that user is not you, ' .
+          'or if you did not request this confirmation, just ignore this message.'),
           $user->nickname, common_config('site', 'name'), $this->getDisplayName(), common_local_url('confirmaddress', array('code' => $code)));
 
         if ($this->regcheck && !$checked) {

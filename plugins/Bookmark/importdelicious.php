@@ -58,7 +58,7 @@ class ImportdeliciousAction extends Action
 
     function title()
     {
-        return _("Import del.icio.us bookmarks");
+        return _m("Import del.icio.us bookmarks");
     }
 
     /**
@@ -76,13 +76,13 @@ class ImportdeliciousAction extends Action
         $cur = common_current_user();
 
         if (empty($cur)) {
-            throw new ClientException(_('Only logged-in users can '.
+            throw new ClientException(_m('Only logged-in users can '.
                                         'import del.icio.us backups.'),
                                       403);
         }
 
         if (!$cur->hasRight(BookmarkPlugin::IMPORTDELICIOUS)) {
-            throw new ClientException(_('You may not restore your account.'), 403);
+            throw new ClientException(_m('You may not restore your account.'), 403);
         }
 
         return true;
@@ -121,7 +121,7 @@ class ImportdeliciousAction extends Action
         $this->checkSessionToken();
 
         if (!isset($_FILES[ImportDeliciousForm::FILEINPUT]['error'])) {
-            throw new ClientException(_('No uploaded file.'));
+            throw new ClientException(_m('No uploaded file.'));
         }
 
         switch ($_FILES[ImportDeliciousForm::FILEINPUT]['error']) {
@@ -129,42 +129,42 @@ class ImportdeliciousAction extends Action
             break;
         case UPLOAD_ERR_INI_SIZE:
             // TRANS: Client exception thrown when an uploaded file is too large.
-            throw new ClientException(_('The uploaded file exceeds the ' .
+            throw new ClientException(_m('The uploaded file exceeds the ' .
                 'upload_max_filesize directive in php.ini.'));
             return;
         case UPLOAD_ERR_FORM_SIZE:
             throw new ClientException(
                 // TRANS: Client exception.
-                _('The uploaded file exceeds the MAX_FILE_SIZE directive' .
+                _m('The uploaded file exceeds the MAX_FILE_SIZE directive' .
                 ' that was specified in the HTML form.'));
             return;
         case UPLOAD_ERR_PARTIAL:
             @unlink($_FILES[ImportDeliciousForm::FILEINPUT]['tmp_name']);
             // TRANS: Client exception.
-            throw new ClientException(_('The uploaded file was only' .
+            throw new ClientException(_m('The uploaded file was only' .
                 ' partially uploaded.'));
             return;
         case UPLOAD_ERR_NO_FILE:
             // No file; probably just a non-AJAX submission.
-            throw new ClientException(_('No uploaded file.'));
+            throw new ClientException(_m('No uploaded file.'));
             return;
         case UPLOAD_ERR_NO_TMP_DIR:
             // TRANS: Client exception thrown when a temporary folder is not present
-            throw new ClientException(_('Missing a temporary folder.'));
+            throw new ClientException(_m('Missing a temporary folder.'));
             return;
         case UPLOAD_ERR_CANT_WRITE:
             // TRANS: Client exception thrown when writing to disk is not possible
-            throw new ClientException(_('Failed to write file to disk.'));
+            throw new ClientException(_m('Failed to write file to disk.'));
             return;
         case UPLOAD_ERR_EXTENSION:
             // TRANS: Client exception thrown when a file upload has been stopped
-            throw new ClientException(_('File upload stopped by extension.'));
+            throw new ClientException(_m('File upload stopped by extension.'));
             return;
         default:
             common_log(LOG_ERR, __METHOD__ . ": Unknown upload error " .
                 $_FILES[ImportDeliciousForm::FILEINPUT]['error']);
             // TRANS: Client exception thrown when a file upload operation has failed
-            throw new ClientException(_('System error uploading file.'));
+            throw new ClientException(_m('System error uploading file.'));
             return;
         }
 
@@ -183,7 +183,7 @@ class ImportdeliciousAction extends Action
                 throw new ServerException("File '$filename' not readable.");
             }
         
-            common_debug(sprintf(_("Getting backup from file '%s'."), $filename));
+            common_debug(sprintf(_m("Getting backup from file '%s'."), $filename));
 
             $html = file_get_contents($filename);
 
@@ -219,10 +219,10 @@ class ImportdeliciousAction extends Action
     {
         if ($this->success) {
             $this->element('p', null,
-                           _('Bookmarks have been imported. Your bookmarks should now appear in search and your profile page.'));
+                           _m('Bookmarks have been imported. Your bookmarks should now appear in search and your profile page.'));
         } else if ($this->inprogress) {
             $this->element('p', null,
-                           _('Bookmarks are being imported. Please wait a few minutes for results.'));
+                           _m('Bookmarks are being imported. Please wait a few minutes for results.'));
         } else {
             $form = new ImportDeliciousForm($this);
             $form->show();
@@ -310,7 +310,7 @@ class ImportDeliciousForm extends Form
     {
         $this->out->elementStart('p', 'instructions');
 
-        $this->out->raw(_('You can upload a backed-up '.
+        $this->out->raw(_m('You can upload a backed-up '.
                           'delicious.com bookmarks file.'));
         
         $this->out->elementEnd('p');
@@ -340,6 +340,6 @@ class ImportDeliciousForm extends Form
                            _m('BUTTON', 'Upload'),
                            'submit',
                            null,
-                           _('Upload the file'));
+                           _m('Upload the file'));
     }
 }

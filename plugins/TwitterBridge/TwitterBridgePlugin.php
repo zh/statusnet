@@ -530,4 +530,13 @@ class TwitterBridgePlugin extends Plugin
 
         return true;
     }
+
+    function onStartGetProfileUri($profile, &$uri)
+    {
+        if (preg_match('!^https?://twitter.com/!', $profile->profileurl)) {
+            $uri = $profile->profileurl;
+            return false;
+        }
+        return true;
+    }
 }

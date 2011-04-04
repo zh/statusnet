@@ -151,7 +151,7 @@ class EmailSummaryPlugin extends Plugin
         $action->elementStart('li');
         $action->checkbox('emailsummary',
                           // TRANS: Checkbox label in e-mail preferences form.
-                          _('Send me a periodic summary of updates from my network.'),
+                          _m('Send me a periodic summary of updates from my network.'),
                           Email_summary_status::getSendSummary($user->id));
         $action->elementEnd('li');
         return true;

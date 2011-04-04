@@ -82,7 +82,7 @@ class ShowbookmarkAction extends ShownoticeAction
     {
         // TRANS: Title for bookmark.
         // TRANS: %1$s is a user nickname, %2$s is a bookmark title.
-        return sprintf(_('%1$s\'s bookmark for "%2$s"'),
+        return sprintf(_m('%1$s\'s bookmark for "%2$s"'),
                        $this->user->nickname,
                        $this->bookmark->title);
     }

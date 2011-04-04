@@ -123,6 +123,7 @@ $schema['user'] = array(
         'inboxed' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'has an inbox been created for this user?'),
         'design_id' => array('type' => 'int', 'description' => 'id of a design'),
         'viewdesigns' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'whether to view user-provided designs'),
+        'private_stream' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'whether to limit all notices to followers only'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
@@ -724,7 +725,8 @@ $schema['user_group'] = array(
 
         'uri' => array('type' => 'varchar', 'length' => 255, 'description' => 'universal identifier'),
         'mainpage' => array('type' => 'varchar', 'length' => 255, 'description' => 'page for group info to link to'),
-        'join_policy' => array('type' => 'int', 'size' => 'tiny', 'description' => '0=open; 1=requires admin approval'),
+        'join_policy' => array('type' => 'int', 'size' => 'tiny', 'description' => '0=open; 1=requires admin approval'),      
+        'force_scope' => array('type' => 'int', 'size' => 'tiny', 'description' => '0=never,1=sometimes,-1=always'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(

@@ -4,7 +4,7 @@
  * Copyright (C) 2010, StatusNet, Inc.
  *
  * An item in a notice list
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -348,15 +348,20 @@ class NoticeListItem extends Widget
         if (empty($name)) {
             $latdms = $this->decimalDegreesToDMS(abs($lat));
             $londms = $this->decimalDegreesToDMS(abs($lon));
-            // TRANS: Used in coordinates as abbreviation of north
+            // TRANS: Used in coordinates as abbreviation of north.
             $north = _('N');
-            // TRANS: Used in coordinates as abbreviation of south
+            // TRANS: Used in coordinates as abbreviation of south.
             $south = _('S');
-            // TRANS: Used in coordinates as abbreviation of east
+            // TRANS: Used in coordinates as abbreviation of east.
             $east = _('E');
-            // TRANS: Used in coordinates as abbreviation of west
+            // TRANS: Used in coordinates as abbreviation of west.
             $west = _('W');
             $name = sprintf(
+                // TRANS: Coordinates message.
+                // TRANS: %1$s is lattitude degrees, %2$s is lattitude minutes,
+                // TRANS: %3$s is lattitude seconds, %4$s is N (north) or S (south) depending on lattitude,
+                // TRANS: %5$s is longitude degrees, %6$s is longitude minutes,
+                // TRANS: %7$s is longitude seconds, %8$s is E (east) or W (west) depending on longitude,
                 _('%1$u°%2$u\'%3$u"%4$s %5$u°%6$u\'%7$u"%8$s'),
                 $latdms['deg'],$latdms['min'], $latdms['sec'],($lat>0? $north:$south),
                 $londms['deg'],$londms['min'], $londms['sec'],($lon>0? $east:$west));
@@ -366,6 +371,7 @@ class NoticeListItem extends Widget
 
         $this->out->text(' ');
         $this->out->elementStart('span', array('class' => 'location'));
+        // TRANS: Followed by geo location.
         $this->out->text(_('at'));
         $this->out->text(' ');
         if (empty($url)) {
@@ -414,10 +420,12 @@ class NoticeListItem extends Widget
         $ns = $this->notice->getSource();
 
         if ($ns) {
-            $source_name = (empty($ns->name)) ? ($ns->code ? _($ns->code) : _('web')) : _($ns->name);
+            // TRANS: A possible notice source (web interface).
+            $source_name = (empty($ns->name)) ? ($ns->code ? _($ns->code) : _m('SOURCE','web')) : _($ns->name);
             $this->out->text(' ');
             $this->out->elementStart('span', 'source');
             // FIXME: probably i18n issue. If "from" is followed by text, that should be a parameter to "from" (from %s).
+            // TRANS: Followed by notice source.
             $this->out->text(_('from'));
             $this->out->text(' ');
 
@@ -434,7 +442,6 @@ class NoticeListItem extends Widget
             // if $ns->name and $ns->url are populated we have
             // configured a source attr somewhere
             if (!empty($name) && !empty($url)) {
-
                 $this->out->elementStart('span', 'device');
 
                 $attrs = array(
@@ -479,6 +486,7 @@ class NoticeListItem extends Widget
                     array(
                     'href' => $convurl.'#notice-'.$this->notice->id,
                     'class' => 'response'),
+                    // TRANS: Addition in notice list item if notice is part of a conversation.
                     _('in context')
                 );
             } else {
@@ -513,6 +521,7 @@ class NoticeListItem extends Widget
 
             $this->out->elementStart('span', 'repeat vcard');
 
+            // TRANS: Addition in notice list item if notice was repeated. Followed by a span with a nickname.
             $this->out->raw(_('Repeated by'));
 
             $this->out->elementStart('a', $attrs);
@@ -539,7 +548,9 @@ class NoticeListItem extends Widget
                                           array('replyto' => $this->profile->nickname, 'inreplyto' => $this->notice->id));
             $this->out->elementStart('a', array('href' => $reply_url,
                                                 'class' => 'notice_reply',
+                                                // TRANS: Link title in notice list item to reply to a notice.
                                                 'title' => _('Reply to this notice')));
+            // TRANS: Link text in notice list item to reply to a notice.
             $this->out->text(_('Reply'));
             $this->out->text(' ');
             $this->out->element('span', 'notice_id', $this->notice->id);
@@ -565,7 +576,10 @@ class NoticeListItem extends Widget
                                           array('notice' => $todel->id));
             $this->out->element('a', array('href' => $deleteurl,
                                            'class' => 'notice_delete',
-                                           'title' => _('Delete this notice')), _('Delete'));
+                                           // TRANS: Link title in notice list item to delete a notice.
+                                           'title' => _('Delete this notice')),
+                                           // TRANS: Link text in notice list item to delete a notice.
+                                           _('Delete'));
         }
     }
 

@@ -351,6 +351,7 @@ class Notice extends Memcached_DataObject
             $repeat = Notice::staticGet('id', $repeat_of);
 
             if (empty($repeat)) {
+                // TRANS: Client exception thrown in notice when trying to repeat a missing or deleted notice.
                 throw new ClientException(_('Cannot repeat; original notice is missing or deleted.'));
             }
 
@@ -418,6 +419,18 @@ class Notice extends Memcached_DataObject
             $notice->scope = common_config('notice', 'defaultscope');
         } else {
             $notice->scope = $scope;
+        }
+
+        // For private streams
+
+        $user = $profile->getUser();
+
+        if (!empty($user)) {
+            if ($user->private_stream &&
+                ($notice->scope == Notice::PUBLIC_SCOPE ||
+                 $notice->scope == Notice::SITE_SCOPE)) {
+                $notice->scope |= Notice::FOLLOWER_SCOPE;
+            }
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {

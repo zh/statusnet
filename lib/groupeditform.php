@@ -205,7 +205,9 @@ class GroupEditForm extends Form
             $this->out->dropdown('join_policy',
                                  // TRANS: Dropdown fieldd label on group edit form.
                                  _('Membership policy'),
+                                 // TRANS: Group membership policy option.
                                  array(User_group::JOIN_POLICY_OPEN     => _('Open to all'),
+                                       // TRANS: Group membership policy option.
                                        User_group::JOIN_POLICY_MODERATE => _('Admin must approve all members')),
                                  // TRANS: Dropdown field title on group edit form.
                                  _('Whether admin approval is required to join this group.'),

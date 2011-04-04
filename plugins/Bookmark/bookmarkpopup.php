@@ -55,7 +55,7 @@ class BookmarkpopupAction extends NewbookmarkAction
         // TRANS: Title for mini-posting window loaded from bookmarklet.
         // TRANS: %s is the StatusNet site name.
         $this->element('title', 
-                       null, sprintf(_('Bookmark on %s'), 
+                       null, sprintf(_m('Bookmark on %s'), 
                                      common_config('site', 'name')));
     }
 

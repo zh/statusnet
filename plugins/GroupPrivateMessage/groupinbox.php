@@ -63,7 +63,7 @@ class GroupinboxAction extends GroupDesignAction
         $cur = common_current_user();
 
         if (empty($cur)) {
-            throw new ClientException(_('Only for logged-in users'), 403);
+            throw new ClientException(_m('Only for logged-in users.'), 403);
         }
 
         $nicknameArg = $this->trimmed('nickname');
@@ -79,17 +79,17 @@ class GroupinboxAction extends GroupDesignAction
         $localGroup = Local_group::staticGet('nickname', $nickname);
 
         if (empty($localGroup)) {
-            throw new ClientException(_('No such group'), 404);
+            throw new ClientException(_m('No such group.'), 404);
         }
 
         $this->group = User_group::staticGet('id', $localGroup->group_id);
 
         if (empty($this->group)) {
-            throw new ClientException(_('No such group'), 404);
+            throw new ClientException(_m('No such group.'), 404);
         }
 
         if (!$cur->isMember($this->group)) {
-            throw new ClientException(_('Only for members'), 403);
+            throw new ClientException(_m('Only for members.'), 403);
         }
 
         $this->page = $this->trimmed('page');
@@ -167,11 +167,11 @@ class GroupinboxAction extends GroupDesignAction
         $base = $this->group->getFancyName();
 
         if ($this->page == 1) {
-            return sprintf(_('%s group inbox'), $base);
+            return sprintf(_m('%s group inbox'), $base);
         } else {
             // TRANS: Page title for any but first group page.
             // TRANS: %1$s is a group name, $2$s is a page number.
-            return sprintf(_('%1$s group inbox, page %2$d'),
+            return sprintf(_m('%1$s group inbox, page %2$d'),
                            $base,
                            $this->page);
         }

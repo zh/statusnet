@@ -82,13 +82,13 @@ class BlogspamNetPlugin extends Plugin
         } else {
             common_debug("Blogspamnet results = " . $response);
             if (preg_match('/^ERROR(:(.*))?$/', $response, $match)) {
-                throw new ServerException(sprintf(_("Error from %s: %s"), $this->baseUrl, $match[2]), 500);
+                throw new ServerException(sprintf(_m("Error from %1$s: %2$s"), $this->baseUrl, $match[2]), 500);
             } else if (preg_match('/^SPAM(:(.*))?$/', $response, $match)) {
-                throw new ClientException(sprintf(_("Spam checker results: %s"), $match[2]), 400);
+                throw new ClientException(sprintf(_m("Spam checker results: %s"), $match[2]), 400);
             } else if (preg_match('/^OK$/', $response)) {
                 // don't do anything
             } else {
-                throw new ServerException(sprintf(_("Unexpected response from %s: %s"), $this->baseUrl, $response), 500);
+                throw new ServerException(sprintf(_m("Unexpected response from %1$s: %2$s"), $this->baseUrl, $response), 500);
             }
         }
         return true;

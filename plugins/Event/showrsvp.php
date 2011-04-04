@@ -65,7 +65,7 @@ class ShowrsvpAction extends ShownoticeAction
 
         if (empty($this->event)) {
             // TRANS: Client exception thrown when referring to a non-existing event.
-            throw new ClientException(_m('No such Event.'), 404);
+            throw new ClientException(_m('No such event.'), 404);
         }
 
         $notice = $this->rsvp->getNotice();
@@ -91,7 +91,7 @@ class ShowrsvpAction extends ShownoticeAction
     {
         // TRANS: Title for event.
 	// TRANS: %1$s is a user nickname, %2$s is an event title.
-        return sprintf(_('%1$s\'s RSVP for "%2$s"'),
+        return sprintf(_m('%1$s\'s RSVP for "%2$s"'),
                        $this->user->nickname,
                        $this->event->title);
     }

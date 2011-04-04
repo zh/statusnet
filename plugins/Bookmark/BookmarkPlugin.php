@@ -274,7 +274,7 @@ class BookmarkPlugin extends MicroAppPlugin
             $action->elementStart('li');
             $action->element('a',
                              array('href' => common_local_url('importdelicious')),
-                             _('Import del.icio.us bookmarks'));
+                             _m('Import del.icio.us bookmarks'));
             $action->elementEnd('li');
         }
 
@@ -379,7 +379,7 @@ class BookmarkPlugin extends MicroAppPlugin
         $relLinkEls = ActivityUtils::getLinks($bookmark->element, 'related');
 
         if (count($relLinkEls) < 1) {
-            throw new ClientException(_('Expected exactly 1 link '.
+            throw new ClientException(_m('Expected exactly 1 link '.
                                         'rel=related in a Bookmark.'));
         }
 
@@ -472,7 +472,7 @@ class BookmarkPlugin extends MicroAppPlugin
         $attachments = $notice->attachments();
 
         if (count($attachments) != 1) {
-            throw new ServerException(_('Bookmark notice with the '.
+            throw new ServerException(_m('Bookmark notice with the '.
                                         'wrong number of attachments.'));
         }
 

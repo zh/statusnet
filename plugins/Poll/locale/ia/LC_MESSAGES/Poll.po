@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Poll\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-18 19:45+0000\n"
-"PO-Revision-Date: 2011-03-18 19:49:31+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:21:56+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-17 10:19:34+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r84232); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-01 21:06:07+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85253); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-plugin-poll\n"
@@ -28,14 +28,6 @@ msgstr "Iste sondage non existe."
 #. TRANS: Client exception thrown trying to view a non-existing poll notice.
 msgid "No such poll notice."
 msgstr "Iste nota de sondage non existe."
-
-#. TRANS: Client exception thrown trying to view a poll of a non-existing user.
-msgid "No such user."
-msgstr "Iste usator non existe."
-
-#. TRANS: Server exception thrown trying to view a poll for a user for which the profile could not be loaded.
-msgid "User without a profile."
-msgstr "Usator sin profilo."
 
 #. TRANS: Page title for a poll.
 #. TRANS: %1$s is the nickname of the user that created the poll, %2$s is the poll question.
@@ -79,6 +71,9 @@ msgstr "Responsa invalide a sondage: le sondage es incognite."
 #, php-format
 msgid "Unexpected type for poll plugin: %s."
 msgstr "Typo inexpectate pro le plug-in de sondages: %s."
+
+msgid "Poll data is missing"
+msgstr ""
 
 #. TRANS: Application title.
 msgctxt "APPTITLE"
