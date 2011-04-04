@@ -300,7 +300,6 @@ class QnAPlugin extends MicroAppPlugin
 
     function onStartOpenNoticeListItemElement($nli)
     {
-
         $type = $nli->notice->object_type;
 
         switch($type)
@@ -318,9 +317,18 @@ class QnAPlugin extends MicroAppPlugin
             break;
         case QnA_Answer::OBJECT_TYPE:
             $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
+
+            $classes = array('hentry', 'notice', 'answer');
+
+            $answer = QnA_Answer::staticGet('uri', $notice->uri);
+
+            if (!empty($answer) && (boolean($answer->best))) {
+                $classes[] = 'best';
+            }
+
             $nli->out->elementStart(
                 'li', array(
-                    'class' => 'hentry notice answer',
+                    'class' => implode(' ', $classes),
                     'id'    => 'notice-' . $id
                 )
             );
@@ -366,8 +374,6 @@ class QnAPlugin extends MicroAppPlugin
         // @hack we want regular rendering, then just add stuff after that
         $nli = new NoticeListItem($notice, $out);
         $nli->showNotice();
-
-
 
         $out->elementStart('div', array('class' => 'entry-content question-desciption'));
 
