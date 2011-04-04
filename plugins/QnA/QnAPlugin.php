@@ -88,9 +88,11 @@ class QnAPlugin extends MicroAppPlugin
                 . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'QnaquestionForm':
-        case 'QnaanswerForm':
+        case 'QnashowanswerForm':
+        case 'QnanewanswerForm':
         case 'QnareviseanswerForm':
         case 'QnavoteForm':
+        case 'AnswerNoticeListItem':
             include_once $dir . '/lib/' . strtolower($cls).'.php';
             break;
         case 'QnA_Question':
@@ -318,17 +320,18 @@ class QnAPlugin extends MicroAppPlugin
         case QnA_Answer::OBJECT_TYPE:
             $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
 
-            $classes = array('hentry', 'notice', 'answer');
+            $cls = array('hentry', 'notice', 'answer');
 
             $answer = QnA_Answer::staticGet('uri', $notice->uri);
 
-            if (!empty($answer) && (boolean($answer->best))) {
-                $classes[] = 'best';
+            if (!empty($answer) && !empty($answer->best)) {
+                $cls[] = 'best';
             }
 
             $nli->out->elementStart(
-                'li', array(
-                    'class' => implode(' ', $classes),
+                'li',
+                array(
+                    'class' => implode(' ', $cls),
                     'id'    => 'notice-' . $id
                 )
             );
@@ -348,6 +351,7 @@ class QnAPlugin extends MicroAppPlugin
      * @param Notice $notice
      * @param HTMLOutputter $out
      */
+    
     function showNotice($notice, $out)
     {
         switch ($notice->object_type) {
@@ -381,8 +385,8 @@ class QnAPlugin extends MicroAppPlugin
 
         if (!empty($question)) {
 
-            $short = $question->description;
-            $out->raw($question->description);
+            $short = $this->shorten($question->description, $notice);
+            $out->raw($short);
 
             // Don't prompt user for an answer if the question is closed or
             // the current user posed the question in the first place
@@ -390,14 +394,13 @@ class QnAPlugin extends MicroAppPlugin
                 if (!empty($user) && ($user->id != $question->profile_id)) {
                     $profile = $user->getProfile();
                     $answer = $question->getAnswer($profile);
-                    if ($answer) {
-                        // User has already answered; show the results.
-                        $form = new QnareviseanswerForm($answer, $out);
-                    } else {
-                        $form = new QnaanswerForm($question, $out);
+                    if (!$answer) {
+                        $form = new QnanewanswerForm($question, $out);
+                        $form->show();
                     }
-                    $form->show();
                 }
+            } else {
+                $out->element('span', 'closed', _m('This question is closed.'));
             }
         } else {
             $out->text(_m('Question data is missing.'));
@@ -411,18 +414,18 @@ class QnAPlugin extends MicroAppPlugin
     function showNoticeAnswer($notice, $out)
     {
         $user = common_current_user();
+        
+        $answer   = QnA_Answer::getByNotice($notice);
+        $question = $answer->getQuestion();
 
-        // @hack we want regular rendering, then just add stuff after that
         $nli = new NoticeListItem($notice, $out);
         $nli->showNotice();
 
         $out->elementStart('div', array('class' => 'entry-content answer-content'));
 
-        $answer = QnA_Answer::staticGet('uri', $notice->uri);
-
         if (!empty($answer)) {
-            $short = $answer->content;
-            $out->raw($answer->content);
+            $form = new QnashowanswerForm($out, $answer);
+            $form->show();
         } else {
             $out->text(_m('Answer data is missing.'));
         }
@@ -431,6 +434,26 @@ class QnAPlugin extends MicroAppPlugin
 
         // @fixme
         $out->elementStart('div', array('class' => 'entry-content'));
+    }
+
+    static function shorten($content, $notice)
+    {
+        $short = null;
+
+        if (Notice::contentTooLong($content)) {
+            common_debug("content too long");
+            $max = Notice::maxContent();
+            $short = mb_substr($content, 0, $max - 1);
+            $short .= sprintf(
+                '<a href="%s" rel="more" title="%s">…</a>',
+                $notice->uri,
+                _m('more')
+            );
+        } else {
+            $short = $content;
+        }
+
+        return $short;
     }
 
     /**

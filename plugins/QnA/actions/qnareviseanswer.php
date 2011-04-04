@@ -86,13 +86,7 @@ class QnareviseanswerAction extends Action
             );
         }
 
-        if ($this->isPost()) {
-            $this->checkSessionToken();
-        }
-
         $id = substr($this->trimmed('id'), 7);
-
-        common_debug("XXXXXXXXXXXXXXXXXX id = " . $id);
 
         $this->answer   = QnA_Answer::staticGet('id', $id);
         $this->question = $this->answer->getQuestion(); 
@@ -122,12 +116,22 @@ class QnareviseanswerAction extends Action
         parent::handle($argarray);
 
         if ($this->isPost()) {
-            $this->reviseAnswer();
-        } else {
-            $this->showPage();
+            $this->checkSessionToken();
+            if ($this->arg('revise')) {
+                $this->showContent();
+                return;
+            } else if ($this->arg('best')) {
+                if ($this->user->id == $this->question->profile_id) {
+                    $this->markBest();
+                    return;
+                }
+            } else {
+                $this->reviseAnswer();
+                return;
+            }
         }
 
-        return;
+        $this->showPage();
     }
 
     /**
@@ -159,7 +163,52 @@ class QnareviseanswerAction extends Action
             $this->element('title', null, _m('Answer'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->raw($answer->asHTML());
+            $form = new QnashowanswerForm($this, $answer);
+            $form->show();
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            common_redirect($this->answer->bestUrl(), 303);
+        }
+    }
+
+    /**
+     * Mark the answer as the "best" answer
+     *
+     * @return void
+     */
+    function markBest()
+    {
+        $question = $this->question;
+        $answer   = $this->answer;
+       
+        try {
+            // close the question to further answers
+            $orig = clone($question);
+            $question->closed = 1;
+            $result = $question->update($orig);
+            
+            // mark this answer an the best answer
+            $orig = clone($answer);
+            $answer->best = 1;
+            $result = $answer->update($orig);
+        } catch (ClientException $ce) {
+            $this->error = $ce->getMessage();
+            $this->showPage();
+            return;
+        }
+        if ($this->boolean('ajax')) {
+            common_debug("ajaxy part");
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            // TRANS: Page title after sending an answer.
+            $this->element('title', null, _m('Answer'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $form = new QnashowanswerForm($this, $answer);
+            $form->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
@@ -178,10 +227,29 @@ class QnareviseanswerAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new QnareviseanswerForm($this->answer, $this);
-        $form->show();
+        if ($this->boolean('ajax')) {
+            $this->showAjaxReviseForm();
+        } else {
+            $form = new QnareviseanswerForm($this->answer, $this);
+            $form->show();
+        }
 
         return;
+    }
+
+    function showAjaxReviseForm()
+    {
+        header('Content-Type: text/xml;charset=utf-8');
+        $this->xw->startDocument('1.0', 'UTF-8');
+        $this->elementStart('html');
+        $this->elementStart('head');
+        $this->element('title', null, _m('Answer'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $form = new QnareviseanswerForm($this->answer, $this);
+        $form->show();
+        $this->elementEnd('body');
+        $this->elementEnd('html');
     }
 
     /**

@@ -180,7 +180,7 @@ class QnanewanswerAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new QnaanswerForm($this->question, $this);
+        $form = new QnanewanswerForm($this->question, $this);
         $form->show();
 
         return;
