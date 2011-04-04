@@ -214,9 +214,18 @@ class QnA_Question extends Managed_DataObject
         $notice = $question->getNotice();
 
         $out = new XMLStringer();
-        $out->elementStart('span', 'question_description');
-        $out->raw(QnAPlugin::shorten($question->description, $notice));
-        $out->elementEnd('span');
+
+        if (!empty($question->description)) {
+            $out->elementStart('span', 'question-description');
+            $out->raw(QnAPlugin::shorten($question->description, $notice));
+            $out->elementEnd('span');
+        }
+
+        if (!empty($question->closed)) {
+            $out->elementStart('span', 'question-closed');
+            $out->text(_m('This question is closed.'));
+            $out->elementEnd('span');
+        }
 
         return $out->getString();
     }
