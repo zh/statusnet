@@ -28,6 +28,7 @@ class User_group extends Memcached_DataObject
     public $uri;                             // varchar(255)  unique_key
     public $mainpage;                        // varchar(255)
     public $join_policy;                     // tinyint
+    public $force_scope;                     // tinyint
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User_group',$k,$v); }
