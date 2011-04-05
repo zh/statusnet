@@ -118,7 +118,7 @@ class QnashowquestionForm extends Form
             'question-' . $this->question->id
         );
 
-        $this->out->raw($this->question->asHTML());        
+        $this->out->raw($this->question->asHTML());
     }
 
     /**

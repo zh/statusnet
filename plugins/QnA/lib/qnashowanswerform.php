@@ -65,8 +65,8 @@ class QnashowanswerForm extends Form
     {
         parent::__construct($out);
 
-        $this->answer       = $answer;
-        $this->question     = $answer->getQuestion();
+        $this->answer   = $answer;
+        $this->question = $answer->getQuestion();
     }
 
     /**
@@ -155,6 +155,13 @@ class QnashowanswerForm extends Form
         
                 }
             }
+
+            /*
+             * @fixme: Revise is disabled until we figure out the
+             *         Ostatus bits This comment is just a reminder
+             *         that the UI for this works.
+             */
+            /*
             if ($user->id == $this->answer->profile_id) {
                 $this->out->submit(
                     'revise',
@@ -166,6 +173,7 @@ class QnashowanswerForm extends Form
                     _('Revise your answer')
                 );
             }
+             */
         }
     }
 

@@ -118,7 +118,7 @@ class QnanewanswerForm extends Form
     function formActions()
     {
         // TRANS: Button text for submitting a poll response.
-        $this->out->submit('submit', _m('BUTTON', 'Submit'));
+        $this->out->submit('submit', _m('BUTTON', 'Answer'));
     }
 }
 
