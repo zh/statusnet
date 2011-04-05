@@ -190,6 +190,12 @@ class NeweventAction extends Action
                 throw new ClientException(_m('Event must have an end time.'));
             }
 
+            $options = array();
+
+            // Does the heavy-lifting for getting "To:" information
+
+            ToSelector::fillOptions($this, $options);
+            
             $profile = $this->user->getProfile();
 
             $saved = Happening::saveNew($profile,
@@ -198,7 +204,8 @@ class NeweventAction extends Action
                                         $this->title,
                                         $this->location,
                                         $this->description,
-                                        $this->url);
+                                        $this->url,
+                                        $options);
 
             $event = Happening::fromNotice($saved);
 

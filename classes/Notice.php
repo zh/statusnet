@@ -342,6 +342,12 @@ class Notice extends Memcached_DataObject
         $notice->uri = $uri;
         $notice->url = $url;
 
+        // Get the groups here so we can figure out replies and such
+
+        if (!isset($groups)) {
+            $groups = self::groupsFromText($notice->content, $profile);
+        }
+
         $reply = null;
 
         // Handle repeat case
@@ -394,6 +400,20 @@ class Notice extends Memcached_DataObject
 
                 $notice->reply_to     = $reply->id;
                 $notice->conversation = $reply->conversation;
+
+                // If the original is private to a group, and notice has no group specified,
+                // make it to the same group(s)
+
+                if (empty($groups) && ($reply->scope | Notice::GROUP_SCOPE)) {
+                    $groups = array();
+                    $replyGroups = $reply->getGroups();
+                    foreach ($replyGroups as $group) {
+                        if ($profile->isMember($group)) {
+                            $groups[] = $group->id;
+                        }
+                    }
+                }
+
                 // Scope set below
             }
         }
@@ -443,10 +463,6 @@ class Notice extends Memcached_DataObject
         }
 
         // Force the scope for private groups
-
-        if (!isset($groups)) {
-            $groups = self::groupsFromText($notice->content, $profile);
-        }
 
         foreach ($groups as $groupId) {
             $group = User_group::staticGet('id', $groupId);
