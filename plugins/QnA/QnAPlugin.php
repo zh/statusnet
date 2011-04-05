@@ -280,24 +280,6 @@ class QnAPlugin extends MicroAppPlugin
     }
 
     /**
-     * Change the verb on Answer notices
-     *
-     * @param Notice $notice
-     *
-     * @return ActivityObject
-     */
-
-    function onEndNoticeAsActivity($notice, &$act) {
-        switch ($notice->object_type) {
-        case Answer::NORMAL:
-        case Answer::ANONYMOUS:
-            $act->verb = $notice->object_type;
-            break;
-        }
-        return true;
-    }
-
-    /**
      * Output our CSS class for QnA notice list elements
      *
      * @param NoticeListItem $nli The item being shown
