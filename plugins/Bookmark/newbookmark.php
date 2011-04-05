@@ -137,12 +137,16 @@ class NewbookmarkAction extends Action
                 throw new ClientException(_m('Bookmark must have an URL.'));
             }
 
+            $options = array();
+
+            ToSelector::fillOptions($this, $options);
 
             $saved = Bookmark::saveNew($this->user->getProfile(),
-                                              $this->title,
-                                              $this->url,
-                                              $this->tags,
-                                              $this->description);
+                                       $this->title,
+                                       $this->url,
+                                       $this->tags,
+                                       $this->description,
+                                       $options);
 
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
