@@ -356,7 +356,7 @@ class QnAPlugin extends MicroAppPlugin
      * @param Notice $notice
      * @param HTMLOutputter $out
      */
-    
+
     function showNotice($notice, $out)
     {
         switch ($notice->object_type) {
@@ -415,7 +415,7 @@ class QnAPlugin extends MicroAppPlugin
     function showNoticeAnswer($notice, $out)
     {
         $user = common_current_user();
-        
+
         $answer   = QnA_Answer::getByNotice($notice);
         $question = $answer->getQuestion();
 

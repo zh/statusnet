@@ -88,6 +88,7 @@ class QnanewquestionAction extends Action
         }
 
         $this->title       = $this->trimmed('title');
+        common_debug("TITLE = " . $this->title);
         $this->description = $this->trimmed('description');
 
         return true;
