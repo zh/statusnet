@@ -496,7 +496,8 @@ class QnAPlugin extends MicroAppPlugin
 
     function onEndShowScripts($action)
     {
-        // XXX maybe some cool shiz here
+        $action->script($this->path('js/qna.js'));
+        return true;
     }
 
     function onEndShowStyles($action)
