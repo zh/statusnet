@@ -45,8 +45,23 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class StreamsNav extends Menu
+class GroupsNav extends Menu
 {
+    protected $user;
+    protected $groups;
+
+    function __construct($action, $user)
+    {
+        parent::__construct($action);
+        $this->user = $user;
+        $this->groups = $user->getGroups();
+    }
+
+    function haveGroups()
+    {
+        return (!empty($this->groups) && ($this->groups->N > 0));
+    }
+
     /**
      * Show the menu
      *
@@ -54,28 +69,24 @@ class StreamsNav extends Menu
      */
     function show()
     {
-        $user         = common_current_user();
-
-        if (empty($user)) {
-            throw new ServerException('Cannot show personal group navigation without a current user.');
-        }
-
         $action = $this->actionName;
 
         $this->out->elementStart('ul', array('class' => 'nav'));
 
-        if (Event::handle('StartStreamsNav', array($this))) {
-            $group = $user->getGroups();
+        if (Event::handle('StartGroupsNav', array($this))) {
             
-            while ($group->fetch()) {
-                $this->out->menuItem(($group->mainpage) ? $group->mainpage : common_local_url('showgroup',
-                                                                                              array('nickname' => $group->nickname)),
-                                     $group->getBestName(),
+            while ($this->groups->fetch()) {
+                $this->out->menuItem(($this->groups->mainpage) ?
+                                     $this->groups->mainpage :
+                                     common_local_url('showgroup',
+                                                      array('nickname' => $this->groups->nickname)),
+                                     $this->groups->getBestName(),
                                      '',
-                                     $action == 'showgroup' && $this->action->arg('nickname') == $group->nickname,
-                                     'nav_timeline_group_'.$group->nickname);
+                                     $action == 'showgroup' && 
+                                     $this->action->arg('nickname') == $this->groups->nickname,
+                                     'nav_timeline_group_'.$this->groups->nickname);
             }
-            Event::handle('EndStreamsNav', array($this));
+            Event::handle('EndGroupsNav', array($this));
         }
 
         $this->out->elementEnd('ul');

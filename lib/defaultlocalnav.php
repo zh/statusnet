@@ -63,8 +63,10 @@ class DefaultLocalNav extends Menu
         $this->submenu(_m('MENU','Public'), $bn);
 
         if (!empty($user)) {
-            $sn = new StreamsNav($this->action);
-            $this->submenu(_m('MENU', 'Streams'), $sn);
+            $sn = new GroupsNav($this->action, $user);
+            if ($sn->haveGroups()) {
+                $this->submenu(_m('MENU', 'Groups'), $sn);
+            }
         }
 
         $this->action->elementEnd('ul');
