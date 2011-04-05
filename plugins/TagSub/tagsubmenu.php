@@ -61,7 +61,7 @@ class TagSubMenu extends Menu
     {
         $this->out->elementStart('ul', array('class' => 'nav'));
 
-        foreach ($tags as $tag) {
+        foreach ($this->tags as $tag) {
                 $this->out->menuItem(common_local_url('tag',
                                                       array('tag' => $tag)),
                                      sprintf('#%s', $tag),

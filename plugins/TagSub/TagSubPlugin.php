@@ -252,15 +252,6 @@ class TagSubPlugin extends Plugin
             $menu->submenu(_m('Tags'), $tagSubMenu);
         }
 
-        foreach ($tags as $tag) {
-                $menu->out->menuItem(common_local_url('tag',
-                                                      array('tag' => $tag)),
-                                     sprintf('#%s', $tag),
-                                     sprintf(_('Notices tagged with %s'), $tag),
-                                     $menu->actionName == 'tag' && $menu->action->arg('tag') == $tag,
-                                     'nav_streams_tag_'.$tag);
-        }
-
         return true;
     }
 
