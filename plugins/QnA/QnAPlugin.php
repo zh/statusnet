@@ -295,9 +295,13 @@ class QnAPlugin extends MicroAppPlugin
         {
         case QnA_Question::OBJECT_TYPE:
             $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
+            $class = 'hentry notice question';
+            if ($nli->notice->scope != 0 && $nli->notice->scope != 1) {
+                $class .= ' limited-scope';
+            }
             $nli->out->elementStart(
                 'li', array(
-                    'class' => 'hentry notice question',
+                    'class' => $class,
                     'id'    => 'notice-' . $id
                 )
             );
