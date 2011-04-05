@@ -48,25 +48,30 @@ class DefaultLocalNav extends Menu
 {
     function show()
     {
-        $this->action->elementStart('ul', array('id' => 'nav_local_default'));
-
         $user = common_current_user();
 
-        if (!empty($user)) {
-            $pn = new PersonalGroupNav($this->action);
-            // TRANS: Menu item in default local navigation panel.
-            $this->submenu(_m('MENU','Home'), $pn);
-        }
+        $this->action->elementStart('ul', array('id' => 'nav_local_default'));
 
-        $bn = new PublicGroupNav($this->action);
-        // TRANS: Menu item in default local navigation panel.
-        $this->submenu(_m('MENU','Public'), $bn);
+        if (Event::handle('StartDefaultLocalNav', array($this, $user))) {
 
-        if (!empty($user)) {
-            $sn = new GroupsNav($this->action, $user);
-            if ($sn->haveGroups()) {
-                $this->submenu(_m('MENU', 'Groups'), $sn);
+            if (!empty($user)) {
+                $pn = new PersonalGroupNav($this->action);
+                // TRANS: Menu item in default local navigation panel.
+                $this->submenu(_m('MENU','Home'), $pn);
             }
+
+            $bn = new PublicGroupNav($this->action);
+            // TRANS: Menu item in default local navigation panel.
+            $this->submenu(_m('MENU','Public'), $bn);
+
+            if (!empty($user)) {
+                $sn = new GroupsNav($this->action, $user);
+                if ($sn->haveGroups()) {
+                    $this->submenu(_m('MENU', 'Groups'), $sn);
+                }
+            }
+
+            Event::handle('EndDefaultLocalNav', array($this, $user));
         }
 
         $this->action->elementEnd('ul');
