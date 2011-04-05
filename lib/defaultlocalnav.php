@@ -67,6 +67,7 @@ class DefaultLocalNav extends Menu
             if (!empty($user)) {
                 $sn = new GroupsNav($this->action, $user);
                 if ($sn->haveGroups()) {
+                    // TRANS: Menu item in default local navigation panel.
                     $this->submenu(_m('MENU', 'Groups'), $sn);
                 }
             }

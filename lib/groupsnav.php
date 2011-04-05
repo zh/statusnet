@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Menu for streams
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class GroupsNav extends Menu
 {
     protected $user;
@@ -74,7 +73,7 @@ class GroupsNav extends Menu
         $this->out->elementStart('ul', array('class' => 'nav'));
 
         if (Event::handle('StartGroupsNav', array($this))) {
-            
+
             while ($this->groups->fetch()) {
                 $this->out->menuItem(($this->groups->mainpage) ?
                                      $this->groups->mainpage :
@@ -82,7 +81,7 @@ class GroupsNav extends Menu
                                                       array('nickname' => $this->groups->nickname)),
                                      $this->groups->getBestName(),
                                      '',
-                                     $action == 'showgroup' && 
+                                     $action == 'showgroup' &&
                                      $this->action->arg('nickname') == $this->groups->nickname,
                                      'nav_timeline_group_'.$this->groups->nickname);
             }

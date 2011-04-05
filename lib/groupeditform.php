@@ -202,10 +202,12 @@ class GroupEditForm extends Form
                 $this->out->elementEnd('li');
             }
             $this->out->elementStart('li');
-            $this->out->checkbox('private', _('Private'), 
+            // TRANS: Checkbox field label on group edit form to mark a group private.
+            $this->out->checkbox('private', _m('LABEL','Private'), 
                                   ($this->out->arg('private')) ? $this->out->arg('private') :
                                  ((!empty($this->group)) ? $this->group->isPrivate() : false),
-                                 _('New members must be approved by admin and all posts are forced to be private'));
+                                 // TRANS: Checkbox field title on group edit form to mark a group private.
+                                 _('New members must be approved by admin and all posts are forced to be private.'));
             $this->out->elementEnd('li');
             Event::handle('EndGroupEditFormData', array($this));
         }
