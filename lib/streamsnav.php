@@ -3,8 +3,8 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Default local nav
- *
+ * Menu for streams
+ * 
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Menu
+ * @category  Cache
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -35,38 +35,49 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Default menu
+ * Menu for streams you follow
  *
- * @category  Menu
+ * @category  General
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class DefaultLocalNav extends Menu
+
+class StreamsNav extends Menu
 {
+    /**
+     * Show the menu
+     *
+     * @return void
+     */
     function show()
     {
-        $this->action->elementStart('ul', array('id' => 'nav_local_default'));
+        $user         = common_current_user();
 
-        $user = common_current_user();
-
-        if (!empty($user)) {
-            $pn = new PersonalGroupNav($this->action);
-            // TRANS: Menu item in default local navigation panel.
-            $this->submenu(_m('MENU','Home'), $pn);
+        if (empty($user)) {
+            throw new ServerException('Cannot show personal group navigation without a current user.');
         }
 
-        $bn = new PublicGroupNav($this->action);
-        // TRANS: Menu item in default local navigation panel.
-        $this->submenu(_m('MENU','Public'), $bn);
+        $action = $this->actionName;
 
-        if (!empty($user)) {
-            $sn = new StreamsNav($this->action);
-            $this->submenu(_m('MENU', 'Streams'), $sn);
+        $this->out->elementStart('ul', array('class' => 'nav'));
+
+        if (Event::handle('StartStreamsNav', array($this))) {
+            $group = $user->getGroups();
+            
+            while ($group->fetch()) {
+                $this->out->menuItem(($group->mainpage) ? $group->mainpage : common_local_url('showgroup',
+                                                                                              array('nickname' => $group->nickname)),
+                                     $group->getBestName(),
+                                     '',
+                                     $action == 'showgroup' && $this->action->arg('nickname') == $group->nickname,
+                                     'nav_timeline_group_'.$group->nickname);
+            }
+            Event::handle('EndStreamsNav', array($this));
         }
 
-        $this->action->elementEnd('ul');
+        $this->out->elementEnd('ul');
     }
 }
