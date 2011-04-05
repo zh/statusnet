@@ -147,7 +147,7 @@ class TagSub extends Managed_DataObject
         $keypart = sprintf('tagsub:by_profile:%d', $profile->id);
         $tagstring = self::cacheGet($keypart);
         
-        if ($tagstring !== false) {
+        if ($tagstring !== false && !empty($tagstring)) {
             $tags = explode(',', $tagstring);
         } else {
             $tagsub = new TagSub();
@@ -155,7 +155,9 @@ class TagSub extends Managed_DataObject
 
             if ($tagsub->find()) {
                 while ($tagsub->fetch()) {
-                    $tags[] = $tagsub->tag;
+                    if (!empty($tagsub->tag)) {
+                        $tags[] = $tagsub->tag;
+                    }
                 }
             }
 

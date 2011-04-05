@@ -62,12 +62,14 @@ class TagSubMenu extends Menu
         $this->out->elementStart('ul', array('class' => 'nav'));
 
         foreach ($this->tags as $tag) {
+            if (!empty($tag)) {
                 $this->out->menuItem(common_local_url('tag',
                                                       array('tag' => $tag)),
                                      sprintf('#%s', $tag),
                                      sprintf(_('Notices tagged with %s'), $tag),
                                      $this->actionName == 'tag' && $this->action->arg('tag') == $tag,
                                      'nav_streams_tag_'.$tag);
+            }
         }
 
         $this->out->elementEnd('ul');
