@@ -47,16 +47,10 @@ if (!defined('STATUSNET')) {
 
 class PublicNoticeStream extends ScopingNoticeStream
 {
-    const THREADED=true;
-
-    /**
-     *
-     * @param boolean $threaded set to true to exclude replies, for later fetching
-     */
-    function __construct($threaded=false)
+    function __construct()
     {
-        parent::__construct(new CachingNoticeStream(new RawPublicNoticeStream($threaded),
-                                                    $threaded ? 'public:threaded' : 'public'));
+        parent::__construct(new CachingNoticeStream(new RawPublicNoticeStream(),
+                                                    'public'));
     }
 }
 
@@ -73,13 +67,6 @@ class PublicNoticeStream extends ScopingNoticeStream
 
 class RawPublicNoticeStream extends NoticeStream
 {
-    var $threaded;
-
-    function __construct($threaded=false)
-    {
-        $this->threaded = $threaded;
-    }
-
     function getNoticeIds($offset, $limit, $since_id, $max_id)
     {
         $notice = new Notice();
@@ -99,9 +86,6 @@ class RawPublicNoticeStream extends NoticeStream
             // -1 == blacklisted, -2 == gateway (i.e. Twitter)
             $notice->whereAdd('is_local !='. Notice::LOCAL_NONPUBLIC);
             $notice->whereAdd('is_local !='. Notice::GATEWAY);
-        }
-        if ($this->threaded) {
-            $notice->whereAdd('reply_to IS NULL');
         }
 
         Notice::addWhereSinceId($notice, $since_id);
