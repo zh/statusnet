@@ -80,6 +80,7 @@ class SearchSubPlugin extends Plugin
         case 'SearchunsubAction':
         case 'SearchsubsAction':
         case 'SearchSubForm':
+        case 'SearchSubMenu':
         case 'SearchUnsubForm':
         case 'SearchSubTrackCommand':
         case 'SearchSubTrackOffCommand':
@@ -318,4 +319,19 @@ class SearchSubPlugin extends Plugin
         // TRANS: Help message for IM/SMS command "tracking"
         $commands["tracking"] = _m('COMMANDHELP', "List all your search subscriptions.");
     }
+
+    function onEndDefaultLocalNav($menu, $user)
+    {
+        $user = common_current_user();
+
+        $searches = SearchSub::forProfile($user->getProfile());
+
+        if (!empty($searches) && count($searches) > 0) {
+            $searchSubMenu = new SearchSubMenu($menu->out, $user, $searches);
+            $menu->submenu(_m('Searches'), $searchSubMenu);
+        }
+
+        return true;
+    }
+
 }
