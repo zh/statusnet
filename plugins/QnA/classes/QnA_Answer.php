@@ -140,7 +140,7 @@ class QnA_Answer extends Managed_DataObject
     {
         $answer = self::staticGet('uri', $notice->uri);
         if (empty($answer)) {
-            throw new Exception("No answer with URI {$this->notice->uri}");
+            throw new Exception("No answer with URI {$notice->uri}");
         }
         return $answer;
     }
@@ -205,16 +205,31 @@ class QnA_Answer extends Managed_DataObject
     {
         $notice = $question->getNotice();
 
-        $fmt   = '<span class="answer_author"><a href="%1$s">answer</a> by <a href="%2$s">%3$s</a></span>';
-        $fmt  .= '<span class="answer_content">%4$s</span>';
+        $out = new XMLStringer();
 
-        return sprintf(
-            $fmt,
-            htmlspecialchars($notice->bestUrl()),
-            htmlspecialchars($profile->profileurl),
-            htmlspecialchars($profile->getBestName()),
-            htmlspecialchars($answer->content)
-        );
+        $cls = array('qna_answer');
+        if (!empty($answer->best)) {
+            $cls[] = 'best';
+        }
+
+        $out->elementStart('p', array('class' => implode(' ', $cls)));
+        $out->elementStart('span', 'answer-content');
+        $out->raw(QnAPlugin::shorten($answer->content, $notice));
+        $out->elementEnd('span');
+
+        if (!empty($answer->revisions)) {
+            $out->elementstart('span', 'answer-revisions');
+            $out->text(
+                htmlspecialchars(
+                    sprintf(_m('%s revisions'), $answer->revisions)
+                )
+            );
+            $out->elementEnd('span');
+        }
+
+        $out->elementEnd('p');
+
+        return $out->getString();
     }
 
     static function toString($profile, $question, $answer)

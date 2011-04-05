@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Add a new Question
+ * Close a question to further answers
  *
  * PHP version 5
  *
@@ -34,22 +34,23 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Add a new Question
+ * Close a question to new answers
  *
- * @category  Plugin
+ * @category  QnA
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class QnanewquestionAction extends Action
+class QnaclosequestionAction extends Action
 {
     protected $user        = null;
     protected $error       = null;
     protected $complete    = null;
-    protected $title       = null;
-    protected $description = null;
+
+    protected $question    = null;
+    protected $answer      = null;
 
     /**
      * Returns the title of the action
@@ -58,8 +59,8 @@ class QnanewquestionAction extends Action
      */
     function title()
     {
-        // TRANS: Title for Question page.
-        return _m('New question');
+        // TRANS: Page title for close a question
+        return _m('Close question');
     }
 
     /**
@@ -72,13 +73,16 @@ class QnanewquestionAction extends Action
     function prepare($argarray)
     {
         parent::prepare($argarray);
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true);
+        }
 
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            // TRANS: Client exception thrown trying to create a Question while not logged in.
+            // TRANS: Client exception thrown trying to close a question when not logged in
             throw new ClientException(
-                _m('You must be logged in to post a question.'),
+                _m("You must be logged in to close a question."),
                 403
             );
         }
@@ -87,9 +91,12 @@ class QnanewquestionAction extends Action
             $this->checkSessionToken();
         }
 
-        $this->title       = $this->trimmed('title');
-        common_debug("TITLE = " . $this->title);
-        $this->description = $this->trimmed('description');
+        $id = substr($this->trimmed('id'), 9);
+        $this->question = QnA_Question::staticGet('id', $id);
+        if (empty($this->question)) {
+            // TRANS: Client exception thrown trying to respond to a non-existing question.
+            throw new ClientException(_m('Invalid or missing question.'), 404);
+        }
 
         return true;
     }
@@ -106,7 +113,7 @@ class QnanewquestionAction extends Action
         parent::handle($argarray);
 
         if ($this->isPost()) {
-            $this->newQuestion();
+            $this->closeQuestion();
         } else {
             $this->showPage();
         }
@@ -115,26 +122,25 @@ class QnanewquestionAction extends Action
     }
 
     /**
-     * Add a new Question
+     * Close a question
      *
      * @return void
      */
-    function newQuestion()
+    function closeQuestion()
     {
-        if ($this->boolean('ajax')) {
-            StatusNet::setApi(true);
-        }
+
+        $user = common_current_user();
+
         try {
-            if (empty($this->title)) {
-                // TRANS: Client exception thrown trying to create a question without a title.
-                throw new ClientException(_m('Question must have a title.'));
+
+            if ($user->id != $this->question->profile_id) {
+                throw new Exception(_m('You didn\'t ask this question.'));
             }
 
-            $saved = QnA_Question::saveNew(
-                $this->user->getProfile(),
-                $this->title,
-                $this->description
-            );
+            $orig = clone($this->question);
+            $this->question->closed = 1;
+            $this->question->update($orig);
+            
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
             $this->showPage();
@@ -146,36 +152,21 @@ class QnanewquestionAction extends Action
             $this->xw->startDocument('1.0', 'UTF-8');
             $this->elementStart('html');
             $this->elementStart('head');
-            // TRANS: Page title after sending a notice.
-            $this->element('title', null, _m('Question posted'));
+            // TRANS: Page title after sending an answer.
+            $this->element('title', null, _m('Answers'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->showNotice($saved);
+            $form = new QnashowquestionForm($this, $this->question);
+            $form->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
-            common_redirect($saved->bestUrl(), 303);
+            common_redirect($this->question->bestUrl(), 303);
         }
     }
 
     /**
-     * Output a notice
-     *
-     * Used to generate the notice code for Ajax results.
-     *
-     * @param Notice $notice Notice that was saved
-     *
-     * @return void
-     */
-    function showNotice($notice)
-    {
-        class_exists('NoticeList'); // @fixme hack for autoloader
-        $nli = new NoticeListItem($notice, $this);
-        $nli->show();
-    }
-
-    /**
-     * Show the Question form
+     * Show the close question form
      *
      * @return void
      */
@@ -185,15 +176,7 @@ class QnanewquestionAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new QuestionForm(
-            $this,
-            $this->title,
-            $this->description
-        );
-
-        $form->show();
-
-        return;
+        // blar
     }
 
     /**

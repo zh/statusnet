@@ -342,6 +342,14 @@ class Notice extends Memcached_DataObject
         $notice->uri = $uri;
         $notice->url = $url;
 
+        // Get the groups here so we can figure out replies and such
+
+        if (!isset($groups)) {
+            $groups = self::groupsFromText($notice->content, $profile);
+        }
+
+        $reply = null;
+
         // Handle repeat case
 
         if (isset($repeat_of)) {
@@ -379,18 +387,35 @@ class Notice extends Memcached_DataObject
 
             $notice->repeat_of = $repeat_of;
         } else {
-            $notice->reply_to = self::getReplyTo($reply_to, $profile_id, $source, $final);
-        }
+            $reply = self::getReplyTo($reply_to, $profile_id, $source, $final);
 
-        if (!empty($notice->reply_to)) {
-            $reply = Notice::staticGet('id', $notice->reply_to);
-            if (!$reply->inScope($profile)) {
-                // TRANS: Client error displayed when trying to reply to a notice a the target has no access to.
-                // TRANS: %1$s is a user nickname, %2$d is a notice ID (number).
-                throw new ClientException(sprintf(_('%1$s has no access to notice %2$d.'),
-                                                  $profile->nickname, $reply->id), 403);
+            if (!empty($reply)) {
+
+                if (!$reply->inScope($profile)) {
+                    // TRANS: Client error displayed when trying to reply to a notice a the target has no access to.
+                    // TRANS: %1$s is a user nickname, %2$d is a notice ID (number).
+                    throw new ClientException(sprintf(_('%1$s has no access to notice %2$d.'),
+                                                      $profile->nickname, $reply->id), 403);
+                }
+
+                $notice->reply_to     = $reply->id;
+                $notice->conversation = $reply->conversation;
+
+                // If the original is private to a group, and notice has no group specified,
+                // make it to the same group(s)
+
+                if (empty($groups) && ($reply->scope | Notice::GROUP_SCOPE)) {
+                    $groups = array();
+                    $replyGroups = $reply->getGroups();
+                    foreach ($replyGroups as $group) {
+                        if ($profile->isMember($group)) {
+                            $groups[] = $group->id;
+                        }
+                    }
+                }
+
+                // Scope set below
             }
-            $notice->conversation = $reply->conversation;
         }
 
         if (!empty($lat) && !empty($lon)) {
@@ -416,7 +441,11 @@ class Notice extends Memcached_DataObject
         }
 
         if (is_null($scope)) { // 0 is a valid value
-            $notice->scope = common_config('notice', 'defaultscope');
+            if (!empty($reply)) {
+                $notice->scope = $reply->scope;
+            } else {
+                $notice->scope = common_config('notice', 'defaultscope');
+            }
         } else {
             $notice->scope = $scope;
         }
@@ -430,6 +459,18 @@ class Notice extends Memcached_DataObject
                 ($notice->scope == Notice::PUBLIC_SCOPE ||
                  $notice->scope == Notice::SITE_SCOPE)) {
                 $notice->scope |= Notice::FOLLOWER_SCOPE;
+            }
+        }
+
+        // Force the scope for private groups
+
+        foreach ($groups as $groupId) {
+            $group = User_group::staticGet('id', $groupId);
+            if (!empty($group)) {
+                if ($group->force_scope) {
+                    $notice->scope |= Notice::GROUP_SCOPE;
+                    break;
+                }
             }
         }
 
@@ -496,11 +537,9 @@ class Notice extends Memcached_DataObject
 
         // Note: groups may save tags, so must be run after tags are saved
         // to avoid errors on duplicates.
-        if (isset($groups)) {
-            $notice->saveKnownGroups($groups);
-        } else {
-            $notice->saveGroups();
-        }
+        // Note: groups should always be set.
+
+        $notice->saveKnownGroups($groups);
 
         if (isset($peopletags)) {
             $notice->saveProfileTags($peopletags);
@@ -992,7 +1031,15 @@ class Notice extends Memcached_DataObject
                     common_log_db_error($gi, 'INSERT', __FILE__);
                 }
 
-                // @fixme should we save the tags here or not?
+                // we automatically add a tag for every group name, too
+
+                $tag = Notice_tag::pkeyGet(array('tag' => common_canonical_tag($group->nickname),
+                                                 'notice_id' => $this->id));
+
+                if (is_null($tag)) {
+                    $this->saveTag($group->nickname);
+                }
+
                 $groups[] = clone($group);
             } else {
                 common_log(LOG_ERR, "Local delivery to group id $id skipped, doesn't exist");
@@ -1014,36 +1061,19 @@ class Notice extends Memcached_DataObject
             return array();
         }
 
-        $groups = array();
-
-        /* extract all !group */
-        $count = preg_match_all('/(?:^|\s)!(' . Nickname::DISPLAY_FMT . ')/',
-                                strtolower($this->content),
-                                $match);
-        if (!$count) {
-            return $groups;
-        }
-
         $profile = $this->getProfile();
+
+        $groups = self::groupsFromText($this->content, $profile);
 
         /* Add them to the database */
 
-        foreach (array_unique($match[1]) as $nickname) {
+        foreach ($groups as $group) {
             /* XXX: remote groups. */
-            $group = User_group::getForNickname($nickname, $profile);
 
             if (empty($group)) {
                 continue;
             }
 
-            // we automatically add a tag for every group name, too
-
-            $tag = Notice_tag::pkeyGet(array('tag' => common_canonical_tag($nickname),
-                                             'notice_id' => $this->id));
-
-            if (is_null($tag)) {
-                $this->saveTag($nickname);
-            }
 
             if ($profile->isMember($group)) {
 
@@ -1639,7 +1669,7 @@ class Notice extends Memcached_DataObject
         if (!empty($reply_to)) {
             $reply_notice = Notice::staticGet('id', $reply_to);
             if (!empty($reply_notice)) {
-                return $reply_to;
+                return $reply_notice;
             }
         }
 
@@ -1678,8 +1708,10 @@ class Notice extends Memcached_DataObject
         $last = $recipient->getCurrentNotice();
 
         if (!empty($last)) {
-            return $last->id;
+            return $last;
         }
+
+        return null;
     }
 
     static function maxContent()
@@ -2294,5 +2326,28 @@ class Notice extends Memcached_DataObject
         }
 
         return true;
+    }
+
+    static function groupsFromText($text, $profile)
+    {
+        $groups = array();
+
+        /* extract all !group */
+        $count = preg_match_all('/(?:^|\s)!(' . Nickname::DISPLAY_FMT . ')/',
+                                strtolower($text),
+                                $match);
+
+        if (!$count) {
+            return $groups;
+        }
+
+        foreach (array_unique($match[1]) as $nickname) {
+            $group = User_group::getForNickname($nickname, $profile);
+            if (!empty($group) && $profile->isMember($group)) {
+                $groups[] = $group->id;
+            }
+        }
+
+        return $groups;
     }
 }

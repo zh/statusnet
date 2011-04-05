@@ -91,7 +91,7 @@ class QnareviseanswerForm extends Form
      */
     function action()
     {
-        return common_local_url('qnareviseanswer', array('id' => $this->question->id));
+        return common_local_url('qnareviseanswer');
     }
 
     /**
@@ -101,12 +101,11 @@ class QnareviseanswerForm extends Form
      */
     function formData()
     {
-        $question = $this->question;
-        $out      = $this->out;
-        $id       = "question-" . $question->id;
-
-        $out->element('p', 'Your answer to:', $question->title);
-        $out->textarea('answerText', 'You said:', $this->answer->content);
+        $out = $this->out;
+        $out->element('p', 'revise-answer', 'Your answer');
+        $id = "answer-" . $this->answer->id;
+        $out->hidden('id', $id);
+        $out->textarea('answer', 'answer', $this->answer->content);
     }
 
     /**

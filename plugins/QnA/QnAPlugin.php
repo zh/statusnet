@@ -81,14 +81,17 @@ class QnAPlugin extends MicroAppPlugin
         case 'QnanewquestionAction':
         case 'QnanewanswerAction':
         case 'QnashowquestionAction':
+        case 'QnaclosequestionAction':
         case 'QnashowanswerAction':
         case 'QnareviseanswerAction':
         case 'QnavoteAction':
             include_once $dir . '/actions/'
                 . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
-        case 'QnaquestionForm':
-        case 'QnaanswerForm':
+        case 'QnanewquestionForm':
+        case 'QnashowquestionForm':
+        case 'QnanewanswerForm':
+        case 'QnashowanswerForm':
         case 'QnareviseanswerForm':
         case 'QnavoteForm':
             include_once $dir . '/lib/' . strtolower($cls).'.php';
@@ -121,8 +124,16 @@ class QnAPlugin extends MicroAppPlugin
             array('action' => 'qnanewquestion')
         );
         $m->connect(
+            'answer/qna/closequestion',
+            array('action' => 'qnaclosequestion')
+        );
+        $m->connect(
             'main/qna/newanswer',
             array('action' => 'qnanewanswer')
+        );
+        $m->connect(
+            'main/qna/reviseanswer',
+            array('action' => 'qnareviseanswer')
         );
         $m->connect(
             'question/vote/:id',
@@ -269,20 +280,55 @@ class QnAPlugin extends MicroAppPlugin
     }
 
     /**
-     * Change the verb on Answer notices
+     * Output our CSS class for QnA notice list elements
      *
-     * @param Notice $notice
+     * @param NoticeListItem $nli The item being shown
      *
-     * @return ActivityObject
+     * @return boolean hook value
      */
 
-    function onEndNoticeAsActivity($notice, &$act) {
-        switch ($notice->object_type) {
-        case Answer::NORMAL:
-        case Answer::ANONYMOUS:
-            $act->verb = $notice->object_type;
+    function onStartOpenNoticeListItemElement($nli)
+    {
+        $type = $nli->notice->object_type;
+
+        switch($type)
+        {
+        case QnA_Question::OBJECT_TYPE:
+            $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
+            $nli->out->elementStart(
+                'li', array(
+                    'class' => 'hentry notice question',
+                    'id'    => 'notice-' . $id
+                )
+            );
+            Event::handle('EndOpenNoticeListItemElement', array($nli));
+            return false;
             break;
+        case QnA_Answer::OBJECT_TYPE:
+            $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
+
+            $cls = array('hentry', 'notice', 'answer');
+
+            $answer = QnA_Answer::staticGet('uri', $notice->uri);
+
+            if (!empty($answer) && !empty($answer->best)) {
+                $cls[] = 'best';
+            }
+
+            $nli->out->elementStart(
+                'li',
+                array(
+                    'class' => implode(' ', $cls),
+                    'id'    => 'notice-' . $id
+                )
+            );
+            Event::handle('EndOpenNoticeListItemElement', array($nli));
+            return false;
+            break;
+        default:
+            return true;
         }
+
         return true;
     }
 
@@ -292,6 +338,7 @@ class QnAPlugin extends MicroAppPlugin
      * @param Notice $notice
      * @param HTMLOutputter $out
      */
+
     function showNotice($notice, $out)
     {
         switch ($notice->object_type) {
@@ -319,20 +366,24 @@ class QnAPlugin extends MicroAppPlugin
         $nli = new NoticeListItem($notice, $out);
         $nli->showNotice();
 
-        $out->elementStart('div', array('class' => 'entry-content question-content'));
+        $out->elementStart('div', array('class' => 'entry-content question-description'));
+
         $question = QnA_Question::getByNotice($notice);
 
-        if ($question) {
-            if ($user) {
+        if (!empty($question)) {
+            if (empty($user)) {
+                $form = new QnashowquestionForm($out, $question);
+                $form->show();
+            } else {
                 $profile = $user->getProfile();
                 $answer = $question->getAnswer($profile);
-                if ($answer) {
-                    // User has already answer; show the results.
-                    $form = new QnareviseanswerForm($answer, $out);
+                if (empty($answer)) {
+                    $form = new QnanewanswerForm($out, $question);
+                    $form->show();
                 } else {
-                    $form = new QnaanswerForm($question, $out);
+                    $form = new QnashowquestionForm($out, $question);
+                    $form->show();
                 }
-                $form->show();
             }
         } else {
             $out->text(_m('Question data is missing.'));
@@ -347,12 +398,45 @@ class QnAPlugin extends MicroAppPlugin
     {
         $user = common_current_user();
 
-        // @hack we want regular rendering, then just add stuff after that
+        $answer   = QnA_Answer::getByNotice($notice);
+        $question = $answer->getQuestion();
+
         $nli = new NoticeListItem($notice, $out);
         $nli->showNotice();
 
+        $out->elementStart('div', array('class' => 'entry-content answer-content'));
+
+        if (!empty($answer)) {
+            $form = new QnashowanswerForm($out, $answer);
+            $form->show();
+        } else {
+            $out->text(_m('Answer data is missing.'));
+        }
+
+        $out->elementEnd('div');
+
         // @fixme
         $out->elementStart('div', array('class' => 'entry-content'));
+    }
+
+    static function shorten($content, $notice)
+    {
+        $short = null;
+
+        if (Notice::contentTooLong($content)) {
+            common_debug("content too long");
+            $max = Notice::maxContent();
+            $short = mb_substr($content, 0, $max - 1);
+            $short .= sprintf(
+                '<a href="%s" rel="more" title="%s">…</a>',
+                $notice->uri,
+                _m('more')
+            );
+        } else {
+            $short = $content;
+        }
+
+        return $short;
     }
 
     /**
@@ -364,7 +448,7 @@ class QnAPlugin extends MicroAppPlugin
 
     function entryForm($out)
     {
-        return new QnaquestionForm($out);
+        return new QnanewquestionForm($out);
     }
 
     /**
@@ -394,7 +478,8 @@ class QnAPlugin extends MicroAppPlugin
 
     function onEndShowScripts($action)
     {
-        // XXX maybe some cool shiz here
+        $action->script($this->path('js/qna.js'));
+        return true;
     }
 
     function onEndShowStyles($action)

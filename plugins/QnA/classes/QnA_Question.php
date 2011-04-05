@@ -201,66 +201,38 @@ class QnA_Question extends Managed_DataObject
 
     function asHTML()
     {
-        return self::toHTML(
-            $this->getProfile(),
-            $this,
-            $this->getAnswers()
-        );
+        return self::toHTML($this->getProfile(), $this);
     }
 
     function asString()
     {
-        return self::toString(
-            $this->getProfile(),
-            $this,
-            $this->getAnswers()
-        );
+        return self::toString($this->getProfile(), $this);
     }
 
-    static function toHTML($profile, $question, $answer)
+    static function toHTML($profile, $question)
     {
         $notice = $question->getNotice();
 
-        $fmt =  '<div class="qna_question">';
-        $fmt .= '<span class="question_title"><a href="%1$s">%2$s</a></span>';
-        $fmt .= '<span class="question_description">%3$s</span>';
-        $fmt .= '<span class="question_author">asked by <a href="%4$s">%5$s</a></span>';
-        $fmt .= '</div>';
+        $out = new XMLStringer();
 
-        $q = sprintf(
-            $fmt,
-            htmlspecialchars($notice->bestUrl()),
-            htmlspecialchars($question->title),
-            htmlspecialchars($question->description),
-            htmlspecialchars($profile->profileurl),
-            htmlspecialchars($profile->getBestName())
-        );
-
-        $ans = array();
-
-        $ans[] = '<div class="qna_answers">';
-
-        while($answer->fetch()) {
-            $ans[] = $answer->asHTML();
+        if (!empty($question->description)) {
+            $out->elementStart('span', 'question-description');
+            $out->raw(QnAPlugin::shorten($question->description, $notice));
+            $out->elementEnd('span');
         }
 
-        $ans[] .= '</div>';
+        if (!empty($question->closed)) {
+            $out->elementStart('span', 'question-closed');
+            $out->text(_m('This question is closed.'));
+            $out->elementEnd('span');
+        }
 
-        return $q . implode($ans);
+        return $out->getString();
     }
 
     static function toString($profile, $question, $answers)
     {
-        $fmt = _m(
-            '%1$s asked the question "%2$s": %3$s'
-        );
-
-        return sprintf(
-            $fmt,
-            htmlspecialchars($profile->getBestName()),
-            htmlspecialchars($question->title),
-            htmlspecialchars($question->description)
-        );
+        return sprintf(htmlspecialchars($question->description));
     }
 
     /**
@@ -301,15 +273,17 @@ class QnA_Question extends Managed_DataObject
         common_log(LOG_DEBUG, "Saving question: $q->id $q->uri");
         $q->insert();
 
-        // TRANS: Notice content creating a question.
-        // TRANS: %1$s is the title of the question, %2$s is a link to the question.
-        $content  = sprintf(
-            _m('question: %1$s %2$s'),
-            $title,
-            $q->uri
-        );
+        if (Notice::contentTooLong($q->title . ' ' . $q->uri)) {
+            $max       = Notice::maxContent();
+            $uriLen    = mb_strlen($q->uri);
+            $targetLen = $max - ($uriLen + 15);
+            $title = mb_substr($q->title, 0, $targetLen) . '…';
 
-        $link = '<a href="' . htmlspecialchars($q->uri) . '">' . htmlspecialchars($title) . '</a>';
+        }
+
+        $content = $title . ' ' . $q->uri;
+
+        $link = '<a href="' . htmlspecialchars($q->uri) . '">' . htmlspecialchars($q->title) . '</a>';
         // TRANS: Rendered version of the notice content creating a question.
         // TRANS: %s a link to the question as link description.
         $rendered = sprintf(_m('Question: %s'), $link);
