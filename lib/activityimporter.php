@@ -104,7 +104,7 @@ class ActivityImporter extends QueueHandler
         if ($activity->objects[0]->id == $author->id) {
             if (!$this->trusted) {
                 // TRANS: Client exception thrown when trying to force a subscription for an untrusted user.
-                throw new ClientException(_("Cannot force subscription for untrusted user."));
+                throw new ClientException(_('Cannot force subscription for untrusted user.'));
             }
 
             $other = $activity->actor;
@@ -113,8 +113,8 @@ class ActivityImporter extends QueueHandler
             if (!empty($otherUser)) {
                 $otherProfile = $otherUser->getProfile();
             } else {
-                // TRANS: Client exception thrown when trying to for a remote user to subscribe.
-                throw new Exception(_("Cannot force remote user to subscribe."));
+                // TRANS: Client exception thrown when trying to force a remote user to subscribe.
+                throw new Exception(_('Cannot force remote user to subscribe.'));
             }
 
             // XXX: don't do this for untrusted input!
@@ -129,13 +129,13 @@ class ActivityImporter extends QueueHandler
 
             if (empty($otherProfile)) {
                 // TRANS: Client exception thrown when trying to subscribe to an unknown profile.
-                throw new ClientException(_("Unknown profile."));
+                throw new ClientException(_('Unknown profile.'));
             }
 
             Subscription::start($profile, $otherProfile);
         } else {
             // TRANS: Client exception thrown when trying to import an event not related to the importing user.
-            throw new Exception(_("This activity seems unrelated to our user."));
+            throw new Exception(_('This activity seems unrelated to our user.'));
         }
     }
 
@@ -151,7 +151,7 @@ class ActivityImporter extends QueueHandler
             $oprofile = Ostatus_profile::ensureActivityObjectProfile($activity->objects[0]);
             if (!$oprofile->isGroup()) {
                 // TRANS: Client exception thrown when trying to join a remote group that is not a group.
-                throw new ClientException(_("Remote profile is not a group!"));
+                throw new ClientException(_('Remote profile is not a group!'));
             }
             $group = $oprofile->localGroup();
         }
@@ -201,7 +201,7 @@ class ActivityImporter extends QueueHandler
                 }
             } else {
                 // TRANS: Client exception thrown when trying to overwrite the author information for a non-trusted user during import.
-                throw new ClientException(_("Not overwriting author info for non-trusted user."));
+                throw new ClientException(_('Not overwriting author info for non-trusted user.'));
             }
         }
 
@@ -217,7 +217,7 @@ class ActivityImporter extends QueueHandler
             // @fixme fetch from $sourceUrl?
             // TRANS: Client exception thrown when trying to import a notice without content.
             // TRANS: %s is the notice URI.
-            throw new ClientException(sprintf(_("No content for notice %s."),$sourceUri));
+            throw new ClientException(sprintf(_('No content for notice %s.'),$sourceUri));
         }
 
         // Get (safe!) HTML and text versions of the content
