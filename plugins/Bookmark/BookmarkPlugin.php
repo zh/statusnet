@@ -294,7 +294,11 @@ class BookmarkPlugin extends MicroAppPlugin
         $nb = Bookmark::getByNotice($nli->notice);
         if (!empty($nb)) {
             $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
-            $nli->out->elementStart('li', array('class' => 'hentry notice bookmark',
+            $class = 'hentry notice bookmark';
+            if ($nli->notice->scope != 0 && $nli->notice->scope != 1) {
+                $class .= ' limited-scope';
+            }
+            $nli->out->elementStart('li', array('class' => $class,
                                                  'id' => 'notice-' . $id));
             Event::handle('EndOpenNoticeListItemElement', array($nli));
             return false;
