@@ -125,9 +125,7 @@ class QnashowanswerForm extends Form
             'answer-' . $this->answer->id
         );
 
-
-
-        // $this->out->raw($this->answer->asHTML());
+        $this->out->raw($this->answer->asHTML());
     }
 
     /**
