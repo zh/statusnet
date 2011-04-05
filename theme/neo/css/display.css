@@ -286,7 +286,7 @@ address {
     padding-bottom: 15px;
 }
 
-#input_form_status {
+#input_form_status, #input_form_direct {
     padding-bottom: 45px;
 }
 
@@ -333,6 +333,10 @@ address {
     font-size: 1.2em;
 }
 
+#form_notice-direct.form_notice textarea {
+    width: 498px;
+}
+
 .form_notice label.notice_data-attach {
     top: 0px;
     right: 0px;
@@ -353,6 +357,11 @@ address {
     font-size: 0.8em; 
     height: 1em;
     z-index: 99;
+}
+
+#form_notice-direct.form_notice .count {
+    top: 80px;
+    right: 10px;
 }
 
 .form_notice #notice_action-submit {
@@ -395,6 +404,52 @@ address {
 
 .input_form fieldset fieldset {
     margin-bottom: 10px !important;
+}
+
+.to-selector { 
+    padding-top: 15px;
+    z-index: 99;
+}
+
+.form_settings label[for=notice_to] {
+    margin-left: 100px;
+    margin-right: 5px;
+}
+
+.checkbox-wrapper {
+    padding: 2px;
+    clear: left;
+    display: block;
+    margin-left: 26%;
+}
+
+.form_notice .checkbox-wrapper {
+    display: inline;
+    margin-left: 10px;
+}
+
+.form_settings .checkbox-wrapper label.checkbox {
+    margin-left: 0px;
+    margin-top: 6px;
+    line-height: 1.2em;
+    left: -3px;
+}
+
+.checkbox-wrapper #notice_private {
+    display:none;
+}
+
+.checkbox-wrapper.unchecked label.checkbox {
+    padding-left: 20px;
+    background: url(../images/lock_open.png) no-repeat 0px 0px;
+    opacity: 0.6;
+}
+
+.checkbox-wrapper.checked label.checkbox {
+    padding-left: 20px;
+    background: url(../images/lock.png) no-repeat 0px 0px;
+    color: red;
+    opacity: 1;
 }
 
 #aside_primary {
@@ -1244,6 +1299,20 @@ table.profile_list tr.alt {
     background: -moz-linear-gradient(top, #FB6104 , #fc8035);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FB6104), color-stop(100%,#fc8035));
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FB6104', endColorstr='#fc8035',GradientType=0 );
+}
+
+/* Limited-scope specific styles */
+
+.limited-scope .entry-content .timestamp {
+    padding-left: 20px;
+    position: relative;
+}
+
+.limited-scope .entry-content .timestamp:before {
+    content: url(../images/lock.png);
+    position: absolute;
+    top: -2px;
+    left: 0px;
 }
 
 /* QnA specific styles */
