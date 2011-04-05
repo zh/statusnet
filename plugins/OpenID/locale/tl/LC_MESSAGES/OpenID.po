@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:37:49+0000\n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
+"PO-Revision-Date: 2011-04-03 23:15:52+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-03 17:46:02+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-POT-Import-Date: 2011-04-03 13:41:42+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -171,9 +171,24 @@ msgstr "Lumikha ng isang bagong tagagamit na may ganitong palayaw."
 msgid "New nickname"
 msgstr "Bagong palayaw"
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr ""
 "1 hanggang 64 maliliit na mga titik o mga bilang, walang bantas o mga patlang"
+
+msgid "Email"
+msgstr ""
+
+msgid "Used only for updates, announcements, and password recovery."
+msgstr ""
+
+#. TRANS: OpenID plugin link text.
+#. TRANS: %s is a link to a licese with the license name as link text.
+#, php-format
+msgid ""
+"My text and files are available under %s except this private data: password, "
+"email address, IM address, and phone number."
+msgstr ""
 
 #. TRANS: Button label in form in which to create a new user on the site for an OpenID.
 msgctxt "BUTTON"
@@ -328,7 +343,7 @@ msgstr ""
 
 msgid "Invalid team name. Max length is 255 characters."
 msgstr ""
-"Hindi tanggap ng pangalan ng pangkat. Pinakamataas na haba ay 255 mga "
+"Hindi tanggap na pangalan ng pangkat. Pinakamataas na haba ay 255 mga "
 "panitik."
 
 msgid "Trusted provider"
@@ -389,10 +404,14 @@ msgstr ""
 "BABALA: hindi pinagagana ang pagpapatunay ng hudyat para sa lahat ng mga "
 "tagagamit!"
 
-msgid "Save OpenID settings"
+msgid "Save"
+msgstr ""
+
+#, fuzzy
+msgid "Save OpenID settings."
 msgstr "Sagipin ang mga katakdaan ng OpenID"
 
-#. TRANS: Client error message
+#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
 msgstr "Hindi nakalagda."
 

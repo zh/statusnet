@@ -185,6 +185,15 @@ class EditgroupAction extends GroupDesignAction
             $description = $this->trimmed('description');
             $location    = $this->trimmed('location');
             $aliasstring = $this->trimmed('aliases');
+            $private     = $this->boolean('private');
+
+            if ($private) {
+                $force_scope = 1;
+                $join_policy = User_group::JOIN_POLICY_MODERATE;
+            } else {
+                $force_scope = 0;
+                $join_policy = User_group::JOIN_POLICY_OPEN;
+            }
 
             if ($this->nicknameExists($nickname)) {
                 // TRANS: Group edit form validation error.
@@ -265,6 +274,8 @@ class EditgroupAction extends GroupDesignAction
             $this->group->description = $description;
             $this->group->location    = $location;
             $this->group->mainpage    = common_local_url('showgroup', array('nickname' => $nickname));
+            $this->group->join_policy = $join_policy;
+            $this->group->force_scope = $force_scope;
 
             $result = $this->group->update($orig);
 

@@ -100,10 +100,12 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowHTML', array($this))) {
             $this->startHTML();
+            $this->flush();
             Event::handle('EndShowHTML', array($this));
         }
         if (Event::handle('StartShowHead', array($this))) {
             $this->showHead();
+            $this->flush();
             Event::handle('EndShowHead', array($this));
         }
         if (Event::handle('StartShowBody', array($this))) {
@@ -163,7 +165,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->element('title', null,
                        // TRANS: Page title. %1$s is the title, %2$s is the site name.
-                       sprintf(_("%1\$s - %2\$s"),
+                       sprintf(_('%1$s - %2$s'),
                                $this->title(),
                                common_config('site', 'name')));
     }
@@ -179,7 +181,7 @@ class Action extends HTMLOutputter // lawsuit
     function title()
     {
         // TRANS: Page title for a page without a title set.
-        return _("Untitled page");
+        return _('Untitled page');
     }
 
     /**
@@ -471,11 +473,14 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'wrap'));
         if (Event::handle('StartShowHeader', array($this))) {
             $this->showHeader();
+            $this->flush();
             Event::handle('EndShowHeader', array($this));
         }
         $this->showCore();
+        $this->flush();
         if (Event::handle('StartShowFooter', array($this))) {
             $this->showFooter();
+            $this->flush();
             Event::handle('EndShowFooter', array($this));
         }
         $this->elementEnd('div');
@@ -604,17 +609,16 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showNoticeForm()
     {
-        $tabs = array('status' => _('Status'));
+        // TRANS: Tab on the notice form.
+        $tabs = array('status' => _m('TAB','Status'));
 
         $this->elementStart('div', 'input_forms');
 
         if (Event::handle('StartShowEntryForms', array(&$tabs))) {
-
             $this->elementStart('ul', array('class' => 'nav',
                                             'id' => 'input_form_nav'));
 
             foreach ($tabs as $tag => $title) {
-
                 $attrs = array('id' => 'input_form_nav_'.$tag,
                                'class' => 'input_form_nav_tab');
 
@@ -642,7 +646,6 @@ class Action extends HTMLOutputter // lawsuit
             $this->elementEnd('div');
 
             foreach ($tabs as $tag => $title) {
-
                 $attrs = array('class' => 'input_form',
                                'id' => 'input_form_'.$tag);
 
@@ -652,7 +655,8 @@ class Action extends HTMLOutputter // lawsuit
 
                 if (Event::handle('StartMakeEntryForm', array($tag, $this, &$form))) {
                     if ($tag == 'status') {
-                        $form = new NoticeForm($this);
+                        $options = $this->noticeFormOptions();
+                        $form = new NoticeForm($this, $options);
                     }
                     Event::handle('EndMakeEntryForm', array($tag, $this, $form));
                 }
@@ -666,6 +670,11 @@ class Action extends HTMLOutputter // lawsuit
         }
 
         $this->elementEnd('div');
+    }
+
+    function noticeFormOptions()
+    {
+        return array();
     }
 
     /**
@@ -695,14 +704,17 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'site_nav_local_views_wrapper'));
         if (Event::handle('StartShowLocalNavBlock', array($this))) {
             $this->showLocalNavBlock();
+            $this->flush();
             Event::handle('EndShowLocalNavBlock', array($this));
         }
         if (Event::handle('StartShowContentBlock', array($this))) {
             $this->showContentBlock();
+            $this->flush();
             Event::handle('EndShowContentBlock', array($this));
         }
         if (Event::handle('StartShowAside', array($this))) {
             $this->showAside();
+            $this->flush();
             Event::handle('EndShowAside', array($this));
         }
         $this->elementEnd('div');

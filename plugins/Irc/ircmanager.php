@@ -244,7 +244,7 @@ class IrcManager extends ImManager {
                     if (!$result) {
                         common_log_db_error($confirm, 'DELETE', __FILE__);
                         // TRANS: Server error thrown on database error canceling IM address confirmation.
-                        $this->serverError(_('Couldn\'t delete confirmation.'));
+                        $this->serverError(_m('Could not delete confirmation.'));
                         return;
                     }
                 }

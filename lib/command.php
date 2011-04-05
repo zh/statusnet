@@ -352,10 +352,7 @@ class JoinCommand extends Command
         }
 
         try {
-            if (Event::handle('StartJoinGroup', array($group, $cur))) {
-                Group_member::join($group->id, $cur->id);
-                Event::handle('EndJoinGroup', array($group, $cur));
-            }
+            $cur->joinGroup($group);
         } catch (Exception $e) {
             // TRANS: Message given having failed to add a user to a group.
             // TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
@@ -400,10 +397,7 @@ class DropCommand extends Command
         }
 
         try {
-            if (Event::handle('StartLeaveGroup', array($group, $cur))) {
-                Group_member::leave($group->id, $cur->id);
-                Event::handle('EndLeaveGroup', array($group, $cur));
-            }
+            $cur->leaveGroup($group);
         } catch (Exception $e) {
             // TRANS: Message given having failed to remove a user from a group.
             // TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
@@ -543,29 +537,15 @@ class RepeatCommand extends Command
     {
         $notice = $this->getNotice($this->other);
 
-        if($this->user->id == $notice->profile_id)
-        {
-            // TRANS: Error text shown when trying to repeat an own notice.
-            $channel->error($this->user, _('Cannot repeat your own notice.'));
-            return;
-        }
-
-        if ($this->user->getProfile()->hasRepeated($notice->id)) {
-            // TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
-            $channel->error($this->user, _('Already repeated that notice.'));
-            return;
-        }
-
-        $repeat = $notice->repeat($this->user->id, $channel->source);
-
-        if ($repeat) {
+        try {
+            $repeat = $notice->repeat($this->user->id, $channel->source());
+            $recipient = $notice->getProfile();
 
             // TRANS: Message given having repeated a notice from another user.
             // TRANS: %s is the name of the user for which the notice was repeated.
             $channel->output($this->user, sprintf(_('Notice from %s repeated.'), $recipient->nickname));
-        } else {
-            // TRANS: Error text shown when repeating a notice fails with an unknown reason.
-            $channel->error($this->user, _('Error repeating notice.'));
+        } catch (Exception $e) {
+            $channel->error($this->user, $e->getMessage());
         }
     }
 }
@@ -844,7 +824,7 @@ class SubscriptionsCommand extends Command
             // TRANS: Text shown after requesting other users a user is subscribed to.
             // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribed users.
-            $out = ngettext('You are subscribed to this person:',
+            $out = _m('You are subscribed to this person:',
                 'You are subscribed to these people:',
                 count($nicknames));
             $out .= ' ';
@@ -871,7 +851,7 @@ class SubscribersCommand extends Command
             // TRANS: Text shown after requesting other users that are subscribed to a user (followers).
             // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribing users.
-            $out = ngettext('This person is subscribed to you:',
+            $out = _m('This person is subscribed to you:',
                 'These people are subscribed to you:',
                 count($nicknames));
             $out .= ' ';
@@ -898,7 +878,7 @@ class GroupsCommand extends Command
             // TRANS: Text shown after requesting groups a user is subscribed to.
             // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribed groups.
-            $out = ngettext('You are a member of this group:',
+            $out = _m('You are a member of this group:',
                 'You are a member of these groups:',
                 count($nicknames));
             $out.=implode(', ',$groups);

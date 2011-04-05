@@ -455,7 +455,7 @@ ENDOFSCRIPT;
      */
     function onStartEnqueueNotice($notice, &$transports)
     {
-        if (self::hasApplication() && $notice->isLocal()) {
+        if (self::hasApplication() && $notice->isLocal() && $notice->inScope(null)) {
             array_push($transports, 'facebook');
         }
         return true;
@@ -526,7 +526,7 @@ ENDOFSCRIPT;
      */
     function onEndFavorNotice(Profile $profile, Notice $notice)
     {
-        $client = new Facebookclient($notice);
+        $client = new Facebookclient($notice, $profile);
         $client->like();
 
         return true;
@@ -542,7 +542,7 @@ ENDOFSCRIPT;
      */
     function onEndDisfavorNotice(Profile $profile, Notice $notice)
     {
-        $client = new Facebookclient($notice);
+        $client = new Facebookclient($notice, $profile);
         $client->unLike();
 
         return true;

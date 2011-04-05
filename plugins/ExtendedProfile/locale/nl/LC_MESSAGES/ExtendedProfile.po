@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - ExtendedProfile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 12:35+0000\n"
-"PO-Revision-Date: 2011-03-17 12:38:58+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:20:40+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-17 10:19:30+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r84120); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-01 21:05:16+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-extendedprofile\n"
@@ -28,6 +28,8 @@ msgstr "Uitgebreide profielinstellingen"
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr ""
+"Hier kunt u uw persoonlijke profiel bijwerken met informatie over uzelf voor "
+"andere gebruikers."
 
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
@@ -39,7 +41,7 @@ msgid "Unexpected form submission."
 msgstr "Het formulier is onverwacht ingezonden."
 
 msgid "Details saved."
-msgstr ""
+msgstr "De gegevens zijn opgeslagen."
 
 #. TRANS: Exception thrown when no date was entered in a required date field.
 #. TRANS: %s is the field name.
@@ -49,13 +51,13 @@ msgstr "U moet een datum opgeven voor \"%s\"."
 
 #. TRANS: Exception thrown on incorrect data input.
 #. TRANS: %1$s is a field name, %2$s is the incorrect input.
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid date entered for \"%1$s\": %2$s."
-msgstr "Er is een ongeldige datum opgegeven voor \"%s\": %s."
+msgstr "Er is een ongeldige datum opgegeven voor \"%1$s\": %2$s."
 
 #. TRANS: Exception thrown when entering an invalid URL.
 #. TRANS: %s is the invalid URL.
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid URL: %s."
 msgstr "Ongeldige URL: %s."
 
@@ -69,14 +71,12 @@ msgid "Invalid tag: \"%s\"."
 msgstr "Ongeldig label: \"%s\"."
 
 #. TRANS: Server error thrown when user profile settings could not be saved.
-#, fuzzy
 msgid "Could not save profile."
-msgstr "Het was niet mogelijk de profielgegevens op te slaan."
+msgstr "Het was niet mogelijk het profiel op te slaan."
 
 #. TRANS: Server error thrown when user profile settings tags could not be saved.
-#, fuzzy
 msgid "Could not save tags."
-msgstr "Het was niet mogelijk de profielgegevens op te slaan."
+msgstr "Het was niet mogelijk de labels op te slaan."
 
 #. TRANS: Link title for link on user profile.
 msgid "Edit extended profile settings"
@@ -116,6 +116,9 @@ msgstr "Beschrijving"
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Opslaan"
+
+msgid "Save details"
+msgstr "Gegevens opslaan"
 
 msgid "Phone"
 msgstr "Telefoonnummer"

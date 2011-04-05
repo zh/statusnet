@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. TRANS: Client exception thrown trying to view a non-existing poll.
-#: showpoll.php:68
+#: showpoll.php:59
 msgid "No such poll."
 msgstr ""
 
 #. TRANS: Client exception thrown trying to view a non-existing poll notice.
-#: showpoll.php:76
+#: showpoll.php:67
 msgid "No such poll notice."
-msgstr ""
-
-#. TRANS: Client exception thrown trying to view a poll of a non-existing user.
-#: showpoll.php:83
-msgid "No such user."
-msgstr ""
-
-#. TRANS: Server exception thrown trying to view a poll for a user for which the profile could not be loaded.
-#: showpoll.php:90
-msgid "User without a profile."
 msgstr ""
 
 #. TRANS: Page title for a poll.
 #. TRANS: %1$s is the nickname of the user that created the poll, %2$s is the poll question.
-#: showpoll.php:109
+#: showpoll.php:84
 #, php-format
 msgid "%1$s's poll: %2$s"
 msgstr ""
@@ -86,6 +76,10 @@ msgstr ""
 #: PollPlugin.php:262 PollPlugin.php:420
 #, php-format
 msgid "Unexpected type for poll plugin: %s."
+msgstr ""
+
+#: PollPlugin.php:447
+msgid "Poll data is missing"
 msgstr ""
 
 #. TRANS: Application title.

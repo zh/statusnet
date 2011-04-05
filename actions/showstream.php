@@ -65,12 +65,13 @@ class ShowstreamAction extends ProfileAction
         $base = $this->profile->getFancyName();
         if (!empty($this->tag)) {
             if ($this->page == 1) {
-                // TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
-                return sprintf(_('%1$s tagged %2$s'), $base, $this->tag);
+                // TRANS: Page title showing tagged notices in one user's stream.
+                // TRANS: %1$s is the username, %2$s is the hash tag.
+                return sprintf(_('Notices by %1$s tagged %2$s'), $base, $this->tag);
             } else {
                 // TRANS: Page title showing tagged notices in one user's stream.
                 // TRANS: %1$s is the username, %2$s is the hash tag, %3$d is the page number.
-                return sprintf(_('%1$s tagged %2$s, page %3$d'), $base, $this->tag, $this->page);
+                return sprintf(_('Notices by %1$s tagged %2$s, page %3$d'), $base, $this->tag, $this->page);
             }
         } else {
             if ($this->page == 1) {
@@ -78,7 +79,7 @@ class ShowstreamAction extends ProfileAction
             } else {
                 // TRANS: Extended page title showing tagged notices in one user's stream.
                 // TRANS: %1$s is the username, %2$d is the page number.
-                return sprintf(_('%1$s, page %2$d'),
+                return sprintf(_('Notices by %1$s, page %2$d'),
                                $base,
                                $this->page);
             }
@@ -153,6 +154,8 @@ class ShowstreamAction extends ProfileAction
                                                array(
                                                     'id' => $this->user->id,
                                                     'format' => 'atom')),
+                              // TRANS: Title for link to notice feed.
+                              // TRANS: %s is a user nickname.
                               sprintf(_('Notice feed for %s (Atom)'),
                                       $this->user->nickname)),
                      new Feed(Feed::FOAF,
@@ -274,6 +277,18 @@ class ShowstreamAction extends ProfileAction
         parent::showSections();
         $cloud = new PersonalTagCloudSection($this, $this->user);
         $cloud->show();
+    }
+
+    function noticeFormOptions()
+    {
+        $options = parent::noticeFormOptions();
+        $cur = common_current_user();
+
+        if (empty($cur) || $cur->id != $this->profile->id) {
+            $options['to_profile'] =  $this->profile;
+        }
+
+        return $options;
     }
 }
 

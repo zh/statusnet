@@ -143,6 +143,7 @@ class PasswordsettingsAction extends SettingsAction
 
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
+            // TRANS: Client error displayed when the session token does not match or is not given.
             $this->showForm(_('There was a problem with your session token. '.
                                'Try again, please.'));
             return;
@@ -156,14 +157,15 @@ class PasswordsettingsAction extends SettingsAction
         $newpassword = $this->arg('newpassword');
         $confirm     = $this->arg('confirm');
 
-        # Some validation
+        // Some validation
 
         if (strlen($newpassword) < 6) {
             // TRANS: Form validation error on page where to change password.
             $this->showForm(_('Password must be 6 or more characters.'));
             return;
         } else if (0 != strcmp($newpassword, $confirm)) {
-            $this->showForm(_('Passwords don\'t match.'));
+            // TRANS: Form validation error on password change when password confirmation does not match.
+            $this->showForm(_('Passwords do not match.'));
             return;
         }
 

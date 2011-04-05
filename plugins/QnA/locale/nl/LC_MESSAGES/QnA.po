@@ -1,0 +1,148 @@
+# Translation of StatusNet - QnA to Dutch (Nederlands)
+# Exported from translatewiki.net
+#
+# Author: Siebrand
+# --
+# This file is distributed under the same license as the StatusNet package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: StatusNet - QnA\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
+"PO-Revision-Date: 2011-04-03 23:16:11+0000\n"
+"Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-POT-Import-Date: 2011-04-03 13:41:44+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: nl\n"
+"X-Message-Group: #out-statusnet-plugin-qna\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. TRANS: Title for Question page.
+msgid "New question"
+msgstr "Nieuwe vraag"
+
+msgid "You must be logged in to post a question."
+msgstr ""
+"U moet aangemeld zijn om een vraag te kunnen stellen te kunnen stellen."
+
+#. TRANS: Client exception thrown trying to create a question without a title.
+msgid "Question must have a title."
+msgstr "U moet de vraag een naam geven."
+
+#. TRANS: Page title after sending a notice.
+msgid "Question posted"
+msgstr "De vraag is gesteld"
+
+msgid "No such answer."
+msgstr "Dat antwoord bestaat niet."
+
+msgid "No question for this answer."
+msgstr "Er is geen vraag voor dit antwoord."
+
+#. TRANS: Client exception thrown trying to view a question of a non-existing user.
+msgid "No such user."
+msgstr "Deze gebruiker bestaat niet."
+
+#. TRANS: Server exception thrown trying to view a question for a user for which the profile could not be loaded.
+msgid "User without a profile."
+msgstr "Gebruiker zonder profiel."
+
+#. TRANS: Page title.
+#. TRANS: %1$s is the user who answered a question, %2$s is the question.
+#, fuzzy, php-format
+msgid "1$%s's answer to \"%2$s\""
+msgstr "Antwoord van %s op \"%s\""
+
+#. TRANS: Client exception thrown trying to view a non-existing question.
+msgid "No such question."
+msgstr "De vraag bestaat niet."
+
+#. TRANS: Client exception thrown trying to view a non-existing question notice.
+msgid "No such question notice."
+msgstr "De vraagmededeling bestaat niet."
+
+#. TRANS: Page title for a question.
+#. TRANS: %1$s is the nickname of the user who asked the question, %2$s is the question.
+#, php-format
+msgid "%1$s's question: %2$s"
+msgstr "Vraag van %1$s: %2$s"
+
+#. TRANS: Page title for and answer to a question.
+msgid "Answer"
+msgstr "Antwoorden"
+
+#. TRANS: Client exception thrown trying to answer a question while not logged in.
+msgid "You must be logged in to answer to a question."
+msgstr "U moet aangemeld zijn om een vraag te kunnen beantwoorden."
+
+#. TRANS: Client exception thrown trying to respond to a non-existing question.
+msgid "Invalid or missing question."
+msgstr "Ongeldige of ontbrekende vraag."
+
+#. TRANS: Page title after sending an answer.
+msgid "Answers"
+msgstr "Antwoorden"
+
+msgid "Question and Answers micro-app."
+msgstr "Microapplicatie voor vragen en antwoorden."
+
+msgid "Question"
+msgstr "Vraag"
+
+#, php-format
+msgid "Unexpected type for QnA plugin: %s."
+msgstr "Onverwacht type voor plug-in Vraag en Antwoord: %s."
+
+#, fuzzy
+msgid "Question data is missing."
+msgstr "De vraaggegevens ontbreken."
+
+#, php-format
+msgid "%1$s answered the question \"%2$s\": %3$s"
+msgstr "%1$s heeft de vraag \"%2$s\" beantwoord: %3$s"
+
+#. TRANS: Rendered version of the notice content answering a question.
+#. TRANS: %s a link to the question with question title as the link content.
+#, php-format
+msgid "answered \"%s\""
+msgstr "heeft geantwoord \"%s\""
+
+#, php-format
+msgid "%1$s asked the question \"%2$s\": %3$s"
+msgstr "%1$s heeft de vraag \"%2$s\" gesteld: %3$s"
+
+#, php-format
+msgid "question: %1$s %2$s"
+msgstr "vraag: %1$s %2$s"
+
+#. TRANS: Rendered version of the notice content creating a question.
+#. TRANS: %s a link to the question as link description.
+#, php-format
+msgid "Question: %s"
+msgstr "Vraag: %s"
+
+#. TRANS: Button text for submitting a poll response.
+msgctxt "BUTTON"
+msgid "Submit"
+msgstr "Opslaan"
+
+msgid "Title"
+msgstr "Naam"
+
+msgid "Title of your question"
+msgstr "Naam van uw vraag"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Your question in detail"
+msgstr "Details van uw vraag"
+
+#. TRANS: Button text for saving a new question.
+msgctxt "BUTTON"
+msgid "Save"
+msgstr "Opslaan"

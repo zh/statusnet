@@ -123,7 +123,7 @@ class Group_message extends Memcached_DataObject
     {
         if (!$user->hasRight(Right::NEWMESSAGE)) {
             // XXX: maybe break this out into a separate right
-            throw new Exception(sprintf(_('User %s not allowed to send private messages.'),
+            throw new Exception(sprintf(_m('User %s is not allowed to send private messages.'),
                                         $user->nickname));
         }
 
@@ -177,7 +177,7 @@ class Group_message extends Memcached_DataObject
     {
         $group = User_group::staticGet('id', $this->to_group);
         if (empty($group)) {
-            throw new ServerException(_('No group for group message'));
+            throw new ServerException(_m('No group for group message.'));
         }
         return $group;
     }
@@ -186,7 +186,7 @@ class Group_message extends Memcached_DataObject
     {
         $sender = Profile::staticGet('id', $this->from_profile);
         if (empty($sender)) {
-            throw new ServerException(_('No sender for group message'));
+            throw new ServerException(_m('No sender for group message.'));
         }
         return $sender;
     }

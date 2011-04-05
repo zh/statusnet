@@ -50,6 +50,7 @@ class UserauthorizationAction extends Action
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
                 $srv = $this->getStoredParams();
+                // TRANS: Client error displayed when the session token does not match or is not given.
                 $this->showForm($srv->getRemoteUser(), _('There was a problem ' .
                                         'with your session token. Try again, ' .
                                         'please.'));
@@ -111,7 +112,7 @@ class UserauthorizationAction extends Action
 
     function showPageNotice()
     {
-        // TRANS: Page notice on "Auhtorize subscription" page.
+        // TRANS: Page notice on "Authorize subscription" page.
         $this->element('p', null, _('Please check these details to make sure '.
                                     'that you want to subscribe to this ' .
                                     'user’s notices. If you didn’t just ask ' .
@@ -142,6 +143,7 @@ class UserauthorizationAction extends Action
                                         'alt' => $nickname));
         }
 
+        // TRANS: Label for nickname on user authorisation page.
         $this->element('div', 'entity_nickname', _('Nickname'));
 
         $hasFN = ($fullname !== '') ? 'nickname' : 'fn nickname';
@@ -196,12 +198,14 @@ class UserauthorizationAction extends Action
                                                          'userauthorization')));
         $this->hidden('token', common_session_token());
 
-        // TRANS: Button text on Authorise Subscription page.
-        $this->submit('accept', _m('BUTTON','Accept'), 'submit accept', null,
+        $this->submit('accept',
+                      // TRANS: Button text on Authorise Subscription page.
+                      _m('BUTTON','Accept'), 'submit accept', null,
                       // TRANS: Title for button on Authorise Subscription page.
                       _('Subscribe to this user.'));
-        // TRANS: Button text on Authorise Subscription page.
-        $this->submit('reject', _m('BUTTON','Reject'), 'submit reject', null,
+        $this->submit('reject',
+                      // TRANS: Button text on Authorise Subscription page.
+                      _m('BUTTON','Reject'), 'submit reject', null,
                       // TRANS: Title for button on Authorise Subscription page.
                       _('Reject this subscription.'));
         $this->elementEnd('form');
@@ -240,10 +244,10 @@ class UserauthorizationAction extends Action
     {
         // TRANS: Accept message header from Authorise subscription page.
         common_show_header(_('Subscription authorized'));
-        // TRANS: Accept message text from Authorise subscription page.
         $this->element('p', null,
+                       // TRANS: Accept message text from Authorise subscription page.
                        _('The subscription has been authorized, but no '.
-                         'callback URL was passed. Check with the site’s ' .
+                         'callback URL was passed. Check with the site\'s ' .
                          'instructions for details on how to authorize the ' .
                          'subscription. Your subscription token is:'));
         $this->element('blockquote', 'token', $tok);
@@ -254,10 +258,10 @@ class UserauthorizationAction extends Action
     {
         // TRANS: Reject message header from Authorise subscription page.
         common_show_header(_('Subscription rejected'));
-        // TRANS: Reject message from Authorise subscription page.
         $this->element('p', null,
+                       // TRANS: Reject message from Authorise subscription page.
                        _('The subscription has been rejected, but no '.
-                         'callback URL was passed. Check with the site’s ' .
+                         'callback URL was passed. Check with the site\'s ' .
                          'instructions for details on how to fully reject ' .
                          'the subscription.'));
         common_show_footer();

@@ -9,29 +9,151 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - GroupPrivateMessage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:37:22+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:21:00+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-03 17:44:11+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-POT-Import-Date: 2011-04-01 21:05:29+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-groupprivatemessage\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
 
+msgid "Must be logged in."
+msgstr "Мора да се најавени."
+
+#, php-format
+msgid "User %s is not allowed to send private messages."
+msgstr "На корисникот %s не му е дозволено да испраќа приватни пораки."
+
+msgid "No such group."
+msgstr "Нема таква група."
+
+msgid "Message sent"
+msgstr "Пораката е испратена"
+
+#, php-format
+msgid "Direct message to %s sent."
+msgstr "Непосредната порака до %s е испратена."
+
+#, php-format
+msgid "New message to group %s"
+msgstr "Приватни пораки за групата %s"
+
+#. TRANS: Subject for direct-message notification email.
+#. TRANS: %1$s is the sending user's nickname, %2$s is the group nickname.
+#, php-format
+msgid "New private message from %1$s to group %2$s"
+msgstr "Нова приватна порака од %1$s за групата %2$s"
+
+#. TRANS: Body for direct-message notification email.
+#. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
+#. TRANS: %3$s is the message content, %4$s a URL to the message,
+#. TRANS: %5$s is the StatusNet sitename.
+#, php-format
+msgid ""
+"%1$s (%2$s) sent a private message to group %3$s:\n"
+"\n"
+"------------------------------------------------------\n"
+"%4$s\n"
+"------------------------------------------------------\n"
+"\n"
+"You can reply to their message here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Do not reply to this email; it will not get to them.\n"
+"\n"
+"With kind regards,\n"
+"%6$s"
+msgstr ""
+"%1$s (%2$s) ѝ испрати приватна порака на групата %3$s:\n"
+"\n"
+"------------------------------------------------------\n"
+"%4$s\n"
+"------------------------------------------------------\n"
+"\n"
+"Можете да одговорите на пораката тука:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Не одговарајте на ова писмо; никој нема да го добие одговорот.\n"
+"\n"
+"Со почит,\n"
+"%6$s"
+
+msgctxt "MENU"
 msgid "Inbox"
 msgstr "Примени"
 
-msgid "Private messages for this group"
-msgstr "Приватни пораки за групава"
+msgid "Private messages for this group."
+msgstr "Приватни пораки за групава."
 
-msgid "Allow posting DMs to a group."
-msgstr "Дозволи испраќање НП на група."
+msgid "Private messages"
+msgstr "Приватни пораки"
+
+msgid "Sometimes"
+msgstr "Понекогаш"
+
+msgid "Always"
+msgstr "Секогаш"
+
+msgid "Never"
+msgstr "Никогаш"
+
+msgid "Whether to allow private messages to this group."
+msgstr "Дали да се дозволени приватни пораки за групава."
+
+msgid "Private senders"
+msgstr "Приватни испраќачи"
+
+msgid "Everyone"
+msgstr "Сите"
+
+msgid "Member"
+msgstr "Член"
+
+msgid "Admin"
+msgstr "Админ"
+
+msgid "Who can send private messages to the group."
+msgstr "Кој може да ѝ испраќа приватни пораки на групава."
+
+msgid "Send a direct message to this group."
+msgstr "Испрати ѝ непосредна порака на групава."
+
+msgid "Message"
+msgstr "Порака"
+
+msgid "Forced notice to private group message."
+msgstr "Ја наметнав забелешката што известува за приватната порака за групата."
+
+msgid "Private"
+msgstr "Приватна"
+
+msgid "Allow posting private messages to groups."
+msgstr "Дозволи испраќање приватни пораки на групи."
+
+msgid "Only for logged-in users."
+msgstr "Само за најавени корисници."
+
+msgid "Only for members."
+msgstr "Само за членови."
 
 msgid "This group has not received any private messages."
 msgstr "Оваа група нема примено приватни пораки."
+
+#, php-format
+msgid "%s group inbox"
+msgstr "Примени пораки на групата %s"
+
+#. TRANS: Page title for any but first group page.
+#. TRANS: %1$s is a group name, $2$s is a page number.
+#, php-format
+msgid "%1$s group inbox, page %2$d"
+msgstr "Примени пораки на групата %1$s, страница %2$d"
 
 #. TRANS: Instructions for user inbox page.
 msgid ""
@@ -41,12 +163,72 @@ msgstr ""
 "Ова се примените пораки на групата кајшто се заведуваат сите дојдовни "
 "приватни пораки за оваа група."
 
+#, php-format
+msgid "Message to %s"
+msgstr "Порака за %s"
+
+#, php-format
+msgid "Direct message to %s"
+msgstr "Непосредна порака за %s"
+
+msgid "Available characters"
+msgstr "Знаци на располагање"
+
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Испрати"
+
+#, php-format
+msgid "Group %s does not allow private messages."
+msgstr "Групата %s не дозволува приватни поаки."
+
+#, php-format
+msgid "User %1$s is blocked from group %2$s."
+msgstr "Корисникот %1$s е блокиран на групата %2$s."
+
+#, php-format
+msgid "User %1$s is not a member of group %2$s."
+msgstr "Корисникот %1$s не членува во групата %2$s."
+
+#, php-format
+msgid "User %1$s is not an administrator of group %2$s."
+msgstr "Корисникот %1$s не е администратор на групата %2$s."
+
+#, php-format
+msgid "Unknown privacy settings for group %s."
+msgstr "Непознати нагодувања за приватност на групата %s."
 
 #, php-format
 msgid "That's too long. Maximum message size is %d character."
 msgid_plural "That's too long. Maximum message size is %d characters."
 msgstr[0] "Ова е предолго. Дозволен е само %d знак."
 msgstr[1] "Ова е предолго. Дозволени се највеќе %d знаци."
+
+msgid "No group for group message."
+msgstr "Нема група за групната порака."
+
+msgid "No sender for group message."
+msgstr "Нема испраќач за групната порака."
+
+msgid "Only logged-in users can view private messages."
+msgstr "Само најавени корисници можат да гледаат приватни пораки."
+
+msgid "No such message."
+msgstr "Нема таква порака."
+
+msgid "Group not found."
+msgstr "Групата не е пронајдена."
+
+msgid "Cannot read message."
+msgstr "Пораката не може да се чита."
+
+msgid "No sender found."
+msgstr "Не пронајдов испраќач."
+
+#, php-format
+msgid "Message from %1$s to group %2$s on %3$s"
+msgstr "Порака од %1$s за групата %2$s на %3$s"
+
+#, php-format
+msgid "Direct message to group %s sent."
+msgstr "Испратена е непосрредна порака за групата %s."

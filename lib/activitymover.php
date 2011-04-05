@@ -81,7 +81,8 @@ class ActivityMover extends QueueHandler
     function moveActivity($act, $sink, $user, $remote)
     {
         if (empty($user)) {
-            throw new Exception(sprintf(_("No such user %s."),$act->actor->id));
+            // TRANS: Exception thrown if no user is provided. %s is a user ID.
+            throw new Exception(sprintf(_('No such user "%s".'),$act->actor->id));
         }
 
         switch ($act->verb) {
@@ -116,7 +117,7 @@ class ActivityMover extends QueueHandler
             $sink->postActivity($act);
             $group = User_group::staticGet('uri', $act->objects[0]->id);
             if (!empty($group)) {
-                Group_member::leave($group->id, $user->id);
+                $user->leaveGroup($group);
             }
             break;
         case ActivityVerb::FOLLOW:

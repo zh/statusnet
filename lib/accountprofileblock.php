@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class AccountProfileBlock extends ProfileBlock
 {
     protected $profile = null;
@@ -131,9 +130,9 @@ class AccountProfileBlock extends ProfileBlock
                         $this->out->elementStart('li', 'entity_edit');
                         $this->out->element('a', array('href' => common_local_url('profilesettings'),
                                                   // TRANS: Link title for link on user profile.
-                                                  'title' => _('Edit profile settings')),
+                                                  'title' => _('Edit profile settings.')),
                                        // TRANS: Link text for link on user profile.
-                                       _('Edit'));
+                                       _m('BUTTON','Edit'));
                         $this->out->elementEnd('li');
                     } else { // someone else's page
 
@@ -144,6 +143,9 @@ class AccountProfileBlock extends ProfileBlock
                         if ($cur->isSubscribed($this->profile)) {
                             $usf = new UnsubscribeForm($this->out, $this->profile);
                             $usf->show();
+                        } else if ($cur->hasPendingSubscription($this->profile)) {
+                            $sf = new CancelSubscriptionForm($this->out, $this->profile);
+                            $sf->show();
                         } else {
                             $sf = new SubscribeForm($this->out, $this->profile);
                             $sf->show();
@@ -157,9 +159,9 @@ class AccountProfileBlock extends ProfileBlock
                             $this->out->elementStart('li', 'entity_send-a-message');
                             $this->out->element('a', array('href' => common_local_url('newmessage', array('to' => $this->user->id)),
                                                       // TRANS: Link title for link on user profile.
-                                                      'title' => _('Send a direct message to this user')),
+                                                      'title' => _('Send a direct message to this user.')),
                                            // TRANS: Link text for link on user profile.
-                                           _('Message'));
+                                           _m('BUTTON','Message'));
                             $this->out->elementEnd('li');
 
                             // nudge
@@ -285,6 +287,6 @@ class AccountProfileBlock extends ProfileBlock
         $this->out->element('a', array('href' => $url,
                                   'class' => 'entity_remote_subscribe'),
                        // TRANS: Link text for link that will subscribe to a remote profile.
-                       _('Subscribe'));
+                       _m('BUTTON','Subscribe'));
     }
 }

@@ -40,11 +40,11 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class SubscriptionsPeopleTagCloudSection extends SubPeopleTagCloudSection
 {
     function title()
     {
+        // TRANS: Title of personal tag cloud section.
         return _('People Tagcloud as tagged');
     }
 
@@ -58,4 +58,3 @@ class SubscriptionsPeopleTagCloudSection extends SubPeopleTagCloudSection
         return 'select tag, count(tag) as weight from subscription left join profile_tag on subscriber=tagger and subscribed=tagged where subscriber=%d and subscriber != subscribed and tag is not null group by tag order by weight desc';
     }
 }
-

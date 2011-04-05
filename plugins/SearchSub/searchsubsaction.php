@@ -115,13 +115,13 @@ class SearchSubsAction extends GalleryAction
             $current_user = common_current_user();
             if ($this->user->id === $current_user->id) {
                 // TRANS: Search subscription list text when the logged in user has no search subscriptions.
-                $message = _('You\'re not subscribed to any text searches right now. You can push the "Subscribe" button ' .
+                $message = _m('You are not subscribed to any text searches right now. You can push the "Subscribe" button ' .
                              'on any notice text search to automatically receive any public messages on this site that match that ' .
-                             'search, even if you\'re not subscribed to the poster.');
+                             'search, even if you are not subscribed to the poster.');
             } else {
                 // TRANS: Search subscription list text when looking at the subscriptions for a of a user other
                 // TRANS: than the logged in user that has no search subscriptions. %s is the user nickname.
-                $message = sprintf(_('%s is not subscribed to any searches.'), $this->user->nickname);
+                $message = sprintf(_m('%s is not subscribed to any searches.'), $this->user->nickname);
             }
         }
         else {
@@ -165,7 +165,9 @@ class SearchSubscriptionsListItem extends SubscriptionListItem
         }
 
         $url = common_local_url('noticesearch', array('q' => $search));
-        $linkline = sprintf(_m('"<a href="%s">%s</a>" since %s'),
+        // TRANS: Search subscription list item. %1$s is a URL to a notice search,
+        // TRANS: %2$s are the search criteria, %3$s is a datestring.
+        $linkline = sprintf(_m('"<a href="%1$s">%2$s</a>" since %3$s'),
                             htmlspecialchars($url),
                             htmlspecialchars($search),
                             common_date_string($searchsub->created));

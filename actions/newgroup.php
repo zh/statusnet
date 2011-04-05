@@ -130,6 +130,7 @@ class NewgroupAction extends Action
             $homepage    = $this->trimmed('homepage');
             $description = $this->trimmed('description');
             $location    = $this->trimmed('location');
+            $private     = $this->boolean('private');
             $aliasstring = $this->trimmed('aliases');
 
             if ($this->nicknameExists($nickname)) {
@@ -202,6 +203,14 @@ class NewgroupAction extends Action
                 }
             }
 
+            if ($private) {
+                $force_scope = 1;
+                $join_policy = User_group::JOIN_POLICY_MODERATE;
+            } else {
+                $force_scope = 0;
+                $join_policy = User_group::JOIN_POLICY_OPEN;
+            }
+
             $cur = common_current_user();
 
             // Checked in prepare() above
@@ -215,6 +224,8 @@ class NewgroupAction extends Action
                                                 'location' => $location,
                                                 'aliases'  => $aliases,
                                                 'userid'   => $cur->id,
+                                                'join_policy' => $join_policy,
+                                                'force_scope' => $force_scope,
                                                 'local'    => true));
 
             $this->group = $group;

@@ -199,7 +199,7 @@ class Bookmark extends Memcached_DataObject
         $nb = self::getByURL($profile, $url);
 
         if (!empty($nb)) {
-            throw new ClientException(_('Bookmark already exists.'));
+            throw new ClientException(_m('Bookmark already exists.'));
         }
 
         if (empty($options)) {
@@ -209,7 +209,7 @@ class Bookmark extends Memcached_DataObject
         if (array_key_exists('uri', $options)) {
             $other = Bookmark::staticGet('uri', $options['uri']);
             if (!empty($other)) {
-                throw new ClientException(_('Bookmark already exists.'));
+                throw new ClientException(_m('Bookmark already exists.'));
             }
         }
 
@@ -288,16 +288,19 @@ class Bookmark extends Memcached_DataObject
             $shortUrl = $url;
         }
 
-        $content = sprintf(_('"%s" %s %s %s'),
+        // @todo FIXME: i18n documentation.
+        // TRANS: %1$s is a title, %2$s is a short URL, %3$s is a description,
+	// TRANS: %4$s is space separated list of hash tags.
+        $content = sprintf(_m('"%1$s" %2$s %3$s %4$s'),
                            $title,
                            $shortUrl,
                            $description,
                            implode(' ', $hashtags));
 
-        $rendered = sprintf(_('<span class="xfolkentry">'.
-                              '<a class="taggedlink" href="%s">%s</a> '.
-                              '<span class="description">%s</span> '.
-                              '<span class="meta">%s</span>'.
+        $rendered = sprintf(_m('<span class="xfolkentry">'.
+                              '<a class="taggedlink" href="%1$s">%2$s</a> '.
+                              '<span class="description">%3$s</span> '.
+                              '<span class="meta">%4$s</span>'.
                               '</span>'),
                             htmlspecialchars($url),
                             htmlspecialchars($title),

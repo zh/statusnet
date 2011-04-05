@@ -159,7 +159,7 @@ class FollowEveryonePlugin extends Plugin
 
         $action->elementStart('li');
         // TRANS: Checkbox label in form for profile settings.
-        $action->checkbox('followeveryone', _('Follow everyone'),
+        $action->checkbox('followeveryone', _m('Follow everyone'),
                           ($action->arg('followeveryone')) ?
                           $action->arg('followeveryone') :
                           User_followeveryone_prefs::followEveryone($user->id));

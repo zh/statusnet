@@ -121,33 +121,39 @@ class BookmarkForm extends Form
 
         $this->li();
         $this->out->input('title',
-                          _('Title'),
+                          _m('LABEL','Title'),
                           $this->_title,
-                          _('Title of the bookmark'));
+                          _m('Title of the bookmark'));
         $this->unli();
 
         $this->li();
         $this->out->input('url',
-                          _('URL'),
+                          _m('LABEL','URL'),
                           $this->_url,   
-                          _('URL to bookmark'));
+                          _m('URL to bookmark'));
         $this->unli();
 
         $this->li();
         $this->out->input('tags',
-                          _('Tags'),
+                          _m('LABEL','Tags'),
                           $this->_tags,   
-                          _('Comma- or space-separated list of tags'));
+                          _m('Comma- or space-separated list of tags'));
         $this->unli();
 
         $this->li();
         $this->out->input('description',
-                          _('Description'),
+                          _m('LABEL','Description'),
                           $this->_description,   
-                          _('Description of the URL'));
+                          _m('Description of the URL'));
         $this->unli();
 
         $this->out->elementEnd('ul');
+
+        $toWidget = new ToSelector($this->out,
+                                   common_current_user(),
+                                   null);
+        $toWidget->show();
+
         $this->out->elementEnd('fieldset');
     }
 

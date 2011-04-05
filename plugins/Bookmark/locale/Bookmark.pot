@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-11 18:15+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,12 +16,149 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: deliciousbackupimporter.php:85
+msgid "Bad import file."
+msgstr ""
+
+#: deliciousbackupimporter.php:168
+msgid "No <A> tag in a <DT>."
+msgstr ""
+
+#: deliciousbackupimporter.php:176
+msgid "Skipping private bookmark."
+msgstr ""
+
+#. TRANS: Client exception thrown when referring to a non-existing bookmark.
+#: showbookmark.php:60 showbookmark.php:68
+msgid "No such bookmark."
+msgstr ""
+
+#. TRANS: Title for bookmark.
+#. TRANS: %1$s is a user nickname, %2$s is a bookmark title.
+#: showbookmark.php:85
+#, php-format
+msgid "%1$s's bookmark for \"%2$s\""
+msgstr ""
+
 #: BookmarkPlugin.php:233
 msgid "Simple extension for supporting bookmarks."
 msgstr ""
 
-#: BookmarkPlugin.php:642
+#: BookmarkPlugin.php:277 importdelicious.php:61
+msgid "Import del.icio.us bookmarks"
+msgstr ""
+
+#: BookmarkPlugin.php:382
+msgid "Expected exactly 1 link rel=related in a Bookmark."
+msgstr ""
+
+#: BookmarkPlugin.php:475
+msgid "Bookmark notice with the wrong number of attachments."
+msgstr ""
+
+#: BookmarkPlugin.php:643
 msgid "Bookmark"
+msgstr ""
+
+#: bookmarkpopup.php:58
+#, php-format
+msgid "Bookmark on %s"
+msgstr ""
+
+#: Bookmark.php:202 Bookmark.php:212
+msgid "Bookmark already exists."
+msgstr ""
+
+#. TRANS: %1$s is a title, %2$s is a short URL, %3$s is a description,
+#. TRANS: %4$s is space separated list of hash tags.
+#: Bookmark.php:294
+#, php-format
+msgid "\"%1$s\" %2$s %3$s %4$s"
+msgstr ""
+
+#: Bookmark.php:300
+#, php-format
+msgid ""
+"<span class=\"xfolkentry\"><a class=\"taggedlink\" href=\"%1$s\">%2$s</a> "
+"<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
+"span>"
+msgstr ""
+
+#: noticebyurl.php:70
+msgid "Unknown URL"
+msgstr ""
+
+#: noticebyurl.php:92
+#, php-format
+msgid "Notices linking to %s"
+msgstr ""
+
+#: importdelicious.php:79
+msgid "Only logged-in users can import del.icio.us backups."
+msgstr ""
+
+#: importdelicious.php:85
+msgid "You may not restore your account."
+msgstr ""
+
+#: importdelicious.php:124 importdelicious.php:149
+msgid "No uploaded file."
+msgstr ""
+
+#. TRANS: Client exception thrown when an uploaded file is too large.
+#: importdelicious.php:132
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr ""
+
+#. TRANS: Client exception.
+#: importdelicious.php:138
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form."
+msgstr ""
+
+#. TRANS: Client exception.
+#: importdelicious.php:144
+msgid "The uploaded file was only partially uploaded."
+msgstr ""
+
+#. TRANS: Client exception thrown when a temporary folder is not present
+#: importdelicious.php:153
+msgid "Missing a temporary folder."
+msgstr ""
+
+#. TRANS: Client exception thrown when writing to disk is not possible
+#: importdelicious.php:157
+msgid "Failed to write file to disk."
+msgstr ""
+
+#. TRANS: Client exception thrown when a file upload has been stopped
+#: importdelicious.php:161
+msgid "File upload stopped by extension."
+msgstr ""
+
+#. TRANS: Client exception thrown when a file upload operation has failed
+#: importdelicious.php:167
+msgid "System error uploading file."
+msgstr ""
+
+#: importdelicious.php:186
+#, php-format
+msgid "Getting backup from file '%s'."
+msgstr ""
+
+#: importdelicious.php:222
+msgid ""
+"Bookmarks have been imported. Your bookmarks should now appear in search and "
+"your profile page."
+msgstr ""
+
+#: importdelicious.php:225
+msgid "Bookmarks are being imported. Please wait a few minutes for results."
+msgstr ""
+
+#: importdelicious.php:313
+msgid "You can upload a backed-up delicious.com bookmarks file."
 msgstr ""
 
 #: importdelicious.php:340
@@ -29,7 +166,74 @@ msgctxt "BUTTON"
 msgid "Upload"
 msgstr ""
 
+#: importdelicious.php:343
+msgid "Upload the file"
+msgstr ""
+
+#: bookmarkform.php:124
+msgctxt "LABEL"
+msgid "Title"
+msgstr ""
+
+#: bookmarkform.php:126
+msgid "Title of the bookmark"
+msgstr ""
+
+#: bookmarkform.php:131
+msgctxt "LABEL"
+msgid "URL"
+msgstr ""
+
+#: bookmarkform.php:133
+msgid "URL to bookmark"
+msgstr ""
+
+#: bookmarkform.php:138
+msgctxt "LABEL"
+msgid "Tags"
+msgstr ""
+
+#: bookmarkform.php:140
+msgid "Comma- or space-separated list of tags"
+msgstr ""
+
+#: bookmarkform.php:145
+msgctxt "LABEL"
+msgid "Description"
+msgstr ""
+
+#: bookmarkform.php:147
+msgid "Description of the URL"
+msgstr ""
+
 #: bookmarkform.php:162
 msgctxt "BUTTON"
 msgid "Save"
+msgstr ""
+
+#: newbookmark.php:65
+msgid "New bookmark"
+msgstr ""
+
+#: newbookmark.php:83
+msgid "Must be logged in to post a bookmark."
+msgstr ""
+
+#: newbookmark.php:133
+msgid "Bookmark must have a title."
+msgstr ""
+
+#: newbookmark.php:137
+msgid "Bookmark must have an URL."
+msgstr ""
+
+#. TRANS: Page title after sending a notice.
+#: newbookmark.php:159
+msgid "Notice posted"
+msgstr ""
+
+#. TRANS: %s is the filename that contains a backup for a user.
+#: importbookmarks.php:78
+#, php-format
+msgid "Getting backup from file \"%s\"."
 msgstr ""

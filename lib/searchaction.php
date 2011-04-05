@@ -138,22 +138,18 @@ class SearchAction extends Action
     }
 
     function searchSuggestions($q) {
-        // @todo FIXME: i18n issue: This formatting does not make this string get picked up by gettext.
-            // TRANS: Standard search suggestions shown when a search does not give any results.
-        $message = _(<<<E_O_T
-* Make sure all words are spelled correctly.
+        // Don't change these long strings to HEREDOC; xgettext won't pick them up.
+        // TRANS: Standard search suggestions shown when a search does not give any results.
+        $message = _("* Make sure all words are spelled correctly.
 * Try different keywords.
 * Try more general keywords.
 * Try fewer keywords.
-
-E_O_T
-);
+");
         if (!common_config('site', 'private')) {
             $qe = urlencode($q);
-            // @todo FIXME: i18n issue: This formatting does not make this string get picked up by gettext.
+            // Don't change these long strings to HEREDOC; xgettext won't pick them up.
             // TRANS: Standard search suggestions shown when a search does not give any results.
-            $message .= sprintf(_(<<<E_O_T
-
+            $message .= sprintf(_("
 You can also try your search on other engines:
 
 * [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%site.server%%%%)
@@ -161,9 +157,7 @@ You can also try your search on other engines:
 * [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)
 * [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)
 * [Collecta](http://collecta.com/#q=%s)
-
-E_O_T
-), $qe, $qe, $qe, $qe, $qe);
+"), $qe, $qe, $qe, $qe, $qe);
         }
         $this->elementStart('div', 'help instructions');
         $this->raw(common_markup_to_html($message));

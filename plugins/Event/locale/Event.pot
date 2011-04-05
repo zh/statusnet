@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
+"POT-Creation-Date: 2011-04-01 20:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,9 +16,81 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: Happening.php:125
+msgid "Event already exists."
+msgstr ""
+
+#. TRANS: Event description. %1$s is a title, %2$s is start time, %3$s is end time,
+#. TRANS: %4$s is location, %5$s is a description.
+#: Happening.php:159
+#, php-format
+msgid "\"%1$s\" %2$s - %3$s (%4$s): %5$s"
+msgstr ""
+
+#: Happening.php:166
+#, php-format
+msgid ""
+"<span class=\"vevent\"><span class=\"summary\">%1$s</span> <abbr class="
+"\"dtstart\" title=\"%2$s\">%3$s</a> - <abbr class=\"dtend\" title=\"%4$s\">%5"
+"$s</a> (<span class=\"location\">%6$s</span>): <span class=\"description\">%7"
+"$s</span> </span>"
+msgstr ""
+
+#. TRANS: Client exception thrown when referring to a non-existing RSVP.
+#. TRANS: RSVP stands for "Please reply".
+#: showrsvp.php:61 showrsvp.php:77 cancelrsvp.php:82 cancelrsvp.php:88
+msgid "No such RSVP."
+msgstr ""
+
+#. TRANS: Client exception thrown when referring to a non-existing event.
+#: showrsvp.php:68 newrsvp.php:82 newrsvp.php:88 cancelrsvp.php:94
+#: showevent.php:60 showevent.php:68
+msgid "No such event."
+msgstr ""
+
+#. TRANS: Title for event.
+#. TRANS: %1$s is a user nickname, %2$s is an event title.
+#: showrsvp.php:94
+#, php-format
+msgid "%1$s's RSVP for \"%2$s\""
+msgstr ""
+
+#: cancelrsvpform.php:105
+msgid "You will attend this event."
+msgstr ""
+
+#: cancelrsvpform.php:108
+msgid "You will not attend this event."
+msgstr ""
+
+#: cancelrsvpform.php:111
+msgid "You might attend this event."
+msgstr ""
+
 #: cancelrsvpform.php:126
 msgctxt "BUTTON"
 msgid "Cancel"
+msgstr ""
+
+#: newrsvp.php:61
+msgid "New RSVP"
+msgstr ""
+
+#: newrsvp.php:94 cancelrsvp.php:100
+msgid "You must be logged in to RSVP for an event."
+msgstr ""
+
+#. TRANS: Page title after sending a notice.
+#: newrsvp.php:162 cancelrsvp.php:157 newevent.php:219
+msgid "Event saved"
+msgstr ""
+
+#: cancelrsvp.php:61
+msgid "Cancel RSVP"
+msgstr ""
+
+#: rsvpform.php:101
+msgid "RSVP:"
 msgstr ""
 
 #: rsvpform.php:117
@@ -36,6 +108,78 @@ msgctxt "BUTTON"
 msgid "Maybe"
 msgstr ""
 
+#: eventform.php:96
+msgctxt "LABEL"
+msgid "Title"
+msgstr ""
+
+#: eventform.php:98
+msgid "Title of the event."
+msgstr ""
+
+#: eventform.php:103
+msgctxt "LABEL"
+msgid "Start date"
+msgstr ""
+
+#: eventform.php:105
+msgid "Date the event starts."
+msgstr ""
+
+#: eventform.php:110
+msgctxt "LABEL"
+msgid "Start time"
+msgstr ""
+
+#: eventform.php:112
+msgid "Time the event starts."
+msgstr ""
+
+#: eventform.php:117
+msgctxt "LABEL"
+msgid "End date"
+msgstr ""
+
+#: eventform.php:119
+msgid "Date the event ends."
+msgstr ""
+
+#: eventform.php:124
+msgctxt "LABEL"
+msgid "End time"
+msgstr ""
+
+#: eventform.php:126
+msgid "Time the event ends."
+msgstr ""
+
+#: eventform.php:131
+msgctxt "LABEL"
+msgid "Location"
+msgstr ""
+
+#: eventform.php:133
+msgid "Event location."
+msgstr ""
+
+#: eventform.php:138
+msgctxt "LABEL"
+msgid "URL"
+msgstr ""
+
+#: eventform.php:140
+msgid "URL for more information."
+msgstr ""
+
+#: eventform.php:145
+msgctxt "LABEL"
+msgid "Description"
+msgstr ""
+
+#: eventform.php:147
+msgid "Description of the event."
+msgstr ""
+
 #: eventform.php:162
 msgctxt "BUTTON"
 msgid "Save"
@@ -47,4 +191,158 @@ msgstr ""
 
 #: EventPlugin.php:138
 msgid "Event"
+msgstr ""
+
+#: EventPlugin.php:171
+msgid "Wrong type for object."
+msgstr ""
+
+#: EventPlugin.php:192
+msgid "RSVP for unknown event."
+msgstr ""
+
+#: EventPlugin.php:197
+msgid "Unknown verb for events"
+msgstr ""
+
+#: EventPlugin.php:228
+msgid "Unknown object type."
+msgstr ""
+
+#: EventPlugin.php:234
+msgid "Unknown event notice."
+msgstr ""
+
+#: EventPlugin.php:368
+msgid "Time:"
+msgstr ""
+
+#: EventPlugin.php:388
+msgid "Location:"
+msgstr ""
+
+#: EventPlugin.php:395
+msgid "Description:"
+msgstr ""
+
+#: EventPlugin.php:403
+msgid "Attending:"
+msgstr ""
+
+#. TRANS: RSVP counts.
+#. TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
+#: EventPlugin.php:407
+#, php-format
+msgid "Yes: %1$d No: %2$d Maybe: %3$d"
+msgstr ""
+
+#: RSVP.php:146 RSVP.php:154
+msgid "RSVP already exists."
+msgstr ""
+
+#: RSVP.php:222
+#, php-format
+msgid "Unknown verb \"%s\""
+msgstr ""
+
+#: RSVP.php:239
+#, php-format
+msgid "Unknown code \"%s\"."
+msgstr ""
+
+#: RSVP.php:247
+#, php-format
+msgid "RSVP %s does not correspond to a notice in the database."
+msgstr ""
+
+#: RSVP.php:281
+#, php-format
+msgid "No profile with ID %s."
+msgstr ""
+
+#: RSVP.php:290
+#, php-format
+msgid "No event with ID %s."
+msgstr ""
+
+#: RSVP.php:319
+#, php-format
+msgid ""
+"<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is attending <a "
+"href='%3$s'>%4$s</a>.</span>"
+msgstr ""
+
+#: RSVP.php:322
+#, php-format
+msgid ""
+"<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is not attending "
+"<a href='%3$s'>%4$s</a>.</span>"
+msgstr ""
+
+#: RSVP.php:325
+#, php-format
+msgid ""
+"<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> might attend <a "
+"href='%3$s'>%4$s</a>.</span>"
+msgstr ""
+
+#: RSVP.php:328 RSVP.php:363
+#, php-format
+msgid "Unknown response code %s."
+msgstr ""
+
+#: RSVP.php:334 RSVP.php:368
+msgid "an unknown event"
+msgstr ""
+
+#: RSVP.php:354
+#, php-format
+msgid "%1$s is attending %2$s."
+msgstr ""
+
+#: RSVP.php:357
+#, php-format
+msgid "%1$s is not attending %2$s."
+msgstr ""
+
+#: RSVP.php:360
+#, php-format
+msgid "%1$s might attend %2$s."
+msgstr ""
+
+#: newevent.php:66
+msgid "New event"
+msgstr ""
+
+#: newevent.php:84
+msgid "Must be logged in to post a event."
+msgstr ""
+
+#: newevent.php:95
+msgid "Title required."
+msgstr ""
+
+#: newevent.php:105
+msgid "Start date required."
+msgstr ""
+
+#: newevent.php:117
+msgid "End date required."
+msgstr ""
+
+#: newevent.php:138 newevent.php:144
+#, php-format
+msgid "Could not parse date \"%s\"."
+msgstr ""
+
+#: newevent.php:182
+msgid "Event must have a title."
+msgstr ""
+
+#: newevent.php:186
+msgid "Event must have a start time."
+msgstr ""
+
+#: newevent.php:190
+msgid "Event must have an end time."
 msgstr ""

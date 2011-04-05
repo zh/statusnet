@@ -1,5 +1,4 @@
 <?php
-
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
@@ -101,8 +100,10 @@ class SubscriptionListItem extends ProfileListItem
         if ($this->isOwn()) {
             $this->out->element('a', array('href' => common_local_url('tagother',
                                                                       array('id' => $this->profile->id))),
+                                // TRANS: Description for link to "tag other users" in widget to show a list of profiles.
                                 _('Tags'));
         } else {
+            // TRANS: Text widget to show a list of profiles with their tags.
             $this->out->text(_('Tags'));
         }
         if ($tags) {
@@ -120,6 +121,7 @@ class SubscriptionListItem extends ProfileListItem
             }
             $this->out->elementEnd('ul');
         } else {
+            // TRANS: Text if there are no tags in widget to show a list of profiles by tag.
             $this->out->text(_('(None)'));
         }
     }

@@ -168,7 +168,7 @@ class EventPlugin extends MicroappPlugin
         $happeningObj = $activity->objects[0];
 
         if ($happeningObj->type != Happening::OBJECT_TYPE) {
-            throw new Exception('Wrong type for object.');
+            throw new Exception(_m('Wrong type for object.'));
         }
 
         $notice = null;
@@ -189,12 +189,12 @@ class EventPlugin extends MicroappPlugin
             $happening = Happening::staticGet('uri', $happeningObj->id);
             if (empty($happening)) {
                 // FIXME: save the event
-                throw new Exception("RSVP for unknown event.");
+                throw new Exception(_m('RSVP for unknown event.'));
             }
             $notice = RSVP::saveNew($actor, $happening, $activity->verb, $options);
             break;
         default:
-            throw new Exception("Unknown verb for events");
+            throw new Exception(_m('Unknown verb for events'));
         }
 
         return $notice;
@@ -225,13 +225,13 @@ class EventPlugin extends MicroappPlugin
         }
 
         if (empty($happening)) {
-            throw new Exception("Unknown object type.");
+            throw new Exception(_m('Unknown object type.'));
         }
 
         $notice = $happening->getNotice();
 
         if (empty($notice)) {
-            throw new Exception("Unknown event notice.");
+            throw new Exception(_m('Unknown event notice.'));
         }
 
         $obj = new ActivityObject();
@@ -365,7 +365,7 @@ class EventPlugin extends MicroappPlugin
 
         $out->elementStart('div', 'event-times'); // VEVENT/EVENT-TIMES IN
 
-        $out->element('strong', null, _('Time:'));
+        $out->element('strong', null, _m('Time:'));
 
         $out->element('abbr', array('class' => 'dtstart',
                                     'title' => common_date_iso8601($event->start_time)),
@@ -385,14 +385,14 @@ class EventPlugin extends MicroappPlugin
 
         if (!empty($event->location)) {
             $out->elementStart('div', 'event-location');
-            $out->element('strong', null, _('Location: '));
+            $out->element('strong', null, _m('Location:'));
             $out->element('span', 'location', $event->location);
             $out->elementEnd('div');
         }
 
         if (!empty($event->description)) {
             $out->elementStart('div', 'event-description');
-            $out->element('strong', null, _('Description: '));
+            $out->element('strong', null, _m('Description:'));
             $out->element('span', 'description', $event->description);
             $out->elementEnd('div');
         }
@@ -400,9 +400,11 @@ class EventPlugin extends MicroappPlugin
         $rsvps = $event->getRSVPs();
 
         $out->elementStart('div', 'event-rsvps');
-        $out->element('strong', null, _('Attending: '));
+        $out->element('strong', null, _m('Attending:'));
         $out->element('span', 'event-rsvps',
-                      sprintf(_('Yes: %d No: %d Maybe: %d'),
+                      // TRANS: RSVP counts.
+		      // TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
+                      sprintf(_m('Yes: %1$d No: %2$d Maybe: %3$d'),
                               count($rsvps[RSVP::POSITIVE]),
                               count($rsvps[RSVP::NEGATIVE]),
                               count($rsvps[RSVP::POSSIBLE])));

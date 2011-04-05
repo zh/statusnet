@@ -31,12 +31,14 @@ class TagotherAction extends Action
     {
         parent::prepare($args);
         if (!common_logged_in()) {
+            // TRANS: Error message displayed when trying to perform an action that requires a logged in user.
             $this->clientError(_('Not logged in.'), 403);
             return false;
         }
 
         $id = $this->trimmed('id');
         if (!$id) {
+            // TRANS: Client error displayed on user tag page when trying to add tags without providing a user ID.
             $this->clientError(_('No ID argument.'));
             return false;
         }
@@ -44,6 +46,7 @@ class TagotherAction extends Action
         $this->profile = Profile::staticGet('id', $id);
 
         if (!$this->profile) {
+            // TRANS: Client error displayed on user tag page when trying to add tags providing a non-existing user ID.
             $this->clientError(_('No profile with that ID.'));
             return false;
         }
@@ -63,6 +66,8 @@ class TagotherAction extends Action
 
     function title()
     {
+        // TRANS: Title for "tag other users" page.
+        // TRANS: %s is the user nickname.
         return sprintf(_('Tag %s'), $this->profile->nickname);
     }
 
@@ -75,6 +80,7 @@ class TagotherAction extends Action
     function showContent()
     {
         $this->elementStart('div', 'entity_profile vcard author');
+        // TRANS: Header for user details on "tag other users" page.
         $this->element('h2', null, _('User profile'));
 
         $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -118,6 +124,7 @@ class TagotherAction extends Action
                                            'action' => common_local_url('tagother', array('id' => $this->profile->id))));
 
         $this->elementStart('fieldset');
+        // TRANS: Fieldset legend on "tag other users" page.
         $this->element('legend', null, _('Tag user'));
         $this->hidden('token', common_session_token());
         $this->hidden('id', $this->profile->id);
@@ -126,11 +133,14 @@ class TagotherAction extends Action
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
+        // TRANS: Field label for inputting tags on "tag other users" page.
         $this->input('tags', _('Tags'),
                      ($this->arg('tags')) ? $this->arg('tags') : implode(' ', Profile_tag::getTags($user->id, $this->profile->id)),
+                     // TRANS: Title for input field for inputting tags on "tag other users" page.
                      _('Tags for this user (letters, numbers, -, ., and _), separated by commas or spaces.'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
+        // TRANS: Button text for saving tags for other users.
         $this->submit('save', _m('BUTTON','Save'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
@@ -143,6 +153,7 @@ class TagotherAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
+            // TRANS: Client error displayed when the session token does not match or is not given.
             $this->showForm(_('There was a problem with your session token. '.
                               'Try again, please.'));
             return;
@@ -172,6 +183,7 @@ class TagotherAction extends Action
             !Subscription::pkeyGet(array('subscriber' => $this->profile->id,
                                          'subscribed' => $user->id)))
         {
+            // TRANS: Client error on "tag other users" page when tagging a user is not possible because of missing mutual subscriptions.
             $this->clientError(_('You can only tag people you are subscribed to or who are subscribed to you.'));
             return;
         }
@@ -179,6 +191,7 @@ class TagotherAction extends Action
         $result = Profile_tag::setTags($user->id, $this->profile->id, $tags);
 
         if (!$result) {
+            // TRANS: Client error on "tag other users" page when saving tags fails server side.
             $this->clientError(_('Could not save tags.'));
             return;
         }
@@ -188,7 +201,8 @@ class TagotherAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            $this->element('title', null, _('Tags'));
+            // TRANS: Title of "tag other users" page.
+            $this->element('title', null, _m('TITLE','Tags'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->elementStart('p', 'subtags');
@@ -215,6 +229,7 @@ class TagotherAction extends Action
         } else {
             $this->elementStart('div', 'instructions');
             $this->element('p', null,
+                           // TRANS: Page notice on "tag other users" page.
                            _('Use this form to add tags to your subscribers or subscriptions.'));
             $this->elementEnd('div');
         }

@@ -97,10 +97,14 @@ class GroupProfileBlock extends ProfileBlock
             $this->out->elementStart('li', 'entity_subscribe');
             if (Event::handle('StartGroupSubscribe', array($this, $this->group))) {
                 if ($cur) {
-                    if ($cur->isMember($this->group)) {
+                    $profile = $cur->getProfile();
+                    if ($profile->isMember($this->group)) {
                         $lf = new LeaveForm($this->out, $this->group);
                         $lf->show();
-                    } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
+                    } else if ($profile->isPendingMember($this->group)) {
+                        $cf = new CancelGroupForm($this->out, $this->group);
+                        $cf->show();
+                    } else if (!Group_block::isBlocked($this->group, $profile)) {
                         $jf = new JoinForm($this->out, $this->group);
                         $jf->show();
                     }

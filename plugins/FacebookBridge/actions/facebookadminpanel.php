@@ -120,13 +120,13 @@ class FacebookadminpanelAction extends AdminPanelAction
 
         if (mb_strlen($values['facebook']['appid']) > 255) {
             $this->clientError(
-                _m("Invalid Facebook ID. Max length is 255 characters.")
+                _m("Invalid Facebook ID. Maximum length is 255 characters.")
             );
         }
 
         if (mb_strlen($values['facebook']['secret']) > 255) {
             $this->clientError(
-                _m("Invalid Facebook secret. Max length is 255 characters.")
+                _m("Invalid Facebook secret. Maximum length is 255 characters.")
             );
         }
     }
@@ -182,7 +182,7 @@ class FacebookAdminPanelForm extends AdminForm
         $this->input(
             'appid',
             _m('Application ID'),
-            _m('ID of your Facebook application'),
+            _m('ID of your Facebook application.'),
             'facebook'
         );
         $this->unli();
@@ -191,7 +191,7 @@ class FacebookAdminPanelForm extends AdminForm
         $this->input(
             'secret',
              _m('Secret'),
-            _m('Application secret'),
+            _m('Application secret.'),
             'facebook'
         );
         $this->unli();
@@ -207,6 +207,6 @@ class FacebookAdminPanelForm extends AdminForm
      */
     function formActions()
     {
-        $this->out->submit('submit', _m('Save'), 'submit', null, _m('Save Facebook settings'));
+        $this->out->submit('submit', _m('BUTTON','Save'), 'submit', null, _m('Save Facebook settings.'));
     }
 }

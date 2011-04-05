@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:37:12+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:20:44+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-03 17:43:42+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-POT-Import-Date: 2011-04-01 21:05:19+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -38,10 +38,12 @@ msgstr "Facebook"
 msgid "Facebook integration settings"
 msgstr "Einstellungen der Facebook-Integration"
 
-msgid "Invalid Facebook ID. Max length is 255 characters."
+#, fuzzy
+msgid "Invalid Facebook ID. Maximum length is 255 characters."
 msgstr "Ungültige Facebook-ID. Die maximale Länge beträgt 255 Zeichen."
 
-msgid "Invalid Facebook secret. Max length is 255 characters."
+#, fuzzy
+msgid "Invalid Facebook secret. Maximum length is 255 characters."
 msgstr "Ungültiges Facebook-Geheimnis. Die maximale Länge beträgt 255 Zeichen."
 
 msgid "Facebook application settings"
@@ -50,19 +52,24 @@ msgstr "Einstellungen der Facebook-Anwendung"
 msgid "Application ID"
 msgstr "Anwendungs-ID"
 
-msgid "ID of your Facebook application"
+#, fuzzy
+msgid "ID of your Facebook application."
 msgstr "ID ihrer Facebook-Anwendung"
 
 msgid "Secret"
 msgstr "Geheimnis"
 
-msgid "Application secret"
+#, fuzzy
+msgid "Application secret."
 msgstr "Anwendungs-Geheimnis"
 
+#. TRANS: Submit button to save synchronisation settings.
+msgctxt "BUTTON"
 msgid "Save"
 msgstr "Speichern"
 
-msgid "Save Facebook settings"
+#, fuzzy
+msgid "Save Facebook settings."
 msgstr "Facebook-Einstellungen speichern"
 
 msgid "There was a problem with your session token. Try again, please."
@@ -81,11 +88,6 @@ msgstr "Meine Nachrichten auf Facebook veröffentlichen."
 
 msgid "Send \"@\" replies to Facebook."
 msgstr "\"@\"-Antworten zu Facebook senden."
-
-#. TRANS: Submit button to save synchronisation settings.
-msgctxt "BUTTON"
-msgid "Save"
-msgstr "Speichern"
 
 #. TRANS: Legend.
 msgid "Disconnect my account from Facebook"
@@ -121,7 +123,8 @@ msgstr ""
 msgid "Sync preferences saved."
 msgstr "Synchronisations-Einstellungen gespeichert."
 
-msgid "Couldn't delete link to Facebook."
+#, fuzzy
+msgid "Could not delete link to Facebook."
 msgstr "Konnte die Verbindung zu Facebook nicht löschen."
 
 msgid "You have disconnected from Facebook."
@@ -138,16 +141,17 @@ msgstr ""
 "Es gibt bereits ein lokales Konto, das mit diesem Facebook-Konto verbunden "
 "ist."
 
-msgid "You can't register if you don't agree to the license."
+#, fuzzy
+msgid "You cannot register if you do not agree to the license."
 msgstr ""
 "Du kannst dich nicht registrieren, falls du die Lizenz nicht akzeptierst."
 
 msgid "An unknown error has occured."
 msgstr "Ein unbekannter Fehler ist aufgetreten."
 
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"This is the first time you've logged into %s so we must connect your "
+"This is the first time you have logged into %s so we must connect your "
 "Facebook to a local account. You can either create a new local account, or "
 "connect with an existing local account."
 msgstr ""
@@ -183,7 +187,8 @@ msgstr "Einen neuen Benutzer mit diesem Spitznamen erstellen."
 msgid "New nickname"
 msgstr "Neuer Spitzname"
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1–64 Kleinbuchstaben oder Zahlen, keine Satz- oder Leerzeichen"
 
 #. TRANS: Submit button.

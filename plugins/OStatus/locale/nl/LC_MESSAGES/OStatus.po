@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:37:59+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:21:52+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-03 17:49:39+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-POT-Import-Date: 2011-04-01 21:06:07+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85253); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -191,7 +191,7 @@ msgid "Unexpected unsubscribe request for %s."
 msgstr "Onverwacht verzoek om abonnement op te hebben voor %s."
 
 msgid "No such user."
-msgstr "Onbekende gebruiker."
+msgstr "Deze gebruiker bestaat niet."
 
 #. TRANS: Field label for a field that takes an OStatus user address.
 msgid "Subscribe to"
@@ -223,7 +223,7 @@ msgstr "Bevestigen"
 
 #. TRANS: Tooltip for button "Confirm".
 msgid "Subscribe to this user"
-msgstr "Abonneren op deze gebruiker"
+msgstr "Op deze gebruiker abonneren"
 
 msgid "You are already subscribed to this user."
 msgstr "U bent al geabonneerd op deze gebruiker."
@@ -293,10 +293,6 @@ msgstr "U bent al lid!"
 msgid "Remote group join failed!"
 msgstr "Het verlaten van de groep bij een andere dienst is mislukt."
 
-#. TRANS: OStatus remote group subscription dialog error.
-msgid "Remote group join aborted!"
-msgstr "Het lid worden van de groep bij een andere dienst is afgebroken."
-
 #. TRANS: Page title for OStatus remote group join form
 msgid "Confirm joining remote group"
 msgstr "Lid worden van groep bij andere dienst"
@@ -324,8 +320,16 @@ msgstr ""
 "deze gebruiker."
 
 #. TRANS: Client exception.
+msgid "This is already a favorite."
+msgstr "Deze mededeling staat al in uw favorietenlijst."
+
+#. TRANS: Client exception.
 msgid "Could not save new favorite."
 msgstr "Het was niet mogelijk de nieuwe favoriet op te slaan."
+
+#. TRANS: Client exception.
+msgid "Notice was not favorited!"
+msgstr "De mededeling is niet op de favorietenlijst geplaatst!"
 
 #. TRANS: Client exception.
 msgid "Can't favorite/unfavorite without an object."

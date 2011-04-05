@@ -201,7 +201,7 @@ class LinkbackPlugin extends Plugin
     {
         $profile = $this->notice->getProfile();
 
-        $args = array('title' => sprintf(_('%1$s\'s status on %2$s'),
+        $args = array('title' => sprintf(_m('%1$s\'s status on %2$s'),
                                          $profile->nickname,
                                          common_exact_date($this->notice->created)),
                       'excerpt' => $this->notice->content,

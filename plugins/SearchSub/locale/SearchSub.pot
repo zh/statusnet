@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 09:47+0000\n"
+"POT-Creation-Date: 2011-04-03 23:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,16 +47,29 @@ msgid ""
 "searches:"
 msgstr ""
 
+#. TRANS: Search subscription list text when the logged in user has no search subscriptions.
+#: searchsubsaction.php:118
+msgid ""
+"You are not subscribed to any text searches right now. You can push the "
+"\"Subscribe\" button on any notice text search to automatically receive any "
+"public messages on this site that match that search, even if you are not "
+"subscribed to the poster."
+msgstr ""
+
+#. TRANS: Search subscription list text when looking at the subscriptions for a of a user other
+#. TRANS: than the logged in user that has no search subscriptions. %s is the user nickname.
 #. TRANS: Subscription list text when looking at the subscriptions for a of a user that has none
 #. TRANS: as an anonymous user. %s is the user nickname.
-#: searchsubsaction.php:130
+#: searchsubsaction.php:124 searchsubsaction.php:130
 #, php-format
 msgid "%s is not subscribed to any searches."
 msgstr ""
 
-#: searchsubsaction.php:168
+#. TRANS: Search subscription list item. %1$s is a URL to a notice search,
+#. TRANS: %2$s are the search criteria, %3$s is a datestring.
+#: searchsubsaction.php:170
 #, php-format
-msgid "\"<a href=\"%s\">%s</a>\" since %s"
+msgid "\"<a href=\"%1$s\">%2$s</a>\" since %3$s"
 msgstr ""
 
 #. TRANS: Error text shown a user tries to untrack a search query they're not subscribed to.
@@ -77,6 +90,27 @@ msgstr ""
 msgid "You are no longer subscribed to the search \"%s\"."
 msgstr ""
 
+#. TRANS: Client error displayed trying to perform any request method other than POST.
+#. TRANS: Do not translate POST.
+#: searchsubaction.php:78
+msgid "This action only accepts POST requests."
+msgstr ""
+
+#. TRANS: Client error displayed when the session token is not okay.
+#: searchsubaction.php:88
+msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
+#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
+#: searchsubaction.php:99
+msgid "Not logged in."
+msgstr ""
+
+#. TRANS: Client error displayed trying to subscribe to a non-existing profile.
+#: searchsubaction.php:109
+msgid "No such profile."
+msgstr ""
+
 #. TRANS: Page title when search subscription succeeded.
 #: searchsubaction.php:136
 msgid "Subscribed"
@@ -84,6 +118,11 @@ msgstr ""
 
 #: searchunsubform.php:96 searchunsubform.php:107
 msgid "Unsubscribe from this search"
+msgstr ""
+
+#: searchunsubform.php:107
+msgctxt "BUTTON"
+msgid "Unsubscribe"
 msgstr ""
 
 #. TRANS: Page title when search unsubscription succeeded.
@@ -168,6 +207,11 @@ msgstr ""
 
 #: searchsubform.php:116 searchsubform.php:140
 msgid "Subscribe to this search"
+msgstr ""
+
+#: searchsubform.php:140
+msgctxt "BUTTON"
+msgid "Subscribe"
 msgstr ""
 
 #. TRANS: Message given having failed to cancel one of the search subs with 'track off' command.

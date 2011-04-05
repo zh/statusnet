@@ -9,28 +9,203 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Bookmark\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-11 18:15+0000\n"
-"PO-Revision-Date: 2011-03-11 18:17:50+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:20:15+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-08 01:22:22+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r83703); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-01 21:04:35+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-plugin-bookmark\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Bad import file."
+msgstr "Mal file de importation."
+
+msgid "No <A> tag in a <DT>."
+msgstr "Etiquetta <A> mancante in un <DT>."
+
+msgid "Skipping private bookmark."
+msgstr "Salta un marcapaginas private."
+
+#. TRANS: Client exception thrown when referring to a non-existing bookmark.
+msgid "No such bookmark."
+msgstr "Iste marcapaginas non existe."
+
+#. TRANS: Title for bookmark.
+#. TRANS: %1$s is a user nickname, %2$s is a bookmark title.
+#, php-format
+msgid "%1$s's bookmark for \"%2$s\""
+msgstr "Marcapaginas de %1$s pro \"%2$s\""
+
 msgid "Simple extension for supporting bookmarks."
 msgstr "Extension simple pro supportar marcapaginas."
 
+msgid "Import del.icio.us bookmarks"
+msgstr "Importar marcapaginas de del.icio.us"
+
+msgid "Expected exactly 1 link rel=related in a Bookmark."
+msgstr ""
+"Es expectate exactemente 1 ligamine \"rel=related\" in un marcapaginas."
+
+msgid "Bookmark notice with the wrong number of attachments."
+msgstr "Le nota de marcapaginas ha un numero erronee de annexos."
+
 msgid "Bookmark"
 msgstr "Marcapaginas"
+
+#, php-format
+msgid "Bookmark on %s"
+msgstr "Marcapaginas in %s"
+
+msgid "Bookmark already exists."
+msgstr "Le marcapaginas ja existe."
+
+#. TRANS: %1$s is a title, %2$s is a short URL, %3$s is a description,
+#. TRANS: %4$s is space separated list of hash tags.
+#, php-format
+msgid "\"%1$s\" %2$s %3$s %4$s"
+msgstr "\"%1$s\" %2$s %3$s %4$s"
+
+#, php-format
+msgid ""
+"<span class=\"xfolkentry\"><a class=\"taggedlink\" href=\"%1$s\">%2$s</a> "
+"<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
+"span>"
+msgstr ""
+"<span class=\"xfolkentry\"><a class=\"taggedlink\" href=\"%1$s\">%2$s</a> "
+"<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
+"span>"
+
+msgid "Unknown URL"
+msgstr "URL incognite"
+
+#, php-format
+msgid "Notices linking to %s"
+msgstr "Notas ligante a %s"
+
+msgid "Only logged-in users can import del.icio.us backups."
+msgstr ""
+"Es necessari aperir session pro poter importar le copias de reserva de del."
+"icio.us."
+
+msgid "You may not restore your account."
+msgstr "Tu non pote restaurar tu conto."
+
+msgid "No uploaded file."
+msgstr "Nulle file incargate."
+
+#. TRANS: Client exception thrown when an uploaded file is too large.
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+msgstr "Le file incargate excede le directiva upload_max_filesize in php.ini."
+
+#. TRANS: Client exception.
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form."
+msgstr ""
+"Le file incargate excede le directiva MAX_FILE_SIZE specificate in le "
+"formulario HTML."
+
+#. TRANS: Client exception.
+msgid "The uploaded file was only partially uploaded."
+msgstr "Le file incargate ha solmente essite incargate partialmente."
+
+#. TRANS: Client exception thrown when a temporary folder is not present
+msgid "Missing a temporary folder."
+msgstr "Manca un dossier temporari."
+
+#. TRANS: Client exception thrown when writing to disk is not possible
+msgid "Failed to write file to disk."
+msgstr "Falleva de scriber le file in disco."
+
+#. TRANS: Client exception thrown when a file upload has been stopped
+msgid "File upload stopped by extension."
+msgstr "Incargamento de file stoppate per un extension."
+
+#. TRANS: Client exception thrown when a file upload operation has failed
+msgid "System error uploading file."
+msgstr "Error de systema durante le incargamento del file."
+
+#, php-format
+msgid "Getting backup from file '%s'."
+msgstr "Obtene copia de reserva ex file '%s'."
+
+msgid ""
+"Bookmarks have been imported. Your bookmarks should now appear in search and "
+"your profile page."
+msgstr ""
+"Le marcapaginas ha essite importate. Tu marcapaginas debe ora apparer in "
+"recercas e in tu pagina de profilo."
+
+msgid "Bookmarks are being imported. Please wait a few minutes for results."
+msgstr ""
+"Le marcapaginas es actualmente importate. Per favor attende alcun minutas "
+"pro le resultatos."
+
+msgid "You can upload a backed-up delicious.com bookmarks file."
+msgstr ""
+"Tu pote incargar un copia de reserva de un file de marcapaginas de delicious."
+"com."
 
 msgctxt "BUTTON"
 msgid "Upload"
 msgstr "Incargar"
 
+msgid "Upload the file"
+msgstr "Incargar le file"
+
+msgctxt "LABEL"
+msgid "Title"
+msgstr "Titulo"
+
+msgid "Title of the bookmark"
+msgstr "Titulo del marcapginas"
+
+msgctxt "LABEL"
+msgid "URL"
+msgstr "URL"
+
+msgid "URL to bookmark"
+msgstr "URL pro marcapaginas"
+
+msgctxt "LABEL"
+msgid "Tags"
+msgstr "Etiquettas"
+
+msgid "Comma- or space-separated list of tags"
+msgstr "Un lista de etiquettas separate per commas o spatios"
+
+msgctxt "LABEL"
+msgid "Description"
+msgstr "Description"
+
+msgid "Description of the URL"
+msgstr "Description del URL"
+
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Salveguardar"
+
+msgid "New bookmark"
+msgstr "Nove marcapaginas"
+
+msgid "Must be logged in to post a bookmark."
+msgstr "Es necessari aperir session pro inserer un marcapaginas."
+
+msgid "Bookmark must have a title."
+msgstr "Le marcapaginas debe haber un titulo."
+
+msgid "Bookmark must have an URL."
+msgstr "Le marcapaginas debe haber un URL."
+
+#. TRANS: Page title after sending a notice.
+msgid "Notice posted"
+msgstr "Nota publicate"
+
+#. TRANS: %s is the filename that contains a backup for a user.
+#, php-format
+msgid "Getting backup from file \"%s\"."
+msgstr "Obtene copia de reserva ex file \"%s\"."

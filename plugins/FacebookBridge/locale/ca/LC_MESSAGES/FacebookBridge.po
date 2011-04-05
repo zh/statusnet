@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:37:12+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:20:44+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-03 17:43:42+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-POT-Import-Date: 2011-04-01 21:05:19+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -38,10 +38,12 @@ msgstr "Facebook"
 msgid "Facebook integration settings"
 msgstr "Paràmetres d'integració del Facebook"
 
-msgid "Invalid Facebook ID. Max length is 255 characters."
+#, fuzzy
+msgid "Invalid Facebook ID. Maximum length is 255 characters."
 msgstr "L'ID del Facebook no és vàlid. La longitud màxima són 255 caràcters."
 
-msgid "Invalid Facebook secret. Max length is 255 characters."
+#, fuzzy
+msgid "Invalid Facebook secret. Maximum length is 255 characters."
 msgstr ""
 "La clau secreta del Facebook no és vàlida. La longitud màxima són 255 "
 "caràcters."
@@ -52,19 +54,24 @@ msgstr "Paràmetres d'aplicació del Facebook"
 msgid "Application ID"
 msgstr "ID de l'aplicació"
 
-msgid "ID of your Facebook application"
+#, fuzzy
+msgid "ID of your Facebook application."
 msgstr "ID de la vostra aplicació de Facebook"
 
 msgid "Secret"
 msgstr "Clau secreta"
 
-msgid "Application secret"
+#, fuzzy
+msgid "Application secret."
 msgstr "Clau secreta de l'aplicació"
 
+#. TRANS: Submit button to save synchronisation settings.
+msgctxt "BUTTON"
 msgid "Save"
 msgstr "Desa"
 
-msgid "Save Facebook settings"
+#, fuzzy
+msgid "Save Facebook settings."
 msgstr "Desa els paràmetres del Facebook"
 
 msgid "There was a problem with your session token. Try again, please."
@@ -83,11 +90,6 @@ msgstr "Publica els meus avisos al Facebook."
 
 msgid "Send \"@\" replies to Facebook."
 msgstr "Envia respostes amb «@» al Facebook."
-
-#. TRANS: Submit button to save synchronisation settings.
-msgctxt "BUTTON"
-msgid "Save"
-msgstr "Desa"
 
 #. TRANS: Legend.
 msgid "Disconnect my account from Facebook"
@@ -121,7 +123,8 @@ msgstr "S'ha produït un problema en desar les preferències de sincronització.
 msgid "Sync preferences saved."
 msgstr "S'han desat les preferències de sincronització."
 
-msgid "Couldn't delete link to Facebook."
+#, fuzzy
+msgid "Could not delete link to Facebook."
 msgstr "No s'ha pogut eliminar l'enllaç al Facebook."
 
 msgid "You have disconnected from Facebook."
@@ -136,15 +139,16 @@ msgstr ""
 msgid "There is already a local account linked with that Facebook account."
 msgstr "Ja hi ha un compte local enllaçat amb aquest compte del Facebook."
 
-msgid "You can't register if you don't agree to the license."
+#, fuzzy
+msgid "You cannot register if you do not agree to the license."
 msgstr "No podeu registrar-vos-hi si no accepteu la llicència."
 
 msgid "An unknown error has occured."
 msgstr "S'ha produït un error desconegut."
 
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"This is the first time you've logged into %s so we must connect your "
+"This is the first time you have logged into %s so we must connect your "
 "Facebook to a local account. You can either create a new local account, or "
 "connect with an existing local account."
 msgstr ""
@@ -181,7 +185,8 @@ msgstr "Crea un usuari nou amb aquest sobrenom"
 msgid "New nickname"
 msgstr "Nou sobrenom"
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1-64 lletres en minúscules o nombres, sense puntuacions o espais"
 
 #. TRANS: Submit button.

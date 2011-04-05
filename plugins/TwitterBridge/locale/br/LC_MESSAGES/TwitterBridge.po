@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - TwitterBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-06 02:34+0100\n"
-"PO-Revision-Date: 2011-03-06 01:38:26+0000\n"
+"POT-Creation-Date: 2011-04-03 13:16+0000\n"
+"PO-Revision-Date: 2011-04-03 13:22:40+0000\n"
 "Language-Team: Breton <http://translatewiki.net/wiki/Portal:br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-03 17:47:31+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r83348); Translate extension (2011-03-04)\n"
+"X-POT-Import-Date: 2011-04-01 21:07:04+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85253); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: #out-statusnet-plugin-twitterbridge\n"
@@ -99,16 +99,20 @@ msgstr ""
 msgid "Twitter preferences saved."
 msgstr ""
 
-msgid "You can't register if you don't agree to the license."
+msgid "You cannot register if you do not agree to the license."
 msgstr ""
 
 msgid "Something weird happened."
 msgstr ""
 
-msgid "Couldn't link your Twitter account."
-msgstr ""
+#, fuzzy
+msgid "Could not link your Twitter account."
+msgstr "Kevreadenn gant ho kont Twitter"
 
 msgid "Couldn't link your Twitter account: oauth_token mismatch."
+msgstr ""
+
+msgid "Couldn't link your Twitter account."
 msgstr ""
 
 #, php-format
@@ -139,7 +143,14 @@ msgstr "Krouiñ un implijer nevez gant al lesanv-se."
 msgid "New nickname"
 msgstr "Lesanv nevez"
 
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
+msgstr ""
+
+msgctxt "LABEL"
+msgid "Email"
+msgstr ""
+
+msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
 
 msgid "Create"
@@ -265,9 +276,13 @@ msgstr "Kevreadenn gant ho kont Twitter"
 msgid "Sign in with Twitter"
 msgstr "Kevreañ gant Twitter"
 
-msgid "Your Twitter bridge has been disabled."
+#. TRANS: Mail subject after forwarding notices to Twitter has stopped working.
+msgid "Your Twitter bridge has been disabled"
 msgstr ""
 
+#. TRANS: Mail body after forwarding notices to Twitter has stopped working.
+#. TRANS: %1$ is the name of the user the mail is sent to, %2$s is a URL to the
+#. TRANS: Twitter settings, %3$s is the StatusNet sitename.
 #, php-format
 msgid ""
 "Hi, %1$s. We're sorry to inform you that your link to Twitter has been "

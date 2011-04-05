@@ -324,6 +324,8 @@ class ShowgroupAction extends GroupDesignAction
         $this->element('h2', null, _('Statistics'));
 
         $this->elementStart('dl');
+
+        // TRANS: Label for group creation date.
         $this->element('dt', null, _m('LABEL','Created'));
         $this->element('dd', 'entity_created', date('j M Y',
                                                  strtotime($this->group->created)));
@@ -363,6 +365,18 @@ class ShowgroupAction extends GroupDesignAction
         $this->raw(common_markup_to_html($m));
         $this->elementEnd('div');
     }
+
+    function noticeFormOptions()
+    {
+        $options = parent::noticeFormOptions();
+        $cur = common_current_user();
+
+        if (!empty($cur) && $cur->isMember($this->group)) {
+            $options['to_group'] =  $this->group;
+        }
+
+        return $options;
+    }
 }
 
 class GroupAdminSection extends ProfileSection
@@ -382,8 +396,8 @@ class GroupAdminSection extends ProfileSection
 
     function title()
     {
-        // TRANS: Header for list of group administrators on a group page (h2).
-        return _('Admins');
+        // TRANS: Title for list of group administrators on a group page.
+        return _m('TITLE','Admins');
     }
 
     function divId()

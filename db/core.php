@@ -118,10 +118,12 @@ $schema['user'] = array(
         'smsemail' => array('type' => 'varchar', 'length' => 255, 'description' => 'built from sms and carrier'),
         'uri' => array('type' => 'varchar', 'length' => 255, 'description' => 'universally unique identifier, usually a tag URI'),
         'autosubscribe' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'automatically subscribe to users who subscribe to us'),
+        'subscribe_policy' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => '0 = anybody can subscribe; 1 = require approval'),
         'urlshorteningservice' => array('type' => 'varchar', 'length' => 50, 'default' => 'internal', 'description' => 'service to use for auto-shortening URLs'),
         'inboxed' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'has an inbox been created for this user?'),
         'design_id' => array('type' => 'int', 'description' => 'id of a design'),
         'viewdesigns' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'whether to view user-provided designs'),
+        'private_stream' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'whether to limit all notices to followers only'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
@@ -202,6 +204,9 @@ $schema['notice'] = array(
         'location_ns' => array('type' => 'int', 'description' => 'namespace for location'),
         'repeat_of' => array('type' => 'int', 'description' => 'notice this is a repeat of'),
         'object_type' => array('type' => 'varchar', 'length' => 255, 'description' => 'URI representing activity streams object type', 'default' => 'http://activitystrea.ms/schema/1.0/note'),
+        'scope' => array('type' => 'int',
+                         'default' => '1',
+                         'description' => 'bit map for distribution scope; 0 = everywhere; 1 = this server only; 2 = addressees; 4 = followers'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -649,6 +654,8 @@ $schema['user_group'] = array(
 
         'uri' => array('type' => 'varchar', 'length' => 255, 'description' => 'universal identifier'),
         'mainpage' => array('type' => 'varchar', 'length' => 255, 'description' => 'page for group info to link to'),
+        'join_policy' => array('type' => 'int', 'size' => 'tiny', 'description' => '0=open; 1=requires admin approval'),      
+        'force_scope' => array('type' => 'int', 'size' => 'tiny', 'description' => '0=never,1=sometimes,-1=always'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -1025,3 +1032,7 @@ $schema['schema_version'] = array(
     ),
     'primary key' => array('table_name'),
 );
+
+$schema['group_join_queue'] = Group_join_queue::schemaDef();
+
+$schema['subscription_queue'] = Subscription_queue::schemaDef();

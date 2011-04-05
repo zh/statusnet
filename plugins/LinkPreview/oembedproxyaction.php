@@ -56,7 +56,7 @@ class OembedproxyAction extends OembedAction
         // We're not a general oEmbed proxy service; limit to valid sessions.
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->clientError(_('There was a problem with your session token. '.
+            $this->clientError(_m('There was a problem with your session token. '.
                                  'Try again, please.'));
         }
 

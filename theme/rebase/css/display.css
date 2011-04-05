@@ -361,6 +361,10 @@ address .poweredby {
     opacity:0;
 }
 
+.form_notice .to-selector { 
+    clear:left;
+}
+
 /* Local navigation */
 
 #site_nav_local_views { 
@@ -1154,6 +1158,11 @@ width:auto;
 
 .hentry .entry-content .form_settings ul {
 margin-left:0;
+}
+
+.limited-scope .entry-content .timestamp:before {
+content:'☠';
+font-size:150%;
 }
 
 /* override OStatus plugin style */

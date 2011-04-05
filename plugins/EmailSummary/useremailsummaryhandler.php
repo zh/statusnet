@@ -128,7 +128,7 @@ class UserEmailSummaryHandler extends QueueHandler
                                         'style' => 'background-color: #ffffff; border: 4px solid #4c609a; padding: 10px;'));
 
         $out->elementStart('div', array('style' => 'color: #ffffff; background-color: #4c609a; font-weight: bold; margin-bottom: 10px; padding: 4px;'));
-    	$out->raw(sprintf(_('Recent updates from %1s for %2s:'),
+    	$out->raw(sprintf(_m('Recent updates from %1s for %2s:'),
                           common_config('site', 'name'),
                           $profile->getBestName()));
         $out->elementEnd('div');
@@ -184,7 +184,7 @@ class UserEmailSummaryHandler extends QueueHandler
                     $out->text(' ');
                     $out->element('a',
                                   array('href' => $convurl.'#notice-'.$notice->id),
-                                  _('in context'));
+                                  _m('in context'));
                 }
             }
             $out->elementEnd('div');
@@ -194,7 +194,7 @@ class UserEmailSummaryHandler extends QueueHandler
 	
         $out->elementEnd('table');
 
-        $out->raw(sprintf(_('<p><a href="%1s">change your email settings for %2s</a></p>'),
+        $out->raw(sprintf(_m('<p><a href="%1s">change your email settings for %2s</a></p>'),
                           common_local_url('emailsettings'),
                           common_config('site', 'name')));
 
@@ -204,7 +204,7 @@ class UserEmailSummaryHandler extends QueueHandler
 	
         // FIXME: do something for people who don't like HTML email
 	
-        mail_to_user($user, _('Updates from your network'), $body,
+        mail_to_user($user, _m('Updates from your network'), $body,
                      array('Content-Type' => 'text/html; charset=UTF-8'));
 
         if (empty($ess)) {

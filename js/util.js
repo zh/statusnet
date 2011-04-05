@@ -412,16 +412,20 @@ var SN = { // StatusNet
                             var replyItem = form.closest('li.notice-reply');
 
                             if (replyItem.length > 0) {
-                                // If this is an inline reply, insert it in place.
+                                // If this is an inline reply, remove the form...
+                                var list = form.closest('.threaded-replies');
+                                var placeholder = list.find('.notice-reply-placeholder');
+                                replyItem.remove();
+
                                 var id = $(notice).attr('id');
                                 if ($("#"+id).length == 0) {
-                                    var parentNotice = replyItem.closest('li.notice');
-                                    replyItem.replaceWith(notice);
-                                    SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                    $(notice).insertBefore(placeholder);
                                 } else {
                                     // Realtime came through before us...
-                                    replyItem.remove();
                                 }
+
+                                // ...and show the placeholder form.
+                                placeholder.show();
                             } else if (notices.length > 0 && SN.U.belongsOnTimeline(notice)) {
                                 // Not a reply. If on our timeline, show it at the top!
 
@@ -604,8 +608,8 @@ var SN = { // StatusNet
                 // Update the existing form...
                 nextStep();
             } else {
-                // Remove placeholder if any
-                list.find('li.notice-reply-placeholder').remove();
+                // Hide the placeholder...
+                var placeholder = list.find('li.notice-reply-placeholder').hide();
 
                 // Create the reply form entry at the end
                 var replyItem = $('li.notice-reply', list);
@@ -615,7 +619,7 @@ var SN = { // StatusNet
                     var intermediateStep = function(formMaster) {
                         var formEl = document._importNode(formMaster, true);
                         replyItem.append(formEl);
-                        list.append(replyItem);
+                        list.append(replyItem); // *after* the placeholder
 
                         var form = replyForm = $(formEl);
                         SN.Init.NoticeFormSetup(form);
@@ -660,6 +664,18 @@ var SN = { // StatusNet
                 .live('focus', function() {
                     var notice = $(this).closest('li.notice');
                     SN.U.NoticeInlineReplyTrigger(notice);
+                    return false;
+                });
+            $('li.notice-reply-comments a')
+                .live('click', function() {
+                    var url = $(this).attr('href');
+                    var area = $(this).closest('.threaded-replies');
+                    $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
+                        var replies = $('.threaded-replies', data);
+                        if (replies.length) {
+                            area.replaceWith(document._importNode(replies[0], true));
+                        }
+                    });
                     return false;
                 });
         },
@@ -1360,7 +1376,7 @@ var SN = { // StatusNet
                                 if (cur == '' || cur == textarea.data('initialText')) {
                                     var parentNotice = replyItem.closest('li.notice');
                                     replyItem.remove();
-                                    SN.U.NoticeInlineReplyPlaceholder(parentNotice);
+                                    parentNotice.find('li.notice-reply-placeholder').show();
                                 }
                             }
                         });
@@ -1448,6 +1464,18 @@ var SN = { // StatusNet
                 SN.U.FormXHR($(this));
                 return false;
             });
+            $('form.ajax input[type=submit]').live('click', function() {
+                // Some forms rely on knowing which submit button was clicked.
+                // Save a hidden input field which'll be picked up during AJAX
+                // submit...
+                var button = $(this);
+                var form = button.closest('form');
+                form.find('.hidden-submit-button').remove();
+                $('<input class="hidden-submit-button" type="hidden" />')
+                    .attr('name', button.attr('name'))
+                    .val(button.val())
+                    .appendTo(form);
+            });
         },
 
         /**
@@ -1474,7 +1502,26 @@ var SN = { // StatusNet
                     }
                 }
             });
-        }
+        },
+
+	CheckBoxes: function() {
+	    $("span[class='checkbox-wrapper']").addClass("unchecked");
+	    $(".checkbox-wrapper").click(function(){
+	        if($(this).children("input").attr("checked")){
+		    // uncheck
+		    $(this).children("input").attr({checked: ""});
+		    $(this).removeClass("checked");
+		    $(this).addClass("unchecked");
+		    $(this).children("label").text("Private?");
+		}else{
+		    // check
+		    $(this).children("input").attr({checked: "checked"});
+		    $(this).removeClass("unchecked");
+		    $(this).addClass("checked");
+		    $(this).children("label").text("Private");
+		}
+	    });
+	}
     }
 };
 
@@ -1488,6 +1535,7 @@ var SN = { // StatusNet
 $(document).ready(function(){
     SN.Init.AjaxForms();
     SN.Init.UploadForms();
+    SN.Init.CheckBoxes();
     if ($('.'+SN.C.S.FormNotice).length > 0) {
         SN.Init.NoticeForm();
     }
@@ -1501,3 +1549,4 @@ $(document).ready(function(){
         SN.Init.Login();
     }
 });
+
