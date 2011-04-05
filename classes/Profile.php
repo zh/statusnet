@@ -272,7 +272,10 @@ class Profile extends Memcached_DataObject
         $groups = array();
 
         foreach ($ids as $id) {
-            $groups[] = User_group::staticGet('id', $id);
+            $group = User_group::staticGet('id', $id);
+            if (!empty($group)) {
+                $groups[] = $group;
+            }
         }
 
         return new ArrayWrapper($groups);
