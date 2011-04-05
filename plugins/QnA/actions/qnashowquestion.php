@@ -97,7 +97,49 @@ class QnashowquestionAction extends ShownoticeAction
 
     function showContent()
     {
+        $this->elementStart('div', 'qna-full-question');
         $this->raw($this->question->asHTML());
+
+        $answer = $this->question->getAnswers();
+
+        $this->elementStart('div', 'qna-full-question-answers');
+
+        $answerIds = array();
+
+        // @fixme use a filtered stream!
+
+        if (!empty($answer)) {
+            while ($answer->fetch()) {
+                $answerIds[] = $answer->getNotice()->id;
+            }
+        }
+
+        if (count($answerIds) > 0) {
+            $notice = new Notice();
+            $notice->query(
+                sprintf(
+                    'SELECT notice.* FROM notice WHERE notice.id IN (%s)',
+                    implode(',', $answerIds)
+                )
+            );
+
+            $nli = new NoticeList($notice, $this);
+            $nli->show();
+        }
+
+        $user = common_current_user();
+
+        if (!empty($user)) {
+            $profile = $user->getProfile();
+            $answer  = QnA_Question::getAnswer($profile);
+            if (empty($answer)) {
+                $form = new QnanewanswerForm($this, $this->question, false);
+                $form->show();
+            }
+        }
+
+        $this->elementEnd('div');
+        $this->elementEnd('div');
     }
 
     /**
@@ -111,9 +153,11 @@ class QnashowquestionAction extends ShownoticeAction
     {
         // TRANS: Page title for a question.
         // TRANS: %1$s is the nickname of the user who asked the question, %2$s is the question.
-        return sprintf(_m('%1$s\'s question: %2$s'),
-                       $this->user->nickname,
-                       $this->question->title);
+        return sprintf(
+            _m('%1$s\'s question: %2$s'),
+            $this->user->nickname,
+            $this->question->title
+        );
     }
 
     /**

@@ -47,6 +47,7 @@ if (!defined('STATUSNET')) {
 class QnanewanswerForm extends Form
 {
     protected $question;
+    protected $showQuestion;
 
     /**
      * Construct a new answer form
@@ -56,10 +57,11 @@ class QnanewanswerForm extends Form
      *
      * @return void
      */
-    function __construct(HTMLOutputter $out, QnA_Question $question)
+    function __construct(HTMLOutputter $out, QnA_Question $question, $showQuestion = true)
     {
         parent::__construct($out);
         $this->question = $question;
+        $this->showQuestion = $showQuestion;
     }
 
     /**
@@ -103,9 +105,10 @@ class QnanewanswerForm extends Form
         $out      = $this->out;
         $id       = "question-" . $question->id;
 
-        $out->raw($this->question->asHTML());
+        if ($this->showQuestion) {
+            $out->raw($this->question->asHTML());
+        }
 
-        $out->element('p', 'answer', 'Your answer');
         $out->hidden('id', $id);
         $out->textarea('answer', 'answer');
     }
