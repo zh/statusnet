@@ -1502,7 +1502,26 @@ var SN = { // StatusNet
                     }
                 }
             });
-        }
+        },
+
+	CheckBoxes: function() {
+	    $("span[class='checkbox-wrapper']").addClass("unchecked");
+	    $(".checkbox-wrapper").click(function(){
+	        if($(this).children("input").attr("checked")){
+		    // uncheck
+		    $(this).children("input").attr({checked: ""});
+		    $(this).removeClass("checked");
+		    $(this).addClass("unchecked");
+		    $(this).children("label").text("Private?");
+		}else{
+		    // check
+		    $(this).children("input").attr({checked: "checked"});
+		    $(this).removeClass("unchecked");
+		    $(this).addClass("checked");
+		    $(this).children("label").text("Private");
+		}
+	    });
+	}
     }
 };
 
@@ -1516,6 +1535,7 @@ var SN = { // StatusNet
 $(document).ready(function(){
     SN.Init.AjaxForms();
     SN.Init.UploadForms();
+    SN.Init.CheckBoxes();
     if ($('.'+SN.C.S.FormNotice).length > 0) {
         SN.Init.NoticeForm();
     }
@@ -1529,3 +1549,4 @@ $(document).ready(function(){
         SN.Init.Login();
     }
 });
+
