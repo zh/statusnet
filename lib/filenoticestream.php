@@ -60,7 +60,6 @@ class RawFileNoticeStream extends NoticeStream
 
     function __construct($file)
     {
-        parent::__construct();
         $this->file = $file;
     }
 
