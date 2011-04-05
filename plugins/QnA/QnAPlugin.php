@@ -309,7 +309,7 @@ class QnAPlugin extends MicroAppPlugin
 
             $cls = array('hentry', 'notice', 'answer');
 
-            $answer = QnA_Answer::staticGet('uri', $notice->uri);
+            $answer = QnA_Answer::staticGet('uri', $nli->notice->uri);
 
             if (!empty($answer) && !empty($answer->best)) {
                 $cls[] = 'best';
