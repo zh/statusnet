@@ -80,6 +80,7 @@ class TagSubPlugin extends Plugin
         case 'TagunsubAction':
         case 'TagsubsAction':
         case 'TagSubForm':
+        case 'TagSubMenu':
         case 'TagUnsubForm':
             include_once $dir.'/'.strtolower($cls).'.php';
             return false;
@@ -239,4 +240,28 @@ class TagSubPlugin extends Plugin
         }
         return true;
     }
+
+    function onEndDefaultLocalNav($menu, $user)
+    {
+        $user = common_current_user();
+
+        $tags = TagSub::forProfile($user->getProfile());
+
+        if (!empty($tags)) {
+            $tagSubMenu = new TagSubMenu($menu->out, $user, $tags);
+            $menu->submenu(_m('Tags'), $tagSubMenu);
+        }
+
+        foreach ($tags as $tag) {
+                $menu->out->menuItem(common_local_url('tag',
+                                                      array('tag' => $tag)),
+                                     sprintf('#%s', $tag),
+                                     sprintf(_('Notices tagged with %s'), $tag),
+                                     $menu->actionName == 'tag' && $menu->action->arg('tag') == $tag,
+                                     'nav_streams_tag_'.$tag);
+        }
+
+        return true;
+    }
+
 }
