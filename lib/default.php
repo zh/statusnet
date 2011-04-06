@@ -269,7 +269,10 @@ $default =
         'group' =>
         array('maxaliases' => 3,
               'desclimit' => null),
-        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
+        'oembed' => 
+        array('endpoint' => 'http://oohembed.com/oohembed/',
+              'order' => array('built-in', 'well-known', 'service', 'discovery'),
+        ),
         'search' =>
         array('type' => 'fulltext'),
         'sessions' =>
