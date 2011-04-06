@@ -165,12 +165,9 @@ class Profile_list extends Memcached_DataObject
 
     function getNotices($offset, $limit, $since_id=null, $max_id=null)
     {
-        $ids = Notice::stream(array($this, '_streamDirect'),
-                              array(),
-                              'profile_tag:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $max_id);
+        $stream = new PeopletagNoticeStream($this);
 
-        return Notice::getStreamByIds($ids);
+        return $stream->getNotices($offset, $limit, $since_id, $max_id);
     }
 
     /**
