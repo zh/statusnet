@@ -49,6 +49,7 @@ class AdsenseadminpanelAction extends AdminPanelAction
      */
     function title()
     {
+        // TRANS: Title of AdSense administrator panel.
         return _m('TITLE', 'AdSense');
     }
 
@@ -59,6 +60,7 @@ class AdsenseadminpanelAction extends AdminPanelAction
      */
     function getInstructions()
     {
+        // TRANS: Instructions for AdSense administrator panel.
         return _m('AdSense settings for this StatusNet site');
     }
 

@@ -107,6 +107,7 @@ class AccountManagerPlugin extends Plugin
                             'author' => 'Craig Andrews',
                             'homepage' => 'http://status.net/wiki/Plugin:AccountManager',
                             'rawdescription' =>
+                            // TRANS: Plugin description.
                             _m('The Account Manager plugin implements the Account Manager specification.'));
         return true;
     }
