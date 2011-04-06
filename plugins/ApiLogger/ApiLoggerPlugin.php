@@ -83,7 +83,7 @@ class ApiLoggerPlugin extends Plugin
                             'homepage' => 'http://status.net/wiki/Plugin:ApiLogger',
                             'rawdescription' =>
                             // TRANS: Plugin description.
-                            _m('Logging of API requests.'));
+                            _m('Allows random sampling of API requests.'));
         return true;
     }
 }

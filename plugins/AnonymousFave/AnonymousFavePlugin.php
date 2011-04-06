@@ -235,7 +235,7 @@ class AnonymousFavePlugin extends Plugin
 
         if (!$id) {
             // TRANS: Server exception.
-            throw new ServerException(_m("Couldn't create anonymous user session."));
+            throw new ServerException(_m("Could not create anonymous user session."));
         }
 
         // Stick the Profile ID into the nickname
@@ -246,7 +246,7 @@ class AnonymousFavePlugin extends Plugin
 
         if (!$result) {
             // TRANS: Server exception.
-            throw new ServerException(_m("Couldn't create anonymous user session."));
+            throw new ServerException(_m("Could not create anonymous user session."));
         }
 
         common_log(
