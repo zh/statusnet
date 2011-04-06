@@ -33,7 +33,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class AccountManagerPlugin extends Plugin
 {
-
     const AM_REL = 'acct-mgmt';
 
     function __construct()
@@ -99,7 +98,6 @@ class AccountManagerPlugin extends Plugin
          default:
             return true;
         }
-
     }
 
     function onPluginVersion(&$versions)
