@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  */
 class DirectoryPlugin extends Plugin
 {
-
     private $dir = null;
 
     /**
@@ -165,8 +164,10 @@ class DirectoryPlugin extends Plugin
 
         $nav->out->menuItem(
             common_local_url('userdirectory'),
-            _m('Directory'),
-            _m('User Directory'),
+            // TRANS: Menu item text for user directory.
+            _m('MENU','Directory'),
+            // TRANS: Menu item title for user directory.
+            _m('User Directory.'),
             $actionName == 'userdirectory',
             'nav_directory'
         );
@@ -184,6 +185,7 @@ class DirectoryPlugin extends Plugin
             'version' => STATUSNET_VERSION,
             'author' => 'Zach Copley',
             'homepage' => 'http://status.net/wiki/Plugin:Directory',
+            // TRANS: Plugin description.
             'rawdescription' => _m('Add a user directory.')
         );
 
