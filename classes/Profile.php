@@ -211,31 +211,16 @@ class Profile extends Memcached_DataObject
 
     function isMember($group)
     {
-        $mem = new Group_member();
-
-        $mem->group_id = $group->id;
-        $mem->profile_id = $this->id;
-
-        if ($mem->find()) {
-            return true;
-        } else {
-            return false;
-        }
+        $gm = Group_member::pkeyGet(array('profile_id' => $this->id,
+                                          'group_id' => $group->id));
+        return (!empty($gm));
     }
 
     function isAdmin($group)
     {
-        $mem = new Group_member();
-
-        $mem->group_id = $group->id;
-        $mem->profile_id = $this->id;
-        $mem->is_admin = 1;
-
-        if ($mem->find()) {
-            return true;
-        } else {
-            return false;
-        }
+        $gm = Group_member::pkeyGet(array('profile_id' => $this->id,
+                                          'group_id' => $group->id));
+        return (!empty($gm) && $gm->is_admin);
     }
 
     function isPendingMember($group)
