@@ -118,7 +118,7 @@ class Action extends HTMLOutputter // lawsuit
         }
     }
 
-    function endHTML()
+    function timingComment()
     {
         global $_startTime;
 
@@ -127,10 +127,15 @@ class Action extends HTMLOutputter // lawsuit
             $diff = round(($endTime - $_startTime) * 1000);
             $this->raw("<!-- ${diff}ms -->");
         }
+    }
 
+    function endHTML()
+    {
+        $this->timingComment();
         return parent::endHTML();
     }
 
+    
     /**
      * Show head, a template method.
      *
@@ -139,6 +144,7 @@ class Action extends HTMLOutputter // lawsuit
     function showHead()
     {
         // XXX: attributes (profile?)
+        $this->timingComment();
         $this->elementStart('head');
         if (Event::handle('StartShowHeadElements', array($this))) {
             if (Event::handle('StartShowHeadTitle', array($this))) {
@@ -154,6 +160,7 @@ class Action extends HTMLOutputter // lawsuit
             Event::handle('EndShowHeadElements', array($this));
         }
         $this->elementEnd('head');
+        $this->timingComment();
     }
 
     /**
@@ -467,25 +474,31 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showBody()
     {
+        $this->timingComment();
         $this->elementStart('body', (common_current_user()) ? array('id' => strtolower($this->trimmed('action')),
                                                                     'class' => 'user_in')
                             : array('id' => strtolower($this->trimmed('action'))));
         $this->elementStart('div', array('id' => 'wrap'));
         if (Event::handle('StartShowHeader', array($this))) {
+            $this->timingComment();
             $this->showHeader();
             $this->flush();
+            $this->timingComment();
             Event::handle('EndShowHeader', array($this));
         }
         $this->showCore();
         $this->flush();
         if (Event::handle('StartShowFooter', array($this))) {
+            $this->timingComment();
             $this->showFooter();
             $this->flush();
+            $this->timingComment();
             Event::handle('EndShowFooter', array($this));
         }
         $this->elementEnd('div');
         $this->showScripts();
         $this->elementEnd('body');
+        $this->timingComment();
     }
 
     /**
@@ -703,18 +716,24 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'content_wrapper'));
         $this->elementStart('div', array('id' => 'site_nav_local_views_wrapper'));
         if (Event::handle('StartShowLocalNavBlock', array($this))) {
+            $this->timingComment();
             $this->showLocalNavBlock();
             $this->flush();
+            $this->timingComment();
             Event::handle('EndShowLocalNavBlock', array($this));
         }
         if (Event::handle('StartShowContentBlock', array($this))) {
+            $this->timingComment();
             $this->showContentBlock();
             $this->flush();
+            $this->timingComment();
             Event::handle('EndShowContentBlock', array($this));
         }
         if (Event::handle('StartShowAside', array($this))) {
+            $this->timingComment();
             $this->showAside();
             $this->flush();
+            $this->timingComment();
             Event::handle('EndShowAside', array($this));
         }
         $this->elementEnd('div');
