@@ -205,7 +205,7 @@ class QnAPlugin extends MicroAppPlugin
 
         $questionObj = $activity->objects[0];
 
-        if ($questinoObj->type != QnA_Question::OBJECT_TYPE) {
+        if ($questionObj->type != QnA_Question::OBJECT_TYPE) {
             throw new Exception('Wrong type for object.');
         }
 

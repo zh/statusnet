@@ -50,7 +50,6 @@ class ShowbookmarkAction extends ShownoticeAction
 
     function getNotice()
     {
-
         $this->id = $this->trimmed('id');
 
         $this->bookmark = Bookmark::staticGet('id', $this->id);
