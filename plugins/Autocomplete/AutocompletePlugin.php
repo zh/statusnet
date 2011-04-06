@@ -80,7 +80,7 @@ class AutocompletePlugin extends Plugin
                             'homepage' => 'http://status.net/wiki/Plugin:Autocomplete',
                             'rawdescription' =>
                             // TRANS: Plugin description.
-                            _m('The autocomplete plugin allows users to autocomplete screen names in @ replies. When an "@" is typed into the notice text area, an autocomplete box is displayed populated with the user\'s friend\' screen names.'));
+                            _m('The autocomplete plugin adds autocompletion for @ replies.'));
         return true;
     }
 }
