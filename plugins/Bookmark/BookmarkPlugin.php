@@ -554,13 +554,15 @@ class BookmarkPlugin extends MicroAppPlugin
 
             foreach ($replies as $reply) {
                 $other = Profile::staticGet('id', $reply);
-                $out->elementStart('li');
-                $out->element('a', array('rel' => 'tag',
-                                         'href' => $other->profileurl,
-                                         'title' => $other->getBestName()),
-                              sprintf('for:%s', $other->nickname));
-                $out->elementEnd('li');
-                $out->text(' ');
+                if (!empty($other)) {
+                    $out->elementStart('li');
+                    $out->element('a', array('rel' => 'tag',
+                                             'href' => $other->profileurl,
+                                             'title' => $other->getBestName()),
+                                  sprintf('for:%s', $other->nickname));
+                    $out->elementEnd('li');
+                    $out->text(' ');
+                }
             }
 
             foreach ($tags as $tag) {
