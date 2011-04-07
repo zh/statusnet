@@ -2183,6 +2183,21 @@ class Notice extends Memcached_DataObject
      */
     function inScope($profile)
     {
+        $keypart = sprintf('notice:in-scope-for:%d:%d', $this->id, $profile->id);
+
+        $result = self::cacheGet($keypart);
+
+        if ($result === false) {
+            $bResult = $this->_inScope($profile);
+            $result = ($bResult) ? 1 : 0;
+            self::cacheSet($keypart, $result, 0, 300);
+        }
+
+        return ($result == 1) ? true : false;
+    }
+
+    protected function _inScope($profile)
+    {
         // If there's no scope, anyone (even anon) is in scope.
 
         if ($this->scope == 0) {
