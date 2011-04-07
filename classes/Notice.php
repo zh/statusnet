@@ -567,6 +567,7 @@ class Notice extends Memcached_DataObject
         // was not the root of the conversation.  What to do now?
 
         self::blow('notice:conversation_ids:%d', $this->conversation);
+        self::blow('conversation::notice_count:%d', $this->conversation);
 
         if (!empty($this->repeat_of)) {
             self::blow('notice:repeats:%d', $this->repeat_of);

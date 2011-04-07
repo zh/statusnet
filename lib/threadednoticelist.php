@@ -284,9 +284,8 @@ class ThreadedNoticeListMoreItem extends NoticeListItem
         $id = $this->notice->conversation;
         $url = common_local_url('conversationreplies', array('id' => $id));
 
-        $notice = new Notice();
-        $notice->conversation = $id;
-        $n = $notice->count() - 1;
+        $n = Conversation::noticeCount($id) - 1;
+
         // TRANS: Link to show replies for a notice.
         // TRANS: %d is the number of replies to a notice and used for plural.
         $msg = sprintf(_m('Show reply', 'Show all %d replies', $n), $n);
