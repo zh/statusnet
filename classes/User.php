@@ -488,28 +488,28 @@ class User extends Memcached_DataObject
 
     function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        $this->noticeInbox($offset, $limit, $since_id, $before_id);
+        return $this->noticeInbox($offset, $limit, $since_id, $before_id);
     }
 
     // DEPRECATED, use noticeInbox()
 
     function noticesWithFriendsThreaded($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        $this->noticeInbox($offset, $limit, $since_id, $before_id);
+        return $this->noticeInbox($offset, $limit, $since_id, $before_id);
     }
 
     // DEPRECATED, use noticeInbox()
 
     function noticeInboxThreaded($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        $this->noticeInbox($offset, $limit, $since_id, $before_id);
+        return $this->noticeInbox($offset, $limit, $since_id, $before_id);
     }
 
     // DEPRECATED, use noticeInbox()
 
     function friendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        $this->noticeInbox($offset, $limit, $since_id, $before_id);
+        return $this->noticeInbox($offset, $limit, $since_id, $before_id);
     }
 
     // DEPRECATED, use noticeInbox()
