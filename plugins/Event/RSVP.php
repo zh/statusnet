@@ -138,8 +138,6 @@ class RSVP extends Managed_DataObject
 
     function saveNew($profile, $event, $verb, $options=array())
     {
-        common_debug("RSVP::saveNew({$profile->id}, {$event->id}, '$verb', 'some options');");
-
         if (array_key_exists('uri', $options)) {
             $other = RSVP::staticGet('uri', $options['uri']);
             if (!empty($other)) {
@@ -161,8 +159,6 @@ class RSVP extends Managed_DataObject
         $rsvp->event_id    = $event->id;
         $rsvp->response      = self::codeFor($verb);
 
-        common_debug("Got value {$rsvp->response} for verb {$verb}");
-
         if (array_key_exists('created', $options)) {
             $rsvp->created = $options['created'];
         } else {
@@ -177,6 +173,8 @@ class RSVP extends Managed_DataObject
         }
 
         $rsvp->insert();
+
+        self::blow('rsvp:for-event:%s', $event->id);
 
         // XXX: come up with something sexier
 
@@ -256,18 +254,39 @@ class RSVP extends Managed_DataObject
 
     static function forEvent($event)
     {
+        $keypart = sprintf('rsvp:for-event:%s', $event->id);
+
+        $idstr = self::cacheGet($keypart);
+
+        if ($idstr !== false) {
+            $ids = explode(',', $idstr);
+        } else {
+            $ids = array();
+
+            $rsvp = new RSVP();
+
+            $rsvp->selectAdd();
+            $rsvp->selectAdd('id');
+
+            $rsvp->event_id = $event->id;
+
+            if ($rsvp->find()) {
+                while ($rsvp->fetch()) {
+                    $ids[] = $rsvp->id;
+                }
+            }
+            self::cacheSet($keypart, implode(',', $ids));
+        }
+
         $rsvps = array(RSVP::POSITIVE => array(),
                        RSVP::NEGATIVE => array(),
                        RSVP::POSSIBLE => array());
 
-        $rsvp = new RSVP();
-
-        $rsvp->event_id = $event->id;
-
-        if ($rsvp->find()) {
-            while ($rsvp->fetch()) {
+        foreach ($ids as $id) {
+            $rsvp = RSVP::staticGet('id', $id);
+            if (!empty($rsvp)) {
                 $verb = self::verbFor($rsvp->response);
-                $rsvps[$verb][] = clone($rsvp);
+                $rsvps[$verb][] = $rsvp;
             }
         }
 
@@ -374,5 +393,11 @@ class RSVP extends Managed_DataObject
         return sprintf($fmt,
                        $profile->getBestName(),
                        $eventTitle);
+    }
+
+    function delete()
+    {
+        self::blow('rsvp:for-event:%s', $event->id);
+        parent::delete();
     }
 }
