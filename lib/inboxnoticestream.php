@@ -52,11 +52,11 @@ class InboxNoticeStream extends ScopingNoticeStream
      *
      * @param User $user User to get a stream for
      */
-    function __construct($user)
+    function __construct($user, $profile = null)
     {
         // Note: we don't use CachingNoticeStream since RawInboxNoticeStream
         // uses Inbox::staticGet(), which is cached.
-        parent::__construct(new RawInboxNoticeStream($user));
+        parent::__construct(new RawInboxNoticeStream($user), $profile);
     }
 }
 
