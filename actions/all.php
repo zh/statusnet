@@ -55,17 +55,17 @@ class AllAction extends ProfileAction
     function prepare($args)
     {
         parent::prepare($args);
-        $cur = common_current_user();
 
-        if (!empty($cur) && $cur->id == $this->user->id) {
-            $this->notice = $this->user->noticeInboxThreaded(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-        } else {
-            $this->notice = $this->user->noticesWithFriendsThreaded(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-        }
+        $stream = new InboxNoticeStream($this->user);
+
+        $this->notice = $stream->getNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                            NOTICES_PER_PAGE + 1,
+                                            null,
+                                            null);
 
         if ($this->page > 1 && $this->notice->N == 0) {
             // TRANS: Server error when page not found (404).
-            $this->serverError(_('No such page.'), $code = 404);
+            $this->serverError(_('No such page.'), 404);
         }
 
         return true;
