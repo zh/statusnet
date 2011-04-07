@@ -1208,22 +1208,27 @@ class Notice extends Memcached_DataObject
      */
     function getReplies()
     {
-        // XXX: cache me
+        $keypart = sprintf('notice:reply_ids:%d', $this->id);
 
-        $ids = array();
+        $idstr = self::cacheGet($keypart);
 
-        $reply = new Reply();
-        $reply->selectAdd();
-        $reply->selectAdd('profile_id');
-        $reply->notice_id = $this->id;
+        if ($idstr !== false) {
+            $ids = explode(',', $idstr);
+        } else {
+            $ids = array();
 
-        if ($reply->find()) {
-            while($reply->fetch()) {
-                $ids[] = $reply->profile_id;
+            $reply = new Reply();
+            $reply->selectAdd();
+            $reply->selectAdd('profile_id');
+            $reply->notice_id = $this->id;
+
+            if ($reply->find()) {
+                while($reply->fetch()) {
+                    $ids[] = $reply->profile_id;
+                }
             }
+            self::cacheSet($keypart, implode(',', $ids));
         }
-
-        $reply->free();
 
         return $ids;
     }
