@@ -80,6 +80,7 @@ class TagSubPlugin extends Plugin
         case 'TagunsubAction':
         case 'TagsubsAction':
         case 'TagSubForm':
+        case 'TagSubMenu':
         case 'TagUnsubForm':
             include_once $dir.'/'.strtolower($cls).'.php';
             return false;
@@ -239,4 +240,19 @@ class TagSubPlugin extends Plugin
         }
         return true;
     }
+
+    function onEndDefaultLocalNav($menu, $user)
+    {
+        $user = common_current_user();
+
+        $tags = TagSub::forProfile($user->getProfile());
+
+        if (!empty($tags) && count($tags) > 0) {
+            $tagSubMenu = new TagSubMenu($menu->out, $user, $tags);
+            $menu->submenu(_m('Tags'), $tagSubMenu);
+        }
+
+        return true;
+    }
+
 }

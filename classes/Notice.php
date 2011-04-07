@@ -573,6 +573,7 @@ class Notice extends Memcached_DataObject
         // was not the root of the conversation.  What to do now?
 
         self::blow('notice:conversation_ids:%d', $this->conversation);
+        self::blow('conversation::notice_count:%d', $this->conversation);
 
         if (!empty($this->repeat_of)) {
             self::blow('notice:repeats:%d', $this->repeat_of);
@@ -724,18 +725,34 @@ class Notice extends Memcached_DataObject
     }
 
     function attachments() {
-        // XXX: cache this
-        $att = array();
-        $f2p = new File_to_post;
-        $f2p->post_id = $this->id;
-        if ($f2p->find()) {
-            while ($f2p->fetch()) {
-                $f = File::staticGet($f2p->file_id);
-                if ($f) {
-                    $att[] = clone($f);
+
+        $keypart = sprintf('notice:file_ids:%d', $this->id);
+
+        $idstr = self::cacheGet($keypart);
+
+        if ($idstr !== false) {
+            $ids = explode(',', $idstr);
+        } else {
+            $ids = array();
+            $f2p = new File_to_post;
+            $f2p->post_id = $this->id;
+            if ($f2p->find()) {
+                while ($f2p->fetch()) {
+                    $ids[] = $f2p->file_id;
                 }
             }
+            self::cacheSet($keypart, implode(',', $ids));
         }
+
+        $att = array();
+
+        foreach ($ids as $id) {
+            $f = File::staticGet('id', $id);
+            if (!empty($f)) {
+                $att[] = clone($f);
+            }
+        }
+
         return $att;
     }
 
@@ -1307,22 +1324,27 @@ class Notice extends Memcached_DataObject
      */
     function getReplies()
     {
-        // XXX: cache me
+        $keypart = sprintf('notice:reply_ids:%d', $this->id);
 
-        $ids = array();
+        $idstr = self::cacheGet($keypart);
 
-        $reply = new Reply();
-        $reply->selectAdd();
-        $reply->selectAdd('profile_id');
-        $reply->notice_id = $this->id;
+        if ($idstr !== false) {
+            $ids = explode(',', $idstr);
+        } else {
+            $ids = array();
 
-        if ($reply->find()) {
-            while($reply->fetch()) {
-                $ids[] = $reply->profile_id;
+            $reply = new Reply();
+            $reply->selectAdd();
+            $reply->selectAdd('profile_id');
+            $reply->notice_id = $this->id;
+
+            if ($reply->find()) {
+                while($reply->fetch()) {
+                    $ids[] = $reply->profile_id;
+                }
             }
+            self::cacheSet($keypart, implode(',', $ids));
         }
-
-        $reply->free();
 
         return $ids;
     }
@@ -1365,27 +1387,39 @@ class Notice extends Memcached_DataObject
             return array();
         }
 
-        // XXX: cache me
+        $ids = array();
+
+        $keypart = sprintf('notice:groups:%d', $this->id);
+
+        $idstr = self::cacheGet($keypart);
+
+        if ($idstr !== false) {
+            $ids = explode(',', $idstr);
+        } else {
+            $gi = new Group_inbox();
+
+            $gi->selectAdd();
+            $gi->selectAdd('group_id');
+
+            $gi->notice_id = $this->id;
+
+            if ($gi->find()) {
+                while ($gi->fetch()) {
+                    $ids[] = $gi->group_id;
+                }
+            }
+
+            self::cacheSet($keypart, implode(',', $ids));
+        }
 
         $groups = array();
 
-        $gi = new Group_inbox();
-
-        $gi->selectAdd();
-        $gi->selectAdd('group_id');
-
-        $gi->notice_id = $this->id;
-
-        if ($gi->find()) {
-            while ($gi->fetch()) {
-                $group = User_group::staticGet('id', $gi->group_id);
-                if ($group) {
-                    $groups[] = $group;
-                }
+        foreach ($ids as $id) {
+            $group = User_group::staticGet('id', $id);
+            if ($group) {
+                $groups[] = $group;
             }
         }
-
-        $gi->free();
 
         return $groups;
     }
@@ -1472,9 +1506,9 @@ class Notice extends Memcached_DataObject
             $reply_ids = $this->getReplies();
 
             foreach ($reply_ids as $id) {
-                $profile = Profile::staticGet('id', $id);
-                if (!empty($profile)) {
-                    $ctx->attention[] = $profile->getUri();
+                $rprofile = Profile::staticGet('id', $id);
+                if (!empty($rprofile)) {
+                    $ctx->attention[] = $rprofile->getUri();
                 }
             }
 
@@ -2106,14 +2140,24 @@ class Notice extends Memcached_DataObject
     public function getTags()
     {
         $tags = array();
-        $tag = new Notice_tag();
-        $tag->notice_id = $this->id;
-        if ($tag->find()) {
-            while ($tag->fetch()) {
-                $tags[] = $tag->tag;
+
+        $keypart = sprintf('notice:tags:%d', $this->id);
+
+        $tagstr = self::cacheGet($keypart);
+
+        if ($tagstr !== false) {
+            $tags = explode(',', $tagstr);
+        } else {
+            $tag = new Notice_tag();
+            $tag->notice_id = $this->id;
+            if ($tag->find()) {
+                while ($tag->fetch()) {
+                    $tags[] = $tag->tag;
+                }
             }
+            self::cacheSet($keypart, implode(',', $tags));
         }
-        $tag->free();
+
         return $tags;
     }
 

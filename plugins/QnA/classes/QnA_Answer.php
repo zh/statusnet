@@ -155,6 +155,11 @@ class QnA_Answer extends Managed_DataObject
         return Notice::staticGet('uri', $this->uri);
     }
 
+    static function fromNotice($notice)
+    {
+        return QnA_Answer::staticGet('uri', $notice->uri);
+    }
+
     function bestUrl()
     {
         return $this->getNotice()->bestUrl();

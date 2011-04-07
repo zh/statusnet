@@ -46,14 +46,14 @@ require_once INSTALLDIR . '/lib/form.php';
 class QnashowanswerForm extends Form
 {
     /**
-     * The answer to revise
+     * The answer to show
      */
-    var $answer = null;
+    protected $answer   = null;
 
     /**
      * The question this is an answer to
      */
-    var $question = null;
+    protected $question = null;
 
     /**
      * Constructor
@@ -65,8 +65,8 @@ class QnashowanswerForm extends Form
     {
         parent::__construct($out);
 
-        $this->answer       = $answer;
-        $this->question     = $answer->getQuestion();
+        $this->answer   = $answer;
+        $this->question = $answer->getQuestion();
     }
 
     /**
@@ -76,7 +76,7 @@ class QnashowanswerForm extends Form
      */
     function id()
     {
-        return 'revise-' . $this->answer->id;
+        return 'show-' . $this->answer->id;
     }
 
     /**
@@ -109,8 +109,8 @@ class QnashowanswerForm extends Form
      */
     function formLegend()
     {
-        // TRANS: Form legend for revising the answer.
-        $this->out->element('legend', null, _('Revise your answer'));
+        // TRANS: Form legend for showing the answer.
+        $this->out->element('legend', null, _('Answer'));
     }
 
     /**
@@ -122,9 +122,9 @@ class QnashowanswerForm extends Form
     {
         $this->out->hidden(
             'id',
-            'revise-' . $this->answer->id
+            'answer-' . $this->answer->id
         );
-        
+
         $this->out->raw($this->answer->asHTML());
     }
 
@@ -155,6 +155,13 @@ class QnashowanswerForm extends Form
         
                 }
             }
+
+            /*
+             * @fixme: Revise is disabled until we figure out the
+             *         Ostatus bits This comment is just a reminder
+             *         that the UI for this works.
+             */
+            /*
             if ($user->id == $this->answer->profile_id) {
                 $this->out->submit(
                     'revise',
@@ -166,6 +173,7 @@ class QnashowanswerForm extends Form
                     _('Revise your answer')
                 );
             }
+             */
         }
     }
 
@@ -176,6 +184,6 @@ class QnashowanswerForm extends Form
      */
     function formClass()
     {
-        return 'form_revise ajax';
+        return 'form_show ajax';
     }
 }

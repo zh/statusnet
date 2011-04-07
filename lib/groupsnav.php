@@ -3,8 +3,8 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Stream of notices that reference an URL
- * 
+ * Menu for streams
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Stream
+ * @category  Cache
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -34,71 +34,60 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-class FileNoticeStream extends ScopingNoticeStream
-{
-    function __construct($file)
-    {
-        parent::__construct(new CachingNoticeStream(new RawFileNoticeStream($file),
-                                                    'file:notice-ids:'.$this->url));
-    }
-}
-
 /**
- * Raw stream for a file
+ * Menu for streams you follow
  *
- * @category  Stream
+ * @category  General
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
-class RawFileNoticeStream extends NoticeStream
+class GroupsNav extends Menu
 {
-    protected $file = null;
+    protected $user;
+    protected $groups;
 
-    function __construct($file)
+    function __construct($action, $user)
     {
-        $this->file = $file;
+        parent::__construct($action);
+        $this->user = $user;
+        $this->groups = $user->getGroups();
+    }
+
+    function haveGroups()
+    {
+        return (!empty($this->groups) && ($this->groups->N > 0));
     }
 
     /**
-     * Stream of notices linking to this URL
+     * Show the menu
      *
-     * @param integer $offset   Offset to show; default is 0
-     * @param integer $limit    Limit of notices to show
-     * @param integer $since_id Since this notice
-     * @param integer $max_id   Before this notice
-     *
-     * @return array ids of notices that link to this file
+     * @return void
      */
-    function getNoticeIds($offset, $limit, $since_id, $max_id)
+    function show()
     {
-        $f2p = new File_to_post();
+        $action = $this->actionName;
 
-        $f2p->selectAdd();
-        $f2p->selectAdd('post_id');
+        $this->out->elementStart('ul', array('class' => 'nav'));
 
-        $f2p->file_id = $this->file->id;
+        if (Event::handle('StartGroupsNav', array($this))) {
 
-        Notice::addWhereSinceId($f2p, $since_id, 'post_id', 'modified');
-        Notice::addWhereMaxId($f2p, $max_id, 'post_id', 'modified');
-
-        $f2p->orderBy('modified DESC, post_id DESC');
-
-        if (!is_null($offset)) {
-            $f2p->limit($offset, $limit);
-        }
-
-        $ids = array();
-
-        if ($f2p->find()) {
-            while ($f2p->fetch()) {
-                $ids[] = $f2p->post_id;
+            while ($this->groups->fetch()) {
+                $this->out->menuItem(($this->groups->mainpage) ?
+                                     $this->groups->mainpage :
+                                     common_local_url('showgroup',
+                                                      array('nickname' => $this->groups->nickname)),
+                                     $this->groups->getBestName(),
+                                     '',
+                                     $action == 'showgroup' &&
+                                     $this->action->arg('nickname') == $this->groups->nickname,
+                                     'nav_timeline_group_'.$this->groups->nickname);
             }
+            Event::handle('EndGroupsNav', array($this));
         }
 
-        return $ids;
+        $this->out->elementEnd('ul');
     }
 }

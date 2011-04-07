@@ -1289,3 +1289,11 @@ StartNoticeWhoGets: Called at start of inbox delivery prep; plugins can schedule
 EndNoticeWhoGets: Called at end of inbox delivery prep; plugins can filter out profiles from receiving inbox delivery here.  Be aware that output can be cached or used several times, so should remain idempotent.
 - $notice Notice
 - &$ni: in/out array mapping profile IDs to constants: NOTICE_INBOX_SOURCE_SUB etc
+
+StartDefaultLocalNav: When showing the default local nav
+- $menu: the menu
+- $user: current user
+
+EndDefaultLocalNav: When showing the default local nav
+- $menu: the menu
+- $user: current user

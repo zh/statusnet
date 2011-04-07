@@ -4,7 +4,7 @@
  * Copyright (C) 2010, StatusNet, Inc.
  *
  * Form for adding a new bookmark
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class BookmarkForm extends Form
 {
     private $_title       = null;
@@ -63,7 +62,6 @@ class BookmarkForm extends Form
      *
      * @return void
      */
-
     function __construct($out=null, $title=null, $url=null, $tags=null,
                          $description=null)
     {
@@ -80,7 +78,6 @@ class BookmarkForm extends Form
      *
      * @return int ID of the form
      */
-
     function id()
     {
         return 'form_new_bookmark';
@@ -91,7 +88,6 @@ class BookmarkForm extends Form
      *
      * @return string class of the form
      */
-
     function formClass()
     {
         return 'form_settings ajax-notice';
@@ -102,7 +98,6 @@ class BookmarkForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('newbookmark');
@@ -113,7 +108,6 @@ class BookmarkForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
@@ -121,33 +115,47 @@ class BookmarkForm extends Form
 
         $this->li();
         $this->out->input('title',
+                          // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','Title'),
                           $this->_title,
-                          _m('Title of the bookmark'));
+                          // TRANS: Field title on form for adding a new bookmark.
+                          _m('Title of the bookmark.'));
         $this->unli();
 
         $this->li();
         $this->out->input('url',
+                          // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','URL'),
-                          $this->_url,   
-                          _m('URL to bookmark'));
+                          $this->_url,
+                          // TRANS: Field title on form for adding a new bookmark.
+                          _m('URL to bookmark.'));
         $this->unli();
 
         $this->li();
         $this->out->input('tags',
+                          // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','Tags'),
-                          $this->_tags,   
-                          _m('Comma- or space-separated list of tags'));
+                          $this->_tags,
+                          // TRANS: Field title on form for adding a new bookmark.
+                          _m('Comma- or space-separated list of tags.'));
         $this->unli();
 
         $this->li();
         $this->out->input('description',
+                          // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','Description'),
-                          $this->_description,   
-                          _m('Description of the URL'));
+                          $this->_description,
+                          // TRANS: Field title on form for adding a new bookmark.
+                          _m('Description of the URL.'));
         $this->unli();
 
         $this->out->elementEnd('ul');
+
+        $toWidget = new ToSelector($this->out,
+                                   common_current_user(),
+                                   null);
+        $toWidget->show();
+
         $this->out->elementEnd('fieldset');
     }
 
@@ -159,6 +167,7 @@ class BookmarkForm extends Form
 
     function formActions()
     {
+        // TRANS: Button text for action to save a new bookmark.
         $this->out->submit('submit', _m('BUTTON', 'Save'));
     }
 }

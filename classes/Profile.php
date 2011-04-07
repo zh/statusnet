@@ -211,31 +211,16 @@ class Profile extends Memcached_DataObject
 
     function isMember($group)
     {
-        $mem = new Group_member();
-
-        $mem->group_id = $group->id;
-        $mem->profile_id = $this->id;
-
-        if ($mem->find()) {
-            return true;
-        } else {
-            return false;
-        }
+        $gm = Group_member::pkeyGet(array('profile_id' => $this->id,
+                                          'group_id' => $group->id));
+        return (!empty($gm));
     }
 
     function isAdmin($group)
     {
-        $mem = new Group_member();
-
-        $mem->group_id = $group->id;
-        $mem->profile_id = $this->id;
-        $mem->is_admin = 1;
-
-        if ($mem->find()) {
-            return true;
-        } else {
-            return false;
-        }
+        $gm = Group_member::pkeyGet(array('profile_id' => $this->id,
+                                          'group_id' => $group->id));
+        return (!empty($gm) && $gm->is_admin);
     }
 
     function isPendingMember($group)
@@ -245,30 +230,40 @@ class Profile extends Memcached_DataObject
         return !empty($request);
     }
 
-    function getGroups($offset=0, $limit=null)
+    function getGroups($offset=0, $limit=PROFILES_PER_PAGE)
     {
-        $qry =
-          'SELECT user_group.* ' .
-          'FROM user_group JOIN group_member '.
-          'ON user_group.id = group_member.group_id ' .
-          'WHERE group_member.profile_id = %d ' .
-          'ORDER BY group_member.created DESC ';
+        $ids = array();
+        
+        $keypart = sprintf('profile:groups:%d', $this->id);
 
-        if ($offset>0 && !is_null($limit)) {
-            if ($offset) {
-                if (common_config('db','type') == 'pgsql') {
-                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-                } else {
-                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        $idstring = self::cacheGet($keypart);
+
+        if ($idstring !== false) {
+            $ids = explode(',', $idstring);
+        } else {
+            $gm = new Group_member();
+
+            $gm->profile_id = $this->id;
+
+            if ($gm->find()) {
+                while ($gm->fetch()) {
+                    $ids[] = $gm->group_id;
                 }
+            }
+
+            self::cacheSet($keypart, implode(',', $ids));
+        }
+
+        $groups = array();
+
+        foreach ($ids as $id) {
+            $group = User_group::staticGet('id', $id);
+            if (!empty($group)) {
+                $groups[] = $group;
             }
         }
 
-        $groups = new User_group();
-
-        $cnt = $groups->query(sprintf($qry, $this->id));
-
-        return $groups;
+        return new ArrayWrapper($groups);
     }
 
     function isTagged($peopletag)
@@ -463,6 +458,7 @@ class Profile extends Memcached_DataObject
         } else {
             if (Event::handle('StartJoinGroup', array($group, $this))) {
                 $join = Group_member::join($group->id, $this->id);
+                self::blow('profile:groups:%d', $this->id);
                 Event::handle('EndJoinGroup', array($group, $this));
             }
         }
@@ -482,6 +478,7 @@ class Profile extends Memcached_DataObject
     {
         if (Event::handle('StartLeaveGroup', array($group, $this))) {
             Group_member::leave($group->id, $this->id);
+            self::blow('profile:groups:%d', $this->id);
             Event::handle('EndLeaveGroup', array($group, $this));
         }
     }

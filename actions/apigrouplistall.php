@@ -89,7 +89,7 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
         $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Groups";
         $link       = common_local_url('groups');
-        // TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+        // TRANS: Message is used as a subtitle when listing the latest 20 groups. %s is a site name.
         $subtitle   = sprintf(_("groups on %s"), $sitename);
 
         switch($this->format) {

@@ -88,7 +88,6 @@ class QnanewquestionAction extends Action
         }
 
         $this->title       = $this->trimmed('title');
-        common_debug("TITLE = " . $this->title);
         $this->description = $this->trimmed('description');
 
         return true;
@@ -130,10 +129,17 @@ class QnanewquestionAction extends Action
                 throw new ClientException(_m('Question must have a title.'));
             }
 
+            // Notice options
+            $options = array();
+
+            // Does the heavy-lifting for getting "To:" information
+            ToSelector::fillOptions($this, $options);
+
             $saved = QnA_Question::saveNew(
                 $this->user->getProfile(),
                 $this->title,
-                $this->description
+                $this->description,
+                $options
             );
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();

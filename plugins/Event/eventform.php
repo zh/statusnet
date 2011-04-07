@@ -147,14 +147,13 @@ class EventForm extends Form
                           _m('Description of the event.'));
         $this->unli();
 
-        $this->li();
+        $this->out->elementEnd('ul');
+
         $toWidget = new ToSelector($this->out,
                                    common_current_user(),
                                    null);
         $toWidget->show();
-        $this->unli();
 
-        $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
     }
 

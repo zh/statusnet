@@ -43,7 +43,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class BookmarkPlugin extends MicroAppPlugin
 {
     const VERSION         = '0.1';
@@ -60,7 +59,6 @@ class BookmarkPlugin extends MicroAppPlugin
      *
      * @return boolean hook value
      */
-
     function onUserRightsCheck($profile, $right, &$result)
     {
         if ($right == self::IMPORTDELICIOUS) {
@@ -78,7 +76,6 @@ class BookmarkPlugin extends MicroAppPlugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onCheckSchema()
     {
         $schema = Schema::get();
@@ -127,7 +124,6 @@ class BookmarkPlugin extends MicroAppPlugin
      *
      * @return boolean hook value
      */
-
     function onEndShowStyles($action)
     {
         $action->cssLink($this->path('bookmark.css'));
@@ -141,7 +137,6 @@ class BookmarkPlugin extends MicroAppPlugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onAutoload($cls)
     {
         $dir = dirname(__FILE__);
@@ -175,7 +170,6 @@ class BookmarkPlugin extends MicroAppPlugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onRouterInitialized($m)
     {
         $m->connect('main/bookmark/new',
@@ -204,10 +198,9 @@ class BookmarkPlugin extends MicroAppPlugin
      * Add our two queue handlers to the queue manager
      *
      * @param QueueManager $qm current queue manager
-     * 
+     *
      * @return boolean hook value
      */
-
     function onEndInitializeQueueManager($qm)
     {
         $qm->connect('dlcsback', 'DeliciousBackupImporter');
@@ -219,10 +212,9 @@ class BookmarkPlugin extends MicroAppPlugin
      * Plugin version data
      *
      * @param array &$versions array of version data
-     * 
+     *
      * @return value
      */
-
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'Sample',
@@ -230,6 +222,7 @@ class BookmarkPlugin extends MicroAppPlugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:Bookmark',
                             'rawdescription' =>
+                            // TRANS: Plugin description.
                             _m('Simple extension for supporting bookmarks.'));
         return true;
     }
@@ -242,7 +235,6 @@ class BookmarkPlugin extends MicroAppPlugin
      *
      * @return boolean hook value
      */
-
     function onStartLoadDoc(&$title, &$output)
     {
         if ($title == 'bookmarklet') {
@@ -256,8 +248,6 @@ class BookmarkPlugin extends MicroAppPlugin
         return true;
     }
 
-
-
     /**
      * Show a link to our delicious import page on profile settings form
      *
@@ -265,15 +255,15 @@ class BookmarkPlugin extends MicroAppPlugin
      *
      * @return boolean hook value
      */
-
     function onEndProfileSettingsActions($action)
     {
         $user = common_current_user();
-        
+
         if (!empty($user) && $user->hasRight(self::IMPORTDELICIOUS)) {
             $action->elementStart('li');
             $action->element('a',
                              array('href' => common_local_url('importdelicious')),
+                             // TRANS: Link text in proile leading to import form.
                              _m('Import del.icio.us bookmarks'));
             $action->elementEnd('li');
         }
@@ -294,7 +284,11 @@ class BookmarkPlugin extends MicroAppPlugin
         $nb = Bookmark::getByNotice($nli->notice);
         if (!empty($nb)) {
             $id = (empty($nli->repeat)) ? $nli->notice->id : $nli->repeat->id;
-            $nli->out->elementStart('li', array('class' => 'hentry notice bookmark',
+            $class = 'hentry notice bookmark';
+            if ($nli->notice->scope != 0 && $nli->notice->scope != 1) {
+                $class .= ' limited-scope';
+            }
+            $nli->out->elementStart('li', array('class' => $class,
                                                  'id' => 'notice-' . $id));
             Event::handle('EndOpenNoticeListItemElement', array($nli));
             return false;
@@ -310,7 +304,6 @@ class BookmarkPlugin extends MicroAppPlugin
      *
      * @return Notice resulting notice.
      */
-
     static private function _postRemoteBookmark(Ostatus_profile $author,
                                                 Activity $activity)
     {
@@ -320,7 +313,7 @@ class BookmarkPlugin extends MicroAppPlugin
                          'url' => $bookmark->link,
                          'is_local' => Notice::REMOTE_OMB,
                          'source' => 'ostatus');
-        
+
         return self::_postBookmark($author->localProfile(), $activity, $options);
     }
 
@@ -331,7 +324,6 @@ class BookmarkPlugin extends MicroAppPlugin
      *
      * @return true if it's a Post of a Bookmark, else false
      */
-
     static private function _isPostBookmark($activity)
     {
         return ($activity->verb == ActivityVerb::POST &&
@@ -347,10 +339,9 @@ class BookmarkPlugin extends MicroAppPlugin
      * When a notice is deleted, delete the related Bookmark
      *
      * @param Notice $notice Notice being deleted
-     * 
+     *
      * @return boolean hook value
      */
-
     function deleteRelated($notice)
     {
         $nb = Bookmark::getByNotice($notice);
@@ -371,7 +362,6 @@ class BookmarkPlugin extends MicroAppPlugin
      *
      * @return Notice resulting notice
      */
-
     function saveNoticeFromActivity($activity, $profile, $options=array())
     {
         $bookmark = $activity->objects[0];
@@ -379,6 +369,7 @@ class BookmarkPlugin extends MicroAppPlugin
         $relLinkEls = ActivityUtils::getLinks($bookmark->element, 'related');
 
         if (count($relLinkEls) < 1) {
+            // TRANS: Client exception thrown when a bookmark is formatted incorrectly.
             throw new ClientException(_m('Expected exactly 1 link '.
                                         'rel=related in a Bookmark.'));
         }
@@ -472,6 +463,7 @@ class BookmarkPlugin extends MicroAppPlugin
         $attachments = $notice->attachments();
 
         if (count($attachments) != 1) {
+            // TRANS: Server exception thrown when a bookmark has multiple attachments.
             throw new ServerException(_m('Bookmark notice with the '.
                                         'wrong number of attachments.'));
         }
@@ -486,7 +478,7 @@ class BookmarkPlugin extends MicroAppPlugin
         }
 
         $object->extra[] = array('link', $attrs, null);
-                                                   
+
         // Attributes of the thumbnail, if any
 
         $thumbnail = $target->getThumbnail();
@@ -526,7 +518,8 @@ class BookmarkPlugin extends MicroAppPlugin
 
         if (count($atts) < 1) {
             // Something wrong; let default code deal with it.
-            throw new Exception("That can't be right.");
+            // TRANS: Exception thrown when a bookmark has no attachments.
+            throw new Exception(_m('Bookmark has no attachments.'));
         }
 
         $att = $atts[0];
@@ -558,21 +551,23 @@ class BookmarkPlugin extends MicroAppPlugin
         if (!empty($replies) || !empty($tags)) {
 
             $out->elementStart('ul', array('class' => 'bookmark-tags'));
-            
+
             foreach ($replies as $reply) {
                 $other = Profile::staticGet('id', $reply);
-                $out->elementStart('li');
-                $out->element('a', array('rel' => 'tag',
-                                         'href' => $other->profileurl,
-                                         'title' => $other->getBestName()),
-                              sprintf('for:%s', $other->nickname));
-                $out->elementEnd('li');
-                $out->text(' ');
+                if (!empty($other)) {
+                    $out->elementStart('li');
+                    $out->element('a', array('rel' => 'tag',
+                                             'href' => $other->profileurl,
+                                             'title' => $other->getBestName()),
+                                  sprintf('for:%s', $other->nickname));
+                    $out->elementEnd('li');
+                    $out->text(' ');
+                }
             }
 
             foreach ($tags as $tag) {
                 $out->elementStart('li');
-                $out->element('a', 
+                $out->element('a',
                               array('rel' => 'tag',
                                     'href' => Notice_tag::url($tag)),
                               $tag);
@@ -608,7 +603,7 @@ class BookmarkPlugin extends MicroAppPlugin
 
         $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
 
-        $out->element('img', 
+        $out->element('img',
                       array('src' => ($avatar) ?
                             $avatar->displayUrl() :
                             Avatar::defaultImage(AVATAR_MINI_SIZE),
@@ -620,7 +615,7 @@ class BookmarkPlugin extends MicroAppPlugin
         $out->raw('&#160;'); // avoid &nbsp; for AJAX XML compatibility
 
         $out->elementStart('span', 'vcard author'); // hack for belongsOnTimeline; JS needs to be able to find the author
-        $out->element('a', 
+        $out->element('a',
                       array('class' => 'url',
                             'href' => $profile->profileurl,
                             'title' => $profile->getBestName()),
@@ -640,6 +635,7 @@ class BookmarkPlugin extends MicroAppPlugin
 
     function appTitle()
     {
-        return _m('Bookmark');
+        // TRANS: Application title.
+        return _m('TITLE','Bookmark');
     }
 }

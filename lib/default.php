@@ -53,7 +53,7 @@ $default =
               'broughtbyurl' => null,
               'closed' => false,
               'inviteonly' => false,
-              'private' => false,
+              'private' => true,
               'ssl' => 'never',
               'sslserver' => null,
               'shorturllength' => 30,
@@ -274,7 +274,10 @@ $default =
               'maxpeople' => 500, // maximum no. of people with the same tag by the same user
               'allow_tagging' => array('all' => true), // equivalent to array('local' => true, 'remote' => true)
               'desclimit' => null),
-        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
+        'oembed' => 
+        array('endpoint' => 'http://oohembed.com/oohembed/',
+              'order' => array('built-in', 'well-known', 'service', 'discovery'),
+        ),
         'search' =>
         array('type' => 'fulltext'),
         'sessions' =>
@@ -306,12 +309,14 @@ $default =
         array('disabled' => true),
         'plugins' =>
         array('default' => array('Geonames' => null,
-                                 'Mapstraction' => null,
-                                 'OStatus' => null,
-                                 'WikiHashtags' => null,
-                                 'RSSCloud' => null,
                                  'ClientSideShorten' => null,
                                  'StrictTransportSecurity' => null,
+                                 'Bookmark' => null,
+                                 'Event' => null,
+                                 'Poll' => null,
+                                 'QnA' => null,
+                                 'SearchSub' => null,
+                                 'TagSub' => null,
                                  'OpenID' => null),
               'locale_path' => false, // Set to a path to use *instead of* each plugin's own locale subdirectories
               'server' => null,

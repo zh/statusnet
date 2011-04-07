@@ -155,13 +155,39 @@ class QnanewanswerAction extends Action
             $answer = $this->question->getAnswer($profile);
             header('Content-Type: text/xml;charset=utf-8');
             $this->xw->startDocument('1.0', 'UTF-8');
+
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Page title after sending an answer.
             $this->element('title', null, _m('Answers'));
             $this->elementEnd('head');
+
             $this->elementStart('body');
-            $this->raw($answer->asHTML());
+
+            $nli = new NoticeListItem($notice, $this);
+            $nli->show();
+            //$this->raw($answer->asHTML());
+
+            /*
+            $question = $this->question;
+
+            $nli = new NoticeListItem($notice, $this);
+            $nli->showNotice();
+
+            $this->elementStart('div', array('class' => 'entry-content answer-content'));
+
+            if (!empty($answer)) {
+                $form = new QnashowanswerForm($this, $answer);
+                $form->show();
+            } else {
+                $this->text(_m('Answer data is missing.'));
+            }
+
+            $this->elementEnd('div');
+
+            // @fixme
+            //$this->elementStart('div', array('class' => 'entry-content'));
+            */
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {

@@ -189,9 +189,11 @@ class QnA_Question extends Managed_DataObject
 
     function countAnswers()
     {
-        $a              = new QnA_Answer();
+        $a = new QnA_Answer();
+
         $a->question_id = $this->id;
-        return $a-count();
+
+        return $a->count();
     }
 
     static function fromNotice($notice)
@@ -218,6 +220,14 @@ class QnA_Question extends Managed_DataObject
         if (!empty($question->description)) {
             $out->elementStart('span', 'question-description');
             $out->raw(QnAPlugin::shorten($question->description, $notice));
+            $out->elementEnd('span');
+        }
+
+        $cnt = $question->countAnswers();
+
+        if (!empty($cnt)) {
+            $out->elementStart('span', 'answer-count');
+            $out->text(sprintf(_m('%s answers'), $cnt));
             $out->elementEnd('span');
         }
 

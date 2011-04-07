@@ -3,8 +3,8 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Default local nav
- *
+ * Menu to show searches you're subscribed to
+ * 
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -35,46 +35,44 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Default menu
+ * Class comment
  *
- * @category  Menu
+ * @category  General
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class DefaultLocalNav extends Menu
+
+class SearchSubMenu extends Menu
 {
+    protected $user;
+    protected $searches;
+
+    function __construct($out, $user, $searches)
+    {
+        parent::__construct($out);
+        $this->user = $user;
+        $this->searches = $searches;
+    }
+
     function show()
     {
-        $user = common_current_user();
+        $this->out->elementStart('ul', array('class' => 'nav'));
 
-        $this->action->elementStart('ul', array('id' => 'nav_local_default'));
-
-        if (Event::handle('StartDefaultLocalNav', array($this, $user))) {
-
-            if (!empty($user)) {
-                $pn = new PersonalGroupNav($this->action);
-                // TRANS: Menu item in default local navigation panel.
-                $this->submenu(_m('MENU','Home'), $pn);
+        foreach ($this->searches as $search) {
+            if (!empty($search)) {
+                $this->out->menuItem(common_local_url('noticesearch',
+                                                      array('q' => $search)),
+                                     sprintf('"%s"', $search),
+                                     sprintf(_('Notices including %s'), $search),
+                                     $this->actionName == 'noticesearch' && $this->action->arg('q') == $search,
+                                     'nav_streams_search_'.$search);
             }
-
-            $bn = new PublicGroupNav($this->action);
-            // TRANS: Menu item in default local navigation panel.
-            $this->submenu(_m('MENU','Public'), $bn);
-
-            if (!empty($user)) {
-                $sn = new GroupsNav($this->action, $user);
-                if ($sn->haveGroups()) {
-                    // TRANS: Menu item in default local navigation panel.
-                    $this->submenu(_m('MENU', 'Groups'), $sn);
-                }
-            }
-
-            Event::handle('EndDefaultLocalNav', array($this, $user));
         }
 
-        $this->action->elementEnd('ul');
+        $this->out->elementEnd('ul');
     }
+    
 }

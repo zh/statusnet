@@ -286,7 +286,7 @@ address {
     padding-bottom: 15px;
 }
 
-#input_form_status {
+#input_form_status, #input_form_direct {
     padding-bottom: 45px;
 }
 
@@ -333,6 +333,10 @@ address {
     font-size: 1.2em;
 }
 
+#form_notice-direct.form_notice textarea {
+    width: 498px;
+}
+
 .form_notice label.notice_data-attach {
     top: 0px;
     right: 0px;
@@ -353,6 +357,11 @@ address {
     font-size: 0.8em; 
     height: 1em;
     z-index: 99;
+}
+
+#form_notice-direct.form_notice .count {
+    top: 80px;
+    right: 10px;
 }
 
 .form_notice #notice_action-submit {
@@ -395,6 +404,52 @@ address {
 
 .input_form fieldset fieldset {
     margin-bottom: 10px !important;
+}
+
+.to-selector { 
+    padding-top: 15px;
+    z-index: 99;
+}
+
+.form_settings label[for=notice_to] {
+    margin-left: 100px;
+    margin-right: 5px;
+}
+
+.checkbox-wrapper {
+    padding: 2px;
+    clear: left;
+    display: block;
+    margin-left: 26%;
+}
+
+.form_notice .checkbox-wrapper {
+    display: inline;
+    margin-left: 10px;
+}
+
+.form_settings .checkbox-wrapper label.checkbox {
+    margin-left: 0px;
+    margin-top: 6px;
+    line-height: 1.2em;
+    left: -3px;
+}
+
+.checkbox-wrapper #notice_private {
+    display:none;
+}
+
+.checkbox-wrapper.unchecked label.checkbox {
+    padding-left: 20px;
+    background: url(../images/lock_open.png) no-repeat 0px 0px;
+    opacity: 0.6;
+}
+
+.checkbox-wrapper.checked label.checkbox {
+    padding-left: 20px;
+    background: url(../images/lock.png) no-repeat 0px 0px;
+    color: red;
+    opacity: 1;
 }
 
 #aside_primary {
@@ -1246,37 +1301,63 @@ table.profile_list tr.alt {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FB6104', endColorstr='#fc8035',GradientType=0 );
 }
 
+/* Limited-scope specific styles */
+
+.limited-scope .entry-content .timestamp {
+    padding-left: 20px;
+    position: relative;
+}
+
+.limited-scope .entry-content .timestamp:before {
+    content: url(../images/lock.png);
+    position: absolute;
+    top: -2px;
+    left: 0px;
+}
+
 /* QnA specific styles */
 
-#content .question .entry-title {
+#content .question .entry-title, #content .qna-full-question .entry-title {
     min-height: 1px;
 }
 
 .question div.question-description {
     font-size: 1em;
     line-height: 1.36em;
+    margin-top: 0px;
     opacity: 1;
 }
 
-.question fieldset {
+.question div.answer-content, .qna-full-question div.answer-content {
+    opacity: 1;
+}
+
+.question .answer-count, .qna-full-question .answer-count {
+    display: block;
+    clear: left;
+}
+
+.question .answer-count:before, .qna-full-question .answer-count:before {
+    content: '(';
+}
+
+.question .answer-count:after, .qna-full-question .answer-count:after {
+    content: ')';
+}
+
+.question fieldset, .qna-full-question fieldset {
     margin: 0px;
 }
 
-.question fieldset legend {
+.question fieldset legend, .qna-full-question fieldset legend {
     display: none;
 }
 
-.question p.answer {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    font-style: italic;
-}
-
-.question label[for=answer] {
+.question label[for=answer], .qna-full-question label[for=answer] {
     display: none;
 }
 
-.question textarea {
+.question textarea, .qna-full-question textarea {
     width: 100%;
     height: 42px;
     padding: 6px 10px 18px 10px;
@@ -1288,18 +1369,48 @@ table.profile_list tr.alt {
     -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
     font-size: 1.2em;
+    margin-top: 15px;
     margin-bottom: 10px;
 }
 
-.question #answer-form input.submit {
+.qna-full-question textarea {
+    width: 473px;
+}
+
+.question-description input.submit, .answer-content input.submit {
     height: auto;
     padding: 0px 10px;
-    margin-left: 0px;
-    margin-bottom: 10px;
+    margin: 6px 0px 10px 0px;
     color:#fff;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 1.1em;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.2);
+    border: 1px solid #d7621c;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    background: #FB6104;
+    background: -moz-linear-gradient(top, #ff9d63 , #FB6104);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff9d63), color-stop(100%,#FB6104)); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff9d63', endColorstr='#FB6104',GradientType=0 );
+}
+
+.question .question-description input.submit:hover, .question .answer-content input.submit:hover {
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.6);
+    background: #ff9d63;
+    background: -moz-linear-gradient(top, #FB6104 , #fc8035);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FB6104), color-stop(100%,#fc8035));
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FB6104', endColorstr='#fc8035',GradientType=0 );
+}
+
+.question .question-description #answer-form input.submit {
+    margin-top: 0px;
+}
+
+.question p.best {
+    background: url(../images/rosette.png) no-repeat top left;
+    padding-left: 20px;
 }
 
 }/*end of @media screen, projection, tv*/

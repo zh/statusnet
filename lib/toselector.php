@@ -118,10 +118,12 @@ class ToSelector extends Widget
                              false,
                              $default);
 
+        $this->out->elementStart('span', 'checkbox-wrapper');
         $this->out->checkbox('notice_private',
                              // TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
-                             _('Private'),
+                             _('Private?'),
                              $this->private);
+        $this->out->elementEnd('span');
     }
 
     static function fillOptions($action, &$options)
