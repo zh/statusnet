@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Form for entering an event
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class EventForm extends Form
 {
     /**
@@ -52,7 +51,6 @@ class EventForm extends Form
      *
      * @return int ID of the form
      */
-
     function id()
     {
         return 'form_new_event';
@@ -63,7 +61,6 @@ class EventForm extends Form
      *
      * @return string class of the form
      */
-
     function formClass()
     {
         return 'form_settings ajax-notice';
@@ -74,7 +71,6 @@ class EventForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('newevent');
@@ -85,7 +81,6 @@ class EventForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
@@ -93,57 +88,73 @@ class EventForm extends Form
 
         $this->li();
         $this->out->input('title',
+                          // TRANS: Field label on event form.
                           _m('LABEL','Title'),
                           null,
+                          // TRANS: Field title on event form.
                           _m('Title of the event.'));
         $this->unli();
 
         $this->li();
         $this->out->input('startdate',
+                          // TRANS: Field label on event form.
                           _m('LABEL','Start date'),
                           null,
+                          // TRANS: Field title on event form.
                           _m('Date the event starts.'));
         $this->unli();
 
         $this->li();
         $this->out->input('starttime',
+                          // TRANS: Field label on event form.
                           _m('LABEL','Start time'),
                           null,
+                          // TRANS: Field title on event form.
                           _m('Time the event starts.'));
         $this->unli();
 
         $this->li();
         $this->out->input('enddate',
+                          // TRANS: Field label on event form.
                           _m('LABEL','End date'),
-                          null,   
+                          null,
+                          // TRANS: Field title on event form.
                           _m('Date the event ends.'));
         $this->unli();
 
         $this->li();
         $this->out->input('endtime',
+                          // TRANS: Field label on event form.
                           _m('LABEL','End time'),
                           null,
+                          // TRANS: Field title on event form.
                           _m('Time the event ends.'));
         $this->unli();
 
         $this->li();
         $this->out->input('location',
+                          // TRANS: Field label on event form.
                           _m('LABEL','Location'),
                           null,
+                          // TRANS: Field title on event form.
                           _m('Event location.'));
         $this->unli();
 
         $this->li();
         $this->out->input('url',
+                          // TRANS: Field label on event form.
                           _m('LABEL','URL'),
                           null,
+                          // TRANS: Field title on event form.
                           _m('URL for more information.'));
         $this->unli();
 
         $this->li();
         $this->out->input('description',
+                          // TRANS: Field label on event form.
                           _m('LABEL','Description'),
                           null,
+                          // TRANS: Field title on event form.
                           _m('Description of the event.'));
         $this->unli();
 
@@ -162,9 +173,9 @@ class EventForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
+        // TRANS: Button text to save an event..
         $this->out->submit('submit', _m('BUTTON', 'Save'));
     }
 }

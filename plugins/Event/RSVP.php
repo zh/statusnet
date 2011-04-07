@@ -42,7 +42,6 @@ if (!defined('STATUSNET')) {
  *
  * @see      Managed_DataObject
  */
-
 class RSVP extends Managed_DataObject
 {
     const POSITIVE = 'http://activitystrea.ms/schema/1.0/rsvp-yes';
@@ -64,7 +63,6 @@ class RSVP extends Managed_DataObject
      * @param mixed  $v Value to lookup
      *
      * @return RSVP object found, or null for no hits
-     *
      */
     function staticGet($k, $v=null)
     {
@@ -77,7 +75,6 @@ class RSVP extends Managed_DataObject
      * @param array $kv array of key-value mappings
      *
      * @return Bookmark object found, or null for no hits
-     *
      */
 
     function pkeyGet($kv)
@@ -141,6 +138,7 @@ class RSVP extends Managed_DataObject
         if (array_key_exists('uri', $options)) {
             $other = RSVP::staticGet('uri', $options['uri']);
             if (!empty($other)) {
+                // TRANS: Client exception thrown when trying to save an already existing RSVP ("please respond").
                 throw new ClientException(_m('RSVP already exists.'));
             }
         }
@@ -149,6 +147,7 @@ class RSVP extends Managed_DataObject
                                      'event_id' => $event->id));
 
         if (!empty($other)) {
+            // TRANS: Client exception thrown when trying to save an already existing RSVP ("please respond").
             throw new ClientException(_m('RSVP already exists.'));
         }
 
@@ -179,7 +178,7 @@ class RSVP extends Managed_DataObject
         // XXX: come up with something sexier
 
         $content = $rsvp->asString();
-        
+
         $rendered = $rsvp->asHTML();
 
         $options = array_merge(array('object_type' => $verb),
@@ -217,7 +216,8 @@ class RSVP extends Managed_DataObject
             return '?';
             break;
         default:
-            throw new Exception(sprintf(_m('Unknown verb "%s"'),$verb));
+            // TRANS: Exception thrown when requesting an undefined verb for RSVP.
+            throw new Exception(sprintf(_m('Unknown verb "%s".'),$verb));
         }
     }
 
@@ -234,6 +234,7 @@ class RSVP extends Managed_DataObject
             return RSVP::POSSIBLE;
             break;
         default:
+            // TRANS: Exception thrown when requesting an undefined code for RSVP.
             throw new Exception(sprintf(_m('Unknown code "%s".'),$code));
         }
     }
@@ -242,6 +243,8 @@ class RSVP extends Managed_DataObject
     {
         $notice = Notice::staticGet('uri', $this->uri);
         if (empty($notice)) {
+            // TRANS: Server exception thrown when requesting a non-exsting notice for an RSVP ("please respond").
+            // TRANS: %s is the RSVP with the missing notice.
             throw new ServerException(sprintf(_m('RSVP %s does not correspond to a notice in the database.'),$this->id));
         }
         return $notice;
@@ -297,6 +300,8 @@ class RSVP extends Managed_DataObject
     {
         $profile = Profile::staticGet('id', $this->profile_id);
         if (empty($profile)) {
+            // TRANS: Exception thrown when requesting a non-existing profile.
+            // TRANS: %s is the ID of the non-existing profile.
             throw new Exception(sprintf(_m('No profile with ID %s.'),$this->profile_id));
         }
         return $profile;
@@ -306,6 +311,8 @@ class RSVP extends Managed_DataObject
     {
         $event = Happening::staticGet('id', $this->event_id);
         if (empty($event)) {
+            // TRANS: Exception thrown when requesting a non-existing event.
+            // TRANS: %s is the ID of the non-existing event.
             throw new Exception(sprintf(_m('No event with ID %s.'),$this->event_id));
         }
         return $event;
@@ -335,21 +342,34 @@ class RSVP extends Managed_DataObject
 
         switch ($response) {
         case 'Y':
+            // TRANS: HTML version of an RSVP ("please respond") status for a user.
+            // TRANS: %1$s is a profile URL, %2$s a profile name,
+            // TRANS: %3$s is an event URL, %4$s an event title.
             $fmt = _m("<span class='automatic event-rsvp'><a href='%1\$s'>%2\$s</a> is attending <a href='%3\$s'>%4\$s</a>.</span>");
             break;
         case 'N':
+            // TRANS: HTML version of an RSVP ("please respond") status for a user.
+            // TRANS: %1$s is a profile URL, %2$s a profile name,
+            // TRANS: %3$s is an event URL, %4$s an event title.
             $fmt = _m("<span class='automatic event-rsvp'><a href='%1\$s'>%2\$s</a> is not attending <a href='%3\$s'>%4\$s</a>.</span>");
             break;
         case '?':
+            // TRANS: HTML version of an RSVP ("please respond") status for a user.
+            // TRANS: %1$s is a profile URL, %2$s a profile name,
+            // TRANS: %3$s is an event URL, %4$s an event title.
             $fmt = _m("<span class='automatic event-rsvp'><a href='%1\$s'>%2\$s</a> might attend <a href='%3\$s'>%4\$s</a>.</span>");
             break;
         default:
+            // TRANS: Exception thrown when requesting a user's RSVP status for a non-existing response code.
+            // TRANS: %s is the non-existing response code.
             throw new Exception(sprintf(_m('Unknown response code %s.'),$response));
             break;
         }
 
         if (empty($event)) {
             $eventUrl = '#';
+            // TRANS: Used as event title when not event title is available.
+            // TRANS: Used as: Username [is [not ] attending|might attend] an unknown event.
             $eventTitle = _m('an unknown event');
         } else {
             $notice = $event->getNotice();
@@ -370,20 +390,30 @@ class RSVP extends Managed_DataObject
 
         switch ($response) {
         case 'Y':
+            // TRANS: Plain text version of an RSVP ("please respond") status for a user.
+            // TRANS: %1$s is a profile name, %2$s is an event title.
             $fmt = _m('%1$s is attending %2$s.');
             break;
         case 'N':
+            // TRANS: Plain text version of an RSVP ("please respond") status for a user.
+            // TRANS: %1$s is a profile name, %2$s is an event title.
             $fmt = _m('%1$s is not attending %2$s.');
             break;
         case '?':
+            // TRANS: Plain text version of an RSVP ("please respond") status for a user.
+            // TRANS: %1$s is a profile name, %2$s is an event title.
             $fmt = _m('%1$s might attend %2$s.');
             break;
         default:
+            // TRANS: Exception thrown when requesting a user's RSVP status for a non-existing response code.
+            // TRANS: %s is the non-existing response code.
             throw new Exception(sprintf(_m('Unknown response code %s.'),$response));
             break;
         }
 
         if (empty($event)) {
+            // TRANS: Used as event title when not event title is available.
+            // TRANS: Used as: Username [is [not ] attending|might attend] an unknown event.
             $eventTitle = _m('an unknown event');
         } else {
             $notice = $event->getNotice();
