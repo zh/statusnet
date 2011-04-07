@@ -719,18 +719,33 @@ class Notice extends Memcached_DataObject
     }
 
     function attachments() {
-        // XXX: cache this
-        $att = array();
-        $f2p = new File_to_post;
-        $f2p->post_id = $this->id;
-        if ($f2p->find()) {
-            while ($f2p->fetch()) {
-                $f = File::staticGet($f2p->file_id);
-                if ($f) {
-                    $att[] = clone($f);
+
+        $keypart = sprintf('notice:file_ids:%d', $this->id);
+
+        $idstr = self::cacheGet($keypart);
+
+        if ($idstr !== false) {
+            $ids = explode(',', $idstr);
+        } else {
+            $f2p = new File_to_post;
+            $f2p->post_id = $this->id;
+            if ($f2p->find()) {
+                while ($f2p->fetch()) {
+                    $ids[] = $f2p->file_id;
                 }
             }
+            self::cacheSet($keypart, implode(',', $ids));
         }
+
+        $att = array();
+
+        foreach ($ids as $id) {
+            $f = File::staticGet('id', $id);
+            if (!empty($f)) {
+                $att[] = clone($f);
+            }
+        }
+
         return $att;
     }
 
