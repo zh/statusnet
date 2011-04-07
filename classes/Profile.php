@@ -52,9 +52,15 @@ class Profile extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    protected $_user = -1;  // Uninitialized value distinct from null
+
     function getUser()
     {
-        return User::staticGet('id', $this->id);
+        if ($this->_user == -1) {
+            $this->_user = User::staticGet('id', $this->id);
+        }
+
+        return $this->_user;
     }
 
     function getAvatar($width, $height=null)
