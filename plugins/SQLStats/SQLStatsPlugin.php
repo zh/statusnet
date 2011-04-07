@@ -25,9 +25,8 @@ if (!defined('STATUSNET')) {
  * Check DB queries for filesorts and such and log em.
  *
  * @package SQLStatsPlugin
- * @maintainer Evan Prodromou <brion@status.net>
+ * @maintainer Evan Prodromou <evan@status.net>
  */
-
 class SQLStatsPlugin extends Plugin
 {
     protected $queryCount = 0;
@@ -42,6 +41,7 @@ class SQLStatsPlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:SQLStats',
                             'rawdescription' =>
+                            // TRANS: Plugin decription.
                             _m('Debug tool to watch for poorly indexed DB queries.'));
 
         return true;
