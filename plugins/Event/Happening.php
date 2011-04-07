@@ -215,7 +215,6 @@ class Happening extends Managed_DataObject
 
     function getRSVP($profile)
     {
-        common_log(LOG_DEBUG, "Finding RSVP for " . $profile->id . ', ' . $this->id);
         return RSVP::pkeyGet(array('profile_id' => $profile->id,
                                    'event_id' => $this->id));
     }
