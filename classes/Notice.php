@@ -2004,14 +2004,24 @@ class Notice extends Memcached_DataObject
     public function getTags()
     {
         $tags = array();
-        $tag = new Notice_tag();
-        $tag->notice_id = $this->id;
-        if ($tag->find()) {
-            while ($tag->fetch()) {
-                $tags[] = $tag->tag;
+
+        $keypart = sprintf('notice:tags:%d', $this->id);
+
+        $tagstr = self::cacheGet($keypart);
+
+        if ($tagstr !== false) {
+            $tags = explode(',', $tagstr);
+        } else {
+            $tag = new Notice_tag();
+            $tag->notice_id = $this->id;
+            if ($tag->find()) {
+                while ($tag->fetch()) {
+                    $tags[] = $tag->tag;
+                }
             }
+            self::cacheSet($keypart, implode(',', $tags));
         }
-        $tag->free();
+
         return $tags;
     }
 
