@@ -727,6 +727,7 @@ class Notice extends Memcached_DataObject
         if ($idstr !== false) {
             $ids = explode(',', $idstr);
         } else {
+            $ids = array();
             $f2p = new File_to_post;
             $f2p->post_id = $this->id;
             if ($f2p->find()) {
