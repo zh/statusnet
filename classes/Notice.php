@@ -1250,27 +1250,39 @@ class Notice extends Memcached_DataObject
             return array();
         }
 
-        // XXX: cache me
+        $ids = array();
+
+        $keypart = sprintf('notice:groups:%d', $this->id);
+
+        $idstr = self::cacheGet($keypart);
+
+        if ($idstr !== false) {
+            $ids = explode(',', $idstr);
+        } else {
+            $gi = new Group_inbox();
+
+            $gi->selectAdd();
+            $gi->selectAdd('group_id');
+
+            $gi->notice_id = $this->id;
+
+            if ($gi->find()) {
+                while ($gi->fetch()) {
+                    $ids[] = $gi->group_id;
+                }
+            }
+
+            self::cacheSet($keypart, implode(',', $ids));
+        }
 
         $groups = array();
 
-        $gi = new Group_inbox();
-
-        $gi->selectAdd();
-        $gi->selectAdd('group_id');
-
-        $gi->notice_id = $this->id;
-
-        if ($gi->find()) {
-            while ($gi->fetch()) {
-                $group = User_group::staticGet('id', $gi->group_id);
-                if ($group) {
-                    $groups[] = $group;
-                }
+        foreach ($ids as $id) {
+            $group = User_group::staticGet('id', $id);
+            if ($group) {
+                $groups[] = $group;
             }
         }
-
-        $gi->free();
 
         return $groups;
     }
