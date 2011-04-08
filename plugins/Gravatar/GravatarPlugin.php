@@ -57,15 +57,18 @@ class GravatarPlugin extends Plugin
                                                 'action' =>
                                                 common_local_url('avatarsettings')));
             $action->elementStart('fieldset', array('id' => 'settings_gravatar_add'));
+            // TRANS: Fieldset legend. Gravatar is an avatar service.
             $action->element('legend', null, _m('Set Gravatar'));
             $action->hidden('token', common_session_token());
             $action->element('p', 'form_guide',
+                             // TRANS: Form guide. Gravatar is an avatar service.
                              _m('If you want to use your Gravatar image, click "Add".'));
             $action->element('input', array('type' => 'submit',
                                             'id' => 'settings_gravatar_add_action-submit',
                                             'name' => 'add',
                                             'class' => 'submit',
-                                            'value' => _m('Add')));
+                                            // TRANS: Button text to add a Gravatar. Gravatar is an avatar service.
+                                            'value' => _m('BUTTON','Add')));
             $action->elementEnd('fieldset');
             $action->elementEnd('form');
         } elseif($hasGravatar) {
@@ -75,19 +78,23 @@ class GravatarPlugin extends Plugin
                                                 'action' =>
                                                 common_local_url('avatarsettings')));
             $action->elementStart('fieldset', array('id' => 'settings_gravatar_remove'));
+            // TRANS: Fieldset legend. Gravatar is an avatar service.
             $action->element('legend', null, _m('Remove Gravatar'));
             $action->hidden('token', common_session_token());
             $action->element('p', 'form_guide',
+                             // TRANS: Form guide. Gravatar is an avatar service.
                              _m('If you want to remove your Gravatar image, click "Remove".'));
             $action->element('input', array('type' => 'submit',
                                             'id' => 'settings_gravatar_remove_action-submit',
                                             'name' => 'remove',
                                             'class' => 'submit',
+                                            // TRANS: Button text to remove a Gravatar. Gravatar is an avatar service.
                                             'value' => _m('Remove')));
             $action->elementEnd('fieldset');
             $action->elementEnd('form');
         } else {
             $action->element('p', 'form_guide',
+                             // TRANS: Form guide. Gravatar is an avatar service.
                              _m('To use a Gravatar first enter in an email address.'));
         }
     }
@@ -137,6 +144,7 @@ class GravatarPlugin extends Plugin
         $cur = common_current_user();
 
         if(empty($cur->email)) {
+            // TRANS: Message displayed when no e-mail address was set when saving Gravatar setting. Gravatar is an avatar service.
             return array('message' => _m('You do not have an email address set in your profile.'),
                          'success' => false);
         }
@@ -155,10 +163,12 @@ class GravatarPlugin extends Plugin
             $gravatar->created = DB_DataObject_Cast::dateTime(); # current time
 
             if (!$gravatar->insert()) {
+                // TRANS: Message displayed when saving Gravatar setting fails. Gravatar is an avatar service.
                 return array('message' => _m('Failed to save Gravatar to the database.'),
                              'success' => false);
             }
         }
+        // TRANS: Message displayed when Gravatar was added. Gravatar is an avatar service.
         return array('message' => _m('Gravatar added.'),
                      'success' => true);
      }
@@ -177,6 +187,7 @@ class GravatarPlugin extends Plugin
         $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
         if($avatar) $avatar->delete();
 
+        // TRANS: Message displayed when Gravatar was removed. Gravatar is an avatar service.
         return array('message' => _m('Gravatar removed.'),
                      'success' => true);
     }
@@ -197,6 +208,7 @@ class GravatarPlugin extends Plugin
                             'author' => 'Eric Helgeson',
                             'homepage' => 'http://status.net/wiki/Plugin:Gravatar',
                             'rawdescription' =>
+                            // TRANS: Plugin decsription.
                             _m('The Gravatar plugin allows users to use their <a href="http://www.gravatar.com/">Gravatar</a> with StatusNet.'));
 
         return true;

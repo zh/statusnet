@@ -44,7 +44,6 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
  *
  * @see      DB_DataObject
  */
-
 class Group_message_profile extends Memcached_DataObject
 {
     public $__table = 'group_message_profile'; // table name
@@ -61,7 +60,6 @@ class Group_message_profile extends Memcached_DataObject
      * @param mixed  $v Value to lookup
      *
      * @return Group_message object found, or null for no hits
-     *
      */
     function staticGet($k, $v=null)
     {
@@ -120,7 +118,7 @@ class Group_message_profile extends Memcached_DataObject
     function send($gm, $profile)
     {
         $gmp = new Group_message_profile();
-        
+
         $gmp->group_message_id = $gm->id;
         $gmp->to_profile       = $profile->id;
         $gmp->created          = common_sql_now();
@@ -138,7 +136,7 @@ class Group_message_profile extends Memcached_DataObject
         $this->notifyByMail();
     }
 
-    function notifyByMail() 
+    function notifyByMail()
     {
         $to = User::staticGet('id', $this->to_profile);
 
@@ -163,14 +161,14 @@ class Group_message_profile extends Memcached_DataObject
         // TRANS: %3$s is the message content, %4$s a URL to the message,
         // TRANS: %5$s is the StatusNet sitename.
         $body = sprintf(_m("%1\$s (%2\$s) sent a private message to group %3\$s:\n\n".
-                          "------------------------------------------------------\n".
-                          "%4\$s\n".
-                          "------------------------------------------------------\n\n".
-                          "You can reply to their message here:\n\n".
-                          "%5\$s\n\n".
-                          "Do not reply to this email; it will not get to them.\n\n".
-                          "With kind regards,\n".
-                          "%6\$s"),
+                           "------------------------------------------------------\n".
+                           "%4\$s\n".
+                           "------------------------------------------------------\n\n".
+                           "You can reply to their message here:\n\n".
+                           "%5\$s\n\n".
+                           "Do not reply to this email; it will not get to them.\n\n".
+                           "With kind regards,\n".
+                           "%6\$s"),
                         $from_profile->getBestName(),
                         $from_profile->nickname,
                         $group->nickname,

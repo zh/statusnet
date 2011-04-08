@@ -59,7 +59,6 @@ class FollowEveryonePlugin extends Plugin
      * @param User    &$newUser    The new user
      *
      * @return boolean hook value
-     *
      */
     function onEndUserRegister(&$newProfile, &$newUser)
     {
@@ -115,7 +114,6 @@ class FollowEveryonePlugin extends Plugin
         $schema = Schema::get();
 
         // For storing user-submitted flags on profiles
-
         $schema->ensureTable('user_followeveryone_prefs',
                              array(new ColumnDef('user_id', 'integer', null,
                                                  true, 'PRI'),
@@ -200,6 +198,7 @@ class FollowEveryonePlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:FollowEveryone',
                             'rawdescription' =>
+                            // TRANS: Plugin description.
                             _m('New users follow everyone at registration and are followed in return.'));
         return true;
     }
