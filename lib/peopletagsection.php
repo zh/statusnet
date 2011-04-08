@@ -112,7 +112,7 @@ class PeopletagSectionItem extends PeopletagListItem
         $this->showPeopletag();
         $this->out->elementEnd('td');
 
-        if ($this->peopletag->value) {
+        if (isset($this->peopletag->value)) {
             $this->out->element('td', 'value', $this->peopletag->value);
         }
         $this->out->elementEnd('tr');
