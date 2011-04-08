@@ -131,6 +131,7 @@ class oEmbedHelper
         }
 
         if (empty($api)) {
+            // TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
             throw new ServerException(_('No oEmbed API endpoint available.'));
         }
 

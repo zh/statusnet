@@ -289,15 +289,12 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
     {
         $notices = array();
 
-        if (!empty($this->auth_user) && $this->auth_user->id == $this->user->id) {
-            $notice = $this->user->ownFriendsTimeline(($this->page-1) * $this->count,
-                                                      $this->count, $this->since_id,
-                                                      $this->max_id);
-        } else {
-            $notice = $this->user->friendsTimeline(($this->page-1) * $this->count,
-                                                   $this->count, $this->since_id,
-                                                   $this->max_id);
-        }
+        $stream = new InboxNoticeStream($this->user);
+        
+        $notice = $stream->getNotices(($this->page-1) * $this->count,
+                                      $this->count,
+                                      $this->since_id,
+                                      $this->max_id);
 
         while ($notice->fetch()) {
             $notices[] = clone($notice);

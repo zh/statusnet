@@ -478,34 +478,45 @@ class User extends Memcached_DataObject
         return Fave::stream($this->id, $offset, $limit, $own, $since_id, $max_id);
     }
 
+    function noticeInbox($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
+    {
+        $stream = new InboxNoticeStream($this);
+        return $stream->getNotices($offset, $limit, $since_id, $before_id);
+    }
+
+    // DEPRECATED, use noticeInbox()
+
     function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, false);
+        return $this->noticeInbox($offset, $limit, $since_id, $before_id);
     }
+
+    // DEPRECATED, use noticeInbox()
 
     function noticesWithFriendsThreaded($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        return Inbox::streamNoticesThreaded($this->id, $offset, $limit, $since_id, $before_id, false);
+        return $this->noticeInbox($offset, $limit, $since_id, $before_id);
     }
 
-    function noticeInbox($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
-    {
-        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, true);
-    }
+    // DEPRECATED, use noticeInbox()
 
     function noticeInboxThreaded($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        return Inbox::streamNoticesThreaded($this->id, $offset, $limit, $since_id, $before_id, true);
+        return $this->noticeInbox($offset, $limit, $since_id, $before_id);
     }
+
+    // DEPRECATED, use noticeInbox()
 
     function friendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, false);
+        return $this->noticeInbox($offset, $limit, $since_id, $before_id);
     }
+
+    // DEPRECATED, use noticeInbox()
 
     function ownFriendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, true);
+        $this->noticeInbox($offset, $limit, $since_id, $before_id);
     }
 
     function blowFavesCache()

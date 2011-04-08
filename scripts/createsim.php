@@ -82,7 +82,8 @@ function newNotice($i, $tagmax)
 
     if ($is_reply == 0) {
         common_set_user($user);
-        $notices = $user->noticesWithFriends(0, 20);
+        $stream = new InboxNoticeStream($user);
+        $notices = $stream->getNotices(0, 20, null, null);
         if ($notices->N > 0) {
             $nval = rand(0, $notices->N - 1);
             $notices->fetch(); // go to 0th
