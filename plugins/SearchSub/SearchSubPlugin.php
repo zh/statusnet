@@ -324,11 +324,13 @@ class SearchSubPlugin extends Plugin
     {
         $user = common_current_user();
 
-        $searches = SearchSub::forProfile($user->getProfile());
+        if (!empty($user)) {
+            $searches = SearchSub::forProfile($user->getProfile());
 
-        if (!empty($searches) && count($searches) > 0) {
-            $searchSubMenu = new SearchSubMenu($menu->out, $user, $searches);
-            $menu->submenu(_m('Searches'), $searchSubMenu);
+            if (!empty($searches) && count($searches) > 0) {
+                $searchSubMenu = new SearchSubMenu($menu->out, $user, $searches);
+                $menu->submenu(_m('Searches'), $searchSubMenu);
+            }
         }
 
         return true;
