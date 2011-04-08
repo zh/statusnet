@@ -788,16 +788,16 @@ class Facebookclient
         $subject = _m('Your Facebook connection has been removed');
 
         // TRANS: E-mail body. %1$s is a username, %2$s is the StatusNet sitename.
-        $msg = _m('Hi %1$s,\n\n'.
-                 'We are sorry to inform you we are unable to publish your notice to\n'.
-                 'Facebook, and have removed the connection between your %2$s account and\n'.
-                 'Facebook.\n\n'.
-                 'This may have happened because you have removed permission for %2$s\n'.
-                 'to post on your behalf, or perhaps you have deactivated your Facebook\n'.
-                 'account. You can reconnect your %2$s account to Facebook at any time by\n'.
-                 'logging in with Facebook again.\n\n'.
-                 'Sincerely,\n\n'.
-                 '%2$s\n');
+        $msg = _m("Hi %1\$s,\n\n".
+                  "We are sorry to inform you we are unable to publish your notice to\n".
+                  "Facebook, and have removed the connection between your %2\$s account and\n".
+                  "Facebook.\n\n".
+                  "This may have happened because you have removed permission for %2\$s\n".
+                  "to post on your behalf, or perhaps you have deactivated your Facebook\n".
+                  "account. You can reconnect your %2\$s account to Facebook at any time by\n".
+                  "logging in with Facebook again.\n\n".
+                  "Sincerely,\n\n".
+                  "%2\$s\n");
 
         $body = sprintf(
             $msg,
@@ -845,13 +845,13 @@ class Facebookclient
 
         // TRANS: E-mail body. %1$s is a username,
         // TRANS: %2$s is the StatusNet sitename, %3$s is the site contact e-mail address.
-        $msg = _m('Hi %1$s,\n\n'.
-                 'We have noticed you have deauthorized the Facebook connection for your\n'.
-                 '%2$s account.  You have not set a password for your %2$s account yet, so\n'.
-                 'you will not be able to login. If you wish to continue using your %2$s\n'.
-                 'account, please contact the site administrator (%3$s) to set a password.\n\n'.
-                 'Sincerely,\n\n'.
-                 '%2$s\n');
+        $msg = _m("Hi %1\$s,\n\n".
+                  "We have noticed you have deauthorized the Facebook connection for your\n".
+                  "%2\$s account.  You have not set a password for your %2\$s account yet, so\n".
+                  "you will not be able to login. If you wish to continue using your %2\$s\n".
+                  "account, please contact the site administrator (%3\$s) to set a password.\n\n".
+                  "Sincerely,\n\n".
+                  "%2\$s\n");
 
         $body = sprintf(
             $msg,
