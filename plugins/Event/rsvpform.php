@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Form to RSVP for an event
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class RSVPForm extends Form
 {
     protected $event = null;
@@ -60,7 +59,6 @@ class RSVPForm extends Form
      *
      * @return int ID of the form
      */
-
     function id()
     {
         return 'form_event_rsvp';
@@ -71,7 +69,6 @@ class RSVPForm extends Form
      *
      * @return string class of the form
      */
-
     function formClass()
     {
         return 'ajax';
@@ -82,7 +79,6 @@ class RSVPForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('newrsvp');
@@ -93,11 +89,11 @@ class RSVPForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         $this->out->elementStart('fieldset', array('id' => 'new_rsvp_data'));
 
+        // TRANS: Field label on form to RSVP ("please respond") for an event.
         $this->out->text(_m('RSVP:'));
 
         $this->out->hidden('event', $this->event->id);
@@ -111,14 +107,16 @@ class RSVPForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
+        // TRANS: Button text for RSVP ("please respond") reply to confirm attendence.
         $this->submitButton('yes', _m('BUTTON', 'Yes'));
+        // TRANS: Button text for RSVP ("please respond") reply to deny attendence.
         $this->submitButton('no', _m('BUTTON', 'No'));
+        // TRANS: Button text for RSVP ("please respond") reply to indicate one might attend.
         $this->submitButton('maybe', _m('BUTTON', 'Maybe'));
     }
-    
+
     function submitButton($id, $label)
     {
         $this->out->element('input', array('type' => 'submit',

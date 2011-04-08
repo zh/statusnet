@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Show a single event
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify

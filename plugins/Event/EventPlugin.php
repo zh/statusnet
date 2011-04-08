@@ -105,7 +105,6 @@ class EventPlugin extends MicroappPlugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onRouterInitialized($m)
     {
         $m->connect('main/event/new',
@@ -130,12 +129,14 @@ class EventPlugin extends MicroappPlugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:Event',
                             'description' =>
+                            // TRANS: Plugin description.
                             _m('Event invitations and RSVPs.'));
         return true;
     }
 
     function appTitle() {
-        return _m('Event');
+        // TRANS: Title for event application.
+        return _m('TITLE','Event');
     }
 
     function tag() {
@@ -162,12 +163,13 @@ class EventPlugin extends MicroappPlugin
     function saveNoticeFromActivity($activity, $actor, $options=array())
     {
         if (count($activity->objects) != 1) {
-            throw new Exception('Too many activity objects.');
+            throw new Exception(_('Too many activity objects.'));
         }
 
         $happeningObj = $activity->objects[0];
 
         if ($happeningObj->type != Happening::OBJECT_TYPE) {
+            // TRANS: Exception thrown when event plugin comes across a non-event type object.
             throw new Exception(_m('Wrong type for object.'));
         }
 
@@ -175,8 +177,8 @@ class EventPlugin extends MicroappPlugin
 
         switch ($activity->verb) {
         case ActivityVerb::POST:
-            $notice = Happening::saveNew($actor, 
-                                     $start_time, 
+            $notice = Happening::saveNew($actor,
+                                     $start_time,
                                      $end_time,
                                      $happeningObj->title,
                                      null,
@@ -189,12 +191,14 @@ class EventPlugin extends MicroappPlugin
             $happening = Happening::staticGet('uri', $happeningObj->id);
             if (empty($happening)) {
                 // FIXME: save the event
+                // TRANS: Exception thrown when trying to RSVP for an unknown event.
                 throw new Exception(_m('RSVP for unknown event.'));
             }
             $notice = RSVP::saveNew($actor, $happening, $activity->verb, $options);
             break;
         default:
-            throw new Exception(_m('Unknown verb for events'));
+            // TRANS: Exception thrown when event plugin comes across a undefined verb.
+            throw new Exception(_m('Unknown verb for events.'));
         }
 
         return $notice;
@@ -207,7 +211,6 @@ class EventPlugin extends MicroappPlugin
      *
      * @return ActivityObject
      */
-
     function activityObjectFromNotice($notice)
     {
         $happening = null;
@@ -225,12 +228,14 @@ class EventPlugin extends MicroappPlugin
         }
 
         if (empty($happening)) {
+            // TRANS: Exception thrown when event plugin comes across a unknown object type.
             throw new Exception(_m('Unknown object type.'));
         }
 
         $notice = $happening->getNotice();
 
         if (empty($notice)) {
+            // TRANS: Exception thrown when referring to a notice that is not an event an in event context.
             throw new Exception(_m('Unknown event notice.'));
         }
 
@@ -264,7 +269,6 @@ class EventPlugin extends MicroappPlugin
      *
      * @return ActivityObject
      */
-
     function onEndNoticeAsActivity($notice, &$act) {
         switch ($notice->object_type) {
         case RSVP::POSITIVE:
@@ -282,7 +286,6 @@ class EventPlugin extends MicroappPlugin
      * @param Notice $notice
      * @param HTMLOutputter $out
      */
-
     function showNotice($notice, $out)
     {
         switch ($notice->object_type) {
@@ -372,6 +375,7 @@ class EventPlugin extends MicroappPlugin
 
         $out->elementStart('div', 'event-times'); // VEVENT/EVENT-TIMES IN
 
+        // TRANS: Field label for event description.
         $out->element('strong', null, _m('Time:'));
 
         $out->element('abbr', array('class' => 'dtstart',
@@ -392,6 +396,7 @@ class EventPlugin extends MicroappPlugin
 
         if (!empty($event->location)) {
             $out->elementStart('div', 'event-location');
+            // TRANS: Field label for event description.
             $out->element('strong', null, _m('Location:'));
             $out->element('span', 'location', $event->location);
             $out->elementEnd('div');
@@ -399,6 +404,7 @@ class EventPlugin extends MicroappPlugin
 
         if (!empty($event->description)) {
             $out->elementStart('div', 'event-description');
+            // TRANS: Field label for event description.
             $out->element('strong', null, _m('Description:'));
             $out->element('span', 'description', $event->description);
             $out->elementEnd('div');
@@ -407,6 +413,7 @@ class EventPlugin extends MicroappPlugin
         $rsvps = $event->getRSVPs();
 
         $out->elementStart('div', 'event-rsvps');
+        // TRANS: Field label for event description.
         $out->element('strong', null, _m('Attending:'));
         $out->element('span', 'event-rsvps',
                       // TRANS: RSVP counts.
@@ -440,7 +447,6 @@ class EventPlugin extends MicroappPlugin
      * @param HTMLOutputter $out
      * @return Widget
      */
-
     function entryForm($out)
     {
         return new EventForm($out);
@@ -451,7 +457,6 @@ class EventPlugin extends MicroappPlugin
      *
      * @param Notice $notice
      */
-
     function deleteRelated($notice)
     {
         switch ($notice->object_type) {

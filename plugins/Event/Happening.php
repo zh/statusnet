@@ -47,7 +47,6 @@ if (!defined('STATUSNET')) {
  *
  * @see      Managed_DataObject
  */
-
 class Happening extends Managed_DataObject
 {
     const OBJECT_TYPE = 'http://activitystrea.ms/schema/1.0/event';
@@ -122,6 +121,7 @@ class Happening extends Managed_DataObject
         if (array_key_exists('uri', $options)) {
             $other = Happening::staticGet('uri', $options['uri']);
             if (!empty($other)) {
+                // TRANS: Client exception thrown when trying to create an event that already exists.
                 throw new ClientException(_m('Event already exists.'));
             }
         }
@@ -163,6 +163,9 @@ class Happening extends Managed_DataObject
                            $location,
                            $description);
 
+        // TRANS: Rendered event description. %1$s is a title, %2$s is start time, %3$s is start time,
+	// TRANS: %4$s is end time, %5$s is end time, %6$s is location, %7$s is description.
+	// TRANS: Class names should not be translated.
         $rendered = sprintf(_m('<span class="vevent">'.
                               '<span class="summary">%1$s</span> '.
                               '<abbr class="dtstart" title="%2$s">%3$s</a> - '.
