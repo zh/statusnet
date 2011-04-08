@@ -518,8 +518,8 @@ var SN = { // StatusNet
                 url: form.attr('action'),
                 data: form.serialize() + '&ajax=1',
                 beforeSend: function(xhr) {
-                    form.addClass(SN.C.S.Processing)
-                        .find('.submit')
+                    form.find('.submit')
+                            .addClass(SN.C.S.Processing)
                             .addClass(SN.C.S.Disabled)
                             .attr(SN.C.S.Disabled, SN.C.S.Disabled);
                 },
@@ -1543,39 +1543,94 @@ var SN = { // StatusNet
             });
         },
 
-        PeopletagAutocomplete: function() {
-            $('.form_tag_user #tags').tagInput({
-                tags: SN.C.PtagACData,
-                tagSeparator: " ",
-                animate: false,
-                formatLine: function (i, e, search, matches) {
-                  var tag = "<b>" + e.tag.substring(0, search.length) + "</b>" + e.tag.substring(search.length);
+        /**
+         * Called when a people tag edit box is shown in the interface
+         *
+         * - loads the jQuery UI autocomplete plugin
+         * - sets event handlers for tag completion
+         *
+         */
+        PeopletagAutocomplete: function(txtBox) {
+            var split = function(val) {
+                return val.split( /\s+/ );
+            }
+            var extractLast = function(term) {
+                return split(term).pop();
+            }
 
-                  var line = $("<div/>").addClass('mode-' + e.mode);
-                    line.append($("<div class='tagInputLineTag'>" + tag
-                        + " <em class='privacy_mode'>" + e.mode + "</em></div>"));
-                  if (e.freq)
-                    line.append("<div class='tagInputLineFreq'>" + e.freq + "</div>");
-                  return line;
+            // don't navigate away from the field on tab when selecting an item
+            txtBox.live( "keydown", function( event ) {
+                if ( event.keyCode === $.ui.keyCode.TAB &&
+                        $(this).data( "autocomplete" ).menu.active ) {
+                    event.preventDefault();
                 }
-            });
+            }).autocomplete({
+                minLength: 0,
+                source: function(request, response) {
+		            // delegate back to autocomplete, but extract the last term
+		            response($.ui.autocomplete.filter(
+			            SN.C.PtagACData, extractLast(request.term)));
+	            },
+	            focus: function() {
+	                return false;
+                },
+	            select: function(event, ui) {
+		            var terms = split(this.value);
+		            terms.pop();
+		            terms.push(ui.item.value);
+		            terms.push("");
+		            this.value = terms.join(" ");
+		            return false;
+	            }
+            }).data('autocomplete')._renderItem = function(ul, item) {
+                    // FIXME: with jQuery UI you cannot have it highlight the match
+                    var _l = '<a class="ptag-ac-line-tag">' + item.tag
+                          + ' <em class="privacy_mode">' + item.mode + '</em>'
+                          + '<span class="freq">' + item.freq + '</span></a>'
+
+		            return $("<li/>")
+	                        .addClass('mode-' + item.mode)
+                            .addClass('ptag-ac-line')
+                            .data("item.autocomplete", item)
+                            .append(_l)
+                            .appendTo(ul);
+	            }
         },
 
+        /**
+         * Run setup for the ajax people tags editor
+         *
+         * - show edit button
+         * - set event handle for click on edit button
+         *   - loads people tag autocompletion data if not already present
+         *     or if it is stale.
+         *
+         */
         PeopleTags: function() {
             $('.user_profile_tags .editable').append($('<button class="peopletags_edit_button"/>'));
 
             $('.peopletags_edit_button').live('click', function() {
                 var form = $(this).parents('dd').eq(0).find('form');
                 // We can buy time from the above animation
-                if (typeof SN.C.PtagACData === 'undefined') {
-                    $.getJSON(_peopletagAC + '?token=' + $('#token').val(), function(data) {
+
+                $.ajax({
+                    url: _peopletagAC,
+                    dataType: 'json',
+                    data: {token: $('#token').val()},
+                    ifModified: true,
+                    success: function(data) {
+                        // item.label is used to match
+                        for (i=0; i < data.length; i++) {
+                            data[i].label = data[i].tag;
+                        }
+
                         SN.C.PtagACData = data;
-                        _loadTagInput(SN.Init.PeopletagAutocomplete);
-                    });
-                } else { _loadTagInput(SN.Init.PeopletagAutocomplete); }
+                        SN.Init.PeopletagAutocomplete(form.find('#tags'));
+                    }
+                });
 
                 $(this).parents('ul').eq(0).fadeOut(200, function() {form.fadeIn(200).find('input#tags')});
-            })
+            });
 
             $('.user_profile_tags form .submit').live('click', function() {
                 SN.U.FormPeopletagsXHR($(this).parents('form')); return false;

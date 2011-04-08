@@ -330,9 +330,7 @@ class Action extends HTMLOutputter // lawsuit
                     $this->script('geometa.js');
 
                 }
-                $this->inlineScript('function _loadTagInput(init) { $.getScript("'.common_path('js/jquery.timers.js') .
-                    '"); $.getScript("'.common_path('js/jquery.tagInput.js').'", init); } var _peopletagAC = "' .
-
+                $this->inlineScript('var _peopletagAC = "' .
                     common_local_url('peopletagautocomplete') . '";');
                 $this->showScriptMessages();
                 // Frame-busting code to avoid clickjacking attacks.

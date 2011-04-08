@@ -34,6 +34,8 @@ if (!defined('STATUSNET')) {
 class PeopletagautocompleteAction extends Action
 {
     var $user;
+    var $tags;
+    var $last_mod;
 
     /**
      * Check pre-requisites and instantiate attributes
@@ -66,13 +68,47 @@ class PeopletagautocompleteAction extends Action
             return false;
         }
 
+        $profile = $this->user->getProfile();
+        $tags = $profile->getOwnedTags(common_current_user());
+
+        $this->tags = array();
+        while ($tags->fetch()) {
+
+            if (empty($this->last_mod)) {
+                $this->last_mod = $tags->modified;
+            }
+
+            $arr = array();
+            $arr['tag'] = $tags->tag;
+            $arr['mode'] = $tags->private ? 'private' : 'public';
+            // $arr['url'] = $tags->homeUrl();
+            $arr['freq'] = $tags->taggedCount();
+
+            $this->tags[] = $arr;
+        }
+
+        $tags->free();
+
         return true;
+    }
+
+    /**
+     * Last modified time
+     *
+     * Helps in browser-caching
+     *
+     * @return String time
+     */
+
+    function lastModified()
+    {
+        return strtotime($this->last_mod);
     }
 
     /**
      * Handle request
      *
-     * Does the subscription and returns results.
+     * Print the JSON autocomplete data
      *
      * @param Array $args unused.
      *
@@ -81,24 +117,11 @@ class PeopletagautocompleteAction extends Action
 
     function handle($args)
     {
-        $profile = $this->user->getProfile();
-        $tags = $profile->getOwnedTags(common_current_user());
-
-        $tags_array = array();
-        while ($tags->fetch()) {
-            $arr = array();
-            $arr['tag'] = $tags->tag;
-            $arr['mode'] = $tags->private ? 'private' : 'public';
-            // $arr['url'] = $tags->homeUrl();
-            $arr['freq'] = $tags->taggedCount();
-
-            $tags_array[] = $arr;
+        //common_log(LOG_DEBUG, 'Autocomplete data: ' . json_encode($this->tags));
+        if ($this->tags) {
+            print(json_encode($this->tags));
+            exit(0);
         }
-
-        $tags->free();
-
-        //common_log(LOG_DEBUG, 'Autocomplete data: ' . json_encode($tags_array));
-        print(json_encode($tags_array));
-        exit(0);
+        return false;
     }
 }

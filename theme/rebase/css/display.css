@@ -2173,44 +2173,28 @@ background-position: 0px -1978px;
 
 /* tag autocomplete */
 
-.tagInputDiv {
-display: none;
-position: absolute;
-background-color:#f1f1f1;
-overflow: auto;
-margin-top:-1px;
-z-index: 99;
-}
-
-.tagInputLine {
+.ptag-ac-line {
 font-weight: normal;
-padding:4px;
+background-color: white;
+min-height:30px;
+}
+.ptag-ac-line:nth-child(odd) {
+background-color: #fafafa;
 }
 
-.tagInputLineTag {
+.ptag-ac-line-tag {
 min-width: 150px;
 display: inline-block;
 }
 
-.tagInputLineFreq {
+.ptag-ac-line .freq {
 min-width: 50px;
 text-align: right;
-display: inline-block;
 float:right;
 }
 
-.tagInputDiv {
-background-color: white;
-border: 1px solid lightgray;
-}
-
-.tagInputDiv .mode-public .privacy_mode {
+.ptag-ac-line.mode-public .privacy_mode {
 display:none;
-}
-
-.tagInputSel {
-background-color: gray;
-color:white;
 }
 
 /*end of @media screen, projection, tv*/
