@@ -328,6 +328,7 @@ class EventPlugin extends MicroappPlugin
 
         if (empty($rsvp)) {
             $out->element('p', null, _('Deleted.'));
+            return;
         }
 
         $out->elementStart('div', 'rsvp');
@@ -343,6 +344,7 @@ class EventPlugin extends MicroappPlugin
 
         if (empty($event)) {
             $out->element('p', null, _('Deleted.'));
+            return;
         }
 
         $out->elementStart('div', 'vevent event'); // VEVENT IN
