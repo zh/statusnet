@@ -73,16 +73,21 @@ class User extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    protected $_profile = -1;
+
     /**
      * @return Profile
      */
     function getProfile()
     {
-        $profile = Profile::staticGet('id', $this->id);
-        if (empty($profile)) {
-            throw new UserNoProfileException($this);
+        if ($this->_profile == -1) { // invalid but distinct from null
+            $this->_profile = Profile::staticGet('id', $this->id);
+            if (empty($this->_profile)) {
+                throw new UserNoProfileException($this);
+            }
         }
-        return $profile;
+
+        return $this->_profile;
     }
 
     function isSubscribed($other)

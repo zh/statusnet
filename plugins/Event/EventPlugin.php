@@ -329,6 +329,11 @@ class EventPlugin extends MicroappPlugin
     {
         $rsvp = RSVP::fromNotice($notice);
 
+        if (empty($rsvp)) {
+            $out->element('p', null, _('Deleted.'));
+            return;
+        }
+
         $out->elementStart('div', 'rsvp');
         $out->raw($rsvp->asHTML());
         $out->elementEnd('div');
@@ -340,8 +345,10 @@ class EventPlugin extends MicroappPlugin
         $profile = $notice->getProfile();
         $event   = Happening::fromNotice($notice);
 
-        assert(!empty($event));
-        assert(!empty($profile));
+        if (empty($event)) {
+            $out->element('p', null, _('Deleted.'));
+            return;
+        }
 
         $out->elementStart('div', 'vevent event'); // VEVENT IN
 

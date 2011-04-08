@@ -96,17 +96,21 @@ class Notice extends Memcached_DataObject
     const GROUP_SCOPE     = 4;
     const FOLLOWER_SCOPE  = 8;
 
+    protected $_profile = -1;
+
     function getProfile()
     {
-        $profile = Profile::staticGet('id', $this->profile_id);
+        if ($this->_profile == -1) {
+            $this->_profile = Profile::staticGet('id', $this->profile_id);
 
-        if (empty($profile)) {
-            // TRANS: Server exception thrown when a user profile for a notice cannot be found.
-            // TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
-            throw new ServerException(sprintf(_('No such profile (%1$d) for notice (%2$d).'), $this->profile_id, $this->id));
+            if (empty($this->_profile)) {
+                // TRANS: Server exception thrown when a user profile for a notice cannot be found.
+                // TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
+                throw new ServerException(sprintf(_('No such profile (%1$d) for notice (%2$d).'), $this->profile_id, $this->id));
+            }
         }
 
-        return $profile;
+        return $this->_profile;
     }
 
     function delete()

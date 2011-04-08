@@ -66,9 +66,7 @@ class ConversationRepliesAction extends ConversationAction
      */
     function showContent()
     {
-        $notices = Notice::conversationStream($this->id, null, null);
-
-        $ct = new FullThreadedNoticeList($notices, $this);
+        $ct = new FullThreadedNoticeList($this->notices, $this);
 
         $cnt = $ct->show();
     }
