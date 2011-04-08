@@ -245,11 +245,14 @@ class TagSubPlugin extends Plugin
     {
         $user = common_current_user();
 
-        $tags = TagSub::forProfile($user->getProfile());
+        if (!empty($user)) {
 
-        if (!empty($tags) && count($tags) > 0) {
-            $tagSubMenu = new TagSubMenu($menu->out, $user, $tags);
-            $menu->submenu(_m('Tags'), $tagSubMenu);
+            $tags = TagSub::forProfile($user->getProfile());
+
+            if (!empty($tags) && count($tags) > 0) {
+                $tagSubMenu = new TagSubMenu($menu->out, $user, $tags);
+                $menu->submenu(_m('Tags'), $tagSubMenu);
+            }
         }
 
         return true;
