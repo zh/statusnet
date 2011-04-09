@@ -52,9 +52,15 @@ class Profile extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    protected $_user = -1;  // Uninitialized value distinct from null
+
     function getUser()
     {
-        return User::staticGet('id', $this->id);
+        if ($this->_user == -1) {
+            $this->_user = User::staticGet('id', $this->id);
+        }
+
+        return $this->_user;
     }
 
     function getAvatar($width, $height=null)
@@ -667,34 +673,6 @@ class Profile extends Memcached_DataObject
 
     function hasFave($notice)
     {
-        $cache = Cache::instance();
-
-        // XXX: Kind of a hack.
-
-        if (!empty($cache)) {
-            // This is the stream of favorite notices, in rev chron
-            // order. This forces it into cache.
-
-            $ids = Fave::idStream($this->id, 0, CachingNoticeStream::CACHE_WINDOW);
-
-            // If it's in the list, then it's a fave
-
-            if (in_array($notice->id, $ids)) {
-                return true;
-            }
-
-            // If we're not past the end of the cache window,
-            // then the cache has all available faves, so this one
-            // is not a fave.
-
-            if (count($ids) < CachingNoticeStream::CACHE_WINDOW) {
-                return false;
-            }
-
-            // Otherwise, cache doesn't have all faves;
-            // fall through to the default
-        }
-
         $fave = Fave::pkeyGet(array('user_id' => $this->id,
                                     'notice_id' => $notice->id));
         return ((is_null($fave)) ? false : true);

@@ -1297,3 +1297,19 @@ StartDefaultLocalNav: When showing the default local nav
 EndDefaultLocalNav: When showing the default local nav
 - $menu: the menu
 - $user: current user
+
+StartShowAccountProfileBlock: When showing the profile block for an account
+- $out: XMLOutputter to append custom output
+- $profile: the profile being shown
+
+EndShowAccountProfileBlock: After showing the profile block for an account
+- $out: XMLOutputter to append custom output
+- $profile: the profile being shown
+
+StartShowGroupProfileBlock: When showing the profile block for a group
+- $out: XMLOutputter to append custom output
+- $profile: the profile being shown
+
+EndShowGroupProfileBlock: After showing showing the profile block for a group
+- $out: XMLOutputter to append custom output
+- $group: the group being shown

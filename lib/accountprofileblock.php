@@ -307,4 +307,14 @@ class AccountProfileBlock extends ProfileBlock
                        // TRANS: Link text for link that will subscribe to a remote profile.
                        _m('BUTTON','Subscribe'));
     }
+
+    function show()
+    {
+        $this->out->elementStart('div', 'account_profile_block section');
+        if (Event::handle('StartShowAccountProfileBlock', array($this->out, $this->profile))) {
+            parent::show();
+            Event::handle('EndShowAccountProfileBlock', array($this->out, $this->profile));
+        }
+        $this->out->elementEnd('div');
+    }
 }

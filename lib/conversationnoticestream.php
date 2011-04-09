@@ -46,10 +46,11 @@ if (!defined('STATUSNET')) {
  */
 class ConversationNoticeStream extends ScopingNoticeStream
 {
-    function __construct($id)
+    function __construct($id, $profile = null)
     {
         parent::__construct(new CachingNoticeStream(new RawConversationNoticeStream($id),
-                                                    'notice:conversation_ids:'.$id));
+                                                    'notice:conversation_ids:'.$id),
+                            $profile);
     }
 }
 
@@ -97,9 +98,6 @@ class RawConversationNoticeStream extends NoticeStream
                 $ids[] = $notice->id;
             }
         }
-
-        $notice->free();
-        $notice = NULL;
 
         return $ids;
     }

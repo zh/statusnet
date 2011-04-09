@@ -44,7 +44,6 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
  *
  * @see      DB_DataObject
  */
-
 class Group_message extends Memcached_DataObject
 {
     public $__table = 'group_message'; // table name
@@ -66,7 +65,6 @@ class Group_message extends Memcached_DataObject
      * @param mixed  $v Value to lookup
      *
      * @return Group_message object found, or null for no hits
-     *
      */
     function staticGet($k, $v=null)
     {
@@ -123,6 +121,8 @@ class Group_message extends Memcached_DataObject
     {
         if (!$user->hasRight(Right::NEWMESSAGE)) {
             // XXX: maybe break this out into a separate right
+            // TRANS: Exception thrown when trying to send group private message without having the right to do that.
+            // TRANS: %s is a user nickname.
             throw new Exception(sprintf(_m('User %s is not allowed to send private messages.'),
                                         $user->nickname));
         }
@@ -134,6 +134,8 @@ class Group_message extends Memcached_DataObject
         // We use the same limits as for 'regular' private messages.
 
         if (Message::contentTooLong($text)) {
+            // TRANS: Exception thrown when trying to send group private message that is too long.
+            // TRANS: %d is the maximum meggage length.
             throw new Exception(sprintf(_m('That\'s too long. Maximum message size is %d character.',
                                            'That\'s too long. Maximum message size is %d characters.',
                                            Message::maxContent()),
@@ -143,7 +145,7 @@ class Group_message extends Memcached_DataObject
         // Valid! Let's do this thing!
 
         $gm = new Group_message();
-        
+
         $gm->id           = UUID::gen();
         $gm->uri          = common_local_url('showgroupmessage', array('id' => $gm->id));
         $gm->from_profile = $user->id;
@@ -165,7 +167,7 @@ class Group_message extends Memcached_DataObject
     function distribute()
     {
         $group = User_group::staticGet('id', $this->to_group);
-        
+
         $member = $group->getMembers();
 
         while ($member->fetch()) {
@@ -177,6 +179,7 @@ class Group_message extends Memcached_DataObject
     {
         $group = User_group::staticGet('id', $this->to_group);
         if (empty($group)) {
+            // TRANS: Exception thrown when trying to send group private message to a non-existing group.
             throw new ServerException(_m('No group for group message.'));
         }
         return $group;
@@ -186,6 +189,7 @@ class Group_message extends Memcached_DataObject
     {
         $sender = Profile::staticGet('id', $this->from_profile);
         if (empty($sender)) {
+            // TRANS: Exception thrown when trying to send group private message without having a sender.
             throw new ServerException(_m('No sender for group message.'));
         }
         return $sender;
@@ -204,5 +208,4 @@ class Group_message extends Memcached_DataObject
 
         return $gm;
     }
-
 }
