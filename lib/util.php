@@ -638,7 +638,7 @@ function common_linkify_mention($mention)
 
         $xs->elementStart('span', 'vcard');
         $xs->elementStart('a', $attrs);
-        $xs->element('span', 'fn nickname profile', $mention['text']);
+        $xs->element('span', 'fn nickname mention', $mention['text']);
         $xs->elementEnd('a');
         $xs->elementEnd('span');
 
