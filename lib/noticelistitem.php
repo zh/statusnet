@@ -119,6 +119,7 @@ class NoticeListItem extends Widget
     {
         $this->out->elementStart('div', 'entry-title');
         $this->showAuthor();
+        $this->showAddressees();
         $this->showContent();
         $this->out->elementEnd('div');
     }
@@ -216,6 +217,24 @@ class NoticeListItem extends Widget
         $this->showNickname();
         $this->out->elementEnd('a');
         $this->out->elementEnd('span');
+    }
+
+    function showAddressees()
+    {
+        $groups = $this->notice->getGroups();
+        if (!empty($groups) && count($groups) > 0) {
+            $this->out->text('▶ ');
+            $first = true;
+            foreach ($groups as $group) {
+                if (!$first) {
+                    $this->out->text(', ');
+                } else {
+                    $first = false;
+                }
+                $this->out->element('a', array('href' => $group->homeUrl()),
+                                    $group->nickname);
+            }
+        }
     }
 
     /**
