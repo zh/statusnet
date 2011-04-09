@@ -126,6 +126,8 @@ class BlacklistPlugin extends Plugin
         } else if (is_string($config)) {
             return explode("\r\n", $config);
         } else {
+            // TRANS: Exception thrown if the Blacklist plugin configuration is incorrect.
+            // TRANS: %1$s is a configuration section, %2$s is a configuration setting.
             throw new Exception(sprintf(_m('Unknown data type for config %1$s + %2$s.'),$section, $setting));
         }
     }
