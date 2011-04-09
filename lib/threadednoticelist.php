@@ -185,33 +185,40 @@ class ThreadedNoticeListItem extends NoticeListItem
                 $notices[] = clone($notice); // *grumble* inefficient as hell
             }
 
-            $this->out->elementStart('ul', 'notices threaded-replies xoxo');
+            if (Event::handle('StartShowThreadedNoticeTail', array($this, $this->notice, &$notices))) {
+                $this->out->elementStart('ul', 'notices threaded-replies xoxo');
 
-            $item = new ThreadedNoticeListFavesItem($this->notice, $this->out);
-            $hasFaves = $item->show();
+                $item = new ThreadedNoticeListFavesItem($this->notice, $this->out);
+                $hasFaves = $item->show();
 
-            $item = new ThreadedNoticeListRepeatsItem($this->notice, $this->out);
-            $hasRepeats = $item->show();
+                $item = new ThreadedNoticeListRepeatsItem($this->notice, $this->out);
+                $hasRepeats = $item->show();
 
-            if ($notices) {
-                if ($moreCutoff) {
-                    $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
-                    $item->show();
+                if ($notices) {
+                    if ($moreCutoff) {
+                        $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
+                        $item->show();
+                    }
+                    foreach (array_reverse($notices) as $notice) {
+                        if (Event::handle('StartShowThreadedNoticeSub', array($this, $this->notice, $notice))) {
+                            $item = new ThreadedNoticeListSubItem($notice, $this->out);
+                            $item->show();
+                            Event::handle('StartShowThreadedNoticeSub', array($this, $this->notice, $notice));
+                        }
+                    }
                 }
-                foreach (array_reverse($notices) as $notice) {
-                    $item = new ThreadedNoticeListSubItem($notice, $this->out);
-                    $item->show();
+
+                if ($notices || $hasFaves || $hasRepeats) {
+                    // @fixme do a proper can-post check that's consistent
+                    // with the JS side
+                    if (common_current_user()) {
+                        $item = new ThreadedNoticeListReplyItem($this->notice, $this->out);
+                        $item->show();
+                    }
                 }
+                $this->out->elementEnd('ul');
+                Event::handle('EndShowThreadedNoticeTail', array($this, $this->notice, $notices));
             }
-            if ($notices || $hasFaves || $hasRepeats) {
-                // @fixme do a proper can-post check that's consistent
-                // with the JS side
-                if (common_current_user()) {
-                    $item = new ThreadedNoticeListReplyItem($this->notice, $this->out);
-                    $item->show();
-                }
-            }
-            $this->out->elementEnd('ul');
         }
 
         parent::showEnd();
