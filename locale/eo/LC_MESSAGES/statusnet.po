@@ -17,17 +17,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:13:46+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:35:56+0000\n"
 "Language-Team: Esperanto <http://translatewiki.net/wiki/Portal:eo>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: eo\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+"X-POT-Import-Date: 2011-04-03 23:28:43+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -81,6 +81,7 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "Ĉu malpermesi al anonimaj uzantoj (ne ensalutintaj) vidi retejon?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
+#. TRANS: Checkbox field label on group edit form to mark a group private.
 msgctxt "LABEL"
 msgid "Private"
 msgstr "Privata"
@@ -668,7 +669,7 @@ msgstr "Grupoj de %2$s ĉe %1$s."
 msgid "%s groups"
 msgstr "Grupoj de %s"
 
-#. TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+#. TRANS: Message is used as a subtitle when listing the latest 20 groups. %s is a site name.
 #, php-format
 msgid "groups on %s"
 msgstr "grupoj ĉe %s"
@@ -1678,11 +1679,6 @@ msgstr "Adreso \"%s\" nun konfirmitas je via konto."
 #. TRANS: Title for page with a conversion (multiple notices in context).
 msgid "Conversation"
 msgstr "Konversacio"
-
-#. TRANS: Header on conversation page. Hidden by default (h2).
-#. TRANS: Label for user statistics.
-msgid "Notices"
-msgstr "Avizoj"
 
 #. TRANS: Title for conversation page.
 #. TRANS: Title for page that shows a notice.
@@ -3143,7 +3139,6 @@ msgid "License selection"
 msgstr ""
 
 #. TRANS: License option in the license admin panel.
-#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 msgid "Private"
 msgstr "Privata"
 
@@ -6417,9 +6412,8 @@ msgid "Cannot repeat a private notice."
 msgstr "Vi ne povas ripeti vian propran avizon."
 
 #. TRANS: Client error displayed when trying to repeat a notice you cannot access.
-#, fuzzy
 msgid "Cannot repeat a notice you cannot read."
-msgstr "Vi ne povas ripeti vian propran avizon."
+msgstr "Vi ne povas ripeti avizon nelegeblan por vi."
 
 #. TRANS: Client error displayed when trying to repeat an already repeated notice.
 msgid "You already repeated that notice."
@@ -6732,23 +6726,23 @@ msgstr "Nekonata verbo: «%s»."
 msgid "Cannot force subscription for untrusted user."
 msgstr ""
 
-#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#. TRANS: Client exception thrown when trying to force a remote user to subscribe.
 #, fuzzy
 msgid "Cannot force remote user to subscribe."
-msgstr "Specifu nomon de la abonota uzanto."
+msgstr "Ne estas eble igi foran uzanton aboni."
 
 #. TRANS: Client exception thrown when trying to subscribe to an unknown profile.
-#, fuzzy
 msgid "Unknown profile."
-msgstr "Nekonata dosiertipo"
+msgstr "Nekonata profilo."
 
 #. TRANS: Client exception thrown when trying to import an event not related to the importing user.
 msgid "This activity seems unrelated to our user."
 msgstr ""
 
 #. TRANS: Client exception thrown when trying to join a remote group that is not a group.
+#, fuzzy
 msgid "Remote profile is not a group!"
-msgstr ""
+msgstr "Fora profilo ne estas grupo!"
 
 #. TRANS: Client exception thrown when trying to join a group the importing user is already a member of.
 #, fuzzy
@@ -6771,7 +6765,7 @@ msgstr ""
 msgid "No content for notice %s."
 msgstr "Ne troviĝas la enhavo por la avizo %s."
 
-#. TRANS: Exception thrown if no user is provided. %s is a user ID.
+#. TRANS: Exception thrown if a non-existing user is provided. %s is a user ID.
 #, fuzzy, php-format
 msgid "No such user \"%s\"."
 msgstr "Ne ekzistas tiu uzanto."
@@ -6941,7 +6935,7 @@ msgstr "Agordo pri kromprogramoj"
 #, fuzzy
 msgctxt "MENU"
 msgid "Plugins"
-msgstr "Kromprogramo"
+msgstr "Kromprogramoj"
 
 #. TRANS: Client error 401.
 msgid "API resource requires read-write access, but you only have read access."
@@ -7509,17 +7503,17 @@ msgstr ""
 #, fuzzy
 msgctxt "COMMANDHELP"
 msgid "get profile info on user"
-msgstr "Profila informo"
+msgstr "akiri profilinformon de uzanto"
 
 #. TRANS: Help message for IM/SMS command "lose <nickname>"
 msgctxt "COMMANDHELP"
 msgid "force user to stop following you"
-msgstr ""
+msgstr "malabonigi uzanton de vi"
 
 #. TRANS: Help message for IM/SMS command "fav <nickname>"
 msgctxt "COMMANDHELP"
 msgid "add user's last notice as a 'fave'"
-msgstr ""
+msgstr "ŝatmarki lastan avizon de uzanto"
 
 #. TRANS: Help message for IM/SMS command "fav #<notice_id>"
 msgctxt "COMMANDHELP"
@@ -7532,10 +7526,9 @@ msgid "repeat a notice with a given id"
 msgstr ""
 
 #. TRANS: Help message for IM/SMS command "repeat <nickname>"
-#, fuzzy
 msgctxt "COMMANDHELP"
 msgid "repeat the last notice from user"
-msgstr "Ripeti la avizon"
+msgstr "ripeti la lastan avizon de uzanto"
 
 #. TRANS: Help message for IM/SMS command "reply #<notice_id>"
 msgctxt "COMMANDHELP"
@@ -7543,16 +7536,14 @@ msgid "reply to notice with a given id"
 msgstr ""
 
 #. TRANS: Help message for IM/SMS command "reply <nickname>"
-#, fuzzy
 msgctxt "COMMANDHELP"
 msgid "reply to the last notice from user"
-msgstr "Respondi ĉi tiun avizon"
+msgstr "respondi la lastan avizon de uzanto"
 
 #. TRANS: Help message for IM/SMS command "join <group>"
-#, fuzzy
 msgctxt "COMMANDHELP"
 msgid "join group"
-msgstr "Nekonata grupo."
+msgstr "aniĝi grupon"
 
 #. TRANS: Help message for IM/SMS command "login"
 msgctxt "COMMANDHELP"
@@ -7560,10 +7551,9 @@ msgid "Get a link to login to the web interface"
 msgstr ""
 
 #. TRANS: Help message for IM/SMS command "drop <group>"
-#, fuzzy
 msgctxt "COMMANDHELP"
 msgid "leave group"
-msgstr "Forigo de grupo"
+msgstr "forlasi grupon"
 
 #. TRANS: Help message for IM/SMS command "stats"
 msgctxt "COMMANDHELP"
@@ -7640,6 +7630,14 @@ msgctxt "MENU"
 msgid "Public"
 msgstr "Publika"
 
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Groups"
+msgstr "Grupoj"
+
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
 msgid "Delete"
@@ -7652,7 +7650,7 @@ msgstr "Forigi la uzanton"
 #. TRANS: Form legend of form for changing the page design.
 #, fuzzy
 msgid "Change design"
-msgstr "Savi desegnon"
+msgstr "ŝanĝi etoson"
 
 #. TRANS: Fieldset legend on profile design page to change profile page colours.
 msgid "Change colours"
@@ -7827,21 +7825,9 @@ msgstr[0] ""
 msgstr[1] ""
 "Kromaj alnomoj por la grupo, apartigita per komo aŭ spaco, apenaŭ %d literoj"
 
-#. TRANS: Dropdown fieldd label on group edit form.
-#, fuzzy
-msgid "Membership policy"
-msgstr "Membriĝpolitiko"
-
-#. TRANS: Group membership policy option.
-msgid "Open to all"
-msgstr ""
-
-#. TRANS: Group membership policy option.
-msgid "Admin must approve all members"
-msgstr ""
-
-#. TRANS: Dropdown field title on group edit form.
-msgid "Whether admin approval is required to join this group."
+#. TRANS: Checkbox field title on group edit form to mark a group private.
+msgid ""
+"New members must be approved by admin and all posts are forced to be private."
 msgstr ""
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
@@ -8735,6 +8721,11 @@ msgstr "Refoja avizo."
 msgid "Could not insert new subscription."
 msgstr "Eraris enmeti novan abonon."
 
+#. TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
+#, fuzzy
+msgid "No oEmbed API endpoint available."
+msgstr "Tujmesaĝilo ne estas disponebla."
+
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -8871,6 +8862,10 @@ msgid "Groups"
 msgstr "Grupoj"
 
 #. TRANS: Label for user statistics.
+msgid "Notices"
+msgstr "Avizoj"
+
+#. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
 msgid "Daily average"
 msgstr "Taga meznombro"
@@ -8882,13 +8877,6 @@ msgstr "Ĉiuj grupoj"
 #. TRANS: Server error displayed when using an unimplemented method.
 msgid "Unimplemented method."
 msgstr "Nerealiĝita metodo"
-
-#. TRANS: Menu item in search group navigation panel.
-#. TRANS: Menu item in local navigation menu.
-#, fuzzy
-msgctxt "MENU"
-msgid "Groups"
-msgstr "Grupoj"
 
 #. TRANS: Menu item title in search group navigation panel.
 msgid "User groups"
@@ -8986,17 +8974,15 @@ msgid ""
 msgstr ""
 
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "People"
-msgstr "Homon"
+msgstr "Homoj"
 
 #. TRANS: Menu item title in search group navigation panel.
 msgid "Find people on this site"
 msgstr "Serĉi homon ĉe la retejo"
 
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Notices"
 msgstr "Avizoj"
@@ -9370,6 +9356,11 @@ msgctxt "LABEL"
 msgid "To:"
 msgstr "Al"
 
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
+#, fuzzy
+msgid "Private?"
+msgstr "Privata"
+
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
 #, fuzzy, php-format
 msgid "Unknown to value: \"%s\"."
@@ -9493,5 +9484,6 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Couldn't update your design."
-#~ msgstr "Malsukcesis ĝisdatigi vian desegnon."
+#, fuzzy
+#~ msgid "Membership policy"
+#~ msgstr "Membriĝpolitiko"

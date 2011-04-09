@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - TagSub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:16:33+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:38:40+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 13:41:48+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-03 23:29:00+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-tagsub\n"
@@ -46,6 +46,10 @@ msgstr "Isaayos ang mga pagpapasipi ng tatak"
 msgid "Tag subscriptions"
 msgstr "Mga pagpapasipi ng tatak"
 
+#, fuzzy
+msgid "Tags"
+msgstr "Mga tatak"
+
 msgid "Subscribe to this tag"
 msgstr "Magpasipi para sa tatak na ito"
 
@@ -60,19 +64,20 @@ msgstr "Hindi na nagpapasipi"
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Ang galaw na ito ay tumatanggap lamang ng mga kahilingan ng PAGPASKIL."
 
 #. TRANS: Client error displayed when the session token is not okay.
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
+"Nagkaroon ng isang suliranin sa kahalip ng sesyon mo.  Pakisubukan uli."
 
 #. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
-msgstr ""
+msgstr "Hindi nakalagda."
 
 #. TRANS: Client error displayed trying to subscribe to a non-existing profile.
 msgid "No such profile."
-msgstr ""
+msgstr "Walang ganyang balangkas."
 
 #. TRANS: Page title when tag subscription succeeded.
 msgid "Subscribed"
@@ -116,6 +121,11 @@ msgid ""
 "messages on this site that use that tag, even if you are not subscribed to "
 "the poster."
 msgstr ""
+"Hindi ka nakikinig sa anumang mga tatak ng muling paghahayag sa ngayon.  "
+"Mapipindot mo ang pindutang \"Magpasipi\" sa anumang pahina ng tatak ng "
+"muling pagpapahayag upang kusang makatanggap ng anumang mensaheng pangmadla "
+"sa pook na ito na gumagamit ng ganyang tatak, kahit na hindi ka nagpapasipi "
+"ng karatula."
 
 #. TRANS: Tag subscription list text when looking at the subscriptions for a of a user other
 #. TRANS: than the logged in user that has no tag subscriptions. %s is the user nickname.

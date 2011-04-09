@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:14:08+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:36:13+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+"X-POT-Import-Date: 2011-04-03 23:28:43+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -32,27 +32,34 @@ msgid ""
 "contact them at %2$s to make sure. Otherwise, wait a few minutes and try "
 "again."
 msgstr ""
+"De database voor %1$s reageert niet correct, dus de site werkt niet zoals "
+"het hoort. De sitebeheerders zijn waarschijnlijk op de hoogte van het "
+"probleem, maar u kunt contact met ze opnemen via %2$s. U kunt ook een paar "
+"minuten wachten en het dan nog een keer proberen."
 
 #. TRANS: Error message.
 msgid ""
 "An important error occured, probably related to email setup. Check logfiles "
 "for more info."
 msgstr ""
+"Er is een grote fout opgetreden. Waarschijnlijk is deze gerelateerd aan de "
+"instellingen voor e-mail. Controleer de logboeken voor meer gegevens."
 
 #. TRANS: Error message.
 msgid "An error occurred."
-msgstr ""
+msgstr "Er is een fout opgetreden."
 
 #. TRANS: Error message displayed when there is no StatusNet configuration file.
 #, php-format
 msgid ""
 "No configuration file found. Try running the installation program first."
 msgstr ""
+"Het instellingenbestand is niet aangetroffen. Voer eerst het "
+"installatieprogramma uit."
 
 #. TRANS: Error message displayed when trying to access a non-existing page.
-#, fuzzy
 msgid "Unknown page"
-msgstr "Onbekend"
+msgstr "Onbekende pagina"
 
 #. TRANS: Error message displayed when trying to perform an undefined action.
 #. TRANS: Title for password recovery page when an unknown action has been specified.
@@ -76,6 +83,7 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "Mogen anonieme gebruikers (niet aangemeld) de website bekijken?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
+#. TRANS: Checkbox field label on group edit form to mark a group private.
 msgctxt "LABEL"
 msgid "Private"
 msgstr "Geen anonieme toegang"
@@ -669,7 +677,7 @@ msgstr "Groepen op de site %1$s waar %2$s lid van is."
 msgid "%s groups"
 msgstr "%s groepen"
 
-#. TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+#. TRANS: Message is used as a subtitle when listing the latest 20 groups. %s is a site name.
 #, php-format
 msgid "groups on %s"
 msgstr "groepen op %s"
@@ -1676,11 +1684,6 @@ msgstr "Het adres \"%s\" is voor uw gebruiker bevestigd."
 #. TRANS: Title for page with a conversion (multiple notices in context).
 msgid "Conversation"
 msgstr "Dialoog"
-
-#. TRANS: Header on conversation page. Hidden by default (h2).
-#. TRANS: Label for user statistics.
-msgid "Notices"
-msgstr "Mededelingen"
 
 #. TRANS: Title for conversation page.
 #. TRANS: Title for page that shows a notice.
@@ -3140,7 +3143,6 @@ msgid "License selection"
 msgstr "Licentieselectie"
 
 #. TRANS: License option in the license admin panel.
-#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 msgid "Private"
 msgstr "Privé"
 
@@ -3375,7 +3377,6 @@ msgstr "Er is een Ajax-fout opgetreden"
 
 #. TRANS: Page title for sending a new notice.
 #. TRANS: Title for form to send a new notice.
-#, fuzzy
 msgctxt "TITLE"
 msgid "New notice"
 msgstr "Nieuw bericht"
@@ -6715,7 +6716,7 @@ msgid "Cannot force subscription for untrusted user."
 msgstr ""
 "Het is niet mogelijk een niet-vertrouwde gebruiker gedwongen te abonneren."
 
-#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#. TRANS: Client exception thrown when trying to force a remote user to subscribe.
 msgid "Cannot force remote user to subscribe."
 msgstr ""
 "Het is niet mogelijk een gebruiker op een andere server te verplichten te "
@@ -6755,7 +6756,7 @@ msgstr ""
 msgid "No content for notice %s."
 msgstr "Geen inhoud voor mededeling %s."
 
-#. TRANS: Exception thrown if no user is provided. %s is a user ID.
+#. TRANS: Exception thrown if a non-existing user is provided. %s is a user ID.
 #, php-format
 msgid "No such user \"%s\"."
 msgstr "De gebruiker \"%s\" bestaat niet."
@@ -7607,6 +7608,13 @@ msgctxt "MENU"
 msgid "Public"
 msgstr "Openbaar"
 
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item in local navigation menu.
+msgctxt "MENU"
+msgid "Groups"
+msgstr "Groepen"
+
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
 msgid "Delete"
@@ -7785,22 +7793,10 @@ msgstr[1] ""
 "Extra bijnamen voor de groep, gescheiden met komma's of spaties. Maximaal %d "
 "aliasen toegestaan."
 
-#. TRANS: Dropdown fieldd label on group edit form.
-msgid "Membership policy"
-msgstr "Lidmaatschapsbeleid"
-
-#. TRANS: Group membership policy option.
-msgid "Open to all"
-msgstr "Open voor iedereen"
-
-#. TRANS: Group membership policy option.
-msgid "Admin must approve all members"
-msgstr "Beheerders moeten alle leden accepteren"
-
-#. TRANS: Dropdown field title on group edit form.
-msgid "Whether admin approval is required to join this group."
+#. TRANS: Checkbox field title on group edit form to mark a group private.
+msgid ""
+"New members must be approved by admin and all posts are forced to be private."
 msgstr ""
-"Voor lidmaatschap van de groep is toestemming van de groepsbeheerder vereist."
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
 msgctxt "GROUPADMIN"
@@ -7994,7 +7990,6 @@ msgid "Transport cannot be null."
 msgstr "Er moet een transportmethode worden opgegeven."
 
 #. TRANS: Button text for joining a group.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Join"
 msgstr "Toetreden"
@@ -8673,6 +8668,11 @@ msgstr "Dubbele mededeling."
 msgid "Could not insert new subscription."
 msgstr "Kon nieuw abonnement niet toevoegen."
 
+#. TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
+#, fuzzy
+msgid "No oEmbed API endpoint available."
+msgstr "IM is niet beschikbaar."
+
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -8737,14 +8737,12 @@ msgid "Settings"
 msgstr "Instellingen"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Change your personal settings."
-msgstr "Persoonlijke instellingen wijzigen"
+msgstr "Uw persoonlijke instellingen wijzigen."
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Site configuration."
-msgstr "Siteinstellingen"
+msgstr "Siteinstellingen."
 
 #. TRANS: Menu item in primary navigation panel.
 msgctxt "MENU"
@@ -8752,14 +8750,12 @@ msgid "Logout"
 msgstr "Afmelden"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Logout from the site."
-msgstr "Van de site afmelden"
+msgstr "Van de site afmelden."
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Login to the site."
-msgstr "Bij de site aanmelden"
+msgstr "Bij de site aanmelden."
 
 #. TRANS: Menu item in primary navigation panel.
 msgctxt "MENU"
@@ -8767,9 +8763,8 @@ msgid "Search"
 msgstr "Zoeken"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Search the site."
-msgstr "Site doorzoeken"
+msgstr "De site doorzoeken."
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -8803,6 +8798,10 @@ msgid "Groups"
 msgstr "Groepen"
 
 #. TRANS: Label for user statistics.
+msgid "Notices"
+msgstr "Mededelingen"
+
+#. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
 msgid "Daily average"
 msgstr "Dagelijks gemiddelde"
@@ -8814,12 +8813,6 @@ msgstr "Alle groepen"
 #. TRANS: Server error displayed when using an unimplemented method.
 msgid "Unimplemented method."
 msgstr "Methode niet geïmplementeerd."
-
-#. TRANS: Menu item in search group navigation panel.
-#. TRANS: Menu item in local navigation menu.
-msgctxt "MENU"
-msgid "Groups"
-msgstr "Groepen"
 
 #. TRANS: Menu item title in search group navigation panel.
 msgid "User groups"
@@ -8895,6 +8888,10 @@ msgid ""
 "* Try more general keywords.\n"
 "* Try fewer keywords.\n"
 msgstr ""
+"* Zorg ervoor dat alle woorden correct zijn gespeld.\n"
+"* Probeer verschillende trefwoorden.\n"
+"* Probeer meer algemene trefwoorden.\n"
+"* Probeer minder trefwoorden.\n"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
 #, php-format
@@ -8909,6 +8906,14 @@ msgid ""
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Collecta](http://collecta.com/#q=%s)\n"
 msgstr ""
+"U kunt ook proberen andere zoekmachines te gebruiken:\n"
+"\n"
+"* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
+"site.server%%%%)\n"
+"* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
+"* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)\n"
 
 #. TRANS: Menu item in search group navigation panel.
 msgctxt "MENU"
@@ -9278,6 +9283,11 @@ msgctxt "LABEL"
 msgid "To:"
 msgstr "Aan:"
 
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
+#, fuzzy
+msgid "Private?"
+msgstr "Privé"
+
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
 #, php-format
 msgid "Unknown to value: \"%s\"."
@@ -9396,5 +9406,16 @@ msgstr "Ongeldige XML. De XRD-root mist."
 msgid "Getting backup from file '%s'."
 msgstr "De back-up wordt uit het bestand \"%s\" geladen."
 
-#~ msgid "Couldn't update your design."
-#~ msgstr "Het was niet mogelijk uw ontwerp bij te werken."
+#~ msgid "Membership policy"
+#~ msgstr "Lidmaatschapsbeleid"
+
+#~ msgid "Open to all"
+#~ msgstr "Open voor iedereen"
+
+#~ msgid "Admin must approve all members"
+#~ msgstr "Beheerders moeten alle leden accepteren"
+
+#~ msgid "Whether admin approval is required to join this group."
+#~ msgstr ""
+#~ "Voor lidmaatschap van de groep is toestemming van de groepsbeheerder "
+#~ "vereist."

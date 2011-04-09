@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - SearchSub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:16:21+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:38:27+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-03 13:41:46+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-searchsub\n"
@@ -98,19 +98,19 @@ msgstr "Ви більше не підписані на пошук «%s»."
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Ця дія приймає запити лише за формою POST."
 
 #. TRANS: Client error displayed when the session token is not okay.
 msgid "There was a problem with your session token. Try again, please."
-msgstr ""
+msgstr "Виникли певні проблеми з токеном сесії. Спробуйте знов, будь ласка."
 
 #. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
-msgstr ""
+msgstr "Не увійшли."
 
 #. TRANS: Client error displayed trying to subscribe to a non-existing profile.
 msgid "No such profile."
-msgstr ""
+msgstr "Немає такого профілю."
 
 #. TRANS: Page title when search subscription succeeded.
 msgid "Subscribed"
@@ -119,10 +119,9 @@ msgstr "Підписані"
 msgid "Unsubscribe from this search"
 msgstr "Відмовитися від цього пошуку"
 
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Unsubscribe"
-msgstr "Відписано"
+msgstr "Відписатись"
 
 #. TRANS: Page title when search unsubscription succeeded.
 msgid "Unsubscribed"
@@ -185,6 +184,10 @@ msgctxt "COMMANDHELP"
 msgid "List all your search subscriptions."
 msgstr "Список пошукових запитів, за якими ви слідкуєте."
 
+#, fuzzy
+msgid "Searches"
+msgstr "Пошуки"
+
 #. TRANS: Error text shown a user tries to disable all a search subscriptions with track off command, but has none.
 msgid "You are not tracking any searches."
 msgstr "Не ви відстежуєте жодні пошукові запити."
@@ -197,10 +200,9 @@ msgstr "Ви відслідковуєте пошуки для: %s"
 msgid "Subscribe to this search"
 msgstr "Підписатися до даного пошуку"
 
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Subscribe"
-msgstr "Підписані"
+msgstr "Підписатись"
 
 #. TRANS: Message given having failed to cancel one of the search subs with 'track off' command.
 #, php-format

@@ -12,18 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:13:42+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:35:52+0000\n"
 "Language-Team: Czech <http://translatewiki.net/wiki/Portal:cs>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ( (n >= 2 && n <= 4) ? 1 : "
 "2 );\n"
-"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+"X-POT-Import-Date: 2011-04-03 23:28:43+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -77,6 +77,7 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "Zakázat anonymním (nepřihlášeným) uživatelům prohlížet stránky"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
+#. TRANS: Checkbox field label on group edit form to mark a group private.
 msgctxt "LABEL"
 msgid "Private"
 msgstr "Soukromé"
@@ -673,7 +674,7 @@ msgstr "skupiny na %1$s, kterych je %2$s členem."
 msgid "%s groups"
 msgstr "skupiny uživatele %s"
 
-#. TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+#. TRANS: Message is used as a subtitle when listing the latest 20 groups. %s is a site name.
 #, php-format
 msgid "groups on %s"
 msgstr "skupiny na %s"
@@ -1693,11 +1694,6 @@ msgstr "Adresa \"%s\" byla potvrzena pro váš účet"
 #. TRANS: Title for page with a conversion (multiple notices in context).
 msgid "Conversation"
 msgstr "Konverzace"
-
-#. TRANS: Header on conversation page. Hidden by default (h2).
-#. TRANS: Label for user statistics.
-msgid "Notices"
-msgstr "Sdělení"
 
 #. TRANS: Title for conversation page.
 #. TRANS: Title for page that shows a notice.
@@ -3185,7 +3181,6 @@ msgid "License selection"
 msgstr ""
 
 #. TRANS: License option in the license admin panel.
-#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 #, fuzzy
 msgid "Private"
 msgstr "Soukromí"
@@ -6831,7 +6826,7 @@ msgstr "Neznámý jazyk \"%s\"."
 msgid "Cannot force subscription for untrusted user."
 msgstr ""
 
-#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#. TRANS: Client exception thrown when trying to force a remote user to subscribe.
 #, fuzzy
 msgid "Cannot force remote user to subscribe."
 msgstr "Uveďte jméno uživatele ke kterému se přihlásit."
@@ -6870,7 +6865,7 @@ msgstr ""
 msgid "No content for notice %s."
 msgstr "Najít v obsahu oznámení"
 
-#. TRANS: Exception thrown if no user is provided. %s is a user ID.
+#. TRANS: Exception thrown if a non-existing user is provided. %s is a user ID.
 #, fuzzy, php-format
 msgid "No such user \"%s\"."
 msgstr "Uživatel neexistuje."
@@ -7744,6 +7739,14 @@ msgctxt "MENU"
 msgid "Public"
 msgstr "Veřejné"
 
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Groups"
+msgstr "Skupiny"
+
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
 msgid "Delete"
@@ -7934,21 +7937,9 @@ msgstr[0] "Další přezdívky pro skupinu, oddělené čárkou nebo mezerou, ma
 msgstr[1] "Další přezdívky pro skupinu, oddělené čárkou nebo mezerou, max %d"
 msgstr[2] "Další přezdívky pro skupinu, oddělené čárkou nebo mezerou, max %d"
 
-#. TRANS: Dropdown fieldd label on group edit form.
-#, fuzzy
-msgid "Membership policy"
-msgstr "Členem od"
-
-#. TRANS: Group membership policy option.
-msgid "Open to all"
-msgstr ""
-
-#. TRANS: Group membership policy option.
-msgid "Admin must approve all members"
-msgstr ""
-
-#. TRANS: Dropdown field title on group edit form.
-msgid "Whether admin approval is required to join this group."
+#. TRANS: Checkbox field title on group edit form to mark a group private.
+msgid ""
+"New members must be approved by admin and all posts are forced to be private."
 msgstr ""
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
@@ -8853,6 +8844,11 @@ msgstr ""
 msgid "Could not insert new subscription."
 msgstr "Nelze vložit odebírání"
 
+#. TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
+#, fuzzy
+msgid "No oEmbed API endpoint available."
+msgstr "IM není k dispozici."
+
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -8989,6 +8985,10 @@ msgid "Groups"
 msgstr "Skupiny"
 
 #. TRANS: Label for user statistics.
+msgid "Notices"
+msgstr "Sdělení"
+
+#. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
 msgid "Daily average"
 msgstr "Denní průměr"
@@ -9000,13 +9000,6 @@ msgstr "Všechny skupiny"
 #. TRANS: Server error displayed when using an unimplemented method.
 msgid "Unimplemented method."
 msgstr "Neimplementovaná metoda."
-
-#. TRANS: Menu item in search group navigation panel.
-#. TRANS: Menu item in local navigation menu.
-#, fuzzy
-msgctxt "MENU"
-msgid "Groups"
-msgstr "Skupiny"
 
 #. TRANS: Menu item title in search group navigation panel.
 msgid "User groups"
@@ -9493,6 +9486,11 @@ msgctxt "LABEL"
 msgid "To:"
 msgstr "Komu:"
 
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
+#, fuzzy
+msgid "Private?"
+msgstr "Soukromí"
+
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
 #, fuzzy, php-format
 msgid "Unknown to value: \"%s\"."
@@ -9620,5 +9618,6 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Couldn't update your design."
-#~ msgstr "Nelze uložit vzhled."
+#, fuzzy
+#~ msgid "Membership policy"
+#~ msgstr "Členem od"

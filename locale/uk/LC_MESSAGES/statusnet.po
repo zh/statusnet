@@ -12,18 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:14:21+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:36:23+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+"X-POT-Import-Date: 2011-04-03 23:28:43+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -33,27 +33,34 @@ msgid ""
 "contact them at %2$s to make sure. Otherwise, wait a few minutes and try "
 "again."
 msgstr ""
+"База даних для %1$s не відповідає належним чином, так що сайт може працювати "
+"неправильно. Адміністратори сайту, напевно, знають про цю проблему, втім ви "
+"можете зв’язатися з ними на %2$s, щоби в тому упевнитись. В іншому випадку, "
+"зачекайте декілька хвилин і спробуйте знову."
 
 #. TRANS: Error message.
 msgid ""
 "An important error occured, probably related to email setup. Check logfiles "
 "for more info."
 msgstr ""
+"Трапилася важлива помилка, ймовірно, пов’язана з налаштуванням електронної "
+"пошти. Перевірте файли конфігурації для отримання докладнішої інформації."
 
 #. TRANS: Error message.
 msgid "An error occurred."
-msgstr ""
+msgstr "Сталася помилка."
 
 #. TRANS: Error message displayed when there is no StatusNet configuration file.
 #, php-format
 msgid ""
 "No configuration file found. Try running the installation program first."
 msgstr ""
+"Файл конфігурації не знайдено. Спробуйте запустити програму установки "
+"спочатку."
 
 #. TRANS: Error message displayed when trying to access a non-existing page.
-#, fuzzy
 msgid "Unknown page"
-msgstr "Невідомо"
+msgstr "Невідома сторінка"
 
 #. TRANS: Error message displayed when trying to perform an undefined action.
 #. TRANS: Title for password recovery page when an unknown action has been specified.
@@ -79,6 +86,7 @@ msgstr ""
 "сайт?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
+#. TRANS: Checkbox field label on group edit form to mark a group private.
 msgctxt "LABEL"
 msgid "Private"
 msgstr "Приватно"
@@ -674,7 +682,7 @@ msgstr "Спільноти на %1$s, до яких долучився %2$s."
 msgid "%s groups"
 msgstr "Спільноти %s"
 
-#. TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+#. TRANS: Message is used as a subtitle when listing the latest 20 groups. %s is a site name.
 #, php-format
 msgid "groups on %s"
 msgstr "спільноти на %s"
@@ -1212,35 +1220,33 @@ msgid "Join request canceled."
 msgstr "Запит на приєднання до спільноти відхилено."
 
 #. TRANS: Client error displayed trying to approve subscription for a non-existing request.
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not in the moderation queue for your subscriptions."
 msgstr ""
-"%s відсутній у черзі тих, що очікують затвердження модератором цієї "
-"спільноти."
+"%s відсутній у черзі тих, що очікують вашого затвердження для підписки."
 
 #. TRANS: Server error displayed when cancelling a queued subscription request fails.
 #. TRANS: %1$s is the leaving user's nickname, $2$s is the nickname for which the leave failed.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not cancel or approve request for user %1$s to join group %2$s."
 msgstr ""
-"Не вдалося скасувати запит для користувача %1$s приєднатися до групи %2$s."
+"Не вдалося скасувати або схвалити запит для користувача %1$s приєднатися до "
+"групи %2$s."
 
 #. TRANS: Title for subscription approval ajax return
 #. TRANS: %1$s is the approved user's nickname
-#, fuzzy, php-format
+#, php-format
 msgctxt "TITLE"
 msgid "%1$s's request"
-msgstr "Запит %1$s на вступ до %2$s"
+msgstr "Запит від %1$s"
 
 #. TRANS: Message on page for user after approving a subscription request.
-#, fuzzy
 msgid "Subscription approved."
-msgstr "Підписку авторизовано"
+msgstr "Підписку затверджено."
 
 #. TRANS: Message on page for user after rejecting a subscription request.
-#, fuzzy
 msgid "Subscription canceled."
-msgstr "Авторизацію скасовано."
+msgstr "Підписку скасовано."
 
 #. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
 #. TRANS: Client exception.
@@ -1277,9 +1283,9 @@ msgstr "Вже у списку обраних."
 
 #. TRANS: Title for group membership feed.
 #. TRANS: %s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "Group memberships of %s"
-msgstr "Учасники спільноти %s"
+msgstr "%s бере участь в таких спільнотах"
 
 #. TRANS: Subtitle for group membership feed.
 #. TRANS: %1$s is a username, %2$s is the StatusNet sitename.
@@ -1628,7 +1634,6 @@ msgid "No profile with that ID."
 msgstr "Не визначено профілю з таким ID."
 
 #. TRANS: Title after unsubscribing from a group.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Unsubscribed"
 msgstr "Відписано"
@@ -1682,11 +1687,6 @@ msgstr "Адресу «%s» підтверджено для вашого ака�
 #. TRANS: Title for page with a conversion (multiple notices in context).
 msgid "Conversation"
 msgstr "Розмова"
-
-#. TRANS: Header on conversation page. Hidden by default (h2).
-#. TRANS: Label for user statistics.
-msgid "Notices"
-msgstr "Дописи"
 
 #. TRANS: Title for conversation page.
 #. TRANS: Title for page that shows a notice.
@@ -3135,7 +3135,6 @@ msgid "License selection"
 msgstr "Вибір ліцензії"
 
 #. TRANS: License option in the license admin panel.
-#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 msgid "Private"
 msgstr "Приватно"
 
@@ -3374,7 +3373,6 @@ msgstr "Помилка в Ajax"
 
 #. TRANS: Page title for sending a new notice.
 #. TRANS: Title for form to send a new notice.
-#, fuzzy
 msgctxt "TITLE"
 msgid "New notice"
 msgstr "Новий допис"
@@ -4101,26 +4099,24 @@ msgstr ""
 "Автоматично підписуватись до тих, хто підписався до мене. (Слава роботам!)"
 
 #. TRANS: Dropdown field label on profile settings, for what policies to apply when someone else tries to subscribe to your updates.
-#, fuzzy
 msgid "Subscription policy"
-msgstr "Підписки"
+msgstr "Політика підписки"
 
 #. TRANS: Dropdown field option for following policy.
-#, fuzzy
 msgid "Let anyone follow me"
-msgstr "Можливе лише слідування людьми."
+msgstr "Дозволяти будь-кому підписуватися до мене"
 
 #. TRANS: Dropdown field option for following policy.
 msgid "Ask me first"
-msgstr ""
+msgstr "Спочатку запитати в мене"
 
 #. TRANS: Dropdown field title on group edit form.
 msgid "Whether other users need your permission to follow your updates."
-msgstr ""
+msgstr "Чи потрібен дозвіл іншим користувачам для стеження за вашими дописами."
 
 #. TRANS: Checkbox label in profile settings.
 msgid "Make updates visible only to my followers"
-msgstr ""
+msgstr "Зробити оновлення видимими лише для друзів"
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
@@ -4153,9 +4149,8 @@ msgstr "Неприпустимий теґ: «%s»."
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
-#, fuzzy
 msgid "Could not update user for autosubscribe or subscribe_policy."
-msgstr "Не вдалося оновити користувача для автопідписки."
+msgstr "Не вдалося оновити користувача для автопідписки або політики підписки."
 
 #. TRANS: Server error thrown when user profile location preference settings could not be updated.
 msgid "Could not save location prefs."
@@ -5096,9 +5091,8 @@ msgid "Message from %1$s on %2$s"
 msgstr "Повідомлення від %1$s на %2$s"
 
 #. TRANS: Client exception thrown when trying a view a notice the user has no access to.
-#, fuzzy
 msgid "Not available."
-msgstr "ІМ недоступний"
+msgstr "Не недоступно."
 
 #. TRANS: Client error displayed trying to show a deleted notice.
 msgid "Notice deleted."
@@ -5106,21 +5100,21 @@ msgstr "Допис видалено."
 
 #. TRANS: Page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$s is the hash tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Notices by %1$s tagged %2$s"
 msgstr "Дописи %1$s позначені теґом %2$s"
 
 #. TRANS: Page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$s is the hash tag, %3$d is the page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Notices by %1$s tagged %2$s, page %3$d"
 msgstr "Дописи %1$s позначені теґом %2$s, сторінка %3$d"
 
 #. TRANS: Extended page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$d is the page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Notices by %1$s, page %2$d"
-msgstr "Дописи з теґом %1$s, сторінка %2$d"
+msgstr "Дописи %1$s, сторінка %2$d"
 
 #. TRANS: Title for link to notice feed.
 #. TRANS: %1$s is a user nickname, %2$s is a hashtag.
@@ -5498,10 +5492,9 @@ msgid "No code entered."
 msgstr "Код не введено."
 
 #. TRANS: Title for admin panel to configure snapshots.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Snapshots"
-msgstr "Снепшоти"
+msgstr "Знімки"
 
 #. TRANS: Instructions for admin panel to configure snapshots.
 msgid "Manage snapshot configuration"
@@ -5520,10 +5513,9 @@ msgid "Invalid snapshot report URL."
 msgstr "Помилковий снепшот URL."
 
 #. TRANS: Fieldset legend on admin panel for snapshots.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Snapshots"
-msgstr "Снепшоти"
+msgstr "Знімки"
 
 #. TRANS: Option in dropdown for snapshot method in admin panel for snapshots.
 msgid "Randomly during web hit"
@@ -5538,32 +5530,28 @@ msgid "Data snapshots"
 msgstr "Снепшоти даних"
 
 #. TRANS: Dropdown title for snapshot method in admin panel for snapshots.
-#, fuzzy
 msgid "When to send statistical data to status.net servers."
-msgstr "Коли надсилати статистичні дані до серверів status.net"
+msgstr "Коли надсилати статистичні дані до серверів status.net."
 
 #. TRANS: Input field label for snapshot frequency in admin panel for snapshots.
 msgid "Frequency"
 msgstr "Частота"
 
 #. TRANS: Input field title for snapshot frequency in admin panel for snapshots.
-#, fuzzy
 msgid "Snapshots will be sent once every N web hits."
-msgstr "Снепшоти надсилатимуться раз на N веб-хітів"
+msgstr "Знімки надсилатимуться раз на N відвідувань."
 
 #. TRANS: Input field label for snapshot report URL in admin panel for snapshots.
 msgid "Report URL"
 msgstr "Звітня URL-адреса"
 
 #. TRANS: Input field title for snapshot report URL in admin panel for snapshots.
-#, fuzzy
 msgid "Snapshots will be sent to this URL."
-msgstr "Снепшоти надсилатимуться на цю URL-адресу"
+msgstr "Знімки надсилатимуться до цієї URL-адреси."
 
 #. TRANS: Title for button to save snapshot settings.
-#, fuzzy
 msgid "Save snapshot settings."
-msgstr "Зберегти налаштування знімку"
+msgstr "Зберегти налаштування знімків."
 
 #. TRANS: Client error displayed trying a change a subscription for a non-subscribed profile.
 msgid "You are not subscribed to that profile."
@@ -5576,28 +5564,23 @@ msgstr "Не вдалося зберегти підписку."
 
 #. TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
 msgid "You may only approve your own pending subscriptions."
-msgstr ""
+msgstr "Ви можете затверджувати лише свої власні підписки, що чекають черги."
 
 #. TRANS: Title of the first page showing pending subscribers still awaiting approval.
 #. TRANS: %s is the name of the user.
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscribers awaiting approval"
-msgstr "Користувачі, що очікують рішення щодо їхнього приєднання до %s"
+msgstr "Користувачі, що очікують затвердження від %s"
 
 #. TRANS: Title of all but the first page showing pending subscribersmembers still awaiting approval.
 #. TRANS: %1$s is the name of the user, %2$d is the page number of the members list.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribers awaiting approval, page %2$d"
-msgstr ""
-"Користувачі, що очікують рішення щодо їхнього приєднання до %1$s, сторінка %2"
-"$d"
+msgstr "Користувачі, що очікують затвердження від %1$s, сторінка %2$d"
 
 #. TRANS: Page notice for group members page.
-#, fuzzy
 msgid "A list of users awaiting approval to subscribe to you."
-msgstr ""
-"Список користувачів, що очікують рішення щодо їхнього приєднання до цієї "
-"спільноти."
+msgstr "Список користувачів, які очікують дозволу на підписку до вас."
 
 #. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
@@ -5772,7 +5755,6 @@ msgstr ""
 "хто є підписаним до вас."
 
 #. TRANS: Title of "tag other users" page.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Tags"
 msgstr "Теґи"
@@ -5867,12 +5849,10 @@ msgid "URL shortening service is too long (maximum 50 characters)."
 msgstr "Сервіс скорочення URL-адрес надто довгий (50 символів максимум)."
 
 #. TRANS: Client exception thrown when the maximum URL settings value is invalid in profile URL settings.
-#, fuzzy
 msgid "Invalid number for maximum URL length."
 msgstr "Невірне значення параметру максимальної довжини URL-адреси."
 
 #. TRANS: Client exception thrown when the maximum notice length settings value is invalid in profile URL settings.
-#, fuzzy
 msgid "Invalid number for maximum notice length."
 msgstr "Невірне значення параметру максимальної довжини допису."
 
@@ -5904,7 +5884,6 @@ msgid "Invalid default subscripton: \"%1$s\" is not a user."
 msgstr "Помилкова підписка за замовчуванням: «%1$s» не є користувачем."
 
 #. TRANS: Fieldset legend in user administration panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Profile"
 msgstr "Профіль"
@@ -6373,23 +6352,20 @@ msgid "You are banned from posting notices on this site."
 msgstr "Вам заборонено надсилати дописи до цього сайту."
 
 #. TRANS: Client exception thrown in notice when trying to repeat a missing or deleted notice.
-#, fuzzy
 msgid "Cannot repeat; original notice is missing or deleted."
-msgstr "Не можна повторювати власні дописи."
+msgstr "Неможливо повторити; вихідний допис втрачено або видалено."
 
 #. TRANS: Client error displayed when trying to repeat an own notice.
 msgid "You cannot repeat your own notice."
 msgstr "Ви не можете повторювати власні дописи."
 
 #. TRANS: Client error displayed when trying to repeat a non-public notice.
-#, fuzzy
 msgid "Cannot repeat a private notice."
-msgstr "Не можна повторювати власні дописи."
+msgstr "Не можна повторювати дописи, надіслані приватно."
 
 #. TRANS: Client error displayed when trying to repeat a notice you cannot access.
-#, fuzzy
 msgid "Cannot repeat a notice you cannot read."
-msgstr "Не можна повторювати власні дописи."
+msgstr "Не можна повторювати дописи, які ви не можете прочитати."
 
 #. TRANS: Client error displayed when trying to repeat an already repeated notice.
 msgid "You already repeated that notice."
@@ -6397,9 +6373,9 @@ msgstr "Ви вже повторили цей допис."
 
 #. TRANS: Client error displayed when trying to reply to a notice a the target has no access to.
 #. TRANS: %1$s is a user nickname, %2$d is a notice ID (number).
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s has no access to notice %2$d."
-msgstr "Користувач не має останнього допису."
+msgstr "%1$s не має доступу до допису %2$d."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
@@ -6484,7 +6460,6 @@ msgid "Could not delete subscription."
 msgstr "Не вдалося видалити підписку."
 
 #. TRANS: Activity title when subscribing to another person.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Follow"
 msgstr "Слідкувати"
@@ -6553,23 +6528,19 @@ msgid "User deletion in progress..."
 msgstr "Видалення користувача у процесі..."
 
 #. TRANS: Link title for link on user profile.
-#, fuzzy
 msgid "Edit profile settings."
-msgstr "Налаштування профілю"
+msgstr "Змінити налаштування профілю."
 
 #. TRANS: Link text for link on user profile.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Edit"
-msgstr "Правка"
+msgstr "Змінити"
 
 #. TRANS: Link title for link on user profile.
-#, fuzzy
 msgid "Send a direct message to this user."
-msgstr "Надіслати пряме повідомлення цьому користувачеві"
+msgstr "Надіслати пряме повідомлення цьому користувачеві."
 
 #. TRANS: Link text for link on user profile.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Message"
 msgstr "Повідомлення"
@@ -6617,7 +6588,6 @@ msgid "Write a reply..."
 msgstr "Пише відповідь..."
 
 #. TRANS: Tab on the notice form.
-#, fuzzy
 msgctxt "TAB"
 msgid "Status"
 msgstr "Статус"
@@ -6700,7 +6670,7 @@ msgstr "Невідоме дієслово: «%s»."
 msgid "Cannot force subscription for untrusted user."
 msgstr "Примусова підписка ненадійних користувачів є неможливою."
 
-#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#. TRANS: Client exception thrown when trying to force a remote user to subscribe.
 msgid "Cannot force remote user to subscribe."
 msgstr "Примусова підписка віддалених користувачів є неможливою."
 
@@ -6737,10 +6707,10 @@ msgstr ""
 msgid "No content for notice %s."
 msgstr "Допис %s не має змісту."
 
-#. TRANS: Exception thrown if no user is provided. %s is a user ID.
-#, fuzzy, php-format
+#. TRANS: Exception thrown if a non-existing user is provided. %s is a user ID.
+#, php-format
 msgid "No such user \"%s\"."
-msgstr "Користувача %s немає."
+msgstr "Користувача «%s» немає."
 
 #. TRANS: Client exception thrown when post to collection fails with a 400 status.
 #. TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
@@ -6788,22 +6758,19 @@ msgstr "Немає можливості видалити налаштуванн�
 
 #. TRANS: Header in administrator navigation panel.
 #. TRANS: Header in settings navigation panel.
-#, fuzzy
 msgctxt "HEADER"
 msgid "Home"
-msgstr "Веб-сторінка"
+msgstr "Головна"
 
 #. TRANS: Menu item in administrator navigation panel.
 #. TRANS: Menu item in default local navigation panel.
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Home"
-msgstr "Веб-сторінка"
+msgstr "Головна"
 
 #. TRANS: Header in administrator navigation panel.
-#, fuzzy
 msgctxt "HEADER"
 msgid "Admin"
 msgstr "Адмін"
@@ -6869,7 +6836,6 @@ msgid "Edit site notice"
 msgstr "Редагувати повідомлення сайту"
 
 #. TRANS: Menu item in administrator navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Site notice"
 msgstr "Об’яви на сайті"
@@ -6879,17 +6845,15 @@ msgid "Snapshots configuration"
 msgstr "Конфігурація знімків"
 
 #. TRANS: Menu item in administrator navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Snapshots"
-msgstr "Снепшоти"
+msgstr "Знімки"
 
 #. TRANS: Menu item title in administrator navigation panel.
 msgid "Set site license"
 msgstr "Зазначте ліцензію сайту"
 
 #. TRANS: Menu item in administrator navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "License"
 msgstr "Ліцензія"
@@ -6899,7 +6863,6 @@ msgid "Plugins configuration"
 msgstr "Налаштування додатків"
 
 #. TRANS: Menu item in administrator navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Plugins"
 msgstr "Додатки"
@@ -7052,9 +7015,8 @@ msgid "Save"
 msgstr "Зберегти"
 
 #. TRANS: Name for an anonymous application in application list.
-#, fuzzy
 msgid "Unknown application"
-msgstr "Дія невідома"
+msgstr "Невідомий додаток"
 
 #. TRANS: Message has a leading space and a trailing space. Used in application list.
 #. TRANS: Before this message the application name is put, behind it the organisation that manages it.
@@ -7123,10 +7085,9 @@ msgid "Cancel join request"
 msgstr "Запит на приєднання скасовано"
 
 #. TRANS: Button text for form action to cancel a subscription request.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Cancel subscription request"
-msgstr "Запит на приєднання скасовано"
+msgstr "Запит підписки скасовано"
 
 #. TRANS: Title for command results.
 msgid "Command results"
@@ -7590,10 +7551,16 @@ msgstr "Помилка бази даних"
 
 #. TRANS: Menu item in default local navigation panel.
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Public"
 msgstr "Загал"
+
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item in local navigation menu.
+msgctxt "MENU"
+msgid "Groups"
+msgstr "Спільноти"
 
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
@@ -7689,7 +7656,6 @@ msgstr "Немає автора в цій стрічці."
 
 #. TRANS: Client exception thrown when an imported feed does not have an author that
 #. TRANS: can be associated with a user.
-#, fuzzy
 msgid "Cannot import without a user."
 msgstr "Неможливо імпортувати без користувача."
 
@@ -7698,7 +7664,6 @@ msgid "Feeds"
 msgstr "Веб-стрічки"
 
 #. TRANS: List element on gallery action page to show all tags.
-#, fuzzy
 msgctxt "TAGS"
 msgid "All"
 msgstr "Всі"
@@ -7712,15 +7677,13 @@ msgid "Tag"
 msgstr "Теґ"
 
 #. TRANS: Dropdown field title on gallery action page for a list containing tags.
-#, fuzzy
 msgid "Choose a tag to narrow list."
-msgstr "Оберіть теґ до звуженого списку"
+msgstr "Оберіть теґ для звуженого списку."
 
 #. TRANS: Submit button text on gallery action page.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Go"
-msgstr "Вперед"
+msgstr "Перейти"
 
 #. TRANS: Description on form for granting a role.
 #, php-format
@@ -7783,23 +7746,10 @@ msgstr[2] ""
 "Додаткові імена для спільноти, відокремлювати комами або пробілами, максимум "
 "— %d імен."
 
-#. TRANS: Dropdown fieldd label on group edit form.
-msgid "Membership policy"
-msgstr "Політика щодо членства"
-
-#. TRANS: Group membership policy option.
-msgid "Open to all"
-msgstr "Відкрито для всіх"
-
-#. TRANS: Group membership policy option.
-msgid "Admin must approve all members"
-msgstr "Адміністратор має схвалити кандидатури всіх членів"
-
-#. TRANS: Dropdown field title on group edit form.
-msgid "Whether admin approval is required to join this group."
+#. TRANS: Checkbox field title on group edit form to mark a group private.
+msgid ""
+"New members must be approved by admin and all posts are forced to be private."
 msgstr ""
-"Приєднатися до спільноти стане можливим, як тільки з’явиться підтвердження "
-"адміністратора"
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
 msgctxt "GROUPADMIN"
@@ -7967,7 +7917,7 @@ msgstr[2] "%d б"
 #. TRANS: Body text for confirmation code e-mail.
 #. TRANS: %1$s is a user nickname, %2$s is the StatusNet sitename,
 #. TRANS: %3$s is the display name of an IM plugin.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "User \"%1$s\" on %2$s has said that your %3$s screenname belongs to them. If "
 "that is true, you can confirm by clicking on this URL: %4$s . (If you cannot "
@@ -7975,11 +7925,12 @@ msgid ""
 "user is not you, or if you did not request this confirmation, just ignore "
 "this message."
 msgstr ""
-"Користувач «%1$s» на сайті %s повідомив, що псевдонім %2$s належить йому. "
-"Якщо це дійсно так, ви можете підтвердити це просто перейшовши за наступною "
-"ланкою: %s. (Якщо ви не можете натиснути на посилання, то скопіюйте адресу "
-"до адресного рядка вашого веб-оглядача.) Якщо ви не є згаданим користувачем, "
-"не підтверджуйте нічого, просто проігноруйте це повідомлення."
+"Користувач «%1$s» на сайті %2$s повідомив, що ваш псевдонім %3$s належить "
+"йому. Якщо це дійсно так, ви можете підтвердити це просто перейшовши за "
+"наступною ланкою: %4$s. (Якщо ви не можете натиснути на посилання, то "
+"скопіюйте адресу до адресного рядка вашого веб-оглядача.) Якщо ви не є "
+"згаданим користувачем, не підтверджуйте нічого, просто проігноруйте це "
+"повідомлення."
 
 #. TRANS: Exception thrown when trying to deliver a notice to an unknown inbox.
 #. TRANS: %d is the unknown inbox ID (number).
@@ -7989,20 +7940,18 @@ msgstr "Невідоме джерело вхідного повідомленн�
 
 #. TRANS: Server exception thrown trying to initialise an IM plugin without meeting all prerequisites.
 msgid "Queueing must be enabled to use IM plugins."
-msgstr ""
+msgstr "Для обслуговування додаток ІМ повинен бути увімкненим."
 
 #. TRANS: Server exception thrown trying to initialise an IM plugin without a transport method.
 msgid "Transport cannot be null."
-msgstr ""
+msgstr "Транспорт не може бути відсутнім."
 
 #. TRANS: Button text for joining a group.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Join"
 msgstr "Приєднатись"
 
 #. TRANS: Button text on form to leave a group.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Leave"
 msgstr "Залишити"
@@ -8071,19 +8020,19 @@ msgstr "%1$s тепер слідкує за вашими дописами на %
 
 #. TRANS: Subject of pending new-subscriber notification e-mail.
 #. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s would like to listen to your notices on %2$s."
-msgstr "%1$s тепер слідкує за вашими дописами на %2$s."
+msgstr "%1$s хотів би слідкувати за вашими дописами на %2$s."
 
 #. TRANS: Main body of pending new-subscriber notification e-mail.
 #. TRANS: %1$s is the subscriber's long name, %2$s is the StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s would like to listen to your notices on %2$s. You may approve or reject "
 "their subscription at %3$s"
 msgstr ""
-"%1$s має бажання долучитися до вашої спільноти %2$s на %3$s. Ви можете "
-"прийняти або відхилити цей запит тут %4$s"
+"%1$s хотів би слідкувати за вашими дописами на %2$s. Ви можете прийняти або "
+"відхилити цей запит тут %3$s."
 
 #. TRANS: Common footer block for StatusNet notification emails.
 #. TRANS: %1$s is the StatusNet sitename,
@@ -8379,9 +8328,8 @@ msgid "Inbox"
 msgstr "Вхідні"
 
 #. TRANS: Menu item title in mailbox menu. Leads to incoming private messages.
-#, fuzzy
 msgid "Your incoming messages."
-msgstr "Ваші вхідні повідомлення"
+msgstr "Ваші вхідні повідомлення."
 
 #. TRANS: Menu item in mailbox menu. Leads to outgoing private messages.
 msgctxt "MENU"
@@ -8389,9 +8337,8 @@ msgid "Outbox"
 msgstr "Вихідні"
 
 #. TRANS: Menu item title in mailbox menu. Leads to outgoing private messages.
-#, fuzzy
 msgid "Your sent messages."
-msgstr "Надіслані вами повідомлення"
+msgstr "Надіслані вами повідомлення."
 
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail cannot be processed.
 msgid "Could not parse message."
@@ -8412,9 +8359,9 @@ msgstr ""
 
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail is of an unsupported type.
 #. TRANS: %s is the unsupported type.
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported message type: %s."
-msgstr "Формат повідомлення не підтримується: %s"
+msgstr "Формат повідомлення не підтримується: %s."
 
 #. TRANS: Form legend for form to make a user a group admin.
 msgid "Make user an admin of the group"
@@ -8498,7 +8445,6 @@ msgid "from"
 msgstr "з"
 
 #. TRANS: A possible notice source (web interface).
-#, fuzzy
 msgctxt "SOURCE"
 msgid "web"
 msgstr "вебу"
@@ -8506,28 +8452,26 @@ msgstr "вебу"
 #. TRANS: A possible notice source (XMPP).
 msgctxt "SOURCE"
 msgid "xmpp"
-msgstr ""
+msgstr "xmpp"
 
 #. TRANS: A possible notice source (e-mail).
-#, fuzzy
 msgctxt "SOURCE"
 msgid "mail"
-msgstr "Пошта"
+msgstr "пошти"
 
 #. TRANS: A possible notice source (OpenMicroBlogging).
 msgctxt "SOURCE"
 msgid "omb"
-msgstr ""
+msgstr "omb"
 
 #. TRANS: A possible notice source (Application Programming Interface).
 msgctxt "SOURCE"
 msgid "api"
-msgstr ""
+msgstr "api"
 
 #. TRANS: Client exception thrown when no author for an activity was found.
-#, fuzzy
 msgid "Cannot get author for activity."
-msgstr "Не вдається отримати автора для діяльності."
+msgstr "Не вдається отримати автора діяльності."
 
 #. TRANS: Client exception.
 msgid "Bookmark not posted to this group."
@@ -8538,9 +8482,8 @@ msgid "Object not posted to this user."
 msgstr "Об’єкт не додано до цього користувача."
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
-#, fuzzy
 msgid "Do not know how to handle this kind of target."
-msgstr "Не знаю, як обробити такого роду мету."
+msgstr "Не знаю, як обробити ціль такого типу."
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -8643,9 +8586,8 @@ msgid "Delete this notice"
 msgstr "Видалити допис"
 
 #. TRANS: Title for repeat form status in notice list when a notice has been repeated.
-#, fuzzy
 msgid "Notice repeated."
-msgstr "Допис повторили"
+msgstr "Допис повторено."
 
 #. TRANS: Field label for notice text.
 msgid "Update your status..."
@@ -8656,15 +8598,13 @@ msgid "Nudge this user"
 msgstr "«Розштовхати» користувача"
 
 #. TRANS: Button text to nudge/ping another user.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Nudge"
 msgstr "«Розштовхати»"
 
 #. TRANS: Button title to nudge/ping another user.
-#, fuzzy
 msgid "Send a nudge to this user."
-msgstr "Спробувати «розштовхати» цього користувача"
+msgstr "Спробувати «розштовхати» цього користувача."
 
 #. TRANS: Exception thrown when creating a new profile fails in OAuth store.
 msgid "Error inserting new profile."
@@ -8683,9 +8623,13 @@ msgid "Duplicate notice."
 msgstr "Дублікат допису."
 
 #. TRANS: Exception thrown when creating a new subscription fails in OAuth store.
-#, fuzzy
 msgid "Could not insert new subscription."
-msgstr "Не вдалося додати нову підписку."
+msgstr "Не вдалося вставити нову підписку."
+
+#. TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
+#, fuzzy
+msgid "No oEmbed API endpoint available."
+msgstr "ІМ недоступний"
 
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
@@ -8709,13 +8653,11 @@ msgid "Favorites"
 msgstr "Обрані"
 
 #. TRANS: Replaces %s in '%s\'s favorite notices'. (Yes, we know we need to fix this.)
-#, fuzzy
 msgctxt "FIXME"
 msgid "User"
 msgstr "Користувач"
 
 #. TRANS: Menu item in personal group navigation menu.
-#, fuzzy
 msgctxt "MENU"
 msgid "Messages"
 msgstr "Повідомлення"
@@ -8748,20 +8690,17 @@ msgid "(Plugin descriptions unavailable when disabled.)"
 msgstr "(Опис додатку недоступний, якщо даний додаток вимкнутий.)"
 
 #. TRANS: Menu item in primary navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Settings"
-msgstr "Налаштування СМС"
+msgstr "Параметри"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Change your personal settings."
-msgstr "Змінити персональні налаштування"
+msgstr "Змінити персональні налаштування."
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Site configuration."
-msgstr "Конфігурація сайту"
+msgstr "Конфігурація сайту."
 
 #. TRANS: Menu item in primary navigation panel.
 msgctxt "MENU"
@@ -8769,14 +8708,12 @@ msgid "Logout"
 msgstr "Вийти"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Logout from the site."
-msgstr "Вийти з сайту"
+msgstr "Вийти з сайту."
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Login to the site."
-msgstr "Увійти на сайт"
+msgstr "Увійти на сайт."
 
 #. TRANS: Menu item in primary navigation panel.
 msgctxt "MENU"
@@ -8784,9 +8721,8 @@ msgid "Search"
 msgstr "Пошук"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Search the site."
-msgstr "Пошук на сайті"
+msgstr "Пошук на сайті."
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -8820,6 +8756,10 @@ msgid "Groups"
 msgstr "Спільноти"
 
 #. TRANS: Label for user statistics.
+msgid "Notices"
+msgstr "Дописи"
+
+#. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
 msgid "Daily average"
 msgstr "Щоденно"
@@ -8832,35 +8772,25 @@ msgstr "Всі спільноти"
 msgid "Unimplemented method."
 msgstr "Метод не виконується."
 
-#. TRANS: Menu item in search group navigation panel.
-#. TRANS: Menu item in local navigation menu.
-#, fuzzy
-msgctxt "MENU"
-msgid "Groups"
-msgstr "Спільноти"
-
 #. TRANS: Menu item title in search group navigation panel.
 msgid "User groups"
 msgstr "Спільноти"
 
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Recent tags"
-msgstr "Нові теґи"
+msgstr "Останні теґи"
 
 #. TRANS: Menu item title in search group navigation panel.
 msgid "Recent tags"
 msgstr "Нові теґи"
 
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Featured"
-msgstr "Постаті"
+msgstr "Популярні"
 
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Popular"
 msgstr "Популярне"
@@ -8874,9 +8804,8 @@ msgid "Repeat this notice?"
 msgstr "Повторити цей допис?"
 
 #. TRANS: Button title to repeat a notice on notice repeat form.
-#, fuzzy
 msgid "Repeat this notice."
-msgstr "Повторити цей допис"
+msgstr "Повторити цей допис."
 
 #. TRANS: Description of role revoke form. %s is the role to be revoked.
 #, php-format
@@ -8888,7 +8817,6 @@ msgid "Page not found."
 msgstr "Сторінку не знайдено."
 
 #. TRANS: Title of form to sandbox a user.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Sandbox"
 msgstr "Пісочниця"
@@ -8918,6 +8846,10 @@ msgid ""
 "* Try more general keywords.\n"
 "* Try fewer keywords.\n"
 msgstr ""
+"* Переконайтеся, що всі слова написано правильно.\n"
+"* Спробуйте різні ключові слова.\n"
+"* Спробуйте узагальнити ключові слова.\n"
+"* Спробуйте зменшити кількість ключових слів.\n"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
 #, php-format
@@ -8932,9 +8864,16 @@ msgid ""
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Collecta](http://collecta.com/#q=%s)\n"
 msgstr ""
+"Здійснити пошук можна в інший спосіб:\n"
+"\n"
+"* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
+"site.server%%%%)\n"
+"* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
+"* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)\n"
 
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "People"
 msgstr "Люди"
@@ -8944,7 +8883,6 @@ msgid "Find people on this site"
 msgstr "Пошук людей на цьому сайті"
 
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Notices"
 msgstr "Дописи"
@@ -8963,50 +8901,42 @@ msgid "Help"
 msgstr "Довідка"
 
 #. TRANS: Secondary navigation menu item leading to text about StatusNet site.
-#, fuzzy
 msgctxt "MENU"
 msgid "About"
-msgstr "Про"
+msgstr "Деталі"
 
 #. TRANS: Secondary navigation menu item leading to Frequently Asked Questions.
-#, fuzzy
 msgctxt "MENU"
 msgid "FAQ"
 msgstr "ЧаП"
 
 #. TRANS: Secondary navigation menu item leading to Terms of Service.
-#, fuzzy
 msgctxt "MENU"
 msgid "TOS"
 msgstr "Умови"
 
 #. TRANS: Secondary navigation menu item leading to privacy policy.
-#, fuzzy
 msgctxt "MENU"
 msgid "Privacy"
 msgstr "Приватність"
 
 #. TRANS: Secondary navigation menu item. Leads to information about StatusNet and its license.
-#, fuzzy
 msgctxt "MENU"
 msgid "Source"
 msgstr "Джерело"
 
 #. TRANS: Secondary navigation menu item leading to version information on the StatusNet site.
-#, fuzzy
 msgctxt "MENU"
 msgid "Version"
 msgstr "Версія"
 
 #. TRANS: Secondary navigation menu item leading to e-mail contact information on the
 #. TRANS: StatusNet site, where to report bugs, ...
-#, fuzzy
 msgctxt "MENU"
 msgid "Contact"
 msgstr "Контакт"
 
 #. TRANS: Secondary navigation menu item. Leads to information about embedding a timeline widget.
-#, fuzzy
 msgctxt "MENU"
 msgid "Badge"
 msgstr "Бедж"
@@ -9020,7 +8950,6 @@ msgid "More..."
 msgstr "Ще..."
 
 #. TRANS: Header in settings navigation panel.
-#, fuzzy
 msgctxt "HEADER"
 msgid "Settings"
 msgstr "Налаштування СМС"
@@ -9030,17 +8959,15 @@ msgid "Change your profile settings"
 msgstr "Змінити налаштування профілю"
 
 #. TRANS: Menu item in settings navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Avatar"
-msgstr "Аватара"
+msgstr "Аватар"
 
 #. TRANS: Menu item title in settings navigation panel.
 msgid "Upload an avatar"
 msgstr "Завантаження аватари"
 
 #. TRANS: Menu item in settings navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Password"
 msgstr "Пароль"
@@ -9050,7 +8977,6 @@ msgid "Change your password"
 msgstr "Змінити пароль"
 
 #. TRANS: Menu item in settings navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Email"
 msgstr "Пошта"
@@ -9064,7 +8990,6 @@ msgid "Design your profile"
 msgstr "Дизайн вашого профілю"
 
 #. TRANS: Menu item in settings navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "URL"
 msgstr "URL"
@@ -9101,56 +9026,53 @@ msgid "Authorized connected applications"
 msgstr "Авторизовані під’єднані додатки"
 
 #. TRANS: Title of form to silence a user.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Silence"
-msgstr "Нічичирк!"
+msgstr "Вгамувати"
 
 #. TRANS: Description of form to silence a user.
 msgid "Silence this user"
 msgstr "Змусити користувача замовкнути, відправити у забуття"
 
 #. TRANS: Menu item in local navigation menu.
-#, fuzzy
 msgctxt "MENU"
 msgid "Subscriptions"
 msgstr "Підписки"
 
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "People %s subscribes to."
-msgstr "%s підписався до наступних людей"
+msgstr "Люди, до яких підписується %s."
 
 #. TRANS: Menu item in local navigation menu.
-#, fuzzy
 msgctxt "MENU"
 msgid "Subscribers"
 msgstr "Підписані"
 
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "People subscribed to %s."
-msgstr "Люди підписані до %s"
+msgstr "Люди підписані до %s."
 
 #. TRANS: Menu item in local navigation menu.
 #. TRANS: %d is the number of pending subscription requests.
-#, fuzzy, php-format
+#, php-format
 msgctxt "MENU"
 msgid "Pending (%d)"
-msgstr "В очікуванні учасників (%d)"
+msgstr "В очікуванні (%d)"
 
 #. TRANS: Menu item title in local navigation menu.
 #, php-format
 msgid "Approve pending subscription requests."
-msgstr ""
+msgstr "Очікують схвалення запиту на підписку."
 
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Groups %s is a member of."
-msgstr "Спільноти, до яких залучений %s"
+msgstr "Спільноти, до яких залучений %s."
 
 #. TRANS: Menu item in local navigation menu.
 msgctxt "MENU"
@@ -9159,9 +9081,9 @@ msgstr "Запросити"
 
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Invite friends and colleagues to join you on %s."
-msgstr "Запросіть друзів та колег приєднатись до вас на %s"
+msgstr "Запросіть друзів та колег приєднатися до вас на %s."
 
 #. TRANS: Form of form to subscribe to a user.
 msgid "Subscribe to this user"
@@ -9176,7 +9098,6 @@ msgid "People Tagcloud as tagged"
 msgstr "Хмарка теґів (якими ви позначили користувачів)"
 
 #. TRANS: Content displayed in a tag cloud section if there are no tags.
-#, fuzzy
 msgctxt "NOTAGS"
 msgid "None"
 msgstr "Пусто"
@@ -9199,7 +9120,6 @@ msgid "Failed saving theme."
 msgstr "Помилка при збереженні теми."
 
 #. TRANS: Server exception thrown when an uploaded theme has an incorrect structure.
-#, fuzzy
 msgid "Invalid theme: Bad directory structure."
 msgstr "Невірна тема: хибна структура каталогів."
 
@@ -9220,9 +9140,8 @@ msgstr[2] ""
 "становити менше ніж %d байтів."
 
 #. TRANS: Server exception thrown when an uploaded theme is incomplete.
-#, fuzzy
 msgid "Invalid theme archive: Missing file css/display.css"
-msgstr "В архіві з темою є помилка: відсутній файл css/display.css"
+msgstr "Архів теми містить помилку: відсутній файл css/display.css"
 
 #. TRANS: Server exception thrown when an uploaded theme has an incorrect file or folder name.
 msgid ""
@@ -9240,7 +9159,7 @@ msgstr ""
 
 #. TRANS: Server exception thrown when an uploaded theme contains a file type that is not allowed.
 #. TRANS: %s is the file type that is not allowed.
-#, fuzzy, php-format
+#, php-format
 msgid "Theme contains file of type \".%s\", which is not allowed."
 msgstr "Тема містить файл типу «.%s», який є неприпустимим."
 
@@ -9280,12 +9199,12 @@ msgstr "Ви вже обрали цей допис."
 
 #. TRANS: List message for favoured notices.
 #. TRANS: %d is the number of users that have favoured a notice.
-#, fuzzy, php-format
+#, php-format
 msgid "One person has favored this notice."
 msgid_plural "%d people have favored this notice."
-msgstr[0] "Один користувач додав це до списку обраних."
-msgstr[1] "%d користувачів додали це до списку обраних."
-msgstr[2] "%d користувачів додали це до списку обраних."
+msgstr[0] "Один користувач додав цей допис до списку обраних."
+msgstr[1] "%d користувачів додали цей допис до списку обраних."
+msgstr[2] "%d користувачів додали цей допис до списку обраних."
 
 #. TRANS: List message for notice repeated by logged in user.
 msgctxt "REPEATLIST"
@@ -9294,7 +9213,7 @@ msgstr "Ви вже повторили цей допис."
 
 #. TRANS: List message for repeated notices.
 #. TRANS: %d is the number of users that have repeated a notice.
-#, fuzzy, php-format
+#, php-format
 msgid "One person has repeated this notice."
 msgid_plural "%d people have repeated this notice."
 msgstr[0] "Один користувач повторив цей допис."
@@ -9308,24 +9227,28 @@ msgstr "Топ-дописувачі"
 #. TRANS: Option in drop-down of potential addressees.
 msgctxt "SENDTO"
 msgid "Everyone"
-msgstr ""
+msgstr "Всі"
 
 #. TRANS: Option in drop-down of potential addressees.
 #. TRANS: %s is a StatusNet sitename.
 #, php-format
 msgid "My colleagues at %s"
-msgstr ""
+msgstr "Мої колеги в %s"
 
 #. TRANS: Label for drop-down of potential addressees.
-#, fuzzy
 msgctxt "LABEL"
 msgid "To:"
-msgstr "До"
+msgstr "Кому:"
+
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
+#, fuzzy
+msgid "Private?"
+msgstr "Приватно"
 
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown to value: \"%s\"."
-msgstr "Невідоме дієслово: «%s»."
+msgstr "Невідоме значення: «%s»."
 
 #. TRANS: Title for the form to unblock a user.
 msgctxt "TITLE"
@@ -9444,5 +9367,16 @@ msgstr "Неправильний XML, корінь XRD відсутній."
 msgid "Getting backup from file '%s'."
 msgstr "Отримання резервної копії файлу «%s»."
 
-#~ msgid "Couldn't update your design."
-#~ msgstr "Не вдалося оновити дизайн."
+#~ msgid "Membership policy"
+#~ msgstr "Політика щодо членства"
+
+#~ msgid "Open to all"
+#~ msgstr "Відкрито для всіх"
+
+#~ msgid "Admin must approve all members"
+#~ msgstr "Адміністратор має схвалити кандидатури всіх членів"
+
+#~ msgid "Whether admin approval is required to join this group."
+#~ msgstr ""
+#~ "Приєднатися до спільноти стане можливим, як тільки з’явиться "
+#~ "підтвердження адміністратора"

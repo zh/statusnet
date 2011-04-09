@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,8 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
-#: actions/accessadminpanel.php:157
+#. TRANS: Checkbox field label on group edit form to mark a group private.
+#: actions/accessadminpanel.php:157 lib/groupeditform.php:206
 msgctxt "LABEL"
 msgid "Private"
 msgstr ""
@@ -136,7 +137,7 @@ msgstr ""
 #: actions/subscriptions.php:261 actions/tagother.php:144
 #: actions/urlsettings.php:152 actions/useradminpanel.php:300
 #: lib/applicationeditform.php:355 lib/designform.php:315
-#: lib/groupeditform.php:230
+#: lib/groupeditform.php:225
 msgctxt "BUTTON"
 msgid "Save"
 msgstr ""
@@ -144,7 +145,7 @@ msgstr ""
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
 #. TRANS: Server error when page not found (404).
-#: actions/all.php:68 actions/public.php:102 actions/replies.php:93
+#: actions/all.php:68 actions/public.php:99 actions/replies.php:93
 #: actions/showfavorites.php:140 actions/tag.php:52
 msgid "No such page."
 msgstr ""
@@ -238,7 +239,7 @@ msgstr ""
 #. TRANS: %s is a username.
 #. TRANS: Menu item title in settings navigation panel.
 #. TRANS: %s is a username.
-#: actions/all.php:94 actions/all.php:185 actions/allrss.php:117
+#: actions/all.php:94 actions/all.php:185 actions/allrss.php:110
 #: actions/apitimelinefriends.php:209 actions/apitimelinehome.php:113
 #: lib/adminpanelnav.php:73 lib/personalgroupnav.php:77 lib/settingsnav.php:73
 #, php-format
@@ -308,7 +309,7 @@ msgstr ""
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
-#: actions/allrss.php:122 actions/apitimelinefriends.php:215
+#: actions/allrss.php:115 actions/apitimelinefriends.php:215
 #: actions/apitimelinehome.php:119
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
@@ -651,7 +652,7 @@ msgstr ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with an existing nickname.
 #: actions/apigroupcreate.php:156 actions/apigroupprofileupdate.php:257
-#: actions/editgroup.php:192 actions/newgroup.php:138
+#: actions/editgroup.php:200 actions/newgroup.php:138
 #: actions/profilesettings.php:293 actions/register.php:210
 msgid "Nickname already in use. Try another one."
 msgstr ""
@@ -663,7 +664,7 @@ msgstr ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with an invalid nickname.
 #: actions/apigroupcreate.php:164 actions/apigroupprofileupdate.php:262
-#: actions/editgroup.php:196 actions/newgroup.php:142
+#: actions/editgroup.php:204 actions/newgroup.php:142
 #: actions/profilesettings.php:263 actions/register.php:213
 msgid "Not a valid nickname."
 msgstr ""
@@ -677,7 +678,7 @@ msgstr ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with an invalid homepage URL.
 #: actions/apigroupcreate.php:181 actions/apigroupprofileupdate.php:281
-#: actions/editapplication.php:236 actions/editgroup.php:203
+#: actions/editapplication.php:236 actions/editgroup.php:211
 #: actions/newapplication.php:222 actions/newgroup.php:149
 #: actions/profilesettings.php:268 actions/register.php:222
 msgid "Homepage is not a valid URL."
@@ -690,7 +691,7 @@ msgstr ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with a too long full name.
 #: actions/apigroupcreate.php:191 actions/apigroupprofileupdate.php:291
-#: actions/editgroup.php:207 actions/newgroup.php:153
+#: actions/editgroup.php:215 actions/newgroup.php:153
 #: actions/profilesettings.php:272 actions/register.php:226
 msgid "Full name is too long (maximum 255 characters)."
 msgstr ""
@@ -707,7 +708,7 @@ msgstr ""
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed characters.
 #: actions/apigroupcreate.php:201 actions/apigroupprofileupdate.php:301
-#: actions/editapplication.php:203 actions/editgroup.php:212
+#: actions/editapplication.php:203 actions/editgroup.php:220
 #: actions/newapplication.php:183 actions/newgroup.php:158
 #, php-format
 msgid "Description is too long (maximum %d character)."
@@ -722,7 +723,7 @@ msgstr[1] ""
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Form validation error displayed when trying to register with a too long location.
 #: actions/apigroupcreate.php:215 actions/apigroupprofileupdate.php:313
-#: actions/editgroup.php:219 actions/newgroup.php:165
+#: actions/editgroup.php:227 actions/newgroup.php:165
 #: actions/profilesettings.php:285 actions/register.php:238
 msgid "Location is too long (maximum 255 characters)."
 msgstr ""
@@ -736,7 +737,7 @@ msgstr ""
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:236 actions/apigroupprofileupdate.php:332
-#: actions/editgroup.php:232 actions/newgroup.php:178
+#: actions/editgroup.php:240 actions/newgroup.php:178
 #, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
@@ -759,14 +760,14 @@ msgstr ""
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error. %s is the already used alias.
 #: actions/apigroupcreate.php:264 actions/apigroupprofileupdate.php:361
-#: actions/editgroup.php:247 actions/newgroup.php:194
+#: actions/editgroup.php:255 actions/newgroup.php:194
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to use an alias during group creation that is the same as the group's nickname.
 #. TRANS: Group edit form validation error.
-#: actions/apigroupcreate.php:278 actions/editgroup.php:254
+#: actions/apigroupcreate.php:278 actions/editgroup.php:262
 msgid "Alias can't be the same as nickname."
 msgstr ""
 
@@ -842,7 +843,7 @@ msgstr ""
 msgid "%s groups"
 msgstr ""
 
-#. TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+#. TRANS: Message is used as a subtitle when listing the latest 20 groups. %s is a site name.
 #: actions/apigrouplistall.php:93
 #, php-format
 msgid "groups on %s"
@@ -860,15 +861,15 @@ msgstr ""
 
 #. TRANS: Server error displayed when group update fails.
 #. TRANS: Server error displayed when editing a group fails.
-#: actions/apigroupprofileupdate.php:173 actions/editgroup.php:276
+#: actions/apigroupprofileupdate.php:173 actions/editgroup.php:285
 msgid "Could not update group."
 msgstr ""
 
 #. TRANS: Server error displayed when adding group aliases fails.
 #. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/apigroupprofileupdate.php:196 actions/editgroup.php:283
-#: classes/User_group.php:548
+#: actions/apigroupprofileupdate.php:196 actions/editgroup.php:292
+#: classes/User_group.php:558
 msgid "Could not create aliases."
 msgstr ""
 
@@ -2054,19 +2055,13 @@ msgid "The address \"%s\" has been confirmed for your account."
 msgstr ""
 
 #. TRANS: Title for page with a conversion (multiple notices in context).
-#: actions/conversation.php:96
+#: actions/conversation.php:112
 msgid "Conversation"
-msgstr ""
-
-#. TRANS: Header on conversation page. Hidden by default (h2).
-#. TRANS: Label for user statistics.
-#: actions/conversation.php:149 lib/profileaction.php:246
-msgid "Notices"
 msgstr ""
 
 #. TRANS: Title for conversation page.
 #. TRANS: Title for page that shows a notice.
-#: actions/conversationreplies.php:83 actions/shownotice.php:267
+#: actions/conversationreplies.php:81 actions/shownotice.php:267
 msgctxt "TITLE"
 msgid "Notice"
 msgstr ""
@@ -2605,13 +2600,13 @@ msgstr ""
 #. TRANS: Group edit form validation error.
 #. TRANS: Group create form validation error.
 #. TRANS: %s is the invalid alias.
-#: actions/editgroup.php:242 actions/newgroup.php:189
+#: actions/editgroup.php:250 actions/newgroup.php:189
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr ""
 
 #. TRANS: Group edit form success message.
-#: actions/editgroup.php:303
+#: actions/editgroup.php:312
 msgid "Options saved."
 msgstr ""
 
@@ -3701,8 +3696,7 @@ msgid "License selection"
 msgstr ""
 
 #. TRANS: License option in the license admin panel.
-#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
-#: actions/licenseadminpanel.php:247 lib/toselector.php:123
+#: actions/licenseadminpanel.php:247
 msgid "Private"
 msgstr ""
 
@@ -3916,7 +3910,7 @@ msgid "New group"
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to create a group while banned.
-#: actions/newgroup.php:73 classes/User_group.php:488
+#: actions/newgroup.php:73 classes/User_group.php:491
 msgid "You are not allowed to create groups on this site."
 msgstr ""
 
@@ -4182,8 +4176,8 @@ msgstr ""
 
 #. TRANS: Server error displayed in oEmbed action when request specifies an unsupported data format.
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:204 actions/oembed.php:224 lib/apiaction.php:1207
-#: lib/apiaction.php:1234 lib/apiaction.php:1369
+#: actions/oembed.php:204 actions/oembed.php:224 lib/apiaction.php:1208
+#: lib/apiaction.php:1235 lib/apiaction.php:1370
 msgid "Not a supported data format."
 msgstr ""
 
@@ -4928,40 +4922,40 @@ msgid "Beyond the page limit (%s)."
 msgstr ""
 
 #. TRANS: Server error displayed when a public timeline cannot be retrieved.
-#: actions/public.php:96
+#: actions/public.php:93
 msgid "Could not retrieve public stream."
 msgstr ""
 
 #. TRANS: Title for all public timeline pages but the first.
 #. TRANS: %d is the page number.
-#: actions/public.php:134
+#: actions/public.php:131
 #, php-format
 msgid "Public timeline, page %d"
 msgstr ""
 
 #. TRANS: Title for the first public timeline page.
 #. TRANS: Menu item title in search group navigation panel.
-#: actions/public.php:137 lib/publicgroupnav.php:65
+#: actions/public.php:134 lib/publicgroupnav.php:65
 msgid "Public timeline"
 msgstr ""
 
 #. TRANS: Link description for public timeline feed.
-#: actions/public.php:165
+#: actions/public.php:162
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr ""
 
 #. TRANS: Link description for public timeline feed.
-#: actions/public.php:170
+#: actions/public.php:167
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr ""
 
 #. TRANS: Link description for public timeline feed.
-#: actions/public.php:175
+#: actions/public.php:172
 msgid "Public Stream Feed (Atom)"
 msgstr ""
 
 #. TRANS: Text displayed for public feed when there are no public notices.
-#: actions/public.php:181
+#: actions/public.php:178
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
@@ -4969,12 +4963,12 @@ msgid ""
 msgstr ""
 
 #. TRANS: Additional text displayed for public feed when there are no public notices for a logged in user.
-#: actions/public.php:185
+#: actions/public.php:182
 msgid "Be the first to post!"
 msgstr ""
 
 #. TRANS: Additional text displayed for public feed when there are no public notices for a not logged in user.
-#: actions/public.php:190
+#: actions/public.php:187
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
@@ -4982,7 +4976,7 @@ msgstr ""
 
 #. TRANS: Message for not logged in users at an invite-only site trying to view the public feed of notices.
 #. TRANS: This message contains Markdown links. Please mind the formatting.
-#: actions/public.php:238
+#: actions/public.php:235
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4993,7 +4987,7 @@ msgstr ""
 
 #. TRANS: Message for not logged in users at a closed site trying to view the public feed of notices.
 #. TRANS: This message contains Markdown links. Please mind the formatting.
-#: actions/public.php:245
+#: actions/public.php:242
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -7306,110 +7300,110 @@ msgstr ""
 
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
-#: classes/Notice.php:106
+#: classes/Notice.php:109
 #, php-format
 msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:207
+#: classes/Notice.php:211
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr ""
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:290
+#: classes/Notice.php:294
 msgid "Problem saving notice. Too long."
 msgstr ""
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:295
+#: classes/Notice.php:299
 msgid "Problem saving notice. Unknown user."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:301
+#: classes/Notice.php:305
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:308
+#: classes/Notice.php:312
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:316
+#: classes/Notice.php:320
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
 #. TRANS: Client exception thrown in notice when trying to repeat a missing or deleted notice.
-#: classes/Notice.php:355
+#: classes/Notice.php:367
 msgid "Cannot repeat; original notice is missing or deleted."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to repeat an own notice.
-#: classes/Notice.php:360
+#: classes/Notice.php:372
 msgid "You cannot repeat your own notice."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to repeat a non-public notice.
-#: classes/Notice.php:366
+#: classes/Notice.php:378
 msgid "Cannot repeat a private notice."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to repeat a notice you cannot access.
-#: classes/Notice.php:372
+#: classes/Notice.php:384
 msgid "Cannot repeat a notice you cannot read."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to repeat an already repeated notice.
-#: classes/Notice.php:377
+#: classes/Notice.php:389
 msgid "You already repeated that notice."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to reply to a notice a the target has no access to.
 #. TRANS: %1$s is a user nickname, %2$d is a notice ID (number).
-#: classes/Notice.php:390
+#: classes/Notice.php:401
 #, php-format
 msgid "%1$s has no access to notice %2$d."
 msgstr ""
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:445 classes/Notice.php:472
+#: classes/Notice.php:490 classes/Notice.php:517
 msgid "Problem saving notice."
 msgstr ""
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:930
+#: classes/Notice.php:990
 msgid "Bad type provided to saveKnownGroups."
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1029
+#: classes/Notice.php:1080
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1145
+#: classes/Notice.php:1196
 #, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1618
+#: classes/Notice.php:1688
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
 #. TRANS: Full name of a profile or group (%1$s) followed by nickname (%2$s) in parentheses.
 #. TRANS: Full name of a profile or group followed by nickname in parens
-#: classes/Profile.php:172 classes/User_group.php:245
+#: classes/Profile.php:178 classes/User_group.php:248
 #, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
@@ -7417,14 +7411,14 @@ msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:790
+#: classes/Profile.php:765
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:799
+#: classes/Profile.php:774
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -7490,38 +7484,38 @@ msgstr ""
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
-#: classes/User.php:404
+#: classes/User.php:409
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/User.php:882
+#: classes/User.php:898
 msgid "No single user defined for single-user mode."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/User.php:886
+#: classes/User.php:902
 msgid "Single-user mode code called when not enabled."
 msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:530
+#: classes/User_group.php:540
 msgid "Could not create group."
 msgstr ""
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:540
+#: classes/User_group.php:550
 msgid "Could not set group URI."
 msgstr ""
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:563
+#: classes/User_group.php:573
 msgid "Could not set group membership."
 msgstr ""
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:578
+#: classes/User_group.php:588
 msgid "Could not save local group info."
 msgstr ""
 
@@ -7626,7 +7620,7 @@ msgstr ""
 
 #. TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
 #. TRANS: Field label for reply mini form.
-#: lib/action.php:363 lib/threadednoticelist.php:333
+#: lib/action.php:363 lib/threadednoticelist.php:332
 msgid "Write a reply..."
 msgstr ""
 
@@ -7719,7 +7713,7 @@ msgstr ""
 msgid "Cannot force subscription for untrusted user."
 msgstr ""
 
-#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#. TRANS: Client exception thrown when trying to force a remote user to subscribe.
 #: lib/activityimporter.php:117
 msgid "Cannot force remote user to subscribe."
 msgstr ""
@@ -7763,7 +7757,7 @@ msgstr ""
 msgid "No content for notice %s."
 msgstr ""
 
-#. TRANS: Exception thrown if no user is provided. %s is a user ID.
+#. TRANS: Exception thrown if a non-existing user is provided. %s is a user ID.
 #: lib/activitymover.php:85
 #, php-format
 msgid "No such user \"%s\"."
@@ -7833,7 +7827,7 @@ msgstr ""
 #. TRANS: Menu item in default local navigation panel.
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
-#: lib/adminpanelnav.php:70 lib/defaultlocalnav.php:58
+#: lib/adminpanelnav.php:70 lib/defaultlocalnav.php:60
 #: lib/personalgroupnav.php:74 lib/settingsnav.php:70
 msgctxt "MENU"
 msgid "Home"
@@ -8752,9 +8746,18 @@ msgstr ""
 
 #. TRANS: Menu item in default local navigation panel.
 #. TRANS: Menu item in search group navigation panel.
-#: lib/defaultlocalnav.php:63 lib/publicgroupnav.php:63
+#: lib/defaultlocalnav.php:65 lib/publicgroupnav.php:63
 msgctxt "MENU"
 msgid "Public"
+msgstr ""
+
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item in local navigation menu.
+#: lib/defaultlocalnav.php:71 lib/publicgroupnav.php:68
+#: lib/searchgroupnav.php:82 lib/subgroupnav.php:124
+msgctxt "MENU"
+msgid "Groups"
 msgstr ""
 
 #. TRANS: Title of form for deleting a user.
@@ -8966,24 +8969,10 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#. TRANS: Dropdown fieldd label on group edit form.
-#: lib/groupeditform.php:207
-msgid "Membership policy"
-msgstr ""
-
-#. TRANS: Group membership policy option.
-#: lib/groupeditform.php:209
-msgid "Open to all"
-msgstr ""
-
-#. TRANS: Group membership policy option.
-#: lib/groupeditform.php:211
-msgid "Admin must approve all members"
-msgstr ""
-
-#. TRANS: Dropdown field title on group edit form.
-#: lib/groupeditform.php:213
-msgid "Whether admin approval is required to join this group."
+#. TRANS: Checkbox field title on group edit form to mark a group private.
+#: lib/groupeditform.php:210
+msgid ""
+"New members must be approved by admin and all posts are forced to be private."
 msgstr ""
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
@@ -9888,6 +9877,11 @@ msgstr ""
 msgid "Could not insert new subscription."
 msgstr ""
 
+#. TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
+#: lib/oembedhelper.php:135
+msgid "No oEmbed API endpoint available."
+msgstr ""
+
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -10040,6 +10034,11 @@ msgid "Groups"
 msgstr ""
 
 #. TRANS: Label for user statistics.
+#: lib/profileaction.php:246
+msgid "Notices"
+msgstr ""
+
+#. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
 #: lib/profileaction.php:253
 msgid "Daily average"
@@ -10053,13 +10052,6 @@ msgstr ""
 #. TRANS: Server error displayed when using an unimplemented method.
 #: lib/profileformaction.php:123
 msgid "Unimplemented method."
-msgstr ""
-
-#. TRANS: Menu item in search group navigation panel.
-#. TRANS: Menu item in local navigation menu.
-#: lib/publicgroupnav.php:68 lib/searchgroupnav.php:82 lib/subgroupnav.php:124
-msgctxt "MENU"
-msgid "Groups"
 msgstr ""
 
 #. TRANS: Menu item title in search group navigation panel.
@@ -10516,7 +10508,7 @@ msgstr ""
 
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
-#: lib/threadednoticelist.php:292
+#: lib/threadednoticelist.php:291
 #, php-format
 msgid "Show reply"
 msgid_plural "Show all %d replies"
@@ -10524,33 +10516,33 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Reference to the logged in user in favourite list.
-#: lib/threadednoticelist.php:358
+#: lib/threadednoticelist.php:357
 msgctxt "FAVELIST"
 msgid "You"
 msgstr ""
 
 #. TRANS: Separator in list of user names like "You, Bob, Mary".
-#: lib/threadednoticelist.php:394
+#: lib/threadednoticelist.php:393
 msgid ", "
 msgstr ""
 
 #. TRANS: For building a list such as "You, bob, mary and 5 others have favored this notice".
 #. TRANS: %1$s is a list of users, separated by a separator (default: ", "), %2$s is the last user in the list.
-#: lib/threadednoticelist.php:397
+#: lib/threadednoticelist.php:396
 #, php-format
 msgctxt "FAVELIST"
 msgid "%1$s and %2$s"
 msgstr ""
 
 #. TRANS: List message for notice favoured by logged in user.
-#: lib/threadednoticelist.php:422
+#: lib/threadednoticelist.php:421
 msgctxt "FAVELIST"
 msgid "You have favored this notice."
 msgstr ""
 
 #. TRANS: List message for favoured notices.
 #. TRANS: %d is the number of users that have favoured a notice.
-#: lib/threadednoticelist.php:426
+#: lib/threadednoticelist.php:425
 #, php-format
 msgid "One person has favored this notice."
 msgid_plural "%d people have favored this notice."
@@ -10558,14 +10550,14 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: List message for notice repeated by logged in user.
-#: lib/threadednoticelist.php:480
+#: lib/threadednoticelist.php:479
 msgctxt "REPEATLIST"
 msgid "You have repeated this notice."
 msgstr ""
 
 #. TRANS: List message for repeated notices.
 #. TRANS: %d is the number of users that have repeated a notice.
-#: lib/threadednoticelist.php:484
+#: lib/threadednoticelist.php:483
 #, php-format
 msgid "One person has repeated this notice."
 msgid_plural "%d people have repeated this notice."
@@ -10596,8 +10588,13 @@ msgctxt "LABEL"
 msgid "To:"
 msgstr ""
 
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
+#: lib/toselector.php:124
+msgid "Private?"
+msgstr ""
+
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
-#: lib/toselector.php:157
+#: lib/toselector.php:159
 #, php-format
 msgid "Unknown to value: \"%s\"."
 msgstr ""

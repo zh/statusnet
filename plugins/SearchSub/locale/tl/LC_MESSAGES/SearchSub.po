@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - SearchSub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:16:21+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:38:27+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-03 13:41:46+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-searchsub\n"
@@ -99,7 +99,7 @@ msgstr "Hindi ka na nagpapasipi sa paghahanap ng \"%s\"."
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Ang galaw na ito ay tumatanggap lamang ng mga kahilingan ng PAGPASKIL."
 
 #. TRANS: Client error displayed when the session token is not okay.
 msgid "There was a problem with your session token. Try again, please."
@@ -107,11 +107,11 @@ msgstr ""
 
 #. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
-msgstr ""
+msgstr "Hindi nakalagda."
 
 #. TRANS: Client error displayed trying to subscribe to a non-existing profile.
 msgid "No such profile."
-msgstr ""
+msgstr "Walang ganyang balangkas."
 
 #. TRANS: Page title when search subscription succeeded.
 msgid "Subscribed"
@@ -120,10 +120,9 @@ msgstr "Nagpapasipi na"
 msgid "Unsubscribe from this search"
 msgstr "Huwag nang magpasipi mula sa paghahanap na ito"
 
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Unsubscribe"
-msgstr "Hindi na nagpapasipi"
+msgstr "Pahintuin na ang pagtanggap ng sipi"
 
 #. TRANS: Page title when search unsubscription succeeded.
 msgid "Unsubscribed"
@@ -189,6 +188,10 @@ msgctxt "COMMANDHELP"
 msgid "List all your search subscriptions."
 msgstr "Itala ang lahat ng mga pagpapasipi mo ng paghahanap."
 
+#, fuzzy
+msgid "Searches"
+msgstr "Mga paghahanap"
+
 #. TRANS: Error text shown a user tries to disable all a search subscriptions with track off command, but has none.
 msgid "You are not tracking any searches."
 msgstr "Hindi ka sumusubaybay ng anumang mga paghahanap."
@@ -201,10 +204,9 @@ msgstr "Sinusubaybayan mo ang mga paghahanap para sa: %s"
 msgid "Subscribe to this search"
 msgstr "Magpasipi para sa paghahanap na ito"
 
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Subscribe"
-msgstr "Nagpapasipi na"
+msgstr "Pumayag na tumanggap ng sipi"
 
 #. TRANS: Message given having failed to cancel one of the search subs with 'track off' command.
 #, php-format

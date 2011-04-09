@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:14:07+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:36:12+0000\n"
 "Language-Team: Malayalam <http://translatewiki.net/wiki/Portal:ml>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-03 23:28:43+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ml\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -73,6 +73,7 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "അജ്ഞാത ഉപയോക്താക്കളെ (ലോഗിൻ ചെയ്യാത്തവരെ) സൈറ്റ് കാണുന്നതിൽ നിന്നും വിലക്കണോ?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
+#. TRANS: Checkbox field label on group edit form to mark a group private.
 msgctxt "LABEL"
 msgid "Private"
 msgstr "സ്വകാര്യം"
@@ -645,7 +646,7 @@ msgstr "%2$s അംഗമായ %1$s സംഘങ്ങൾ."
 msgid "%s groups"
 msgstr "%s സംഘങ്ങൾ"
 
-#. TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+#. TRANS: Message is used as a subtitle when listing the latest 20 groups. %s is a site name.
 #, php-format
 msgid "groups on %s"
 msgstr "%s സൈറ്റിലെ സംഘങ്ങൾ"
@@ -1618,11 +1619,6 @@ msgstr "താങ്കളുടെ അംഗത്വത്തിന് \"%s\" 
 #. TRANS: Title for page with a conversion (multiple notices in context).
 msgid "Conversation"
 msgstr "സംഭാഷണം"
-
-#. TRANS: Header on conversation page. Hidden by default (h2).
-#. TRANS: Label for user statistics.
-msgid "Notices"
-msgstr "അറിയിപ്പുകൾ"
 
 #. TRANS: Title for conversation page.
 #. TRANS: Title for page that shows a notice.
@@ -3039,7 +3035,6 @@ msgid "License selection"
 msgstr "അനുമതി തിരഞ്ഞെടുക്കൽ"
 
 #. TRANS: License option in the license admin panel.
-#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 msgid "Private"
 msgstr "സ്വകാര്യം"
 
@@ -6498,7 +6493,7 @@ msgstr "അപരിചിതമായ ക്രിയ: \"%s\"."
 msgid "Cannot force subscription for untrusted user."
 msgstr ""
 
-#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#. TRANS: Client exception thrown when trying to force a remote user to subscribe.
 msgid "Cannot force remote user to subscribe."
 msgstr ""
 
@@ -6535,7 +6530,7 @@ msgstr ""
 msgid "No content for notice %s."
 msgstr "ഉള്ളടക്കമൊന്നും %s എന്ന അറിയിപ്പിൽ നൽകിയിട്ടില്ല."
 
-#. TRANS: Exception thrown if no user is provided. %s is a user ID.
+#. TRANS: Exception thrown if a non-existing user is provided. %s is a user ID.
 #, fuzzy, php-format
 msgid "No such user \"%s\"."
 msgstr "%s എന്നൊരു ഉപയോക്താവില്ല."
@@ -7386,6 +7381,14 @@ msgctxt "MENU"
 msgid "Public"
 msgstr "സാർവ്വജനികം"
 
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Groups"
+msgstr "സംഘങ്ങൾ"
+
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
 msgid "Delete"
@@ -7568,21 +7571,9 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#. TRANS: Dropdown fieldd label on group edit form.
-#, fuzzy
-msgid "Membership policy"
-msgstr "അംഗമായത്"
-
-#. TRANS: Group membership policy option.
-msgid "Open to all"
-msgstr ""
-
-#. TRANS: Group membership policy option.
-msgid "Admin must approve all members"
-msgstr ""
-
-#. TRANS: Dropdown field title on group edit form.
-msgid "Whether admin approval is required to join this group."
+#. TRANS: Checkbox field title on group edit form to mark a group private.
+msgid ""
+"New members must be approved by admin and all posts are forced to be private."
 msgstr ""
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
@@ -8379,6 +8370,11 @@ msgstr "അറിയിപ്പിന്റെ പകർപ്പ്."
 msgid "Could not insert new subscription."
 msgstr "സന്ദേശം ഉൾപ്പെടുത്താൻ കഴിഞ്ഞില്ല."
 
+#. TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
+#, fuzzy
+msgid "No oEmbed API endpoint available."
+msgstr "ഐ.എം. ലഭ്യമല്ല."
+
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -8514,6 +8510,10 @@ msgid "Groups"
 msgstr "സംഘങ്ങൾ"
 
 #. TRANS: Label for user statistics.
+msgid "Notices"
+msgstr "അറിയിപ്പുകൾ"
+
+#. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
 msgid "Daily average"
 msgstr "ദൈനിക ശരാശരി"
@@ -8525,13 +8525,6 @@ msgstr "എല്ലാ സംഘങ്ങളും"
 #. TRANS: Server error displayed when using an unimplemented method.
 msgid "Unimplemented method."
 msgstr ""
-
-#. TRANS: Menu item in search group navigation panel.
-#. TRANS: Menu item in local navigation menu.
-#, fuzzy
-msgctxt "MENU"
-msgid "Groups"
-msgstr "സംഘങ്ങൾ"
 
 #. TRANS: Menu item title in search group navigation panel.
 msgid "User groups"
@@ -9000,6 +8993,11 @@ msgctxt "LABEL"
 msgid "To:"
 msgstr "സ്വീകർത്താവ്"
 
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
+#, fuzzy
+msgid "Private?"
+msgstr "സ്വകാര്യം"
+
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
 #, fuzzy, php-format
 msgid "Unknown to value: \"%s\"."
@@ -9121,5 +9119,6 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Couldn't update your design."
-#~ msgstr "താങ്കളുടെ രൂപകല്പന പുതുക്കാനായില്ല."
+#, fuzzy
+#~ msgid "Membership policy"
+#~ msgstr "അംഗമായത്"
