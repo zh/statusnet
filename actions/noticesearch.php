@@ -48,9 +48,20 @@ require_once INSTALLDIR.'/lib/searchaction.php';
  */
 class NoticesearchAction extends SearchAction
 {
+    protected $q = null;
+
     function prepare($args)
     {
         parent::prepare($args);
+
+        $this->q = $this->trimmed('q');
+
+        // FIXME: very dependent on tag format
+        if (preg_match('/^#([\pL\pN_\-\.]{1,64})/ue', $this->q)) {
+            common_redirect(common_local_url('tag',
+                                             array('tag' => common_canonical_tag(substr($this->q, 1)))),
+                            303);
+        }
 
         common_set_returnto($this->selfUrl());
 
