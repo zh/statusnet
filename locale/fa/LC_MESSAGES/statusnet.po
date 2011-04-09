@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:13:49+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:35:59+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian <http://translatewiki.net/wiki/Portal:fa>\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,9 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
-"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+"X-POT-Import-Date: 2011-04-03 23:28:43+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -84,6 +84,7 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "از دیدن وب‌گاه توسط کاربران ناشناس (وارد نشده) جلوگیری شود؟"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
+#. TRANS: Checkbox field label on group edit form to mark a group private.
 msgctxt "LABEL"
 msgid "Private"
 msgstr "خصوصی"
@@ -663,7 +664,7 @@ msgstr "هست عضو %s گروه"
 msgid "%s groups"
 msgstr "%s گروه"
 
-#. TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+#. TRANS: Message is used as a subtitle when listing the latest 20 groups. %s is a site name.
 #, php-format
 msgid "groups on %s"
 msgstr "گروه‌ها در %s"
@@ -1673,11 +1674,6 @@ msgstr "نشانی «%s« برای شما تصدیق شد."
 #. TRANS: Title for page with a conversion (multiple notices in context).
 msgid "Conversation"
 msgstr "مکالمه"
-
-#. TRANS: Header on conversation page. Hidden by default (h2).
-#. TRANS: Label for user statistics.
-msgid "Notices"
-msgstr "پیام‌ها"
 
 #. TRANS: Title for conversation page.
 #. TRANS: Title for page that shows a notice.
@@ -3158,7 +3154,6 @@ msgid "License selection"
 msgstr "انتخاب مجوز"
 
 #. TRANS: License option in the license admin panel.
-#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 msgid "Private"
 msgstr "خصوصی"
 
@@ -6785,7 +6780,7 @@ msgstr "زبان «%s» ناشناس است."
 msgid "Cannot force subscription for untrusted user."
 msgstr ""
 
-#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#. TRANS: Client exception thrown when trying to force a remote user to subscribe.
 #, fuzzy
 msgid "Cannot force remote user to subscribe."
 msgstr "نمی‌توان کاربر را برای اشتراک خودکار به‌هنگام‌سازی کرد."
@@ -6824,7 +6819,7 @@ msgstr ""
 msgid "No content for notice %s."
 msgstr "پیدا کردن محتوای پیام‌ها"
 
-#. TRANS: Exception thrown if no user is provided. %s is a user ID.
+#. TRANS: Exception thrown if a non-existing user is provided. %s is a user ID.
 #, fuzzy, php-format
 msgid "No such user \"%s\"."
 msgstr "چنین کاربری وجود ندارد %s."
@@ -7692,6 +7687,14 @@ msgctxt "MENU"
 msgid "Public"
 msgstr "عمومی"
 
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Groups"
+msgstr "گروه‌ها"
+
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
 msgid "Delete"
@@ -7878,21 +7881,9 @@ msgid_plural ""
 msgstr[0] ""
 "نام‌های مستعار اضافی برای گروه، با کاما- یا فاصله- جدا شود، بیشینه %d"
 
-#. TRANS: Dropdown fieldd label on group edit form.
-#, fuzzy
-msgid "Membership policy"
-msgstr "عضو شده از"
-
-#. TRANS: Group membership policy option.
-msgid "Open to all"
-msgstr ""
-
-#. TRANS: Group membership policy option.
-msgid "Admin must approve all members"
-msgstr ""
-
-#. TRANS: Dropdown field title on group edit form.
-msgid "Whether admin approval is required to join this group."
+#. TRANS: Checkbox field title on group edit form to mark a group private.
+msgid ""
+"New members must be approved by admin and all posts are forced to be private."
 msgstr ""
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
@@ -8786,6 +8777,11 @@ msgstr ""
 msgid "Could not insert new subscription."
 msgstr "نمی‌توان اشتراک تازه‌ای افزود."
 
+#. TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
+#, fuzzy
+msgid "No oEmbed API endpoint available."
+msgstr "پیام‌رسان فوری در دسترس نیست."
+
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -8923,6 +8919,10 @@ msgid "Groups"
 msgstr "گروه‌ها"
 
 #. TRANS: Label for user statistics.
+msgid "Notices"
+msgstr "پیام‌ها"
+
+#. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
 msgid "Daily average"
 msgstr "میانگین روزانه"
@@ -8934,13 +8934,6 @@ msgstr "تمام گروه‌ها"
 #. TRANS: Server error displayed when using an unimplemented method.
 msgid "Unimplemented method."
 msgstr "روش پیاده نشده است."
-
-#. TRANS: Menu item in search group navigation panel.
-#. TRANS: Menu item in local navigation menu.
-#, fuzzy
-msgctxt "MENU"
-msgid "Groups"
-msgstr "گروه‌ها"
 
 #. TRANS: Menu item title in search group navigation panel.
 msgid "User groups"
@@ -9416,6 +9409,11 @@ msgctxt "LABEL"
 msgid "To:"
 msgstr "به"
 
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
+#, fuzzy
+msgid "Private?"
+msgstr "خصوصی"
+
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
 #, fuzzy, php-format
 msgid "Unknown to value: \"%s\"."
@@ -9536,5 +9534,6 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Couldn't update your design."
-#~ msgstr "نمی‌توان ظاهر را به روز کرد."
+#, fuzzy
+#~ msgid "Membership policy"
+#~ msgstr "عضو شده از"

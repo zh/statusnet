@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - SearchSub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:16:21+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:38:27+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-03 13:41:46+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-plugin-searchsub\n"
@@ -96,19 +96,19 @@ msgstr "Tu non es plus subscribite al recerca de \"%s\"."
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Iste action accepta solmente le requestas de typo POST."
 
 #. TRANS: Client error displayed when the session token is not okay.
 msgid "There was a problem with your session token. Try again, please."
-msgstr ""
+msgstr "Occurreva un problema con le indicio de tu session. Per favor reproba."
 
 #. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
-msgstr ""
+msgstr "Tu non ha aperite un session."
 
 #. TRANS: Client error displayed trying to subscribe to a non-existing profile.
 msgid "No such profile."
-msgstr ""
+msgstr "Profilo non existe."
 
 #. TRANS: Page title when search subscription succeeded.
 msgid "Subscribed"
@@ -117,10 +117,9 @@ msgstr "Subscribite"
 msgid "Unsubscribe from this search"
 msgstr "Cancellar subscription a iste recerca"
 
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Unsubscribe"
-msgstr "Subscription cancellate"
+msgstr "Cancellar subscription"
 
 #. TRANS: Page title when search unsubscription succeeded.
 msgid "Unsubscribed"
@@ -183,6 +182,10 @@ msgctxt "COMMANDHELP"
 msgid "List all your search subscriptions."
 msgstr "Listar tote tu subscriptiones de recerca."
 
+#, fuzzy
+msgid "Searches"
+msgstr "Recercas"
+
 #. TRANS: Error text shown a user tries to disable all a search subscriptions with track off command, but has none.
 msgid "You are not tracking any searches."
 msgstr "Tu non tracia alcun recerca."
@@ -195,10 +198,9 @@ msgstr "Tu tracia recercas de: %s"
 msgid "Subscribe to this search"
 msgstr "Subscriber a iste recerca"
 
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Subscribe"
-msgstr "Subscribite"
+msgstr "Subscriber"
 
 #. TRANS: Message given having failed to cancel one of the search subs with 'track off' command.
 #, php-format

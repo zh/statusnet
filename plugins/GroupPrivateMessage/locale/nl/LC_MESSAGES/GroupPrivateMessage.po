@@ -1,6 +1,7 @@
 # Translation of StatusNet - GroupPrivateMessage to Dutch (Nederlands)
 # Exported from translatewiki.net
 #
+# Author: McDutchie
 # Author: Siebrand
 # Author: TBloemink
 # --
@@ -10,35 +11,44 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - GroupPrivateMessage\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 13:16+0000\n"
-"PO-Revision-Date: 2011-04-03 13:21:00+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:37:22+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-01 21:05:29+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85252); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-03 13:40:36+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-groupprivatemessage\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. TRANS: Client exception thrown when trying to send a private group message while not logged in.
 msgid "Must be logged in."
 msgstr "U moet aangemeld zijn."
 
+#. TRANS: Exception thrown when user %s is not allowed to send a private group message.
+#. TRANS: Exception thrown when trying to send group private message without having the right to do that.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgid "User %s is not allowed to send private messages."
 msgstr "Gebruiker %s mag geen privéberichten verzenden."
 
+#. TRANS: Client exception thrown when trying to send a private group message to a non-existing group.
+#. TRANS: Client exception thrown when trying to view group inbox for non-existing group.
 msgid "No such group."
 msgstr "De opgegeven groep bestaat niet."
 
+#. TRANS: Title after sending a private group message.
 msgid "Message sent"
 msgstr "Bericht verzonden"
 
+#. TRANS: Succes text after sending a direct message to group %s.
 #, php-format
 msgid "Direct message to %s sent."
 msgstr "Het directe bericht aan %s is verzonden."
 
+#. TRANS: Title of form for new private group message.
 #, php-format
 msgid "New message to group %s"
 msgstr "Nieuw bericht voor de groep %s"
@@ -85,67 +95,90 @@ msgstr ""
 "Met vriendelijke groet,\n"
 "%6$s"
 
+#. TRANS: Menu item in group page.
 msgctxt "MENU"
 msgid "Inbox"
 msgstr "Postvak IN"
 
+#. TRANS: Menu title in group page.
 msgid "Private messages for this group."
 msgstr "Privéberichten voor deze groep."
 
+#. TRANS: Dropdown label in group settings page for if group allows private messages.
 msgid "Private messages"
 msgstr "Privéberichten"
 
+#. TRANS: Dropdown option in group settings page for allowing private messages.
 msgid "Sometimes"
 msgstr "Soms"
 
+#. TRANS: Dropdown option in group settings page for allowing private messages.
 msgid "Always"
 msgstr "Altijd"
 
+#. TRANS: Dropdown option in group settings page for allowing private messages.
 msgid "Never"
 msgstr "Nooit"
 
+#. TRANS: Dropdown title in group settings page for if group allows private messages.
 msgid "Whether to allow private messages to this group."
 msgstr "Of privéberichten voor deze groep zijn toegestaan."
 
+#. TRANS: Dropdown label in group settings page for who can send private messages to the group.
 msgid "Private senders"
 msgstr "Gebruikers die privéberichten mogen verzenden"
 
+#. TRANS: Dropdown option in group settings page for who can send private messages.
 msgid "Everyone"
 msgstr "Iedereen"
 
+#. TRANS: Dropdown option in group settings page for who can send private messages.
 msgid "Member"
 msgstr "Lid"
 
+#. TRANS: Dropdown option in group settings page for who can send private messages.
 msgid "Admin"
 msgstr "Beheerder"
 
+#. TRANS: Dropdown title in group settings page for who can send private messages to the group.
 msgid "Who can send private messages to the group."
 msgstr "Wie privéberichten kan verzenden aan de groep."
 
+#. TRANS: Title for action in group actions list.
 msgid "Send a direct message to this group."
 msgstr "Privébericht naar deze groep verzenden."
 
+#. TRANS: Link text for action in group actions list to send a private message to a group.
+#, fuzzy
+msgctxt "LINKTEXT"
 msgid "Message"
 msgstr "Bericht"
 
+#. TRANS: Client exception thrown when a private group message has to be forced.
 msgid "Forced notice to private group message."
-msgstr "Van mededelingen in deze groep privéberichten aan de groep maken."
+msgstr "Mededeling omgezet in een privébericht aan de groep."
 
+#. TRANS: Indicator on the group page that the group is (essentially) private.
 msgid "Private"
 msgstr "Privé"
 
+#. TRANS: Plugin description.
 msgid "Allow posting private messages to groups."
 msgstr "Verzenden van privéberichten aan de groep toestaan."
 
+#. TRANS: Client exception thrown when trying to view group inbox while not logged in.
 msgid "Only for logged-in users."
 msgstr "Alleen voor aangemelde gebruikers."
 
+#. TRANS: Client exception thrown when trying to view group inbox while not a member.
 msgid "Only for members."
 msgstr "Alleen voor leden."
 
+#. TRANS: Text of group inbox if no private messages were sent to it.
 msgid "This group has not received any private messages."
 msgstr "Deze groep heeft geen privéberichten ontvangen."
 
+#. TRANS: Title of inbox for group %s.
 #, php-format
 msgid "%s group inbox"
 msgstr "Postvak IN van de groep %s"
@@ -164,72 +197,97 @@ msgstr ""
 "Dit is het Postvak IN van de groep waarom alle inkomende privéberichten voor "
 "deze groep worden weergegeven."
 
+#. TRANS: Form legend for sending private message to group %s.
 #, php-format
 msgid "Message to %s"
 msgstr "Bericht aan %s"
 
+#. TRANS: Field label for private group message to group %s.
 #, php-format
 msgid "Direct message to %s"
 msgstr "Privébericht aan %s"
 
+#. TRANS: Indicator for number of chatacters still available for notice.
 msgid "Available characters"
 msgstr "Beschikbare tekens"
 
+#. TRANS: Send button text for sending private group notice.
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Verzenden"
 
+#. TRANS: Exception thrown when trying to set group privacy setting if group %s does not allow private messages.
 #, php-format
 msgid "Group %s does not allow private messages."
 msgstr "De groep %s staat geen privéberichten toe."
 
+#. TRANS: Exception thrown when trying to send group private message while blocked from that group.
+#. TRANS: %1$s is a user nickname, %2$s is a group nickname.
 #, php-format
 msgid "User %1$s is blocked from group %2$s."
 msgstr "Gebruiker %1$s is verbannen uit groep %2$s."
 
+#. TRANS: Exception thrown when trying to send group private message while not a member.
+#. TRANS: %1$s is a user nickname, %2$s is a group nickname.
 #, php-format
 msgid "User %1$s is not a member of group %2$s."
 msgstr "De gebruiker %1$s is geen lid van de groep %2$s."
 
+#. TRANS: Exception thrown when trying to send group private message while not a group administrator.
+#. TRANS: %1$s is a user nickname, %2$s is a group nickname.
 #, php-format
 msgid "User %1$s is not an administrator of group %2$s."
 msgstr "De gebruiker %1$s is geen beheerder van de groep %2$s."
 
+#. TRANS: Exception thrown when encountering undefined group privacy settings.
+#. TRANS: %s is a group nickname.
 #, php-format
 msgid "Unknown privacy settings for group %s."
 msgstr "Onbekende privacyinstellingen voor de groep %s."
 
+#. TRANS: Exception thrown when trying to send group private message that is too long.
+#. TRANS: %d is the maximum meggage length.
 #, php-format
 msgid "That's too long. Maximum message size is %d character."
 msgid_plural "That's too long. Maximum message size is %d characters."
 msgstr[0] "Dat is te lang. De maximale berichtlengte is %d teken."
 msgstr[1] "Dat is te lang. De maximale berichtlengte is %d tekens."
 
+#. TRANS: Exception thrown when trying to send group private message to a non-existing group.
 msgid "No group for group message."
 msgstr "Er is geen groep voor het groepsbericht."
 
+#. TRANS: Exception thrown when trying to send group private message without having a sender.
 msgid "No sender for group message."
 msgstr "Er is geen afzender voor het groepsbericht."
 
+#. TRANS: Client exception thrown when trying to view group private messages without being logged in.
 msgid "Only logged-in users can view private messages."
 msgstr "Alleen aangemelde gebruikers kunnen privéberichten zien."
 
+#. TRANS: Client exception thrown when trying to view a non-existing group private message.
 msgid "No such message."
 msgstr "Dat bericht bestaat niet."
 
+#. TRANS: Server exception thrown when trying to view group private messages for a non-exsting group.
 msgid "Group not found."
 msgstr "De groep is niet aangetroffen."
 
+#. TRANS: Client exception thrown when trying to view a group private message without being a group member.
 msgid "Cannot read message."
 msgstr "Kan het bericht niet lezen."
 
+#. TRANS: Server exception thrown when trying to view a group private message without a sender.
 msgid "No sender found."
 msgstr "Geen afzender gevonden."
 
+#. TRANS: Title for private group message.
+#. TRANS: %1$s is the sender name, %2$s is the group name, %3$s is a timestamp.
 #, php-format
 msgid "Message from %1$s to group %2$s on %3$s"
 msgstr "Bericht van %1$s aan groep %2$s op %3$s"
 
+#. TRANS: Succes message after sending private group message to group %s.
 #, php-format
 msgid "Direct message to group %s sent."
 msgstr "Privébericht aan groep %s verzonden."

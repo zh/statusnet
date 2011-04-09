@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:14:05+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:36:10+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+"X-POT-Import-Date: 2011-04-03 23:28:43+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -30,27 +30,34 @@ msgid ""
 "contact them at %2$s to make sure. Otherwise, wait a few minutes and try "
 "again."
 msgstr ""
+"Базата на податоци за %1$s не одговара правилно, што значи дека мрежното "
+"место нема да работи како што треба. Администраторите веројатно се веќе "
+"запознаени со проблемот, но ако сакате сепак да проверите, обратете им се на "
+"%2$s. Во друг случај, почекајте неколку минути, па обидете се повторно."
 
 #. TRANS: Error message.
 msgid ""
 "An important error occured, probably related to email setup. Check logfiles "
 "for more info."
 msgstr ""
+"Се појави важна грешка, веројатно поврзана со востановката на е-поштата. "
+"Проверете ги дневничките податотеки за повеќе информации."
 
 #. TRANS: Error message.
 msgid "An error occurred."
-msgstr ""
+msgstr "Се појави грешка."
 
 #. TRANS: Error message displayed when there is no StatusNet configuration file.
 #, php-format
 msgid ""
 "No configuration file found. Try running the installation program first."
 msgstr ""
+"Не пронајдов податотека за поставки. Прво пуштете го програмот за "
+"инсталирање."
 
 #. TRANS: Error message displayed when trying to access a non-existing page.
-#, fuzzy
 msgid "Unknown page"
-msgstr "Непознато"
+msgstr "Непозната страница"
 
 #. TRANS: Error message displayed when trying to perform an undefined action.
 #. TRANS: Title for password recovery page when an unknown action has been specified.
@@ -76,6 +83,7 @@ msgstr ""
 "место?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
+#. TRANS: Checkbox field label on group edit form to mark a group private.
 msgctxt "LABEL"
 msgid "Private"
 msgstr "Приватно"
@@ -665,7 +673,7 @@ msgstr "%1$s групи кадешто членува %2$s."
 msgid "%s groups"
 msgstr "%s групи"
 
-#. TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+#. TRANS: Message is used as a subtitle when listing the latest 20 groups. %s is a site name.
 #, php-format
 msgid "groups on %s"
 msgstr "групи на %s"
@@ -1657,11 +1665,6 @@ msgstr "Адресата  \"%s\" е потврдена за Вашата сме�
 #. TRANS: Title for page with a conversion (multiple notices in context).
 msgid "Conversation"
 msgstr "Разговор"
-
-#. TRANS: Header on conversation page. Hidden by default (h2).
-#. TRANS: Label for user statistics.
-msgid "Notices"
-msgstr "Забелешки"
 
 #. TRANS: Title for conversation page.
 #. TRANS: Title for page that shows a notice.
@@ -3110,7 +3113,6 @@ msgid "License selection"
 msgstr "Избор на лиценца"
 
 #. TRANS: License option in the license admin panel.
-#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 msgid "Private"
 msgstr "Приватен"
 
@@ -3347,10 +3349,9 @@ msgstr "Ajax-грешка"
 
 #. TRANS: Page title for sending a new notice.
 #. TRANS: Title for form to send a new notice.
-#, fuzzy
 msgctxt "TITLE"
 msgid "New notice"
-msgstr "Ново забелешка"
+msgstr "Нова забелешка"
 
 #. TRANS: Page title after sending a notice.
 msgid "Notice posted"
@@ -6668,7 +6669,7 @@ msgstr "Непознат глагол: „%s“."
 msgid "Cannot force subscription for untrusted user."
 msgstr "Не можам да наметнам претплата од недоверлив корисник."
 
-#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#. TRANS: Client exception thrown when trying to force a remote user to subscribe.
 msgid "Cannot force remote user to subscribe."
 msgstr "Не можам да му наметнам на далечинскиот корисник да се претплати."
 
@@ -6704,7 +6705,7 @@ msgstr "Не презапишувам авторски податоци за н�
 msgid "No content for notice %s."
 msgstr "Нема содржина за забелешката %s."
 
-#. TRANS: Exception thrown if no user is provided. %s is a user ID.
+#. TRANS: Exception thrown if a non-existing user is provided. %s is a user ID.
 #, php-format
 msgid "No such user \"%s\"."
 msgstr "Нема корисник по име „%s“."
@@ -7545,6 +7546,13 @@ msgctxt "MENU"
 msgid "Public"
 msgstr "Јавна"
 
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item in local navigation menu.
+msgctxt "MENU"
+msgid "Groups"
+msgstr "Групи"
+
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
 msgid "Delete"
@@ -7725,21 +7733,10 @@ msgstr[1] ""
 "Дополнителни прекари за групата, одделени со запирка или празно место, "
 "највеќе до %d"
 
-#. TRANS: Dropdown fieldd label on group edit form.
-msgid "Membership policy"
-msgstr "Правило за членство"
-
-#. TRANS: Group membership policy option.
-msgid "Open to all"
-msgstr "Отворено за сите"
-
-#. TRANS: Group membership policy option.
-msgid "Admin must approve all members"
-msgstr "Администраторот мора да ги одобри сите членови"
-
-#. TRANS: Dropdown field title on group edit form.
-msgid "Whether admin approval is required to join this group."
-msgstr "Дали се бара одобрение од администраторот за зачленување во групава."
+#. TRANS: Checkbox field title on group edit form to mark a group private.
+msgid ""
+"New members must be approved by admin and all posts are forced to be private."
+msgstr ""
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
 msgctxt "GROUPADMIN"
@@ -7933,7 +7930,6 @@ msgid "Transport cannot be null."
 msgstr "Преносот не може да биде ништо."
 
 #. TRANS: Button text for joining a group.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Join"
 msgstr "Зачлени се"
@@ -8611,6 +8607,11 @@ msgstr "Дуплирана забелешка."
 msgid "Could not insert new subscription."
 msgstr "Не можев да внесам нова претплата."
 
+#. TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
+#, fuzzy
+msgid "No oEmbed API endpoint available."
+msgstr "НП е недостапно."
+
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -8675,14 +8676,12 @@ msgid "Settings"
 msgstr "Нагодувања"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Change your personal settings."
-msgstr "Измена на лични поставки"
+msgstr "Измена на лични поставки."
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Site configuration."
-msgstr "Поставки на мреж. место"
+msgstr "Поставки на мрежното место."
 
 #. TRANS: Menu item in primary navigation panel.
 msgctxt "MENU"
@@ -8690,14 +8689,12 @@ msgid "Logout"
 msgstr "Одјава"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Logout from the site."
-msgstr "Одјава"
+msgstr "Одјава од мрежното место."
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Login to the site."
-msgstr "Најава"
+msgstr "Најава на мрежното место."
 
 #. TRANS: Menu item in primary navigation panel.
 msgctxt "MENU"
@@ -8705,9 +8702,8 @@ msgid "Search"
 msgstr "Барај"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Search the site."
-msgstr "Пребарај по мрежното место"
+msgstr "Пребарај по мрежното место."
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -8741,6 +8737,10 @@ msgid "Groups"
 msgstr "Групи"
 
 #. TRANS: Label for user statistics.
+msgid "Notices"
+msgstr "Забелешки"
+
+#. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
 msgid "Daily average"
 msgstr "Дневен просек"
@@ -8752,12 +8752,6 @@ msgstr "Сите групи"
 #. TRANS: Server error displayed when using an unimplemented method.
 msgid "Unimplemented method."
 msgstr "Неимплементиран метод."
-
-#. TRANS: Menu item in search group navigation panel.
-#. TRANS: Menu item in local navigation menu.
-msgctxt "MENU"
-msgid "Groups"
-msgstr "Групи"
 
 #. TRANS: Menu item title in search group navigation panel.
 msgid "User groups"
@@ -8833,6 +8827,10 @@ msgid ""
 "* Try more general keywords.\n"
 "* Try fewer keywords.\n"
 msgstr ""
+"* Проверете дали сите зборови се напишани како што треба.\n"
+"* Обидете се со други клучни зборови.\n"
+"* Обидете се со поопшти клучни зборови.\n"
+"* Обидете се помалку клучни зборови.\n"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
 #, php-format
@@ -8847,6 +8845,14 @@ msgid ""
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Collecta](http://collecta.com/#q=%s)\n"
 msgstr ""
+"Можете и да се обидете и со други пребарувачи:\n"
+"\n"
+"* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
+"site.server%%%%)\n"
+"* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
+"* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)\n"
 
 #. TRANS: Menu item in search group navigation panel.
 msgctxt "MENU"
@@ -9206,6 +9212,11 @@ msgctxt "LABEL"
 msgid "To:"
 msgstr "За:"
 
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
+#, fuzzy
+msgid "Private?"
+msgstr "Приватен"
+
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
 #, php-format
 msgid "Unknown to value: \"%s\"."
@@ -9325,5 +9336,15 @@ msgstr "Неважечки XML. Нема XRD-корен."
 msgid "Getting backup from file '%s'."
 msgstr "Земам резерва на податотеката „%s“."
 
-#~ msgid "Couldn't update your design."
-#~ msgstr "Не можев да го подновам Вашиот изглед."
+#~ msgid "Membership policy"
+#~ msgstr "Правило за членство"
+
+#~ msgid "Open to all"
+#~ msgstr "Отворено за сите"
+
+#~ msgid "Admin must approve all members"
+#~ msgstr "Администраторот мора да ги одобри сите членови"
+
+#~ msgid "Whether admin approval is required to join this group."
+#~ msgstr ""
+#~ "Дали се бара одобрение од администраторот за зачленување во групава."

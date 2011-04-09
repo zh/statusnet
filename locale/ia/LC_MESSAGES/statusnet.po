@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:13:58+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:36:05+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-03 13:40:15+0000\n"
+"X-POT-Import-Date: 2011-04-03 23:28:43+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -29,27 +29,34 @@ msgid ""
 "contact them at %2$s to make sure. Otherwise, wait a few minutes and try "
 "again."
 msgstr ""
+"Le base de datos pro %1$s non responde correctemente, dunque le sito non "
+"functionara ben. Le administratores del sito es probabilemente conscie del "
+"problema, ma tu pote contactar les a %2$s pro assecurar te de isto. "
+"Alternativemente, attende alcun minutas e reproba."
 
 #. TRANS: Error message.
 msgid ""
 "An important error occured, probably related to email setup. Check logfiles "
 "for more info."
 msgstr ""
+"Un error importante occurreva, probabilemente connexe al configuration de e-"
+"mail. Examina le files de registro pro plus informationes."
 
 #. TRANS: Error message.
 msgid "An error occurred."
-msgstr ""
+msgstr "Un error ha occurrite."
 
 #. TRANS: Error message displayed when there is no StatusNet configuration file.
 #, php-format
 msgid ""
 "No configuration file found. Try running the installation program first."
 msgstr ""
+"Nulle file de configuration trovate. Tenta executar primo le programma de "
+"installation."
 
 #. TRANS: Error message displayed when trying to access a non-existing page.
-#, fuzzy
 msgid "Unknown page"
-msgstr "Incognite"
+msgstr "Pagina incognite"
 
 #. TRANS: Error message displayed when trying to perform an undefined action.
 #. TRANS: Title for password recovery page when an unknown action has been specified.
@@ -73,6 +80,7 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "Prohibir al usatores anonyme (sin session aperte) de vider le sito?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
+#. TRANS: Checkbox field label on group edit form to mark a group private.
 msgctxt "LABEL"
 msgid "Private"
 msgstr "Private"
@@ -661,7 +669,7 @@ msgstr "Gruppos de %1$s del quales %2$s es membro."
 msgid "%s groups"
 msgstr "Gruppos de %s"
 
-#. TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+#. TRANS: Message is used as a subtitle when listing the latest 20 groups. %s is a site name.
 #, php-format
 msgid "groups on %s"
 msgstr "gruppos in %s"
@@ -1654,11 +1662,6 @@ msgstr "Le adresse \"%s\" ha essite confirmate pro tu conto."
 #. TRANS: Title for page with a conversion (multiple notices in context).
 msgid "Conversation"
 msgstr "Conversation"
-
-#. TRANS: Header on conversation page. Hidden by default (h2).
-#. TRANS: Label for user statistics.
-msgid "Notices"
-msgstr "Notas"
 
 #. TRANS: Title for conversation page.
 #. TRANS: Title for page that shows a notice.
@@ -3102,7 +3105,6 @@ msgid "License selection"
 msgstr "Selection de licentia"
 
 #. TRANS: License option in the license admin panel.
-#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 msgid "Private"
 msgstr "Private"
 
@@ -3337,7 +3339,6 @@ msgstr "Error de Ajax"
 
 #. TRANS: Page title for sending a new notice.
 #. TRANS: Title for form to send a new notice.
-#, fuzzy
 msgctxt "TITLE"
 msgid "New notice"
 msgstr "Nove nota"
@@ -6636,7 +6637,7 @@ msgstr "Verbo incognite: \"%s\"."
 msgid "Cannot force subscription for untrusted user."
 msgstr "Non pote fortiar un subscription pro un usator non de confidentia."
 
-#. TRANS: Client exception thrown when trying to for a remote user to subscribe.
+#. TRANS: Client exception thrown when trying to force a remote user to subscribe.
 msgid "Cannot force remote user to subscribe."
 msgstr "Non pote fortiar un usator remote a cancellar le subscription."
 
@@ -6674,7 +6675,7 @@ msgstr ""
 msgid "No content for notice %s."
 msgstr "Nulle contento pro nota %s."
 
-#. TRANS: Exception thrown if no user is provided. %s is a user ID.
+#. TRANS: Exception thrown if a non-existing user is provided. %s is a user ID.
 #, php-format
 msgid "No such user \"%s\"."
 msgstr "Le usator \"%s\" non existe."
@@ -7515,6 +7516,13 @@ msgctxt "MENU"
 msgid "Public"
 msgstr "Public"
 
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item in local navigation menu.
+msgctxt "MENU"
+msgid "Groups"
+msgstr "Gruppos"
+
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
 msgid "Delete"
@@ -7694,22 +7702,10 @@ msgstr[1] ""
 "Pseudonymos additional pro le gruppo, separate per commas o spatios. Un "
 "maximo de %d aliases es permittite."
 
-#. TRANS: Dropdown fieldd label on group edit form.
-msgid "Membership policy"
-msgstr "Politica de adhesion"
-
-#. TRANS: Group membership policy option.
-msgid "Open to all"
-msgstr "Aperte a totes"
-
-#. TRANS: Group membership policy option.
-msgid "Admin must approve all members"
-msgstr "Administrator debe approbar tote le membros"
-
-#. TRANS: Dropdown field title on group edit form.
-msgid "Whether admin approval is required to join this group."
+#. TRANS: Checkbox field title on group edit form to mark a group private.
+msgid ""
+"New members must be approved by admin and all posts are forced to be private."
 msgstr ""
-"Si approbation per administrator es necessari pro adherer a iste gruppo."
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
 msgctxt "GROUPADMIN"
@@ -7904,7 +7900,6 @@ msgid "Transport cannot be null."
 msgstr "Le methodo de transporto non pote esser nulle."
 
 #. TRANS: Button text for joining a group.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Join"
 msgstr "Inscriber"
@@ -8282,9 +8277,8 @@ msgid "Inbox"
 msgstr "Cassa de entrata"
 
 #. TRANS: Menu item title in mailbox menu. Leads to incoming private messages.
-#, fuzzy
 msgid "Your incoming messages."
-msgstr "Tu messages recipite"
+msgstr "Tu messages recipite."
 
 #. TRANS: Menu item in mailbox menu. Leads to outgoing private messages.
 msgctxt "MENU"
@@ -8292,9 +8286,8 @@ msgid "Outbox"
 msgstr "Cassa de exito"
 
 #. TRANS: Menu item title in mailbox menu. Leads to outgoing private messages.
-#, fuzzy
 msgid "Your sent messages."
-msgstr "Tu messages inviate"
+msgstr "Tu messages inviate."
 
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail cannot be processed.
 msgid "Could not parse message."
@@ -8314,9 +8307,9 @@ msgstr "Pardono, le reception de e-mail non es permittite."
 
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail is of an unsupported type.
 #. TRANS: %s is the unsupported type.
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported message type: %s."
-msgstr "Typo de message non supportate: %s"
+msgstr "Typo de message non supportate: %s."
 
 #. TRANS: Form legend for form to make a user a group admin.
 msgid "Make user an admin of the group"
@@ -8402,7 +8395,6 @@ msgid "from"
 msgstr "via"
 
 #. TRANS: A possible notice source (web interface).
-#, fuzzy
 msgctxt "SOURCE"
 msgid "web"
 msgstr "web"
@@ -8410,26 +8402,24 @@ msgstr "web"
 #. TRANS: A possible notice source (XMPP).
 msgctxt "SOURCE"
 msgid "xmpp"
-msgstr ""
+msgstr "XMPP"
 
 #. TRANS: A possible notice source (e-mail).
-#, fuzzy
 msgctxt "SOURCE"
 msgid "mail"
-msgstr "E-mail"
+msgstr "e-mail"
 
 #. TRANS: A possible notice source (OpenMicroBlogging).
 msgctxt "SOURCE"
 msgid "omb"
-msgstr ""
+msgstr "OMB"
 
 #. TRANS: A possible notice source (Application Programming Interface).
 msgctxt "SOURCE"
 msgid "api"
-msgstr ""
+msgstr "API"
 
 #. TRANS: Client exception thrown when no author for an activity was found.
-#, fuzzy
 msgid "Cannot get author for activity."
 msgstr "Non pote determinar le autor pro le activitate."
 
@@ -8442,7 +8432,6 @@ msgid "Object not posted to this user."
 msgstr "Le objecto non es inviate a iste usator."
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
-#, fuzzy
 msgid "Do not know how to handle this kind of target."
 msgstr "Non sape manear iste typo de destination."
 
@@ -8558,15 +8547,13 @@ msgid "Nudge this user"
 msgstr "Pulsar iste usator"
 
 #. TRANS: Button text to nudge/ping another user.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Nudge"
 msgstr "Pulsar"
 
 #. TRANS: Button title to nudge/ping another user.
-#, fuzzy
 msgid "Send a nudge to this user."
-msgstr "Inviar un pulsata a iste usator"
+msgstr "Inviar un pulsata a iste usator."
 
 #. TRANS: Exception thrown when creating a new profile fails in OAuth store.
 msgid "Error inserting new profile."
@@ -8585,9 +8572,13 @@ msgid "Duplicate notice."
 msgstr "Nota duplicate."
 
 #. TRANS: Exception thrown when creating a new subscription fails in OAuth store.
-#, fuzzy
 msgid "Could not insert new subscription."
 msgstr "Non poteva inserer nove subscription."
+
+#. TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
+#, fuzzy
+msgid "No oEmbed API endpoint available."
+msgstr "Messageria instantanee non disponibile."
 
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
@@ -8653,14 +8644,12 @@ msgid "Settings"
 msgstr "Configurationes"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Change your personal settings."
-msgstr "Cambiar tu optiones personal"
+msgstr "Cambiar tu optiones personal."
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Site configuration."
-msgstr "Configuration del sito"
+msgstr "Configuration del sito."
 
 #. TRANS: Menu item in primary navigation panel.
 msgctxt "MENU"
@@ -8668,14 +8657,12 @@ msgid "Logout"
 msgstr "Clauder session"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Logout from the site."
-msgstr "Terminar le session del sito"
+msgstr "Terminar le session del sito."
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Login to the site."
-msgstr "Authenticar te a iste sito"
+msgstr "Authenticar te a iste sito."
 
 #. TRANS: Menu item in primary navigation panel.
 msgctxt "MENU"
@@ -8683,9 +8670,8 @@ msgid "Search"
 msgstr "Cercar"
 
 #. TRANS: Menu item title in primary navigation panel.
-#, fuzzy
 msgid "Search the site."
-msgstr "Cercar in le sito"
+msgstr "Cercar in le sito."
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
@@ -8719,6 +8705,10 @@ msgid "Groups"
 msgstr "Gruppos"
 
 #. TRANS: Label for user statistics.
+msgid "Notices"
+msgstr "Notas"
+
+#. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
 msgid "Daily average"
 msgstr "Media de cata die"
@@ -8730,12 +8720,6 @@ msgstr "Tote le gruppos"
 #. TRANS: Server error displayed when using an unimplemented method.
 msgid "Unimplemented method."
 msgstr "Methodo non implementate."
-
-#. TRANS: Menu item in search group navigation panel.
-#. TRANS: Menu item in local navigation menu.
-msgctxt "MENU"
-msgid "Groups"
-msgstr "Gruppos"
 
 #. TRANS: Menu item title in search group navigation panel.
 msgid "User groups"
@@ -8769,9 +8753,8 @@ msgid "Repeat this notice?"
 msgstr "Repeter iste nota?"
 
 #. TRANS: Button title to repeat a notice on notice repeat form.
-#, fuzzy
 msgid "Repeat this notice."
-msgstr "Repeter iste nota"
+msgstr "Repeter iste nota."
 
 #. TRANS: Description of role revoke form. %s is the role to be revoked.
 #, php-format
@@ -8783,7 +8766,6 @@ msgid "Page not found."
 msgstr "Pagina non trovate."
 
 #. TRANS: Title of form to sandbox a user.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Sandbox"
 msgstr "Cassa de sablo"
@@ -8813,6 +8795,10 @@ msgid ""
 "* Try more general keywords.\n"
 "* Try fewer keywords.\n"
 msgstr ""
+"* Verifica que tote le parolas es orthographiate correctemente.\n"
+"* Proba differente parolas-clave.\n"
+"* Proba parolas-clave plus general.\n"
+"* Proba minus parolas-clave.\n"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
 #, php-format
@@ -8827,6 +8813,15 @@ msgid ""
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Collecta](http://collecta.com/#q=%s)\n"
 msgstr ""
+"Tu pote anque probar le recerca in altere motores:\n"
+"\n"
+"* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
+"site.server%%%%)\n"
+"* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
+"* [Google](http://www.google.com/search?hl=ia&q=site%%3A%%%%site.server%%%%+%"
+"s)\n"
+"* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)\n"
 
 #. TRANS: Menu item in search group navigation panel.
 msgctxt "MENU"
@@ -8981,7 +8976,6 @@ msgid "Authorized connected applications"
 msgstr "Applicationes autorisate connectite"
 
 #. TRANS: Title of form to silence a user.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Silence"
 msgstr "Silentiar"
@@ -9054,7 +9048,6 @@ msgid "People Tagcloud as tagged"
 msgstr "Etiquettario de personas como etiquettate"
 
 #. TRANS: Content displayed in a tag cloud section if there are no tags.
-#, fuzzy
 msgctxt "NOTAGS"
 msgid "None"
 msgstr "Nulle"
@@ -9079,7 +9072,6 @@ msgid "Failed saving theme."
 msgstr "Salveguarda del apparentia fallite."
 
 #. TRANS: Server exception thrown when an uploaded theme has an incorrect structure.
-#, fuzzy
 msgid "Invalid theme: Bad directory structure."
 msgstr "Apparentia invalide: mal structura de directorios."
 
@@ -9097,7 +9089,6 @@ msgstr[1] ""
 "in forma non comprimite."
 
 #. TRANS: Server exception thrown when an uploaded theme is incomplete.
-#, fuzzy
 msgid "Invalid theme archive: Missing file css/display.css"
 msgstr "Archivo de apparentia invalide: manca le file css/display.css"
 
@@ -9116,10 +9107,10 @@ msgstr ""
 
 #. TRANS: Server exception thrown when an uploaded theme contains a file type that is not allowed.
 #. TRANS: %s is the file type that is not allowed.
-#, fuzzy, php-format
+#, php-format
 msgid "Theme contains file of type \".%s\", which is not allowed."
 msgstr ""
-"Le apparentia contine un file del typo '.%s', le qual non es permittite."
+"Le apparentia contine un file del typo \".%s\", le qual non es permittite."
 
 #. TRANS: Server exception thrown when an uploaded compressed theme cannot be opened.
 msgid "Error opening theme archive."
@@ -9156,7 +9147,7 @@ msgstr "Tu ha favorite iste nota."
 
 #. TRANS: List message for favoured notices.
 #. TRANS: %d is the number of users that have favoured a notice.
-#, fuzzy, php-format
+#, php-format
 msgid "One person has favored this notice."
 msgid_plural "%d people have favored this notice."
 msgstr[0] "Un persona ha favorite iste nota."
@@ -9169,7 +9160,7 @@ msgstr "Tu ha repetite iste nota."
 
 #. TRANS: List message for repeated notices.
 #. TRANS: %d is the number of users that have repeated a notice.
-#, fuzzy, php-format
+#, php-format
 msgid "One person has repeated this notice."
 msgid_plural "%d people have repeated this notice."
 msgstr[0] "Un persona ha repetite iste nota."
@@ -9194,6 +9185,11 @@ msgstr "Mi collegas a %s"
 msgctxt "LABEL"
 msgid "To:"
 msgstr "A:"
+
+#. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
+#, fuzzy
+msgid "Private?"
+msgstr "Private"
 
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
 #, php-format
@@ -9313,5 +9309,15 @@ msgstr "XML invalide, radice XRD mancante."
 msgid "Getting backup from file '%s'."
 msgstr "Obtene copia de reserva ex file '%s'."
 
-#~ msgid "Couldn't update your design."
-#~ msgstr "Non poteva actualisar tu apparentia."
+#~ msgid "Membership policy"
+#~ msgstr "Politica de adhesion"
+
+#~ msgid "Open to all"
+#~ msgstr "Aperte a totes"
+
+#~ msgid "Admin must approve all members"
+#~ msgstr "Administrator debe approbar tote le membros"
+
+#~ msgid "Whether admin approval is required to join this group."
+#~ msgstr ""
+#~ "Si approbation per administrator es necessari pro adherer a iste gruppo."

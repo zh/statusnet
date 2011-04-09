@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - TagSub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-03 23:11+0000\n"
-"PO-Revision-Date: 2011-04-03 23:16:33+0000\n"
+"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"PO-Revision-Date: 2011-04-09 18:38:40+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 13:41:48+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85293); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-03 23:29:00+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-tagsub\n"
@@ -25,10 +25,9 @@ msgstr ""
 msgid "Unsubscribe from this tag"
 msgstr "Відписатися від цього теґу"
 
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Unsubscribe"
-msgstr "Відписано"
+msgstr "Відписатись"
 
 #. TRANS: Plugin description.
 msgid "Plugin to allow following all messages with a given tag."
@@ -46,13 +45,16 @@ msgstr "Налаштування підписок на теґи"
 msgid "Tag subscriptions"
 msgstr "Підписки на теґи"
 
+#, fuzzy
+msgid "Tags"
+msgstr "Теґи"
+
 msgid "Subscribe to this tag"
 msgstr "Підписатися на цей теґ"
 
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Subscribe"
-msgstr "Підписано"
+msgstr "Підписатись"
 
 #. TRANS: Page title when tag unsubscription succeeded.
 msgid "Unsubscribed"
@@ -61,19 +63,19 @@ msgstr "Відписано"
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Ця дія приймає лише запити POST."
 
 #. TRANS: Client error displayed when the session token is not okay.
 msgid "There was a problem with your session token. Try again, please."
-msgstr ""
+msgstr "Виникли певні проблеми з токеном сесії. Спробуйте знов, будь ласка."
 
 #. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
 msgid "Not logged in."
-msgstr ""
+msgstr "Не увійшли."
 
 #. TRANS: Client error displayed trying to subscribe to a non-existing profile.
 msgid "No such profile."
-msgstr ""
+msgstr "Немає такого профілю."
 
 #. TRANS: Page title when tag subscription succeeded.
 msgid "Subscribed"
@@ -115,6 +117,10 @@ msgid ""
 "messages on this site that use that tag, even if you are not subscribed to "
 "the poster."
 msgstr ""
+"Наразі ви не маєте підписок на жоден теґ. Натисніть на кнопку «Підписатися» "
+"на будь-якій сторінці теґу, щоб мати можливість отримувати автоматично всі "
+"дописи, які будуть позначені відповідною міткою, тоді ви отримуватимете "
+"дописи від користувачів, до яких ви навіть не підписані."
 
 #. TRANS: Tag subscription list text when looking at the subscriptions for a of a user other
 #. TRANS: than the logged in user that has no tag subscriptions. %s is the user nickname.
