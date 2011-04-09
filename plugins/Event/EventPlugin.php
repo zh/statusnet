@@ -488,4 +488,18 @@ class EventPlugin extends MicroappPlugin
         $action->cssLink($this->path('event.css'));
         return true;
     }
+
+    function onStartShowThreadedNoticeTail($nli, $notice, &$children)
+    {
+        // Filter out any poll responses
+        if ($notice->object_type == Happening::OBJECT_TYPE) {
+            $children = array_filter($children, array($this, 'isNotRSVP'));
+        }
+        return true;
+    }
+
+    function isNotRSVP($notice)
+    {
+        return (!in_array($notice->object_type, array(RSVP::POSITIVE, RSVP::NEGATIVE, RSVP::POSSIBLE)));
+    }
 }
