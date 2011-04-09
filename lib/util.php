@@ -638,7 +638,7 @@ function common_linkify_mention($mention)
 
         $xs->elementStart('span', 'vcard');
         $xs->elementStart('a', $attrs);
-        $xs->element('span', 'fn nickname', $mention['text']);
+        $xs->element('span', 'fn nickname profile', $mention['text']);
         $xs->elementEnd('a');
         $xs->elementEnd('span');
 
@@ -1148,7 +1148,7 @@ function common_group_link($sender_id, $nickname)
         $xs = new XMLStringer();
         $xs->elementStart('span', 'vcard');
         $xs->elementStart('a', $attrs);
-        $xs->element('span', 'fn nickname', $nickname);
+        $xs->element('span', 'fn nickname group', $nickname);
         $xs->elementEnd('a');
         $xs->elementEnd('span');
         return $xs->getString();
