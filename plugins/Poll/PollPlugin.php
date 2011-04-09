@@ -480,4 +480,18 @@ class PollPlugin extends MicroAppPlugin
         // TRANS: Application title.
         return _m('APPTITLE','Poll');
     }
+
+    function onStartShowThreadedNoticeTail($nli, $notice, &$children)
+    {
+        // Filter out any poll responses
+        if ($notice->object_type == self::POLL_OBJECT) {
+            $children = array_filter($children, array($this, 'isNotPollResponse'));
+        }
+        return true;
+    }
+
+    function isNotPollResponse($notice)
+    {
+        return ($notice->object_type != self::POLL_RESPONSE_OBJECT);
+    }
 }
