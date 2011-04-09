@@ -80,7 +80,7 @@ class User extends Memcached_DataObject
      */
     function getProfile()
     {
-        if ($this->_profile == -1) { // invalid but distinct from null
+        if (is_int($this->_profile) && $this->_profile == -1) { // invalid but distinct from null
             $this->_profile = Profile::staticGet('id', $this->id);
             if (empty($this->_profile)) {
                 throw new UserNoProfileException($this);

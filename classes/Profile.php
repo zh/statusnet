@@ -56,7 +56,7 @@ class Profile extends Memcached_DataObject
 
     function getUser()
     {
-        if ($this->_user == -1) {
+        if (is_int($this->_user) && $this->_user == -1) {
             $this->_user = User::staticGet('id', $this->id);
         }
 

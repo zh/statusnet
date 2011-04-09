@@ -100,7 +100,7 @@ class Notice extends Memcached_DataObject
 
     function getProfile()
     {
-        if ($this->_profile == -1) {
+        if (is_int($this->_profile) && $this->_profile == -1) {
             $this->_profile = Profile::staticGet('id', $this->profile_id);
 
             if (empty($this->_profile)) {
