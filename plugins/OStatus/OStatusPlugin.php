@@ -951,6 +951,14 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Notify remote user it has got a new people tag
+     *   - tag verb is queued
+     *   - the subscription is done immediately if not present
+     *
+     * @param Profile_tag $ptag the people tag that was created
+     * @return hook return value
+     */
     function onEndTagProfile($ptag)
     {
         $oprofile = Ostatus_profile::staticGet('profile_id', $ptag->tagged);
@@ -984,7 +992,7 @@ class OStatusPlugin extends Plugin
         $act->objects = array(ActivityObject::fromProfile($tagged));
         $act->target = ActivityObject::fromPeopletag($plist);
 
-        $oprofile->notifyActivity($act, $tagger);
+        $oprofile->notifyDeferred($act, $tagger);
 
         // initiate a PuSH subscription for the person being tagged
         if (!$oprofile->subscribe()) {
@@ -995,6 +1003,15 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Notify remote user that a people tag has been removed
+     *   - untag verb is queued
+     *   - the subscription is undone immediately if not required
+     *     i.e garbageCollect()'d
+     *
+     * @param Profile_tag $ptag the people tag that was deleted
+     * @return hook return value
+     */
     function onEndUntagProfile($ptag)
     {
         $oprofile = Ostatus_profile::staticGet('profile_id', $ptag->tagged);
@@ -1028,7 +1045,7 @@ class OStatusPlugin extends Plugin
         $act->objects = array(ActivityObject::fromProfile($tagged));
         $act->target = ActivityObject::fromPeopletag($plist);
 
-        $oprofile->notifyActivity($act, $tagger);
+        $oprofile->notifyDeferred($act, $tagger);
 
         // unsubscribe to PuSH feed if no more required
         $oprofile->garbageCollect();
