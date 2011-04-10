@@ -53,7 +53,6 @@ class Ostatus_profile extends Managed_DataObject
      *
      * @return array array of column definitions
      */
-
     static function schemaDef()
     {
         return array(
@@ -172,10 +171,10 @@ class Ostatus_profile extends Managed_DataObject
             return true;
         } else if ($this->group_id && ($this->profile_id || $this->peopletag_id)) {
             // TRANS: Server exception. %s is a URI
-            throw new ServerException(_m("Invalid ostatus_profile state: two or more IDs set for %s", $this->uri));
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: two or more IDs set for %s'), $this->uri));
         } else {
             // TRANS: Server exception. %s is a URI
-            throw new ServerException(_m("Invalid ostatus_profile state: all IDs empty for %s", $this->uri));
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: all IDs empty for %s.'), $this->uri));
         }
     }
 
@@ -190,10 +189,10 @@ class Ostatus_profile extends Managed_DataObject
             return true;
         } else if ($this->peopletag_id && ($this->profile_id || $this->group_id)) {
             // TRANS: Server exception. %s is a URI
-            throw new ServerException(_m("Invalid ostatus_profile state: two or more IDs set for %s", $this->uri));
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: two or more IDs set for %s'), $this->uri));
         } else {
             // TRANS: Server exception. %s is a URI
-            throw new ServerException(_m("Invalid ostatus_profile state: all IDs empty for %s", $this->uri));
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: all IDs empty for %s.'), $this->uri));
         }
     }
 
@@ -296,7 +295,6 @@ class Ostatus_profile extends Managed_DataObject
             $object = $this;
         }
         if ($this->salmonuri) {
-
             $text = 'update';
             $id = TagURI::mint('%s:%s:%s',
                                $verb,
@@ -466,14 +464,12 @@ class Ostatus_profile extends Managed_DataObject
      * @param DOMElement $feed for context
      * @param string $source identifier ("push" or "salmon")
      */
-
     public function processEntry($entry, $feed, $source)
     {
         $activity = new Activity($entry, $feed);
 
         if (Event::handle('StartHandleFeedEntryWithProfile', array($activity, $this)) &&
             Event::handle('StartHandleFeedEntry', array($activity))) {
-
             // @todo process all activity objects
             switch ($activity->objects[0]->type) {
             case ActivityObject::ARTICLE:
@@ -481,7 +477,7 @@ class Ostatus_profile extends Managed_DataObject
             case ActivityObject::NOTE:
             case ActivityObject::STATUS:
             case ActivityObject::COMMENT:
-			case null:
+            case null:
                 if ($activity->verb == ActivityVerb::POST) {
                     $this->processPost($activity, $source);
                 } else {
@@ -490,7 +486,7 @@ class Ostatus_profile extends Managed_DataObject
                 break;
             default:
                 // TRANS: Client exception.
-                throw new ClientException(_m('Can\'t handle that kind of post.'));
+                throw new ClientException(_m('Cannot handle that kind of post.'));
             }
 
             Event::handle('EndHandleFeedEntry', array($activity));
@@ -580,7 +576,7 @@ class Ostatus_profile extends Managed_DataObject
                 // We mark up the attachment link specially for the HTML output
                 // so we can fold-out the full version inline.
 
-                // @fixme I18N this tooltip will be saved with the site's default language
+                // @todo FIXME i18n: This tooltip will be saved with the site's default language
                 // TRANS: Shown when a notice is longer than supported and/or when attachments are present. At runtime
                 // TRANS: this will usually be replaced with localised text from StatusNet core messages.
                 $showMoreText = _m('Show more');
@@ -761,7 +757,6 @@ class Ostatus_profile extends Managed_DataObject
      * @throws Exception on various error conditions
      * @throws OStatusShadowException if this reference would obscure a local user/group
      */
-
     public static function ensureProfileURL($profile_url, $hints=array())
     {
         $oprofile = self::getFromProfileURL($profile_url);
@@ -930,7 +925,6 @@ class Ostatus_profile extends Managed_DataObject
      * @return Ostatus_profile
      * @throws Exception
      */
-
     public static function ensureAtomFeed($feedEl, $hints)
     {
         $author = ActivityUtils::getFeedAuthor($feedEl);
@@ -938,7 +932,7 @@ class Ostatus_profile extends Managed_DataObject
         if (empty($author)) {
             // XXX: make some educated guesses here
             // TRANS: Feed sub exception.
-            throw new FeedSubException(_m('Can\'t find enough profile '.
+            throw new FeedSubException(_m('Cannot find enough profile '.
                                           'information to make a feed.'));
         }
 
@@ -1002,7 +996,7 @@ class Ostatus_profile extends Managed_DataObject
         }
         if (!common_valid_http_url($url)) {
             // TRANS: Server exception. %s is a URL.
-            throw new ServerException(sprintf(_m("Invalid avatar URL %s."), $url));
+            throw new ServerException(sprintf(_m('Invalid avatar URL %s.'), $url));
         }
 
         if ($this->isGroup()) {
@@ -1013,7 +1007,7 @@ class Ostatus_profile extends Managed_DataObject
         if (!$self) {
             throw new ServerException(sprintf(
                 // TRANS: Server exception. %s is a URI.
-                _m("Tried to update avatar for unsaved remote profile %s."),
+                _m('Tried to update avatar for unsaved remote profile %s.'),
                 $this->uri));
         }
 
@@ -1023,7 +1017,7 @@ class Ostatus_profile extends Managed_DataObject
         try {
             if (!copy($url, $temp_filename)) {
                 // TRANS: Server exception. %s is a URL.
-                throw new ServerException(sprintf(_m("Unable to fetch avatar from %s."), $url));
+                throw new ServerException(sprintf(_m('Unable to fetch avatar from %s.'), $url));
             }
 
             if ($this->isGroup()) {
@@ -1064,7 +1058,6 @@ class Ostatus_profile extends Managed_DataObject
      * @param array $hints
      * @return mixed URL string or false
      */
-
     public static function getActivityObjectAvatar($object, $hints=array())
     {
         if ($object->avatarLinks) {
@@ -1094,7 +1087,6 @@ class Ostatus_profile extends Managed_DataObject
      * @param DOMElement $feed
      * @return string
      */
-
     protected static function getAvatar($actor, $feed)
     {
         $url = '';
@@ -1146,7 +1138,6 @@ class Ostatus_profile extends Managed_DataObject
      * @return Ostatus_profile
      * @throws Exception
      */
-
     public static function ensureActorProfile($activity, $hints=array())
     {
         return self::ensureActivityObjectProfile($activity->actor, $hints);
@@ -1163,7 +1154,6 @@ class Ostatus_profile extends Managed_DataObject
      * @return Ostatus_profile
      * @throws Exception
      */
-
     public static function ensureActivityObjectProfile($object, $hints=array())
     {
         $profile = self::getActivityObjectProfile($object);
@@ -1244,25 +1234,25 @@ class Ostatus_profile extends Managed_DataObject
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
-            throw new Exception("No profile URI");
+            throw new Exception('No profile URI.');
         }
 
         $user = User::staticGet('uri', $homeuri);
         if ($user) {
             // TRANS: Exception.
-            throw new Exception(_m('Local user can\'t be referenced as remote.'));
+            throw new Exception(_m('Local user cannot be referenced as remote.'));
         }
 
         if (OStatusPlugin::localGroupFromUrl($homeuri)) {
             // TRANS: Exception.
-            throw new Exception(_m('Local group can\'t be referenced as remote.'));
+            throw new Exception(_m('Local group cannot be referenced as remote.'));
         }
 
         $ptag = Profile_list::staticGet('uri', $homeuri);
         if ($ptag) {
             $local_user = User::staticGet('id', $ptag->tagger);
             if (!empty($local_user)) {
-                throw new Exception("Local peopletag can't be referenced as remote.");
+                throw new Exception('Local people tag cannot be referenced as remote.');
             }
         }
 
@@ -1315,7 +1305,7 @@ class Ostatus_profile extends Managed_DataObject
             $oprofile->profile_id = $profile->insert();
             if (!$oprofile->profile_id) {
             // TRANS: Server exception.
-                throw new ServerException(_m('Can\'t save local profile.'));
+                throw new ServerException(_m('Cannot save local profile.'));
             }
         } else if ($object->type == ActivityObject::GROUP) {
             $group = new User_group();
@@ -1326,7 +1316,7 @@ class Ostatus_profile extends Managed_DataObject
             $oprofile->group_id = $group->insert();
             if (!$oprofile->group_id) {
                 // TRANS: Server exception.
-                throw new ServerException(_m('Can\'t save local profile.'));
+                throw new ServerException(_m('Cannot save local profile.'));
             }
         } else if ($object->type == ActivityObject::_LIST) {
             $ptag = new Profile_list();
@@ -1336,7 +1326,7 @@ class Ostatus_profile extends Managed_DataObject
 
             $oprofile->peopletag_id = $ptag->insert();
             if (!$oprofile->peopletag_id) {
-                throw new ServerException("Can't save local peopletag");
+                throw new ServerException('Cannot save local people tag.');
             }
         }
 
@@ -1344,7 +1334,7 @@ class Ostatus_profile extends Managed_DataObject
 
         if (!$ok) {
             // TRANS: Server exception.
-            throw new ServerException(_m('Can\'t save OStatus profile.'));
+            throw new ServerException(_m('Cannot save OStatus profile.'));
         }
 
         $avatar = self::getActivityObjectAvatar($object, $hints);
@@ -1666,7 +1656,6 @@ class Ostatus_profile extends Managed_DataObject
         }
 
         // Try looking it up
-
         $oprofile = Ostatus_profile::staticGet('uri', 'acct:'.$addr);
 
         if (!empty($oprofile)) {
@@ -1695,7 +1684,6 @@ class Ostatus_profile extends Managed_DataObject
         $hints = array_merge($hints, $dhints);
 
         // If there's an Hcard, let's grab its info
-
         if (array_key_exists('hcard', $hints)) {
             if (!array_key_exists('profileurl', $hints) ||
                 $hints['hcard'] != $hints['profileurl']) {
@@ -1705,7 +1693,6 @@ class Ostatus_profile extends Managed_DataObject
         }
 
         // If we got a feed URL, try that
-
         if (array_key_exists('feedurl', $hints)) {
             try {
                 common_log(LOG_INFO, "Discovery on acct:$addr with feed URL " . $hints['feedurl']);
@@ -1719,7 +1706,6 @@ class Ostatus_profile extends Managed_DataObject
         }
 
         // If we got a profile page, try that!
-
         if (array_key_exists('profileurl', $hints)) {
             try {
                 common_log(LOG_INFO, "Discovery on acct:$addr with profile URL $profileUrl");
@@ -1767,7 +1753,7 @@ class Ostatus_profile extends Managed_DataObject
             if (!$profile_id) {
                 common_log_db_error($profile, 'INSERT', __FILE__);
                 // TRANS: Exception. %s is a webfinger address.
-                throw new Exception(sprintf(_m('Couldn\'t save profile for "%s".'),$addr));
+                throw new Exception(sprintf(_m('Could not save profile for "%s".'),$addr));
             }
 
             $oprofile = new Ostatus_profile();
@@ -1786,7 +1772,7 @@ class Ostatus_profile extends Managed_DataObject
             if (!$result) {
                 common_log_db_error($oprofile, 'INSERT', __FILE__);
                 // TRANS: Exception. %s is a webfinger address.
-                throw new Exception(sprintf(_m('Couldn\'t save ostatus_profile for "%s".'),$addr));
+                throw new Exception(sprintf(_m('Could not save ostatus_profile for "%s".'),$addr));
             }
 
             self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
@@ -1794,7 +1780,7 @@ class Ostatus_profile extends Managed_DataObject
         }
 
         // TRANS: Exception. %s is a webfinger address.
-        throw new Exception(sprintf(_m('Couldn\'t find a valid profile for "%s".'),$addr));
+        throw new Exception(sprintf(_m('Could not find a valid profile for "%s".'),$addr));
     }
 
     /**
@@ -1867,11 +1853,16 @@ class Ostatus_profile extends Managed_DataObject
                     $oprofile = Ostatus_profile::ensureWebfinger($rest);
                     break;
                 default:
-                    throw new ServerException("Unrecognized URI protocol for profile: $protocol ($uri)");
+                    // TRANS: Server exception.
+                    // TRANS: %1$s is a protocol, %2$s is a URI.
+                    throw new ServerException(sprintf(_m('Unrecognized URI protocol for profile: %1$s (%2$s).'),
+                                                      $protocol,
+                                                      $uri));
                     break;
                 }
             } else {
-                throw new ServerException("No URI protocol for profile: ($uri)");
+                // TRANS: Server exception. %s is a URI.
+                throw new ServerException(sprintf(_m('No URI protocol for profile: %s.'),$uri));
             }
         }
 

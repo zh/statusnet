@@ -95,7 +95,7 @@ class OStatusPeopletagAction extends OStatusSubAction
         $cur = common_current_user();
         if ($ptag->hasSubscriber($cur->id)) {
             $this->element('div', array('class' => 'error'),
-                           _m("You are already subscribed to this peopletag."));
+                           _m('You are already subscribed to this people tag.'));
             $ok = false;
         } else {
             $ok = true;

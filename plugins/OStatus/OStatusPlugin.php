@@ -245,6 +245,7 @@ class OStatusPlugin extends Plugin
                                     array('group' => $group->nickname));
             $widget->out->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
+                                // TRANS: Link to subscribe to a remote entity.
                                 _m('Subscribe'));
 
             $output->elementEnd('li');
@@ -265,6 +266,7 @@ class OStatusPlugin extends Plugin
                                     array('tagger' => $profile->nickname, 'peopletag' => $peopletag->tag));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
+                                // TRANS: Link to subscribe to a remote entity.
                                 _m('Subscribe'));
 
             $output->elementEnd('li');
@@ -283,7 +285,8 @@ class OStatusPlugin extends Plugin
                                            'action' => common_local_url('tagprofile', array('id' => @$profile->id))));
 
         $action->elementStart('fieldset');
-        $action->element('legend', null, _('Tag remote profile'));
+        // TRANS: Fieldset legend.
+        $action->element('legend', null, _m('Tag remote profile'));
         $action->hidden('token', common_session_token());
 
         $user = common_current_user();
@@ -291,11 +294,14 @@ class OStatusPlugin extends Plugin
         $action->elementStart('ul', 'form_data');
         $action->elementStart('li');
 
-        $action->input('uri', _('Remote profile'), $action->trimmed('uri'),
-                     _('OStatus user\'s address, like nickname@example.com or http://example.net/nickname'));
+        // TRANS: Field label.
+        $action->input('uri', _m('LABEL','Remote profile'), $action->trimmed('uri'),
+                     // TRANS: Field title.
+                     _m('OStatus user\'s address, like nickname@example.com or http://example.net/nickname.'));
         $action->elementEnd('li');
         $action->elementEnd('ul');
-        $action->submit('fetch', _('Fetch'));
+        // TRANS: Button text to fetch remote profile.
+        $action->submit('fetch', _m('BUTTON','Fetch'));
         $action->elementEnd('fieldset');
         $action->elementEnd('form');
     }
@@ -312,7 +318,8 @@ class OStatusPlugin extends Plugin
                 } else if (Validate::uri($uri)) {
                     $oprofile = Ostatus_profile::ensureProfileURL($uri);
                 } else {
-                    throw new Exception('Invalid URI');
+                    // TRANS: Exception in OStatus when invalid URI was entered.
+                    throw new Exception(_m('Invalid URI.'));
                 }
 
                 // redirect to the new profile.
@@ -320,7 +327,8 @@ class OStatusPlugin extends Plugin
                 return false;
 
             } catch (Exception $e) {
-                $err = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
+                // TRANS: Error message in OStatus plugin.
+                $err = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname.");
             }
 
             $action->showForm($err);
@@ -346,12 +354,14 @@ class OStatusPlugin extends Plugin
                     } else if (Validate::uri($q)) {
                         $oprofile = Ostatus_profile::ensureProfileURL($q);
                     } else {
-                        throw new Exception('Invalid URI');
+                        // TRANS: Exception in OStatus when invalid URI was entered.
+                        throw new Exception(_m('Invalid URI.'));
                     }
                     return $this->filter(array($oprofile->localProfile()));
 
                 } catch (Exception $e) {
-                    $this->msg = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
+                    // TRANS: Error message in OStatus plugin.
+                    $this->msg = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname.");
                     return array();
                 }
             }
@@ -369,7 +379,6 @@ class OStatusPlugin extends Plugin
      * @param array &$mention in/out param: set of found mentions
      * @return boolean hook return value
      */
-
     function onEndFindMentions($sender, $text, &$mentions)
     {
         $matches = array();
@@ -566,12 +575,13 @@ class OStatusPlugin extends Plugin
                 }
 
                 $url = $notice->url;
-                // TRANSLATE: %s is a domain.
-                $title = sprintf(_m("Sent from %s via OStatus"), $domain);
+                // TRANS: Title.
+                // TRANS: %s is a domain name.
+                $title = sprintf(_m('Sent from %s via OStatus'), $domain);
                 return false;
             }
         }
-	return true;
+    return true;
     }
 
     /**
@@ -638,7 +648,7 @@ class OStatusPlugin extends Plugin
         }
 
         if (!$oprofile->subscribe()) {
-            // TRANS: Exception.
+            // TRANS: Exception thrown when setup of remote subscription fails.
             throw new Exception(_m('Could not set up remote subscription.'));
         }
     }
@@ -680,7 +690,7 @@ class OStatusPlugin extends Plugin
 
     /**
      * Notify remote server and garbage collect unused feeds on unsubscribe.
-     * @fixme send these operations to background queues
+     * @todo FIXME: Send these operations to background queues
      *
      * @param User $user
      * @param Profile $other
@@ -713,7 +723,8 @@ class OStatusPlugin extends Plugin
                                   common_date_iso8601(time()));
 
         $act->time    = time();
-        $act->title   = _m('Unfollow');
+        // TRANS: Title for unfollowing a remote profile.
+        $act->title   = _m('TITLE','Unfollow');
         // TRANS: Success message for unsubscribe from user attempt through OStatus.
         // TRANS: %1$s is the unsubscriber's name, %2$s is the unsubscribed user's name.
         $act->content = sprintf(_m('%1$s stopped following %2$s.'),
@@ -738,12 +749,12 @@ class OStatusPlugin extends Plugin
      *
      * @return mixed hook return value
      */
-
     function onStartJoinGroup($group, $user)
     {
         $oprofile = Ostatus_profile::staticGet('group_id', $group->id);
         if ($oprofile) {
             if (!$oprofile->subscribe()) {
+                // TRANS: Exception thrown when setup of remote group membership fails.
                 throw new Exception(_m('Could not set up remote group membership.'));
             }
 
@@ -763,7 +774,8 @@ class OStatusPlugin extends Plugin
             $act->object = $oprofile->asActivityObject();
 
             $act->time = time();
-            $act->title = _m("Join");
+            // TRANS: Title to join a remote group.
+            $act->title = _m('TITLE','Join');
             // TRANS: Success message for subscribe to group attempt through OStatus.
             // TRANS: %1$s is the member name, %2$s is the subscribed group's name.
             $act->content = sprintf(_m('%1$s has joined group %2$s.'),
@@ -774,8 +786,8 @@ class OStatusPlugin extends Plugin
                 return true;
             } else {
                 $oprofile->garbageCollect();
-                // TRANS: Exception.
-                throw new Exception(_m("Failed joining remote group."));
+                // TRANS: Exception thrown when joining a remote group fails.
+                throw new Exception(_m('Failed joining remote group.'));
             }
         }
     }
@@ -794,7 +806,6 @@ class OStatusPlugin extends Plugin
      *
      * @return mixed hook return value
      */
-
     function onEndLeaveGroup($group, $user)
     {
         $oprofile = Ostatus_profile::staticGet('group_id', $group->id);
@@ -815,7 +826,8 @@ class OStatusPlugin extends Plugin
             $act->object = $oprofile->asActivityObject();
 
             $act->time = time();
-            $act->title = _m("Leave");
+            // TRANS: Title for leaving a remote group.
+            $act->title = _m('TITLE','Leave');
             // TRANS: Success message for unsubscribe from group attempt through OStatus.
             // TRANS: %1$s is the member name, %2$s is the unsubscribed group's name.
             $act->content = sprintf(_m('%1$s has left group %2$s.'),
@@ -842,7 +854,8 @@ class OStatusPlugin extends Plugin
         $oprofile = Ostatus_profile::staticGet('peopletag_id', $peopletag->id);
         if ($oprofile) {
             if (!$oprofile->subscribe()) {
-                throw new Exception(_m('Could not set up remote peopletag subscription.'));
+                // TRANS: Exception thrown when setup of remote people tag subscription fails.
+                throw new Exception(_m('Could not set up remote people tag subscription.'));
             }
 
             $sub = $user->getProfile();
@@ -859,8 +872,11 @@ class OStatusPlugin extends Plugin
             $act->object = $oprofile->asActivityObject();
 
             $act->time = time();
-            $act->title = _m("Follow list");
-            $act->content = sprintf(_m("%s is now following people tagged %s by %s."),
+            // TRANS: Title for remote follow list.
+            $act->title = _m('TITLE','Follow list');
+            // TRANS: Success message for remote list follow through OStatus.
+            // TRANS: %1$s is the subscriber name, %2$s the prople tag, %3$s is the tagger's name.
+            $act->content = sprintf(_m("%1$s is now following people tagged %2$s by %3$s."),
                                     $sub->getBestName(),
                                     $oprofile->getBestName(),
                                     $tagger->getBestName());
@@ -869,7 +885,8 @@ class OStatusPlugin extends Plugin
                 return true;
             } else {
                 $oprofile->garbageCollect();
-                throw new Exception(_m("Failed subscribing to remote peopletag."));
+                // TRANS: Exception thrown when subscription of remote people tag fails.
+                throw new Exception(_m('Failed subscribing to remote people tag.'));
             }
         }
     }
@@ -905,8 +922,8 @@ class OStatusPlugin extends Plugin
             $act->object = $oprofile->asActivityObject();
 
             $act->time = time();
-            $act->title = _m("Unfollow peopletag");
-            $act->content = sprintf(_m("%s stopped following the list %s by %s."),
+            $act->title = _m('Unfollow people tag');
+            $act->content = sprintf(_m('%1$s stopped following the list %2$s by %3$s.'),
                                     $sub->getBestName(),
                                     $oprofile->getBestName(),
                                     $tagger->getBestName());
@@ -982,8 +999,8 @@ class OStatusPlugin extends Plugin
                                   $plist->tagger, $plist->id,
                                   common_date_iso8601(time()));
         $act->time = time();
-        $act->title = _("Tag");
-        $act->content = sprintf(_("%s tagged %s in the list %s"),
+        $act->title = _m('TITLE','Tag');
+        $act->content = sprintf(_m('%1$s tagged %2$s in the list %3$s.'),
                                 $tagger->getBestName(),
                                 $tagged->getBestName(),
                                 $plist->getBestName());
@@ -996,7 +1013,7 @@ class OStatusPlugin extends Plugin
 
         // initiate a PuSH subscription for the person being tagged
         if (!$oprofile->subscribe()) {
-            throw new Exception(sprintf(_('Could not complete subscription to remote '.
+            throw new Exception(sprintf(_m('Could not complete subscription to remote '.
                                           'profile\'s feed. Tag %s could not be saved.'), $ptag->tag));
             return false;
         }
@@ -1035,8 +1052,8 @@ class OStatusPlugin extends Plugin
                                   $plist->tagger, $plist->id,
                                   common_date_iso8601(time()));
         $act->time = time();
-        $act->title = _("Untag");
-        $act->content = sprintf(_("%s untagged %s from the list %s"),
+        $act->title = _m('TITLE','Untag');
+        $act->content = sprintf(_('%1$s untagged %2$s from the list %3$s.'),
                                 $tagger->getBestName(),
                                 $tagged->getBestName(),
                                 $plist->getBestName());
@@ -1061,7 +1078,6 @@ class OStatusPlugin extends Plugin
      *
      * @return hook return value
      */
-
     function onEndDisfavorNotice(Profile $profile, Notice $notice)
     {
         $user = User::staticGet('id', $profile->id);
@@ -1206,7 +1222,7 @@ class OStatusPlugin extends Plugin
         $act->title   = _m("Profile update");
         // TRANS: Ping text for remote profile update through OStatus.
         // TRANS: %s is user that updated their profile.
-        $act->content = sprintf(_m("%s has updated their profile page."),
+        $act->content = sprintf(_m('%s has updated their profile page.'),
                                $profile->getBestName());
 
         $act->actor   = ActivityObject::fromProfile($profile);
@@ -1317,7 +1333,7 @@ class OStatusPlugin extends Plugin
         // so we check locally first.
 
         $user = User::staticGet('uri', $uri);
-        
+
         if (!empty($user)) {
             $profile = $user->getProfile();
             return false;
@@ -1339,13 +1355,13 @@ class OStatusPlugin extends Plugin
 
     function onEndXrdActionLinks(&$xrd, $user)
     {
-    	$xrd->links[] = array('rel' => Discovery::UPDATESFROM,
-			      'href' => common_local_url('ApiTimelineUser',
-							 array('id' => $user->id,
-							       'format' => 'atom')),
-			      'type' => 'application/atom+xml');
-	
-	            // Salmon
+        $xrd->links[] = array('rel' => Discovery::UPDATESFROM,
+                  'href' => common_local_url('ApiTimelineUser',
+                             array('id' => $user->id,
+                                   'format' => 'atom')),
+                  'type' => 'application/atom+xml');
+
+                // Salmon
         $salmon_url = common_local_url('usersalmon',
                                        array('id' => $user->id));
 
@@ -1373,7 +1389,7 @@ class OStatusPlugin extends Plugin
         $url = common_local_url('ostatussub') . '?profile={uri}';
         $xrd->links[] = array('rel' => 'http://ostatus.org/schema/1.0/subscribe',
                               'template' => $url );
-	
-    	return true;
+
+        return true;
     }
 }

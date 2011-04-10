@@ -53,7 +53,7 @@ class GroupsalmonAction extends SalmonAction
         $oprofile = Ostatus_profile::staticGet('group_id', $id);
         if ($oprofile) {
             // TRANS: Client error.
-            $this->clientError(_m("Can't accept remote posts for a remote group."));
+            $this->clientError(_m('Cannot accept remote posts for a remote group.'));
         }
 
         return true;
@@ -74,7 +74,7 @@ class GroupsalmonAction extends SalmonAction
             break;
         default:
             // TRANS: Client exception.
-            throw new ClientException("Can't handle that kind of post.");
+            throw new ClientException('Cannot handle that kind of post.');
         }
 
         // Notice must be to the attention of this group
@@ -127,11 +127,11 @@ class GroupsalmonAction extends SalmonAction
         $oprofile = $this->ensureProfile();
         if (!$oprofile) {
             // TRANS: Client error.
-            $this->clientError(_m("Can't read profile to set up group membership."));
+            $this->clientError(_m('Cannot read profile to set up group membership.'));
         }
         if ($oprofile->isGroup()) {
             // TRANS: Client error.
-            $this->clientError(_m("Groups can't join groups."));
+            $this->clientError(_m('Groups cannot join groups.'));
         }
 
         common_log(LOG_INFO, "Remote profile {$oprofile->uri} joining local group {$this->group->nickname}");
@@ -164,10 +164,10 @@ class GroupsalmonAction extends SalmonAction
     {
         $oprofile = $this->ensureProfile();
         if (!$oprofile) {
-            $this->clientError(_m("Can't read profile to cancel group membership."));
+            $this->clientError(_m('Cannot read profile to cancel group membership.'));
         }
         if ($oprofile->isGroup()) {
-            $this->clientError(_m("Groups can't join groups."));
+            $this->clientError(_m('Groups cannot join groups.'));
         }
 
         common_log(LOG_INFO, "Remote profile {$oprofile->uri} leaving local group {$this->group->nickname}");
