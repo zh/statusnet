@@ -65,12 +65,16 @@ class SQLStatsPlugin extends Plugin
 
     function cleanup()
     {
-        $this->log(LOG_INFO, sprintf('%d queries this hit (total = %d, avg = %d, max = %d, min = %d)',
-                                     count($this->queryTimes),
-                                     array_sum($this->queryTimes),
-                                     array_sum($this->queryTimes)/count($this->queryTimes),
-                                     max($this->queryTimes),
-                                     min($this->queryTimes)));
+        if (count($this->queryTimes) == 0) {
+            $this->log(LOG_INFO, sprintf('0 queries this hit.'));
+        } else {
+            $this->log(LOG_INFO, sprintf('%d queries this hit (total = %d, avg = %d, max = %d, min = %d)',
+                                         count($this->queryTimes),
+                                         array_sum($this->queryTimes),
+                                         array_sum($this->queryTimes)/count($this->queryTimes),
+                                         max($this->queryTimes),
+                                         min($this->queryTimes)));
+        }
 
         $verbose = common_config('sqlstats', 'verbose');
 
