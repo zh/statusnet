@@ -573,6 +573,8 @@ class User_group extends Memcached_DataObject
                 throw new ServerException(_('Could not set group membership.'));
             }
 
+            self::blow('profile:groups:%d', $userid);
+            
             if ($local) {
                 $local_group = new Local_group();
 
