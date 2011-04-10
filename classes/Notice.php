@@ -2305,7 +2305,11 @@ class Notice extends Memcached_DataObject
      */
     function inScope($profile)
     {
-        $keypart = sprintf('notice:in-scope-for:%d:%d', $this->id, $profile->id);
+        if (is_null($profile)) {
+            $keypart = sprintf('notice:in-scope-for:%d:null', $this->id);
+        } else {
+            $keypart = sprintf('notice:in-scope-for:%d:%d', $this->id, $profile->id);
+        }
 
         $result = self::cacheGet($keypart);
 
