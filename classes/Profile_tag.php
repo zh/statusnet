@@ -224,7 +224,9 @@ class Profile_tag extends Memcached_DataObject
             Event::handle('EndUntagProfile', array($orig));
             if ($result) {
                 $profile_list = Profile_list::pkeyGet(array('tag' => $tag, 'tagger' => $tagger));
-                $profile_list->taggedCount(true);
+                if (!empty($profile_list)) {
+                    $profile_list->taggedCount(true);
+                }
                 self::blowCaches($tagger, $tagged);
                 return true;
             }
