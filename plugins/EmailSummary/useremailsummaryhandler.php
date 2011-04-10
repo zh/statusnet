@@ -126,7 +126,7 @@ class UserEmailSummaryHandler extends QueueHandler
         $out->elementStart('div', array('style' => 'color: #ffffff; background-color: #4c609a; font-weight: bold; margin-bottom: 10px; padding: 4px;'));
         // TRANS: Text in e-mail summary.
         // TRANS: %1$s is the StatusNet sitename, %2$s is the recipient's profile name.
-        $out->raw(sprintf(_m('Recent updates from %1$s for %2s:'),
+        $out->raw(sprintf(_m('Recent updates from %1$s for %2$s:'),
                           common_config('site', 'name'),
                           $profile->getBestName()));
         $out->elementEnd('div');

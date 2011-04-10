@@ -29,6 +29,8 @@ if (!defined('STATUSNET')) {
 class OStatusInitAction extends Action
 {
     var $nickname;
+    var $tagger;
+    var $peopletag;
     var $group;
     var $profile;
     var $err;
@@ -45,6 +47,8 @@ class OStatusInitAction extends Action
 
         // Local user or group the remote wants to subscribe to
         $this->nickname = $this->trimmed('nickname');
+        $this->tagger = $this->trimmed('tagger');
+        $this->peopletag = $this->trimmed('peopletag');
         $this->group = $this->trimmed('group');
 
         // Webfinger or profile URL of the remote user
@@ -96,8 +100,12 @@ class OStatusInitAction extends Action
         if ($this->group) {
             // TRANS: Form legend.
             $header = sprintf(_m('Join group %s'), $this->group);
-            // TRANS: Button text.
             $submit = _m('BUTTON','Join');
+        } else if ($this->peopletag && $this->tagger) {
+            $header = sprintf(_m('Subscribe to people tagged %s by %s'), $this->peopletag, $this->tagger);
+            $submit = _m('Subscribe');
+            $submit = _m('BUTTON','Subscribe');
+            // TRANS: Button text.
         } else {
             // TRANS: Form legend.
             $header = sprintf(_m('Subscribe to %s'), $this->nickname);
@@ -114,6 +122,7 @@ class OStatusInitAction extends Action
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li', array('id' => 'ostatus_nickname'));
+
         if ($this->group) {
             // TRANS: Field label.
             $this->input('group', _m('Group nickname'), $this->group,
@@ -122,7 +131,10 @@ class OStatusInitAction extends Action
             // TRANS: Field label.
             $this->input('nickname', _m('User nickname'), $this->nickname,
                          _m('Nickname of the user you want to follow.'));
+            $this->hidden('tagger', $this->tagger);
+            $this->hidden('peopletag', $this->peopletag);
         }
+
         $this->elementEnd('li');
         $this->elementStart('li', array('id' => 'ostatus_profile'));
         // TRANS: Field label.
@@ -211,6 +223,18 @@ class OStatusInitAction extends Action
                 // TRANS: Client error.
                 $this->clientError("No such group.");
             }
+        } else if ($this->peopletag && $this->tagger) {
+            $user = User::staticGet('nickname', $this->tagger);
+            if (empty($user)) {
+                $this->clientError("No such user.");
+            }
+
+            $peopletag = Profile_list::getByTaggerAndTag($user->id, $this->peopletag);
+            if ($peopletag) {
+                return common_local_url('profiletagbyid',
+                    array('tagger_id' => $user->id, 'id' => $peopletag->id));
+            }
+            $this->clientError("No such people tag.");
         } else {
             // TRANS: Client error.
             $this->clientError("No local user or group nickname provided.");

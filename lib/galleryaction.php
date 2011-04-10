@@ -120,6 +120,9 @@ class GalleryAction extends OwnerDesignAction
             $content[$t] = $t;
         }
         if ($tags) {
+            $this->elementStart('dl', array('id' => 'filter_tags'));
+            $this->element('dt', null, _('Tags'));
+            $this->elementStart('dd');
             $this->elementStart('ul');
             $this->elementStart('li', array('id' => 'filter_tags_all',
                                              'class' => 'child_1'));
@@ -150,6 +153,8 @@ class GalleryAction extends OwnerDesignAction
             $this->elementEnd('form');
             $this->elementEnd('li');
             $this->elementEnd('ul');
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
     }
 

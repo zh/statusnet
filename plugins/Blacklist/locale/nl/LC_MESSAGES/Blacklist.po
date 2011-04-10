@@ -9,21 +9,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Blacklist\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:36:39+0000\n"
+"POT-Creation-Date: 2011-04-10 08:14+0000\n"
+"PO-Revision-Date: 2011-04-10 08:17:12+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-18 20:06:03+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 18:57:40+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85733); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-blacklist\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. TRANS: Exception thrown if the Blacklist plugin configuration is incorrect.
+#. TRANS: %1$s is a configuration section, %2$s is a configuration setting.
 #, php-format
 msgid "Unknown data type for config %1$s + %2$s."
-msgstr ""
+msgstr "Onbekend gegevenstype voor instelling %1$s + %2$s."
 
 #. TRANS: Validation failure for URL. %s is the URL.
 #, php-format
@@ -60,10 +62,9 @@ msgid "Blacklist"
 msgstr "Zwarte lijst"
 
 #. TRANS: Tooltip for menu item in admin panel.
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Blacklist configuration."
-msgstr "Instellingen voor zwarte lijst"
+msgstr "Instellingen voor zwarte lijst."
 
 #. TRANS: Checkbox label in the blacklist user form.
 msgid "Add this nickname pattern to blacklist"
@@ -75,22 +76,21 @@ msgstr "Dit homepagepatroon aan de zwarte lijst toevoegen"
 
 #. TRANS: Exception thrown trying to post a notice while having set a blocked homepage URL. %s is the blocked URL.
 #. TRANS: Client exception thrown trying to subscribe to a person with a blocked homepage or site URL. %s is the blocked URL.
-#, fuzzy, php-format
+#, php-format
 msgid "Users from \"%s\" are blocked."
 msgstr "Gebruikers van \"%s\" zijn geblokkeerd."
 
 #. TRANS: Exception thrown trying to post a notice while having a blocked nickname. %s is the blocked nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Notices from nickname \"%s\" disallowed."
 msgstr "Gebruiker \"%s\" mag geen berichten plaatsen."
 
 #. TRANS: Client exception thrown trying to subscribe to a person with a blocked nickname. %s is the blocked nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot subscribe to nickname \"%s\"."
 msgstr "U kunt niet abonneren op de gebruiker \"%s\"."
 
 #. TRANS: Title of blacklist plugin administration panel.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Blacklist"
 msgstr "Zwarte lijst"
@@ -104,7 +104,6 @@ msgid "Nicknames"
 msgstr "Gebruikersnamen"
 
 #. TRANS: Field title in blacklist plugin administration panel.
-#, fuzzy
 msgid "Patterns of nicknames to block, one per line."
 msgstr "Patronen van te blokkeren gebruikersnamen. Eén per regel."
 
@@ -113,17 +112,14 @@ msgid "URLs"
 msgstr "URL's"
 
 #. TRANS: Field title in blacklist plugin administration panel.
-#, fuzzy
 msgid "Patterns of URLs to block, one per line."
 msgstr "Patronen van te blokkeren URL's. Eén per regel."
 
 #. TRANS: Button text in blacklist plugin administration panel to save settings.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Opslaan"
 
 #. TRANS: Button title in blacklist plugin administration panel to save settings.
-#, fuzzy
 msgid "Save site settings."
-msgstr "Websiteinstellingen opslaan"
+msgstr "Websiteinstellingen opslaan."

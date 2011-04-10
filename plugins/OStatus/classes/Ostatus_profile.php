@@ -34,6 +34,7 @@ class Ostatus_profile extends Managed_DataObject
 
     public $profile_id;
     public $group_id;
+    public $peopletag_id;
 
     public $feeduri;
     public $salmonuri;
@@ -60,6 +61,7 @@ class Ostatus_profile extends Managed_DataObject
                 'uri' => array('type' => 'varchar', 'length' => 255, 'not null' => true),
                 'profile_id' => array('type' => 'integer'),
                 'group_id' => array('type' => 'integer'),
+                'peopletag_id' => array('type' => 'integer'),
                 'feeduri' => array('type' => 'varchar', 'length' => 255),
                 'salmonuri' => array('type' => 'varchar', 'length' => 255),
                 'avatar' => array('type' => 'text'),
@@ -70,11 +72,13 @@ class Ostatus_profile extends Managed_DataObject
             'unique keys' => array(
                 'ostatus_profile_profile_id_idx' => array('profile_id'),
                 'ostatus_profile_group_id_idx' => array('group_id'),
+                'ostatus_profile_peopletag_id_idx' => array('peopletag_id'),
                 'ostatus_profile_feeduri_idx' => array('feeduri'),
             ),
             'foreign keys' => array(
                 'ostatus_profile_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
                 'ostatus_profile_group_id_fkey' => array('user_group', array('group_id' => 'id')),
+                'ostatus_profile_peopletag_id_fkey' => array('profile_list', array('peopletag_id' => 'id')),
             ),
         );
     }
@@ -104,6 +108,18 @@ class Ostatus_profile extends Managed_DataObject
     }
 
     /**
+     * Fetch the StatusNet-side peopletag for this feed
+     * @return Profile
+     */
+    public function localPeopletag()
+    {
+        if ($this->peopletag_id) {
+            return Profile_list::staticGet('id', $this->peopletag_id);
+        }
+        return null;
+    }
+
+    /**
      * Returns an ActivityObject describing this remote user or group profile.
      * Can then be used to generate Atom chunks.
      *
@@ -113,6 +129,8 @@ class Ostatus_profile extends Managed_DataObject
     {
         if ($this->isGroup()) {
             return ActivityObject::fromGroup($this->localGroup());
+        } else if ($this->isPeopletag()) {
+            return ActivityObject::fromPeopletag($this->localPeopletag());
         } else {
             return ActivityObject::fromProfile($this->localProfile());
         }
@@ -134,6 +152,9 @@ class Ostatus_profile extends Managed_DataObject
         if ($this->isGroup()) {
             $noun = ActivityObject::fromGroup($this->localGroup());
             return $noun->asString('activity:' . $element);
+        } else if ($this->isPeopletag()) {
+            $noun = ActivityObject::fromPeopletag($this->localPeopletag());
+            return $noun->asString('activity:' . $element);
         } else {
             $noun = ActivityObject::fromProfile($this->localProfile());
             return $noun->asString('activity:' . $element);
@@ -145,16 +166,34 @@ class Ostatus_profile extends Managed_DataObject
      */
     function isGroup()
     {
-        if ($this->profile_id && !$this->group_id) {
+        if ($this->profile_id || $this->peopletag_id && !$this->group_id) {
             return false;
-        } else if ($this->group_id && !$this->profile_id) {
+        } else if ($this->group_id && !$this->profile_id && !$this->peopletag_id) {
             return true;
-        } else if ($this->group_id && $this->profile_id) {
-            // TRANS: Server exception. %s is a URI.
-            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: both group and profile IDs set for %s.'),$this->uri));
+        } else if ($this->group_id && ($this->profile_id || $this->peopletag_id)) {
+            // TRANS: Server exception. %s is a URI
+            throw new ServerException(_m("Invalid ostatus_profile state: two or more IDs set for %s", $this->uri));
         } else {
-            // TRANS: Server exception. %s is a URI.
-            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: both group and profile IDs empty for %s.'),$this->uri));
+            // TRANS: Server exception. %s is a URI
+            throw new ServerException(_m("Invalid ostatus_profile state: all IDs empty for %s", $this->uri));
+        }
+    }
+
+    /**
+     * @return boolean true if this is a remote peopletag
+     */
+    function isPeopletag()
+    {
+        if ($this->profile_id || $this->group_id && !$this->peopletag_id) {
+            return false;
+        } else if ($this->peopletag_id && !$this->profile_id && !$this->group_id) {
+            return true;
+        } else if ($this->peopletag_id && ($this->profile_id || $this->group_id)) {
+            // TRANS: Server exception. %s is a URI
+            throw new ServerException(_m("Invalid ostatus_profile state: two or more IDs set for %s", $this->uri));
+        } else {
+            // TRANS: Server exception. %s is a URI
+            throw new ServerException(_m("Invalid ostatus_profile state: all IDs empty for %s", $this->uri));
         }
     }
 
@@ -214,8 +253,15 @@ class Ostatus_profile extends Managed_DataObject
         if ($this->isGroup()) {
             $members = $this->localGroup()->getMembers(0, 1);
             $count = $members->N;
+        } else if ($this->isPeopletag()) {
+            $subscribers = $this->localPeopletag()->getSubscribers(0, 1);
+            $count = $subscribers->N;
         } else {
-            $count = $this->localProfile()->subscriberCount();
+            $profile = $this->localProfile();
+            $count = $profile->subscriberCount();
+            if ($profile->hasLocalTags()) {
+                $count = 1;
+            }
         }
         common_log(LOG_INFO, __METHOD__ . " SUB COUNT BEFORE: $count");
 
@@ -235,7 +281,7 @@ class Ostatus_profile extends Managed_DataObject
      * @param string  $verb   Activity::SUBSCRIBE or Activity::JOIN
      * @param Object  $object object of the action; must define asActivityNoun($tag)
      */
-    public function notify($actor, $verb, $object=null)
+    public function notify($actor, $verb, $object=null, $target=null)
     {
         if (!($actor instanceof Profile)) {
             $type = gettype($actor);
@@ -277,6 +323,9 @@ class Ostatus_profile extends Managed_DataObject
             $entry->raw($actor->asAtomAuthor());
             $entry->raw($actor->asActivityActor());
             $entry->raw($object->asActivityNoun('object'));
+            if ($target != null) {
+                $entry->raw($target->asActivityNoun('target'));
+            }
             $entry->elementEnd('entry');
 
             $xml = $entry->getString();
@@ -346,6 +395,8 @@ class Ostatus_profile extends Managed_DataObject
     {
         if ($this->isGroup()) {
             return $this->localGroup()->getBestName();
+        } else if ($this->isPeopletag()) {
+            return $this->localPeopletag()->getBestName();
         } else {
             return $this->localProfile()->getBestName();
         }
@@ -550,6 +601,7 @@ class Ostatus_profile extends Managed_DataObject
                         'rendered' => $rendered,
                         'replies' => array(),
                         'groups' => array(),
+                        'peopletags' => array(),
                         'tags' => array(),
                         'urls' => array());
 
@@ -584,6 +636,10 @@ class Ostatus_profile extends Managed_DataObject
                     $options['location_id'] = $location->location_id;
                 }
             }
+        }
+
+        if ($this->isPeopletag()) {
+            $options['peopletags'][] = $this->localPeopletag();
         }
 
         // Atom categories <-> hashtags
@@ -1202,6 +1258,14 @@ class Ostatus_profile extends Managed_DataObject
             throw new Exception(_m('Local group can\'t be referenced as remote.'));
         }
 
+        $ptag = Profile_list::staticGet('uri', $homeuri);
+        if ($ptag) {
+            $local_user = User::staticGet('id', $ptag->tagger);
+            if (!empty($local_user)) {
+                throw new Exception("Local peopletag can't be referenced as remote.");
+            }
+        }
+
         if (array_key_exists('feedurl', $hints)) {
             $feeduri = $hints['feedurl'];
         } else {
@@ -1253,7 +1317,7 @@ class Ostatus_profile extends Managed_DataObject
             // TRANS: Server exception.
                 throw new ServerException(_m('Can\'t save local profile.'));
             }
-        } else {
+        } else if ($object->type == ActivityObject::GROUP) {
             $group = new User_group();
             $group->uri = $homeuri;
             $group->created = common_sql_now();
@@ -1263,6 +1327,16 @@ class Ostatus_profile extends Managed_DataObject
             if (!$oprofile->group_id) {
                 // TRANS: Server exception.
                 throw new ServerException(_m('Can\'t save local profile.'));
+            }
+        } else if ($object->type == ActivityObject::_LIST) {
+            $ptag = new Profile_list();
+            $ptag->uri = $homeuri;
+            $ptag->created = common_sql_now();
+            self::updatePeopletag($ptag, $object, $hints);
+
+            $oprofile->peopletag_id = $ptag->insert();
+            if (!$oprofile->peopletag_id) {
+                throw new ServerException("Can't save local peopletag");
             }
         }
 
@@ -1298,12 +1372,16 @@ class Ostatus_profile extends Managed_DataObject
         if ($this->isGroup()) {
             $group = $this->localGroup();
             self::updateGroup($group, $object, $hints);
+        } else if ($this->isPeopletag()) {
+            $ptag = $this->localPeopletag();
+            self::updatePeopletag($ptag, $object, $hints);
         } else {
             $profile = $this->localProfile();
             self::updateProfile($profile, $object, $hints);
         }
+
         $avatar = self::getActivityObjectAvatar($object, $hints);
-        if ($avatar) {
+        if ($avatar && !isset($ptag)) {
             try {
                 $this->updateAvatar($avatar);
             } catch (Exception $ex) {
@@ -1398,6 +1476,27 @@ class Ostatus_profile extends Managed_DataObject
         if ($group->id) {
             common_log(LOG_DEBUG, "Updating OStatus group $group->id from remote info $object->id: " . var_export($object, true) . var_export($hints, true));
             $group->update($orig);
+        }
+    }
+
+    protected static function updatePeopletag($tag, $object, $hints=array()) {
+        $orig = clone($tag);
+
+        $tag->tag = $object->title;
+
+        if (!empty($object->link)) {
+            $tag->mainpage = $object->link;
+        } else if (array_key_exists('profileurl', $hints)) {
+            $tag->mainpage = $hints['profileurl'];
+        }
+
+        $tag->description = $object->summary;
+        $tagger = self::ensureActivityObjectProfile($object->owner);
+        $tag->tagger = $tagger->profile_id;
+
+        if ($tag->id) {
+            common_log(LOG_DEBUG, "Updating OStatus peopletag $tag->id from remote info $object->id: " . var_export($object, true) . var_export($hints, true));
+            $tag->update($orig);
         }
     }
 
@@ -1781,15 +1880,14 @@ class Ostatus_profile extends Managed_DataObject
 
     function checkAuthorship($activity)
     {
-        if ($this->isGroup()) {
-            // A group feed will contain posts from multiple authors.
-            // @fixme validate these profiles in some way!
+        if ($this->isGroup() || $this->isPeopletag()) {
+            // A group or propletag feed will contain posts from multiple authors.
             $oprofile = self::ensureActorProfile($activity);
-            if ($oprofile->isGroup()) {
+            if ($oprofile->isGroup() || $oprofile->isPeopletag()) {
                 // Groups can't post notices in StatusNet.
-                common_log(LOG_WARNING, 
-                           "OStatus: skipping post with group listed as author: ".
-                           "$oprofile->uri in feed from $this->uri");
+                common_log(LOG_WARNING,
+                    "OStatus: skipping post with group listed ".
+                    "as author: $oprofile->uri in feed from $this->uri");
                 return false;
             }
         } else {

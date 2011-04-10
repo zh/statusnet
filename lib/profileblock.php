@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Superclass for profile blocks
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -62,6 +62,7 @@ abstract class ProfileBlock extends Widget
         $this->showLocation();
         $this->showHomepage();
         $this->showDescription();
+        $this->showTags();
     }
 
     function showAvatar()
@@ -129,6 +130,10 @@ abstract class ProfileBlock extends Widget
     function avatarSize()
     {
         return AVATAR_PROFILE_SIZE;
+    }
+
+    function showTags()
+    {
     }
 
     function showActions()

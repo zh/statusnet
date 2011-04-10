@@ -9,21 +9,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Blacklist\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:36:39+0000\n"
+"POT-Creation-Date: 2011-04-10 08:14+0000\n"
+"PO-Revision-Date: 2011-04-10 08:17:12+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-03-18 20:06:03+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 18:57:40+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85733); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-plugin-blacklist\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. TRANS: Exception thrown if the Blacklist plugin configuration is incorrect.
+#. TRANS: %1$s is a configuration section, %2$s is a configuration setting.
 #, php-format
 msgid "Unknown data type for config %1$s + %2$s."
-msgstr ""
+msgstr "Typo de datos incognite pro configuration %1$s + %2$s."
 
 #. TRANS: Validation failure for URL. %s is the URL.
 #, php-format
@@ -61,10 +63,9 @@ msgid "Blacklist"
 msgstr "Lista nigre"
 
 #. TRANS: Tooltip for menu item in admin panel.
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Blacklist configuration."
-msgstr "Configuration del lista nigre"
+msgstr "Configuration del lista nigre."
 
 #. TRANS: Checkbox label in the blacklist user form.
 msgid "Add this nickname pattern to blacklist"
@@ -76,22 +77,21 @@ msgstr "Adder iste patrono de pagina personal al lista nigre"
 
 #. TRANS: Exception thrown trying to post a notice while having set a blocked homepage URL. %s is the blocked URL.
 #. TRANS: Client exception thrown trying to subscribe to a person with a blocked homepage or site URL. %s is the blocked URL.
-#, fuzzy, php-format
+#, php-format
 msgid "Users from \"%s\" are blocked."
-msgstr "Usatores de \"%s\" blocate."
+msgstr "Le usatores de \"%s\" es blocate."
 
 #. TRANS: Exception thrown trying to post a notice while having a blocked nickname. %s is the blocked nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Notices from nickname \"%s\" disallowed."
 msgstr "Notas del pseudonymo \"%s\" non permittite."
 
 #. TRANS: Client exception thrown trying to subscribe to a person with a blocked nickname. %s is the blocked nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot subscribe to nickname \"%s\"."
 msgstr "Non pote subscriber al pseudonymo \"%s\"."
 
 #. TRANS: Title of blacklist plugin administration panel.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Blacklist"
 msgstr "Lista nigre"
@@ -105,26 +105,22 @@ msgid "Nicknames"
 msgstr "Pseudonymos"
 
 #. TRANS: Field title in blacklist plugin administration panel.
-#, fuzzy
 msgid "Patterns of nicknames to block, one per line."
-msgstr "Patronos de pseudonymos a blocar, un per linea"
+msgstr "Patronos de pseudonymos a blocar, un per linea."
 
 #. TRANS: Field label in blacklist plugin administration panel.
 msgid "URLs"
 msgstr "Adresses URL"
 
 #. TRANS: Field title in blacklist plugin administration panel.
-#, fuzzy
 msgid "Patterns of URLs to block, one per line."
-msgstr "Patronos de adresses URL a blocar, un per linea"
+msgstr "Patronos de adresses URL a blocar, un per linea."
 
 #. TRANS: Button text in blacklist plugin administration panel to save settings.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Salveguardar"
 
 #. TRANS: Button title in blacklist plugin administration panel to save settings.
-#, fuzzy
 msgid "Save site settings."
-msgstr "Salveguardar configurationes del sito"
+msgstr "Salveguardar configurationes del sito."

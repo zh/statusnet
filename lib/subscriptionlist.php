@@ -43,7 +43,6 @@ require_once INSTALLDIR.'/lib/profilelist.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class SubscriptionList extends ProfileList
 {
     /** Owner of this list */
@@ -91,38 +90,5 @@ class SubscriptionListItem extends ProfileListItem
     {
         $user = common_current_user();
         return (!empty($user) && ($this->owner->id == $user->id));
-    }
-
-    function showTags()
-    {
-        $tags = Profile_tag::getTags($this->owner->id, $this->profile->id);
-
-        if ($this->isOwn()) {
-            $this->out->element('a', array('href' => common_local_url('tagother',
-                                                                      array('id' => $this->profile->id))),
-                                // TRANS: Description for link to "tag other users" in widget to show a list of profiles.
-                                _('Tags'));
-        } else {
-            // TRANS: Text widget to show a list of profiles with their tags.
-            $this->out->text(_('Tags'));
-        }
-        if ($tags) {
-            $this->out->elementStart('ul', 'tags xoxo entity_tags');
-            foreach ($tags as $tag) {
-                $this->out->elementStart('li');
-                // Avoid space by using raw output.
-                $pt = '<span class="mark_hash">#</span><a rel="tag" href="' .
-                  common_local_url($this->action->trimmed('action'),
-                                   array('nickname' => $this->owner->nickname,
-                                   'tag' => $tag)) .
-                  '">' . $tag . '</a>';
-                $this->out->raw($pt);
-                $this->out->elementEnd('li');
-            }
-            $this->out->elementEnd('ul');
-        } else {
-            // TRANS: Text if there are no tags in widget to show a list of profiles by tag.
-            $this->out->text(_('(None)'));
-        }
     }
 }

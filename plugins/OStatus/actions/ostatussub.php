@@ -270,9 +270,12 @@ class OStatusSubAction extends Action
 
     function validateRemoteProfile()
     {
+        // Send us to the respective subscription form for conf
         if ($this->oprofile->isGroup()) {
-            // Send us to the group subscription form for conf
             $target = common_local_url('ostatusgroup', array(), array('profile' => $this->profile_uri));
+            common_redirect($target, 303);
+        } else if ($this->oprofile->isPeopletag()) {
+            $target = common_local_url('ostatuspeopletag', array(), array('profile' => $this->profile_uri));
             common_redirect($target, 303);
         }
     }
