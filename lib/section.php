@@ -61,8 +61,15 @@ class Section extends Widget
                                  array('id' => $this->divId(),
                                        'class' => 'section'));
 
-        $this->out->element('h2', null,
-                            $this->title());
+        $link = $this->link();
+        if (!empty($link)) {
+            $this->out->elementStart('h2');
+            $this->out->element('a', array('href' => $link), $this->title());
+            $this->out->elementEnd('h2');
+        } else {
+            $this->out->element('h2', null,
+                                $this->title());
+        }
 
         $have_more = $this->showContent();
 
@@ -86,6 +93,11 @@ class Section extends Widget
     {
         // TRANS: Default title for section/sidebar widget.
         return _('Untitled section');
+    }
+
+    function link()
+    {
+        return null;
     }
 
     function showContent()

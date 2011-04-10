@@ -55,6 +55,6 @@ class SubscriptionsPeopleTagCloudSection extends SubPeopleTagCloudSection
 
     function query() {
 //        return 'select tag, count(tag) as weight from subscription left join profile_tag on subscriber=tagger and subscribed=tagged where subscriber=%d and subscriber != subscribed group by tag order by weight desc';
-        return 'select tag, count(tag) as weight from subscription left join profile_tag on subscriber=tagger and subscribed=tagged where subscriber=%d and subscriber != subscribed and tag is not null group by tag order by weight desc';
+        return 'select profile_tag.tag, count(profile_tag.tag) as weight from subscription left join (profile_tag, profile_list) on subscriber=profile_tag.tagger and subscribed=tagged and profile_tag.tag = profile_list.tag and profile_tag.tagger = profile_list.tagger where subscriber=%d and subscriber != subscribed and profile_list.private = false and profile_tag.tag is not null group by profile_tag.tag order by weight desc';
     }
 }

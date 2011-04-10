@@ -272,6 +272,183 @@ class Profile extends Memcached_DataObject
         return new ArrayWrapper($groups);
     }
 
+    function isTagged($peopletag)
+    {
+        $tag = Profile_tag::pkeyGet(array('tagger' => $peopletag->tagger,
+                                          'tagged' => $this->id,
+                                          'tag'    => $peopletag->tag));
+        return !empty($tag);
+    }
+
+    function canTag($tagged)
+    {
+        if (empty($tagged)) {
+            return false;
+        }
+
+        if ($tagged->id == $this->id) {
+            return true;
+        }
+
+        $all = common_config('peopletag', 'allow_tagging', 'all');
+        $local = common_config('peopletag', 'allow_tagging', 'local');
+        $remote = common_config('peopletag', 'allow_tagging', 'remote');
+        $subs = common_config('peopletag', 'allow_tagging', 'subs');
+
+        if ($all) {
+            return true;
+        }
+
+        $tagged_user = $tagged->getUser();
+        if (!empty($tagged_user)) {
+            if ($local) {
+                return true;
+            }
+        } else if ($subs) {
+            return (Subscription::exists($this, $tagged) ||
+                    Subscription::exists($tagged, $this));
+        } else if ($remote) {
+            return true;
+        }
+        return false;
+    }
+
+    function getOwnedTags($auth_user, $offset=0, $limit=null, $since_id=0, $max_id=0)
+    {
+        $tags = new Profile_list();
+        $tags->tagger = $this->id;
+
+        if (($auth_user instanceof User || $auth_user instanceof Profile) &&
+                $auth_user->id === $this->id) {
+            // no condition, get both private and public tags
+        } else {
+            $tags->private = false;
+        }
+
+        $tags->selectAdd('id as "cursor"');
+
+        if ($since_id>0) {
+           $tags->whereAdd('id > '.$since_id);
+        }
+
+        if ($max_id>0) {
+            $tags->whereAdd('id <= '.$max_id);
+        }
+
+        if($offset>=0 && !is_null($limit)) {
+            $tags->limit($offset, $limit);
+        }
+
+        $tags->orderBy('id DESC');
+        $tags->find();
+
+        return $tags;
+    }
+
+    function getOtherTags($auth_user=null, $offset=0, $limit=null, $since_id=0, $max_id=0)
+    {
+        $lists = new Profile_list();
+
+        $tags = new Profile_tag();
+        $tags->tagged = $this->id;
+
+        $lists->joinAdd($tags);
+        #@fixme: postgres (round(date_part('epoch', my_date)))
+        $lists->selectAdd('unix_timestamp(profile_tag.modified) as "cursor"');
+
+        if ($auth_user instanceof User || $auth_user instanceof Profile) {
+            $lists->whereAdd('( ( profile_list.private = false ) ' .
+                             'OR ( profile_list.tagger = ' . $auth_user->id . ' AND ' .
+                             'profile_list.private = true ) )');
+        } else {
+            $lists->private = false;
+        }
+
+        if ($since_id>0) {
+           $lists->whereAdd('cursor > '.$since_id);
+        }
+
+        if ($max_id>0) {
+            $lists->whereAdd('cursor <= '.$max_id);
+        }
+
+        if($offset>=0 && !is_null($limit)) {
+            $lists->limit($offset, $limit);
+        }
+
+        $lists->orderBy('profile_tag.modified DESC');
+        $lists->find();
+
+        return $lists;
+    }
+
+    function getPrivateTags($offset=0, $limit=null, $since_id=0, $max_id=0)
+    {
+        $tags = new Profile_list();
+        $tags->private = true;
+        $tags->tagger = $this->id;
+
+        if ($since_id>0) {
+           $tags->whereAdd('id > '.$since_id);
+        }
+
+        if ($max_id>0) {
+            $tags->whereAdd('id <= '.$max_id);
+        }
+
+        if($offset>=0 && !is_null($limit)) {
+            $tags->limit($offset, $limit);
+        }
+
+        $tags->orderBy('id DESC');
+        $tags->find();
+
+        return $tags;
+    }
+
+    function hasLocalTags()
+    {
+        $tags = new Profile_tag();
+
+        $tags->joinAdd(array('tagger', 'user:id'));
+        $tags->whereAdd('tagged  = '.$this->id);
+        $tags->whereAdd('tagger != '.$this->id);
+
+        $tags->limit(0, 1);
+        $tags->fetch();
+
+        return ($tags->N == 0) ? false : true;
+    }
+
+    function getTagSubscriptions($offset=0, $limit=null, $since_id=0, $max_id=0)
+    {
+        $lists = new Profile_list();
+        $subs = new Profile_tag_subscription();
+
+        $lists->joinAdd($subs);
+        #@fixme: postgres (round(date_part('epoch', my_date)))
+        $lists->selectAdd('unix_timestamp(profile_tag_subscription.created) as "cursor"');
+
+        $lists->whereAdd('profile_tag_subscription.profile_id = '.$this->id);
+
+        if ($since_id>0) {
+           $lists->whereAdd('cursor > '.$since_id);
+        }
+
+        if ($max_id>0) {
+            $lists->whereAdd('cursor <= '.$max_id);
+        }
+
+        if($offset>=0 && !is_null($limit)) {
+            $lists->limit($offset, $limit);
+        }
+
+        $lists->orderBy('"cursor" DESC');
+        $lists->find();
+
+        return $lists;
+    }
+
     /**
      * Request to join the given group.
      * May throw exceptions on failure.
@@ -356,6 +533,31 @@ class Profile extends Memcached_DataObject
         }
 
         return new ArrayWrapper($profiles);
+    }
+
+    function getTaggedSubscribers($tag)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN (subscription, profile_tag, profile_list) ' .
+          'ON profile.id = subscription.subscriber ' .
+          'AND profile.id = profile_tag.tagged ' .
+          'AND profile_tag.tagger = profile_list.tagger AND profile_tag.tag = profile_list.tag ' .
+          'WHERE subscription.subscribed = %d ' .
+          'AND subscription.subscribed != subscription.subscriber ' .
+          'AND profile_tag.tagger = %d AND profile_tag.tag = "%s" ' .
+          'AND profile_list.private = false ' .
+          'ORDER BY subscription.created DESC';
+
+        $profile = new Profile();
+        $tagged = array();
+
+        $cnt = $profile->query(sprintf($qry, $this->id, $this->id, $tag));
+
+        while ($profile->fetch()) {
+            $tagged[] = clone($profile);
+        }
+        return $tagged;
     }
 
     /**

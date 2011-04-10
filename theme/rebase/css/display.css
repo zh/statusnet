@@ -403,7 +403,7 @@ address .poweredby {
     padding-bottom: 2px;
 }
 
-.notice, .profile, .application {
+.notice, .profile, .application, #content .peopletag {
     position:relative;
     clear:both;
     float:left;
@@ -558,7 +558,7 @@ left:0;
     padding-left:16px;
 }
 
-.notice .attachment.more {
+.notice .attachment.more, .mode-private .privacy_mode {
 text-indent:-9999px;
 width:16px;
 height:16px;
@@ -1080,7 +1080,7 @@ font-weight:bold;
 #form_settings_avatar legend,
 #newgroup legend,
 #editgroup legend,
-#form_tag_user legend,
+.form_tag_user legend,
 #form_remote_subscribe legend,
 #form_openid_login legend,
 #form_search legend,
@@ -1090,8 +1090,24 @@ font-weight:bold;
 #form_password_change legend,
 .form_entity_block legend,
 #form_filter_bytag legend,
-#apioauthauthorize_allowdeny {
+#apioauthauthorize_allowdeny,
+.form_tag_user_wrap form,
+.form_tag_user_wrap label,
+.form_tag_user_wrap legend {
 display:none;
+}
+
+.form_tag_user_wrap {
+clear:both;
+}
+
+.form_tag_user {
+float:left;
+width:auto;
+}
+
+.form_tag_user input.submit {
+width:50px;
 }
 
 .form_settings .form_data p.form_guide {
@@ -1325,6 +1341,14 @@ margin-left:113px;
 margin-bottom:4px;
 }
 
+.peopletags_edit_button {
+cursor:pointer;
+border:0;
+padding:0;
+width:16px;
+height:16px;
+}
+
 .entity_profile .entity_nickname,
 .entity_profile .entity_fn {
 margin-left:0;
@@ -1412,7 +1436,7 @@ display:block;
     padding: 4px 4px 4px 26px;
 }
 
-.entity_actions a, .entity_actions p, .entity_actions .entity_subscribe input, .entity_actions .entity_block input, .entity_actions .entity_moderation input, .entity_actions .entity_role input, .entity_actions .entity_nudge input, .entity_actions .entity_delete input {
+.entity_actions a, .entity_actions p, .entity_actions .entity_subscribe input, .entity_actions .entity_block input, .entity_actions .entity_moderation input, .entity_actions .entity_role input, .entity_actions .entity_nudge input, .entity_actions .entity_delete input, .entity_actions input.submit {
     background-color: #ccc !important;
     border: none;
 }
@@ -1421,7 +1445,7 @@ display:block;
     padding: 2px 4px 4px 28px;
 }
 
-.entity_actions a:hover, .entity_actions p:hover, .entity_actions .entity_subscribe input:hover, .entity_actions .entity_block input:hover, .entity_actions .entity_moderation input:hover, .entity_actions .entity_role input:hover, .entity_actions .entity_nudge input:hover, .entity_actions .entity_delete input:hover {
+.entity_actions a:hover, .entity_actions p:hover, .entity_actions .entity_subscribe input:hover, .entity_actions .entity_block input:hover, .entity_actions .entity_moderation input:hover, .entity_actions .entity_role input:hover, .entity_actions .entity_nudge input:hover, .entity_actions .entity_delete input:hover, .entity_actions input.submit:hover {
     background-color: #f2f2f2 !important;
 }
 
@@ -1513,6 +1537,9 @@ margin-right:7px;
 .entity_tags li:before {
 content:'\0009';
 }
+.entity_tags p.error {
+clear:both;
+}
 
 #filter_tags {
     margin-bottom: 20px;
@@ -1533,15 +1560,33 @@ padding-left:7px;
 border-left-width: 1px;
 border-left-style:solid;
 }
-#filter_tags #filter_tags_all {
+#filter_tags #filter_tags_all,
+#filter_tags #filter_tags_for {
     margin-left: 10px;
 border-left:0;
 padding-left:0;
 }
-#filter_tags_all a {
+#filter_tags_all a,
+#filter_tags_for a  {
 font-weight:bold;
     margin-top: 4px;
 float:left;
+}
+
+#filter_tags_for a {
+margin:0;
+}
+
+#filter_tags #form_filter_bymode .form_guide {
+display:none;
+}
+
+#filter_tags #form_filter_bymode .checkbox {
+float:none;
+}
+
+#filter_tags #form_filter_bymode legend {
+display:none;
 }
 
 #filter_tags_item label {
@@ -1573,7 +1618,9 @@ min-height:60px;
 .profile .form_group_join legend,
 .profile .form_group_leave legend,
 .profile .form_user_subscribe legend,
-.profile .form_user_unsubscribe legend {
+.profile .form_user_unsubscribe legend,
+.form_user_add_peopletag legend,
+.form_user_remove_peopletag legend {
 display:none;
 }
 
@@ -1608,9 +1655,120 @@ clear:none;
 display:block;
 width:auto;
 }
-.profile .entity_profile .entity_tags dt {
+
+.profile_block .entity_tags dt {
+display: inline;
+margin-right: 3px;
+font-weight: bold;
+}
+
+.profile_block .entity_tags dd {
+display: inline;
+}
+
+.profile .entity_profile .form_subscription_edit {
+clear:left;
+}
+
+.peopletag {
+min-height: 90px;
+list-style: none;
+}
+
+.peopletag .entry-content {
+width:auto;
+}
+
+.peopletag .tagged-count a:after,
+.peopletag .subscriber-count a:after,
+.entity_tags dt:after {
+content: ':';
+}
+
+.peopletag .updated {
+display:none;
+}
+.peopletag .tag a{
+font-weight: bold;
+}
+
+.peopletag .tag:before {
+/* raquo */
+content: "\00BB";
+}
+
+.peopletag .entity_statistics {
+font-size:80%;
+}
+
+.profile-lister li {
+min-height:30px;
+padding:5px;
+clear:both;
+border-top: 1px #eee solid;
+}
+
+.profile-lister {
+list-style-type:none;
+}
+
+.profile_search_wrap h3 {
+float:left;
+font-weight:normal;
+margin-right:10px;
+}
+
+.profile-lister li .photo {
 display:inline;
-margin-right:11px;
+margin-right:7px;
+margin-bottom:-5px;
+}
+
+.profile-lister li .fn {
+font-weight:bold;
+}
+
+.profile-lister li .entity_actions {
+margin:0;
+}
+
+#profile_search_results {
+display:block;
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+max-height:800px;
+margin:10px 0;
+padding: 5px;
+border:1px #ddd solid;
+background:#f1f1f1;
+}
+
+#profile_search_results.empty {
+display: none;
+}
+
+.form_peopletag_edit_user_search legend,
+.form_peopletag_edit_user_search label,
+.form_peopletag_edit_user_search .form_guide {
+display:none;
+}
+
+.form_peopletag_edit_user_search #field {
+height:30px;
+}
+.form_peopletag_edit_user_search .submit {
+width:60px;
+}
+.form_user_remove_peopletag,
+.form_user_add_peopletag {
+float:right;
+}
+.form_user_add_peopletag input.submit,
+.form_user_remove_peopletag input.submit {
+width:100px;
+padding-left:25px;
+text-align:left;
 }
 
 .profile .entity_profile .form_subscription_edit label {
@@ -1783,17 +1941,24 @@ button.close,
 .entity_role p,
 .entity_role_administrator input.submit,
 .entity_role_moderator input.submit,
+.form_user_remove_peopletag input.submit,
+.form_user_add_peopletag input.submit,
+.form_peopletag_subscribe input.submit,
+.form_peopletag_unsubscribe input.submit,
 .notice-options .repeated,
 .form_notice label.notice_data-geo,
 button.minimize,
 .form_reset_key input.submit,
+.entity_tag a,
 .entity_clear input.submit,
 .entity_flag input.submit,
 .entity_flag p,
 .entity_subscribe input.submit,
 #realtime_play,
 #realtime_pause,
-#realtime_popup {
+#realtime_popup,
+.peopletags_edit_button,
+.mode-private .privacy_mode {
 background-image:url(../images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -1815,15 +1980,23 @@ background-position:0 -64px;
 background-position:0 1px;
 }
 .form_group_leave input.submit,
-.form_user_unsubscribe input.submit {
+.form_user_unsubscribe input.submit,
+.form_user_remove_peopletag input.submit,
+.form_peopletag_unsubscribe input.submit {
 background-position:5px -1246px;
 }
 .form_group_join input.submit,
 .form_user_subscribe input.submit,
 .form_remote_authorize input.submit,
+.form_user_add_peopletag input.submit,
+.form_peopletag_subscribe input.submit,
 .entity_subscribe a {
 background-position:5px -1181px;
 }
+ .peopletags_edit_button {
+background-position: 0 -724px;
+}
+
 .entity_edit a {
 background-position: 5px -719px;
 }
@@ -1984,6 +2157,39 @@ padding-left:20px;
 
 .input_form.current { 
     display: block;
+}
+
+.entity_tags li.mode-private {
+color: #829D25;
+}
+.mode-private .privacy_mode {
+background-position: 0px -1978px;
+}
+
+/* tag autocomplete */
+
+.ptag-ac-line {
+font-weight: normal;
+background-color: white;
+min-height:30px;
+}
+.ptag-ac-line:nth-child(odd) {
+background-color: #fafafa;
+}
+
+.ptag-ac-line-tag {
+min-width: 150px;
+display: inline-block;
+}
+
+.ptag-ac-line .freq {
+min-width: 50px;
+text-align: right;
+float:right;
+}
+
+.ptag-ac-line.mode-public .privacy_mode {
+display:none;
 }
 
 /*end of @media screen, projection, tv*/

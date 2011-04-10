@@ -532,12 +532,12 @@ class User extends Memcached_DataObject
 
     function getSelfTags()
     {
-        return Profile_tag::getTags($this->id, $this->id);
+        return Profile_tag::getTagsArray($this->id, $this->id, $this->id);
     }
 
-    function setSelfTags($newtags)
+    function setSelfTags($newtags, $privacy)
     {
-        return Profile_tag::setTags($this->id, $this->id, $newtags);
+        return Profile_tag::setTags($this->id, $this->id, $newtags, $privacy);
     }
 
     function block($other)

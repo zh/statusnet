@@ -298,18 +298,24 @@ class ProfilesettingsAction extends SettingsAction
                 return;
             }
 
-            if ($tagstring) {
-                $tags = array_map('common_canonical_tag', preg_split('/[\s,]+/', $tagstring));
-            } else {
-                $tags = array();
-            }
+            $tags = array();
+            $tag_priv = array();
+            if (is_string($tagstring) && strlen($tagstring) > 0) {
 
-            foreach ($tags as $tag) {
-                if (!common_valid_profile_tag($tag)) {
-                    // TRANS: Validation error in form for profile settings.
-                    // TRANS: %s is an invalid tag.
-                    $this->showForm(sprintf(_('Invalid tag: "%s".'), $tag));
-                    return;
+                $tags = preg_split('/[\s,]+/', $tagstring);
+
+                foreach ($tags as &$tag) {
+                    $private = @$tag[0] === '.';
+
+                    $tag = common_canonical_tag($tag);
+                    if (!common_valid_profile_tag($tag)) {
+                        // TRANS: Validation error in form for profile settings.
+                        // TRANS: %s is an invalid tag.
+                        $this->showForm(sprintf(_('Invalid tag: "%s"'), $tag));
+                        return;
+                    }
+
+                    $tag_priv[$tag] = $private;
                 }
             }
 
@@ -444,7 +450,7 @@ class ProfilesettingsAction extends SettingsAction
             }
 
             // Set the user tags
-            $result = $user->setSelfTags($tags);
+            $result = $user->setSelfTags($tags, $tag_priv);
 
             if (!$result) {
                 // TRANS: Server error thrown when user profile settings tags could not be saved.

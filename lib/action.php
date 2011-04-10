@@ -317,6 +317,7 @@ class Action extends HTMLOutputter // lawsuit
                     $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.js').'"); }');
                     $this->script('jquery.joverlay.js');
                 }
+
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
@@ -327,7 +328,10 @@ class Action extends HTMLOutputter // lawsuit
                     $this->script('util.js');
                     $this->script('xbImportNode.js');
                     $this->script('geometa.js');
+
                 }
+                $this->inlineScript('var _peopletagAC = "' .
+                    common_local_url('peopletagautocomplete') . '";');
                 $this->showScriptMessages();
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');

@@ -97,6 +97,8 @@ class ProfileAction extends OwnerDesignAction
         $this->showSubscriptions();
         $this->showSubscribers();
         $this->showGroups();
+        $this->showPeopletagSubs();
+        $this->showPeopletags();
         $this->showStatistics();
     }
 
@@ -186,6 +188,32 @@ class ProfileAction extends OwnerDesignAction
         }
 
         $this->elementEnd('div');
+    }
+
+    function showPeopletagSubs()
+    {
+        $user = common_current_user();
+        if (!empty($user) && $this->profile->id == $user->id) {
+            if (Event::handle('StartShowPeopletagSubscriptionsSection', array($this))) {
+
+                $profile = $user->getProfile();
+                $section = new PeopletagSubscriptionsSection($this, $profile);
+                $section->show();
+
+                Event::handle('EndShowPeopletagSubscriptionsSection', array($this));
+            }
+        }
+    }
+
+    function showPeopletags()
+    {
+        if (Event::handle('StartShowPeopletagsSection', array($this))) {
+
+            $section = new PeopletagsForUserSection($this, $this->profile);
+            $section->show();
+
+            Event::handle('EndShowPeopletagsSection', array($this));
+        }
     }
 
     function showStatistics()

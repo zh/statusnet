@@ -414,6 +414,104 @@ class DropCommand extends Command
     }
 }
 
+class TagCommand extends Command
+{
+    var $other = null;
+    var $tags = null;
+    function __construct($user, $other, $tags)
+    {
+        parent::__construct($user);
+        $this->other = $other;
+        $this->tags = $tags;
+    }
+
+    function handle($channel)
+    {
+        $profile = $this->getProfile($this->other);
+        $cur     = $this->user->getProfile();
+
+        if (!$profile) {
+            $channel->error($cur, _('No such profile.'));
+            return;
+        }
+        if (!$cur->canTag($profile)) {
+            $channel->error($cur, _('You cannot tag this user.'));
+            return;
+        }
+
+        $privs = array();
+        $tags = preg_split('/[\s,]+/', $this->tags);
+        $clean_tags = array();
+
+        foreach ($tags as $tag) {
+            $private = @$tag[0] === '.';
+            $tag = $clean_tags[] = common_canonical_tag($tag);
+
+            if (!common_valid_profile_tag($tag)) {
+                $channel->error($cur, sprintf(_('Invalid tag: "%s"'), $tag));
+                return;
+            }
+            $privs[$tag] = $private;
+        }
+
+        try {
+            foreach ($clean_tags as $tag) {
+                Profile_tag::setTag($cur->id, $profile->id, $tag, null, $privs[$tag]);
+            }
+        } catch (Exception $e) {
+            $channel->error($cur, sprintf(_('Error tagging %s: %s'),
+                                          $profile->nickname, $e->getMessage()));
+            return;
+        }
+
+        $channel->output($cur, sprintf(_('%1$s was tagged %2$s'),
+                                              $profile->nickname,
+                                              implode(', ', $clean_tags)));
+    }
+}
+
+
+class UntagCommand extends TagCommand
+{
+    function handle($channel)
+    {
+        $profile = $this->getProfile($this->other);
+        $cur     = $this->user->getProfile();
+
+        if (!$profile) {
+            $channel->error($cur, _('No such profile.'));
+            return;
+        }
+        if (!$cur->canTag($profile)) {
+            $channel->error($cur, _('You cannot tag this user.'));
+            return;
+        }
+
+        $tags = array_map('common_canonical_tag', preg_split('/[\s,]+/', $this->tags));
+
+        foreach ($tags as $tag) {
+            if (!common_valid_profile_tag($tag)) {
+                $channel->error($cur, sprintf(_('Invalid tag: "%s"'), $tag));
+                return;
+            }
+        }
+
+        try {
+            foreach ($tags as $tag) {
+                Profile_tag::unTag($cur->id, $profile->id, $tag);
+            }
+        } catch (Exception $e) {
+            $channel->error($cur, sprintf(_('Error untagging %s: %s'),
+                                          $profile->nickname, $e->getMessage()));
+            return;
+        }
+
+        $channel->output($cur, sprintf(_('The following tag(s) were removed from user %1$s: %2$s.'),
+                                              $profile->nickname,
+                                              implode(', ', $tags)));
+    }
+}
+
 class WhoisCommand extends Command
 {
     var $other = null;
@@ -903,6 +1001,10 @@ class HelpCommand extends Command
                           "follow <nickname>" => _m('COMMANDHELP', "subscribe to user"),
                           // TRANS: Help message for IM/SMS command "groups"
                           "groups" => _m('COMMANDHELP', "lists the groups you have joined"),
+                          // TRANS: Help message for IM/SMS command "tag"
+                          "tag <nickname> <tags>" => _m('COMMANDHELP',"tag a user"),
+                          // TRANS: Help message for IM/SMS command "untag"
+                          "untag <nickname> <tags>" => _m('COMMANDHELP',"untag a user"),
                           // TRANS: Help message for IM/SMS command "subscriptions"
                           "subscriptions" => _m('COMMANDHELP', "list the people you follow"),
                           // TRANS: Help message for IM/SMS command "subscribers"

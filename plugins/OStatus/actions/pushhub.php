@@ -176,7 +176,22 @@ class PushHubAction extends Action
                     return true;
                 }
             }
-            common_log(LOG_DEBUG, "Not a user or group feed? $feed $userFeed $groupFeed");
+        } else if (preg_match('!/(\d+)/lists/(\d+)/statuses\.atom$!', $feed, $matches)) {
+            $user = $matches[1];
+            $id = $matches[2];
+            $params = array('user' => $user, 'id' => $id, 'format' => 'atom');
+            $listFeed = common_local_url('ApiTimelineList', $params);
+
+            if ($feed == $listFeed) {
+                $list = Profile_list::staticGet('id', $id);
+                $user = User::staticGet('id', $user);
+                if (!$list || !$user || $list->tagger != $user->id) {
+                    throw new ClientException("Invalid hub.topic $feed; people tag doesn't exist.");
+                } else {
+                    return true;
+                }
+            }
+            common_log(LOG_DEBUG, "Not a user, group or people tag feed? $feed $userFeed $groupFeed $listFeed");
         }
         common_log(LOG_DEBUG, "LOST $feed");
         return false;

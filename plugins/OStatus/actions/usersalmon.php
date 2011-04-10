@@ -185,6 +185,67 @@ class UsersalmonAction extends SalmonAction
         $fave->delete();
     }
 
+    function handleTag()
+    {
+        if ($this->activity->target->type == ActivityObject::_LIST) {
+            if ($this->activity->objects[0]->type != ActivityObject::PERSON) {
+                throw new ClientException("Not a person object");
+                return false;
+            }
+            // this is a peopletag
+            $tagged = User::staticGet('uri', $this->activity->objects[0]->id);
+
+            if (empty($tagged)) {
+                throw new ClientException("Unidentified profile being tagged");
+            }
+
+            if ($tagged->id !== $this->user->id) {
+                throw new ClientException("This user is not the one being tagged");
+            }
+
+            // save the list
+            $tagger = $this->ensureProfile();
+            $list   = Ostatus_profile::ensureActivityObjectProfile($this->activity->target);
+
+            $ptag = $list->localPeopletag();
+            $result = Profile_tag::setTag($ptag->tagger, $tagged->id, $ptag->tag);
+            if (!$result) {
+                throw new ClientException("The tag could not be saved.");
+            }
+        }
+    }
+
+    function handleUntag()
+    {
+        if ($this->activity->target->type == ActivityObject::_LIST) {
+            if ($this->activity->objects[0]->type != ActivityObject::PERSON) {
+                throw new ClientException("Not a person object");
+                return false;
+            }
+            // this is a peopletag
+            $tagged = User::staticGet('uri', $this->activity->objects[0]->id);
+
+            if (empty($tagged)) {
+                throw new ClientException("Unidentified profile being untagged");
+            }
+
+            if ($tagged->id !== $this->user->id) {
+                throw new ClientException("This user is not the one being untagged");
+            }
+
+            // save the list
+            $tagger = $this->ensureProfile();
+            $list   = Ostatus_profile::ensureActivityObjectProfile($this->activity->target);
+
+            $ptag = $list->localPeopletag();
+            $result = Profile_tag::unTag($ptag->tagger, $tagged->id, $ptag->tag);
+
+            if (!$result) {
+                throw new ClientException("The tag could not be deleted.");
+            }
+        }
+    }
+
     /**
      * @param ActivityObject $object
      * @return Notice

@@ -34,6 +34,8 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+require_once INSTALLDIR.'/lib/peopletags.php';
+
 /**
  * Profile block to show for an account
  *
@@ -90,6 +92,22 @@ class AccountProfileBlock extends ProfileBlock
     function description()
     {
         return $this->profile->bio;
+    }
+
+    function showTags()
+    {
+        $cur = common_current_user();
+
+        $self_tags = new SelftagsWidget($this->out, $this->profile, $this->profile);
+        $self_tags->show();
+
+        if ($cur) {
+            // don't show self-tags again
+            if ($cur->id != $this->profile->id && $cur->getProfile()->canTag($this->profile)) {
+                $tags = new PeopletagsWidget($this->out, $cur, $this->profile);
+                $tags->show();
+            }
+        }
     }
 
     function showActions()
