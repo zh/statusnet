@@ -289,6 +289,7 @@ abstract class MicroAppPlugin extends Plugin
         } catch (Exception $e) {
             common_log(LOG_ERR, $e->getMessage());
             // try to fall back
+            $out->elementStart('div');
             $nli->showAuthor();
             $nli->showContent();
         }
