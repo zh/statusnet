@@ -519,7 +519,9 @@ class BookmarkPlugin extends MicroAppPlugin
         if (count($atts) < 1) {
             // Something wrong; let default code deal with it.
             // TRANS: Exception thrown when a bookmark has no attachments.
-            throw new Exception(_m('Bookmark has no attachments.'));
+            throw new Exception(sprintf(_m('Bookmark %s (notice %d) has no attachments.'),
+                                        $nb->id,
+                                        $notice->id));
         }
 
         $att = $atts[0];
