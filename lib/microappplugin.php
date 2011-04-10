@@ -284,7 +284,14 @@ abstract class MicroAppPlugin extends Plugin
         $out = $nli->out;
         $notice = $nli->notice;
 
-        $this->showNotice($notice, $out);
+        try {
+            $this->showNotice($notice, $out);
+        } catch (Exception $e) {
+            common_log(LOG_ERR, $e->getMessage());
+            // try to fall back
+            $nli->showAuthor();
+            $nli->showContent();
+        }
 
         $nli->showNoticeLink();
         $nli->showNoticeSource();
