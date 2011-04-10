@@ -1162,7 +1162,9 @@ class Notice extends Memcached_DataObject
         if($ptag->find()) {
             while($ptag->fetch()) {
                 $plist = Profile_list::getByTaggerAndTag($ptag->tagger, $ptag->tag);
-                $ptags[] = clone($plist);
+                if (!empty($plist)) {
+                    $ptags[] = clone($plist);
+                }
             }
         }
 
