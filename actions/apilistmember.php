@@ -42,7 +42,6 @@ require_once INSTALLDIR . '/lib/apibareauth.php';
  * @link     http://status.net/
  * @see      ApiBareAuthAction
  */
-
 class ApiListMemberAction extends ApiBareAuthAction
 {
     /**
@@ -59,7 +58,6 @@ class ApiListMemberAction extends ApiBareAuthAction
      *
      * @return boolean success flag
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -68,12 +66,14 @@ class ApiListMemberAction extends ApiBareAuthAction
         $this->list = $this->getTargetList($this->arg('user'), $this->arg('list_id'));
 
         if (empty($this->list)) {
-            $this->clientError(_('Not found'), 404, $this->format);
+            // TRANS: Client error displayed when referring to a non-existing list.
+            $this->clientError(_('List not found.'), 404, $this->format);
             return false;
         }
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user'), 404, $this->format);
+            // TRANS: Client error displayed when referring to a non-existing user.
+            $this->clientError(_('No such user.'), 404, $this->format);
             return false;
         }
         return true;
@@ -84,7 +84,6 @@ class ApiListMemberAction extends ApiBareAuthAction
      *
      * @return boolean success flag
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -96,7 +95,8 @@ class ApiListMemberAction extends ApiBareAuthAction
 
         if(empty($ptag)) {
             $this->clientError(
-                _('The specified user is not a member of this list'),
+                // TRANS: Client error displayed when referring to a non-list member.
+                _('The specified user is not a member of this list.'),
                 400,
                 $this->format
             );
@@ -113,6 +113,7 @@ class ApiListMemberAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format

@@ -37,19 +37,16 @@ class ApiListAction extends ApiBareAuthAction
     /**
      * The list in question in the current request
      */
-
     var $list   = null;
 
     /**
      * Is this an update request?
      */
-
     var $update = false;
 
     /**
      * Is this a delete request?
      */
-
     var $delete = false;
 
     /**
@@ -64,7 +61,6 @@ class ApiListAction extends ApiBareAuthAction
      *
      * @return boolean success flag
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -81,7 +77,8 @@ class ApiListAction extends ApiBareAuthAction
         $this->list = $this->getTargetList($this->arg('user'), $this->arg('id'));
 
         if (empty($this->list)) {
-            $this->clientError(_('Not found'), 404, $this->format);
+            // TRANS: Client error displayed when referring to a non-existing list.
+            $this->clientError(_('List not found.'), 404, $this->format);
             return false;
         }
 
@@ -93,7 +90,6 @@ class ApiListAction extends ApiBareAuthAction
      *
      * @return boolean success flag
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -117,6 +113,7 @@ class ApiListAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format
@@ -129,7 +126,6 @@ class ApiListAction extends ApiBareAuthAction
      * require authentication if it is a write action or user is ambiguous
      *
      */
-
     function requiresAuth()
     {
         return parent::requiresAuth() ||
@@ -141,12 +137,12 @@ class ApiListAction extends ApiBareAuthAction
      *
      * @return boolean success
      */
-
     function handlePut()
     {
         if($this->auth_user->id != $this->list->tagger) {
             $this->clientError(
-                _('You can not update lists that don\'t belong to you.'),
+                // TRANS: Client error displayed when trying to update another user's list.
+                _('You cannot update lists that do not belong to you.'),
                 401,
                 $this->format
             );
@@ -161,6 +157,7 @@ class ApiListAction extends ApiBareAuthAction
 
         if(!$result) {
             $this->clientError(
+                // TRANS: Client error displayed when an unknown error occurs updating a list.
                 _('An error occured.'),
                 503,
                 $this->format
@@ -176,6 +173,7 @@ class ApiListAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format
@@ -189,12 +187,12 @@ class ApiListAction extends ApiBareAuthAction
      *
      * @return boolean success
      */
-
     function handleDelete()
     {
         if($this->auth_user->id != $this->list->tagger) {
             $this->clientError(
-                _('You can not delete lists that don\'t belong to you.'),
+                // TRANS: Client error displayed when trying to delete another user's list.
+                _('You cannot delete lists that do not belong to you.'),
                 401,
                 $this->format
             );
@@ -212,6 +210,7 @@ class ApiListAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format
@@ -225,7 +224,6 @@ class ApiListAction extends ApiBareAuthAction
      *
      * @return boolean is_read-only=false
      */
-
     function isReadOnly($args)
     {
         return false;
@@ -236,7 +234,6 @@ class ApiListAction extends ApiBareAuthAction
      *
      * @return String time_last_modified
      */
-
     function lastModified()
     {
         if(!empty($this->list)) {
@@ -253,7 +250,6 @@ class ApiListAction extends ApiBareAuthAction
      *
      * @return string etag
      */
-
     function etag()
     {
         if (!empty($this->list)) {
@@ -271,5 +267,4 @@ class ApiListAction extends ApiBareAuthAction
 
         return null;
     }
-
 }

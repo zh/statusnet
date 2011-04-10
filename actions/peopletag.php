@@ -52,9 +52,13 @@ class PeopletagAction extends Action
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_("Public people tag %s"), $this->tag);
+            // TRANS: Title for people tag page.
+            // TRANS: %s is a tag.
+            return sprintf(_('Public people tag %s'), $this->tag);
         } else {
-            return sprintf(_("Public people tag %s, page %d"), $this->tag, $this->page);
+            // TRANS: Title for people tag page.
+            // TRANS: %1$s is a tag, %2$d is a page number.
+            return sprintf(_('Public people tag %1$s, page %2$d'), $this->tag, $this->page);
         }
     }
 
@@ -96,6 +100,8 @@ class PeopletagAction extends Action
     function showAnonymousMessage()
     {
         $notice =
+          // TRANS: Message for anonymous users on people tag page.
+          // TRANS: This message contains Markdown links in the form [description](link).
           _('People tags are how you sort similar ' .
             'people on %%site.name%%, a [micro-blogging]' .
             '(http://en.wikipedia.org/wiki/Micro-blogging) service ' .
@@ -140,7 +146,7 @@ class PeopletagAction extends Action
         } else {
             $ptags->whereAdd('(profile_list.private = false OR (' .
                              ' profile_list.tagger =' . $user->id .
-                             ' AND profile_list.private = true) )');	
+                             ' AND profile_list.private = true) )');
 
             $ptags->orderBy('profile_list.modified DESC');
             $ptags->find();

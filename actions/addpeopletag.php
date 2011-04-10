@@ -34,9 +34,9 @@ if (!defined('STATUSNET')) {
 require_once INSTALLDIR . '/lib/togglepeopletag.php';
 
 /**
- *  
+ *
  * Action to tag a profile with a single tag.
- * 
+ *
  * Takes parameters:
  *
  *    - tagged: the ID of the profile being tagged
@@ -52,7 +52,6 @@ require_once INSTALLDIR . '/lib/togglepeopletag.php';
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
  * @link      http://status.net/
  */
-
 class AddpeopletagAction extends Action
 {
     var $user;
@@ -66,7 +65,6 @@ class AddpeopletagAction extends Action
      *
      * @return boolean success flag
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -76,6 +74,7 @@ class AddpeopletagAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
+            // TRANS: Client error displayed when the session token does not match or is not given.
             $this->clientError(_('There was a problem with your session token.'.
                                  ' Try again, please.'));
             return false;
@@ -86,6 +85,7 @@ class AddpeopletagAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
+            // TRANS: Error message displayed when trying to perform an action that requires a logged in user.
             $this->clientError(_('Not logged in.'));
             return false;
         }
@@ -97,6 +97,7 @@ class AddpeopletagAction extends Action
         $this->tagged = Profile::staticGet('id', $tagged_id);
 
         if (empty($this->tagged)) {
+            // TRANS: Client error displayed trying to perform an action related to a non-existing profile.
             $this->clientError(_('No such profile.'));
             return false;
         }
@@ -105,7 +106,8 @@ class AddpeopletagAction extends Action
         $this->peopletag = Profile_list::staticGet('id', $id);
 
         if (empty($this->peopletag)) {
-            $this->clientError(_('No such peopletag.'));
+            // TRANS: Client error displayed trying to reference a non-existing people tag.
+            $this->clientError(_('No such people tag.'));
             return false;
         }
 
@@ -115,6 +117,7 @@ class AddpeopletagAction extends Action
         $omb01 = Remote_profile::staticGet('id', $tagged_id);
 
         if (!empty($omb01)) {
+            // TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
             $this->clientError(_('You cannot tag an OMB 0.1'.
                                  ' remote profile with this action.'));
             return false;
@@ -132,10 +135,8 @@ class AddpeopletagAction extends Action
      *
      * @return void
      */
-
     function handle($args)
     {
-
         // Throws exception on error
         $ptag = Profile_tag::setTag($this->user->id, $this->tagged->id,
                                 $this->peopletag->tag);
@@ -144,9 +145,13 @@ class AddpeopletagAction extends Action
             $user = User::staticGet('id', $id);
             if ($user) {
                 $this->clientError(
-                        sprintf(_('There was an unexpected error while tagging %s'),
+                        // TRANS: Client error displayed when an unknown error occurs while tagging a user.
+                        // TRANS: %s is a username.
+                        sprintf(_('There was an unexpected error while tagging %s.'),
                         $user->nickname));
             } else {
+                // TRANS: Client error displayed when an unknown error occurs while tagging a user.
+                // TRANS: %s is a profile URL.
                 $this->clientError(sprintf(_('There was a problem tagging %s.' .
                                       'The remote server is probably not responding correctly, ' .
                                       'please try retrying later.'), $this->profile->profileurl));
@@ -156,6 +161,7 @@ class AddpeopletagAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
+            // TRANS: Title after subscribing to a people tag.
             $this->element('title', null, _('Subscribed'));
             $this->elementEnd('head');
             $this->elementStart('body');

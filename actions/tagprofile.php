@@ -44,6 +44,7 @@ class TagprofileAction extends Action
             $this->profile = Profile::staticGet('id', $id);
 
             if (!$this->profile) {
+                // TRANS: Client error displayed when referring to non-existing profile ID.
                 $this->clientError(_('No profile with that ID.'));
                 return false;
             }
@@ -51,6 +52,7 @@ class TagprofileAction extends Action
 
         $current = common_current_user()->getProfile();
         if ($this->profile && !$current->canTag($this->profile)) {
+            // TRANS: Client error displayed when trying to tag a user that cannot be tagged.
             $this->clientError(_('You cannot tag this user.'));
         }
         return true;
@@ -72,8 +74,11 @@ class TagprofileAction extends Action
     function title()
     {
         if (!$this->profile) {
+            // TRANS: Title for people tag form when not on a profile page.
             return _('Tag a profile');
         }
+        // TRANS: Title for people tag form when on a profile page.
+        // TRANS: %s is a profile nickname.
         return sprintf(_('Tag %s'), $this->profile->nickname);
     }
 
@@ -83,7 +88,8 @@ class TagprofileAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            $this->element('title', null, _('Error'));
+            // TRANS: Title for people tag form when an error has occurred.
+            $this->element('title', null, _m('TITLE','Error'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->element('p', 'error', $error);
@@ -98,6 +104,7 @@ class TagprofileAction extends Action
     {
         if (Event::handle('StartShowTagProfileForm', array($this, $this->profile)) && $this->profile) {
             $this->elementStart('div', 'entity_profile vcard author');
+            // TRANS: Header in people tag form.
             $this->element('h2', null, _('User profile'));
 
             $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -140,6 +147,7 @@ class TagprofileAction extends Action
                                                'action' => common_local_url('tagprofile', array('id' => $this->profile->id))));
 
             $this->elementStart('fieldset');
+            // TRANS: Fieldset legend for people tag form.
             $this->element('legend', null, _('Tag user'));
             $this->hidden('token', common_session_token());
             $this->hidden('id', $this->profile->id);
@@ -150,12 +158,15 @@ class TagprofileAction extends Action
             $this->elementStart('li');
 
             $tags = Profile_tag::getTagsArray($user->id, $this->profile->id, $user->id);
-            $this->input('tags', _('Tags'),
+            // TRANS: Field label on people tag form.
+            $this->input('tags', _m('LABEL','Tags'),
                          ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $tags),
-                         _('Tags for this user (letters, numbers, -, ., and _), comma- or space- separated'));
+                         // TRANS: Field title on people tag form.
+                         _('Tags for this user (letters, numbers, -, ., and _), comma- or space- separated.'));
             $this->elementEnd('li');
             $this->elementEnd('ul');
-            $this->submit('save', _('Save'));
+            // TRANS: Button text to save people tags.
+            $this->submit('save', _m('BUTTON','Save'));
             $this->elementEnd('fieldset');
             $this->elementEnd('form');
 
@@ -171,6 +182,7 @@ class TagprofileAction extends Action
 
         if (Event::handle('StartSavePeopletags', array($this, $tagstring))) {
             if (!$token || $token != common_session_token()) {
+                // TRANS: Client error displayed when the session token does not match or is not given.
                 $this->showForm(_('There was a problem with your session token. '.
                                   'Try again, please.'));
                 return;
@@ -188,7 +200,9 @@ class TagprofileAction extends Action
 
                     $tag = common_canonical_tag($tag);
                     if (!common_valid_profile_tag($tag)) {
-                        $this->showForm(sprintf(_('Invalid tag: "%s"'), $tag));
+                        // TRANS: Form validation error displayed if a given tag is invalid.
+                        // TRANS: %s is the invalid tag.
+                        $this->showForm(sprintf(_('Invalid tag: "%s".'), $tag));
                         return;
                     }
 
@@ -211,7 +225,7 @@ class TagprofileAction extends Action
             if ($this->boolean('ajax')) {
                 $this->startHTML('text/xml;charset=utf-8');
                 $this->elementStart('head');
-                $this->element('title', null, _('Tags'));
+                $this->element('title', null, _m('TITLE','Tags'));
                 $this->elementEnd('head');
                 $this->elementStart('body');
 
@@ -226,7 +240,8 @@ class TagprofileAction extends Action
                 $this->elementEnd('body');
                 $this->elementEnd('html');
             } else {
-                $this->error = 'Tags saved.';
+                // TRANS: Success message if people tags are saved.
+                $this->error = _('Tags saved.');
                 $this->showForm();
             }
 
@@ -241,9 +256,9 @@ class TagprofileAction extends Action
         } else {
             $this->elementStart('div', 'instructions');
             $this->element('p', null,
+                           // TRANS: Page notice.
                            _('Use this form to add tags to your subscribers or subscriptions.'));
             $this->elementEnd('div');
         }
     }
 }
-

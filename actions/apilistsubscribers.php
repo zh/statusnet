@@ -38,7 +38,6 @@ class ApiListSubscribersAction extends ApiListUsersAction
      *
      * @return boolean success
      */
-
     function handlePost()
     {
         $result = Profile_tag_subscription::add($this->list,
@@ -46,6 +45,7 @@ class ApiListSubscribersAction extends ApiListUsersAction
 
         if(empty($result)) {
             $this->clientError(
+                // TRANS: Client error displayed when an unknown error occurs in the list subscribers action.
                 _('An error occured.'),
                 500,
                 $this->format
@@ -62,6 +62,7 @@ class ApiListSubscribersAction extends ApiListUsersAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format
@@ -79,7 +80,8 @@ class ApiListSubscribersAction extends ApiListUsersAction
 
         if(empty($ptag)) {
             $this->clientError(
-                _('You are not subscribed to this list'),
+                // TRANS: Client error displayed when trying to unsubscribe from a non-subscribed list.
+                _('You are not subscribed to this list.'),
                 400,
                 $this->format
             );
@@ -90,6 +92,7 @@ class ApiListSubscribersAction extends ApiListUsersAction
 
         if(empty($result)) {
             $this->clientError(
+                // TRANS: Client error displayed when an unknown error occurs unsubscribing from a list.
                 _('An error occured.'),
                 500,
                 $this->format
@@ -106,6 +109,7 @@ class ApiListSubscribersAction extends ApiListUsersAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format

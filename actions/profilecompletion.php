@@ -68,7 +68,6 @@ class ProfilecompletionAction extends Action
      *
      * @return boolean success flag
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -78,6 +77,7 @@ class ProfilecompletionAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
+            // TRANS: Client error displayed when the session token does not match or is not given.
             $this->clientError(_('There was a problem with your session token.'.
                                  ' Try again, please.'));
             return false;
@@ -88,6 +88,7 @@ class ProfilecompletionAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
+            // TRANS: Error message displayed when trying to perform an action that requires a logged in user.
             $this->clientError(_('Not logged in.'));
             return false;
         }
@@ -96,13 +97,16 @@ class ProfilecompletionAction extends Action
         $this->peopletag = Profile_list::staticGet('id', $id);
 
         if (empty($this->peopletag)) {
-            $this->clientError(_('No such peopletag.'));
+            // TRANS: Client error displayed trying to reference a non-existing people tag.
+            $this->clientError(_('No such people tag.'));
             return false;
         }
 
         $field = $this->arg('field');
         if (!in_array($field, array('fulltext', 'nickname', 'fullname', 'description', 'location', 'uri'))) {
-            $this->clientError(sprintf(_('Unidentified field %s'), htmlspecialchars($field)), 404);
+            // TRANS: Client error displayed when trying to add an unindentified field to profile.
+            // TRANS: %s is a field name.
+            $this->clientError(sprintf(_('Unidentified field %s.'), htmlspecialchars($field)), 404);
             return false;
         }
         $this->field = $field;
@@ -126,7 +130,8 @@ class ProfilecompletionAction extends Action
 
         $this->startHTML('text/xml;charset=utf-8');
         $this->elementStart('head');
-        $this->element('title', null, _('Search results'));
+        // TRANS: Page title.
+        $this->element('title', null, _m('TITLE','Search results'));
         $this->elementEnd('head');
         $this->elementStart('body');
         $profiles = $this->getResults();
@@ -141,6 +146,7 @@ class ProfilecompletionAction extends Action
                 }
                 $this->elementEnd('ul');
             } else {
+                // TRANS: Output when there are no results for a search.
                 $this->element('p', 'error', _('No results.'));
             }
         }
@@ -154,7 +160,8 @@ class ProfilecompletionAction extends Action
         $q = $this->arg('q');
         $q = strtolower($q);
         if (strlen($q) < 3) {
-            $this->msg = _('The search string must be atleast 3 characters long');
+            // TRANS: Error message in case a search is shorter than three characters.
+            $this->msg = _('The search string must be at least 3 characters long.');
         }
         $page = $this->arg('page');
         $page = (int) (empty($page) ? 1 : $page);
@@ -172,6 +179,7 @@ class ProfilecompletionAction extends Action
             else {
                 $cnt = $profile->find();
             }
+            // @todo FIXME: Call-time pass-by-reference has been deprecated.
             Event::handle('EndProfileCompletionSearch', $this, &$profile, $search_engine);
         }
 

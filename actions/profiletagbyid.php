@@ -40,7 +40,6 @@ class ProfiletagbyidAction extends Action
      *
      * @return boolean true
      */
-
     function isReadOnly($args)
     {
         return true;
@@ -54,6 +53,7 @@ class ProfiletagbyidAction extends Action
         $tagger_id = $this->arg('tagger_id');
 
         if (!$id) {
+            // TRANS: Client error displayed trying to perform an action without providing an ID.
             $this->clientError(_('No ID.'));
             return false;
         }
@@ -63,6 +63,7 @@ class ProfiletagbyidAction extends Action
         $this->peopletag = Profile_list::staticGet('id', $id);
 
         if (!$this->peopletag) {
+            // TRANS: Client error displayed trying to reference a non-existing people tag.
             $this->clientError(_('No such people tag.'), 404);
             return false;
         }
@@ -84,7 +85,6 @@ class ProfiletagbyidAction extends Action
      *
      * @return void
      */
-
     function handle($args)
     {
         common_redirect($this->peopletag->homeUrl(), 303);

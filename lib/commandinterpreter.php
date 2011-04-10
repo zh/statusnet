@@ -339,7 +339,7 @@ class CommandInterpreter
             default:
                 $result = false;
             }
-                
+
             Event::handle('EndInterpretCommand', array($cmd, $arg, $user, &$result));
         }
 

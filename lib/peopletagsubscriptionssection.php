@@ -39,7 +39,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class PeopletagSubscriptionsSection extends PeopletagSection
 {
     var $profile=null;
@@ -62,6 +61,7 @@ class PeopletagSubscriptionsSection extends PeopletagSection
 
     function title()
     {
+        // TRANS: Title for page that displays people tags a user has subscribed to.
         return _('People tag subscriptions');
     }
 

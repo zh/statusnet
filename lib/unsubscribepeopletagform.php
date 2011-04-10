@@ -44,13 +44,11 @@ require_once INSTALLDIR.'/lib/form.php';
  *
  * @see      UnunsubscribeForm
  */
-
 class UnsubscribePeopletagForm extends Form
 {
     /**
      * peopletag for the user to join
      */
-
     var $peopletag = null;
 
     /**
@@ -59,7 +57,6 @@ class UnsubscribePeopletagForm extends Form
      * @param HTMLOutputter $out   output channel
      * @param peopletag     $peopletag peopletag to unsubscribe to
      */
-
     function __construct($out=null, $peopletag=null)
     {
         parent::__construct($out);
@@ -72,7 +69,6 @@ class UnsubscribePeopletagForm extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
         return 'peopletag-unsubscribe-' . $this->peopletag->id;
@@ -83,7 +79,6 @@ class UnsubscribePeopletagForm extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
         return 'form_peopletag_unsubscribe';
@@ -94,7 +89,6 @@ class UnsubscribePeopletagForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('unsubscribepeopletag',
@@ -106,9 +100,9 @@ class UnsubscribePeopletagForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
-        $this->out->submit('submit', _('Unsubscribe'));
+        // TRANS: Button text for unsubscribing from a people tag.
+        $this->out->submit('submit', _m('BUTTON','Unsubscribe'));
     }
 }

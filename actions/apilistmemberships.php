@@ -43,7 +43,6 @@ require_once INSTALLDIR . '/lib/apibareauth.php';
  * @link     http://status.net/
  * @see      ApiBareAuthAction
  */
-
 class ApiListMembershipsAction extends ApiBareAuthAction
 {
     var $lists = array();
@@ -60,7 +59,6 @@ class ApiListMembershipsAction extends ApiBareAuthAction
      * @return boolean success flag
      *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -69,6 +67,7 @@ class ApiListMembershipsAction extends ApiBareAuthAction
         $this->user = $this->getTargetUser($this->arg('user'));
 
         if (empty($this->user)) {
+            // TRANS: Client error displayed trying to perform an action related to a non-existing user.
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
@@ -87,7 +86,6 @@ class ApiListMembershipsAction extends ApiBareAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -101,6 +99,7 @@ class ApiListMembershipsAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 400,
                 $this->format
@@ -118,7 +117,6 @@ class ApiListMembershipsAction extends ApiBareAuthAction
      *
      * @return boolean is read only action?
      */
-
     function isReadOnly($args)
     {
         return true;

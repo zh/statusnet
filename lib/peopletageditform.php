@@ -44,7 +44,6 @@ require_once INSTALLDIR.'/lib/togglepeopletag.php';
  *
  * @see      GroupEditForm
  */
-
 class PeopletagEditForm extends Form
 {
     /**
@@ -60,7 +59,6 @@ class PeopletagEditForm extends Form
      * @param Action     $out   output channel
      * @param User_group $group group to join
      */
-
     function __construct($out=null, Profile_list $peopletag=null)
     {
         parent::__construct($out);
@@ -74,7 +72,6 @@ class PeopletagEditForm extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
         return 'form_peopletag_edit-' . $this->peopletag->id;
@@ -85,7 +82,6 @@ class PeopletagEditForm extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
         return 'form_settings';
@@ -96,7 +92,6 @@ class PeopletagEditForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('editpeopletag',
@@ -108,10 +103,11 @@ class PeopletagEditForm extends Form
      *
      * @return void
      */
-
     function formLegend()
     {
-        $this->out->element('legend', null, sprintf(_('Edit peopletag %s'), $this->peopletag->tag));
+        // TRANS: Form legend for people tag edit form.
+        // TRANS: %s is a people tag.
+        $this->out->element('legend', null, sprintf(_('Edit people tag %s'), $this->peopletag->tag));
     }
 
     /**
@@ -119,7 +115,6 @@ class PeopletagEditForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         $id = $this->peopletag->id;
@@ -131,21 +126,32 @@ class PeopletagEditForm extends Form
 
         $this->out->elementStart('li');
         $this->out->hidden('id', $id);
-        $this->out->input('tag', _('Tag'),
+
+        // TRANS: Field label for people tag.
+        $this->out->input('tag', _m('LABEL','Tag'),
                           ($this->out->arg('tag')) ? $this->out->arg('tag') : $tag,
-                          _('Change the tag (letters, numbers, -, ., and _ are allowed)'));
+                          // TRANS: Field title for people tag.
+                          _('Change the tag (letters, numbers, -, ., and _ are allowed).'));
         $this->out->elementEnd('li');
 
         $this->out->elementStart('li');
         $desclimit = Profile_list::maxDescription();
         if ($desclimit == 0) {
-            $descinstr = _('Describe the people tag or topic');
+            // TRANS: Field title for description of people tag.
+            $descinstr = _('Describe the people tag or topic.');
         } else {
-            $descinstr = sprintf(_('Describe the people tag or topic in %d characters'), $desclimit);
+            // TRANS: Field title for description of people tag.
+            // TRANS: %d is the maximum number of characters for the description.
+            $descinstr = sprintf(_m('Describe the people tag or topic in %d character.',
+                                    'Describe the people tag or topic in %d characters.',
+                                    $desclimit),
+                                 $desclimit);
         }
+        // TRANS: Field label for description of people tag.
         $this->out->textarea('description', _('Description'),
                              ($this->out->arg('description')) ? $this->out->arg('description') : $description,
                              $descinstr);
+        // TRANS: Checkbox label to mark a people tag private.
         $this->out->checkbox('private', _('Private'), $private);
         $this->out->elementEnd('li');
         $this->out->elementEnd('ul');
@@ -156,24 +162,28 @@ class PeopletagEditForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
+        // TRANS: Button text to save a people tag.
         $this->out->submit('submit', _('Save'));
         $this->out->submit('form_action-yes',
+                      // TRANS: Button text to delete a people tag.
                       _m('BUTTON','Delete'),
                       'submit',
                       'delete',
-                      _('Delete this people tag'));
+                      // TRANS: Button title to delete a people tag.
+                      _('Delete this people tag.'));
     }
 
     function showProfileList()
     {
         $tagged = $this->peopletag->getTagged();
-        $this->out->element('h2', null, 'Add or remove people');
+        // TRANS: Header in people tag edit form.
+        $this->out->element('h2', null, _('Add or remove people'));
 
         $this->out->elementStart('div', 'profile_search_wrap');
-        $this->out->element('h3', null, _m('BUTTON', 'Search'));
+        // TRANS: Header in people tag edit form.
+        $this->out->element('h3', null, _m('HEADER','Search'));
         $search = new SearchProfileForm($this->out, $this->peopletag);
         $search->show();
         $this->out->element('ul', array('id' => 'profile_search_results', 'class' => 'empty'));

@@ -809,7 +809,8 @@ class User extends Memcached_DataObject
 
     function repeatedToMe($offset=0, $limit=20, $since_id=null, $max_id=null)
     {
-        throw new Exception("Not implemented since inbox change.");
+        // TRANS: Exception thrown when trying view "repeated to me".
+        throw new Exception(_('Not implemented since inbox change.'));
     }
 
     function shareLocation()

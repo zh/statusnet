@@ -46,7 +46,6 @@ define('PEOPLETAGS_PER_SECTION', 6);
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class PeopletagSection extends Section
 {
     function showContent()
@@ -120,8 +119,11 @@ class PeopletagSectionItem extends PeopletagListItem
 
     function showTag()
     {
-        $title = _('Tagged: ') . $this->peopletag->taggedCount() .
-                 ' ' . _('Subscribers: ') . $this->peopletag->subscriberCount();
+        // TRANS: Tag summary. %1$d is the number of users tagged with the tag,
+        // TRANS: %2$d is the number of subscribers to the tag.
+        $title = sprintf(_('Tagged: %1$d Subscribers: %2$d'),
+                         $this->peopletag->taggedCount(),
+                         $this->peopletag->subscriberCount());
 
         $this->out->elementStart('span', 'entry-title tag');
         $this->out->element('a',

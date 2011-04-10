@@ -40,7 +40,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class PeopletagsBySubsSection extends PeopletagSection
 {
     function getPeopletags()
@@ -66,6 +65,7 @@ class PeopletagsBySubsSection extends PeopletagSection
 
     function title()
     {
+        // TRANS: Title for section contaning people tags with the most subscribers.
         return _('People tags with most subscribers');
     }
 

@@ -39,7 +39,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class PeopletagsForUserSection extends PeopletagSection
 {
     var $profile=null;
@@ -67,9 +66,10 @@ class PeopletagsForUserSection extends PeopletagSection
         if ($this->profile->id == common_current_user()->id) {
             $name = 'you';
         }
+        // TRANS: Title for page that displays which people tags a user has been tagged with.
+        // TRANS: %s is a profile name.
         return sprintf(_('People tags for %s'), $name);
     }
-
 
     function link()
     {

@@ -42,7 +42,6 @@ require_once(INSTALLDIR.'/lib/profilelist.php');
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class PeopletaggedAction extends OwnerDesignAction
 {
     var $page = null;
@@ -76,6 +75,7 @@ class PeopletaggedAction extends OwnerDesignAction
         }
 
         if (!$tagger) {
+            // TRANS: Client error displayed when a tagger is expected but not provided.
             $this->clientError(_('No tagger.'), 404);
             return false;
         }
@@ -83,6 +83,7 @@ class PeopletaggedAction extends OwnerDesignAction
         $user = User::staticGet('nickname', $tagger);
 
         if (!$user) {
+            // TRANS: Client error displayed when referring to non-existing user.
             $this->clientError(_('No such user.'), 404);
             return false;
         }
@@ -91,7 +92,8 @@ class PeopletaggedAction extends OwnerDesignAction
         $this->peopletag = Profile_list::pkeyGet(array('tagger' => $user->id, 'tag' => $tag));
 
         if (!$this->peopletag) {
-            $this->clientError(_('No such peopletag.'), 404);
+            // TRANS: Client error displayed when referring to non-existing people tag.
+            $this->clientError(_('No such people tag.'), 404);
             return false;
         }
 
@@ -101,10 +103,14 @@ class PeopletaggedAction extends OwnerDesignAction
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_('People tagged %s by %s'),
+            // TRANS: Title for list of people tagged by the user with a tag.
+            // TRANS: %1$s is a tag, %2$s is a username.
+            return sprintf(_('People tagged %1$s by %2$s'),
                            $this->peopletag->tag, $this->tagger->nickname);
         } else {
-            return sprintf(_('People tagged %s by %s, page %d'),
+            // TRANS: Title for list of people tagged by the user with a tag.
+            // TRANS: %1$s is a tag, %2$s is a username, %2$s is a page number.
+            return sprintf(_('People tagged %1$s by %2$s, page %3$d'),
                            $this->peopletag->tag, $this->user->nickname,
                            $this->page);
         }
@@ -182,6 +188,7 @@ class PeopletagMemberListItem extends ProfileListItem
         parent::showFullName();
         if ($this->profile->id == $this->peopletag->tagger) {
             $this->out->text(' ');
+            // TRANS: Addition in tag membership list for creator of a tag.
             $this->out->element('span', 'role', _('Creator'));
         }
     }
@@ -206,7 +213,7 @@ class PeopletagMemberListItem extends ProfileListItem
     /**
      * Fetch necessary return-to arguments for the profile forms
      * to return to this list when they're done.
-     * 
+     *
      * @return array
      */
     protected function returnToArgs()

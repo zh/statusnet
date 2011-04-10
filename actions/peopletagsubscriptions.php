@@ -46,9 +46,13 @@ class PeopletagsubscriptionsAction extends OwnerDesignAction
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_("People tags subscriptions by %s"), $this->profile->nickname);
+            // TRANS: Title for page that displays people tags subscribed to by a user.
+            // TRANS: %s is a profile nickname.
+            return sprintf(_('People tags subscriptions by %s'), $this->profile->nickname);
         } else {
-            return sprintf(_("People tags subscriptions by %s, page %d"), $this->profile->nickname, $this->page);
+            // TRANS: Title for page that displays people tags subscribed to by a user.
+            // TRANS: %1$s is a profile nickname, %2$d is a page number.
+            return sprintf(_('People tags subscriptions by %1$s, page %2$d'), $this->profile->nickname, $this->page);
         }
     }
 
@@ -73,6 +77,7 @@ class PeopletagsubscriptionsAction extends OwnerDesignAction
         $user = User::staticGet('nickname', $nickname);
 
         if (!$user) {
+            // TRANS: Client error displayed trying to perform an action related to a non-existing user.
             $this->clientError(_('No such user.'), 404);
             return false;
         }
@@ -80,6 +85,7 @@ class PeopletagsubscriptionsAction extends OwnerDesignAction
         $this->profile = $user->getProfile();
 
         if (!$this->profile) {
+            // TRANS: Server error displayed when a user has no profile.
             $this->serverError(_('User has no profile.'));
             return false;
         }
@@ -98,6 +104,9 @@ class PeopletagsubscriptionsAction extends OwnerDesignAction
     function showAnonymousMessage()
     {
         $notice =
+          // TRANS: Message displayed for anonymous users on page that displays people tags subscribed to by a user.
+          // TRANS: This message contains Markdown links in the form [description](links).
+          // TRANS: %s is a profile nickname.
           sprintf(_('These are people tags subscribed to by **%s**. ' .
                     'People tags are how you sort similar ' .
                     'people on %%%%site.name%%%%, a [micro-blogging]' .

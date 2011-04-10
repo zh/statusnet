@@ -208,7 +208,7 @@ class Notice extends Memcached_DataObject
 
         if (!$id) {
             // TRANS: Server exception. %s are the error details.
-            throw new ServerException(sprintf(_('Database error inserting hashtag: %s'),
+            throw new ServerException(sprintf(_('Database error inserting hashtag: %s.'),
                                               $last_error->message));
             return;
         }
@@ -1190,6 +1190,7 @@ class Notice extends Memcached_DataObject
             $result = $ptagi->insert();
             if (!$result) {
                 common_log_db_error($ptagi, 'INSERT', __FILE__);
+                // TRANS: Server exception thrown when saving profile_tag inbox fails.
                 throw new ServerException(_('Problem saving profile_tag inbox.'));
             }
 
@@ -2289,7 +2290,7 @@ class Notice extends Memcached_DataObject
     /**
      * Check that the given profile is allowed to read, respond to, or otherwise
      * act on this notice.
-     * 
+     *
      * The $scope member is a bitmask of scopes, representing a logical AND of the
      * scope requirement. So, 0x03 (Notice::ADDRESSEE_SCOPE | Notice::SITE_SCOPE) means
      * "only visible to people who are mentioned in the notice AND are users on this site."

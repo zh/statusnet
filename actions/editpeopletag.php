@@ -42,14 +42,17 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class EditpeopletagAction extends OwnerDesignAction
 {
-
     var $msg, $confirm, $confirm_args=array();
 
     function title()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $this->boolean('delete')) {
+            // TRANS: Title for edit people tag page after deleting a tag.
+            // TRANS: %s is a tag.
             return sprintf(_('Delete %s people tag'), $this->peopletag->tag);
         }
+        // TRANS: Title for edit people tag page.
+        // TRANS: %s is a tag.
         return sprintf(_('Edit people tag %s'), $this->peopletag->tag);
     }
 
@@ -62,6 +65,7 @@ class EditpeopletagAction extends OwnerDesignAction
         parent::prepare($args);
 
         if (!common_logged_in()) {
+            // TRANS: Error message displayed when trying to perform an action that requires a logged in user.
             $this->clientError(_('Not logged in.'));
             return false;
         }
@@ -91,6 +95,7 @@ class EditpeopletagAction extends OwnerDesignAction
             }
         } else {
             if (!$tagger) {
+                // TRANS: Error message displayed when trying to perform an action that requires a tagging user or ID.
                 $this->clientError(_('No tagger or ID.'), 404);
                 return false;
             }
@@ -100,17 +105,20 @@ class EditpeopletagAction extends OwnerDesignAction
         }
 
         if (!$this->peopletag) {
-            $this->clientError(_('No such peopletag.'), 404);
+            // TRANS: Client error displayed when referring to a non-exsting people tag.
+            $this->clientError(_('No such people tag.'), 404);
             return false;
         }
 
         if (!$user) {
             // This should not be happening
+            // TRANS: Client error displayed when referring to non-local user.
             $this->clientError(_('Not a local user.'), 404);
             return false;
         }
 
         if ($current->id != $user->id) {
+            // TRANS: Client error displayed when reting to edit a tag that was not self-created.
             $this->clientError(_('You must be the creator of the tag to edit it.'), 404);
             return false;
         }
@@ -129,7 +137,6 @@ class EditpeopletagAction extends OwnerDesignAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -208,6 +215,7 @@ class EditpeopletagAction extends OwnerDesignAction
             $this->element('p', 'instructions', $this->confirm);
         } else {
             $this->element('p', 'instructions',
+                           // TRANS: Form instruction for edit people tag form.
                            _('Use this form to edit the people tag.'));
         }
     }
@@ -228,6 +236,7 @@ class EditpeopletagAction extends OwnerDesignAction
         $cancel      = $this->arg('cancel');
 
         if ($delete && $cancel) {
+            // TRANS: Form validation error displayed if the form data for deleting a tag was incorrect.
             $this->showForm(_('Delete aborted.'));
             return;
         }
@@ -235,24 +244,35 @@ class EditpeopletagAction extends OwnerDesignAction
         $set_private = $private && $this->peopletag->private != $private;
 
         if ($delete && !$confirm) {
+            // TRANS: Text in confirmation dialog for deleting a tag.
             $this->showConfirm(_('Deleting this tag will permanantly remove ' .
                                  'all its subscription and membership records. ' .
                                  'Do you still want to continue?'), array('delete' => 1));
             return;
         } else if (common_valid_tag($tag)) {
+            // TRANS: Form validation error displayed if a given tag is invalid.
             $this->showForm(_('Invalid tag.'));
             return;
         } else if ($tag != $this->peopletag->tag && $this->tagExists($tag)) {
+            // TRANS: Form validation error displayed if a given tag is already present.
+            // TRANS: %s is the already present tag.
             $this->showForm(sprintf(_('You already have a tag named %s.'), $tag));
             return;
         } else if (Profile_list::descriptionTooLong($description)) {
-            $this->showForm(sprintf(_('description is too long (max %d chars).'), Profile_list::maxDescription()));
+            $this->showForm(sprintf(
+                    // TRANS: Client error shown when providing too long a description when editing a people tag.
+                    // TRANS: %d is the maximum number of allowed characters.
+                    _m('Description is too long (maximum %d character).',
+                      'Description is too long (maximum %d characters).',
+                      Profile_list::maxDescription()),
+                    Profile_list::maxDescription()));
             return;
         } else if ($set_private && !$confirm && !$cancel) {
             $fwd = array('tag' => $tag,
                          'description' => $description,
                          'private' => (int) $private);
 
+            // TRANS: Text in confirmation dialog for setting a tag from public to private.
             $this->showConfirm(_('Setting a public tag as private will ' .
                                  'permanently remove all the existing ' .
                                  'subscriptions to it. Do you still want to continue?'), $fwd);
@@ -273,7 +293,8 @@ class EditpeopletagAction extends OwnerDesignAction
 
         if (!$result) {
             common_log_db_error($this->group, 'UPDATE', __FILE__);
-            $this->serverError(_('Could not update peopletag.'));
+            // TRANS: TRANS: Server error displayed when updating a people tag fails.
+            $this->serverError(_('Could not update people tag.'));
         }
 
         $this->peopletag->query('COMMIT');
@@ -297,6 +318,7 @@ class EditpeopletagAction extends OwnerDesignAction
                                                    'tag'    => $tag)),
                             303);
         } else {
+            // TRANS: Edit people tag form success message.
             $this->showForm(_('Options saved.'));
         }
     }

@@ -44,7 +44,6 @@ class PeopletagautocompleteAction extends Action
      *
      * @return boolean success flag
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -54,6 +53,7 @@ class PeopletagautocompleteAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
+            // TRANS: Error message displayed when trying to perform an action that requires a logged in user.
             $this->clientError(_('Not logged in.'));
             return false;
         }
@@ -63,6 +63,7 @@ class PeopletagautocompleteAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
+            // TRANS: Client error displayed when the session token does not match or is not given.
             $this->clientError(_('There was a problem with your session token.'.
                                  ' Try again, please.'));
             return false;
@@ -99,7 +100,6 @@ class PeopletagautocompleteAction extends Action
      *
      * @return String time
      */
-
     function lastModified()
     {
         return strtotime($this->last_mod);
@@ -114,7 +114,6 @@ class PeopletagautocompleteAction extends Action
      *
      * @return void
      */
-
     function handle($args)
     {
         //common_log(LOG_DEBUG, 'Autocomplete data: ' . json_encode($this->tags));

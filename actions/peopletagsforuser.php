@@ -46,9 +46,11 @@ class PeopletagsforuserAction extends OwnerDesignAction
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_("People tags for %s"), $this->tagged->nickname);
+            // Page title. %s is a tagged user's nickname.
+            return sprintf(_('People tags for %s'), $this->tagged->nickname);
         } else {
-            return sprintf(_("People tags for %s, page %d"), $this->tagged->nickname, $this->page);
+            // Page title. %1$s is a tagged user's nickname, %2$s is a page number.
+            return sprintf(_('People tags for %1$s, page %2$d'), $this->tagged->nickname, $this->page);
         }
     }
 
@@ -73,6 +75,7 @@ class PeopletagsforuserAction extends OwnerDesignAction
         $this->user = User::staticGet('nickname', $nickname);
 
         if (!$this->user) {
+            // TRANS: Client error displayed trying to perform an action related to a non-existing user.
             $this->clientError(_('No such user.'), 404);
             return false;
         }
@@ -80,6 +83,7 @@ class PeopletagsforuserAction extends OwnerDesignAction
         $this->tagged = $this->user->getProfile();
 
         if (!$this->tagged) {
+            // TRANS: Server error displayed when a user has no profile.
             $this->serverError(_('User has no profile.'));
             return false;
         }
@@ -98,6 +102,9 @@ class PeopletagsforuserAction extends OwnerDesignAction
     function showAnonymousMessage()
     {
         $notice =
+          // TRANS: Message displayed for anonymous users on page that displays people tags for a user.
+          // TRANS: This message contains Markdown links in the form [description](links).
+          // TRANS: %s is a tagger nickname.
           sprintf(_('These are people tags for **%s**. ' .
                     'People tags are how you sort similar ' .
                     'people on %%%%site.name%%%%, a [micro-blogging]' .
@@ -117,7 +124,9 @@ class PeopletagsforuserAction extends OwnerDesignAction
                                          'class' => 'child_1'));
 
         $user = common_current_user();
+        // TRANS: Page notice.
         $text = ($this->tagged->id == @$user->id) ? _('People tags by you') :
+                // TRANS: Page notice. %s is a tagger's nickname.
                 sprintf(_('People tags by %s'), $this->tagged->nickname);
         $this->element('a',
                        array('href' =>
@@ -150,6 +159,9 @@ class PeopletagsforuserAction extends OwnerDesignAction
 
     function showEmptyListMessage()
     {
+        // TRANS: Message displayed on page that displays people tags for a user when there are none.
+        // TRANS: This message contains Markdown links in the form [description](links).
+        // TRANS: %s is a tagger nickname.
         $message = sprintf(_('%s has not been [tagged](%%%%doc.tags%%%%) by anyone yet.'), $this->tagged->nickname);
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));

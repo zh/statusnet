@@ -311,7 +311,7 @@ class ProfilesettingsAction extends SettingsAction
                     if (!common_valid_profile_tag($tag)) {
                         // TRANS: Validation error in form for profile settings.
                         // TRANS: %s is an invalid tag.
-                        $this->showForm(sprintf(_('Invalid tag: "%s"'), $tag));
+                        $this->showForm(sprintf(_('Invalid tag: "%s".'), $tag));
                         return;
                     }
 

@@ -50,7 +50,8 @@ class Profile_tag_subscription extends Memcached_DataObject
 
             if (!$result) {
                 common_log_db_error($sub, 'INSERT', __FILE__);
-                throw new Exception(_("Adding people tag subscription failed."));
+                // TRANS: Exception thrown when inserting a people tag subscription in the database fails.
+                throw new Exception(_('Adding people tag subscription failed.'));
             }
 
             $ptag = Profile_list::staticGet('id', $peopletag->id);
@@ -76,7 +77,8 @@ class Profile_tag_subscription extends Memcached_DataObject
 
             if (!$result) {
                 common_log_db_error($sub, 'DELETE', __FILE__);
-                throw new Exception(_("Removing people tag subscription failed."));
+                // TRANS: Exception thrown when deleting a people tag subscription from the database fails.
+                throw new Exception(_('Removing people tag subscription failed.'));
             }
 
             $peopletag->subscriberCount(true);

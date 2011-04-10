@@ -49,15 +49,22 @@ class PeopletagsbyuserAction extends OwnerDesignAction
         if ($this->page == 1) {
             if ($this->isOwner()) {
                 if ($this->arg('private')) {
+                    // TRANS: Title for people tags by a user page for a private tag.
                     return _('Private people tags by you');
                 } else if ($this->arg('public')) {
+                    // TRANS: Title for people tags by a user page for a public tag.
                     return _('Public people tags by you');
                 }
+                // TRANS: Title for people tags by a user page.
                 return _('People tags by you');
             }
-            return sprintf(_("People tags by %s"), $this->tagger->nickname);
+            // TRANS: Title for people tags by a user page.
+            // TRANS: %s is a user nickname.
+            return sprintf(_('People tags by %s'), $this->tagger->nickname);
         } else {
-            return sprintf(_("People tags by %s, page %d"), $this->tagger->nickname, $this->page);
+            // TRANS: Title for people tags by a user page.
+            // TRANS: %1$s is a user nickname, %2$d is a page number.
+            return sprintf(_('People tags by %1$s, page %2$d'), $this->tagger->nickname, $this->page);
         }
     }
 
@@ -86,6 +93,7 @@ class PeopletagsbyuserAction extends OwnerDesignAction
         $this->user = User::staticGet('nickname', $nickname);
 
         if (!$this->user) {
+            // TRANS: Client error displayed trying to perform an action related to a non-existing user.
             $this->clientError(_('No such user.'), 404);
             return false;
         }
@@ -93,6 +101,7 @@ class PeopletagsbyuserAction extends OwnerDesignAction
         $this->tagger = $this->user->getProfile();
 
         if (!$this->tagger) {
+            // TRANS: Server error displayed when a user has no profile.
             $this->serverError(_('User has no profile.'));
             return false;
         }
@@ -108,12 +117,14 @@ class PeopletagsbyuserAction extends OwnerDesignAction
             $this->tags = $this->tagger->getOwnedTags(false, $offset, $limit);
         } else if ($this->arg('private')) {
             if (empty($user)) {
-                $this->clientError(_('Not logged in'), 403);
+                // TRANS: Error message displayed when trying to perform an action that requires a logged in user.
+                $this->clientError(_('Not logged in.'), 403);
             }
 
             if ($this->isOwner()) {
                 $this->tags = $this->tagger->getPrivateTags($offset, $limit);
             } else {
+                // TRANS: Client error displayed when trying view another user's private people tags.
                 $this->clientError(_('You cannot view others\' private people tags'), 403);
             }
         } else {
@@ -139,6 +150,7 @@ class PeopletagsbyuserAction extends OwnerDesignAction
     function showModeSelector()
     {
         $this->elementStart('dl', array('id'=>'filter_tags'));
+        // TRANS: Mode selector label.
         $this->element('dt', null, _('Mode'));
         $this->elementStart('dd');
         $this->elementStart('ul');
@@ -148,6 +160,7 @@ class PeopletagsbyuserAction extends OwnerDesignAction
                        array('href' =>
                              common_local_url('peopletagsforuser',
                                               array('nickname' => $this->user->nickname))),
+                       // TRANS: Link text to show people tags for user %s.
                        sprintf(_('People tags for %s'), $this->tagger->nickname));
         $this->elementEnd('li');
 
@@ -159,6 +172,7 @@ class PeopletagsbyuserAction extends OwnerDesignAction
                                                     array('nickname' => $this->tagger->nickname)),
                                                'method' => 'post'));
             $this->elementStart('fieldset');
+            // TRANS: Fieldset legend.
             $this->element('legend', null, _('Select tag to filter'));
 
             $priv = $this->arg('private');
@@ -167,12 +181,17 @@ class PeopletagsbyuserAction extends OwnerDesignAction
             if (!$priv && !$pub) {
                 $priv = $pub = true;
             }
-            $this->checkbox('private', _m('Private'), $priv,
-                                _m('Show private tags'));
-            $this->checkbox('public', _m('Public'), $pub,
-                                _m('Show public tags'));
+            // TRANS: Checkbox label to show private tags.
+            $this->checkbox('private', _m('LABEL','Private'), $priv,
+                                // TRANS: Checkbox title.
+                                _('Show private tags.'));
+            // TRANS: Checkbox label to show public tags.
+            $this->checkbox('public', _m('LABEL','Public'), $pub,
+                                // TRANS: Checkbox title.
+                                _('Show public tags.'));
             $this->hidden('nickname', $this->user->nickname);
-            $this->submit('submit', _('Go'));
+            // TRANS: Submit button text for tag filter form.
+            $this->submit('submit', _m('BUTTON','Go'));
             $this->elementEnd('fieldset');
             $this->elementEnd('form');
             $this->elementEnd('li');
@@ -185,6 +204,9 @@ class PeopletagsbyuserAction extends OwnerDesignAction
     function showAnonymousMessage()
     {
         $notice =
+          // TRANS: Message displayed for anonymous users on page that displays people tags by a user.
+          // TRANS: This message contains Markdown links in the form [description](links).
+          // TRANS: %s is a tagger nickname.
           sprintf(_('These are people tags created by **%s**. ' .
                     'People tags are how you sort similar ' .
                     'people on %%%%site.name%%%%, a [micro-blogging]' .
@@ -239,6 +261,9 @@ class PeopletagsbyuserAction extends OwnerDesignAction
 
     function showEmptyListMessage()
     {
+          // TRANS: Message displayed on page that displays people tags by a user when there are none.
+          // TRANS: This message contains Markdown links in the form [description](links).
+          // TRANS: %s is a tagger nickname.
         $message = sprintf(_('%s has not created any [people tags](%%%%doc.tags%%%%) yet.'), $this->tagger->nickname);
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));

@@ -239,7 +239,7 @@ class Profile extends Memcached_DataObject
     function getGroups($offset=0, $limit=PROFILES_PER_PAGE)
     {
         $ids = array();
-        
+
         $keypart = sprintf('profile:groups:%d', $this->id);
 
         $idstring = self::cacheGet($keypart);

@@ -46,7 +46,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 class SelftagAction extends Action
 {
-
     var $tag  = null;
     var $page = null;
 
@@ -100,7 +99,6 @@ class SelftagAction extends Action
      */
     function showContent()
     {
-
         $profile = new Profile();
 
         $offset = ($this->page - 1) * PROFILES_PER_PAGE;
@@ -151,10 +149,11 @@ class SelftagAction extends Action
      */
     function title()
     {
-        return sprintf(_('Users self-tagged with %1$s - page %2$d'),
+        // TRANS: Page title for page showing self tags.
+        // TRANS: %1$s is a tag, %2$d is a page number.
+        return sprintf(_('Users self-tagged with %1$s, page %2$d'),
             $this->tag, $this->page);
     }
-
 }
 
 class SelfTagProfileList extends ProfileList

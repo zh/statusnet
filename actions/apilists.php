@@ -42,7 +42,6 @@ require_once INSTALLDIR . '/lib/apibareauth.php';
  * @link     http://status.net/
  * @see      ApiBareAuthAction
  */
-
 class ApiListsAction extends ApiBareAuthAction
 {
     var $lists   = null;
@@ -64,7 +63,6 @@ class ApiListsAction extends ApiBareAuthAction
      *
      * @return boolean success flag
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -76,6 +74,7 @@ class ApiListsAction extends ApiBareAuthAction
             $this->user = $this->getTargetUser($this->arg('user'));
 
             if (empty($this->user)) {
+                // TRANS: Client error displayed trying to perform an action related to a non-existing user.
                 $this->clientError(_('No such user.'), 404, $this->format);
                 return false;
             }
@@ -89,7 +88,6 @@ class ApiListsAction extends ApiBareAuthAction
      * require authentication if it is a write action or user is ambiguous
      *
      */
-
     function requiresAuth()
     {
         return parent::requiresAuth() ||
@@ -101,7 +99,6 @@ class ApiListsAction extends ApiBareAuthAction
      *     Show the lists the user has created if the request method is GET
      *     Create a new list by diferring to handlePost() if it is POST.
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -119,6 +116,7 @@ class ApiListsAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format
@@ -132,13 +130,13 @@ class ApiListsAction extends ApiBareAuthAction
      *
      * @return boolean success
      */
-
     function handlePost()
     {
         $name=$this->arg('name');
         if(empty($name)) {
             // mimick twitter
-            print _("A list's name can't be blank.");
+            // TRANS: Client error displayed when trying to create a list without a name.
+            print _("A list must have a name.");
             exit(1);
         }
 
@@ -170,6 +168,7 @@ class ApiListsAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format
@@ -182,7 +181,6 @@ class ApiListsAction extends ApiBareAuthAction
     /**
      * Get lists
      */
-
     function getLists()
     {
         $cursor = (int) $this->arg('cursor', -1);
@@ -220,7 +218,6 @@ class ApiListsAction extends ApiBareAuthAction
      *
      * @return string etag
      */
-
     function etag()
     {
         if (!$this->create && !empty($this->lists) && (count($this->lists) > 0)) {
@@ -240,5 +237,4 @@ class ApiListsAction extends ApiBareAuthAction
 
         return null;
     }
-
 }

@@ -39,12 +39,12 @@ class ApiListMembersAction extends ApiListUsersAction
      *
      * @return boolean success
      */
-
     function handlePost()
     {
         if($this->auth_user->id != $this->list->tagger) {
             $this->clientError(
-                _('You aren\'t allowed to add members to this list'),
+                // TRANS: Client error displayed when trying to add members to a list without having the right to do so.
+                _('You are not allowed to add members to this list.'),
                 401,
                 $this->format
             );
@@ -53,7 +53,8 @@ class ApiListMembersAction extends ApiListUsersAction
 
         if($this->user === false) {
             $this->clientError(
-                _('You must specify a member'),
+                // TRANS: Client error displayed when trying to modify list members without specifying them.
+                _('You must specify a member.'),
                 400,
                 $this->format
             );
@@ -65,6 +66,7 @@ class ApiListMembersAction extends ApiListUsersAction
 
         if(empty($result)) {
             $this->clientError(
+                // TRANS: Client error displayed when an unknown error occurs viewing list members.
                 _('An error occured.'),
                 500,
                 $this->format
@@ -81,6 +83,7 @@ class ApiListMembersAction extends ApiListUsersAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format
@@ -95,12 +98,12 @@ class ApiListMembersAction extends ApiListUsersAction
      *
      * @return boolean success
      */
-
     function handleDelete()
     {
         if($this->auth_user->id != $this->list->tagger) {
             $this->clientError(
-                _('You aren\'t allowed to remove members from this list'),
+                // TRANS: Client error displayed when trying to remove members from a list without having the right to do so.
+                _('You are not allowed to remove members from this list.'),
                 401,
                 $this->format
             );
@@ -109,7 +112,8 @@ class ApiListMembersAction extends ApiListUsersAction
 
         if($this->user === false) {
             $this->clientError(
-                _('You must specify a member'),
+                // TRANS: Client error displayed when trying to modify list members without specifying them.
+                _('You must specify a member.'),
                 400,
                 $this->format
             );
@@ -123,7 +127,8 @@ class ApiListMembersAction extends ApiListUsersAction
 
         if(empty($ptag)) {
             $this->clientError(
-                _('The user you are trying to remove from the list is not a member'),
+                // TRANS: Client error displayed when trying to remove a list member that is not part of a list.
+                _('The user you are trying to remove from the list is not a member.'),
                 400,
                 $this->format
             );
@@ -134,6 +139,7 @@ class ApiListMembersAction extends ApiListUsersAction
 
         if(empty($result)) {
             $this->clientError(
+                // TRANS: Client error displayed when an unknown error occurs viewing list members.
                 _('An error occured.'),
                 500,
                 $this->format
@@ -150,6 +156,7 @@ class ApiListMembersAction extends ApiListUsersAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format
@@ -163,7 +170,6 @@ class ApiListMembersAction extends ApiListUsersAction
     /**
      * List the members of a list (people tagged)
      */
-
     function getUsers()
     {
         $fn = array($this->list, 'getTagged');

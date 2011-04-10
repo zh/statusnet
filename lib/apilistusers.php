@@ -63,7 +63,8 @@ class ApiListUsersAction extends ApiBareAuthAction
         $this->list = $this->getTargetList($this->arg('user'), $this->arg('list_id'));
 
         if (empty($this->list)) {
-            $this->clientError(_('Not found'), 404, $this->format);
+            // TRANS: Client error displayed when referring to a non-existing list.
+            $this->clientError(_('List not found.'), 404, $this->format);
             return false;
         }
 
@@ -144,6 +145,7 @@ class ApiListUsersAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format
@@ -185,7 +187,6 @@ class ApiListUsersAction extends ApiBareAuthAction
      *
      * @return string etag
      */
-
     function etag()
     {
         if (!empty($this->list)) {
@@ -203,5 +204,4 @@ class ApiListUsersAction extends ApiBareAuthAction
 
         return null;
     }
-
 }

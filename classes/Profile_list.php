@@ -397,6 +397,7 @@ class Profile_list extends Memcached_DataObject
         if($orig->tag != $this->tag || $orig->tagger != $this->tagger) {
             $existing = Profile_list::getByTaggerAndTag($this->tagger, $this->tag);
             if(!empty($existing)) {
+                // TRANS: Server exception.
                 throw new ServerException(_('The tag you are trying to rename ' .
                                             'to already exists.'));
             }
@@ -597,7 +598,6 @@ class Profile_list extends Memcached_DataObject
      * @return mixed Profile_list on success, false on fail
      */
     static function saveNew($fields) {
-
         extract($fields);
 
         $ptag = new Profile_list();
@@ -605,10 +605,12 @@ class Profile_list extends Memcached_DataObject
         $ptag->query('BEGIN');
 
         if (empty($tagger)) {
+            // TRANS: Server exception saving new tag without having a tagger specified.
             throw new Exception(_('No tagger specified.'));
         }
 
         if (empty($tag)) {
+            // TRANS: Server exception saving new tag without having a tag specified.
             throw new Exception(_('No tag specified.'));
         }
 
@@ -646,6 +648,7 @@ class Profile_list extends Memcached_DataObject
 
         if (!$result) {
             common_log_db_error($ptag, 'INSERT', __FILE__);
+            // TRANS: Server exception saving new tag.
             throw new ServerException(_('Could not create profile tag.'));
         }
 
@@ -655,6 +658,7 @@ class Profile_list extends Memcached_DataObject
             $result = $ptag->update($orig);
             if (!$result) {
                 common_log_db_error($ptag, 'UPDATE', __FILE__);
+            // TRANS: Server exception saving new tag.
                 throw new ServerException(_('Could not set profile tag URI.'));
             }
         }
@@ -671,6 +675,7 @@ class Profile_list extends Memcached_DataObject
             $result = $ptag->update($orig);
             if (!$result) {
                 common_log_db_error($ptag, 'UPDATE', __FILE__);
+                // TRANS: Server exception saving new tag.
                 throw new ServerException(_('Could not set profile tag mainpage.'));
             }
         }

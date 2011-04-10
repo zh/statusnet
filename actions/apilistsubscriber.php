@@ -43,12 +43,14 @@ class ApiListSubscriberAction extends ApiBareAuthAction
         $this->list = $this->getTargetList($this->arg('user'), $this->arg('list_id'));
 
         if (empty($this->list)) {
-            $this->clientError(_('Not found'), 404, $this->format);
+            // TRANS: Client error displayed trying to perform an action related to a non-existing list.
+            $this->clientError(_('List not found.'), 404, $this->format);
             return false;
         }
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user'), 404, $this->format);
+            // TRANS: Client error displayed trying to perform an action related to a non-existing user.
+            $this->clientError(_('No such user.'), 404, $this->format);
             return false;
         }
         return true;
@@ -64,7 +66,8 @@ class ApiListSubscriberAction extends ApiBareAuthAction
 
         if(empty($sub)) {
             $this->clientError(
-                _('The specified user is not a subscriber of this list'),
+                // TRANS: Client error displayed when a membership check for a user is nagative.
+                _('The specified user is not a subscriber of this list.'),
                 400,
                 $this->format
             );
@@ -81,6 +84,7 @@ class ApiListSubscriberAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format

@@ -48,7 +48,6 @@ class ApiListSubscriptionsAction extends ApiBareAuthAction
      * @return boolean success flag
      *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -69,12 +68,12 @@ class ApiListSubscriptionsAction extends ApiBareAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
 
         if (empty($this->user)) {
+            // TRANS: Client error displayed trying to perform an action related to a non-existing user.
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
@@ -88,6 +87,7 @@ class ApiListSubscriptionsAction extends ApiBareAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 400,
                 $this->format
@@ -105,7 +105,6 @@ class ApiListSubscriptionsAction extends ApiBareAuthAction
      *
      * @return boolean is read only action?
      */
-
     function isReadOnly($args)
     {
         return true;

@@ -44,7 +44,6 @@ define('TAGS_PER_PAGE', 100);
  * @copyright 2008-2009 StatusNet, Inc.
  * @link     http://status.net/
  */
-
 class PublicpeopletagcloudAction extends Action
 {
     function isReadOnly($args)
@@ -54,24 +53,32 @@ class PublicpeopletagcloudAction extends Action
 
     function title()
     {
+        // TRANS: Title for page with public people tag cloud.
         return _('Public people tag cloud');
     }
 
     function showPageNotice()
     {
         $this->element('p', 'instructions',
-                       sprintf(_('These are most used people tags on %s '),
+                       // TRANS: Page notice for page with public people tag cloud.
+                       // TRANS: %s is a StatusNet sitename.
+                       sprintf(_('These are most used people tags on %s'),
                                common_config('site', 'name')));
     }
 
     function showEmptyList()
     {
+        // TRANS: Empty list message on page with public people tag cloud.
+        // TRANS: This message contains Markdown links in the form [description](link).
         $message = _('No one has [tagged](%%doc.tags%%) anyone yet.') . ' ';
 
         if (common_logged_in()) {
+            // TRANS: Additional empty list message on page with public people tag cloud for logged in users.
             $message .= _('Be the first to tag someone!');
         }
         else {
+            // TRANS: Additional empty list message on page with public people tag cloud for anonymous users.
+        // TRANS: This message contains Markdown links in the form [description](link).
             $message .= _('Why not [register an account](%%action.register%%) and be the first to tag someone!');
         }
 
@@ -125,6 +132,7 @@ class PublicpeopletagcloudAction extends Action
             ksort($tw);
 
             $this->elementStart('dl');
+            // TRANS: DT element on on page with public people tag cloud.
             $this->element('dt', null, _('People tag cloud'));
             $this->elementStart('dd');
             $this->elementStart('ul', 'tags xoxo tag-cloud');
@@ -165,9 +173,10 @@ class PublicpeopletagcloudAction extends Action
 
         $this->elementStart('li', $rel);
 
-        $count = ($weight == 1) ? '1 person tagged' : '%d people tagged';
+        // TRANS: Link title for number of people tagged. %d is the number of people tagged.
+        $title = sprintf(_m('1 person tagged','%d people tagged',$weight),$weight);
         $this->element('a', array('href'  => common_local_url('peopletag', array('tag' => $tag)),
-                                  'title' => sprintf(_($count), $weight)), $tag);
+                                  'title' => $title), $tag);
         $this->elementEnd('li');
     }
 }

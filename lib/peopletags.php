@@ -40,7 +40,6 @@ require_once INSTALLDIR.'/lib/widget.php';
  * @author   Shashi Gowda <connect2shashi@gmail.com>
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  */
-
 class PeopletagsWidget extends Widget
 {
     /*
@@ -84,7 +83,8 @@ class PeopletagsWidget extends Widget
 
     function label()
     {
-        return _('Tags by you');
+        // TRANS: Label in people tags widget.
+        return _m('LABEL','Tags by you');
     }
 
     function showTags()
@@ -131,7 +131,8 @@ class PeopletagsWidget extends Widget
                                            'action' => common_local_url('tagprofile', array('id' => $this->tagged->id))));
 
         $this->out->elementStart('fieldset');
-        $this->out->element('legend', null, _('Edit tags'));
+        // TRANS: Fieldset legend in people tags widget.
+        $this->out->element('legend', null, _m('LEGEND','Edit tags'));
         $this->out->hidden('token', common_session_token());
         $this->out->hidden('id', $this->tagged->id);
 
@@ -141,7 +142,8 @@ class PeopletagsWidget extends Widget
 
         $this->out->input('tags', $this->label(),
                      ($this->out->arg('tags')) ? $this->out->arg('tags') : implode(' ', $tags));
-        $this->out->submit('save', _('Save'));
+        // TRANS: Button text to save tags for a profile.
+        $this->out->submit('save', _m('BUTTON','Save'));
 
         $this->out->elementEnd('fieldset');
         $this->out->elementEnd('form');
@@ -160,6 +162,7 @@ class PeopletagsWidget extends Widget
         }
 
         $this->out->elementStart('ul', $class);
+        // TRANS: Empty list message for tags.
         $this->out->element('li', null, _('(None)'));
         $this->out->elementEnd('ul');
 
@@ -186,6 +189,7 @@ class SelftagsWidget extends PeopletagsWidget
 
     function label()
     {
-        return _('Tags');
+        // TRANS: Label in self tags widget.
+        return _m('LABEL','Tags');
     }
 }

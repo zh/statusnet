@@ -105,8 +105,14 @@ class PersonalGroupNav extends Menu
                                  $mine && $action =='showfavorites', 'nav_timeline_favorites');
             $this->out->menuItem(common_local_url('peopletagsbyuser', array('nickname' =>
                                                                   $nickname)),
-                             _('People tags'),
-                             sprintf(_('People tags by %s'), ($user_profile) ? $name : _('User')),
+                             // TRANS: Menu item in personal group navigation menu.
+                             _m('MENU','People tags'),
+                             // @todo i18n FIXME: Need to make this two messages.
+                             // TRANS: Menu item title in personal group navigation menu.
+                             // TRANS: %s is a username.
+                             sprintf(_('People tags by %s'),
+                                     // TRANS: Replaces %s in 'People tags by %s'. (Yes, we know we need to fix this.)
+                                     ($user_profile) ? $name : _('User')),
                              in_array($action, array('peopletagsbyuser', 'peopletagsforuser')),
                              'nav_timeline_peopletags');
 

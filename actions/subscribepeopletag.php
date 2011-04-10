@@ -42,7 +42,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class SubscribepeopletagAction extends Action
 {
     var $peopletag = null;
@@ -51,18 +50,19 @@ class SubscribepeopletagAction extends Action
     /**
      * Prepare to run
      */
-
     function prepare($args)
     {
         parent::prepare($args);
 
         if (!common_logged_in()) {
-            $this->clientError(_('You must be logged in to unsubscribe to a peopletag.'));
+            // TRANS: Client error displayed when trying to perform an action while not logged in.
+            $this->clientError(_('You must be logged in to unsubscribe to a people tag.'));
             return false;
         }
         // Only allow POST requests
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            // TRANS: Client error displayed when trying to use another method than POST.
             $this->clientError(_('This action only accepts POST requests.'));
             return false;
         }
@@ -72,6 +72,7 @@ class SubscribepeopletagAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
+            // TRANS: Client error displayed when the session token does not match or is not given.
             $this->clientError(_('There was a problem with your session token.'.
                                  ' Try again, please.'));
             return false;
@@ -84,12 +85,14 @@ class SubscribepeopletagAction extends Action
         if ($id) {
             $this->peopletag = Profile_list::staticGet('id', $id);
         } else {
+            // TRANS: Client error displayed when trying to perform an action without providing an ID.
             $this->clientError(_('No ID given.'), 404);
             return false;
         }
 
         if (!$this->peopletag || $this->peopletag->private) {
-            $this->clientError(_('No such peopletag.'), 404);
+            // TRANS: Client error displayed trying to reference a non-existing people tag.
+            $this->clientError(_('No such people tag.'), 404);
             return false;
         }
 
@@ -117,14 +120,18 @@ class SubscribepeopletagAction extends Action
         try {
             Profile_tag_subscription::add($this->peopletag, $cur);
         } catch (Exception $e) {
-            $this->serverError(sprintf(_('Could not subscribe user %1$s to peopletag %2$s.'),
+            // TRANS: Server error displayed subscribing to a people tag fails.
+            // TRANS: %1$s is a user nickname, %2$s is a people tag.
+            $this->serverError(sprintf(_('Could not subscribe user %1$s to people tag %2$s.'),
                                        $cur->nickname, $this->peopletag->tag) . ' ' . $e->getMessage());
         }
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            $this->element('title', null, sprintf(_('%1$s subscribed to peopletag %2$s by %3$s'),
+            // TRANS: Title of form to subscribe to a people tag.
+            // TRANS: %1%s is a user nickname, %2$s is a people tag, %3$s is a tagger nickname.
+            $this->element('title', null, sprintf(_('%1$s subscribed to people tag %2$s by %3$s'),
                                                   $cur->nickname,
                                                   $this->peopletag->tag,
                                                   $this->tagger->nickname));

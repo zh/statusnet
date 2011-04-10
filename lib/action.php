@@ -328,7 +328,6 @@ class Action extends HTMLOutputter // lawsuit
                     $this->script('util.js');
                     $this->script('xbImportNode.js');
                     $this->script('geometa.js');
-
                 }
                 $this->inlineScript('var _peopletagAC = "' .
                     common_local_url('peopletagautocomplete') . '";');
@@ -349,7 +348,6 @@ class Action extends HTMLOutputter // lawsuit
      * events and appending to the array. Try to avoid adding strings that won't be used, as
      * they'll be added to HTML output.
      */
-
     function showScriptMessages()
     {
         $messages = array();
@@ -747,7 +745,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
-
     function showProfileBlock()
     {
         if (common_logged_in()) {

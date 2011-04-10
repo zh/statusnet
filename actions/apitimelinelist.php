@@ -50,7 +50,6 @@ require_once INSTALLDIR . '/lib/atomlistnoticefeed.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiTimelineListAction extends ApiPrivateAuthAction
 {
 
@@ -68,7 +67,6 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
      * @return boolean success flag
      *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -88,12 +86,12 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
 
         if (empty($this->list)) {
+            // TRANS: Client error displayed trying to perform an action related to a non-existing list.
             $this->clientError(_('List not found.'), 404, $this->format);
             return false;
         }
@@ -107,7 +105,6 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function showTimeline()
     {
         // We'll pull common formatting out of this for other formats
@@ -145,7 +142,6 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
             );
             break;
         case 'atom':
-
             header('Content-Type: application/atom+xml; charset=utf-8');
 
             try {
@@ -154,9 +150,9 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
                 $atom->addEntryFromNotices($this->notices);
                 $this->raw($atom->getString());
             } catch (Atom10FeedException $e) {
-                $this->serverError(
-                    'Could not generate feed for list - ' . $e->getMessage()
-                );
+                // TRANS: Server error displayed whe trying to get a timeline fails.
+                // TRANS: %s is the error message.
+                $this->serverError( sprintf(_('Could not generate feed for list - %s'),$e->getMessage()));
                 return;
             }
 
@@ -182,6 +178,7 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error displayed when coming across a non-supported API method.
                 _('API method not found.'),
                 404,
                 $this->format
@@ -195,7 +192,6 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
      *
      * @return array notices
      */
-
     function getNotices()
     {
         $fn = array($this->list, 'getNotices');
@@ -213,7 +209,6 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
      *
      * @return boolean true
      */
-
     function isReadOnly($args)
     {
         return true;
@@ -224,7 +219,6 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
      *
      * @return string datestamp of the latest notice in the stream
      */
-
     function lastModified()
     {
         if (!empty($this->notices) && (count($this->notices) > 0)) {
@@ -242,7 +236,6 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
      *
      * @return string etag
      */
-
     function etag()
     {
         if (!empty($this->notices) && (count($this->notices) > 0)) {
@@ -262,5 +255,4 @@ class ApiTimelineListAction extends ApiPrivateAuthAction
 
         return null;
     }
-
 }

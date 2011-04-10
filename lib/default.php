@@ -274,7 +274,7 @@ $default =
               'maxpeople' => 500, // maximum no. of people with the same tag by the same user
               'allow_tagging' => array('all' => true), // equivalent to array('local' => true, 'remote' => true)
               'desclimit' => null),
-        'oembed' => 
+        'oembed' =>
         array('endpoint' => 'http://oohembed.com/oohembed/',
               'order' => array('built-in', 'well-known', 'service', 'discovery'),
         ),

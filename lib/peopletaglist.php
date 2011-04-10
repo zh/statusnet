@@ -1,5 +1,4 @@
 <?php
-
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
@@ -44,7 +43,6 @@ define('PEOPLETAGS_PER_PAGE', 20);
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class PeopletagList extends Widget
 {
     /** Current peopletag, peopletag query. */
@@ -104,7 +102,6 @@ class PeopletagListItem extends Widget
      *
      * @param Notice $notice The notice we'll display
      */
-
     function __construct($peopletag, $current, $out=null)
     {
         parent::__construct($out);
@@ -121,7 +118,6 @@ class PeopletagListItem extends Widget
      *
      * @return void
      */
-
     function url()
     {
         return $this->peopletag->homeUrl();
@@ -173,6 +169,7 @@ class PeopletagListItem extends Widget
             array('href' => common_local_url('peopletagged',
                                               array('tagger' => $this->profile->nickname,
                                                     'tag' => $this->peopletag->tag))),
+            // TRANS: Link description for link to list of users tagged with a tag.
             _('Tagged'));
         $this->out->raw($this->peopletag->taggedCount());
         $this->out->elementEnd('span');
@@ -182,6 +179,7 @@ class PeopletagListItem extends Widget
             array('href' => common_local_url('peopletagsubscribers',
                                               array('tagger' => $this->profile->nickname,
                                                     'tag' => $this->peopletag->tag))),
+            // TRANS: Link description for link to list of users subscribed to a tag.
             _('Subscribers'));
         $this->out->raw($this->peopletag->subscriberCount());
         $this->out->elementEnd('span');
@@ -194,7 +192,9 @@ class PeopletagListItem extends Widget
         $this->out->element('a', array('href' =>
                     common_local_url('editpeopletag', array('tagger' => $this->profile->nickname,
                                                     'tag' => $this->peopletag->tag)),
-                                  'title' => _('Edit peopletag settings')),
+                                  // TRANS: Title for link to edit people tag settings.
+                                  'title' => _('Edit people tag settings.')),
+                       // TRANS: Text for link to edit people tag settings.
                        _('Edit'));
         $this->out->elementEnd('li');
     }
@@ -256,7 +256,8 @@ class PeopletagListItem extends Widget
             $this->out->elementStart('a',
                 array('href' => common_local_url('peopletagsbyuser',
                     array('nickname' => $this->profile->nickname, 'private' => 1))));
-            $this->out->element('span', 'privacy_mode', _('Private'));
+            // TRANS: Privacy mode text in people tag list item for private tags.
+            $this->out->element('span', 'privacy_mode', _m('MODE','Private'));
             $this->out->elementEnd('a');
         }
     }

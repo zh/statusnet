@@ -43,7 +43,6 @@ require_once INSTALLDIR.'/lib/form.php';
  *
  * @see      GroupEditForm
  */
-
 class SearchProfileForm extends Form
 {
     var $peopletag;
@@ -59,7 +58,6 @@ class SearchProfileForm extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
         return 'form_peopletag-add-' . $this->peopletag->id;
@@ -70,7 +68,6 @@ class SearchProfileForm extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
         return 'form_peopletag_edit_user_search';
@@ -81,7 +78,6 @@ class SearchProfileForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('profilecompletion');
@@ -92,9 +88,9 @@ class SearchProfileForm extends Form
      *
      * @return void
      */
-
     function formLegend()
     {
+        // TRANS: Form legend.
         $this->out->element('legend', null, sprintf(_('Search and list people')));
     }
 
@@ -103,21 +99,28 @@ class SearchProfileForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
-        $fields = array('fulltext'    => 'Everything',
-                        'nickname'    => 'Nickname',
-                        'fullname'    => 'Fullname',
-                        'description' => 'Description',
-                        'location'    => 'Location',
-                        'uri'         => 'Uri (Remote users)');
-        
+        // TRANS: Dropdown option for searching in profiles.
+        $fields = array('fulltext'    => _('Everything'),
+                        // TRANS: Dropdown option for searching in profiles.
+                        'nickname'    => _('Nickname'),
+                        // TRANS: Dropdown option for searching in profiles.
+                        'fullname'    => _('Fullname'),
+                        // TRANS: Dropdown option for searching in profiles.
+                        'description' => _('Description'),
+                        // TRANS: Dropdown option for searching in profiles.
+                        'location'    => _('Location'),
+                        // TRANS: Dropdown option for searching in profiles.
+                        'uri'         => _('URI (Remote users)'));
+
 
         $this->out->hidden('peopletag_id', $this->peopletag->id);
         $this->out->input('q', null);
-        $this->out->dropdown('field', _('Search in'), $fields,
-                        _('Choose a field to search'), false, 'fulltext');
+        // TRANS: Dropdown field label.
+        $this->out->dropdown('field', _m('LABEL','Search in'), $fields,
+                        // TRANS: Dropdown field title.
+                        _('Choose a field to search.'), false, 'fulltext');
     }
 
     /**
@@ -125,10 +128,10 @@ class SearchProfileForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
-        $this->out->submit('submit', _('Search'));
+        // TRANS: Button text to search profiles.
+        $this->out->submit('submit', _m('BUTTON','Search'));
     }
 }
 
@@ -149,7 +152,6 @@ class UntagButton extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
         return 'form_peopletag-' . $this->peopletag->id . '-remove-' . $this->profile->id;
@@ -160,7 +162,6 @@ class UntagButton extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
         return 'form_user_remove_peopletag';
@@ -182,10 +183,11 @@ class UntagButton extends Form
      *
      * @return void
      */
-
     function formLegend()
     {
-        $this->out->element('legend', null, sprintf(_('Untag %s as %s'),
+        // TRANS: Form legend.
+        // TRANS: %1$s is a nickname, $2$s is a people tag.
+        $this->out->element('legend', null, sprintf(_('Untag %1$s as %2$s'),
             $this->profile->nickname, $this->peopletag->tag));
     }
 
@@ -194,7 +196,6 @@ class UntagButton extends Form
      *
      * @return void
      */
-
     function formData()
     {
         $this->out->hidden('peopletag_id', $this->peopletag->id);
@@ -206,13 +207,12 @@ class UntagButton extends Form
      *
      * @return void
      */
-
     function formActions()
     {
-        $this->out->submit('submit', _('Remove'));
+        // TRANS: Button text to untag a profile.
+        $this->out->submit('submit', _m('BUTTON','Remove'));
     }
 }
-
 
 class TagButton extends Form
 {
@@ -231,7 +231,6 @@ class TagButton extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
         return 'form_peopletag-' . $this->peopletag->id . '-add-' . $this->profile->id;
@@ -242,7 +241,6 @@ class TagButton extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
         return 'form_user_add_peopletag';
@@ -253,7 +251,6 @@ class TagButton extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('addpeopletag');
@@ -264,10 +261,11 @@ class TagButton extends Form
      *
      * @return void
      */
-
     function formLegend()
     {
-        $this->out->element('legend', null, sprintf(_('Tag %s as %s'),
+        // TRANS: Legend on form to add a tag to a profile.
+        // TRANS: %1$s is a nickname, %2$s ia a people tag.
+        $this->out->element('legend', null, sprintf(_('Tag %1$s as %2$s'),
             $this->profile->nickname, $this->peopletag->tag));
     }
 
@@ -276,7 +274,6 @@ class TagButton extends Form
      *
      * @return void
      */
-
     function formData()
     {
         UntagButton::formData();
@@ -287,10 +284,10 @@ class TagButton extends Form
      *
      * @return void
      */
-
     function formActions()
     {
-        $this->out->submit('submit', _('Add'));
+        // TRANS: Button text to tag a profile.
+        $this->out->submit('submit', _m('BUTTON','Add'));
     }
 }
 
