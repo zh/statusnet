@@ -50,6 +50,14 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 class ThreadedNoticeList extends NoticeList
 {
+    protected $userProfile;
+
+    function __construct($notice, $out=null, $profile=null)
+    {
+        parent::__construct($notice, $out);
+        $this->userProfile = $profile;
+    }
+
     /**
      * show the list of notices
      *
@@ -123,7 +131,7 @@ class ThreadedNoticeList extends NoticeList
      */
     function newListItem($notice)
     {
-        return new ThreadedNoticeListItem($notice, $this->out);
+        return new ThreadedNoticeListItem($notice, $this->out, $this->userProfile);
     }
 }
 
@@ -146,6 +154,14 @@ class ThreadedNoticeList extends NoticeList
  */
 class ThreadedNoticeListItem extends NoticeListItem
 {
+    protected $userProfile = null;
+
+    function __construct($notice, $out=null, $profile=null)
+    {
+        parent::__construct($notice, $out);
+        $this->userProfile = $profile;
+    }
+
     function initialItems()
     {
         return 3;
@@ -167,7 +183,8 @@ class ThreadedNoticeListItem extends NoticeListItem
     {
         $max = $this->initialItems();
         if (!$this->repeat) {
-            $notice = Notice::conversationStream($this->notice->conversation, 0, $max + 2);
+            $stream = new ConversationNoticeStream($this->notice->conversation, $this->userProfile);
+            $notice = $stream->getNotices(0, $max + 2);
             $notices = array();
             $cnt = 0;
             $moreCutoff = null;

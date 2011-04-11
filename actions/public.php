@@ -85,8 +85,18 @@ class PublicAction extends Action
 
         common_set_returnto($this->selfUrl());
 
-        $this->notice = Notice::publicStream(($this->page-1)*NOTICES_PER_PAGE,
-                                       NOTICES_PER_PAGE + 1);
+        $profile = null;
+        
+        $user = common_current_user();
+
+        if (!empty($user)) {
+            $profile = $user->getProfile();
+        }
+
+        $stream = new PublicNoticeStream($profile);
+
+        $this->notice = $stream->getNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                            NOTICES_PER_PAGE + 1);
 
         if (!$this->notice) {
             // TRANS: Server error displayed when a public timeline cannot be retrieved.

@@ -47,9 +47,10 @@ require_once INSTALLDIR.'/lib/noticelist.php';
  */
 class ConversationAction extends Action
 {
-    var $id      = null;
-    var $page    = null;
-    var $notices = null;
+    var $id          = null;
+    var $page        = null;
+    var $notices     = null;
+    var $userProfile = null;
 
     const MAX_NOTICES = 500;
 
@@ -76,14 +77,14 @@ class ConversationAction extends Action
         $cur = common_current_user();
 
         if (empty($cur)) {
-            $profile = null;
+            $this->userProfile = null;
         } else {
-            $profile = $cur->getProfile();
+            $this->userProfile = $cur->getProfile();
         }
 
-        $stream = new ConversationNoticeStream($this->id, $profile);
+        $stream = new ConversationNoticeStream($this->id, $this->userProfile);
 
-        $this->notices = $stream->getNotices(0, self::MAX_NOTICES, null, null);
+        $this->notices = $stream->getNotices(0, self::MAX_NOTICES);
 
         return true;
     }
@@ -122,7 +123,7 @@ class ConversationAction extends Action
      */
     function showContent()
     {
-        $tnl = new ThreadedNoticeList($this->notices, $this);
+        $tnl = new ThreadedNoticeList($this->notices, $this, $this->userProfile);
 
         $cnt = $tnl->show();
     }

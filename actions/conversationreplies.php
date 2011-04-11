@@ -66,7 +66,7 @@ class ConversationRepliesAction extends ConversationAction
      */
     function showContent()
     {
-        $ct = new FullThreadedNoticeList($this->notices, $this);
+        $ct = new FullThreadedNoticeList($this->notices, $this, $this->userProfile);
 
         $cnt = $ct->show();
     }
@@ -91,7 +91,7 @@ class FullThreadedNoticeList extends ThreadedNoticeList
 {
     function newListItem($notice)
     {
-        return new FullThreadedNoticeListItem($notice, $this->out);
+        return new FullThreadedNoticeListItem($notice, $this->out, $this->userProfile);
     }
 }
 

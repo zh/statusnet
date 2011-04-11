@@ -50,6 +50,8 @@ class ShowgroupAction extends GroupDesignAction
 {
     /** page we're viewing. */
     var $page = null;
+    var $userProfile = null;
+    var $notice = null;
 
     /**
      * Is this page read-only?
@@ -144,6 +146,15 @@ class ShowgroupAction extends GroupDesignAction
             return false;
         }
 
+        $cur = common_current_user();
+
+        $this->userProfile = (empty($cur)) ? null : $cur->getProfile();
+
+        $stream = new GroupNoticeStream($this->group, $this->userProfile);
+
+        $this->notice = $stream->getNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                            NOTICES_PER_PAGE + 1);
+
         common_set_returnto($this->selfUrl());
 
         return true;
@@ -190,10 +201,7 @@ class ShowgroupAction extends GroupDesignAction
      */
     function showGroupNotices()
     {
-        $notice = $this->group->getNotices(($this->page-1)*NOTICES_PER_PAGE,
-                                           NOTICES_PER_PAGE + 1);
-
-        $nl = new ThreadedNoticeList($notice, $this);
+        $nl = new ThreadedNoticeList($notice, $this, $this->userProfile);
         $cnt = $nl->show();
 
         $this->pagination($this->page > 1,

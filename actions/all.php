@@ -157,7 +157,16 @@ class AllAction extends ProfileAction
     function showContent()
     {
         if (Event::handle('StartShowAllContent', array($this))) {
-            $nl = new ThreadedNoticeList($this->notice, $this);
+
+            $profile = null;
+
+            $current_user = common_current_user();
+
+            if (!empty($current_user)) {
+                $profile = $current_user->getProfile();
+            }
+
+            $nl = new ThreadedNoticeList($this->notice, $this, $profile);
 
             $cnt = $nl->show();
 
