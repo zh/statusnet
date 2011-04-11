@@ -123,7 +123,7 @@ class ConversationAction extends Action
      */
     function showContent()
     {
-        $tnl = new ThreadedNoticeList($this->notices, $this, $this->userProfile);
+        $tnl = new FullThreadedNoticeList($this->notices, $this, $this->userProfile);
 
         $cnt = $tnl->show();
     }

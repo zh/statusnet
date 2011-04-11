@@ -86,19 +86,3 @@ class ConversationRepliesAction extends ConversationAction
         $this->elementEnd('html');
     }
 }
-
-class FullThreadedNoticeList extends ThreadedNoticeList
-{
-    function newListItem($notice)
-    {
-        return new FullThreadedNoticeListItem($notice, $this->out, $this->userProfile);
-    }
-}
-
-class FullThreadedNoticeListItem extends ThreadedNoticeListItem
-{
-    function initialItems()
-    {
-        return 1000; // @fixme
-    }
-}
