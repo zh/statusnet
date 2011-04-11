@@ -132,6 +132,10 @@ class ToSelector extends Widget
         $toArg = $action->trimmed('notice_to');
         $private = $action->boolean('notice_private');
 
+        if (empty($toArg)) {
+            return;
+        }
+
         list($prefix, $value) = explode(':', $toArg);
         switch ($prefix) {
         case 'group':

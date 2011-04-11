@@ -655,6 +655,10 @@ var SN = { // StatusNet
             var nextStep = function() {
                 // Override...?
                 replyForm.find('input[name=inreplyto]').val(id);
+                replyForm.find('#notice_to').attr('disabled', 'disabled').hide();
+                replyForm.find('#notice_private').attr('disabled', 'disabled').hide();
+                replyForm.find('label[for=notice_to]').hide();
+                replyForm.find('label[for=notice_private]').hide();
 
                 // Set focus...
                 var text = replyForm.find('textarea');
