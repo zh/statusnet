@@ -59,6 +59,7 @@ class PublicAction extends Action
 
     var $page = null;
     var $notice;
+    var $userProfile = null;
 
     function isReadOnly($args)
     {
@@ -85,15 +86,9 @@ class PublicAction extends Action
 
         common_set_returnto($this->selfUrl());
 
-        $profile = null;
-        
-        $user = common_current_user();
+        $this->userProfile = Profile::current();
 
-        if (!empty($user)) {
-            $profile = $user->getProfile();
-        }
-
-        $stream = new PublicNoticeStream($profile);
+        $stream = new PublicNoticeStream($this->userProfile);
 
         $this->notice = $stream->getNotices(($this->page-1)*NOTICES_PER_PAGE,
                                             NOTICES_PER_PAGE + 1);
@@ -213,7 +208,7 @@ class PublicAction extends Action
      */
     function showContent()
     {
-        $nl = new ThreadedNoticeList($this->notice, $this);
+        $nl = new ThreadedNoticeList($this->notice, $this, $this->userProfile);
 
         $cnt = $nl->show();
 
