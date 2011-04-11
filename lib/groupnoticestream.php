@@ -46,10 +46,11 @@ if (!defined('STATUSNET')) {
  */
 class GroupNoticeStream extends ScopingNoticeStream
 {
-    function __construct($group)
+    function __construct($group, $profile = null)
     {
         parent::__construct(new CachingNoticeStream(new RawGroupNoticeStream($group),
-                                                    'user_group:notice_ids:' . $group->id));
+                                                    'user_group:notice_ids:' . $group->id),
+                            $profile);
     }
 }
 
