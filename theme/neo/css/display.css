@@ -1344,6 +1344,25 @@ table.profile_list tr.alt {
     left: 0px;
 }
 
+.limited-scope li .entry-content .timestamp {
+    padding-left: 0px;
+}
+
+.limited-scope li .entry-content .timestamp:before {
+    content: none;
+}
+
+.limited-scope li.limited-scope .entry-content .timestamp {
+    padding-left: 20px;
+}
+
+.limited-scope li.limited-scope .entry-content .timestamp:before {
+    content: url(../images/lock.png);
+    position: absolute;
+    top: -2px;
+    left: 0px;
+}
+
 /* QnA specific styles */
 
 #content .question .entry-title, #content .qna-full-question .entry-title {
