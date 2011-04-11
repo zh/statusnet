@@ -404,23 +404,28 @@ class EmailsettingsAction extends SettingsAction
             return;
         }
 
-        $confirm = new Confirm_address();
+        if (Event::handle('StartAddEmailAddress', array($user, $email))) {
 
-        $confirm->address      = $email;
-        $confirm->address_type = 'email';
-        $confirm->user_id      = $user->id;
-        $confirm->code         = common_confirmation_code(64);
+            $confirm = new Confirm_address();
 
-        $result = $confirm->insert();
+            $confirm->address      = $email;
+            $confirm->address_type = 'email';
+            $confirm->user_id      = $user->id;
+            $confirm->code         = common_confirmation_code(64);
 
-        if ($result === false) {
-            common_log_db_error($confirm, 'INSERT', __FILE__);
-            // TRANS: Server error thrown on database error adding e-mail confirmation code.
-            $this->serverError(_('Could not insert confirmation code.'));
-            return;
+            $result = $confirm->insert();
+
+            if ($result === false) {
+                common_log_db_error($confirm, 'INSERT', __FILE__);
+                // TRANS: Server error thrown on database error adding e-mail confirmation code.
+                $this->serverError(_('Could not insert confirmation code.'));
+                return;
+            }
+
+            mail_confirm_address($user, $confirm->code, $user->nickname, $email);
+
+            Event::handle('EndAddEmailAddress', array($user, $email));
         }
-
-        mail_confirm_address($user, $confirm->code, $user->nickname, $email);
 
         // TRANS: Message given saving valid e-mail address that is to be confirmed.
         $msg = _('A confirmation code was sent to the email address you added. '.

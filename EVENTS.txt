@@ -1334,3 +1334,11 @@ EndShowThreadedNoticeSub: when showing a reply to a notice
 - $parent: parent notice
 - $child: child notice
 
+StartAddEmailAddress: when adding an email address through the Web UI
+- $user: user getting the new address
+- $email: email being added
+
+EndAddEmailAddress: done adding an email address through the Web UI
+- $user: user getting the new address
+- $email: email being added
+
