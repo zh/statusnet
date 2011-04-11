@@ -52,9 +52,12 @@ class ThreadedNoticeList extends NoticeList
 {
     protected $userProfile;
 
-    function __construct($notice, $out=null, $profile=null)
+    function __construct($notice, $out=null, $profile=-1)
     {
         parent::__construct($notice, $out);
+        if (is_int($profile) && $profile == -1) {
+            $profile = Profile::current();
+        }
         $this->userProfile = $profile;
     }
 
@@ -98,7 +101,7 @@ class ThreadedNoticeList extends NoticeList
             $conversations[$convo] = true;
 
             // Get the convo's root notice
-            $root = $notice->conversationRoot();
+            $root = $notice->conversationRoot($this->userProfile);
             if ($root) {
                 $notice = $root;
             }

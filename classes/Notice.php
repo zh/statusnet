@@ -802,30 +802,65 @@ class Notice extends Memcached_DataObject
      *
      * @return Notice or null
      */
-    function conversationRoot()
+    function conversationRoot($profile=-1)
     {
-        if (!empty($this->conversation)) {
-            $c = self::memcache();
+        // XXX: can this happen?
 
-            $key = Cache::key('notice:conversation_root:' . $this->conversation);
-            $notice = $c->get($key);
-            if ($notice) {
-                return $notice;
-            }
-
-            $notice = new Notice();
-            $notice->conversation = $this->conversation;
-            $notice->orderBy('CREATED');
-            $notice->limit(1);
-            $notice->find(true);
-
-            if ($notice->N) {
-                $c->set($key, $notice);
-                return $notice;
-            }
+        if (empty($this->conversation)) {
+            return null;
         }
-        return null;
+
+        // Get the current profile if not specified
+
+        if (is_int($profile) && $profile == -1) {
+            $profile = Profile::current();
+        }
+
+        // If this notice is out of scope, no root for you!
+
+        if (!$this->inScope($profile)) {
+            return null;
+        }
+
+        // If this isn't a reply to anything, then it's its own
+        // root.
+
+        if (empty($this->reply_to)) {
+            return $this;
+        }
+        
+        if (is_null($profile)) {
+            $keypart = sprintf('notice:conversation_root:%d:null', $this->id);
+        } else {
+            $keypart = sprintf('notice:conversation_root:%d:%d',
+                               $this->id,
+                               $profile->id);
+        }
+            
+        $root = self::cacheGet($keypart);
+
+        if ($root !== false && $root->inScope($profile)) {
+            return $root;
+        } else {
+            $last = $this;
+
+            do {
+                $parent = $last->getOriginal();
+                if (!empty($parent) && $parent->inScope($profile)) {
+                    $last = $parent;
+                    continue;
+                } else {
+                    $root = $last;
+                    break;
+                }
+            } while (!empty($parent));
+
+            self::cacheSet($keypart, $root);
+        }
+
+        return $root;
     }
+
     /**
      * Pull up a full list of local recipients who will be getting
      * this notice in their inbox. Results will be cached, so don't
@@ -2419,5 +2454,19 @@ class Notice extends Memcached_DataObject
         }
 
         return $groups;
+    }
+
+    protected $_original = -1;
+
+    function getOriginal()
+    {
+        if (is_int($this->_original) && $this->_original == -1) {
+            if (empty($this->reply_to)) {
+                $this->_original = null;
+            } else {
+                $this->_original = Notice::staticGet('id', $this->reply_to);
+            }
+        }
+        return $this->_original;
     }
 }
