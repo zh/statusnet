@@ -11,13 +11,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:38:07+0000\n"
+"POT-Creation-Date: 2011-04-11 12:22+0000\n"
+"PO-Revision-Date: 2011-04-11 12:27:36+0000\n"
 "Language-Team: French <http://translatewiki.net/wiki/Portal:fr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 13:41:43+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 19:00:14+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -26,24 +26,64 @@ msgstr ""
 msgid "Feeds"
 msgstr "Flux d’informations"
 
-#. TRANS: Link description for link to subscribe to a remote user.
+#. TRANS: Link to subscribe to a remote entity.
 #. TRANS: Link text for a user to subscribe to an OStatus user.
 msgid "Subscribe"
 msgstr "S'abonner"
 
-#. TRANS: Link description for link to join a remote group.
-msgid "Join"
-msgstr "Rejoindre"
+#. TRANS: Fieldset legend.
+#, fuzzy
+msgid "Tag remote profile"
+msgstr "Vous devez fournir un profil distant."
 
-#. TRANSLATE: %s is a domain.
+#. TRANS: Field label.
+#, fuzzy
+msgctxt "LABEL"
+msgid "Remote profile"
+msgstr "L’adhésion au groupe distant a échoué !"
+
+#. TRANS: Field title.
+#, fuzzy
+msgid ""
+"OStatus user's address, like nickname@example.com or http://example.net/"
+"nickname."
+msgstr ""
+"Adresse d’un utilisateur OStatus ou de sa page de profil, telle que "
+"pseudonyme@example.com ou http://example.net/pseudonyme"
+
+#. TRANS: Button text to fetch remote profile.
+msgctxt "BUTTON"
+msgid "Fetch"
+msgstr ""
+
+#. TRANS: Exception in OStatus when invalid URI was entered.
+#, fuzzy
+msgid "Invalid URI."
+msgstr "Adresse URL d’avatar « %s » invalide."
+
+#. TRANS: Error message in OStatus plugin.
+#. TRANS: Error text.
+msgid ""
+"Sorry, we could not reach that address. Please make sure that the OStatus "
+"address is like nickname@example.com or http://example.net/nickname."
+msgstr ""
+"Désolé, nous n’avons pas pu atteindre cette adresse. Veuillez vous assurer "
+"que l’adresse OStatus de l’utilisateur ou de sa page de profil est de la "
+"forme pseudonyme@example.com ou http://example.net/pseudonyme."
+
+#. TRANS: Title.
+#. TRANS: %s is a domain name.
 #, php-format
 msgid "Sent from %s via OStatus"
 msgstr "Envoyé depuis %s via OStatus"
 
-#. TRANS: Exception.
+#. TRANS: Exception thrown when setup of remote subscription fails.
 msgid "Could not set up remote subscription."
 msgstr "Impossible de mettre en place l’abonnement distant."
 
+#. TRANS: Title for unfollowing a remote profile.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Unfollow"
 msgstr "Ne plus suivre"
 
@@ -53,8 +93,15 @@ msgstr "Ne plus suivre"
 msgid "%1$s stopped following %2$s."
 msgstr "%1$s a cessé de suivre %2$s."
 
+#. TRANS: Exception thrown when setup of remote group membership fails.
 msgid "Could not set up remote group membership."
 msgstr "Impossible de mettre en place l’appartenance au groupe distant."
+
+#. TRANS: Title to join a remote group.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Join"
+msgstr "Rejoindre"
 
 #. TRANS: Success message for subscribe to group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
@@ -62,10 +109,13 @@ msgstr "Impossible de mettre en place l’appartenance au groupe distant."
 msgid "%1$s has joined group %2$s."
 msgstr "%1$s a rejoint le groupe %2$s."
 
-#. TRANS: Exception.
+#. TRANS: Exception thrown when joining a remote group fails.
 msgid "Failed joining remote group."
 msgstr "Échec lors de l’adhésion au groupe distant."
 
+#. TRANS: Title for leaving a remote group.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Leave"
 msgstr "Sortir"
 
@@ -74,6 +124,46 @@ msgstr "Sortir"
 #, php-format
 msgid "%1$s has left group %2$s."
 msgstr "%1$s a quitté le groupe %2$s."
+
+#. TRANS: Exception thrown when setup of remote people tag subscription fails.
+#, fuzzy
+msgid "Could not set up remote people tag subscription."
+msgstr "Impossible de mettre en place l’abonnement distant."
+
+#. TRANS: Title for remote follow list.
+msgctxt "TITLE"
+msgid "Follow list"
+msgstr ""
+
+#. TRANS: Exception thrown when subscription of remote people tag fails.
+#, fuzzy
+msgid "Failed subscribing to remote people tag."
+msgstr "Échec lors de l’adhésion au groupe distant."
+
+msgid "Unfollow people tag"
+msgstr ""
+
+#, fuzzy, php-format
+msgid "%1$s stopped following the list %2$s by %3$s."
+msgstr "%1$s a cessé de suivre %2$s."
+
+msgctxt "TITLE"
+msgid "Tag"
+msgstr ""
+
+#, php-format
+msgid "%1$s tagged %2$s in the list %3$s."
+msgstr ""
+
+#, php-format
+msgid ""
+"Could not complete subscription to remote profile's feed. Tag %s could not "
+"be saved."
+msgstr ""
+
+msgctxt "TITLE"
+msgid "Untag"
+msgstr ""
 
 msgid "Disfavor"
 msgstr "Retirer des favoris"
@@ -97,6 +187,9 @@ msgstr "Mise à jour du profil"
 #, php-format
 msgid "%s has updated their profile page."
 msgstr "%s a mis à jour sa page de profil."
+
+msgid "Tag"
+msgstr ""
 
 #. TRANS: Plugin description.
 msgid ""
@@ -124,36 +217,41 @@ msgstr ""
 "Le sujet de concentrateur « %s » n’est pas supporté. Ce concentrateur ne sert "
 "que les flux Atom d’utilisateurs et groupes locaux."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception. %s is sync or async.
 #, php-format
 msgid "Invalid hub.verify \"%s\". It must be sync or async."
 msgstr ""
 "La vérification de concentrateur « %s » est invalide. Ce doit être « sync » ou "
 "« async »."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception. %s is the invalid lease value.
 #, php-format
 msgid "Invalid hub.lease \"%s\". It must be empty or positive integer."
 msgstr ""
 "Le bail de concentrateur « %s » est invalide. Ce doit être vide ou un entier "
 "positif."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception. %s is the invalid hub secret.
 #, php-format
 msgid "Invalid hub.secret \"%s\". It must be under 200 bytes."
 msgstr ""
 "Le secret de concentrateur « %s » est invalide. Il doit faire moins de 200 "
 "octets."
 
-#. TRANS: Client exception.
-#, php-format
-msgid "Invalid hub.topic \"%s\". User doesn't exist."
+#. TRANS: Client exception. %s is a feed URL.
+#, fuzzy, php-format
+msgid "Invalid hub.topic \"%s\". User does not exist."
 msgstr ""
 "Le sujet de concentrateur « %s » est invalide. L’utilisateur n’existe pas."
 
-#. TRANS: Client exception.
-#, php-format
-msgid "Invalid hub.topic \"%s\". Group doesn't exist."
+#. TRANS: Client exception. %s is a feed URL.
+#, fuzzy, php-format
+msgid "Invalid hub.topic \"%s\". Group does not exist."
+msgstr "Le sujet de concentrateur « %s » est invalide. Le groupe n’existe pas."
+
+#. TRANS: Client exception. %s is a feed URL.
+#, fuzzy, php-format
+msgid "Invalid hub.topic %s; people tag does not exist."
 msgstr "Le sujet de concentrateur « %s » est invalide. Le groupe n’existe pas."
 
 #. TRANS: Client exception.
@@ -161,6 +259,47 @@ msgstr "Le sujet de concentrateur « %s » est invalide. Le groupe n’existe pa
 #, php-format
 msgid "Invalid URL passed for %1$s: \"%2$s\""
 msgstr "URL invalide passée à la méthode « %1$s » : « %2$s »"
+
+#, fuzzy
+msgid "You can use the local tagging!"
+msgstr "Vous pouvez utiliser l’abonnement local !"
+
+#, php-format
+msgid "Tag %s"
+msgstr ""
+
+msgid "Go"
+msgstr ""
+
+#. TRANS: Field label.
+msgid "User nickname"
+msgstr "Pseudonyme de l’utilisateur"
+
+#, fuzzy
+msgid "Nickname of the user you want to tag"
+msgstr "Pseudonyme de l’utilisateur que vous voulez suivre."
+
+#. TRANS: Field label.
+msgid "Profile Account"
+msgstr "Compte de profil"
+
+#, fuzzy
+msgid "Your account id (i.e. user@identi.ca)"
+msgstr "Votre identifiant de compte (utilisateur@identi.ca, par exemple)."
+
+#. TRANS: Client error.
+#, fuzzy
+msgid "Could not look up OStatus account profile."
+msgstr "Impossible de consulter le profil de compte OStatus."
+
+#. TRANS: Client error.
+#, fuzzy
+msgid "Could not confirm remote profile address."
+msgstr "Impossible de confirmer l’adresse de profil distant."
+
+#, fuzzy
+msgid "OStatus people tag"
+msgstr "Connexion OStatus"
 
 msgid "Empty or invalid feed id."
 msgstr "Identifiant de flux vide ou invalide."
@@ -212,6 +351,9 @@ msgctxt "BUTTON"
 msgid "Continue"
 msgstr "Continuer"
 
+msgid "Join"
+msgstr "Rejoindre"
+
 #. TRANS: Button text.
 #. TRANS: Tooltip for button "Join".
 msgctxt "BUTTON"
@@ -232,15 +374,6 @@ msgstr "Vous êtes déjà abonné à cet utilisateur."
 
 #. TRANS: Error text.
 msgid ""
-"Sorry, we could not reach that address. Please make sure that the OStatus "
-"address is like nickname@example.com or http://example.net/nickname."
-msgstr ""
-"Désolé, nous n’avons pas pu atteindre cette adresse. Veuillez vous assurer "
-"que l’adresse OStatus de l’utilisateur ou de sa page de profil est de la "
-"forme pseudonyme@example.com ou http://example.net/pseudonyme."
-
-#. TRANS: Error text.
-msgid ""
 "Sorry, we could not reach that feed. Please try that OStatus address again "
 "later."
 msgstr ""
@@ -248,6 +381,7 @@ msgstr ""
 "cette adresse OStatus."
 
 #. TRANS: OStatus remote subscription dialog error.
+#. TRANS: OStatus remote group subscription dialog error.
 msgid "Already subscribed!"
 msgstr "Déjà abonné !"
 
@@ -255,6 +389,7 @@ msgstr "Déjà abonné !"
 msgid "Remote subscription failed!"
 msgstr "Ĺ’abonnement distant a échoué !"
 
+#. TRANS: Client error displayed when the session token does not match or is not given.
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 "Un problème est survenu avec votre jeton de session. Veuillez essayer à "
@@ -314,6 +449,11 @@ msgid "No ID."
 msgstr "Aucun identifiant."
 
 #. TRANS: Client exception.
+#, fuzzy
+msgid "Cannot handle that kind of post."
+msgstr "Impossible de gérer cette sorte de publication."
+
+#. TRANS: Client exception.
 msgid "In reply to unknown notice."
 msgstr "En réponse à l’avis inconnu."
 
@@ -337,11 +477,13 @@ msgid "Notice was not favorited!"
 msgstr ""
 
 #. TRANS: Client exception.
-msgid "Can't favorite/unfavorite without an object."
+#, fuzzy
+msgid "Cannot favorite/unfavorite without an object."
 msgstr "Impossible de mettre en favoris ou retirer des favoris sans un objet."
 
 #. TRANS: Client exception.
-msgid "Can't handle that kind of object for liking/faving."
+#, fuzzy
+msgid "Cannot handle that kind of object for liking/faving."
 msgstr ""
 "Impossible de gérer ce genre d’objet parmi les sujets appréciés ou favoris."
 
@@ -355,22 +497,56 @@ msgstr "Avis d’identifiant « %s » inconnu."
 msgid "Notice with ID %1$s not posted by %2$s."
 msgstr "Avis d’identifiant « %1$s » non publié par %2$s."
 
+#, fuzzy
+msgid "Subscribe to people tag"
+msgstr "S’abonner à un utilisateur"
+
+#, fuzzy
+msgid "Address of the OStatus people tag, like http://example.net/user/all/tag"
+msgstr ""
+"Une adresse de groupe OStatus telle que « http://example.net/group/pseudonyme "
+"»."
+
+#, fuzzy
+msgid "Continue"
+msgstr "Continuer"
+
+#, fuzzy
+msgid "You are already subscribed to this people tag."
+msgstr "Vous êtes déjà abonné à cet utilisateur."
+
+#. TRANS: Page title for OStatus remote people tag subscription form
+#, fuzzy
+msgid "Confirm subscription to remote people tag"
+msgstr "Confirmer l’adhésion au groupe distant"
+
+#, fuzzy
+msgid ""
+"You can subscribe to people tags from other supported sites. Paste the tag's "
+"profile URI below:"
+msgstr ""
+"Vous pouvez souscrire aux groupes d’autres sites supportés. Collez l’adresse "
+"URI du profil du groupe ci-dessous :"
+
 #. TRANS: Client error.
 msgid "No such group."
 msgstr "Groupe inexistant."
 
 #. TRANS: Client error.
-msgid "Can't accept remote posts for a remote group."
+#, fuzzy
+msgid "Cannot accept remote posts for a remote group."
 msgstr ""
 "Impossible d’accepter des envois distants de messages pour un groupe distant."
 
 #. TRANS: Client error.
-msgid "Can't read profile to set up group membership."
+#, fuzzy
+msgid "Cannot read profile to set up group membership."
 msgstr ""
 "Impossible de lire le profil pour mettre en place l’adhésion à un groupe."
 
 #. TRANS: Client error.
-msgid "Groups can't join groups."
+#, fuzzy
+msgid "Groups cannot join groups."
 msgstr "Les groupes ne peuvent pas adhérer à des groupes."
 
 msgid "You have been blocked from that group by the admin."
@@ -381,7 +557,8 @@ msgstr "Vous avez été bloqué de ce groupe par l’administrateur."
 msgid "Could not join remote user %1$s to group %2$s."
 msgstr "Impossible d’inscrire l’utilisateur distant %1$s au groupe %2$s."
 
-msgid "Can't read profile to cancel group membership."
+#, fuzzy
+msgid "Cannot read profile to cancel group membership."
 msgstr "Impossible de lire le profil pour annuler l’adhésion à un groupe."
 
 #. TRANS: Server error. %1$s is a profile URI, %2$s is a group nickname.
@@ -389,88 +566,118 @@ msgstr "Impossible de lire le profil pour annuler l’adhésion à un groupe."
 msgid "Could not remove remote user %1$s from group %2$s."
 msgstr "Impossible de retirer l’utilisateur distant %1$s du groupe %2$s."
 
+#, fuzzy
+msgid "No such people tag."
+msgstr "Groupe inexistant."
+
+#, fuzzy
+msgid "Cannot accept remote posts for a remote people tag."
+msgstr ""
+"Impossible d’accepter des envois distants de messages pour un groupe distant."
+
+#, fuzzy
+msgid "Cannot read profile to set up profile tag subscription."
+msgstr ""
+"Impossible de lire le profil pour mettre en place l’adhésion à un groupe."
+
+msgid "Groups cannot subscribe to people tags."
+msgstr ""
+
+#, fuzzy, php-format
+msgid "Could not subscribe remote user %1$s to people tag %2$s."
+msgstr "Impossible d’inscrire l’utilisateur distant %1$s au groupe %2$s."
+
+#, fuzzy
+msgid "Cannot read profile to cancel people tag membership."
+msgstr "Impossible de lire le profil pour annuler l’adhésion à un groupe."
+
+#, fuzzy, php-format
+msgid "Could not remove remote user %1$s from people tag %2$s."
+msgstr "Impossible de retirer l’utilisateur distant %1$s du groupe %2$s."
+
 #. TRANS: Client error.
 msgid "You can use the local subscription!"
 msgstr "Vous pouvez utiliser l’abonnement local !"
 
-#. TRANS: Form legend.
+#. TRANS: Form title.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Subscribe to user"
+msgstr "S’abonner à un utilisateur"
+
+#. TRANS: Form legend. %s is a group name.
 #, php-format
 msgid "Join group %s"
 msgstr "Rejoindre le groupe « %s »"
 
-#. TRANS: Button text.
+#. TRANS: Button text to join a group.
 msgctxt "BUTTON"
 msgid "Join"
 msgstr "Rejoindre"
 
-#. TRANS: Form legend.
+#. TRANS: Form legend. %1$s is a people tag, %2$s is a tagger's name.
 #, php-format
-msgid "Subscribe to %s"
-msgstr "S’abonner à « %s »"
+msgid "Subscribe to people tagged %1$s by %2$s"
+msgstr ""
 
-#. TRANS: Button text.
+#. TRANS: Button text to subscribe to a people tag.
+#. TRANS: Button text to subscribe to a profile.
 msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr "S’abonner"
+
+#. TRANS: Form legend. %s is a nickname.
+#, php-format
+msgid "Subscribe to %s"
+msgstr "S’abonner à « %s »"
 
 #. TRANS: Field label.
 msgid "Group nickname"
 msgstr "Pseudonyme du groupe"
 
+#. TRANS: Field title.
 msgid "Nickname of the group you want to join."
 msgstr "Pseudonyme du groupe que vous voulez rejoindre."
 
-#. TRANS: Field label.
-msgid "User nickname"
-msgstr "Pseudonyme de l’utilisateur"
-
+#. TRANS: Field title.
 msgid "Nickname of the user you want to follow."
 msgstr "Pseudonyme de l’utilisateur que vous voulez suivre."
 
-#. TRANS: Field label.
-msgid "Profile Account"
-msgstr "Compte de profil"
-
 #. TRANS: Tooltip for field label "Profile Account".
-msgid "Your account id (e.g. user@identi.ca)."
+#, fuzzy
+msgid "Your account ID (e.g. user@identi.ca)."
 msgstr "Votre identifiant de compte (utilisateur@identi.ca, par exemple)."
 
 #. TRANS: Client error.
 msgid "Must provide a remote profile."
 msgstr "Vous devez fournir un profil distant."
 
-#. TRANS: Client error.
-msgid "Couldn't look up OStatus account profile."
-msgstr "Impossible de consulter le profil de compte OStatus."
-
-#. TRANS: Client error.
-msgid "Couldn't confirm remote profile address."
-msgstr "Impossible de confirmer l’adresse de profil distant."
-
 #. TRANS: Page title.
 msgid "OStatus Connect"
 msgstr "Connexion OStatus"
 
+#. TRANS: Server exception.
 msgid "Attempting to start PuSH subscription for feed with no hub."
 msgstr ""
 "Tente de démarrer l’inscription PuSH à un flux d’information sans "
 "concentrateur."
 
+#. TRANS: Server exception.
 msgid "Attempting to end PuSH subscription for feed with no hub."
 msgstr ""
 "Tente d’arrêter l’inscription PuSH à un flux d’information sans "
 "concentrateur."
 
-#. TRANS: Server exception. %s is a URI.
-#, php-format
-msgid "Invalid ostatus_profile state: both group and profile IDs set for %s."
+#. TRANS: Server exception. %s is a URI
+#, fuzzy, php-format
+msgid "Invalid ostatus_profile state: two or more IDs set for %s"
 msgstr ""
 "État invalide du profil OStatus : identifiants à la fois de groupe et de "
 "profil définis pour « %s »."
 
-#. TRANS: Server exception. %s is a URI.
-#, php-format
-msgid "Invalid ostatus_profile state: both group and profile IDs empty for %s."
+#. TRANS: Server exception. %s is a URI
+#, fuzzy, php-format
+msgid "Invalid ostatus_profile state: all IDs empty for %s."
 msgstr ""
 "État invalide du profil OStatus : identifiants à la fois de groupe et de "
 "profil non renseignés pour « %s »."
@@ -497,10 +704,6 @@ msgstr "Format de flux d’information inconnu."
 msgid "RSS feed without a channel."
 msgstr "Flux RSS sans canal."
 
-#. TRANS: Client exception.
-msgid "Can't handle that kind of post."
-msgstr "Impossible de gérer cette sorte de publication."
-
 #. TRANS: Client exception. %s is a source URI.
 #, php-format
 msgid "No content for notice %s."
@@ -524,7 +727,8 @@ msgstr ""
 "profil « %s »."
 
 #. TRANS: Feed sub exception.
-msgid "Can't find enough profile information to make a feed."
+#, fuzzy
+msgid "Cannot find enough profile information to make a feed."
 msgstr ""
 "Impossible de trouver assez d’informations de profil pour créer un flux "
 "d’information."
@@ -547,19 +751,23 @@ msgid "Unable to fetch avatar from %s."
 msgstr "Impossible de récupérer l’avatar depuis « %s »."
 
 #. TRANS: Exception.
-msgid "Local user can't be referenced as remote."
+#, fuzzy
+msgid "Local user cannot be referenced as remote."
 msgstr "L’utilisateur local ne peut être référencé comme distant."
 
 #. TRANS: Exception.
-msgid "Local group can't be referenced as remote."
+#, fuzzy
+msgid "Local group cannot be referenced as remote."
 msgstr "Le groupe local ne peut être référencé comme distant."
 
 #. TRANS: Server exception.
-msgid "Can't save local profile."
+#, fuzzy
+msgid "Cannot save local profile."
 msgstr "Impossible de sauvegarder le profil local."
 
 #. TRANS: Server exception.
-msgid "Can't save OStatus profile."
+#, fuzzy
+msgid "Cannot save OStatus profile."
 msgstr "Impossible de sauvegarder le profil OStatus."
 
 #. TRANS: Exception.
@@ -567,24 +775,35 @@ msgid "Not a valid webfinger address."
 msgstr "Ce n’est pas une adresse « webfinger » valide."
 
 #. TRANS: Exception. %s is a webfinger address.
-#, php-format
-msgid "Couldn't save profile for \"%s\"."
+#, fuzzy, php-format
+msgid "Could not save profile for \"%s\"."
 msgstr "Impossible de sauvegarder le profil pour « %s »."
 
 #. TRANS: Exception. %s is a webfinger address.
-#, php-format
-msgid "Couldn't save ostatus_profile for \"%s\"."
+#, fuzzy, php-format
+msgid "Could not save ostatus_profile for \"%s\"."
 msgstr "Impossible d’enregistrer le profil OStatus pour « %s »."
 
 #. TRANS: Exception. %s is a webfinger address.
-#, php-format
-msgid "Couldn't find a valid profile for \"%s\"."
+#, fuzzy, php-format
+msgid "Could not find a valid profile for \"%s\"."
 msgstr "Impossible de trouver un profil valide pour « %s »."
 
 #. TRANS: Server exception.
 msgid "Could not store HTML content of long post as file."
 msgstr ""
 "Impossible de stocker le contenu HTML d’une longue publication en un fichier."
+
+#. TRANS: Server exception.
+#. TRANS: %1$s is a protocol, %2$s is a URI.
+#, php-format
+msgid "Unrecognized URI protocol for profile: %1$s (%2$s)."
+msgstr ""
+
+#. TRANS: Server exception. %s is a URI.
+#, php-format
+msgid "No URI protocol for profile: %s."
+msgstr ""
 
 #. TRANS: Client exception. %s is a HTTP status code.
 #, php-format
@@ -627,36 +846,54 @@ msgid "Unrecognized activity type."
 msgstr "Type d’activité non reconnu."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand posts."
+#, fuzzy
+msgid "This target does not understand posts."
 msgstr "Cette cible ne reconnaît pas les publications."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand follows."
+#, fuzzy
+msgid "This target does not understand follows."
 msgstr "Cette cible ne reconnaît pas les indications de début de suivi."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand unfollows."
+#, fuzzy
+msgid "This target does not understand unfollows."
 msgstr "Cette cible ne reconnaît pas les indications de fin de suivi."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand favorites."
+#, fuzzy
+msgid "This target does not understand favorites."
 msgstr "Cette cible ne reconnaît pas les indications de mise en favoris."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand unfavorites."
+#, fuzzy
+msgid "This target does not understand unfavorites."
 msgstr "Cette cible ne reconnaît pas les indications de retrait des favoris."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand share events."
+#, fuzzy
+msgid "This target does not understand share events."
 msgstr "Cette cible ne reconnaît pas les évènements partagés."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand joins."
+#, fuzzy
+msgid "This target does not understand joins."
 msgstr "Cette cible ne reconnaît pas les indications d’adhésion."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand leave events."
+#, fuzzy
+msgid "This target does not understand leave events."
 msgstr "Cette cible ne reconnaît pas les indications de retrait d’évènements."
+
+#. TRANS: Client exception.
+#, fuzzy
+msgid "This target does not understand tag events."
+msgstr "Cette cible ne reconnaît pas les évènements partagés."
+
+#. TRANS: Client exception.
+#, fuzzy
+msgid "This target does not understand untag events."
+msgstr "Cette cible ne reconnaît pas les évènements partagés."
 
 #. TRANS: Exception.
 msgid "Received a salmon slap from unidentified actor."

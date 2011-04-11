@@ -67,7 +67,7 @@ class UsersalmonAction extends SalmonAction
         case ActivityObject::COMMENT:
             break;
         default:
-            throw new ClientException("Can't handle that kind of post.");
+            throw new ClientException(_m('Cannot handle that kind of post.'));
         }
 
         // Notice must either be a) in reply to a notice by this user
@@ -255,7 +255,7 @@ class UsersalmonAction extends SalmonAction
     {
         if (!$object) {
             // TRANS: Client exception.
-            throw new ClientException(_m('Can\'t favorite/unfavorite without an object.'));
+            throw new ClientException(_m('Cannot favorite/unfavorite without an object.'));
         }
 
         switch ($object->type) {
@@ -267,7 +267,7 @@ class UsersalmonAction extends SalmonAction
             break;
         default:
             // TRANS: Client exception.
-            throw new ClientException(_m('Can\'t handle that kind of object for liking/faving.'));
+            throw new ClientException(_m('Cannot handle that kind of object for liking/faving.'));
         }
 
         $notice = Notice::staticGet('uri', $object->id);

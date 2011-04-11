@@ -1,6 +1,7 @@
 # Translation of StatusNet - Bookmark to Catalan (Català)
 # Exported from translatewiki.net
 #
+# Author: SMP
 # Author: Toniher
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -9,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Bookmark\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:36:44+0000\n"
+"POT-Creation-Date: 2011-04-11 12:22+0000\n"
+"PO-Revision-Date: 2011-04-11 12:26:11+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 13:40:23+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 18:57:51+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-plugin-bookmark\n"
@@ -66,7 +67,6 @@ msgid "Bookmark has no attachments."
 msgstr "Avís d'adreça d'interès amb un nombre incorrecte d'adjuncions."
 
 #. TRANS: Application title.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Bookmark"
 msgstr "Adreça d'interès"
@@ -97,11 +97,13 @@ msgid ""
 "<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
 "span>"
 msgstr ""
+"<span class=\"xfolkentry\"><a class=\"taggedlink\" href=\"%1$s\">%2$s</a> "
+"<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
+"span>"
 
 #. TRANS: Client exception thrown when an unknown URL is provided.
-#, fuzzy
 msgid "Unknown URL."
-msgstr "URL desconegut"
+msgstr "URL desconegut."
 
 #. TRANS: Title of notice stream of notices with a given attachment (first page).
 #. TRANS: %s is the URL.
@@ -111,9 +113,9 @@ msgstr "Avisos que enllacen a %s"
 
 #. TRANS: Title of notice stream of notices with a given attachment (all but first page).
 #. TRANS: %1$s is the URL, %2$s is the page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Notices linking to %1$s, page %2$d"
-msgstr "Avisos que enllacen a %s"
+msgstr "Avisos que enllacen a %1$s, pàgina %2$d"
 
 #. TRANS: Client exception thrown when trying to import bookmarks without being logged in.
 msgid "Only logged-in users can import del.icio.us backups."
@@ -204,9 +206,8 @@ msgid "Upload"
 msgstr "Puja"
 
 #. TRANS: Button title on form to import bookmarks.
-#, fuzzy
 msgid "Upload the file."
-msgstr "Puja el fitxer"
+msgstr "Carrega el fitxer."
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -214,9 +215,8 @@ msgid "Title"
 msgstr "Títol"
 
 #. TRANS: Field title on form for adding a new bookmark.
-#, fuzzy
 msgid "Title of the bookmark."
-msgstr "Títol de l'adreça d'interès"
+msgstr "Títol de l'adreça d'interès."
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -224,9 +224,8 @@ msgid "URL"
 msgstr "URL"
 
 #. TRANS: Field title on form for adding a new bookmark.
-#, fuzzy
 msgid "URL to bookmark."
-msgstr "D'URL a adreça d'interès"
+msgstr "D'URL a adreça d'interès."
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -234,9 +233,8 @@ msgid "Tags"
 msgstr "Etiquetes"
 
 #. TRANS: Field title on form for adding a new bookmark.
-#, fuzzy
 msgid "Comma- or space-separated list of tags."
-msgstr "Llista d'etiquetes separades per comes o espais"
+msgstr "Llista d'etiquetes separades per comes o espais."
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -244,14 +242,13 @@ msgid "Description"
 msgstr "Descripció"
 
 #. TRANS: Field title on form for adding a new bookmark.
-#, fuzzy
 msgid "Description of the URL."
-msgstr "Descripció de l'URL"
+msgstr "Descripció de l'URL."
 
 #. TRANS: Button text for action to save a new bookmark.
 msgctxt "BUTTON"
 msgid "Save"
-msgstr ""
+msgstr "Desa"
 
 #. TRANS: Title for action to create a new bookmark.
 msgid "New bookmark"

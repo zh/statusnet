@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - QnA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:38:16+0000\n"
+"POT-Creation-Date: 2011-04-11 12:22+0000\n"
+"PO-Revision-Date: 2011-04-11 12:27:47+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 23:28:54+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 19:00:53+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-qna\n"
@@ -53,21 +53,20 @@ msgstr "Користувач без профілю."
 
 #. TRANS: Page title.
 #. TRANS: %1$s is the user who answered a question, %2$s is the question.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's answer to \"%2$s\""
-msgstr "Відповідь 1$%s на «%2$s»"
+msgstr "Відповідь %1$s на «%2$s»"
 
 #. TRANS: Page title for revising a question
 msgid "Revise answer"
-msgstr ""
+msgstr "Переглянути відповідь"
 
 #. TRANS: Client exception thrown trying to answer a question while not logged in.
 msgid "You must be logged in to answer to a question."
 msgstr "Ви маєте спочатку увійти, аби мати змогу відповісти на запитання."
 
-#, fuzzy
 msgid "Invalid or missing answer."
-msgstr "Неправильне або відсутнє запитання."
+msgstr "Неправильна або відсутня відповідь."
 
 #. TRANS: Page title after sending an answer.
 #. TRANS: Page title for and answer to a question.
@@ -87,21 +86,18 @@ msgid "%1$s's question: %2$s"
 msgstr "%1$s має запитання: %2$s"
 
 #. TRANS: Page title for close a question
-#, fuzzy
 msgid "Close question"
-msgstr "Нове запитання"
+msgstr "Закрити питання."
 
-#, fuzzy
 msgid "You must be logged in to close a question."
-msgstr "Ви маєте спочатку увійти, аби мати змогу поставити запитання."
+msgstr "Ви маєте спочатку увійти, аби мати змогу закрити питання."
 
 #. TRANS: Client exception thrown trying to respond to a non-existing question.
 msgid "Invalid or missing question."
 msgstr "Неправильне або відсутнє запитання."
 
-#, fuzzy
 msgid "You didn't ask this question."
-msgstr "Ви маєте спочатку увійти, аби мати змогу відповісти на запитання."
+msgstr "Ви не ставили цього запитання."
 
 #. TRANS: Page title after sending an answer.
 msgid "Answers"
@@ -120,16 +116,15 @@ msgstr "Несподіваний тип для додатку QnA: %s ."
 msgid "Question data is missing."
 msgstr "Дані запитання відсутні."
 
-#, fuzzy
 msgid "Answer data is missing."
-msgstr "Дані запитання відсутні."
+msgstr "Дані відповіді відсутні."
 
 msgid "more"
-msgstr ""
+msgstr "ще"
 
 #, php-format
 msgid "%s revisions"
-msgstr ""
+msgstr "%s редагування"
 
 #, php-format
 msgid "%1$s answered the question \"%2$s\": %3$s"
@@ -141,13 +136,12 @@ msgstr "%1$s відповів на запитання «%2$s»: %3$s"
 msgid "answered \"%s\""
 msgstr "відповіли на «%s»"
 
-#, fuzzy, php-format
+#, php-format
 msgid "%s answers"
-msgstr "Відповіді"
+msgstr "%s відповіді"
 
-#, fuzzy
 msgid "This question is closed."
-msgstr "Немає такого допису із запитанням."
+msgstr "Це питання закрито."
 
 #. TRANS: Rendered version of the notice content creating a question.
 #. TRANS: %s a link to the question as link description.
@@ -161,7 +155,6 @@ msgid "Submit"
 msgstr "Надіслати"
 
 #. TRANS: Button text for submitting a poll response.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Answer"
 msgstr "Відповідь"
@@ -186,15 +179,9 @@ msgstr "Зберегти"
 #. TRANS: Button text for closing a question
 msgctxt "BUTTON"
 msgid "Close"
-msgstr ""
+msgstr "Закрити"
 
 #. TRANS: Button text for marking an answer as "best"
 msgctxt "BUTTON"
 msgid "Best"
-msgstr ""
-
-#~ msgid "%1$s asked the question \"%2$s\": %3$s"
-#~ msgstr "%1$s поставив запитання «%2$s»: %3$s"
-
-#~ msgid "question: %1$s %2$s"
-#~ msgstr "запитання: %1$s %2$s"
+msgstr "Краще"

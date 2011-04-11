@@ -36,19 +36,19 @@ class PeopletagsalmonAction extends SalmonAction
         $id = $this->trimmed('id');
 
         if (!$id) {
-            $this->clientError(_('No ID.'));
+            $this->clientError(_m('No ID.'));
         }
 
         $this->peopletag = Profile_list::staticGet('id', $id);
 
         if (empty($this->peopletag)) {
-            $this->clientError(_('No such peopletag.'));
+            $this->clientError(_m('No such people tag.'));
         }
 
         $oprofile = Ostatus_profile::staticGet('peopletag_id', $id);
 
         if (!empty($oprofile)) {
-            $this->clientError(_m("Can't accept remote posts for a remote peopletag."));
+            $this->clientError(_m('Cannot accept remote posts for a remote people tag.'));
         }
 
         return true;
@@ -86,10 +86,10 @@ class PeopletagsalmonAction extends SalmonAction
     {
         $oprofile = $this->ensureProfile();
         if (!$oprofile) {
-            $this->clientError(_m("Can't read profile to set up profiletag subscription."));
+            $this->clientError(_m('Cannot read profile to set up profile tag subscription.'));
         }
         if ($oprofile->isGroup()) {
-            $this->clientError(_m("Groups can't subscribe to peopletags."));
+            $this->clientError(_m('Groups cannot subscribe to people tags.'));
         }
 
         common_log(LOG_INFO, "Remote profile {$oprofile->uri} subscribing to local peopletag ".$this->peopletag->getBestName());
@@ -107,7 +107,7 @@ class PeopletagsalmonAction extends SalmonAction
         try {
             Profile_tag_subscription::add($this->peopletag, $profile);
         } catch (Exception $e) {
-            $this->serverError(sprintf(_m('Could not subscribe remote user %1$s to peopletag %2$s.'),
+            $this->serverError(sprintf(_m('Could not subscribe remote user %1$s to people tag %2$s.'),
                                        $oprofile->uri, $this->peopletag->getBestName()));
         }
     }
@@ -120,10 +120,10 @@ class PeopletagsalmonAction extends SalmonAction
     {
         $oprofile = $this->ensureProfile();
         if (!$oprofile) {
-            $this->clientError(_m("Can't read profile to cancel peopletag membership."));
+            $this->clientError(_m('Cannot read profile to cancel people tag membership.'));
         }
         if ($oprofile->isGroup()) {
-            $this->clientError(_m("Groups can't subscribe to peopletags."));
+            $this->clientError(_m('Groups cannot subscribe to people tags.'));
         }
 
         common_log(LOG_INFO, "Remote profile {$oprofile->uri} unsubscribing from local peopletag ".$this->peopletag->getBestName());
@@ -133,7 +133,7 @@ class PeopletagsalmonAction extends SalmonAction
                 Profile_tag_subscription::remove($this->peopletag->tagger, $this->peopletag->tag, $profile->id);
 
         } catch (Exception $e) {
-            $this->serverError(sprintf(_m('Could not remove remote user %1$s from peopletag %2$s.'),
+            $this->serverError(sprintf(_m('Could not remove remote user %1$s from people tag %2$s.'),
                                        $oprofile->uri, $this->peopletag->getBestName()));
             return;
         }

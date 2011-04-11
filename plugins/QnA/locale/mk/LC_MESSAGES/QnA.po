@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - QnA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:38:16+0000\n"
+"POT-Creation-Date: 2011-04-11 12:22+0000\n"
+"PO-Revision-Date: 2011-04-11 12:27:46+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 23:28:54+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 19:00:53+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-qna\n"
@@ -52,21 +52,20 @@ msgstr "Корисникот е без профил."
 
 #. TRANS: Page title.
 #. TRANS: %1$s is the user who answered a question, %2$s is the question.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's answer to \"%2$s\""
-msgstr "Одговорот на 1$%s на прашањето „%2$s“"
+msgstr "Одговорот на %1$s на прашањето „%2$s“"
 
 #. TRANS: Page title for revising a question
 msgid "Revise answer"
-msgstr ""
+msgstr "Прегледајте го одговорот"
 
 #. TRANS: Client exception thrown trying to answer a question while not logged in.
 msgid "You must be logged in to answer to a question."
 msgstr "Мора да сте најавени за да одговарате на прашања."
 
-#, fuzzy
 msgid "Invalid or missing answer."
-msgstr "Неважечко или непостоечко прашање."
+msgstr "Неважечки или непостоечки одговор."
 
 #. TRANS: Page title after sending an answer.
 #. TRANS: Page title for and answer to a question.
@@ -86,21 +85,18 @@ msgid "%1$s's question: %2$s"
 msgstr "Прашање на %1$s: %2$s"
 
 #. TRANS: Page title for close a question
-#, fuzzy
 msgid "Close question"
-msgstr "Ново прашање"
+msgstr "Затворете го прашањето"
 
-#, fuzzy
 msgid "You must be logged in to close a question."
-msgstr "Мора да сте најавени за да поставувате прашања."
+msgstr "Мора да сте најавени за да затворате прашања."
 
 #. TRANS: Client exception thrown trying to respond to a non-existing question.
 msgid "Invalid or missing question."
 msgstr "Неважечко или непостоечко прашање."
 
-#, fuzzy
 msgid "You didn't ask this question."
-msgstr "Мора да сте најавени за да одговарате на прашања."
+msgstr "Вие не го поставивте ова прашање."
 
 #. TRANS: Page title after sending an answer.
 msgid "Answers"
@@ -119,16 +115,15 @@ msgstr "Неочекуван тип на приклучок за прашања 
 msgid "Question data is missing."
 msgstr "Прашалните податоци недостасуваат."
 
-#, fuzzy
 msgid "Answer data is missing."
-msgstr "Прашалните податоци недостасуваат."
+msgstr "Податоците за одговор недостасуваат."
 
 msgid "more"
-msgstr ""
+msgstr "повеќе"
 
 #, php-format
 msgid "%s revisions"
-msgstr ""
+msgstr "%s ревизии"
 
 #, php-format
 msgid "%1$s answered the question \"%2$s\": %3$s"
@@ -140,13 +135,12 @@ msgstr "%1$s одговори на прашањето „%2$s“: %3$s"
 msgid "answered \"%s\""
 msgstr "одговори на „%s“"
 
-#, fuzzy, php-format
+#, php-format
 msgid "%s answers"
-msgstr "Одговори"
+msgstr "%s одговори"
 
-#, fuzzy
 msgid "This question is closed."
-msgstr "Нема таква забелешка со прашање."
+msgstr "Ова прашање е затворено."
 
 #. TRANS: Rendered version of the notice content creating a question.
 #. TRANS: %s a link to the question as link description.
@@ -160,10 +154,9 @@ msgid "Submit"
 msgstr "Поднеси"
 
 #. TRANS: Button text for submitting a poll response.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Answer"
-msgstr "Одговор"
+msgstr "Одговори"
 
 msgid "Title"
 msgstr "Наслов"
@@ -185,15 +178,9 @@ msgstr "Зачувај"
 #. TRANS: Button text for closing a question
 msgctxt "BUTTON"
 msgid "Close"
-msgstr ""
+msgstr "Затвори"
 
 #. TRANS: Button text for marking an answer as "best"
 msgctxt "BUTTON"
 msgid "Best"
-msgstr ""
-
-#~ msgid "%1$s asked the question \"%2$s\": %3$s"
-#~ msgstr "%1$s го постави прашањето „%2$s“: %3$s"
-
-#~ msgid "question: %1$s %2$s"
-#~ msgstr "прашање: %1$s %2$s"
+msgstr "Најдобар"

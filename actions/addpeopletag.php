@@ -152,7 +152,7 @@ class AddpeopletagAction extends Action
             } else {
                 // TRANS: Client error displayed when an unknown error occurs while tagging a user.
                 // TRANS: %s is a profile URL.
-                $this->clientError(sprintf(_('There was a problem tagging %s.' .
+                $this->clientError(sprintf(_('There was a problem tagging %s. ' .
                                       'The remote server is probably not responding correctly, ' .
                                       'please try retrying later.'), $this->profile->profileurl));
             }

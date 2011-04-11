@@ -83,7 +83,7 @@ class OStatusTagAction extends OStatusInitAction
         $disco = new Discovery;
         $result = $disco->lookup($acct);
         if (!$result) {
-            $this->clientError(_m("Couldn't look up OStatus account profile."));
+            $this->clientError(_m('Could not look up OStatus account profile.'));
         }
 
         foreach ($result->links as $link) {
@@ -95,7 +95,7 @@ class OStatusTagAction extends OStatusInitAction
             }
 
         }
-        $this->clientError(_m("Couldn't confirm remote profile address."));
+        $this->clientError(_m('Could not confirm remote profile address.'));
     }
 
     function connectProfile($subscriber_profile)

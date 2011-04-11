@@ -126,7 +126,7 @@ class GroupProfileBlock extends ProfileBlock
 
     function show()
     {
-        $this->out->elementStart('div', 'group_profile_block section');
+        $this->out->elementStart('div', 'profile_block group_profile_block section');
         if (Event::handle('StartShowGroupProfileBlock', array($this->out, $this->group))) {
             parent::show();
             Event::handle('EndShowGroupProfileBlock', array($this->out, $this->group));

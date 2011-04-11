@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - FacebookBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:37:09+0000\n"
+"POT-Creation-Date: 2011-04-11 12:22+0000\n"
+"PO-Revision-Date: 2011-04-11 12:26:38+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 13:40:32+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 18:59:00+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-facebookbridge\n"
@@ -35,15 +35,13 @@ msgid "Login with Facebook"
 msgstr "Lumagdang may Facebook"
 
 #. TRANS: Title for "Login with Facebook" image.
-#, fuzzy
 msgid "Login with Facebook."
-msgstr "Lumagdang may Facebook"
+msgstr "Lumagda sa pamamagitan ng Facebook."
 
 #. TRANS: Title for Facebook administration panel.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Facebook integration settings"
-msgstr "Mga katakdaan ng pagsasama ng Facebook"
+msgstr "Mga katakdaan sa pagsasama ng Facebook"
 
 #. TRANS: Instruction for Facebook administration panel.
 msgid "Facebook integration settings"
@@ -94,12 +92,12 @@ msgstr "Sagipin ang mga katakdaan ng Facebook."
 #. TRANS: Client error displayed when the session token does not match or is not given.
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
+"Nagkaroon ng isang suliranin sa kahalip ng sesyon mo.  Pakisubukan uli."
 
 #. TRANS: Page title for Facebook settings.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Facebook settings"
-msgstr "Mga katakdaan ng Facebook"
+msgstr "Mga katakdaan sa Facebook"
 
 #. TRANS: Instructions for Facebook settings.
 msgid "Facebook settings"
@@ -107,15 +105,15 @@ msgstr "Mga katakdaan ng Facebook"
 
 #. TRANS: Form note. User is connected to facebook.
 msgid "Connected Facebook user"
-msgstr ""
+msgstr "Nakaugnay na tagagamit ng Facebook"
 
 #. TRANS: Checkbox label in Facebook settings.
 msgid "Publish my notices to Facebook."
-msgstr ""
+msgstr "Ilathala ang mga pabatid ko sa Facebook."
 
 #. TRANS: Checkbox label in Facebook settings.
 msgid "Send \"@\" replies to Facebook."
-msgstr ""
+msgstr "Ipadala ang mga tugong \"@\" papunta sa Facebook."
 
 #. TRANS: Fieldset legend for form to disconnect from Facebook.
 msgid "Disconnect my account from Facebook"
@@ -138,7 +136,7 @@ msgstr ""
 #. TRANS: Submit button.
 msgctxt "BUTTON"
 msgid "Disconnect"
-msgstr ""
+msgstr "Huwag umugnay"
 
 #. TRANS: Notice in case saving of synchronisation preferences fail.
 msgid "There was a problem saving your sync preferences."
@@ -200,11 +198,11 @@ msgstr ""
 
 #. TRANS: Fieldset legend.
 msgid "Create new account"
-msgstr ""
+msgstr "Lumikha ng bagong akawnt"
 
 #. TRANS: Form instructions.
 msgid "Create a new user with this nickname."
-msgstr ""
+msgstr "Lumikha ng isang bagong tagagamit na may ganitong palayaw."
 
 #. TRANS: Field label.
 msgid "New nickname"
@@ -274,19 +272,16 @@ msgid "Facebook"
 msgstr "Facebook"
 
 #. TRANS: Menu title for "Facebook" login.
-#, fuzzy
 msgid "Login or register using Facebook."
-msgstr "Lumagda o magpatala na ginagamit ang Facebook"
+msgstr "Lumagda o magpatala sa pamamagitan ng Facebook."
 
 #. TRANS: Menu title for "Facebook" in administration panel.
-#, fuzzy
 msgid "Facebook integration configuration."
-msgstr "Pagkakaayos ng pagsasama ng Facebook"
+msgstr "Pagsasaayos ng pagsasama sa Facebook."
 
 #. TRANS: Menu title for "Facebook" in user settings.
-#, fuzzy
 msgid "Facebook settings."
-msgstr "Mga katakdaan ng Facebook"
+msgstr "Mga katakdaan sa Facebook."
 
 #. TRANS: Plugin description.
 msgid "A plugin for integrating StatusNet with Facebook."
@@ -314,6 +309,20 @@ msgid ""
 "\n"
 "%2$s\n"
 msgstr ""
+"Kumusta %1$s,\n"
+"\n"
+"Ikinalulungkot namin na ipabatid sa iyo na hindi namin nagawang mailathala "
+"ang patabid mo sa Facebook, at tinanggal ang ugnayan sa pagitan ng iyong "
+"akawnt sa %2$s at Facebook.\n"
+"\n"
+"Maaaring nangyari ito dahil inalis mo ang pahintulot para sa %2$s na "
+"makapagpaskil para sa iyo, o kaya hindi mo na binubuhay ang akawnt mo sa "
+"Facebook. Maaari kang iugnay na muli ang iyong akawnt na %2$s sa Facebook sa "
+"anumang oras sa pamamagitan ng muling paglagdang papasok sa Facebook.\n"
+"\n"
+"May katapatan,\n"
+"\n"
+"%2$s\n"
 
 #. TRANS: E-mail subject. %s is the StatusNet sitename.
 #, php-format
@@ -336,6 +345,14 @@ msgid ""
 "\n"
 "%2$s\n"
 msgstr ""
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
+"Kumusta %1$s,\n"
+"\n"
+"Napansin naming hindi mo na pinapahintulutan ang pag-ugnay sa Facebook para "
+"sa iyong akawnt sa %2$s.  Hindi ka pa nagtatakda ng isang hudyat para sa "
+"iyong akawnt sa %2$s, kaya’t hindi mo magagawang lumagdang papasok.  Kung "
+"nais mong magpatuloy sa paggamit ng iyong akawnt sa %2$s, mangyaring makipag-"
+"ugnayan sa tagapangasiwa ng sityo (%3$s) upang makapagtaka ng isang hudyat.\n"
+"\n"
+"May kataimtiman,\n"
+"\n"
+"%2$s\n"

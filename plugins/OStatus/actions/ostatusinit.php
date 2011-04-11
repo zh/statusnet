@@ -65,6 +65,7 @@ class OStatusInitAction extends Action
             /* Use a session token for CSRF protection. */
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
+                // TRANS: Client error displayed when the session token does not match or is not given.
                 $this->showForm(_m('There was a problem with your session token. '.
                                   'Try again, please.'));
                 return;
@@ -84,7 +85,7 @@ class OStatusInitAction extends Action
             $this->elementStart('html');
             $this->elementStart('head');
             // TRANS: Form title.
-            $this->element('title', null, _m('Subscribe to user'));
+            $this->element('title', null, _m('TITLE','Subscribe to user'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->showContent();
@@ -98,18 +99,20 @@ class OStatusInitAction extends Action
     function showContent()
     {
         if ($this->group) {
-            // TRANS: Form legend.
+            // TRANS: Form legend. %s is a group name.
             $header = sprintf(_m('Join group %s'), $this->group);
+            // TRANS: Button text to join a group.
             $submit = _m('BUTTON','Join');
         } else if ($this->peopletag && $this->tagger) {
-            $header = sprintf(_m('Subscribe to people tagged %s by %s'), $this->peopletag, $this->tagger);
-            $submit = _m('Subscribe');
+            // TRANS: Form legend. %1$s is a people tag, %2$s is a tagger's name.
+            $header = sprintf(_m('Subscribe to people tagged %1$s by %2$s'), $this->peopletag, $this->tagger);
+            // TRANS: Button text to subscribe to a people tag.
             $submit = _m('BUTTON','Subscribe');
             // TRANS: Button text.
         } else {
-            // TRANS: Form legend.
+            // TRANS: Form legend. %s is a nickname.
             $header = sprintf(_m('Subscribe to %s'), $this->nickname);
-            // TRANS: Button text.
+            // TRANS: Button text to subscribe to a profile.
             $submit = _m('BUTTON','Subscribe');
         }
         $this->elementStart('form', array('id' => 'form_ostatus_connect',
@@ -126,10 +129,12 @@ class OStatusInitAction extends Action
         if ($this->group) {
             // TRANS: Field label.
             $this->input('group', _m('Group nickname'), $this->group,
+                         // TRANS: Field title.
                          _m('Nickname of the group you want to join.'));
         } else {
             // TRANS: Field label.
             $this->input('nickname', _m('User nickname'), $this->nickname,
+                         // TRANS: Field title.
                          _m('Nickname of the user you want to follow.'));
             $this->hidden('tagger', $this->tagger);
             $this->hidden('peopletag', $this->peopletag);
@@ -140,7 +145,7 @@ class OStatusInitAction extends Action
         // TRANS: Field label.
         $this->input('profile', _m('Profile Account'), $this->profile,
                       // TRANS: Tooltip for field label "Profile Account".
-                     _m('Your account id (e.g. user@identi.ca).'));
+                     _m('Your account ID (e.g. user@identi.ca).'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('submit', $submit);
@@ -174,7 +179,7 @@ class OStatusInitAction extends Action
         $result = $disco->lookup($acct);
         if (!$result) {
             // TRANS: Client error.
-            $this->clientError(_m("Couldn't look up OStatus account profile."));
+            $this->clientError(_m('Could not look up OStatus account profile.'));
         }
 
         foreach ($result->links as $link) {
@@ -187,7 +192,7 @@ class OStatusInitAction extends Action
 
         }
         // TRANS: Client error.
-        $this->clientError(_m("Couldn't confirm remote profile address."));
+        $this->clientError(_m('Could not confirm remote profile address.'));
     }
 
     function connectProfile($subscriber_profile)

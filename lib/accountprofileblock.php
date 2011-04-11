@@ -310,7 +310,7 @@ class AccountProfileBlock extends ProfileBlock
 
     function show()
     {
-        $this->out->elementStart('div', 'account_profile_block section');
+        $this->out->elementStart('div', 'profile_block account_profile_block section');
         if (Event::handle('StartShowAccountProfileBlock', array($this->out, $this->profile))) {
             parent::show();
             Event::handle('EndShowAccountProfileBlock', array($this->out, $this->profile));
