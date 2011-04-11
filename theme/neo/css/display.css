@@ -481,6 +481,18 @@ address {
     text-transform: uppercase;
 }
 
+.profile_block .entity_actions {
+    float: right;
+    width: 110px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.profile_block .entity_moderation:hover ul,
+.profile_block .entity_role:hover ul {
+    right: 20px;
+}
+
 .profile_block_name {
     font-size: 14px;
     font-weight: bold;
@@ -492,20 +504,6 @@ address {
 
 .profile_block_description {
     line-height: 1.2em;
-}
-
-.profile_block .entity_actions {
-    float: left;
-    margin-left: 0px;
-}
-
-.profile_block .entity_moderation:hover ul,
-.profile_block .entity_role:hover ul {
-    left: 20px;
-}
-
-.profile_block a.profiledetail {
-    display: block;
 }
 
 .section ul.entities {
