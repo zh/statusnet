@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:38:08+0000\n"
+"POT-Creation-Date: 2011-04-11 12:22+0000\n"
+"PO-Revision-Date: 2011-04-11 12:27:37+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 13:41:43+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 19:00:14+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -25,24 +25,64 @@ msgstr ""
 msgid "Feeds"
 msgstr "Веб-стрічки"
 
-#. TRANS: Link description for link to subscribe to a remote user.
+#. TRANS: Link to subscribe to a remote entity.
 #. TRANS: Link text for a user to subscribe to an OStatus user.
 msgid "Subscribe"
 msgstr "Підписатись"
 
-#. TRANS: Link description for link to join a remote group.
-msgid "Join"
-msgstr "Приєднатися"
+#. TRANS: Fieldset legend.
+#, fuzzy
+msgid "Tag remote profile"
+msgstr "Мусите зазначити віддалений профіль."
 
-#. TRANSLATE: %s is a domain.
+#. TRANS: Field label.
+#, fuzzy
+msgctxt "LABEL"
+msgid "Remote profile"
+msgstr "Приєднатися до віддаленої спільноти не вдалося!"
+
+#. TRANS: Field title.
+#, fuzzy
+msgid ""
+"OStatus user's address, like nickname@example.com or http://example.net/"
+"nickname."
+msgstr ""
+"Адреса користувача згідно протоколу OStatus, щось на зразок nickname@example."
+"com або http://example.net/nickname"
+
+#. TRANS: Button text to fetch remote profile.
+msgctxt "BUTTON"
+msgid "Fetch"
+msgstr ""
+
+#. TRANS: Exception in OStatus when invalid URI was entered.
+#, fuzzy
+msgid "Invalid URI."
+msgstr "Невірна URL-адреса аватари %s."
+
+#. TRANS: Error message in OStatus plugin.
+#. TRANS: Error text.
+msgid ""
+"Sorry, we could not reach that address. Please make sure that the OStatus "
+"address is like nickname@example.com or http://example.net/nickname."
+msgstr ""
+"Вибачайте, але ми в змозі розшукати дану адресу. Будь ласка, переконайтеся, "
+"що адресу зазначено згідно правил протоколу OStatus, щось на зразок "
+"nickname@example.com або ж http://example.net/nickname."
+
+#. TRANS: Title.
+#. TRANS: %s is a domain name.
 #, php-format
 msgid "Sent from %s via OStatus"
 msgstr "Надіслано з %s через OStatus"
 
-#. TRANS: Exception.
+#. TRANS: Exception thrown when setup of remote subscription fails.
 msgid "Could not set up remote subscription."
 msgstr "Не вдалося створити віддалену підписку."
 
+#. TRANS: Title for unfollowing a remote profile.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Unfollow"
 msgstr "Не читати"
 
@@ -52,8 +92,15 @@ msgstr "Не читати"
 msgid "%1$s stopped following %2$s."
 msgstr "%1$s припинив читати ваші дописи %2$s."
 
+#. TRANS: Exception thrown when setup of remote group membership fails.
 msgid "Could not set up remote group membership."
 msgstr "Не вдалося приєднатися до віддаленої спільноти."
+
+#. TRANS: Title to join a remote group.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Join"
+msgstr "Приєднатися"
 
 #. TRANS: Success message for subscribe to group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
@@ -61,10 +108,13 @@ msgstr "Не вдалося приєднатися до віддаленої с�
 msgid "%1$s has joined group %2$s."
 msgstr "%1$s приєднався до спільноти %2$s."
 
-#. TRANS: Exception.
+#. TRANS: Exception thrown when joining a remote group fails.
 msgid "Failed joining remote group."
 msgstr "Помилка приєднання до віддаленої спільноти."
 
+#. TRANS: Title for leaving a remote group.
+#, fuzzy
+msgctxt "TITLE"
 msgid "Leave"
 msgstr "Залишити"
 
@@ -73,6 +123,46 @@ msgstr "Залишити"
 #, php-format
 msgid "%1$s has left group %2$s."
 msgstr "%1$s залишив спільноту %2$s."
+
+#. TRANS: Exception thrown when setup of remote people tag subscription fails.
+#, fuzzy
+msgid "Could not set up remote people tag subscription."
+msgstr "Не вдалося створити віддалену підписку."
+
+#. TRANS: Title for remote follow list.
+msgctxt "TITLE"
+msgid "Follow list"
+msgstr ""
+
+#. TRANS: Exception thrown when subscription of remote people tag fails.
+#, fuzzy
+msgid "Failed subscribing to remote people tag."
+msgstr "Помилка приєднання до віддаленої спільноти."
+
+msgid "Unfollow people tag"
+msgstr ""
+
+#, fuzzy, php-format
+msgid "%1$s stopped following the list %2$s by %3$s."
+msgstr "%1$s припинив читати ваші дописи %2$s."
+
+msgctxt "TITLE"
+msgid "Tag"
+msgstr ""
+
+#, php-format
+msgid "%1$s tagged %2$s in the list %3$s."
+msgstr ""
+
+#, php-format
+msgid ""
+"Could not complete subscription to remote profile's feed. Tag %s could not "
+"be saved."
+msgstr ""
+
+msgctxt "TITLE"
+msgid "Untag"
+msgstr ""
 
 msgid "Disfavor"
 msgstr "Не обраний"
@@ -96,6 +186,9 @@ msgstr "Оновлення профілю"
 #, php-format
 msgid "%s has updated their profile page."
 msgstr "%s оновив сторінку свого профілю."
+
+msgid "Tag"
+msgstr ""
 
 #. TRANS: Plugin description.
 msgid ""
@@ -123,31 +216,36 @@ msgstr ""
 "hub.topic %s не підтримується. Цей вузол використовується лише тутешніми "
 "користувачами та групою веб-стрічок у форматі Atom."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception. %s is sync or async.
 #, php-format
 msgid "Invalid hub.verify \"%s\". It must be sync or async."
 msgstr "hub.verify «%s» невірний. Він має бути синхронним або ж асинхронним."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception. %s is the invalid lease value.
 #, php-format
 msgid "Invalid hub.lease \"%s\". It must be empty or positive integer."
 msgstr ""
 "hub.lease «%s» невірний. Він має бути порожнім або містити ціле позитивне "
 "число."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception. %s is the invalid hub secret.
 #, php-format
 msgid "Invalid hub.secret \"%s\". It must be under 200 bytes."
 msgstr "hub.secret «%s» невірний. 200 байтів — не більше."
 
-#. TRANS: Client exception.
-#, php-format
-msgid "Invalid hub.topic \"%s\". User doesn't exist."
+#. TRANS: Client exception. %s is a feed URL.
+#, fuzzy, php-format
+msgid "Invalid hub.topic \"%s\". User does not exist."
 msgstr "hub.topic «%s» невірний. Користувача не існує."
 
-#. TRANS: Client exception.
-#, php-format
-msgid "Invalid hub.topic \"%s\". Group doesn't exist."
+#. TRANS: Client exception. %s is a feed URL.
+#, fuzzy, php-format
+msgid "Invalid hub.topic \"%s\". Group does not exist."
+msgstr "hub.topic «%s» невірний. Спільноти не існує."
+
+#. TRANS: Client exception. %s is a feed URL.
+#, fuzzy, php-format
+msgid "Invalid hub.topic %s; people tag does not exist."
 msgstr "hub.topic «%s» невірний. Спільноти не існує."
 
 #. TRANS: Client exception.
@@ -155,6 +253,47 @@ msgstr "hub.topic «%s» невірний. Спільноти не існує."
 #, php-format
 msgid "Invalid URL passed for %1$s: \"%2$s\""
 msgstr "Для %1$s передано невірний URL: «%2$s»"
+
+#, fuzzy
+msgid "You can use the local tagging!"
+msgstr "Ви можете користуватись локальними підписками!"
+
+#, php-format
+msgid "Tag %s"
+msgstr ""
+
+msgid "Go"
+msgstr ""
+
+#. TRANS: Field label.
+msgid "User nickname"
+msgstr "Ім’я користувача"
+
+#, fuzzy
+msgid "Nickname of the user you want to tag"
+msgstr "Ім’я користувача, дописи якого ви хотіли б читати."
+
+#. TRANS: Field label.
+msgid "Profile Account"
+msgstr "Профіль акаунту"
+
+#, fuzzy
+msgid "Your account id (i.e. user@identi.ca)"
+msgstr "Ідентифікатор вашого акаунту (щось на зразок user@identi.ca)"
+
+#. TRANS: Client error.
+#, fuzzy
+msgid "Could not look up OStatus account profile."
+msgstr "Не вдалося знайти профіль акаунту за протоколом OStatus."
+
+#. TRANS: Client error.
+#, fuzzy
+msgid "Could not confirm remote profile address."
+msgstr "Не вдалося підтвердити адресу віддаленого профілю."
+
+#, fuzzy
+msgid "OStatus people tag"
+msgstr "З’єднання OStatus"
 
 msgid "Empty or invalid feed id."
 msgstr "Порожній або недійсний ідентифікатор веб-стрічки."
@@ -204,6 +343,9 @@ msgctxt "BUTTON"
 msgid "Continue"
 msgstr "Продовжити"
 
+msgid "Join"
+msgstr "Приєднатися"
+
 #. TRANS: Button text.
 #. TRANS: Tooltip for button "Join".
 msgctxt "BUTTON"
@@ -224,15 +366,6 @@ msgstr "Ви вже підписані до цього користувача."
 
 #. TRANS: Error text.
 msgid ""
-"Sorry, we could not reach that address. Please make sure that the OStatus "
-"address is like nickname@example.com or http://example.net/nickname."
-msgstr ""
-"Вибачайте, але ми в змозі розшукати дану адресу. Будь ласка, переконайтеся, "
-"що адресу зазначено згідно правил протоколу OStatus, щось на зразок "
-"nickname@example.com або ж http://example.net/nickname."
-
-#. TRANS: Error text.
-msgid ""
 "Sorry, we could not reach that feed. Please try that OStatus address again "
 "later."
 msgstr ""
@@ -240,6 +373,7 @@ msgstr ""
 "дану адресу ще раз пізніше."
 
 #. TRANS: OStatus remote subscription dialog error.
+#. TRANS: OStatus remote group subscription dialog error.
 msgid "Already subscribed!"
 msgstr "Вже підписаний!"
 
@@ -247,6 +381,7 @@ msgstr "Вже підписаний!"
 msgid "Remote subscription failed!"
 msgstr "Підписатися віддалено не вдалося!"
 
+#. TRANS: Client error displayed when the session token does not match or is not given.
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Виникли певні проблеми з токеном сесії. Спробуйте знов, будь ласка."
 
@@ -304,6 +439,11 @@ msgid "No ID."
 msgstr "Немає ідентифікатора."
 
 #. TRANS: Client exception.
+#, fuzzy
+msgid "Cannot handle that kind of post."
+msgstr "Не вдається обробити такий тип допису."
+
+#. TRANS: Client exception.
 msgid "In reply to unknown notice."
 msgstr "У відповідь на невідомий допис."
 
@@ -326,13 +466,15 @@ msgid "Notice was not favorited!"
 msgstr "Допис не було додано до списку обраних!"
 
 #. TRANS: Client exception.
-msgid "Can't favorite/unfavorite without an object."
+#, fuzzy
+msgid "Cannot favorite/unfavorite without an object."
 msgstr ""
 "Неможливо додати до обраних або видалити зі списку обраних, якщо немає "
 "об’єкта."
 
 #. TRANS: Client exception.
-msgid "Can't handle that kind of object for liking/faving."
+#, fuzzy
+msgid "Cannot handle that kind of object for liking/faving."
 msgstr ""
 "Не вдається обробити подібний об’єкт для додавання його до списку обраних."
 
@@ -346,20 +488,54 @@ msgstr "Допис з ідентифікатором %s є невідомим."
 msgid "Notice with ID %1$s not posted by %2$s."
 msgstr "Допис з ідентифікатором %1$s було надіслано не %2$s."
 
+#, fuzzy
+msgid "Subscribe to people tag"
+msgstr "Підписатися до користувача"
+
+#, fuzzy
+msgid "Address of the OStatus people tag, like http://example.net/user/all/tag"
+msgstr ""
+"Адреса спільноти згідно протоколу OStatus, наприклад http://example.net/"
+"group/nickname."
+
+#, fuzzy
+msgid "Continue"
+msgstr "Продовжити"
+
+#, fuzzy
+msgid "You are already subscribed to this people tag."
+msgstr "Ви вже підписані до цього користувача."
+
+#. TRANS: Page title for OStatus remote people tag subscription form
+#, fuzzy
+msgid "Confirm subscription to remote people tag"
+msgstr "Підтвердження приєднання до віддаленої спільноти"
+
+#, fuzzy
+msgid ""
+"You can subscribe to people tags from other supported sites. Paste the tag's "
+"profile URI below:"
+msgstr ""
+"Ви можете долучатися до спільнот на аналогічних сайтах. Просто вставте URI "
+"профілю спільноти тут:"
+
 #. TRANS: Client error.
 msgid "No such group."
 msgstr "Такої спільноти немає."
 
 #. TRANS: Client error.
-msgid "Can't accept remote posts for a remote group."
+#, fuzzy
+msgid "Cannot accept remote posts for a remote group."
 msgstr "Не можу узгодити віддалену пересилку дописів до віддаленої спільноти."
 
 #. TRANS: Client error.
-msgid "Can't read profile to set up group membership."
+#, fuzzy
+msgid "Cannot read profile to set up group membership."
 msgstr "Не можу прочитати профіль, аби долучитися до спільноти."
 
 #. TRANS: Client error.
-msgid "Groups can't join groups."
+#, fuzzy
+msgid "Groups cannot join groups."
 msgstr "Спільноти ніяк не можуть приєднуватися до спільнот."
 
 msgid "You have been blocked from that group by the admin."
@@ -371,7 +547,8 @@ msgid "Could not join remote user %1$s to group %2$s."
 msgstr ""
 "Віддаленому користувачеві %1$s не вдалося долучитися до спільноти %2$s."
 
-msgid "Can't read profile to cancel group membership."
+#, fuzzy
+msgid "Cannot read profile to cancel group membership."
 msgstr ""
 "Не вдається прочитати профіль користувача, щоб скасувати його перебування у "
 "спільноті."
@@ -381,87 +558,118 @@ msgstr ""
 msgid "Could not remove remote user %1$s from group %2$s."
 msgstr "Не вдалось видалити віддаленого користувача %1$s зі спільноти %2$s."
 
+#, fuzzy
+msgid "No such people tag."
+msgstr "Такої спільноти немає."
+
+#, fuzzy
+msgid "Cannot accept remote posts for a remote people tag."
+msgstr "Не можу узгодити віддалену пересилку дописів до віддаленої спільноти."
+
+#, fuzzy
+msgid "Cannot read profile to set up profile tag subscription."
+msgstr "Не можу прочитати профіль, аби долучитися до спільноти."
+
+msgid "Groups cannot subscribe to people tags."
+msgstr ""
+
+#, fuzzy, php-format
+msgid "Could not subscribe remote user %1$s to people tag %2$s."
+msgstr ""
+"Віддаленому користувачеві %1$s не вдалося долучитися до спільноти %2$s."
+
+#, fuzzy
+msgid "Cannot read profile to cancel people tag membership."
+msgstr ""
+"Не вдається прочитати профіль користувача, щоб скасувати його перебування у "
+"спільноті."
+
+#, fuzzy, php-format
+msgid "Could not remove remote user %1$s from people tag %2$s."
+msgstr "Не вдалось видалити віддаленого користувача %1$s зі спільноти %2$s."
+
 #. TRANS: Client error.
 msgid "You can use the local subscription!"
 msgstr "Ви можете користуватись локальними підписками!"
 
-#. TRANS: Form legend.
+#. TRANS: Form title.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Subscribe to user"
+msgstr "Підписатися до користувача"
+
+#. TRANS: Form legend. %s is a group name.
 #, php-format
 msgid "Join group %s"
 msgstr "Приєднатися до спільноти %s"
 
-#. TRANS: Button text.
+#. TRANS: Button text to join a group.
 msgctxt "BUTTON"
 msgid "Join"
 msgstr "Приєднатися"
 
-#. TRANS: Form legend.
+#. TRANS: Form legend. %1$s is a people tag, %2$s is a tagger's name.
 #, php-format
-msgid "Subscribe to %s"
-msgstr "Підписатися до %s"
+msgid "Subscribe to people tagged %1$s by %2$s"
+msgstr ""
 
-#. TRANS: Button text.
+#. TRANS: Button text to subscribe to a people tag.
+#. TRANS: Button text to subscribe to a profile.
 msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr "Підписатись"
+
+#. TRANS: Form legend. %s is a nickname.
+#, php-format
+msgid "Subscribe to %s"
+msgstr "Підписатися до %s"
 
 #. TRANS: Field label.
 msgid "Group nickname"
 msgstr "Назва спільноти"
 
+#. TRANS: Field title.
 msgid "Nickname of the group you want to join."
 msgstr "Назва спільноти, до якої ви хотіли б приєднатися."
 
-#. TRANS: Field label.
-msgid "User nickname"
-msgstr "Ім’я користувача"
-
+#. TRANS: Field title.
 msgid "Nickname of the user you want to follow."
 msgstr "Ім’я користувача, дописи якого ви хотіли б читати."
 
-#. TRANS: Field label.
-msgid "Profile Account"
-msgstr "Профіль акаунту"
-
 #. TRANS: Tooltip for field label "Profile Account".
-msgid "Your account id (e.g. user@identi.ca)."
+#, fuzzy
+msgid "Your account ID (e.g. user@identi.ca)."
 msgstr "Ідентифікатор вашого акаунту (щось на зразок user@identi.ca)"
 
 #. TRANS: Client error.
 msgid "Must provide a remote profile."
 msgstr "Мусите зазначити віддалений профіль."
 
-#. TRANS: Client error.
-msgid "Couldn't look up OStatus account profile."
-msgstr "Не вдалося знайти профіль акаунту за протоколом OStatus."
-
-#. TRANS: Client error.
-msgid "Couldn't confirm remote profile address."
-msgstr "Не вдалося підтвердити адресу віддаленого профілю."
-
 #. TRANS: Page title.
 msgid "OStatus Connect"
 msgstr "З’єднання OStatus"
 
+#. TRANS: Server exception.
 msgid "Attempting to start PuSH subscription for feed with no hub."
 msgstr ""
 "Спроба підписатися за допомогою PuSH до веб-стрічки, котра не має вузла."
 
+#. TRANS: Server exception.
 msgid "Attempting to end PuSH subscription for feed with no hub."
 msgstr ""
 "Спроба скасувати підписку за допомогою PuSH до веб-стрічки, котра не має "
 "вузла."
 
-#. TRANS: Server exception. %s is a URI.
-#, php-format
-msgid "Invalid ostatus_profile state: both group and profile IDs set for %s."
+#. TRANS: Server exception. %s is a URI
+#, fuzzy, php-format
+msgid "Invalid ostatus_profile state: two or more IDs set for %s"
 msgstr ""
 "Невірний стан параметру ostatus_profile: як групові, так і персональні "
 "ідентифікатори встановлено для %s."
 
-#. TRANS: Server exception. %s is a URI.
-#, php-format
-msgid "Invalid ostatus_profile state: both group and profile IDs empty for %s."
+#. TRANS: Server exception. %s is a URI
+#, fuzzy, php-format
+msgid "Invalid ostatus_profile state: all IDs empty for %s."
 msgstr ""
 "Невірний стан параметру ostatus_profile: як групові, так і персональні "
 "ідентифікатори порожні для %s."
@@ -488,10 +696,6 @@ msgstr "Невідомий формат веб-стрічки."
 msgid "RSS feed without a channel."
 msgstr "RSS-стрічка не має каналу."
 
-#. TRANS: Client exception.
-msgid "Can't handle that kind of post."
-msgstr "Не вдається обробити такий тип допису."
-
 #. TRANS: Client exception. %s is a source URI.
 #, php-format
 msgid "No content for notice %s."
@@ -513,7 +717,8 @@ msgid "Could not find a feed URL for profile page %s."
 msgstr "Не вдалося знайти URL веб-стрічки для сторінки профілю %s."
 
 #. TRANS: Feed sub exception.
-msgid "Can't find enough profile information to make a feed."
+#, fuzzy
+msgid "Cannot find enough profile information to make a feed."
 msgstr ""
 "Не можу знайти достатньо інформації про профіль, аби сформувати веб-стрічку."
 
@@ -533,19 +738,23 @@ msgid "Unable to fetch avatar from %s."
 msgstr "Неможливо завантажити аватару з %s."
 
 #. TRANS: Exception.
-msgid "Local user can't be referenced as remote."
+#, fuzzy
+msgid "Local user cannot be referenced as remote."
 msgstr "Місцевий користувач не може бути зазначеним у якості віддаленого."
 
 #. TRANS: Exception.
-msgid "Local group can't be referenced as remote."
+#, fuzzy
+msgid "Local group cannot be referenced as remote."
 msgstr "Локальну спільноту не можна зазначити у якості віддаленої."
 
 #. TRANS: Server exception.
-msgid "Can't save local profile."
+#, fuzzy
+msgid "Cannot save local profile."
 msgstr "Не вдається зберегти місцевий профіль."
 
 #. TRANS: Server exception.
-msgid "Can't save OStatus profile."
+#, fuzzy
+msgid "Cannot save OStatus profile."
 msgstr "Не вдається зберегти профіль OStatus."
 
 #. TRANS: Exception.
@@ -553,23 +762,34 @@ msgid "Not a valid webfinger address."
 msgstr "Це недійсна адреса для протоколу WebFinger."
 
 #. TRANS: Exception. %s is a webfinger address.
-#, php-format
-msgid "Couldn't save profile for \"%s\"."
+#, fuzzy, php-format
+msgid "Could not save profile for \"%s\"."
 msgstr "Не можу зберегти профіль для «%s»."
 
 #. TRANS: Exception. %s is a webfinger address.
-#, php-format
-msgid "Couldn't save ostatus_profile for \"%s\"."
+#, fuzzy, php-format
+msgid "Could not save ostatus_profile for \"%s\"."
 msgstr "Не можу зберегти профіль OStatus для «%s»."
 
 #. TRANS: Exception. %s is a webfinger address.
-#, php-format
-msgid "Couldn't find a valid profile for \"%s\"."
+#, fuzzy, php-format
+msgid "Could not find a valid profile for \"%s\"."
 msgstr "не можу знайти відповідний й профіль для «%s»."
 
 #. TRANS: Server exception.
 msgid "Could not store HTML content of long post as file."
 msgstr "Не можу зберегти HTML місткого допису у якості файлу."
+
+#. TRANS: Server exception.
+#. TRANS: %1$s is a protocol, %2$s is a URI.
+#, php-format
+msgid "Unrecognized URI protocol for profile: %1$s (%2$s)."
+msgstr ""
+
+#. TRANS: Server exception. %s is a URI.
+#, php-format
+msgid "No URI protocol for profile: %s."
+msgstr ""
 
 #. TRANS: Client exception. %s is a HTTP status code.
 #, php-format
@@ -610,36 +830,54 @@ msgid "Unrecognized activity type."
 msgstr "Невідомий тип діяльності."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand posts."
+#, fuzzy
+msgid "This target does not understand posts."
 msgstr "Ціль не розуміє, що таке «дописи»."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand follows."
+#, fuzzy
+msgid "This target does not understand follows."
 msgstr "Ціль не розуміє, що таке «слідувати»."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand unfollows."
+#, fuzzy
+msgid "This target does not understand unfollows."
 msgstr "Ціль не розуміє, що таке «не слідувати»."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand favorites."
+#, fuzzy
+msgid "This target does not understand favorites."
 msgstr "Ціль не розуміє, що таке «додати до обраних»."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand unfavorites."
+#, fuzzy
+msgid "This target does not understand unfavorites."
 msgstr "Ціль не розуміє, що таке «вилучити з обраних»."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand share events."
+#, fuzzy
+msgid "This target does not understand share events."
 msgstr "Ціль не розуміє, що таке «поділитися подією»."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand joins."
+#, fuzzy
+msgid "This target does not understand joins."
 msgstr "Ціль не розуміє, що таке «приєднатися»."
 
 #. TRANS: Client exception.
-msgid "This target doesn't understand leave events."
+#, fuzzy
+msgid "This target does not understand leave events."
 msgstr "Ціль не розуміє, що таке «залишати подію»."
+
+#. TRANS: Client exception.
+#, fuzzy
+msgid "This target does not understand tag events."
+msgstr "Ціль не розуміє, що таке «поділитися подією»."
+
+#. TRANS: Client exception.
+#, fuzzy
+msgid "This target does not understand untag events."
+msgstr "Ціль не розуміє, що таке «поділитися подією»."
 
 #. TRANS: Exception.
 msgid "Received a salmon slap from unidentified actor."

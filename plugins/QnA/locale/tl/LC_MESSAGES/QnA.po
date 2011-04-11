@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - QnA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:38:16+0000\n"
+"POT-Creation-Date: 2011-04-11 12:22+0000\n"
+"PO-Revision-Date: 2011-04-11 12:27:47+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 23:28:54+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 19:00:53+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-qna\n"
@@ -26,21 +26,21 @@ msgid "New question"
 msgstr "Bagong tanong"
 
 msgid "You must be logged in to post a question."
-msgstr ""
+msgstr "Dapat na nakalagda ka upang makapagpaskil ng isang tanong."
 
 #. TRANS: Client exception thrown trying to create a question without a title.
 msgid "Question must have a title."
-msgstr ""
+msgstr "Dapat na may isang pamagat ang katanungan."
 
 #. TRANS: Page title after sending a notice.
 msgid "Question posted"
-msgstr ""
+msgstr "Naipaskil ang tanong"
 
 msgid "No such answer."
 msgstr "Walang ganyang sagot."
 
 msgid "No question for this answer."
-msgstr ""
+msgstr "Walang katanungan para sa kasagutang ito."
 
 #. TRANS: Client exception thrown trying to view a question of a non-existing user.
 msgid "No such user."
@@ -54,18 +54,18 @@ msgstr "Tagagamit na walang balangkas."
 #. TRANS: %1$s is the user who answered a question, %2$s is the question.
 #, php-format
 msgid "%1$s's answer to \"%2$s\""
-msgstr ""
+msgstr "Ang sagot ni %1$s sa \"%2$s\""
 
 #. TRANS: Page title for revising a question
 msgid "Revise answer"
-msgstr ""
+msgstr "Baguhin ang sagot"
 
 #. TRANS: Client exception thrown trying to answer a question while not logged in.
 msgid "You must be logged in to answer to a question."
-msgstr ""
+msgstr "Dapat na nakalagda ka upang makasagot ng isang tanong."
 
 msgid "Invalid or missing answer."
-msgstr ""
+msgstr "Hindi katanggap-tanggap o nawawalang kasagutan."
 
 #. TRANS: Page title after sending an answer.
 #. TRANS: Page title for and answer to a question.
@@ -74,74 +74,73 @@ msgstr "Kasagutan"
 
 #. TRANS: Client exception thrown trying to view a non-existing question.
 msgid "No such question."
-msgstr ""
+msgstr "Walang ganyang tanong."
 
 #. TRANS: Client exception thrown trying to view a non-existing question notice.
 msgid "No such question notice."
-msgstr ""
+msgstr "Walang ganyang pabatid ng tanong."
 
 #, php-format
 msgid "%1$s's question: %2$s"
-msgstr ""
+msgstr "Katanungan ni %1$s: %2$s"
 
 #. TRANS: Page title for close a question
-#, fuzzy
 msgid "Close question"
-msgstr "Bagong tanong"
+msgstr "Isara ang katanungan"
 
 msgid "You must be logged in to close a question."
-msgstr ""
+msgstr "Dapat na nakalagda ka upang makapagsara ng isang tanong."
 
 #. TRANS: Client exception thrown trying to respond to a non-existing question.
 msgid "Invalid or missing question."
-msgstr ""
+msgstr "Hindi katanggap-tanggap o nawawalang katanungan."
 
 msgid "You didn't ask this question."
-msgstr ""
+msgstr "Hindi ka nagtanong ng tanong na ito."
 
 #. TRANS: Page title after sending an answer.
 msgid "Answers"
 msgstr "Mga kasagutan"
 
 msgid "Question and Answers micro-app."
-msgstr ""
+msgstr "Mikro-aplikasyon ng Tanong at mga Sagot."
 
 msgid "Question"
 msgstr "Katanungan"
 
 #, php-format
 msgid "Unexpected type for QnA plugin: %s."
-msgstr ""
+msgstr "Hindi inaasahang uri para sa pampasak na QnA: %s."
 
 msgid "Question data is missing."
-msgstr ""
+msgstr "Nawawala ang dato ng tanong."
 
 msgid "Answer data is missing."
-msgstr ""
+msgstr "Nawawala ang dato ng kasagutan."
 
 msgid "more"
-msgstr ""
+msgstr "mas marami pa"
 
 #, php-format
 msgid "%s revisions"
-msgstr ""
+msgstr "%s mga pagbabago"
 
 #, php-format
 msgid "%1$s answered the question \"%2$s\": %3$s"
-msgstr ""
+msgstr "Si %1$s ay sumagot sa tanong na \"%2$s\": %3$s"
 
 #. TRANS: Rendered version of the notice content answering a question.
 #. TRANS: %s a link to the question with question title as the link content.
 #, php-format
 msgid "answered \"%s\""
-msgstr ""
+msgstr "sumagot sa \"%s\""
 
-#, fuzzy, php-format
+#, php-format
 msgid "%s answers"
-msgstr "Mga kasagutan"
+msgstr "%s mga kasagutan"
 
 msgid "This question is closed."
-msgstr ""
+msgstr "Nakasara na ang katanungang ito."
 
 #. TRANS: Rendered version of the notice content creating a question.
 #. TRANS: %s a link to the question as link description.
@@ -155,7 +154,6 @@ msgid "Submit"
 msgstr "Ipasa"
 
 #. TRANS: Button text for submitting a poll response.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Answer"
 msgstr "Kasagutan"
@@ -180,12 +178,9 @@ msgstr "Sagipin"
 #. TRANS: Button text for closing a question
 msgctxt "BUTTON"
 msgid "Close"
-msgstr ""
+msgstr "Isara"
 
 #. TRANS: Button text for marking an answer as "best"
 msgctxt "BUTTON"
 msgid "Best"
-msgstr ""
-
-#~ msgid "question: %1$s %2$s"
-#~ msgstr "tanong: %1$s %2$s"
+msgstr "Pinakamahusay"

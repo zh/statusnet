@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Bookmark\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:36:44+0000\n"
+"POT-Creation-Date: 2011-04-11 12:22+0000\n"
+"PO-Revision-Date: 2011-04-11 12:26:11+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 13:40:23+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 18:57:51+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-bookmark\n"
@@ -62,12 +62,10 @@ msgid "Bookmark notice with the wrong number of attachments."
 msgstr "Bladwijzermededeling met het verkeerde aantal bijlagen."
 
 #. TRANS: Exception thrown when a bookmark has no attachments.
-#, fuzzy
 msgid "Bookmark has no attachments."
-msgstr "Bladwijzermededeling met het verkeerde aantal bijlagen."
+msgstr "De bladwijzer heeft geen bijlagen."
 
 #. TRANS: Application title.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Bookmark"
 msgstr "Bladwijzer"
@@ -103,9 +101,8 @@ msgstr ""
 "span>"
 
 #. TRANS: Client exception thrown when an unknown URL is provided.
-#, fuzzy
 msgid "Unknown URL."
-msgstr "Onbekende URL"
+msgstr "Onbekende URL."
 
 #. TRANS: Title of notice stream of notices with a given attachment (first page).
 #. TRANS: %s is the URL.
@@ -115,9 +112,9 @@ msgstr "Mededeling die verwijzen naar %s"
 
 #. TRANS: Title of notice stream of notices with a given attachment (all but first page).
 #. TRANS: %1$s is the URL, %2$s is the page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Notices linking to %1$s, page %2$d"
-msgstr "Mededeling die verwijzen naar %s"
+msgstr "Mededelingen die verwijzen naar %1$s, pagina %2$d"
 
 #. TRANS: Client exception thrown when trying to import bookmarks without being logged in.
 msgid "Only logged-in users can import del.icio.us backups."
@@ -173,7 +170,7 @@ msgstr "Er is een systeemfout opgetreden tijdens het uploaden van het bestand."
 #. TRANS: %s is the file that could not be found.
 #, php-format
 msgid "No such file \"%s\"."
-msgstr ""
+msgstr "Het bestand \"%s\" bestaat niet."
 
 #. TRANS: Server exception thrown when a file upload is incorrect.
 #. TRANS: %s is the irregular file.
@@ -181,7 +178,7 @@ msgstr ""
 #. TRANS: %s is the irregular file.
 #, php-format
 msgid "Not a regular file: \"%s\"."
-msgstr ""
+msgstr "Geen gewoon bestand: \"%s\"."
 
 #. TRANS: Server exception thrown when a file upload is not readable.
 #. TRANS: %s is the file that could not be read.
@@ -189,7 +186,7 @@ msgstr ""
 #. TRANS: %s is the file that could not be read.
 #, php-format
 msgid "File \"%s\" not readable."
-msgstr ""
+msgstr "Bestand \"%s\" is niet leesbaar."
 
 #. TRANS: Success message after importing bookmarks.
 msgid ""
@@ -215,9 +212,8 @@ msgid "Upload"
 msgstr "Uploaden"
 
 #. TRANS: Button title on form to import bookmarks.
-#, fuzzy
 msgid "Upload the file."
-msgstr "Bestand uploaden"
+msgstr "Het bestand uploaden."
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -225,9 +221,8 @@ msgid "Title"
 msgstr "Naam"
 
 #. TRANS: Field title on form for adding a new bookmark.
-#, fuzzy
 msgid "Title of the bookmark."
-msgstr "Naam van de bladwijzer"
+msgstr "Naam van de bladwijzer."
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -235,9 +230,8 @@ msgid "URL"
 msgstr "URL"
 
 #. TRANS: Field title on form for adding a new bookmark.
-#, fuzzy
 msgid "URL to bookmark."
-msgstr "URL voor bladwijzer"
+msgstr "URL voor bladwijzer."
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -245,9 +239,8 @@ msgid "Tags"
 msgstr "Labels"
 
 #. TRANS: Field title on form for adding a new bookmark.
-#, fuzzy
 msgid "Comma- or space-separated list of tags."
-msgstr "Lijst met labels door komma's of spaties gescheiden"
+msgstr "Lijst met labels door komma's of spaties gescheiden."
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -255,9 +248,8 @@ msgid "Description"
 msgstr "Beschrijving"
 
 #. TRANS: Field title on form for adding a new bookmark.
-#, fuzzy
 msgid "Description of the URL."
-msgstr "Beschrijving van de URL"
+msgstr "Beschrijving van de URL."
 
 #. TRANS: Button text for action to save a new bookmark.
 msgctxt "BUTTON"
@@ -281,17 +273,10 @@ msgid "Bookmark must have an URL."
 msgstr "Een bladwijzer moet een URL hebben."
 
 #. TRANS: Page title after posting a bookmark.
-#, fuzzy
 msgid "Bookmark posted"
-msgstr "Bladwijzer op %s"
+msgstr "De bladwijzer is geplaatst"
 
 #. TRANS: %s is the filename that contains a backup for a user.
 #, php-format
 msgid "Getting backup from file \"%s\"."
 msgstr "De back-up wordt uit het bestand \"%s\" geladen."
-
-#~ msgid "Getting backup from file '%s'."
-#~ msgstr "De back-up wordt uit het bestand \"%s\" geladen."
-
-#~ msgid "Notice posted"
-#~ msgstr "De mededeling is verzonden"

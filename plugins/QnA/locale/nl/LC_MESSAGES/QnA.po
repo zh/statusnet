@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - QnA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
-"PO-Revision-Date: 2011-04-09 18:38:16+0000\n"
+"POT-Creation-Date: 2011-04-11 12:22+0000\n"
+"PO-Revision-Date: 2011-04-11 12:27:47+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-03 23:28:54+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85732); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-09 19:00:53+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-qna\n"
@@ -54,21 +54,20 @@ msgstr "Gebruiker zonder profiel."
 
 #. TRANS: Page title.
 #. TRANS: %1$s is the user who answered a question, %2$s is the question.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's answer to \"%2$s\""
-msgstr "Antwoord van 1$%s op \"%2$s\""
+msgstr "Antwoord van %1$s op \"%2$s\""
 
 #. TRANS: Page title for revising a question
 msgid "Revise answer"
-msgstr ""
+msgstr "Antwoord herzien"
 
 #. TRANS: Client exception thrown trying to answer a question while not logged in.
 msgid "You must be logged in to answer to a question."
 msgstr "U moet aangemeld zijn om een vraag te kunnen beantwoorden."
 
-#, fuzzy
 msgid "Invalid or missing answer."
-msgstr "Ongeldige of ontbrekende vraag."
+msgstr "Ongeldig of ontbrekend antwoord."
 
 #. TRANS: Page title after sending an answer.
 #. TRANS: Page title for and answer to a question.
@@ -88,22 +87,19 @@ msgid "%1$s's question: %2$s"
 msgstr "Vraag van %1$s: %2$s"
 
 #. TRANS: Page title for close a question
-#, fuzzy
 msgid "Close question"
-msgstr "Nieuwe vraag"
+msgstr "Vraag sluiten"
 
-#, fuzzy
 msgid "You must be logged in to close a question."
 msgstr ""
-"U moet aangemeld zijn om een vraag te kunnen stellen te kunnen stellen."
+"U moet aangemeld zijn om een vraag te kunnen stellen te kunnen sluiten."
 
 #. TRANS: Client exception thrown trying to respond to a non-existing question.
 msgid "Invalid or missing question."
 msgstr "Ongeldige of ontbrekende vraag."
 
-#, fuzzy
 msgid "You didn't ask this question."
-msgstr "U moet aangemeld zijn om een vraag te kunnen beantwoorden."
+msgstr "U hebt deze vraag niet gesteld."
 
 #. TRANS: Page title after sending an answer.
 msgid "Answers"
@@ -122,16 +118,15 @@ msgstr "Onverwacht type voor plug-in Vraag en Antwoord: %s."
 msgid "Question data is missing."
 msgstr "De vraaggegevens ontbreken."
 
-#, fuzzy
 msgid "Answer data is missing."
 msgstr "De vraaggegevens ontbreken."
 
 msgid "more"
-msgstr ""
+msgstr "meer"
 
 #, php-format
 msgid "%s revisions"
-msgstr ""
+msgstr "%s versies"
 
 #, php-format
 msgid "%1$s answered the question \"%2$s\": %3$s"
@@ -143,13 +138,12 @@ msgstr "%1$s heeft de vraag \"%2$s\" beantwoord: %3$s"
 msgid "answered \"%s\""
 msgstr "heeft geantwoord op \"%s\""
 
-#, fuzzy, php-format
+#, php-format
 msgid "%s answers"
-msgstr "Antwoorden"
+msgstr "%s antwoorden"
 
-#, fuzzy
 msgid "This question is closed."
-msgstr "De vraagmededeling bestaat niet."
+msgstr "Deze vraag is gesloten."
 
 #. TRANS: Rendered version of the notice content creating a question.
 #. TRANS: %s a link to the question as link description.
@@ -163,10 +157,9 @@ msgid "Submit"
 msgstr "Opslaan"
 
 #. TRANS: Button text for submitting a poll response.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Answer"
-msgstr "Antwoorden"
+msgstr "Beantwoorden"
 
 msgid "Title"
 msgstr "Naam"
@@ -188,15 +181,9 @@ msgstr "Opslaan"
 #. TRANS: Button text for closing a question
 msgctxt "BUTTON"
 msgid "Close"
-msgstr ""
+msgstr "Sluiten"
 
 #. TRANS: Button text for marking an answer as "best"
 msgctxt "BUTTON"
 msgid "Best"
-msgstr ""
-
-#~ msgid "%1$s asked the question \"%2$s\": %3$s"
-#~ msgstr "%1$s heeft de vraag \"%2$s\" gesteld: %3$s"
-
-#~ msgid "question: %1$s %2$s"
-#~ msgstr "vraag: %1$s %2$s"
+msgstr "Beste"
