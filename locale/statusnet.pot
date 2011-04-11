@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"POT-Creation-Date: 2011-04-11 12:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,8 +78,10 @@ msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
+#. TRANS: Checkbox label to show private tags.
 #. TRANS: Checkbox field label on group edit form to mark a group private.
-#: actions/accessadminpanel.php:157 lib/groupeditform.php:206
+#: actions/accessadminpanel.php:157 actions/peopletagsbyuser.php:185
+#: lib/groupeditform.php:206
 msgctxt "LABEL"
 msgid "Private"
 msgstr ""
@@ -122,31 +124,132 @@ msgstr ""
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Button text to save snapshot settings.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
-#. TRANS: Button text for saving tags for other users.
+#. TRANS: Button text to save people tags.
 #. TRANS: Button text for saving "Other settings" in profile.
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
 #. TRANS: Button text on profile design page to save settings.
 #. TRANS: Text for save button on group edit form.
+#. TRANS: Button text to save tags for a profile.
 #: actions/accessadminpanel.php:193 actions/designadminpanel.php:732
 #: actions/emailsettings.php:251 actions/imsettings.php:201
 #: actions/licenseadminpanel.php:335 actions/pathsadminpanel.php:517
 #: actions/profilesettings.php:215 actions/sessionsadminpanel.php:202
 #: actions/siteadminpanel.php:319 actions/sitenoticeadminpanel.php:197
 #: actions/smssettings.php:204 actions/snapshotadminpanel.php:252
-#: actions/subscriptions.php:261 actions/tagother.php:144
+#: actions/subscriptions.php:261 actions/tagprofile.php:169
 #: actions/urlsettings.php:152 actions/useradminpanel.php:300
 #: lib/applicationeditform.php:355 lib/designform.php:315
-#: lib/groupeditform.php:225
+#: lib/groupeditform.php:225 lib/peopletags.php:146
 msgctxt "BUTTON"
 msgid "Save"
+msgstr ""
+
+#. TRANS: Client error displayed when the session token does not match or is not given.
+#. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
+#. TRANS: Client error displayed when the session token does not match or is not given.
+#. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
+#. TRANS: Form validation error.
+#. TRANS: Form validation error message.
+#. TRANS: Client error displayed when the session token does not match or is not given.
+#. TRANS: Client error displayed when the session token is not okay.
+#. TRANS: Client error displayed when the session token does not match or is not given.
+#: actions/addpeopletag.php:78 actions/apioauthauthorize.php:147
+#: actions/avatarsettings.php:281 actions/cancelsubscription.php:75
+#: actions/deletenotice.php:178 actions/disfavor.php:75
+#: actions/emailsettings.php:293 actions/favor.php:76 actions/geocode.php:56
+#: actions/groupblock.php:66 actions/grouplogo.php:321
+#: actions/groupunblock.php:66 actions/imsettings.php:244
+#: actions/invite.php:61 actions/makeadmin.php:68 actions/newmessage.php:141
+#: actions/newnotice.php:105 actions/nudge.php:82
+#: actions/oauthappssettings.php:162 actions/oauthconnectionssettings.php:136
+#: actions/passwordsettings.php:147 actions/peopletagautocomplete.php:67
+#: actions/pluginenable.php:88 actions/profilecompletion.php:81
+#: actions/profilesettings.php:235 actions/recoverpassword.php:387
+#: actions/register.php:164 actions/remotesubscribe.php:78
+#: actions/removepeopletag.php:79 actions/repeat.php:80
+#: actions/smssettings.php:250 actions/subedit.php:41 actions/subscribe.php:87
+#: actions/subscribepeopletag.php:76 actions/tagprofile.php:186
+#: actions/unsubscribe.php:70 actions/unsubscribepeopletag.php:77
+#: actions/urlsettings.php:171 actions/userauthorization.php:54
+#: lib/designsettings.php:123
+msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
+#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
+#: actions/addpeopletag.php:89 actions/cancelsubscription.php:57
+#: actions/deletenotice.php:52 actions/disfavor.php:61
+#: actions/editpeopletag.php:69 actions/favor.php:62 actions/groupblock.php:60
+#: actions/groupunblock.php:60 actions/logout.php:69 actions/makeadmin.php:62
+#: actions/newmessage.php:89 actions/newnotice.php:87 actions/nudge.php:64
+#: actions/peopletagautocomplete.php:57 actions/peopletagsbyuser.php:121
+#: actions/pluginenable.php:99 actions/profilecompletion.php:92
+#: actions/removepeopletag.php:90 actions/subedit.php:33
+#: actions/subscribe.php:98 actions/unsubscribe.php:52
+#: lib/adminpanelaction.php:71 lib/profileformaction.php:63
+#: lib/settingsaction.php:73
+msgid "Not logged in."
+msgstr ""
+
+#. TRANS: Client error displayed trying to perform an action related to a non-existing profile.
+#. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
+#. TRANS: Client exception.
+#. TRANS: Client error displayed when referring to a non-existing profile.
+#. TRANS: Client error displayed trying to subscribe to a non-existing profile.
+#. TRANS: Client error displayed trying to perform an action related to a non-existing profile.
+#: actions/addpeopletag.php:101 actions/atompubfavoritefeed.php:69
+#: actions/atompubmembershipfeed.php:71 actions/atompubshowfavorite.php:75
+#: actions/atompubshowmembership.php:72 actions/removepeopletag.php:102
+#: actions/subscribe.php:110 lib/command.php:435 lib/command.php:491
+msgid "No such profile."
+msgstr ""
+
+#. TRANS: Client error displayed trying to reference a non-existing people tag.
+#. TRANS: Client error displayed when referring to a non-exsting people tag.
+#. TRANS: Client error displayed when referring to non-existing people tag.
+#. TRANS: Client error displayed trying to reference a non-existing people tag.
+#: actions/addpeopletag.php:110 actions/editpeopletag.php:109
+#: actions/peopletagged.php:96 actions/peopletagsubscribers.php:96
+#: actions/profilecompletion.php:101 actions/profiletagbyid.php:67
+#: actions/removepeopletag.php:111 actions/showprofiletag.php:86
+#: actions/subscribepeopletag.php:95 actions/unsubscribepeopletag.php:96
+msgid "No such people tag."
+msgstr ""
+
+#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
+#: actions/addpeopletag.php:121
+msgid "You cannot tag an OMB 0.1 remote profile with this action."
+msgstr ""
+
+#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: %s is a username.
+#: actions/addpeopletag.php:150 actions/removepeopletag.php:152
+#, php-format
+msgid "There was an unexpected error while tagging %s."
+msgstr ""
+
+#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: %s is a profile URL.
+#: actions/addpeopletag.php:155 actions/removepeopletag.php:157
+#, php-format
+msgid ""
+"There was a problem tagging %s.The remote server is probably not responding "
+"correctly, please try retrying later."
+msgstr ""
+
+#. TRANS: Title after subscribing to a people tag.
+#. TRANS: Page title when subscription succeeded.
+#: actions/addpeopletag.php:165 actions/subscribe.php:149
+msgid "Subscribed"
 msgstr ""
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
 #. TRANS: Server error when page not found (404).
 #: actions/all.php:68 actions/public.php:99 actions/replies.php:93
-#: actions/showfavorites.php:140 actions/tag.php:52
+#: actions/showfavorites.php:140 actions/showprofiletag.php:95
+#: actions/tag.php:52
 msgid "No such page."
 msgstr ""
 
@@ -167,6 +270,8 @@ msgstr ""
 #. TRANS: Client error displayed when trying to have a non-existing user leave a group.
 #. TRANS: Client error displayed when user not found for an action.
 #. TRANS: Client error displayed when not providing a user or an invalid user.
+#. TRANS: Client error displayed when referring to a non-existing user.
+#. TRANS: Client error displayed trying to perform an action related to a non-existing user.
 #. TRANS: Client error displayed when updating a status for a non-existing user.
 #. TRANS: Client error displayed when requesting a list of followers for a non-existing user.
 #. TRANS: Client error displayed when requesting most recent favourite notices by a user for a non-existing user.
@@ -182,12 +287,15 @@ msgstr ""
 #. TRANS: Client error displayed trying to make a micro summary without providing a valid user.
 #. TRANS: Client error displayed trying to send a direct message to a non-existing user.
 #. TRANS: Client error displayed trying to use "one time password login" without using an existing user.
+#. TRANS: Client error displayed when referring to non-existing user.
+#. TRANS: Client error displayed trying to perform an action related to a non-existing user.
 #. TRANS: Form validation error on page for remote subscribe when no user was provided.
 #. TRANS: Form validation error on page for remote subscribe when no user profile was found.
 #. TRANS: Client error displayed when trying to reply to a non-exsting user.
 #. TRANS: Client error displayed when providing a non-existing nickname in a RSS 1.0 action.
 #. TRANS: Client error.
 #. TRANS: Client error displayed when trying to display favourite notices for a non-existing user.
+#. TRANS: Client error displayed trying to perform an action related to a non-existing user.
 #. TRANS: Client error displayed trying to find a user by ID for a non-existing ID.
 #. TRANS: Client error displayed requesting groups for a non-existing user.
 #. TRANS: Client error displayed when user not found for an action.
@@ -206,17 +314,23 @@ msgstr ""
 #: actions/apigroupcreate.php:111 actions/apigroupismember.php:89
 #: actions/apigroupjoin.php:98 actions/apigroupleave.php:98
 #: actions/apigrouplist.php:71 actions/apigroupprofileupdate.php:107
-#: actions/apistatusesupdate.php:230 actions/apisubscriptions.php:85
-#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:173
-#: actions/apitimelinehome.php:78 actions/apitimelinementions.php:77
-#: actions/apitimelineuser.php:79 actions/avatarbynickname.php:79
-#: actions/favoritesrss.php:72 actions/foaf.php:42 actions/foaf.php:61
-#: actions/hcard.php:67 actions/microsummary.php:63 actions/newmessage.php:119
-#: actions/otp.php:78 actions/remotesubscribe.php:156
+#: actions/apilistmember.php:76 actions/apilistmemberships.php:71
+#: actions/apilists.php:78 actions/apilistsubscriber.php:53
+#: actions/apilistsubscriptions.php:77 actions/apistatusesupdate.php:230
+#: actions/apisubscriptions.php:85 actions/apitimelinefavorites.php:70
+#: actions/apitimelinefriends.php:173 actions/apitimelinehome.php:78
+#: actions/apitimelinementions.php:77 actions/apitimelineuser.php:79
+#: actions/avatarbynickname.php:79 actions/favoritesrss.php:72
+#: actions/foaf.php:42 actions/foaf.php:61 actions/hcard.php:67
+#: actions/microsummary.php:63 actions/newmessage.php:119 actions/otp.php:78
+#: actions/peopletagged.php:87 actions/peopletagsbyuser.php:97
+#: actions/peopletagsforuser.php:79 actions/peopletagsubscribers.php:87
+#: actions/peopletagsubscriptions.php:81 actions/remotesubscribe.php:156
 #: actions/remotesubscribe.php:166 actions/replies.php:72
 #: actions/repliesrss.php:38 actions/rsd.php:114 actions/showfavorites.php:106
+#: actions/showprofiletag.php:73 actions/showprofiletag.php:107
 #: actions/userbyid.php:75 actions/usergroups.php:95 actions/userrss.php:41
-#: actions/userxrd.php:60 actions/xrds.php:71 lib/command.php:503
+#: actions/userxrd.php:60 actions/xrds.php:71 lib/command.php:618
 #: lib/galleryaction.php:61 lib/mailbox.php:79 lib/profileaction.php:77
 msgid "No such user."
 msgstr ""
@@ -253,7 +367,9 @@ msgid "Feed for friends of %s (RSS 1.0)"
 msgstr ""
 
 #. TRANS: %s is user nickname.
-#: actions/all.php:117
+#. TRANS: Feed title.
+#. TRANS: %s is tagger's nickname.
+#: actions/all.php:117 actions/showprofiletag.php:177
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr ""
@@ -332,15 +448,22 @@ msgstr ""
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:105
 #: actions/apigroupprofileupdate.php:98 actions/apigroupprofileupdate.php:216
 #: actions/apigroupshow.php:114 actions/apihelptest.php:84
+#: actions/apilist.php:117 actions/apilist.php:177 actions/apilist.php:214
+#: actions/apilistmember.php:117 actions/apilistmembers.php:87
+#: actions/apilistmembers.php:160 actions/apilistmemberships.php:103
+#: actions/apilists.php:120 actions/apilists.php:172
+#: actions/apilistsubscriber.php:88 actions/apilistsubscribers.php:66
+#: actions/apilistsubscribers.php:113 actions/apilistsubscriptions.php:91
 #: actions/apistatusesdestroy.php:101 actions/apistatusesretweets.php:110
 #: actions/apistatusesshow.php:105 actions/apistatusnetconfig.php:139
 #: actions/apistatusnetversion.php:91 actions/apisubscriptions.php:109
 #: actions/apitimelinefavorites.php:182 actions/apitimelinefriends.php:278
 #: actions/apitimelinegroup.php:148 actions/apitimelinehome.php:181
-#: actions/apitimelinementions.php:182 actions/apitimelinepublic.php:247
-#: actions/apitimelineretweetedtome.php:150
+#: actions/apitimelinelist.php:182 actions/apitimelinementions.php:182
+#: actions/apitimelinepublic.php:247 actions/apitimelineretweetedtome.php:150
 #: actions/apitimelineretweetsofme.php:149 actions/apitimelinetag.php:165
 #: actions/apitimelineuser.php:217 actions/apiusershow.php:100
+#: lib/apilistusers.php:149
 msgid "API method not found."
 msgstr ""
 
@@ -381,7 +504,7 @@ msgstr ""
 #. TRANS: Server exception thrown on Profile design page when updating design settings fails.
 #: actions/apiaccountupdatedeliverydevice.php:136
 #: actions/confirmaddress.php:122 actions/emailsettings.php:353
-#: actions/emailsettings.php:499 actions/profilesettings.php:342
+#: actions/emailsettings.php:499 actions/profilesettings.php:348
 #: actions/smssettings.php:301 actions/smssettings.php:454
 #: actions/urlsettings.php:213 actions/userdesignsettings.php:315
 msgid "Could not update user."
@@ -395,6 +518,7 @@ msgstr ""
 #. TRANS: Client error displayed trying to get an avatar for a user without a profile.
 #. TRANS: Server error displayed when requesting Friends of a Friend feed for a user for which the profile could not be found.
 #. TRANS: Server error displayed when trying to get a user hCard for a user without a profile.
+#. TRANS: Server error displayed when a user has no profile.
 #. TRANS: Server error displayed when trying to reply to a user without a profile.
 #. TRANS: Server error displayed requesting groups for a user without a profile.
 #. TRANS: Server error displayed when trying to perform a gallery action with a user without a profile.
@@ -405,14 +529,16 @@ msgstr ""
 #: actions/apiaccountupdateprofileimage.php:131
 #: actions/apiuserprofileimage.php:88 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:85 actions/foaf.php:69 actions/hcard.php:75
-#: actions/replies.php:80 actions/usergroups.php:103 lib/galleryaction.php:69
+#: actions/peopletagsbyuser.php:105 actions/peopletagsforuser.php:87
+#: actions/peopletagsubscriptions.php:89 actions/replies.php:80
+#: actions/usergroups.php:103 lib/galleryaction.php:69
 #: lib/profileaction.php:85
 msgid "User has no profile."
 msgstr ""
 
 #. TRANS: Server error displayed if a user profile could not be saved.
 #. TRANS: Server error thrown when user profile settings could not be saved.
-#: actions/apiaccountupdateprofile.php:147 actions/profilesettings.php:442
+#: actions/apiaccountupdateprofile.php:147 actions/profilesettings.php:448
 msgid "Could not save profile."
 msgstr ""
 
@@ -703,13 +829,16 @@ msgstr ""
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Group edit form validation error.
+#. TRANS: Client error shown when providing too long a description when editing a people tag.
+#. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Form validation error in New application form.
 #. TRANS: %d is the maximum number of characters for the description.
 #. TRANS: Group create form validation error.
 #. TRANS: %d is the maximum number of allowed characters.
 #: actions/apigroupcreate.php:201 actions/apigroupprofileupdate.php:301
 #: actions/editapplication.php:203 actions/editgroup.php:220
-#: actions/newapplication.php:183 actions/newgroup.php:158
+#: actions/editpeopletag.php:265 actions/newapplication.php:183
+#: actions/newgroup.php:158
 #, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
@@ -885,6 +1014,75 @@ msgstr ""
 msgid "Alias cannot be the same as nickname."
 msgstr ""
 
+#. TRANS: Client error displayed when referring to a non-existing list.
+#. TRANS: Client error displayed trying to perform an action related to a non-existing list.
+#. TRANS: Client error displayed when referring to a non-existing list.
+#: actions/apilist.php:81 actions/apilistmember.php:70
+#: actions/apilistsubscriber.php:47 actions/apitimelinelist.php:95
+#: lib/apilistusers.php:67
+msgid "List not found."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to update another user's list.
+#: actions/apilist.php:145
+msgid "You cannot update lists that do not belong to you."
+msgstr ""
+
+#. TRANS: Client error displayed when an unknown error occurs updating a list.
+#. TRANS: Client error displayed when an unknown error occurs viewing list members.
+#. TRANS: Client error displayed when an unknown error occurs in the list subscribers action.
+#. TRANS: Client error displayed when an unknown error occurs unsubscribing from a list.
+#: actions/apilist.php:161 actions/apilistmembers.php:70
+#: actions/apilistmembers.php:143 actions/apilistsubscribers.php:49
+#: actions/apilistsubscribers.php:96
+msgid "An error occured."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to delete another user's list.
+#: actions/apilist.php:195
+msgid "You cannot delete lists that do not belong to you."
+msgstr ""
+
+#. TRANS: Client error displayed when referring to a non-list member.
+#: actions/apilistmember.php:99
+msgid "The specified user is not a member of this list."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to add members to a list without having the right to do so.
+#: actions/apilistmembers.php:47
+msgid "You are not allowed to add members to this list."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to modify list members without specifying them.
+#: actions/apilistmembers.php:57 actions/apilistmembers.php:116
+msgid "You must specify a member."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to remove members from a list without having the right to do so.
+#: actions/apilistmembers.php:106
+msgid "You are not allowed to remove members from this list."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to remove a list member that is not part of a list.
+#: actions/apilistmembers.php:131
+msgid "The user you are trying to remove from the list is not a member."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to create a list without a name.
+#: actions/apilists.php:139
+msgid "A list must have a name."
+msgstr ""
+
+#. TRANS: Client error displayed when a membership check for a user is nagative.
+#: actions/apilistsubscriber.php:70
+msgid "The specified user is not a subscriber of this list."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to unsubscribe from a non-subscribed list.
+#: actions/apilistsubscribers.php:84
+msgid "You are not subscribed to this list."
+msgstr ""
+
 #. TRANS: Client error displayed when uploading a media file has failed.
 #: actions/apimediaupload.php:101
 msgid "Upload failed."
@@ -908,33 +1106,6 @@ msgstr ""
 #. TRANS: Client error given when an invalid request token was passed to the OAuth API.
 #: actions/apioauthauthorize.php:121
 msgid "Request token already authorized."
-msgstr ""
-
-#. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
-#. TRANS: Client error displayed when the session token does not match or is not given.
-#. TRANS: Form validation error message.
-#. TRANS: Client error displayed when the session token does not match or is not given.
-#. TRANS: Form validation error.
-#. TRANS: Form validation error message.
-#. TRANS: Client error displayed when the session token does not match or is not given.
-#. TRANS: Client error displayed when the session token is not okay.
-#. TRANS: Client error displayed when the session token does not match or is not given.
-#: actions/apioauthauthorize.php:147 actions/avatarsettings.php:281
-#: actions/cancelsubscription.php:75 actions/deletenotice.php:178
-#: actions/disfavor.php:75 actions/emailsettings.php:293 actions/favor.php:76
-#: actions/geocode.php:56 actions/groupblock.php:66 actions/grouplogo.php:321
-#: actions/groupunblock.php:66 actions/imsettings.php:244
-#: actions/invite.php:61 actions/makeadmin.php:68 actions/newmessage.php:141
-#: actions/newnotice.php:105 actions/nudge.php:82
-#: actions/oauthappssettings.php:162 actions/oauthconnectionssettings.php:136
-#: actions/passwordsettings.php:147 actions/pluginenable.php:88
-#: actions/profilesettings.php:235 actions/recoverpassword.php:387
-#: actions/register.php:164 actions/remotesubscribe.php:78
-#: actions/repeat.php:80 actions/smssettings.php:250 actions/subedit.php:41
-#: actions/subscribe.php:87 actions/tagother.php:157
-#: actions/unsubscribe.php:70 actions/urlsettings.php:171
-#: actions/userauthorization.php:54 lib/designsettings.php:123
-msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
 #. TRANS: Form validation error given when an invalid username and/or password was passed to the OAuth API.
@@ -1011,9 +1182,11 @@ msgstr ""
 #. TRANS: Field label on account registration page.
 #. TRANS: Label for nickname on user authorisation page.
 #. TRANS: Field label on group edit form.
+#. TRANS: Dropdown option for searching in profiles.
 #: actions/apioauthauthorize.php:459 actions/login.php:231
 #: actions/profilesettings.php:104 actions/register.php:438
 #: actions/userauthorization.php:147 lib/groupeditform.php:147
+#: lib/togglepeopletag.php:107
 msgid "Nickname"
 msgstr ""
 
@@ -1212,6 +1385,13 @@ msgstr ""
 #: actions/apitimelinefavorites.php:120
 #, php-format
 msgid "%1$s updates favorited by %2$s / %3$s."
+msgstr ""
+
+#. TRANS: Server error displayed whe trying to get a timeline fails.
+#. TRANS: %s is the error message.
+#: actions/apitimelinelist.php:155
+#, php-format
+msgid "Could not generate feed for list - %s"
 msgstr ""
 
 #. TRANS: Title for timeline of most recent mentions of a user.
@@ -1520,15 +1700,6 @@ msgstr ""
 msgid "Subscription canceled."
 msgstr ""
 
-#. TRANS: Client exception thrown when requesting a favorite feed for a non-existing profile.
-#. TRANS: Client exception.
-#. TRANS: Client error displayed trying to subscribe to a non-existing profile.
-#: actions/atompubfavoritefeed.php:69 actions/atompubmembershipfeed.php:71
-#: actions/atompubshowfavorite.php:75 actions/atompubshowmembership.php:72
-#: actions/subscribe.php:110
-msgid "No such profile."
-msgstr ""
-
 #. TRANS: Subtitle for Atom favorites feed.
 #. TRANS: %1$s is a user nickname, %2$s is the StatusNet sitename.
 #: actions/atompubfavoritefeed.php:147
@@ -1757,8 +1928,10 @@ msgstr ""
 #. TRANS: Button text for user account deletion.
 #. TRANS: Submit button text the OAuth application page to delete an application.
 #. TRANS: Button text for deleting a group.
+#. TRANS: Button text to delete a people tag.
 #: actions/avatarsettings.php:155 actions/deleteaccount.php:319
 #: actions/showapplication.php:243 lib/deletegroupform.php:115
+#: lib/peopletageditform.php:171
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr ""
@@ -1809,7 +1982,7 @@ msgstr ""
 
 #. TRANS: Title for backup account page.
 #. TRANS: Option in profile settings to create a backup of the account of the currently logged in user.
-#: actions/backupaccount.php:61 actions/profilesettings.php:491
+#: actions/backupaccount.php:61 actions/profilesettings.php:497
 msgid "Backup account"
 msgstr ""
 
@@ -1872,7 +2045,8 @@ msgstr ""
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:154 actions/deleteapplication.php:158
 #: actions/deletegroup.php:220 actions/deletenotice.php:155
-#: actions/deleteuser.php:154 actions/groupblock.php:188
+#: actions/deleteuser.php:154 actions/editpeopletag.php:174
+#: actions/groupblock.php:188
 msgctxt "BUTTON"
 msgid "No"
 msgstr ""
@@ -1891,8 +2065,8 @@ msgstr ""
 #. TRANS: Button text to repeat a notice on notice repeat form.
 #: actions/block.php:161 actions/deleteapplication.php:165
 #: actions/deletegroup.php:227 actions/deletenotice.php:162
-#: actions/deleteuser.php:161 actions/groupblock.php:195
-#: lib/repeatform.php:126
+#: actions/deleteuser.php:161 actions/editpeopletag.php:178
+#: actions/groupblock.php:195 lib/repeatform.php:126
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr ""
@@ -1959,18 +2133,6 @@ msgctxt "TITLE"
 msgid "%1$s left group %2$s"
 msgstr ""
 
-#. TRANS: Error message displayed when trying to perform an action that requires a logged in user.
-#: actions/cancelsubscription.php:57 actions/deletenotice.php:52
-#: actions/disfavor.php:61 actions/favor.php:62 actions/groupblock.php:60
-#: actions/groupunblock.php:60 actions/logout.php:69 actions/makeadmin.php:62
-#: actions/newmessage.php:89 actions/newnotice.php:87 actions/nudge.php:64
-#: actions/pluginenable.php:99 actions/subedit.php:33 actions/subscribe.php:98
-#: actions/tagother.php:35 actions/unsubscribe.php:52
-#: lib/adminpanelaction.php:71 lib/profileformaction.php:63
-#: lib/settingsaction.php:73
-msgid "Not logged in."
-msgstr ""
-
 #. TRANS: Client error displayed when trying to leave a group without specifying an ID.
 #. TRANS: Client error displayed when trying to unsubscribe without providing a profile ID.
 #: actions/cancelsubscription.php:84 actions/unsubscribe.php:79
@@ -1982,12 +2144,12 @@ msgstr ""
 #. TRANS: Client error displayed when trying to unblock a user from a group without providing an existing profile.
 #. TRANS: Client error displayed when specifying an invalid profile ID on the Make Admin page.
 #. TRANS: Client error displayed trying a change a subscription for a non-existant profile ID.
-#. TRANS: Client error displayed on user tag page when trying to add tags providing a non-existing user ID.
+#. TRANS: Client error displayed when referring to non-existing profile ID.
 #. TRANS: Client error displayed when trying to unsubscribe while providing a non-existing profile ID.
 #. TRANS: Client error displayed when trying to change user options without specifying an existing user to work on.
 #: actions/cancelsubscription.php:92 actions/groupblock.php:78
 #: actions/groupunblock.php:78 actions/makeadmin.php:80 actions/subedit.php:58
-#: actions/tagother.php:50 actions/unsubscribe.php:87
+#: actions/tagprofile.php:48 actions/unsubscribe.php:87
 #: lib/profileformaction.php:87
 msgid "No profile with that ID."
 msgstr ""
@@ -2095,7 +2257,7 @@ msgstr ""
 
 #. TRANS: Page title for page on which a user account can be deleted.
 #. TRANS: Option in profile settings to delete the account of the currently logged in user.
-#: actions/deleteaccount.php:228 actions/profilesettings.php:499
+#: actions/deleteaccount.php:228 actions/profilesettings.php:505
 msgid "Delete account"
 msgstr ""
 
@@ -2155,7 +2317,7 @@ msgstr ""
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:103 actions/editapplication.php:132
 #: actions/newapplication.php:113 actions/showapplication.php:117
-#: lib/action.php:1460
+#: lib/action.php:1461
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -2606,8 +2768,81 @@ msgid "Invalid alias: \"%s\""
 msgstr ""
 
 #. TRANS: Group edit form success message.
-#: actions/editgroup.php:312
+#. TRANS: Edit people tag form success message.
+#: actions/editgroup.php:312 actions/editpeopletag.php:322
 msgid "Options saved."
+msgstr ""
+
+#. TRANS: Title for edit people tag page after deleting a tag.
+#. TRANS: %s is a tag.
+#: actions/editpeopletag.php:52
+#, php-format
+msgid "Delete %s people tag"
+msgstr ""
+
+#. TRANS: Title for edit people tag page.
+#. TRANS: %s is a tag.
+#. TRANS: Form legend for people tag edit form.
+#. TRANS: %s is a people tag.
+#: actions/editpeopletag.php:56 lib/peopletageditform.php:110
+#, php-format
+msgid "Edit people tag %s"
+msgstr ""
+
+#. TRANS: Error message displayed when trying to perform an action that requires a tagging user or ID.
+#: actions/editpeopletag.php:99
+msgid "No tagger or ID."
+msgstr ""
+
+#. TRANS: Client error displayed when referring to non-local user.
+#: actions/editpeopletag.php:116
+msgid "Not a local user."
+msgstr ""
+
+#. TRANS: Client error displayed when reting to edit a tag that was not self-created.
+#: actions/editpeopletag.php:122
+msgid "You must be the creator of the tag to edit it."
+msgstr ""
+
+#. TRANS: Form instruction for edit people tag form.
+#: actions/editpeopletag.php:219
+msgid "Use this form to edit the people tag."
+msgstr ""
+
+#. TRANS: Form validation error displayed if the form data for deleting a tag was incorrect.
+#: actions/editpeopletag.php:240
+msgid "Delete aborted."
+msgstr ""
+
+#. TRANS: Text in confirmation dialog for deleting a tag.
+#: actions/editpeopletag.php:248
+msgid ""
+"Deleting this tag will permanantly remove all its subscription and "
+"membership records. Do you still want to continue?"
+msgstr ""
+
+#. TRANS: Form validation error displayed if a given tag is invalid.
+#: actions/editpeopletag.php:254
+msgid "Invalid tag."
+msgstr ""
+
+#. TRANS: Form validation error displayed if a given tag is already present.
+#. TRANS: %s is the already present tag.
+#: actions/editpeopletag.php:259
+#, php-format
+msgid "You already have a tag named %s."
+msgstr ""
+
+#. TRANS: Text in confirmation dialog for setting a tag from public to private.
+#: actions/editpeopletag.php:276
+msgid ""
+"Setting a public tag as private will permanently remove all the existing "
+"subscriptions to it. Do you still want to continue?"
+msgstr ""
+
+#. TRANS: TRANS: Server error displayed when updating a people tag fails.
+#: actions/editpeopletag.php:297
+msgid "Could not update people tag."
 msgstr ""
 
 #. TRANS: Title for e-mail settings.
@@ -2638,9 +2873,10 @@ msgstr ""
 #. TRANS: Button label to remove a confirmed IM address.
 #. TRANS: Button label to remove a confirmed SMS address.
 #. TRANS: Button label for removing a set sender SMS e-mail address to post notices from.
+#. TRANS: Button text to untag a profile.
 #: actions/emailsettings.php:113 actions/emailsettings.php:180
 #: actions/imsettings.php:119 actions/smssettings.php:119
-#: actions/smssettings.php:175
+#: actions/smssettings.php:175 lib/togglepeopletag.php:213
 msgctxt "BUTTON"
 msgid "Remove"
 msgstr ""
@@ -2664,8 +2900,9 @@ msgstr ""
 #. TRANS: Button label for adding an e-mail address in e-mail settings form.
 #. TRANS: Button label for adding an IM address in IM settings form.
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
+#. TRANS: Button text to tag a profile.
 #: actions/emailsettings.php:141 actions/imsettings.php:149
-#: actions/smssettings.php:157
+#: actions/smssettings.php:157 lib/togglepeopletag.php:290
 msgctxt "BUTTON"
 msgid "Add"
 msgstr ""
@@ -2863,7 +3100,7 @@ msgstr ""
 #. TRANS: Title for favourited notices section.
 #. TRANS: Menu item title in search group navigation panel.
 #: actions/favorited.php:65 lib/popularnoticesection.php:62
-#: lib/publicgroupnav.php:87
+#: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr ""
 
@@ -2923,7 +3160,7 @@ msgstr ""
 #. TRANS: Title for featured users section.
 #. TRANS: Menu item title in search group navigation panel.
 #: actions/featured.php:69 lib/featureduserssection.php:87
-#: lib/publicgroupnav.php:81
+#: lib/publicgroupnav.php:87
 msgid "Featured users"
 msgstr ""
 
@@ -3101,8 +3338,10 @@ msgid "Database error blocking user from group."
 msgstr ""
 
 #. TRANS: Client error displayed referring to a group's permalink without providing a group ID.
+#. TRANS: Client error displayed trying to perform an action without providing an ID.
 #. TRANS: Client error displayed trying to find a user by ID without providing an ID.
-#: actions/groupbyid.php:73 actions/userbyid.php:70
+#: actions/groupbyid.php:73 actions/profiletagbyid.php:57
+#: actions/userbyid.php:70
 msgid "No ID."
 msgstr ""
 
@@ -3216,7 +3455,7 @@ msgstr ""
 msgid "A list of users awaiting approval to join this group."
 msgstr ""
 
-#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
+#. TRANS: Message is used as link description. %1$s is a group name, %2$s is a site name.
 #: actions/grouprss.php:141
 #, php-format
 msgid "Updates from members of %1$s on %2$s!"
@@ -3272,8 +3511,9 @@ msgstr ""
 #. TRANS: Text on page where groups can be searched if no results were found for a query.
 #. TRANS: Text for notice search results is the query had no results.
 #. TRANS: Message on the "People search" page where a query has no results.
+#. TRANS: Output when there are no results for a search.
 #: actions/groupsearch.php:82 actions/noticesearch.php:122
-#: actions/peoplesearch.php:87
+#: actions/peoplesearch.php:87 actions/profilecompletion.php:150
 msgid "No results."
 msgstr ""
 
@@ -3696,7 +3936,8 @@ msgid "License selection"
 msgstr ""
 
 #. TRANS: License option in the license admin panel.
-#: actions/licenseadminpanel.php:247
+#. TRANS: Checkbox label to mark a people tag private.
+#: actions/licenseadminpanel.php:247 lib/peopletageditform.php:155
 msgid "Private"
 msgstr ""
 
@@ -3935,8 +4176,8 @@ msgstr ""
 #. TRANS: Client error displayed trying to send a notice without content.
 #. TRANS: Command exception text shown when trying to send a direct message to another user without content.
 #. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
-#: actions/newmessage.php:151 actions/newnotice.php:140 lib/command.php:484
-#: lib/command.php:573
+#: actions/newmessage.php:151 actions/newnotice.php:140 lib/command.php:599
+#: lib/command.php:688
 msgid "No content!"
 msgstr ""
 
@@ -3947,7 +4188,7 @@ msgstr ""
 
 #. TRANS: Client error displayed trying to send a direct message to self.
 #. TRANS: Error text shown when trying to send a direct message to self.
-#: actions/newmessage.php:178 lib/command.php:511
+#: actions/newmessage.php:178 lib/command.php:626
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
@@ -3961,7 +4202,7 @@ msgstr ""
 #. TRANS: %s is the direct message recipient.
 #. TRANS: Message given have sent a direct message to another user.
 #. TRANS: %s is the name of the other user.
-#: actions/newmessage.php:202 lib/command.php:519
+#: actions/newmessage.php:202 lib/command.php:634
 #, php-format
 msgid "Direct message to %s sent."
 msgstr ""
@@ -4176,8 +4417,8 @@ msgstr ""
 
 #. TRANS: Server error displayed in oEmbed action when request specifies an unsupported data format.
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:204 actions/oembed.php:224 lib/apiaction.php:1208
-#: lib/apiaction.php:1235 lib/apiaction.php:1370
+#: actions/oembed.php:204 actions/oembed.php:224 lib/apiaction.php:1323
+#: lib/apiaction.php:1350 lib/apiaction.php:1485
 msgid "Not a supported data format."
 msgstr ""
 
@@ -4613,18 +4854,227 @@ msgstr ""
 msgid "People search"
 msgstr ""
 
-#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
-#. TRANS: %s is the invalid tag.
-#: actions/peopletag.php:69
+#. TRANS: Title for people tag page.
+#. TRANS: %s is a tag.
+#: actions/peopletag.php:57
 #, php-format
-msgid "Not a valid people tag: %s."
+msgid "Public people tag %s"
 msgstr ""
 
-#. TRANS: Page title for users with a certain self-tag.
-#. TRANS: %1$s is the tag, %2$s is the page number.
-#: actions/peopletag.php:145
+#. TRANS: Title for people tag page.
+#. TRANS: %1$s is a tag, %2$d is a page number.
+#: actions/peopletag.php:61
 #, php-format
-msgid "Users self-tagged with %1$s - page %2$d"
+msgid "Public people tag %1$s, page %2$d"
+msgstr ""
+
+#. TRANS: Message for anonymous users on people tag page.
+#. TRANS: This message contains Markdown links in the form [description](link).
+#: actions/peopletag.php:105
+#, php-format
+msgid ""
+"People tags are how you sort similar people on %%site.name%%, a [micro-"
+"blogging](http://en.wikipedia.org/wiki/Micro-blogging) service based on the "
+"Free Software [StatusNet](http://status.net/) tool. You can then easily keep "
+"track of what they are doing by subscribing to the tag's timeline."
+msgstr ""
+
+#. TRANS: Client error displayed when a tagger is expected but not provided.
+#: actions/peopletagged.php:79 actions/peopletagsubscribers.php:79
+#: actions/showprofiletag.php:65
+msgid "No tagger."
+msgstr ""
+
+#. TRANS: Title for list of people tagged by the user with a tag.
+#. TRANS: %1$s is a tag, %2$s is a username.
+#. TRANS: Header on show profile tag page.
+#. TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
+#: actions/peopletagged.php:108 actions/showprofiletag.php:291
+#, php-format
+msgid "People tagged %1$s by %2$s"
+msgstr ""
+
+#. TRANS: Title for list of people tagged by the user with a tag.
+#. TRANS: %1$s is a tag, %2$s is a username, %2$s is a page number.
+#: actions/peopletagged.php:113
+#, php-format
+msgid "People tagged %1$s by %2$s, page %3$d"
+msgstr ""
+
+#. TRANS: Addition in tag membership list for creator of a tag.
+#. TRANS: Addition in tag subscribers list for creator of a tag.
+#: actions/peopletagged.php:192 actions/peopletagsubscribers.php:192
+msgid "Creator"
+msgstr ""
+
+#. TRANS: Title for people tags by a user page for a private tag.
+#: actions/peopletagsbyuser.php:53
+msgid "Private people tags by you"
+msgstr ""
+
+#. TRANS: Title for people tags by a user page for a public tag.
+#: actions/peopletagsbyuser.php:56
+msgid "Public people tags by you"
+msgstr ""
+
+#. TRANS: Title for people tags by a user page.
+#. TRANS: Page notice.
+#: actions/peopletagsbyuser.php:59 actions/peopletagsforuser.php:128
+msgid "People tags by you"
+msgstr ""
+
+#. TRANS: Title for people tags by a user page.
+#. TRANS: %s is a user nickname.
+#. TRANS: Page notice. %s is a tagger's nickname.
+#. TRANS: Menu item title in personal group navigation menu.
+#. TRANS: %s is a username.
+#: actions/peopletagsbyuser.php:63 actions/peopletagsforuser.php:130
+#: lib/personalgroupnav.php:113
+#, php-format
+msgid "People tags by %s"
+msgstr ""
+
+#. TRANS: Title for people tags by a user page.
+#. TRANS: %1$s is a user nickname, %2$d is a page number.
+#: actions/peopletagsbyuser.php:67
+#, php-format
+msgid "People tags by %1$s, page %2$d"
+msgstr ""
+
+#. TRANS: Client error displayed when trying view another user's private people tags.
+#: actions/peopletagsbyuser.php:128
+msgid "You cannot view others' private people tags"
+msgstr ""
+
+#. TRANS: Mode selector label.
+#: actions/peopletagsbyuser.php:154
+msgid "Mode"
+msgstr ""
+
+#. TRANS: Link text to show people tags for user %s.
+#. TRANS: Title for page that displays which people tags a user has been tagged with.
+#. TRANS: %s is a profile name.
+#: actions/peopletagsbyuser.php:164 actions/peopletagsforuser.php:50
+#: lib/peopletagsforusersection.php:71
+#, php-format
+msgid "People tags for %s"
+msgstr ""
+
+#. TRANS: Fieldset legend.
+#. TRANS: Fieldset legend on gallery action page.
+#: actions/peopletagsbyuser.php:176 lib/galleryaction.php:144
+msgid "Select tag to filter"
+msgstr ""
+
+#. TRANS: Checkbox title.
+#: actions/peopletagsbyuser.php:187
+msgid "Show private tags."
+msgstr ""
+
+#. TRANS: Checkbox label to show public tags.
+#: actions/peopletagsbyuser.php:189
+msgctxt "LABEL"
+msgid "Public"
+msgstr ""
+
+#. TRANS: Checkbox title.
+#: actions/peopletagsbyuser.php:191
+msgid "Show public tags."
+msgstr ""
+
+#. TRANS: Submit button text for tag filter form.
+#. TRANS: Submit button text on gallery action page.
+#: actions/peopletagsbyuser.php:194 lib/galleryaction.php:151
+msgctxt "BUTTON"
+msgid "Go"
+msgstr ""
+
+#. TRANS: Message displayed for anonymous users on page that displays people tags by a user.
+#. TRANS: This message contains Markdown links in the form [description](links).
+#. TRANS: %s is a tagger nickname.
+#: actions/peopletagsbyuser.php:210
+#, php-format
+msgid ""
+"These are people tags created by **%s**. People tags are how you sort "
+"similar people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia."
+"org/wiki/Micro-blogging) service based on the Free Software [StatusNet]"
+"(http://status.net/) tool. You can easily keep track of what they are doing "
+"by subscribing to the tag's timeline."
+msgstr ""
+
+#. TRANS: Message displayed on page that displays people tags by a user when there are none.
+#. TRANS: This message contains Markdown links in the form [description](links).
+#. TRANS: %s is a tagger nickname.
+#: actions/peopletagsbyuser.php:267
+#, php-format
+msgid "%s has not created any [people tags](%%%%doc.tags%%%%) yet."
+msgstr ""
+
+#: actions/peopletagsforuser.php:53
+#, php-format
+msgid "People tags for %1$s, page %2$d"
+msgstr ""
+
+#. TRANS: Message displayed for anonymous users on page that displays people tags for a user.
+#. TRANS: This message contains Markdown links in the form [description](links).
+#. TRANS: %s is a tagger nickname.
+#: actions/peopletagsforuser.php:108
+#, php-format
+msgid ""
+"These are people tags for **%s**. People tags are how you sort similar "
+"people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/"
+"Micro-blogging) service based on the Free Software [StatusNet](http://status."
+"net/) tool. You can easily keep track of what they are doing by subscribing "
+"to the tag's timeline."
+msgstr ""
+
+#. TRANS: Message displayed on page that displays people tags for a user when there are none.
+#. TRANS: This message contains Markdown links in the form [description](links).
+#. TRANS: %s is a tagger nickname.
+#: actions/peopletagsforuser.php:165
+#, php-format
+msgid "%s has not been [tagged](%%%%doc.tags%%%%) by anyone yet."
+msgstr ""
+
+#. TRANS: Page title for list of people tag subscribers.
+#. TRANS: %1$s is a tag, %2$s is a user nickname.
+#: actions/peopletagsubscribers.php:108
+#, php-format
+msgid "Subscribers of people tagged %1$s by %2$s"
+msgstr ""
+
+#. TRANS: Page title for list of people tag subscribers.
+#. TRANS: %1$s is a tag, %2$s is a user nickname, %3$d is a page number.
+#: actions/peopletagsubscribers.php:113
+#, php-format
+msgid "Subscribers of people tagged %1$s by %2$s, page %3$d"
+msgstr ""
+
+#. TRANS: Title for page that displays people tags subscribed to by a user.
+#. TRANS: %s is a profile nickname.
+#: actions/peopletagsubscriptions.php:51
+#, php-format
+msgid "People tags subscriptions by %s"
+msgstr ""
+
+#. TRANS: Title for page that displays people tags subscribed to by a user.
+#. TRANS: %1$s is a profile nickname, %2$d is a page number.
+#: actions/peopletagsubscriptions.php:55
+#, php-format
+msgid "People tags subscriptions by %1$s, page %2$d"
+msgstr ""
+
+#. TRANS: Message displayed for anonymous users on page that displays people tags subscribed to by a user.
+#. TRANS: This message contains Markdown links in the form [description](links).
+#. TRANS: %s is a profile nickname.
+#: actions/peopletagsubscriptions.php:110
+#, php-format
+msgid ""
+"These are people tags subscribed to by **%s**. People tags are how you sort "
+"similar people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia."
+"org/wiki/Micro-blogging) service based on the Free Software [StatusNet]"
+"(http://status.net/) tool. You can easily keep track of what they are doing "
+"by subscribing to the tag's timeline."
 msgstr ""
 
 #. TRANS: Page title for AJAX form return when a disabling a plugin.
@@ -4637,7 +5087,9 @@ msgstr ""
 #. TRANS: Do not translate POST.
 #. TRANS: Client error displayed trying to perform any request method other than POST.
 #. TRANS: Do not translate POST.
+#. TRANS: Client error displayed when trying to use another method than POST.
 #: actions/pluginenable.php:78 actions/subscribe.php:77
+#: actions/subscribepeopletag.php:66 actions/unsubscribepeopletag.php:67
 msgid "This action only accepts POST requests."
 msgstr ""
 
@@ -4692,6 +5144,24 @@ msgstr ""
 #: actions/postnotice.php:104
 #, php-format
 msgid "Notice license \"%1$s\" is not compatible with site license \"%2$s\"."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to add an unindentified field to profile.
+#. TRANS: %s is a field name.
+#: actions/profilecompletion.php:109
+#, php-format
+msgid "Unidentified field %s."
+msgstr ""
+
+#. TRANS: Page title.
+#: actions/profilecompletion.php:134
+msgctxt "TITLE"
+msgid "Search results"
+msgstr ""
+
+#. TRANS: Error message in case a search is shorter than three characters.
+#: actions/profilecompletion.php:164
+msgid "The search string must be at least 3 characters long."
 msgstr ""
 
 #. TRANS: Page title for profile settings.
@@ -4770,8 +5240,9 @@ msgstr ""
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Field label on group edit form.
+#. TRANS: Dropdown option for searching in profiles.
 #: actions/profilesettings.php:143 actions/register.php:505
-#: lib/groupeditform.php:184
+#: lib/groupeditform.php:184 lib/togglepeopletag.php:113
 msgid "Location"
 msgstr ""
 
@@ -4787,11 +5258,7 @@ msgid "Share my current location when posting notices"
 msgstr ""
 
 #. TRANS: Field label in form for profile settings.
-#. TRANS: Field label for inputting tags on "tag other users" page.
-#. TRANS: Description for link to "tag other users" in widget to show a list of profiles.
-#. TRANS: Text widget to show a list of profiles with their tags.
-#: actions/profilesettings.php:159 actions/tagother.php:137
-#: lib/subscriptionlist.php:104 lib/subscriptionlist.php:107
+#: actions/profilesettings.php:159 lib/galleryaction.php:124
 msgid "Tags"
 msgstr ""
 
@@ -4878,39 +5345,41 @@ msgstr ""
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
-#. TRANS: Form validation error when entering an invalid tag.
+#. TRANS: Form validation error displayed if a given tag is invalid.
 #. TRANS: %s is the invalid tag.
-#: actions/profilesettings.php:311 actions/tagother.php:171
+#. TRANS: Error displayed if a given tag is invalid.
+#. TRANS: %s is the invalid tag.
+#: actions/profilesettings.php:314 actions/tagprofile.php:205
+#: lib/command.php:455
 #, php-format
 msgid "Invalid tag: \"%s\"."
 msgstr ""
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
-#: actions/profilesettings.php:371
+#: actions/profilesettings.php:377
 msgid "Could not update user for autosubscribe or subscribe_policy."
 msgstr ""
 
 #. TRANS: Server error thrown when user profile location preference settings could not be updated.
-#: actions/profilesettings.php:429
+#: actions/profilesettings.php:435
 msgid "Could not save location prefs."
 msgstr ""
 
 #. TRANS: Server error thrown when user profile settings tags could not be saved.
-#. TRANS: Client error on "tag other users" page when saving tags fails server side.
-#: actions/profilesettings.php:451 actions/tagother.php:195
+#: actions/profilesettings.php:457
 msgid "Could not save tags."
 msgstr ""
 
 #. TRANS: Confirmation shown when user profile settings are saved.
 #. TRANS: Message after successful saving of administrative settings.
-#: actions/profilesettings.php:460 lib/adminpanelaction.php:138
+#: actions/profilesettings.php:466 lib/adminpanelaction.php:138
 msgid "Settings saved."
 msgstr ""
 
 #. TRANS: Option in profile settings to restore the account of the currently logged in user from a backup.
 #. TRANS: Page title for page where a user account can be restored from backup.
-#: actions/profilesettings.php:507 actions/restoreaccount.php:60
+#: actions/profilesettings.php:513 actions/restoreaccount.php:60
 msgid "Restore account"
 msgstr ""
 
@@ -4976,7 +5445,7 @@ msgstr ""
 
 #. TRANS: Message for not logged in users at an invite-only site trying to view the public feed of notices.
 #. TRANS: This message contains Markdown links. Please mind the formatting.
-#: actions/public.php:235
+#: actions/public.php:237
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4987,13 +5456,59 @@ msgstr ""
 
 #. TRANS: Message for not logged in users at a closed site trying to view the public feed of notices.
 #. TRANS: This message contains Markdown links. Please mind the formatting.
-#: actions/public.php:242
+#: actions/public.php:244
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
+
+#. TRANS: Title for page with public people tag cloud.
+#: actions/publicpeopletagcloud.php:57
+msgid "Public people tag cloud"
+msgstr ""
+
+#. TRANS: Page notice for page with public people tag cloud.
+#. TRANS: %s is a StatusNet sitename.
+#: actions/publicpeopletagcloud.php:65
+#, php-format
+msgid "These are most used people tags on %s"
+msgstr ""
+
+#. TRANS: Empty list message on page with public people tag cloud.
+#. TRANS: This message contains Markdown links in the form [description](link).
+#: actions/publicpeopletagcloud.php:73
+#, php-format
+msgid "No one has [tagged](%%doc.tags%%) anyone yet."
+msgstr ""
+
+#. TRANS: Additional empty list message on page with public people tag cloud for logged in users.
+#: actions/publicpeopletagcloud.php:77
+msgid "Be the first to tag someone!"
+msgstr ""
+
+#. TRANS: Additional empty list message on page with public people tag cloud for anonymous users.
+#. TRANS: This message contains Markdown links in the form [description](link).
+#: actions/publicpeopletagcloud.php:82
+#, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and be the first to tag "
+"someone!"
+msgstr ""
+
+#. TRANS: DT element on on page with public people tag cloud.
+#: actions/publicpeopletagcloud.php:136
+msgid "People tag cloud"
+msgstr ""
+
+#. TRANS: Link title for number of people tagged. %d is the number of people tagged.
+#: actions/publicpeopletagcloud.php:177
+#, php-format
+msgid "1 person tagged"
+msgid_plural "%d people tagged"
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
 #: actions/publicrss.php:106
@@ -5392,8 +5907,9 @@ msgstr ""
 #. TRANS: Button text on page for remote subscribe.
 #. TRANS: Link text for link that will subscribe to a remote profile.
 #. TRANS: Button text to subscribe to a user.
-#: actions/remotesubscribe.php:147 lib/accountprofileblock.php:290
-#: lib/subscribeform.php:130
+#. TRANS: Button text for subscribing to a people tag.
+#: actions/remotesubscribe.php:147 lib/accountprofileblock.php:308
+#: lib/subscribeform.php:130 lib/subscribepeopletagform.php:106
 msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr ""
@@ -5417,6 +5933,16 @@ msgstr ""
 #. TRANS: Form validation error on page for remote subscribe when the remote service is not providing a request token.
 #: actions/remotesubscribe.php:200
 msgid "Could not get a request token."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
+#: actions/removepeopletag.php:122
+msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
+msgstr ""
+
+#. TRANS: Title after untagging a people tag.
+#: actions/removepeopletag.php:167
+msgid "Untagged"
 msgstr ""
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
@@ -5626,6 +6152,20 @@ msgstr ""
 msgid "User is already sandboxed."
 msgstr ""
 
+#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
+#. TRANS: %s is the invalid tag.
+#: actions/selftag.php:68
+#, php-format
+msgid "Not a valid people tag: %s."
+msgstr ""
+
+#. TRANS: Page title for page showing self tags.
+#. TRANS: %1$s is a tag, %2$d is a page number.
+#: actions/selftag.php:154
+#, php-format
+msgid "Users self-tagged with %1$s, page %2$d"
+msgstr ""
+
 #. TRANS: Title for the sessions administration panel.
 #: actions/sessionsadminpanel.php:53
 msgctxt "TITLE"
@@ -5830,14 +6370,17 @@ msgid "Members"
 msgstr ""
 
 #. TRANS: Description for mini list of group members on a group page when the group has no members.
+#. TRANS: Content of "People tagged x by a user" if there are no tagged users.
+#. TRANS: Content of "People following tag x" if there are no subscribed users.
+#. TRANS: Empty list message for tags.
 #. TRANS: Text for user subscription statistics if the user has no subscriptions.
 #. TRANS: Text for user subscriber statistics if user has no subscribers.
 #. TRANS: Text for user user group membership statistics if user is not a member of any group.
 #. TRANS: Default content for section/sidebar widget.
-#. TRANS: Text if there are no tags in widget to show a list of profiles by tag.
-#: actions/showgroup.php:284 lib/profileaction.php:137
-#: lib/profileaction.php:174 lib/profileaction.php:298 lib/section.php:95
-#: lib/subscriptionlist.php:125
+#: actions/showgroup.php:284 actions/showprofiletag.php:305
+#: actions/showprofiletag.php:343 lib/peopletags.php:166
+#: lib/profileaction.php:139 lib/profileaction.php:176
+#: lib/profileaction.php:326 lib/section.php:107
 msgid "(None)"
 msgstr ""
 
@@ -5848,7 +6391,7 @@ msgstr ""
 
 #. TRANS: Header for group statistics on a group page (h2).
 #. TRANS: H2 text for user statistics.
-#: actions/showgroup.php:324 lib/profileaction.php:205
+#: actions/showgroup.php:324 lib/profileaction.php:233
 msgid "Statistics"
 msgstr ""
 
@@ -5928,6 +6471,107 @@ msgstr ""
 #. TRANS: Client error displayed trying to show a deleted notice.
 #: actions/shownotice.php:127
 msgid "Notice deleted."
+msgstr ""
+
+#. TRANS: Title for private people tag timeline.
+#. TRANS: %1$s is a people tag, %2$s is a page number.
+#: actions/showprofiletag.php:120
+#, php-format
+msgid "Private timeline for people tagged %1$s by you, page %2$d"
+msgstr ""
+
+#. TRANS: Title for public people tag timeline where the viewer is the tagger.
+#. TRANS: %1$s is a people tag, %2$s is a page number.
+#: actions/showprofiletag.php:128
+#, php-format
+msgid "Timeline for people tagged %1$s by you, page %2$d"
+msgstr ""
+
+#. TRANS: Title for private people tag timeline.
+#. TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
+#: actions/showprofiletag.php:134
+#, php-format
+msgid "Timeline for people tagged %1$s by %2$s, page %3$d"
+msgstr ""
+
+#. TRANS: Title for private people tag timeline.
+#. TRANS: %s is a people tag.
+#: actions/showprofiletag.php:143
+#, php-format
+msgid "Private timeline of people tagged %s by you"
+msgstr ""
+
+#. TRANS: Title for public people tag timeline where the viewer is the tagger.
+#. TRANS: %s is a people tag.
+#: actions/showprofiletag.php:151
+#, php-format
+msgid "Timeline for people tagged %s by you"
+msgstr ""
+
+#. TRANS: Title for private people tag timeline.
+#. TRANS: %1$s is a people tag, %2$s is the tagger's nickname.
+#: actions/showprofiletag.php:157
+#, php-format
+msgid "Timeline for people tagged %1$s by %2$s"
+msgstr ""
+
+#. TRANS: Feed title.
+#. TRANS: %1$s is a people tag, %2$s is tagger's nickname.
+#: actions/showprofiletag.php:188
+#, php-format
+msgid "Feed for people tagged %1$s by %2$s (Atom)"
+msgstr ""
+
+#. TRANS: Empty list message for people tag timeline.
+#. TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
+#: actions/showprofiletag.php:205
+#, php-format
+msgid ""
+"This is the timeline for people tagged %1$s by %2$s but no one has posted "
+"anything yet."
+msgstr ""
+
+#. TRANS: Additional empty list message for people tag timeline for currently logged in user tagged tags.
+#: actions/showprofiletag.php:213
+msgid "Try tagging more people."
+msgstr ""
+
+#. TRANS: Additional empty list message for people tag timeline.
+#. TRANS: This message contains Markdown links in the form [description](link).
+#: actions/showprofiletag.php:218
+#, php-format
+msgid ""
+"Why not [register an account](%%%%action.register%%%%) and start following "
+"this timeline!"
+msgstr ""
+
+#. TRANS: Header on show profile tag page.
+#. TRANS: %s is a people tag.
+#: actions/showprofiletag.php:287
+#, php-format
+msgid "People tagged %s by you"
+msgstr ""
+
+#. TRANS: Link for more "People tagged x by a user"
+#. TRANS: if there are more than the mini list's maximum.
+#: actions/showprofiletag.php:317
+msgid "Show all"
+msgstr ""
+
+#. TRANS: Header for tag subscribers.
+#. TRANS: Link description for link to list of users subscribed to a tag.
+#. TRANS: H2 text for user subscriber statistics.
+#. TRANS: Label for user statistics.
+#: actions/showprofiletag.php:334 lib/peopletaglist.php:183
+#: lib/profileaction.php:166 lib/profileaction.php:260
+msgid "Subscribers"
+msgstr ""
+
+#. TRANS: Link for more "People following tag x"
+#. TRANS: if there are more than the mini list's maximum.
+#. TRANS: Text for user subscription statistics if user has more subscribers than displayed.
+#: actions/showprofiletag.php:355 lib/profileaction.php:183
+msgid "All subscribers"
 msgstr ""
 
 #. TRANS: Page title showing tagged notices in one user's stream.
@@ -6492,9 +7136,28 @@ msgstr ""
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
 
-#. TRANS: Page title when subscription succeeded.
-#: actions/subscribe.php:149
-msgid "Subscribed"
+#. TRANS: Client error displayed when trying to perform an action while not logged in.
+#: actions/subscribepeopletag.php:59 actions/unsubscribepeopletag.php:60
+msgid "You must be logged in to unsubscribe to a people tag."
+msgstr ""
+
+#. TRANS: Client error displayed when trying to perform an action without providing an ID.
+#: actions/subscribepeopletag.php:89 actions/unsubscribepeopletag.php:90
+msgid "No ID given."
+msgstr ""
+
+#. TRANS: Server error displayed subscribing to a people tag fails.
+#. TRANS: %1$s is a user nickname, %2$s is a people tag.
+#: actions/subscribepeopletag.php:125
+#, php-format
+msgid "Could not subscribe user %1$s to people tag %2$s."
+msgstr ""
+
+#. TRANS: Title of form to subscribe to a people tag.
+#. TRANS: %1%s is a user nickname, %2$s is a people tag, %3$s is a tagger nickname.
+#: actions/subscribepeopletag.php:134
+#, php-format
+msgid "%1$s subscribed to people tag %2$s by %3$s"
 msgstr ""
 
 #. TRANS: Header for list of subscribers for a user (first page).
@@ -6637,49 +7300,68 @@ msgstr ""
 msgid "Notice feed for tag %s (Atom)"
 msgstr ""
 
-#. TRANS: Client error displayed on user tag page when trying to add tags without providing a user ID.
-#: actions/tagother.php:42
-msgid "No ID argument."
+#. TRANS: Client error displayed when trying to tag a user that cannot be tagged.
+#. TRANS: Client exception thrown trying to set a tag for a user that cannot be tagged.
+#. TRANS: Error displayed when trying to tag a user that cannot be tagged.
+#: actions/tagprofile.php:56 classes/Profile_tag.php:147 lib/command.php:440
+#: lib/command.php:496
+msgid "You cannot tag this user."
 msgstr ""
 
-#. TRANS: Title for "tag other users" page.
-#. TRANS: %s is the user nickname.
-#: actions/tagother.php:71
+#. TRANS: Title for people tag form when not on a profile page.
+#: actions/tagprofile.php:78
+msgid "Tag a profile"
+msgstr ""
+
+#. TRANS: Title for people tag form when on a profile page.
+#. TRANS: %s is a profile nickname.
+#: actions/tagprofile.php:82
 #, php-format
 msgid "Tag %s"
 msgstr ""
 
-#. TRANS: Header for user details on "tag other users" page.
-#: actions/tagother.php:84
+#. TRANS: Title for people tag form when an error has occurred.
+#: actions/tagprofile.php:92
+msgctxt "TITLE"
+msgid "Error"
+msgstr ""
+
+#. TRANS: Header in people tag form.
+#: actions/tagprofile.php:108
 msgid "User profile"
 msgstr ""
 
-#. TRANS: Fieldset legend on "tag other users" page.
-#: actions/tagother.php:128
+#. TRANS: Fieldset legend for people tag form.
+#: actions/tagprofile.php:151
 msgid "Tag user"
 msgstr ""
 
-#. TRANS: Title for input field for inputting tags on "tag other users" page.
-#: actions/tagother.php:140
-msgid ""
-"Tags for this user (letters, numbers, -, ., and _), separated by commas or "
-"spaces."
+#. TRANS: Field label on people tag form.
+#. TRANS: Label in self tags widget.
+#: actions/tagprofile.php:162 lib/peopletags.php:193
+msgctxt "LABEL"
+msgid "Tags"
 msgstr ""
 
-#. TRANS: Client error on "tag other users" page when tagging a user is not possible because of missing mutual subscriptions.
-#: actions/tagother.php:187
+#. TRANS: Field title on people tag form.
+#: actions/tagprofile.php:165
 msgid ""
-"You can only tag people you are subscribed to or who are subscribed to you."
+"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"separated."
 msgstr ""
 
-#. TRANS: Title of "tag other users" page.
-#: actions/tagother.php:205
+#: actions/tagprofile.php:228
 msgctxt "TITLE"
 msgid "Tags"
 msgstr ""
 
-#. TRANS: Page notice on "tag other users" page.
-#: actions/tagother.php:233
+#. TRANS: Success message if people tags are saved.
+#: actions/tagprofile.php:244
+msgid "Tags saved."
+msgstr ""
+
+#. TRANS: Page notice.
+#: actions/tagprofile.php:260
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
 
@@ -6706,6 +7388,13 @@ msgstr ""
 #. TRANS: Page title for page to unsubscribe.
 #: actions/unsubscribe.php:102
 msgid "Unsubscribed"
+msgstr ""
+
+#. TRANS: Page title for form that allows unsubscribing from a people tag.
+#. TRANS: %1$s is a nickname, %2$s is a people tag, %3$s is a tagger nickname.
+#: actions/unsubscribepeopletag.php:127
+#, php-format
+msgid "%1$s unsubscribed to people tag %2$s by %3$s"
 msgstr ""
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
@@ -7308,7 +7997,7 @@ msgstr ""
 #. TRANS: Server exception. %s are the error details.
 #: classes/Notice.php:211
 #, php-format
-msgid "Database error inserting hashtag: %s"
+msgid "Database error inserting hashtag: %s."
 msgstr ""
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
@@ -7378,25 +8067,30 @@ msgid "Problem saving notice."
 msgstr ""
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:990
+#: classes/Notice.php:1042
 msgid "Bad type provided to saveKnownGroups."
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1080
+#: classes/Notice.php:1132
 msgid "Problem saving group inbox."
+msgstr ""
+
+#. TRANS: Server exception thrown when saving profile_tag inbox fails.
+#: classes/Notice.php:1194
+msgid "Problem saving profile_tag inbox."
 msgstr ""
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1196
+#: classes/Notice.php:1312
 #, php-format
 msgid "Could not save reply for %1$d, %2$d."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1688
+#: classes/Notice.php:1804
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -7411,16 +8105,72 @@ msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:765
+#: classes/Profile.php:967
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:774
+#: classes/Profile.php:976
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
+msgstr ""
+
+#. TRANS: Server exception.
+#: classes/Profile_list.php:401
+msgid "The tag you are trying to rename to already exists."
+msgstr ""
+
+#. TRANS: Server exception saving new tag without having a tagger specified.
+#: classes/Profile_list.php:609
+msgid "No tagger specified."
+msgstr ""
+
+#. TRANS: Server exception saving new tag without having a tag specified.
+#: classes/Profile_list.php:614
+msgid "No tag specified."
+msgstr ""
+
+#. TRANS: Server exception saving new tag.
+#: classes/Profile_list.php:652
+msgid "Could not create profile tag."
+msgstr ""
+
+#. TRANS: Server exception saving new tag.
+#: classes/Profile_list.php:662
+msgid "Could not set profile tag URI."
+msgstr ""
+
+#. TRANS: Server exception saving new tag.
+#: classes/Profile_list.php:679
+msgid "Could not set profile tag mainpage."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to set more tags than allowed.
+#: classes/Profile_tag.php:157
+#, php-format
+msgid ""
+"You already have created %d or more tags which is the maximum allowed number "
+"of tags. Try using or deleting some existing tags."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to set one tag for more people than allowed.
+#: classes/Profile_tag.php:171
+#, php-format
+msgid ""
+"You already have %1$d or more people tagged %2$s, which is the maximum "
+"allowed number.Try untagging others with the same tag first."
+msgstr ""
+
+#. TRANS: Exception thrown when inserting a people tag subscription in the database fails.
+#: classes/Profile_tag_subscription.php:54
+msgid "Adding people tag subscription failed."
+msgstr ""
+
+#. TRANS: Exception thrown when deleting a people tag subscription from the database fails.
+#: classes/Profile_tag_subscription.php:81
+msgid "Removing people tag subscription failed."
 msgstr ""
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
@@ -7489,13 +8239,18 @@ msgstr ""
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
+#. TRANS: Exception thrown when trying view "repeated to me".
+#: classes/User.php:813
+msgid "Not implemented since inbox change."
+msgstr ""
+
 #. TRANS: Server exception.
-#: classes/User.php:898
+#: classes/User.php:899
 msgid "No single user defined for single-user mode."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/User.php:902
+#: classes/User.php:903
 msgid "Single-user mode code called when not enabled."
 msgstr ""
 
@@ -7542,55 +8297,55 @@ msgstr ""
 
 #. TRANS: H2 for user actions in a profile.
 #. TRANS: H2 for entity actions in a profile.
-#: lib/accountprofileblock.php:102 lib/accountprofileblock.php:117
+#: lib/accountprofileblock.php:120 lib/accountprofileblock.php:135
 msgid "User actions"
 msgstr ""
 
 #. TRANS: Text shown in user profile of not yet compeltely deleted users.
-#: lib/accountprofileblock.php:106
+#: lib/accountprofileblock.php:124
 msgid "User deletion in progress..."
 msgstr ""
 
 #. TRANS: Link title for link on user profile.
-#: lib/accountprofileblock.php:133
+#: lib/accountprofileblock.php:151
 msgid "Edit profile settings."
 msgstr ""
 
 #. TRANS: Link text for link on user profile.
-#: lib/accountprofileblock.php:135
+#: lib/accountprofileblock.php:153
 msgctxt "BUTTON"
 msgid "Edit"
 msgstr ""
 
 #. TRANS: Link title for link on user profile.
-#: lib/accountprofileblock.php:162
+#: lib/accountprofileblock.php:180
 msgid "Send a direct message to this user."
 msgstr ""
 
 #. TRANS: Link text for link on user profile.
-#: lib/accountprofileblock.php:164
+#: lib/accountprofileblock.php:182
 msgctxt "BUTTON"
 msgid "Message"
 msgstr ""
 
 #. TRANS: Label text on user profile to select a user role.
-#: lib/accountprofileblock.php:206
+#: lib/accountprofileblock.php:224
 msgid "Moderate"
 msgstr ""
 
 #. TRANS: Label text on user profile to select a user role.
-#: lib/accountprofileblock.php:245
+#: lib/accountprofileblock.php:263
 msgid "User role"
 msgstr ""
 
 #. TRANS: Role that can be set for a user profile.
-#: lib/accountprofileblock.php:248
+#: lib/accountprofileblock.php:266
 msgctxt "role"
 msgid "Administrator"
 msgstr ""
 
 #. TRANS: Role that can be set for a user profile.
-#: lib/accountprofileblock.php:250
+#: lib/accountprofileblock.php:268
 msgctxt "role"
 msgid "Moderator"
 msgstr ""
@@ -7607,25 +8362,25 @@ msgid "Untitled page"
 msgstr ""
 
 #. TRANS: Localized tooltip for '...' expansion button on overlong remote messages.
-#: lib/action.php:357
+#: lib/action.php:359
 msgctxt "TOOLTIP"
 msgid "Show more"
 msgstr ""
 
 #. TRANS: Inline reply form submit button: submits a reply comment.
-#: lib/action.php:360
+#: lib/action.php:362
 msgctxt "BUTTON"
 msgid "Reply"
 msgstr ""
 
 #. TRANS: Placeholder text for inline reply form. Clicking in this box will turn it into a mini notice form.
 #. TRANS: Field label for reply mini form.
-#: lib/action.php:363 lib/threadednoticelist.php:332
+#: lib/action.php:365 lib/threadednoticelist.php:339
 msgid "Write a reply..."
 msgstr ""
 
 #. TRANS: Tab on the notice form.
-#: lib/action.php:613
+#: lib/action.php:615
 msgctxt "TAB"
 msgid "Status"
 msgstr ""
@@ -7634,7 +8389,7 @@ msgstr ""
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
-#: lib/action.php:990
+#: lib/action.php:991
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -7642,7 +8397,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:993
+#: lib/action.php:994
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr ""
@@ -7651,7 +8406,7 @@ msgstr ""
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: %s is the version of StatusNet that is being used.
-#: lib/action.php:1000
+#: lib/action.php:1001
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -7661,39 +8416,39 @@ msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:1018
+#: lib/action.php:1019
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:1025
+#: lib/action.php:1026
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:1029
+#: lib/action.php:1030
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
 #. TRANS: license message in footer.
 #. TRANS: %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:1061
+#: lib/action.php:1062
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1404
+#: lib/action.php:1405
 msgid "After"
 msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1414
+#: lib/action.php:1415
 msgid "Before"
 msgstr ""
 
@@ -8054,7 +8809,10 @@ msgstr ""
 
 #. TRANS: Form input field label.
 #. TRANS: Text area label on group edit form; contains description of group.
+#. TRANS: Field label for description of people tag.
+#. TRANS: Dropdown option for searching in profiles.
 #: lib/applicationeditform.php:208 lib/groupeditform.php:178
+#: lib/peopletageditform.php:151 lib/togglepeopletag.php:111
 msgid "Description"
 msgstr ""
 
@@ -8124,7 +8882,8 @@ msgid "Cancel"
 msgstr ""
 
 #. TRANS: Submit button title.
-#: lib/applicationeditform.php:357
+#. TRANS: Button text to save a people tag.
+#: lib/applicationeditform.php:357 lib/peopletageditform.php:168
 msgid "Save"
 msgstr ""
 
@@ -8176,6 +8935,19 @@ msgstr ""
 #. TRANS: Server exception thrown when using the method setActivitySubject() in the class Atom10Feed.
 #: lib/atom10feed.php:160
 msgid "Do not use this method!"
+msgstr ""
+
+#. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
+#: lib/atomlistnoticefeed.php:65
+#, php-format
+msgid "Timeline for people tagged #%1$s by %2$s"
+msgstr ""
+
+#. TRANS: Message is used as a subtitle in atom list notice feed.
+#. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
+#: lib/atomlistnoticefeed.php:72
+#, php-format
+msgid "Updates from %1$s's %2$s people tag on %3$s!"
 msgstr ""
 
 #. TRANS: Title.
@@ -8248,7 +9020,7 @@ msgstr ""
 
 #. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
 #. TRANS: Error text shown when a last user notice is requested and it does not exist.
-#: lib/command.php:99 lib/command.php:622
+#: lib/command.php:99 lib/command.php:737
 msgid "User has no last notice."
 msgstr ""
 
@@ -8297,7 +9069,7 @@ msgstr ""
 
 #. TRANS: Error message text shown when a favorite could not be set because it has already been favorited.
 #: lib/command.php:298
-msgid "Could not create favorite: already favorited."
+msgid "Could not create favorite: Already favorited."
 msgstr ""
 
 #. TRANS: Text shown when a notice has been marked as favourite successfully.
@@ -8319,16 +9091,57 @@ msgstr ""
 msgid "%1$s left group %2$s."
 msgstr ""
 
+#. TRANS: Error displayed if tagging a user fails.
+#. TRANS: %1$s is the tagged user, %2$s is the error message (no punctuation).
+#: lib/command.php:468
+#, php-format
+msgid "Error tagging %1$s: %2$s"
+msgstr ""
+
+#. TRANS: Succes message displayed if tagging a user succeeds.
+#. TRANS: %1$s is the tagged user's nickname, %2$s is a list of tags.
+#: lib/command.php:475
+#, php-format
+msgid "%1$s was tagged %2$s"
+msgstr ""
+
+#. TRANS: Separator for list of tags.
+#. TRANS: Separator in list of user names like "You, Bob, Mary".
+#: lib/command.php:478 lib/command.php:528 lib/threadednoticelist.php:400
+msgid ", "
+msgstr ""
+
+#. TRANS: Error displayed if a given tag is invalid.
+#. TRANS: %s is the invalid tag.
+#: lib/command.php:506
+#, php-format
+msgid "Invalid tag: \"%s\""
+msgstr ""
+
+#. TRANS: Error displayed if untagging a user fails.
+#. TRANS: %1$s is the untagged user, %2$s is the error message (no punctuation).
+#: lib/command.php:518
+#, php-format
+msgid "Error untagging %1$s: %2$s"
+msgstr ""
+
+#. TRANS: Succes message displayed if untagging a user succeeds.
+#. TRANS: %1$s is the untagged user's nickname, %2$s is a list of tags.
+#: lib/command.php:525
+#, php-format
+msgid "The following tag(s) were removed from user %1$s: %2$s."
+msgstr ""
+
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
-#: lib/command.php:432
+#: lib/command.php:547
 #, php-format
 msgctxt "WHOIS"
 msgid "%1$s (%2$s)"
 msgstr ""
 
 #. TRANS: Whois output. %s is the full name of the queried user.
-#: lib/command.php:436
+#: lib/command.php:551
 #, php-format
 msgid "Fullname: %s"
 msgstr ""
@@ -8336,7 +9149,7 @@ msgstr ""
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is a location.
-#: lib/command.php:440 lib/mail.php:339
+#: lib/command.php:555 lib/mail.php:339
 #, php-format
 msgid "Location: %s"
 msgstr ""
@@ -8344,20 +9157,20 @@ msgstr ""
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in notification e-mail.
 #. TRANS: %s is a homepage.
-#: lib/command.php:444 lib/mail.php:344
+#: lib/command.php:559 lib/mail.php:344
 #, php-format
 msgid "Homepage: %s"
 msgstr ""
 
 #. TRANS: Whois output. %s is the bio information of the queried user.
-#: lib/command.php:448
+#: lib/command.php:563
 #, php-format
 msgid "About: %s"
 msgstr ""
 
 #. TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
 #. TRANS: %s is a remote profile.
-#: lib/command.php:477
+#: lib/command.php:592
 #, php-format
 msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
@@ -8368,7 +9181,7 @@ msgstr ""
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #. TRANS: Message given when a status is too long. %1$s is the maximum number of characters,
 #. TRANS: %2$s is the number of characters sent (used for plural).
-#: lib/command.php:494 lib/implugin.php:492
+#: lib/command.php:609 lib/implugin.php:492
 #, php-format
 msgid "Message too long - maximum is %1$d character, you sent %2$d."
 msgid_plural "Message too long - maximum is %1$d characters, you sent %2$d."
@@ -8376,25 +9189,25 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
-#: lib/command.php:507
+#: lib/command.php:622
 msgid "You can't send a message to this user."
 msgstr ""
 
 #. TRANS: Error text shown sending a direct message fails with an unknown reason.
-#: lib/command.php:522
+#: lib/command.php:637
 msgid "Error sending direct message."
 msgstr ""
 
 #. TRANS: Message given having repeated a notice from another user.
 #. TRANS: %s is the name of the user for which the notice was repeated.
-#: lib/command.php:546
+#: lib/command.php:661
 #, php-format
 msgid "Notice from %s repeated."
 msgstr ""
 
 #. TRANS: Message given if content of a notice for a reply is too long. %1$d is used for plural.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:583
+#: lib/command.php:698
 #, php-format
 msgid "Notice too long - maximum is %1$d character, you sent %2$d."
 msgid_plural "Notice too long - maximum is %1$d characters, you sent %2$d."
@@ -8403,100 +9216,100 @@ msgstr[1] ""
 
 #. TRANS: Text shown having sent a reply to a notice successfully.
 #. TRANS: %s is the nickname of the user of the notice the reply was sent to.
-#: lib/command.php:596
+#: lib/command.php:711
 #, php-format
 msgid "Reply to %s sent."
 msgstr ""
 
 #. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
-#: lib/command.php:599
+#: lib/command.php:714
 msgid "Error saving notice."
 msgstr ""
 
 #. TRANS: Error text shown when no username was provided when issuing a subscribe command.
-#: lib/command.php:646
+#: lib/command.php:761
 msgid "Specify the name of the user to subscribe to."
 msgstr ""
 
 #. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
-#: lib/command.php:655
+#: lib/command.php:770
 msgid "Can't subscribe to OMB profiles by command."
 msgstr ""
 
 #. TRANS: Text shown after having subscribed to another user successfully.
 #. TRANS: %s is the name of the user the subscription was requested for.
-#: lib/command.php:663
+#: lib/command.php:778
 #, php-format
 msgid "Subscribed to %s."
 msgstr ""
 
 #. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
 #. TRANS: Error text shown when no username was provided when issuing the command.
-#: lib/command.php:684 lib/command.php:795
+#: lib/command.php:799 lib/command.php:910
 msgid "Specify the name of the user to unsubscribe from."
 msgstr ""
 
 #. TRANS: Text shown after having unsubscribed from another user successfully.
 #. TRANS: %s is the name of the user the unsubscription was requested for.
-#: lib/command.php:695
+#: lib/command.php:810
 #, php-format
 msgid "Unsubscribed from %s."
 msgstr ""
 
 #. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
 #. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
-#: lib/command.php:715 lib/command.php:741
+#: lib/command.php:830 lib/command.php:856
 msgid "Command not yet implemented."
 msgstr ""
 
 #. TRANS: Text shown when issuing the command "off" successfully.
-#: lib/command.php:719
+#: lib/command.php:834
 msgid "Notification off."
 msgstr ""
 
 #. TRANS: Error text shown when the command "off" fails for an unknown reason.
-#: lib/command.php:722
+#: lib/command.php:837
 msgid "Can't turn off notification."
 msgstr ""
 
 #. TRANS: Text shown when issuing the command "on" successfully.
-#: lib/command.php:745
+#: lib/command.php:860
 msgid "Notification on."
 msgstr ""
 
 #. TRANS: Error text shown when the command "on" fails for an unknown reason.
-#: lib/command.php:748
+#: lib/command.php:863
 msgid "Can't turn on notification."
 msgstr ""
 
 #. TRANS: Error text shown when issuing the login command while login is disabled.
-#: lib/command.php:762
+#: lib/command.php:877
 msgid "Login command is disabled."
 msgstr ""
 
 #. TRANS: Text shown after issuing the login command successfully.
 #. TRANS: %s is a logon link..
-#: lib/command.php:775
+#: lib/command.php:890
 #, php-format
 msgid "This link is useable only once and is valid for only 2 minutes: %s."
 msgstr ""
 
 #. TRANS: Text shown after issuing the lose command successfully (stop another user from following the current user).
 #. TRANS: %s is the name of the user the unsubscription was requested for.
-#: lib/command.php:804
+#: lib/command.php:919
 #, php-format
 msgid "Unsubscribed %s."
 msgstr ""
 
 #. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
-#: lib/command.php:822
+#: lib/command.php:937
 msgid "You are not subscribed to anyone."
 msgstr ""
 
 #. TRANS: Text shown after requesting other users a user is subscribed to.
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribed users.
-#: lib/command.php:827
+#: lib/command.php:942
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] ""
@@ -8504,14 +9317,14 @@ msgstr[1] ""
 
 #. TRANS: Text shown after requesting other users that are subscribed to a user
 #. TRANS: (followers) without having any subscribers.
-#: lib/command.php:849
+#: lib/command.php:964
 msgid "No one is subscribed to you."
 msgstr ""
 
 #. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribing users.
-#: lib/command.php:854
+#: lib/command.php:969
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] ""
@@ -8519,200 +9332,212 @@ msgstr[1] ""
 
 #. TRANS: Text shown after requesting groups a user is subscribed to without having
 #. TRANS: any group subscriptions.
-#: lib/command.php:876
+#: lib/command.php:991
 msgid "You are not a member of any groups."
 msgstr ""
 
 #. TRANS: Text shown after requesting groups a user is subscribed to.
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribed groups.
-#: lib/command.php:881
+#: lib/command.php:996
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Header line of help text for commands.
-#: lib/command.php:895
+#: lib/command.php:1010
 msgctxt "COMMANDHELP"
 msgid "Commands:"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "on"
-#: lib/command.php:897
+#. TRANS: Help message for IM/SMS command "on".
+#: lib/command.php:1012
 msgctxt "COMMANDHELP"
 msgid "turn on notifications"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "off"
-#: lib/command.php:899
+#. TRANS: Help message for IM/SMS command "off".
+#: lib/command.php:1014
 msgctxt "COMMANDHELP"
 msgid "turn off notifications"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "help"
-#: lib/command.php:901
+#. TRANS: Help message for IM/SMS command "help".
+#: lib/command.php:1016
 msgctxt "COMMANDHELP"
 msgid "show this help"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "follow <nickname>"
-#: lib/command.php:903
+#. TRANS: Help message for IM/SMS command "follow <nickname>".
+#: lib/command.php:1018
 msgctxt "COMMANDHELP"
 msgid "subscribe to user"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "groups"
-#: lib/command.php:905
+#. TRANS: Help message for IM/SMS command "groups".
+#: lib/command.php:1020
 msgctxt "COMMANDHELP"
 msgid "lists the groups you have joined"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "subscriptions"
-#: lib/command.php:907
+#. TRANS: Help message for IM/SMS command "tag".
+#: lib/command.php:1022
+msgctxt "COMMANDHELP"
+msgid "tag a user"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "untag".
+#: lib/command.php:1024
+msgctxt "COMMANDHELP"
+msgid "untag a user"
+msgstr ""
+
+#. TRANS: Help message for IM/SMS command "subscriptions".
+#: lib/command.php:1026
 msgctxt "COMMANDHELP"
 msgid "list the people you follow"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "subscribers"
-#: lib/command.php:909
+#. TRANS: Help message for IM/SMS command "subscribers".
+#: lib/command.php:1028
 msgctxt "COMMANDHELP"
 msgid "list the people that follow you"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "leave <nickname>"
-#: lib/command.php:911
+#. TRANS: Help message for IM/SMS command "leave <nickname>".
+#: lib/command.php:1030
 msgctxt "COMMANDHELP"
 msgid "unsubscribe from user"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "d <nickname> <text>"
-#: lib/command.php:913
+#. TRANS: Help message for IM/SMS command "d <nickname> <text>".
+#: lib/command.php:1032
 msgctxt "COMMANDHELP"
 msgid "direct message to user"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "get <nickname>"
-#: lib/command.php:915
+#. TRANS: Help message for IM/SMS command "get <nickname>".
+#: lib/command.php:1034
 msgctxt "COMMANDHELP"
 msgid "get last notice from user"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "whois <nickname>"
-#: lib/command.php:917
+#. TRANS: Help message for IM/SMS command "whois <nickname>".
+#: lib/command.php:1036
 msgctxt "COMMANDHELP"
 msgid "get profile info on user"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "lose <nickname>"
-#: lib/command.php:919
+#. TRANS: Help message for IM/SMS command "lose <nickname>".
+#: lib/command.php:1038
 msgctxt "COMMANDHELP"
 msgid "force user to stop following you"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "fav <nickname>"
-#: lib/command.php:921
+#. TRANS: Help message for IM/SMS command "fav <nickname>".
+#: lib/command.php:1040
 msgctxt "COMMANDHELP"
 msgid "add user's last notice as a 'fave'"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "fav #<notice_id>"
-#: lib/command.php:923
+#. TRANS: Help message for IM/SMS command "fav #<notice_id>".
+#: lib/command.php:1042
 msgctxt "COMMANDHELP"
 msgid "add notice with the given id as a 'fave'"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "repeat #<notice_id>"
-#: lib/command.php:925
+#. TRANS: Help message for IM/SMS command "repeat #<notice_id>".
+#: lib/command.php:1044
 msgctxt "COMMANDHELP"
 msgid "repeat a notice with a given id"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "repeat <nickname>"
-#: lib/command.php:927
+#. TRANS: Help message for IM/SMS command "repeat <nickname>".
+#: lib/command.php:1046
 msgctxt "COMMANDHELP"
 msgid "repeat the last notice from user"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "reply #<notice_id>"
-#: lib/command.php:929
+#. TRANS: Help message for IM/SMS command "reply #<notice_id>".
+#: lib/command.php:1048
 msgctxt "COMMANDHELP"
 msgid "reply to notice with a given id"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "reply <nickname>"
-#: lib/command.php:931
+#. TRANS: Help message for IM/SMS command "reply <nickname>".
+#: lib/command.php:1050
 msgctxt "COMMANDHELP"
 msgid "reply to the last notice from user"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "join <group>"
-#: lib/command.php:933
+#. TRANS: Help message for IM/SMS command "join <group>".
+#: lib/command.php:1052
 msgctxt "COMMANDHELP"
 msgid "join group"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "login"
-#: lib/command.php:935
+#. TRANS: Help message for IM/SMS command "login".
+#: lib/command.php:1054
 msgctxt "COMMANDHELP"
 msgid "Get a link to login to the web interface"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "drop <group>"
-#: lib/command.php:937
+#. TRANS: Help message for IM/SMS command "drop <group>".
+#: lib/command.php:1056
 msgctxt "COMMANDHELP"
 msgid "leave group"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "stats"
-#: lib/command.php:939
+#. TRANS: Help message for IM/SMS command "stats".
+#: lib/command.php:1058
 msgctxt "COMMANDHELP"
 msgid "get your stats"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "stop"
-#. TRANS: Help message for IM/SMS command "quit"
-#: lib/command.php:941 lib/command.php:943
+#. TRANS: Help message for IM/SMS command "stop".
+#. TRANS: Help message for IM/SMS command "quit".
+#: lib/command.php:1060 lib/command.php:1062
 msgctxt "COMMANDHELP"
 msgid "same as 'off'"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "sub <nickname>"
-#: lib/command.php:945
+#. TRANS: Help message for IM/SMS command "sub <nickname>".
+#: lib/command.php:1064
 msgctxt "COMMANDHELP"
 msgid "same as 'follow'"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "unsub <nickname>"
-#: lib/command.php:947
+#. TRANS: Help message for IM/SMS command "unsub <nickname>".
+#: lib/command.php:1066
 msgctxt "COMMANDHELP"
 msgid "same as 'leave'"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "last <nickname>"
-#: lib/command.php:949
+#. TRANS: Help message for IM/SMS command "last <nickname>".
+#: lib/command.php:1068
 msgctxt "COMMANDHELP"
 msgid "same as 'get'"
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "on <nickname>"
-#. TRANS: Help message for IM/SMS command "off <nickname>"
-#. TRANS: Help message for IM/SMS command "invite <phone number>"
-#. TRANS: Help message for IM/SMS command "track <word>"
-#. TRANS: Help message for IM/SMS command "untrack <word>"
-#. TRANS: Help message for IM/SMS command "track off"
-#. TRANS: Help message for IM/SMS command "untrack all"
-#. TRANS: Help message for IM/SMS command "tracks"
-#. TRANS: Help message for IM/SMS command "tracking"
-#: lib/command.php:951 lib/command.php:953 lib/command.php:957
-#: lib/command.php:959 lib/command.php:961 lib/command.php:963
-#: lib/command.php:965 lib/command.php:967 lib/command.php:969
+#. TRANS: Help message for IM/SMS command "on <nickname>".
+#. TRANS: Help message for IM/SMS command "off <nickname>".
+#. TRANS: Help message for IM/SMS command "invite <phone number>".
+#. TRANS: Help message for IM/SMS command "track <word>".
+#. TRANS: Help message for IM/SMS command "untrack <word>".
+#. TRANS: Help message for IM/SMS command "track off".
+#. TRANS: Help message for IM/SMS command "untrack all".
+#. TRANS: Help message for IM/SMS command "tracks".
+#. TRANS: Help message for IM/SMS command "tracking".
+#: lib/command.php:1070 lib/command.php:1072 lib/command.php:1076
+#: lib/command.php:1078 lib/command.php:1080 lib/command.php:1082
+#: lib/command.php:1084 lib/command.php:1086 lib/command.php:1088
 msgctxt "COMMANDHELP"
 msgid "not yet implemented."
 msgstr ""
 
-#. TRANS: Help message for IM/SMS command "nudge <nickname>"
-#: lib/command.php:955
+#. TRANS: Help message for IM/SMS command "nudge <nickname>".
+#: lib/command.php:1074
 msgctxt "COMMANDHELP"
 msgid "remind a user to update."
 msgstr ""
@@ -8882,30 +9707,19 @@ msgid "Feeds"
 msgstr ""
 
 #. TRANS: List element on gallery action page to show all tags.
-#: lib/galleryaction.php:132
+#: lib/galleryaction.php:135
 msgctxt "TAGS"
 msgid "All"
 msgstr ""
 
-#. TRANS: Fieldset legend on gallery action page.
-#: lib/galleryaction.php:141
-msgid "Select tag to filter"
-msgstr ""
-
 #. TRANS: Dropdown field label on gallery action page for a list containing tags.
-#: lib/galleryaction.php:143
+#: lib/galleryaction.php:146
 msgid "Tag"
 msgstr ""
 
 #. TRANS: Dropdown field title on gallery action page for a list containing tags.
-#: lib/galleryaction.php:145
-msgid "Choose a tag to narrow list."
-msgstr ""
-
-#. TRANS: Submit button text on gallery action page.
 #: lib/galleryaction.php:148
-msgctxt "BUTTON"
-msgid "Go"
+msgid "Choose a tag to narrow list."
 msgstr ""
 
 #. TRANS: Description on form for granting a role.
@@ -9882,6 +10696,143 @@ msgstr ""
 msgid "No oEmbed API endpoint available."
 msgstr ""
 
+#. TRANS: Field label for people tag.
+#: lib/peopletageditform.php:131
+msgctxt "LABEL"
+msgid "Tag"
+msgstr ""
+
+#. TRANS: Field title for people tag.
+#: lib/peopletageditform.php:134
+msgid "Change the tag (letters, numbers, -, ., and _ are allowed)."
+msgstr ""
+
+#. TRANS: Field title for description of people tag.
+#: lib/peopletageditform.php:141
+msgid "Describe the people tag or topic."
+msgstr ""
+
+#. TRANS: Field title for description of people tag.
+#. TRANS: %d is the maximum number of characters for the description.
+#: lib/peopletageditform.php:145
+#, php-format
+msgid "Describe the people tag or topic in %d character."
+msgid_plural "Describe the people tag or topic in %d characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANS: Button title to delete a people tag.
+#: lib/peopletageditform.php:175
+msgid "Delete this people tag."
+msgstr ""
+
+#. TRANS: Header in people tag edit form.
+#: lib/peopletageditform.php:182
+msgid "Add or remove people"
+msgstr ""
+
+#. TRANS: Header in people tag edit form.
+#: lib/peopletageditform.php:186
+msgctxt "HEADER"
+msgid "Search"
+msgstr ""
+
+#. TRANS: Menu item in people tag navigation panel.
+#: lib/peopletaggroupnav.php:107
+msgctxt "MENU"
+msgid "People tag"
+msgstr ""
+
+#. TRANS: Menu item title in people tag navigation panel.
+#. TRANS: %1$s is a tag, %2$s is a nickname.
+#: lib/peopletaggroupnav.php:110 lib/peopletaggroupnav.php:121
+#, php-format
+msgid "%1$s tag by %2$s."
+msgstr ""
+
+#. TRANS: Menu item in people tag navigation panel.
+#: lib/peopletaggroupnav.php:118
+msgctxt "MENU"
+msgid "Tagged"
+msgstr ""
+
+#. TRANS: Menu item in people tag navigation panel.
+#. TRANS: Menu item in local navigation menu.
+#: lib/peopletaggroupnav.php:129 lib/subgroupnav.php:96
+msgctxt "MENU"
+msgid "Subscribers"
+msgstr ""
+
+#. TRANS: Menu item title in people tag navigation panel.
+#. TRANS: %1$s is a tag, %2$s is a nickname.
+#: lib/peopletaggroupnav.php:132
+#, php-format
+msgid "Subscribers to %1$s tag by %2$s."
+msgstr ""
+
+#. TRANS: Menu item in people tag navigation panel.
+#: lib/peopletaggroupnav.php:142
+msgctxt "MENU"
+msgid "Edit"
+msgstr ""
+
+#. TRANS: Menu item title in people tag navigation panel.
+#. TRANS: %s is a tag.
+#: lib/peopletaggroupnav.php:145
+#, php-format
+msgid "Edit %s tag by you."
+msgstr ""
+
+#. TRANS: Link description for link to list of users tagged with a tag.
+#: lib/peopletaglist.php:173
+msgid "Tagged"
+msgstr ""
+
+#. TRANS: Title for link to edit people tag settings.
+#: lib/peopletaglist.php:196
+msgid "Edit people tag settings."
+msgstr ""
+
+#. TRANS: Text for link to edit people tag settings.
+#: lib/peopletaglist.php:198
+msgid "Edit"
+msgstr ""
+
+#. TRANS: Privacy mode text in people tag list item for private tags.
+#: lib/peopletaglist.php:260
+msgctxt "MODE"
+msgid "Private"
+msgstr ""
+
+#. TRANS: Label in people tags widget.
+#: lib/peopletags.php:87
+msgctxt "LABEL"
+msgid "Tags by you"
+msgstr ""
+
+#. TRANS: Fieldset legend in people tags widget.
+#: lib/peopletags.php:135
+msgctxt "LEGEND"
+msgid "Edit tags"
+msgstr ""
+
+#. TRANS: Title for section contaning people tags with the most subscribers.
+#: lib/peopletagsbysubssection.php:69
+msgid "People tags with most subscribers"
+msgstr ""
+
+#. TRANS: Tag summary. %1$d is the number of users tagged with the tag,
+#. TRANS: %2$d is the number of subscribers to the tag.
+#: lib/peopletagsection.php:124
+#, php-format
+msgid "Tagged: %1$d Subscribers: %2$d"
+msgstr ""
+
+#. TRANS: Title for page that displays people tags a user has subscribed to.
+#: lib/peopletagsubscriptionssection.php:65
+msgid "People tag subscriptions"
+msgstr ""
+
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -9914,13 +10865,27 @@ msgid "User"
 msgstr ""
 
 #. TRANS: Menu item in personal group navigation menu.
+#. TRANS: Menu item in search group navigation panel.
+#. TRANS: Menu item title in local navigation menu.
+#: lib/personalgroupnav.php:109 lib/publicgroupnav.php:78
+#: lib/subgroupnav.php:135
+msgctxt "MENU"
+msgid "People tags"
+msgstr ""
+
+#. TRANS: Replaces %s in 'People tags by %s'. (Yes, we know we need to fix this.)
 #: lib/personalgroupnav.php:115
+msgid "User"
+msgstr ""
+
+#. TRANS: Menu item in personal group navigation menu.
+#: lib/personalgroupnav.php:127
 msgctxt "MENU"
 msgid "Messages"
 msgstr ""
 
 #. TRANS: Menu item title in personal group navigation menu.
-#: lib/personalgroupnav.php:117
+#: lib/personalgroupnav.php:129
 msgid "Your incoming messages"
 msgstr ""
 
@@ -9997,55 +10962,44 @@ msgstr ""
 
 #. TRANS: H2 text for user subscription statistics.
 #. TRANS: Label for user statistics.
-#: lib/profileaction.php:127 lib/profileaction.php:225
+#: lib/profileaction.php:129 lib/profileaction.php:253
 msgid "Subscriptions"
 msgstr ""
 
 #. TRANS: Text for user subscription statistics if user has more subscriptions than displayed.
-#: lib/profileaction.php:144
+#: lib/profileaction.php:146
 msgid "All subscriptions"
 msgstr ""
 
-#. TRANS: H2 text for user subscriber statistics.
 #. TRANS: Label for user statistics.
-#: lib/profileaction.php:164 lib/profileaction.php:232
-msgid "Subscribers"
-msgstr ""
-
-#. TRANS: Text for user subscription statistics if user has more subscribers than displayed.
-#: lib/profileaction.php:181
-msgid "All subscribers"
-msgstr ""
-
-#. TRANS: Label for user statistics.
-#: lib/profileaction.php:213
+#: lib/profileaction.php:241
 msgid "User ID"
 msgstr ""
 
 #. TRANS: Label for user statistics.
-#: lib/profileaction.php:219
+#: lib/profileaction.php:247
 msgid "Member since"
 msgstr ""
 
 #. TRANS: Label for user statistics.
 #. TRANS: H2 text for user group membership statistics.
-#: lib/profileaction.php:239 lib/profileaction.php:290
+#: lib/profileaction.php:267 lib/profileaction.php:318
 msgid "Groups"
 msgstr ""
 
 #. TRANS: Label for user statistics.
-#: lib/profileaction.php:246
+#: lib/profileaction.php:274
 msgid "Notices"
 msgstr ""
 
 #. TRANS: Label for user statistics.
 #. TRANS: Average count of posts made per day since account registration.
-#: lib/profileaction.php:253
+#: lib/profileaction.php:281
 msgid "Daily average"
 msgstr ""
 
 #. TRANS: Text for user group membership statistics if user has more subscriptions than displayed.
-#: lib/profileaction.php:305
+#: lib/profileaction.php:333
 msgid "All groups"
 msgstr ""
 
@@ -10070,14 +11024,19 @@ msgstr ""
 msgid "Recent tags"
 msgstr ""
 
+#. TRANS: Menu item title in search group navigation panel.
+#: lib/publicgroupnav.php:80
+msgid "People tags"
+msgstr ""
+
 #. TRANS: Menu item in search group navigation panel.
-#: lib/publicgroupnav.php:79
+#: lib/publicgroupnav.php:85
 msgctxt "MENU"
 msgid "Featured"
 msgstr ""
 
 #. TRANS: Menu item in search group navigation panel.
-#: lib/publicgroupnav.php:85
+#: lib/publicgroupnav.php:91
 msgctxt "MENU"
 msgid "Popular"
 msgstr ""
@@ -10104,7 +11063,7 @@ msgid "Revoke the \"%s\" role from this user"
 msgstr ""
 
 #. TRANS: Client error on action trying to visit a non-existing page.
-#: lib/router.php:1016
+#: lib/router.php:1150
 msgid "Page not found."
 msgstr ""
 
@@ -10131,7 +11090,8 @@ msgid "Keyword(s)"
 msgstr ""
 
 #. TRANS: Button text for searching site.
-#: lib/searchaction.php:130
+#. TRANS: Button text to search profiles.
+#: lib/searchaction.php:130 lib/togglepeopletag.php:134
 msgctxt "BUTTON"
 msgid "Search"
 msgstr ""
@@ -10243,12 +11203,12 @@ msgid "Badge"
 msgstr ""
 
 #. TRANS: Default title for section/sidebar widget.
-#: lib/section.php:88
+#: lib/section.php:95
 msgid "Untitled section"
 msgstr ""
 
 #. TRANS: Default "More..." title for section/sidebar widget.
-#: lib/section.php:107
+#: lib/section.php:119
 msgid "More..."
 msgstr ""
 
@@ -10369,12 +11329,6 @@ msgstr ""
 msgid "People %s subscribes to."
 msgstr ""
 
-#. TRANS: Menu item in local navigation menu.
-#: lib/subgroupnav.php:96
-msgctxt "MENU"
-msgid "Subscribers"
-msgstr ""
-
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
 #: lib/subgroupnav.php:99
@@ -10403,15 +11357,22 @@ msgstr ""
 msgid "Groups %s is a member of."
 msgstr ""
 
+#. TRANS: Menu item title in local navigation menu.
+#. TRANS: %s is a user nickname.
+#: lib/subgroupnav.php:138
+#, php-format
+msgid "People tags by %s."
+msgstr ""
+
 #. TRANS: Menu item in local navigation menu.
-#: lib/subgroupnav.php:134
+#: lib/subgroupnav.php:146
 msgctxt "MENU"
 msgid "Invite"
 msgstr ""
 
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
-#: lib/subgroupnav.php:137
+#: lib/subgroupnav.php:149
 #, php-format
 msgid "Invite friends and colleagues to join you on %s."
 msgstr ""
@@ -10508,7 +11469,7 @@ msgstr ""
 
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
-#: lib/threadednoticelist.php:291
+#: lib/threadednoticelist.php:298
 #, php-format
 msgid "Show reply"
 msgid_plural "Show all %d replies"
@@ -10516,33 +11477,28 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Reference to the logged in user in favourite list.
-#: lib/threadednoticelist.php:357
+#: lib/threadednoticelist.php:364
 msgctxt "FAVELIST"
 msgid "You"
 msgstr ""
 
-#. TRANS: Separator in list of user names like "You, Bob, Mary".
-#: lib/threadednoticelist.php:393
-msgid ", "
-msgstr ""
-
 #. TRANS: For building a list such as "You, bob, mary and 5 others have favored this notice".
 #. TRANS: %1$s is a list of users, separated by a separator (default: ", "), %2$s is the last user in the list.
-#: lib/threadednoticelist.php:396
+#: lib/threadednoticelist.php:403
 #, php-format
 msgctxt "FAVELIST"
 msgid "%1$s and %2$s"
 msgstr ""
 
 #. TRANS: List message for notice favoured by logged in user.
-#: lib/threadednoticelist.php:421
+#: lib/threadednoticelist.php:428
 msgctxt "FAVELIST"
 msgid "You have favored this notice."
 msgstr ""
 
 #. TRANS: List message for favoured notices.
 #. TRANS: %d is the number of users that have favoured a notice.
-#: lib/threadednoticelist.php:425
+#: lib/threadednoticelist.php:432
 #, php-format
 msgid "One person has favored this notice."
 msgid_plural "%d people have favored this notice."
@@ -10550,19 +11506,65 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: List message for notice repeated by logged in user.
-#: lib/threadednoticelist.php:479
+#: lib/threadednoticelist.php:486
 msgctxt "REPEATLIST"
 msgid "You have repeated this notice."
 msgstr ""
 
 #. TRANS: List message for repeated notices.
 #. TRANS: %d is the number of users that have repeated a notice.
-#: lib/threadednoticelist.php:483
+#: lib/threadednoticelist.php:490
 #, php-format
 msgid "One person has repeated this notice."
 msgid_plural "%d people have repeated this notice."
 msgstr[0] ""
 msgstr[1] ""
+
+#. TRANS: Form legend.
+#: lib/togglepeopletag.php:94
+#, php-format
+msgid "Search and list people"
+msgstr ""
+
+#. TRANS: Dropdown option for searching in profiles.
+#: lib/togglepeopletag.php:105
+msgid "Everything"
+msgstr ""
+
+#. TRANS: Dropdown option for searching in profiles.
+#: lib/togglepeopletag.php:109
+msgid "Fullname"
+msgstr ""
+
+#. TRANS: Dropdown option for searching in profiles.
+#: lib/togglepeopletag.php:115
+msgid "URI (Remote users)"
+msgstr ""
+
+#. TRANS: Dropdown field label.
+#: lib/togglepeopletag.php:121
+msgctxt "LABEL"
+msgid "Search in"
+msgstr ""
+
+#. TRANS: Dropdown field title.
+#: lib/togglepeopletag.php:123
+msgid "Choose a field to search."
+msgstr ""
+
+#. TRANS: Form legend.
+#. TRANS: %1$s is a nickname, $2$s is a people tag.
+#: lib/togglepeopletag.php:190
+#, php-format
+msgid "Untag %1$s as %2$s"
+msgstr ""
+
+#. TRANS: Legend on form to add a tag to a profile.
+#. TRANS: %1$s is a nickname, %2$s ia a people tag.
+#: lib/togglepeopletag.php:268
+#, php-format
+msgid "Tag %1$s as %2$s"
+msgstr ""
 
 #. TRANS: Title for top posters section.
 #: lib/topposterssection.php:74
@@ -10633,7 +11635,8 @@ msgid "Unsubscribe from this user"
 msgstr ""
 
 #. TRANS: Button text on unsubscribe form.
-#: lib/unsubscribeform.php:132
+#. TRANS: Button text for unsubscribing from a people tag.
+#: lib/unsubscribeform.php:132 lib/unsubscribepeopletagform.php:106
 msgctxt "BUTTON"
 msgid "Unsubscribe"
 msgstr ""
@@ -10651,17 +11654,17 @@ msgid "Not allowed to log in."
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1332
+#: lib/util.php:1334
 msgid "a few seconds ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1335
+#: lib/util.php:1337
 msgid "about a minute ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1339
+#: lib/util.php:1341
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -10669,12 +11672,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1342
+#: lib/util.php:1344
 msgid "about an hour ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1346
+#: lib/util.php:1348
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -10682,12 +11685,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1349
+#: lib/util.php:1351
 msgid "about a day ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1353
+#: lib/util.php:1355
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -10695,12 +11698,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1356
+#: lib/util.php:1358
 msgid "about a month ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1360
+#: lib/util.php:1362
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -10708,7 +11711,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1363
+#: lib/util.php:1365
 msgid "about a year ago"
 msgstr ""
 
