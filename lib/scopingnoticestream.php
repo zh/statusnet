@@ -49,16 +49,15 @@ class ScopingNoticeStream extends FilteringNoticeStream
 {
     protected $profile;
 
-    function __construct($upstream, $profile = null)
+    function __construct($upstream, $profile = -1)
     {
         parent::__construct($upstream);
 
-        if (empty($profile)) {
-            $user = common_current_user();
-            if (!empty($user)) {
-                $profile = $user->getProfile();
-            }
+        // Invalid but not null
+        if (is_int($profile) && $profile == -1) {
+            $profile = Profile::current();
         }
+
         $this->profile = $profile;
     }
 
@@ -74,5 +73,4 @@ class ScopingNoticeStream extends FilteringNoticeStream
     {
         return $notice->inScope($this->profile);
     }
-    
 }
