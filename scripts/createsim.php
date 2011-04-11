@@ -81,9 +81,8 @@ function newNotice($i, $tagmax)
     $content = 'Test notice content';
 
     if ($is_reply == 0) {
-        common_set_user($user);
-        $stream = new InboxNoticeStream($user);
-        $notices = $stream->getNotices(0, 20, null, null);
+        $stream = new InboxNoticeStream($user, $user->getProfile());
+        $notices = $stream->getNotices(0, 20);
         if ($notices->N > 0) {
             $nval = rand(0, $notices->N - 1);
             $notices->fetch(); // go to 0th
@@ -212,15 +211,33 @@ function main($usercount, $groupcount, $noticeavg, $subsavg, $joinsavg, $tagmax)
     global $config;
     $config['site']['dupelimit'] = -1;
 
-    $n = 1;
-    $g = 1;
+    $n = 0;
+    $g = 0;
 
-    newUser(0);
-    newGroup(0, $n);
+    // Make users first
+
+    $preuser = min($usercount, 5);
+
+    for ($j = 0; $j < $preuser; $j++) {
+        printfv("$i Creating user $n\n");
+        newUser($n);
+        $n++;
+    }
+
+    $pregroup = min($groupcount, 3);
+
+    for ($k = 0; $k < $pregroup; $k++) {
+        printfv("$i Creating group $g\n");
+        newGroup($g, $n);
+        $g++;
+    }
 
     // # registrations + # notices + # subs
 
     $events = $usercount + $groupcount + ($usercount * ($noticeavg + $subsavg + $joinsavg));
+
+    $events -= $preuser;
+    $events -= $pregroup;
 
     $ut = $usercount;
     $gt = $ut + $groupcount;
