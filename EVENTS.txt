@@ -1342,3 +1342,12 @@ EndAddEmailAddress: done adding an email address through the Web UI
 - $user: user getting the new address
 - $email: email being added
 
+StartValidateEmailInvite: when validating an email address for invitations
+- $user: user doing the invite
+- $email: email address
+- &$valid: flag for if it's valid; can be modified
+
+EndValidateEmailInvite: after validating an email address for invitations
+- $user: user doing the invite
+- $email: email address
+- &$valid: flag for if it's valid; can be modified
