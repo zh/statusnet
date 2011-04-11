@@ -56,7 +56,7 @@ abstract class FilteringNoticeStream extends NoticeStream
 
     abstract function filter($notice);
 
-    function getNotices($offset, $limit, $sinceId, $maxId)
+    function getNotices($offset, $limit, $sinceId=null, $maxId=null)
     {
         // "offset" is virtual; we have to get a lot
         $total = $offset + $limit;
