@@ -146,9 +146,7 @@ class ShowgroupAction extends GroupDesignAction
             return false;
         }
 
-        $cur = common_current_user();
-
-        $this->userProfile = (empty($cur)) ? null : $cur->getProfile();
+        $this->userProfile = Profile::current();
 
         $stream = new GroupNoticeStream($this->group, $this->userProfile);
 
@@ -201,7 +199,7 @@ class ShowgroupAction extends GroupDesignAction
      */
     function showGroupNotices()
     {
-        $nl = new ThreadedNoticeList($notice, $this, $this->userProfile);
+        $nl = new ThreadedNoticeList($this->notice, $this, $this->userProfile);
         $cnt = $nl->show();
 
         $this->pagination($this->page > 1,
