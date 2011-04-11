@@ -1304,4 +1304,15 @@ class Profile extends Memcached_DataObject
 
         return true;
     }
+
+    static function current()
+    {
+        $user = common_current_user();
+        if (empty($user)) {
+            $profile = null;
+        } else {
+            $profile = $user->getProfile();
+        }
+        return $profile;
+    }
 }
