@@ -279,7 +279,7 @@ $default =
               'order' => array('built-in', 'well-known', 'service', 'discovery'),
         ),
         'search' =>
-        array('type' => 'fulltext'),
+        array('type' => 'like'),
         'sessions' =>
         array('handle' => false,   // whether to handle sessions ourselves
               'debug' => false,    // debugging output for sessions
