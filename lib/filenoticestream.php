@@ -36,10 +36,14 @@ if (!defined('STATUSNET')) {
 
 class FileNoticeStream extends ScopingNoticeStream
 {
-    function __construct($file)
+    function __construct($file, $profile = -1)
     {
+        if (is_int($profile) && $profile == -1) {
+            $profile = Profile::current();
+        }
         parent::__construct(new CachingNoticeStream(new RawFileNoticeStream($file),
-                                                    'file:notice-ids:'.$this->url));
+                                                    'file:notice-ids:'.$this->url),
+                            $profile);
     }
 }
 

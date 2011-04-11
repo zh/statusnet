@@ -47,10 +47,14 @@ if (!defined('STATUSNET')) {
  */
 class PeopletagNoticeStream extends ScopingNoticeStream
 {
-    function __construct($plist)
+    function __construct($plist, $profile = -1)
     {
+        if (is_int($profile) && $profile == -1) {
+            $profile = Profile::current();
+        }
         parent::__construct(new CachingNoticeStream(new RawPeopletagNoticeStream($plist),
-                                                    'profile_tag:notice_ids:' . $plist->id));
+                                                    'profile_tag:notice_ids:' . $plist->id),
+                            $profile);
     }
 }
 

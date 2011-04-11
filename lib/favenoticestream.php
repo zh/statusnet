@@ -46,7 +46,7 @@ if (!defined('STATUSNET')) {
  */
 class FaveNoticeStream extends ScopingNoticeStream
 {
-    function __construct($user_id, $own)
+    function __construct($user_id, $own, $profile = -1)
     {
         $stream = new RawFaveNoticeStream($user_id, $own);
         if ($own) {
@@ -54,7 +54,11 @@ class FaveNoticeStream extends ScopingNoticeStream
         } else {
             $key = 'fave:ids_by_user:'.$user_id;
         }
-        parent::__construct(new CachingNoticeStream($stream, $key));
+        if (is_int($profile) && $profile == -1) {
+            $profile = Profile::current();
+        }
+        parent::__construct(new CachingNoticeStream($stream, $key),
+                            $profile);
     }
 }
 

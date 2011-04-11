@@ -47,8 +47,11 @@ if (!defined('STATUSNET')) {
 
 class TagNoticeStream extends ScopingNoticeStream
 {
-    function __construct($tag)
+    function __construct($tag, $profile = -1)
     {
+        if (is_int($profile) && $profile == -1) {
+            $profile = Profile::current();
+        }
         parent::__construct(new CachingNoticeStream(new RawTagNoticeStream($tag),
                                                     'notice_tag:notice_ids:' . Cache::keyize($tag)));
     }

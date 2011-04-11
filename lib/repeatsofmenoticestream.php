@@ -47,10 +47,14 @@ if (!defined('STATUSNET')) {
 
 class RepeatsOfMeNoticeStream extends ScopingNoticeStream
 {
-    function __construct($user)
+    function __construct($user, $profile=-1)
     {
+        if (is_int($profile) && $profile == -1) {
+            $profile = Profile::current();
+        }
         parent::__construct(new CachingNoticeStream(new RawRepeatsOfMeNoticeStream($user),
-                                                    'user:repeats_of_me:'.$user->id));
+                                                    'user:repeats_of_me:'.$user->id),
+                            $profile);
     }
 }
 
