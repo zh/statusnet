@@ -95,6 +95,7 @@ var SN = { // StatusNet
          * @access private
          */
         FormNoticeEnhancements: function(form) {
+            console.log("FormNoticeEnhancements - begin");
             if (jQuery.data(form[0], 'ElementData') === undefined) {
                 MaxLength = form.find('.count').text();
                 if (typeof(MaxLength) == 'undefined') {
@@ -262,7 +263,7 @@ var SN = { // StatusNet
                         errorReported = $('#error', xhr.responseXML).text();
                     }
                     alert(errorReported || errorThrown || textStatus);
-                    
+
                     // Restore the form to original state.
                     // Hopefully. :D
                     form
@@ -320,6 +321,7 @@ var SN = { // StatusNet
          * @access public
          */
         FormNoticeXHR: function(form) {
+            console.log("FormNoticeXHR - begin");
             SN.C.I.NoticeDataGeo = {};
             form.append('<input type="hidden" name="ajax" value="1"/>');
 
@@ -506,7 +508,7 @@ var SN = { // StatusNet
                         results_placeholder.replaceWith(list);
                     }
                     else {
-                        var _error = $('<li/>').append(document._importNode($('p', data)[0], true)); 
+                        var _error = $('<li/>').append(document._importNode($('p', data)[0], true));
                         results_placeholder.html(_error);
                     }
                     form
@@ -777,6 +779,7 @@ var SN = { // StatusNet
          * popout before submitting.
          *
          * Uses 'live' rather than 'bind', so applies to future as well as present items.
+         *
          */
         NoticeRepeat: function() {
             $('.form_repeat').live('click', function(e) {

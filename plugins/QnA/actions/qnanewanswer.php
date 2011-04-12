@@ -93,8 +93,6 @@ class QnanewanswerAction extends Action
 
         $id = substr($this->trimmed('id'), 9);
 
-        common_debug("XXXXXXXXXXXXXXXXXX id = " . $id);
-
         $this->question = QnA_Question::staticGet('id', $id);
 
         if (empty($this->question)) {
@@ -124,7 +122,7 @@ class QnanewanswerAction extends Action
         if ($this->isPost()) {
             $this->newAnswer();
         } else {
-            $this->showPage();
+            $this->showForm();
         }
 
         return;
@@ -147,7 +145,7 @@ class QnanewanswerAction extends Action
             );
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
-            $this->showPage();
+            $this->showForm($this->error);
             return;
         }
         if ($this->boolean('ajax')) {
@@ -230,4 +228,74 @@ class QnanewanswerAction extends Action
             return false;
         }
     }
+
+    /**
+     * Show an Ajax-y error message
+     *
+     * Goes back to the browser, where it's shown in a popup.
+     *
+     * @param string $msg Message to show
+     *
+     * @return void
+     */
+    function ajaxErrorMsg($msg)
+    {
+        $this->startHTML('text/xml;charset=utf-8', true);
+        $this->elementStart('head');
+        // TRANS: Page title after an AJAX error occurs on the post answer page.
+        $this->element('title', null, _('Ajax Error'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $this->element('p', array('id' => 'error'), $msg);
+        $this->elementEnd('body');
+        $this->elementEnd('html');
+    }
+
+    /**
+     * Show an Ajax-y answer form
+     *
+     * Goes back to the browser, where it's shown in a popup.
+     *
+     * @param string $msg Message to show
+     *
+     * @return void
+     */
+    function ajaxShowForm()
+    {
+        common_debug('ajaxShowForm()');
+        $this->startHTML('text/xml;charset=utf-8', true);
+        $this->elementStart('head');
+        // TRANS: Title for form to send answer to a question.
+        $this->element('title', null, _m('TITLE','Your answer'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+
+        $form = new QnanewanswerForm($this, $this->question);
+        $form->show();
+
+        $this->elementEnd('body');
+        $this->elementEnd('html');
+    }
+
+    /**
+     * @param string $msg An error message, if any
+     *
+     * @return void
+     */
+    function showForm($msg = null)
+    {
+        common_debug("show form - msg = $msg");
+        if ($this->boolean('ajax')) {
+            if ($msg) {
+                $this->ajaxErrorMsg($msg);
+            } else {
+                $this->ajaxShowForm();
+            }
+            return;
+        }
+
+        $this->msg = $msg;
+        $this->showPage();
+    }
+
 }
