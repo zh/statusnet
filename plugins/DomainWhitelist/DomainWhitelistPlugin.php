@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Restrict the email addresses in a domain to a select whitelist
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class DomainWhitelistPlugin extends Plugin
 {
     function onRequireValidatedEmailPlugin_Override($user, &$knownGood)
@@ -56,6 +55,7 @@ class DomainWhitelistPlugin extends Plugin
     function onStartAddEmailAddress($user, $email)
     {
         if (!$this->matchesWhitelist($email)) {
+            // TRANS: Exception thrown when an e-mail address does not match the site's domain whitelist.
             throw new Exception(_('That email address is not allowed on this site.'));
         }
 
@@ -89,7 +89,7 @@ class DomainWhitelistPlugin extends Plugin
     function getWhitelist()
     {
         $whitelist = common_config('email', 'whitelist');
-        
+
         if (is_array($whitelist)) {
             return $whitelist;
         } else {
@@ -104,7 +104,8 @@ class DomainWhitelistPlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:DomainWhitelist',
                             'rawdescription' =>
-                            _m('Restrict domains for email users'));
+                            // TRANS: Plugin description.
+                            _m('Restrict domains for email users.'));
         return true;
     }
 }
