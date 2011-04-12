@@ -132,19 +132,19 @@ class NoticesearchAction extends SearchAction
      */
     function showResults($q, $page)
     {
-        if ($this->notice->N === 0) {
-            $this->showEmptyResults($q, $page);
-        }
-
         if (Event::handle('StartNoticeSearchShowResults', array($this, $q, $this->notice))) {
-            $terms = preg_split('/[\s,]+/', $q);
-            $nl = new SearchNoticeList($this->notice, $this, $terms);
-            $cnt = $nl->show();
-            $this->pagination($page > 1,
-                              $cnt > NOTICES_PER_PAGE,
-                              $page,
-                              'noticesearch',
-                              array('q' => $q));
+            if ($this->notice->N === 0) {
+                $this->showEmptyResults($q, $page);
+            } else {
+                $terms = preg_split('/[\s,]+/', $q);
+                $nl = new SearchNoticeList($this->notice, $this, $terms);
+                $cnt = $nl->show();
+                $this->pagination($page > 1,
+                                  $cnt > NOTICES_PER_PAGE,
+                                  $page,
+                                  'noticesearch',
+                                  array('q' => $q));
+            }
             Event::handle('EndNoticeSearchShowResults', array($this, $q, $this->notice));
         }
     }
