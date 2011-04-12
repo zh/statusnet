@@ -331,6 +331,8 @@ class NewnoticeAction extends Action
     }
 
     /**
+     * // XXX: Should we be showing the notice form with microapps here?
+     *
      * Overload for replies or bad results
      *
      * We show content in the notice form if there were replies or results.
@@ -357,7 +359,7 @@ class NewnoticeAction extends Action
             'div',
             array(
                 'id'    => 'input_form_status',
-                'class' => 'input_form current'
+                'class' => 'input_form current nonav'
             )
         );
 

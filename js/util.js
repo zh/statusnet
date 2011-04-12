@@ -1389,6 +1389,14 @@ var SN = { // StatusNet
                 $('#input_form_nav_'+tag).addClass('current');
             }
 
+            // Don't remove 'current' if we also have the "nonav" class.
+            // An example would be the message input form. removing
+            // 'current' will cause the form to vanish from the page.
+            var nonav = $('.input_form.current.nonav');
+            if (nonav.length > 0) {
+                return;
+            }
+
 	    $('.input_form.current').removeClass('current');
 	    $('#input_form_'+tag)
                 .addClass('current')

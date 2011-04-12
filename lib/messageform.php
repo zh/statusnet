@@ -196,7 +196,7 @@ class MessageForm extends Form
             'div',
             array(
                 'id'    => 'input_form_direct',
-                'class' => 'input_form current'
+                'class' => 'input_form current nonav'
             )
         );
 
