@@ -33,7 +33,7 @@ require_once INSTALLDIR.'/lib/feedlist.php';
 
 class ShowprofiletagAction extends Action
 {
-    var $notice, $tagger, $peopletag;
+    var $notice, $tagger, $peopletag, $userProfile;
 
     function isReadOnly($args)
     {
@@ -88,7 +88,12 @@ class ShowprofiletagAction extends Action
         }
 
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-        $this->notice = $this->peopletag->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        $this->userProfile = Profile::current();
+
+        $stream = new PeopletagNoticeStream($this->peopletag, $this->userProfile);
+
+        $this->notice = $stream->getNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                            NOTICES_PER_PAGE + 1);
 
         if ($this->page > 1 && $this->notice->N == 0) {
             // TRANS: Server error when page not found (404).
@@ -239,7 +244,7 @@ class ShowprofiletagAction extends Action
     function showNotices()
     {
         if (Event::handle('StartShowProfileTagContent', array($this))) {
-            $nl = new NoticeList($this->notice, $this);
+            $nl = new ThreadedNoticeList($this->notice, $this, $this->userProfile);
 
             $cnt = $nl->show();
 
@@ -247,10 +252,12 @@ class ShowprofiletagAction extends Action
                 $this->showEmptyListMessage();
             }
 
-            $this->pagination(
-                $this->page > 1, $cnt > NOTICES_PER_PAGE,
-                $this->page, 'showprofiletag', array('tag' => $this->peopletag->tag,
-                                                     'tagger' => $this->tagger->nickname)
+            $this->pagination($this->page > 1,
+                              $cnt > NOTICES_PER_PAGE,
+                              $this->page,
+                              'showprofiletag',
+                              array('tag' => $this->peopletag->tag,
+                                    'tagger' => $this->tagger->nickname)
             );
 
             Event::handle('EndShowProfileTagContent', array($this));
