@@ -352,10 +352,27 @@ class NewnoticeAction extends Action
             $inreplyto = null;
         }
 
-        $notice_form = new NoticeForm($this, array('content' => $content, 
-                                                   'inreplyto' => $inreplyto));
+        $this->elementStart('div', 'input_forms');
+        $this->elementStart(
+            'div',
+            array(
+                'id'    => 'input_form_status',
+                'class' => 'input_form current'
+            )
+        );
+
+        $notice_form = new NoticeForm(
+            $this,
+            array(
+                'content' => $content,
+                'inreplyto' => $inreplyto
+            )
+        );
 
         $notice_form->show();
+
+        $this->elementEnd('div');
+        $this->elementEnd('div');
     }
 
     /**

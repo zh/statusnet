@@ -178,4 +178,32 @@ class MessageForm extends Form
                                            // TRANS: Button text for sending a direct notice.
                                            'value' => _m('Send button for sending notice', 'Send')));
     }
+
+
+    /**
+     * Show the form
+     *
+     * Uses a recipe to output the form.
+     *
+     * @return void
+     * @see Widget::show()
+     */
+
+    function show()
+    {
+        $this->elementStart('div', 'input_forms');
+        $this->elementStart(
+            'div',
+            array(
+                'id'    => 'input_form_direct',
+                'class' => 'input_form current'
+            )
+        );
+
+        parent::show();
+
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+
+    }
 }
