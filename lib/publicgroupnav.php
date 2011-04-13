@@ -47,6 +47,9 @@ require_once INSTALLDIR.'/lib/widget.php';
  */
 class PublicGroupNav extends Menu
 {
+
+    var $actionName = null;
+
     /**
      * Show the menu
      *
@@ -54,7 +57,7 @@ class PublicGroupNav extends Menu
      */
     function show()
     {
-        $action_name = $this->action->trimmed('action');
+        $this->actionName = $this->action->trimmed('action');
 
         $this->action->elementStart('ul', array('class' => 'nav'));
 
@@ -62,35 +65,35 @@ class PublicGroupNav extends Menu
             // TRANS: Menu item in search group navigation panel.
             $this->out->menuItem(common_local_url('public'), _m('MENU','Public'),
                 // TRANS: Menu item title in search group navigation panel.
-                _('Public timeline'), $action_name == 'public', 'nav_timeline_public');
+                _('Public timeline'), $this->actionName == 'public', 'nav_timeline_public');
 
             // TRANS: Menu item in search group navigation panel.
             $this->out->menuItem(common_local_url('groups'), _m('MENU','Groups'),
                 // TRANS: Menu item title in search group navigation panel.
-                _('User groups'), $action_name == 'groups', 'nav_groups');
+                _('User groups'), $this->actionName == 'groups', 'nav_groups');
 
             // TRANS: Menu item in search group navigation panel.
             $this->out->menuItem(common_local_url('publictagcloud'), _m('MENU','Recent tags'),
                 // TRANS: Menu item title in search group navigation panel.
-                _('Recent tags'), $action_name == 'publictagcloud', 'nav_recent-tags');
+                _('Recent tags'), $this->actionName == 'publictagcloud', 'nav_recent-tags');
 
             // TRANS: Menu item in search group navigation panel.
             $this->out->menuItem(common_local_url('publicpeopletagcloud'), _m('MENU','People tags'),
                 // TRANS: Menu item title in search group navigation panel.
-                _('People tags'), in_array($action_name, array('publicpeopletagcloud',
+                _('People tags'), in_array($this->actionName, array('publicpeopletagcloud',
                                     'peopletag', 'selftag')), 'nav_people-tags');
 
             if (count(common_config('nickname', 'featured')) > 0) {
                 // TRANS: Menu item in search group navigation panel.
                 $this->out->menuItem(common_local_url('featured'), _m('MENU','Featured'),
                     // TRANS: Menu item title in search group navigation panel.
-                    _('Featured users'), $action_name == 'featured', 'nav_featured');
+                    _('Featured users'), $this->actionName == 'featured', 'nav_featured');
             }
 
             // TRANS: Menu item in search group navigation panel.
             $this->out->menuItem(common_local_url('favorited'), _m('MENU','Popular'),
                 // TRANS: Menu item title in search group navigation panel.
-                _('Popular notices'), $action_name == 'favorited', 'nav_timeline_favorited');
+                _('Popular notices'), $this->actionName == 'favorited', 'nav_timeline_favorited');
 
             Event::handle('EndPublicGroupNav', array($this));
         }

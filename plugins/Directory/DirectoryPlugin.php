@@ -155,6 +155,9 @@ class DirectoryPlugin extends Plugin
         return true;
     }
 
+    // The following three function are to replace the existing groups
+    // list page with the directory plugin's group directory page
+
     /**
      * Hijack the mapping (Action -> URL) and return the URL to our
      * group directory page instead of the normal groups page
@@ -190,6 +193,24 @@ class DirectoryPlugin extends Plugin
             $action->cssLink($this->path('css/directory.css'));
         }
 
+        return true;
+    }
+
+    /**
+     * Fool the public nav into thinking it's on the regular
+     * group page when it's actually on our injected group
+     * directory page. This way "Groups" gets hilighted when
+     * when we're on the groups directory page.
+     *
+     * @param type $action the current action
+     *
+     * @return boolean hook flag
+     */
+    function onStartPublicGroupNav($action)
+    {
+        if ($action->trimmed('action') == 'groupdirectory') {
+            $action->actionName = 'groups';
+        }
         return true;
     }
 
