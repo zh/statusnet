@@ -472,10 +472,13 @@ class TagCommand extends Command
 
         // TRANS: Succes message displayed if tagging a user succeeds.
         // TRANS: %1$s is the tagged user's nickname, %2$s is a list of tags.
-        $channel->output($cur, sprintf(_('%1$s was tagged %2$s'),
-                                              $profile->nickname,
-                                              // TRANS: Separator for list of tags.
-                                              implode(_(', '), $clean_tags)));
+        // TRANS: Plural is decided based on the number of tags added (not part of message).
+        $channel->output($cur, sprintf(_m('%1$s was tagged %2$s',
+                                          '%1$s was tagged %2$s',
+                                          count($clean_tags)),
+                                       $profile->nickname,
+                                       // TRANS: Separator for list of tags.
+                                       implode(_(', '), $clean_tags)));
     }
 }
 
@@ -522,10 +525,13 @@ class UntagCommand extends TagCommand
 
         // TRANS: Succes message displayed if untagging a user succeeds.
         // TRANS: %1$s is the untagged user's nickname, %2$s is a list of tags.
-        $channel->output($cur, sprintf(_('The following tag(s) were removed from user %1$s: %2$s.'),
-                                              $profile->nickname,
-                                              // TRANS: Separator for list of tags.
-                                              implode(_(', '), $tags)));
+        // TRANS: Plural is decided based on the number of tags removed (not part of message).
+        $channel->output($cur, sprintf(_m('The following tag was removed from user %1$s: %2$s.',
+                                         'The following tags were removed from user %1$s: %2$s.',
+                                         count($tags)),
+                                       $profile->nickname,
+                                       // TRANS: Separator for list of tags.
+                                       implode(_(', '), $tags)));
     }
 }
 
