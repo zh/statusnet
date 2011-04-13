@@ -154,6 +154,7 @@ class BookmarkPlugin extends MicroAppPlugin
             include_once $dir.'/'.$cls.'.php';
             return false;
         case 'BookmarkForm':
+        case 'InitialBookmarkForm':
         case 'DeliciousBackupImporter':
         case 'DeliciousBookmarkImporter':
             include_once $dir.'/'.strtolower($cls).'.php';
