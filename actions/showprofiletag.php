@@ -122,7 +122,7 @@ class ShowprofiletagAction extends Action
             if($this->peopletag->private) {
                 // TRANS: Title for private people tag timeline.
                 // TRANS: %1$s is a people tag, %2$s is a page number.
-                return sprintf(_('Private timeline for people tagged %1$s by you, page %2$d'),
+                return sprintf(_('Private timeline for %1$s list by you, page %2$d'),
                                 $this->peopletag->tag, $this->page);
             }
 
@@ -130,13 +130,13 @@ class ShowprofiletagAction extends Action
             if (!empty($current) && $current->id == $this->peopletag->tagger) {
                 // TRANS: Title for public people tag timeline where the viewer is the tagger.
                 // TRANS: %1$s is a people tag, %2$s is a page number.
-                return sprintf(_('Timeline for people tagged %1$s by you, page %2$d'),
+                return sprintf(_('Timeline for %1$s list by you, page %2$d'),
                                 $this->peopletag->tag, $this->page);
             }
 
             // TRANS: Title for private people tag timeline.
             // TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
-            return sprintf(_('Timeline for people tagged %1$s by %2$s, page %3$d'),
+            return sprintf(_('Timeline for %1$s list by %2$s, page %3$d'),
                                 $this->peopletag->tag,
                                 $this->tagger->nickname,
                                 $this->page
@@ -145,7 +145,7 @@ class ShowprofiletagAction extends Action
             if($this->peopletag->private) {
                 // TRANS: Title for private people tag timeline.
                 // TRANS: %s is a people tag.
-                return sprintf(_('Private timeline of people tagged %s by you'),
+                return sprintf(_('Private timeline of %s list by you'),
                                 $this->peopletag->tag);
             }
 
@@ -153,13 +153,13 @@ class ShowprofiletagAction extends Action
             if (!empty($current) && $current->id == $this->peopletag->tagger) {
                 // TRANS: Title for public people tag timeline where the viewer is the tagger.
                 // TRANS: %s is a people tag.
-                return sprintf(_('Timeline for people tagged %s by you'),
+                return sprintf(_('Timeline for %s list by you'),
                                 $this->peopletag->tag);
             }
 
             // TRANS: Title for private people tag timeline.
             // TRANS: %1$s is a people tag, %2$s is the tagger's nickname.
-            return sprintf(_('Timeline for people tagged %1$s by %2$s'),
+            return sprintf(_('Timeline for %1$s list by %2$s'),
                                 $this->peopletag->tag,
                                 $this->tagger->nickname
                           );
@@ -190,7 +190,7 @@ class ShowprofiletagAction extends Action
                 ),
                 // TRANS: Feed title.
                 // TRANS: %1$s is a people tag, %2$s is tagger's nickname.
-                sprintf(_('Feed for people tagged %1$s by %2$s (Atom)'),
+                sprintf(_('Feed for %1$s list by %2$s (Atom)'),
                             $this->peopletag->tag, $this->tagger->nickname
                        )
               )
@@ -207,7 +207,7 @@ class ShowprofiletagAction extends Action
     {
         // TRANS: Empty list message for people tag timeline.
         // TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
-        $message = sprintf(_('This is the timeline for people tagged %1$s by %2$s but no one has posted anything yet.'),
+        $message = sprintf(_('This is the timeline for %1$s list by %2$s but no one has posted anything yet.'),
                            $this->peopletag->tag,
                            $this->tagger->nickname) . ' ';
 
@@ -291,11 +291,11 @@ class ShowprofiletagAction extends Action
             if(!empty($current) && $this->peopletag->tagger == $current->id) {
                 // TRANS: Header on show profile tag page.
                 // TRANS: %s is a people tag.
-                $title =  sprintf(_('People tagged %s by you'), $this->peopletag->tag);
+                $title =  sprintf(_('Listed'), $this->peopletag->tag);
             } else {
                 // TRANS: Header on show profile tag page.
                 // TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
-                $title = sprintf(_('People tagged %1$s by %2$s'),
+                $title = sprintf(_('Listed'),
                                 $this->peopletag->tag,
                                 $this->tagger->nickname);
             }

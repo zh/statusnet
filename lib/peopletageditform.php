@@ -107,7 +107,7 @@ class PeopletagEditForm extends Form
     {
         // TRANS: Form legend for people tag edit form.
         // TRANS: %s is a people tag.
-        $this->out->element('legend', null, sprintf(_('Edit people tag %s'), $this->peopletag->tag));
+        $this->out->element('legend', null, sprintf(_('Edit list %s'), $this->peopletag->tag));
     }
 
     /**
@@ -138,12 +138,12 @@ class PeopletagEditForm extends Form
         $desclimit = Profile_list::maxDescription();
         if ($desclimit == 0) {
             // TRANS: Field title for description of people tag.
-            $descinstr = _('Describe the people tag or topic.');
+            $descinstr = _('Describe the list or topic.');
         } else {
             // TRANS: Field title for description of people tag.
             // TRANS: %d is the maximum number of characters for the description.
-            $descinstr = sprintf(_m('Describe the people tag or topic in %d character.',
-                                    'Describe the people tag or topic in %d characters.',
+            $descinstr = sprintf(_m('Describe the list or topic in %d character.',
+                                    'Describe the list or topic in %d characters.',
                                     $desclimit),
                                  $desclimit);
         }
@@ -172,7 +172,7 @@ class PeopletagEditForm extends Form
                       'submit',
                       'delete',
                       // TRANS: Button title to delete a people tag.
-                      _('Delete this people tag.'));
+                      _('Delete this list.'));
     }
 
     function showProfileList()

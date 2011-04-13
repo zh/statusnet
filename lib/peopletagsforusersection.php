@@ -62,13 +62,15 @@ class PeopletagsForUserSection extends PeopletagSection
 
     function title()
     {
-        $name = $this->profile->getBestName();
-        if ($this->profile->id == common_current_user()->id) {
-            $name = 'you';
+        $user = common_current_user();
+
+        if (!empty($user) && $this->profile->id == $user->id) {
+            return sprintf(_('Lists with you'));
         }
-        // TRANS: Title for page that displays which people tags a user has been tagged with.
+        // TRANS: Title for page that displays
+        //        which people tags a user has been tagged with.
         // TRANS: %s is a profile name.
-        return sprintf(_('People tags for %s'), $name);
+        return sprintf(_('Lists with %s'), $this->profile->getBestName());
     }
 
     function link()

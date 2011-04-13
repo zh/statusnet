@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * People tags by a user
+ * Lists by a user
  *
  * PHP version 5
  *
@@ -49,22 +49,22 @@ class PeopletagsbyuserAction extends OwnerDesignAction
         if ($this->page == 1) {
             if ($this->isOwner()) {
                 if ($this->arg('private')) {
-                    // TRANS: Title for people tags by a user page for a private tag.
-                    return _('Private people tags by you');
+                    // TRANS: Title for lists by a user page for a private tag.
+                    return _('Private lists by you');
                 } else if ($this->arg('public')) {
-                    // TRANS: Title for people tags by a user page for a public tag.
-                    return _('Public people tags by you');
+                    // TRANS: Title for lists by a user page for a public tag.
+                    return _('Public lists by you');
                 }
-                // TRANS: Title for people tags by a user page.
-                return _('People tags by you');
+                // TRANS: Title for lists by a user page.
+                return _('Lists by you');
             }
-            // TRANS: Title for people tags by a user page.
+            // TRANS: Title for lists by a user page.
             // TRANS: %s is a user nickname.
-            return sprintf(_('People tags by %s'), $this->tagger->nickname);
+            return sprintf(_('Lists by %s'), $this->tagger->nickname);
         } else {
-            // TRANS: Title for people tags by a user page.
+            // TRANS: Title for lists by a user page.
             // TRANS: %1$s is a user nickname, %2$d is a page number.
-            return sprintf(_('People tags by %1$s, page %2$d'), $this->tagger->nickname, $this->page);
+            return sprintf(_('Lists by %1$s, page %2$d'), $this->tagger->nickname, $this->page);
         }
     }
 
@@ -124,8 +124,8 @@ class PeopletagsbyuserAction extends OwnerDesignAction
             if ($this->isOwner()) {
                 $this->tags = $this->tagger->getPrivateTags($offset, $limit);
             } else {
-                // TRANS: Client error displayed when trying view another user's private people tags.
-                $this->clientError(_('You cannot view others\' private people tags'), 403);
+                // TRANS: Client error displayed when trying view another user's private lists.
+                $this->clientError(_('You cannot view others\' private lists'), 403);
             }
         } else {
             $this->tags = $this->tagger->getOwnedTags(common_current_user(), $offset, $limit);
@@ -160,8 +160,8 @@ class PeopletagsbyuserAction extends OwnerDesignAction
                        array('href' =>
                              common_local_url('peopletagsforuser',
                                               array('nickname' => $this->user->nickname))),
-                       // TRANS: Link text to show people tags for user %s.
-                       sprintf(_('People tags for %s'), $this->tagger->nickname));
+                       // TRANS: Link text to show lists for user %s.
+                       sprintf(_('Lists for %s'), $this->tagger->nickname));
         $this->elementEnd('li');
 
         if ($this->isOwner()) {
@@ -204,11 +204,11 @@ class PeopletagsbyuserAction extends OwnerDesignAction
     function showAnonymousMessage()
     {
         $notice =
-          // TRANS: Message displayed for anonymous users on page that displays people tags by a user.
+          // TRANS: Message displayed for anonymous users on page that displays lists by a user.
           // TRANS: This message contains Markdown links in the form [description](links).
           // TRANS: %s is a tagger nickname.
-          sprintf(_('These are people tags created by **%s**. ' .
-                    'People tags are how you sort similar ' .
+          sprintf(_('These are lists created by **%s**. ' .
+                    'Lists are how you sort similar ' .
                     'people on %%%%site.name%%%%, a [micro-blogging]' .
                     '(http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                     'based on the Free Software [StatusNet](http://status.net/) tool. ' .
@@ -259,15 +259,27 @@ class PeopletagsbyuserAction extends OwnerDesignAction
         return !empty($user) && $user->id == $this->tagger->id;
     }
 
+    function showObjectNav()
+    {
+        $nav = new PeopletagNav($this, $this->tagger);
+        $nav->show();
+    }
+
     function showEmptyListMessage()
     {
-          // TRANS: Message displayed on page that displays people tags by a user when there are none.
+          // TRANS: Message displayed on page that displays lists by a user when there are none.
           // TRANS: This message contains Markdown links in the form [description](links).
           // TRANS: %s is a tagger nickname.
-        $message = sprintf(_('%s has not created any [people tags](%%%%doc.tags%%%%) yet.'), $this->tagger->nickname);
+        $message = sprintf(_('%s has not created any [lists](%%%%doc.lists%%%%) yet.'), $this->tagger->nickname);
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
+    }
+
+    function showProfileBlock()
+    {
+        $block = new AccountProfileBlock($this, $this->tagger);
+        $block->show();
     }
 
     function showSections()

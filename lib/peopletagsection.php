@@ -83,6 +83,7 @@ class PeopletagSection extends Section
 
 class PeopletagSectionItem extends PeopletagListItem
 {
+
     function showStart()
     {
     }
@@ -104,10 +105,11 @@ class PeopletagSectionItem extends PeopletagListItem
             common_log(LOG_WARNING, "Trying to show missing peopletag; skipping.");
             return;
         }
+        $mode = ($this->peopletag->private) ? 'private' : 'public';
 
         $this->out->elementStart('tr');
 
-        $this->out->elementStart('td', 'peopletag');
+        $this->out->elementStart('td', 'peopletag mode-' . $mode);
         $this->showPeopletag();
         $this->out->elementEnd('td');
 
@@ -121,11 +123,12 @@ class PeopletagSectionItem extends PeopletagListItem
     {
         // TRANS: Tag summary. %1$d is the number of users tagged with the tag,
         // TRANS: %2$d is the number of subscribers to the tag.
-        $title = sprintf(_('Tagged: %1$d Subscribers: %2$d'),
+        $title = sprintf(_('Listed: %1$d Subscribers: %2$d'),
                          $this->peopletag->taggedCount(),
                          $this->peopletag->subscriberCount());
 
         $this->out->elementStart('span', 'entry-title tag');
+
         $this->out->element('a',
             array('rel'   => 'bookmark',
                   'href'  => $this->url(),
