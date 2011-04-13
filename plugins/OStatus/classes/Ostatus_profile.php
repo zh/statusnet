@@ -171,7 +171,7 @@ class Ostatus_profile extends Managed_DataObject
             return true;
         } else if ($this->group_id && ($this->profile_id || $this->peopletag_id)) {
             // TRANS: Server exception. %s is a URI
-            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: two or more IDs set for %s'), $this->uri));
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: two or more IDs set for %s.'), $this->uri));
         } else {
             // TRANS: Server exception. %s is a URI
             throw new ServerException(sprintf(_m('Invalid ostatus_profile state: all IDs empty for %s.'), $this->uri));
@@ -189,7 +189,7 @@ class Ostatus_profile extends Managed_DataObject
             return true;
         } else if ($this->peopletag_id && ($this->profile_id || $this->group_id)) {
             // TRANS: Server exception. %s is a URI
-            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: two or more IDs set for %s'), $this->uri));
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: two or more IDs set for %s.'), $this->uri));
         } else {
             // TRANS: Server exception. %s is a URI
             throw new ServerException(sprintf(_m('Invalid ostatus_profile state: all IDs empty for %s.'), $this->uri));
