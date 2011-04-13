@@ -166,21 +166,31 @@ class SortableGroupListItem extends SortableSubscriptionListItem
 
     function showAvatar()
     {
-        $avatar = $this->profile->stream_logo;
-        $aAttrs = $this->linkAttributes();
-        $this->out->elementStart('a', $aAttrs);
+        $logo = ($this->profile->stream_logo) ?
+        $this->profile->stream_logo : User_group::defaultLogo(AVATAR_STREAM_SIZE);
+
+        $this->out->elementStart(
+            'a',
+            array(
+                'href'  => $this->profile->homeUrl(),
+                'class' => 'url entry-title',
+                'rel'   => 'contact group'
+            )
+        );
         $this->out->element(
-            'img', 
-             array(
-                'src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
+            'img',
+            array(
+                'src'    => $logo,
                 'class'  => 'photo avatar',
                 'width'  => AVATAR_STREAM_SIZE,
                 'height' => AVATAR_STREAM_SIZE,
-                'alt'    => ($this->profile->fullname) ? $this->profile->fullname : $this->profile->nickname
-             )
+                'alt'    => ($this->profile->fullname)
+                    ? $this->profile->fullname : $this->profile->nickname
+            )
         );
+
         $this->out->text(' ');
-        $hasFN = (!empty($this->profile->fullname)) ? 'nickname' : 'fn nickname';
+        $hasFN = ($this->profile->fullname) ? 'nickname' : 'fn org nickname';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->profile->nickname));
         $this->out->elementEnd('span');
@@ -251,7 +261,7 @@ class SortableGroupListItem extends SortableSubscriptionListItem
     {
         $user = $this->owner;
         if ($user) {
-  
+
             $this->out->elementStart('li', 'entity_subscribe');
             // XXX: special-case for user looking at own
             // subscriptions page

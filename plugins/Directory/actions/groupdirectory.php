@@ -117,7 +117,7 @@ class GroupdirectoryAction extends Action
     {
         // TRANS: Page notice for groups directory.
         // TRANS: %%site.name%% is the name of the StatusNet site.
-        // TRANS: %%%%action.newgroup%%%% is a URL. Do not change it.
+        // TRANS: %%action.newgroup%% is a URL. Do not change it.
         // TRANS: This message contains Markdown links in the form [link text](link).
         $instructions = <<< END_OF_INSTRUCTIONS
 %%site.name%% groups let you find and talk with people of similar
