@@ -125,7 +125,7 @@ interests. After you join a group you can send messages to all other
 members using the syntax "!groupname".
 
 Browse groups, or search for groups on by their name, location or topic.
-Separate the terms by spaces; they must be 3 characters or more.
+Separate the terms by spaces; they must be three characters or more.
 
 Don't see a group you like? [start your own](%%action.newgroup%%)!
 END_OF_INSTRUCTIONS;
@@ -286,8 +286,8 @@ END_OF_INSTRUCTIONS;
     {
         $group = new User_group();
 
-        $offset = ($this->page-1) * GROUPS_PER_PAGE;
-        $limit  = GROUPS_PER_PAGE + 1;
+        $offset = ($this->page-1) * PROFILES_PER_PAGE;
+        $limit  = PROFILES_PER_PAGE + 1;
 
         if (isset($this->q)) {
 
