@@ -85,6 +85,7 @@ class DirectoryPlugin extends Plugin
         switch ($cls)
         {
         case 'UserdirectoryAction':
+        case 'GroupdirectoryAction':
             include_once $dir
                 . '/actions/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
@@ -111,6 +112,7 @@ class DirectoryPlugin extends Plugin
      */
     function onRouterInitialized($m)
     {
+
         $m->connect(
             'directory/users',
             array('action' => 'userdirectory'),
@@ -123,6 +125,52 @@ class DirectoryPlugin extends Plugin
             array('filter' => '([0-9a-zA-Z_]{1,64}|0-9)')
         );
 
+        $m->connect(
+            'groups/:filter',
+            array('action' => 'groupdirectory'),
+            array('filter' => '([0-9a-zA-Z_]{1,64}|0-9)')
+        );
+
+        return true;
+    }
+
+    /**
+     * Hijack the routing (URL -> Action) for the normal directory page
+     * and substitute our group directory action
+     *
+     * @param string $path     path to connect
+     * @param array  $defaults path defaults
+     * @param array  $rules    path rules
+     * @param array  $result   unused
+     *
+     * @return boolean hook return
+     */
+    function onStartConnectPath(&$path, &$defaults, &$rules, &$result)
+    {
+        if (in_array($path, array('group', 'group/', 'groups', 'groups/'))) {
+            $defaults['action'] = 'groupdirectory';
+            $rules              = array('filter' => 'all');
+            return true;
+        }
+        return true;
+    }
+
+    /**
+     * Hijack the mapping (Action -> URL) and return the URL to our
+     * group directory page instead of the normal groups page
+     *
+     * @param Action    $action     action to find a path for
+     * @param array     $params     parameters to pass to the action
+     * @param string    $fragment   any url fragement
+     * @param boolean   $addSession whether to add session variable
+     * @param string    $url        resulting URL to local resource
+     *
+     * @return string the local URL
+     */
+    function onEndLocalURL(&$action, &$params, &$fragment, &$addSession, &$url) {
+        if (in_array($action, array('group', 'group/', 'groups', 'groups/'))) {
+                $url = common_local_url('groupdirectory');
+        }
         return true;
     }
 
