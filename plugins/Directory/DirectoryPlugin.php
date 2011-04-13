@@ -94,6 +94,7 @@ class DirectoryPlugin extends Plugin
                 . '/lib/' . strtolower($cls) . '.php';
             return false;
         case 'SortableSubscriptionList':
+        case 'SortableGroupList':
             include_once $dir
                 . '/lib/' . strtolower($cls) . '.php';
             return false;
@@ -149,7 +150,6 @@ class DirectoryPlugin extends Plugin
     {
         if (in_array($path, array('group', 'group/', 'groups', 'groups/'))) {
             $defaults['action'] = 'groupdirectory';
-            $rules              = array('filter' => 'all');
             return true;
         }
         return true;
