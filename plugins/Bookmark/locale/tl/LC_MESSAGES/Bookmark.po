@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Bookmark\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-11 12:22+0000\n"
-"PO-Revision-Date: 2011-04-11 12:26:12+0000\n"
+"POT-Creation-Date: 2011-04-13 13:18+0000\n"
+"PO-Revision-Date: 2011-04-13 13:21:00+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-09 18:57:51+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-11 13:14:44+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-bookmark\n"
@@ -61,13 +61,14 @@ msgid "Bookmark notice with the wrong number of attachments."
 msgstr ""
 
 #. TRANS: Exception thrown when a bookmark has no attachments.
-msgid "Bookmark has no attachments."
+#, php-format
+msgid "Bookmark %s (notice %d) has no attachments."
 msgstr ""
 
 #. TRANS: Application title.
 msgctxt "TITLE"
 msgid "Bookmark"
-msgstr ""
+msgstr "Pananda"
 
 #. TRANS: Title for mini-posting window loaded from bookmarklet.
 #. TRANS: %s is the StatusNet site name.
@@ -98,7 +99,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown when an unknown URL is provided.
 msgid "Unknown URL."
-msgstr ""
+msgstr "Hindi nalalamang URL."
 
 #. TRANS: Title of notice stream of notices with a given attachment (first page).
 #. TRANS: %s is the URL.
@@ -123,7 +124,7 @@ msgstr ""
 #. TRANS: Client exception thrown when trying to import bookmarks and upload fails.
 #. TRANS: Client exception thrown when a file upload has failed.
 msgid "No uploaded file."
-msgstr ""
+msgstr "Walang naikargang talaksan."
 
 #. TRANS: Client exception thrown when an uploaded file is too large.
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."

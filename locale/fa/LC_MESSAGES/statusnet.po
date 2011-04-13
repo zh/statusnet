@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-11 12:22+0000\n"
-"PO-Revision-Date: 2011-04-11 12:25:03+0000\n"
+"POT-Creation-Date: 2011-04-13 13:18+0000\n"
+"PO-Revision-Date: 2011-04-13 13:20:11+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian <http://translatewiki.net/wiki/Portal:fa>\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,9 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
-"X-POT-Import-Date: 2011-04-09 18:56:02+0000\n"
+"X-POT-Import-Date: 2011-04-11 13:12:24+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -183,7 +183,7 @@ msgstr ""
 #. TRANS: %s is a profile URL.
 #, php-format
 msgid ""
-"There was a problem tagging %s.The remote server is probably not responding "
+"There was a problem tagging %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
 
@@ -7997,9 +7997,11 @@ msgstr ""
 
 #. TRANS: Succes message displayed if tagging a user succeeds.
 #. TRANS: %1$s is the tagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags added (not part of message).
 #, fuzzy, php-format
 msgid "%1$s was tagged %2$s"
-msgstr "%1$s (%2$s)"
+msgid_plural "%1$s was tagged %2$s"
+msgstr[0] "%1$s (%2$s)"
 
 #. TRANS: Separator for list of tags.
 #. TRANS: Separator in list of user names like "You, Bob, Mary".
@@ -8008,7 +8010,7 @@ msgstr ""
 
 #. TRANS: Error displayed if a given tag is invalid.
 #. TRANS: %s is the invalid tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "نشان نادرست »%s«"
 
@@ -8020,9 +8022,11 @@ msgstr ""
 
 #. TRANS: Succes message displayed if untagging a user succeeds.
 #. TRANS: %1$s is the untagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags removed (not part of message).
 #, php-format
-msgid "The following tag(s) were removed from user %1$s: %2$s."
-msgstr ""
+msgid "The following tag was removed from user %1$s: %2$s."
+msgid_plural "The following tags were removed from user %1$s: %2$s."
+msgstr[0] ""
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -9594,7 +9598,6 @@ msgid "Edit people tag settings."
 msgstr "ویرایش تنظیمات نمایه"
 
 #. TRANS: Text for link to edit people tag settings.
-#, fuzzy
 msgid "Edit"
 msgstr "ویرایش"
 
@@ -9671,7 +9674,6 @@ msgid "People tags"
 msgstr "افراد"
 
 #. TRANS: Replaces %s in 'People tags by %s'. (Yes, we know we need to fix this.)
-#, fuzzy
 msgid "User"
 msgstr "کاربر"
 
@@ -10430,10 +10432,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#~ msgid ""
-#~ "You can only tag people you are subscribed to or who are subscribed to "
-#~ "you."
-#~ msgstr ""
-#~ "شما تنها می‌توانید افرادی را برچسب‌دار کنید که مشترک آن‌ها هستید یا آن‌ها "
-#~ "مشترک شما هستند."

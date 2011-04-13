@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-11 12:22+0000\n"
-"PO-Revision-Date: 2011-04-11 12:25:24+0000\n"
+"POT-Creation-Date: 2011-04-13 13:18+0000\n"
+"PO-Revision-Date: 2011-04-13 13:20:25+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2011-04-09 18:56:02+0000\n"
+"X-POT-Import-Date: 2011-04-11 13:12:24+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -163,29 +163,28 @@ msgstr "Нема таков профил."
 #. TRANS: Client error displayed when referring to a non-exsting people tag.
 #. TRANS: Client error displayed when referring to non-existing people tag.
 #. TRANS: Client error displayed trying to reference a non-existing people tag.
-#, fuzzy
 msgid "No such people tag."
-msgstr "Нема таква ознака."
+msgstr "Нема таква ознака за луѓе."
 
 #. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-#, fuzzy
 msgid "You cannot tag an OMB 0.1 remote profile with this action."
-msgstr ""
-"Не можете да се претплатите на OMB 0.1 далечински профил со ова дејство."
+msgstr "Не можете да означите далечински профил OMB 0.1 со ова дејство."
 
 #. TRANS: Client error displayed when an unknown error occurs while tagging a user.
 #. TRANS: %s is a username.
 #, php-format
 msgid "There was an unexpected error while tagging %s."
-msgstr ""
+msgstr "Се појави неочекувана грешка при означувањето на %s."
 
 #. TRANS: Client error displayed when an unknown error occurs while tagging a user.
 #. TRANS: %s is a profile URL.
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"There was a problem tagging %s.The remote server is probably not responding "
+"There was a problem tagging %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
+"Се појави проблем при означувањето на %s.Веројатно далечинскиот опслужувач "
+"не одговара како што треба. Обидете се повторно."
 
 #. TRANS: Title after subscribing to a people tag.
 #. TRANS: Page title when subscription succeeded.
@@ -780,63 +779,55 @@ msgstr "Алијасот не може да биде ист како прека�
 #. TRANS: Client error displayed when referring to a non-existing list.
 #. TRANS: Client error displayed trying to perform an action related to a non-existing list.
 #. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
 msgid "List not found."
-msgstr "Корисникот не е пронајден."
+msgstr "Списокот не е пронајден."
 
 #. TRANS: Client error displayed when trying to update another user's list.
 msgid "You cannot update lists that do not belong to you."
-msgstr ""
+msgstr "Не можете да подновувате списоци што не се Ваши."
 
 #. TRANS: Client error displayed when an unknown error occurs updating a list.
 #. TRANS: Client error displayed when an unknown error occurs viewing list members.
 #. TRANS: Client error displayed when an unknown error occurs in the list subscribers action.
 #. TRANS: Client error displayed when an unknown error occurs unsubscribing from a list.
-#, fuzzy
 msgid "An error occured."
 msgstr "Се појави грешка."
 
 #. TRANS: Client error displayed when trying to delete another user's list.
 msgid "You cannot delete lists that do not belong to you."
-msgstr ""
+msgstr "Не можете да бришете списоци што не се Ваши."
 
 #. TRANS: Client error displayed when referring to a non-list member.
-#, fuzzy
 msgid "The specified user is not a member of this list."
-msgstr "Корисникот не членува во групата."
+msgstr "Наведениот корисник не членува во списоков."
 
 #. TRANS: Client error displayed when trying to add members to a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to add members to this list."
-msgstr "Не Ви е дозволено да создавате групи на ова мреж. место."
+msgstr "Не Ви е дозволено да додавате членови во списоков."
 
 #. TRANS: Client error displayed when trying to modify list members without specifying them.
-#, fuzzy
 msgid "You must specify a member."
-msgstr "Мора да наведете профил."
+msgstr "Мора да наведете член."
 
 #. TRANS: Client error displayed when trying to remove members from a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to remove members from this list."
-msgstr "Не Ви е дозволено да создавате групи на ова мреж. место."
+msgstr "Не Ви е дозволено да отстранувате членови од списоков."
 
 #. TRANS: Client error displayed when trying to remove a list member that is not part of a list.
 msgid "The user you are trying to remove from the list is not a member."
-msgstr ""
+msgstr "Корисникот што сакате да го отстраните од списокот не е член."
 
 #. TRANS: Client error displayed when trying to create a list without a name.
-#, fuzzy
 msgid "A list must have a name."
-msgstr "Забелешката преку Atom мора да биде Atom-ставка."
+msgstr "Списокот мора да има назив."
 
 #. TRANS: Client error displayed when a membership check for a user is nagative.
 msgid "The specified user is not a subscriber of this list."
-msgstr ""
+msgstr "Наведениот корисник не е претплатен на списоков."
 
 #. TRANS: Client error displayed when trying to unsubscribe from a non-subscribed list.
-#, fuzzy
 msgid "You are not subscribed to this list."
-msgstr "Не сте претплатени на тој профил."
+msgstr "Не сте претплатени на списоков."
 
 #. TRANS: Client error displayed when uploading a media file has failed.
 msgid "Upload failed."
@@ -1099,9 +1090,9 @@ msgstr "Подновувања на %1$s бендисани од %2$s / %3$s."
 
 #. TRANS: Server error displayed whe trying to get a timeline fails.
 #. TRANS: %s is the error message.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for list - %s"
-msgstr "Не можам да создадам најавен жетон за"
+msgstr "Не можам да создадам канал за списокот - %s"
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -2256,68 +2247,65 @@ msgstr "Нагодувањата се зачувани."
 #. TRANS: %s is a tag.
 #, php-format
 msgid "Delete %s people tag"
-msgstr ""
+msgstr "Бришење на ознакта за луѓе %s"
 
 #. TRANS: Title for edit people tag page.
 #. TRANS: %s is a tag.
 #. TRANS: Form legend for people tag edit form.
 #. TRANS: %s is a people tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Edit people tag %s"
-msgstr "Не е важечка ознака за луѓе: %s."
+msgstr "Уредување на ознаката за луѓе %s"
 
 #. TRANS: Error message displayed when trying to perform an action that requires a tagging user or ID.
-#, fuzzy
 msgid "No tagger or ID."
-msgstr "Нема прекар или ID."
+msgstr "Нема означувач или назнака."
 
 #. TRANS: Client error displayed when referring to non-local user.
-#, fuzzy
 msgid "Not a local user."
-msgstr "Нема таков корисник."
+msgstr "Не е локален корисник."
 
 #. TRANS: Client error displayed when reting to edit a tag that was not self-created.
-#, fuzzy
 msgid "You must be the creator of the tag to edit it."
-msgstr "Мора да сте администратор за да можете да ја уредите групата."
+msgstr "Мора да сте создавачот на ознаката за да можете да ја уредувате."
 
 #. TRANS: Form instruction for edit people tag form.
-#, fuzzy
 msgid "Use this form to edit the people tag."
-msgstr "ОБразецов служи за уредување на групата."
+msgstr "ОБразецов служи за уредување на ознаката за луѓе."
 
 #. TRANS: Form validation error displayed if the form data for deleting a tag was incorrect.
-#, fuzzy
 msgid "Delete aborted."
-msgstr "Избриши забелешка"
+msgstr "Бришењето е откажано."
 
 #. TRANS: Text in confirmation dialog for deleting a tag.
 msgid ""
 "Deleting this tag will permanantly remove all its subscription and "
 "membership records. Do you still want to continue?"
 msgstr ""
+"Ако ја избришете ознакава, тогаш трајно ќе ја отстраните и сета нејзина "
+"евиденција за претплати и членства. Дали сакате да продолжите?"
 
 #. TRANS: Form validation error displayed if a given tag is invalid.
-#, fuzzy
 msgid "Invalid tag."
-msgstr "Неважечка слика."
+msgstr "Неважечка ознака."
 
 #. TRANS: Form validation error displayed if a given tag is already present.
 #. TRANS: %s is the already present tag.
-#, fuzzy, php-format
+#, php-format
 msgid "You already have a tag named %s."
-msgstr "Веќе ја имате повторено таа забелешка."
+msgstr "Веќе имате ознака по име %s."
 
 #. TRANS: Text in confirmation dialog for setting a tag from public to private.
 msgid ""
 "Setting a public tag as private will permanently remove all the existing "
 "subscriptions to it. Do you still want to continue?"
 msgstr ""
+"Ако наместите јавна ознака како приватна, со тоа трајно ќе ги избришете и "
+"сите нејзини постоечки претплати. Дали сакате да продолжите?"
 
 #. TRANS: TRANS: Server error displayed when updating a people tag fails.
-#, fuzzy
 msgid "Could not update people tag."
-msgstr "Не можев да ја подновам групата."
+msgstr "Не можев да ја подновам ознаката за луѓе."
 
 #. TRANS: Title for e-mail settings.
 msgid "Email settings"
@@ -4080,100 +4068,96 @@ msgstr "Пребарување на луѓе"
 
 #. TRANS: Title for people tag page.
 #. TRANS: %s is a tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Public people tag %s"
-msgstr "Јавна историја, стр. %d"
+msgstr "Јавна ознака за луѓе %s"
 
 #. TRANS: Title for people tag page.
 #. TRANS: %1$s is a tag, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Public people tag %1$s, page %2$d"
-msgstr "Одговори на %1$s, стр. %2$d"
+msgstr "Јавна ознака за луѓе %1$s, страница %2$d"
 
 #. TRANS: Message for anonymous users on people tag page.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "People tags are how you sort similar people on %%site.name%%, a [micro-"
 "blogging](http://en.wikipedia.org/wiki/Micro-blogging) service based on the "
 "Free Software [StatusNet](http://status.net/) tool. You can then easily keep "
 "track of what they are doing by subscribing to the tag's timeline."
 msgstr ""
-"**%s** е корисничка група на %%%%site.name%%%%, мрежно место за "
-"[микроблогирање](http://mk.wikipedia.org/wiki/Микроблогирање) заснована на "
-"слободната програмска алатка [StatusNet](http://status.net/). Нејзините "
-"членови си разменуваат кратки пораки за нивниот живот и интереси. "
+"Ознаките за луѓе служат за подредување на слични лица на %%site.name%%, "
+"служба за [микроблогирање](http://mk.wikipedia.org/wiki/Микроблогирање) што "
+"работи на слободната програмска алатка [StatusNet](http://status.net/). "
+"Претплаќајќи се на хронологијата на ознаката ќе можете лесно да следите што "
+"прават лицата."
 
 #. TRANS: Client error displayed when a tagger is expected but not provided.
-#, fuzzy
 msgid "No tagger."
-msgstr "Нема таква ознака."
+msgstr "Нема означувач."
 
 #. TRANS: Title for list of people tagged by the user with a tag.
 #. TRANS: %1$s is a tag, %2$s is a username.
 #. TRANS: Header on show profile tag page.
 #. TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "People tagged %1$s by %2$s"
-msgstr "Одговори на %1$s на %2$s."
+msgstr "Луѓе означени со %1$s од %2$s"
 
 #. TRANS: Title for list of people tagged by the user with a tag.
 #. TRANS: %1$s is a tag, %2$s is a username, %2$s is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "People tagged %1$s by %2$s, page %3$d"
-msgstr "Одговори на %1$s, стр. %2$d"
+msgstr "Луѓе означени со %1$s од %2$s, страница %3$d"
 
 #. TRANS: Addition in tag membership list for creator of a tag.
 #. TRANS: Addition in tag subscribers list for creator of a tag.
-#, fuzzy
 msgid "Creator"
-msgstr "Создадено"
+msgstr "Создавач"
 
 #. TRANS: Title for people tags by a user page for a private tag.
-#, fuzzy
 msgid "Private people tags by you"
-msgstr "ги наведува лицата што Ве следат"
+msgstr "Приватни ознаки на луѓе поставени од Вас"
 
 #. TRANS: Title for people tags by a user page for a public tag.
-#, fuzzy
 msgid "Public people tags by you"
-msgstr "Јавен облак од ознаки"
+msgstr "Јавни ознаки на луѓе поставени од Вас"
 
 #. TRANS: Title for people tags by a user page.
 #. TRANS: Page notice.
 msgid "People tags by you"
-msgstr ""
+msgstr "Ознаки на луѓе поставени од Вас"
 
 #. TRANS: Title for people tags by a user page.
 #. TRANS: %s is a user nickname.
 #. TRANS: Page notice. %s is a tagger's nickname.
 #. TRANS: Menu item title in personal group navigation menu.
 #. TRANS: %s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags by %s"
-msgstr "Повторувања на %s"
+msgstr "Ознаки на луѓе од %s"
 
 #. TRANS: Title for people tags by a user page.
 #. TRANS: %1$s is a user nickname, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags by %1$s, page %2$d"
-msgstr "Одговори на %1$s, стр. %2$d"
+msgstr "Ознаки на луѓе од %1$s, страница %2$d"
 
 #. TRANS: Client error displayed when trying view another user's private people tags.
 msgid "You cannot view others' private people tags"
-msgstr ""
+msgstr "Не можете да гледате туѓи приватни ознаки."
 
 #. TRANS: Mode selector label.
-#, fuzzy
 msgid "Mode"
-msgstr "Модерирај"
+msgstr "Режим"
 
 #. TRANS: Link text to show people tags for user %s.
 #. TRANS: Title for page that displays which people tags a user has been tagged with.
 #. TRANS: %s is a profile name.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags for %s"
-msgstr "Повторувања на %s"
+msgstr "Ознаки на луѓе за %s"
 
 #. TRANS: Fieldset legend.
 #. TRANS: Fieldset legend on gallery action page.
@@ -4182,18 +4166,16 @@ msgstr "Одберете ознака за филтрирање"
 
 #. TRANS: Checkbox title.
 msgid "Show private tags."
-msgstr ""
+msgstr "Прикажи приватни ознаки."
 
 #. TRANS: Checkbox label to show public tags.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Public"
-msgstr "Јавна"
+msgstr "Јавни"
 
 #. TRANS: Checkbox title.
-#, fuzzy
 msgid "Show public tags."
-msgstr "Нема таква ознака."
+msgstr "Прикажи јавни ознаки."
 
 #. TRANS: Submit button text for tag filter form.
 #. TRANS: Submit button text on gallery action page.
@@ -4204,7 +4186,7 @@ msgstr "Оди"
 #. TRANS: Message displayed for anonymous users on page that displays people tags by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are people tags created by **%s**. People tags are how you sort "
 "similar people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia."
@@ -4212,27 +4194,27 @@ msgid ""
 "(http://status.net/) tool. You can easily keep track of what they are doing "
 "by subscribing to the tag's timeline."
 msgstr ""
-"**%s** е корисничка група на %%%%site.name%%%%, мрежно место за "
-"[микроблогирање](http://mk.wikipedia.org/wiki/Микроблогирање) заснована на "
-"слободната програмска алатка [StatusNet](http://status.net/). Нејзините "
-"членови си разменуваат кратки пораки за нивниот живот и интереси. "
+"Ова се ознаки за луѓе создадени од **%s**. Ознаките за луѓе служат за "
+"подредување на слични лица на %%%%site.name%%%%, служба за [микроблогирање]"
+"(http://mk.wikipedia.org/wiki/Микроблогирање) што работи на слободната "
+"програмска алатка [StatusNet](http://status.net/). Претплаќајќи се на "
+"хронологијата на ознаката ќе можете лесно да следите што прават лицата."
 
 #. TRANS: Message displayed on page that displays people tags by a user when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%s has not created any [people tags](%%%%doc.tags%%%%) yet."
-msgstr ""
-"Сè уште некој нема објавено забелешка со [тарабна ознака](%%doc.tags%%)."
+msgstr "%s сè уште нема создадено никакви [ознаки за луѓе](%%%%doc.tags%%%%)."
 
-#, fuzzy, php-format
+#, php-format
 msgid "People tags for %1$s, page %2$d"
-msgstr "Одговори на %1$s, стр. %2$d"
+msgstr "Ознаки за луѓе за %1$s, страница %2$d"
 
 #. TRANS: Message displayed for anonymous users on page that displays people tags for a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are people tags for **%s**. People tags are how you sort similar "
 "people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/"
@@ -4240,46 +4222,47 @@ msgid ""
 "net/) tool. You can easily keep track of what they are doing by subscribing "
 "to the tag's timeline."
 msgstr ""
-"**%s** е корисничка група на %%%%site.name%%%%, мрежно место за "
-"[микроблогирање](http://mk.wikipedia.org/wiki/Микроблогирање) заснована на "
-"слободната програмска алатка [StatusNet](http://status.net/). Нејзините "
-"членови си разменуваат кратки пораки за нивниот живот и интереси. "
+"Ова се ознаките за луѓе за **%s**. Ознаките за луѓе служат за подредување на "
+"слични лица на %%%%site.name%%%%, служба за [микроблогирање](http://mk."
+"wikipedia.org/wiki/Микроблогирање) што работи на слободната програмска "
+"алатка [StatusNet](http://status.net/). Претплаќајќи се на хронологијата на "
+"ознаката ќе можете лесно да следите што прават лицата."
 
 #. TRANS: Message displayed on page that displays people tags for a user when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
 #, php-format
 msgid "%s has not been [tagged](%%%%doc.tags%%%%) by anyone yet."
-msgstr ""
+msgstr "%s сè уште не е [означен(а)](%%%%doc.tags%%%%) од никого."
 
 #. TRANS: Page title for list of people tag subscribers.
 #. TRANS: %1$s is a tag, %2$s is a user nickname.
 #, php-format
 msgid "Subscribers of people tagged %1$s by %2$s"
-msgstr ""
+msgstr "Претплатници на луѓе означени со %1$s од %2$s"
 
 #. TRANS: Page title for list of people tag subscribers.
 #. TRANS: %1$s is a tag, %2$s is a user nickname, %3$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers of people tagged %1$s by %2$s, page %3$d"
-msgstr "Забелешки на %1$s означени со %2$s, страница %3$d"
+msgstr "Претплатници на луѓе означени со %1$sод %2$s, страница %3$d"
 
 #. TRANS: Title for page that displays people tags subscribed to by a user.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags subscriptions by %s"
-msgstr "Луѓе претплатени на %s."
+msgstr "Ознаки за луѓе на коишто се има претплатено %s."
 
 #. TRANS: Title for page that displays people tags subscribed to by a user.
 #. TRANS: %1$s is a profile nickname, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags subscriptions by %1$s, page %2$d"
-msgstr "Претплати на %1$s, стр. %2$d"
+msgstr "Претплати на ознаки за луѓе на %1$s, стр. %2$d"
 
 #. TRANS: Message displayed for anonymous users on page that displays people tags subscribed to by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are people tags subscribed to by **%s**. People tags are how you sort "
 "similar people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia."
@@ -4287,10 +4270,11 @@ msgid ""
 "(http://status.net/) tool. You can easily keep track of what they are doing "
 "by subscribing to the tag's timeline."
 msgstr ""
-"**%s** е корисничка група на %%%%site.name%%%%, мрежно место за "
-"[микроблогирање](http://mk.wikipedia.org/wiki/Микроблогирање) заснована на "
-"слободната програмска алатка [StatusNet](http://status.net/). Нејзините "
-"членови си разменуваат кратки пораки за нивниот живот и интереси. "
+"Ова се ознаки за луѓе на коишто се има претплатено **%s**. Ознаките за луѓе "
+"служат за подредување на слични лица на %%%%site.name%%%%, служба за "
+"[микроблогирање](http://mk.wikipedia.org/wiki/Микроблогирање) што работи на "
+"слободната програмска алатка [StatusNet](http://status.net/). Претплаќајќи "
+"се на хронологијата на ознаката ќе можете лесно да следите што прават лицата."
 
 #. TRANS: Page title for AJAX form return when a disabling a plugin.
 msgctxt "plugin"
@@ -4359,17 +4343,16 @@ msgstr ""
 #. TRANS: %s is a field name.
 #, php-format
 msgid "Unidentified field %s."
-msgstr ""
+msgstr "Непрепознаено поле %s."
 
 #. TRANS: Page title.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Search results"
-msgstr "Пребарај по мрежното место"
+msgstr "Резултати од пребарувањето"
 
 #. TRANS: Error message in case a search is shorter than three characters.
 msgid "The search string must be at least 3 characters long."
-msgstr ""
+msgstr "Низата во пребарувањето мора да има барем 3 знака."
 
 #. TRANS: Page title for profile settings.
 msgid "Profile settings"
@@ -4643,49 +4626,45 @@ msgstr ""
 "[StatusNet](http://status.net/)."
 
 #. TRANS: Title for page with public people tag cloud.
-#, fuzzy
 msgid "Public people tag cloud"
-msgstr "Јавен облак од ознаки"
+msgstr "Јавен облак од ознаки за луѓе"
 
 #. TRANS: Page notice for page with public people tag cloud.
 #. TRANS: %s is a StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "These are most used people tags on %s"
-msgstr "Овие се најпопуларните скорешни ознаки на %s"
+msgstr "Ова се најкористените ознаки за луѓе на %s"
 
 #. TRANS: Empty list message on page with public people tag cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid "No one has [tagged](%%doc.tags%%) anyone yet."
-msgstr ""
-"Сè уште некој нема објавено забелешка со [тарабна ознака](%%doc.tags%%)."
+msgstr "Сè уште некој нема [означено](%%doc.tags%%) никого."
 
 #. TRANS: Additional empty list message on page with public people tag cloud for logged in users.
-#, fuzzy
 msgid "Be the first to tag someone!"
-msgstr "Бидете првиот објавувач!"
+msgstr "Бидете првиот што ќе означи некого!"
 
 #. TRANS: Additional empty list message on page with public people tag cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to tag "
 "someone!"
 msgstr ""
-"Зошто не [регистрирате сметка](%%action.register%%) и станете прв што ќе "
-"објави!"
+"Зошто не [регистрирате сметка](%%action.register%%) и станете првиот што ќе "
+"означи некого!"
 
 #. TRANS: DT element on on page with public people tag cloud.
-#, fuzzy
 msgid "People tag cloud"
-msgstr "Јавен облак од ознаки"
+msgstr "Јавен облак од ознаки за луѓе"
 
 #. TRANS: Link title for number of people tagged. %d is the number of people tagged.
 #, php-format
 msgid "1 person tagged"
 msgid_plural "%d people tagged"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Означено е 1 лице"
+msgstr[1] "Означени се %d лица"
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
 #, php-format
@@ -5079,14 +5058,14 @@ msgid "Could not get a request token."
 msgstr "Не можев да добијам жетон за барање."
 
 #. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
-#, fuzzy
 msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
 msgstr ""
-"Не можете да се претплатите на OMB 0.1 далечински профил со ова дејство."
+"Не можете да ставате и тргате ознаки на далечински профил OMB 0.1 со ова "
+"дејство."
 
 #. TRANS: Title after untagging a people tag.
 msgid "Untagged"
-msgstr ""
+msgstr "Ознаката е тргната"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -5284,9 +5263,9 @@ msgstr "Не е важечка ознака за луѓе: %s."
 
 #. TRANS: Page title for page showing self tags.
 #. TRANS: %1$s is a tag, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Users self-tagged with %1$s, page %2$d"
-msgstr "Користници самоозначени со %1$s - стр. %2$d"
+msgstr "!Користници самоозначени со %1$s, стр. %2$d"
 
 #. TRANS: Title for the sessions administration panel.
 msgctxt "TITLE"
@@ -5571,77 +5550,78 @@ msgstr "Избришана забелешка"
 #, php-format
 msgid "Private timeline for people tagged %1$s by you, page %2$d"
 msgstr ""
+"Приватна хронологија за луѓе што сте ги означиле со %1$s, страница %2$d"
 
 #. TRANS: Title for public people tag timeline where the viewer is the tagger.
 #. TRANS: %1$s is a people tag, %2$s is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for people tagged %1$s by you, page %2$d"
-msgstr "Користници самоозначени со %1$s - стр. %2$d"
+msgstr "Хронологија за луѓе што сте ги означиле со %1$s, страница %2$d"
 
 #. TRANS: Title for private people tag timeline.
 #. TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for people tagged %1$s by %2$s, page %3$d"
-msgstr "Забелешки на %1$s означени со %2$s, страница %3$d"
+msgstr "Хронологија за луѓе означени со %1$s од %2$s, страница %3$d"
 
 #. TRANS: Title for private people tag timeline.
 #. TRANS: %s is a people tag.
 #, php-format
 msgid "Private timeline of people tagged %s by you"
-msgstr ""
+msgstr "Приватна хронологија за луѓе што сте ги означиле со %s"
 
 #. TRANS: Title for public people tag timeline where the viewer is the tagger.
 #. TRANS: %s is a people tag.
 #, php-format
 msgid "Timeline for people tagged %s by you"
-msgstr ""
+msgstr "Хронологија за луѓе што сте ги означиле со %s"
 
 #. TRANS: Title for private people tag timeline.
 #. TRANS: %1$s is a people tag, %2$s is the tagger's nickname.
 #, php-format
 msgid "Timeline for people tagged %1$s by %2$s"
-msgstr ""
+msgstr "Хронологија за луѓе означени со %1$s од %2$s"
 
 #. TRANS: Feed title.
 #. TRANS: %1$s is a people tag, %2$s is tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for people tagged %1$s by %2$s (Atom)"
-msgstr "Канал за бендисани забелешки на %s (Atom)"
+msgstr "Канал за луѓе означени со %1$s од %2$s (Atom)"
 
 #. TRANS: Empty list message for people tag timeline.
 #. TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline for people tagged %1$s by %2$s but no one has posted "
 "anything yet."
 msgstr ""
-"Ова е историјата за %s и пријателите, но досега никој нема објавено ништо."
+"Ова е хронологијата за луѓето означени со %1$s од %2$s, но досега никој нема "
+"објавено ништо."
 
 #. TRANS: Additional empty list message for people tag timeline for currently logged in user tagged tags.
 msgid "Try tagging more people."
-msgstr ""
+msgstr "Означете повеќе луѓе."
 
 #. TRANS: Additional empty list message for people tag timeline.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and start following "
 "this timeline!"
 msgstr ""
-"Зошто не [регистрирате сметка](%%action.register%%) и станете прв што ќе "
-"објави!"
+"Зошто не [регистрирате сметка](%%action.register%%) и почнете да ја следите "
+"оваа хронологија!"
 
 #. TRANS: Header on show profile tag page.
 #. TRANS: %s is a people tag.
 #, php-format
 msgid "People tagged %s by you"
-msgstr ""
+msgstr "Луѓе што сте ги означиле со %s"
 
 #. TRANS: Link for more "People tagged x by a user"
 #. TRANS: if there are more than the mini list's maximum.
-#, fuzzy
 msgid "Show all"
-msgstr "Прикажи одговор"
+msgstr "Прикажи ги сите"
 
 #. TRANS: Header for tag subscribers.
 #. TRANS: Link description for link to list of users subscribed to a tag.
@@ -6148,26 +6128,24 @@ msgstr ""
 "Не можете да се претплатите на OMB 0.1 далечински профил со ова дејство."
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
-#, fuzzy
 msgid "You must be logged in to unsubscribe to a people tag."
-msgstr "Мора да сте најавени за да можете да создавате групи."
+msgstr "Мора да сте најавени за откажете претплата од ознака за луѓе."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
-#, fuzzy
 msgid "No ID given."
-msgstr "Нема ID-аргумент."
+msgstr "Нема наведено назнака (ID)."
 
 #. TRANS: Server error displayed subscribing to a people tag fails.
 #. TRANS: %1$s is a user nickname, %2$s is a people tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not subscribe user %1$s to people tag %2$s."
-msgstr "Не можам да го зачленам корисникот %1$s во групата 2$s."
+msgstr "Не можам да го претплатам корисникот %1$s на ознаката за луѓе %2$s."
 
 #. TRANS: Title of form to subscribe to a people tag.
 #. TRANS: %1%s is a user nickname, %2$s is a people tag, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribed to people tag %2$s by %3$s"
-msgstr "Претплатници на %1$s, стр. %2$d"
+msgstr "%1$s се претплати на ознаката за луѓе %2$s од %3$s"
 
 #. TRANS: Header for list of subscribers for a user (first page).
 #. TRANS: %s is the user's nickname.
@@ -6302,14 +6280,12 @@ msgstr "Канал со забелешки за ознаката %s (Atom)"
 #. TRANS: Client error displayed when trying to tag a user that cannot be tagged.
 #. TRANS: Client exception thrown trying to set a tag for a user that cannot be tagged.
 #. TRANS: Error displayed when trying to tag a user that cannot be tagged.
-#, fuzzy
 msgid "You cannot tag this user."
-msgstr "Не можете да испратите порака до овој корисник."
+msgstr "Не можете да го означите овој корисник."
 
 #. TRANS: Title for people tag form when not on a profile page.
-#, fuzzy
 msgid "Tag a profile"
-msgstr "Кориснички профил"
+msgstr "Означи профил"
 
 #. TRANS: Title for people tag form when on a profile page.
 #. TRANS: %s is a profile nickname.
@@ -6318,10 +6294,9 @@ msgid "Tag %s"
 msgstr "Означи %s"
 
 #. TRANS: Title for people tag form when an error has occurred.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Error"
-msgstr "Ajax-грешка"
+msgstr "Грешка"
 
 #. TRANS: Header in people tag form.
 msgid "User profile"
@@ -6333,18 +6308,16 @@ msgstr "Означи корисник"
 
 #. TRANS: Field label on people tag form.
 #. TRANS: Label in self tags widget.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Tags"
 msgstr "Ознаки"
 
 #. TRANS: Field title on people tag form.
-#, fuzzy
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
-"Ознаки за Вас самите (букви, бројки, -, . и _), одделени со запирка или "
+"Ознаки за овој корисник (букви, бројки, -, . и _), одделени со запирка или "
 "празно место."
 
 msgctxt "TITLE"
@@ -6352,9 +6325,8 @@ msgid "Tags"
 msgstr "Ознаки"
 
 #. TRANS: Success message if people tags are saved.
-#, fuzzy
 msgid "Tags saved."
-msgstr "Лозинката е зачувана."
+msgstr "Ознаката е зачувана."
 
 #. TRANS: Page notice.
 msgid "Use this form to add tags to your subscribers or subscriptions."
@@ -6382,9 +6354,9 @@ msgstr "Претплатата е откажана"
 
 #. TRANS: Page title for form that allows unsubscribing from a people tag.
 #. TRANS: %1$s is a nickname, %2$s is a people tag, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s unsubscribed to people tag %2$s by %3$s"
-msgstr "Претплатници на %1$s, стр. %2$d"
+msgstr "%1$s ја откажа претплатата на ознаката за луѓе %2$s од %3$s"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
 #. TRANS: %1$s is the license incompatible with site license %2$s.
@@ -6925,9 +6897,9 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr "Нема таков профил (%1$d) за забелешката (%2$d)."
 
 #. TRANS: Server exception. %s are the error details.
-#, fuzzy, php-format
+#, php-format
 msgid "Database error inserting hashtag: %s."
-msgstr "Грешка во базата на податоци при вметнувањето на тарабната ознака: %s"
+msgstr "Грешка во базата на податоци при вметнувањето на тарабната ознака: %s."
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
 msgid "Problem saving notice. Too long."
@@ -6997,9 +6969,8 @@ msgid "Problem saving group inbox."
 msgstr "Проблем при зачувувањето на групното приемно сандаче."
 
 #. TRANS: Server exception thrown when saving profile_tag inbox fails.
-#, fuzzy
 msgid "Problem saving profile_tag inbox."
-msgstr "Проблем при зачувувањето на групното приемно сандаче."
+msgstr "Проблем при зачувувањето на приемното сандаче на profile_tag."
 
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
@@ -7038,32 +7009,27 @@ msgstr ""
 
 #. TRANS: Server exception.
 msgid "The tag you are trying to rename to already exists."
-msgstr ""
+msgstr "Ознаката што сакате да ја преименувате веќе постои."
 
 #. TRANS: Server exception saving new tag without having a tagger specified.
-#, fuzzy
 msgid "No tagger specified."
-msgstr "Нема назначено група."
+msgstr "Нема наведено означувач."
 
 #. TRANS: Server exception saving new tag without having a tag specified.
-#, fuzzy
 msgid "No tag specified."
-msgstr "Нема назначено група."
+msgstr "Нема наведено ознака."
 
 #. TRANS: Server exception saving new tag.
-#, fuzzy
 msgid "Could not create profile tag."
-msgstr "Не може да се зачува профил."
+msgstr "Не можев да создадам профилна ознака."
 
 #. TRANS: Server exception saving new tag.
-#, fuzzy
 msgid "Could not set profile tag URI."
-msgstr "Не може да се зачува профил."
+msgstr "Не можев да поставам URI за профилната ознака."
 
 #. TRANS: Server exception saving new tag.
-#, fuzzy
 msgid "Could not set profile tag mainpage."
-msgstr "Не може да се зачува профил."
+msgstr "Не можев да ја поставам главната страница за профилната ознака."
 
 #. TRANS: Client exception thrown trying to set more tags than allowed.
 #, php-format
@@ -7071,6 +7037,8 @@ msgid ""
 "You already have created %d or more tags which is the maximum allowed number "
 "of tags. Try using or deleting some existing tags."
 msgstr ""
+"Веќе имате создадено %d или повеќе ознаки, што претставува максималниот "
+"дозволен број на ознаки. Искористете или избришете некои постоечки ознаки."
 
 #. TRANS: Client exception thrown trying to set one tag for more people than allowed.
 #, php-format
@@ -7078,16 +7046,17 @@ msgid ""
 "You already have %1$d or more people tagged %2$s, which is the maximum "
 "allowed number.Try untagging others with the same tag first."
 msgstr ""
+"Веќе имате означено %1$d или повеќе луѓе со %2$s, што претставува "
+"максималниот дозволен број. Најпрвин отстранете ја истава ознака кај некои "
+"други лица."
 
 #. TRANS: Exception thrown when inserting a people tag subscription in the database fails.
-#, fuzzy
 msgid "Adding people tag subscription failed."
-msgstr "Не можам да ја избришам претплатата."
+msgstr "Додавањето на претплатата на ознака за луѓе не успеа."
 
 #. TRANS: Exception thrown when deleting a people tag subscription from the database fails.
-#, fuzzy
 msgid "Removing people tag subscription failed."
-msgstr "Не можам да ја избришам претплатата."
+msgstr "Отстранувањето на претплатата на ознаката за луѓе не успеа."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 msgid "Missing profile."
@@ -7145,7 +7114,7 @@ msgstr "Добредојдовте на %1$s, @%2$s!"
 
 #. TRANS: Exception thrown when trying view "repeated to me".
 msgid "Not implemented since inbox change."
-msgstr ""
+msgstr "Не е применето од промената на сандачето за дојдовна пошта."
 
 #. TRANS: Server exception.
 msgid "No single user defined for single-user mode."
@@ -7735,13 +7704,13 @@ msgstr "Не користете го овој метод!"
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
 #, php-format
 msgid "Timeline for people tagged #%1$s by %2$s"
-msgstr ""
+msgstr "Хронологија на лицата означени со #%1$s од %2$s"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from %1$s's %2$s people tag on %3$s!"
-msgstr "Подновувања од %1$s на %2$s!"
+msgstr "Поднови од ознаката за луѓе %2$s на %1$s на %3$s!"
 
 #. TRANS: Title.
 msgid "Notices where this attachment appears"
@@ -7844,7 +7813,6 @@ msgstr ""
 "Забелешки: %3$s"
 
 #. TRANS: Error message text shown when a favorite could not be set because it has already been favorited.
-#, fuzzy
 msgid "Could not create favorite: Already favorited."
 msgstr "Не можев да создадам бендисана забелешка: веќе Ви е бендисана."
 
@@ -7868,13 +7836,16 @@ msgstr "%1$s ја напушти групата %2$s."
 #. TRANS: %1$s is the tagged user, %2$s is the error message (no punctuation).
 #, php-format
 msgid "Error tagging %1$s: %2$s"
-msgstr ""
+msgstr "Грешка при означувањето на %1$s: %2$s"
 
 #. TRANS: Succes message displayed if tagging a user succeeds.
 #. TRANS: %1$s is the tagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags added (not part of message).
 #, fuzzy, php-format
 msgid "%1$s was tagged %2$s"
-msgstr "%1$s и %2$s"
+msgid_plural "%1$s was tagged %2$s"
+msgstr[0] "%1$s беше означен(а) со %2$s"
+msgstr[1] "%1$s беше означен(а) со %2$s"
 
 #. TRANS: Separator for list of tags.
 #. TRANS: Separator in list of user names like "You, Bob, Mary".
@@ -7883,21 +7854,24 @@ msgstr ", "
 
 #. TRANS: Error displayed if a given tag is invalid.
 #. TRANS: %s is the invalid tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "Неважечка ознака: „%s“."
+msgstr "Неважечка ознака: „%s“"
 
 #. TRANS: Error displayed if untagging a user fails.
 #. TRANS: %1$s is the untagged user, %2$s is the error message (no punctuation).
 #, php-format
 msgid "Error untagging %1$s: %2$s"
-msgstr ""
+msgstr "Грешка при отстранувањето на ознаката на %1$s: %2$s"
 
 #. TRANS: Succes message displayed if untagging a user succeeds.
 #. TRANS: %1$s is the untagged user's nickname, %2$s is a list of tags.
-#, php-format
-msgid "The following tag(s) were removed from user %1$s: %2$s."
-msgstr ""
+#. TRANS: Plural is decided based on the number of tags removed (not part of message).
+#, fuzzy, php-format
+msgid "The following tag was removed from user %1$s: %2$s."
+msgid_plural "The following tags were removed from user %1$s: %2$s."
+msgstr[0] "Следниве ознаки беа отстранети од корисникот %1$s: %2$s."
+msgstr[1] "Следниве ознаки беа отстранети од корисникот %1$s: %2$s."
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -8119,16 +8093,14 @@ msgid "lists the groups you have joined"
 msgstr "ги наведува групите кајшто членувате"
 
 #. TRANS: Help message for IM/SMS command "tag".
-#, fuzzy
 msgctxt "COMMANDHELP"
 msgid "tag a user"
-msgstr "Означи корисник"
+msgstr "означи корисник"
 
 #. TRANS: Help message for IM/SMS command "untag".
-#, fuzzy
 msgctxt "COMMANDHELP"
 msgid "untag a user"
-msgstr "Означи корисник"
+msgstr "тргни ознака од корисник"
 
 #. TRANS: Help message for IM/SMS command "subscriptions".
 msgctxt "COMMANDHELP"
@@ -9341,63 +9313,54 @@ msgid "No oEmbed API endpoint available."
 msgstr "Нема достапна крајна точка за oEmbed API."
 
 #. TRANS: Field label for people tag.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Tag"
 msgstr "Ознака"
 
 #. TRANS: Field title for people tag.
-#, fuzzy
 msgid "Change the tag (letters, numbers, -, ., and _ are allowed)."
-msgstr ""
-"Ознаки за овој корисник (букви, бројки, -, . и _), одделени со запирка или "
-"празно место."
+msgstr "Смени ја ознаката (допуштени се букви, бројки, -, ., и _)."
 
 #. TRANS: Field title for description of people tag.
-#, fuzzy
 msgid "Describe the people tag or topic."
-msgstr "Опишете ја групата или темата."
+msgstr "Опишете ја ознаката за луѓе или темата."
 
 #. TRANS: Field title for description of people tag.
 #. TRANS: %d is the maximum number of characters for the description.
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the people tag or topic in %d character."
 msgid_plural "Describe the people tag or topic in %d characters."
-msgstr[0] "Опишете ја групата или темата со највеќе %d знак"
-msgstr[1] "Опишете ја групата или темата со највеќе %d знаци"
+msgstr[0] "Опишете ја ознаката за луѓе или темата со највеќе %d знак"
+msgstr[1] "Опишете ја ознаката за луѓе или темата со највеќе %d знаци"
 
 #. TRANS: Button title to delete a people tag.
-#, fuzzy
 msgid "Delete this people tag."
-msgstr "Избриши ја групава."
+msgstr "Избриши ја ознакава за луѓе."
 
 #. TRANS: Header in people tag edit form.
 msgid "Add or remove people"
-msgstr ""
+msgstr "Додај или отстрани луѓе"
 
 #. TRANS: Header in people tag edit form.
-#, fuzzy
 msgctxt "HEADER"
 msgid "Search"
-msgstr "Барај"
+msgstr "Пребарување"
 
 #. TRANS: Menu item in people tag navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "People tag"
-msgstr "Луѓе"
+msgstr "Ознака за луѓе"
 
 #. TRANS: Menu item title in people tag navigation panel.
 #. TRANS: %1$s is a tag, %2$s is a nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s tag by %2$s."
-msgstr "%1$s и %2$s"
+msgstr "Ознака %1$s од %2$s."
 
 #. TRANS: Menu item in people tag navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Tagged"
-msgstr "Ознака"
+msgstr "Означени"
 
 #. TRANS: Menu item in people tag navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -9407,69 +9370,61 @@ msgstr "Претплатници"
 
 #. TRANS: Menu item title in people tag navigation panel.
 #. TRANS: %1$s is a tag, %2$s is a nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to %1$s tag by %2$s."
-msgstr "Претплатено на %s."
+msgstr "Претплатници на ознаката %1$s од %2$s."
 
 #. TRANS: Menu item in people tag navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Edit"
 msgstr "Уреди"
 
 #. TRANS: Menu item title in people tag navigation panel.
 #. TRANS: %s is a tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Edit %s tag by you."
-msgstr "Уреди ја групата %s"
+msgstr "Уредете ја Вашата ознака %s."
 
 #. TRANS: Link description for link to list of users tagged with a tag.
-#, fuzzy
 msgid "Tagged"
-msgstr "Ознака"
+msgstr "Означени"
 
 #. TRANS: Title for link to edit people tag settings.
-#, fuzzy
 msgid "Edit people tag settings."
-msgstr "Уреди нагодувања на профилот."
+msgstr "Уреди нагодувања на ознаките за луѓе."
 
 #. TRANS: Text for link to edit people tag settings.
-#, fuzzy
 msgid "Edit"
 msgstr "Уреди"
 
 #. TRANS: Privacy mode text in people tag list item for private tags.
-#, fuzzy
 msgctxt "MODE"
 msgid "Private"
-msgstr "Приватен"
+msgstr "Приватни"
 
 #. TRANS: Label in people tags widget.
 msgctxt "LABEL"
 msgid "Tags by you"
-msgstr ""
+msgstr "Ознаки од Вас"
 
 #. TRANS: Fieldset legend in people tags widget.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Edit tags"
-msgstr "Уреди"
+msgstr "Уреди ознаки"
 
 #. TRANS: Title for section contaning people tags with the most subscribers.
-#, fuzzy
 msgid "People tags with most subscribers"
-msgstr "Луѓе на кои е претплатен корисникот %s."
+msgstr "Ознаки за луѓе со највеќе претплатници"
 
 #. TRANS: Tag summary. %1$d is the number of users tagged with the tag,
 #. TRANS: %2$d is the number of subscribers to the tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Tagged: %1$d Subscribers: %2$d"
-msgstr "Претплатници на %1$s, стр. %2$d"
+msgstr "Означени: %1$d Претплатници: %2$d"
 
 #. TRANS: Title for page that displays people tags a user has subscribed to.
-#, fuzzy
 msgid "People tag subscriptions"
-msgstr "Сите претплати"
+msgstr "Претплати на ознаки за луѓе"
 
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
@@ -9500,13 +9455,11 @@ msgstr "Корисник"
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in search group navigation panel.
 #. TRANS: Menu item title in local navigation menu.
-#, fuzzy
 msgctxt "MENU"
 msgid "People tags"
-msgstr "Луѓе"
+msgstr "Ознаки за луѓе"
 
 #. TRANS: Replaces %s in 'People tags by %s'. (Yes, we know we need to fix this.)
-#, fuzzy
 msgid "User"
 msgstr "Корисник"
 
@@ -9630,9 +9583,8 @@ msgid "Recent tags"
 msgstr "Скорешни ознаки"
 
 #. TRANS: Menu item title in search group navigation panel.
-#, fuzzy
 msgid "People tags"
-msgstr "Луѓе"
+msgstr "Ознаки за луѓе"
 
 #. TRANS: Menu item in search group navigation panel.
 msgctxt "MENU"
@@ -9921,9 +9873,9 @@ msgstr "Групи кадешто членува %s."
 
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags by %s."
-msgstr "Луѓе претплатени на %s."
+msgstr "Ознаки на луѓе од %s."
 
 #. TRANS: Menu item in local navigation menu.
 msgctxt "MENU"
@@ -10059,46 +10011,42 @@ msgstr[0] "Забелешкава ја има повторено едно лиц
 msgstr[1] "Забелешкава ја имаат повторено %d лица."
 
 #. TRANS: Form legend.
-#, fuzzy, php-format
+#, php-format
 msgid "Search and list people"
-msgstr "Пребарај по мрежното место"
+msgstr "Пребарај и наведи луѓе"
 
 #. TRANS: Dropdown option for searching in profiles.
-#, fuzzy
 msgid "Everything"
-msgstr "Сите"
+msgstr "Сè"
 
 #. TRANS: Dropdown option for searching in profiles.
-#, fuzzy
 msgid "Fullname"
 msgstr "Име и презиме"
 
 #. TRANS: Dropdown option for searching in profiles.
 msgid "URI (Remote users)"
-msgstr ""
+msgstr "URI (далечински корисници)"
 
 #. TRANS: Dropdown field label.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Search in"
-msgstr "Пребарај по мрежното место"
+msgstr "Пребарај во"
 
 #. TRANS: Dropdown field title.
-#, fuzzy
 msgid "Choose a field to search."
-msgstr "Одберете ознака за да го ограничите списокот."
+msgstr "Одберете поле за пребарување."
 
 #. TRANS: Form legend.
 #. TRANS: %1$s is a nickname, $2$s is a people tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Untag %1$s as %2$s"
-msgstr "%1$s и %2$s"
+msgstr "Тргни ја ознаката %2$s од %1$s"
 
 #. TRANS: Legend on form to add a tag to a profile.
 #. TRANS: %1$s is a nickname, %2$s ia a people tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Tag %1$s as %2$s"
-msgstr "RT @%1$s %2$s"
+msgstr "Означи го/ја %1$s како %2$s"
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -10243,10 +10191,3 @@ msgstr "Неважечки XML. Нема XRD-корен."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "Земам резерва на податотеката „%s“."
-
-#~ msgid ""
-#~ "You can only tag people you are subscribed to or who are subscribed to "
-#~ "you."
-#~ msgstr ""
-#~ "Можете да означувате само луѓе на коишто сте претплатени или луѓе "
-#~ "претплатени на Вас."

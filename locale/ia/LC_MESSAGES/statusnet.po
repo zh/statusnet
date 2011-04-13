@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-11 12:22+0000\n"
-"PO-Revision-Date: 2011-04-11 12:25:13+0000\n"
+"POT-Creation-Date: 2011-04-13 13:18+0000\n"
+"PO-Revision-Date: 2011-04-13 13:20:18+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-09 18:56:02+0000\n"
+"X-POT-Import-Date: 2011-04-11 13:12:24+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -160,28 +160,28 @@ msgstr "Profilo non existe."
 #. TRANS: Client error displayed when referring to a non-exsting people tag.
 #. TRANS: Client error displayed when referring to non-existing people tag.
 #. TRANS: Client error displayed trying to reference a non-existing people tag.
-#, fuzzy
 msgid "No such people tag."
-msgstr "Etiquetta non existe."
+msgstr "Iste etiquetta de persona non existe."
 
 #. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-#, fuzzy
 msgid "You cannot tag an OMB 0.1 remote profile with this action."
-msgstr "Tu non pote subscriber te a un profilo remote OMB 0.1 con iste action."
+msgstr "Tu non pote etiquettar un profilo remote OMB 0.1 con iste action."
 
 #. TRANS: Client error displayed when an unknown error occurs while tagging a user.
 #. TRANS: %s is a username.
 #, php-format
 msgid "There was an unexpected error while tagging %s."
-msgstr ""
+msgstr "Un error inexpectate occurreva durante le etiquettage de %s."
 
 #. TRANS: Client error displayed when an unknown error occurs while tagging a user.
 #. TRANS: %s is a profile URL.
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"There was a problem tagging %s.The remote server is probably not responding "
+"There was a problem tagging %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
+"Un problema occurreva durante le etiquettage de %s. Le servitor remote "
+"probabilemente non respondeva correctemente. Per favor reproba plus tarde."
 
 #. TRANS: Title after subscribing to a people tag.
 #. TRANS: Page title when subscription succeeded.
@@ -775,63 +775,55 @@ msgstr "Le alias non pote esser identic al pseudonymo."
 #. TRANS: Client error displayed when referring to a non-existing list.
 #. TRANS: Client error displayed trying to perform an action related to a non-existing list.
 #. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
 msgid "List not found."
-msgstr "Usator non trovate."
+msgstr "Lista non trovate."
 
 #. TRANS: Client error displayed when trying to update another user's list.
 msgid "You cannot update lists that do not belong to you."
-msgstr ""
+msgstr "Tu non pote actualisar listas que non pertine a te."
 
 #. TRANS: Client error displayed when an unknown error occurs updating a list.
 #. TRANS: Client error displayed when an unknown error occurs viewing list members.
 #. TRANS: Client error displayed when an unknown error occurs in the list subscribers action.
 #. TRANS: Client error displayed when an unknown error occurs unsubscribing from a list.
-#, fuzzy
 msgid "An error occured."
 msgstr "Un error ha occurrite."
 
 #. TRANS: Client error displayed when trying to delete another user's list.
 msgid "You cannot delete lists that do not belong to you."
-msgstr ""
+msgstr "Tu non pote deler listas que non pertine a te."
 
 #. TRANS: Client error displayed when referring to a non-list member.
-#, fuzzy
 msgid "The specified user is not a member of this list."
-msgstr "Le usator non es membro del gruppo."
+msgstr "Le usator specificate non es membro de iste lista."
 
 #. TRANS: Client error displayed when trying to add members to a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to add members to this list."
-msgstr "Tu non ha le permission de crear gruppos in iste sito."
+msgstr "Tu non ha le permission de adder membros a iste lista."
 
 #. TRANS: Client error displayed when trying to modify list members without specifying them.
-#, fuzzy
 msgid "You must specify a member."
-msgstr "Es necessari specificar un profilo."
+msgstr "Es necessari specificar un membro."
 
 #. TRANS: Client error displayed when trying to remove members from a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to remove members from this list."
-msgstr "Tu non ha le permission de crear gruppos in iste sito."
+msgstr "Tu non ha le permission de remover membros de iste lista."
 
 #. TRANS: Client error displayed when trying to remove a list member that is not part of a list.
 msgid "The user you are trying to remove from the list is not a member."
-msgstr ""
+msgstr "Le usator que tu tenta remover de iste lista non es membro."
 
 #. TRANS: Client error displayed when trying to create a list without a name.
-#, fuzzy
 msgid "A list must have a name."
-msgstr "Message Atom debe esser un entrata Atom."
+msgstr "Un lista debe haber un nomine."
 
 #. TRANS: Client error displayed when a membership check for a user is nagative.
 msgid "The specified user is not a subscriber of this list."
-msgstr ""
+msgstr "Le usator specificate non es subscribite a iste lista."
 
 #. TRANS: Client error displayed when trying to unsubscribe from a non-subscribed list.
-#, fuzzy
 msgid "You are not subscribed to this list."
-msgstr "Tu non es subscribite a iste profilo."
+msgstr "Tu non es subscribite a iste lista."
 
 #. TRANS: Client error displayed when uploading a media file has failed.
 msgid "Upload failed."
@@ -1095,9 +1087,9 @@ msgstr "%1$s actualisationes favoritisate per %2$s / %3$s."
 
 #. TRANS: Server error displayed whe trying to get a timeline fails.
 #. TRANS: %s is the error message.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for list - %s"
-msgstr "Non poteva crear indicio de identification pro %s"
+msgstr "Non poteva generar un syndication pro le lista. %s"
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -2255,68 +2247,65 @@ msgstr "Optiones salveguardate."
 #. TRANS: %s is a tag.
 #, php-format
 msgid "Delete %s people tag"
-msgstr ""
+msgstr "Deler le etiquetta de persona \"%s\""
 
 #. TRANS: Title for edit people tag page.
 #. TRANS: %s is a tag.
 #. TRANS: Form legend for people tag edit form.
 #. TRANS: %s is a people tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Edit people tag %s"
-msgstr "Etiquetta de personas invalide: %s."
+msgstr "Modificar le etiquetta de persona \"%s\""
 
 #. TRANS: Error message displayed when trying to perform an action that requires a tagging user or ID.
-#, fuzzy
 msgid "No tagger or ID."
-msgstr "Nulle pseudonymo o ID."
+msgstr "Etiquettator o ID non specificate."
 
 #. TRANS: Client error displayed when referring to non-local user.
-#, fuzzy
 msgid "Not a local user."
-msgstr "Iste usator non existe."
+msgstr "Le usator non es local."
 
 #. TRANS: Client error displayed when reting to edit a tag that was not self-created.
-#, fuzzy
 msgid "You must be the creator of the tag to edit it."
-msgstr "Tu debe esser administrator pro modificar le gruppo."
+msgstr "Tu debe esser le creator del etiquetta pro poter modificar lo."
 
 #. TRANS: Form instruction for edit people tag form.
-#, fuzzy
 msgid "Use this form to edit the people tag."
-msgstr "Usa iste formulario pro modificar le gruppo."
+msgstr "Usa iste formulario pro modificar le etiquetta de persona."
 
 #. TRANS: Form validation error displayed if the form data for deleting a tag was incorrect.
-#, fuzzy
 msgid "Delete aborted."
-msgstr "Deler nota"
+msgstr "Deletion abortate."
 
 #. TRANS: Text in confirmation dialog for deleting a tag.
 msgid ""
 "Deleting this tag will permanantly remove all its subscription and "
 "membership records. Do you still want to continue?"
 msgstr ""
+"Si tu dele iste etiquetta, tote su datos de subscription e membrato essera "
+"permanentemente removite. Es tu secur de voler continuar?"
 
 #. TRANS: Form validation error displayed if a given tag is invalid.
-#, fuzzy
 msgid "Invalid tag."
-msgstr "Imagine invalide."
+msgstr "Etiquetta invalide."
 
 #. TRANS: Form validation error displayed if a given tag is already present.
 #. TRANS: %s is the already present tag.
-#, fuzzy, php-format
+#, php-format
 msgid "You already have a tag named %s."
-msgstr "Tu ha ja repetite iste nota."
+msgstr "Tu ha jam un etiquetta con le nomine \"%s\"."
 
 #. TRANS: Text in confirmation dialog for setting a tag from public to private.
 msgid ""
 "Setting a public tag as private will permanently remove all the existing "
 "subscriptions to it. Do you still want to continue?"
 msgstr ""
+"Si tu mitte un etiquetta public a private, tote le subscriptiones existente "
+"a illo essera permanentemente cancellate. Es tu secur de voler continuar?"
 
 #. TRANS: TRANS: Server error displayed when updating a people tag fails.
-#, fuzzy
 msgid "Could not update people tag."
-msgstr "Non poteva actualisar gruppo."
+msgstr "Non poteva actualisar le etiquetta de persona."
 
 #. TRANS: Title for e-mail settings.
 msgid "Email settings"
@@ -4068,15 +4057,15 @@ msgstr "Recerca de personas"
 
 #. TRANS: Title for people tag page.
 #. TRANS: %s is a tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Public people tag %s"
-msgstr "Chronologia public, pagina %d"
+msgstr "Etiquetta public de persona \"%s\""
 
 #. TRANS: Title for people tag page.
 #. TRANS: %1$s is a tag, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Public people tag %1$s, page %2$d"
-msgstr "Responsas a %1$s, pagina %2$d"
+msgstr "Etiquetta public de persona \"%1$s\", pagina %2$d"
 
 #. TRANS: Message for anonymous users on people tag page.
 #. TRANS: This message contains Markdown links in the form [description](link).
@@ -7845,9 +7834,12 @@ msgstr ""
 
 #. TRANS: Succes message displayed if tagging a user succeeds.
 #. TRANS: %1$s is the tagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags added (not part of message).
 #, fuzzy, php-format
 msgid "%1$s was tagged %2$s"
-msgstr "%1$s e %2$s"
+msgid_plural "%1$s was tagged %2$s"
+msgstr[0] "%1$s e %2$s"
+msgstr[1] "%1$s e %2$s"
 
 #. TRANS: Separator for list of tags.
 #. TRANS: Separator in list of user names like "You, Bob, Mary".
@@ -7856,9 +7848,9 @@ msgstr ", "
 
 #. TRANS: Error displayed if a given tag is invalid.
 #. TRANS: %s is the invalid tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "Etiquetta invalide: \"%s\"."
+msgstr "Etiquetta invalide: \"%s\""
 
 #. TRANS: Error displayed if untagging a user fails.
 #. TRANS: %1$s is the untagged user, %2$s is the error message (no punctuation).
@@ -7868,9 +7860,12 @@ msgstr ""
 
 #. TRANS: Succes message displayed if untagging a user succeeds.
 #. TRANS: %1$s is the untagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags removed (not part of message).
 #, php-format
-msgid "The following tag(s) were removed from user %1$s: %2$s."
-msgstr ""
+msgid "The following tag was removed from user %1$s: %2$s."
+msgid_plural "The following tags were removed from user %1$s: %2$s."
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -9401,7 +9396,6 @@ msgid "Edit people tag settings."
 msgstr "Modificar configuration de profilo."
 
 #. TRANS: Text for link to edit people tag settings.
-#, fuzzy
 msgid "Edit"
 msgstr "Modificar"
 
@@ -9473,7 +9467,6 @@ msgid "People tags"
 msgstr "Personas"
 
 #. TRANS: Replaces %s in 'People tags by %s'. (Yes, we know we need to fix this.)
-#, fuzzy
 msgid "User"
 msgstr "Usator"
 
@@ -10215,10 +10208,3 @@ msgstr "XML invalide, radice XRD mancante."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "Obtene copia de reserva ex file '%s'."
-
-#~ msgid ""
-#~ "You can only tag people you are subscribed to or who are subscribed to "
-#~ "you."
-#~ msgstr ""
-#~ "Tu pote solmente etiquettar personas a qui tu es subscribite o qui es "
-#~ "subscribite a te."

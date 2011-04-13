@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-11 12:22+0000\n"
-"PO-Revision-Date: 2011-04-11 12:25:46+0000\n"
+"POT-Creation-Date: 2011-04-13 13:18+0000\n"
+"PO-Revision-Date: 2011-04-13 13:20:38+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-09 18:56:02+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-11 13:12:24+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -165,33 +165,36 @@ msgstr "Walang ganyang balangkas."
 #. TRANS: Client error displayed when referring to a non-exsting people tag.
 #. TRANS: Client error displayed when referring to non-existing people tag.
 #. TRANS: Client error displayed trying to reference a non-existing people tag.
-#, fuzzy
 msgid "No such people tag."
-msgstr "Walang ganyang pahina."
+msgstr "Walang ganyang tatak ng mga tao."
 
 #. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-#, fuzzy
 msgid "You cannot tag an OMB 0.1 remote profile with this action."
-msgstr "Hindi ka makapagbibigay ng mga gampanin ng tagagamit sa sityong ito."
+msgstr ""
+"Hindi mo matatatakan ang isang malayong balangkas ng OMB 0.1 sa pamamagitan "
+"ng ganitong galaw."
 
 #. TRANS: Client error displayed when an unknown error occurs while tagging a user.
 #. TRANS: %s is a username.
 #, php-format
 msgid "There was an unexpected error while tagging %s."
 msgstr ""
+"Nagkaroon ng isang hindi inaasahang kamalian habang tinatatakan ang %s."
 
 #. TRANS: Client error displayed when an unknown error occurs while tagging a user.
 #. TRANS: %s is a profile URL.
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"There was a problem tagging %s.The remote server is probably not responding "
+"There was a problem tagging %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
+"May isang suliranin sa pagtatatak ng %s.  Marahil ang malayong tagapaghain  "
+"ay hind tumutugon ng tama, mangyaring subukang subukan pa ulit mamaya."
 
 #. TRANS: Title after subscribing to a people tag.
 #. TRANS: Page title when subscription succeeded.
 msgid "Subscribed"
-msgstr ""
+msgstr "Tumatanggap na ng sipi"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -788,63 +791,58 @@ msgstr "Ang taguri ay hindi maaaring katulad ng palayaw."
 #. TRANS: Client error displayed when referring to a non-existing list.
 #. TRANS: Client error displayed trying to perform an action related to a non-existing list.
 #. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
 msgid "List not found."
-msgstr "Hindi natagpuan ang tagagamit."
+msgstr "Hindi natagpuan ang tala."
 
 #. TRANS: Client error displayed when trying to update another user's list.
 msgid "You cannot update lists that do not belong to you."
-msgstr ""
+msgstr "Hindi ka makakapagsapanahon ng mga tala na hindi mo pag-aari."
 
 #. TRANS: Client error displayed when an unknown error occurs updating a list.
 #. TRANS: Client error displayed when an unknown error occurs viewing list members.
 #. TRANS: Client error displayed when an unknown error occurs in the list subscribers action.
 #. TRANS: Client error displayed when an unknown error occurs unsubscribing from a list.
-#, fuzzy
 msgid "An error occured."
 msgstr "Naganap ang isang kamalian."
 
 #. TRANS: Client error displayed when trying to delete another user's list.
 msgid "You cannot delete lists that do not belong to you."
-msgstr ""
+msgstr "Hindi mo mabubura ang mga tala na hindi mo pag-aari."
 
 #. TRANS: Client error displayed when referring to a non-list member.
-#, fuzzy
 msgid "The specified user is not a member of this list."
-msgstr "Ang tagagamit ay hindi isang kasapi ng pangkat."
+msgstr "Ang tinukoy na tagagamit ay hindi isang kasapi ng talaang ito."
 
 #. TRANS: Client error displayed when trying to add members to a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to add members to this list."
-msgstr "Hindi ka pinapahintulutang lumikha ng mga pangkat sa lugar na ito."
+msgstr "Hindi ka pinapahintulutang magdagdag ng mga kasapi sa talaang ito."
 
 #. TRANS: Client error displayed when trying to modify list members without specifying them.
-#, fuzzy
 msgid "You must specify a member."
-msgstr "Kailangang tumukoy ng isang balangkas."
+msgstr "Kailangan mong tumukoy ng isang kasapi."
 
 #. TRANS: Client error displayed when trying to remove members from a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to remove members from this list."
-msgstr "Hindi ka pinapahintulutang lumikha ng mga pangkat sa lugar na ito."
+msgstr ""
+"Hindi ka pinapahintulutang magtanggal ng mga kasapi magmula sa talaang ito."
 
 #. TRANS: Client error displayed when trying to remove a list member that is not part of a list.
 msgid "The user you are trying to remove from the list is not a member."
 msgstr ""
+"Ang tagagamit na sinusubukan mong tanggalin mula sa talaan ay hindi isang "
+"kasapi."
 
 #. TRANS: Client error displayed when trying to create a list without a name.
-#, fuzzy
 msgid "A list must have a name."
-msgstr "Dapat na isang pagpapasok na Atom ang pagpapaskil ng Atom."
+msgstr "Dapat na may isang pangalan ang talaan."
 
 #. TRANS: Client error displayed when a membership check for a user is nagative.
 msgid "The specified user is not a subscriber of this list."
-msgstr ""
+msgstr "Ang tinukoy na tagagamit ay hindi isang nagpapasipi ng talaang ito."
 
 #. TRANS: Client error displayed when trying to unsubscribe from a non-subscribed list.
-#, fuzzy
 msgid "You are not subscribed to this list."
-msgstr "Hindi ka nagpapasipi mula kaninuman."
+msgstr "Hindi ka tumatanggap ng sipi mula sa talaang ito."
 
 #. TRANS: Client error displayed when uploading a media file has failed.
 msgid "Upload failed."
@@ -1112,9 +1110,9 @@ msgstr "%1$s na mga pagsasapanahon ang kinagiliwan ni %2$s / %3$s."
 
 #. TRANS: Server error displayed whe trying to get a timeline fails.
 #. TRANS: %s is the error message.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for list - %s"
-msgstr "Hindi malikha ang kinagigiliwan."
+msgstr "Hindi makalikha ng pasubo para sa talaan - %s"
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -2288,68 +2286,66 @@ msgstr "Nasagip ang mga mapagpipilian."
 #. TRANS: %s is a tag.
 #, php-format
 msgid "Delete %s people tag"
-msgstr ""
+msgstr "Burahin ang tatak na %s ng mga tao"
 
 #. TRANS: Title for edit people tag page.
 #. TRANS: %s is a tag.
 #. TRANS: Form legend for people tag edit form.
 #. TRANS: %s is a people tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Edit people tag %s"
-msgstr "Hindi isang katanggap-tanggap na tatak ng mga tao: %s."
+msgstr "Baguhin ang tatak ng mga tao na %s"
 
 #. TRANS: Error message displayed when trying to perform an action that requires a tagging user or ID.
-#, fuzzy
 msgid "No tagger or ID."
-msgstr "Walang palayaw o ID."
+msgstr "Walang tagapagtatak o ID."
 
 #. TRANS: Client error displayed when referring to non-local user.
-#, fuzzy
 msgid "Not a local user."
-msgstr "Walang ganyang tagagamit."
+msgstr "Hindi isang katutubong tagagamit."
 
 #. TRANS: Client error displayed when reting to edit a tag that was not self-created.
-#, fuzzy
 msgid "You must be the creator of the tag to edit it."
-msgstr "Dapat na isa kang tagapangasiwa upang baguhin ang pangkat."
+msgstr "Dapat na ikaw ang manlilikha ng tatak upang mabago ito."
 
 #. TRANS: Form instruction for edit people tag form.
-#, fuzzy
 msgid "Use this form to edit the people tag."
-msgstr "Gamitin ang pormularyong ito upang baguhin ang pangkat."
+msgstr "Gamitin ang pormularyong ito upang baguhin ang tatak ng mga tao."
 
 #. TRANS: Form validation error displayed if the form data for deleting a tag was incorrect.
-#, fuzzy
 msgid "Delete aborted."
-msgstr "Burahin ang pabatid"
+msgstr "Pinigil ang pagbura."
 
 #. TRANS: Text in confirmation dialog for deleting a tag.
 msgid ""
 "Deleting this tag will permanantly remove all its subscription and "
 "membership records. Do you still want to continue?"
 msgstr ""
+"Ang pagbubura ng tatak na ito ay permanenteng makapagbubura ng lahat ng mga "
+"pagpapasipi nito at mga rekord ng kasapi.  Nais mo paring magpatuloy?"
 
 #. TRANS: Form validation error displayed if a given tag is invalid.
-#, fuzzy
 msgid "Invalid tag."
-msgstr "Hindi katanggap-tanggap na larawan."
+msgstr "Hindi katanggap-tanggap na tatak."
 
 #. TRANS: Form validation error displayed if a given tag is already present.
 #. TRANS: %s is the already present tag.
-#, fuzzy, php-format
+#, php-format
 msgid "You already have a tag named %s."
-msgstr "Hinarang mo na ang tagagamit na iyan."
+msgstr "Mayroon ka nang isang tatak na pinangalanang %s."
 
 #. TRANS: Text in confirmation dialog for setting a tag from public to private.
 msgid ""
 "Setting a public tag as private will permanently remove all the existing "
 "subscriptions to it. Do you still want to continue?"
 msgstr ""
+"Ang pagtatakda ng isang tatak na pangmadla bilang pribado ay permanenteng "
+"magtatanggal ng lahat ng umiiral na mga pagpapasipi mula rito. Nais mo pa "
+"ring magpatuloy?"
 
 #. TRANS: TRANS: Server error displayed when updating a people tag fails.
-#, fuzzy
 msgid "Could not update people tag."
-msgstr "Hindi maisapanahon ang pangkat."
+msgstr "Hindi maisapanahon ang tatak ng mga tao."
 
 #. TRANS: Title for e-mail settings.
 msgid "Email settings"
@@ -3003,6 +2999,9 @@ msgid ""
 "You can send and receive notices through instant messaging [instant messages]"
 "(%%doc.im%%). Configure your addresses and settings below."
 msgstr ""
+"Makapagpapadala at makatatanggap ka ng mga pabatid sa pamamagitan ng "
+"biglaang pagmemensahe [biglang mga mensahe](%%doc.im%%). Iayos ang mga "
+"tirahan at mga katakdaan mo sa ibaba."
 
 #. TRANS: Message given in the IM settings if IM is not enabled on the site.
 msgid "IM is not available."
@@ -3011,7 +3010,7 @@ msgstr "Hindi makukuha ang IM."
 #. TRANS: Form note in IM settings form. %s is the type of IM address that was confirmed.
 #, php-format
 msgid "Current confirmed %s address."
-msgstr ""
+msgstr "Pangkasalukuyang natiyak na tirahan ng %s."
 
 #. TRANS: Form note in IM settings form.
 #. TRANS: %s is the IM service name, %2$s is the IM address set.
@@ -3020,6 +3019,9 @@ msgid ""
 "Awaiting confirmation on this address. Check your %1$s account for a message "
 "with further instructions. (Did you add %2$s to your buddy list?)"
 msgstr ""
+"Naghihintay ng pagtitiyak sa tirahang ito. Suriin ang iyong akawnt ng %1$s "
+"para sa isang mensahe na may karagdagang mga panuto. (Idinagdag mo ba ang %2"
+"$s sa talaan mo ng katoto?)"
 
 #. TRANS: Field label for IM address.
 msgid "IM address"
@@ -4122,127 +4124,126 @@ msgstr "Paghahanap ng mga tao"
 
 #. TRANS: Title for people tag page.
 #. TRANS: %s is a tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Public people tag %s"
-msgstr "Pangmadlang guhit ng panahon, pahinang %d"
+msgstr "Pangmadlang tatak ng mga tao na%s"
 
 #. TRANS: Title for people tag page.
 #. TRANS: %1$s is a tag, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Public people tag %1$s, page %2$d"
-msgstr "Mga pabatid ni %1$s, pahina %2$d"
+msgstr "Pangmadlang tatak ng mga tao na %1$s, pahina %2$d"
 
 #. TRANS: Message for anonymous users on people tag page.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "People tags are how you sort similar people on %%site.name%%, a [micro-"
 "blogging](http://en.wikipedia.org/wiki/Micro-blogging) service based on the "
 "Free Software [StatusNet](http://status.net/) tool. You can then easily keep "
 "track of what they are doing by subscribing to the tag's timeline."
 msgstr ""
-"Si **%s** ay may isang akawnt sa %%%%site.name%%%%, isang palingkuran ng "
+"Ang mga tatak ng mga tao ay kung paano mo pinagpapangkat-pangkat ang "
+"magkakahalintulad na mga tao sa %%site.name%%, isang palingkuran ng "
 "[maliitang pagboblog](http://en.wikipedia.org/wiki/Micro-blogging) na "
 "nakabatay sa kasangkapan ng Malayang Sopwer na [StatusNet](http://status."
-"net/). "
+"net/). Kaya't maginhawa mong masusubaybay ang kung ano ang kanilang ginagawa "
+"sa pamamagitan ng pagpapatanggap ng mga sipi sa guhit ng panahon ng tatak."
 
 #. TRANS: Client error displayed when a tagger is expected but not provided.
-#, fuzzy
 msgid "No tagger."
-msgstr "Walang ganyang pahina."
+msgstr "Walang tagapagtatak."
 
 #. TRANS: Title for list of people tagged by the user with a tag.
 #. TRANS: %1$s is a tag, %2$s is a username.
 #. TRANS: Header on show profile tag page.
 #. TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "People tagged %1$s by %2$s"
-msgstr "Mga tugon sa %1$s sa %2$s."
+msgstr "Mga taong tinatakan ni %2$s ng %1$s."
 
 #. TRANS: Title for list of people tagged by the user with a tag.
 #. TRANS: %1$s is a tag, %2$s is a username, %2$s is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "People tagged %1$s by %2$s, page %3$d"
-msgstr "Mga pabatid ni %1$s na tinatakan ng %2$s, pahina %3$d"
+msgstr "Mga taong tinatakan ni %2$s ng %1$s, pahina %3$d"
 
 #. TRANS: Addition in tag membership list for creator of a tag.
 #. TRANS: Addition in tag subscribers list for creator of a tag.
-#, fuzzy
 msgid "Creator"
-msgstr "Nalikha na"
+msgstr "Manlilikha"
 
 #. TRANS: Title for people tags by a user page for a private tag.
 msgid "Private people tags by you"
-msgstr ""
+msgstr "Pribadong mga tatak mo ng mga tao"
 
 #. TRANS: Title for people tags by a user page for a public tag.
-#, fuzzy
 msgid "Public people tags by you"
-msgstr "Ulap ng pangmadlang tatak"
+msgstr "Pangmadlang mga tatak mo ng mga tao"
 
 #. TRANS: Title for people tags by a user page.
 #. TRANS: Page notice.
 msgid "People tags by you"
-msgstr ""
+msgstr "Mga tatak mo ng mga tao"
 
 #. TRANS: Title for people tags by a user page.
 #. TRANS: %s is a user nickname.
 #. TRANS: Page notice. %s is a tagger's nickname.
 #. TRANS: Menu item title in personal group navigation menu.
 #. TRANS: %s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags by %s"
-msgstr "Mga pag-uulit ng %s"
+msgstr "Mga tatak ng mga tao ni %s"
 
 #. TRANS: Title for people tags by a user page.
 #. TRANS: %1$s is a user nickname, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags by %1$s, page %2$d"
-msgstr "Mga pabatid ni %1$s, pahina %2$d"
+msgstr "Mga tatak ng mga tao ni %1$s, pahina %2$d"
 
 #. TRANS: Client error displayed when trying view another user's private people tags.
 msgid "You cannot view others' private people tags"
-msgstr ""
+msgstr "Hindi mo maaaring makita ang pribadong mga tatak ng mga tao ng iba"
 
 #. TRANS: Mode selector label.
 msgid "Mode"
-msgstr ""
+msgstr "Paraan"
 
 #. TRANS: Link text to show people tags for user %s.
 #. TRANS: Title for page that displays which people tags a user has been tagged with.
 #. TRANS: %s is a profile name.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags for %s"
-msgstr "Mga pag-uulit ng %s"
+msgstr "Mga tatak ng mga tao para sa %s"
 
 #. TRANS: Fieldset legend.
 #. TRANS: Fieldset legend on gallery action page.
 msgid "Select tag to filter"
-msgstr ""
+msgstr "Pumili ng tatak na sasalain"
 
 #. TRANS: Checkbox title.
 msgid "Show private tags."
-msgstr ""
+msgstr "Ipakita ang pribadong mga tatak."
 
 #. TRANS: Checkbox label to show public tags.
 msgctxt "LABEL"
 msgid "Public"
-msgstr ""
+msgstr "Pangmadla"
 
 #. TRANS: Checkbox title.
 msgid "Show public tags."
-msgstr ""
+msgstr "Ipakita ang pangmadlang mga tatak."
 
 #. TRANS: Submit button text for tag filter form.
 #. TRANS: Submit button text on gallery action page.
 msgctxt "BUTTON"
 msgid "Go"
-msgstr ""
+msgstr "Pumunta"
 
 #. TRANS: Message displayed for anonymous users on page that displays people tags by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are people tags created by **%s**. People tags are how you sort "
 "similar people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia."
@@ -4250,10 +4251,13 @@ msgid ""
 "(http://status.net/) tool. You can easily keep track of what they are doing "
 "by subscribing to the tag's timeline."
 msgstr ""
-"Si **%s** ay may isang akawnt sa %%%%site.name%%%%, isang palingkuran ng "
-"[maliitang pagboblog](http://en.wikipedia.org/wiki/Micro-blogging) na "
-"nakabatay sa kasangkapan ng Malayang Sopwer na [StatusNet](http://status."
-"net/). "
+"Ito ay mga tatak ng mga tao na nilikha ni **%s**. Ang mga tatak ng mga tao "
+"ay kung paano mo pinagpapangkat-pangkat ang magkakahalintulad na mga tao sa %"
+"%site.name%%, isang palingkuran ng [maliitang pagboblog](http://en.wikipedia."
+"org/wiki/Micro-blogging) na nakabatay sa kasangkapan ng Malayang Sopwer na "
+"[StatusNet](http://status.net/). Kaya't maginhawa mong masusubaybay ang kung "
+"ano ang kanilang ginagawa sa pamamagitan ng pagpapatanggap ng mga sipi sa "
+"guhit ng panahon ng tatak."
 
 #. TRANS: Message displayed on page that displays people tags by a user when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
@@ -4261,15 +4265,17 @@ msgstr ""
 #, php-format
 msgid "%s has not created any [people tags](%%%%doc.tags%%%%) yet."
 msgstr ""
+"Si %s ay hindi pa lumilikha ng anumang [mga tatak ng mga tao](%%%%doc.tags%%%"
+"%)."
 
-#, fuzzy, php-format
+#, php-format
 msgid "People tags for %1$s, page %2$d"
-msgstr "Kahong-tanggapan para sa %1$s - pahinang %2$d"
+msgstr "Mga tatak ng mga tao para sa %1$s, pahina %2$d"
 
 #. TRANS: Message displayed for anonymous users on page that displays people tags for a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are people tags for **%s**. People tags are how you sort similar "
 "people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/"
@@ -4277,10 +4283,13 @@ msgid ""
 "net/) tool. You can easily keep track of what they are doing by subscribing "
 "to the tag's timeline."
 msgstr ""
-"Si **%s** ay may isang akawnt sa %%%%site.name%%%%, isang palingkuran ng "
-"[maliitang pagboblog](http://en.wikipedia.org/wiki/Micro-blogging) na "
-"nakabatay sa kasangkapan ng Malayang Sopwer na [StatusNet](http://status."
-"net/). "
+"Ito ay mga tatak ng mga tao para sa **%s**. Ang mga tatak ng mga tao ay kung "
+"paano mo pinagpapangkat-pangkat ang magkakahalintulad na mga tao sa %%site."
+"name%%, isang palingkuran ng [maliitang pagboblog](http://en.wikipedia.org/"
+"wiki/Micro-blogging) na nakabatay sa kasangkapan ng Malayang Sopwer na "
+"[StatusNet](http://status.net/). Kaya't maginhawa mong masusubaybay ang kung "
+"ano ang kanilang ginagawa sa pamamagitan ng pagpapatanggap ng mga sipi sa "
+"guhit ng panahon ng tatak."
 
 #. TRANS: Message displayed on page that displays people tags for a user when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
@@ -4297,26 +4306,26 @@ msgstr ""
 
 #. TRANS: Page title for list of people tag subscribers.
 #. TRANS: %1$s is a tag, %2$s is a user nickname, %3$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers of people tagged %1$s by %2$s, page %3$d"
-msgstr "Mga pabatid ni %1$s na tinatakan ng %2$s, pahina %3$d"
+msgstr "Mga nagpapasipi ng mga taong tinatakan ni %2$s ng %1$s, pahina %3$d"
 
 #. TRANS: Title for page that displays people tags subscribed to by a user.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags subscriptions by %s"
-msgstr "Mga tao na nagpapasipi sa kay %s."
+msgstr "Mga pagpapasipi ng mga tatak ng mga tao ni %s"
 
 #. TRANS: Title for page that displays people tags subscribed to by a user.
 #. TRANS: %1$s is a profile nickname, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "People tags subscriptions by %1$s, page %2$d"
-msgstr "Mga pabatid ni %1$s, pahina %2$d"
+msgstr "Mga pagpapasipi ng mga tatak ng mga tao ni %1$s, pahina %2$d"
 
 #. TRANS: Message displayed for anonymous users on page that displays people tags subscribed to by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are people tags subscribed to by **%s**. People tags are how you sort "
 "similar people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia."
@@ -4324,10 +4333,13 @@ msgid ""
 "(http://status.net/) tool. You can easily keep track of what they are doing "
 "by subscribing to the tag's timeline."
 msgstr ""
-"Si **%s** ay may isang akawnt sa %%%%site.name%%%%, isang palingkuran ng "
-"[maliitang pagboblog](http://en.wikipedia.org/wiki/Micro-blogging) na "
-"nakabatay sa kasangkapan ng Malayang Sopwer na [StatusNet](http://status."
-"net/). "
+"Ito ay mga tatak ng mga tao na pinasisipi ni **%s**. Ang mga tatak ng mga "
+"tao ay kung paano mo pinagpapangkat-pangkat ang magkakahalintulad na mga tao "
+"sa %%site.name%%, isang palingkuran ng [maliitang pagboblog](http://en."
+"wikipedia.org/wiki/Micro-blogging) na nakabatay sa kasangkapan ng Malayang "
+"Sopwer na [StatusNet](http://status.net/). Kaya't maginhawa mong "
+"masusubaybay ang kung ano ang kanilang ginagawa sa pamamagitan ng "
+"pagpapatanggap ng mga sipi sa guhit ng panahon ng tatak."
 
 #. TRANS: Page title for AJAX form return when a disabling a plugin.
 msgctxt "plugin"
@@ -4344,7 +4356,7 @@ msgstr "Ang galaw na ito ay tumatanggap lamang ng mga kahilingan ng PAGPASKIL."
 
 #. TRANS: Client error displayed when trying to enable or disable a plugin without access rights.
 msgid "You cannot administer plugins."
-msgstr ""
+msgstr "Hindi ka makakapangasiwa ng mga pamasak."
 
 #. TRANS: Client error displayed when trying to enable or disable a non-existing plugin.
 msgid "No such plugin."
@@ -4390,13 +4402,12 @@ msgstr ""
 #. TRANS: %s is a field name.
 #, php-format
 msgid "Unidentified field %s."
-msgstr ""
+msgstr "Hindi nakikilalang hanay na %s"
 
 #. TRANS: Page title.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Search results"
-msgstr "Maghanap sa sityo"
+msgstr "Mga kinalabasan ng paghahanap"
 
 #. TRANS: Error message in case a search is shorter than three characters.
 msgid "The search string must be at least 3 characters long."
@@ -4664,15 +4675,14 @@ msgid ""
 msgstr ""
 
 #. TRANS: Title for page with public people tag cloud.
-#, fuzzy
 msgid "Public people tag cloud"
-msgstr "Ulap ng pangmadlang tatak"
+msgstr "Ulap ng pangmadlang tatak ng mga tao"
 
 #. TRANS: Page notice for page with public people tag cloud.
 #. TRANS: %s is a StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "These are most used people tags on %s"
-msgstr "Ito ang mga pinakatanyag na kamakailang mga tatak sa %s"
+msgstr "Ito ang mga pinaka ginagamit na mga tatak ng mga tao sa %s"
 
 #. TRANS: Empty list message on page with public people tag cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
@@ -4681,24 +4691,22 @@ msgid "No one has [tagged](%%doc.tags%%) anyone yet."
 msgstr ""
 
 #. TRANS: Additional empty list message on page with public people tag cloud for logged in users.
-#, fuzzy
 msgid "Be the first to tag someone!"
-msgstr "Maging pinakauna sa pagpapaskil ng isa!"
+msgstr "Maging pinakauna sa pagtatatak ng isang tao!"
 
 #. TRANS: Additional empty list message on page with public people tag cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to tag "
 "someone!"
 msgstr ""
 "Bakit hindi [magpatala ng isang akawnt] (%%action.register%%) at maging una "
-"sa pagdaragdag ng isang pabatid sa iyong mga kinagigiliwan!"
+"sa pagtatatak ng isang tao!"
 
 #. TRANS: DT element on on page with public people tag cloud.
-#, fuzzy
 msgid "People tag cloud"
-msgstr "Ulap ng pangmadlang tatak"
+msgstr "Ulap ng tatak ng mga tao"
 
 #. TRANS: Link title for number of people tagged. %d is the number of people tagged.
 #, php-format
@@ -4710,7 +4718,7 @@ msgstr[1] ""
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
 #, php-format
 msgid "%s updates from everyone."
-msgstr ""
+msgstr "Mga pagsasapanahon sa %s na nagmumula sa lahat."
 
 #. TRANS: Title for public tag cloud.
 msgid "Public tag cloud"
@@ -5294,9 +5302,9 @@ msgstr "Hindi isang katanggap-tanggap na tatak ng mga tao: %s."
 
 #. TRANS: Page title for page showing self tags.
 #. TRANS: %1$s is a tag, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Users self-tagged with %1$s, page %2$d"
-msgstr "Mga pagsasapanahon na tinatakan ng %1$s sa %2$s!"
+msgstr "Mga tagagamit na nagtatak sa sarili ng %1$s, pahina %2$d"
 
 #. TRANS: Title for the sessions administration panel.
 msgctxt "TITLE"
@@ -5440,7 +5448,7 @@ msgstr "Isa itong paraan upang maibahagi kung ano ang nais mo."
 #. TRANS: Page title for first group page. %s is a group name.
 #, php-format
 msgid "%s group"
-msgstr ""
+msgstr "Pangkat ng %s"
 
 #. TRANS: Page title for any but first group page.
 #. TRANS: %1$s is a group name, $2$s is a page number.
@@ -5580,68 +5588,69 @@ msgstr ""
 
 #. TRANS: Title for private people tag timeline.
 #. TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for people tagged %1$s by %2$s, page %3$d"
-msgstr "Mga pabatid ni %1$s na tinatakan ng %2$s, pahina %3$d"
+msgstr ""
+"Guhit ng panahon para sa mga taong tinatakan ni %2$s ng %1$s, pahina %3$d"
 
 #. TRANS: Title for private people tag timeline.
 #. TRANS: %s is a people tag.
 #, php-format
 msgid "Private timeline of people tagged %s by you"
-msgstr ""
+msgstr "Pribadong guhit ng panahon ng mga taong tinatakan mo ng %s"
 
 #. TRANS: Title for public people tag timeline where the viewer is the tagger.
 #. TRANS: %s is a people tag.
 #, php-format
 msgid "Timeline for people tagged %s by you"
-msgstr ""
+msgstr "Guhit ng panahon para sa mga taong tinatakan mo ng %s"
 
 #. TRANS: Title for private people tag timeline.
 #. TRANS: %1$s is a people tag, %2$s is the tagger's nickname.
 #, php-format
 msgid "Timeline for people tagged %1$s by %2$s"
-msgstr ""
+msgstr "Guhit ng panahon para sa mga taong tinatakan ni %2$s ng %1$s"
 
 #. TRANS: Feed title.
 #. TRANS: %1$s is a people tag, %2$s is tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for people tagged %1$s by %2$s (Atom)"
-msgstr "Pasubo para sa mga kinagigiliwan ni %s (Atom)"
+msgstr "Pasubo para sa mga taong tinatakan ni %2$s ng %1$s (Atom)"
 
 #. TRANS: Empty list message for people tag timeline.
 #. TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline for people tagged %1$s by %2$s but no one has posted "
 "anything yet."
 msgstr ""
-"Ito ang guhit pampanahon para kay %s at mga kaibigan ngunit walang pang "
-"nagpapaskil ng anuman."
+"Ito ang guhit ng panahon para sa mga taong tinatakan ni %2$s ng %1$s ngunit "
+"wala pang isang nagpapaskil ng anuman."
 
 #. TRANS: Additional empty list message for people tag timeline for currently logged in user tagged tags.
 msgid "Try tagging more people."
-msgstr ""
+msgstr "Subukang magtatak ng mas marami pang mga tao."
 
 #. TRANS: Additional empty list message for people tag timeline.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and start following "
 "this timeline!"
 msgstr ""
 "Bakit hindi [magpatala ng isang akawnt] (%%%%action.register%%%%) at "
-"pagkaraan ay dunggulin ang %s o magpaskil ng isang pabatid sa kanila."
+"magsimulang sundan ang guhit ng panahong ito!"
 
 #. TRANS: Header on show profile tag page.
 #. TRANS: %s is a people tag.
 #, php-format
 msgid "People tagged %s by you"
-msgstr ""
+msgstr "Mga taong tinatakan mo %s"
 
 #. TRANS: Link for more "People tagged x by a user"
 #. TRANS: if there are more than the mini list's maximum.
 msgid "Show all"
-msgstr ""
+msgstr "Ipakitang lahat"
 
 #. TRANS: Header for tag subscribers.
 #. TRANS: Link description for link to list of users subscribed to a tag.
@@ -6029,12 +6038,12 @@ msgstr ""
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 msgid "SMS confirmation cancelled."
-msgstr ""
+msgstr "Hindi itinuloy ang pagtitiyak ng SMS."
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
 msgid "That is not your phone number."
-msgstr ""
+msgstr "Hindi iyan ang numero mo ng telepono."
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 msgid "The SMS phone number was removed."
@@ -6092,15 +6101,17 @@ msgstr "Ayon sa pagkakataon habang nagaganap ang paghagip sa web"
 
 #. TRANS: Option in dropdown for snapshot method in admin panel for snapshots.
 msgid "In a scheduled job"
-msgstr ""
+msgstr "Sa loob ng isang nakatakdang trabaho"
 
 #. TRANS: Dropdown label for snapshot method in admin panel for snapshots.
 msgid "Data snapshots"
-msgstr ""
+msgstr "Mga dato na nakuhanan ng kamera"
 
 #. TRANS: Dropdown title for snapshot method in admin panel for snapshots.
 msgid "When to send statistical data to status.net servers."
 msgstr ""
+"Kung kailan ipapadala ang datong pang-estadistika sa mga tagapaghain ng "
+"status.net."
 
 #. TRANS: Input field label for snapshot frequency in admin panel for snapshots.
 msgid "Frequency"
@@ -6109,6 +6120,8 @@ msgstr "Dalas"
 #. TRANS: Input field title for snapshot frequency in admin panel for snapshots.
 msgid "Snapshots will be sent once every N web hits."
 msgstr ""
+"Ang mga kuha ng kamera ay ipapadala ng isang ulit sa bawat mga pagpapatama "
+"sa web ng N."
 
 #. TRANS: Input field label for snapshot report URL in admin panel for snapshots.
 msgid "Report URL"
@@ -6116,95 +6129,100 @@ msgstr "URL ng ulat"
 
 #. TRANS: Input field title for snapshot report URL in admin panel for snapshots.
 msgid "Snapshots will be sent to this URL."
-msgstr ""
+msgstr "Ang mga kuha ng kamera ay ipapadala sa URL na ito."
 
 #. TRANS: Title for button to save snapshot settings.
 msgid "Save snapshot settings."
-msgstr ""
+msgstr "Sagipin ang mga pagtatakda sa kuha ng kamera."
 
 #. TRANS: Client error displayed trying a change a subscription for a non-subscribed profile.
 msgid "You are not subscribed to that profile."
-msgstr ""
+msgstr "Hindi ka tumatanggap ng sipi mula sa balangkas na iyan."
 
 #. TRANS: Server error displayed when updating a subscription fails with a database error.
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
 msgid "Could not save subscription."
-msgstr ""
+msgstr "Hindi masagip ang pagpapasipi."
 
 #. TRANS: Client error displayed when trying to approve group applicants without being a group administrator.
 msgid "You may only approve your own pending subscriptions."
 msgstr ""
+"Tanging pansarili mong nakabinbing mga pagpapasipi lamang ang maaari mong "
+"payagan."
 
 #. TRANS: Title of the first page showing pending subscribers still awaiting approval.
 #. TRANS: %s is the name of the user.
 #, php-format
 msgid "%s subscribers awaiting approval"
-msgstr ""
+msgstr "Mga nagpapasipi kay %s na naghihintay ng pagpayag"
 
 #. TRANS: Title of all but the first page showing pending subscribersmembers still awaiting approval.
 #. TRANS: %1$s is the name of the user, %2$d is the page number of the members list.
 #, php-format
 msgid "%1$s subscribers awaiting approval, page %2$d"
-msgstr ""
+msgstr "Mga nagpapasipi kay %1$s na naghihintay ng pagpayag, pahina %2$d"
 
 #. TRANS: Page notice for group members page.
 msgid "A list of users awaiting approval to subscribe to you."
 msgstr ""
+"Isang tala ng mga tagagamit na naghihintay ng pagpayag upang makasipi sa iyo."
 
 #. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
-#, fuzzy
 msgid "You must be logged in to unsubscribe to a people tag."
-msgstr "Dapat na nakalagda ka upang makalikha ng isang pangkat."
+msgstr ""
+"Dapat na nakalagda ka upang hindi magpatanggap ng sipi mula sa isang tatak "
+"ng mga tao."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
-#, fuzzy
 msgid "No ID given."
-msgstr "Walang ID."
+msgstr "Walang ibinigay na ID."
 
 #. TRANS: Server error displayed subscribing to a people tag fails.
 #. TRANS: %1$s is a user nickname, %2$s is a people tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not subscribe user %1$s to people tag %2$s."
-msgstr "Hindi maisali ang tagagamit na si %1$s sa pangkat na %2$s."
+msgstr "Hindi mapasipian ang tagagamit na si %1$s sa tatak ng mga tao na %2$s."
 
 #. TRANS: Title of form to subscribe to a people tag.
 #. TRANS: %1%s is a user nickname, %2$s is a people tag, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribed to people tag %2$s by %3$s"
-msgstr "Ang mga tao ng %1$s ay nagpapasipi mula sa %2$s"
+msgstr "Nagpasipi si %1$s ng tatak ng mga tao na %2$s ni %3$s"
 
 #. TRANS: Header for list of subscribers for a user (first page).
 #. TRANS: %s is the user's nickname.
 #, php-format
 msgid "%s subscribers"
-msgstr ""
+msgstr "Mga nagpapasipi mula kay %s"
 
 #. TRANS: Header for list of subscribers for a user (not first page).
 #. TRANS: %1$s is the user's nickname, $2$d is the page number.
 #, php-format
 msgid "%1$s subscribers, page %2$d"
-msgstr ""
+msgstr "Mga nagpapasipi mula kay %1$s, pahina %2$d"
 
 #. TRANS: Page notice for page with an overview of all subscribers
 #. TRANS: of the logged in user's own profile.
 msgid "These are the people who listen to your notices."
-msgstr ""
+msgstr "Ito ang mga taong nakikinig sa mga pabatid mo."
 
 #. TRANS: Page notice for page with an overview of all subscribers of a user other
 #. TRANS: than the logged in user. %s is the user nickname.
 #, php-format
 msgid "These are the people who listen to %s's notices."
-msgstr ""
+msgstr "Ito ang mga taong nakikinig sa mga pabatid ni %s."
 
 #. TRANS: Subscriber list text when the logged in user has no subscribers.
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor."
 msgstr ""
+"Walang nagpapasipi sa iyo. Subukang sumipi sa mga taong kakilala mo at "
+"maaaring ibalik nila ang pagbibigay."
 
 #. TRANS: Subscriber list text when looking at the subscribers for a of a user other
 #. TRANS: than the logged in user that has no subscribers. %s is the user nickname.
@@ -6268,11 +6286,11 @@ msgstr ""
 
 #. TRANS: Checkbox label for enabling Jabber messages for a profile in a subscriptions list.
 msgid "IM"
-msgstr ""
+msgstr "Biglaang Mensahe"
 
 #. TRANS: Checkbox label for enabling SMS messages for a profile in a subscriptions list.
 msgid "SMS"
-msgstr ""
+msgstr "SMS"
 
 #. TRANS: Title for all but the first page of notices with tags.
 #. TRANS: %1$s is the tag, %2$d is the page number.
@@ -6301,59 +6319,53 @@ msgstr ""
 #. TRANS: Client error displayed when trying to tag a user that cannot be tagged.
 #. TRANS: Client exception thrown trying to set a tag for a user that cannot be tagged.
 #. TRANS: Error displayed when trying to tag a user that cannot be tagged.
-#, fuzzy
 msgid "You cannot tag this user."
-msgstr "Hindi ka maaaring magpadala ng isang mensahe sa tagagamit na ito."
+msgstr "Hindi mo maaaring tatakan ang tagagamit na ito."
 
 #. TRANS: Title for people tag form when not on a profile page.
-#, fuzzy
 msgid "Tag a profile"
-msgstr "Balangkas mo"
+msgstr "Tatakan ang isang balangkas"
 
 #. TRANS: Title for people tag form when on a profile page.
 #. TRANS: %s is a profile nickname.
 #, php-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Tatakan si %s"
 
 #. TRANS: Title for people tag form when an error has occurred.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Error"
-msgstr "Kamaliang Ajax"
+msgstr "Kamalian"
 
 #. TRANS: Header in people tag form.
 msgid "User profile"
-msgstr ""
+msgstr "Balangkas ng tagagamit"
 
 #. TRANS: Fieldset legend for people tag form.
 msgid "Tag user"
-msgstr ""
+msgstr "Tatakan ang tagagamit"
 
 #. TRANS: Field label on people tag form.
 #. TRANS: Label in self tags widget.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Tags"
 msgstr "Mga tatak"
 
 #. TRANS: Field title on people tag form.
-#, fuzzy
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
-"Mga tatak para sa sarili mo (mga titik, mga bilang, -, ., at _), "
+"Mga tatak para sa tagagamit na ito (mga titik, mga bilang, -, ., at _), "
 "pinaghihiwalay-hiwalay ng kuwit- o puwang-."
 
 msgctxt "TITLE"
 msgid "Tags"
-msgstr ""
+msgstr "Mga tatak"
 
 #. TRANS: Success message if people tags are saved.
-#, fuzzy
 msgid "Tags saved."
-msgstr "Nasagip ang hudyat."
+msgstr "Nasagip ang mga tatak."
 
 #. TRANS: Page notice.
 msgid "Use this form to add tags to your subscribers or subscriptions."
@@ -6361,7 +6373,7 @@ msgstr ""
 
 #. TRANS: Client error when requesting a tag feed for a non-existing tag.
 msgid "No such tag."
-msgstr ""
+msgstr "Walang ganyang tatak."
 
 #. TRANS: Client error displayed when trying to unblock a non-blocked user.
 msgid "You haven't blocked that user."
@@ -6369,21 +6381,21 @@ msgstr ""
 
 #. TRANS: Client error on page to unsilence a user when the to be unsandboxed user has not been sandboxed.
 msgid "User is not sandboxed."
-msgstr ""
+msgstr "Hindi nakakahon sa buhangin ang tagagamit."
 
 #. TRANS: Client error on page to unsilence a user when the to be unsilenced user has not been silenced.
 msgid "User is not silenced."
-msgstr ""
+msgstr "Hindi pinatatahimik ang tagagamit."
 
 #. TRANS: Page title for page to unsubscribe.
 msgid "Unsubscribed"
-msgstr ""
+msgstr "Hindi na nagpapasipi"
 
 #. TRANS: Page title for form that allows unsubscribing from a people tag.
 #. TRANS: %1$s is a nickname, %2$s is a people tag, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s unsubscribed to people tag %2$s by %3$s"
-msgstr "Ang mga tao ng %1$s ay nagpapasipi mula sa %2$s"
+msgstr "Hindi na nagpapasipi si %1$s ng mga tatak ng mga tao na %2$s ni %3$s"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
 #. TRANS: %1$s is the license incompatible with site license %2$s.
@@ -6397,37 +6409,37 @@ msgstr ""
 
 #. TRANS: Title of URL settings tab in profile settings.
 msgid "URL settings"
-msgstr ""
+msgstr "Mga katakdaan ng URL"
 
 #. TRANS: Instructions for tab "Other" in user profile settings.
 msgid "Manage various other options."
-msgstr ""
+msgstr "Pamahalaan ang sari-saring iba pang mga mapagpipilian."
 
 #. TRANS: Used as a suffix for free URL shorteners in a dropdown list in the tab "Other" of a
 #. TRANS: user's profile settings. This message has one space at the beginning. Use your
 #. TRANS: language's word separator here if it has one (most likely a single space).
 msgid " (free service)"
-msgstr ""
+msgstr "(paglilingkod na walang bayad)"
 
 #. TRANS: Default value for URL shortening settings.
 msgid "[none]"
-msgstr ""
+msgstr "[wala]"
 
 #. TRANS: Default value for URL shortening settings.
 msgid "[internal]"
-msgstr ""
+msgstr "[panloob]"
 
 #. TRANS: Label for dropdown with URL shortener services.
 msgid "Shorten URLs with"
-msgstr ""
+msgstr "Paikliin ang mga URL na may"
 
 #. TRANS: Tooltip for for dropdown with URL shortener services.
 msgid "Automatic shortening service to use."
-msgstr ""
+msgstr "Gagamiting kusang palingkuran ng pagpapaikli."
 
 #. TRANS: Field label in URL settings in profile.
 msgid "URL longer than"
-msgstr ""
+msgstr "URL na mas mahaba kaysa sa"
 
 #. TRANS: Field title in URL settings in profile.
 msgid "URLs longer than this will be shortened, 0 means always shorten."
@@ -6435,7 +6447,7 @@ msgstr ""
 
 #. TRANS: Field label in URL settings in profile.
 msgid "Text longer than"
-msgstr ""
+msgstr "Tekstong mas mahaba kaysa sa"
 
 #. TRANS: Field title in URL settings in profile.
 msgid ""
@@ -6461,7 +6473,7 @@ msgstr ""
 #. TRANS: User admin panel title.
 msgctxt "TITLE"
 msgid "User"
-msgstr ""
+msgstr "Tagagamit"
 
 #. TRANS: Instruction for user admin panel.
 msgid "User settings for this StatusNet site"
@@ -6484,11 +6496,11 @@ msgstr ""
 #. TRANS: Fieldset legend in user administration panel.
 msgctxt "LEGEND"
 msgid "Profile"
-msgstr ""
+msgstr "Balangkas"
 
 #. TRANS: Field label in user admin panel for setting the character limit for the bio field.
 msgid "Bio Limit"
-msgstr ""
+msgstr "Hangganan ng Talambuhay"
 
 #. TRANS: Tooltip in user admin panel for setting the character limit for the bio field.
 msgid "Maximum length of a profile bio in characters."
@@ -6496,19 +6508,21 @@ msgstr ""
 
 #. TRANS: Form legend in user admin panel.
 msgid "New users"
-msgstr ""
+msgstr "Bagong mga tagagamit"
 
 #. TRANS: Field label in user admin panel for setting new user welcome text.
 msgid "New user welcome"
-msgstr ""
+msgstr "Maligayang pagtanggap sa bagong tagagamit"
 
 #. TRANS: Tooltip in user admin panel for setting new user welcome text.
 msgid "Welcome text for new users (maximum 255 characters)."
 msgstr ""
+"Teksto ng maligayang pagtanggap para sa bagong mga tagagamit (pinakamataas "
+"ang 255 mga panitik)."
 
 #. TRANS: Field label in user admin panel for setting default subscription for new users.
 msgid "Default subscription"
-msgstr ""
+msgstr "Likas na katakdaan ng pagpapasipi"
 
 #. TRANS: Tooltip in user admin panel for setting default subscription for new users.
 msgid "Automatically subscribe new users to this user."
@@ -6516,11 +6530,11 @@ msgstr ""
 
 #. TRANS: Form legend in user admin panel.
 msgid "Invitations"
-msgstr ""
+msgstr "Mga paanyaya"
 
 #. TRANS: Field label for checkbox in user admin panel for allowing users to invite friend using site e-mail.
 msgid "Invitations enabled"
-msgstr ""
+msgstr "Paganahin ang mga paanyaya"
 
 #. TRANS: Tooltip for checkbox in user admin panel for allowing users to invite friend using site e-mail.
 msgid "Whether to allow users to invite new users."
@@ -6528,11 +6542,11 @@ msgstr ""
 
 #. TRANS: Title for button to save user settings in user admin panel.
 msgid "Save user settings."
-msgstr ""
+msgstr "Sagipin ang mga katakdaan ng tagagamit."
 
 #. TRANS: Page title.
 msgid "Authorize subscription"
-msgstr ""
+msgstr "Pahintulutan ang pagpapasipi"
 
 #. TRANS: Page notice on "Authorize subscription" page.
 msgid ""
@@ -6742,31 +6756,31 @@ msgstr ""
 
 #. TRANS: Header for StatusNet plugins section on the version page.
 msgid "Plugins"
-msgstr ""
+msgstr "Mga pampasak"
 
 #. TRANS: Column header for plugins table on version page.
 msgctxt "HEADER"
 msgid "Name"
-msgstr ""
+msgstr "Pangalan"
 
 #. TRANS: Column header for plugins table on version page.
 msgctxt "HEADER"
 msgid "Version"
-msgstr ""
+msgstr "Bersyon"
 
 #. TRANS: Column header for plugins table on version page.
 msgctxt "HEADER"
 msgid "Author(s)"
-msgstr ""
+msgstr "(Mga) may-akda"
 
 #. TRANS: Column header for plugins table on version page.
 msgctxt "HEADER"
 msgid "Description"
-msgstr ""
+msgstr "Paglalarawan"
 
 #. TRANS: Activity title when marking a notice as favorite.
 msgid "Favor"
-msgstr ""
+msgstr "Kagiliwan"
 
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
@@ -6814,7 +6828,7 @@ msgstr[1] ""
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
 msgid "Invalid filename."
-msgstr ""
+msgstr "Hindi katanggap-tanggap na pangalan ng talaksan."
 
 #. TRANS: Exception thrown providing an invalid profile ID.
 #. TRANS: %s is the invalid profile ID.
@@ -6830,19 +6844,19 @@ msgstr ""
 
 #. TRANS: Exception thrown when joining a group fails.
 msgid "Group join failed."
-msgstr ""
+msgstr "Nabigo ang pagsali sa pangkat."
 
 #. TRANS: Exception thrown when trying to leave a group the user is not a member of.
 msgid "Not part of group."
-msgstr ""
+msgstr "Hindi kabahagi ng pangkat."
 
 #. TRANS: Exception thrown when trying to leave a group fails.
 msgid "Group leave failed."
-msgstr ""
+msgstr "Nabigo ang paglisan mula sa pangkat."
 
 #. TRANS: Activity title.
 msgid "Join"
-msgstr ""
+msgstr "Sumali"
 
 #. TRANS: Success message for subscribe to group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
@@ -6883,10 +6897,11 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#, fuzzy, php-format
+#, php-format
 msgid "Database error inserting hashtag: %s."
 msgstr ""
-"Kamalian ng kalipunan ng dato sa pagsisingit ng oauth_token_association."
+"Kamalian ng kalipunan ng dato sa pagsisingit ng tatak ng muling paghahayag "
+"na: %s."
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
 msgid "Problem saving notice. Too long."
@@ -6940,7 +6955,7 @@ msgstr ""
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
 msgid "Problem saving notice."
-msgstr ""
+msgstr "Suliranin sa pagsagip ng pabatid."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
 msgid "Bad type provided to saveKnownGroups."
@@ -7801,9 +7816,12 @@ msgstr ""
 
 #. TRANS: Succes message displayed if tagging a user succeeds.
 #. TRANS: %1$s is the tagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags added (not part of message).
 #, fuzzy, php-format
 msgid "%1$s was tagged %2$s"
-msgstr "%1$s - %2$s"
+msgid_plural "%1$s was tagged %2$s"
+msgstr[0] "%1$s - %2$s"
+msgstr[1] "%1$s - %2$s"
 
 #. TRANS: Separator for list of tags.
 #. TRANS: Separator in list of user names like "You, Bob, Mary".
@@ -7824,9 +7842,12 @@ msgstr ""
 
 #. TRANS: Succes message displayed if untagging a user succeeds.
 #. TRANS: %1$s is the untagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags removed (not part of message).
 #, php-format
-msgid "The following tag(s) were removed from user %1$s: %2$s."
-msgstr ""
+msgid "The following tag was removed from user %1$s: %2$s."
+msgid_plural "The following tags were removed from user %1$s: %2$s."
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -8890,52 +8911,52 @@ msgstr ""
 
 #. TRANS: Menu item title in mailbox menu. Leads to incoming private messages.
 msgid "Your incoming messages."
-msgstr ""
+msgstr "Ang parating mong mga mensahe."
 
 #. TRANS: Menu item in mailbox menu. Leads to outgoing private messages.
 msgctxt "MENU"
 msgid "Outbox"
-msgstr ""
+msgstr "Kahong-labasan"
 
 #. TRANS: Menu item title in mailbox menu. Leads to outgoing private messages.
 msgid "Your sent messages."
-msgstr ""
+msgstr "Mga mensaheng ipinadala mo."
 
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail cannot be processed.
 msgid "Could not parse message."
-msgstr ""
+msgstr "Hindi mabanghay ang mensahe."
 
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail is not from a registered user.
 msgid "Not a registered user."
-msgstr ""
+msgstr "Isang hindi nagpatalang tagagamit."
 
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail is not from a user's incoming e-mail address.
 msgid "Sorry, that is not your incoming email address."
-msgstr ""
+msgstr "Paumahin, hindi iyan ang iyong tirahan ng parating na e-liham."
 
 #. TRANS: Error message in incoming mail handler used when no incoming e-mail is allowed.
 msgid "Sorry, no incoming email allowed."
-msgstr ""
+msgstr "Paumahin, walang pinapahintulutang parating na e-liham."
 
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail is of an unsupported type.
 #. TRANS: %s is the unsupported type.
 #, php-format
 msgid "Unsupported message type: %s."
-msgstr ""
+msgstr "Hindi tinatangkilik na uri ng mensahe: %s."
 
 #. TRANS: Form legend for form to make a user a group admin.
 msgid "Make user an admin of the group"
-msgstr ""
+msgstr "Gawing isang tagapangasiwa ng pangkat ang tagagamit"
 
 #. TRANS: Button text for the form that will make a user administrator.
 msgctxt "BUTTON"
 msgid "Make Admin"
-msgstr ""
+msgstr "Gawing Tagapangasiwa"
 
 #. TRANS: Submit button title.
 msgctxt "TOOLTIP"
 msgid "Make this user an admin"
-msgstr ""
+msgstr "Gawing isang tagapangasiwa ang tagagamit na ito"
 
 #. TRANS: Client exception thrown when a database error was thrown during a file upload operation.
 msgid "There was a database error while saving your file. Please try again."
@@ -9188,21 +9209,18 @@ msgid "No oEmbed API endpoint available."
 msgstr "Walang makukuhang dulong-katapusan ng API ng oEmbed."
 
 #. TRANS: Field label for people tag.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Tag"
-msgstr "Mga tatak"
+msgstr "Tatak"
 
 #. TRANS: Field title for people tag.
-#, fuzzy
 msgid "Change the tag (letters, numbers, -, ., and _ are allowed)."
 msgstr ""
-"Mga tatak para sa sarili mo (mga titik, mga bilang, -, ., at _), "
-"pinaghihiwalay-hiwalay ng kuwit- o puwang-."
+"Baguhin ang tatak (pinapahintulutan ang mga titik, mga bilang, -, ., at _)."
 
 #. TRANS: Field title for description of people tag.
 msgid "Describe the people tag or topic."
-msgstr ""
+msgstr "Ilarawan ang tatak ng mga tao o paksa."
 
 #. TRANS: Field title for description of people tag.
 #. TRANS: %d is the maximum number of characters for the description.
@@ -9213,13 +9231,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Button title to delete a people tag.
-#, fuzzy
 msgid "Delete this people tag."
-msgstr "Burahin ang pangkat na ito."
+msgstr "Burahin ang ganitong tatak ng mga tao."
 
 #. TRANS: Header in people tag edit form.
 msgid "Add or remove people"
-msgstr ""
+msgstr "Magdagdag o magtanggal ng mga tao"
 
 #. TRANS: Header in people tag edit form.
 #, fuzzy
@@ -9280,7 +9297,6 @@ msgid "Edit people tag settings."
 msgstr "Pagtatakda sa pagpunta"
 
 #. TRANS: Text for link to edit people tag settings.
-#, fuzzy
 msgid "Edit"
 msgstr "Baguhin"
 
@@ -9352,7 +9368,6 @@ msgid "People tags"
 msgstr "Mga tao"
 
 #. TRANS: Replaces %s in 'People tags by %s'. (Yes, we know we need to fix this.)
-#, fuzzy
 msgid "User"
 msgstr "Tagagamit"
 
@@ -9902,45 +9917,42 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Form legend.
-#, fuzzy, php-format
+#, php-format
 msgid "Search and list people"
-msgstr "Maghanap sa sityo"
+msgstr "Maghanap at magtala ng mga tao"
 
 #. TRANS: Dropdown option for searching in profiles.
-#, fuzzy
 msgid "Everything"
-msgstr "Lahat"
+msgstr "Lahat ng bagay"
 
 #. TRANS: Dropdown option for searching in profiles.
-#, fuzzy
 msgid "Fullname"
 msgstr "Buong pangalan"
 
 #. TRANS: Dropdown option for searching in profiles.
 msgid "URI (Remote users)"
-msgstr ""
+msgstr "URI (Malayong mga tagagamit)"
 
 #. TRANS: Dropdown field label.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Search in"
-msgstr "Maghanap sa sityo"
+msgstr "Maghanap sa"
 
 #. TRANS: Dropdown field title.
 msgid "Choose a field to search."
-msgstr ""
+msgstr "Pumili ng isang hanay na hahanapin."
 
 #. TRANS: Form legend.
 #. TRANS: %1$s is a nickname, $2$s is a people tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Untag %1$s as %2$s"
-msgstr "%1$s - %2$s"
+msgstr "Huwag tatakan si %1$s bilang %2$s"
 
 #. TRANS: Legend on form to add a tag to a profile.
 #. TRANS: %1$s is a nickname, %2$s ia a people tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Tag %1$s as %2$s"
-msgstr "%1$s - %2$s"
+msgstr "Tatakan si %1$s bilang %2$s"
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -10042,7 +10054,7 @@ msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 msgid "about a day ago"
-msgstr ""
+msgstr "bandang isang araw na ang nakalilipas"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #, php-format
@@ -10053,7 +10065,7 @@ msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 msgid "about a month ago"
-msgstr ""
+msgstr "bandang isang buwan na ang nakalilipas"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #, php-format
@@ -10064,7 +10076,7 @@ msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 msgid "about a year ago"
-msgstr ""
+msgstr "bandang isang taon na ang nakalilipas"
 
 #. TRANS: Web color exception thrown when a hexadecimal color code does not validate.
 #. TRANS: %s is the provided (invalid) color code.
