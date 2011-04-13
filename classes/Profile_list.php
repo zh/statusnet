@@ -471,6 +471,23 @@ class Profile_list extends Memcached_DataObject
     }
 
     /**
+     * get the cached number of profiles subscribed to this
+     * people tag, re-count if the argument is true.
+     *
+     * @param boolean $recount  whether to ignore cache
+     *
+     * @return integer count
+     */
+
+    function blowNoticeStreamCache($all=false)
+    {
+        self::blow('profile_list:notice_ids:%d', $this->id);
+        if ($all) {
+            self::blow('profile_list:notice_ids:%d;last', $this->id);
+        }
+    }
+
+    /**
      * get the Profile_list object by the
      * given tagger and with given tag
      *
