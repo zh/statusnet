@@ -185,7 +185,7 @@ class DirectoryPlugin extends Plugin
     {
         if (in_array(
             $action->trimmed('action'),
-            array('userdirectory'))
+            array('userdirectory', 'groupdirectory'))
         ) {
             $action->cssLink($this->path('css/directory.css'));
         }

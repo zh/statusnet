@@ -199,7 +199,7 @@ class GroupdirectoryAction extends Action
     {
         $this->showForm();
 
-        $this->elementStart('div', array('id' => 'group_directory'));
+        $this->elementStart('div', array('id' => 'profile_directory'));
 
         $alphaNav = new AlphaNav($this, false, false, array('0-9', 'All'));
         $alphaNav->show();
@@ -232,14 +232,13 @@ class GroupdirectoryAction extends Action
 
         $this->pagination(
             $this->page > 1,
-            $cnt > GROUPS_PER_PAGE,
+            $cnt > PROFILES_PER_PAGE,
             $this->page,
             'groupdirectory',
             $args
         );
 
         $this->elementEnd('div');
-
     }
 
     function showForm($error=null)
@@ -281,7 +280,7 @@ class GroupdirectoryAction extends Action
         $limit  = GROUPS_PER_PAGE + 1;
 
         if (isset($this->q)) {
-             
+
              $order = 'user_group.created ASC';
 
              if ($this->sort == 'nickname') {

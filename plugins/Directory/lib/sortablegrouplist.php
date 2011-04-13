@@ -58,7 +58,7 @@ class SortableGroupList extends SortableSubscriptionList
 
     function startList()
     {
-        $this->out->elementStart('table', array('class' => 'profile_list xoxo', 'border' => '1'));
+        $this->out->elementStart('table', array('class' => 'profile_list xoxo'));
         $this->out->elementStart('thead');
         $this->out->elementStart('tr');
 
@@ -120,25 +120,6 @@ class SortableGroupList extends SortableSubscriptionList
         $this->out->elementStart('tbody');
     }
 
-    function showProfiles()
-    {
-        $cnt = 0;
-
-        while ($this->profile->fetch()) {
-            $cnt++;
-            if($cnt > PROFILES_PER_PAGE) {
-                break;
-            }
-
-            $odd = ($cnt % 2 == 0); // for zebra striping
-
-            $pli = $this->newListItem($this->profile, $odd);
-            $pli->show();
-        }
-
-        return $cnt;
-    }
-
     function newListItem($profile, $odd)
     {
         return new SortableGroupListItem($profile, $this->owner, $this->action, $odd);
@@ -188,13 +169,16 @@ class SortableGroupListItem extends SortableSubscriptionListItem
         $avatar = $this->profile->stream_logo;
         $aAttrs = $this->linkAttributes();
         $this->out->elementStart('a', $aAttrs);
-        $this->out->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
-                                         'class' => 'photo avatar',
-                                         'width' => AVATAR_STREAM_SIZE,
-                                         'height' => AVATAR_STREAM_SIZE,
-                                         'alt' =>
-                                         ($this->profile->fullname) ? $this->profile->fullname :
-                                         $this->profile->nickname));
+        $this->out->element(
+            'img', 
+             array(
+                'src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
+                'class'  => 'photo avatar',
+                'width'  => AVATAR_STREAM_SIZE,
+                'height' => AVATAR_STREAM_SIZE,
+                'alt'    => ($this->profile->fullname) ? $this->profile->fullname : $this->profile->nickname
+             )
+        );
         $this->out->text(' ');
         $hasFN = (!empty($this->profile->fullname)) ? 'nickname' : 'fn nickname';
         $this->out->elementStart('span', $hasFN);
@@ -202,7 +186,6 @@ class SortableGroupListItem extends SortableSubscriptionListItem
         $this->out->elementEnd('span');
         $this->out->elementEnd('a');
     }
-
 
     function endItem()
     {
@@ -266,8 +249,6 @@ class SortableGroupListItem extends SortableSubscriptionListItem
 
     function showJoinButton()
     {
-        $this->out->elementStart('td', 'entry_controls');
-
         $user = $this->owner;
         if ($user) {
   
@@ -282,8 +263,6 @@ class SortableGroupListItem extends SortableSubscriptionListItem
                 $jf->show();
             }
         }
-        $this->out->elementEnd('td');
-
     }
 
     function showMemberCount()

@@ -199,7 +199,7 @@ class UserdirectoryAction extends Action
     {
         $this->showForm();
 
-        $this->elementStart('div', array('id' => 'user_directory'));
+        $this->elementStart('div', array('id' => 'profile_directory'));
 
         $alphaNav = new AlphaNav($this, false, false, array('0-9', 'All'));
         $alphaNav->show();
