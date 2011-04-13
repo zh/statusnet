@@ -217,11 +217,11 @@ class BookmarkPlugin extends MicroAppPlugin
      */
     function onPluginVersion(&$versions)
     {
-        $versions[] = array('name' => 'Sample',
+        $versions[] = array('name' => 'Bookmark',
                             'version' => self::VERSION,
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:Bookmark',
-                            'rawdescription' =>
+                            'description' =>
                             // TRANS: Plugin description.
                             _m('Simple extension for supporting bookmarks.'));
         return true;
