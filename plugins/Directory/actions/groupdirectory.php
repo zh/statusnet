@@ -201,12 +201,30 @@ END_OF_INSTRUCTIONS;
     /**
      * Content area
      *
-     * Shows the list of popular notices
+     * Shows the groups
      *
      * @return void
      */
     function showContent()
     {
+        if (common_logged_in()) {
+            $this->elementStart(
+                'p',
+                array(
+                    'id' => 'new_group'
+                )
+            );
+            $this->element(
+                'a',
+                array(
+                    'href'  => common_local_url('newgroup'),
+                    'class' => 'more'),
+                    // TRANS: Link to create a new group on the group list page.
+                    _('Create a new group')
+            );
+            $this->elementEnd('p');
+        }
+
         $this->showForm();
 
         $this->elementStart('div', array('id' => 'profile_directory'));
