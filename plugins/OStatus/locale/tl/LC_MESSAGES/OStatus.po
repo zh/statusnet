@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-11 12:22+0000\n"
-"PO-Revision-Date: 2011-04-11 12:27:37+0000\n"
+"POT-Creation-Date: 2011-04-13 13:18+0000\n"
+"PO-Revision-Date: 2011-04-13 13:22:26+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-09 19:00:14+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-11 13:12:35+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -30,34 +30,30 @@ msgid "Subscribe"
 msgstr "Pumayag na tumanggap ng sipi"
 
 #. TRANS: Fieldset legend.
-#, fuzzy
 msgid "Tag remote profile"
-msgstr "Dapat na magbigay ng isang malayong balangkas."
+msgstr "Tatakan ang malayong balangkas"
 
 #. TRANS: Field label.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Remote profile"
-msgstr "Nabigo ang pagsali sa malayong pangkat!"
+msgstr "Malayong balangkas"
 
 #. TRANS: Field title.
-#, fuzzy
 msgid ""
 "OStatus user's address, like nickname@example.com or http://example.net/"
 "nickname."
 msgstr ""
 "Tirahan ng tagagamit ng OStatus, katulad ng nickname@example.com o http://"
-"example.net/nickname"
+"example.net/nickname."
 
 #. TRANS: Button text to fetch remote profile.
 msgctxt "BUTTON"
 msgid "Fetch"
-msgstr ""
+msgstr "Salukin"
 
 #. TRANS: Exception in OStatus when invalid URI was entered.
-#, fuzzy
 msgid "Invalid URI."
-msgstr "Hindi katanggap-tanggap na URL ng abatar ang %s."
+msgstr "Hindi katanggap-tanggap na URI."
 
 #. TRANS: Error message in OStatus plugin.
 #. TRANS: Error text.
@@ -80,7 +76,6 @@ msgid "Could not set up remote subscription."
 msgstr "Hindi maihanda ang malayuang pagpapasipi."
 
 #. TRANS: Title for unfollowing a remote profile.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Unfollow"
 msgstr "Huwag sundan"
@@ -96,7 +91,6 @@ msgid "Could not set up remote group membership."
 msgstr "Hindi maihanda ang malayuang pagkakasapi sa pangkat."
 
 #. TRANS: Title to join a remote group.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Join"
 msgstr "Sumali"
@@ -112,7 +106,6 @@ msgid "Failed joining remote group."
 msgstr "Nabigo sa pagsali sa malayong pangkat."
 
 #. TRANS: Title for leaving a remote group.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Leave"
 msgstr "Lumisan"
@@ -124,26 +117,24 @@ msgid "%1$s has left group %2$s."
 msgstr "Lumisan si %1$s magmula sa pangkat na %2$s."
 
 #. TRANS: Exception thrown when setup of remote people tag subscription fails.
-#, fuzzy
 msgid "Could not set up remote people tag subscription."
-msgstr "Hindi maihanda ang malayuang pagpapasipi."
+msgstr "Hindi maihanda ang malayuang pagpapasipi ng malayong tatak ng mga tao."
 
 #. TRANS: Title for remote follow list.
 msgctxt "TITLE"
 msgid "Follow list"
-msgstr ""
+msgstr "Sundan ang talaan"
 
 #. TRANS: Exception thrown when subscription of remote people tag fails.
-#, fuzzy
 msgid "Failed subscribing to remote people tag."
-msgstr "Nabigo sa pagsali sa malayong pangkat."
+msgstr "Nabigo sa pagpapasipi sa malayong tatak ng mga tao."
 
 msgid "Unfollow people tag"
-msgstr ""
+msgstr "Huwag sundan ang tatak ng mga tao"
 
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s stopped following the list %2$s by %3$s."
-msgstr "Tumigil si %1$s sa pagsunod kay %2$s."
+msgstr "Tumigil si %1$s sa pagsunod sa talaang %2$s ni %3$s."
 
 msgctxt "TITLE"
 msgid "Tag"
@@ -161,7 +152,7 @@ msgstr ""
 
 msgctxt "TITLE"
 msgid "Untag"
-msgstr ""
+msgstr "Huwag tatakan"
 
 msgid "Disfavor"
 msgstr "Ayawan"
@@ -188,7 +179,7 @@ msgid "%s has updated their profile page."
 msgstr "Si %s ay nagsapanahon ng kanilang pahina ng balangkas."
 
 msgid "Tag"
-msgstr ""
+msgstr "Tatakan"
 
 #. TRANS: Plugin description.
 msgid ""
@@ -256,10 +247,10 @@ msgstr "Maaari mong gamitin ang katutubong pagpapasipi!"
 
 #, php-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Tatakan si %s"
 
 msgid "Go"
-msgstr ""
+msgstr "Pumunta"
 
 #. TRANS: Field label.
 msgid "User nickname"
@@ -658,7 +649,7 @@ msgstr ""
 
 #. TRANS: Server exception. %s is a URI
 #, fuzzy, php-format
-msgid "Invalid ostatus_profile state: two or more IDs set for %s"
+msgid "Invalid ostatus_profile state: two or more IDs set for %s."
 msgstr ""
 "Hindi katanggap-tanggap na katayuan ng ostatus_profile: nakatakda kapwa ang "
 "mga ID ng pangkat at balangkas para sa %s."
@@ -791,7 +782,7 @@ msgstr ""
 #. TRANS: Server exception. %s is a URI.
 #, php-format
 msgid "No URI protocol for profile: %s."
-msgstr ""
+msgstr "Walang protokol ng URI para sa balangkas na: %s."
 
 #. TRANS: Client exception. %s is a HTTP status code.
 #, php-format

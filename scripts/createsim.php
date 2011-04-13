@@ -33,6 +33,7 @@ Creates a lot of test users and notices to (loosely) simulate a real server.
     -j --joins         Number of groups per user (default 5)
     -t --tags          Number of distinct hash tags (default 10000)
     -x --prefix        User name prefix (default 'testuser')
+    -w --words         Words file (default '/usr/share/dict/words')
 
 END_OF_CREATESIM_HELP;
 
@@ -78,7 +79,7 @@ function newNotice($i, $tagmax)
 
     $is_reply = rand(0, 1);
 
-    $content = 'Test notice content';
+    $content = testNoticeContent();
 
     if ($is_reply == 0) {
         $stream = new InboxNoticeStream($user, $user->getProfile());
@@ -206,6 +207,31 @@ function newJoin($u, $g)
     }
 }
 
+function testNoticeContent()
+{
+    global $words;
+    
+    if (is_null($words)) {
+        return "test notice content";
+    }
+
+    $cnt = rand(3, 8);
+
+    $ids = array_rand($words, $cnt);
+
+    foreach ($ids as $id) {
+        $parts[] = $words[$id];
+    }
+
+    $text = implode(' ', $parts);
+    
+    if (mb_strlen($text) > 80) {
+        $text = substr($text, 0, 77) . "...";
+    }
+    
+    return $text;
+}
+
 function main($usercount, $groupcount, $noticeavg, $subsavg, $joinsavg, $tagmax)
 {
     global $config;
@@ -282,6 +308,13 @@ $joinsavg    = (have_option('j', 'joins')) ? get_option_value('j', 'joins') : 5;
 $tagmax      = (have_option('t', 'tags')) ? get_option_value('t', 'tags') : 10000;
 $userprefix  = (have_option('x', 'prefix')) ? get_option_value('x', 'prefix') : 'testuser';
 $groupprefix = (have_option('z', 'groupprefix')) ? get_option_value('z', 'groupprefix') : 'testgroup';
+$wordsfile   = (have_option('w', 'words')) ? get_option_value('w', 'words') : '/usr/share/dict/words';
+
+if (is_readable($wordsfile)) {
+    $words = file($wordsfile);
+} else {
+    $words = null;
+}
 
 try {
     main($usercount, $groupcount, $noticeavg, $subsavg, $joinsavg, $tagmax);

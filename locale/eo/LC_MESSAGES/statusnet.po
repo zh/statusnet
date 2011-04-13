@@ -17,17 +17,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-11 12:22+0000\n"
-"PO-Revision-Date: 2011-04-11 12:24:58+0000\n"
+"POT-Creation-Date: 2011-04-13 13:18+0000\n"
+"PO-Revision-Date: 2011-04-13 13:20:08+0000\n"
 "Language-Team: Esperanto <http://translatewiki.net/wiki/Portal:eo>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: eo\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-09 18:56:02+0000\n"
+"X-POT-Import-Date: 2011-04-11 13:12:24+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -180,7 +180,7 @@ msgstr ""
 #. TRANS: %s is a profile URL.
 #, php-format
 msgid ""
-"There was a problem tagging %s.The remote server is probably not responding "
+"There was a problem tagging %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
 
@@ -779,7 +779,7 @@ msgstr "La alinomo devas ne esti sama al la kromnomo."
 #. TRANS: Client error displayed when referring to a non-existing list.
 #, fuzzy
 msgid "List not found."
-msgstr "Uzanto ne ekzistas."
+msgstr "Listo ne ekzistas."
 
 #. TRANS: Client error displayed when trying to update another user's list.
 msgid "You cannot update lists that do not belong to you."
@@ -1813,8 +1813,9 @@ msgid "You cannot delete your account."
 msgstr "Vi ne povas forviŝi vian konton."
 
 #. TRANS: Confirmation text for user deletion. The user has to type this exactly the same, including punctuation.
+#, fuzzy
 msgid "I am sure."
-msgstr ""
+msgstr "Mi estas certa."
 
 #. TRANS: Notification for user about the text that must be input to be able to delete a user account.
 #. TRANS: %s is the text that needs to be input.
@@ -2312,7 +2313,7 @@ msgstr "Uzas ĉi tiun formularon por redakti la grupon."
 #. TRANS: Form validation error displayed if the form data for deleting a tag was incorrect.
 #, fuzzy
 msgid "Delete aborted."
-msgstr "Forigi avizon"
+msgstr "Forigo rezigniĝis."
 
 #. TRANS: Text in confirmation dialog for deleting a tag.
 msgid ""
@@ -7433,7 +7434,7 @@ msgstr "Ne troviĝas la enhavo por la avizo %s."
 #. TRANS: Exception thrown if a non-existing user is provided. %s is a user ID.
 #, fuzzy, php-format
 msgid "No such user \"%s\"."
-msgstr "Ne ekzistas tiu uzanto."
+msgstr "Ne ekzistas uzanto «%s»."
 
 #. TRANS: Client exception thrown when post to collection fails with a 400 status.
 #. TRANS: %1$s is a URL, %2$s is the status, %s$s is the fail reason.
@@ -7939,9 +7940,12 @@ msgstr ""
 
 #. TRANS: Succes message displayed if tagging a user succeeds.
 #. TRANS: %1$s is the tagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags added (not part of message).
 #, fuzzy, php-format
 msgid "%1$s was tagged %2$s"
-msgstr "%1$s - %2$s"
+msgid_plural "%1$s was tagged %2$s"
+msgstr[0] "%1$s - %2$s"
+msgstr[1] "%1$s - %2$s"
 
 #. TRANS: Separator for list of tags.
 #. TRANS: Separator in list of user names like "You, Bob, Mary".
@@ -7950,7 +7954,7 @@ msgstr ""
 
 #. TRANS: Error displayed if a given tag is invalid.
 #. TRANS: %s is the invalid tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "Nevalida markilo: \"%s\""
 
@@ -7962,9 +7966,12 @@ msgstr ""
 
 #. TRANS: Succes message displayed if untagging a user succeeds.
 #. TRANS: %1$s is the untagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags removed (not part of message).
 #, php-format
-msgid "The following tag(s) were removed from user %1$s: %2$s."
-msgstr ""
+msgid "The following tag was removed from user %1$s: %2$s."
+msgid_plural "The following tags were removed from user %1$s: %2$s."
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -9537,7 +9544,6 @@ msgid "Edit people tag settings."
 msgstr "Redakti profilan agordon"
 
 #. TRANS: Text for link to edit people tag settings.
-#, fuzzy
 msgid "Edit"
 msgstr "Redakti"
 
@@ -9613,7 +9619,6 @@ msgid "People tags"
 msgstr "Homoj"
 
 #. TRANS: Replaces %s in 'People tags by %s'. (Yes, we know we need to fix this.)
-#, fuzzy
 msgid "User"
 msgstr "Uzanto"
 
@@ -10378,8 +10383,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#~ msgid ""
-#~ "You can only tag people you are subscribed to or who are subscribed to "
-#~ "you."
-#~ msgstr "Vi rajtas entikedi nur abonanton aŭ abonaton."

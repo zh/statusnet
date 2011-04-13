@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 18:34+0000\n"
+"POT-Creation-Date: 2011-04-13 13:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,12 +65,13 @@ msgid "Bookmark notice with the wrong number of attachments."
 msgstr ""
 
 #. TRANS: Exception thrown when a bookmark has no attachments.
-#: BookmarkPlugin.php:522
-msgid "Bookmark has no attachments."
+#: BookmarkPlugin.php:523
+#, php-format
+msgid "Bookmark %1$s (notice %2$d) has no attachments."
 msgstr ""
 
 #. TRANS: Application title.
-#: BookmarkPlugin.php:639
+#: BookmarkPlugin.php:642
 msgctxt "TITLE"
 msgid "Bookmark"
 msgstr ""

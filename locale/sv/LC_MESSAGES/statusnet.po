@@ -13,17 +13,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-11 12:22+0000\n"
-"PO-Revision-Date: 2011-04-11 12:25:42+0000\n"
+"POT-Creation-Date: 2011-04-13 13:18+0000\n"
+"PO-Revision-Date: 2011-04-13 13:20:36+0000\n"
 "Language-Team: Swedish <http://translatewiki.net/wiki/Portal:sv>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r85780); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-09 18:56:02+0000\n"
+"X-POT-Import-Date: 2011-04-11 13:12:24+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -33,27 +33,34 @@ msgid ""
 "contact them at %2$s to make sure. Otherwise, wait a few minutes and try "
 "again."
 msgstr ""
+"Databasen för %1$s svarar inte korrekt, så webbplatsen kommer inte att "
+"fungera korrekt. Webbplatsadministratörerna känner säkert till problemet, "
+"men du kan kontakta dem på %2$s för försäkra dig. Annars vänta ett par "
+"minuter och försök igen."
 
 #. TRANS: Error message.
 msgid ""
 "An important error occured, probably related to email setup. Check logfiles "
 "for more info."
 msgstr ""
+"Ett viktigt fel uppstod, förmodligen relaterat till e-postinställningar. "
+"Kontrollera loggfiler för mer info."
 
 #. TRANS: Error message.
 msgid "An error occurred."
-msgstr ""
+msgstr "Ett fel uppstod."
 
 #. TRANS: Error message displayed when there is no StatusNet configuration file.
 #, php-format
 msgid ""
 "No configuration file found. Try running the installation program first."
 msgstr ""
+"Ingen konfigurationsfil hittades. Prova att köra installationsprogrammet "
+"först."
 
 #. TRANS: Error message displayed when trying to access a non-existing page.
-#, fuzzy
 msgid "Unknown page"
-msgstr "Okänd"
+msgstr "Okänd sida"
 
 #. TRANS: Error message displayed when trying to perform an undefined action.
 #. TRANS: Title for password recovery page when an unknown action has been specified.
@@ -158,28 +165,28 @@ msgstr "Ingen sådan profil."
 #. TRANS: Client error displayed when referring to a non-exsting people tag.
 #. TRANS: Client error displayed when referring to non-existing people tag.
 #. TRANS: Client error displayed trying to reference a non-existing people tag.
-#, fuzzy
 msgid "No such people tag."
-msgstr "Ingen sådan tagg."
+msgstr "Ingen sådan persontagg."
 
 #. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-#, fuzzy
 msgid "You cannot tag an OMB 0.1 remote profile with this action."
-msgstr "Du kan inte prenumerera på en 0MB 0.1-fjärrprofil med denna åtgärd."
+msgstr "Du kan inte tagga en OMB 0.1-fjärrprofil med denna åtgärd."
 
 #. TRANS: Client error displayed when an unknown error occurs while tagging a user.
 #. TRANS: %s is a username.
 #, php-format
 msgid "There was an unexpected error while tagging %s."
-msgstr ""
+msgstr "Det uppstod ett oväntat fel vid taggning av %s."
 
 #. TRANS: Client error displayed when an unknown error occurs while tagging a user.
 #. TRANS: %s is a profile URL.
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"There was a problem tagging %s.The remote server is probably not responding "
+"There was a problem tagging %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
+"Det uppstod ett problem vid taggning av %s. Fjärrservern svarar förmodligen "
+"inte korrekt, prova att försöka igen senare."
 
 #. TRANS: Title after subscribing to a people tag.
 #. TRANS: Page title when subscription succeeded.
@@ -424,7 +431,7 @@ msgstr "Kunde inte uppdatera din profils utseende."
 #. TRANS: Title for Atom feed.
 msgctxt "ATOM"
 msgid "Main"
-msgstr ""
+msgstr "Huvud"
 
 #. TRANS: Title for Atom feed. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
@@ -506,7 +513,6 @@ msgid "Recipient user not found."
 msgstr "Mottagare hittades inte."
 
 #. TRANS: Client error displayed trying to direct message another user who's not a friend (403).
-#, fuzzy
 msgid "Cannot send direct messages to users who aren't your friend."
 msgstr "Kan inte skicka direktmeddelanden till användare som inte är din vän."
 
@@ -561,9 +567,8 @@ msgid "You cannot unfollow yourself."
 msgstr "Du kan inte sluta följa dig själv."
 
 #. TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
-#, fuzzy
 msgid "Two valid IDs or nick names must be supplied."
-msgstr "Två giltiga användar-ID:n eller screen_names måste tillhandahållas."
+msgstr "Två giltiga ID eller smeknamn måste lämnas."
 
 #. TRANS: Client error displayed when a source user could not be determined showing friendship.
 msgid "Could not determine source user."
@@ -766,69 +771,61 @@ msgstr ""
 
 #. TRANS: API validation exception thrown when alias is the same as nickname.
 #. TRANS: Group create form validation error.
-#, fuzzy
 msgid "Alias cannot be the same as nickname."
-msgstr "Alias kan inte vara samma som smeknamn."
+msgstr "Alias ​​kan inte vara samma som smeknamn."
 
 #. TRANS: Client error displayed when referring to a non-existing list.
 #. TRANS: Client error displayed trying to perform an action related to a non-existing list.
 #. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
 msgid "List not found."
-msgstr "API-metod hittades inte."
+msgstr "Lista hittades inte."
 
 #. TRANS: Client error displayed when trying to update another user's list.
 msgid "You cannot update lists that do not belong to you."
-msgstr ""
+msgstr "Du kan inte uppdatera listor som inte tillhör dig."
 
 #. TRANS: Client error displayed when an unknown error occurs updating a list.
 #. TRANS: Client error displayed when an unknown error occurs viewing list members.
 #. TRANS: Client error displayed when an unknown error occurs in the list subscribers action.
 #. TRANS: Client error displayed when an unknown error occurs unsubscribing from a list.
 msgid "An error occured."
-msgstr ""
+msgstr "Ett fel uppstod."
 
 #. TRANS: Client error displayed when trying to delete another user's list.
 msgid "You cannot delete lists that do not belong to you."
-msgstr ""
+msgstr "Du kan inte radera listor som inte tillhör dig."
 
 #. TRANS: Client error displayed when referring to a non-list member.
-#, fuzzy
 msgid "The specified user is not a member of this list."
-msgstr "Användare är inte en gruppmedlem."
+msgstr "Den angivna användaren är inte medlem av denna lista."
 
 #. TRANS: Client error displayed when trying to add members to a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to add members to this list."
-msgstr "Du får inte ta bort denna grupp."
+msgstr "Du får inte lägga till medlemmar i denna lista."
 
 #. TRANS: Client error displayed when trying to modify list members without specifying them.
-#, fuzzy
 msgid "You must specify a member."
-msgstr "Saknar profil."
+msgstr "Du måste ange en medlem."
 
 #. TRANS: Client error displayed when trying to remove members from a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to remove members from this list."
-msgstr "Du får inte ta bort denna grupp."
+msgstr "Du får inte ta bort medlemmar från denna lista."
 
 #. TRANS: Client error displayed when trying to remove a list member that is not part of a list.
 msgid "The user you are trying to remove from the list is not a member."
-msgstr ""
+msgstr "Användaren du försöker ta bort från listan är inte en medlem."
 
 #. TRANS: Client error displayed when trying to create a list without a name.
-#, fuzzy
 msgid "A list must have a name."
-msgstr "Alias kan inte vara samma som smeknamn."
+msgstr "En lista måste ha ett namn."
 
 #. TRANS: Client error displayed when a membership check for a user is nagative.
 msgid "The specified user is not a subscriber of this list."
-msgstr ""
+msgstr "Den angivna användaren är inte en prenumerant av denna lista."
 
 #. TRANS: Client error displayed when trying to unsubscribe from a non-subscribed list.
-#, fuzzy
 msgid "You are not subscribed to this list."
-msgstr "Du är inte prenumerat hos den profilen."
+msgstr "Du prenumererar inte på denna lista."
 
 #. TRANS: Client error displayed when uploading a media file has failed.
 msgid "Upload failed."
@@ -847,7 +844,6 @@ msgid "Invalid request token."
 msgstr "Ogiltig begäran-token."
 
 #. TRANS: Client error given when an invalid request token was passed to the OAuth API.
-#, fuzzy
 msgid "Request token already authorized."
 msgstr "Begäran-token är redan auktoriserad."
 
@@ -856,9 +852,8 @@ msgid "Invalid nickname / password!"
 msgstr "Ogiltigt smeknamn / lösenord!"
 
 #. TRANS: Server error displayed when a database action fails.
-#, fuzzy
 msgid "Database error inserting oauth_token_association."
-msgstr "Databasfel vid infogning av OAuth-applikationsanvändare."
+msgstr "Databasfel vid infogning av oauth_token_association."
 
 #. TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
 #. TRANS: Unexpected validation error on avatar upload form.
@@ -885,15 +880,15 @@ msgstr "Tillåt eller neka åtkomst"
 
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %3$s is the access type requested (read-write or read-only), %4$s is the StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "An application would like the ability to <strong>%3$s</strong> your %4$s "
 "account data. You should only give access to your %4$s account to third "
 "parties you trust."
 msgstr ""
-"Applikationen <strong>%1$s</strong> av <strong>%2$s</strong> vill att "
-"möjligheten att <strong>%3$s</strong> din %4$s kontoinformation. Du bör bara "
-"ge tillgång till ditt %4$s-konto till tredje-parter du litar på."
+"En applikation vill att möjligheten att <strong>%3$s</strong> dina %4$s-"
+"kontouppgifter. Du bör bara ge tillgång till ditt %4$s-konto till tredje-"
+"parter du litar på."
 
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
@@ -945,37 +940,36 @@ msgid "Allow"
 msgstr "Tillåt"
 
 #. TRANS: Form instructions.
-#, fuzzy
 msgid "Authorize access to your account information."
-msgstr "Tillåt eller neka åtkomst till din kontoinformation."
+msgstr "Bevilja åtkomst till din kontoinformation."
 
 #. TRANS: Header for user notification after revoking OAuth access to an application.
-#, fuzzy
 msgid "Authorization canceled."
-msgstr "Bekräftelse för snabbmeddelanden avbruten."
+msgstr "Tillstånd återkallas."
 
 #. TRANS: User notification after revoking OAuth access to an application.
 #. TRANS: %s is an OAuth token.
-#, fuzzy, php-format
+#, php-format
 msgid "The request token %s has been revoked."
-msgstr "Begäran-token %s har nekats och återkallats."
+msgstr "Begäran-token %s har återkallats."
 
 #. TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
-#, fuzzy
 msgid "You have successfully authorized the application"
-msgstr "Du har inte tillstånd."
+msgstr "Du har nu auktoriserat applikationen"
 
 #. TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 msgid ""
 "Please return to the application and enter the following security code to "
 "complete the process."
 msgstr ""
+"Gå tillbaka till applikationen och ange följande säkerhetskod för att "
+"slutföra processen."
 
 #. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
-#, fuzzy, php-format
+#, php-format
 msgid "You have successfully authorized %s"
-msgstr "Du har inte tillstånd."
+msgstr "Du har nu godkänt %s"
 
 #. TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
@@ -984,6 +978,8 @@ msgid ""
 "Please return to %s and enter the following security code to complete the "
 "process."
 msgstr ""
+"Gå tillbaka till %s och skriv in följande säkerhetskod för att slutföra "
+"processen."
 
 #. TRANS: Client error displayed trying to delete a status not using POST or DELETE.
 #. TRANS: POST and DELETE should not be translated.
@@ -1008,15 +1004,14 @@ msgstr "Ingen sådan notis."
 #. TRANS: Client exception thrown when using an unsupported HTTP method.
 #. TRANS: Client error shown when using a non-supported HTTP method.
 #. TRANS: Client exception thrown when using an unsupported HTTP method.
-#, fuzzy
 msgid "HTTP method not supported."
-msgstr "API-metod hittades inte."
+msgstr "HTTP-metoden stöds inte."
 
 #. TRANS: Exception thrown requesting an unsupported notice output format.
 #. TRANS: %s is the requested output format.
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported format: %s."
-msgstr "Format som inte stödjs."
+msgstr "Format som inte stöds: %s."
 
 #. TRANS: Client error displayed requesting a deleted status.
 msgid "Status deleted."
@@ -1028,18 +1023,17 @@ msgstr "Ingen status med det ID:t hittades."
 
 #. TRANS: Client error displayed when trying to delete a notice not using the Atom format.
 msgid "Can only delete using the Atom format."
-msgstr ""
+msgstr "Kan bara ta bort med hjälp av Atom-formatet."
 
 #. TRANS: Client error displayed when a user has no rights to delete notices of other users.
 #. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
-#, fuzzy
 msgid "Cannot delete this notice."
 msgstr "Kan inte ta bort denna notis."
 
 #. TRANS: Confirmation of notice deletion in API. %d is the ID (number) of the deleted notice.
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted notice %d"
-msgstr "Ta bort notis"
+msgstr "Tagit bort notis %d"
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 msgid "Client must provide a 'status' parameter with a value."
@@ -1050,22 +1044,21 @@ msgstr "Klient måste tillhandahålla en 'status'-parameter med ett värde."
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
 #. TRANS: Error message in incoming mail handler used when an incoming e-mail contains too many characters.
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Maximum notice size is %d character."
 msgid_plural "That's too long. Maximum notice size is %d characters."
 msgstr[0] "Det är för långt. Maximal notisstorlek är %d tecken."
 msgstr[1] "Det är för långt. Maximal notisstorlek är %d tecken."
 
 #. TRANS: Client error displayed when replying to a non-existing notice.
-#, fuzzy
 msgid "Parent notice not found."
-msgstr "API-metod hittades inte."
+msgstr "Föräldernotis hittades inte."
 
 #. TRANS: Client error displayed exceeding the maximum notice length.
 #. TRANS: %d is the maximum lenth for a notice.
 #. TRANS: Client error displayed exceeding the maximum notice length.
 #. TRANS: %d is the maximum length for a notice.
-#, fuzzy, php-format
+#, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
 msgstr[0] "Maximal notisstorlek är %d tecken, inklusive webbadress för bilaga."
@@ -1085,15 +1078,15 @@ msgstr "%1$s / Favoriter från %2$s"
 #. TRANS: Subtitle for timeline of most recent favourite notices by a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user's full name,
 #. TRANS: %3$s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s updates favorited by %2$s / %3$s."
-msgstr "%1$s uppdateringar markerade som favorit av %2$s / %2$s."
+msgstr "%1$s-uppdateringar markerade som favorit av %2$s / %3$s."
 
 #. TRANS: Server error displayed whe trying to get a timeline fails.
 #. TRANS: %s is the error message.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for list - %s"
-msgstr "Kunde inte skapa inloggnings-token för %s"
+msgstr "Kunde inte skapa flöde för lista - %s"
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -1132,7 +1125,7 @@ msgstr "Upprepat till %s"
 #. TRANS: %1$s is the sitename, %2$s is a user nickname, %3$s is a user profile name.
 #, fuzzy, php-format
 msgid "%1$s notices that were to repeated to %2$s / %3$s."
-msgstr "%1$s uppdateringar med svar på uppdatering från %2$s / %3$s."
+msgstr "%1$s-notiser som upprepades för %2$s / %3$s."
 
 #. TRANS: Title of list of repeated notices of the logged in user.
 #. TRANS: %s is the nickname of the logged in user.
@@ -1168,15 +1161,15 @@ msgstr "Bara användaren kan lägga till sin egen tidslinje."
 
 #. TRANS: Client error displayed when using another format than AtomPub.
 msgid "Only accept AtomPub for Atom feeds."
-msgstr ""
+msgstr "Accepterar endast AtomPub för Atom-flöden."
 
 #. TRANS: Client error displayed attempting to post an empty API notice.
 msgid "Atom post must not be empty."
-msgstr ""
+msgstr "Atom-inlägg får inte vara tomt."
 
 #. TRANS: Client error displayed attempting to post an API that is not well-formed XML.
 msgid "Atom post must be well-formed XML."
-msgstr ""
+msgstr "Atom-post måste vara välformaterad XML."
 
 #. TRANS: Client error displayed when not using an Atom entry.
 msgid "Atom post must be an Atom entry."
@@ -1184,25 +1177,25 @@ msgstr ""
 
 #. TRANS: Client error displayed when not using the POST verb. Do not translate POST.
 msgid "Can only handle POST activities."
-msgstr ""
+msgstr "Kan bara hantera POST-aktiviteter."
 
 #. TRANS: Client error displayed when using an unsupported activity object type.
 #. TRANS: %s is the unsupported activity object type.
 #, php-format
 msgid "Cannot handle activity object type \"%s\"."
-msgstr ""
+msgstr "Kan inte hantera aktivitetsobjekttyp \"%s\"."
 
 #. TRANS: Client error displayed when posting a notice without content through the API.
 #. TRANS: %d is the notice ID (number).
-#, fuzzy, php-format
+#, php-format
 msgid "No content for notice %d."
-msgstr "Hitta innehåll i notiser"
+msgstr "Ingen innehåll för notis %d ."
 
 #. TRANS: Client error displayed when using another format than AtomPub.
 #. TRANS: %s is the notice URI.
-#, fuzzy, php-format
+#, php-format
 msgid "Notice with URI \"%s\" already exists."
-msgstr "Notis med den ID:n finns inte."
+msgstr "Notis med URI \"%s\" finns redan."
 
 #. TRANS: Server error for unfinished API method showTrends.
 msgid "API method under construction."
@@ -1261,29 +1254,28 @@ msgstr "Inget smeknamn eller ID."
 
 #. TRANS: Client error displayed trying to approve group membership while not logged in.
 #. TRANS: Client error displayed when trying to leave a group while not logged in.
-#, fuzzy
 msgid "Must be logged in."
-msgstr "Inte inloggad."
+msgstr "Måste vara inloggad"
 
 #. TRANS: Client error displayed trying to approve group membership while not a group administrator.
 #. TRANS: Client error displayed when trying to approve or cancel a group join request without
 #. TRANS: being a group administrator.
 msgid "Only group admin can approve or cancel join requests."
 msgstr ""
+"Enda gruppadministratör kan godkänna eller avbryta anslutningsförfrågningar."
 
 #. TRANS: Client error displayed trying to approve group membership without specifying a profile to approve.
 #. TRANS: Client error displayed trying to approve subscriptionswithout specifying a profile to approve.
-#, fuzzy
 msgid "Must specify a profile."
-msgstr "Saknar profil."
+msgstr "Måste ange en profil."
 
 #. TRANS: Client error displayed trying to approve group membership for a non-existing request.
 #. TRANS: %s is a nickname.
 #. TRANS: Client error displayed when trying to approve a non-existing group join request.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not in the moderation queue for this group."
-msgstr "En lista av användarna i denna grupp."
+msgstr "%s är inte i moderationskön för denna grupp."
 
 #. TRANS: Client error displayed trying to approve/deny group membership.
 #. TRANS: Client error displayed trying to approve/deny subscription.
@@ -1310,16 +1302,16 @@ msgstr "%1$ss status den %2$s"
 
 #. TRANS: Message on page for group admin after approving a join request.
 msgid "Join request approved."
-msgstr ""
+msgstr "Anslutningsbegäran godkänd."
 
 #. TRANS: Message on page for group admin after rejecting a join request.
 msgid "Join request canceled."
-msgstr ""
+msgstr "Anslutningsbegäran avbruten."
 
 #. TRANS: Client error displayed trying to approve subscription for a non-existing request.
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not in the moderation queue for your subscriptions."
-msgstr "En lista av användarna i denna grupp."
+msgstr "%s är inte i moderationskön för dina prenumerationer."
 
 #. TRANS: Server error displayed when cancelling a queued subscription request fails.
 #. TRANS: %1$s is the leaving user's nickname, $2$s is the nickname for which the leave failed.
@@ -1584,9 +1576,8 @@ msgid "Backup account"
 msgstr ""
 
 #. TRANS: Client exception thrown when trying to backup an account while not logged in.
-#, fuzzy
 msgid "Only logged-in users can backup their account."
-msgstr "Bara inloggade användaren kan upprepa notiser."
+msgstr "Endast inloggade användare kan säkerhetskopiera sitt konto."
 
 #. TRANS: Client exception thrown when trying to backup an account without having backup rights.
 msgid "You may not backup your account."
@@ -1609,7 +1600,7 @@ msgstr "Bakgrund"
 
 #. TRANS: Title for submit button to backup an account on the backup account page.
 msgid "Backup your account."
-msgstr ""
+msgstr "Säkerhetskopiera ditt konto."
 
 #. TRANS: Client error displayed when blocking a user that has already been blocked.
 msgid "You already blocked that user."
@@ -1787,10 +1778,9 @@ msgstr "Konversationer"
 
 #. TRANS: Title for conversation page.
 #. TRANS: Title for page that shows a notice.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Notice"
-msgstr "Notiser"
+msgstr "Notis"
 
 #. TRANS: Client exception displayed trying to delete a user account while not logged in.
 #, fuzzy
@@ -2287,9 +2277,8 @@ msgid "No tagger or ID."
 msgstr "Inget smeknamn eller ID."
 
 #. TRANS: Client error displayed when referring to non-local user.
-#, fuzzy
 msgid "Not a local user."
-msgstr "Ingen sådan användare."
+msgstr "Inte en lokal användare."
 
 #. TRANS: Client error displayed when reting to edit a tag that was not self-created.
 #, fuzzy
@@ -8000,9 +7989,12 @@ msgstr ""
 
 #. TRANS: Succes message displayed if tagging a user succeeds.
 #. TRANS: %1$s is the tagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags added (not part of message).
 #, fuzzy, php-format
 msgid "%1$s was tagged %2$s"
-msgstr "%1$s - %2$s"
+msgid_plural "%1$s was tagged %2$s"
+msgstr[0] "%1$s - %2$s"
+msgstr[1] "%1$s - %2$s"
 
 #. TRANS: Separator for list of tags.
 #. TRANS: Separator in list of user names like "You, Bob, Mary".
@@ -8011,7 +8003,7 @@ msgstr ""
 
 #. TRANS: Error displayed if a given tag is invalid.
 #. TRANS: %s is the invalid tag.
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "Ogiltig tagg: \"%s\""
 
@@ -8023,9 +8015,12 @@ msgstr ""
 
 #. TRANS: Succes message displayed if untagging a user succeeds.
 #. TRANS: %1$s is the untagged user's nickname, %2$s is a list of tags.
+#. TRANS: Plural is decided based on the number of tags removed (not part of message).
 #, php-format
-msgid "The following tag(s) were removed from user %1$s: %2$s."
-msgstr ""
+msgid "The following tag was removed from user %1$s: %2$s."
+msgid_plural "The following tags were removed from user %1$s: %2$s."
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -9607,7 +9602,6 @@ msgid "Edit people tag settings."
 msgstr "Redigera profilinställningar"
 
 #. TRANS: Text for link to edit people tag settings.
-#, fuzzy
 msgid "Edit"
 msgstr "Redigera"
 
@@ -9683,7 +9677,6 @@ msgid "People tags"
 msgstr "Personer"
 
 #. TRANS: Replaces %s in 'People tags by %s'. (Yes, we know we need to fix this.)
-#, fuzzy
 msgid "User"
 msgstr "Användare"
 
@@ -10447,10 +10440,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#~ msgid ""
-#~ "You can only tag people you are subscribed to or who are subscribed to "
-#~ "you."
-#~ msgstr ""
-#~ "Du kan bara tagga personer du prenumererar på eller som prenumererar på "
-#~ "dig."
