@@ -271,13 +271,6 @@ class ProfileAction extends OwnerDesignAction
                 }
             }
 
-            if ($cnt > GROUPS_PER_MINILIST) {
-                $this->elementStart('p');
-                // TRANS: Text for user group membership statistics if user has more subscriptions than displayed.
-                $this->statsSectionLink('usergroups', _('All groups'), 'more');
-                $this->elementEnd('p');
-            }
-
             Event::handle('EndShowGroupsMiniList', array($this));
         }
             $this->elementEnd('div');
