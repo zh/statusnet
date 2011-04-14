@@ -1366,3 +1366,12 @@ EndLocalURL: before resolving a local url for an action
 - &$addSession: whether to add session variable
 - &$url: resulting URL to local resource
 
+StartProfileGetAvatar: When getting an avatar for a profile
+- $profile: profile
+- $size: size of the avatar
+- &$avatar: avatar
+
+EndProfileGetAvatar: After getting an avatar for a profile
+- $profile: profile
+- $size: size of the avatar
+- &$avatar: avatar

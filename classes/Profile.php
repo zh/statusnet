@@ -68,9 +68,17 @@ class Profile extends Memcached_DataObject
         if (is_null($height)) {
             $height = $width;
         }
-        return Avatar::pkeyGet(array('profile_id' => $this->id,
-                                     'width' => $width,
-                                     'height' => $height));
+
+        $avatar = null;
+
+        if (Event::handle('StartProfileGetAvatar', array($this, $width, &$avatar))) {
+            $avatar = Avatar::pkeyGet(array('profile_id' => $this->id,
+                                            'width' => $width,
+                                            'height' => $height));
+            Event::handle('EndProfileGetAvatar', array($this, $width, &$avatar));
+        }
+
+        return $avatar;
     }
 
     function getOriginalAvatar()
