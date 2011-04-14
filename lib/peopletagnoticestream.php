@@ -53,7 +53,7 @@ class PeopletagNoticeStream extends ScopingNoticeStream
             $profile = Profile::current();
         }
         parent::__construct(new CachingNoticeStream(new RawPeopletagNoticeStream($plist),
-                                                    'profile_tag:notice_ids:' . $plist->id),
+                                                    'profile_list:notice_ids:' . $plist->id),
                             $profile);
     }
 }
