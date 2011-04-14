@@ -32,8 +32,7 @@ class GravatarPlugin extends Plugin
 {
     function onEndProfileGetAvatar($profile, $size, &$avatar)
     {
-        if (empty($avatar) || 
-            (!empty($avatar->filename) && !file_exists(Avatar::path($avatar->filename)))) {
+        if (empty($avatar)) {
             $user = $profile->getUser();
             if (!empty($user) && !empty($user->email)) {
                 // Fake one!
