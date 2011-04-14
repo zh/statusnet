@@ -734,6 +734,27 @@ div.entry-content a.response:after {
     width: 390px; 
 }
 
+.threaded-replies .to-selector {
+    display: none;
+}
+
+.user_in.realtime-popup .notice div.entry-content {
+    max-width: 320px;
+}
+
+.realtime-popup .threaded-replies {
+    margin-left: 15px;
+}
+
+.realtime-popup .threaded-replies .form_notice textarea {
+    width: 385px !important;
+}
+
+.realtime-popup .threaded-replies .form_notice label.notice_data-attach {
+    top: 10px !important;
+    right: 10px !important;
+}
+
 #content .notice .notice {
     width: 100%;
     margin-left: 0;
@@ -968,51 +989,6 @@ vertical-align:top;
 }
 #content td:last-child {
 padding-right:0;
-}
-
-
-#realtime_actions {
-    position: relative !important;
-    float: right;
-    padding-top: 15px;
-    margin-bottom: -8px !important;
-}
-
-.realtime-popup #content {
-    padding-left: 4px !important;
-    padding-right: 4px !important;
-    margin-right: 0px;
-    left: 0;
-    right: 0;
-    width: 400px;
-    overflow: visible;
-}
-
-.realtime-popup .threaded-replies {
-    margin-left: 10px;
-}
-
-.realtime-popup .input_forms {
-    display: none; /* XXX fixme! */
-}
-
-.realtime-popup .form_notice textarea {
-    width: 325px !important;
-}
-
-.realtime-popup .form_notice #notice_action-submit {
-    top: 59px !important;
-    right: 6px !important;
-}
-
-.realtime-popup .form_notice label.notice_data-attach, .realtime-popup .form_notice input.notice_data-attach {
-    right: 74px;
-    top: 3px !important;
-}
-
-.realtime-popup .form_notice #notice_data-geo_wrap label, .realtime-popup .form_notice #notice_data-geo_wrap input {
-    right: 8px;
-    top: 3px !important;
 }
 
 
