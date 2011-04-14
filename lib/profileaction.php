@@ -304,6 +304,8 @@ class ProfileAction extends OwnerDesignAction
 
                 $cur = common_current_user();
 
+                $first = true;
+
                 while ($lists->fetch()) {
                     if (!$lists->private ||
                         ($lists->private && !empty($cur) && $cur->id == $profile->id)) {
@@ -314,10 +316,14 @@ class ProfileAction extends OwnerDesignAction
                                                     array('tagger' => $this->profile->nickname,
                                                           'tag'    => $lists->tag));
                         }
-                        $this->elementStart('li');
+                        if (!$first) {
+                            $this->text(', ');
+                        } else {
+                            $first = false;
+                        }
+
                         $this->element('a', array('href' => $url),
                                        $lists->tag);
-                        $this->elementEnd('li');
                     }
                 }
 
