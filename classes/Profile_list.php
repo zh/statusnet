@@ -467,18 +467,24 @@ class Profile_list extends Memcached_DataObject
 
     function taggedCount($recount=false)
     {
-        if (!$recount) {
-            return $this->tagged_count;
+        $keypart = sprintf('profile_list:tagged_count:%d:%s', 
+                           $this->tagger,
+                           $this->tag);
+
+        $count = self::cacheGet($keypart);
+
+        if ($count === false) {
+            $tags = new Profile_tag();
+
+            $tags->tag = $this->tag;
+            $tags->tagger = $this->tagger;
+
+            $count = $tags->count('distinct tagged');
+
+            self::cacheSet($keypart, $count);
         }
 
-        $tags = new Profile_tag();
-        $tags->tag = $this->tag;
-        $tags->tagger = $this->tagger;
-        $orig = clone($this);
-        $this->tagged_count = (int) $tags->count('distinct tagged');
-        $this->update($orig);
-
-        return $this->tagged_count;
+        return $count;
     }
 
     /**
@@ -492,17 +498,21 @@ class Profile_list extends Memcached_DataObject
 
     function subscriberCount($recount=false)
     {
-        if ($recount) {
-            return $this->subscriber_count;
+        $keypart = sprintf('profile_list:subscriber_count:%d', 
+                           $this->id);
+
+        $count = self::cacheGet($keypart);
+
+        if ($count === false) {
+
+            $sub = new Profile_tag_subscription();
+            $sub->profile_tag_id = $this->id;
+            $count = (int) $sub->count('distinct profile_id');
+
+            self::cacheSet($keypart, $count);
         }
 
-        $sub = new Profile_tag_subscription();
-        $sub->profile_tag_id = $this->id;
-        $orig = clone($this);
-        $this->subscriber_count = (int) $sub->count('distinct profile_id');
-        $this->update($orig);
-
-        return $this->subscriber_count;
+        return $count;
     }
 
     /**

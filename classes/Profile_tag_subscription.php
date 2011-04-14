@@ -102,4 +102,24 @@ class Profile_tag_subscription extends Memcached_DataObject
             Event::handle('StartUnsubscribePeopletag', array($profile_list, $profile));
         }
     }
+
+    function insert()
+    {
+        $result = parent::insert();
+        if ($result) {
+            self::blow('profile_list:subscriber_count:%d', 
+                       $this->profile_tag_id);
+        }
+        return $result;
+    }
+
+    function delete()
+    {
+        $result = parent::delete();
+        if ($result) {
+            self::blow('profile_list:subscriber_count:%d', 
+                       $this->profile_tag_id);
+        }
+        return $result;
+    }
 }

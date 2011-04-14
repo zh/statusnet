@@ -291,4 +291,26 @@ class Profile_tag extends Memcached_DataObject
         }
         return true;
     }
+
+    function insert()
+    {
+        $result = parent::insert();
+        if ($result) {
+            self::blow('profile_list:tagged_count:%d:%s', 
+                       $this->tagger,
+                       $this->tag);
+        }
+        return $result;
+    }
+
+    function delete()
+    {
+        $result = parent::delete();
+        if ($result) {
+            self::blow('profile_list:tagged_count:%d:%s', 
+                       $this->tagger,
+                       $this->tag);
+        }
+        return $result;
+    }
 }
