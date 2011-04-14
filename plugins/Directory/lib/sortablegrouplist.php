@@ -111,7 +111,6 @@ class SortableGroupList extends SortableSubscriptionList
         }
 
         $this->out->element('th', array('id' => 'Members'), _m('Members'));
-        $this->out->element('th', array('id' => 'Admins'), _m('Admins'));
         $this->out->element('th', array('id' => 'controls'), null);
 
         $this->out->elementEnd('tr');
@@ -195,7 +194,6 @@ class SortableGroupListItem extends SortableSubscriptionListItem
             // XXX Add events?
             $this->showCreatedDate();
             $this->showMemberCount();
-            $this->showAdmins();
 
             if (Event::handle('StartProfileListItemActions', array($this))) {
                 $this->showActions();
