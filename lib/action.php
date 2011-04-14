@@ -1354,13 +1354,16 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
-    function menuItem($url, $text, $title=null, $is_selected=false, $id=null)
+    function menuItem($url, $text, $title=null, $is_selected=false, $id=null, $class=null)
     {
         // Added @id to li for some control.
         // XXX: We might want to move this to htmloutputter.php
         $lattrs = array();
-        if ($is_selected) {
-            $lattrs['class'] = 'current';
+        if ($class !== null) {
+            $lattrs['class'] = $class;
+            if ($is_selected) {
+                $lattrs['class'] = trim('current ' . $lattrs['class']);
+            }
         }
 
         (is_null($id)) ? $lattrs : $lattrs['id'] = $id;

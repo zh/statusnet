@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Peopletags a user has subscribed to
+ * Lists a user has created
  *
  * PHP version 5
  *
@@ -39,46 +39,52 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class PeopletagSubscriptionsSection extends PeopletagSection
+class ListsNav extends Menu
 {
     var $profile=null;
-    var $ptags=null;
+    var $lists=null;
 
     function __construct($out, Profile $profile)
     {
         parent::__construct($out);
         $this->profile = $profile;
 
-        $limit = PEOPLETAGS_PER_SECTION+1;
-        $offset = 0;
+        $user = common_current_user();
 
-        $this->ptags = $this->profile->getTagSubscriptions($offset, $limit);
+        $this->lists = $profile->getOwnedTags($user);
     }
 
-    function getPeopletags()
+    function show()
     {
-        return $this->ptags;
+        $action = $this->actionName;
+
+        $this->out->elementStart('ul', array('class' => 'nav'));
+
+        if (Event::handle('StartListsNav', array($this))) {
+
+            while ($this->lists->fetch()) {
+                $mode = $this->lists->private ? 'private' : 'public';
+                $this->out->menuItem(($this->lists->mainpage) ?
+                                     $this->lists->mainpage :
+                                     common_local_url('showprofiletag',
+                                                      array('tagger' => $this->profile->nickname,
+                                                            'tag'    => $this->lists->tag)),
+                                     $this->lists->tag,
+                                     '',
+                                     $action == 'showprofiletag' &&
+                                     $this->action->arg('tagger') == $this->profile->nickname &&
+                                     $this->action->arg('tag')    == $this->lists->tag,
+                                     'nav_timeline_list_'.$this->lists->id,
+                                     'mode-' . $mode);
+            }
+            Event::handle('EndListsNav', array($this));
+        }
+
+        $this->out->elementEnd('ul');
     }
 
-    function title()
+    function hasLists()
     {
-        // TRANS: Title for page that displays people tags a user has subscribed to.
-        return _('List subscriptions');
-    }
-
-    function link()
-    {
-        return common_local_url('peopletagsubscriptions',
-                array('nickname' => $this->profile->nickname));
-    }
-
-    function moreUrl()
-    {
-        return $this->link();
-    }
-
-    function divId()
-    {
-        return 'peopletag_subscriptions';
+        return (!empty($this->lists) && $this->lists->N > 0);
     }
 }
