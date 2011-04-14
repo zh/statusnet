@@ -192,6 +192,22 @@ class GravatarPlugin extends Plugin
                      'success' => true);
     }
 
+    function onEndProfileGetAvatar($profile, $size, &$avatar)
+    {
+        if (empty($avatar)) {
+            $user = $profile->getUser();
+            if (!empty($user) && !empty($user->email)) {
+                // Fake one!
+                $avatar = new Avatar();
+                $avatar->width = $avatar->height = $size;
+                $avatar->url = $this->gravatar_url($user->email, $size);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     function gravatar_url($email, $size)
     {
         $url = "https://secure.gravatar.com/avatar.php?gravatar_id=".
@@ -205,7 +221,7 @@ class GravatarPlugin extends Plugin
     {
         $versions[] = array('name' => 'Gravatar',
                             'version' => STATUSNET_VERSION,
-                            'author' => 'Eric Helgeson',
+                            'author' => 'Eric Helgeson, Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:Gravatar',
                             'rawdescription' =>
                             // TRANS: Plugin decsription.
