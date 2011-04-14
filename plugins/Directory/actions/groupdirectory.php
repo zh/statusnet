@@ -423,9 +423,6 @@ E_O_T
         }
     }
 
-    // XXX This needs some adjustment
-
-/*
     function showSections()
     {
         $gbp = new GroupsByPostsSection($this);
@@ -433,6 +430,5 @@ E_O_T
         $gbm = new GroupsByMembersSection($this);
         $gbm->show();
     }
-*/
 
 }

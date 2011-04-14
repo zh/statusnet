@@ -139,20 +139,6 @@ class SortableGroupListItem extends SortableSubscriptionListItem
         $this->owner = $owner;
     }
 
-    function startItem()
-    {
-        $attr = array(
-            'class' => 'profile',
-            'id'    => 'profile-' . $this->profile->id
-        );
-
-        if ($this->alt) {
-            $attr['class'] .= ' alt';
-        }
-
-        $this->out->elementStart('tr', $attr);
-    }
-
     function showHomepage()
     {
         if (!empty($this->profile->homepage)) {
@@ -195,33 +181,6 @@ class SortableGroupListItem extends SortableSubscriptionListItem
         $this->out->raw($this->highlight($this->profile->nickname));
         $this->out->elementEnd('span');
         $this->out->elementEnd('a');
-    }
-
-    function endItem()
-    {
-        $this->out->elementEnd('tr');
-    }
-
-    function startProfile()
-    {
-        $this->out->elementStart('td', 'entity_profile vcard entry-content');
-    }
-
-    function endProfile()
-    {
-        $this->out->elementEnd('td');
-    }
-
-    function startActions()
-    {
-        $this->out->elementStart('td', 'entity_actions');
-        $this->out->elementStart('ul');
-    }
-
-    function endActions()
-    {
-        $this->out->elementEnd('ul');
-        $this->out->elementEnd('td');
     }
 
     function show()
@@ -277,7 +236,7 @@ class SortableGroupListItem extends SortableSubscriptionListItem
 
     function showMemberCount()
     {
-        $this->out->elementStart('td', 'entry_subscriber_count');
+        $this->out->elementStart('td', 'entry_member_count');
         $this->out->raw($this->profile->getMemberCount());
         $this->out->elementEnd('td');
     }
@@ -291,7 +250,7 @@ class SortableGroupListItem extends SortableSubscriptionListItem
 
     function showAdmins()
     {
-        $this->out->elementStart('td', 'entry_notice_count');
+        $this->out->elementStart('td', 'entry_admins');
         // @todo
         $this->out->raw('gargargar');
         $this->out->elementEnd('td');
