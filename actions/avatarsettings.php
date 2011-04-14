@@ -146,13 +146,15 @@ class AvatarsettingsAction extends SettingsAction
                 // TRANS: Header on avatar upload page for thumbnail of to be used rendition of uploaded avatar (h2).
                 $this->element('h2', null, _("Preview"));
                 $this->elementStart('div', array('id'=>'avatar_preview_view'));
-                $this->element('img', array('src' => $original->url,
+                $this->element('img', array('src' => $avatar->url,
                                             'width' => AVATAR_PROFILE_SIZE,
                                             'height' => AVATAR_PROFILE_SIZE,
                                             'alt' => $user->nickname));
                 $this->elementEnd('div');
-                // TRANS: Button on avatar upload page to delete current avatar.
-                $this->submit('delete', _m('BUTTON','Delete'));
+                if (!empty($avatar->filename)) {
+                    // TRANS: Button on avatar upload page to delete current avatar.
+                    $this->submit('delete', _m('BUTTON','Delete'));
+                }
                 $this->elementEnd('li');
             }
 
