@@ -126,7 +126,9 @@ class ProfileAction extends OwnerDesignAction
         if (Event::handle('StartShowSubscriptionsMiniList', array($this))) {
             $this->elementStart('h2');
             // TRANS: H2 text for user subscription statistics.
-            $this->statsSectionLink('subscriptions', _('Subscriptions'));
+            $this->statsSectionLink('subscriptions', _('Following'));
+            $this->text(' ');
+            $this->text($this->profile->subscriptionCount());
             $this->elementEnd('h2');
 
             $cnt = 0;
@@ -156,7 +158,9 @@ class ProfileAction extends OwnerDesignAction
 
             $this->elementStart('h2');
             // TRANS: H2 text for user subscriber statistics.
-            $this->statsSectionLink('subscribers', _('Subscribers'));
+            $this->statsSectionLink('subscribers', _('Followers'));
+            $this->text(' ');
+            $this->text($this->profile->subscriberCount());
             $this->elementEnd('h2');
 
             $cnt = 0;
@@ -234,27 +238,6 @@ class ProfileAction extends OwnerDesignAction
                 'value' => date('j M Y', strtotime($profile->created))
             ),
             array(
-                'id' => 'subscriptions',
-                // TRANS: Label for user statistics.
-                'label' => _('Subscriptions'),
-                'link' => common_local_url('subscriptions', $actionParams),
-                'value' => $profile->subscriptionCount(),
-            ),
-            array(
-                'id' => 'subscribers',
-                // TRANS: Label for user statistics.
-                'label' => _('Subscribers'),
-                'link' => common_local_url('subscribers', $actionParams),
-                'value' => $profile->subscriberCount(),
-            ),
-            array(
-                'id' => 'groups',
-                // TRANS: Label for user statistics.
-                'label' => _('Groups'),
-                'link' => common_local_url('usergroups', $actionParams),
-                'value' => $profile->getGroups()->N,
-            ),
-            array(
                 'id' => 'notices',
                 // TRANS: Label for user statistics.
                 'label' => _('Notices'),
@@ -302,6 +285,8 @@ class ProfileAction extends OwnerDesignAction
             $this->elementStart('h2');
             // TRANS: H2 text for user group membership statistics.
             $this->statsSectionLink('usergroups', _('Groups'));
+            $this->text(' ');
+            $this->text($this->profile->getGroups()->N);
             $this->elementEnd('h2');
 
             if ($groups) {
