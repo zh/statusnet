@@ -1323,4 +1323,38 @@ class Profile extends Memcached_DataObject
         }
         return $profile;
     }
+
+    function getLists($offset, $limit)
+    {
+        $ids = array();
+
+        $keypart = sprintf('profile:lists:%d', $this->id);
+
+        $idstr = self::cacheGet($keypart);
+
+        if ($idstr !== false) {
+            $ids = explode(',', $idstr);
+        } else {
+            $list = new Profile_list();
+            $list->selectAdd();
+            $list->selectAdd('id');
+            $list->tagger = $this->id;
+            
+            if ($list->find()) {
+                while ($list->fetch()) {
+                    $ids[] = $list->id;
+                }
+            }
+
+            self::cacheSet($keypart, implode(',', $ids));
+        }
+
+        $lists = array();
+
+        foreach ($ids as $id) {
+            $lists[] = Profile_list::staticGet('id', $id);
+        }
+
+        return new ArrayWrapper($lists);
+    }
 }

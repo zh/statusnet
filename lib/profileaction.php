@@ -97,8 +97,7 @@ class ProfileAction extends OwnerDesignAction
         $this->showSubscriptions();
         $this->showSubscribers();
         $this->showGroups();
-        $this->showListsFor();
-        $this->showListSubscriptions();
+        $this->showLists();
         $this->showStatistics();
     }
 
@@ -178,28 +177,6 @@ class ProfileAction extends OwnerDesignAction
         }
 
         $this->elementEnd('div');
-    }
-
-    function showListsFor()
-    {
-        if (Event::handle('StartShowListsForSection', array($this))) {
-
-            $section = new PeopletagsForUserSection($this, $this->profile);
-            $section->show();
-
-            Event::handle('EndShowListsForSection', array($this));
-        }
-    }
-
-    function showListSubscriptions()
-    {
-        if (Event::handle('StartShowListSubscriptionsSection', array($this))) {
-
-            $section = new PeopletagSubscriptionsSection($this, $this->profile);
-            $section->show();
-
-            Event::handle('EndShowListSubscriptionsSection', array($this));
-        }
     }
 
     function showStatistics()
@@ -304,6 +281,52 @@ class ProfileAction extends OwnerDesignAction
             Event::handle('EndShowGroupsMiniList', array($this));
         }
             $this->elementEnd('div');
+    }
+
+    function showLists()
+    {
+        $lists = $this->profile->getLists();
+
+        if ($lists->N > 0) {
+            $this->elementStart('div', array('id' => 'entity_lists',
+                                             'class' => 'section'));
+
+            if (Event::handle('StartShowListsMiniList', array($this))) {
+
+                $this->elementStart('h2');
+                // TRANS: H2 text for user list membership statistics.
+                $this->statsSectionLink('userlists', _('Lists'));
+                $this->text(' ');
+                $this->text($lists->N);
+                $this->elementEnd('h2');
+
+                $this->elementStart('ul');
+
+                $cur = common_current_user();
+
+                while ($lists->fetch()) {
+                    if (!$lists->private ||
+                        ($lists->private && !empty($cur) && $cur->id == $profile->id)) {
+                        if (!empty($lists->mainpage)) {
+                            $url = $lists->mainpage;
+                        } else {
+                            $url = common_local_url('showprofiletag',
+                                                    array('tagger' => $this->profile->nickname,
+                                                          'tag'    => $lists->tag));
+                        }
+                        $this->elementStart('li');
+                        $this->element('a', array('href' => $url),
+                                       $lists->tag);
+                        $this->elementEnd('li');
+                    }
+                }
+
+                $this->elementEnd('ul');
+
+                Event::handle('EndShowListsMiniList', array($this));
+            }
+            $this->elementEnd('div');
+        }
     }
 }
 

@@ -326,6 +326,8 @@ class Profile_list extends Memcached_DataObject
         Profile_tag::cleanup($this);
         Profile_tag_subscription::cleanup($this);
 
+        self::blow('profile:lists:%d', $this->tagger);
+
         return parent::delete();
     }
 
@@ -909,5 +911,14 @@ class Profile_list extends Memcached_DataObject
 
             return new ArrayWrapper($wrapped);
         }
+    }
+
+    function insert()
+    {
+        $result = parent::insert();
+        if ($result) {
+            self::blow('profile:lists:%d', $this->tagger);
+        }
+        return $result;
     }
 }
