@@ -855,7 +855,7 @@ class OStatusPlugin extends Plugin
         if ($oprofile) {
             if (!$oprofile->subscribe()) {
                 // TRANS: Exception thrown when setup of remote people tag subscription fails.
-                throw new Exception(_m('Could not set up remote people tag subscription.'));
+                throw new Exception(_m('Could not set up remote list subscription.'));
             }
 
             $sub = $user->getProfile();
@@ -876,7 +876,7 @@ class OStatusPlugin extends Plugin
             $act->title = _m('TITLE','Follow list');
             // TRANS: Success message for remote list follow through OStatus.
             // TRANS: %1$s is the subscriber name, %2$s the prople tag, %3$s is the tagger's name.
-            $act->content = sprintf(_m("%1$s is now following people tagged %2$s by %3$s."),
+            $act->content = sprintf(_m("%1$s is now following people listed in %2$s by %3$s."),
                                     $sub->getBestName(),
                                     $oprofile->getBestName(),
                                     $tagger->getBestName());
@@ -1000,7 +1000,7 @@ class OStatusPlugin extends Plugin
                                   common_date_iso8601(time()));
         $act->time = time();
         $act->title = _m('TITLE','Tag');
-        $act->content = sprintf(_m('%1$s tagged %2$s in the list %3$s.'),
+        $act->content = sprintf(_m('%1$s listed %2$s in the list %3$s.'),
                                 $tagger->getBestName(),
                                 $tagged->getBestName(),
                                 $plist->getBestName());

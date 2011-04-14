@@ -169,7 +169,7 @@ class OStatusPeopletagAction extends OStatusSubAction
 
     function getInstructions()
     {
-        return _m('You can subscribe to people tags from other supported sites. Paste the tag\'s profile URI below:');
+        return _m('You can subscribe to lists from other supported sites. Paste the lists\'s URI below:');
     }
 
     function selfLink()

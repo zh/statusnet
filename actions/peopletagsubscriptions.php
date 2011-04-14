@@ -48,11 +48,11 @@ class PeopletagsubscriptionsAction extends OwnerDesignAction
         if ($this->page == 1) {
             // TRANS: Title for page that displays people tags subscribed to by a user.
             // TRANS: %s is a profile nickname.
-            return sprintf(_('People tags subscriptions by %s'), $this->profile->nickname);
+            return sprintf(_('Lists subscribed to by %s'), $this->profile->nickname);
         } else {
             // TRANS: Title for page that displays people tags subscribed to by a user.
             // TRANS: %1$s is a profile nickname, %2$d is a page number.
-            return sprintf(_('People tags subscriptions by %1$s, page %2$d'), $this->profile->nickname, $this->page);
+            return sprintf(_('Lists subscribed to by %1$s, page %2$d'), $this->profile->nickname, $this->page);
         }
     }
 
@@ -107,13 +107,13 @@ class PeopletagsubscriptionsAction extends OwnerDesignAction
           // TRANS: Message displayed for anonymous users on page that displays people tags subscribed to by a user.
           // TRANS: This message contains Markdown links in the form [description](links).
           // TRANS: %s is a profile nickname.
-          sprintf(_('These are people tags subscribed to by **%s**. ' .
-                    'People tags are how you sort similar ' .
+          sprintf(_('These are lists subscribed to by **%s**. ' .
+                    'Lists are how you sort similar ' .
                     'people on %%%%site.name%%%%, a [micro-blogging]' .
                     '(http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                     'based on the Free Software [StatusNet](http://status.net/) tool. ' .
                     'You can easily keep track of what they ' .
-                    'are doing by subscribing to the tag\'s timeline.' ), $this->profile->nickname);
+                    'are doing by subscribing to the list\'s timeline.' ), $this->profile->nickname);
         $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($notice));
         $this->elementEnd('div');
@@ -131,6 +131,18 @@ class PeopletagsubscriptionsAction extends OwnerDesignAction
 
         $this->pagination($this->page > 1, $cnt > PEOPLETAGS_PER_PAGE,
                           $this->page, 'peopletagsubscriptions', array('nickname' => $this->profile->id));
+    }
+
+    function showObjectNav()
+    {
+        $nav = new PeopletagNav($this, $this->profile);
+        $nav->show();
+    }
+
+    function showProfileBlock()
+    {
+        $block = new AccountProfileBlock($this, $this->profile);
+        $block->show();
     }
 
     function showSections()
