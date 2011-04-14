@@ -202,6 +202,7 @@ class SortableGroupListItem extends SortableSubscriptionListItem
                 Event::handle('EndProfileListItemActions', array($this));
             }
             $this->endItem();
+
             Event::handle('EndProfileListItem', array($this));
         }
     }
@@ -231,6 +232,8 @@ class SortableGroupListItem extends SortableSubscriptionListItem
                 $jf = new JoinForm($this->out, $this->profile);
                 $jf->show();
             }
+
+            $this->out->elementEnd('li');
         }
     }
 
