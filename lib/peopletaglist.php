@@ -193,7 +193,7 @@ class PeopletagListItem extends Widget
                     common_local_url('editpeopletag', array('tagger' => $this->profile->nickname,
                                                     'tag' => $this->peopletag->tag)),
                                   // TRANS: Title for link to edit people tag settings.
-                                  'title' => _('Edit people tag settings.')),
+                                  'title' => _('Edit list settings.')),
                        // TRANS: Text for link to edit people tag settings.
                        _('Edit'));
         $this->out->elementEnd('li');

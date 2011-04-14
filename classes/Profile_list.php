@@ -171,51 +171,6 @@ class Profile_list extends Memcached_DataObject
     }
 
     /**
-     * Query notices by users associated with this tag from the database.
-     *
-     * @param integer $offset   offset
-     * @param integer $limit    maximum no of results
-     * @param integer $since_id=null    since this id
-     * @param integer $max_id=null  maximum id in result
-     *
-     * @return array array of notice ids.
-     */
-
-    function _streamDirect($offset, $limit, $since_id, $max_id)
-    {
-        $inbox = new Profile_tag_inbox();
-
-        $inbox->profile_tag_id = $this->id;
-
-        $inbox->selectAdd();
-        $inbox->selectAdd('notice_id');
-
-        if ($since_id != 0) {
-            $inbox->whereAdd('notice_id > ' . $since_id);
-        }
-
-        if ($max_id != 0) {
-            $inbox->whereAdd('notice_id <= ' . $max_id);
-        }
-
-        $inbox->orderBy('notice_id DESC');
-
-        if (!is_null($offset)) {
-            $inbox->limit($offset, $limit);
-        }
-
-        $ids = array();
-
-        if ($inbox->find()) {
-            while ($inbox->fetch()) {
-                $ids[] = $inbox->notice_id;
-            }
-        }
-
-        return $ids;
-    }
-
-    /**
      * Get subscribers (local and remote) to this people tag
      * Order by reverse chronology
      *
@@ -513,6 +468,23 @@ class Profile_list extends Memcached_DataObject
         }
 
         return $count;
+    }
+
+    /**
+     * get the cached number of profiles subscribed to this
+     * people tag, re-count if the argument is true.
+     *
+     * @param boolean $recount  whether to ignore cache
+     *
+     * @return integer count
+     */
+
+    function blowNoticeStreamCache($all=false)
+    {
+        self::blow('profile_list:notice_ids:%d', $this->id);
+        if ($all) {
+            self::blow('profile_list:notice_ids:%d;last', $this->id);
+        }
     }
 
     /**

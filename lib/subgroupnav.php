@@ -128,16 +128,16 @@ class SubGroupNav extends Menu
                                          $this->user->nickname),
                                  $action == 'usergroups',
                                  'nav_usergroups');
-            $this->out->menuItem(common_local_url('peopletagsbyuser',
+            $this->out->menuItem(common_local_url('peopletagsubscriptions',
                                                   array('nickname' =>
                                                         $this->user->nickname)),
                                  // TRANS: Menu item title in local navigation menu.
-                                 _m('MENU','People tags'),
+                                 _m('MENU','Lists'),
                                  // TRANS: Menu item title in local navigation menu.
                                  // TRANS: %s is a user nickname.
-                                 sprintf(_('People tags by %s.'),
+                                 sprintf(_('List subscriptions by %s.'),
                                          $this->user->nickname),
-                                 in_array($action, array('peopletagsbyuser', 'peopletagsforuser')),
+                                 in_array($action, array('peopletagsbyuser', 'peopletagsubscriptions', 'peopletagsforuser')),
                                  'nav_timeline_peopletags');
 
             if (common_config('invite', 'enabled') && !is_null($cur) && $this->user->id === $cur->id) {

@@ -72,6 +72,14 @@ class DefaultLocalNav extends Menu
                 }
             }
 
+            if (!empty($user)) {
+                $sn = new ListsNav($this->action, $user->getProfile());
+                if ($sn->hasLists()) {
+                    // TRANS: Menu item in default local navigation panel.
+                    $this->submenu(_m('MENU', 'Lists'), $sn);
+                }
+            }
+
             Event::handle('EndDefaultLocalNav', array($this, $user));
         }
 

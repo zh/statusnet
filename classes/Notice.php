@@ -545,12 +545,6 @@ class Notice extends Memcached_DataObject
 
         $notice->saveKnownGroups($groups);
 
-        if (isset($peopletags)) {
-            $notice->saveProfileTags($peopletags);
-        } else {
-            $notice->saveProfileTags();
-        }
-
         if (isset($urls)) {
             $notice->saveKnownUrls($urls);
         } else {
@@ -596,6 +590,11 @@ class Notice extends Memcached_DataObject
         if (!empty($profile)) {
             $profile->blowNoticeCount();
         }
+
+        $ptags = $this->getProfileTags();
+        foreach ($ptags as $ptag) {
+            $ptag->blowNoticeStreamCache();
+        }
     }
 
     /**
@@ -617,6 +616,11 @@ class Notice extends Memcached_DataObject
         if ($this->conversation) {
             // In case we're the first, will need to calc a new root.
             self::blow('notice:conversation_root:%d', $this->conversation);
+        }
+
+        $ptags = $this->getProfileTags();
+        foreach ($ptags as $ptag) {
+            $ptag->blowNoticeStreamCache(true);
         }
     }
 
@@ -1030,33 +1034,13 @@ class Notice extends Memcached_DataObject
 
     function getProfileTags()
     {
-        // Don't save ptags for repeats, for now.
+        $profile = $this->getProfile();
+        $list    = $profile->getOtherTags($profile);
+        $ptags   = array();
 
-        if (!empty($this->repeat_of)) {
-            return array();
+        while($list->fetch()) {
+            $ptags[] = clone($list);
         }
-
-        // XXX: cache me
-
-        $ptags = array();
-
-        $ptagi = new Profile_tag_inbox();
-
-        $ptagi->selectAdd();
-        $ptagi->selectAdd('profile_tag_id');
-
-        $ptagi->notice_id = $this->id;
-
-        if ($ptagi->find()) {
-            while ($ptagi->fetch()) {
-                $profile_list = Profile_list::staticGet('id', $ptagi->profile_tag_id);
-                if ($profile_list) {
-                    $ptags[] = $profile_list;
-                }
-            }
-        }
-
-        $ptagi->free();
 
         return $ptags;
     }
@@ -1168,72 +1152,6 @@ class Notice extends Memcached_DataObject
             }
 
             self::blow('user_group:notice_ids:%d', $gi->group_id);
-        }
-
-        return true;
-    }
-
-    /**
-     * record targets into profile_tag_inbox.
-     * @return array of Profile_list objects
-     */
-    function saveProfileTags($known=array())
-    {
-        // Don't save ptags for repeats, for now
-
-        if (!empty($this->repeat_of)) {
-            return array();
-        }
-
-        if (is_array($known)) {
-            $ptags = $known;
-        } else {
-            $ptags = array();
-        }
-
-        $ptag = new Profile_tag();
-        $ptag->tagged = $this->profile_id;
-
-        if($ptag->find()) {
-            while($ptag->fetch()) {
-                $plist = Profile_list::getByTaggerAndTag($ptag->tagger, $ptag->tag);
-                if (!empty($plist)) {
-                    $ptags[] = clone($plist);
-                }
-            }
-        }
-
-        foreach ($ptags as $target) {
-            $this->addToProfileTagInbox($target);
-        }
-
-        return $ptags;
-    }
-
-    function addToProfileTagInbox($plist)
-    {
-        $ptagi = Profile_tag_inbox::pkeyGet(array('profile_tag_id' => $plist->id,
-                                         'notice_id' => $this->id));
-
-        if (empty($ptagi)) {
-
-            $ptagi = new Profile_tag_inbox();
-
-            $ptagi->query('BEGIN');
-            $ptagi->profile_tag_id  = $plist->id;
-            $ptagi->notice_id = $this->id;
-            $ptagi->created   = $this->created;
-
-            $result = $ptagi->insert();
-            if (!$result) {
-                common_log_db_error($ptagi, 'INSERT', __FILE__);
-                // TRANS: Server exception thrown when saving profile_tag inbox fails.
-                throw new ServerException(_('Problem saving profile_tag inbox.'));
-            }
-
-            $ptagi->query('COMMIT');
-
-            self::blow('profile_tag:notice_ids:%d', $ptagi->profile_tag_id);
         }
 
         return true;
