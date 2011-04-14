@@ -1324,7 +1324,7 @@ class Profile extends Memcached_DataObject
         return $profile;
     }
 
-    function getLists($offset, $limit)
+    function getLists()
     {
         $ids = array();
 
