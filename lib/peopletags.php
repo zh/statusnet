@@ -124,7 +124,7 @@ class PeopletagsWidget extends Widget
 
     function showEditTagForm($tags=null)
     {
-        $this->out->elementStart('span', 'form_tag_user_wrap');
+        $this->out->elementStart('div', 'form_tag_user_wrap');
         $this->out->elementStart('form', array('method' => 'post',
                                            'class' => 'form_tag_user',
                                            'name' => 'tagprofile',
@@ -147,7 +147,7 @@ class PeopletagsWidget extends Widget
 
         $this->out->elementEnd('fieldset');
         $this->out->elementEnd('form');
-        $this->out->elementEnd('span');
+        $this->out->elementEnd('div');
     }
 
     function showEmptyList()
