@@ -140,13 +140,6 @@ class ProfileAction extends OwnerDesignAction
                 }
             }
 
-            if ($cnt > PROFILES_PER_MINILIST) {
-                $this->elementStart('p');
-                // TRANS: Text for user subscription statistics if user has more subscriptions than displayed.
-                $this->statsSectionLink('subscriptions', _('All subscriptions'), 'more');
-                $this->elementEnd('p');
-            }
-
             Event::handle('EndShowSubscriptionsMiniList', array($this));
         }
         $this->elementEnd('div');
@@ -175,13 +168,6 @@ class ProfileAction extends OwnerDesignAction
                     // TRANS: Text for user subscriber statistics if user has no subscribers.
                     $this->element('p', null, _('(None)'));
                 }
-            }
-
-            if ($cnt > PROFILES_PER_MINILIST) {
-                $this->elementStart('p');
-                // TRANS: Text for user subscription statistics if user has more subscribers than displayed.
-                $this->statsSectionLink('subscribers', _('All subscribers'), 'more');
-                $this->elementEnd('p');
             }
 
             Event::handle('EndShowSubscribersMiniList', array($this));
