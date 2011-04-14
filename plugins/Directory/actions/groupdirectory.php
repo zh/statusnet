@@ -120,14 +120,11 @@ class GroupdirectoryAction extends Action
         // TRANS: %%action.newgroup%% is a URL. Do not change it.
         // TRANS: This message contains Markdown links in the form [link text](link).
         $instructions = <<< END_OF_INSTRUCTIONS
-%%site.name%% groups let you find and talk with people of similar
-interests. After you join a group you can send messages to all other
-members using the syntax "!groupname".
+After you join a group you can send messages to all other members
+using the syntax "!groupname".
 
 Browse groups, or search for groups on by their name, location or topic.
 Separate the terms by spaces; they must be three characters or more.
-
-Don't see a group you like? [start your own](%%action.newgroup%%)!
 END_OF_INSTRUCTIONS;
 
         return _m($instructions);
