@@ -55,7 +55,8 @@ class InviteButtonSection extends Section
     function showContent()
     {
         $this->out->element('a', 
-                            array('href' => common_local_url('invite')),
+                            array('href' => common_local_url('invite'),
+                                  'class' => 'invite_button'),
                             _('Invite more colleagues'));
         return false;
     }
