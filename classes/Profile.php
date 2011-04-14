@@ -1352,7 +1352,11 @@ class Profile extends Memcached_DataObject
         $lists = array();
 
         foreach ($ids as $id) {
-            $lists[] = Profile_list::staticGet('id', $id);
+            $list = Profile_list::staticGet('id', $id);
+            if (!empty($list) && 
+                ($showPrivate || !$list->private)) {
+                $lists[] = $list;
+            }
         }
 
         return new ArrayWrapper($lists);

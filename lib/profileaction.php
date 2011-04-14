@@ -271,13 +271,6 @@ class ProfileAction extends OwnerDesignAction
                 }
             }
 
-            if ($cnt > GROUPS_PER_MINILIST) {
-                $this->elementStart('p');
-                // TRANS: Text for user group membership statistics if user has more subscriptions than displayed.
-                $this->statsSectionLink('usergroups', _('All groups'), 'more');
-                $this->elementEnd('p');
-            }
-
             Event::handle('EndShowGroupsMiniList', array($this));
         }
             $this->elementEnd('div');
@@ -285,7 +278,10 @@ class ProfileAction extends OwnerDesignAction
 
     function showLists()
     {
-        $lists = $this->profile->getLists();
+        $cur = common_current_user();
+        $showPrivate = (!empty($cur) && $cur->id == $this->profile->id);
+
+        $lists = $this->profile->getLists($showPrivate);
 
         if ($lists->N > 0) {
             $this->elementStart('div', array('id' => 'entity_lists',
@@ -293,38 +289,39 @@ class ProfileAction extends OwnerDesignAction
 
             if (Event::handle('StartShowListsMiniList', array($this))) {
 
+                $url = common_local_url('peopletagsbyuser',
+                                        array('nickname' => $this->profile->nickname));
+
                 $this->elementStart('h2');
                 // TRANS: H2 text for user list membership statistics.
-                $this->statsSectionLink('userlists', _('Lists'));
+                $this->element('a',
+                               array('href' => $url),
+                               _('Lists'));
                 $this->text(' ');
                 $this->text($lists->N);
                 $this->elementEnd('h2');
 
                 $this->elementStart('ul');
 
-                $cur = common_current_user();
 
                 $first = true;
 
                 while ($lists->fetch()) {
-                    if (!$lists->private ||
-                        ($lists->private && !empty($cur) && $cur->id == $profile->id)) {
-                        if (!empty($lists->mainpage)) {
-                            $url = $lists->mainpage;
-                        } else {
-                            $url = common_local_url('showprofiletag',
-                                                    array('tagger' => $this->profile->nickname,
-                                                          'tag'    => $lists->tag));
-                        }
-                        if (!$first) {
-                            $this->text(', ');
-                        } else {
-                            $first = false;
-                        }
-
-                        $this->element('a', array('href' => $url),
-                                       $lists->tag);
+                    if (!empty($lists->mainpage)) {
+                        $url = $lists->mainpage;
+                    } else {
+                        $url = common_local_url('showprofiletag',
+                                                array('tagger' => $this->profile->nickname,
+                                                      'tag'    => $lists->tag));
                     }
+                    if (!$first) {
+                        $this->text(', ');
+                    } else {
+                        $first = false;
+                    }
+
+                    $this->element('a', array('href' => $url),
+                                   $lists->tag);
                 }
 
                 $this->elementEnd('ul');
