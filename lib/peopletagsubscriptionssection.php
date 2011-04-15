@@ -62,7 +62,7 @@ class PeopletagSubscriptionsSection extends PeopletagSection
 
     function title()
     {
-        // TRANS: Title for page that displays people tags a user has subscribed to.
+        // TRANS: Title for page that displays lists a user has subscribed to.
         return _('List subscriptions');
     }
 

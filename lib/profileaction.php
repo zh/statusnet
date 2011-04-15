@@ -293,9 +293,9 @@ class ProfileAction extends OwnerDesignAction
                                         array('nickname' => $this->profile->nickname));
 
                 $this->elementStart('h2');
-                // TRANS: H2 text for user list membership statistics.
                 $this->element('a',
                                array('href' => $url),
+                               // TRANS: H2 text for user list membership statistics.
                                _('Lists'));
                 $this->text(' ');
                 $this->text($lists->N);

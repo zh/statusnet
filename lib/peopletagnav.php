@@ -78,7 +78,7 @@ class PeopletagNav extends Menu
                                  _m('MENU','List Subscriptions'),
                                  // TRANS: Tooltip for menu item in the group navigation page.
                                  // TRANS: %s is the nickname of the group.
-                                 sprintf(_m('TOOLTIP','Lists subscribed to by %s'), $nickname),
+                                 sprintf(_m('TOOLTIP','Lists subscribed to by %s.'), $nickname),
                                  $action_name == 'peopletagsubscriptions',
                                  'nav_list_group');
             $this->out->menuItem(common_local_url('peopletagsforuser', array('nickname' =>
@@ -87,7 +87,7 @@ class PeopletagNav extends Menu
                                  sprintf(_m('MENU','Lists with %s'), $nickname),
                                  // TRANS: Tooltip for menu item in the group navigation page.
                                  // TRANS: %s is the nickname of the group.
-                                 sprintf(_m('TOOLTIP','Lists with %s'), $nickname),
+                                 sprintf(_m('TOOLTIP','Lists with %s.'), $nickname),
                                  $action_name == 'peopletagsforuser',
                                  'nav_lists_with');
             $this->out->menuItem(common_local_url('peopletagsbyuser', array('nickname' =>
@@ -96,7 +96,7 @@ class PeopletagNav extends Menu
                                  sprintf(_m('MENU','Lists by %s'), $nickname),
                                  // TRANS: Tooltip for menu item in the group navigation page.
                                  // TRANS: %s is the nickname of the group.
-                                 sprintf(_m('TOOLTIP','Lists by %s'), $nickname),
+                                 sprintf(_m('TOOLTIP','Lists by %s.'), $nickname),
                                  $action_name == 'peopletagsbyuser',
                                  'nav_lists_by');
             Event::handle('EndGroupGroupNav', array($this));

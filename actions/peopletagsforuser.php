@@ -102,7 +102,7 @@ class PeopletagsforuserAction extends OwnerDesignAction
     function showAnonymousMessage()
     {
         $notice =
-          // TRANS: Message displayed for anonymous users on page that displays people tags for a user.
+          // TRANS: Message displayed for anonymous users on page that displays lists for a user.
           // TRANS: This message contains Markdown links in the form [description](links).
           // TRANS: %s is a tagger nickname.
           sprintf(_('These are lists for **%s**. ' .
@@ -138,7 +138,7 @@ class PeopletagsforuserAction extends OwnerDesignAction
 
     function showEmptyListMessage()
     {
-        // TRANS: Message displayed on page that displays people tags for a user when there are none.
+        // TRANS: Message displayed on page that displays lists for a user when there are none.
         // TRANS: This message contains Markdown links in the form [description](links).
         // TRANS: %s is a tagger nickname.
         $message = sprintf(_('%s has not been [listed](%%%%doc.lists%%%%) by anyone yet.'), $this->tagged->nickname);
