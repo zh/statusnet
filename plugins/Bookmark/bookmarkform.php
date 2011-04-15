@@ -122,11 +122,14 @@ class BookmarkForm extends Form
                           $this->_url);
         $this->unli();
 
+        list($width, $height) = $this->scaleImage($this->_thumbnail->width,
+                                                  $this->_thumbnail->height);
+
         if (!empty($this->_thumbnail)) {
             $this->out->element('img',
                                 array('src' => $this->_thumbnail->url,
-                                      'width' => $this->_thumbnail->width,
-                                      'height' => $this->_thumbnail->height));
+                                      'width' => $width,
+                                      'height' => $height));
         }
 
         $this->li();
@@ -172,5 +175,21 @@ class BookmarkForm extends Form
     {
         // TRANS: Button text for action to save a new bookmark.
         $this->out->submit('submit', _m('BUTTON', 'Save'));
+    }
+
+    function scaleImage($width, $height)
+    {
+        $maxwidth = common_config('attachments', 'thumb_width');
+        $maxheight = common_config('attachments', 'thumb_height');
+
+        if ($width > $height && $width > $maxwidth) {
+            $height = (int) ((((float)$maxwidth)/(float)($width))*(float)$height);
+            $width = $maxwidth;
+        } else if ($height > $maxheight) {
+            $width = (int) ((((float)$maxheight)/(float)($height))*(float)$width);
+            $height = $maxheight;
+        }
+
+        return array($width, $height);
     }
 }
