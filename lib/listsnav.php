@@ -51,7 +51,7 @@ class ListsNav extends Menu
 
         $user = common_current_user();
 
-        $this->lists = $profile->getOwnedTags($user);
+        $this->lists = $profile->getLists($user);
     }
 
     function show()

@@ -279,9 +279,8 @@ class ProfileAction extends OwnerDesignAction
     function showLists()
     {
         $cur = common_current_user();
-        $showPrivate = (!empty($cur) && $cur->id == $this->profile->id);
 
-        $lists = $this->profile->getLists($showPrivate);
+        $lists = $this->profile->getLists($cur);
 
         if ($lists->N > 0) {
             $this->elementStart('div', array('id' => 'entity_lists',
