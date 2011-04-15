@@ -45,13 +45,13 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class PublicNoticeStream extends ThreadingNoticeStream
+class PublicNoticeStream extends ScopingNoticeStream
 {
     function __construct($profile=null)
     {
-        $stream = new ScopingNoticeStream(new CachingNoticeStream(new RawPublicNoticeStream(), 'public'),
-                                          $profile);
-        parent::__construct($stream);
+        parent::__construct(new CachingNoticeStream(new RawPublicNoticeStream(),
+                                                    'public'),
+                            $profile);
     }
 }
 

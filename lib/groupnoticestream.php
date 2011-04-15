@@ -44,18 +44,16 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class GroupNoticeStream extends ThreadingNoticeStream
+class GroupNoticeStream extends ScopingNoticeStream
 {
     function __construct($group, $profile = -1)
     {
         if (is_int($profile) && $profile == -1) {
             $profile = Profile::current();
         }
-
-        $stream = new ScopingNoticeStream(new CachingNoticeStream(new RawGroupNoticeStream($group),
-                                                                  'user_group:notice_ids:' . $group->id),
-                                          $profile);
-        parent::__construct($stream);
+        parent::__construct(new CachingNoticeStream(new RawGroupNoticeStream($group),
+                                                    'user_group:notice_ids:' . $group->id),
+                            $profile);
     }
 }
 
