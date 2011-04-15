@@ -56,7 +56,7 @@ class AllAction extends ProfileAction
     {
         parent::prepare($args);
 
-        $stream = new InboxNoticeStream($this->user);
+        $stream = new ThreadingInboxNoticeStream($this->user, Profile::current());
 
         $this->notice = $stream->getNotices(($this->page-1)*NOTICES_PER_PAGE,
                                             NOTICES_PER_PAGE + 1,
@@ -203,5 +203,13 @@ class AllAction extends ProfileAction
             // TRANS: H1 text for page. %s is a user nickname.
             $this->element('h1', null, sprintf(_('%s and friends'), $this->user->nickname));
         }
+    }
+}
+
+class ThreadingInboxNoticeStream extends ThreadingNoticeStream
+{
+    function __construct($user, $profile)
+    {
+        parent::__construct(new InboxNoticeStream($user, $profile));
     }
 }
