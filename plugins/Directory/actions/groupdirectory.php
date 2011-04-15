@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Output a user directory
+ * Output a group directory
  *
  * PHP version 5
  *
@@ -35,15 +35,15 @@ if (!defined('STATUSNET'))
 require_once INSTALLDIR . '/lib/publicgroupnav.php';
 
 /**
- * User directory
+ * Group directory
  *
- * @category Personal
+ * @category Directory
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class UserdirectoryAction extends Action
+class GroupdirectoryAction extends Action
 {
     /**
      * The page we're on
@@ -91,17 +91,17 @@ class UserdirectoryAction extends Action
 
         if ($this->filter == 'all') {
             if ($this->page != 1) {
-                return(sprintf(_m('User Directory, page %d'), $this->page));
+                return(sprintf(_m('Group Directory, page %d'), $this->page));
             }
-            return _m('User directory');
+            return _m('Group directory');
         } else if ($this->page == 1) {
             return sprintf(
-                _m('User directory - %s'),
+                _m('Group directory - %s'),
                 strtoupper($this->filter)
             );
         } else {
             return sprintf(
-                _m('User directory - %s, page %d'),
+                _m('Group directory - %s, page %d'),
                 strtoupper($this->filter),
                 $this->page
             );
@@ -115,12 +115,19 @@ class UserdirectoryAction extends Action
      */
     function getInstructions()
     {
+        // TRANS: Page notice for groups directory.
         // TRANS: %%site.name%% is the name of the StatusNet site.
-        return _m(
-            'Search for people on %%site.name%% by their name, '
-            . 'location, or interests. Separate the terms by spaces; '
-            . ' they must be 3 characters or more.'
-        );
+        // TRANS: %%action.newgroup%% is a URL. Do not change it.
+        // TRANS: This message contains Markdown links in the form [link text](link).
+        $instructions = <<< END_OF_INSTRUCTIONS
+After you join a group you can send messages to all other members
+using the syntax "!groupname".
+
+Browse groups, or search for groups on by their name, location or topic.
+Separate the terms by spaces; they must be three characters or more.
+END_OF_INSTRUCTIONS;
+
+        return _m($instructions);
     }
 
     /**
@@ -191,12 +198,30 @@ class UserdirectoryAction extends Action
     /**
      * Content area
      *
-     * Shows the list of popular notices
+     * Shows the groups
      *
      * @return void
      */
     function showContent()
     {
+        if (common_logged_in()) {
+            $this->elementStart(
+                'p',
+                array(
+                    'id' => 'new_group'
+                )
+            );
+            $this->element(
+                'a',
+                array(
+                    'href'  => common_local_url('newgroup'),
+                    'class' => 'more'),
+                    // TRANS: Link to create a new group on the group list page.
+                    _('Create a new group')
+            );
+            $this->elementEnd('p');
+        }
+
         $this->showForm();
 
         $this->elementStart('div', array('id' => 'profile_directory'));
@@ -204,19 +229,19 @@ class UserdirectoryAction extends Action
         $alphaNav = new AlphaNav($this, false, false, array('0-9', 'All'));
         $alphaNav->show();
 
-        $profile = null;
-        $profile = $this->getUsers();
+        $group   = null;
+        $group   = $this->getGroups();
         $cnt     = 0;
 
-        if (!empty($profile)) {
-            $profileList = new SortableSubscriptionList(
-                $profile,
+        if (!empty($group)) {
+            $groupList = new SortableGroupList(
+                $group,
                 common_current_user(),
                 $this
             );
 
-            $cnt = $profileList->show();
-            $profile->free();
+            $cnt = $groupList->show();
+            $group->free();
 
             if (0 == $cnt) {
                 $this->showEmptyListMessage();
@@ -234,12 +259,11 @@ class UserdirectoryAction extends Action
             $this->page > 1,
             $cnt > PROFILES_PER_PAGE,
             $this->page,
-            'userdirectory',
+            'groupdirectory',
             $args
         );
 
         $this->elementEnd('div');
-
     }
 
     function showForm($error=null)
@@ -250,13 +274,13 @@ class UserdirectoryAction extends Action
                 'method' => 'get',
                 'id'     => 'form_search',
                 'class'  => 'form_settings',
-                'action' => common_local_url('userdirectory')
+                'action' => common_local_url('groupdirectory')
             )
         );
 
         $this->elementStart('fieldset');
 
-        $this->element('legend', null, _m('Search site'));
+        $this->element('legend', null, _m('Search groups'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
 
@@ -270,43 +294,53 @@ class UserdirectoryAction extends Action
     }
 
     /*
-     * Get users filtered by the current filter, sort key,
+     * Get groups filtered by the current filter, sort key,
      * sort order, and page
      */
-    function getUsers()
+    function getGroups()
     {
-        $profile = new Profile();
+        $group = new User_group();
 
-        $offset = ($this->page - 1) * PROFILES_PER_PAGE;
+        $offset = ($this->page-1) * PROFILES_PER_PAGE;
         $limit  = PROFILES_PER_PAGE + 1;
 
         if (isset($this->q)) {
-             // User is searching via query
-             $search_engine = $profile->getSearchEngine('profile');
 
-             $mode = 'reverse_chron';
+             $order = 'user_group.created ASC';
 
              if ($this->sort == 'nickname') {
                  if ($this->reverse) {
-                     $mode = 'nickname_desc';
+                     $order = 'user_group.nickname DESC';
                  } else {
-                     $mode = 'nickname_asc';
+                     $order = 'user_group.nickname ASC';
                  }
              } else {
                  if ($this->reverse) {
-                     $mode = 'chron';
+                     $order = 'user_group.created DESC';
                  }
              }
 
-             $search_engine->set_sort_mode($mode);
-             $search_engine->limit($offset, $limit);
-             $search_engine->query($this->q);
+             $sql = <<< GROUP_QUERY_END
+SELECT user_group.*
+FROM user_group
+JOIN local_group ON user_group.id = local_group.group_id
+ORDER BY %s
+LIMIT %d, %d
+GROUP_QUERY_END;
 
-             $profile->find();
+        $cnt = 0;
+        $group->query(sprintf($sql, $order, $limit, $offset));
+        $group->find();
+
         } else {
             // User is browsing via AlphaNav
             $sort   = $this->getSortKey();
-            $sql    = 'SELECT profile.* FROM profile, user WHERE profile.id = user.id';
+
+            $sql = <<< GROUP_QUERY_END
+SELECT user_group.*
+FROM user_group
+JOIN local_group ON user_group.id = local_group.group_id
+GROUP_QUERY_END;
 
             switch($this->filter)
             {
@@ -315,27 +349,27 @@ class UserdirectoryAction extends Action
                 break;
             case '0-9':
                 $sql .=
-                    '  AND LEFT(profile.nickname, 1) BETWEEN \'0\' AND \'9\'';
+                    '  AND LEFT(user_group.nickname, 1) BETWEEN \'0\' AND \'9\'';
                 break;
             default:
                 $sql .= sprintf(
-                    ' AND LEFT(LOWER(profile.nickname), 1) = \'%s\'',
+                    ' AND LEFT(LOWER(user_group.nickname), 1) = \'%s\'',
                     $this->filter
                 );
             }
 
             $sql .= sprintf(
-                ' ORDER BY profile.%s %s, profile.nickname ASC LIMIT %d, %d',
+                ' ORDER BY user_group.%s %s, user_group.nickname ASC LIMIT %d, %d',
                 $sort,
                 $this->reverse ? 'DESC' : 'ASC',
                 $offset,
                 $limit
             );
 
-            $profile->query($sql);
+            $group->query($sql);
         }
 
-        return $profile;
+        return $group;
     }
 
     /**
@@ -367,7 +401,7 @@ class UserdirectoryAction extends Action
                 'p',
                 'error',
                 sprintf(
-                    _m('No users starting with %s'),
+                    _m('No groups starting with %s'),
                     $this->filter
                 )
             );
@@ -384,6 +418,14 @@ E_O_T
             $this->raw(common_markup_to_html($message));
             $this->elementEnd('div');
         }
+    }
+
+    function showSections()
+    {
+        $gbp = new GroupsByPostsSection($this);
+        $gbp->show();
+        $gbm = new GroupsByMembersSection($this);
+        $gbm->show();
     }
 
 }

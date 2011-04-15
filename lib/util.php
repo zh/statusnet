@@ -1221,19 +1221,22 @@ function common_relative_profile($sender, $nickname, $dt=null)
 
 function common_local_url($action, $args=null, $params=null, $fragment=null, $addSession=true)
 {
-    $r = Router::get();
-    $path = $r->build($action, $args, $params, $fragment);
+    if (Event::handle('StartLocalURL', array(&$action, &$params, &$fragment, &$addSession, &$url))) {
+        $r = Router::get();
+        $path = $r->build($action, $args, $params, $fragment);
 
-    $ssl = common_is_sensitive($action);
+        $ssl = common_is_sensitive($action);
 
-    if (common_config('site','fancy')) {
-        $url = common_path(mb_substr($path, 1), $ssl, $addSession);
-    } else {
-        if (mb_strpos($path, '/index.php') === 0) {
+        if (common_config('site','fancy')) {
             $url = common_path(mb_substr($path, 1), $ssl, $addSession);
         } else {
-            $url = common_path('index.php'.$path, $ssl, $addSession);
+            if (mb_strpos($path, '/index.php') === 0) {
+                $url = common_path(mb_substr($path, 1), $ssl, $addSession);
+            } else {
+                $url = common_path('index.php'.$path, $ssl, $addSession);
+            }
         }
+        Event::handle('EndLocalURL', array(&$action, &$params, &$fragment, &$addSession, &$url));
     }
     return $url;
 }

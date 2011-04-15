@@ -28,7 +28,7 @@ require_once INSTALLDIR.'/lib/profilelist.php';
 define('AVATARS_PER_PAGE', 80);
 
 // @todo FIXME: Class documentation missing.
-class GalleryAction extends OwnerDesignAction
+class GalleryAction extends ProfileAction
 {
     var $profile = null;
     var $page = null;
@@ -95,12 +95,6 @@ class GalleryAction extends OwnerDesignAction
 		}
 
         $this->showPage();
-    }
-
-    function showObjectNav()
-    {
-        $nav = new SubGroupNav($this, $this->user);
-        $nav->show();
     }
 
     function showContent()

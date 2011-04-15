@@ -103,12 +103,6 @@ class ShowstreamAction extends ProfileAction
         $this->showNotices();
     }
 
-    function showObjectNav()
-    {
-        $nav = new SubGroupNav($this, $this->user);
-        $nav->show();
-    }
-
     function showProfileBlock()
     {
         $block = new AccountProfileBlock($this, $this->profile);

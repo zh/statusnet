@@ -45,7 +45,7 @@ require_once INSTALLDIR.'/lib/grouplist.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class UsergroupsAction extends OwnerDesignAction
+class UsergroupsAction extends ProfileAction
 {
     var $page = null;
     var $profile = null;
@@ -113,12 +113,6 @@ class UsergroupsAction extends OwnerDesignAction
     {
         parent::handle($args);
         $this->showPage();
-    }
-
-    function showObjectNav()
-    {
-        $nav = new SubGroupNav($this, $this->user);
-        $nav->show();
     }
 
     function showContent()

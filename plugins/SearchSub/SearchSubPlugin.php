@@ -243,39 +243,6 @@ class SearchSubPlugin extends Plugin
     }
 
     /**
-     * Add a count of mirrored feeds into a user's profile sidebar stats.
-     *
-     * @param Profile $profile
-     * @param array $stats
-     * @return boolean hook return value
-     */
-    function onProfileStats($profile, &$stats)
-    {
-        $cur = common_current_user();
-        if (!empty($cur) && $cur->id == $profile->id) {
-            $searchsub = new SearchSub();
-            $searchsub ->profile_id = $profile->id;
-            $entry = array(
-                'id' => 'searchsubs',
-                'label' => _m('Search subscriptions'),
-                'link' => common_local_url('searchsubs', array('nickname' => $profile->nickname)),
-                'value' => $searchsub->count(),
-            );
-
-            $insertAt = count($stats);
-            foreach ($stats as $i => $row) {
-                if ($row['id'] == 'groups') {
-                    // Slip us in after them.
-                    $insertAt = $i + 1;
-                    break;
-                }
-            }
-            array_splice($stats, $insertAt, 0, array($entry));
-        }
-        return true;
-    }
-
-    /**
      * Replace the built-in stub track commands with ones that control
      * search subscriptions.
      *

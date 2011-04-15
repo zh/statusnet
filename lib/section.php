@@ -61,6 +61,19 @@ class Section extends Widget
                                  array('id' => $this->divId(),
                                        'class' => 'section'));
 
+        $this->showTitle();
+
+        $have_more = $this->showContent();
+
+        if ($have_more) {
+            $this->showMore();
+        }
+
+        $this->out->elementEnd('div');
+    }
+
+    function showTitle()
+    {
         $link = $this->link();
         if (!empty($link)) {
             $this->out->elementStart('h2');
@@ -70,18 +83,15 @@ class Section extends Widget
             $this->out->element('h2', null,
                                 $this->title());
         }
+    }
 
-        $have_more = $this->showContent();
-
-        if ($have_more) {
-            $this->out->elementStart('p');
-            $this->out->element('a', array('href' => $this->moreUrl(),
-                                      'class' => 'more'),
-                           $this->moreTitle());
-            $this->out->elementEnd('p');
-        }
-
-        $this->out->elementEnd('div');
+    function showMore()
+    {
+        $this->out->elementStart('p');
+        $this->out->element('a', array('href' => $this->moreUrl(),
+                                       'class' => 'more'),
+                            $this->moreTitle());
+        $this->out->elementEnd('p');
     }
 
     function divId()

@@ -152,16 +152,6 @@ class SubscriptionsAction extends GalleryAction
         $this->elementEnd('div');
     }
 
-    function showSections()
-    {
-        parent::showSections();
-        $cloud = new SubscriptionsPeopleTagCloudSection($this);
-        $cloud->show();
-
-        $cloud2 = new SubscriptionsPeopleSelfTagCloudSection($this);
-        $cloud2->show();
-    }
-
     /**
      * Link to feeds of subscriptions
      *

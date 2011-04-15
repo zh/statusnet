@@ -1089,13 +1089,13 @@ EndGroupSave: After saving a group, aliases, and first member
 - $group: group that was saved
 
 StartInterpretCommand: Before running a command
-- $cmd: First word in the string, 'foo' in 'foo argument' 
+- $cmd: First word in the string, 'foo' in 'foo argument'
 - $arg: Argument, if any, like 'argument' in 'foo argument'
 - $user: User who issued the command
 - &$result: Resulting command; you can set this!
 
 EndInterpretCommand: Before running a command
-- $cmd: First word in the string, 'foo' in 'foo argument' 
+- $cmd: First word in the string, 'foo' in 'foo argument'
 - $arg: Argument, if any, like 'argument' in 'foo argument'
 - $user: User who issued the command
 - $result: Resulting command
@@ -1111,7 +1111,7 @@ EndGroupActionsList: End the list of actions on a group profile page (before </u
 StartGroupProfileElements: Start showing stuff about the group on its profile page
 - $action: action being executed (for output and params)
 - $group: group for the page
-			   
+
 EndGroupProfileElements: Start showing stuff about the group on its profile page
 - $action: action being executed (for output and params)
 - $group: group for the page
@@ -1351,3 +1351,33 @@ EndValidateEmailInvite: after validating an email address for invitations
 - $user: user doing the invite
 - $email: email address
 - &$valid: flag for if it's valid; can be modified
+
+StartLocalURL: before resolving a local url for an action
+- &$action: action to find a path for
+- &$paramsi: parameters to pass to the action
+- &$fragment: any url fragement
+- &$addSession: whether to add session variable
+- &$url: resulting URL to local resource
+
+EndLocalURL: before resolving a local url for an action
+- &$action: action to find a path for
+- &$paramsi: parameters to pass to the action
+- &$fragment: any url fragement
+- &$addSession: whether to add session variable
+- &$url: resulting URL to local resource
+
+StartProfileGetAvatar: When getting an avatar for a profile
+- $profile: profile
+- $size: size of the avatar
+- &$avatar: avatar
+
+EndProfileGetAvatar: After getting an avatar for a profile
+- $profile: profile
+- $size: size of the avatar
+- &$avatar: avatar
+
+StartRegisterSuccess: Before showing the registration success message
+- $action: the registration action
+
+StartRegisterSuccess: After showing the registration success message
+- $action: the registration action

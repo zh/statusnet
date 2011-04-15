@@ -104,10 +104,10 @@ class PeopletagGroupNav extends Widget
             $this->out->menuItem(common_local_url('showprofiletag', array('tagger' => $user_profile->nickname,
                                                                           'tag'    => $tag->tag)),
                              // TRANS: Menu item in people tag navigation panel.
-                             _m('MENU','People tag'),
+                             _m('MENU','List'),
                              // TRANS: Menu item title in people tag navigation panel.
                              // TRANS: %1$s is a tag, %2$s is a nickname.
-                             sprintf(_('%1$s tag by %2$s.'), $tag->tag,
+                             sprintf(_('%1$s list by %2$s.'), $tag->tag,
                                 (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
                              $action == 'showprofiletag', 'nav_timeline_peopletag');
 
@@ -115,10 +115,10 @@ class PeopletagGroupNav extends Widget
             $this->out->menuItem(common_local_url('peopletagged', array('tagger' => $user->nickname,
                                                                         'tag'    => $tag->tag)),
                              // TRANS: Menu item in people tag navigation panel.
-                             _m('MENU','Tagged'),
+                             _m('MENU','Listed'),
                              // TRANS: Menu item title in people tag navigation panel.
                              // TRANS: %1$s is a tag, %2$s is a nickname.
-                             sprintf(_('%1$s tag by %2$s.'), $tag->tag,
+                             sprintf(_('%1$s list by %2$s.'), $tag->tag,
                                 (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
                              $action == 'peopletagged', 'nav_peopletag_tagged');
 
@@ -129,7 +129,7 @@ class PeopletagGroupNav extends Widget
                              _m('MENU','Subscribers'),
                              // TRANS: Menu item title in people tag navigation panel.
                              // TRANS: %1$s is a tag, %2$s is a nickname.
-                             sprintf(_('Subscribers to %1$s tag by %2$s.'), $tag->tag,
+                             sprintf(_('Subscribers to %1$s list by %2$s.'), $tag->tag,
                                 (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
                              $action == 'peopletagsubscribers', 'nav_peopletag_subscribers');
 
@@ -142,7 +142,7 @@ class PeopletagGroupNav extends Widget
                                  _m('MENU','Edit'),
                                  // TRANS: Menu item title in people tag navigation panel.
                                  // TRANS: %s is a tag.
-                                 sprintf(_('Edit %s tag by you.'), $tag->tag,
+                                 sprintf(_('Edit %s list by you.'), $tag->tag,
                                     (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
                                  $action == 'editpeopletag', 'nav_peopletag_edit');
             }

@@ -183,6 +183,16 @@ class AllAction extends ProfileAction
         }
     }
 
+    function showSections()
+    {
+        $this->showSubscriptions();
+        $ibs = new InviteButtonSection($this);
+        $ibs->show();
+        $this->showSubscribers();
+        $this->showGroups();
+        $this->showLists();
+    }
+
     function showPageTitle()
     {
         $user = common_current_user();

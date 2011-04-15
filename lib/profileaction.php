@@ -97,8 +97,7 @@ class ProfileAction extends OwnerDesignAction
         $this->showSubscriptions();
         $this->showSubscribers();
         $this->showGroups();
-        $this->showPeopletagSubs();
-        $this->showPeopletags();
+        $this->showLists();
         $this->showStatistics();
     }
 
@@ -126,7 +125,9 @@ class ProfileAction extends OwnerDesignAction
         if (Event::handle('StartShowSubscriptionsMiniList', array($this))) {
             $this->elementStart('h2');
             // TRANS: H2 text for user subscription statistics.
-            $this->statsSectionLink('subscriptions', _('Subscriptions'));
+            $this->statsSectionLink('subscriptions', _('Following'));
+            $this->text(' ');
+            $this->text($this->profile->subscriptionCount());
             $this->elementEnd('h2');
 
             $cnt = 0;
@@ -138,13 +139,6 @@ class ProfileAction extends OwnerDesignAction
                     // TRANS: Text for user subscription statistics if the user has no subscriptions.
                     $this->element('p', null, _('(None)'));
                 }
-            }
-
-            if ($cnt > PROFILES_PER_MINILIST) {
-                $this->elementStart('p');
-                // TRANS: Text for user subscription statistics if user has more subscriptions than displayed.
-                $this->statsSectionLink('subscriptions', _('All subscriptions'), 'more');
-                $this->elementEnd('p');
             }
 
             Event::handle('EndShowSubscriptionsMiniList', array($this));
@@ -163,7 +157,9 @@ class ProfileAction extends OwnerDesignAction
 
             $this->elementStart('h2');
             // TRANS: H2 text for user subscriber statistics.
-            $this->statsSectionLink('subscribers', _('Subscribers'));
+            $this->statsSectionLink('subscribers', _('Followers'));
+            $this->text(' ');
+            $this->text($this->profile->subscriberCount());
             $this->elementEnd('h2');
 
             $cnt = 0;
@@ -177,43 +173,10 @@ class ProfileAction extends OwnerDesignAction
                 }
             }
 
-            if ($cnt > PROFILES_PER_MINILIST) {
-                $this->elementStart('p');
-                // TRANS: Text for user subscription statistics if user has more subscribers than displayed.
-                $this->statsSectionLink('subscribers', _('All subscribers'), 'more');
-                $this->elementEnd('p');
-            }
-
             Event::handle('EndShowSubscribersMiniList', array($this));
         }
 
         $this->elementEnd('div');
-    }
-
-    function showPeopletagSubs()
-    {
-        $user = common_current_user();
-        if (!empty($user) && $this->profile->id == $user->id) {
-            if (Event::handle('StartShowPeopletagSubscriptionsSection', array($this))) {
-
-                $profile = $user->getProfile();
-                $section = new PeopletagSubscriptionsSection($this, $profile);
-                $section->show();
-
-                Event::handle('EndShowPeopletagSubscriptionsSection', array($this));
-            }
-        }
-    }
-
-    function showPeopletags()
-    {
-        if (Event::handle('StartShowPeopletagsSection', array($this))) {
-
-            $section = new PeopletagsForUserSection($this, $this->profile);
-            $section->show();
-
-            Event::handle('EndShowPeopletagsSection', array($this));
-        }
     }
 
     function showStatistics()
@@ -246,27 +209,6 @@ class ProfileAction extends OwnerDesignAction
                 // TRANS: Label for user statistics.
                 'label' => _('Member since'),
                 'value' => date('j M Y', strtotime($profile->created))
-            ),
-            array(
-                'id' => 'subscriptions',
-                // TRANS: Label for user statistics.
-                'label' => _('Subscriptions'),
-                'link' => common_local_url('subscriptions', $actionParams),
-                'value' => $profile->subscriptionCount(),
-            ),
-            array(
-                'id' => 'subscribers',
-                // TRANS: Label for user statistics.
-                'label' => _('Subscribers'),
-                'link' => common_local_url('subscribers', $actionParams),
-                'value' => $profile->subscriberCount(),
-            ),
-            array(
-                'id' => 'groups',
-                // TRANS: Label for user statistics.
-                'label' => _('Groups'),
-                'link' => common_local_url('usergroups', $actionParams),
-                'value' => $profile->getGroups()->N,
             ),
             array(
                 'id' => 'notices',
@@ -316,6 +258,8 @@ class ProfileAction extends OwnerDesignAction
             $this->elementStart('h2');
             // TRANS: H2 text for user group membership statistics.
             $this->statsSectionLink('usergroups', _('Groups'));
+            $this->text(' ');
+            $this->text($this->profile->getGroups()->N);
             $this->elementEnd('h2');
 
             if ($groups) {
@@ -327,16 +271,65 @@ class ProfileAction extends OwnerDesignAction
                 }
             }
 
-            if ($cnt > GROUPS_PER_MINILIST) {
-                $this->elementStart('p');
-                // TRANS: Text for user group membership statistics if user has more subscriptions than displayed.
-                $this->statsSectionLink('usergroups', _('All groups'), 'more');
-                $this->elementEnd('p');
-            }
-
             Event::handle('EndShowGroupsMiniList', array($this));
         }
             $this->elementEnd('div');
+    }
+
+    function showLists()
+    {
+        $cur = common_current_user();
+        $showPrivate = (!empty($cur) && $cur->id == $this->profile->id);
+
+        $lists = $this->profile->getLists($showPrivate);
+
+        if ($lists->N > 0) {
+            $this->elementStart('div', array('id' => 'entity_lists',
+                                             'class' => 'section'));
+
+            if (Event::handle('StartShowListsMiniList', array($this))) {
+
+                $url = common_local_url('peopletagsbyuser',
+                                        array('nickname' => $this->profile->nickname));
+
+                $this->elementStart('h2');
+                // TRANS: H2 text for user list membership statistics.
+                $this->element('a',
+                               array('href' => $url),
+                               _('Lists'));
+                $this->text(' ');
+                $this->text($lists->N);
+                $this->elementEnd('h2');
+
+                $this->elementStart('ul');
+
+
+                $first = true;
+
+                while ($lists->fetch()) {
+                    if (!empty($lists->mainpage)) {
+                        $url = $lists->mainpage;
+                    } else {
+                        $url = common_local_url('showprofiletag',
+                                                array('tagger' => $this->profile->nickname,
+                                                      'tag'    => $lists->tag));
+                    }
+                    if (!$first) {
+                        $this->text(', ');
+                    } else {
+                        $first = false;
+                    }
+
+                    $this->element('a', array('href' => $url),
+                                   $lists->tag);
+                }
+
+                $this->elementEnd('ul');
+
+                Event::handle('EndShowListsMiniList', array($this));
+            }
+            $this->elementEnd('div');
+        }
     }
 }
 

@@ -171,51 +171,6 @@ class Profile_list extends Memcached_DataObject
     }
 
     /**
-     * Query notices by users associated with this tag from the database.
-     *
-     * @param integer $offset   offset
-     * @param integer $limit    maximum no of results
-     * @param integer $since_id=null    since this id
-     * @param integer $max_id=null  maximum id in result
-     *
-     * @return array array of notice ids.
-     */
-
-    function _streamDirect($offset, $limit, $since_id, $max_id)
-    {
-        $inbox = new Profile_tag_inbox();
-
-        $inbox->profile_tag_id = $this->id;
-
-        $inbox->selectAdd();
-        $inbox->selectAdd('notice_id');
-
-        if ($since_id != 0) {
-            $inbox->whereAdd('notice_id > ' . $since_id);
-        }
-
-        if ($max_id != 0) {
-            $inbox->whereAdd('notice_id <= ' . $max_id);
-        }
-
-        $inbox->orderBy('notice_id DESC');
-
-        if (!is_null($offset)) {
-            $inbox->limit($offset, $limit);
-        }
-
-        $ids = array();
-
-        if ($inbox->find()) {
-            while ($inbox->fetch()) {
-                $ids[] = $inbox->notice_id;
-            }
-        }
-
-        return $ids;
-    }
-
-    /**
      * Get subscribers (local and remote) to this people tag
      * Order by reverse chronology
      *
@@ -371,6 +326,8 @@ class Profile_list extends Memcached_DataObject
         Profile_tag::cleanup($this);
         Profile_tag_subscription::cleanup($this);
 
+        self::blow('profile:lists:%d', $this->tagger);
+
         return parent::delete();
     }
 
@@ -467,18 +424,24 @@ class Profile_list extends Memcached_DataObject
 
     function taggedCount($recount=false)
     {
-        if (!$recount) {
-            return $this->tagged_count;
+        $keypart = sprintf('profile_list:tagged_count:%d:%s', 
+                           $this->tagger,
+                           $this->tag);
+
+        $count = self::cacheGet($keypart);
+
+        if ($count === false) {
+            $tags = new Profile_tag();
+
+            $tags->tag = $this->tag;
+            $tags->tagger = $this->tagger;
+
+            $count = $tags->count('distinct tagged');
+
+            self::cacheSet($keypart, $count);
         }
 
-        $tags = new Profile_tag();
-        $tags->tag = $this->tag;
-        $tags->tagger = $this->tagger;
-        $orig = clone($this);
-        $this->tagged_count = (int) $tags->count('distinct tagged');
-        $this->update($orig);
-
-        return $this->tagged_count;
+        return $count;
     }
 
     /**
@@ -492,17 +455,38 @@ class Profile_list extends Memcached_DataObject
 
     function subscriberCount($recount=false)
     {
-        if ($recount) {
-            return $this->subscriber_count;
+        $keypart = sprintf('profile_list:subscriber_count:%d', 
+                           $this->id);
+
+        $count = self::cacheGet($keypart);
+
+        if ($count === false) {
+
+            $sub = new Profile_tag_subscription();
+            $sub->profile_tag_id = $this->id;
+            $count = (int) $sub->count('distinct profile_id');
+
+            self::cacheSet($keypart, $count);
         }
 
-        $sub = new Profile_tag_subscription();
-        $sub->profile_tag_id = $this->id;
-        $orig = clone($this);
-        $this->subscriber_count = (int) $sub->count('distinct profile_id');
-        $this->update($orig);
+        return $count;
+    }
 
-        return $this->subscriber_count;
+    /**
+     * get the cached number of profiles subscribed to this
+     * people tag, re-count if the argument is true.
+     *
+     * @param boolean $recount  whether to ignore cache
+     *
+     * @return integer count
+     */
+
+    function blowNoticeStreamCache($all=false)
+    {
+        self::blow('profile_list:notice_ids:%d', $this->id);
+        if ($all) {
+            self::blow('profile_list:notice_ids:%d;last', $this->id);
+        }
     }
 
     /**
@@ -927,5 +911,14 @@ class Profile_list extends Memcached_DataObject
 
             return new ArrayWrapper($wrapped);
         }
+    }
+
+    function insert()
+    {
+        $result = parent::insert();
+        if ($result) {
+            self::blow('profile:lists:%d', $this->tagger);
+        }
+        return $result;
     }
 }

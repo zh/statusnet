@@ -53,7 +53,7 @@ class PeopletagNoticeStream extends ScopingNoticeStream
             $profile = Profile::current();
         }
         parent::__construct(new CachingNoticeStream(new RawPeopletagNoticeStream($plist),
-                                                    'profile_tag:notice_ids:' . $plist->id),
+                                                    'profile_list:notice_ids:' . $plist->id),
                             $profile);
     }
 }
@@ -71,36 +71,54 @@ class PeopletagNoticeStream extends ScopingNoticeStream
  */
 class RawPeopletagNoticeStream extends NoticeStream
 {
-    protected $profile_tag;
+    protected $profile_list;
 
-    function __construct($profile_tag)
+    function __construct($profile_list)
     {
-        $this->profile_tag = $profile_tag;
+        $this->profile_list = $profile_list;
     }
+
+    /**
+     * Query notices by users associated with this tag from the database.
+     *
+     * @param integer $offset   offset
+     * @param integer $limit    maximum no of results
+     * @param integer $since_id=null    since this id
+     * @param integer $max_id=null  maximum id in result
+     *
+     * @return array array of notice ids.
+     */
 
     function getNoticeIds($offset, $limit, $since_id, $max_id)
     {
-        $inbox = new Profile_tag_inbox();
+        $notice = new Notice();
 
-        $inbox->profile_tag_id = $this->profile_tag->id;
+        $notice->selectAdd();
+        $notice->selectAdd('notice.id');
 
-        $inbox->selectAdd();
-        $inbox->selectAdd('notice_id');
+        $ptag = new Profile_tag();
+        $ptag->tag    = $this->profile_list->tag;
+        $ptag->tagger = $this->profile_list->tagger;
+        $notice->joinAdd($ptag);
 
-        Notice::addWhereSinceId($inbox, $since_id, 'notice_id');
-        Notice::addWhereMaxId($inbox, $max_id, 'notice_id');
+        if ($since_id != 0) {
+            $notice->whereAdd('notice.id > ' . $since_id);
+        }
 
-        $inbox->orderBy('created DESC, notice_id DESC');
+        if ($max_id != 0) {
+            $notice->whereAdd('notice.id <= ' . $max_id);
+        }
+
+        $notice->orderBy('notice.id DESC');
 
         if (!is_null($offset)) {
-            $inbox->limit($offset, $limit);
+            $notice->limit($offset, $limit);
         }
 
         $ids = array();
-
-        if ($inbox->find()) {
-            while ($inbox->fetch()) {
-                $ids[] = $inbox->notice_id;
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $ids[] = $notice->id;
             }
         }
 

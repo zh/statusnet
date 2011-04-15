@@ -108,10 +108,15 @@ class AlphaNav extends Widget
                 $classes .= 'last ';  // last filter in the list
             }
 
-            $href = common_local_url(
-                $actionName,
-                array('filter' => strtolower($filter))
-            );
+            // hack to get around $m->connect(array('action' => 'all, 'nickname' => $nickname));
+            if (strtolower($filter) == 'all') {
+                $href = common_local_url($actionName);
+            } else {
+                $href = common_local_url(
+                    $actionName,
+                    array('filter' => strtolower($filter))
+                );
+            }
 
             $params  = array('href' => $href);
 

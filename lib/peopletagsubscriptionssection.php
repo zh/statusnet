@@ -42,27 +42,28 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 class PeopletagSubscriptionsSection extends PeopletagSection
 {
     var $profile=null;
+    var $ptags=null;
 
     function __construct($out, Profile $profile)
     {
         parent::__construct($out);
         $this->profile = $profile;
+
+        $limit = PEOPLETAGS_PER_SECTION+1;
+        $offset = 0;
+
+        $this->ptags = $this->profile->getTagSubscriptions($offset, $limit);
     }
 
     function getPeopletags()
     {
-        $limit = PEOPLETAGS_PER_SECTION+1;
-        $offset = 0;
-
-        $ptags = $this->profile->getTagSubscriptions($offset, $limit);
-
-        return $ptags;
+        return $this->ptags;
     }
 
     function title()
     {
         // TRANS: Title for page that displays people tags a user has subscribed to.
-        return _('People tag subscriptions');
+        return _('List subscriptions');
     }
 
     function link()

@@ -68,9 +68,17 @@ class Profile extends Memcached_DataObject
         if (is_null($height)) {
             $height = $width;
         }
-        return Avatar::pkeyGet(array('profile_id' => $this->id,
-                                     'width' => $width,
-                                     'height' => $height));
+
+        $avatar = null;
+
+        if (Event::handle('StartProfileGetAvatar', array($this, $width, &$avatar))) {
+            $avatar = Avatar::pkeyGet(array('profile_id' => $this->id,
+                                            'width' => $width,
+                                            'height' => $height));
+            Event::handle('EndProfileGetAvatar', array($this, $width, &$avatar));
+        }
+
+        return $avatar;
     }
 
     function getOriginalAvatar()
@@ -1314,5 +1322,43 @@ class Profile extends Memcached_DataObject
             $profile = $user->getProfile();
         }
         return $profile;
+    }
+
+    function getLists()
+    {
+        $ids = array();
+
+        $keypart = sprintf('profile:lists:%d', $this->id);
+
+        $idstr = self::cacheGet($keypart);
+
+        if ($idstr !== false) {
+            $ids = explode(',', $idstr);
+        } else {
+            $list = new Profile_list();
+            $list->selectAdd();
+            $list->selectAdd('id');
+            $list->tagger = $this->id;
+            
+            if ($list->find()) {
+                while ($list->fetch()) {
+                    $ids[] = $list->id;
+                }
+            }
+
+            self::cacheSet($keypart, implode(',', $ids));
+        }
+
+        $lists = array();
+
+        foreach ($ids as $id) {
+            $list = Profile_list::staticGet('id', $id);
+            if (!empty($list) && 
+                ($showPrivate || !$list->private)) {
+                $lists[] = $list;
+            }
+        }
+
+        return new ArrayWrapper($lists);
     }
 }

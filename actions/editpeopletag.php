@@ -49,11 +49,11 @@ class EditpeopletagAction extends OwnerDesignAction
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $this->boolean('delete')) {
             // TRANS: Title for edit people tag page after deleting a tag.
             // TRANS: %s is a tag.
-            return sprintf(_('Delete %s people tag'), $this->peopletag->tag);
+            return sprintf(_('Delete %s list'), $this->peopletag->tag);
         }
         // TRANS: Title for edit people tag page.
         // TRANS: %s is a tag.
-        return sprintf(_('Edit people tag %s'), $this->peopletag->tag);
+        return sprintf(_('Edit list %s'), $this->peopletag->tag);
     }
 
     /**
@@ -106,7 +106,7 @@ class EditpeopletagAction extends OwnerDesignAction
 
         if (!$this->peopletag) {
             // TRANS: Client error displayed when referring to a non-exsting people tag.
-            $this->clientError(_('No such people tag.'), 404);
+            $this->clientError(_('No such list.'), 404);
             return false;
         }
 
@@ -216,7 +216,7 @@ class EditpeopletagAction extends OwnerDesignAction
         } else {
             $this->element('p', 'instructions',
                            // TRANS: Form instruction for edit people tag form.
-                           _('Use this form to edit the people tag.'));
+                           _('Use this form to edit the list.'));
         }
     }
 
@@ -294,7 +294,7 @@ class EditpeopletagAction extends OwnerDesignAction
         if (!$result) {
             common_log_db_error($this->group, 'UPDATE', __FILE__);
             // TRANS: TRANS: Server error displayed when updating a people tag fails.
-            $this->serverError(_('Could not update people tag.'));
+            $this->serverError(_('Could not update list.'));
         }
 
         $this->peopletag->query('COMMIT');

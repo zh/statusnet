@@ -1834,8 +1834,16 @@ width:14.5%;
     border-top: 1px solid #ccc;
 }
 
+#realtime_actions {
+    position: relative !important;
+    right: -4px !important;
+    float: right;
+    padding-top: 15px;
+    margin-bottom: -8px !important;
+}
+
 #realtime_actions li {
-    margin-right: -4px;
+    margin-left: 2px !important;
 }
 
 #realtime_play, #realtime_pause, #realtime_popup {
@@ -1855,54 +1863,67 @@ width:14.5%;
 }
 
 #realtime_play, #realtime_pause, #realtime_popup {
-        opacity: 0.6;
+    opacity: 0.6;
 }
 
 #realtime_play:hover, #realtime_pause:hover, #realtime_popup:hover {
-        opacity: 1;
+    opacity: 1;
 }
 
 body.realtime-popup {
     min-width: 100%;
-}
-
-.realtime-popup #wrap {
-    padding: 0px !important;
-    margin: 0px !important;
+    overflow-x: hidden;
 }
 
 .realtime-popup #content {
     padding: 0px !important;
     margin: 0px !important;
-    width: 98% !important;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    overflow: visible;
 }
 
-.realtime-popup .form_notice {
-    float: left !important;
-    position: static !important;
+.realtime-popup #content_inner {
+    padding: 5px;
+}
+
+.realtime-popup .input_forms {
+    top: 0px;
+    left: 0px;
+    padding: 10px 0px 0px 5px;
+}
+
+.realtime-popup .form_notice_placeholder .placeholder {
+    width: 445px;
+}
+
+.realtime-popup .input_form {
+    width: 470px;
 }
 
 .realtime-popup .form_notice fieldset {
-    width: 450px !important;
+    width: 430px !important;
 }
 
 .realtime-popup .form_notice textarea {
-    width: 340px !important;
-}
-
-.realtime-popup .form_notice .submit {
-    top: 58px !important;
-    height: 2em;
-    font-size: 0.8em;
-    width: 86px;
+    width: 425px !important;
 }
 
 .realtime-popup .form_notice label.notice_data-attach {
-    right: 70px;
+    right: 0px !important;
+    top: 3px !important;
 }
 
-.realtime-popup .form_notice .notice_data-geo_wrap label, .realtime-popup .form_notice .notice_data-geo_wrap input {
-    right: 2px;
+.realtime-popup .form_notice #notice_data-geo_wrap label, .realtime-popup .form_notice #notice_data-geo_wrap input {
+    right: 8px !important;
+    top: 3px !important;
+}
+
+.realtime-popup .form_notice .error,
+.realtime-popup .form_notice .success,
+.realtime-popup .form_notice .notice-status {
+    width: 430px; 
 }
 
 /* icons */
