@@ -244,7 +244,7 @@ class ShowprofiletagAction extends Action
     function showNotices()
     {
         if (Event::handle('StartShowProfileTagContent', array($this))) {
-            $nl = new ThreadedNoticeList($this->notice, $this, $this->userProfile);
+            $nl = new NoticeList($this->notice, $this);
 
             $cnt = $nl->show();
 
