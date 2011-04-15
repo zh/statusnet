@@ -148,7 +148,7 @@ class ShowgroupAction extends GroupDesignAction
 
         $this->userProfile = Profile::current();
 
-        $stream = new GroupNoticeStream($this->group, $this->userProfile);
+        $stream = new ThreadingGroupNoticeStream($this->group, $this->userProfile);
 
         $this->notice = $stream->getNotices(($this->page-1)*NOTICES_PER_PAGE,
                                             NOTICES_PER_PAGE + 1);
@@ -436,5 +436,13 @@ class GroupMembersMiniListItem extends ProfileMiniListItem
         }
 
         return $aAttrs;
+    }
+}
+
+class ThreadingGroupNoticeStream extends ThreadingNoticeStream
+{
+    function __construct($group, $profile)
+    {
+        parent::__construct(new GroupNoticeStream($group, $profile));
     }
 }
