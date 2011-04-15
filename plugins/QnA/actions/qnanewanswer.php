@@ -49,7 +49,7 @@ class QnanewanswerAction extends Action
     protected $error    = null;
     protected $complete = null;
 
-    protected $question = null;
+    public    $question = null;
     protected $content  = null;
 
     /**
@@ -162,30 +162,10 @@ class QnanewanswerAction extends Action
 
             $this->elementStart('body');
 
-            $nli = new NoticeListItem($notice, $this);
+            
+            $nli = new NoticeAnswerListItem($notice, $this);
             $nli->show();
-            //$this->raw($answer->asHTML());
-
-            /*
-            $question = $this->question;
-
-            $nli = new NoticeListItem($notice, $this);
-            $nli->showNotice();
-
-            $this->elementStart('div', array('class' => 'entry-content answer-content'));
-
-            if (!empty($answer)) {
-                $form = new QnashowanswerForm($this, $answer);
-                $form->show();
-            } else {
-                $this->text(_m('Answer data is missing.'));
-            }
-
-            $this->elementEnd('div');
-
-            // @fixme
-            //$this->elementStart('div', array('class' => 'entry-content'));
-            */
+  
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
@@ -296,6 +276,44 @@ class QnanewanswerAction extends Action
 
         $this->msg = $msg;
         $this->showPage();
+    }
+
+}
+
+class NoticeAnswerListItem extends NoticeListItem
+{
+
+    protected $question;
+
+    /**
+     * constructor
+     *
+     * Also initializes the profile attribute.
+     *
+     * @param Notice $notice The notice we'll display
+     */
+    function __construct($notice, $out=null)
+    {
+        parent::__construct($notice, $out);
+        $this->question = $out->question;
+    }
+
+    function show()
+    {
+        if (empty($this->notice)) {
+            common_log(LOG_WARNING, "Trying to show missing notice; skipping.");
+            return;
+        } else if (empty($this->profile)) {
+            common_log(LOG_WARNING, "Trying to show missing profile (" . $this->notice->profile_id . "); skipping.");
+            return;
+        }
+
+        $this->showStart();
+        $this->showNotice();
+        $this->showNoticeInfo();
+        $notice = $this->question->getNotice();
+        $this->out->hidden('inreplyto', $notice->id);
+        $this->showEnd();
     }
 
 }
