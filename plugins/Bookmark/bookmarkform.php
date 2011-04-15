@@ -50,6 +50,7 @@ class BookmarkForm extends Form
     private $_url         = null;
     private $_tags        = null;
     private $_description = null;
+    private $_thumbnail   = null;
 
     /**
      * Construct a bookmark form
@@ -63,7 +64,7 @@ class BookmarkForm extends Form
      * @return void
      */
     function __construct($out=null, $title=null, $url=null, $tags=null,
-                         $description=null)
+                         $description=null, $thumbnail=null)
     {
         parent::__construct($out);
 
@@ -71,6 +72,7 @@ class BookmarkForm extends Form
         $this->_url         = $url;
         $this->_tags        = $tags;
         $this->_description = $description;
+        $this->_thumbnail   = $thumbnail;
     }
 
     /**
@@ -114,21 +116,31 @@ class BookmarkForm extends Form
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->out->input('title',
-                          // TRANS: Field label on form for adding a new bookmark.
-                          _m('LABEL','Title'),
-                          $this->_title,
-                          // TRANS: Field title on form for adding a new bookmark.
-                          _m('Title of the bookmark.'));
-        $this->unli();
-
-        $this->li();
         $this->out->input('url',
                           // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','URL'),
-                          $this->_url,
-                          // TRANS: Field title on form for adding a new bookmark.
-                          _m('URL to bookmark.'));
+                          $this->_url);
+        $this->unli();
+
+        if (!empty($this->_thumbnail)) {
+            $this->out->element('img',
+                                array('src' => $this->_thumbnail->url,
+                                      'width' => $this->_thumbnail->width,
+                                      'height' => $this->_thumbnail->height));
+        }
+
+        $this->li();
+        $this->out->input('title',
+                          // TRANS: Field label on form for adding a new bookmark.
+                          _m('LABEL','Title'),
+                          $this->_title);
+        $this->unli();
+
+        $this->li();
+        $this->out->textarea('description',
+                             // TRANS: Field label on form for adding a new bookmark.
+                             _m('LABEL','Notes'),
+                             $this->_description);
         $this->unli();
 
         $this->li();
@@ -138,15 +150,6 @@ class BookmarkForm extends Form
                           $this->_tags,
                           // TRANS: Field title on form for adding a new bookmark.
                           _m('Comma- or space-separated list of tags.'));
-        $this->unli();
-
-        $this->li();
-        $this->out->input('description',
-                          // TRANS: Field label on form for adding a new bookmark.
-                          _m('LABEL','Description'),
-                          $this->_description,
-                          // TRANS: Field title on form for adding a new bookmark.
-                          _m('Description of the URL.'));
         $this->unli();
 
         $this->out->elementEnd('ul');

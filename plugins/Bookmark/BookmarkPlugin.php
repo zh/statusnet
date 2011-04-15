@@ -147,6 +147,7 @@ class BookmarkPlugin extends MicroAppPlugin
         case 'NewbookmarkAction':
         case 'BookmarkpopupAction':
         case 'NoticebyurlAction':
+        case 'BookmarkforurlAction':
         case 'ImportdeliciousAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
@@ -182,6 +183,9 @@ class BookmarkPlugin extends MicroAppPlugin
 
         $m->connect('main/bookmark/import',
                     array('action' => 'importdelicious'));
+
+        $m->connect('main/bookmark/forurl',
+                    array('action' => 'bookmarkforurl'));
 
         $m->connect('bookmark/:id',
                     array('action' => 'showbookmark'),
@@ -629,7 +633,7 @@ class BookmarkPlugin extends MicroAppPlugin
 
     function entryForm($out)
     {
-        return new BookmarkForm($out);
+        return new InitialBookmarkForm($out);
     }
 
     function tag()
