@@ -105,8 +105,8 @@ class PeopletagEditForm extends Form
      */
     function formLegend()
     {
-        // TRANS: Form legend for people tag edit form.
-        // TRANS: %s is a people tag.
+        // TRANS: Form legend for list edit form.
+        // TRANS: %s is a list.
         $this->out->element('legend', null, sprintf(_('Edit list %s'), $this->peopletag->tag));
     }
 
@@ -137,21 +137,21 @@ class PeopletagEditForm extends Form
         $this->out->elementStart('li');
         $desclimit = Profile_list::maxDescription();
         if ($desclimit == 0) {
-            // TRANS: Field title for description of people tag.
+            // TRANS: Field title for description of list.
             $descinstr = _('Describe the list or topic.');
         } else {
-            // TRANS: Field title for description of people tag.
+            // TRANS: Field title for description of list.
             // TRANS: %d is the maximum number of characters for the description.
             $descinstr = sprintf(_m('Describe the list or topic in %d character.',
                                     'Describe the list or topic in %d characters.',
                                     $desclimit),
                                  $desclimit);
         }
-        // TRANS: Field label for description of people tag.
+        // TRANS: Field label for description of list.
         $this->out->textarea('description', _('Description'),
                              ($this->out->arg('description')) ? $this->out->arg('description') : $description,
                              $descinstr);
-        // TRANS: Checkbox label to mark a people tag private.
+        // TRANS: Checkbox label to mark a list private.
         $this->out->checkbox('private', _('Private'), $private);
         $this->out->elementEnd('li');
         $this->out->elementEnd('ul');
@@ -167,11 +167,11 @@ class PeopletagEditForm extends Form
         // TRANS: Button text to save a people tag.
         $this->out->submit('submit', _('Save'));
         $this->out->submit('form_action-yes',
-                      // TRANS: Button text to delete a people tag.
+                      // TRANS: Button text to delete a list.
                       _m('BUTTON','Delete'),
                       'submit',
                       'delete',
-                      // TRANS: Button title to delete a people tag.
+                      // TRANS: Button title to delete a list.
                       _('Delete this list.'));
     }
 

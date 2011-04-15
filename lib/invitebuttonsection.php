@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Section for an invite button
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class InviteButtonSection extends Section
 {
     function showTitle()
@@ -54,10 +53,11 @@ class InviteButtonSection extends Section
 
     function showContent()
     {
-        $this->out->element('a', 
+        $this->out->element('a',
                             array('href' => common_local_url('invite'),
                                   'class' => 'invite_button'),
-                            _('Invite more colleagues'));
+                            // TRANS: Button text for inviting more users to the StatusNet instance.
+                            _m('BUTTON','Invite more colleagues'));
         return false;
     }
 }

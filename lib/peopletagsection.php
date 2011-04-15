@@ -83,7 +83,6 @@ class PeopletagSection extends Section
 
 class PeopletagSectionItem extends PeopletagListItem
 {
-
     function showStart()
     {
     }
@@ -121,8 +120,8 @@ class PeopletagSectionItem extends PeopletagListItem
 
     function showTag()
     {
-        // TRANS: Tag summary. %1$d is the number of users tagged with the tag,
-        // TRANS: %2$d is the number of subscribers to the tag.
+        // TRANS: List summary. %1$d is the number of users in the list,
+        // TRANS: %2$d is the number of subscribers to the list.
         $title = sprintf(_('Listed: %1$d Subscribers: %2$d'),
                          $this->peopletag->taggedCount(),
                          $this->peopletag->subscriberCount());

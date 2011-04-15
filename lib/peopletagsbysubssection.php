@@ -65,8 +65,8 @@ class PeopletagsBySubsSection extends PeopletagSection
 
     function title()
     {
-        // TRANS: Title for section contaning people tags with the most subscribers.
-        return _('Lists with most subscribers');
+        // TRANS: Title for section contaning lists with the most subscribers.
+        return _('Popular lists');
     }
 
     function divId()

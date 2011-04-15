@@ -1,5 +1,4 @@
 <?php
-
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
@@ -43,7 +42,6 @@ require_once INSTALLDIR . '/lib/subscriptionlist.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class SortableGroupList extends SortableSubscriptionList
 {
     /** Owner of this list */
@@ -63,12 +61,13 @@ class SortableGroupList extends SortableSubscriptionList
         $this->out->elementStart('tr');
 
         $tableHeaders = array(
+            // TRANS: Column header in table for user nickname.
             'nickname'    => _m('Nickname'),
+            // TRANS: Column header in table for timestamp when user was created.
             'created'     => _m('Created')
         );
 
         foreach ($tableHeaders as $id => $label) {
-
             $attrs   = array('id' => $id);
             $current = (!empty($this->action->sort) && $this->action->sort == $id);
 
@@ -110,6 +109,7 @@ class SortableGroupList extends SortableSubscriptionList
             $this->out->elementEnd('th');
         }
 
+        // TRANS: Column header in table for members of a group.
         $this->out->element('th', array('id' => 'Members'), _m('Members'));
         $this->out->element('th', array('id' => 'controls'), null);
 
@@ -245,6 +245,7 @@ class SortableGroupListItem extends SortableSubscriptionListItem
     function showCreatedDate()
     {
         $this->out->elementStart('td', 'entry_created');
+        // @todo FIXME: Should we provide i18n for timestamps in core?
         $this->out->raw(date('j M Y', strtotime($this->profile->created)));
         $this->out->elementEnd('td');
     }
@@ -267,5 +268,4 @@ class SortableGroupListItem extends SortableSubscriptionListItem
         }
 
     }
-
 }

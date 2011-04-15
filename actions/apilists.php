@@ -189,7 +189,7 @@ class ApiListsAction extends ApiBareAuthAction
         // there is no argument named count
         $count = 20;
         $profile = $this->user->getProfile();
-        $fn = array($profile, 'getOwnedTags');
+        $fn = array($profile, 'getLists');
 
         list($this->lists,
              $this->next_cursor,

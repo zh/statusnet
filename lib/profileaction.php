@@ -279,9 +279,8 @@ class ProfileAction extends OwnerDesignAction
     function showLists()
     {
         $cur = common_current_user();
-        $showPrivate = (!empty($cur) && $cur->id == $this->profile->id);
 
-        $lists = $this->profile->getLists($showPrivate);
+        $lists = $this->profile->getLists($cur);
 
         if ($lists->N > 0) {
             $this->elementStart('div', array('id' => 'entity_lists',
@@ -293,9 +292,9 @@ class ProfileAction extends OwnerDesignAction
                                         array('nickname' => $this->profile->nickname));
 
                 $this->elementStart('h2');
-                // TRANS: H2 text for user list membership statistics.
                 $this->element('a',
                                array('href' => $url),
+                               // TRANS: H2 text for user list membership statistics.
                                _('Lists'));
                 $this->text(' ');
                 $this->text($lists->N);

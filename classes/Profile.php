@@ -321,36 +321,66 @@ class Profile extends Memcached_DataObject
         return false;
     }
 
-    function getOwnedTags($auth_user, $offset=0, $limit=null, $since_id=0, $max_id=0)
+    function getLists($auth_user, $offset=0, $limit=null, $since_id=0, $max_id=0)
     {
-        $tags = new Profile_list();
-        $tags->tagger = $this->id;
+        $ids = array();
 
-        if (($auth_user instanceof User || $auth_user instanceof Profile) &&
-                $auth_user->id === $this->id) {
-            // no condition, get both private and public tags
+        $keypart = sprintf('profile:lists:%d', $this->id);
+
+        $idstr = self::cacheGet($keypart);
+
+        if ($idstr !== false) {
+            $ids = explode(',', $idstr);
         } else {
-            $tags->private = false;
+            $list = new Profile_list();
+            $list->selectAdd();
+            $list->selectAdd('id');
+            $list->tagger = $this->id;
+            $list->selectAdd('id as "cursor"');
+
+            if ($since_id>0) {
+               $list->whereAdd('id > '.$since_id);
+            }
+
+            if ($max_id>0) {
+                $list->whereAdd('id <= '.$max_id);
+            }
+
+            if($offset>=0 && !is_null($limit)) {
+                $list->limit($offset, $limit);
+            }
+
+            $list->orderBy('id DESC');
+
+            if ($list->find()) {
+                while ($list->fetch()) {
+                    $ids[] = $list->id;
+                }
+            }
+
+            self::cacheSet($keypart, implode(',', $ids));
         }
 
-        $tags->selectAdd('id as "cursor"');
+        $showPrivate = (($auth_user instanceof User ||
+                            $auth_user instanceof Profile) &&
+                        $auth_user->id === $this->id);
 
-        if ($since_id>0) {
-           $tags->whereAdd('id > '.$since_id);
+        $lists = array();
+
+        foreach ($ids as $id) {
+            $list = Profile_list::staticGet('id', $id);
+            if (!empty($list) &&
+                ($showPrivate || !$list->private)) {
+
+                if (!isset($list->cursor)) {
+                    $list->cursor = $list->id;
+                }
+
+                $lists[] = $list;
+            }
         }
 
-        if ($max_id>0) {
-            $tags->whereAdd('id <= '.$max_id);
-        }
-
-        if($offset>=0 && !is_null($limit)) {
-            $tags->limit($offset, $limit);
-        }
-
-        $tags->orderBy('id DESC');
-        $tags->find();
-
-        return $tags;
+        return new ArrayWrapper($lists);
     }
 
     function getOtherTags($auth_user=null, $offset=0, $limit=null, $since_id=0, $max_id=0)
@@ -1322,43 +1352,5 @@ class Profile extends Memcached_DataObject
             $profile = $user->getProfile();
         }
         return $profile;
-    }
-
-    function getLists()
-    {
-        $ids = array();
-
-        $keypart = sprintf('profile:lists:%d', $this->id);
-
-        $idstr = self::cacheGet($keypart);
-
-        if ($idstr !== false) {
-            $ids = explode(',', $idstr);
-        } else {
-            $list = new Profile_list();
-            $list->selectAdd();
-            $list->selectAdd('id');
-            $list->tagger = $this->id;
-            
-            if ($list->find()) {
-                while ($list->fetch()) {
-                    $ids[] = $list->id;
-                }
-            }
-
-            self::cacheSet($keypart, implode(',', $ids));
-        }
-
-        $lists = array();
-
-        foreach ($ids as $id) {
-            $list = Profile_list::staticGet('id', $id);
-            if (!empty($list) && 
-                ($showPrivate || !$list->private)) {
-                $lists[] = $list;
-            }
-        }
-
-        return new ArrayWrapper($lists);
     }
 }

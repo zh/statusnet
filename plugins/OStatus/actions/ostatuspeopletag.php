@@ -169,6 +169,7 @@ class OStatusPeopletagAction extends OStatusSubAction
 
     function getInstructions()
     {
+        // TRANS: Instructions for OStatus list subscription form.
         return _m('You can subscribe to lists from other supported sites. Paste the lists\'s URI below:');
     }
 

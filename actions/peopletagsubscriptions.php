@@ -46,11 +46,11 @@ class PeopletagsubscriptionsAction extends OwnerDesignAction
     function title()
     {
         if ($this->page == 1) {
-            // TRANS: Title for page that displays people tags subscribed to by a user.
+            // TRANS: Title for page that displays lists subscribed to by a user.
             // TRANS: %s is a profile nickname.
             return sprintf(_('Lists subscribed to by %s'), $this->profile->nickname);
         } else {
-            // TRANS: Title for page that displays people tags subscribed to by a user.
+            // TRANS: Title for page that displays lists subscribed to by a user.
             // TRANS: %1$s is a profile nickname, %2$d is a page number.
             return sprintf(_('Lists subscribed to by %1$s, page %2$d'), $this->profile->nickname, $this->page);
         }
@@ -104,7 +104,7 @@ class PeopletagsubscriptionsAction extends OwnerDesignAction
     function showAnonymousMessage()
     {
         $notice =
-          // TRANS: Message displayed for anonymous users on page that displays people tags subscribed to by a user.
+          // TRANS: Message displayed for anonymous users on page that displays lists subscribed to by a user.
           // TRANS: This message contains Markdown links in the form [description](links).
           // TRANS: %s is a profile nickname.
           sprintf(_('These are lists subscribed to by **%s**. ' .

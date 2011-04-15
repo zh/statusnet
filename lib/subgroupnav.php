@@ -145,7 +145,7 @@ class SubGroupNav extends Menu
                                      // TRANS: Menu item in local navigation menu.
                                      _m('MENU','Invite'),
                                      // TRANS: Menu item title in local navigation menu.
-                                     // TRANS: %s is a user nickname.
+                                     // TRANS: %s is the StatusNet sitename.
                                      sprintf(_('Invite friends and colleagues to join you on %s.'),
                                              common_config('site', 'name')),
                                      $action == 'invite',

@@ -70,7 +70,7 @@ class PeopletagautocompleteAction extends Action
         }
 
         $profile = $this->user->getProfile();
-        $tags = $profile->getOwnedTags(common_current_user());
+        $tags = $profile->getLists(common_current_user());
 
         $this->tags = array();
         while ($tags->fetch()) {
@@ -88,7 +88,7 @@ class PeopletagautocompleteAction extends Action
             $this->tags[] = $arr;
         }
 
-        $tags->free();
+        $tags = NULL;
 
         return true;
     }
