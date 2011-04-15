@@ -91,17 +91,23 @@ class GroupdirectoryAction extends Action
 
         if ($this->filter == 'all') {
             if ($this->page != 1) {
+                // TRANS: Title for group directory page. %d is a page number.
                 return(sprintf(_m('Group Directory, page %d'), $this->page));
             }
+            // TRANS: Title for group directory page.
             return _m('Group directory');
         } else if ($this->page == 1) {
             return sprintf(
+                // TRANS: Title for group directory page when it is filtered.
+                // TRANS: %s is the filter string.
                 _m('Group directory - %s'),
                 strtoupper($this->filter)
             );
         } else {
             return sprintf(
-                _m('Group directory - %s, page %d'),
+                // TRANS: Title for group directory page when it is filtered.
+                // TRANS: %1$s is the filter string, %2$d is a page number.
+                _m('Group directory - %1$s, page %2$d'),
                 strtoupper($this->filter),
                 $this->page
             );
@@ -115,19 +121,11 @@ class GroupdirectoryAction extends Action
      */
     function getInstructions()
     {
-        // TRANS: Page notice for groups directory.
-        // TRANS: %%site.name%% is the name of the StatusNet site.
-        // TRANS: %%action.newgroup%% is a URL. Do not change it.
-        // TRANS: This message contains Markdown links in the form [link text](link).
-        $instructions = <<< END_OF_INSTRUCTIONS
-After you join a group you can send messages to all other members
-using the syntax "!groupname".
-
-Browse groups, or search for groups on by their name, location or topic.
-Separate the terms by spaces; they must be three characters or more.
-END_OF_INSTRUCTIONS;
-
-        return _m($instructions);
+        // TRANS: Page instructions.
+        return _m("After you join a group you can send messages to all other members\n".
+                 "using the syntax \"!groupname\".\n\n".
+                 "Browse groups, or search for groups on by their name, location or topic.\n".
+                 "Separate the terms by spaces; they must be three characters or more.\n");
     }
 
     /**
@@ -217,7 +215,7 @@ END_OF_INSTRUCTIONS;
                     'href'  => common_local_url('newgroup'),
                     'class' => 'more'),
                     // TRANS: Link to create a new group on the group list page.
-                    _('Create a new group')
+                    _m('Create a new group')
             );
             $this->elementEnd('p');
         }
@@ -226,6 +224,7 @@ END_OF_INSTRUCTIONS;
 
         $this->elementStart('div', array('id' => 'profile_directory'));
 
+        // @todo FIXME: Does "All" need i18n here?
         $alphaNav = new AlphaNav($this, false, false, array('0-9', 'All'));
         $alphaNav->show();
 
@@ -280,12 +279,15 @@ END_OF_INSTRUCTIONS;
 
         $this->elementStart('fieldset');
 
+        // TRANS: Fieldset legend.
         $this->element('legend', null, _m('Search groups'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
 
+        // TRANS: Field label for input of one or more keywords.
         $this->input('q', _m('Keyword(s)'), $this->q);
 
+        // TRANS: Button text for searching group directory.
         $this->submit('search', _m('BUTTON','Search'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
@@ -401,19 +403,20 @@ GROUP_QUERY_END;
                 'p',
                 'error',
                 sprintf(
-                    _m('No groups starting with %s'),
+                    // TRANS: Empty list message for searching group directory.
+                    // TRANS: %s is the search string.
+                    _m('No groups starting with %s.'),
                     $this->filter
                 )
             );
         } else {
+            // TRANS: Empty list message for searching group directory.
             $this->element('p', 'error', _m('No results.'));
-            $message = _m(<<<E_O_T
-* Make sure all words are spelled correctly.
-* Try different keywords.
-* Try more general keywords.
-* Try fewer keywords.
-E_O_T
-);
+            // TRANS: Help text for searching group directory.
+            $message = _m("* Make sure all words are spelled correctly.\n".
+                          "* Try different keywords.\n".
+                          "* Try more general keywords.\n".
+                          "* Try fewer keywords.");
             $this->elementStart('div', 'help instructions');
             $this->raw(common_markup_to_html($message));
             $this->elementEnd('div');
@@ -427,5 +430,4 @@ E_O_T
         $gbm = new GroupsByMembersSection($this);
         $gbm->show();
     }
-
 }
