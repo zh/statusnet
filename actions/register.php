@@ -606,7 +606,6 @@ class RegisterAction extends Action
     function showSuccessContent()
     {
         if (Event::handle('onStartRegisterSuccess', array($this))) {
-
             $nickname = $this->arg('nickname');
 
             $profileurl = common_local_url('showstream',
