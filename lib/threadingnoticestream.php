@@ -60,8 +60,8 @@ class ThreadingNoticeStream extends FilteringNoticeStream
 
     function filter($notice)
     {
-        if (!array_key_exists($notice->id, $this->seen)) {
-            $this->seen[$notice->id] = true;
+        if (!array_key_exists($notice->conversation, $this->seen)) {
+            $this->seen[$notice->conversation] = true;
             return true;
         } else {
             return false;
