@@ -120,7 +120,7 @@ class ShowprofiletagAction extends Action
     {
         if ($this->page > 1) {
             if($this->peopletag->private) {
-                // TRANS: Title for private people tag timeline.
+                // TRANS: Title for private list timeline.
                 // TRANS: %1$s is a people tag, %2$s is a page number.
                 return sprintf(_('Private timeline for %1$s list by you, page %2$d'),
                                 $this->peopletag->tag, $this->page);
@@ -128,13 +128,13 @@ class ShowprofiletagAction extends Action
 
             $current = common_current_user();
             if (!empty($current) && $current->id == $this->peopletag->tagger) {
-                // TRANS: Title for public people tag timeline where the viewer is the tagger.
+                // TRANS: Title for public list timeline where the viewer is the tagger.
                 // TRANS: %1$s is a people tag, %2$s is a page number.
                 return sprintf(_('Timeline for %1$s list by you, page %2$d'),
                                 $this->peopletag->tag, $this->page);
             }
 
-            // TRANS: Title for private people tag timeline.
+            // TRANS: Title for private list timeline.
             // TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
             return sprintf(_('Timeline for %1$s list by %2$s, page %3$d'),
                                 $this->peopletag->tag,
@@ -143,22 +143,22 @@ class ShowprofiletagAction extends Action
                           );
         } else {
             if($this->peopletag->private) {
-                // TRANS: Title for private people tag timeline.
-                // TRANS: %s is a people tag.
+                // TRANS: Title for private list timeline.
+                // TRANS: %s is a list.
                 return sprintf(_('Private timeline of %s list by you'),
                                 $this->peopletag->tag);
             }
 
             $current = common_current_user();
             if (!empty($current) && $current->id == $this->peopletag->tagger) {
-                // TRANS: Title for public people tag timeline where the viewer is the tagger.
-                // TRANS: %s is a people tag.
+                // TRANS: Title for public list timeline where the viewer is the tagger.
+                // TRANS: %s is a list.
                 return sprintf(_('Timeline for %s list by you'),
                                 $this->peopletag->tag);
             }
 
-            // TRANS: Title for private people tag timeline.
-            // TRANS: %1$s is a people tag, %2$s is the tagger's nickname.
+            // TRANS: Title for private list timeline.
+            // TRANS: %1$s is a list, %2$s is the tagger's nickname.
             return sprintf(_('Timeline for %1$s list by %2$s'),
                                 $this->peopletag->tag,
                                 $this->tagger->nickname
@@ -189,7 +189,7 @@ class ShowprofiletagAction extends Action
                     )
                 ),
                 // TRANS: Feed title.
-                // TRANS: %1$s is a people tag, %2$s is tagger's nickname.
+                // TRANS: %1$s is a list, %2$s is tagger's nickname.
                 sprintf(_('Feed for %1$s list by %2$s (Atom)'),
                             $this->peopletag->tag, $this->tagger->nickname
                        )
@@ -205,8 +205,8 @@ class ShowprofiletagAction extends Action
 
     function showEmptyListMessage()
     {
-        // TRANS: Empty list message for people tag timeline.
-        // TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
+        // TRANS: Empty list message for list timeline.
+        // TRANS: %1$s is a list, %2$s is a tagger's nickname.
         $message = sprintf(_('This is the timeline for %1$s list by %2$s but no one has posted anything yet.'),
                            $this->peopletag->tag,
                            $this->tagger->nickname) . ' ';
@@ -287,20 +287,8 @@ class ShowprofiletagAction extends Action
         if (Event::handle('StartShowTaggedProfilesMiniList', array($this))) {
             $title = '';
 
-            $current = common_current_user();
-            if(!empty($current) && $this->peopletag->tagger == $current->id) {
-                // TRANS: Header on show profile tag page.
-                // TRANS: %s is a people tag.
-                $title =  sprintf(_('Listed'), $this->peopletag->tag);
-            } else {
-                // TRANS: Header on show profile tag page.
-                // TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
-                $title = sprintf(_('Listed'),
-                                $this->peopletag->tag,
-                                $this->tagger->nickname);
-            }
-
-            $this->element('h2', null, $title);
+            // TRANS: Header on show list page.
+            $this->element('h2', null, _('Listed'));
 
             $cnt = 0;
 
@@ -308,7 +296,7 @@ class ShowprofiletagAction extends Action
                 $pml = new ProfileMiniList($profile, $this);
                 $cnt = $pml->show();
                 if ($cnt == 0) {
-                    // TRANS: Content of "People tagged x by a user" if there are no tagged users.
+                    // TRANS: Content of "Listed" page if there are no listed users.
                     $this->element('p', null, _('(None)'));
                 }
             }
