@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Cache
+ * @category  
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
  * @copyright 2011 StatusNet, Inc.
@@ -44,7 +44,7 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class InboxNoticeStream extends ScopingNoticeStream
+class InboxNoticeStream extends ThreadingNoticeStream
 {
     /**
      * Constructor
@@ -58,7 +58,8 @@ class InboxNoticeStream extends ScopingNoticeStream
         }
         // Note: we don't use CachingNoticeStream since RawInboxNoticeStream
         // uses Inbox::staticGet(), which is cached.
-        parent::__construct(new RawInboxNoticeStream($user), $profile);
+        $stream = new ScopingNoticeStream(new RawInboxNoticeStream($user), $profile);
+        parent::__construct($stream);
     }
 }
 
