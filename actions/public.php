@@ -88,7 +88,7 @@ class PublicAction extends Action
 
         $this->userProfile = Profile::current();
 
-        $stream = new PublicNoticeStream($this->userProfile);
+        $stream = new ThreadingPublicNoticeStream($this->userProfile);
 
         $this->notice = $stream->getNotices(($this->page-1)*NOTICES_PER_PAGE,
                                             NOTICES_PER_PAGE + 1);
@@ -250,5 +250,13 @@ class PublicAction extends Action
         $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($m));
         $this->elementEnd('div');
+    }
+}
+
+class ThreadingPublicNoticeStream extends ThreadingNoticeStream
+{
+    function __construct($profile)
+    {
+        parent::__construct(new PublicNoticeStream($profile));
     }
 }
