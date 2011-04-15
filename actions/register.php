@@ -605,48 +605,53 @@ class RegisterAction extends Action
      */
     function showSuccessContent()
     {
-        $nickname = $this->arg('nickname');
+        if (Event::handle('onStartRegisterSuccess', array($this))) {
 
-        $profileurl = common_local_url('showstream',
-                                       array('nickname' => $nickname));
+            $nickname = $this->arg('nickname');
 
-        $this->elementStart('div', 'success');
-        // TRANS: Text displayed after successful account registration.
-        // TRANS: %1$s is the registered nickname, %2$s is the profile URL.
-        // TRANS: This message contains Markdown links in the form [link text](link)
-        // TRANS: and variables in the form %%%%variable%%%%. Please mind the syntax.
-        $instr = sprintf(_('Congratulations, %1$s! And welcome to %%%%site.name%%%%. '.
-                           'From here, you may want to...'. "\n\n" .
-                           '* Go to [your profile](%2$s) '.
-                           'and post your first message.' .  "\n" .
-                           '* Add a [Jabber/GTalk address]'.
-                           '(%%%%action.imsettings%%%%) '.
-                           'so you can send notices '.
-                           'through instant messages.' . "\n" .
-                           '* [Search for people](%%%%action.peoplesearch%%%%) '.
-                           'that you may know or '.
-                           'that share your interests. ' . "\n" .
-                           '* Update your [profile settings]'.
-                           '(%%%%action.profilesettings%%%%)'.
-                           ' to tell others more about you. ' . "\n" .
-                           '* Read over the [online docs](%%%%doc.help%%%%)'.
-                           ' for features you may have missed. ' . "\n\n" .
-                           'Thanks for signing up and we hope '.
-                           'you enjoy using this service.'),
-                         $nickname, $profileurl);
+            $profileurl = common_local_url('showstream',
+                                           array('nickname' => $nickname));
 
-        $this->raw(common_markup_to_html($instr));
+            $this->elementStart('div', 'success');
+            // TRANS: Text displayed after successful account registration.
+            // TRANS: %1$s is the registered nickname, %2$s is the profile URL.
+            // TRANS: This message contains Markdown links in the form [link text](link)
+            // TRANS: and variables in the form %%%%variable%%%%. Please mind the syntax.
+            $instr = sprintf(_('Congratulations, %1$s! And welcome to %%%%site.name%%%%. '.
+                               'From here, you may want to...'. "\n\n" .
+                               '* Go to [your profile](%2$s) '.
+                               'and post your first message.' .  "\n" .
+                               '* Add a [Jabber/GTalk address]'.
+                               '(%%%%action.imsettings%%%%) '.
+                               'so you can send notices '.
+                               'through instant messages.' . "\n" .
+                               '* [Search for people](%%%%action.peoplesearch%%%%) '.
+                               'that you may know or '.
+                               'that share your interests. ' . "\n" .
+                               '* Update your [profile settings]'.
+                               '(%%%%action.profilesettings%%%%)'.
+                               ' to tell others more about you. ' . "\n" .
+                               '* Read over the [online docs](%%%%doc.help%%%%)'.
+                               ' for features you may have missed. ' . "\n\n" .
+                               'Thanks for signing up and we hope '.
+                               'you enjoy using this service.'),
+                             $nickname, $profileurl);
 
-        $have_email = $this->trimmed('email');
-        if ($have_email) {
-            // TRANS: Instruction text on how to deal with the e-mail address confirmation e-mail.
-            $emailinstr = _('(You should receive a message by email '.
-                            'momentarily, with ' .
-                            'instructions on how to confirm '.
-                            'your email address.)');
-            $this->raw(common_markup_to_html($emailinstr));
+            $this->raw(common_markup_to_html($instr));
+
+            $have_email = $this->trimmed('email');
+            if ($have_email) {
+                // TRANS: Instruction text on how to deal with the e-mail address confirmation e-mail.
+                $emailinstr = _('(You should receive a message by email '.
+                                'momentarily, with ' .
+                                'instructions on how to confirm '.
+                                'your email address.)');
+                $this->raw(common_markup_to_html($emailinstr));
+            }
+            $this->elementEnd('div');
+
+            Event::handle('onEndRegisterSuccess', array($this));
         }
-        $this->elementEnd('div');
     }
 
     /**
@@ -656,15 +661,23 @@ class RegisterAction extends Action
      */
     function showLocalNav()
     {
-        $nav = new LoginGroupNav($this);
-        $nav->show();
+        if (common_logged_in()) {
+            parent::showLocalNav();
+        } else {
+            $nav = new LoginGroupNav($this);
+            $nav->show();
+        }
     }
 
-    function showNoticeForm()
-    {
-    }
-
+    /**
+     * Show a bit of login context
+     *
+     * @return nothing
+     */
     function showProfileBlock()
     {
+        if (common_logged_in()) {
+            parent::showProfileBlock();
+        }
     }
 }

@@ -222,14 +222,12 @@ class PublicAction extends Action
 
     function showSections()
     {
-        // $top = new TopPostersSection($this);
-        // $top->show();
         $pop = new PopularNoticeSection($this);
         $pop->show();
+        $ibs = new InviteButtonSection($this);
+        $ibs->show();
         $gbp = new GroupsByMembersSection($this);
         $gbp->show();
-        $ptp = new PeopletagsBySubsSection($this);
-        $ptp->show();
         $feat = new FeaturedUsersSection($this);
         $feat->show();
     }
