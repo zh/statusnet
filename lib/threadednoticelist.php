@@ -221,7 +221,7 @@ class ThreadedNoticeListItem extends NoticeListItem
                     }
                     foreach (array_reverse($notices) as $notice) {
                         if (Event::handle('StartShowThreadedNoticeSub', array($this, $this->notice, $notice))) {
-                            $item = new ThreadedNoticeListSubItem($notice, $this->out);
+                            $item = new ThreadedNoticeListSubItem($notice, $this->notice, $this->out);
                             $item->show();
                             Event::handle('StartShowThreadedNoticeSub', array($this, $this->notice, $notice));
                         }
@@ -248,6 +248,14 @@ class ThreadedNoticeListItem extends NoticeListItem
 // @todo FIXME: needs documentation.
 class ThreadedNoticeListSubItem extends NoticeListItem
 {
+    protected $root = null;
+
+    function __construct($notice, $root, $out)
+    {
+        $this->root = $root;
+        parent::__construct($notice, $out);
+    }
+
     function avatarSize()
     {
         return AVATAR_STREAM_SIZE; // @fixme would like something in between
@@ -266,6 +274,23 @@ class ThreadedNoticeListSubItem extends NoticeListItem
     function showContext()
     {
         //
+    }
+
+    function getReplyProfiles()
+    {
+        $all = parent::getReplyProfiles();
+
+        $profiles = array();
+
+        $rootAuthor = $this->root->getProfile();
+
+        foreach ($all as $profile) {
+            if ($profile->id != $rootAuthor->id) {
+                $profiles[] = $profile;
+            }
+        }
+
+        return $profiles;
     }
 
     function showEnd()
