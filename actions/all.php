@@ -185,9 +185,9 @@ class AllAction extends ProfileAction
 
     function showSections()
     {
-        $this->showSubscriptions();
         $ibs = new InviteButtonSection($this);
         $ibs->show();
+        $this->showSubscriptions();
         $this->showSubscribers();
         $this->showGroups();
         $this->showLists();
