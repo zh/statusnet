@@ -105,7 +105,7 @@ class EditpeopletagAction extends OwnerDesignAction
         }
 
         if (!$this->peopletag) {
-            // TRANS: Client error displayed when referring to a non-exsting list.
+            // TRANS: Client error displayed when referring to a non-existing list.
             $this->clientError(_('No such list.'), 404);
             return false;
         }
