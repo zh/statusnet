@@ -428,6 +428,7 @@ var SN = { // StatusNet
 
                                 var id = $(notice).attr('id');
                                 if ($("#"+id).length == 0) {
+                                    console.log("inserting before placeholder");
                                     $(notice).insertBefore(placeholder);
                                 } else {
                                     // Realtime came through before us...

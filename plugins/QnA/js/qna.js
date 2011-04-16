@@ -32,46 +32,42 @@ var QnA = {
      * @param {jQuery} notice: jQuery object containing one notice
      */
     NoticeInlineAnswerTrigger: function(notice) {
-        console.log('NoticeInlineAnswerTrigger - begin');
-
-        // Find the question notice we're answering...
+        // Find the notice we're replying to...
         var id = $($('.notice_id', notice)[0]).text();
-        console.log("parent notice id = " + id);
+
+        console.log("NoticeInlineAnswerTrigger - replying to notice " + id);
+
         var parentNotice = notice;
 
-        // See if the form's already there...
-        var answerForm = $('#answer-form', parentNotice);
-
-        if (answerForm) {
-            console.log("Found the answer form.");
+        // Find the threaded replies view we'll be adding to...
+        var list = notice.closest('.notices');
+        if (list.hasClass('threaded-replies')) {
+            console.log("NoticeInlineAnswerTrigger - there's already a threaded-replies ul above me");
+            // We're replying to a reply; use reply form on the end of this list.
+            // We'll add our form at the end of this; grab the root notice.
+            parentNotice = list.closest('.notice');
+            console.log("NoticeInlineAnswerTrigger - trying to find the closed .notice above me");
+            if (parentNotice.length > 0) {
+                console.log("NoticeInlineAnswerTrigger - found that closest .notice");
+            }
         } else {
-            console.log("Did not find the answer form.");
+            console.log("NoticeInlineAnswerTrigger - this notice does not have a threaded-reples ul");
+            // We're replying to a parent notice; pull its threaded list
+            // and we'll add on the end of it. Will add if needed.
+            list = $('ul.threaded-replies', notice);
+            console.log('NoticeInlineAnswerTrigger - looking for threaded-replies ul on the parent notice (on the passed in notice)');
+            if (list.length == 0) {
+                console.log("NoticeInlineAnswerTrigger - there is no threaded-replies ul on the parent notice");
+                console.log("NoticeInlineAnswerTrigger - calling NoticeInlineAnswerPlaceholder(notice)");
+                QnA.NoticeInlineAnswerPlaceholder(notice);
+                console.log("NoticeInlineAnswerTrigger - checking once again for a ul.threaded-replies on the notice");
+                list = $('ul.threaded-replies', notice);
+            }
         }
 
-        var placeholder = parentNotice.find('li.notice-answer-placeholder');
-
-        // Pull the parents threaded list and we'll add on the end of it.
-        var list = $('ul.threaded-replies', notice);
-
-        if (list) {
-            console.log("Found the " + list.length + " notice place holders.");
-        } else {
-            console.log("Found the notice answer placeholder");
-        }
-
-        if (list.length == 0) {
-            console.log("list length = 0 adding <ul>");
-            list = $('<ul class="notices threaded-replies xoxo"></ul>');
-            notice.append(list);
-        } else if (list.length == 2) {
-            // remove duplicate ul added by util.js
-            list.last().remove();
-        }
-
-        var answerItem = $('li.notice-answer', list);
 
         var nextStep = function() {
-            console.log("nextStep - enter");
+            console.log("NoticeInlineAnswerTrigger (nextStep) - begin");
 
             // Set focus...
             var text = answerForm.find('textarea');
@@ -80,15 +76,16 @@ var QnA = {
                 throw "No textarea";
             }
 
+            console.log("NoticeInlineAnswerTrigger (nextStep) - setting up body click handler to hide open form when clicking away");
             $('body').click(function(e) {
-                console.log("got click");
+                console.log("body click handler - got click");
 
                 var openAnswers = $('li.notice-answer');
                     if (openAnswers.length > 0) {
-                        console.log("Found and open answer to close");
+                        console.log("body click handler - Found one or more open answer forms to close");
                         var target = $(e.target);
                         openAnswers.each(function() {
-                            console.log("found an open answer");
+                            console.log("body click handler - found an open answer form");
                             // Did we click outside this one?
                             var answerItem = $(this);
                             if (answerItem.has(e.target).length == 0) {
@@ -96,9 +93,13 @@ var QnA = {
                                 var cur = $.trim(textarea.val());
                                 // Only close if there's been no edit.
                                 if (cur == '' || cur == textarea.data('initialText')) {
+                                    console.log("body click handler - no text in answer form, closing it");
                                     var parentNotice = answerItem.closest('li.notice');
                                     answerItem.remove();
+                                    console.log("body click handler - showing answer placeholder");
                                     parentNotice.find('li.notice-answer-placeholder').show();
+                                } else {
+                                    console.log("body click handler - there is text in the answer form, wont close it");
                                 }
                             }
                         });
@@ -106,40 +107,50 @@ var QnA = {
                 });
 
             text.focus();
-            console.log('finished dealing with body click');
+            console.log('body click handler - exit');
         };
 
-        placeholder.hide();
-
-        if (answerItem.length > 0) {
-            console.log('answerItem length > 0');
-            // Update the existing form...
+        // See if the form's already open...
+        var answerForm = $('.notice-answer-form', list);
+        if (answerForm.length > 0 ) {
+            console.log("NoticeInlineAnswerTrigger - found an open .notice-answer-form - doing nextStep()");
             nextStep();
         } else {
 
-             // Create the answer form entry at the end
+            console.log("NoticeInlineAnswerTrigger - hiding the answer placeholder");
+            var placeholder = list.find('li.notice-answer-placeholder').hide();
 
-             if (answerItem.length == 0) {
-                 console.log("QQQQQ no notice-answer li");
+            // Create the answer form entry at the end
+
+            var answerItem = $('li.notice-answer', list);
+
+            if (answerItem.length > 0) {
+                console.log("NoticeInlineAnswerTrigger - Found answer item (notice-answer li)");
+            }
+
+            if (answerItem.length == 0) {
+                 console.log("NoticeInlineAnswerTrigger - no answer item (notice-answer li)");
                  answerItem = $('<li class="notice-answer"></li>');
 
                  var intermediateStep = function(formMaster) {
-                     console.log("Intermediate step");
+                     console.log("NoticeInlineAnswerTrigger - (intermediate) step begin");
                      var formEl = document._importNode(formMaster, true);
+                     console.log("NoticeInlineAnswerTrigger - (intermediate step) appending answer form to answer item");
                      answerItem.append(formEl);
-                     console.log("appending answerItem");
+                     console.log("NoticeInlineAnswerTrigger - (intermediate step) appending answer to replies list, after placeholder");
                      list.append(answerItem); // *after* the placeholder
-                     console.log("appended answerItem");
-                     console.log(answerItem);
                      var form = answerForm = $(formEl);
+                     console.log("NoticeInlineAnswerTrigger - (intermediate step) calling QnA.AnswerFormSetup on the form")
                      QnA.AnswerFormSetup(form);
-
+                     console.log("NoticeInlineAnswerTrigger - (intermediate step) calling nextstep()");
                      nextStep();
                  };
 
                  if (QnA.AnswerFormMaster) {
+                     console.log("NoticeInlineAnswerTrigger - found a cached copy of the answer form");
                      // We've already saved a master copy of the form.
                      // Clone it in!
+                     console.log("NoticeInlineAnswerTrigger - calling intermediateStep with cached form");
                      intermediateStep(QnA.AnswerFormMaster);
                  } else {
                      // Fetch a fresh copy of the answer form over AJAX.
@@ -147,9 +158,10 @@ var QnA = {
                      // @fixme this fallback may or may not work
                      var url = $('#answer-action').attr('value');
 
-                     console.log("fetching new form via HXR");
+                     console.log("NoticeInlineAnswerTrigger - fetching new form via HXR");
 
                      $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
+                         console.log("NoticeInlineAnswerTrigger - got a new form via HXR, calling intermediateStep");
                          intermediateStep($('form', data)[0]);
                      });
                  }
@@ -184,6 +196,24 @@ var QnA = {
         });
     },
 
+    NoticeInlineAnswerPlaceholder: function(notice) {
+        console.log("NoticeInlineAnswerPlaceholder - begin")
+        var list = notice.find('ul.threaded-replies');
+        if (list.length == 0) {
+            list = $('<ul class="notices threaded-replies xoxo"></ul>');
+            notice.append(list);
+            list = notice.find('ul.threaded-replies');
+        }
+
+        var placeholder = $('<li class="notice-answer-placeholder">' +
+                                '<input class="placeholder">' +
+                            '</li>');
+        placeholder.find('input')
+            .val(SN.msg('reply_placeholder'));
+        list.append(placeholder);
+        console.log("NoticeInlineAnswerPlaceholder - exit");
+    },
+
 
    /**
      * Setup function -- DOES NOT trigger actions immediately.
@@ -216,11 +246,11 @@ var QnA = {
         console.log("FormAanwerXHR - begin");
         //SN.C.I.NoticeDataGeo = {};
         form.append('<input type="hidden" name="ajax" value="1"/>');
-        console.log("appended ajax flag");
+        console.log("FormAnswerXHR - appended ajax flag to form");
 
         // Make sure we don't have a mixed HTTP/HTTPS submission...
         form.attr('action', SN.U.RewriteAjaxAction(form.attr('action')));
-        console.log("rewrote action");
+        console.log("FormAnswerXHR rewrote action so we don't have a mixed HTTP/HTTPS submission");
 
         /**
          * Show a response feedback bit under the new-notice dialog.
@@ -244,13 +274,13 @@ var QnA = {
             form.find('.form_response').remove();
         };
 
-        console.log("doing ajax");
+        console.log("FormAnswerXHR - doing ajaxForm call");
 
         form.ajaxForm({
             dataType: 'xml',
             timeout: '60000',
             beforeSend: function(formData) {
-                console.log("beforeSend");
+                console.log("FormAnswerXHR - beforeSend");
                 if (form.find('.notice_data-text:first').val() == '') {
                     form.addClass(SN.C.S.Warning);
                     return false;
@@ -296,7 +326,7 @@ var QnA = {
                 }
             },
             success: function(data, textStatus) {
-                console.log("FormAnswerHXR success");
+                console.log("FormAnswerHXR - success");
                 removeFeedback();
                 var errorResult = $('#'+SN.C.S.Error, data);
                 if (errorResult.length > 0) {
@@ -306,51 +336,65 @@ var QnA = {
 
                     // New notice post was successful. If on our timeline, show it!
                     var notice = document._importNode($('li', data)[0], true);
+                    console.log("FormAnswerXHR - loaded the notice, now trying to insert it somewhere");
 
                     var notices = $('#notices_primary .notices:first');
-                    var replyItem = form.closest('li.notice-reply');
+
+                    console.log("FormAnswerXHR - looking for the closest notice with a notice-reply class");
+
+                    var replyItem = form.closest('li.notice-answer, .notice-reply');
 
                     if (replyItem.length > 0) {
-                        console.log("I found a reply li to append to");
+                        console.log("FormAnswerXHR - I found a reply li to append to");
                         // If this is an inline reply, remove the form...
+                        console.log("FormAnswerXHR - looking for the closest .threaded-replies ul")
                         var list = form.closest('.threaded-replies');
+                        console.log("FormAnswerXHR - search list for the answer placeholder")
                         var placeholder = list.find('.notice-answer-placeholder');
+                        console.log("FormAnswerXHR - removing reply item");
                         replyItem.remove();
 
                         var id = $(notice).attr('id');
-                        console.log("got notice id " + id);
+                        console.log("FormAnswerXHR - the new notice id is: " + id);
                         if ($("#"+id).length == 0) {
-                            console.log("inserting before placeholder");
+                            console.log("FormAnswerXHR - the notice is not there already so realtime hasn't inserted it before us");
+                            console.log("FormAnswerXHR - inserting new notice before placeholder");
+                            $(placeholder).removeClass('notice-answer-placeholder').addClass('notice-reply-placeholder');
                             $(notice).insertBefore(placeholder);
+                            placeholder.show();
+                           
                         } else {
                             // Realtime came through before us...
                         }
-
-                        // ...and show the placeholder form.
-                        placeholder.show();
-                        console.log('qqqq made it this far')
+                        
                     } else if (notices.length > 0 && SN.U.belongsOnTimeline(notice)) {
-                        // Not a reply. If on our timeline, show it at the top!
+                        console.log('FormAnswerXHR - there is at least one notice on the timeline and the new notice should be added to the list');
+                        // Not a reply. If on our timeline, show it at the
                         if ($('#'+notice.id).length === 0) {
-                            console.log("couldn't find a notice id for " + notice.id);
+                            console.log("FormAnswerXHR - The notice is not yet on the timeline.")
                             var notice_irt_value = form.find('#inreplyto').val();
+                            console.log("FormAnswerXHR - getting value from #inreplyto inside the form: " + notice_irt_value);
                             var notice_irt = '#notices_primary #notice-'+notice_irt_value;
-                            console.log("notice_irt value = " + notice_irt_value);
+                            console.log("notice_irt selector = " + notice_irt_value);
                             if($('body')[0].id == 'conversation') {
-                                console.log("found conversation");
+                                console.log("FormAnswerXHR - we're on a conversation page");
                                 if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
                                     $(notice_irt).append('<ul class="notices"></ul>');
                                 }
+                                console.log("FormAnswerXHR - appending notice after notice_irt selector");
                                 $($(notice_irt+' .notices')[0]).append(notice);
                             }
                             else {
-                                console.log("prepending notice")
+                                console.log("FormAnswerXHR prepending notice to top of the notice list");
                                 notices.prepend(notice);
                             }
                             $('#'+notice.id)
                                 .css({display:'none'})
                                 .fadeIn(2500);
                         }
+
+                        // realtime injected the notice first
+
                     } else {
                         // Not on a timeline that this belongs on?
                         // Just show a success message.
