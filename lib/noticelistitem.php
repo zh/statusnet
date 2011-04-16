@@ -216,7 +216,7 @@ class NoticeListItem extends Widget
         $this->out->elementStart('a', $attrs);
         $this->showAvatar();
         $this->out->text(' ');
-        $this->out->element('span',array('class' => 'nickname fn'),
+        $this->out->element('span',array('class' => 'fn'),
                             $this->profile->getBestName());
         $this->out->elementEnd('a');
 
