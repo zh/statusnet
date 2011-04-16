@@ -1310,6 +1310,26 @@ class Notice extends Memcached_DataObject
     }
 
     /**
+     * Pull the complete list of @-reply targets for this notice.
+     *
+     * @return array of Profiles
+     */
+    function getReplyProfiles()
+    {
+        $ids      = $this->getReplies();
+        $profiles = array();
+
+        foreach ($ids as $id) {
+            $profile = Profile::staticGet('id', $id);
+            if (!empty($profile)) {
+                $profiles[] = $profile;
+            }
+        }
+        
+        return $profiles;
+    }
+
+    /**
      * Send e-mail notifications to local @-reply targets.
      *
      * Replies must already have been saved; this is expected to be run
