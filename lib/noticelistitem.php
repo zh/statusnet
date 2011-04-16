@@ -270,6 +270,7 @@ class NoticeListItem extends Widget
             if (!$first) {
                 $this->out->text(', ');
             } else {
+                $this->out->text(' ▶ ');
                 $first = false;
             }
             $this->out->element('a', array('href' => $reply->profileurl,
