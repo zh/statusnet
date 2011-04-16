@@ -205,18 +205,85 @@ class NoticeListItem extends Widget
 
     function showAuthor()
     {
-        $this->out->elementStart('div', 'vcard author');
+        $this->out->elementStart('div', 'author');
+
+        $this->out->elementStart('span', 'vcard author');
+
         $attrs = array('href' => $this->profile->profileurl,
                        'class' => 'url',
                        'title' => $this->profile->nickname);
+
         $this->out->elementStart('a', $attrs);
         $this->showAvatar();
-        $this->out->elementEnd('a');
-        $this->out->element('a', array('href' => $this->profile->profileurl,
-                                       'class' => 'url nickname fn',
-                                       'title' => $this->profile->nickname),
+        $this->out->text(' ');
+        $this->out->element('span',array('class' => 'nickname fn'),
                             $this->profile->getBestName());
+        $this->out->elementEnd('a');
+
+        $this->out->elementEnd('span');
+
+        $this->showAddressees();
+
         $this->out->elementEnd('div');
+    }
+
+    function showAddressees()
+    {
+        $this->out->elementStart('span', 'addressees');
+
+        $cnt = $this->showGroupAddressees(true);
+        $cnt = $this->showProfileAddressees($cnt == 0);
+
+        $this->out->elementEnd('span', 'addressees');
+    }
+
+    function showGroupAddressees($first)
+    {
+        $groups = $this->getGroups();
+
+        foreach ($groups as $group) {
+            if (!$first) {
+                $this->out->text(', ');
+            } else {
+                $this->out->text(' ▶ ');
+                $first = false;
+            }
+            $this->out->element('a', array('href' => $group->homeUrl(),
+                                           'title' => $group->nickname,
+                                           'class' => 'addressee group'),
+                                $group->getBestName());
+        }
+
+        return count($groups);
+    }
+
+    function getGroups()
+    {
+        return $this->notice->getGroups();
+    }
+
+    function showProfileAddressees($first)
+    {
+        $replies = $this->getReplyProfiles();
+
+        foreach ($replies as $reply) {
+            if (!$first) {
+                $this->out->text(', ');
+            } else {
+                $first = false;
+            }
+            $this->out->element('a', array('href' => $reply->profileurl,
+                                           'title' => $reply->nickname,
+                                           'class' => 'addressee account'),
+                                $reply->getBestName());
+        }
+
+        return count($replies);
+    }
+
+    function getReplyProfiles()
+    {
+        return $this->notice->getReplyProfiles();
     }
 
     /**
