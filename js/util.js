@@ -609,8 +609,7 @@ var SN = { // StatusNet
             $('#content .notice_reply').live('click', function(e) {
                 e.preventDefault();
                 var notice = $(this).closest('li.notice');
-                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
-                SN.U.NoticeInlineReplyTrigger(notice, '@' + nickname.text());
+                SN.U.NoticeInlineReplyTrigger(notice);
                 return false;
             });
         },
