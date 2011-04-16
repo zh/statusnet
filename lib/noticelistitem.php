@@ -202,20 +202,21 @@ class NoticeListItem extends Widget
      *
      * @return void
      */
+
     function showAuthor()
     {
-        $this->out->elementStart('span', 'vcard author');
+        $this->out->elementStart('div', 'vcard author');
         $attrs = array('href' => $this->profile->profileurl,
-                       'class' => 'url');
-        if (!empty($this->profile->fullname)) {
-            $attrs['title'] = $this->profile->getFancyName();
-        }
+                       'class' => 'url',
+                       'title' => $this->profile->nickname);
         $this->out->elementStart('a', $attrs);
         $this->showAvatar();
-        $this->out->text(' ');
-        $this->showNickname();
         $this->out->elementEnd('a');
-        $this->out->elementEnd('span');
+        $this->out->element('a', array('href' => $this->profile->profileurl,
+                                       'class' => 'url nickname fn',
+                                       'title' => $this->profile->nickname),
+                            $this->profile->getBestName());
+        $this->out->elementEnd('div');
     }
 
     /**
