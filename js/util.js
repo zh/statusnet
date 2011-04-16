@@ -644,8 +644,8 @@ var SN = { // StatusNet
                 // and we'll add on the end of it. Will add if needed.
                 list = $('ul.threaded-replies', notice);
                 if (list.length == 0) {
-                    list = $('<ul class="notices threaded-replies xoxo"></ul>');
-                    notice.append(list);
+                    SN.U.NoticeInlineReplyPlaceholder(notice);
+                    list = $('ul.threaded-replies', notice);
                 }
             }
 
@@ -718,6 +718,11 @@ var SN = { // StatusNet
 
         NoticeInlineReplyPlaceholder: function(notice) {
             var list = notice.find('ul.threaded-replies');
+            if (list.length == 0) {
+                list = $('<ul class="notices threaded-replies xoxo"></ul>');
+                notice.append(list);
+                list = notice.find('ul.threaded-replies');
+            }
             var placeholder = $('<li class="notice-reply-placeholder">' +
                                     '<input class="placeholder">' +
                                 '</li>');
