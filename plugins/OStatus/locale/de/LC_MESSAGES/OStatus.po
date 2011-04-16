@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-13 13:18+0000\n"
-"PO-Revision-Date: 2011-04-13 13:22:25+0000\n"
+"POT-Creation-Date: 2011-04-16 22:54+0000\n"
+"PO-Revision-Date: 2011-04-16 22:58:43+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-11 13:12:35+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-13 13:57:08+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -124,9 +124,9 @@ msgstr "Verlassen"
 msgid "%1$s has left group %2$s."
 msgstr "%1$s hat die Gruppe %2$s verlassen"
 
-#. TRANS: Exception thrown when setup of remote people tag subscription fails.
+#. TRANS: Exception thrown when setup of remote list subscription fails.
 #, fuzzy
-msgid "Could not set up remote people tag subscription."
+msgid "Could not set up remote list subscription."
 msgstr "Konnte Remote-Abonnement nicht einrichten."
 
 #. TRANS: Title for remote follow list.
@@ -150,9 +150,9 @@ msgctxt "TITLE"
 msgid "Tag"
 msgstr ""
 
-#, php-format
-msgid "%1$s tagged %2$s in the list %3$s."
-msgstr ""
+#, fuzzy, php-format
+msgid "%1$s listed %2$s in the list %3$s."
+msgstr "%1$s folgt %2$s nicht mehr."
 
 #, php-format
 msgid ""
@@ -506,10 +506,11 @@ msgstr "Du hast diesen Benutzer bereits abonniert:"
 msgid "Confirm subscription to remote people tag"
 msgstr "Bestätige das Beitreten einer Remotegruppe"
 
+#. TRANS: Instructions for OStatus list subscription form.
 #, fuzzy
 msgid ""
-"You can subscribe to people tags from other supported sites. Paste the tag's "
-"profile URI below:"
+"You can subscribe to lists from other supported sites. Paste the lists's URI "
+"below:"
 msgstr ""
 "Du kannst Gruppen von anderen unterstützten Websites abonnieren. Füge die "
 "URI der Gruppe unten ein:"
@@ -551,30 +552,31 @@ msgid "Could not remove remote user %1$s from group %2$s."
 msgstr "Konnte Remotebenutzer %1$s nicht aus der Gruppe %2$s entfernen."
 
 #, fuzzy
-msgid "No such people tag."
-msgstr "Keine derartige Gruppe."
+msgid "No such list."
+msgstr "Unbekannter Benutzer."
 
 #, fuzzy
-msgid "Cannot accept remote posts for a remote people tag."
+msgid "Cannot accept remote posts for a remote list."
 msgstr "Kann Remoteposts für Remotegruppen nicht akzeptieren."
 
 #, fuzzy
 msgid "Cannot read profile to set up profile tag subscription."
 msgstr "Kann Profil nicht lesen, um die Gruppenmitgliedschaft einzurichten."
 
-msgid "Groups cannot subscribe to people tags."
-msgstr ""
+#, fuzzy
+msgid "Groups cannot subscribe to lists."
+msgstr "Gruppen können Remotegruppen nicht beitreten."
 
 #, fuzzy, php-format
-msgid "Could not subscribe remote user %1$s to people tag %2$s."
+msgid "Could not subscribe remote user %1$s to list %2$s."
 msgstr "Konnte Remotebenutzer %1$s nicht der Gruppe %2$s hinzufügen."
 
 #, fuzzy
-msgid "Cannot read profile to cancel people tag membership."
+msgid "Cannot read profile to cancel list membership."
 msgstr "Kann Profil nicht lesen, um die Gruppenmitgliedschaft zu kündigen."
 
 #, fuzzy, php-format
-msgid "Could not remove remote user %1$s from people tag %2$s."
+msgid "Could not remove remote user %1$s from list %2$s."
 msgstr "Konnte Remotebenutzer %1$s nicht aus der Gruppe %2$s entfernen."
 
 #. TRANS: Client error.
@@ -874,3 +876,23 @@ msgstr "Dieses Ziel versteht das Teilen von Events nicht."
 #. TRANS: Exception.
 msgid "Received a salmon slap from unidentified actor."
 msgstr "Einen Salmon-Slap von einem unidentifizierten Aktor empfangen."
+
+#, fuzzy
+#~ msgid "Could not set up remote people tag subscription."
+#~ msgstr "Konnte Remote-Abonnement nicht einrichten."
+
+#, fuzzy
+#~ msgid "No such people tag."
+#~ msgstr "Keine derartige Gruppe."
+
+#, fuzzy
+#~ msgid "Cannot accept remote posts for a remote people tag."
+#~ msgstr "Kann Remoteposts für Remotegruppen nicht akzeptieren."
+
+#, fuzzy
+#~ msgid "Cannot read profile to cancel people tag membership."
+#~ msgstr "Kann Profil nicht lesen, um die Gruppenmitgliedschaft zu kündigen."
+
+#, fuzzy
+#~ msgid "Could not remove remote user %1$s from people tag %2$s."
+#~ msgstr "Konnte Remotebenutzer %1$s nicht aus der Gruppe %2$s entfernen."

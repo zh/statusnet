@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Bookmark\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-13 13:18+0000\n"
-"PO-Revision-Date: 2011-04-13 13:21:00+0000\n"
+"POT-Creation-Date: 2011-04-16 22:54+0000\n"
+"PO-Revision-Date: 2011-04-16 22:57:16+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-11 13:14:44+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-13 13:56:56+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-bookmark\n"
@@ -62,9 +62,10 @@ msgid "Bookmark notice with the wrong number of attachments."
 msgstr "Тіло закладки з неправильною кількістю вкладень."
 
 #. TRANS: Exception thrown when a bookmark has no attachments.
-#, fuzzy, php-format
-msgid "Bookmark %s (notice %d) has no attachments."
-msgstr "Закладка не має вкладень."
+#. TRANS: %1$s is a bookmark ID, %2$s is a notice ID (number).
+#, php-format
+msgid "Bookmark %1$s (notice %2$d) has no attachments."
+msgstr ""
 
 #. TRANS: Application title.
 msgctxt "TITLE"
@@ -100,6 +101,16 @@ msgstr ""
 "<span class=\"xfolkentry\"><a class=\"taggedlink\" href=\"%1$s\">%2$s</a> "
 "<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
 "span>"
+
+#. TRANS: Field label on form for adding a new bookmark.
+msgctxt "LABEL"
+msgid "URL"
+msgstr "URL-адреса"
+
+#. TRANS: Button text for action to save a new bookmark.
+msgctxt "BUTTON"
+msgid "Add"
+msgstr ""
 
 #. TRANS: Client exception thrown when an unknown URL is provided.
 msgid "Unknown URL."
@@ -218,18 +229,10 @@ msgctxt "LABEL"
 msgid "Title"
 msgstr "Заголовок"
 
-#. TRANS: Field title on form for adding a new bookmark.
-msgid "Title of the bookmark."
-msgstr "Заголовок закладки."
-
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
-msgid "URL"
-msgstr "URL-адреса"
-
-#. TRANS: Field title on form for adding a new bookmark.
-msgid "URL to bookmark."
-msgstr "URL-адреса закладки."
+msgid "Notes"
+msgstr ""
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -239,15 +242,6 @@ msgstr "Теґи"
 #. TRANS: Field title on form for adding a new bookmark.
 msgid "Comma- or space-separated list of tags."
 msgstr "Список теґів, розділених комою або пробілом"
-
-#. TRANS: Field label on form for adding a new bookmark.
-msgctxt "LABEL"
-msgid "Description"
-msgstr "Опис"
-
-#. TRANS: Field title on form for adding a new bookmark.
-msgid "Description of the URL."
-msgstr "Опис URL-адреси."
 
 #. TRANS: Button text for action to save a new bookmark.
 msgctxt "BUTTON"
@@ -278,3 +272,16 @@ msgstr "Закладку збережено"
 #, php-format
 msgid "Getting backup from file \"%s\"."
 msgstr "Отримання резервної копії файлу «%s»."
+
+#~ msgid "Title of the bookmark."
+#~ msgstr "Заголовок закладки."
+
+#~ msgid "URL to bookmark."
+#~ msgstr "URL-адреса закладки."
+
+#~ msgctxt "LABEL"
+#~ msgid "Description"
+#~ msgstr "Опис"
+
+#~ msgid "Description of the URL."
+#~ msgstr "Опис URL-адреси."

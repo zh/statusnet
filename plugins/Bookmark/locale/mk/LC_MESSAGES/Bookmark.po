@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Bookmark\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-13 13:18+0000\n"
-"PO-Revision-Date: 2011-04-13 13:21:00+0000\n"
+"POT-Creation-Date: 2011-04-16 22:54+0000\n"
+"PO-Revision-Date: 2011-04-16 22:57:16+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-11 13:14:44+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-13 13:56:56+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-bookmark\n"
@@ -61,9 +61,10 @@ msgid "Bookmark notice with the wrong number of attachments."
 msgstr "Одбележи забелешка со погрешен број на прилози."
 
 #. TRANS: Exception thrown when a bookmark has no attachments.
-#, fuzzy, php-format
-msgid "Bookmark %s (notice %d) has no attachments."
-msgstr "Одбележувачот нема прилози."
+#. TRANS: %1$s is a bookmark ID, %2$s is a notice ID (number).
+#, php-format
+msgid "Bookmark %1$s (notice %2$d) has no attachments."
+msgstr "Одбележувачот %1$s (забелешка %2$d) нема прилози."
 
 #. TRANS: Application title.
 msgctxt "TITLE"
@@ -99,6 +100,16 @@ msgstr ""
 "<span class=\"xfolkentry\"><a class=\"taggedlink\" href=\"%1$s\">%2$s</a> "
 "<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
 "span>"
+
+#. TRANS: Field label on form for adding a new bookmark.
+msgctxt "LABEL"
+msgid "URL"
+msgstr "URL"
+
+#. TRANS: Button text for action to save a new bookmark.
+msgctxt "BUTTON"
+msgid "Add"
+msgstr ""
 
 #. TRANS: Client exception thrown when an unknown URL is provided.
 msgid "Unknown URL."
@@ -219,18 +230,10 @@ msgctxt "LABEL"
 msgid "Title"
 msgstr "Назив"
 
-#. TRANS: Field title on form for adding a new bookmark.
-msgid "Title of the bookmark."
-msgstr "Назив на одбележувачот."
-
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
-msgid "URL"
-msgstr "URL"
-
-#. TRANS: Field title on form for adding a new bookmark.
-msgid "URL to bookmark."
-msgstr "URL за одбележување."
+msgid "Notes"
+msgstr ""
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -240,15 +243,6 @@ msgstr "Ознаки"
 #. TRANS: Field title on form for adding a new bookmark.
 msgid "Comma- or space-separated list of tags."
 msgstr "Список на ознаки одделен со запирки или празни места."
-
-#. TRANS: Field label on form for adding a new bookmark.
-msgctxt "LABEL"
-msgid "Description"
-msgstr "Опис"
-
-#. TRANS: Field title on form for adding a new bookmark.
-msgid "Description of the URL."
-msgstr "Опис на URL-адресата."
 
 #. TRANS: Button text for action to save a new bookmark.
 msgctxt "BUTTON"
@@ -279,3 +273,16 @@ msgstr "Одбележувачот е поставен"
 #, php-format
 msgid "Getting backup from file \"%s\"."
 msgstr "Земам резерва на податотеката „%s“."
+
+#~ msgid "Title of the bookmark."
+#~ msgstr "Назив на одбележувачот."
+
+#~ msgid "URL to bookmark."
+#~ msgstr "URL за одбележување."
+
+#~ msgctxt "LABEL"
+#~ msgid "Description"
+#~ msgstr "Опис"
+
+#~ msgid "Description of the URL."
+#~ msgstr "Опис на URL-адресата."

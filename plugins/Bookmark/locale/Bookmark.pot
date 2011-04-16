@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-13 13:18+0000\n"
+"POT-Creation-Date: 2011-04-16 22:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,34 +44,35 @@ msgid "%1$s's bookmark for \"%2$s\""
 msgstr ""
 
 #. TRANS: Plugin description.
-#: BookmarkPlugin.php:226
+#: BookmarkPlugin.php:231
 msgid "Simple extension for supporting bookmarks."
 msgstr ""
 
 #. TRANS: Link text in proile leading to import form.
 #. TRANS: Title for page to import del.icio.us bookmark backups on.
-#: BookmarkPlugin.php:267 importdelicious.php:60
+#: BookmarkPlugin.php:272 importdelicious.php:60
 msgid "Import del.icio.us bookmarks"
 msgstr ""
 
 #. TRANS: Client exception thrown when a bookmark is formatted incorrectly.
-#: BookmarkPlugin.php:373
+#: BookmarkPlugin.php:378
 msgid "Expected exactly 1 link rel=related in a Bookmark."
 msgstr ""
 
 #. TRANS: Server exception thrown when a bookmark has multiple attachments.
-#: BookmarkPlugin.php:467
+#: BookmarkPlugin.php:472
 msgid "Bookmark notice with the wrong number of attachments."
 msgstr ""
 
 #. TRANS: Exception thrown when a bookmark has no attachments.
-#: BookmarkPlugin.php:523
+#. TRANS: %1$s is a bookmark ID, %2$s is a notice ID (number).
+#: BookmarkPlugin.php:528
 #, php-format
 msgid "Bookmark %1$s (notice %2$d) has no attachments."
 msgstr ""
 
 #. TRANS: Application title.
-#: BookmarkPlugin.php:642
+#: BookmarkPlugin.php:647
 msgctxt "TITLE"
 msgid "Bookmark"
 msgstr ""
@@ -105,6 +106,18 @@ msgid ""
 "<span class=\"xfolkentry\"><a class=\"taggedlink\" href=\"%1$s\">%2$s</a> "
 "<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
 "span>"
+msgstr ""
+
+#. TRANS: Field label on form for adding a new bookmark.
+#: initialbookmarkform.php:78 bookmarkform.php:121
+msgctxt "LABEL"
+msgid "URL"
+msgstr ""
+
+#. TRANS: Button text for action to save a new bookmark.
+#: initialbookmarkform.php:89
+msgctxt "BUTTON"
+msgid "Add"
 msgstr ""
 
 #. TRANS: Client exception thrown when an unknown URL is provided.
@@ -235,51 +248,30 @@ msgid "Upload the file."
 msgstr ""
 
 #. TRANS: Field label on form for adding a new bookmark.
-#: bookmarkform.php:119
+#: bookmarkform.php:138
 msgctxt "LABEL"
 msgid "Title"
 msgstr ""
 
-#. TRANS: Field title on form for adding a new bookmark.
-#: bookmarkform.php:122
-msgid "Title of the bookmark."
-msgstr ""
-
 #. TRANS: Field label on form for adding a new bookmark.
-#: bookmarkform.php:128
+#: bookmarkform.php:145
 msgctxt "LABEL"
-msgid "URL"
-msgstr ""
-
-#. TRANS: Field title on form for adding a new bookmark.
-#: bookmarkform.php:131
-msgid "URL to bookmark."
+msgid "Notes"
 msgstr ""
 
 #. TRANS: Field label on form for adding a new bookmark.
-#: bookmarkform.php:137
+#: bookmarkform.php:152
 msgctxt "LABEL"
 msgid "Tags"
 msgstr ""
 
 #. TRANS: Field title on form for adding a new bookmark.
-#: bookmarkform.php:140
+#: bookmarkform.php:155
 msgid "Comma- or space-separated list of tags."
 msgstr ""
 
-#. TRANS: Field label on form for adding a new bookmark.
-#: bookmarkform.php:146
-msgctxt "LABEL"
-msgid "Description"
-msgstr ""
-
-#. TRANS: Field title on form for adding a new bookmark.
-#: bookmarkform.php:149
-msgid "Description of the URL."
-msgstr ""
-
 #. TRANS: Button text for action to save a new bookmark.
-#: bookmarkform.php:171
+#: bookmarkform.php:177
 msgctxt "BUTTON"
 msgid "Save"
 msgstr ""

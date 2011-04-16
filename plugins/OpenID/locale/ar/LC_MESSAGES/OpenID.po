@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-13 13:18+0000\n"
-"PO-Revision-Date: 2011-04-13 13:22:10+0000\n"
+"POT-Creation-Date: 2011-04-16 22:54+0000\n"
+"PO-Revision-Date: 2011-04-16 22:58:28+0000\n"
 "Language-Team: Arabic <http://translatewiki.net/wiki/Portal:ar>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-11 13:17:34+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -168,10 +168,10 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr ""
 
 msgid "Email"
-msgstr ""
+msgstr "البريد الإلكتروني"
 
 msgid "Used only for updates, announcements, and password recovery."
-msgstr ""
+msgstr "لا يُستخدم إلا للإبلاغ عن المستجدات والتعميمات ولاستعادة كلمة السر."
 
 #. TRANS: OpenID plugin link text.
 #. TRANS: %s is a link to a licese with the license name as link text.
@@ -240,24 +240,24 @@ msgstr "لا يسمح بهذا الاسم المستعار."
 
 #. TRANS: OpenID plugin message. The entered new user name is already used.
 msgid "Nickname already in use. Try another one."
-msgstr ""
+msgstr "الاسم المستعار مستخدم بالفعل. جرّب اسمًا آخرًا."
 
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
 msgid "Stored OpenID not found."
-msgstr ""
+msgstr "لم يُعثر على الهوية المفتوحة المخزنة."
 
 #. TRANS: OpenID plugin server error.
 msgid "Creating new account for OpenID that already has a user."
-msgstr ""
+msgstr "إنشاء حساب جديد لهوية مفتوحة يملكها أحد المستخدمين بالفعل."
 
 #. TRANS: OpenID plugin message.
 msgid "Invalid username or password."
-msgstr ""
+msgstr "اسم مستخدم أو كلمة سر غير صالحة."
 
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
 msgid "Error connecting user to OpenID."
-msgstr ""
+msgstr "خطأ في ربط المستخدم بالهوية المفتوحة."
 
 #. TRANS: OpenID plugin server error.
 msgid "Cannot instantiate OpenID consumer object."
@@ -265,25 +265,27 @@ msgstr ""
 
 #. TRANS: OpenID plugin message. Given when an OpenID is not valid.
 msgid "Not a valid OpenID."
-msgstr ""
+msgstr "ليست هوية مفتوحة صحيحة."
 
 #. TRANS: OpenID plugin server error. Given when the OpenID authentication request fails.
 #. TRANS: %s is the failure message.
 #, php-format
 msgid "OpenID failure: %s"
-msgstr ""
+msgstr "فشلت الهوية المفتوحة: %s"
 
 #. TRANS: OpenID plugin server error. Given when the OpenID authentication request cannot be redirected.
 #. TRANS: %s is the failure message.
 #, php-format
 msgid "Could not redirect to server: %s"
-msgstr ""
+msgstr "تغذر التحويل للخادوم: %s"
 
 #. TRANS: OpenID plugin user instructions.
 msgid ""
 "This form should automatically submit itself. If not, click the submit "
 "button to go to your OpenID provider."
 msgstr ""
+"يفترض أن يُرسِل هذا النموذج نفسه تلقائيًا. إذا لم يحدث ذلك فانقر زر أرسل لتذهب "
+"إلى مزود هويتك المفتوحة."
 
 #. TRANS: OpenID plugin server error.
 msgid "Error saving the profile."
@@ -333,7 +335,7 @@ msgid ""
 msgstr ""
 
 msgid "Provider URL"
-msgstr ""
+msgstr "مسار المزود"
 
 msgid ""
 "All OpenID logins will be sent to this URL; other providers may not be used."
@@ -366,7 +368,7 @@ msgid ""
 msgstr ""
 
 msgid "Save"
-msgstr ""
+msgstr "احفظ"
 
 #, fuzzy
 msgid "Save OpenID settings."

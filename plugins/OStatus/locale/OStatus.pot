@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-13 13:18+0000\n"
+"POT-Creation-Date: 2011-04-16 22:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,9 +125,9 @@ msgstr ""
 msgid "%1$s has left group %2$s."
 msgstr ""
 
-#. TRANS: Exception thrown when setup of remote people tag subscription fails.
+#. TRANS: Exception thrown when setup of remote list subscription fails.
 #: OStatusPlugin.php:858
-msgid "Could not set up remote people tag subscription."
+msgid "Could not set up remote list subscription."
 msgstr ""
 
 #. TRANS: Title for remote follow list.
@@ -157,7 +157,7 @@ msgstr ""
 
 #: OStatusPlugin.php:1003
 #, php-format
-msgid "%1$s tagged %2$s in the list %3$s."
+msgid "%1$s listed %2$s in the list %3$s."
 msgstr ""
 
 #: OStatusPlugin.php:1016
@@ -557,10 +557,11 @@ msgstr ""
 msgid "Confirm subscription to remote people tag"
 msgstr ""
 
-#: actions/ostatuspeopletag.php:172
+#. TRANS: Instructions for OStatus list subscription form.
+#: actions/ostatuspeopletag.php:173
 msgid ""
-"You can subscribe to people tags from other supported sites. Paste the tag's "
-"profile URI below:"
+"You can subscribe to lists from other supported sites. Paste the lists's URI "
+"below:"
 msgstr ""
 
 #. TRANS: Client error.
@@ -604,11 +605,11 @@ msgid "Could not remove remote user %1$s from group %2$s."
 msgstr ""
 
 #: actions/peopletagsalmon.php:45
-msgid "No such people tag."
+msgid "No such list."
 msgstr ""
 
 #: actions/peopletagsalmon.php:51
-msgid "Cannot accept remote posts for a remote people tag."
+msgid "Cannot accept remote posts for a remote list."
 msgstr ""
 
 #: actions/peopletagsalmon.php:89
@@ -616,21 +617,21 @@ msgid "Cannot read profile to set up profile tag subscription."
 msgstr ""
 
 #: actions/peopletagsalmon.php:92 actions/peopletagsalmon.php:126
-msgid "Groups cannot subscribe to people tags."
+msgid "Groups cannot subscribe to lists."
 msgstr ""
 
 #: actions/peopletagsalmon.php:110
 #, php-format
-msgid "Could not subscribe remote user %1$s to people tag %2$s."
+msgid "Could not subscribe remote user %1$s to list %2$s."
 msgstr ""
 
 #: actions/peopletagsalmon.php:123
-msgid "Cannot read profile to cancel people tag membership."
+msgid "Cannot read profile to cancel list membership."
 msgstr ""
 
 #: actions/peopletagsalmon.php:136
 #, php-format
-msgid "Could not remove remote user %1$s from people tag %2$s."
+msgid "Could not remove remote user %1$s from list %2$s."
 msgstr ""
 
 #. TRANS: Client error.

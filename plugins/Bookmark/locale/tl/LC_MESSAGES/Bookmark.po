@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Bookmark\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-13 13:18+0000\n"
-"PO-Revision-Date: 2011-04-13 13:21:00+0000\n"
+"POT-Creation-Date: 2011-04-16 22:54+0000\n"
+"PO-Revision-Date: 2011-04-16 22:57:16+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-11 13:14:44+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-13 13:56:56+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-bookmark\n"
@@ -61,8 +61,9 @@ msgid "Bookmark notice with the wrong number of attachments."
 msgstr ""
 
 #. TRANS: Exception thrown when a bookmark has no attachments.
+#. TRANS: %1$s is a bookmark ID, %2$s is a notice ID (number).
 #, php-format
-msgid "Bookmark %s (notice %d) has no attachments."
+msgid "Bookmark %1$s (notice %2$d) has no attachments."
 msgstr ""
 
 #. TRANS: Application title.
@@ -74,11 +75,11 @@ msgstr "Pananda"
 #. TRANS: %s is the StatusNet site name.
 #, php-format
 msgid "Bookmark on %s"
-msgstr ""
+msgstr "Pananda sa %s"
 
 #. TRANS: Client exception thrown when trying to save a new bookmark that already exists.
 msgid "Bookmark already exists."
-msgstr ""
+msgstr "Umiiral na ang pananda."
 
 #. TRANS: Bookmark content.
 #. TRANS: %1$s is a title, %2$s is a short URL, %3$s is the bookmark description,
@@ -97,6 +98,16 @@ msgid ""
 "span>"
 msgstr ""
 
+#. TRANS: Field label on form for adding a new bookmark.
+msgctxt "LABEL"
+msgid "URL"
+msgstr "URL"
+
+#. TRANS: Button text for action to save a new bookmark.
+msgctxt "BUTTON"
+msgid "Add"
+msgstr ""
+
 #. TRANS: Client exception thrown when an unknown URL is provided.
 msgid "Unknown URL."
 msgstr "Hindi nalalamang URL."
@@ -105,13 +116,13 @@ msgstr "Hindi nalalamang URL."
 #. TRANS: %s is the URL.
 #, php-format
 msgid "Notices linking to %s"
-msgstr ""
+msgstr "Mga pabatid na kumakawing sa %s"
 
 #. TRANS: Title of notice stream of notices with a given attachment (all but first page).
 #. TRANS: %1$s is the URL, %2$s is the page number.
 #, php-format
 msgid "Notices linking to %1$s, page %2$d"
-msgstr ""
+msgstr "Mga pabatid na kumakawing sa %1$s, pahina %2$d"
 
 #. TRANS: Client exception thrown when trying to import bookmarks without being logged in.
 msgid "Only logged-in users can import del.icio.us backups."
@@ -119,7 +130,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown when trying to import bookmarks without having the rights to do so.
 msgid "You may not restore your account."
-msgstr ""
+msgstr "Hindi mo maaaring pabaliking muli ang iyong akawnt."
 
 #. TRANS: Client exception thrown when trying to import bookmarks and upload fails.
 #. TRANS: Client exception thrown when a file upload has failed.
@@ -212,18 +223,10 @@ msgctxt "LABEL"
 msgid "Title"
 msgstr "Pamagat"
 
-#. TRANS: Field title on form for adding a new bookmark.
-msgid "Title of the bookmark."
-msgstr "Pamagat ng pananda."
-
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
-msgid "URL"
-msgstr "URL"
-
-#. TRANS: Field title on form for adding a new bookmark.
-msgid "URL to bookmark."
-msgstr "URL na tatandaan."
+msgid "Notes"
+msgstr ""
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -233,15 +236,6 @@ msgstr "Mga tatak"
 #. TRANS: Field title on form for adding a new bookmark.
 msgid "Comma- or space-separated list of tags."
 msgstr "Talaan ng mga tatak na pinaghihiwalay-hiwalay ng kuwit- o patlang-."
-
-#. TRANS: Field label on form for adding a new bookmark.
-msgctxt "LABEL"
-msgid "Description"
-msgstr "Paglalarawan"
-
-#. TRANS: Field title on form for adding a new bookmark.
-msgid "Description of the URL."
-msgstr "Paglalarawan ng URL."
 
 #. TRANS: Button text for action to save a new bookmark.
 msgctxt "BUTTON"
@@ -271,4 +265,17 @@ msgstr "Ipinaskil na ang pananda."
 #. TRANS: %s is the filename that contains a backup for a user.
 #, php-format
 msgid "Getting backup from file \"%s\"."
-msgstr ""
+msgstr "Kinukuha ang kopyang pamalit mula sa talaksang \"%s\"."
+
+#~ msgid "Title of the bookmark."
+#~ msgstr "Pamagat ng pananda."
+
+#~ msgid "URL to bookmark."
+#~ msgstr "URL na tatandaan."
+
+#~ msgctxt "LABEL"
+#~ msgid "Description"
+#~ msgstr "Paglalarawan"
+
+#~ msgid "Description of the URL."
+#~ msgstr "Paglalarawan ng URL."

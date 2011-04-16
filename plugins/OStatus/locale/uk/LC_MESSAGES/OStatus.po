@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-13 13:18+0000\n"
-"PO-Revision-Date: 2011-04-13 13:22:26+0000\n"
+"POT-Creation-Date: 2011-04-16 22:54+0000\n"
+"PO-Revision-Date: 2011-04-16 22:58:44+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-11 13:12:35+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-13 13:57:08+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -124,9 +124,9 @@ msgstr "Залишити"
 msgid "%1$s has left group %2$s."
 msgstr "%1$s залишив спільноту %2$s."
 
-#. TRANS: Exception thrown when setup of remote people tag subscription fails.
+#. TRANS: Exception thrown when setup of remote list subscription fails.
 #, fuzzy
-msgid "Could not set up remote people tag subscription."
+msgid "Could not set up remote list subscription."
 msgstr "Не вдалося створити віддалену підписку."
 
 #. TRANS: Title for remote follow list.
@@ -150,9 +150,9 @@ msgctxt "TITLE"
 msgid "Tag"
 msgstr ""
 
-#, php-format
-msgid "%1$s tagged %2$s in the list %3$s."
-msgstr ""
+#, fuzzy, php-format
+msgid "%1$s listed %2$s in the list %3$s."
+msgstr "%1$s припинив читати ваші дописи %2$s."
 
 #, php-format
 msgid ""
@@ -511,10 +511,11 @@ msgstr "Ви вже підписані до цього користувача."
 msgid "Confirm subscription to remote people tag"
 msgstr "Підтвердження приєднання до віддаленої спільноти"
 
+#. TRANS: Instructions for OStatus list subscription form.
 #, fuzzy
 msgid ""
-"You can subscribe to people tags from other supported sites. Paste the tag's "
-"profile URI below:"
+"You can subscribe to lists from other supported sites. Paste the lists's URI "
+"below:"
 msgstr ""
 "Ви можете долучатися до спільнот на аналогічних сайтах. Просто вставте URI "
 "профілю спільноти тут:"
@@ -559,33 +560,34 @@ msgid "Could not remove remote user %1$s from group %2$s."
 msgstr "Не вдалось видалити віддаленого користувача %1$s зі спільноти %2$s."
 
 #, fuzzy
-msgid "No such people tag."
-msgstr "Такої спільноти немає."
+msgid "No such list."
+msgstr "Такого користувача немає."
 
 #, fuzzy
-msgid "Cannot accept remote posts for a remote people tag."
+msgid "Cannot accept remote posts for a remote list."
 msgstr "Не можу узгодити віддалену пересилку дописів до віддаленої спільноти."
 
 #, fuzzy
 msgid "Cannot read profile to set up profile tag subscription."
 msgstr "Не можу прочитати профіль, аби долучитися до спільноти."
 
-msgid "Groups cannot subscribe to people tags."
-msgstr ""
+#, fuzzy
+msgid "Groups cannot subscribe to lists."
+msgstr "Спільноти ніяк не можуть приєднуватися до спільнот."
 
 #, fuzzy, php-format
-msgid "Could not subscribe remote user %1$s to people tag %2$s."
+msgid "Could not subscribe remote user %1$s to list %2$s."
 msgstr ""
 "Віддаленому користувачеві %1$s не вдалося долучитися до спільноти %2$s."
 
 #, fuzzy
-msgid "Cannot read profile to cancel people tag membership."
+msgid "Cannot read profile to cancel list membership."
 msgstr ""
 "Не вдається прочитати профіль користувача, щоб скасувати його перебування у "
 "спільноті."
 
 #, fuzzy, php-format
-msgid "Could not remove remote user %1$s from people tag %2$s."
+msgid "Could not remove remote user %1$s from list %2$s."
 msgstr "Не вдалось видалити віддаленого користувача %1$s зі спільноти %2$s."
 
 #. TRANS: Client error.
@@ -882,3 +884,26 @@ msgstr "Ціль не розуміє, що таке «поділитися по�
 #. TRANS: Exception.
 msgid "Received a salmon slap from unidentified actor."
 msgstr "Отримано ляпаса від невизначеного учасника за протоколом Salmon."
+
+#, fuzzy
+#~ msgid "Could not set up remote people tag subscription."
+#~ msgstr "Не вдалося створити віддалену підписку."
+
+#, fuzzy
+#~ msgid "No such people tag."
+#~ msgstr "Такої спільноти немає."
+
+#, fuzzy
+#~ msgid "Cannot accept remote posts for a remote people tag."
+#~ msgstr ""
+#~ "Не можу узгодити віддалену пересилку дописів до віддаленої спільноти."
+
+#, fuzzy
+#~ msgid "Cannot read profile to cancel people tag membership."
+#~ msgstr ""
+#~ "Не вдається прочитати профіль користувача, щоб скасувати його перебування "
+#~ "у спільноті."
+
+#, fuzzy
+#~ msgid "Could not remove remote user %1$s from people tag %2$s."
+#~ msgstr "Не вдалось видалити віддаленого користувача %1$s зі спільноти %2$s."

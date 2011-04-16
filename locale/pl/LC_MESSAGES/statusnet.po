@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-13 13:18+0000\n"
-"PO-Revision-Date: 2011-04-13 13:20:30+0000\n"
+"POT-Creation-Date: 2011-04-16 22:54+0000\n"
+"PO-Revision-Date: 2011-04-16 22:56:42+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <http://translatewiki.net/wiki/Portal:pl>\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ( (n%10 >= 2 && n%10 <= 4 && "
 "(n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
+"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: #out-statusnet-core\n"
-"X-POT-Import-Date: 2011-04-11 13:12:24+0000\n"
+"X-POT-Import-Date: 2011-04-13 13:56:48+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -154,9 +154,6 @@ msgstr "Niezalogowany."
 msgid "No such profile."
 msgstr "Nie ma takiego profilu."
 
-#. TRANS: Client error displayed trying to reference a non-existing people tag.
-#. TRANS: Client error displayed when referring to a non-exsting people tag.
-#. TRANS: Client error displayed when referring to non-existing people tag.
 #. TRANS: Client error displayed trying to reference a non-existing people tag.
 #, fuzzy
 msgid "No such people tag."
@@ -1538,7 +1535,7 @@ msgstr "Podgląd"
 #. TRANS: Button text for user account deletion.
 #. TRANS: Submit button text the OAuth application page to delete an application.
 #. TRANS: Button text for deleting a group.
-#. TRANS: Button text to delete a people tag.
+#. TRANS: Button text to delete a list.
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "Usuń"
@@ -2269,24 +2266,29 @@ msgstr "Nieprawidłowy alias: \"%s\""
 msgid "Options saved."
 msgstr "Zapisano opcje."
 
-#. TRANS: Title for edit people tag page after deleting a tag.
-#. TRANS: %s is a tag.
-#, php-format
-msgid "Delete %s people tag"
-msgstr ""
-
-#. TRANS: Title for edit people tag page.
-#. TRANS: %s is a tag.
-#. TRANS: Form legend for people tag edit form.
-#. TRANS: %s is a people tag.
+#. TRANS: Title for edit list page after deleting a tag.
+#. TRANS: %s is a list.
 #, fuzzy, php-format
-msgid "Edit people tag %s"
+msgid "Delete %s list"
+msgstr "Usuń tego użytkownika"
+
+#. TRANS: Title for edit list page.
+#. TRANS: %s is a list.
+#. TRANS: Form legend for list edit form.
+#. TRANS: %s is a list.
+#, fuzzy, php-format
+msgid "Edit list %s"
 msgstr "Nieprawidłowy znacznik osób: %s."
 
 #. TRANS: Error message displayed when trying to perform an action that requires a tagging user or ID.
 #, fuzzy
 msgid "No tagger or ID."
 msgstr "Brak pseudonimu lub identyfikatora."
+
+#. TRANS: Client error displayed when referring to a non-existing list.
+#, fuzzy
+msgid "No such list."
+msgstr "Nie ma takiego znacznika."
 
 #. TRANS: Client error displayed when referring to non-local user.
 msgid "Not a local user."
@@ -2297,9 +2299,9 @@ msgstr "Brak takiego użytkownika."
 msgid "You must be the creator of the tag to edit it."
 msgstr "Musisz być administratorem, aby zmodyfikować grupę."
 
-#. TRANS: Form instruction for edit people tag form.
+#. TRANS: Form instruction for edit list form.
 #, fuzzy
-msgid "Use this form to edit the people tag."
+msgid "Use this form to edit the list."
 msgstr "Użyj tego formularza, aby zmodyfikować grupę."
 
 #. TRANS: Form validation error displayed if the form data for deleting a tag was incorrect.
@@ -2330,10 +2332,10 @@ msgid ""
 "subscriptions to it. Do you still want to continue?"
 msgstr ""
 
-#. TRANS: TRANS: Server error displayed when updating a people tag fails.
+#. TRANS: TRANS: Server error displayed when updating a list fails.
 #, fuzzy
-msgid "Could not update people tag."
-msgstr "Nie można zaktualizować grupy."
+msgid "Could not update list."
+msgstr "Nie można zaktualizować użytkownika."
 
 #. TRANS: Title for e-mail settings.
 msgid "Email settings"
@@ -3338,7 +3340,7 @@ msgid "License selection"
 msgstr "Wybór licencji"
 
 #. TRANS: License option in the license admin panel.
-#. TRANS: Checkbox label to mark a people tag private.
+#. TRANS: Checkbox label to mark a list private.
 msgid "Private"
 msgstr "Prywatna"
 
@@ -4157,18 +4159,16 @@ msgstr ""
 msgid "No tagger."
 msgstr "Nie ma takiego znacznika."
 
-#. TRANS: Title for list of people tagged by the user with a tag.
-#. TRANS: %1$s is a tag, %2$s is a username.
-#. TRANS: Header on show profile tag page.
-#. TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
+#. TRANS: Title for list of people listed by the user.
+#. TRANS: %1$s is a list, %2$s is a username.
 #, fuzzy, php-format
-msgid "People tagged %1$s by %2$s"
+msgid "People listed in %1$s by %2$s"
 msgstr "odpowiedzi dla użytkownika %1$s na %2$s."
 
-#. TRANS: Title for list of people tagged by the user with a tag.
-#. TRANS: %1$s is a tag, %2$s is a username, %2$s is a page number.
+#. TRANS: Title for list of people listed by the user.
+#. TRANS: %1$s is a list, %2$s is a username, %2$s is a page number.
 #, fuzzy, php-format
-msgid "People tagged %1$s by %2$s, page %3$d"
+msgid "People listed in %1$s by %2$s, page %3$d"
 msgstr "odpowiedzi dla użytkownika %1$s, strona %2$s"
 
 #. TRANS: Addition in tag membership list for creator of a tag.
@@ -4177,37 +4177,35 @@ msgstr "odpowiedzi dla użytkownika %1$s, strona %2$s"
 msgid "Creator"
 msgstr "Utworzono"
 
-#. TRANS: Title for people tags by a user page for a private tag.
-msgid "Private people tags by you"
-msgstr ""
-
-#. TRANS: Title for people tags by a user page for a public tag.
+#. TRANS: Title for lists by a user page for a private tag.
 #, fuzzy
-msgid "Public people tags by you"
+msgid "Private lists by you"
+msgstr "Zmodyfikuj grupę %s"
+
+#. TRANS: Title for lists by a user page for a public tag.
+#, fuzzy
+msgid "Public lists by you"
 msgstr "Publiczna chmura znaczników"
 
-#. TRANS: Title for people tags by a user page.
-#. TRANS: Page notice.
-msgid "People tags by you"
+#. TRANS: Title for lists by a user page.
+#, fuzzy
+msgid "Lists by you"
+msgstr "Zmodyfikuj grupę %s"
+
+#. TRANS: Title for lists by a user page.
+#. TRANS: %s is a user nickname.
+#, php-format
+msgid "Lists by %s"
 msgstr ""
 
-#. TRANS: Title for people tags by a user page.
-#. TRANS: %s is a user nickname.
-#. TRANS: Page notice. %s is a tagger's nickname.
-#. TRANS: Menu item title in personal group navigation menu.
-#. TRANS: %s is a username.
-#, fuzzy, php-format
-msgid "People tags by %s"
-msgstr "Powtórzenia %s"
-
-#. TRANS: Title for people tags by a user page.
+#. TRANS: Title for lists by a user page.
 #. TRANS: %1$s is a user nickname, %2$d is a page number.
 #, fuzzy, php-format
-msgid "People tags by %1$s, page %2$d"
-msgstr "odpowiedzi dla użytkownika %1$s, strona %2$s"
+msgid "Lists by %1$s, page %2$d"
+msgstr "Wpisy ze znacznikiem %1$s, strona %2$d"
 
-#. TRANS: Client error displayed when trying view another user's private people tags.
-msgid "You cannot view others' private people tags"
+#. TRANS: Client error displayed when trying view another user's private lists.
+msgid "You cannot view others' private lists"
 msgstr ""
 
 #. TRANS: Mode selector label.
@@ -4215,12 +4213,10 @@ msgstr ""
 msgid "Mode"
 msgstr "Moderuj"
 
-#. TRANS: Link text to show people tags for user %s.
-#. TRANS: Title for page that displays which people tags a user has been tagged with.
-#. TRANS: %s is a profile name.
+#. TRANS: Link text to show lists for user %s.
 #, fuzzy, php-format
-msgid "People tags for %s"
-msgstr "Powtórzenia %s"
+msgid "Lists for %s"
+msgstr "Wysłane wiadomości użytkownika %s"
 
 #. TRANS: Fieldset legend.
 #. TRANS: Fieldset legend on gallery action page.
@@ -4249,56 +4245,61 @@ msgctxt "BUTTON"
 msgid "Go"
 msgstr "Przejdź"
 
-#. TRANS: Message displayed for anonymous users on page that displays people tags by a user.
+#. TRANS: Message displayed for anonymous users on page that displays lists by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
 #, fuzzy, php-format
 msgid ""
-"These are people tags created by **%s**. People tags are how you sort "
-"similar people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia."
-"org/wiki/Micro-blogging) service based on the Free Software [StatusNet]"
-"(http://status.net/) tool. You can easily keep track of what they are doing "
-"by subscribing to the tag's timeline."
+"These are lists created by **%s**. Lists are how you sort similar people on %"
+"%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool. You can easily keep track of what they are doing by subscribing to the "
+"tag's timeline."
 msgstr ""
 "**%s** jest grupą użytkowników na %%%%site.name%%%%, usłudze "
 "[mikroblogowania](http://pl.wikipedia.org/wiki/Mikroblog) opartej na wolnym "
 "narzędziu [StatusNet](http://status.net/). Jej członkowie dzielą się "
 "krótkimi wiadomościami o swoim życiu i zainteresowaniach. "
 
-#. TRANS: Message displayed on page that displays people tags by a user when there are none.
+#. TRANS: Message displayed on page that displays lists by a user when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
 #, fuzzy, php-format
-msgid "%s has not created any [people tags](%%%%doc.tags%%%%) yet."
+msgid "%s has not created any [lists](%%%%doc.lists%%%%) yet."
 msgstr ""
 "Nikt jeszcze nie wysłał wpisu za pomocą [znacznika mieszania](%%doc.tags%%)."
 
-#, fuzzy, php-format
-msgid "People tags for %1$s, page %2$d"
-msgstr "odpowiedzi dla użytkownika %1$s, strona %2$s"
+#, php-format
+msgid "Lists with %s in them"
+msgstr ""
 
-#. TRANS: Message displayed for anonymous users on page that displays people tags for a user.
+#, fuzzy, php-format
+msgid "Lists with %1$s, page %2$d"
+msgstr "Wpisy ze znacznikiem %1$s, strona %2$d"
+
+#. TRANS: Message displayed for anonymous users on page that displays lists for a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
 #, fuzzy, php-format
 msgid ""
-"These are people tags for **%s**. People tags are how you sort similar "
-"people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/"
-"Micro-blogging) service based on the Free Software [StatusNet](http://status."
-"net/) tool. You can easily keep track of what they are doing by subscribing "
-"to the tag's timeline."
+"These are lists for **%s**. lists are how you sort similar people on %%%%"
+"site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool. You can easily keep track of what they are doing by subscribing to the "
+"tag's timeline."
 msgstr ""
 "**%s** jest grupą użytkowników na %%%%site.name%%%%, usłudze "
 "[mikroblogowania](http://pl.wikipedia.org/wiki/Mikroblog) opartej na wolnym "
 "narzędziu [StatusNet](http://status.net/). Jej członkowie dzielą się "
 "krótkimi wiadomościami o swoim życiu i zainteresowaniach. "
 
-#. TRANS: Message displayed on page that displays people tags for a user when there are none.
+#. TRANS: Message displayed on page that displays lists for a user when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, php-format
-msgid "%s has not been [tagged](%%%%doc.tags%%%%) by anyone yet."
+#, fuzzy, php-format
+msgid "%s has not been [listed](%%%%doc.lists%%%%) by anyone yet."
 msgstr ""
+"Nikt jeszcze nie wysłał wpisu za pomocą [znacznika mieszania](%%doc.tags%%)."
 
 #. TRANS: Page title for list of people tag subscribers.
 #. TRANS: %1$s is a tag, %2$s is a user nickname.
@@ -4312,28 +4313,28 @@ msgstr ""
 msgid "Subscribers of people tagged %1$s by %2$s, page %3$d"
 msgstr "%1$s nadał etykietę %2$s, strona %3$d"
 
-#. TRANS: Title for page that displays people tags subscribed to by a user.
+#. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %s is a profile nickname.
 #, fuzzy, php-format
-msgid "People tags subscriptions by %s"
-msgstr "Osoby subskrybowane do %s"
+msgid "Lists subscribed to by %s"
+msgstr "Subskrybowano użytkownika %s."
 
-#. TRANS: Title for page that displays people tags subscribed to by a user.
+#. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %1$s is a profile nickname, %2$d is a page number.
 #, fuzzy, php-format
-msgid "People tags subscriptions by %1$s, page %2$d"
+msgid "Lists subscribed to by %1$s, page %2$d"
 msgstr "Subskrypcje użytkownika %1$s, strona %2$d"
 
-#. TRANS: Message displayed for anonymous users on page that displays people tags subscribed to by a user.
+#. TRANS: Message displayed for anonymous users on page that displays lists subscribed to by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a profile nickname.
 #, fuzzy, php-format
 msgid ""
-"These are people tags subscribed to by **%s**. People tags are how you sort "
-"similar people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia."
-"org/wiki/Micro-blogging) service based on the Free Software [StatusNet]"
-"(http://status.net/) tool. You can easily keep track of what they are doing "
-"by subscribing to the tag's timeline."
+"These are lists subscribed to by **%s**. Lists are how you sort similar "
+"people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/"
+"Micro-blogging) service based on the Free Software [StatusNet](http://status."
+"net/) tool. You can easily keep track of what they are doing by subscribing "
+"to the list's timeline."
 msgstr ""
 "**%s** jest grupą użytkowników na %%%%site.name%%%%, usłudze "
 "[mikroblogowania](http://pl.wikipedia.org/wiki/Mikroblog) opartej na wolnym "
@@ -5535,7 +5536,7 @@ msgid "Members"
 msgstr "Członkowie"
 
 #. TRANS: Description for mini list of group members on a group page when the group has no members.
-#. TRANS: Content of "People tagged x by a user" if there are no tagged users.
+#. TRANS: Content of "Listed" page if there are no listed users.
 #. TRANS: Content of "People following tag x" if there are no subscribed users.
 #. TRANS: Empty list message for tags.
 #. TRANS: Text for user subscription statistics if the user has no subscriptions.
@@ -5633,54 +5634,54 @@ msgstr "Komunikator nie jest dostępny."
 msgid "Notice deleted."
 msgstr "Usunięto wpis."
 
-#. TRANS: Title for private people tag timeline.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
-#, php-format
-msgid "Private timeline for people tagged %1$s by you, page %2$d"
-msgstr ""
-
-#. TRANS: Title for public people tag timeline where the viewer is the tagger.
+#. TRANS: Title for private list timeline.
 #. TRANS: %1$s is a people tag, %2$s is a page number.
 #, fuzzy, php-format
-msgid "Timeline for people tagged %1$s by you, page %2$d"
+msgid "Private timeline for %1$s list by you, page %2$d"
 msgstr "Użytkownicy używający znacznika %1$s - strona %2$d"
 
-#. TRANS: Title for private people tag timeline.
+#. TRANS: Title for public list timeline where the viewer is the tagger.
+#. TRANS: %1$s is a people tag, %2$s is a page number.
+#, fuzzy, php-format
+msgid "Timeline for %1$s list by you, page %2$d"
+msgstr "Użytkownicy używający znacznika %1$s - strona %2$d"
+
+#. TRANS: Title for private list timeline.
 #. TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
 #, fuzzy, php-format
-msgid "Timeline for people tagged %1$s by %2$s, page %3$d"
+msgid "Timeline for %1$s list by %2$s, page %3$d"
 msgstr "%1$s nadał etykietę %2$s, strona %3$d"
 
-#. TRANS: Title for private people tag timeline.
-#. TRANS: %s is a people tag.
+#. TRANS: Title for private list timeline.
+#. TRANS: %s is a list.
 #, php-format
-msgid "Private timeline of people tagged %s by you"
+msgid "Private timeline of %s list by you"
 msgstr ""
 
-#. TRANS: Title for public people tag timeline where the viewer is the tagger.
-#. TRANS: %s is a people tag.
+#. TRANS: Title for public list timeline where the viewer is the tagger.
+#. TRANS: %s is a list.
 #, php-format
-msgid "Timeline for people tagged %s by you"
+msgid "Timeline for %s list by you"
 msgstr ""
 
-#. TRANS: Title for private people tag timeline.
-#. TRANS: %1$s is a people tag, %2$s is the tagger's nickname.
-#, php-format
-msgid "Timeline for people tagged %1$s by %2$s"
-msgstr ""
+#. TRANS: Title for private list timeline.
+#. TRANS: %1$s is a list, %2$s is the tagger's nickname.
+#, fuzzy, php-format
+msgid "Timeline for %1$s list by %2$s"
+msgstr "odpowiedzi dla użytkownika %1$s na %2$s."
 
 #. TRANS: Feed title.
-#. TRANS: %1$s is a people tag, %2$s is tagger's nickname.
+#. TRANS: %1$s is a list, %2$s is tagger's nickname.
 #, fuzzy, php-format
-msgid "Feed for people tagged %1$s by %2$s (Atom)"
+msgid "Feed for %1$s list by %2$s (Atom)"
 msgstr "Kanał dla ulubionych wpisów użytkownika %s (Atom)"
 
-#. TRANS: Empty list message for people tag timeline.
-#. TRANS: %1$s is a people tag, %2$s is a tagger's nickname.
+#. TRANS: Empty list message for list timeline.
+#. TRANS: %1$s is a list, %2$s is a tagger's nickname.
 #, fuzzy, php-format
 msgid ""
-"This is the timeline for people tagged %1$s by %2$s but no one has posted "
-"anything yet."
+"This is the timeline for %1$s list by %2$s but no one has posted anything "
+"yet."
 msgstr ""
 "To jest oś czasu użytkownika %s i przyjaciół, ale nikt jeszcze nic nie "
 "wysłał."
@@ -5699,11 +5700,10 @@ msgstr ""
 "Dlaczego nie [zarejestrujesz konta](%%action.register%%) i zostaniesz "
 "pierwszym, który go wyśle."
 
-#. TRANS: Header on show profile tag page.
-#. TRANS: %s is a people tag.
-#, php-format
-msgid "People tagged %s by you"
-msgstr ""
+#. TRANS: Header on show list page.
+#, fuzzy
+msgid "Listed"
+msgstr "Licencja"
 
 #. TRANS: Link for more "People tagged x by a user"
 #. TRANS: if there are more than the mini list's maximum.
@@ -5713,14 +5713,11 @@ msgstr "Wyświetl więcej"
 
 #. TRANS: Header for tag subscribers.
 #. TRANS: Link description for link to list of users subscribed to a tag.
-#. TRANS: H2 text for user subscriber statistics.
-#. TRANS: Label for user statistics.
 msgid "Subscribers"
 msgstr "Subskrybenci"
 
 #. TRANS: Link for more "People following tag x"
 #. TRANS: if there are more than the mini list's maximum.
-#. TRANS: Text for user subscription statistics if user has more subscribers than displayed.
 msgid "All subscribers"
 msgstr "Wszyscy subskrybenci"
 
@@ -6354,7 +6351,9 @@ msgstr "Użytkownik %s nie obserwuje nikogo."
 msgid "Subscription feed for %s (Atom)"
 msgstr "Kanał subskrypcji dla %s (Atom)"
 
-#. TRANS: Checkbox label for enabling Jabber messages for a profile in a subscriptions list.
+#. TRANS: Checkbox label for enabling IM messages for a profile in a subscriptions list.
+#, fuzzy
+msgctxt "LABEL"
 msgid "IM"
 msgstr "Komunikator"
 
@@ -6434,6 +6433,7 @@ msgstr ""
 "Znaczniki dla siebie (litery, liczby, -, . i _), oddzielone przecinkami lub "
 "spacjami"
 
+#. TRANS: Title for personal tag cloud section.
 #, fuzzy
 msgctxt "TITLE"
 msgid "Tags"
@@ -7105,11 +7105,6 @@ msgstr "Podano błędne dane do saveKnownGroups."
 msgid "Problem saving group inbox."
 msgstr "Problem podczas zapisywania skrzynki odbiorczej grupy."
 
-#. TRANS: Server exception thrown when saving profile_tag inbox fails.
-#, fuzzy
-msgid "Problem saving profile_tag inbox."
-msgstr "Problem podczas zapisywania skrzynki odbiorczej grupy."
-
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
 #, php-format
@@ -7755,7 +7750,7 @@ msgstr "Opisz aplikację"
 
 #. TRANS: Form input field label.
 #. TRANS: Text area label on group edit form; contains description of group.
-#. TRANS: Field label for description of people tag.
+#. TRANS: Field label for description of list.
 #. TRANS: Dropdown option for searching in profiles.
 msgid "Description"
 msgstr "Opis"
@@ -8440,6 +8435,13 @@ msgctxt "MENU"
 msgid "Groups"
 msgstr "Grupy"
 
+#. TRANS: Menu item in default local navigation panel.
+#. TRANS: Menu item title in local navigation menu.
+#, fuzzy
+msgctxt "MENU"
+msgid "Lists"
+msgstr "Ograniczenia"
+
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
 msgid "Delete"
@@ -8722,12 +8724,14 @@ msgid "Group actions"
 msgstr "Działania grupy"
 
 #. TRANS: Title for groups with the most members section.
-msgid "Groups with most members"
-msgstr "Grupy z największą liczbą członków"
+#, fuzzy
+msgid "Popular groups"
+msgstr "Popularne wpisy"
 
 #. TRANS: Title for groups with the most posts section.
-msgid "Groups with most posts"
-msgstr "Grupy z największą ilością wpisów"
+#, fuzzy
+msgid "Active groups"
+msgstr "Wszystkie grupy"
 
 #. TRANS: Title for group tag cloud section.
 #. TRANS: %s is a group name.
@@ -8815,6 +8819,12 @@ msgstr ""
 #. TRANS: Server exception thrown trying to initialise an IM plugin without a transport method.
 msgid "Transport cannot be null."
 msgstr ""
+
+#. TRANS: Button text for inviting more users to the StatusNet instance.
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Invite more colleagues"
+msgstr "Zaproś nowych użytkowników"
 
 #. TRANS: Button text for joining a group.
 #, fuzzy
@@ -9435,6 +9445,15 @@ msgctxt "HEADER"
 msgid "Notices"
 msgstr "Wpisy"
 
+#. TRANS: Separator in profile addressees list.
+msgctxt "SEPARATOR"
+msgid ", "
+msgstr ""
+
+#. TRANS: Start of profile addressees list.
+msgid " ▶ "
+msgstr ""
+
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
 msgstr "Północ"
@@ -9547,24 +9566,24 @@ msgstr ""
 "Znaczniki dla tego użytkownika (litery, liczby, -, . i _), oddzielone "
 "przecinkami lub spacjami"
 
-#. TRANS: Field title for description of people tag.
+#. TRANS: Field title for description of list.
 #, fuzzy
-msgid "Describe the people tag or topic."
+msgid "Describe the list or topic."
 msgstr "Opisz grupę lub temat"
 
-#. TRANS: Field title for description of people tag.
+#. TRANS: Field title for description of list.
 #. TRANS: %d is the maximum number of characters for the description.
 #, fuzzy, php-format
-msgid "Describe the people tag or topic in %d character."
-msgid_plural "Describe the people tag or topic in %d characters."
+msgid "Describe the list or topic in %d character."
+msgid_plural "Describe the list or topic in %d characters."
 msgstr[0] "Opisz grupę lub temat w %d znaku."
 msgstr[1] "Opisz grupę lub temat w %d znakach lub mniej."
 msgstr[2] "Opisz grupę lub temat w %d znakach lub mniej."
 
-#. TRANS: Button title to delete a people tag.
+#. TRANS: Button title to delete a list.
 #, fuzzy
-msgid "Delete this people tag."
-msgstr "Usuń tę grupę"
+msgid "Delete this list."
+msgstr "Usuń tego użytkownika"
 
 #. TRANS: Header in people tag edit form.
 msgid "Add or remove people"
@@ -9576,35 +9595,35 @@ msgctxt "HEADER"
 msgid "Search"
 msgstr "Wyszukaj"
 
-#. TRANS: Menu item in people tag navigation panel.
+#. TRANS: Menu item in list navigation panel.
 #, fuzzy
 msgctxt "MENU"
-msgid "People tag"
-msgstr "Osoby"
+msgid "List"
+msgstr "Odnośniki"
 
-#. TRANS: Menu item title in people tag navigation panel.
-#. TRANS: %1$s is a tag, %2$s is a nickname.
+#. TRANS: Menu item title in list navigation panel.
+#. TRANS: %1$s is a list, %2$s is a nickname.
 #, fuzzy, php-format
-msgid "%1$s tag by %2$s."
+msgid "%1$s list by %2$s."
 msgstr "%1$s - %2$s"
 
-#. TRANS: Menu item in people tag navigation panel.
+#. TRANS: Menu item in list navigation panel.
 #, fuzzy
 msgctxt "MENU"
-msgid "Tagged"
-msgstr "Znacznik"
+msgid "Listed"
+msgstr "Licencja"
 
-#. TRANS: Menu item in people tag navigation panel.
+#. TRANS: Menu item in list navigation panel.
 #. TRANS: Menu item in local navigation menu.
 #, fuzzy
 msgctxt "MENU"
 msgid "Subscribers"
 msgstr "Subskrybenci"
 
-#. TRANS: Menu item title in people tag navigation panel.
-#. TRANS: %1$s is a tag, %2$s is a nickname.
+#. TRANS: Menu item title in list navigation panel.
+#. TRANS: %1$s is a list, %2$s is a nickname.
 #, fuzzy, php-format
-msgid "Subscribers to %1$s tag by %2$s."
+msgid "Subscribers to %1$s list by %2$s."
 msgstr "Subskrybowano użytkownika %s."
 
 #. TRANS: Menu item in people tag navigation panel.
@@ -9613,10 +9632,10 @@ msgctxt "MENU"
 msgid "Edit"
 msgstr "Edycja"
 
-#. TRANS: Menu item title in people tag navigation panel.
-#. TRANS: %s is a tag.
+#. TRANS: Menu item title in list navigation panel.
+#. TRANS: %s is a list.
 #, fuzzy, php-format
-msgid "Edit %s tag by you."
+msgid "Edit %s list by you."
 msgstr "Zmodyfikuj grupę %s"
 
 #. TRANS: Link description for link to list of users tagged with a tag.
@@ -9624,12 +9643,12 @@ msgstr "Zmodyfikuj grupę %s"
 msgid "Tagged"
 msgstr "Znacznik"
 
-#. TRANS: Title for link to edit people tag settings.
+#. TRANS: Title for link to edit list settings.
 #, fuzzy
-msgid "Edit people tag settings."
+msgid "Edit list settings."
 msgstr "Zmodyfikuj ustawienia profilu"
 
-#. TRANS: Text for link to edit people tag settings.
+#. TRANS: Text for link to edit list settings.
 msgid "Edit"
 msgstr "Edycja"
 
@@ -9638,6 +9657,45 @@ msgstr "Edycja"
 msgctxt "MODE"
 msgid "Private"
 msgstr "Prywatna"
+
+#. TRANS: Menu item in the group navigation page.
+#, fuzzy
+msgctxt "MENU"
+msgid "List Subscriptions"
+msgstr "Subskrypcje"
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#, fuzzy, php-format
+msgctxt "TOOLTIP"
+msgid "Lists subscribed to by %s."
+msgstr "Subskrybowano użytkownika %s."
+
+#. TRANS: Menu item in the group navigation page.
+#, fuzzy, php-format
+msgctxt "MENU"
+msgid "Lists with %s"
+msgstr "Aktualizacje z \"%s\""
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#, fuzzy, php-format
+msgctxt "TOOLTIP"
+msgid "Lists with %s."
+msgstr "Aktualizacje z \"%s\""
+
+#. TRANS: Menu item in the group navigation page.
+#, php-format
+msgctxt "MENU"
+msgid "Lists by %s"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#, fuzzy, php-format
+msgctxt "TOOLTIP"
+msgid "Lists by %s."
+msgstr "%1$s - %2$s"
 
 #. TRANS: Label in people tags widget.
 msgctxt "LABEL"
@@ -9650,21 +9708,31 @@ msgctxt "LEGEND"
 msgid "Edit tags"
 msgstr "Edycja"
 
-#. TRANS: Title for section contaning people tags with the most subscribers.
+#. TRANS: Title for section contaning lists with the most subscribers.
 #, fuzzy
-msgid "People tags with most subscribers"
-msgstr "Osoby %s subskrybowane do"
+msgid "Popular lists"
+msgstr "Popularne wpisy"
 
-#. TRANS: Tag summary. %1$d is the number of users tagged with the tag,
-#. TRANS: %2$d is the number of subscribers to the tag.
+#. TRANS: List summary. %1$d is the number of users in the list,
+#. TRANS: %2$d is the number of subscribers to the list.
 #, fuzzy, php-format
-msgid "Tagged: %1$d Subscribers: %2$d"
+msgid "Listed: %1$d Subscribers: %2$d"
 msgstr "Subskrybenci użytkownika %1$s, strona %2$d"
 
-#. TRANS: Title for page that displays people tags a user has subscribed to.
+#, fuzzy, php-format
+msgid "Lists with you"
+msgstr "Nie odnaleziono strony."
+
+#. TRANS: Title for page that displays which people tags a user has been tagged with.
+#. TRANS: %s is a profile name.
+#, fuzzy, php-format
+msgid "Lists with %s"
+msgstr "Aktualizacje z \"%s\""
+
+#. TRANS: Title for page that displays lists a user has subscribed to.
 #, fuzzy
-msgid "People tag subscriptions"
-msgstr "Wszystkie subskrypcje"
+msgid "List subscriptions"
+msgstr "Subskrypcje użytkownika %s"
 
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
@@ -9697,18 +9765,6 @@ msgid "User"
 msgstr "Użytkownik"
 
 #. TRANS: Menu item in personal group navigation menu.
-#. TRANS: Menu item in search group navigation panel.
-#. TRANS: Menu item title in local navigation menu.
-#, fuzzy
-msgctxt "MENU"
-msgid "People tags"
-msgstr "Osoby"
-
-#. TRANS: Replaces %s in 'People tags by %s'. (Yes, we know we need to fix this.)
-msgid "User"
-msgstr "Użytkownik"
-
-#. TRANS: Menu item in personal group navigation menu.
 #, fuzzy
 msgctxt "MENU"
 msgid "Messages"
@@ -9717,11 +9773,6 @@ msgstr "Wiadomość"
 #. TRANS: Menu item title in personal group navigation menu.
 msgid "Your incoming messages"
 msgstr "Wiadomości przychodzące"
-
-#. TRANS: Title for personal tag cloud section. %s is a user nickname.
-#, php-format
-msgid "Tags in %s's notices"
-msgstr "Znaczniki we wpisach użytkownika %s"
 
 #. TRANS: Displayed as version information for a plugin if no version information was found.
 msgid "Unknown"
@@ -9783,13 +9834,14 @@ msgid "Search the site."
 msgstr "Przeszukaj witrynę"
 
 #. TRANS: H2 text for user subscription statistics.
-#. TRANS: Label for user statistics.
-msgid "Subscriptions"
-msgstr "Subskrypcje"
+#, fuzzy
+msgid "Following"
+msgstr "Obserwuj"
 
-#. TRANS: Text for user subscription statistics if user has more subscriptions than displayed.
-msgid "All subscriptions"
-msgstr "Wszystkie subskrypcje"
+#. TRANS: H2 text for user subscriber statistics.
+#, fuzzy
+msgid "Followers"
+msgstr "Obserwuj"
 
 #. TRANS: Label for user statistics.
 msgid "User ID"
@@ -9800,11 +9852,6 @@ msgid "Member since"
 msgstr "Członek od"
 
 #. TRANS: Label for user statistics.
-#. TRANS: H2 text for user group membership statistics.
-msgid "Groups"
-msgstr "Grupy"
-
-#. TRANS: Label for user statistics.
 msgid "Notices"
 msgstr "Wpisy"
 
@@ -9813,9 +9860,14 @@ msgstr "Wpisy"
 msgid "Daily average"
 msgstr "Dziennie średnio"
 
-#. TRANS: Text for user group membership statistics if user has more subscriptions than displayed.
-msgid "All groups"
-msgstr "Wszystkie grupy"
+#. TRANS: H2 text for user group membership statistics.
+msgid "Groups"
+msgstr "Grupy"
+
+#. TRANS: H2 text for user list membership statistics.
+#, fuzzy
+msgid "Lists"
+msgstr "Ograniczenia"
 
 #. TRANS: Server error displayed when using an unimplemented method.
 msgid "Unimplemented method."
@@ -9834,11 +9886,6 @@ msgstr "Ostatnie znaczniki"
 #. TRANS: Menu item title in search group navigation panel.
 msgid "Recent tags"
 msgstr "Ostatnie znaczniki"
-
-#. TRANS: Menu item title in search group navigation panel.
-#, fuzzy
-msgid "People tags"
-msgstr "Osoby"
 
 #. TRANS: Menu item in search group navigation panel.
 #, fuzzy
@@ -10137,7 +10184,7 @@ msgstr "Grupy %s są członkiem"
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
 #, fuzzy, php-format
-msgid "People tags by %s."
+msgid "List subscriptions by %s."
 msgstr "Osoby subskrybowane do %s"
 
 #. TRANS: Menu item in local navigation menu.
@@ -10146,7 +10193,7 @@ msgid "Invite"
 msgstr "Zaproś"
 
 #. TRANS: Menu item title in local navigation menu.
-#. TRANS: %s is a user nickname.
+#. TRANS: %s is the StatusNet sitename.
 #, fuzzy, php-format
 msgid "Invite friends and colleagues to join you on %s."
 msgstr "Zaproś przyjaciół i kolegów do dołączenia do ciebie na %s"
@@ -10482,3 +10529,89 @@ msgstr "Nieprawidłowy kod XML, brak głównego XRD."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "Pobieranie kopii zapasowej z pliku \"%s\"."
+
+#, fuzzy
+#~ msgid "Use this form to edit the people tag."
+#~ msgstr "Użyj tego formularza, aby zmodyfikować grupę."
+
+#, fuzzy
+#~ msgid "Could not update people tag."
+#~ msgstr "Nie można zaktualizować grupy."
+
+#, fuzzy
+#~ msgid "People tags by %s"
+#~ msgstr "Powtórzenia %s"
+
+#, fuzzy
+#~ msgid "People tags by %1$s, page %2$d"
+#~ msgstr "odpowiedzi dla użytkownika %1$s, strona %2$s"
+
+#, fuzzy
+#~ msgid "People tags for %s"
+#~ msgstr "Powtórzenia %s"
+
+#, fuzzy
+#~ msgid "People tags for %1$s, page %2$d"
+#~ msgstr "odpowiedzi dla użytkownika %1$s, strona %2$s"
+
+#, fuzzy
+#~ msgid "Problem saving profile_tag inbox."
+#~ msgstr "Problem podczas zapisywania skrzynki odbiorczej grupy."
+
+#~ msgid "Groups with most members"
+#~ msgstr "Grupy z największą liczbą członków"
+
+#~ msgid "Groups with most posts"
+#~ msgstr "Grupy z największą ilością wpisów"
+
+#, fuzzy
+#~ msgid "Describe the people tag or topic."
+#~ msgstr "Opisz grupę lub temat"
+
+#, fuzzy
+#~ msgid "Delete this people tag."
+#~ msgstr "Usuń tę grupę"
+
+#, fuzzy
+#~ msgctxt "MENU"
+#~ msgid "People tag"
+#~ msgstr "Osoby"
+
+#, fuzzy
+#~ msgctxt "MENU"
+#~ msgid "Tagged"
+#~ msgstr "Znacznik"
+
+#, fuzzy
+#~ msgid "Edit people tag settings."
+#~ msgstr "Zmodyfikuj ustawienia profilu"
+
+#, fuzzy
+#~ msgid "People tags with most subscribers"
+#~ msgstr "Osoby %s subskrybowane do"
+
+#, fuzzy
+#~ msgid "People tag subscriptions"
+#~ msgstr "Wszystkie subskrypcje"
+
+#, fuzzy
+#~ msgctxt "MENU"
+#~ msgid "People tags"
+#~ msgstr "Osoby"
+
+#~ msgid "User"
+#~ msgstr "Użytkownik"
+
+#~ msgid "Tags in %s's notices"
+#~ msgstr "Znaczniki we wpisach użytkownika %s"
+
+#~ msgid "All subscriptions"
+#~ msgstr "Wszystkie subskrypcje"
+
+#, fuzzy
+#~ msgid "People tags"
+#~ msgstr "Osoby"
+
+#, fuzzy
+#~ msgid "People tags by %s."
+#~ msgstr "Osoby subskrybowane do %s"

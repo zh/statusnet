@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-13 13:18+0000\n"
-"PO-Revision-Date: 2011-04-13 13:22:26+0000\n"
+"POT-Creation-Date: 2011-04-16 22:54+0000\n"
+"PO-Revision-Date: 2011-04-16 22:58:44+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-11 13:12:35+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r85942); Translate extension (2011-03-11)\n"
+"X-POT-Import-Date: 2011-04-13 13:57:08+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -120,11 +120,11 @@ msgstr "Verlaten"
 msgid "%1$s has left group %2$s."
 msgstr "%1$s heeft de groep %2$s verlaten"
 
-#. TRANS: Exception thrown when setup of remote people tag subscription fails.
-msgid "Could not set up remote people tag subscription."
+#. TRANS: Exception thrown when setup of remote list subscription fails.
+#, fuzzy
+msgid "Could not set up remote list subscription."
 msgstr ""
-"Het was niet mogelijk het abonnement op een persoonslabel via een andere "
-"dienst in te stellen."
+"Het was niet mogelijk het abonnement via een andere dienst in te stellen."
 
 #. TRANS: Title for remote follow list.
 msgctxt "TITLE"
@@ -148,8 +148,8 @@ msgctxt "TITLE"
 msgid "Tag"
 msgstr "Label"
 
-#, php-format
-msgid "%1$s tagged %2$s in the list %3$s."
+#, fuzzy, php-format
+msgid "%1$s listed %2$s in the list %3$s."
 msgstr "%1$s heeft %2$s in de lijst %3$s geplaatst."
 
 #, php-format
@@ -500,9 +500,11 @@ msgstr "U bent al geabonneerd op dit persoonslabel."
 msgid "Confirm subscription to remote people tag"
 msgstr "Bevestig het abonneren op een persoonslabel bij de andere dienst"
 
+#. TRANS: Instructions for OStatus list subscription form.
+#, fuzzy
 msgid ""
-"You can subscribe to people tags from other supported sites. Paste the tag's "
-"profile URI below:"
+"You can subscribe to lists from other supported sites. Paste the lists's URI "
+"below:"
 msgstr ""
 "U kunt abonneren op persoonslabels van andere ondersteunde sites. Plak "
 "hieronder de URI van het label:"
@@ -546,37 +548,40 @@ msgstr ""
 "Het was niet mogelijk gebruiker %1$s van een andere dienst uit de groep %2$s "
 "te verwijderen."
 
-msgid "No such people tag."
-msgstr "Het opgegeven persoonslabel bestaat niet."
+#, fuzzy
+msgid "No such list."
+msgstr "Deze gebruiker bestaat niet."
 
-msgid "Cannot accept remote posts for a remote people tag."
+#, fuzzy
+msgid "Cannot accept remote posts for a remote list."
 msgstr ""
-"Berichten van andere diensten voor persoonslabels bij andere diensten worden "
-"niet geaccepteerd."
+"Berichten van andere diensten voor groepen bij andere diensten worden niet "
+"geaccepteerd."
 
 msgid "Cannot read profile to set up profile tag subscription."
 msgstr ""
 "Het profiel om te abonneren op een persoonslabel kon niet gelezen worden."
 
-msgid "Groups cannot subscribe to people tags."
+#, fuzzy
+msgid "Groups cannot subscribe to lists."
 msgstr "Groepen kunnen niet abonneren op persoonslabels."
 
-#, php-format
-msgid "Could not subscribe remote user %1$s to people tag %2$s."
+#, fuzzy, php-format
+msgid "Could not subscribe remote user %1$s to list %2$s."
 msgstr ""
 "Het was niet mogelijk om gebruiker %1$s via een andere dienst te abonneren "
 "op het persoonslabel %2$s."
 
-msgid "Cannot read profile to cancel people tag membership."
+#, fuzzy
+msgid "Cannot read profile to cancel list membership."
 msgstr ""
-"Het profiel om een persoonslabelabonnement te annuleren kon niet gelezen "
-"worden."
+"Het profiel om groepslidmaatschap te annuleren kon niet gelezen worden."
 
-#, php-format
-msgid "Could not remove remote user %1$s from people tag %2$s."
+#, fuzzy, php-format
+msgid "Could not remove remote user %1$s from list %2$s."
 msgstr ""
-"Het was niet mogelijk gebruiker %1$s van een andere dienst uit te schrijven "
-"van het persoonslabel %2$s."
+"Het was niet mogelijk gebruiker %1$s van een andere dienst uit de groep %2$s "
+"te verwijderen."
 
 #. TRANS: Client error.
 msgid "You can use the local subscription!"
@@ -648,11 +653,10 @@ msgstr ""
 "Aan het proberen een PuSH-abonnement te verwijderen voor een feed zonder hub."
 
 #. TRANS: Server exception. %s is a URI
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid ostatus_profile state: two or more IDs set for %s."
 msgstr ""
-"Ongeldige ostatus_profile-status: er zijn twee of meer ID's ingesteld voor %"
-"s."
+"Ongeldige OStatus-profielstatus: er zijn twee of meer ID's ingesteld voor %s."
 
 #. TRANS: Server exception. %s is a URI
 #, php-format
@@ -861,3 +865,26 @@ msgstr "Deze bestemming begrijpt evenementen ontlabelen niet."
 #. TRANS: Exception.
 msgid "Received a salmon slap from unidentified actor."
 msgstr "Er is een Salmonslap ontvangen van een niet-geïdentificeerde actor."
+
+#~ msgid "Could not set up remote people tag subscription."
+#~ msgstr ""
+#~ "Het was niet mogelijk het abonnement op een persoonslabel via een andere "
+#~ "dienst in te stellen."
+
+#~ msgid "No such people tag."
+#~ msgstr "Het opgegeven persoonslabel bestaat niet."
+
+#~ msgid "Cannot accept remote posts for a remote people tag."
+#~ msgstr ""
+#~ "Berichten van andere diensten voor persoonslabels bij andere diensten "
+#~ "worden niet geaccepteerd."
+
+#~ msgid "Cannot read profile to cancel people tag membership."
+#~ msgstr ""
+#~ "Het profiel om een persoonslabelabonnement te annuleren kon niet gelezen "
+#~ "worden."
+
+#~ msgid "Could not remove remote user %1$s from people tag %2$s."
+#~ msgstr ""
+#~ "Het was niet mogelijk gebruiker %1$s van een andere dienst uit te "
+#~ "schrijven van het persoonslabel %2$s."
