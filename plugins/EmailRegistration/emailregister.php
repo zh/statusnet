@@ -291,7 +291,7 @@ class EmailregisterAction extends Action
                         303);
     }
 
-    function sendConfirmEmail($confirm, $new)
+    function sendConfirmEmail($confirm)
     {
         $sitename = common_config('site', 'name');
 
