@@ -253,20 +253,20 @@ class EmailregisterAction extends Action
 
     function setPassword()
     {
-        if (!$this->tos) {
-            $this->error = _('You must accept the terms of service and privacy policy to register.');
-            $nickname = $this->nicknameFromEmail($this->email);
-            $this->form = new ConfirmRegistrationForm($this, $nickname, $this->email, $this->code);
-            $this->showPage();
-            return;
-        }
-
         if (!empty($this->invitation)) {
             $email = $this->invitation->address;
         } else if (!empty($this->confirmation)) {
             $email = $this->confirmation->address;
         } else {
             throw new Exception('No confirmation thing.');
+        }
+
+        if (!$this->tos) {
+            $this->error = _('You must accept the terms of service and privacy policy to register.');
+            $nickname = $this->nicknameFromEmail($email);
+            $this->form = new ConfirmRegistrationForm($this, $nickname, $this->email, $this->code);
+            $this->showPage();
+            return;
         }
 
         $nickname = $this->nicknameFromEmail($email);
@@ -360,7 +360,7 @@ class EmailregisterAction extends Action
         
         $nickname = $parts[0];
         
-        $nickname = preg_replace('/[^A-Za-z0-9]/', '', $str);
+        $nickname = preg_replace('/[^A-Za-z0-9]/', '', $nickname);
 
         $nickname = Nickname::normalize($nickname);
 
