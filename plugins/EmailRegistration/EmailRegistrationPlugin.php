@@ -62,26 +62,12 @@ class EmailRegistrationPlugin extends Plugin
         }
     }
 
-    /**
-     * Hijack main/register
-     */
-
-    function onStartConnectPath(&$path, &$defaults, &$rules, &$result)
+    function onArgsInitialize(&$args)
     {
-        static $toblock = array('main/register', 'main/register/:code');
-
-        if (in_array($path, $toblock) && $defaults['action'] != 'emailregister') {
-            return false;
+        if (array_key_exists('action', $args) && $args['action'] == 'register') {
+            // YOINK!
+            $args['action'] = 'emailregister';
         }
-
-        return true;
-    }
-
-    function onStartInitializeRouter($m)
-    {
-        $m->connect('main/register', array('action' => 'emailregister'));
-        $m->connect('main/register/:code', array('action' => 'emailregister'));
-
         return true;
     }
 
