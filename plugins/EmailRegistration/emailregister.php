@@ -150,7 +150,7 @@ class EmailregisterAction extends Action
         case self::CONFIRMINVITE:
         case self::CONFIRMREGISTER:
             // TRANS: Title for page where to change password.
-            return _m('TITLE','Set password');
+            return _m('TITLE','Complete registration');
             break;
         }
     }
@@ -173,10 +173,10 @@ class EmailregisterAction extends Action
             $this->registerUser();
             break;
         case self::CONFIRMINVITE:
-            $this->confirmInvite();
+            $this->confirmRegistration();
             break;
         case self::CONFIRMREGISTER:
-            $this->confirmRegister();
+            $this->confirmRegistration();
             break;
         case self::SETPASSWORD:
             $this->setPassword();
@@ -234,15 +234,14 @@ class EmailregisterAction extends Action
         $this->showPage();
     }
 
-    function confirmInvite()
+    function confirmRegistration()
     {
-        $this->form = new ConfirmRegisterForm($this, $this->invitation->code);
-        $this->showPage();
-    }
+        $nickname = $this->nicknameFromEmail($this->email);
 
-    function confirmRegister()
-    {
-        $this->form = new ConfirmRegisterForm($this, $this->confirmation->code);
+        $this->form = new ConfirmRegistrationForm($this,
+                                                  $nickname,
+                                                  $this->email,
+                                                  $this->invitation->code);
         $this->showPage();
     }
 
@@ -250,7 +249,8 @@ class EmailregisterAction extends Action
     {
         if (!$this->tos) {
             $this->error = _('You must accept the terms of service and privacy policy to register.');
-            $this->form = new ConfirmRegisterForm($this, $this->code);
+            $nickname = $this->nicknameFromEmail($this->email);
+            $this->form = new ConfirmRegistrationForm($this, $nickname, $this->email, $this->code);
             $this->showPage();
             return;
         }
@@ -347,6 +347,28 @@ class EmailregisterAction extends Action
     {
         return false;
     }
+
+    function nicknameFromEmail($email)
+    {
+        $parts = explode('@', $email);
+        
+        $nickname = $parts[0];
+        
+        $nickname = preg_replace('/[^A-Za-z0-9]/', '', $str);
+
+        $nickname = Nickname::normalize($parts[0]);
+
+        $original = $nickname;
+
+        $n = 0;
+
+        while (User::staticGet('nickname', $nickname)) {
+            $n++;
+            $nickname = $original . $n;
+        }
+
+        return $nickname;
+    }
 }
 
 class EmailRegistrationForm extends Form
@@ -429,5 +451,120 @@ class EmailRegistrationForm extends Form
     function formClass()
     {
         return 'form_email_registration';
+    }
+}
+
+class ConfirmRegistrationForm extends Form
+{
+    protected $code;
+    protected $nickname;
+    protected $email;
+
+    function __construct($out, $nickname, $email, $code)
+    {
+        parent::__construct($out);
+        $this->nickname = $nickname;
+        $this->email = $email;
+        $this->code = $code;
+    }
+
+    function formData()
+    {
+        $this->out->element('p', 'instructions',
+                            _('Enter a password to confirm your account.'));
+                            
+        $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
+        $this->out->elementStart('ul', 'form_data');
+
+        $this->elementStart('li');
+        // TRANS: Field label on account registration page.
+        $this->password('password', _('Password'),
+                        // TRANS: Field title on account registration page.
+                        _('6 or more characters.'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        // TRANS: Field label on account registration page. In this field the password has to be entered a second time.
+        $this->password('confirm', _m('PASSWORD','Confirm'),
+                        // TRANS: Field title on account registration page.
+                        _('Same as password above.'));
+        $this->elementEnd('li');
+
+        $this->elementStart('li');
+
+        $this->element('input', array('name' => 'tos',
+                                      'type' => 'checkbox',
+                                      'class' => 'checkbox',
+                                      'id' => 'tos',
+                                      'value' => 'true'));
+        $this->text(' ');
+
+        $this->elementStart('label', array('class' => 'checkbox',
+                                           'for' => 'tos'));
+
+
+        $this->raw(sprintf(_('I agree to the <a href="%1$s">Terms of service</a> and '.
+                             '<a href="%1$s">Privacy policy</a> of this site.'),
+                           common_local_url('doc', 'tos'),
+                           common_local_url('doc', 'privacy')));
+                           
+        $this->elementEnd('label');
+
+        $this->elementEnd('li');
+
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
+    }
+
+     function method()
+     {
+         return 'post';
+     }
+
+    /**
+     * Buttons for form actions
+     *
+     * Submit and cancel buttons (or whatever)
+     * Sub-classes should overload this to show their own buttons.
+     *
+     * @return void
+     */
+
+    function formActions()
+    {
+        // TRANS: Button text for action to save a new bookmark.
+        $this->out->submit('submit', _m('BUTTON', 'Register'));
+    }
+
+    /**
+     * ID of the form
+     *
+     * Should be unique on the page. Sub-classes should overload this
+     * to show their own IDs.
+     *
+     * @return int ID of the form
+     */
+
+    function id()
+    {
+        return 'form_email_registration';
+    }
+
+    /**
+     * Action of the form.
+     *
+     * URL to post to. Should be overloaded by subclasses to give
+     * somewhere to post to.
+     *
+     * @return string URL to post to
+     */
+
+    function action()
+    {
+        return common_local_url('register');
+    }
+
+    function formClass()
+    {
+        return 'form_confirm_registration';
     }
 }
