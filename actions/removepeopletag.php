@@ -107,8 +107,8 @@ class RemovepeopletagAction extends Action
         $this->peopletag = Profile_list::staticGet('id', $id);
 
         if (empty($this->peopletag)) {
-            // TRANS: Client error displayed trying to reference a non-existing people tag.
-            $this->clientError(_('No such people tag.'));
+            // TRANS: Client error displayed trying to reference a non-existing list.
+            $this->clientError(_('No such list.'));
             return false;
         }
 
@@ -147,14 +147,14 @@ class RemovepeopletagAction extends Action
             $user = User::staticGet('id', $this->tagged->id);
             if ($user) {
                 $this->clientError(
-                        // TRANS: Client error displayed when an unknown error occurs while tagging a user.
+                        // TRANS: Client error displayed when an unknown error occurs while listing a user.
                         // TRANS: %s is a username.
-                        sprintf(_('There was an unexpected error while tagging %s.'),
+                        sprintf(_('There was an unexpected error while listing %s.'),
                         $user->nickname));
             } else {
-                // TRANS: Client error displayed when an unknown error occurs while tagging a user.
+                // TRANS: Client error displayed when an unknown error occurs while listing a user.
                 // TRANS: %s is a profile URL.
-                $this->clientError(sprintf(_('There was a problem tagging %s. ' .
+                $this->clientError(sprintf(_('There was a problem listing %s. ' .
                                       'The remote server is probably not responding correctly, ' .
                                       'please try retrying later.'), $this->profile->profileurl));
             }
@@ -163,7 +163,7 @@ class RemovepeopletagAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            // TRANS: Title after untagging a people tag.
+            // TRANS: Title after removing a user from a list.
             $this->element('title', null, _('Untagged'));
             $this->elementEnd('head');
             $this->elementStart('body');

@@ -167,10 +167,10 @@ class Profile_tag extends Memcached_DataObject
             $profile_list = Profile_list::ensureTag($tagger, $tag, $desc, $private);
 
             if ($profile_list->taggedCount() >= common_config('peopletag', 'maxpeople')) {
-                // TRANS: Client exception thrown trying to set one tag for more people than allowed.
-                throw new ClientException(sprintf(_('You already have %1$d or more people tagged %2$s, ' .
+                // TRANS: Client exception thrown when trying to add more people than allowed to a list.
+                throw new ClientException(sprintf(_('You already have %1$d or more people in list %2$s, ' .
                                                     'which is the maximum allowed number.' .
-                                                    'Try untagging others with the same tag first.'),
+                                                    'Try unlisting others first.'),
                                                     common_config('peopletag', 'maxpeople'), $tag));
                 return false;
             }

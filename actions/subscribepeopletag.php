@@ -56,7 +56,7 @@ class SubscribepeopletagAction extends Action
 
         if (!common_logged_in()) {
             // TRANS: Client error displayed when trying to perform an action while not logged in.
-            $this->clientError(_('You must be logged in to unsubscribe to a people tag.'));
+            $this->clientError(_('You must be logged in to unsubscribe from a list.'));
             return false;
         }
         // Only allow POST requests
@@ -91,8 +91,8 @@ class SubscribepeopletagAction extends Action
         }
 
         if (!$this->peopletag || $this->peopletag->private) {
-            // TRANS: Client error displayed trying to reference a non-existing people tag.
-            $this->clientError(_('No such people tag.'), 404);
+            // TRANS: Client error displayed trying to reference a non-existing list.
+            $this->clientError(_('No such list.'), 404);
             return false;
         }
 
@@ -120,18 +120,18 @@ class SubscribepeopletagAction extends Action
         try {
             Profile_tag_subscription::add($this->peopletag, $cur);
         } catch (Exception $e) {
-            // TRANS: Server error displayed subscribing to a people tag fails.
-            // TRANS: %1$s is a user nickname, %2$s is a people tag.
-            $this->serverError(sprintf(_('Could not subscribe user %1$s to people tag %2$s.'),
-                                       $cur->nickname, $this->peopletag->tag) . ' ' . $e->getMessage());
+            // TRANS: Server error displayed subscribing to a list fails.
+            // TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
+            $this->serverError(sprintf(_('Could not subscribe user %1$s to list %2$s: %3$s'),
+                                       $cur->nickname, $this->peopletag->tag), $e->getMessage());
         }
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            // TRANS: Title of form to subscribe to a people tag.
-            // TRANS: %1%s is a user nickname, %2$s is a people tag, %3$s is a tagger nickname.
-            $this->element('title', null, sprintf(_('%1$s subscribed to people tag %2$s by %3$s'),
+            // TRANS: Title of form to subscribe to a list.
+            // TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
+            $this->element('title', null, sprintf(_('%1$s subscribed to list %2$s by %3$s'),
                                                   $cur->nickname,
                                                   $this->peopletag->tag,
                                                   $this->tagger->nickname));

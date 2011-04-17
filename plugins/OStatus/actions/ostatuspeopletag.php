@@ -70,9 +70,9 @@ class OStatusPeopletagAction extends OStatusSubAction
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->input('profile',
-                     _m('Subscribe to people tag'),
+                     _m('Subscribe to list'),
                      $this->profile_uri,
-                     _m("Address of the OStatus people tag, like http://example.net/user/all/tag"));
+                     _m("Address of the OStatus list, like http://example.net/user/all/tag"));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
@@ -95,7 +95,7 @@ class OStatusPeopletagAction extends OStatusSubAction
         $cur = common_current_user();
         if ($ptag->hasSubscriber($cur->id)) {
             $this->element('div', array('class' => 'error'),
-                           _m('You are already subscribed to this people tag.'));
+                           _m('You are already subscribed to this list.'));
             $ok = false;
         } else {
             $ok = true;
@@ -157,8 +157,8 @@ class OStatusPeopletagAction extends OStatusSubAction
 
     function title()
     {
-        // TRANS: Page title for OStatus remote people tag subscription form
-        return _m('Confirm subscription to remote people tag');
+        // TRANS: Page title for OStatus remote list subscription form
+        return _m('Confirm subscription to remote list');
     }
 
     /**

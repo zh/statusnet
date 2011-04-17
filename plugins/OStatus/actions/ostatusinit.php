@@ -104,9 +104,9 @@ class OStatusInitAction extends Action
             // TRANS: Button text to join a group.
             $submit = _m('BUTTON','Join');
         } else if ($this->peopletag && $this->tagger) {
-            // TRANS: Form legend. %1$s is a people tag, %2$s is a tagger's name.
-            $header = sprintf(_m('Subscribe to people tagged %1$s by %2$s'), $this->peopletag, $this->tagger);
-            // TRANS: Button text to subscribe to a people tag.
+            // TRANS: Form legend. %1$s is a list, %2$s is a tagger's name.
+            $header = sprintf(_m('Subscribe to list %1$s by %2$s'), $this->peopletag, $this->tagger);
+            // TRANS: Button text to subscribe to a list.
             $submit = _m('BUTTON','Subscribe');
             // TRANS: Button text.
         } else {
@@ -167,7 +167,7 @@ class OStatusInitAction extends Action
             $this->connectWebfinger($this->profile);
         } else {
             // TRANS: Client error.
-            $this->clientError(_m("Must provide a remote profile."));
+            $this->clientError(_m('Must provide a remote profile.'));
         }
     }
 
@@ -218,7 +218,7 @@ class OStatusInitAction extends Action
                 return common_local_url('userbyid', array('id' => $user->id));
             } else {
                 // TRANS: Client error.
-                $this->clientError("No such user.");
+                $this->clientError(_m('No such user.'));
             }
         } else if ($this->group) {
             $group = Local_group::staticGet('nickname', $this->group);
@@ -226,12 +226,12 @@ class OStatusInitAction extends Action
                 return common_local_url('groupbyid', array('id' => $group->group_id));
             } else {
                 // TRANS: Client error.
-                $this->clientError("No such group.");
+                $this->clientError(_m('No such group.'));
             }
         } else if ($this->peopletag && $this->tagger) {
             $user = User::staticGet('nickname', $this->tagger);
             if (empty($user)) {
-                $this->clientError("No such user.");
+                $this->clientError(_m('No such user.'));
             }
 
             $peopletag = Profile_list::getByTaggerAndTag($user->id, $this->peopletag);
@@ -239,10 +239,10 @@ class OStatusInitAction extends Action
                 return common_local_url('profiletagbyid',
                     array('tagger_id' => $user->id, 'id' => $peopletag->id));
             }
-            $this->clientError("No such people tag.");
+            $this->clientError(_m('No such list.'));
         } else {
             // TRANS: Client error.
-            $this->clientError("No local user or group nickname provided.");
+            $this->clientError(_m('No local user or group nickname provided.'));
         }
     }
 

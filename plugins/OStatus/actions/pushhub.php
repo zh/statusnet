@@ -183,7 +183,7 @@ class PushHubAction extends Action
                 $user = User::staticGet('id', $user);
                 if (!$list || !$user || $list->tagger != $user->id) {
                     // TRANS: Client exception. %s is a feed URL.
-                    throw new ClientException(sprintf(_m('Invalid hub.topic %s; people tag does not exist.'),$feed));
+                    throw new ClientException(sprintf(_m('Invalid hub.topic %s; list does not exist.'),$feed));
                 } else {
                     return true;
                 }

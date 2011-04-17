@@ -138,7 +138,7 @@ class PeopletagGroupNav extends Widget
                 // Edit
                 $this->out->menuItem(common_local_url('editpeopletag', array('tagger' => $user->nickname,
                                                                              'tag'    => $tag->tag)),
-                                 // TRANS: Menu item in people tag navigation panel.
+                                 // TRANS: Menu item in list navigation panel.
                                  _m('MENU','Edit'),
                                  // TRANS: Menu item title in list navigation panel.
                                  // TRANS: %s is a list.

@@ -127,11 +127,11 @@ class PeopletagEditForm extends Form
         $this->out->elementStart('li');
         $this->out->hidden('id', $id);
 
-        // TRANS: Field label for people tag.
-        $this->out->input('tag', _m('LABEL','Tag'),
+        // TRANS: Field label for list.
+        $this->out->input('tag', _m('LABEL','List'),
                           ($this->out->arg('tag')) ? $this->out->arg('tag') : $tag,
-                          // TRANS: Field title for people tag.
-                          _('Change the tag (letters, numbers, -, ., and _ are allowed).'));
+                          // TRANS: Field title for list.
+                          _('Change the list (letters, numbers, -, ., and _ are allowed).'));
         $this->out->elementEnd('li');
 
         $this->out->elementStart('li');
@@ -164,7 +164,7 @@ class PeopletagEditForm extends Form
      */
     function formActions()
     {
-        // TRANS: Button text to save a people tag.
+        // TRANS: Button text to save a list.
         $this->out->submit('submit', _('Save'));
         $this->out->submit('form_action-yes',
                       // TRANS: Button text to delete a list.
@@ -178,11 +178,11 @@ class PeopletagEditForm extends Form
     function showProfileList()
     {
         $tagged = $this->peopletag->getTagged();
-        // TRANS: Header in people tag edit form.
+        // TRANS: Header in list edit form.
         $this->out->element('h2', null, _('Add or remove people'));
 
         $this->out->elementStart('div', 'profile_search_wrap');
-        // TRANS: Header in people tag edit form.
+        // TRANS: Header in list edit form.
         $this->out->element('h3', null, _m('HEADER','Search'));
         $search = new SearchProfileForm($this->out, $this->peopletag);
         $search->show();

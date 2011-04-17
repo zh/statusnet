@@ -63,8 +63,8 @@ class ProfiletagbyidAction extends Action
         $this->peopletag = Profile_list::staticGet('id', $id);
 
         if (!$this->peopletag) {
-            // TRANS: Client error displayed trying to reference a non-existing people tag.
-            $this->clientError(_('No such people tag.'), 404);
+            // TRANS: Client error displayed trying to reference a non-existing list.
+            $this->clientError(_('No such list.'), 404);
             return false;
         }
 

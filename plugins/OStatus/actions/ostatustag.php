@@ -112,6 +112,6 @@ class OStatusTagAction extends OStatusInitAction
 
     function title()
     {
-      return _m('OStatus people tag');  
+      return _m('OStatus list');  
     }
 }

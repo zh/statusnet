@@ -885,8 +885,8 @@ class OStatusPlugin extends Plugin
                 return true;
             } else {
                 $oprofile->garbageCollect();
-                // TRANS: Exception thrown when subscription of remote people tag fails.
-                throw new Exception(_m('Failed subscribing to remote people tag.'));
+                // TRANS: Exception thrown when subscription to remote list fails.
+                throw new Exception(_m('Failed subscribing to remote list.'));
             }
         }
     }
@@ -922,7 +922,7 @@ class OStatusPlugin extends Plugin
             $act->object = $oprofile->asActivityObject();
 
             $act->time = time();
-            $act->title = _m('Unfollow people tag');
+            $act->title = _m('Unfollow list');
             $act->content = sprintf(_m('%1$s stopped following the list %2$s by %3$s.'),
                                     $sub->getBestName(),
                                     $oprofile->getBestName(),

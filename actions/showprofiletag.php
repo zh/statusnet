@@ -307,7 +307,7 @@ class ShowprofiletagAction extends Action
                                                                      array('nickname' => $this->tagger->nickname,
                                                                            'profiletag' => $this->peopletag->tag)),
                                           'class' => 'more'),
-                               // TRANS: Link for more "People tagged x by a user"
+                               // TRANS: Link for more "People in list x by a user"
                                // TRANS: if there are more than the mini list's maximum.
                                _('Show all'));
                 $this->elementEnd('p');

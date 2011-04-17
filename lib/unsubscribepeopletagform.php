@@ -102,7 +102,7 @@ class UnsubscribePeopletagForm extends Form
      */
     function formActions()
     {
-        // TRANS: Button text for unsubscribing from a people tag.
+        // TRANS: Button text for unsubscribing from a list.
         $this->out->submit('submit', _m('BUTTON','Unsubscribe'));
     }
 }
