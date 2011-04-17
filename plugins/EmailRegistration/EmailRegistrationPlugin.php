@@ -84,8 +84,8 @@ class EmailRegistrationPlugin extends Plugin
 
     function onStartInitializeRouter($m)
     {
-        $m->connect('main/register/:code', array('action' => 'emailregister'));
         $m->connect('main/register', array('action' => 'emailregister'));
+        $m->connect('main/register/:code', array('action' => 'emailregister'));
 
         return true;
     }
