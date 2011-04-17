@@ -73,7 +73,7 @@ class EmailRegistrationPlugin extends Plugin
         if (in_array($path, $toblock)) {
             common_debug("Request came in for $path");
             if ($defaults['action'] != 'emailregister') {
-                common_debug("Action is {$defaults['action']}, so: rejected.");
+                common_debug("Action is {$default['action']}, so: rejected.");
                 $result = false;
                 return false;
             }
