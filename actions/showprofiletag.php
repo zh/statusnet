@@ -82,8 +82,8 @@ class ShowprofiletagAction extends Action
                    ($this->peopletag->private && $this->peopletag->tagger === $current->id));
 
         if (!$can_see) {
-            // TRANS: Client error displayed trying to reference a non-existing people tag.
-            $this->clientError(_('No such people tag.'), 404);
+            // TRANS: Client error displayed trying to reference a non-existing list.
+            $this->clientError(_('No such list.'), 404);
             return false;
         }
 
@@ -121,7 +121,7 @@ class ShowprofiletagAction extends Action
         if ($this->page > 1) {
             if($this->peopletag->private) {
                 // TRANS: Title for private list timeline.
-                // TRANS: %1$s is a people tag, %2$s is a page number.
+                // TRANS: %1$s is a list, %2$s is a page number.
                 return sprintf(_('Private timeline for %1$s list by you, page %2$d'),
                                 $this->peopletag->tag, $this->page);
             }
@@ -129,13 +129,13 @@ class ShowprofiletagAction extends Action
             $current = common_current_user();
             if (!empty($current) && $current->id == $this->peopletag->tagger) {
                 // TRANS: Title for public list timeline where the viewer is the tagger.
-                // TRANS: %1$s is a people tag, %2$s is a page number.
+                // TRANS: %1$s is a list, %2$s is a page number.
                 return sprintf(_('Timeline for %1$s list by you, page %2$d'),
                                 $this->peopletag->tag, $this->page);
             }
 
             // TRANS: Title for private list timeline.
-            // TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
+            // TRANS: %1$s is a list, %2$s is the tagger's nickname, %3$d is a page number.
             return sprintf(_('Timeline for %1$s list by %2$s, page %3$d'),
                                 $this->peopletag->tag,
                                 $this->tagger->nickname,
@@ -214,11 +214,11 @@ class ShowprofiletagAction extends Action
         if (common_logged_in()) {
             $current_user = common_current_user();
             if ($this->tagger->id == $current_user->id) {
-                // TRANS: Additional empty list message for people tag timeline for currently logged in user tagged tags.
+                // TRANS: Additional empty list message for list timeline for currently logged in user tagged tags.
                 $message .= _('Try tagging more people.');
             }
         } else {
-            // TRANS: Additional empty list message for people tag timeline.
+            // TRANS: Additional empty list message for list timeline.
             // TRANS: This message contains Markdown links in the form [description](link).
             $message .= _('Why not [register an account](%%%%action.register%%%%) and start following this timeline!');
         }
