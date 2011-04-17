@@ -75,7 +75,10 @@ class InitialBookmarkForm extends Form
         $this->li();
         $this->out->input('initial-bookmark-url',
                           // TRANS: Field label on form for adding a new bookmark.
-                          _m('LABEL','URL'));
+                          _m('LABEL','URL'),
+                          null,
+                          null,
+                          'url');
         $this->unli();
 
         $this->out->elementEnd('ul');

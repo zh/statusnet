@@ -87,10 +87,10 @@ class NewbookmarkAction extends Action
             $this->checkSessionToken();
         }
 
-        $this->title       = $this->trimmed('bookmark-title');
-        $this->url         = $this->trimmed('bookmark-url');
-        $this->tags        = $this->trimmed('bookmark-tags');
-        $this->description = $this->trimmed('bookmark-description');
+        $this->title       = $this->trimmed('title');
+        $this->url         = $this->trimmed('url');
+        $this->tags        = $this->trimmed('tags');
+        $this->description = $this->trimmed('description');
 
         return true;
     }

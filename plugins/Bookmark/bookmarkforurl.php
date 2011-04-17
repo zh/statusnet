@@ -67,8 +67,7 @@ class BookmarkforurlAction extends Action
         }
 
         $this->checkSessionToken();
-
-        $this->url = $this->trimmed('initial-bookmark-url');
+        $this->url = $this->trimmed('url');
 
         if (empty($this->url)) {
             throw new ClientException(_('URL is required.'), 400);

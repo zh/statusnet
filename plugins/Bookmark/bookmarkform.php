@@ -120,6 +120,7 @@ class BookmarkForm extends Form
                           // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','URL'),
                           $this->_url,
+                          null,
                           'url');
         $this->unli();
 
@@ -138,6 +139,7 @@ class BookmarkForm extends Form
                           // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','Title'),
                           $this->_title,
+                          null,
                           'title');
         $this->unli();
 
@@ -146,6 +148,7 @@ class BookmarkForm extends Form
                              // TRANS: Field label on form for adding a new bookmark.
                              _m('LABEL','Notes'),
                              $this->_description,
+                             null,
                              'description');
         $this->unli();
 
