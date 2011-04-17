@@ -1,17 +1,11 @@
 <?php
 /**
- * Give a warm greeting to our friendly user
- *
- * PHP version 5
- *
- * @category Sample
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://status.net/
- *
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2011, StatusNet, Inc.
+ *
+ * Register a user by their email address
+ * 
+ * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,140 +19,414 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Email registration
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2011 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
 
 if (!defined('STATUSNET')) {
+    // This check helps protect against security problems;
+    // your code file can't be executed directly from the web.
     exit(1);
 }
 
 /**
- * Give a warm greeting to our friendly user
+ * Email registration
  *
- * This sample action shows some basic ways of doing output in an action
- * class.
+ * There are four cases where we're called:
  *
- * Action classes have several output methods that they override from
- * the parent class.
+ * 1. GET, no arguments. Initial registration; ask for an email address.  
+ * 2. POST, email address argument. Initial registration; send an email to confirm.
+ * 3. GET, code argument. Confirming an invitation or a registration; look them up,
+ *    create the relevant user if possible, login as that user, and 
+ *    show a password-entry form.
+ * 4. POST, password argument. After confirmation, set the password for the new
+ *    user, and redirect to a registration complete action with some instructions.
  *
- * @category Sample
- * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
- * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
- * @link     http://status.net/
+ * @category  Action
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2011 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
  */
-class HelloAction extends Action
+
+class EmailregisterAction extends Action
 {
-    var $user = null;
-    var $gc   = null;
+    const NEWEMAIL = 1;
+    const SETPASSWORD = 2;
+    const NEWREGISTER = 3;
+    const CONFIRMINVITE = 4;
+    const CONFIRMREGISTER = 5;
 
-    /**
-     * Take arguments for running
-     *
-     * This method is called first, and it lets the action class get
-     * all its arguments and validate them. It's also the time
-     * to fetch any relevant data from the database.
-     *
-     * Action classes should run parent::prepare($args) as the first
-     * line of this method to make sure the default argument-processing
-     * happens.
-     *
-     * @param array $args $_REQUEST args
-     *
-     * @return boolean success flag
-     */
-    function prepare($args)
+    const CONFIRMTYPE = 'register';
+
+    protected $user;
+    protected $email;
+    protected $code;
+    protected $invitation;
+    protected $confirmation;
+    protected $password1;
+    protected $password2;
+    protected $state;
+    protected $error;
+
+    function prepare($argarray)
     {
-        parent::prepare($args);
+        parent::prepare($argarray);
 
-        $this->user = common_current_user();
+        if ($this->isPost()) {
 
-        if (!empty($this->user)) {
-            $this->gc = User_greeting_count::inc($this->user->id);
+            $this->checkSessionToken();
+
+            $this->email = $this->trimmed('email');
+
+            if (!empty($this->email)) {
+                $this->email = common_canonical_email($this->email);
+                $this->state = self::NEWEMAIL;
+            } else {
+                $this->state = self::SETPASSWORD;
+
+                $this->code = $this->trimmed('code');
+
+                if (empty($this->code)) {
+                    throw new ClientException(_('No confirmation code.'));
+                }
+
+                $this->invitation = Invitation::staticGet('code', $this->code);
+
+                if (!empty($this->invitation)) {
+                    $this->state = self::CONFIRMINVITE;
+                } else {
+                    $this->state = self::CONFIRMREGISTER;
+                    $this->confirmation = Confirm_address::staticGet('code', $this->code);
+
+                    if (empty($this->confirmation)) {
+                        throw new ClientException(_('No such confirmation code.'), 405);
+                    }
+                }
+
+                $this->password1 = $this->trimmed('password1');
+                $this->password2 = $this->trimmed('password2');
+                
+                $this->tos = $this->boolean('tos');
+            }
+        } else { // GET
+            $this->code = $this->trimmed('code');
+
+            if (empty($this->code)) {
+                $this->state = self::NEWREGISTER;
+            } else {
+                $this->invitation = Invitation::staticGet('code', $this->code);
+                if (!empty($this->invitation)) {
+                    $this->state = self::CONFIRMINVITE;
+                } else {
+                    $this->state = self::CONFIRMREGISTER;
+                    $this->confirmation = Confirm_address::staticGet('code', $this->code);
+
+                    if (empty($this->confirmation)) {
+                        throw new ClientException(_('No such confirmation code.'), 405);
+                    }
+                }
+            }
         }
 
         return true;
     }
 
-    /**
-     * Handle request
-     *
-     * This is the main method for handling a request. Note that
-     * most preparation should be done in the prepare() method;
-     * by the time handle() is called the action should be
-     * more or less ready to go.
-     *
-     * @param array $args $_REQUEST args; handled in prepare()
-     *
-     * @return void
-     */
-    function handle($args)
-    {
-        parent::handle($args);
-
-        $this->showPage();
-    }
-
-    /**
-     * Title of this page
-     *
-     * Override this method to show a custom title.
-     *
-     * @return string Title of the page
-     */
     function title()
     {
-        if (empty($this->user)) {
-            return _m('Hello');
-        } else {
-            return sprintf(_m('Hello, %s!'), $this->user->nickname);
+        switch ($this->state) {
+        case self::NEWREGISTER:
+        case self::NEWEMAIL:
+            // TRANS: Title for registration page.
+            return _m('TITLE','Register');
+            break;
+        case self::SETPASSWORD:
+        case self::CONFIRMINVITE:
+        case self::CONFIRMREGISTER:
+            // TRANS: Title for page where to change password.
+            return _m('TITLE','Set password');
+            break;
         }
     }
 
     /**
-     * Show content in the content area
+     * Handler method
      *
-     * The default StatusNet page has a lot of decorations: menus,
-     * logos, tabs, all that jazz. This method is used to show
-     * content in the content area of the page; it's the main
-     * thing you want to overload.
-     *
-     * This method also demonstrates use of a plural localized string.
+     * @param array $argarray is ignored since it's now passed in in prepare()
      *
      * @return void
      */
+
+    function handle($argarray=null)
+    {
+        switch ($this->state) {
+        case self::NEWREGISTER:
+            $this->showRegistrationForm();
+            break;
+        case self::NEWEMAIL:
+            $this->registerUser();
+            break;
+        case self::CONFIRMINVITE:
+            $this->confirmInvite();
+            break;
+        case self::CONFIRMREGISTER:
+            $this->confirmRegister();
+            break;
+        case self::SETPASSWORD:
+            $this->setPassword();
+            break;
+        }
+        return;
+    }
+
+    function showRegistrationForm()
+    {
+        $this->form = new EmailRegistrationForm($this, $this->email);
+        $this->showPage();
+    }
+
+    function registerUser()
+    {
+        $old = User::staticGet('email', $this->email);
+
+        if (!empty($old)) {
+            $this->error = sprintf(_('A user with that email address already exists. You can use the '.
+                                     '<a href="%s">password recovery</a> tool to recover a missing password.'),
+                                   common_local_url('recoverpassword'));
+            $this->showRegistrationForm();
+            break;
+        }
+
+        $valid = false;
+
+        if (Event::handle('StartValidateUserEmail', array(null, $this->email, &$valid))) {
+            $valid = Validate::email($this->email, common_config('email', 'check_domain'));
+            Event::handle('EndValidateUserEmail', array(null, $this->email, &$valid));
+        }
+
+        if (!$valid) {
+            $this->error = _('Not a valid email address.');
+            $this->showRegistrationForm();
+        }
+
+        $confirm = Confirm_address::getAddress($this->email, self::CONFIRMTYPE);
+
+        if (empty($confirm)) {
+            $confirm = Confirm_address::saveNew(null, $this->email, 'register');
+            $prompt = sprintf(_('An email was sent to %s to confirm that address. Check your email inbox for instructions.'),
+                              $this->email);
+        } else {
+            $prompt = sprintf(_('The address %s was already registered but not confirmed. The confirmation code was resent.'),
+                              $this->email);
+        }
+
+        $this->sendConfirmEmail($confirm);
+
+        $this->complete = $prompt;
+        
+        $this->showPage();
+    }
+
+    function confirmInvite()
+    {
+        $this->form = new ConfirmRegisterForm($this, $this->invitation->code);
+        $this->showPage();
+    }
+
+    function confirmRegister()
+    {
+        $this->form = new ConfirmRegisterForm($this, $this->confirmation->code);
+        $this->showPage();
+    }
+
+    function setPassword()
+    {
+        if (!$this->tos) {
+            $this->error = _('You must accept the terms of service and privacy policy to register.');
+            $this->form = new ConfirmRegisterForm($this, $this->code);
+            $this->showPage();
+            return;
+        }
+
+        if (!empty($this->invitation)) {
+            $email = $this->invitation->address;
+        } else if (!empty($this->confirmation)) {
+            $email = $this->confirmation->address;
+        } else {
+            throw new Exception('No confirmation thing.');
+        }
+
+        $nickname = $this->nicknameFromEmail($email);
+
+        $this->user = User::registerNew(array('nickname' => $nickname,
+                                              'email' => $email,
+                                              'email_confirmed' => true));
+
+        if (empty($this->user)) {
+            throw new Exception("Failed to register user.");
+        }
+
+        if (!empty($this->invitation)) {
+            $inviter = User::staticGet('id', $this->invitation->user_id);
+            if (!empty($inviter)) {
+                Subscription::start($inviter->getProfile(),
+                                    $user->getProfile());
+            }
+
+            $this->invitation->delete();
+        } else if (!empty($this->confirmation)) {
+            $this->confirmation->delete();
+        } else {
+            throw new Exception('No confirmation thing.');
+        }
+
+        common_redirect(common_local_url('doc', array('file' => 'registered')),
+                        303);
+    }
+
+    function sendConfirmEmail($confirm, $new)
+    {
+        $sitename = common_config('site', 'name');
+
+        $recipients = array($confirm->address);
+
+        $headers['From'] = mail_notify_from();
+        $headers['To'] = trim($confirm->address);
+        $headers['Subject'] = sprintf(_('Confirm your registration on %1$s'), $sitename);
+
+        $body = sprintf(_('Someone (probably you) has requested an account on %1$s using this email address.'.
+                          "\n".
+                          'To confirm the address, click the following URL or copy it into the address bar of your browser.'.
+                          "\n".
+                          '%2$s'.
+                          "\n".
+                          'If it was not you, you can safely ignore this message.'),
+                        $sitename,
+                        common_local_url('register', array('code' => $confirm->code)));
+
+        mail_send($recipients, $headers, $body);
+    }
+
     function showContent()
     {
-        if (empty($this->user)) {
-            $this->element('p', array('class' => 'greeting'),
-                           _m('Hello, stranger!'));
+        if ($this->complete) {
+            $this->elementStart('p', 'success');
+            $this->raw($this->complete);
+            $this->elementEnd('p');
         } else {
-            $this->element('p', array('class' => 'greeting'),
-                           sprintf(_m('Hello, %s'), $this->user->nickname));
-            $this->element('p', array('class' => 'greeting_count'),
-                           sprintf(_m('I have greeted you %d time.',
-                                      'I have greeted you %d times.',
-                                      $this->gc->greeting_count),
-                                   $this->gc->greeting_count));
+            if ($this->error) {
+                $this->elementStart('p', 'error');
+                $this->raw($this->error);
+                $this->elementEnd('p');
+            }
+
+            if (!empty($this->form)) {
+                $this->form->show();
+            }
         }
     }
 
     /**
      * Return true if read only.
      *
-     * Some actions only read from the database; others read and write.
-     * The simple database load-balancer built into StatusNet will
-     * direct read-only actions to database mirrors (if they are configured),
-     * and read-write actions to the master database.
+     * MAY override
      *
-     * This defaults to false to avoid data integrity issues, but you
-     * should make sure to overload it for performance gains.
-     *
-     * @param array $args other arguments, if RO/RW status depends on them.
+     * @param array $args other arguments
      *
      * @return boolean is read only action?
      */
+
     function isReadOnly($args)
     {
         return false;
+    }
+}
+
+class EmailRegistrationForm extends Form
+{
+    protected $email;
+
+    function __construct($out, $email)
+    {
+        parent::__construct($out);
+        $this->email = $email;
+    }
+
+    function formData()
+    {
+        $this->out->element('p', 'instructions',
+                            _('Enter your email address to register for an account.'));
+                            
+        $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
+        $this->out->elementStart('ul', 'form_data');
+
+        $this->li();
+        $this->out->input('email',
+                          // TRANS: Field label on form for adding a new bookmark.
+                          _m('LABEL','E-mail address'),
+                          $this->email);
+        $this->unli();
+
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
+    }
+
+     function method()
+     {
+         return 'post';
+     }
+
+    /**
+     * Buttons for form actions
+     *
+     * Submit and cancel buttons (or whatever)
+     * Sub-classes should overload this to show their own buttons.
+     *
+     * @return void
+     */
+
+    function formActions()
+    {
+        // TRANS: Button text for action to save a new bookmark.
+        $this->out->submit('submit', _m('BUTTON', 'Register'));
+    }
+
+    /**
+     * ID of the form
+     *
+     * Should be unique on the page. Sub-classes should overload this
+     * to show their own IDs.
+     *
+     * @return int ID of the form
+     */
+
+    function id()
+    {
+        return 'form_email_registration';
+    }
+
+    /**
+     * Action of the form.
+     *
+     * URL to post to. Should be overloaded by subclasses to give
+     * somewhere to post to.
+     *
+     * @return string URL to post to
+     */
+
+    function action()
+    {
+        return common_local_url('register');
+    }
+
+    function formClass()
+    {
+        return 'form_email_registration';
     }
 }
