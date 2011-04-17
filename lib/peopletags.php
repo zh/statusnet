@@ -83,8 +83,8 @@ class PeopletagsWidget extends Widget
 
     function label()
     {
-        // TRANS: Label in people tags widget.
-        return _m('LABEL','Tags by you');
+        // TRANS: Label in lists widget.
+        return _m('LABEL','Your lists');
     }
 
     function showTags()
@@ -131,8 +131,8 @@ class PeopletagsWidget extends Widget
                                            'action' => common_local_url('tagprofile', array('id' => $this->tagged->id))));
 
         $this->out->elementStart('fieldset');
-        // TRANS: Fieldset legend in people tags widget.
-        $this->out->element('legend', null, _m('LEGEND','Edit tags'));
+        // TRANS: Fieldset legend in lists widget.
+        $this->out->element('legend', null, _m('LEGEND','Edit lists'));
         $this->out->hidden('token', common_session_token());
         $this->out->hidden('id', $this->tagged->id);
 

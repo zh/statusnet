@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
-"PO-Revision-Date: 2011-04-16 22:57:23+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"PO-Revision-Date: 2011-04-17 18:20:30+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-11 13:14:46+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-16 23:17:29+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-directory\n"
@@ -67,26 +67,25 @@ msgid "No results."
 msgstr "Geen resultaten."
 
 #. TRANS: Title for group directory page. %d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Group Directory, page %d"
 msgstr "Gebruikerslijst, pagina %d"
 
 #. TRANS: Title for group directory page.
-#, fuzzy
 msgid "Group directory"
 msgstr "Gebruikerslijst"
 
 #. TRANS: Title for group directory page when it is filtered.
 #. TRANS: %s is the filter string.
-#, fuzzy, php-format
+#, php-format
 msgid "Group directory - %s"
 msgstr "Gebruikerslijst - %s"
 
 #. TRANS: Title for group directory page when it is filtered.
 #. TRANS: %1$s is the filter string, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Group directory - %1$s, page %2$d"
-msgstr "Gebruikerslijst - %s, pagina %d"
+msgstr "Gebruikerslijst - %1$s, pagina %2$d"
 
 #. TRANS: Page instructions.
 msgid ""
@@ -96,21 +95,27 @@ msgid ""
 "Browse groups, or search for groups on by their name, location or topic.\n"
 "Separate the terms by spaces; they must be three characters or more.\n"
 msgstr ""
+"Nadat u lid bent geworden van een groep kunt u berichten naar de groep "
+"zenden door \"\"!groepsnaam\" te gebruiken in uw bericht.\n"
+"\n"
+"Blader door groepen or zoek naar groepen op basis van hun naam, locatie of "
+"onderwerp.\n"
+"Scheid trefwoorden met spaties; trefwoorden moeten bestaat uit drie of meer "
+"tekens.\n"
 
 #. TRANS: Link to create a new group on the group list page.
 msgid "Create a new group"
-msgstr ""
+msgstr "Nieuwe groep maken"
 
 #. TRANS: Fieldset legend.
-#, fuzzy
 msgid "Search groups"
-msgstr "Site doorzoeken"
+msgstr "Groepen doorzoeken"
 
 #. TRANS: Empty list message for searching group directory.
 #. TRANS: %s is the search string.
-#, fuzzy, php-format
+#, php-format
 msgid "No groups starting with %s."
-msgstr "Er zijn geen gebruikers wiens naam begint met \"%s\""
+msgstr "Er zijn geen groepsnamen die beginnen met \"%s\"."
 
 #. TRANS: Help text for searching group directory.
 msgid ""
@@ -119,6 +124,10 @@ msgid ""
 "* Try more general keywords.\n"
 "* Try fewer keywords."
 msgstr ""
+"* Zorg ervoor dat alle woorden correct zijn gespeld.\n"
+"* Gebruik verschillende trefwoorden.\n"
+"* Gebruik meer algemene trefwoorden.\n"
+"* Gebruik minder zoekwoorden."
 
 #. TRANS: Menu item text for user directory.
 msgctxt "MENU"
@@ -143,4 +152,4 @@ msgstr "Aangemaakt"
 
 #. TRANS: Column header in table for members of a group.
 msgid "Members"
-msgstr ""
+msgstr "Leden"

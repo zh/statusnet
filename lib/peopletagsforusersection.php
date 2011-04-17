@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * People tags a user has been tagged with
+ * Lists a user is in
  *
  * PHP version 5
  *
@@ -31,7 +31,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 }
 
 /**
- * People tags a user has been tagged with
+ * List a user has is in
  *
  * @category Widget
  * @package  StatusNet

@@ -92,8 +92,8 @@ class PeopletagsubscribersAction extends OwnerDesignAction
         $this->peopletag = Profile_list::pkeyGet(array('tagger' => $user->id, 'tag' => $tag));
 
         if (!$this->peopletag) {
-            // TRANS: Client error displayed trying to reference a non-existing people tag.
-            $this->clientError(_('No such people tag.'), 404);
+            // TRANS: Client error displayed trying to reference a non-existing list.
+            $this->clientError(_('No such list.'), 404);
             return false;
         }
 
@@ -103,14 +103,14 @@ class PeopletagsubscribersAction extends OwnerDesignAction
     function title()
     {
         if ($this->page == 1) {
-            // TRANS: Page title for list of people tag subscribers.
-            // TRANS: %1$s is a tag, %2$s is a user nickname.
-            return sprintf(_('Subscribers of people tagged %1$s by %2$s'),
+            // TRANS: Page title for list of list subscribers.
+            // TRANS: %1$s is a list, %2$s is a user nickname.
+            return sprintf(_('Subscribers to list %1$s by %2$s'),
                            $this->peopletag->tag, $this->tagger->nickname);
         } else {
-            // TRANS: Page title for list of people tag subscribers.
-            // TRANS: %1$s is a tag, %2$s is a user nickname, %3$d is a page number.
-            return sprintf(_('Subscribers of people tagged %1$s by %2$s, page %3$d'),
+            // TRANS: Page title for list of list subscribers.
+            // TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
+            return sprintf(_('Subscribers to list %1$s by %2$s, page %3$d'),
                            $this->peopletag->tag, $this->tagger->nickname,
                            $this->page);
         }

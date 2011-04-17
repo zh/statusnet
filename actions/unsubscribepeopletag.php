@@ -57,7 +57,7 @@ class UnsubscribepeopletagAction extends Action
 
         if (!common_logged_in()) {
             // TRANS: Client error displayed when trying to perform an action while not logged in.
-            $this->clientError(_('You must be logged in to unsubscribe to a people tag.'));
+            $this->clientError(_('You must be logged in to unsubscribe from a list.'));
             return false;
         }
         // Only allow POST requests
@@ -92,8 +92,8 @@ class UnsubscribepeopletagAction extends Action
         }
 
         if (!$this->peopletag || $this->peopletag->private) {
-            // TRANS: Client error displayed trying to reference a non-existing people tag.
-            $this->clientError(_('No such people tag.'), 404);
+            // TRANS: Client error displayed trying to reference a non-existing list.
+            $this->clientError(_('No such list.'), 404);
             return false;
         }
 
@@ -122,9 +122,9 @@ class UnsubscribepeopletagAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            // TRANS: Page title for form that allows unsubscribing from a people tag.
-            // TRANS: %1$s is a nickname, %2$s is a people tag, %3$s is a tagger nickname.
-            $this->element('title', null, sprintf(_('%1$s unsubscribed to people tag %2$s by %3$s'),
+            // TRANS: Page title for form that allows unsubscribing from a list.
+            // TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
+            $this->element('title', null, sprintf(_('%1$s unsubscribed from list %2$s by %3$s'),
                                                   $cur->nickname,
                                                   $this->peopletag->tag,
                                                   $this->tagger->nickname));

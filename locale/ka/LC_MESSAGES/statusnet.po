@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
-"PO-Revision-Date: 2011-04-16 22:56:31+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"PO-Revision-Date: 2011-04-17 18:19:39+0000\n"
 "Language-Team: Georgian <http://translatewiki.net/wiki/Portal:ka>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ka\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-04-13 13:56:48+0000\n"
+"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -112,7 +112,7 @@ msgstr "შეინახე შესვლის პარამეტრე�
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Button text to save snapshot settings.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
-#. TRANS: Button text to save people tags.
+#. TRANS: Button text to save lists.
 #. TRANS: Button text for saving "Other settings" in profile.
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
@@ -149,9 +149,11 @@ msgstr "ავტორიზებული არ ხართ."
 msgid "No such profile."
 msgstr "ასეთი პროფილი არ არსებობს."
 
-#. TRANS: Client error displayed trying to reference a non-existing people tag.
+#. TRANS: Client error displayed trying to reference a non-existing list.
+#. TRANS: Client error displayed when referring to a non-existing list.
+#. TRANS: Client error displayed trying to reference a non-existing list.
 #, fuzzy
-msgid "No such people tag."
+msgid "No such list."
 msgstr "ასეთი სანიშნე არ არსებობს."
 
 #. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
@@ -174,7 +176,7 @@ msgid ""
 "correctly, please try retrying later."
 msgstr ""
 
-#. TRANS: Title after subscribing to a people tag.
+#. TRANS: Title after subscribing to a list.
 #. TRANS: Page title when subscription succeeded.
 msgid "Subscribed"
 msgstr "გამოწერილია"
@@ -609,7 +611,7 @@ msgstr "სრული სახელი ძალიან გრძელი
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Group edit form validation error.
-#. TRANS: Client error shown when providing too long a description when editing a people tag.
+#. TRANS: Client error shown when providing too long a description when editing a list.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Form validation error in New application form.
 #. TRANS: %d is the maximum number of characters for the description.
@@ -2262,7 +2264,7 @@ msgid "Invalid alias: \"%s\""
 msgstr ""
 
 #. TRANS: Group edit form success message.
-#. TRANS: Edit people tag form success message.
+#. TRANS: Edit list form success message.
 msgid "Options saved."
 msgstr "პარამეტრები შენახულია."
 
@@ -2284,11 +2286,6 @@ msgstr "პიროვნებების არასწორი სან�
 #, fuzzy
 msgid "No tagger or ID."
 msgstr "მეტსახელი ან ID უცნობია."
-
-#. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
-msgid "No such list."
-msgstr "ასეთი სანიშნე არ არსებობს."
 
 #. TRANS: Client error displayed when referring to non-local user.
 #, fuzzy
@@ -4137,26 +4134,26 @@ msgstr ""
 msgid "People search"
 msgstr "პიროვნებების ძიება"
 
-#. TRANS: Title for people tag page.
-#. TRANS: %s is a tag.
+#. TRANS: Title for list page.
+#. TRANS: %s is a list.
 #, fuzzy, php-format
-msgid "Public people tag %s"
-msgstr "საჯარო განახლებების ნაკადი, გვერდი %d"
+msgid "Public list %s"
+msgstr "საჯარო სანიშნეების ღრუბელი."
 
-#. TRANS: Title for people tag page.
-#. TRANS: %1$s is a tag, %2$d is a page number.
+#. TRANS: Title for list page.
+#. TRANS: %1$s is a list, %2$d is a page number.
 #, fuzzy, php-format
-msgid "Public people tag %1$s, page %2$d"
+msgid "Public list %1$s, page %2$d"
 msgstr "პასუხები %1$s–ს, გვერდი %2$d"
 
-#. TRANS: Message for anonymous users on people tag page.
+#. TRANS: Message for anonymous users on list page.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
-"People tags are how you sort similar people on %%site.name%%, a [micro-"
-"blogging](http://en.wikipedia.org/wiki/Micro-blogging) service based on the "
-"Free Software [StatusNet](http://status.net/) tool. You can then easily keep "
-"track of what they are doing by subscribing to the tag's timeline."
+"Lists are how you sort similar people on %%site.name%%, a [micro-blogging]"
+"(http://en.wikipedia.org/wiki/Micro-blogging) service based on the Free "
+"Software [StatusNet](http://status.net/) tool. You can then easily keep "
+"track of what they are doing by subscribing to the list's timeline."
 msgstr ""
 "რს არის %%site.name%%, [მიკრო–ბლოგინგის](http://en.wikipedia.org/wiki/Micro-"
 "blogging) სერვისი, დაფუძნებული უფასო [StatusNet](http://status.net/) კოდზე."
@@ -4273,10 +4270,12 @@ msgstr ""
 msgid "%s has not created any [lists](%%%%doc.lists%%%%) yet."
 msgstr "ჯერჯერობით არავის დაუპოსტავს შეტყობინება [hashtag](%%doc.tags%%)–ით."
 
+#. TRANS: Page title. %s is a tagged user's nickname.
 #, php-format
 msgid "Lists with %s in them"
 msgstr ""
 
+#. TRANS: Page title. %1$s is a tagged user's nickname, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Lists with %1$s, page %2$d"
 msgstr "შეტყობინებები მონიშნული %1$s-ით, გვერდი %2$d"
@@ -4295,23 +4294,23 @@ msgstr ""
 "რს არის %%site.name%%, [მიკრო–ბლოგინგის](http://en.wikipedia.org/wiki/Micro-"
 "blogging) სერვისი, დაფუძნებული უფასო [StatusNet](http://status.net/) კოდზე."
 
-#. TRANS: Message displayed on page that displays lists for a user when there are none.
+#. TRANS: Message displayed on page that displays lists a user was added to when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
-#. TRANS: %s is a tagger nickname.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgid "%s has not been [listed](%%%%doc.lists%%%%) by anyone yet."
 msgstr "ჯერჯერობით არავის დაუპოსტავს შეტყობინება [hashtag](%%doc.tags%%)–ით."
 
-#. TRANS: Page title for list of people tag subscribers.
-#. TRANS: %1$s is a tag, %2$s is a user nickname.
-#, php-format
-msgid "Subscribers of people tagged %1$s by %2$s"
-msgstr ""
-
-#. TRANS: Page title for list of people tag subscribers.
-#. TRANS: %1$s is a tag, %2$s is a user nickname, %3$d is a page number.
+#. TRANS: Page title for list of list subscribers.
+#. TRANS: %1$s is a list, %2$s is a user nickname.
 #, fuzzy, php-format
-msgid "Subscribers of people tagged %1$s by %2$s, page %3$d"
+msgid "Subscribers to list %1$s by %2$s"
+msgstr "%s-ს გამოწერა დასრულდა წარმატებით."
+
+#. TRANS: Page title for list of list subscribers.
+#. TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
+#, fuzzy, php-format
+msgid "Subscribers to list %1$s by %2$s, page %3$d"
 msgstr "შეტყობინებები მონიშნული %1$s-ით, გვერდი %2$d"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
@@ -4688,45 +4687,45 @@ msgstr ""
 "რს არის %%site.name%%, [მიკრო–ბლოგინგის](http://en.wikipedia.org/wiki/Micro-"
 "blogging) სერვისი, დაფუძნებული უფასო [StatusNet](http://status.net/) კოდზე."
 
-#. TRANS: Title for page with public people tag cloud.
+#. TRANS: Title for page with public list cloud.
 #, fuzzy
-msgid "Public people tag cloud"
+msgid "Public list cloud"
 msgstr "საჯარო სანიშნეების ღრუბელი."
 
-#. TRANS: Page notice for page with public people tag cloud.
+#. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
 #, fuzzy, php-format
-msgid "These are most used people tags on %s"
+msgid "These are largest lists on %s"
 msgstr "ეს არის ყველაზე პოპულარული სანიშნეები %s–ზე "
 
-#. TRANS: Empty list message on page with public people tag cloud.
+#. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
-msgid "No one has [tagged](%%doc.tags%%) anyone yet."
+msgid "No one has [listed](%%doc.tags%%) anyone yet."
 msgstr "ჯერჯერობით არავის დაუპოსტავს შეტყობინება [hashtag](%%doc.tags%%)–ით."
 
-#. TRANS: Additional empty list message on page with public people tag cloud for logged in users.
+#. TRANS: Additional empty list message on page with public list cloud for logged in users.
 #, fuzzy
-msgid "Be the first to tag someone!"
+msgid "Be the first to list someone!"
 msgstr "დაპოსტე პირველმა!"
 
-#. TRANS: Additional empty list message on page with public people tag cloud for anonymous users.
+#. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
-"Why not [register an account](%%action.register%%) and be the first to tag "
+"Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
 msgstr "[დარეგისტრირდი](%%action.register%%) და დაპოსტე პირველმა!"
 
-#. TRANS: DT element on on page with public people tag cloud.
+#. TRANS: DT element on on page with public list cloud.
 #, fuzzy
-msgid "People tag cloud"
-msgstr "საჯარო სანიშნეების ღრუბელი."
+msgid "List cloud"
+msgstr "API მეთოდი ვერ მოიძებნა."
 
-#. TRANS: Link title for number of people tagged. %d is the number of people tagged.
+#. TRANS: Link title for number of listed people. %d is the number of listed people.
 #, php-format
-msgid "1 person tagged"
-msgid_plural "%d people tagged"
+msgid "1 person listed"
+msgid_plural "%d people listed"
 msgstr[0] ""
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
@@ -5108,7 +5107,7 @@ msgstr "თქვენი პროფილის URL სხვა თავ�
 #. TRANS: Button text on page for remote subscribe.
 #. TRANS: Link text for link that will subscribe to a remote profile.
 #. TRANS: Button text to subscribe to a user.
-#. TRANS: Button text for subscribing to a people tag.
+#. TRANS: Button text for subscribing to a list.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Subscribe"
@@ -5142,7 +5141,21 @@ msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
 msgstr ""
 "თქვენ არ შეგიძლიათ გამოიწეროთ 0მბ-იანი 0.1 დაშორებული პროფილი ამ მოქმედებით."
 
-#. TRANS: Title after untagging a people tag.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a username.
+#, php-format
+msgid "There was an unexpected error while listing %s."
+msgstr ""
+
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a profile URL.
+#, php-format
+msgid ""
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly, please try retrying later."
+msgstr ""
+
+#. TRANS: Title after removing a user from a list.
 msgid "Untagged"
 msgstr ""
 
@@ -5332,10 +5345,10 @@ msgstr "თქვენ ვერ შეძლებთ მომხმარე
 msgid "User is already sandboxed."
 msgstr "მომხმარებელი უკვე იზოლირებულია."
 
-#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
-#. TRANS: %s is the invalid tag.
-#, php-format
-msgid "Not a valid people tag: %s."
+#. TRANS: Client error displayed when trying to list a profile with an invalid list.
+#. TRANS: %s is the invalid list name.
+#, fuzzy, php-format
+msgid "Not a valid list: %s."
 msgstr "პიროვნებების არასწორი სანიშნე: %s."
 
 #. TRANS: Page title for page showing self tags.
@@ -5618,21 +5631,21 @@ msgid "Notice deleted."
 msgstr ""
 
 #. TRANS: Title for private list timeline.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
+#. TRANS: %1$s is a list, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Private timeline for %1$s list by you, page %2$d"
 msgstr ""
 "მომხმარებლები რომლებმაც საკუთარი თავი მონიშნეს როგორც %1$s – გვერდი %2$d"
 
 #. TRANS: Title for public list timeline where the viewer is the tagger.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
+#. TRANS: %1$s is a list, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Timeline for %1$s list by you, page %2$d"
 msgstr ""
 "მომხმარებლები რომლებმაც საკუთარი თავი მონიშნეს როგორც %1$s – გვერდი %2$d"
 
 #. TRANS: Title for private list timeline.
-#. TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
+#. TRANS: %1$s is a list, %2$s is the tagger's nickname, %3$d is a page number.
 #, fuzzy, php-format
 msgid "Timeline for %1$s list by %2$s, page %3$d"
 msgstr "შეტყობინებები მონიშნული %1$s-ით, გვერდი %2$d"
@@ -5671,11 +5684,11 @@ msgstr ""
 "ეს არის $s-ს და მეგობრების განახლებების ნაკადი, მაგრამ ჯერჯერობით არავის "
 "დაუპოსტავს."
 
-#. TRANS: Additional empty list message for people tag timeline for currently logged in user tagged tags.
+#. TRANS: Additional empty list message for list timeline for currently logged in user tagged tags.
 msgid "Try tagging more people."
 msgstr ""
 
-#. TRANS: Additional empty list message for people tag timeline.
+#. TRANS: Additional empty list message for list timeline.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
@@ -5688,7 +5701,7 @@ msgstr "[დარეგისტრირდი](%%action.register%%) და �
 msgid "Listed"
 msgstr "ლიცენზია"
 
-#. TRANS: Link for more "People tagged x by a user"
+#. TRANS: Link for more "People in list x by a user"
 #. TRANS: if there are more than the mini list's maximum.
 msgid "Show all"
 msgstr ""
@@ -6203,7 +6216,7 @@ msgstr ""
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
 #, fuzzy
-msgid "You must be logged in to unsubscribe to a people tag."
+msgid "You must be logged in to unsubscribe from a list."
 msgstr "გჯუფის შესაქმნელად საჭიროა ავტორიზაცია."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
@@ -6211,16 +6224,16 @@ msgstr "გჯუფის შესაქმნელად საჭირო�
 msgid "No ID given."
 msgstr "ID უცნობია."
 
-#. TRANS: Server error displayed subscribing to a people tag fails.
-#. TRANS: %1$s is a user nickname, %2$s is a people tag.
+#. TRANS: Server error displayed subscribing to a list fails.
+#. TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
 #, fuzzy, php-format
-msgid "Could not subscribe user %1$s to people tag %2$s."
+msgid "Could not subscribe user %1$s to list %2$s: %3$s"
 msgstr "ვერ მოხერხდა მომხმარებელ %1$s-სთან ერთად ჯგუფ %2$s-ში გაერთიანება."
 
-#. TRANS: Title of form to subscribe to a people tag.
-#. TRANS: %1%s is a user nickname, %2$s is a people tag, %3$s is a tagger nickname.
+#. TRANS: Title of form to subscribe to a list.
+#. TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
 #, fuzzy, php-format
-msgid "%1$s subscribed to people tag %2$s by %3$s"
+msgid "%1$s subscribed to list %2$s by %3$s"
 msgstr "%1$s გამომწერი, გვერდი %2$d"
 
 #. TRANS: Header for list of subscribers for a user (first page).
@@ -6364,42 +6377,43 @@ msgstr "შეტყობინებების RSS მონიშნულ�
 msgid "You cannot tag this user."
 msgstr "ამ მომხმარებელს შეტყობინებას ვერ გაუგზავნი."
 
-#. TRANS: Title for people tag form when not on a profile page.
+#. TRANS: Title for list form when not on a profile page.
 #, fuzzy
-msgid "Tag a profile"
+msgid "List a profile"
 msgstr "მომხმარებლის პროფილი"
 
-#. TRANS: Title for people tag form when on a profile page.
+#. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, php-format
-msgid "Tag %s"
-msgstr "სანიშნე %s"
+#, fuzzy, php-format
+msgctxt "ADDTOLIST"
+msgid "List %s"
+msgstr "ზღვრები"
 
-#. TRANS: Title for people tag form when an error has occurred.
+#. TRANS: Title for list form when an error has occurred.
 #, fuzzy
 msgctxt "TITLE"
 msgid "Error"
 msgstr "Ajax შეცდომა"
 
-#. TRANS: Header in people tag form.
+#. TRANS: Header in list form.
 msgid "User profile"
 msgstr "მომხმარებლის პროფილი"
 
-#. TRANS: Fieldset legend for people tag form.
-msgid "Tag user"
-msgstr "მონიშნე მომხმარებელი"
+#. TRANS: Fieldset legend for list form.
+#, fuzzy
+msgid "List user"
+msgstr "ზღვრები"
 
-#. TRANS: Field label on people tag form.
-#. TRANS: Label in self tags widget.
+#. TRANS: Field label on list form.
 #, fuzzy
 msgctxt "LABEL"
-msgid "Tags"
-msgstr "სანიშნეები"
+msgid "Lists"
+msgstr "ზღვრები"
 
-#. TRANS: Field title on people tag form.
+#. TRANS: Field title on list form.
 #, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
 "საკუთარი სანიშნეები (ასოები, ციფრები, -, ., და _). გამოყავით მძიმით ან "
@@ -6411,13 +6425,14 @@ msgctxt "TITLE"
 msgid "Tags"
 msgstr "სანიშნეები"
 
-#. TRANS: Success message if people tags are saved.
+#. TRANS: Success message if lists are saved.
 #, fuzzy
-msgid "Tags saved."
+msgid "Lists saved."
 msgstr "პაროლი შენახულია."
 
 #. TRANS: Page notice.
-msgid "Use this form to add tags to your subscribers or subscriptions."
+#, fuzzy
+msgid "Use this form to add your subscribers or subscriptions to lists."
 msgstr ""
 "გამოიყენეთ ეს ფორმა, რომ მიანიჭოთ სანიშნეები თქვენს გამოწერებს ან "
 "გამომწერებს."
@@ -6442,10 +6457,10 @@ msgstr "მომხმარებელი არ არის დადუმ
 msgid "Unsubscribed"
 msgstr "გამოწერა გაუქმებულია"
 
-#. TRANS: Page title for form that allows unsubscribing from a people tag.
-#. TRANS: %1$s is a nickname, %2$s is a people tag, %3$s is a tagger nickname.
+#. TRANS: Page title for form that allows unsubscribing from a list.
+#. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
 #, fuzzy, php-format
-msgid "%1$s unsubscribed to people tag %2$s by %3$s"
+msgid "%1$s unsubscribed from list %2$s by %3$s"
 msgstr "%1$s გამომწერი, გვერდი %2$d"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
@@ -7140,21 +7155,21 @@ msgid ""
 "of tags. Try using or deleting some existing tags."
 msgstr ""
 
-#. TRANS: Client exception thrown trying to set one tag for more people than allowed.
+#. TRANS: Client exception thrown when trying to add more people than allowed to a list.
 #, php-format
 msgid ""
-"You already have %1$d or more people tagged %2$s, which is the maximum "
-"allowed number.Try untagging others with the same tag first."
+"You already have %1$d or more people in list %2$s, which is the maximum "
+"allowed number.Try unlisting others first."
 msgstr ""
 
-#. TRANS: Exception thrown when inserting a people tag subscription in the database fails.
+#. TRANS: Exception thrown when inserting a list subscription in the database fails.
 #, fuzzy
-msgid "Adding people tag subscription failed."
+msgid "Adding list subscription failed."
 msgstr "გამოწერის წაშლა ვერ მოხერხდა."
 
-#. TRANS: Exception thrown when deleting a people tag subscription from the database fails.
+#. TRANS: Exception thrown when deleting a list subscription from the database fails.
 #, fuzzy
-msgid "Removing people tag subscription failed."
+msgid "Removing list subscription failed."
 msgstr "გამოწერის წაშლა ვერ მოხერხდა."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
@@ -7775,7 +7790,7 @@ msgid "Cancel"
 msgstr "გაუქმება"
 
 #. TRANS: Submit button title.
-#. TRANS: Button text to save a people tag.
+#. TRANS: Button text to save a list.
 msgid "Save"
 msgstr "შენახვა"
 
@@ -7823,14 +7838,14 @@ msgid "Do not use this method!"
 msgstr "არ წაშალო ეს შეტყობინება"
 
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-#, php-format
-msgid "Timeline for people tagged #%1$s by %2$s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Timeline for people in list %1$s by %2$s"
+msgstr "პასუხები %1$s–ს %2$s–ზე!"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
 #, fuzzy, php-format
-msgid "Updates from %1$s's %2$s people tag on %3$s!"
+msgid "Updates from %1$s's list %2$s on %3$s!"
 msgstr "%1$s-ს განახლებები %2$s-ზე!"
 
 #. TRANS: Title.
@@ -9476,15 +9491,15 @@ msgstr "ახალი გამოწერის ჩასმა ვერ �
 msgid "No oEmbed API endpoint available."
 msgstr "IM არ არის ხელმისაწვდომი."
 
-#. TRANS: Field label for people tag.
+#. TRANS: Field label for list.
 #, fuzzy
 msgctxt "LABEL"
-msgid "Tag"
-msgstr "სანიშნე"
+msgid "List"
+msgstr "ბმულები"
 
-#. TRANS: Field title for people tag.
+#. TRANS: Field title for list.
 #, fuzzy
-msgid "Change the tag (letters, numbers, -, ., and _ are allowed)."
+msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
 msgstr ""
 "სანიშნეები ამ მომხმარებლისთვის (ასოები, ციფრები, -, ., და _). გამოყავით "
 "მძიმით ან სივრცით"
@@ -9506,11 +9521,11 @@ msgstr[0] "არწერე ჯგუფი ან თემა %d სიმ�
 msgid "Delete this list."
 msgstr "ამ მომხმარებლის წაშლა"
 
-#. TRANS: Header in people tag edit form.
+#. TRANS: Header in list edit form.
 msgid "Add or remove people"
 msgstr ""
 
-#. TRANS: Header in people tag edit form.
+#. TRANS: Header in list edit form.
 #, fuzzy
 msgctxt "HEADER"
 msgid "Search"
@@ -9547,7 +9562,7 @@ msgstr "გამომწერები"
 msgid "Subscribers to %1$s list by %2$s."
 msgstr "%s-ს გამოწერა დასრულდა წარმატებით."
 
-#. TRANS: Menu item in people tag navigation panel.
+#. TRANS: Menu item in list navigation panel.
 #, fuzzy
 msgctxt "MENU"
 msgid "Edit"
@@ -9573,7 +9588,7 @@ msgstr "პროფილის პარამეტრების რედ�
 msgid "Edit"
 msgstr "რედაქტირება"
 
-#. TRANS: Privacy mode text in people tag list item for private tags.
+#. TRANS: Privacy mode text in list list item for private list.
 #, fuzzy
 msgctxt "MODE"
 msgid "Private"
@@ -9586,48 +9601,57 @@ msgid "List Subscriptions"
 msgstr "გამოწერები"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists subscribed to by %s."
 msgstr "%s-ს გამოწერა დასრულდა წარმატებით."
 
 #. TRANS: Menu item in the group navigation page.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "MENU"
 msgid "Lists with %s"
 msgstr "განახლებები \"%s\"–თ"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists with %s."
 msgstr "განახლებები \"%s\"–თ"
 
 #. TRANS: Menu item in the group navigation page.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgctxt "MENU"
 msgid "Lists by %s"
 msgstr ""
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists by %s."
 msgstr "%1$s - %2$s"
 
-#. TRANS: Label in people tags widget.
+#. TRANS: Label in lists widget.
+#, fuzzy
 msgctxt "LABEL"
-msgid "Tags by you"
-msgstr ""
+msgid "Your lists"
+msgstr "პოპულარული შეტყობინებები"
 
-#. TRANS: Fieldset legend in people tags widget.
+#. TRANS: Fieldset legend in lists widget.
 #, fuzzy
 msgctxt "LEGEND"
-msgid "Edit tags"
-msgstr "რედაქტირება"
+msgid "Edit lists"
+msgstr "პიროვნებების არასწორი სანიშნე: %s."
+
+#. TRANS: Label in self tags widget.
+#, fuzzy
+msgctxt "LABEL"
+msgid "Tags"
+msgstr "სანიშნეები"
 
 #. TRANS: Title for section contaning lists with the most subscribers.
 #, fuzzy
@@ -9640,11 +9664,12 @@ msgstr "პოპულარული შეტყობინებები"
 msgid "Listed: %1$d Subscribers: %2$d"
 msgstr "%1$s გამომწერი, გვერდი %2$d"
 
+#. TRANS: Title for page that displays which lists current user is part of.
 #, fuzzy, php-format
 msgid "Lists with you"
 msgstr "API მეთოდი ვერ მოიძებნა."
 
-#. TRANS: Title for page that displays which people tags a user has been tagged with.
+#. TRANS: Title for page that displays which lists a user is part of.
 #. TRANS: %s is a profile name.
 #, fuzzy, php-format
 msgid "Lists with %s"
@@ -10276,16 +10301,16 @@ msgid "Choose a field to search."
 msgstr "სიის გასაფილტრად აირჩიე სანიშნე"
 
 #. TRANS: Form legend.
-#. TRANS: %1$s is a nickname, $2$s is a people tag.
+#. TRANS: %1$s is a nickname, $2$s is a list.
 #, fuzzy, php-format
-msgid "Untag %1$s as %2$s"
+msgid "Remove %1$s from list %2$s"
 msgstr "%1$s - %2$s"
 
-#. TRANS: Legend on form to add a tag to a profile.
-#. TRANS: %1$s is a nickname, %2$s ia a people tag.
+#. TRANS: Legend on form to add a profile to a list.
+#. TRANS: %1$s is a nickname, %2$s is a list.
 #, fuzzy, php-format
-msgid "Tag %1$s as %2$s"
-msgstr "RT @%1$s %2$s"
+msgid "Add %1$s to list %2$s"
+msgstr "%1$s - %2$s"
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -10348,7 +10373,7 @@ msgid "Unsubscribe from this user"
 msgstr "ამ მომხმარებლის გამოწერის გაუქმება"
 
 #. TRANS: Button text on unsubscribe form.
-#. TRANS: Button text for unsubscribing from a people tag.
+#. TRANS: Button text for unsubscribing from a list.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Unsubscribe"
@@ -10435,87 +10460,45 @@ msgid "Getting backup from file '%s'."
 msgstr ""
 
 #, fuzzy
-#~ msgid "Use this form to edit the people tag."
-#~ msgstr "ჯგუფის რედაქტირებისათვის გამოიყენეთ ეს ფორმა."
+#~ msgid "No such people tag."
+#~ msgstr "ასეთი სანიშნე არ არსებობს."
 
 #, fuzzy
-#~ msgid "Could not update people tag."
-#~ msgstr "ჯგუფის განახლება ვერ მოხერხდა."
+#~ msgid "Public people tag %s"
+#~ msgstr "საჯარო განახლებების ნაკადი, გვერდი %d"
 
 #, fuzzy
-#~ msgid "People tags by %s"
-#~ msgstr "პასუხები %s–ს"
+#~ msgid "Public people tag cloud"
+#~ msgstr "საჯარო სანიშნეების ღრუბელი."
 
 #, fuzzy
-#~ msgid "People tags by %1$s, page %2$d"
-#~ msgstr "პასუხები %1$s–ს, გვერდი %2$d"
+#~ msgid "These are most used people tags on %s"
+#~ msgstr "ეს არის ყველაზე პოპულარული სანიშნეები %s–ზე "
 
 #, fuzzy
-#~ msgid "People tags for %s"
-#~ msgstr "პასუხები %s–ს"
+#~ msgid "People tag cloud"
+#~ msgstr "საჯარო სანიშნეების ღრუბელი."
+
+#~ msgid "Tag %s"
+#~ msgstr "სანიშნე %s"
+
+#~ msgid "Tag user"
+#~ msgstr "მონიშნე მომხმარებელი"
 
 #, fuzzy
-#~ msgid "People tags for %1$s, page %2$d"
-#~ msgstr "პასუხები %1$s–ს, გვერდი %2$d"
-
-#, fuzzy
-#~ msgid "Problem saving profile_tag inbox."
-#~ msgstr "პრობლემა ჯგუფის ინდექსის შენახვისას."
-
-#~ msgid "Groups with most members"
-#~ msgstr "ჯგუფები უმეტესი მომხმარებლებით"
-
-#~ msgid "Groups with most posts"
-#~ msgstr "ჯგუფები უმეტესი პოსტებით"
-
-#, fuzzy
-#~ msgid "Describe the people tag or topic."
-#~ msgstr "აღწერე ჯგუფი ან თემა"
-
-#, fuzzy
-#~ msgid "Delete this people tag."
-#~ msgstr "ამ მომხმარებლის წაშლა"
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "People tag"
-#~ msgstr "ადამიანები"
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "Tagged"
+#~ msgctxt "LABEL"
+#~ msgid "Tag"
 #~ msgstr "სანიშნე"
 
 #, fuzzy
-#~ msgid "Edit people tag settings."
-#~ msgstr "პროფილის პარამეტრების რედაქტირება"
+#~ msgctxt "LEGEND"
+#~ msgid "Edit tags"
+#~ msgstr "რედაქტირება"
 
 #, fuzzy
-#~ msgid "People tags with most subscribers"
-#~ msgstr "თქვენ არ გაქვთ გამოწერილი ამ პროფილის განახლებები."
+#~ msgid "Untag %1$s as %2$s"
+#~ msgstr "%1$s - %2$s"
 
 #, fuzzy
-#~ msgid "People tag subscriptions"
-#~ msgstr "ყველა გამოწერა"
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "People tags"
-#~ msgstr "ადამიანები"
-
-#~ msgid "User"
-#~ msgstr "მომხმარებელი"
-
-#~ msgid "Tags in %s's notices"
-#~ msgstr "%s-ს შეტყობინებებში გამოყენებული სანიშნეები"
-
-#~ msgid "All subscriptions"
-#~ msgstr "ყველა გამოწერა"
-
-#, fuzzy
-#~ msgid "People tags"
-#~ msgstr "ადამიანები"
-
-#, fuzzy
-#~ msgid "People tags by %s."
-#~ msgstr "უკვე გამოწერილია!"
+#~ msgid "Tag %1$s as %2$s"
+#~ msgstr "RT @%1$s %2$s"

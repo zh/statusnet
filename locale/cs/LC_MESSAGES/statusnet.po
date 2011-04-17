@@ -13,18 +13,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
-"PO-Revision-Date: 2011-04-16 22:56:07+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"PO-Revision-Date: 2011-04-17 18:19:17+0000\n"
 "Language-Team: Czech <http://translatewiki.net/wiki/Portal:cs>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ( (n >= 2 && n <= 4) ? 1 : "
 "2 );\n"
-"X-POT-Import-Date: 2011-04-13 13:56:48+0000\n"
+"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -116,7 +116,7 @@ msgstr "uložit nastavení přístupu"
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Button text to save snapshot settings.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
-#. TRANS: Button text to save people tags.
+#. TRANS: Button text to save lists.
 #. TRANS: Button text for saving "Other settings" in profile.
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
@@ -153,10 +153,12 @@ msgstr "Nejste přihlášen(a)."
 msgid "No such profile."
 msgstr "Žádný takový profil."
 
-#. TRANS: Client error displayed trying to reference a non-existing people tag.
+#. TRANS: Client error displayed trying to reference a non-existing list.
+#. TRANS: Client error displayed when referring to a non-existing list.
+#. TRANS: Client error displayed trying to reference a non-existing list.
 #, fuzzy
-msgid "No such people tag."
-msgstr "Žádný takový štítek lidí."
+msgid "No such list."
+msgstr "Žádná taková nálepka."
 
 #. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
 #, fuzzy
@@ -178,7 +180,7 @@ msgid ""
 "correctly, please try retrying later."
 msgstr ""
 
-#. TRANS: Title after subscribing to a people tag.
+#. TRANS: Title after subscribing to a list.
 #. TRANS: Page title when subscription succeeded.
 msgid "Subscribed"
 msgstr "Prihlášen"
@@ -622,7 +624,7 @@ msgstr "Celé jméno je moc dlouhé (maximální délka je 255 znaků)."
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Group edit form validation error.
-#. TRANS: Client error shown when providing too long a description when editing a people tag.
+#. TRANS: Client error shown when providing too long a description when editing a list.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Form validation error in New application form.
 #. TRANS: %d is the maximum number of characters for the description.
@@ -2295,7 +2297,7 @@ msgid "Invalid alias: \"%s\""
 msgstr "Neplatný alias: \"%s\""
 
 #. TRANS: Group edit form success message.
-#. TRANS: Edit people tag form success message.
+#. TRANS: Edit list form success message.
 msgid "Options saved."
 msgstr "Nastavení uloženo."
 
@@ -2317,11 +2319,6 @@ msgstr "Není platný člověkotag: %s."
 #, fuzzy
 msgid "No tagger or ID."
 msgstr "Žádná přezdívka nebo ID."
-
-#. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
-msgid "No such list."
-msgstr "Žádná taková nálepka."
 
 #. TRANS: Client error displayed when referring to non-local user.
 msgid "Not a local user."
@@ -4177,26 +4174,26 @@ msgstr ""
 msgid "People search"
 msgstr "Hledání lidí"
 
-#. TRANS: Title for people tag page.
-#. TRANS: %s is a tag.
+#. TRANS: Title for list page.
+#. TRANS: %s is a list.
 #, fuzzy, php-format
-msgid "Public people tag %s"
-msgstr "Veřejná časová osa, strana %d"
+msgid "Public list %s"
+msgstr "Veřejný tag cloud"
 
-#. TRANS: Title for people tag page.
-#. TRANS: %1$s is a tag, %2$d is a page number.
+#. TRANS: Title for list page.
+#. TRANS: %1$s is a list, %2$d is a page number.
 #, fuzzy, php-format
-msgid "Public people tag %1$s, page %2$d"
+msgid "Public list %1$s, page %2$d"
 msgstr "Odpovědi na %1$s, strana %2$d"
 
-#. TRANS: Message for anonymous users on people tag page.
+#. TRANS: Message for anonymous users on list page.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
-"People tags are how you sort similar people on %%site.name%%, a [micro-"
-"blogging](http://en.wikipedia.org/wiki/Micro-blogging) service based on the "
-"Free Software [StatusNet](http://status.net/) tool. You can then easily keep "
-"track of what they are doing by subscribing to the tag's timeline."
+"Lists are how you sort similar people on %%site.name%%, a [micro-blogging]"
+"(http://en.wikipedia.org/wiki/Micro-blogging) service based on the Free "
+"Software [StatusNet](http://status.net/) tool. You can then easily keep "
+"track of what they are doing by subscribing to the list's timeline."
 msgstr ""
 "**%s** je skupina uživatelů na %%%%site.name%%%%, [mikro-blogovací](http://"
 "drbz.cz/i/napoveda-faq#mikroblog) službě založené na Free Software nástroji "
@@ -4317,10 +4314,12 @@ msgstr ""
 msgid "%s has not created any [lists](%%%%doc.lists%%%%) yet."
 msgstr "Nikdo ještě neposlal oznámení s [tagem](%%doc.tags%%)."
 
+#. TRANS: Page title. %s is a tagged user's nickname.
 #, php-format
 msgid "Lists with %s in them"
 msgstr ""
 
+#. TRANS: Page title. %1$s is a tagged user's nickname, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Lists with %1$s, page %2$d"
 msgstr "Oznámení označená %1$s, strana %2$d"
@@ -4341,23 +4340,23 @@ msgstr ""
 "[StatusNet](http://status.net/). Její členové sdílejí krátké zprávy o svém "
 "životě a zájmech.  "
 
-#. TRANS: Message displayed on page that displays lists for a user when there are none.
+#. TRANS: Message displayed on page that displays lists a user was added to when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
-#. TRANS: %s is a tagger nickname.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgid "%s has not been [listed](%%%%doc.lists%%%%) by anyone yet."
 msgstr "Nikdo ještě neposlal oznámení s [tagem](%%doc.tags%%)."
 
-#. TRANS: Page title for list of people tag subscribers.
-#. TRANS: %1$s is a tag, %2$s is a user nickname.
-#, php-format
-msgid "Subscribers of people tagged %1$s by %2$s"
-msgstr ""
-
-#. TRANS: Page title for list of people tag subscribers.
-#. TRANS: %1$s is a tag, %2$s is a user nickname, %3$d is a page number.
+#. TRANS: Page title for list of list subscribers.
+#. TRANS: %1$s is a list, %2$s is a user nickname.
 #, fuzzy, php-format
-msgid "Subscribers of people tagged %1$s by %2$s, page %3$d"
+msgid "Subscribers to list %1$s by %2$s"
+msgstr "Přihlášeno k %s."
+
+#. TRANS: Page title for list of list subscribers.
+#. TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
+#, fuzzy, php-format
+msgid "Subscribers to list %1$s by %2$s, page %3$d"
 msgstr "Oznámení označená %1$s, strana %2$d"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
@@ -4741,46 +4740,46 @@ msgstr ""
 "faq#mikroblog) služba založená na Free Software nástroji [StatusNet](http://"
 "status.net/)."
 
-#. TRANS: Title for page with public people tag cloud.
+#. TRANS: Title for page with public list cloud.
 #, fuzzy
-msgid "Public people tag cloud"
+msgid "Public list cloud"
 msgstr "Veřejný tag cloud"
 
-#. TRANS: Page notice for page with public people tag cloud.
+#. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
 #, fuzzy, php-format
-msgid "These are most used people tags on %s"
+msgid "These are largest lists on %s"
 msgstr "Poslední nejpopulárnější značky na %s "
 
-#. TRANS: Empty list message on page with public people tag cloud.
+#. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
-msgid "No one has [tagged](%%doc.tags%%) anyone yet."
+msgid "No one has [listed](%%doc.tags%%) anyone yet."
 msgstr "Nikdo ještě neposlal oznámení s [tagem](%%doc.tags%%)."
 
-#. TRANS: Additional empty list message on page with public people tag cloud for logged in users.
+#. TRANS: Additional empty list message on page with public list cloud for logged in users.
 #, fuzzy
-msgid "Be the first to tag someone!"
+msgid "Be the first to list someone!"
 msgstr "Pošlete něco jako první!"
 
-#. TRANS: Additional empty list message on page with public people tag cloud for anonymous users.
+#. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
-"Why not [register an account](%%action.register%%) and be the first to tag "
+"Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
 msgstr ""
 "Proč ne [zaregistrovat účet](%%action.register%%) a poslat něco jako první!"
 
-#. TRANS: DT element on on page with public people tag cloud.
+#. TRANS: DT element on on page with public list cloud.
 #, fuzzy
-msgid "People tag cloud"
-msgstr "Veřejný tag cloud"
+msgid "List cloud"
+msgstr " API metoda nebyla nalezena."
 
-#. TRANS: Link title for number of people tagged. %d is the number of people tagged.
+#. TRANS: Link title for number of listed people. %d is the number of listed people.
 #, php-format
-msgid "1 person tagged"
-msgid_plural "%d people tagged"
+msgid "1 person listed"
+msgid_plural "%d people listed"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -5160,7 +5159,7 @@ msgstr "Adresa profilu na jiných kompatibilních mikroblozích."
 #. TRANS: Button text on page for remote subscribe.
 #. TRANS: Link text for link that will subscribe to a remote profile.
 #. TRANS: Button text to subscribe to a user.
-#. TRANS: Button text for subscribing to a people tag.
+#. TRANS: Button text for subscribing to a list.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Subscribe"
@@ -5194,7 +5193,21 @@ msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
 msgstr ""
 "Touto akcí se nemůžete se přihlásit k odběru vzdáleného OMB 0.1 profilu."
 
-#. TRANS: Title after untagging a people tag.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a username.
+#, php-format
+msgid "There was an unexpected error while listing %s."
+msgstr ""
+
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a profile URL.
+#, php-format
+msgid ""
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly, please try retrying later."
+msgstr ""
+
+#. TRANS: Title after removing a user from a list.
 msgid "Untagged"
 msgstr ""
 
@@ -5386,10 +5399,10 @@ msgstr "Nemůžete sandboxovat uživatele na této stránce."
 msgid "User is already sandboxed."
 msgstr "Uživatel je již sandboxován."
 
-#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
-#. TRANS: %s is the invalid tag.
-#, php-format
-msgid "Not a valid people tag: %s."
+#. TRANS: Client error displayed when trying to list a profile with an invalid list.
+#. TRANS: %s is the invalid list name.
+#, fuzzy, php-format
+msgid "Not a valid list: %s."
 msgstr "Není platný člověkotag: %s."
 
 #. TRANS: Page title for page showing self tags.
@@ -5688,19 +5701,19 @@ msgid "Notice deleted."
 msgstr "Oznámení smazáno."
 
 #. TRANS: Title for private list timeline.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
+#. TRANS: %1$s is a list, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Private timeline for %1$s list by you, page %2$d"
 msgstr "Uživatelé kteří se sami otagovali %1$s - strana %2$d"
 
 #. TRANS: Title for public list timeline where the viewer is the tagger.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
+#. TRANS: %1$s is a list, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Timeline for %1$s list by you, page %2$d"
 msgstr "Uživatelé kteří se sami otagovali %1$s - strana %2$d"
 
 #. TRANS: Title for private list timeline.
-#. TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
+#. TRANS: %1$s is a list, %2$s is the tagger's nickname, %3$d is a page number.
 #, fuzzy, php-format
 msgid "Timeline for %1$s list by %2$s, page %3$d"
 msgstr "Oznámení označená %1$s, strana %2$d"
@@ -5739,11 +5752,11 @@ msgstr ""
 "Tohle je časová osa pro uživatele %s a jeho(její) přátele ale nikdo zatím "
 "nic nenapsal."
 
-#. TRANS: Additional empty list message for people tag timeline for currently logged in user tagged tags.
+#. TRANS: Additional empty list message for list timeline for currently logged in user tagged tags.
 msgid "Try tagging more people."
 msgstr ""
 
-#. TRANS: Additional empty list message for people tag timeline.
+#. TRANS: Additional empty list message for list timeline.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
@@ -5757,7 +5770,7 @@ msgstr ""
 msgid "Listed"
 msgstr "Licence"
 
-#. TRANS: Link for more "People tagged x by a user"
+#. TRANS: Link for more "People in list x by a user"
 #. TRANS: if there are more than the mini list's maximum.
 msgid "Show all"
 msgstr ""
@@ -6277,7 +6290,7 @@ msgstr ""
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
 #, fuzzy
-msgid "You must be logged in to unsubscribe to a people tag."
+msgid "You must be logged in to unsubscribe from a list."
 msgstr "K vytvoření skupiny musíte být přihlášen."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
@@ -6285,16 +6298,16 @@ msgstr "K vytvoření skupiny musíte být přihlášen."
 msgid "No ID given."
 msgstr "Žádný argument ID."
 
-#. TRANS: Server error displayed subscribing to a people tag fails.
-#. TRANS: %1$s is a user nickname, %2$s is a people tag.
+#. TRANS: Server error displayed subscribing to a list fails.
+#. TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
 #, fuzzy, php-format
-msgid "Could not subscribe user %1$s to people tag %2$s."
+msgid "Could not subscribe user %1$s to list %2$s: %3$s"
 msgstr "Nemohu připojit uživatele %1$s do skupiny %2$s."
 
-#. TRANS: Title of form to subscribe to a people tag.
-#. TRANS: %1%s is a user nickname, %2$s is a people tag, %3$s is a tagger nickname.
+#. TRANS: Title of form to subscribe to a list.
+#. TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
 #, fuzzy, php-format
-msgid "%1$s subscribed to people tag %2$s by %3$s"
+msgid "%1$s subscribed to list %2$s by %3$s"
 msgstr "odběratelé %1$s, strana %2$d"
 
 #. TRANS: Header for list of subscribers for a user (first page).
@@ -6438,42 +6451,43 @@ msgid "You cannot tag this user."
 msgstr ""
 "Nemůžete odesílat zprávy tomuto uživateli. (musíte být vzájemně prihlášení)"
 
-#. TRANS: Title for people tag form when not on a profile page.
+#. TRANS: Title for list form when not on a profile page.
 #, fuzzy
-msgid "Tag a profile"
+msgid "List a profile"
 msgstr "Uživatelský profil"
 
-#. TRANS: Title for people tag form when on a profile page.
+#. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, php-format
-msgid "Tag %s"
-msgstr "Otagujte %s"
+#, fuzzy, php-format
+msgctxt "ADDTOLIST"
+msgid "List %s"
+msgstr "Omezení"
 
-#. TRANS: Title for people tag form when an error has occurred.
+#. TRANS: Title for list form when an error has occurred.
 #, fuzzy
 msgctxt "TITLE"
 msgid "Error"
 msgstr "Ajax Chyba"
 
-#. TRANS: Header in people tag form.
+#. TRANS: Header in list form.
 msgid "User profile"
 msgstr "Uživatelský profil"
 
-#. TRANS: Fieldset legend for people tag form.
-msgid "Tag user"
-msgstr "Otagujte uživatele"
+#. TRANS: Fieldset legend for list form.
+#, fuzzy
+msgid "List user"
+msgstr "Omezení"
 
-#. TRANS: Field label on people tag form.
-#. TRANS: Label in self tags widget.
+#. TRANS: Field label on list form.
 #, fuzzy
 msgctxt "LABEL"
-msgid "Tags"
-msgstr "Tagy"
+msgid "Lists"
+msgstr "Omezení"
 
-#. TRANS: Field title on people tag form.
+#. TRANS: Field title on list form.
 #, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr "Otagujte se (písmena, čísla, -, . a _), oddělené čárkami nebo mezerami"
 
@@ -6483,13 +6497,14 @@ msgctxt "TITLE"
 msgid "Tags"
 msgstr "Tagy"
 
-#. TRANS: Success message if people tags are saved.
+#. TRANS: Success message if lists are saved.
 #, fuzzy
-msgid "Tags saved."
+msgid "Lists saved."
 msgstr "Heslo uloženo"
 
 #. TRANS: Page notice.
-msgid "Use this form to add tags to your subscribers or subscriptions."
+#, fuzzy
+msgid "Use this form to add your subscribers or subscriptions to lists."
 msgstr ""
 "Použijte tento formulář k přidání nálepek na vaše posluchače nebo ty které "
 "posloucháte."
@@ -6514,10 +6529,10 @@ msgstr "Uživatel není umlčen."
 msgid "Unsubscribed"
 msgstr "Odhlášeno"
 
-#. TRANS: Page title for form that allows unsubscribing from a people tag.
-#. TRANS: %1$s is a nickname, %2$s is a people tag, %3$s is a tagger nickname.
+#. TRANS: Page title for form that allows unsubscribing from a list.
+#. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
 #, fuzzy, php-format
-msgid "%1$s unsubscribed to people tag %2$s by %3$s"
+msgid "%1$s unsubscribed from list %2$s by %3$s"
 msgstr "odběratelé %1$s, strana %2$d"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
@@ -7213,21 +7228,21 @@ msgid ""
 "of tags. Try using or deleting some existing tags."
 msgstr ""
 
-#. TRANS: Client exception thrown trying to set one tag for more people than allowed.
+#. TRANS: Client exception thrown when trying to add more people than allowed to a list.
 #, php-format
 msgid ""
-"You already have %1$d or more people tagged %2$s, which is the maximum "
-"allowed number.Try untagging others with the same tag first."
+"You already have %1$d or more people in list %2$s, which is the maximum "
+"allowed number.Try unlisting others first."
 msgstr ""
 
-#. TRANS: Exception thrown when inserting a people tag subscription in the database fails.
+#. TRANS: Exception thrown when inserting a list subscription in the database fails.
 #, fuzzy
-msgid "Adding people tag subscription failed."
+msgid "Adding list subscription failed."
 msgstr "Nelze smazat odebírání"
 
-#. TRANS: Exception thrown when deleting a people tag subscription from the database fails.
+#. TRANS: Exception thrown when deleting a list subscription from the database fails.
 #, fuzzy
-msgid "Removing people tag subscription failed."
+msgid "Removing list subscription failed."
 msgstr "Nelze smazat odebírání"
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
@@ -7845,7 +7860,7 @@ msgid "Cancel"
 msgstr "Zrušit"
 
 #. TRANS: Submit button title.
-#. TRANS: Button text to save a people tag.
+#. TRANS: Button text to save a list.
 msgid "Save"
 msgstr "Uložit"
 
@@ -7893,14 +7908,14 @@ msgid "Do not use this method!"
 msgstr "Neodstraňujte toto oznámení"
 
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-#, php-format
-msgid "Timeline for people tagged #%1$s by %2$s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Timeline for people in list %1$s by %2$s"
+msgstr "Odpovědi na %1$s na %2$s!"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
 #, fuzzy, php-format
-msgid "Updates from %1$s's %2$s people tag on %3$s!"
+msgid "Updates from %1$s's list %2$s on %3$s!"
 msgstr "Oznámení od %1$s na %2$s!"
 
 #. TRANS: Title.
@@ -9593,15 +9608,15 @@ msgstr "Nelze vložit odebírání"
 msgid "No oEmbed API endpoint available."
 msgstr "IM není k dispozici."
 
-#. TRANS: Field label for people tag.
+#. TRANS: Field label for list.
 #, fuzzy
 msgctxt "LABEL"
-msgid "Tag"
-msgstr "Značka"
+msgid "List"
+msgstr "Odkazy"
 
-#. TRANS: Field title for people tag.
+#. TRANS: Field title for list.
 #, fuzzy
-msgid "Change the tag (letters, numbers, -, ., and _ are allowed)."
+msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
 msgstr ""
 "Tagy pro tohoto uživatele (písmena, číslice, -,., a _), oddělené čárkou nebo "
 "mezerou"
@@ -9625,11 +9640,11 @@ msgstr[2] "Popište skupinu nebo téma ve %d znacích"
 msgid "Delete this list."
 msgstr "Odstranit tohoto uživatele"
 
-#. TRANS: Header in people tag edit form.
+#. TRANS: Header in list edit form.
 msgid "Add or remove people"
 msgstr ""
 
-#. TRANS: Header in people tag edit form.
+#. TRANS: Header in list edit form.
 #, fuzzy
 msgctxt "HEADER"
 msgid "Search"
@@ -9666,7 +9681,7 @@ msgstr "Odběratelé"
 msgid "Subscribers to %1$s list by %2$s."
 msgstr "Přihlášeno k %s."
 
-#. TRANS: Menu item in people tag navigation panel.
+#. TRANS: Menu item in list navigation panel.
 #, fuzzy
 msgctxt "MENU"
 msgid "Edit"
@@ -9692,7 +9707,7 @@ msgstr "Upravit nastavení profilu"
 msgid "Edit"
 msgstr "Editovat"
 
-#. TRANS: Privacy mode text in people tag list item for private tags.
+#. TRANS: Privacy mode text in list list item for private list.
 #, fuzzy
 msgctxt "MODE"
 msgid "Private"
@@ -9705,48 +9720,57 @@ msgid "List Subscriptions"
 msgstr "Odběry"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists subscribed to by %s."
 msgstr "Přihlášeno k %s."
 
 #. TRANS: Menu item in the group navigation page.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "MENU"
 msgid "Lists with %s"
 msgstr "Hlášky s \"%s\""
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists with %s."
 msgstr "Hlášky s \"%s\""
 
 #. TRANS: Menu item in the group navigation page.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgctxt "MENU"
 msgid "Lists by %s"
 msgstr ""
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists by %s."
 msgstr "%1$s - %2$s"
 
-#. TRANS: Label in people tags widget.
+#. TRANS: Label in lists widget.
+#, fuzzy
 msgctxt "LABEL"
-msgid "Tags by you"
-msgstr ""
+msgid "Your lists"
+msgstr "Populární oznámení"
 
-#. TRANS: Fieldset legend in people tags widget.
+#. TRANS: Fieldset legend in lists widget.
 #, fuzzy
 msgctxt "LEGEND"
-msgid "Edit tags"
-msgstr "Editovat"
+msgid "Edit lists"
+msgstr "Není platný člověkotag: %s."
+
+#. TRANS: Label in self tags widget.
+#, fuzzy
+msgctxt "LABEL"
+msgid "Tags"
+msgstr "Tagy"
 
 #. TRANS: Title for section contaning lists with the most subscribers.
 #, fuzzy
@@ -9759,11 +9783,12 @@ msgstr "Populární oznámení"
 msgid "Listed: %1$d Subscribers: %2$d"
 msgstr "odběratelé %1$s, strana %2$d"
 
+#. TRANS: Title for page that displays which lists current user is part of.
 #, fuzzy, php-format
 msgid "Lists with you"
 msgstr " API metoda nebyla nalezena."
 
-#. TRANS: Title for page that displays which people tags a user has been tagged with.
+#. TRANS: Title for page that displays which lists a user is part of.
 #. TRANS: %s is a profile name.
 #, fuzzy, php-format
 msgid "Lists with %s"
@@ -10404,16 +10429,16 @@ msgid "Choose a field to search."
 msgstr "Vyberte si značku k zúžení seznamu"
 
 #. TRANS: Form legend.
-#. TRANS: %1$s is a nickname, $2$s is a people tag.
+#. TRANS: %1$s is a nickname, $2$s is a list.
 #, fuzzy, php-format
-msgid "Untag %1$s as %2$s"
+msgid "Remove %1$s from list %2$s"
 msgstr "%1$s - %2$s"
 
-#. TRANS: Legend on form to add a tag to a profile.
-#. TRANS: %1$s is a nickname, %2$s ia a people tag.
+#. TRANS: Legend on form to add a profile to a list.
+#. TRANS: %1$s is a nickname, %2$s is a list.
 #, fuzzy, php-format
-msgid "Tag %1$s as %2$s"
-msgstr "RT @%1$s %2$s"
+msgid "Add %1$s to list %2$s"
+msgstr "%1$s - %2$s"
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -10476,7 +10501,7 @@ msgid "Unsubscribe from this user"
 msgstr "Odhlásit se od tohoto uživatele"
 
 #. TRANS: Button text on unsubscribe form.
-#. TRANS: Button text for unsubscribing from a people tag.
+#. TRANS: Button text for unsubscribing from a list.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Unsubscribe"
@@ -10570,87 +10595,45 @@ msgid "Getting backup from file '%s'."
 msgstr ""
 
 #, fuzzy
-#~ msgid "Use this form to edit the people tag."
-#~ msgstr "Použijte tento formulář k úpravám skupiny."
+#~ msgid "No such people tag."
+#~ msgstr "Žádný takový štítek lidí."
 
 #, fuzzy
-#~ msgid "Could not update people tag."
-#~ msgstr "Nelze aktualizovat skupinu."
+#~ msgid "Public people tag %s"
+#~ msgstr "Veřejná časová osa, strana %d"
 
 #, fuzzy
-#~ msgid "People tags by %s"
-#~ msgstr "Opakování %s"
+#~ msgid "Public people tag cloud"
+#~ msgstr "Veřejný tag cloud"
 
 #, fuzzy
-#~ msgid "People tags by %1$s, page %2$d"
-#~ msgstr "Odpovědi na %1$s, strana %2$d"
+#~ msgid "These are most used people tags on %s"
+#~ msgstr "Poslední nejpopulárnější značky na %s "
 
 #, fuzzy
-#~ msgid "People tags for %s"
-#~ msgstr "Opakování %s"
+#~ msgid "People tag cloud"
+#~ msgstr "Veřejný tag cloud"
+
+#~ msgid "Tag %s"
+#~ msgstr "Otagujte %s"
+
+#~ msgid "Tag user"
+#~ msgstr "Otagujte uživatele"
 
 #, fuzzy
-#~ msgid "People tags for %1$s, page %2$d"
-#~ msgstr "Odpovědi na %1$s, strana %2$d"
-
-#, fuzzy
-#~ msgid "Problem saving profile_tag inbox."
-#~ msgstr "Problém při ukládání skupinového inboxu"
-
-#~ msgid "Groups with most members"
-#~ msgstr "Skupiny s nejvíce členy"
-
-#~ msgid "Groups with most posts"
-#~ msgstr "Skupiny s nejvíce příspěvky"
-
-#, fuzzy
-#~ msgid "Describe the people tag or topic."
-#~ msgstr "Popište skupinu nebo téma"
-
-#, fuzzy
-#~ msgid "Delete this people tag."
-#~ msgstr "Odstranit tohoto uživatele"
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "People tag"
-#~ msgstr "Lidé"
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "Tagged"
+#~ msgctxt "LABEL"
+#~ msgid "Tag"
 #~ msgstr "Značka"
 
 #, fuzzy
-#~ msgid "Edit people tag settings."
-#~ msgstr "Upravit nastavení profilu"
+#~ msgctxt "LEGEND"
+#~ msgid "Edit tags"
+#~ msgstr "Editovat"
 
 #, fuzzy
-#~ msgid "People tags with most subscribers"
-#~ msgstr "Lidé ke kterým je %s přihlášen"
+#~ msgid "Untag %1$s as %2$s"
+#~ msgstr "%1$s - %2$s"
 
 #, fuzzy
-#~ msgid "People tag subscriptions"
-#~ msgstr "Všechny odběry"
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "People tags"
-#~ msgstr "Lidé"
-
-#~ msgid "User"
-#~ msgstr "Uživatel"
-
-#~ msgid "Tags in %s's notices"
-#~ msgstr "Značky v oznámeních %s"
-
-#~ msgid "All subscriptions"
-#~ msgstr "Všechny odběry"
-
-#, fuzzy
-#~ msgid "People tags"
-#~ msgstr "Lidé"
-
-#, fuzzy
-#~ msgid "People tags by %s."
-#~ msgstr "Lidé přihlášení k %s"
+#~ msgid "Tag %1$s as %2$s"
+#~ msgstr "RT @%1$s %2$s"

@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
-"PO-Revision-Date: 2011-04-16 22:58:44+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"PO-Revision-Date: 2011-04-17 18:21:50+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-13 13:57:08+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-16 23:18:41+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -116,21 +116,22 @@ msgid "%1$s has left group %2$s."
 msgstr "%1$s ја напушти групата %2$s."
 
 #. TRANS: Exception thrown when setup of remote list subscription fails.
-#, fuzzy
 msgid "Could not set up remote list subscription."
-msgstr "Не можев да ја поставам далечинската претплата."
+msgstr "Не можев да ја воспоставам далечинската претплата на списоци."
 
 #. TRANS: Title for remote follow list.
 msgctxt "TITLE"
 msgid "Follow list"
 msgstr "Список на следења"
 
-#. TRANS: Exception thrown when subscription of remote people tag fails.
-msgid "Failed subscribing to remote people tag."
+#. TRANS: Exception thrown when subscription to remote list fails.
+#, fuzzy
+msgid "Failed subscribing to remote list."
 msgstr "Не успеав да Ве зачленам во далечинската ознака за луѓе."
 
-msgid "Unfollow people tag"
-msgstr "Престани следење на ознака за луѓе"
+#, fuzzy
+msgid "Unfollow list"
+msgstr "Список на следења"
 
 #, php-format
 msgid "%1$s stopped following the list %2$s by %3$s."
@@ -140,9 +141,9 @@ msgctxt "TITLE"
 msgid "Tag"
 msgstr "Означи"
 
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s listed %2$s in the list %3$s."
-msgstr "%1$s го/ја означи %2$s во списокот %3$s."
+msgstr "%1$s го/ја наведе %2$s во списокот %3$s."
 
 #, php-format
 msgid ""
@@ -234,8 +235,8 @@ msgid "Invalid hub.topic \"%s\". Group does not exist."
 msgstr "Неважеки hub.topic „%s“. Групата не постои."
 
 #. TRANS: Client exception. %s is a feed URL.
-#, php-format
-msgid "Invalid hub.topic %s; people tag does not exist."
+#, fuzzy, php-format
+msgid "Invalid hub.topic %s; list does not exist."
 msgstr "!Неважечки hub.topic „%s“. Ознаката за луѓе не постои."
 
 #. TRANS: Client exception.
@@ -276,7 +277,8 @@ msgstr "Не можев да го проверам профилот на OStatus
 msgid "Could not confirm remote profile address."
 msgstr "Не можев да ја потврдам адресата на далечинскиот профил."
 
-msgid "OStatus people tag"
+#, fuzzy
+msgid "OStatus list"
 msgstr "Ознака за луѓе од OStatus"
 
 msgid "Empty or invalid feed id."
@@ -307,6 +309,7 @@ msgstr "Неочекувано барање за претплата за %s."
 msgid "Unexpected unsubscribe request for %s."
 msgstr "Неочекувано барање за отпишување од претплата за %s."
 
+#. TRANS: Client error.
 msgid "No such user."
 msgstr "Нема таков корисник."
 
@@ -464,10 +467,12 @@ msgstr "Не ја распознавам забелешката со ID %s."
 msgid "Notice with ID %1$s not posted by %2$s."
 msgstr "Забелешката со ID %1$s не е објавена од %2$s."
 
-msgid "Subscribe to people tag"
-msgstr "Претплати се на ознака за луѓе"
+#, fuzzy
+msgid "Subscribe to list"
+msgstr "Претплати се на %s"
 
-msgid "Address of the OStatus people tag, like http://example.net/user/all/tag"
+#, fuzzy
+msgid "Address of the OStatus list, like http://example.net/user/all/tag"
 msgstr ""
 "Адреса на ознаката за луѓе од OStatus, како на пр. http://primer.net/"
 "korisnik/prekar."
@@ -475,21 +480,22 @@ msgstr ""
 msgid "Continue"
 msgstr "Продолжи"
 
-msgid "You are already subscribed to this people tag."
-msgstr "Веќе сте претплатени на оваа ознака за луѓе."
+#, fuzzy
+msgid "You are already subscribed to this list."
+msgstr "Веќе сте претплатени на овој корисник."
 
-#. TRANS: Page title for OStatus remote people tag subscription form
-msgid "Confirm subscription to remote people tag"
+#. TRANS: Page title for OStatus remote list subscription form
+#, fuzzy
+msgid "Confirm subscription to remote list"
 msgstr "Потврди придружување кон ознаката на далечинската група"
 
 #. TRANS: Instructions for OStatus list subscription form.
-#, fuzzy
 msgid ""
 "You can subscribe to lists from other supported sites. Paste the lists's URI "
 "below:"
 msgstr ""
-"Можете да се претплаќате на ознаки за луѓе од други поддржани мреж. места. "
-"Подолу прекопирајте го URI-то на профилот на ознаката."
+"Можете да се претплаќате на списоци од други поддржани мрежни места. Подолу "
+"прекопирајте го URI-то на списокот:"
 
 #. TRANS: Client error.
 msgid "No such group."
@@ -524,36 +530,30 @@ msgstr "Не можам да го прочитам профилот за отк�
 msgid "Could not remove remote user %1$s from group %2$s."
 msgstr "Не можев да го отстранам далечинскиот корисник %1$s од групата %2$s."
 
-#, fuzzy
 msgid "No such list."
-msgstr "Нема таков корисник."
+msgstr "Нема таков список."
 
-#, fuzzy
 msgid "Cannot accept remote posts for a remote list."
-msgstr "Не можам да прифаќам далечински објави за далечинска група."
+msgstr "Не можам да прифаќам далечински објави за далечински список."
 
 msgid "Cannot read profile to set up profile tag subscription."
 msgstr ""
 "Не можев да го прочитам профилот за да ја поставам претплатата на профилната "
 "ознака."
 
-#, fuzzy
 msgid "Groups cannot subscribe to lists."
-msgstr "На ознаки за луѓе не можат да се претплаќаат групи."
+msgstr "Групите не можат да се претплаќаат на списоци."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Could not subscribe remote user %1$s to list %2$s."
-msgstr ""
-"Не можев да го претплатам далечинскиот корисник %1$s на ознаката за луѓе %2"
-"$s."
+msgstr "Не можев да го претплатам далечинскиот корисник %1$s на списокот %2$s."
 
-#, fuzzy
 msgid "Cannot read profile to cancel list membership."
-msgstr "Не можам да го прочитам профилот за откажам членство во групата."
+msgstr "Не можам да го прочитам профилот за откажам членство во списокот."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove remote user %1$s from list %2$s."
-msgstr "Не можев да го отстранам далечинскиот корисник %1$s од групата %2$s."
+msgstr "Не можев да го отстранам далечинскиот корисник %1$s од списокот %2$s."
 
 #. TRANS: Client error.
 msgid "You can use the local subscription!"
@@ -574,12 +574,12 @@ msgctxt "BUTTON"
 msgid "Join"
 msgstr "Зачлени се"
 
-#. TRANS: Form legend. %1$s is a people tag, %2$s is a tagger's name.
-#, php-format
-msgid "Subscribe to people tagged %1$s by %2$s"
+#. TRANS: Form legend. %1$s is a list, %2$s is a tagger's name.
+#, fuzzy, php-format
+msgid "Subscribe to list %1$s by %2$s"
 msgstr "Претплата на корисници означени со %1$s од %2$s"
 
-#. TRANS: Button text to subscribe to a people tag.
+#. TRANS: Button text to subscribe to a list.
 #. TRANS: Button text to subscribe to a profile.
 msgctxt "BUTTON"
 msgid "Subscribe"
@@ -609,6 +609,10 @@ msgstr "Вашата назнака (ID) на сметката (на пр. koris
 #. TRANS: Client error.
 msgid "Must provide a remote profile."
 msgstr "Мора да наведете далечински профил."
+
+#. TRANS: Client error.
+msgid "No local user or group nickname provided."
+msgstr ""
 
 #. TRANS: Page title.
 msgid "OStatus Connect"
@@ -698,6 +702,13 @@ msgstr ""
 msgid "Unable to fetch avatar from %s."
 msgstr "Не можам да го добијам аватарот од %s."
 
+msgid "No author ID URI found."
+msgstr ""
+
+#, fuzzy
+msgid "No profile URI."
+msgstr "Далечински профил"
+
 #. TRANS: Exception.
 msgid "Local user cannot be referenced as remote."
 msgstr "Локалниот корисник не може да се наведува како далечински."
@@ -706,8 +717,16 @@ msgstr "Локалниот корисник не може да се наведу
 msgid "Local group cannot be referenced as remote."
 msgstr "Локалната група не може да се наведува како далечинска."
 
+#, fuzzy
+msgid "Local list cannot be referenced as remote."
+msgstr "Локалниот корисник не може да се наведува како далечински."
+
 #. TRANS: Server exception.
 msgid "Cannot save local profile."
+msgstr "Не можам да го зачувам локалниот профил."
+
+#, fuzzy
+msgid "Cannot save local list."
 msgstr "Не можам да го зачувам локалниот профил."
 
 #. TRANS: Server exception.
@@ -724,8 +743,8 @@ msgid "Could not save profile for \"%s\"."
 msgstr "Не можам да го зачувам профилот за „%s“."
 
 #. TRANS: Exception. %s is a webfinger address.
-#, php-format
-msgid "Could not save ostatus_profile for \"%s\"."
+#, fuzzy, php-format
+msgid "Could not save OStatus profile for \"%s\"."
 msgstr "Не можам да го зачувам ostatus_profile за „%s“."
 
 #. TRANS: Exception. %s is a webfinger address.
@@ -831,21 +850,11 @@ msgstr "Оваа цел не разбира отстранување на озн
 msgid "Received a salmon slap from unidentified actor."
 msgstr "Примив Salmon-шамар од непознат учесник."
 
-#~ msgid "Could not set up remote people tag subscription."
-#~ msgstr "Не можев да ја поставам далечинската претплата на ознаки за луѓе."
+#~ msgid "Unfollow people tag"
+#~ msgstr "Престани следење на ознака за луѓе"
 
-#~ msgid "No such people tag."
-#~ msgstr "Нема таква ознака за луѓе."
+#~ msgid "Subscribe to people tag"
+#~ msgstr "Претплати се на ознака за луѓе"
 
-#~ msgid "Cannot accept remote posts for a remote people tag."
-#~ msgstr ""
-#~ "Не можам да прифаќам далечински објави од далечинска ознака за луѓе."
-
-#~ msgid "Cannot read profile to cancel people tag membership."
-#~ msgstr ""
-#~ "Не можам да го прочитам профилот за да откажам членство на ознаката."
-
-#~ msgid "Could not remove remote user %1$s from people tag %2$s."
-#~ msgstr ""
-#~ "!Не можев да го отстранам далечинскиот корисник %1$s од ознаката за луѓе %"
-#~ "2$s."
+#~ msgid "You are already subscribed to this people tag."
+#~ msgstr "Веќе сте претплатени на оваа ознака за луѓе."

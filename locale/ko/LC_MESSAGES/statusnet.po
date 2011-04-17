@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
-"PO-Revision-Date: 2011-04-16 22:56:33+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"PO-Revision-Date: 2011-04-17 18:19:41+0000\n"
 "Language-Team: Korean <http://translatewiki.net/wiki/Portal:ko>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-04-13 13:56:48+0000\n"
+"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -119,7 +119,7 @@ msgstr "접근 권한 설정 저장"
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Button text to save snapshot settings.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
-#. TRANS: Button text to save people tags.
+#. TRANS: Button text to save lists.
 #. TRANS: Button text for saving "Other settings" in profile.
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
@@ -156,9 +156,12 @@ msgstr "로그인하지 않았습니다."
 msgid "No such profile."
 msgstr "그런 프로필이 없습니다."
 
-#. TRANS: Client error displayed trying to reference a non-existing people tag.
-msgid "No such people tag."
-msgstr "그런 사람 태그가 없습니다."
+#. TRANS: Client error displayed trying to reference a non-existing list.
+#. TRANS: Client error displayed when referring to a non-existing list.
+#. TRANS: Client error displayed trying to reference a non-existing list.
+#, fuzzy
+msgid "No such list."
+msgstr "그런 태그가 없습니다."
 
 #. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
 msgid "You cannot tag an OMB 0.1 remote profile with this action."
@@ -180,7 +183,7 @@ msgstr ""
 "%s님에 태그를 붙이는데 문제가 발생했습니다. 원격 서버가 제대로 응답하지 않는 "
 "것 같습니다. 나중에 다시 시도해 보십시오."
 
-#. TRANS: Title after subscribing to a people tag.
+#. TRANS: Title after subscribing to a list.
 #. TRANS: Page title when subscription succeeded.
 msgid "Subscribed"
 msgstr "구독했습니다"
@@ -609,7 +612,7 @@ msgstr "실명이 너무 깁니다. (최대 255글자)"
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Group edit form validation error.
-#. TRANS: Client error shown when providing too long a description when editing a people tag.
+#. TRANS: Client error shown when providing too long a description when editing a list.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Form validation error in New application form.
 #. TRANS: %d is the maximum number of characters for the description.
@@ -2195,7 +2198,7 @@ msgid "Invalid alias: \"%s\""
 msgstr "사용할 수 없는 별칭: \"%s\""
 
 #. TRANS: Group edit form success message.
-#. TRANS: Edit people tag form success message.
+#. TRANS: Edit list form success message.
 msgid "Options saved."
 msgstr "옵션을 저장했습니다."
 
@@ -2216,11 +2219,6 @@ msgstr "사람 태그 %s 편집"
 #. TRANS: Error message displayed when trying to perform an action that requires a tagging user or ID.
 msgid "No tagger or ID."
 msgstr "태그한 사용자나 아이디가 없습니다."
-
-#. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
-msgid "No such list."
-msgstr "그런 태그가 없습니다."
 
 #. TRANS: Client error displayed when referring to non-local user.
 msgid "Not a local user."
@@ -3989,26 +3987,26 @@ msgstr ""
 msgid "People search"
 msgstr "사람 검색"
 
-#. TRANS: Title for people tag page.
-#. TRANS: %s is a tag.
-#, php-format
-msgid "Public people tag %s"
-msgstr "공개 사람 태그 %s"
+#. TRANS: Title for list page.
+#. TRANS: %s is a list.
+#, fuzzy, php-format
+msgid "Public list %s"
+msgstr "내 공개 사람 태그"
 
-#. TRANS: Title for people tag page.
-#. TRANS: %1$s is a tag, %2$d is a page number.
-#, php-format
-msgid "Public people tag %1$s, page %2$d"
+#. TRANS: Title for list page.
+#. TRANS: %1$s is a list, %2$d is a page number.
+#, fuzzy, php-format
+msgid "Public list %1$s, page %2$d"
 msgstr "공개 사람 태그 %1$s, %2$d 페이지"
 
-#. TRANS: Message for anonymous users on people tag page.
+#. TRANS: Message for anonymous users on list page.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"People tags are how you sort similar people on %%site.name%%, a [micro-"
-"blogging](http://en.wikipedia.org/wiki/Micro-blogging) service based on the "
-"Free Software [StatusNet](http://status.net/) tool. You can then easily keep "
-"track of what they are doing by subscribing to the tag's timeline."
+"Lists are how you sort similar people on %%site.name%%, a [micro-blogging]"
+"(http://en.wikipedia.org/wiki/Micro-blogging) service based on the Free "
+"Software [StatusNet](http://status.net/) tool. You can then easily keep "
+"track of what they are doing by subscribing to the list's timeline."
 msgstr ""
 "사람 태그는 %%%%site.name%%%% 사이트에서 사람들을 분류하는 수단입니다. %%%%"
 "site.name%%%%  사이트는 자유소프트웨어 [StatusNet](http://status.net/) 소프트"
@@ -4127,10 +4125,12 @@ msgstr ""
 msgid "%s has not created any [lists](%%%%doc.lists%%%%) yet."
 msgstr "%s님은 [사람 태그](%%%%doc.tags%%%%%)를 아직 만들지 않았습니다."
 
+#. TRANS: Page title. %s is a tagged user's nickname.
 #, php-format
 msgid "Lists with %s in them"
 msgstr ""
 
+#. TRANS: Page title. %1$s is a tagged user's nickname, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Lists with %1$s, page %2$d"
 msgstr "%1$s 태그가 붙은 글, %2$d 페이지"
@@ -4153,23 +4153,23 @@ msgstr ""
 "면 해당 태그의 타임라인에 구독하는 식으로 간단히 이 사람들이 무슨 일을 하는"
 "지 알아 볼 수 있습니다."
 
-#. TRANS: Message displayed on page that displays lists for a user when there are none.
+#. TRANS: Message displayed on page that displays lists a user was added to when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
-#. TRANS: %s is a tagger nickname.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgid "%s has not been [listed](%%%%doc.lists%%%%) by anyone yet."
 msgstr "%s님은 아직 어느 누구도 [태그를 붙이지](%%%%doc.tags%%%%) 않았습니다."
 
-#. TRANS: Page title for list of people tag subscribers.
-#. TRANS: %1$s is a tag, %2$s is a user nickname.
-#, php-format
-msgid "Subscribers of people tagged %1$s by %2$s"
-msgstr "%2$s님이 %1$s 사람 태그를 붙인 구독자"
+#. TRANS: Page title for list of list subscribers.
+#. TRANS: %1$s is a list, %2$s is a user nickname.
+#, fuzzy, php-format
+msgid "Subscribers to list %1$s by %2$s"
+msgstr "%2$s 사용자의 %1$s 태그 구독자."
 
-#. TRANS: Page title for list of people tag subscribers.
-#. TRANS: %1$s is a tag, %2$s is a user nickname, %3$d is a page number.
-#, php-format
-msgid "Subscribers of people tagged %1$s by %2$s, page %3$d"
+#. TRANS: Page title for list of list subscribers.
+#. TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
+#, fuzzy, php-format
+msgid "Subscribers to list %1$s by %2$s, page %3$d"
 msgstr "%2$s님이 %1$s 사람 태그를 붙인 구독자, %3$d 페이지"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
@@ -4538,43 +4538,46 @@ msgstr ""
 "net/) 소프트웨어를 사용하는 [마이크로 블로깅](http://en.wikipedia.org/wiki/"
 "Micro-blogging) 서비스입니다."
 
-#. TRANS: Title for page with public people tag cloud.
-msgid "Public people tag cloud"
-msgstr "공개 사람 태그 클라우드"
+#. TRANS: Title for page with public list cloud.
+#, fuzzy
+msgid "Public list cloud"
+msgstr "공개 태그 클라우드"
 
-#. TRANS: Page notice for page with public people tag cloud.
+#. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
-#, php-format
-msgid "These are most used people tags on %s"
-msgstr "다음은 %s에서 가장 많이 사용하는 사람 태그입니다."
+#, fuzzy, php-format
+msgid "These are largest lists on %s"
+msgstr "다음은 %s에서 가장 인기 있는 최근 태그입니다."
 
-#. TRANS: Empty list message on page with public people tag cloud.
+#. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, php-format
-msgid "No one has [tagged](%%doc.tags%%) anyone yet."
+#, fuzzy, php-format
+msgid "No one has [listed](%%doc.tags%%) anyone yet."
 msgstr "아직 아무도 [태그](%%doc.tags%%)가 없습니다."
 
-#. TRANS: Additional empty list message on page with public people tag cloud for logged in users.
-msgid "Be the first to tag someone!"
+#. TRANS: Additional empty list message on page with public list cloud for logged in users.
+#, fuzzy
+msgid "Be the first to list someone!"
 msgstr "태그를 붙이는 첫번째 사람이 되세요!"
 
-#. TRANS: Additional empty list message on page with public people tag cloud for anonymous users.
+#. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Why not [register an account](%%action.register%%) and be the first to tag "
+"Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
 msgstr ""
 "[계정을 등록해](%%action.register%%) 사람 태그를 붙이는 첫번째 사람이 되세요!"
 
-#. TRANS: DT element on on page with public people tag cloud.
-msgid "People tag cloud"
-msgstr "사람 태그 클라우드"
+#. TRANS: DT element on on page with public list cloud.
+#, fuzzy
+msgid "List cloud"
+msgstr "목록이 없습니다."
 
-#. TRANS: Link title for number of people tagged. %d is the number of people tagged.
+#. TRANS: Link title for number of listed people. %d is the number of listed people.
 #, php-format
-msgid "1 person tagged"
-msgid_plural "%d people tagged"
+msgid "1 person listed"
+msgid_plural "%d people listed"
 msgstr[0] ""
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
@@ -4930,7 +4933,7 @@ msgstr "다른 호환 마이크로블로깅 서비스의 자기 프로필 URL."
 #. TRANS: Button text on page for remote subscribe.
 #. TRANS: Link text for link that will subscribe to a remote profile.
 #. TRANS: Button text to subscribe to a user.
-#. TRANS: Button text for subscribing to a people tag.
+#. TRANS: Button text for subscribing to a list.
 msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr "구독"
@@ -4958,7 +4961,23 @@ msgstr "요청 토큰을 얻을 수 없습니다."
 msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
 msgstr "이 동작으로 OMB 0.1 원격 프로필에 태그를 붙이거나 제거할 수 없습니다."
 
-#. TRANS: Title after untagging a people tag.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a username.
+#, fuzzy, php-format
+msgid "There was an unexpected error while listing %s."
+msgstr "%s 사용자에 태그를 붙이는데 예상치 못한 오류가 발생했습니다."
+
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a profile URL.
+#, fuzzy, php-format
+msgid ""
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly, please try retrying later."
+msgstr ""
+"%s님에 태그를 붙이는데 문제가 발생했습니다. 원격 서버가 제대로 응답하지 않는 "
+"것 같습니다. 나중에 다시 시도해 보십시오."
+
+#. TRANS: Title after removing a user from a list.
 msgid "Untagged"
 msgstr "태그 제거함"
 
@@ -5144,10 +5163,10 @@ msgstr "이 사이트에서는 사용자에 대해 샌드박싱할 수 없습니
 msgid "User is already sandboxed."
 msgstr "사용자가 이미 샌드박싱 상태입니다."
 
-#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
-#. TRANS: %s is the invalid tag.
-#, php-format
-msgid "Not a valid people tag: %s."
+#. TRANS: Client error displayed when trying to list a profile with an invalid list.
+#. TRANS: %s is the invalid list name.
+#, fuzzy, php-format
+msgid "Not a valid list: %s."
 msgstr "올바른 사람 태그가 아닙니다: %s."
 
 #. TRANS: Page title for page showing self tags.
@@ -5429,19 +5448,19 @@ msgid "Notice deleted."
 msgstr "글이 삭제되었습니다."
 
 #. TRANS: Title for private list timeline.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
+#. TRANS: %1$s is a list, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Private timeline for %1$s list by you, page %2$d"
 msgstr "내가 %1$s 태그를 붙인 사람들의 비공개 타임라인, %2$d 페이지"
 
 #. TRANS: Title for public list timeline where the viewer is the tagger.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
+#. TRANS: %1$s is a list, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Timeline for %1$s list by you, page %2$d"
 msgstr "내가 %1$s 태그를 붙인 사람들의 비공개 타임라인, %2$d 페이지"
 
 #. TRANS: Title for private list timeline.
-#. TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
+#. TRANS: %1$s is a list, %2$s is the tagger's nickname, %3$d is a page number.
 #, fuzzy, php-format
 msgid "Timeline for %1$s list by %2$s, page %3$d"
 msgstr "%2$s님이 %1$s 태그를 붙인 사람들의 타임라인, %3$d 페이지"
@@ -5480,11 +5499,11 @@ msgstr ""
 "%2$s님이 %1$s 태그를 붙인 사람들의 타임라인이지만, 아무도 아무 글도 올리지 않"
 "았습니다."
 
-#. TRANS: Additional empty list message for people tag timeline for currently logged in user tagged tags.
+#. TRANS: Additional empty list message for list timeline for currently logged in user tagged tags.
 msgid "Try tagging more people."
 msgstr "더 많은 사람들에 태그를 붙여 보십시오."
 
-#. TRANS: Additional empty list message for people tag timeline.
+#. TRANS: Additional empty list message for list timeline.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, php-format
 msgid ""
@@ -5498,7 +5517,7 @@ msgstr ""
 msgid "Listed"
 msgstr "라이선스"
 
-#. TRANS: Link for more "People tagged x by a user"
+#. TRANS: Link for more "People in list x by a user"
 #. TRANS: if there are more than the mini list's maximum.
 msgid "Show all"
 msgstr "모두 보기"
@@ -5996,23 +6015,24 @@ msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr "이 동작으로 OMB 0.1 원격 프로필에 구독할 수 없습니다."
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
-msgid "You must be logged in to unsubscribe to a people tag."
+#, fuzzy
+msgid "You must be logged in to unsubscribe from a list."
 msgstr "사람 태그에서 구독 해제하려면 로그인해야 합니다."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
 msgid "No ID given."
 msgstr "아이디가 없습니다."
 
-#. TRANS: Server error displayed subscribing to a people tag fails.
-#. TRANS: %1$s is a user nickname, %2$s is a people tag.
-#, php-format
-msgid "Could not subscribe user %1$s to people tag %2$s."
+#. TRANS: Server error displayed subscribing to a list fails.
+#. TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
+#, fuzzy, php-format
+msgid "Could not subscribe user %1$s to list %2$s: %3$s"
 msgstr "%1$s 사용자가 %2$s 사람 태그에 구독할 수 없습니다."
 
-#. TRANS: Title of form to subscribe to a people tag.
-#. TRANS: %1%s is a user nickname, %2$s is a people tag, %3$s is a tagger nickname.
-#, php-format
-msgid "%1$s subscribed to people tag %2$s by %3$s"
+#. TRANS: Title of form to subscribe to a list.
+#. TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
+#, fuzzy, php-format
+msgid "%1$s subscribed to list %2$s by %3$s"
 msgstr "%1$s님이 %3$s님이 만든 %2$s 사람 태그에 구독했습니다."
 
 #. TRANS: Header for list of subscribers for a user (first page).
@@ -6153,38 +6173,42 @@ msgstr "%s 태그가 있는 글 피드 (Atom)"
 msgid "You cannot tag this user."
 msgstr "이 사용자에게 태그를 붙일 수 없습니다."
 
-#. TRANS: Title for people tag form when not on a profile page.
-msgid "Tag a profile"
+#. TRANS: Title for list form when not on a profile page.
+#, fuzzy
+msgid "List a profile"
 msgstr "프로필에 태그 붙이기"
 
-#. TRANS: Title for people tag form when on a profile page.
+#. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, php-format
-msgid "Tag %s"
-msgstr "태그 %s"
+#, fuzzy, php-format
+msgctxt "ADDTOLIST"
+msgid "List %s"
+msgstr "제한"
 
-#. TRANS: Title for people tag form when an error has occurred.
+#. TRANS: Title for list form when an error has occurred.
 msgctxt "TITLE"
 msgid "Error"
 msgstr "오류"
 
-#. TRANS: Header in people tag form.
+#. TRANS: Header in list form.
 msgid "User profile"
 msgstr "사용자 프로필"
 
-#. TRANS: Fieldset legend for people tag form.
-msgid "Tag user"
-msgstr "사용자 태그"
+#. TRANS: Fieldset legend for list form.
+#, fuzzy
+msgid "List user"
+msgstr "제한"
 
-#. TRANS: Field label on people tag form.
-#. TRANS: Label in self tags widget.
+#. TRANS: Field label on list form.
+#, fuzzy
 msgctxt "LABEL"
-msgid "Tags"
-msgstr "태그"
+msgid "Lists"
+msgstr "제한"
 
-#. TRANS: Field title on people tag form.
+#. TRANS: Field title on list form.
+#, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
 "이 사용자의 태그 (문자,숫자,-, ., _ 문자로 구성), 쉼표나 공백으로 구분."
@@ -6194,12 +6218,14 @@ msgctxt "TITLE"
 msgid "Tags"
 msgstr "태그"
 
-#. TRANS: Success message if people tags are saved.
-msgid "Tags saved."
+#. TRANS: Success message if lists are saved.
+#, fuzzy
+msgid "Lists saved."
 msgstr "태그를 저장헸습니다."
 
 #. TRANS: Page notice.
-msgid "Use this form to add tags to your subscribers or subscriptions."
+#, fuzzy
+msgid "Use this form to add your subscribers or subscriptions to lists."
 msgstr ""
 "다음 양식을 사용해 나를 구독한 사람이나 내가 구독한 사람에게 태그를 추가하십"
 "시오."
@@ -6224,10 +6250,10 @@ msgstr "사용자가 벙어리 상태가 아닙니다."
 msgid "Unsubscribed"
 msgstr "구독 취소되었습니다."
 
-#. TRANS: Page title for form that allows unsubscribing from a people tag.
-#. TRANS: %1$s is a nickname, %2$s is a people tag, %3$s is a tagger nickname.
-#, php-format
-msgid "%1$s unsubscribed to people tag %2$s by %3$s"
+#. TRANS: Page title for form that allows unsubscribing from a list.
+#. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
+#, fuzzy, php-format
+msgid "%1$s unsubscribed from list %2$s by %3$s"
 msgstr "%1$s님이 %3$s님이 만든 %2$s 사람 태그에서 구독 해제했습니다."
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
@@ -6880,21 +6906,23 @@ msgstr ""
 "이미 태그를 %d개 이상 만들었습니다. 태그 최대 개수입니다. 기존의 태그를 사용"
 "하거나 태그를 지우고 새로 만들어 보십시오."
 
-#. TRANS: Client exception thrown trying to set one tag for more people than allowed.
-#, php-format
+#. TRANS: Client exception thrown when trying to add more people than allowed to a list.
+#, fuzzy, php-format
 msgid ""
-"You already have %1$d or more people tagged %2$s, which is the maximum "
-"allowed number.Try untagging others with the same tag first."
+"You already have %1$d or more people in list %2$s, which is the maximum "
+"allowed number.Try unlisting others first."
 msgstr ""
 "이미 %2$s 태그가 붙은 사람이 %1$d명 이상 있습니다. 최대값입니다.  같은 태그"
 "가 가진 사람의 태그를 제거해 보십시오."
 
-#. TRANS: Exception thrown when inserting a people tag subscription in the database fails.
-msgid "Adding people tag subscription failed."
+#. TRANS: Exception thrown when inserting a list subscription in the database fails.
+#, fuzzy
+msgid "Adding list subscription failed."
 msgstr "사람 태그 구독 추가에 실패했습니다."
 
-#. TRANS: Exception thrown when deleting a people tag subscription from the database fails.
-msgid "Removing people tag subscription failed."
+#. TRANS: Exception thrown when deleting a list subscription from the database fails.
+#, fuzzy
+msgid "Removing list subscription failed."
 msgstr "사람 태그 구독 제거에 실패했습니다."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
@@ -7485,7 +7513,7 @@ msgid "Cancel"
 msgstr "취소"
 
 #. TRANS: Submit button title.
-#. TRANS: Button text to save a people tag.
+#. TRANS: Button text to save a list.
 msgid "Save"
 msgstr "저장"
 
@@ -7531,14 +7559,14 @@ msgid "Do not use this method!"
 msgstr "이 메소드를 사용하지 마십시오!"
 
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-#, php-format
-msgid "Timeline for people tagged #%1$s by %2$s"
+#, fuzzy, php-format
+msgid "Timeline for people in list %1$s by %2$s"
 msgstr "%2$s님의 #%1$s 태그가 붙은 사람들에 대한 타임라인"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
-#, php-format
-msgid "Updates from %1$s's %2$s people tag on %3$s!"
+#, fuzzy, php-format
+msgid "Updates from %1$s's list %2$s on %3$s!"
 msgstr "%3$s 사이트의 %1$s님의 %2$s 사람들의 태그 업데이트"
 
 #. TRANS: Title.
@@ -9131,13 +9159,15 @@ msgstr "새 구독을 새로 만들 수 없습니다."
 msgid "No oEmbed API endpoint available."
 msgstr "oEmbed API 엔드포인트가 없습니다."
 
-#. TRANS: Field label for people tag.
+#. TRANS: Field label for list.
+#, fuzzy
 msgctxt "LABEL"
-msgid "Tag"
-msgstr "태그"
+msgid "List"
+msgstr "링크"
 
-#. TRANS: Field title for people tag.
-msgid "Change the tag (letters, numbers, -, ., and _ are allowed)."
+#. TRANS: Field title for list.
+#, fuzzy
+msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
 msgstr "태그 바꾸기. (문자, 숫자, -, ., _ 문자로 구성)"
 
 #. TRANS: Field title for description of list.
@@ -9157,11 +9187,11 @@ msgstr[0] "사람 태그나 주제를 설명하십시오."
 msgid "Delete this list."
 msgstr "이 사용자 삭제."
 
-#. TRANS: Header in people tag edit form.
+#. TRANS: Header in list edit form.
 msgid "Add or remove people"
 msgstr "사람 추가 또는 제거."
 
-#. TRANS: Header in people tag edit form.
+#. TRANS: Header in list edit form.
 msgctxt "HEADER"
 msgid "Search"
 msgstr "검색"
@@ -9196,7 +9226,7 @@ msgstr "구독자"
 msgid "Subscribers to %1$s list by %2$s."
 msgstr "%2$s 사용자의 %1$s 태그 구독자."
 
-#. TRANS: Menu item in people tag navigation panel.
+#. TRANS: Menu item in list navigation panel.
 msgctxt "MENU"
 msgid "Edit"
 msgstr "편집"
@@ -9220,7 +9250,7 @@ msgstr "프로필 설정 편집."
 msgid "Edit"
 msgstr "편집"
 
-#. TRANS: Privacy mode text in people tag list item for private tags.
+#. TRANS: Privacy mode text in list list item for private list.
 msgctxt "MODE"
 msgid "Private"
 msgstr "비공개"
@@ -9232,47 +9262,56 @@ msgid "List Subscriptions"
 msgstr "구독"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists subscribed to by %s."
 msgstr "%s에 구독했습니다."
 
 #. TRANS: Menu item in the group navigation page.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "MENU"
 msgid "Lists with %s"
 msgstr "\"%s\" 검색어가 있는 업데이트"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists with %s."
 msgstr "\"%s\" 검색어가 있는 업데이트"
 
 #. TRANS: Menu item in the group navigation page.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgctxt "MENU"
 msgid "Lists by %s"
 msgstr ""
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists by %s."
 msgstr "%1$s 태그, %2$s 사용자가 붙임"
 
-#. TRANS: Label in people tags widget.
+#. TRANS: Label in lists widget.
+#, fuzzy
 msgctxt "LABEL"
-msgid "Tags by you"
-msgstr "나의 태그"
+msgid "Your lists"
+msgstr "인기있는 글"
 
-#. TRANS: Fieldset legend in people tags widget.
+#. TRANS: Fieldset legend in lists widget.
+#, fuzzy
 msgctxt "LEGEND"
-msgid "Edit tags"
-msgstr "태그 편집"
+msgid "Edit lists"
+msgstr "사람 태그 %s 편집"
+
+#. TRANS: Label in self tags widget.
+msgctxt "LABEL"
+msgid "Tags"
+msgstr "태그"
 
 #. TRANS: Title for section contaning lists with the most subscribers.
 #, fuzzy
@@ -9285,11 +9324,12 @@ msgstr "인기있는 글"
 msgid "Listed: %1$d Subscribers: %2$d"
 msgstr "태그 붙음:%1$d개 구독자: %2$d명"
 
+#. TRANS: Title for page that displays which lists current user is part of.
 #, fuzzy, php-format
 msgid "Lists with you"
 msgstr "목록이 없습니다."
 
-#. TRANS: Title for page that displays which people tags a user has been tagged with.
+#. TRANS: Title for page that displays which lists a user is part of.
 #. TRANS: %s is a profile name.
 #, fuzzy, php-format
 msgid "Lists with %s"
@@ -9886,16 +9926,16 @@ msgid "Choose a field to search."
 msgstr "검색할 항목을 고르십시오."
 
 #. TRANS: Form legend.
-#. TRANS: %1$s is a nickname, $2$s is a people tag.
-#, php-format
-msgid "Untag %1$s as %2$s"
-msgstr "%1$s 사용자에서 %2$s 태그 제거"
+#. TRANS: %1$s is a nickname, $2$s is a list.
+#, fuzzy, php-format
+msgid "Remove %1$s from list %2$s"
+msgstr "%1$s 태그, %2$s 사용자가 붙임"
 
-#. TRANS: Legend on form to add a tag to a profile.
-#. TRANS: %1$s is a nickname, %2$s ia a people tag.
-#, php-format
-msgid "Tag %1$s as %2$s"
-msgstr "%1$s 사용자에 %2$s 태그 붙이기"
+#. TRANS: Legend on form to add a profile to a list.
+#. TRANS: %1$s is a nickname, %2$s is a list.
+#, fuzzy, php-format
+msgid "Add %1$s to list %2$s"
+msgstr "%1$s 태그, %2$s 사용자가 붙임"
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -9954,7 +9994,7 @@ msgid "Unsubscribe from this user"
 msgstr "이 사용자에서 구독 해제"
 
 #. TRANS: Button text on unsubscribe form.
-#. TRANS: Button text for unsubscribing from a people tag.
+#. TRANS: Button text for unsubscribing from a list.
 msgctxt "BUTTON"
 msgid "Unsubscribe"
 msgstr "구독 해제"
@@ -10036,74 +10076,44 @@ msgstr "XML이 잘못되었습니다. XRD 루트가 없습니다."
 msgid "Getting backup from file '%s'."
 msgstr "'%s' 파일에서 백업을 가져옵니다."
 
-#~ msgid "Use this form to edit the people tag."
-#~ msgstr "다음 양식을 이용해 사람 태그를 편집하십시오."
+#~ msgid "No such people tag."
+#~ msgstr "그런 사람 태그가 없습니다."
 
-#~ msgid "Could not update people tag."
-#~ msgstr "사람 태그를 업데이트할 수 없습니다."
+#~ msgid "Public people tag %s"
+#~ msgstr "공개 사람 태그 %s"
 
-#~ msgid "People tags by you"
-#~ msgstr "내 사람 태그"
+#~ msgid "Subscribers of people tagged %1$s by %2$s"
+#~ msgstr "%2$s님이 %1$s 사람 태그를 붙인 구독자"
 
-#~ msgid "People tags by %s"
-#~ msgstr "%s의 사람 태그"
+#~ msgid "Public people tag cloud"
+#~ msgstr "공개 사람 태그 클라우드"
 
-#~ msgid "People tags by %1$s, page %2$d"
-#~ msgstr "%1$s님의 사람 태그, %2$d 페이지"
+#~ msgid "These are most used people tags on %s"
+#~ msgstr "다음은 %s에서 가장 많이 사용하는 사람 태그입니다."
 
-#~ msgid "People tags for %s"
-#~ msgstr "%s님에 붙은 사람 태그"
+#~ msgid "People tag cloud"
+#~ msgstr "사람 태그 클라우드"
 
-#~ msgid "People tags for %1$s, page %2$d"
-#~ msgstr "%1$s님에 붙은 사람 태그, %2$d 페이지"
+#~ msgid "Tag %s"
+#~ msgstr "태그 %s"
 
-#~ msgid "People tagged %s by you"
-#~ msgstr "내가 %s 태그 붙인 사람"
+#~ msgid "Tag user"
+#~ msgstr "사용자 태그"
 
-#~ msgid "Problem saving profile_tag inbox."
-#~ msgstr "profile_tag 받은 쪽지함을 저장하는데 문제가 발생했습니다."
+#~ msgctxt "LABEL"
+#~ msgid "Tag"
+#~ msgstr "태그"
 
-#~ msgid "Groups with most members"
-#~ msgstr "가장 회원수가 많은 그룹"
+#~ msgctxt "LABEL"
+#~ msgid "Tags by you"
+#~ msgstr "나의 태그"
 
-#~ msgid "Groups with most posts"
-#~ msgstr "가장 게시글이 많은 그룹"
+#~ msgctxt "LEGEND"
+#~ msgid "Edit tags"
+#~ msgstr "태그 편집"
 
-#~ msgid "Delete this people tag."
-#~ msgstr "이 사람 태그 삭제."
+#~ msgid "Untag %1$s as %2$s"
+#~ msgstr "%1$s 사용자에서 %2$s 태그 제거"
 
-#~ msgctxt "MENU"
-#~ msgid "People tag"
-#~ msgstr "사람 태그"
-
-#~ msgctxt "MENU"
-#~ msgid "Tagged"
-#~ msgstr "태그 붙음"
-
-#~ msgid "Edit people tag settings."
-#~ msgstr "사람 태그 설정을 편집합니다."
-
-#~ msgid "People tags with most subscribers"
-#~ msgstr "구독자가 가장 많은 사람 태그"
-
-#~ msgid "People tag subscriptions"
-#~ msgstr "사람 태그 구독"
-
-#~ msgctxt "MENU"
-#~ msgid "People tags"
-#~ msgstr "사람 태그"
-
-#~ msgid "User"
-#~ msgstr "사용자"
-
-#~ msgid "Tags in %s's notices"
-#~ msgstr "%s의 글에 있는 태그"
-
-#~ msgid "All subscriptions"
-#~ msgstr "모든 구독"
-
-#~ msgid "People tags"
-#~ msgstr "사람 태그"
-
-#~ msgid "People tags by %s."
-#~ msgstr "%s님의 사람 태그."
+#~ msgid "Tag %1$s as %2$s"
+#~ msgstr "%1$s 사용자에 %2$s 태그 붙이기"
