@@ -93,7 +93,7 @@ class CancelRSVPForm extends Form
     {
         $this->out->elementStart('fieldset', array('id' => 'new_rsvp_data'));
 
-        $this->out->hidden('rsvp', $this->rsvp->id);
+        $this->out->hidden('rsvp-id', $this->rsvp->id, 'rsvp');
 
         switch (RSVP::verbFor($this->rsvp->response)) {
         case RSVP::POSITIVE:
@@ -121,6 +121,6 @@ class CancelRSVPForm extends Form
     function formActions()
     {
         // TRANS: Button text to cancel responding to an RSVP ("please respond") item.
-        $this->out->submit('cancel', _m('BUTTON', 'Cancel'));
+        $this->out->submit('rsvp-cancel', _m('BUTTON', 'Cancel'));
     }
 }

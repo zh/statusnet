@@ -105,18 +105,20 @@ class QnanewquestionForm extends Form
 
         $this->li();
         $this->out->input(
-            'title',
+            'qna-question-title',
             _m('Title'),
             $this->title,
-            _m('Title of your question')
+            _m('Title of your question'),
+            'title'
         );
         $this->unli();
         $this->li();
         $this->out->textarea(
-            'description',
+            'qna-question-description',
             _m('Description'),
             $this->description,
-            _m('Your question in detail')
+            _m('Your question in detail'),
+            'description'
         );
         $this->unli();
 
@@ -138,6 +140,6 @@ class QnanewquestionForm extends Form
     function formActions()
     {
         // TRANS: Button text for saving a new question.
-        $this->out->submit('submit', _m('BUTTON', 'Save'));
+        $this->out->submit('qna-question-submit', _m('BUTTON', 'Save'), 'submit', 'submit');
     }
 }

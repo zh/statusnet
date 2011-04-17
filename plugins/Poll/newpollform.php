@@ -122,11 +122,13 @@ class NewpollForm extends Form
                 $default = '';
             }
             $this->li();
-            $this->out->input('option' . ($i + 1),
+            $this->out->input('poll-option' . ($i + 1),
                               // TRANS: Field label for an answer option on the page to create a poll.
                               // TRANS: %d is the option number.
                               sprintf(_m('Option %d'), $i + 1),
-                              $default);
+                              $default,
+                              null,
+                              'option' . ($i + 1));
             $this->unli();
         }
 
@@ -148,6 +150,6 @@ class NewpollForm extends Form
     function formActions()
     {
         // TRANS: Button text for saving a new poll.
-        $this->out->submit('submit', _m('BUTTON', 'Save'));
+        $this->out->submit('poll-submit', _m('BUTTON', 'Save'), 'submit', 'submit');
     }
 }

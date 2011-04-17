@@ -181,7 +181,7 @@ class BookmarkForm extends Form
     function formActions()
     {
         // TRANS: Button text for action to save a new bookmark.
-        $this->out->submit('submit', _m('BUTTON', 'Save'));
+        $this->out->submit('bookmark-submit', _m('BUTTON', 'Save'), 'submit', 'submit');
     }
 
     function scaleImage($width, $height)

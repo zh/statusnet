@@ -109,8 +109,8 @@ class QnanewanswerForm extends Form
             $out->raw($this->question->asHTML());
         }
 
-        $out->hidden('id', $id);
-        $out->textarea('answer', 'answer');
+        $out->hidden('qna-question-id', $id, 'id');
+        $out->textarea('qna-answer', 'answer', null, null, 'answer');
     }
 
     /**
@@ -121,7 +121,7 @@ class QnanewanswerForm extends Form
     function formActions()
     {
         // TRANS: Button text for submitting a poll response.
-        $this->out->submit('submit', _m('BUTTON', 'Answer'));
+        $this->out->submit('qna-answer-submit', _m('BUTTON', 'Answer'), 'submit', 'submit');
     }
 }
 

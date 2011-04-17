@@ -88,6 +88,6 @@ class InitialBookmarkForm extends Form
     function formActions()
     {
         // TRANS: Button text for action to save a new bookmark.
-        $this->out->submit('submit', _m('BUTTON', 'Add'));
+        $this->out->submit('initial-bookmark-submit', _m('BUTTON', 'Add'), 'submit', 'submit');
     }
 }
