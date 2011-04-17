@@ -138,9 +138,9 @@ class PeopletagsforuserAction extends OwnerDesignAction
 
     function showEmptyListMessage()
     {
-        // TRANS: Message displayed on page that displays lists for a user when there are none.
+        // TRANS: Message displayed on page that displays lists a user was added to when there are none.
         // TRANS: This message contains Markdown links in the form [description](links).
-        // TRANS: %s is a tagger nickname.
+        // TRANS: %s is a user nickname.
         $message = sprintf(_('%s has not been [listed](%%%%doc.lists%%%%) by anyone yet.'), $this->tagged->nickname);
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
