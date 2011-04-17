@@ -200,7 +200,7 @@ class EmailregisterAction extends Action
                                      '<a href="%s">password recovery</a> tool to recover a missing password.'),
                                    common_local_url('recoverpassword'));
             $this->showRegistrationForm();
-            break;
+            return;
         }
 
         $valid = false;
@@ -213,6 +213,7 @@ class EmailregisterAction extends Action
         if (!$valid) {
             $this->error = _('Not a valid email address.');
             $this->showRegistrationForm();
+            return;
         }
 
         $confirm = Confirm_address::getAddress($this->email, self::CONFIRMTYPE);
