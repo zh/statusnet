@@ -118,9 +118,9 @@ class RemovepeopletagAction extends Action
         $omb01 = Remote_profile::staticGet('id', $tagged_id);
 
         if (!empty($omb01)) {
-            // TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
-            $this->clientError(_('You cannot tag or untag an OMB 0.1'.
-                                 ' remote profile with this action.'));
+            // TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
+            $this->clientError(_('You cannot (un)list an OMB 0.1 '.
+                                 'remote profile with this action.'));
             return false;
         }
 
@@ -164,7 +164,7 @@ class RemovepeopletagAction extends Action
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
             // TRANS: Title after removing a user from a list.
-            $this->element('title', null, _('Untagged'));
+            $this->element('title', null, _('Unlisted'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $unsubscribe = new TagButton($this, $this->tagged, $this->peopletag);
