@@ -245,7 +245,7 @@ class NoticeListItem extends Widget
             if (!$first) {
                 $this->out->text( _m('SEPARATOR',', '));
             } else {
-                $this->out->text(' ▶ ');
+                $this->out->text(_(' ▸ '));
                 $first = false;
             }
             $this->out->element('a', array('href' => $group->homeUrl(),
@@ -272,7 +272,7 @@ class NoticeListItem extends Widget
                 $this->out->text(_m('SEPARATOR',', '));
             } else {
                 // TRANS: Start of profile addressees list.
-                $this->out->text(_(' ▶ '));
+                $this->out->text(_(' ▸ '));
                 $first = false;
             }
             $this->out->element('a', array('href' => $reply->profileurl,
