@@ -236,11 +236,17 @@ class EmailregisterAction extends Action
 
     function confirmRegistration()
     {
-        $nickname = $this->nicknameFromEmail($this->email);
+        if (!empty($this->invitation)) {
+            $email = $this->invitation->address;
+        } else if (!empty($this->confirmation)) {
+            $email = $this->confirmation->address;
+        }
+        
+        $nickname = $this->nicknameFromEmail($email);
 
         $this->form = new ConfirmRegistrationForm($this,
                                                   $nickname,
-                                                  $this->email,
+                                                  $email,
                                                   $this->invitation->code);
         $this->showPage();
     }
@@ -356,7 +362,7 @@ class EmailregisterAction extends Action
         
         $nickname = preg_replace('/[^A-Za-z0-9]/', '', $str);
 
-        $nickname = Nickname::normalize($parts[0]);
+        $nickname = Nickname::normalize($nickname);
 
         $original = $nickname;
 
