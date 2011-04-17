@@ -71,6 +71,15 @@ class EmailRegistrationPlugin extends Plugin
         return true;
     }
 
+    function onLoginAction($action, &$login)
+    {
+        if ($action == 'emailregister') {
+            $login = true;
+            return false;
+        }
+        return true;
+    }
+
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'EmailRegistration',
