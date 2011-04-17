@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
-"PO-Revision-Date: 2011-04-17 18:19:30+0000\n"
+"POT-Creation-Date: 2011-04-17 22:24+0000\n"
+"PO-Revision-Date: 2011-04-17 22:27:25+0000\n"
 "Language-Team: Friulian <http://translatewiki.net/wiki/Portal:fur>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-17 18:38:19+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86276); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fur\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -158,28 +158,31 @@ msgstr "Il profîl nol esist."
 msgid "No such list."
 msgstr "La liste no esist."
 
-#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-msgid "You cannot tag an OMB 0.1 remote profile with this action."
+#. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
+msgid "You cannot list an OMB 0.1 remote profile with this action."
 msgstr ""
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
+#. TRANS: %s is a username.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a username.
 #, php-format
-msgid "There was an unexpected error while tagging %s."
+msgid "There was an unexpected error while listing %s."
 msgstr ""
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
 #, php-format
 msgid ""
-"There was a problem tagging %s. The remote server is probably not responding "
-"correctly, please try retrying later."
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly. Please try retrying later."
 msgstr ""
 
-#. TRANS: Title after subscribing to a list.
-#. TRANS: Page title when subscription succeeded.
-msgid "Subscribed"
-msgstr "Sotscrit"
+#. TRANS: Title after adding a user to a list.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Listed"
+msgstr "Licence"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -4902,14 +4905,8 @@ msgstr ""
 msgid "Could not get a request token."
 msgstr ""
 
-#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
-msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
-msgstr ""
-
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#, php-format
-msgid "There was an unexpected error while listing %s."
+#. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
+msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
 msgstr ""
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
@@ -4921,8 +4918,9 @@ msgid ""
 msgstr ""
 
 #. TRANS: Title after removing a user from a list.
-msgid "Untagged"
-msgstr "Etichete gjavade"
+#, fuzzy
+msgid "Unlisted"
+msgstr "Licence"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -5939,6 +5937,10 @@ msgstr "Une liste dai utents in spiete de aprovazion par sotscriviti."
 #. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
+
+#. TRANS: Page title when subscription succeeded.
+msgid "Subscribed"
+msgstr "Sotscrit"
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
 #, fuzzy
@@ -9898,41 +9900,5 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "Public people tag %s"
-#~ msgstr "Etichete publiche de int %s"
-
-#~ msgid "Subscribers of people tagged %1$s by %2$s"
-#~ msgstr "Sotscritôrs a int etichetade %1$s di %2$s"
-
-#~ msgid "Public people tag cloud"
-#~ msgstr "Nûl des etichetis de int publichis"
-
-#~ msgid "These are most used people tags on %s"
-#~ msgstr "Chestis a son lis etichetis de int plui usadis su %s"
-
-#~ msgid "People tag cloud"
-#~ msgstr "Nûl des etichetis de int"
-
-#~ msgid "Tag %s"
-#~ msgstr "Etichete %s"
-
-#~ msgid "Tag user"
-#~ msgstr "Etichete utent"
-
-#~ msgctxt "LABEL"
-#~ msgid "Tag"
-#~ msgstr "Etichete"
-
-#~ msgctxt "LABEL"
-#~ msgid "Tags by you"
-#~ msgstr "Lis tôs etichetis"
-
-#~ msgctxt "LEGEND"
-#~ msgid "Edit tags"
-#~ msgstr "Modifiche etichetis"
-
-#~ msgid "Untag %1$s as %2$s"
-#~ msgstr "Gjave la etichete %2$s a %1$s"
-
-#~ msgid "Tag %1$s as %2$s"
-#~ msgstr "Etichete %1$s come %2$s"
+#~ msgid "Untagged"
+#~ msgstr "Etichete gjavade"

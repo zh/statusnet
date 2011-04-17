@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"POT-Creation-Date: 2011-04-17 22:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -216,31 +216,33 @@ msgstr ""
 msgid "No such list."
 msgstr ""
 
-#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
+#. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
 #: actions/addpeopletag.php:121
-msgid "You cannot tag an OMB 0.1 remote profile with this action."
+msgid "You cannot list an OMB 0.1 remote profile with this action."
 msgstr ""
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a username.
-#: actions/addpeopletag.php:150
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a username.
+#: actions/addpeopletag.php:150 actions/removepeopletag.php:152
 #, php-format
-msgid "There was an unexpected error while tagging %s."
+msgid "There was an unexpected error while listing %s."
 msgstr ""
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
 #: actions/addpeopletag.php:155
 #, php-format
 msgid ""
-"There was a problem tagging %s. The remote server is probably not responding "
-"correctly, please try retrying later."
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly. Please try retrying later."
 msgstr ""
 
-#. TRANS: Title after subscribing to a list.
-#. TRANS: Page title when subscription succeeded.
-#: actions/addpeopletag.php:165 actions/subscribe.php:149
-msgid "Subscribed"
+#. TRANS: Title after adding a user to a list.
+#: actions/addpeopletag.php:165
+msgctxt "TITLE"
+msgid "Listed"
 msgstr ""
 
 #. TRANS: Server error when page not found (404).
@@ -5931,16 +5933,9 @@ msgstr ""
 msgid "Could not get a request token."
 msgstr ""
 
-#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
+#. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
 #: actions/removepeopletag.php:122
-msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
-msgstr ""
-
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#: actions/removepeopletag.php:152
-#, php-format
-msgid "There was an unexpected error while listing %s."
+msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
 msgstr ""
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
@@ -5954,7 +5949,7 @@ msgstr ""
 
 #. TRANS: Title after removing a user from a list.
 #: actions/removepeopletag.php:167
-msgid "Untagged"
+msgid "Unlisted"
 msgstr ""
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
@@ -7140,6 +7135,11 @@ msgstr ""
 #. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
 #: actions/subscribe.php:121
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr ""
+
+#. TRANS: Page title when subscription succeeded.
+#: actions/subscribe.php:149
+msgid "Subscribed"
 msgstr ""
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.

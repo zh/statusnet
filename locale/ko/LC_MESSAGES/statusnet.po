@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
-"PO-Revision-Date: 2011-04-17 18:19:41+0000\n"
+"POT-Creation-Date: 2011-04-17 22:24+0000\n"
+"PO-Revision-Date: 2011-04-17 22:27:36+0000\n"
 "Language-Team: Korean <http://translatewiki.net/wiki/Portal:ko>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86276); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
+"X-POT-Import-Date: 2011-04-17 18:38:19+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -163,30 +163,34 @@ msgstr "그런 프로필이 없습니다."
 msgid "No such list."
 msgstr "그런 태그가 없습니다."
 
-#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-msgid "You cannot tag an OMB 0.1 remote profile with this action."
+#. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
+#, fuzzy
+msgid "You cannot list an OMB 0.1 remote profile with this action."
 msgstr "이 동작으로 OMB 0.1 원격 프로필에 구독할 수 없습니다."
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a username.
-#, php-format
-msgid "There was an unexpected error while tagging %s."
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a username.
+#, fuzzy, php-format
+msgid "There was an unexpected error while listing %s."
 msgstr "%s 사용자에 태그를 붙이는데 예상치 못한 오류가 발생했습니다."
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"There was a problem tagging %s. The remote server is probably not responding "
-"correctly, please try retrying later."
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly. Please try retrying later."
 msgstr ""
 "%s님에 태그를 붙이는데 문제가 발생했습니다. 원격 서버가 제대로 응답하지 않는 "
 "것 같습니다. 나중에 다시 시도해 보십시오."
 
-#. TRANS: Title after subscribing to a list.
-#. TRANS: Page title when subscription succeeded.
-msgid "Subscribed"
-msgstr "구독했습니다"
+#. TRANS: Title after adding a user to a list.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Listed"
+msgstr "라이선스"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -4957,15 +4961,10 @@ msgstr "로컬 프로파일입니다! 구독하려면 로그인하십시오."
 msgid "Could not get a request token."
 msgstr "요청 토큰을 얻을 수 없습니다."
 
-#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
-msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
-msgstr "이 동작으로 OMB 0.1 원격 프로필에 태그를 붙이거나 제거할 수 없습니다."
-
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#, fuzzy, php-format
-msgid "There was an unexpected error while listing %s."
-msgstr "%s 사용자에 태그를 붙이는데 예상치 못한 오류가 발생했습니다."
+#. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
+#, fuzzy
+msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
+msgstr "이 동작으로 OMB 0.1 원격 프로필에 구독할 수 없습니다."
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
@@ -4978,8 +4977,9 @@ msgstr ""
 "것 같습니다. 나중에 다시 시도해 보십시오."
 
 #. TRANS: Title after removing a user from a list.
-msgid "Untagged"
-msgstr "태그 제거함"
+#, fuzzy
+msgid "Unlisted"
+msgstr "라이선스"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -6013,6 +6013,10 @@ msgstr "구독 허락을 기다리는 사용자 목록."
 #. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr "이 동작으로 OMB 0.1 원격 프로필에 구독할 수 없습니다."
+
+#. TRANS: Page title when subscription succeeded.
+msgid "Subscribed"
+msgstr "구독했습니다"
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
 #, fuzzy
@@ -10076,44 +10080,19 @@ msgstr "XML이 잘못되었습니다. XRD 루트가 없습니다."
 msgid "Getting backup from file '%s'."
 msgstr "'%s' 파일에서 백업을 가져옵니다."
 
-#~ msgid "No such people tag."
-#~ msgstr "그런 사람 태그가 없습니다."
+#~ msgid "There was an unexpected error while tagging %s."
+#~ msgstr "%s 사용자에 태그를 붙이는데 예상치 못한 오류가 발생했습니다."
 
-#~ msgid "Public people tag %s"
-#~ msgstr "공개 사람 태그 %s"
+#~ msgid ""
+#~ "There was a problem tagging %s. The remote server is probably not "
+#~ "responding correctly, please try retrying later."
+#~ msgstr ""
+#~ "%s님에 태그를 붙이는데 문제가 발생했습니다. 원격 서버가 제대로 응답하지 않"
+#~ "는 것 같습니다. 나중에 다시 시도해 보십시오."
 
-#~ msgid "Subscribers of people tagged %1$s by %2$s"
-#~ msgstr "%2$s님이 %1$s 사람 태그를 붙인 구독자"
+#~ msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
+#~ msgstr ""
+#~ "이 동작으로 OMB 0.1 원격 프로필에 태그를 붙이거나 제거할 수 없습니다."
 
-#~ msgid "Public people tag cloud"
-#~ msgstr "공개 사람 태그 클라우드"
-
-#~ msgid "These are most used people tags on %s"
-#~ msgstr "다음은 %s에서 가장 많이 사용하는 사람 태그입니다."
-
-#~ msgid "People tag cloud"
-#~ msgstr "사람 태그 클라우드"
-
-#~ msgid "Tag %s"
-#~ msgstr "태그 %s"
-
-#~ msgid "Tag user"
-#~ msgstr "사용자 태그"
-
-#~ msgctxt "LABEL"
-#~ msgid "Tag"
-#~ msgstr "태그"
-
-#~ msgctxt "LABEL"
-#~ msgid "Tags by you"
-#~ msgstr "나의 태그"
-
-#~ msgctxt "LEGEND"
-#~ msgid "Edit tags"
-#~ msgstr "태그 편집"
-
-#~ msgid "Untag %1$s as %2$s"
-#~ msgstr "%1$s 사용자에서 %2$s 태그 제거"
-
-#~ msgid "Tag %1$s as %2$s"
-#~ msgstr "%1$s 사용자에 %2$s 태그 붙이기"
+#~ msgid "Untagged"
+#~ msgstr "태그 제거함"

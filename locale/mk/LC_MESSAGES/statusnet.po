@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
-"PO-Revision-Date: 2011-04-17 18:19:43+0000\n"
+"POT-Creation-Date: 2011-04-17 22:24+0000\n"
+"PO-Revision-Date: 2011-04-17 22:27:38+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86276); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
+"X-POT-Import-Date: 2011-04-17 18:38:19+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -165,30 +165,34 @@ msgstr "Нема таков профил."
 msgid "No such list."
 msgstr "Нема таков список."
 
-#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-msgid "You cannot tag an OMB 0.1 remote profile with this action."
+#. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
+#, fuzzy
+msgid "You cannot list an OMB 0.1 remote profile with this action."
 msgstr "Не можете да означите далечински профил OMB 0.1 со ова дејство."
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
+#. TRANS: %s is a username.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a username.
 #, php-format
-msgid "There was an unexpected error while tagging %s."
-msgstr "Се појави неочекувана грешка при означувањето на %s."
+msgid "There was an unexpected error while listing %s."
+msgstr "Се појави неочекувана грешка при наведувањето на %s."
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"There was a problem tagging %s. The remote server is probably not responding "
-"correctly, please try retrying later."
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly. Please try retrying later."
 msgstr ""
-"Се појави проблем при означувањето на %s. Веројатно далечинскиот опслужувач "
+"Се појави проблем при наведувањето на %s. Веројатно далечинскиот опслужувач "
 "не одговара како што треба. Обидете се повторно."
 
-#. TRANS: Title after subscribing to a list.
-#. TRANS: Page title when subscription succeeded.
-msgid "Subscribed"
-msgstr "Претплатено"
+#. TRANS: Title after adding a user to a list.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Listed"
+msgstr "Наведени"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -4067,30 +4071,29 @@ msgstr "Пребарување на луѓе"
 
 #. TRANS: Title for list page.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Public list %s"
-msgstr "Јавни списоци составени од Вас"
+msgstr "Јавен список %s"
 
 #. TRANS: Title for list page.
 #. TRANS: %1$s is a list, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Public list %1$s, page %2$d"
-msgstr "Јавна ознака за луѓе %1$s, страница %2$d"
+msgstr "Јавен список %1$s, страница %2$d"
 
 #. TRANS: Message for anonymous users on list page.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Lists are how you sort similar people on %%site.name%%, a [micro-blogging]"
 "(http://en.wikipedia.org/wiki/Micro-blogging) service based on the Free "
 "Software [StatusNet](http://status.net/) tool. You can then easily keep "
 "track of what they are doing by subscribing to the list's timeline."
 msgstr ""
-"Ознаките за луѓе служат за подредување на слични лица на %%site.name%%, "
-"служба за [микроблогирање](http://mk.wikipedia.org/wiki/Микроблогирање) што "
-"работи на слободната програмска алатка [StatusNet](http://status.net/). "
-"Претплаќајќи се на хронологијата на ознаката ќе можете лесно да следите што "
-"прават лицата."
+"Списоците служат за подредување на слични лица на %%site.name%%, служба за "
+"[микроблогирање](http://mk.wikipedia.org/wiki/Микроблогирање) што работи на "
+"слободната програмска алатка [StatusNet](http://status.net/). Претплаќајќи "
+"се на хронологијата на ознаката ќе можете лесно да следите што прават лицата."
 
 #. TRANS: Client error displayed when a tagger is expected but not provided.
 msgid "No tagger."
@@ -4234,15 +4237,15 @@ msgstr "%s сè уште не е [наведен(а)](%%%%doc.lists%%%% на н�
 
 #. TRANS: Page title for list of list subscribers.
 #. TRANS: %1$s is a list, %2$s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to list %1$s by %2$s"
 msgstr "Претплатници на списокот %1$s од %2$s."
 
 #. TRANS: Page title for list of list subscribers.
 #. TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to list %1$s by %2$s, page %3$d"
-msgstr "Претплатници на луѓе означени со %1$sод %2$s, страница %3$d"
+msgstr "ретплатници на списокот %1$s од %2$s, страница %3$d"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %s is a profile nickname.
@@ -4623,48 +4626,45 @@ msgstr ""
 "[StatusNet](http://status.net/)."
 
 #. TRANS: Title for page with public list cloud.
-#, fuzzy
 msgid "Public list cloud"
-msgstr "Јавен облак од ознаки"
+msgstr "Облак од јавни списоци"
 
 #. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "These are largest lists on %s"
-msgstr "Овие се најпопуларните скорешни ознаки на %s"
+msgstr "Ова се најпопуларните скорешни ознаки на %s"
 
 #. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid "No one has [listed](%%doc.tags%%) anyone yet."
-msgstr "Сè уште некој нема [означено](%%doc.tags%%) никого."
+msgstr "Сè уште никој нема [наведено](%%doc.tags%%) никого на списокот."
 
 #. TRANS: Additional empty list message on page with public list cloud for logged in users.
-#, fuzzy
 msgid "Be the first to list someone!"
-msgstr "Бидете првиот што ќе означи некого!"
+msgstr "Бидете првиот што ќе наведе некого!"
 
 #. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
 msgstr ""
 "Зошто не [регистрирате сметка](%%action.register%%) и станете првиот што ќе "
-"означи некого!"
+"наведе некого!"
 
 #. TRANS: DT element on on page with public list cloud.
-#, fuzzy
 msgid "List cloud"
-msgstr "Списокот не е пронајден."
+msgstr "Облак со списоци"
 
 #. TRANS: Link title for number of listed people. %d is the number of listed people.
-#, fuzzy, php-format
+#, php-format
 msgid "1 person listed"
 msgid_plural "%d people listed"
-msgstr[0] "Означено е 1 лице"
-msgstr[1] "Означени се %d лица"
+msgstr[0] "Наведено е 1 лице"
+msgstr[1] "Наведени се %d лица"
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
 #, php-format
@@ -5057,31 +5057,25 @@ msgstr "Тоа е локален профил! Најавете се за да �
 msgid "Could not get a request token."
 msgstr "Не можев да добијам жетон за барање."
 
-#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
-msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
-msgstr ""
-"Не можете да ставате и тргате ознаки на далечински профил OMB 0.1 со ова "
-"дејство."
-
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#, fuzzy, php-format
-msgid "There was an unexpected error while listing %s."
-msgstr "Се појави неочекувана грешка при означувањето на %s."
+#. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
+#, fuzzy
+msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
+msgstr "Не можете да означите далечински профил OMB 0.1 со ова дејство."
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There was a problem listing %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
-"Се појави проблем при означувањето на %s. Веројатно далечинскиот опслужувач "
+"Се појави проблем при наведувањето на %s. Веројатно далечинскиот опслужувач "
 "не одговара како што треба. Обидете се повторно."
 
 #. TRANS: Title after removing a user from a list.
-msgid "Untagged"
-msgstr "Ознаката е тргната"
+#, fuzzy
+msgid "Unlisted"
+msgstr "Наведени"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -5273,9 +5267,9 @@ msgstr "Корисникот е веќе во песочен режим."
 
 #. TRANS: Client error displayed when trying to list a profile with an invalid list.
 #. TRANS: %s is the invalid list name.
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid list: %s."
-msgstr "Не е важечка ознака за луѓе: %s."
+msgstr "Не е важечки список: %s."
 
 #. TRANS: Page title for page showing self tags.
 #. TRANS: %1$s is a tag, %2$d is a page number.
@@ -6137,10 +6131,13 @@ msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
 "Не можете да се претплатите на OMB 0.1 далечински профил со ова дејство."
 
+#. TRANS: Page title when subscription succeeded.
+msgid "Subscribed"
+msgstr "Претплатено"
+
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
-#, fuzzy
 msgid "You must be logged in to unsubscribe from a list."
-msgstr "Мора да сте најавени за откажете претплата од ознака за луѓе."
+msgstr "Мора да сте најавени за откажете претплата од список."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
 msgid "No ID given."
@@ -6148,15 +6145,15 @@ msgstr "Нема наведено назнака (ID)."
 
 #. TRANS: Server error displayed subscribing to a list fails.
 #. TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
-#, fuzzy, php-format
+#, php-format
 msgid "Could not subscribe user %1$s to list %2$s: %3$s"
-msgstr "Не можам да го претплатам корисникот %1$s на ознаката за луѓе %2$s."
+msgstr "Не можам да го претплатам корисникот %1$s на списокот %2$s: %3$s"
 
 #. TRANS: Title of form to subscribe to a list.
 #. TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribed to list %2$s by %3$s"
-msgstr "%1$s се претплати на ознаката за луѓе %2$s од %3$s"
+msgstr "%1$s се претплати на списокот %2$s од %3$s"
 
 #. TRANS: Header for list of subscribers for a user (first page).
 #. TRANS: %s is the user's nickname.
@@ -6296,16 +6293,15 @@ msgid "You cannot tag this user."
 msgstr "Не можете да го означите овој корисник."
 
 #. TRANS: Title for list form when not on a profile page.
-#, fuzzy
 msgid "List a profile"
-msgstr "Означи профил"
+msgstr "Наведи профил"
 
 #. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "ADDTOLIST"
 msgid "List %s"
-msgstr "Списоци"
+msgstr "Список %s"
 
 #. TRANS: Title for list form when an error has occurred.
 msgctxt "TITLE"
@@ -6317,23 +6313,20 @@ msgid "User profile"
 msgstr "Кориснички профил"
 
 #. TRANS: Fieldset legend for list form.
-#, fuzzy
 msgid "List user"
-msgstr "Списоци"
+msgstr "Наведи корисник"
 
 #. TRANS: Field label on list form.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Lists"
 msgstr "Списоци"
 
 #. TRANS: Field title on list form.
-#, fuzzy
 msgid ""
 "Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
-"Ознаки за овој корисник (букви, бројки, -, . и _), одделени со запирка или "
+"Списоци за овој корисник (букви, бројки, -, . и _), одделени со запирка или "
 "празно место."
 
 #. TRANS: Title for personal tag cloud section.
@@ -6342,14 +6335,13 @@ msgid "Tags"
 msgstr "Ознаки"
 
 #. TRANS: Success message if lists are saved.
-#, fuzzy
 msgid "Lists saved."
-msgstr "Ознаката е зачувана."
+msgstr "Списоците се зачувани."
 
 #. TRANS: Page notice.
-#, fuzzy
 msgid "Use this form to add your subscribers or subscriptions to lists."
-msgstr "Со овој образец додавајте ознаки во Вашите претплатници или претплати."
+msgstr ""
+"Со овој образец додавајте ги Вашите претплатници или претплати во списоци."
 
 #. TRANS: Client error when requesting a tag feed for a non-existing tag.
 msgid "No such tag."
@@ -6373,9 +6365,9 @@ msgstr "Претплатата е откажана"
 
 #. TRANS: Page title for form that allows unsubscribing from a list.
 #. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s unsubscribed from list %2$s by %3$s"
-msgstr "%1$s ја откажа претплатата на ознаката за луѓе %2$s од %3$s"
+msgstr "%1$s ја откажа претплатата на списокот %2$s од %3$s"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
 #. TRANS: %1$s is the license incompatible with site license %2$s.
@@ -7056,24 +7048,21 @@ msgstr ""
 "дозволен број на ознаки. Искористете или избришете некои постоечки ознаки."
 
 #. TRANS: Client exception thrown when trying to add more people than allowed to a list.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You already have %1$d or more people in list %2$s, which is the maximum "
 "allowed number.Try unlisting others first."
 msgstr ""
-"Веќе имате означено %1$d или повеќе луѓе со %2$s, што претставува "
-"максималниот дозволен број. Најпрвин отстранете ја истава ознака кај некои "
-"други лица."
+"Веќе имате %1$d или повеќе луѓе во списокот %2$s, што претставува "
+"максималниот дозволен број. Најпрвин отстранете некои други од списокот."
 
 #. TRANS: Exception thrown when inserting a list subscription in the database fails.
-#, fuzzy
 msgid "Adding list subscription failed."
-msgstr "Додавањето на претплатата на ознака за луѓе не успеа."
+msgstr "Додавањето на претплатата на списокот не успеа."
 
 #. TRANS: Exception thrown when deleting a list subscription from the database fails.
-#, fuzzy
 msgid "Removing list subscription failed."
-msgstr "Отстранувањето на претплатата на ознаката за луѓе не успеа."
+msgstr "Отстранувањето на претплатата на списокот не успеа."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 msgid "Missing profile."
@@ -7719,15 +7708,15 @@ msgid "Do not use this method!"
 msgstr "Не користете го овој метод!"
 
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for people in list %1$s by %2$s"
-msgstr "Хронологија на лицата означени со #%1$s од %2$s"
+msgstr "Хронологија на лицата во списокот %1$s од %2$s"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from %1$s's list %2$s on %3$s!"
-msgstr "Поднови од ознаката за луѓе %2$s на %1$s на %3$s!"
+msgstr "Поднови од списокот на %1$s %2$s на %3$s!"
 
 #. TRANS: Title.
 msgid "Notices where this attachment appears"
@@ -9350,15 +9339,13 @@ msgid "No oEmbed API endpoint available."
 msgstr "Нема достапна крајна точка за oEmbed API."
 
 #. TRANS: Field label for list.
-#, fuzzy
 msgctxt "LABEL"
 msgid "List"
 msgstr "Список"
 
 #. TRANS: Field title for list.
-#, fuzzy
 msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
-msgstr "Смени ја ознаката (допуштени се букви, бројки, -, ., и _)."
+msgstr "Смени го списокот (допуштени се букви, бројки, -, ., и _)."
 
 #. TRANS: Field title for description of list.
 msgid "Describe the list or topic."
@@ -9482,16 +9469,14 @@ msgid "Lists by %s."
 msgstr "Списоци од %s."
 
 #. TRANS: Label in lists widget.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Your lists"
-msgstr "Популарни списоци"
+msgstr "Ваши списоци"
 
 #. TRANS: Fieldset legend in lists widget.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Edit lists"
-msgstr "Уредување списокот %s"
+msgstr "Уреди списоци"
 
 #. TRANS: Label in self tags widget.
 msgctxt "LABEL"
@@ -10113,15 +10098,15 @@ msgstr "Одберете поле за пребарување."
 
 #. TRANS: Form legend.
 #. TRANS: %1$s is a nickname, $2$s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Remove %1$s from list %2$s"
-msgstr "Список %1$s од %2$s."
+msgstr "Отстрани го корисникот %1$s од списокот %2$s"
 
 #. TRANS: Legend on form to add a profile to a list.
 #. TRANS: %1$s is a nickname, %2$s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Add %1$s to list %2$s"
-msgstr "Список %1$s од %2$s."
+msgstr "Додај го корисникот %1$s во списокот %2$s"
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -10267,44 +10252,20 @@ msgstr "Неважечки XML. Нема XRD-корен."
 msgid "Getting backup from file '%s'."
 msgstr "Земам резерва на податотеката „%s“."
 
-#~ msgid "No such people tag."
-#~ msgstr "Нема таква ознака за луѓе."
+#~ msgid "There was an unexpected error while tagging %s."
+#~ msgstr "Се појави неочекувана грешка при означувањето на %s."
 
-#~ msgid "Public people tag %s"
-#~ msgstr "Јавна ознака за луѓе %s"
+#~ msgid ""
+#~ "There was a problem tagging %s. The remote server is probably not "
+#~ "responding correctly, please try retrying later."
+#~ msgstr ""
+#~ "Се појави проблем при означувањето на %s. Веројатно далечинскиот "
+#~ "опслужувач не одговара како што треба. Обидете се повторно."
 
-#~ msgid "Subscribers of people tagged %1$s by %2$s"
-#~ msgstr "Претплатници на луѓе означени со %1$s од %2$s"
+#~ msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
+#~ msgstr ""
+#~ "Не можете да ставате и тргате ознаки на далечински профил OMB 0.1 со ова "
+#~ "дејство."
 
-#~ msgid "Public people tag cloud"
-#~ msgstr "Јавен облак од ознаки за луѓе"
-
-#~ msgid "These are most used people tags on %s"
-#~ msgstr "Ова се најкористените ознаки за луѓе на %s"
-
-#~ msgid "People tag cloud"
-#~ msgstr "Јавен облак од ознаки за луѓе"
-
-#~ msgid "Tag %s"
-#~ msgstr "Означи %s"
-
-#~ msgid "Tag user"
-#~ msgstr "Означи корисник"
-
-#~ msgctxt "LABEL"
-#~ msgid "Tag"
-#~ msgstr "Ознака"
-
-#~ msgctxt "LABEL"
-#~ msgid "Tags by you"
-#~ msgstr "Ознаки од Вас"
-
-#~ msgctxt "LEGEND"
-#~ msgid "Edit tags"
-#~ msgstr "Уреди ознаки"
-
-#~ msgid "Untag %1$s as %2$s"
-#~ msgstr "Тргни ја ознаката %2$s од %1$s"
-
-#~ msgid "Tag %1$s as %2$s"
-#~ msgstr "Означи го/ја %1$s како %2$s"
+#~ msgid "Untagged"
+#~ msgstr "Ознаката е тргната"
