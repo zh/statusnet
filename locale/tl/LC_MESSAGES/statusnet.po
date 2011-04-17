@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
-"PO-Revision-Date: 2011-04-17 18:19:59+0000\n"
+"POT-Creation-Date: 2011-04-17 22:24+0000\n"
+"PO-Revision-Date: 2011-04-17 22:27:54+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-17 18:38:19+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86276); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -167,34 +167,37 @@ msgstr "Walang ganyang balangkas."
 msgid "No such list."
 msgstr "Walang ganyang talaan."
 
-#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-msgid "You cannot tag an OMB 0.1 remote profile with this action."
+#. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
+#, fuzzy
+msgid "You cannot list an OMB 0.1 remote profile with this action."
 msgstr ""
 "Hindi mo matatatakan ang isang malayong balangkas ng OMB 0.1 sa pamamagitan "
 "ng ganitong galaw."
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
+#. TRANS: %s is a username.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a username.
 #, php-format
-msgid "There was an unexpected error while tagging %s."
-msgstr ""
-"Nagkaroon ng isang hindi inaasahang kamalian habang tinatatakan ang %s."
+msgid "There was an unexpected error while listing %s."
+msgstr "Nagkaroon ng isang hindi inaasahang kamalian habang itinatala si %s."
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"There was a problem tagging %s. The remote server is probably not responding "
-"correctly, please try retrying later."
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly. Please try retrying later."
 msgstr ""
-"Nagkaroon ng suliranin sa pagtatatak ng %s.  Marahil ang malayong "
-"tagapaghain  ay hind tumutugon ng tama, mangyaring subukang subukan pa ulit "
+"Nagkaroon ng isang suliranin sa pagtatala ng %s.  Marahil ang malayong "
+"tagapaghain ay hind tumutugon ng tama, mangyaring subukang subukan pa ulit "
 "mamaya."
 
-#. TRANS: Title after subscribing to a list.
-#. TRANS: Page title when subscription succeeded.
-msgid "Subscribed"
-msgstr "Tumatanggap na ng sipi"
+#. TRANS: Title after adding a user to a list.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Listed"
+msgstr "Naitala na"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -4152,31 +4155,31 @@ msgstr "Paghahanap ng mga tao"
 
 #. TRANS: Title for list page.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Public list %s"
-msgstr "Pangmadlang mga talaan mo ng mga tao"
+msgstr "Pangmadlang mga talaang %s"
 
 #. TRANS: Title for list page.
 #. TRANS: %1$s is a list, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Public list %1$s, page %2$d"
-msgstr "Pangmadlang tatak ng mga tao na %1$s, pahina %2$d"
+msgstr "Pangmadlang talaang %1$s, pahina %2$d"
 
 #. TRANS: Message for anonymous users on list page.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Lists are how you sort similar people on %%site.name%%, a [micro-blogging]"
 "(http://en.wikipedia.org/wiki/Micro-blogging) service based on the Free "
 "Software [StatusNet](http://status.net/) tool. You can then easily keep "
 "track of what they are doing by subscribing to the list's timeline."
 msgstr ""
-"Ang mga tatak ng mga tao ay kung paano mo pinagpapangkat-pangkat ang "
-"magkakahalintulad na mga tao sa %%site.name%%, isang palingkuran ng "
-"[maliitang pagboblog](http://en.wikipedia.org/wiki/Micro-blogging) na "
-"nakabatay sa kasangkapan ng Malayang Sopwer na [StatusNet](http://status."
-"net/). Kaya't maginhawa mong masusubaybay ang kung ano ang kanilang ginagawa "
-"sa pamamagitan ng pagpapatanggap ng mga sipi sa guhit ng panahon ng tatak."
+"Ang mga talaan ay kung paano mo pinagpapangkat-pangkat ang magkakahalintulad "
+"na mga tao sa %%site.name%%, isang palingkuran ng [maliitang pagboblog]"
+"(http://en.wikipedia.org/wiki/Micro-blogging) na nakabatay sa kasangkapan ng "
+"Malayang Sopwer na [StatusNet](http://status.net/). Kaya't maginhawa mong "
+"masusubaybayan ang kung ano ang kanilang ginagawa sa pamamagitan ng "
+"pagpapatanggap ng mga sipi sa guhit ng panahon ng talaan."
 
 #. TRANS: Client error displayed when a tagger is expected but not provided.
 msgid "No tagger."
@@ -4275,7 +4278,7 @@ msgstr ""
 "pinagpapangkat-pangkat ang magkakahalintulad na mga tao sa %%site.name%%, "
 "isang palingkuran ng [maliitang pagboblog](http://en.wikipedia.org/wiki/"
 "Micro-blogging) na nakabatay sa kasangkapan ng Malayang Sopwer na [StatusNet]"
-"(http://status.net/). Kaya't maginhawa mong masusubaybay ang kung ano ang "
+"(http://status.net/). Kaya't maginhawa mong masusubaybayan ang kung ano ang "
 "kanilang ginagawa sa pamamagitan ng pagpapatanggap ng mga sipi sa guhit ng "
 "panahon ng tatak."
 
@@ -4312,7 +4315,7 @@ msgstr ""
 "pinagpapangkat-pangkat ang magkakahalintulad na mga tao sa %%site.name%%, "
 "isang palingkuran ng [maliitang pagboblog](http://en.wikipedia.org/wiki/"
 "Micro-blogging) na nakabatay sa kasangkapan ng Malayang Sopwer na [StatusNet]"
-"(http://status.net/). Kaya't maginhawa mong masusubaybay ang kung ano ang "
+"(http://status.net/). Kaya't maginhawa mong masusubaybayan ang kung ano ang "
 "kanilang ginagawa sa pamamagitan ng pagpapatanggap ng mga sipi sa guhit ng "
 "panahon ng tatak."
 
@@ -4325,15 +4328,15 @@ msgstr "Si %s ay hindi pa [naitatala](%%%%doc.lists%%%%) ninuman."
 
 #. TRANS: Page title for list of list subscribers.
 #. TRANS: %1$s is a list, %2$s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to list %1$s by %2$s"
-msgstr "Mga nagpapasipi sa mga talaang %1$s ni %2$s."
+msgstr "Mga nagpapasipi mula sa talaang %1$s ni %2$s"
 
 #. TRANS: Page title for list of list subscribers.
 #. TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to list %1$s by %2$s, page %3$d"
-msgstr "Mga nagpapasipi ng mga taong tinatakan ni %2$s ng %1$s, pahina %3$d"
+msgstr "Mga nagpapasipi mula sa talaang %1$s ni %2$s, pahina %3$d"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %s is a profile nickname.
@@ -4362,7 +4365,7 @@ msgstr ""
 "pinagpapangkat-pangkat ang magkakahalintulad na mga tao sa %%site.name%%, "
 "isang palingkuran ng [maliitang pagboblog](http://en.wikipedia.org/wiki/"
 "Micro-blogging) na nakabatay sa kasangkapan ng Malayang Sopwer na [StatusNet]"
-"(http://status.net/). Kaya't maginhawa mong masusubaybay ang kung ano ang "
+"(http://status.net/). Kaya't maginhawa mong masusubaybayan ang kung ano ang "
 "kanilang ginagawa sa pamamagitan ng pagpapatanggap ng mga sipi sa guhit ng "
 "panahon ng tatak."
 
@@ -4723,48 +4726,45 @@ msgstr ""
 "Malayang Sopwer na [StatusNet](http://status.net/)."
 
 #. TRANS: Title for page with public list cloud.
-#, fuzzy
 msgid "Public list cloud"
-msgstr "Ulap ng pangmadlang tatak"
+msgstr "Ulap ng pangmadlang talaan"
 
 #. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "These are largest lists on %s"
-msgstr "Ito ang mga pinakatanyag na kamakailang mga tatak sa %s"
+msgstr "Ito ang mga pinakamalaking mga talaan sa %s"
 
 #. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid "No one has [listed](%%doc.tags%%) anyone yet."
-msgstr "Wala pang [nagtatatak](%%doc.tags%%) ng sinuman."
+msgstr "Wala pang [nagtatala](%%doc.tags%%) ng sinuman."
 
 #. TRANS: Additional empty list message on page with public list cloud for logged in users.
-#, fuzzy
 msgid "Be the first to list someone!"
-msgstr "Maging pinakauna sa pagtatatak ng isang tao!"
+msgstr "Maging pinakauna sa pagtatala ng isang tao!"
 
 #. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
 msgstr ""
-"Bakit hindi [magpatala ng isang akawnt] (%%action.register%%) at maging una "
-"sa pagtatatak ng isang tao!"
+"Bakit hindi [magpatala ng isang akawnt] (%%action.register%%) at maging "
+"pinakauna sa pagtatala ng isang tao!"
 
 #. TRANS: DT element on on page with public list cloud.
-#, fuzzy
 msgid "List cloud"
-msgstr "Hindi natagpuan ang tala."
+msgstr "Itala ang ulap"
 
 #. TRANS: Link title for number of listed people. %d is the number of listed people.
-#, fuzzy, php-format
+#, php-format
 msgid "1 person listed"
 msgid_plural "%d people listed"
-msgstr[0] "1 taong natatakan"
-msgstr[1] "%d mga taong natatakan"
+msgstr[0] "1 taong naitala"
+msgstr[1] "%d mga taong naitala"
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
 #, php-format
@@ -5167,33 +5167,28 @@ msgstr "Iyan ay isang katutubong balangkas! Lumagda upang makapagpasipi."
 msgid "Could not get a request token."
 msgstr "Hindi makakuha ng isang kahalip ng kahilingan."
 
-#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
-msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
+#. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
+#, fuzzy
+msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
 msgstr ""
-"Hindi mo maaaring tatakan o hindi tatakan ang isang malayong balangkas ng "
-"OMB 0.1 sa pamamagitan ng galaw na ito."
-
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#, fuzzy, php-format
-msgid "There was an unexpected error while listing %s."
-msgstr ""
-"Nagkaroon ng isang hindi inaasahang kamalian habang tinatatakan ang %s."
+"Hindi mo matatatakan ang isang malayong balangkas ng OMB 0.1 sa pamamagitan "
+"ng ganitong galaw."
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There was a problem listing %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
-"Nagkaroon ng suliranin sa pagtatatak ng %s.  Marahil ang malayong "
-"tagapaghain  ay hind tumutugon ng tama, mangyaring subukang subukan pa ulit "
+"Nagkaroon ng isang suliranin sa pagtatala ng %s.  Marahil ang malayong "
+"tagapaghain ay hind tumutugon ng tama, mangyaring subukang subukan pa ulit "
 "mamaya."
 
 #. TRANS: Title after removing a user from a list.
-msgid "Untagged"
-msgstr "Hindi na tinatakan"
+#, fuzzy
+msgid "Unlisted"
+msgstr "Naitala na"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -5390,9 +5385,9 @@ msgstr "Nakakahon na sa buhangin ang tagagamit."
 
 #. TRANS: Client error displayed when trying to list a profile with an invalid list.
 #. TRANS: %s is the invalid list name.
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid list: %s."
-msgstr "Hindi isang katanggap-tanggap na tatak ng mga tao: %s."
+msgstr "Hindi isang katanggap-tanggap na talaan: %s."
 
 #. TRANS: Page title for page showing self tags.
 #. TRANS: %1$s is a tag, %2$d is a page number.
@@ -6286,12 +6281,14 @@ msgstr ""
 "Hindi ka maaaring magpasipi sa isang malayong balangkas ng OMB 0.1 sa "
 "pamamagitan ng galaw na ito."
 
+#. TRANS: Page title when subscription succeeded.
+msgid "Subscribed"
+msgstr "Tumatanggap na ng sipi"
+
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
-#, fuzzy
 msgid "You must be logged in to unsubscribe from a list."
 msgstr ""
-"Dapat na nakalagda ka upang hindi magpatanggap ng sipi mula sa isang tatak "
-"ng mga tao."
+"Dapat na nakalagda ka upang hindi magpatanggap ng sipi mula sa isang talaan."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
 msgid "No ID given."
@@ -6299,15 +6296,15 @@ msgstr "Walang ibinigay na ID."
 
 #. TRANS: Server error displayed subscribing to a list fails.
 #. TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
-#, fuzzy, php-format
+#, php-format
 msgid "Could not subscribe user %1$s to list %2$s: %3$s"
-msgstr "Hindi mapasipian ang tagagamit na si %1$s sa tatak ng mga tao na %2$s."
+msgstr "Hindi mapasipian ang tagagamit na si %1$s sa talaang %2$s: %3$s"
 
 #. TRANS: Title of form to subscribe to a list.
 #. TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribed to list %2$s by %3$s"
-msgstr "Nagpasipi si %1$s ng tatak ng mga tao na %2$s ni %3$s"
+msgstr "Nagpasipi si %1$s mula sa talaang %2$s ni %3$s"
 
 #. TRANS: Header for list of subscribers for a user (first page).
 #. TRANS: %s is the user's nickname.
@@ -6448,16 +6445,15 @@ msgid "You cannot tag this user."
 msgstr "Hindi mo maaaring tatakan ang tagagamit na ito."
 
 #. TRANS: Title for list form when not on a profile page.
-#, fuzzy
 msgid "List a profile"
-msgstr "Tatakan ang isang balangkas"
+msgstr "Magtala ng isang balangkas"
 
 #. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "ADDTOLIST"
 msgid "List %s"
-msgstr "Mga talaan"
+msgstr "Itala ang %s"
 
 #. TRANS: Title for list form when an error has occurred.
 msgctxt "TITLE"
@@ -6469,24 +6465,21 @@ msgid "User profile"
 msgstr "Balangkas ng tagagamit"
 
 #. TRANS: Fieldset legend for list form.
-#, fuzzy
 msgid "List user"
-msgstr "Mga talaan"
+msgstr "Itala ang tagagamit"
 
 #. TRANS: Field label on list form.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Lists"
 msgstr "Mga talaan"
 
 #. TRANS: Field title on list form.
-#, fuzzy
 msgid ""
 "Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
-"Mga tatak para sa tagagamit na ito (mga titik, mga bilang, -, ., at _), "
-"pinaghihiwalay-hiwalay ng kuwit- o puwang-."
+"Mga talaan para sa tagagamit na ito (mga titik, mga bilang, -, ., at _), "
+"pinaghihiwalay-hiwalay ng kuwit o puwang."
 
 #. TRANS: Title for personal tag cloud section.
 msgctxt "TITLE"
@@ -6494,16 +6487,14 @@ msgid "Tags"
 msgstr "Mga tatak"
 
 #. TRANS: Success message if lists are saved.
-#, fuzzy
 msgid "Lists saved."
-msgstr "Nasagip ang mga tatak."
+msgstr "Nasagip na mga talaan."
 
 #. TRANS: Page notice.
-#, fuzzy
 msgid "Use this form to add your subscribers or subscriptions to lists."
 msgstr ""
-"Gamitin ang pormularyong ito upang magdagdag ng mga tatak sa mga tagasipi mo "
-"o mga pagpapasipi."
+"Gamitin ang pormularyong ito upang idagdag ang iyong mga tagapagpasipi o mga "
+"pagpapasipi sa mga talaan."
 
 #. TRANS: Client error when requesting a tag feed for a non-existing tag.
 msgid "No such tag."
@@ -6527,9 +6518,9 @@ msgstr "Hindi na nagpapasipi"
 
 #. TRANS: Page title for form that allows unsubscribing from a list.
 #. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s unsubscribed from list %2$s by %3$s"
-msgstr "Hindi na nagpapasipi si %1$s ng mga tatak ng mga tao na %2$s ni %3$s"
+msgstr "Hindi na nagpapasipi si %1$s  mula sa talaang %2$s ni %3$s"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
 #. TRANS: %1$s is the license incompatible with site license %2$s.
@@ -7229,24 +7220,22 @@ msgstr ""
 "sa umiiral na mga tatak.}}"
 
 #. TRANS: Client exception thrown when trying to add more people than allowed to a list.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You already have %1$d or more people in list %2$s, which is the maximum "
 "allowed number.Try unlisting others first."
 msgstr ""
-"Mayroon ka nang %1$d o mahigit pang mga tao na tinatakan ng %2$s, na siyang "
-"pinakamataas na pinahihintulutang bilang. Subukan muna na huwag nang tatakan "
-"ang iba na may kahalintulad na tatak."
+"Naroroon na si %1$d o mahigit pang mga tao sa loob ng talaang %2$s, na "
+"siyang pinakamataas na pinahihintulutang bilang. Subukan munang tanggalin na "
+"sa talaan ang iba pa."
 
 #. TRANS: Exception thrown when inserting a list subscription in the database fails.
-#, fuzzy
 msgid "Adding list subscription failed."
-msgstr "Nabigo ang pagpapasipi ng tatak ng mga tao."
+msgstr "Nabigo ang pagdaragdag ng pagpapasipi sa talaan."
 
 #. TRANS: Exception thrown when deleting a list subscription from the database fails.
-#, fuzzy
 msgid "Removing list subscription failed."
-msgstr "Nabigo ang pagtatanggal ng pagpapasipi ng tatak ng mga tao."
+msgstr "Nabigo ang pagtatanggal ng pagpapasipi sa talaan."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 msgid "Missing profile."
@@ -7911,16 +7900,15 @@ msgid "Do not use this method!"
 msgstr "Huwag gamitin ang pamamaraang ito!"
 
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for people in list %1$s by %2$s"
-msgstr "Guhit ng panahon para sa mga taong natatakan ni %2$s ng %1$s"
+msgstr "Guhit ng panahon para sa mga taong nasa loob ng talaan ni %2$s ng %1$s"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from %1$s's list %2$s on %3$s!"
-msgstr ""
-"Mga pagsasapanahon mula sa tatak ng mga tao na %2$s ni %1$s na nasa %3$s!"
+msgstr "Mga pagsasapanahon mula sa talaang %2$s ni %1$s na nasa %3$s!"
 
 #. TRANS: Title.
 msgid "Notices where this attachment appears"
@@ -8134,7 +8122,10 @@ msgstr ""
 msgid "Message too long - maximum is %1$d character, you sent %2$d."
 msgid_plural "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr[0] ""
+"Napakahaba ng mensahe - pinakamataas ang %1$d panitik, nagpadala ka ng %2$d."
 msgstr[1] ""
+"Napakahaba ng mensahe - pinakamataas ang %1$d mga panitik, nagpadala ka ng %2"
+"$d."
 
 #. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
 msgid "You can't send a message to this user."
@@ -8156,7 +8147,10 @@ msgstr "Inulit ang pabatid mula kay %s."
 msgid "Notice too long - maximum is %1$d character, you sent %2$d."
 msgid_plural "Notice too long - maximum is %1$d characters, you sent %2$d."
 msgstr[0] ""
+"Napakahaba ng pabatid - pinakamataas ang %1$d panitik, nagpadala ka ng %2$d."
 msgstr[1] ""
+"Napakahaba ng pabatid - pinakamataas ang %1$d mga panitik, nagpadala ka ng %2"
+"$d."
 
 #. TRANS: Text shown having sent a reply to a notice successfully.
 #. TRANS: %s is the nickname of the user of the notice the reply was sent to.
@@ -8241,8 +8235,8 @@ msgstr "Hindi ka nagpapasipi mula kaninuman."
 #. TRANS: hard coded space and a comma separated list of subscribed users.
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Nagpapasipi ka mula sa taong ito:"
+msgstr[1] "Nagpapasipi ka mula sa mga taong ito:"
 
 #. TRANS: Text shown after requesting other users that are subscribed to a user
 #. TRANS: (followers) without having any subscribers.
@@ -8254,8 +8248,8 @@ msgstr "Walang nagpapasipi sa iyo."
 #. TRANS: hard coded space and a comma separated list of subscribing users.
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Nagpapasipi sa iyo ang taong ito:"
+msgstr[1] "Nagpapasipi sa iyo ang mga taong ito:"
 
 #. TRANS: Text shown after requesting groups a user is subscribed to without having
 #. TRANS: any group subscriptions.
@@ -8622,8 +8616,9 @@ msgstr "Ilarawan ang pangkat o paksa."
 #, php-format
 msgid "Describe the group or topic in %d character or less."
 msgid_plural "Describe the group or topic in %d characters or less."
-msgstr[0] ""
+msgstr[0] "Ilarawan ang pangkat o paksa sa loob ng %d panitik o mas mababa pa."
 msgstr[1] ""
+"Ilarawan ang pangkat o paksa sa loob ng %d mga panitik o mas mababa pa."
 
 #. TRANS: Field title on group edit form.
 msgid ""
@@ -8646,7 +8641,11 @@ msgid_plural ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
 "aliases allowed."
 msgstr[0] ""
+"Labis na mga palayaw para sa pangkat, pinaghihiwa-hiwalay ng mga kuwit o mga "
+"patlang. Pinakamataas na %d taguri ang pinapayagan."
 msgstr[1] ""
+"Labis na mga palayaw para sa pangkat, pinaghihiwa-hiwalay ng mga kuwit o mga "
+"patlang. Pinakamataas na %d mga taguri ang pinapayagan."
 
 #. TRANS: Checkbox field title on group edit form to mark a group private.
 msgid ""
@@ -9408,8 +9407,9 @@ msgstr "Hindi maaaring walang laman ang palayaw."
 #, php-format
 msgid "Nickname cannot be more than %d character long."
 msgid_plural "Nickname cannot be more than %d characters long."
-msgstr[0] ""
+msgstr[0] "Ang palayaw ay hindi maaaring mas marami kaysa %d panitik ang haba."
 msgstr[1] ""
+"Ang palayaw ay hindi maaaring mas marami kaysa %d mga panitik ang haba."
 
 #. TRANS: Form legend for notice form.
 msgid "Send a notice"
@@ -9554,16 +9554,14 @@ msgid "No oEmbed API endpoint available."
 msgstr "Walang makukuhang dulong-katapusan ng API ng oEmbed."
 
 #. TRANS: Field label for list.
-#, fuzzy
 msgctxt "LABEL"
 msgid "List"
 msgstr "Talaan"
 
 #. TRANS: Field title for list.
-#, fuzzy
 msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
 msgstr ""
-"Baguhin ang tatak (pinapahintulutan ang mga titik, mga bilang, -, ., at _)."
+"Baguhin ang talaan (pinapahintulutan ang mga titik, mga bilang, -, ., at _)."
 
 #. TRANS: Field title for description of list.
 msgid "Describe the list or topic."
@@ -9687,16 +9685,14 @@ msgid "Lists by %s."
 msgstr "Mga talaan ng %s."
 
 #. TRANS: Label in lists widget.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Your lists"
-msgstr "Tanyag na mga talaan"
+msgstr "Mga talaan on"
 
 #. TRANS: Fieldset legend in lists widget.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Edit lists"
-msgstr "Baguhin ang talaang %s"
+msgstr "Baguhin ang mga talaan"
 
 #. TRANS: Label in self tags widget.
 msgctxt "LABEL"
@@ -10217,7 +10213,11 @@ msgid "Uploaded theme is too large; must be less than %d byte uncompressed."
 msgid_plural ""
 "Uploaded theme is too large; must be less than %d bytes uncompressed."
 msgstr[0] ""
+"Napakalaki ng ikinargang tema; dapat na mas mababa kaysa %d byte na hindi "
+"siniksik."
 msgstr[1] ""
+"Napakalaki ng ikinargang tema; dapat na mas mababa kaysa %d mga byte na "
+"hindi siniksik."
 
 #. TRANS: Server exception thrown when an uploaded theme is incomplete.
 msgid "Invalid theme archive: Missing file css/display.css"
@@ -10325,15 +10325,15 @@ msgstr "Pumili ng isang hanay na hahanapin."
 
 #. TRANS: Form legend.
 #. TRANS: %1$s is a nickname, $2$s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Remove %1$s from list %2$s"
-msgstr "Talaang %1$s ni %2$s."
+msgstr "Tinanggal si %1$s mula sa talaang %2$s"
 
 #. TRANS: Legend on form to add a profile to a list.
 #. TRANS: %1$s is a nickname, %2$s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Add %1$s to list %2$s"
-msgstr "Talaang %1$s ni %2$s."
+msgstr "Idinagdag si %1$s sa talaang %2$s"
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -10480,44 +10480,22 @@ msgstr "Hindi katanggap-tanggap na XML, nawawalang ugat ng XRD."
 msgid "Getting backup from file '%s'."
 msgstr "Kinukuha ang kopyang pamalit mula sa talaksang '%s'"
 
-#~ msgid "No such people tag."
-#~ msgstr "Walang ganyang tatak ng mga tao."
+#~ msgid "There was an unexpected error while tagging %s."
+#~ msgstr ""
+#~ "Nagkaroon ng isang hindi inaasahang kamalian habang tinatatakan ang %s."
 
-#~ msgid "Public people tag %s"
-#~ msgstr "Pangmadlang tatak ng mga tao na%s"
+#~ msgid ""
+#~ "There was a problem tagging %s. The remote server is probably not "
+#~ "responding correctly, please try retrying later."
+#~ msgstr ""
+#~ "Nagkaroon ng suliranin sa pagtatatak ng %s.  Marahil ang malayong "
+#~ "tagapaghain  ay hind tumutugon ng tama, mangyaring subukang subukan pa "
+#~ "ulit mamaya."
 
-#~ msgid "Subscribers of people tagged %1$s by %2$s"
-#~ msgstr "Mga nagpapasipi sa mga taong tinatakan ni %2$s ng %1$s"
+#~ msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
+#~ msgstr ""
+#~ "Hindi mo maaaring tatakan o hindi tatakan ang isang malayong balangkas ng "
+#~ "OMB 0.1 sa pamamagitan ng galaw na ito."
 
-#~ msgid "Public people tag cloud"
-#~ msgstr "Ulap ng pangmadlang tatak ng mga tao"
-
-#~ msgid "These are most used people tags on %s"
-#~ msgstr "Ito ang mga pinaka ginagamit na mga tatak ng mga tao sa %s"
-
-#~ msgid "People tag cloud"
-#~ msgstr "Ulap ng tatak ng mga tao"
-
-#~ msgid "Tag %s"
-#~ msgstr "Tatakan si %s"
-
-#~ msgid "Tag user"
-#~ msgstr "Tatakan ang tagagamit"
-
-#~ msgctxt "LABEL"
-#~ msgid "Tag"
-#~ msgstr "Tatak"
-
-#~ msgctxt "LABEL"
-#~ msgid "Tags by you"
-#~ msgstr "Mga pagtatatak mo"
-
-#~ msgctxt "LEGEND"
-#~ msgid "Edit tags"
-#~ msgstr "Baguhin ang mga tatak"
-
-#~ msgid "Untag %1$s as %2$s"
-#~ msgstr "Huwag tatakan si %1$s bilang %2$s"
-
-#~ msgid "Tag %1$s as %2$s"
-#~ msgstr "Tatakan si %1$s bilang %2$s"
+#~ msgid "Untagged"
+#~ msgstr "Hindi na tinatakan"

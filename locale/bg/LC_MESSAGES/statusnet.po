@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
-"PO-Revision-Date: 2011-04-17 18:19:13+0000\n"
+"POT-Creation-Date: 2011-04-17 22:24+0000\n"
+"PO-Revision-Date: 2011-04-17 22:27:08+0000\n"
 "Language-Team: Bulgarian <http://translatewiki.net/wiki/Portal:bg>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86276); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
+"X-POT-Import-Date: 2011-04-17 18:38:19+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -158,30 +158,32 @@ msgstr "Няма такъв профил."
 msgid "No such list."
 msgstr "Няма такъв етикет."
 
-#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
+#. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
 #, fuzzy
-msgid "You cannot tag an OMB 0.1 remote profile with this action."
+msgid "You cannot list an OMB 0.1 remote profile with this action."
 msgstr "Не сте абонирани за този профил"
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
+#. TRANS: %s is a username.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a username.
 #, php-format
-msgid "There was an unexpected error while tagging %s."
+msgid "There was an unexpected error while listing %s."
 msgstr ""
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
 #, php-format
 msgid ""
-"There was a problem tagging %s. The remote server is probably not responding "
-"correctly, please try retrying later."
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly. Please try retrying later."
 msgstr ""
 
-#. TRANS: Title after subscribing to a list.
-#. TRANS: Page title when subscription succeeded.
+#. TRANS: Title after adding a user to a list.
 #, fuzzy
-msgid "Subscribed"
-msgstr "Абониране"
+msgctxt "TITLE"
+msgid "Listed"
+msgstr "Лиценз"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -5105,16 +5107,10 @@ msgstr "Това е локален профил! Влезте, за да се а
 msgid "Could not get a request token."
 msgstr "Не е получен token за одобрение."
 
-#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
+#. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
 #, fuzzy
-msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
+msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
 msgstr "Не сте абонирани за този профил"
-
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#, php-format
-msgid "There was an unexpected error while listing %s."
-msgstr ""
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
@@ -5125,8 +5121,9 @@ msgid ""
 msgstr ""
 
 #. TRANS: Title after removing a user from a list.
-msgid "Untagged"
-msgstr ""
+#, fuzzy
+msgid "Unlisted"
+msgstr "Лиценз"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -6159,6 +6156,11 @@ msgstr "Списък с потребителите в тази група."
 #, fuzzy
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr "Не сте абонирани за този профил"
+
+#. TRANS: Page title when subscription succeeded.
+#, fuzzy
+msgid "Subscribed"
+msgstr "Абониране"
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
 #, fuzzy
@@ -10352,43 +10354,5 @@ msgid "Getting backup from file '%s'."
 msgstr ""
 
 #, fuzzy
-#~ msgid "No such people tag."
-#~ msgstr "Няма такъв етикет."
-
-#, fuzzy
-#~ msgid "Public people tag %s"
-#~ msgstr "Общ поток, страница %d"
-
-#, fuzzy
-#~ msgid "Public people tag cloud"
-#~ msgstr "Общ поток, страница %d"
-
-#, fuzzy
-#~ msgid "People tag cloud"
-#~ msgstr "Общ поток, страница %d"
-
-#, fuzzy
-#~ msgid "Tag %s"
-#~ msgstr "Етикети"
-
-#, fuzzy
-#~ msgid "Tag user"
-#~ msgstr "Етикети"
-
-#, fuzzy
-#~ msgctxt "LABEL"
-#~ msgid "Tag"
-#~ msgstr "Етикет"
-
-#, fuzzy
-#~ msgctxt "LEGEND"
-#~ msgid "Edit tags"
-#~ msgstr "Редактиране"
-
-#, fuzzy
-#~ msgid "Untag %1$s as %2$s"
-#~ msgstr "%1$s - %2$s"
-
-#, fuzzy
-#~ msgid "Tag %1$s as %2$s"
-#~ msgstr "RT @%1$s %2$s"
+#~ msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
+#~ msgstr "Не сте абонирани за този профил"
