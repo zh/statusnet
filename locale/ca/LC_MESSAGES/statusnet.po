@@ -16,17 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
-"PO-Revision-Date: 2011-04-16 22:56:05+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"PO-Revision-Date: 2011-04-17 18:19:16+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-13 13:56:48+0000\n"
+"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -128,7 +128,7 @@ msgstr "Desa els paràmetres d'accés"
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Button text to save snapshot settings.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
-#. TRANS: Button text to save people tags.
+#. TRANS: Button text to save lists.
 #. TRANS: Button text for saving "Other settings" in profile.
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
@@ -167,21 +167,21 @@ msgstr "No heu iniciat una sessió."
 msgid "No such profile."
 msgstr "No existeix el perfil."
 
-#. TRANS: Client error displayed trying to reference a non-existing people tag.
-#, fuzzy
-msgid "No such people tag."
-msgstr "No existeix aquesta etiqueta."
+#. TRANS: Client error displayed trying to reference a non-existing list.
+#. TRANS: Client error displayed when referring to a non-existing list.
+#. TRANS: Client error displayed trying to reference a non-existing list.
+msgid "No such list."
+msgstr "No existeix la llista."
 
 #. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-#, fuzzy
 msgid "You cannot tag an OMB 0.1 remote profile with this action."
-msgstr "No podeu subscriure-us a un perfil remot OMB 0.1 amb aquesta acció."
+msgstr "No podeu etiquetar un perfil remot OMB 0.1 amb aquesta acció."
 
 #. TRANS: Client error displayed when an unknown error occurs while tagging a user.
 #. TRANS: %s is a username.
 #, php-format
 msgid "There was an unexpected error while tagging %s."
-msgstr ""
+msgstr "S'ha produït un error no esperat en etiquetar %s."
 
 #. TRANS: Client error displayed when an unknown error occurs while tagging a user.
 #. TRANS: %s is a profile URL.
@@ -190,8 +190,10 @@ msgid ""
 "There was a problem tagging %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
+"S'ha produït un error en etiquetar %s. El servidor remot probablement no "
+"està responent correctament. Torneu-ho a provar més endavant."
 
-#. TRANS: Title after subscribing to a people tag.
+#. TRANS: Title after subscribing to a list.
 #. TRANS: Page title when subscription succeeded.
 msgid "Subscribed"
 msgstr "Subscrit"
@@ -630,7 +632,7 @@ msgstr "El vostre nom sencer és massa llarg (màx. 255 caràcters)."
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Group edit form validation error.
-#. TRANS: Client error shown when providing too long a description when editing a people tag.
+#. TRANS: Client error shown when providing too long a description when editing a list.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Form validation error in New application form.
 #. TRANS: %d is the maximum number of characters for the description.
@@ -785,58 +787,51 @@ msgstr "L'àlies no pot ser el mateix que el sobrenom."
 #. TRANS: Client error displayed when referring to a non-existing list.
 #. TRANS: Client error displayed trying to perform an action related to a non-existing list.
 #. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
 msgid "List not found."
-msgstr "No s'ha trobat el mètode API!"
+msgstr "No s'ha trobat la llista."
 
 #. TRANS: Client error displayed when trying to update another user's list.
 msgid "You cannot update lists that do not belong to you."
-msgstr ""
+msgstr "No podeu actualitzar les llistes que no us pertanyen."
 
 #. TRANS: Client error displayed when an unknown error occurs updating a list.
 #. TRANS: Client error displayed when an unknown error occurs viewing list members.
 #. TRANS: Client error displayed when an unknown error occurs in the list subscribers action.
 #. TRANS: Client error displayed when an unknown error occurs unsubscribing from a list.
-#, fuzzy
 msgid "An error occured."
 msgstr "S'ha produït un error."
 
 #. TRANS: Client error displayed when trying to delete another user's list.
 msgid "You cannot delete lists that do not belong to you."
-msgstr ""
+msgstr "No podeu eliminar les llistes que no us pertanyen."
 
 #. TRANS: Client error displayed when referring to a non-list member.
-#, fuzzy
 msgid "The specified user is not a member of this list."
-msgstr "L'usuari no és membre del grup."
+msgstr "L'usuari especificat no és membre d'aquesta llista."
 
 #. TRANS: Client error displayed when trying to add members to a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to add members to this list."
-msgstr "No teniu permisos per crear grups en aquest lloc."
+msgstr "No teniu permisos per afegir membres a aquesta llista."
 
 #. TRANS: Client error displayed when trying to modify list members without specifying them.
-#, fuzzy
 msgid "You must specify a member."
-msgstr "Heu d'especificar un perfil."
+msgstr "Heu d'especificar un membre."
 
 #. TRANS: Client error displayed when trying to remove members from a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to remove members from this list."
-msgstr "No teniu permisos per crear grups en aquest lloc."
+msgstr "No teniu permisos per eliminar membres d'aquesta llista."
 
 #. TRANS: Client error displayed when trying to remove a list member that is not part of a list.
 msgid "The user you are trying to remove from the list is not a member."
-msgstr ""
+msgstr "L'usuari que esteu provant d'eliminar de la llista no és un membre."
 
 #. TRANS: Client error displayed when trying to create a list without a name.
-#, fuzzy
 msgid "A list must have a name."
-msgstr "L'enviament Atom ha de ser una entrada Atom."
+msgstr "Una llista ha de tenir un nom."
 
 #. TRANS: Client error displayed when a membership check for a user is nagative.
 msgid "The specified user is not a subscriber of this list."
-msgstr ""
+msgstr "L'usuari especificat no és un subscriptor d'aquesta llista."
 
 #. TRANS: Client error displayed when trying to unsubscribe from a non-subscribed list.
 msgid "You are not subscribed to this list."
@@ -2252,32 +2247,27 @@ msgid "Invalid alias: \"%s\""
 msgstr "L'àlies no és vàlid «%s»"
 
 #. TRANS: Group edit form success message.
-#. TRANS: Edit people tag form success message.
+#. TRANS: Edit list form success message.
 msgid "Options saved."
 msgstr "Configuració guardada."
 
 #. TRANS: Title for edit list page after deleting a tag.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Delete %s list"
-msgstr "Elimina l'etiqueta d'usuari %s"
+msgstr "Elimina la llista %s"
 
 #. TRANS: Title for edit list page.
 #. TRANS: %s is a list.
 #. TRANS: Form legend for list edit form.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Edit list %s"
-msgstr "Edita l'etiqueta d'usuari %s"
+msgstr "Edita la llista %s"
 
 #. TRANS: Error message displayed when trying to perform an action that requires a tagging user or ID.
 msgid "No tagger or ID."
 msgstr "No hi ha cap etiquetador o ID."
-
-#. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
-msgid "No such list."
-msgstr "No existeix aquesta etiqueta."
 
 #. TRANS: Client error displayed when referring to non-local user.
 msgid "Not a local user."
@@ -2288,9 +2278,8 @@ msgid "You must be the creator of the tag to edit it."
 msgstr "Heu de ser el creador de l'etiqueta per editar-la."
 
 #. TRANS: Form instruction for edit list form.
-#, fuzzy
 msgid "Use this form to edit the list."
-msgstr "Utilitza aquest formulari per editar el grup."
+msgstr "Feu servir aquest formulari per editar la llista."
 
 #. TRANS: Form validation error displayed if the form data for deleting a tag was incorrect.
 msgid "Delete aborted."
@@ -2323,9 +2312,8 @@ msgstr ""
 "les subscripcions que hi estan associades. Encara voleu continuar?"
 
 #. TRANS: TRANS: Server error displayed when updating a list fails.
-#, fuzzy
 msgid "Could not update list."
-msgstr "No s'ha pogut actualitzar l'usuari."
+msgstr "No s'ha pogut actualitzar la llista."
 
 #. TRANS: Title for e-mail settings.
 msgid "Email settings"
@@ -3147,7 +3135,7 @@ msgstr ""
 msgid ""
 "Use this form to invite your friends and colleagues to use this service."
 msgstr ""
-"Feu servir aquest formulari per convidar els vostres amics i col·legues a "
+"Feu servir aquest formulari per convidar els vostres amics i companys a "
 "utilitzar aquest servei."
 
 #. TRANS: Field label for a list of e-mail addresses.
@@ -4081,94 +4069,89 @@ msgstr ""
 msgid "People search"
 msgstr "Cerca de gent"
 
-#. TRANS: Title for people tag page.
-#. TRANS: %s is a tag.
-#, php-format
-msgid "Public people tag %s"
-msgstr "Etiqueta d'usuari pública %s"
+#. TRANS: Title for list page.
+#. TRANS: %s is a list.
+#, fuzzy, php-format
+msgid "Public list %s"
+msgstr "Les vostres llistes públiques"
 
-#. TRANS: Title for people tag page.
-#. TRANS: %1$s is a tag, %2$d is a page number.
-#, php-format
-msgid "Public people tag %1$s, page %2$d"
+#. TRANS: Title for list page.
+#. TRANS: %1$s is a list, %2$d is a page number.
+#, fuzzy, php-format
+msgid "Public list %1$s, page %2$d"
 msgstr "Etiqueta pública d'usuari %1$s, pàgina %2$d"
 
-#. TRANS: Message for anonymous users on people tag page.
+#. TRANS: Message for anonymous users on list page.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
-"People tags are how you sort similar people on %%site.name%%, a [micro-"
-"blogging](http://en.wikipedia.org/wiki/Micro-blogging) service based on the "
-"Free Software [StatusNet](http://status.net/) tool. You can then easily keep "
-"track of what they are doing by subscribing to the tag's timeline."
+"Lists are how you sort similar people on %%site.name%%, a [micro-blogging]"
+"(http://en.wikipedia.org/wiki/Micro-blogging) service based on the Free "
+"Software [StatusNet](http://status.net/) tool. You can then easily keep "
+"track of what they are doing by subscribing to the list's timeline."
 msgstr ""
-"**%s** és un grup d'usuaris a %%%%site.name%%%%, un servei de [microblogging]"
-"(http://ca.wikipedia.org/wiki/Microblogging) basat en l'eina lliure "
-"[StatusNet](http://status.net/). Els seus membre comparteixen missatges "
-"curts sobre llur vida i interessos. "
+"Les etiquetes d'usuari és la forma com agrupeu gent similar a %%%%site.name%%"
+"%%, un servei de [microblogging](http://ca.wikipedia.org/wiki/Microblogging) "
+"basat en l'eina lliure [StatusNet](http://status.net/). Podeu seguir "
+"fàcilment què estan fent subscrivint-vos a la línia temporal d'una etiqueta."
 
 #. TRANS: Client error displayed when a tagger is expected but not provided.
-#, fuzzy
 msgid "No tagger."
-msgstr "No existeix aquesta etiqueta."
+msgstr "No existeix l'etiquetador."
 
 #. TRANS: Title for list of people listed by the user.
 #. TRANS: %1$s is a list, %2$s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "People listed in %1$s by %2$s"
-msgstr "Respostes a %1$s el %2$s."
+msgstr "Gent llistada a %1$s per %2$s."
 
 #. TRANS: Title for list of people listed by the user.
 #. TRANS: %1$s is a list, %2$s is a username, %2$s is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "People listed in %1$s by %2$s, page %3$d"
-msgstr "Respostes a %1$s, pàgina %2$d"
+msgstr "Gent llistada a %1$s per %2$s, pàgina %3$d"
 
 #. TRANS: Addition in tag membership list for creator of a tag.
 #. TRANS: Addition in tag subscribers list for creator of a tag.
-#, fuzzy
 msgid "Creator"
-msgstr "S'ha creat"
+msgstr "Creador"
 
 #. TRANS: Title for lists by a user page for a private tag.
-#, fuzzy
 msgid "Private lists by you"
-msgstr "llista la gent que us segueix"
+msgstr "Les vostres llistes privades"
 
 #. TRANS: Title for lists by a user page for a public tag.
-#, fuzzy
 msgid "Public lists by you"
-msgstr "Núvol públic d'etiquetes"
+msgstr "Les vostres llistes públiques"
 
 #. TRANS: Title for lists by a user page.
-#, fuzzy
 msgid "Lists by you"
-msgstr "Edita el grup %s"
+msgstr "Les vostres llistes"
 
 #. TRANS: Title for lists by a user page.
 #. TRANS: %s is a user nickname.
 #, php-format
 msgid "Lists by %s"
-msgstr ""
+msgstr "Llistes per %s"
 
 #. TRANS: Title for lists by a user page.
 #. TRANS: %1$s is a user nickname, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists by %1$s, page %2$d"
-msgstr "Avisos de %1$s, pàgina %2$d"
+msgstr "Llistes per %1$s, pàgina %2$d"
 
 #. TRANS: Client error displayed when trying view another user's private lists.
 msgid "You cannot view others' private lists"
-msgstr ""
+msgstr "No podeu veure les llistes privades d'altres"
 
 #. TRANS: Mode selector label.
 msgid "Mode"
 msgstr "Mode"
 
 #. TRANS: Link text to show lists for user %s.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists for %s"
-msgstr "Safata de sortida per %s"
+msgstr "Llistes de %s"
 
 #. TRANS: Fieldset legend.
 #. TRANS: Fieldset legend on gallery action page.
@@ -4177,18 +4160,16 @@ msgstr "Seleccioneu l'etiqueta per filtrar"
 
 #. TRANS: Checkbox title.
 msgid "Show private tags."
-msgstr ""
+msgstr "Mostra les etiquetes privades."
 
 #. TRANS: Checkbox label to show public tags.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Public"
 msgstr "Públic"
 
 #. TRANS: Checkbox title.
-#, fuzzy
 msgid "Show public tags."
-msgstr "No existeix aquesta etiqueta."
+msgstr "Mostra les etiquetes públiques."
 
 #. TRANS: Submit button text for tag filter form.
 #. TRANS: Submit button text on gallery action page.
@@ -4199,7 +4180,7 @@ msgstr "Vés-hi"
 #. TRANS: Message displayed for anonymous users on page that displays lists by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are lists created by **%s**. Lists are how you sort similar people on %"
 "%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4207,32 +4188,33 @@ msgid ""
 "tool. You can easily keep track of what they are doing by subscribing to the "
 "tag's timeline."
 msgstr ""
-"**%s** és un grup d'usuaris a %%%%site.name%%%%, un servei de [microblogging]"
+"Aquestes són llistes creades per **%s**. Les llistes són la forma com "
+"agrupeu gent similar a %%%%site.name%%%%, un servei de [microblogging]"
 "(http://ca.wikipedia.org/wiki/Microblogging) basat en l'eina lliure "
-"[StatusNet](http://status.net/). Els seus membre comparteixen missatges "
-"curts sobre llur vida i interessos. "
+"[StatusNet](http://status.net/). Podeu seguir fàcilment què estan fent "
+"subscrivint-vos a la línia temporal d'una etiqueta."
 
 #. TRANS: Message displayed on page that displays lists by a user when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%s has not created any [lists](%%%%doc.lists%%%%) yet."
-msgstr ""
-"Ningú ha enviat encara cap avís amb una [etiqueta de coixinet (#)](%%doc.tags"
-"%%)."
+msgstr "%s no ha creat encara cap [llista](%%doc.lists%%)."
 
+#. TRANS: Page title. %s is a tagged user's nickname.
 #, php-format
 msgid "Lists with %s in them"
-msgstr ""
+msgstr "Llistes que contenen %s"
 
-#, fuzzy, php-format
+#. TRANS: Page title. %1$s is a tagged user's nickname, %2$s is a page number.
+#, php-format
 msgid "Lists with %1$s, page %2$d"
-msgstr "Avisos etiquetats amb %1$s, pàgina %2$d"
+msgstr "Llistes que contenen %1$s, pàgina %2$d"
 
 #. TRANS: Message displayed for anonymous users on page that displays lists for a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are lists for **%s**. lists are how you sort similar people on %%%%"
 "site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4240,48 +4222,47 @@ msgid ""
 "tool. You can easily keep track of what they are doing by subscribing to the "
 "tag's timeline."
 msgstr ""
-"**%s** és un grup d'usuaris a %%%%site.name%%%%, un servei de [microblogging]"
-"(http://ca.wikipedia.org/wiki/Microblogging) basat en l'eina lliure "
-"[StatusNet](http://status.net/). Els seus membre comparteixen missatges "
-"curts sobre llur vida i interessos. "
+"Aquestes són llistes de **%s**. Les llistes són la forma com agrupeu gent "
+"similar a %%%%site.name%%%%, un servei de [microblogging](http://ca."
+"wikipedia.org/wiki/Microblogging) basat en l'eina lliure [StatusNet](http://"
+"status.net/). Podeu seguir fàcilment què estan fent subscrivint-vos a la "
+"línia temporal d'una etiqueta."
 
-#. TRANS: Message displayed on page that displays lists for a user when there are none.
+#. TRANS: Message displayed on page that displays lists a user was added to when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
-#. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
-msgid "%s has not been [listed](%%%%doc.lists%%%%) by anyone yet."
-msgstr ""
-"Ningú ha enviat encara cap avís amb una [etiqueta de coixinet (#)](%%doc.tags"
-"%%)."
-
-#. TRANS: Page title for list of people tag subscribers.
-#. TRANS: %1$s is a tag, %2$s is a user nickname.
+#. TRANS: %s is a user nickname.
 #, php-format
-msgid "Subscribers of people tagged %1$s by %2$s"
-msgstr ""
+msgid "%s has not been [listed](%%%%doc.lists%%%%) by anyone yet."
+msgstr "Ningú ha afegit %s encara a cap [llista](%%doc.lists%%)."
 
-#. TRANS: Page title for list of people tag subscribers.
-#. TRANS: %1$s is a tag, %2$s is a user nickname, %3$d is a page number.
+#. TRANS: Page title for list of list subscribers.
+#. TRANS: %1$s is a list, %2$s is a user nickname.
 #, fuzzy, php-format
-msgid "Subscribers of people tagged %1$s by %2$s, page %3$d"
-msgstr "Avisos de %1$s etiquetats amb %2$s, pàgina %3$d"
+msgid "Subscribers to list %1$s by %2$s"
+msgstr "Subscriptors de la llista %1$s per %2$s."
+
+#. TRANS: Page title for list of list subscribers.
+#. TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
+#, fuzzy, php-format
+msgid "Subscribers to list %1$s by %2$s, page %3$d"
+msgstr "Subscriptors de gent etiquetada amb %1$s per %2$s, pàgina %3$d"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists subscribed to by %s"
-msgstr "Subscrit a %s."
+msgstr "Llistes en què s'ha subscrit %s."
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %1$s is a profile nickname, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists subscribed to by %1$s, page %2$d"
-msgstr "%1$s subscripcions, pàgina %2$d"
+msgstr "Llistes en què s'ha subscrit %1$s, pàgina %2$d"
 
 #. TRANS: Message displayed for anonymous users on page that displays lists subscribed to by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are lists subscribed to by **%s**. Lists are how you sort similar "
 "people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/"
@@ -4289,10 +4270,11 @@ msgid ""
 "net/) tool. You can easily keep track of what they are doing by subscribing "
 "to the list's timeline."
 msgstr ""
-"**%s** és un grup d'usuaris a %%%%site.name%%%%, un servei de [microblogging]"
+"Aquestes són llistes en què s'ha subscrit **%s**. Les llistes són la forma "
+"com agrupeu gent similar a %%%%site.name%%%%, un servei de [microblogging]"
 "(http://ca.wikipedia.org/wiki/Microblogging) basat en l'eina lliure "
-"[StatusNet](http://status.net/). Els seus membre comparteixen missatges "
-"curts sobre llur vida i interessos. "
+"[StatusNet](http://status.net/). Podeu seguir fàcilment què estan fent "
+"subscrivint-vos a la línia temporal d'una etiqueta."
 
 #. TRANS: Page title for AJAX form return when a disabling a plugin.
 msgctxt "plugin"
@@ -4362,17 +4344,16 @@ msgstr ""
 #. TRANS: %s is a field name.
 #, php-format
 msgid "Unidentified field %s."
-msgstr ""
+msgstr "Camp no identificat %s."
 
 #. TRANS: Page title.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Search results"
-msgstr "Cerca al lloc"
+msgstr "Resultats de la cerca"
 
 #. TRANS: Error message in case a search is shorter than three characters.
 msgid "The search string must be at least 3 characters long."
-msgstr ""
+msgstr "La cadena de cerca ha de contenir com a mínim 3 caràcters."
 
 #. TRANS: Page title for profile settings.
 msgid "Profile settings"
@@ -4643,51 +4624,49 @@ msgstr ""
 "Això és %%site.name%%, un servei de [microblogging](http://ca.wikipedia.org/"
 "wiki/Microblogging) basat en l'eina lliure [StatusNet](http://status.net/)."
 
-#. TRANS: Title for page with public people tag cloud.
+#. TRANS: Title for page with public list cloud.
 #, fuzzy
-msgid "Public people tag cloud"
+msgid "Public list cloud"
 msgstr "Núvol públic d'etiquetes"
 
-#. TRANS: Page notice for page with public people tag cloud.
+#. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
 #, fuzzy, php-format
-msgid "These are most used people tags on %s"
+msgid "These are largest lists on %s"
 msgstr "Aquestes són les etiquetes recents més populars a %s"
 
-#. TRANS: Empty list message on page with public people tag cloud.
+#. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
-msgid "No one has [tagged](%%doc.tags%%) anyone yet."
-msgstr ""
-"Ningú ha enviat encara cap avís amb una [etiqueta de coixinet (#)](%%doc.tags"
-"%%)."
+msgid "No one has [listed](%%doc.tags%%) anyone yet."
+msgstr "Ningú ha [etiquetat](%%doc.tags%%) encara ningú."
 
-#. TRANS: Additional empty list message on page with public people tag cloud for logged in users.
+#. TRANS: Additional empty list message on page with public list cloud for logged in users.
 #, fuzzy
-msgid "Be the first to tag someone!"
-msgstr "Sigueu el primer en escriure'n un!"
+msgid "Be the first to list someone!"
+msgstr "Sigueu el primer en etiquetar algú!"
 
-#. TRANS: Additional empty list message on page with public people tag cloud for anonymous users.
+#. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
-"Why not [register an account](%%action.register%%) and be the first to tag "
+"Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
 msgstr ""
 "Per què no hi [registreu un compte](%%action.register%%) i sou el primer en "
-"escriure'n un!"
+"etiquetar algú!"
 
-#. TRANS: DT element on on page with public people tag cloud.
+#. TRANS: DT element on on page with public list cloud.
 #, fuzzy
-msgid "People tag cloud"
-msgstr "Núvol públic d'etiquetes"
+msgid "List cloud"
+msgstr "No s'ha trobat la llista."
 
-#. TRANS: Link title for number of people tagged. %d is the number of people tagged.
-#, php-format
-msgid "1 person tagged"
-msgid_plural "%d people tagged"
-msgstr[0] ""
-msgstr[1] ""
+#. TRANS: Link title for number of listed people. %d is the number of listed people.
+#, fuzzy, php-format
+msgid "1 person listed"
+msgid_plural "%d people listed"
+msgstr[0] "S'ha etiquetat 1 persona"
+msgstr[1] "S'han etiquetat %d persones"
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
 #, php-format
@@ -4915,7 +4894,7 @@ msgid ""
 "link up to friends and colleagues."
 msgstr ""
 "Amb aquest formulari, podeu crear un compte nou. Podeu enviar avisos i "
-"enllaçar a amics i col·legues."
+"enllaçar a amics i companys."
 
 #. TRANS: Field label on account registration page. In this field the password has to be entered a second time.
 msgctxt "PASSWORD"
@@ -5057,7 +5036,7 @@ msgstr "URL del vostre perfil en un altre servei de microblogging compatible."
 #. TRANS: Button text on page for remote subscribe.
 #. TRANS: Link text for link that will subscribe to a remote profile.
 #. TRANS: Button text to subscribe to a user.
-#. TRANS: Button text for subscribing to a people tag.
+#. TRANS: Button text for subscribing to a list.
 msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr "Subscriu-m'hi"
@@ -5082,13 +5061,29 @@ msgid "Could not get a request token."
 msgstr "No s'ha pogut obtenir un testimoni de sol·licitud."
 
 #. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
-#, fuzzy
 msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
-msgstr "No podeu subscriure-us a un perfil remot OMB 0.1 amb aquesta acció."
-
-#. TRANS: Title after untagging a people tag.
-msgid "Untagged"
 msgstr ""
+"No podeu etiquetar o desetiquetar un perfil remot OMB 0.1 amb aquesta acció."
+
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a username.
+#, fuzzy, php-format
+msgid "There was an unexpected error while listing %s."
+msgstr "S'ha produït un error no esperat en etiquetar %s."
+
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a profile URL.
+#, fuzzy, php-format
+msgid ""
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly, please try retrying later."
+msgstr ""
+"S'ha produït un error en etiquetar %s. El servidor remot probablement no "
+"està responent correctament. Torneu-ho a provar més endavant."
+
+#. TRANS: Title after removing a user from a list.
+msgid "Untagged"
+msgstr "Desetiquetat"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -5277,17 +5272,17 @@ msgstr "No podeu posar els usuaris en un entorn de prova en aquest lloc."
 msgid "User is already sandboxed."
 msgstr "L'usuari ja es troba en un entorn de proves."
 
-#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
-#. TRANS: %s is the invalid tag.
-#, php-format
-msgid "Not a valid people tag: %s."
+#. TRANS: Client error displayed when trying to list a profile with an invalid list.
+#. TRANS: %s is the invalid list name.
+#, fuzzy, php-format
+msgid "Not a valid list: %s."
 msgstr "No és una etiqueta de gent vàlida: %s"
 
 #. TRANS: Page title for page showing self tags.
 #. TRANS: %1$s is a tag, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Users self-tagged with %1$s, page %2$d"
-msgstr "Usuaris que s'han etiquetat amb %1$s - pàgina %2$d"
+msgstr "Usuaris que s'han etiquetat ells mateixos amb %1$s - pàgina %2$d"
 
 #. TRANS: Title for the sessions administration panel.
 msgctxt "TITLE"
@@ -5566,81 +5561,79 @@ msgid "Notice deleted."
 msgstr "S'ha eliminat l'avís."
 
 #. TRANS: Title for private list timeline.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
-#, fuzzy, php-format
+#. TRANS: %1$s is a list, %2$s is a page number.
+#, php-format
 msgid "Private timeline for %1$s list by you, page %2$d"
-msgstr "Usuaris que s'han etiquetat amb %1$s - pàgina %2$d"
+msgstr "Línia temporal privada de la vostra llista %1$s, pàgina %2$d"
 
 #. TRANS: Title for public list timeline where the viewer is the tagger.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
-#, fuzzy, php-format
+#. TRANS: %1$s is a list, %2$s is a page number.
+#, php-format
 msgid "Timeline for %1$s list by you, page %2$d"
-msgstr "Usuaris que s'han etiquetat amb %1$s - pàgina %2$d"
+msgstr "Línia temporal de la vostra llista %1$s, pàgina %2$d"
 
 #. TRANS: Title for private list timeline.
-#. TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
-#, fuzzy, php-format
+#. TRANS: %1$s is a list, %2$s is the tagger's nickname, %3$d is a page number.
+#, php-format
 msgid "Timeline for %1$s list by %2$s, page %3$d"
-msgstr "Avisos de %1$s etiquetats amb %2$s, pàgina %3$d"
+msgstr "Línia temporal de la llista %1$s per %2$s, pàgina %3$d"
 
 #. TRANS: Title for private list timeline.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Private timeline of %s list by you"
-msgstr "llista la gent que us segueix"
+msgstr "Línia temporal privada de la vostra llista %s"
 
 #. TRANS: Title for public list timeline where the viewer is the tagger.
 #. TRANS: %s is a list.
 #, php-format
 msgid "Timeline for %s list by you"
-msgstr ""
+msgstr "Línia temporal de la vostra llista %s"
 
 #. TRANS: Title for private list timeline.
 #. TRANS: %1$s is a list, %2$s is the tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for %1$s list by %2$s"
-msgstr "Respostes a %1$s el %2$s."
+msgstr "Línia temporal de la llista %1$s per %2$s"
 
 #. TRANS: Feed title.
 #. TRANS: %1$s is a list, %2$s is tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for %1$s list by %2$s (Atom)"
-msgstr "Canal dels preferits de %s (Atom)"
+msgstr "Canal de la llista %1$s per %2$s (Atom)"
 
 #. TRANS: Empty list message for list timeline.
 #. TRANS: %1$s is a list, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline for %1$s list by %2$s but no one has posted anything "
 "yet."
 msgstr ""
-"Aquesta és la línia temporal de %s i amics, però ningú hi ha publicat res "
-"encara."
+"Aquesta és la línia temporal de la llista %1$s per %2$s, però ningú hi ha "
+"publicat res encara."
 
-#. TRANS: Additional empty list message for people tag timeline for currently logged in user tagged tags.
+#. TRANS: Additional empty list message for list timeline for currently logged in user tagged tags.
 msgid "Try tagging more people."
-msgstr ""
+msgstr "Proveu d'etiquetar més gent."
 
-#. TRANS: Additional empty list message for people tag timeline.
+#. TRANS: Additional empty list message for list timeline.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and start following "
 "this timeline!"
 msgstr ""
 "Per què no hi [registreu un compte](%%action.register%%) i sou el primer en "
-"escriure'n un!"
+"seguir aquesta línia temporal!"
 
 #. TRANS: Header on show list page.
-#, fuzzy
 msgid "Listed"
-msgstr "Llicència"
+msgstr "Llistat"
 
-#. TRANS: Link for more "People tagged x by a user"
+#. TRANS: Link for more "People in list x by a user"
 #. TRANS: if there are more than the mini list's maximum.
-#, fuzzy
 msgid "Show all"
-msgstr "Mostra la resposta"
+msgstr "Mostra-ho tot"
 
 #. TRANS: Header for tag subscribers.
 #. TRANS: Link description for link to list of users subscribed to a tag.
@@ -6144,25 +6137,26 @@ msgstr "No podeu subscriure-us a un perfil remot OMB 0.1 amb aquesta acció."
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
 #, fuzzy
-msgid "You must be logged in to unsubscribe to a people tag."
-msgstr "Heu d'haver iniciat una sessió per crear un grup."
+msgid "You must be logged in to unsubscribe from a list."
+msgstr ""
+"Heu d'haver iniciat una sessió per cancel·lar la subscripció d'una etiqueta "
+"d'usuari."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
-#, fuzzy
 msgid "No ID given."
-msgstr "No hi ha cap argument ID."
+msgstr "No s'ha donat cap ID."
 
-#. TRANS: Server error displayed subscribing to a people tag fails.
-#. TRANS: %1$s is a user nickname, %2$s is a people tag.
+#. TRANS: Server error displayed subscribing to a list fails.
+#. TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
 #, fuzzy, php-format
-msgid "Could not subscribe user %1$s to people tag %2$s."
-msgstr "No s'ha pogut afegir l'usuari %1$s al grup %2$s."
+msgid "Could not subscribe user %1$s to list %2$s: %3$s"
+msgstr "No s'ha pogut afegir l'usuari %1$s a l'etiqueta d'usuari %2$s."
 
-#. TRANS: Title of form to subscribe to a people tag.
-#. TRANS: %1%s is a user nickname, %2$s is a people tag, %3$s is a tagger nickname.
+#. TRANS: Title of form to subscribe to a list.
+#. TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
 #, fuzzy, php-format
-msgid "%1$s subscribed to people tag %2$s by %3$s"
-msgstr "%1$s subscriptors, pàgina %2$d"
+msgid "%1$s subscribed to list %2$s by %3$s"
+msgstr "%1$s subscrits a l'etiqueta d'usuari %2$s per %3$s"
 
 #. TRANS: Header for list of subscribers for a user (first page).
 #. TRANS: %s is the user's nickname.
@@ -6264,7 +6258,6 @@ msgid "Subscription feed for %s (Atom)"
 msgstr "Canal de subscripció de %s (Atom)"
 
 #. TRANS: Checkbox label for enabling IM messages for a profile in a subscriptions list.
-#, fuzzy
 msgctxt "LABEL"
 msgid "IM"
 msgstr "MI"
@@ -6300,43 +6293,45 @@ msgstr "Canal d'avisos de l'etiqueta %s (Atom)"
 #. TRANS: Client error displayed when trying to tag a user that cannot be tagged.
 #. TRANS: Client exception thrown trying to set a tag for a user that cannot be tagged.
 #. TRANS: Error displayed when trying to tag a user that cannot be tagged.
-#, fuzzy
 msgid "You cannot tag this user."
-msgstr "No podeu enviar un missatge a l'usuari."
+msgstr "No podeu etiquetar l'usuari."
 
-#. TRANS: Title for people tag form when not on a profile page.
+#. TRANS: Title for list form when not on a profile page.
 #, fuzzy
-msgid "Tag a profile"
-msgstr "Perfil de l'usuari"
+msgid "List a profile"
+msgstr "Etiqueta un perfil"
 
-#. TRANS: Title for people tag form when on a profile page.
+#. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, php-format
-msgid "Tag %s"
-msgstr "Etiqueta %s"
+#, fuzzy, php-format
+msgctxt "ADDTOLIST"
+msgid "List %s"
+msgstr "Llistes"
 
-#. TRANS: Title for people tag form when an error has occurred.
+#. TRANS: Title for list form when an error has occurred.
 msgctxt "TITLE"
 msgid "Error"
 msgstr "Error"
 
-#. TRANS: Header in people tag form.
+#. TRANS: Header in list form.
 msgid "User profile"
 msgstr "Perfil de l'usuari"
 
-#. TRANS: Fieldset legend for people tag form.
-msgid "Tag user"
-msgstr "Etiqueta usuari"
+#. TRANS: Fieldset legend for list form.
+#, fuzzy
+msgid "List user"
+msgstr "Llistes"
 
-#. TRANS: Field label on people tag form.
-#. TRANS: Label in self tags widget.
+#. TRANS: Field label on list form.
+#, fuzzy
 msgctxt "LABEL"
-msgid "Tags"
-msgstr "Etiquetes"
+msgid "Lists"
+msgstr "Llistes"
 
-#. TRANS: Field title on people tag form.
+#. TRANS: Field title on list form.
+#, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
 "Etiquetes d'aquest usuari (lletres, nombres, -, ., i _), separades amb comes "
@@ -6347,12 +6342,14 @@ msgctxt "TITLE"
 msgid "Tags"
 msgstr "Etiquetes"
 
-#. TRANS: Success message if people tags are saved.
-msgid "Tags saved."
+#. TRANS: Success message if lists are saved.
+#, fuzzy
+msgid "Lists saved."
 msgstr "S'han desat les etiquetes."
 
 #. TRANS: Page notice.
-msgid "Use this form to add tags to your subscribers or subscriptions."
+#, fuzzy
+msgid "Use this form to add your subscribers or subscriptions to lists."
 msgstr ""
 "Utilitzeu aquest formulari per afegir etiquetes als vostres subscriptors i "
 "subscripcions."
@@ -6377,11 +6374,11 @@ msgstr "L'usuari no està silenciat."
 msgid "Unsubscribed"
 msgstr "No subscrit"
 
-#. TRANS: Page title for form that allows unsubscribing from a people tag.
-#. TRANS: %1$s is a nickname, %2$s is a people tag, %3$s is a tagger nickname.
+#. TRANS: Page title for form that allows unsubscribing from a list.
+#. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
 #, fuzzy, php-format
-msgid "%1$s unsubscribed to people tag %2$s by %3$s"
-msgstr "%1$s subscriptors, pàgina %2$d"
+msgid "%1$s unsubscribed from list %2$s by %3$s"
+msgstr "%1$s han cancel·lat la subscripció a l'etiquet d'usuari %2$s per %3$s"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
 #. TRANS: %1$s is the license incompatible with site license %2$s.
@@ -6920,11 +6917,11 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr "No hi ha cap perfil (%1$d) per a l'avís (%2$d)."
 
 #. TRANS: Server exception. %s are the error details.
-#, fuzzy, php-format
+#, php-format
 msgid "Database error inserting hashtag: %s."
 msgstr ""
-"S'ha produït un error de la base de dades en inserir una etiqueta de "
-"coixinet (%): %s"
+"S'ha produït un error a la base de dades en inserir l'etiqueta amb coixinet "
+"(hashtag): %s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
 msgid "Problem saving notice. Too long."
@@ -7029,29 +7026,24 @@ msgid "The tag you are trying to rename to already exists."
 msgstr "L'etiqueta que esteu provant de reanomenar ja existeix."
 
 #. TRANS: Server exception saving new tag without having a tagger specified.
-#, fuzzy
 msgid "No tagger specified."
-msgstr "No s'ha especificat cap grup."
+msgstr "No s'ha especificat cap etiquetador."
 
 #. TRANS: Server exception saving new tag without having a tag specified.
-#, fuzzy
 msgid "No tag specified."
-msgstr "No s'ha especificat cap grup."
+msgstr "No s'ha especificat cap etiqueta."
 
 #. TRANS: Server exception saving new tag.
-#, fuzzy
 msgid "Could not create profile tag."
-msgstr "No s'ha pogut desar el perfil."
+msgstr "No s'ha pogut crear l'etiqueta de perfil."
 
 #. TRANS: Server exception saving new tag.
-#, fuzzy
 msgid "Could not set profile tag URI."
-msgstr "No s'ha pogut desar el perfil."
+msgstr "No s'ha pogut definir l'URI de l'etiqueta de perfil."
 
 #. TRANS: Server exception saving new tag.
-#, fuzzy
 msgid "Could not set profile tag mainpage."
-msgstr "No s'ha pogut desar el perfil."
+msgstr "No s'ha pogut definir la pàgina principal de l'etiqueta de perfil."
 
 #. TRANS: Client exception thrown trying to set more tags than allowed.
 #, php-format
@@ -7059,23 +7051,28 @@ msgid ""
 "You already have created %d or more tags which is the maximum allowed number "
 "of tags. Try using or deleting some existing tags."
 msgstr ""
+"Ja heu creat %d o més etiquetes, que és el màxim nombre d'etiquetes permès. "
+"Proveu de reemplaçar o eliminar etiquetes que ja existeixen."
 
-#. TRANS: Client exception thrown trying to set one tag for more people than allowed.
-#, php-format
+#. TRANS: Client exception thrown when trying to add more people than allowed to a list.
+#, fuzzy, php-format
 msgid ""
-"You already have %1$d or more people tagged %2$s, which is the maximum "
-"allowed number.Try untagging others with the same tag first."
+"You already have %1$d or more people in list %2$s, which is the maximum "
+"allowed number.Try unlisting others first."
 msgstr ""
+"Ja teniu %1$d o més persones etiquetades amb %2$s, que és el nombre màxim "
+"permès. Proveu de desetiquetar-ne uns quants que tinguin la mateixa etiqueta "
+"abans de res."
 
-#. TRANS: Exception thrown when inserting a people tag subscription in the database fails.
+#. TRANS: Exception thrown when inserting a list subscription in the database fails.
 #, fuzzy
-msgid "Adding people tag subscription failed."
-msgstr "No s'ha pogut eliminar la subscripció."
+msgid "Adding list subscription failed."
+msgstr "No s'ha pogut afegir la subscripció de l'etiqueta d'usuari."
 
-#. TRANS: Exception thrown when deleting a people tag subscription from the database fails.
+#. TRANS: Exception thrown when deleting a list subscription from the database fails.
 #, fuzzy
-msgid "Removing people tag subscription failed."
-msgstr "No s'ha pogut eliminar la subscripció."
+msgid "Removing list subscription failed."
+msgstr "No s'ha pogut eliminar la subscripció de l'etiqueta d'usuari."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 msgid "Missing profile."
@@ -7133,7 +7130,7 @@ msgstr "Us donem la benvinguda a %1$s, @%2$s!"
 
 #. TRANS: Exception thrown when trying view "repeated to me".
 msgid "Not implemented since inbox change."
-msgstr ""
+msgstr "No s'ha implementat des del canvi de la safata d'entrada."
 
 #. TRANS: Server exception.
 msgid "No single user defined for single-user mode."
@@ -7680,7 +7677,7 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #. TRANS: Submit button title.
-#. TRANS: Button text to save a people tag.
+#. TRANS: Button text to save a list.
 msgid "Save"
 msgstr "Desa"
 
@@ -7726,15 +7723,15 @@ msgid "Do not use this method!"
 msgstr "No feu servir aquest mètode!"
 
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-#, php-format
-msgid "Timeline for people tagged #%1$s by %2$s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Timeline for people in list %1$s by %2$s"
+msgstr "Línia temporal de la gent etiqueta amb #%1$s per %2$s"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
 #, fuzzy, php-format
-msgid "Updates from %1$s's %2$s people tag on %3$s!"
-msgstr "Actualitzacions de %1$s a %2$s!"
+msgid "Updates from %1$s's list %2$s on %3$s!"
+msgstr "Actualitzacions de l'etiqueta d'usuari %2$s de %1$s a %3$s!"
 
 #. TRANS: Title.
 msgid "Notices where this attachment appears"
@@ -7837,9 +7834,8 @@ msgstr ""
 "Avisos: %3$s"
 
 #. TRANS: Error message text shown when a favorite could not be set because it has already been favorited.
-#, fuzzy
 msgid "Could not create favorite: Already favorited."
-msgstr "No es pot crear el preferit: ja era preferit."
+msgstr "No es pot crear el preferit: ja ho era."
 
 #. TRANS: Text shown when a notice has been marked as favourite successfully.
 msgid "Notice marked as fave."
@@ -7861,16 +7857,16 @@ msgstr "%1$s ha deixat el grup %2$s."
 #. TRANS: %1$s is the tagged user, %2$s is the error message (no punctuation).
 #, php-format
 msgid "Error tagging %1$s: %2$s"
-msgstr ""
+msgstr "S'ha produït un error en etiquetar %1$s: %2$s"
 
 #. TRANS: Succes message displayed if tagging a user succeeds.
 #. TRANS: %1$s is the tagged user's nickname, %2$s is a list of tags.
 #. TRANS: Plural is decided based on the number of tags added (not part of message).
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s was tagged %2$s"
 msgid_plural "%1$s was tagged %2$s"
-msgstr[0] "%1$s i %2$s"
-msgstr[1] "%1$s i %2$s"
+msgstr[0] "%1$s s'ha etiquetat amb %2$s"
+msgstr[1] "%1$s s'han etiquetat amb %2$s"
 
 #. TRANS: Separator for list of tags.
 #. TRANS: Separator in list of user names like "You, Bob, Mary".
@@ -7887,7 +7883,7 @@ msgstr "L'etiqueta no és vàlida: «%s»"
 #. TRANS: %1$s is the untagged user, %2$s is the error message (no punctuation).
 #, php-format
 msgid "Error untagging %1$s: %2$s"
-msgstr ""
+msgstr "S'ha produït un error en desetiquetar %1$s: %2$s "
 
 #. TRANS: Succes message displayed if untagging a user succeeds.
 #. TRANS: %1$s is the untagged user's nickname, %2$s is a list of tags.
@@ -7895,8 +7891,8 @@ msgstr ""
 #, php-format
 msgid "The following tag was removed from user %1$s: %2$s."
 msgid_plural "The following tags were removed from user %1$s: %2$s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "S'ha eliminat l'etiqueta següent de l'usuari %1$s: %2$s."
+msgstr[1] "S'han eliminat les etiquetes següents de l'usuari %1$s: %2$s."
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -8118,16 +8114,14 @@ msgid "lists the groups you have joined"
 msgstr "llista els grups on us heu unit"
 
 #. TRANS: Help message for IM/SMS command "tag".
-#, fuzzy
 msgctxt "COMMANDHELP"
 msgid "tag a user"
-msgstr "Etiqueta usuari"
+msgstr "etiqueta un usuari"
 
 #. TRANS: Help message for IM/SMS command "untag".
-#, fuzzy
 msgctxt "COMMANDHELP"
 msgid "untag a user"
-msgstr "Etiqueta usuari"
+msgstr "desetiqueta un usuari"
 
 #. TRANS: Help message for IM/SMS command "subscriptions".
 msgctxt "COMMANDHELP"
@@ -8290,10 +8284,9 @@ msgstr "Grups"
 
 #. TRANS: Menu item in default local navigation panel.
 #. TRANS: Menu item title in local navigation menu.
-#, fuzzy
 msgctxt "MENU"
 msgid "Lists"
-msgstr "Límits"
+msgstr "Llistes"
 
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
@@ -8567,14 +8560,12 @@ msgid "Group actions"
 msgstr "Accions del grup"
 
 #. TRANS: Title for groups with the most members section.
-#, fuzzy
 msgid "Popular groups"
-msgstr "Avisos populars"
+msgstr "Grups populars"
 
 #. TRANS: Title for groups with the most posts section.
-#, fuzzy
 msgid "Active groups"
-msgstr "Tots els grups"
+msgstr "Grups actius"
 
 #. TRANS: Title for group tag cloud section.
 #. TRANS: %s is a group name.
@@ -8666,10 +8657,9 @@ msgid "Transport cannot be null."
 msgstr "El transport no pot ser nul."
 
 #. TRANS: Button text for inviting more users to the StatusNet instance.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Invite more colleagues"
-msgstr "Convida nous usuaris"
+msgstr "Convida més companys"
 
 #. TRANS: Button text for joining a group.
 msgctxt "BUTTON"
@@ -9262,14 +9252,13 @@ msgid "Notices"
 msgstr "Avisos"
 
 #. TRANS: Separator in profile addressees list.
-#, fuzzy
 msgctxt "SEPARATOR"
 msgid ", "
 msgstr ", "
 
 #. TRANS: Start of profile addressees list.
 msgid " ▶ "
-msgstr ""
+msgstr " ▶ "
 
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
@@ -9365,64 +9354,57 @@ msgstr "No s'ha pogut inserir una nova subscripció."
 msgid "No oEmbed API endpoint available."
 msgstr "No hi ha cap punt d'enllaç oEmbed disponible."
 
-#. TRANS: Field label for people tag.
+#. TRANS: Field label for list.
 #, fuzzy
 msgctxt "LABEL"
-msgid "Tag"
-msgstr "Etiqueta"
+msgid "List"
+msgstr "Llista"
 
-#. TRANS: Field title for people tag.
+#. TRANS: Field title for list.
 #, fuzzy
-msgid "Change the tag (letters, numbers, -, ., and _ are allowed)."
-msgstr ""
-"Etiquetes d'aquest usuari (lletres, nombres, -, ., i _), separades per comes "
-"o espais."
+msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
+msgstr "Canvia l'etiqueta (es permet lletres, nombres, -, ., i _)."
 
 #. TRANS: Field title for description of list.
-#, fuzzy
 msgid "Describe the list or topic."
-msgstr "Descriviu el grup o la temàtica."
+msgstr "Descriviu la llista o la temàtica."
 
 #. TRANS: Field title for description of list.
 #. TRANS: %d is the maximum number of characters for the description.
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the list or topic in %d character."
 msgid_plural "Describe the list or topic in %d characters."
-msgstr[0] "Descriviu el grup o la temàtica en %d caràcter o menys."
-msgstr[1] "Descriviu el grup o la temàtica en %d caràcters o menys."
+msgstr[0] "Descriviu la llista o la temàtica en %d caràcter."
+msgstr[1] "Descriviu la llista o la temàtica en %d caràcters."
 
 #. TRANS: Button title to delete a list.
-#, fuzzy
 msgid "Delete this list."
-msgstr "Elimina l'usuari."
+msgstr "Elimina la llista."
 
-#. TRANS: Header in people tag edit form.
+#. TRANS: Header in list edit form.
 msgid "Add or remove people"
-msgstr ""
+msgstr "Afegeix o elimina gent"
 
-#. TRANS: Header in people tag edit form.
-#, fuzzy
+#. TRANS: Header in list edit form.
 msgctxt "HEADER"
 msgid "Search"
 msgstr "Cerca"
 
 #. TRANS: Menu item in list navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "List"
-msgstr "Enllaços"
+msgstr "Llista"
 
 #. TRANS: Menu item title in list navigation panel.
 #. TRANS: %1$s is a list, %2$s is a nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s list by %2$s."
-msgstr "%1$s i %2$s"
+msgstr "Llista %1$s per %2$s."
 
 #. TRANS: Menu item in list navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Listed"
-msgstr "Llicència"
+msgstr "Llistat"
 
 #. TRANS: Menu item in list navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -9432,117 +9414,119 @@ msgstr "Subscriptors"
 
 #. TRANS: Menu item title in list navigation panel.
 #. TRANS: %1$s is a list, %2$s is a nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to %1$s list by %2$s."
-msgstr "Subscrit a %s."
+msgstr "Subscriptors de la llista %1$s per %2$s."
 
-#. TRANS: Menu item in people tag navigation panel.
-#, fuzzy
+#. TRANS: Menu item in list navigation panel.
 msgctxt "MENU"
 msgid "Edit"
 msgstr "Edita"
 
 #. TRANS: Menu item title in list navigation panel.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Edit %s list by you."
-msgstr "Edita el grup %s"
+msgstr "Edita la llista %s que heu creat."
 
 #. TRANS: Link description for link to list of users tagged with a tag.
-#, fuzzy
 msgid "Tagged"
-msgstr "Etiqueta"
+msgstr "Etiquetat"
 
 #. TRANS: Title for link to edit list settings.
-#, fuzzy
 msgid "Edit list settings."
-msgstr "Edita els paràmetres del perfil."
+msgstr "Edita els paràmetres de la llista."
 
 #. TRANS: Text for link to edit list settings.
 msgid "Edit"
 msgstr "Edita"
 
-#. TRANS: Privacy mode text in people tag list item for private tags.
-#, fuzzy
+#. TRANS: Privacy mode text in list list item for private list.
 msgctxt "MODE"
 msgid "Private"
 msgstr "Privat"
 
 #. TRANS: Menu item in the group navigation page.
-#, fuzzy
 msgctxt "MENU"
 msgid "List Subscriptions"
-msgstr "Subscripcions"
+msgstr "Subscripcions de llistes"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
-#, fuzzy, php-format
+#. TRANS: %s is a user nickname.
+#, php-format
 msgctxt "TOOLTIP"
 msgid "Lists subscribed to by %s."
-msgstr "Subscrit a %s."
+msgstr "Llistes en què s'ha subscrit %s."
 
 #. TRANS: Menu item in the group navigation page.
-#, fuzzy, php-format
+#. TRANS: %s is a user nickname.
+#, php-format
 msgctxt "MENU"
 msgid "Lists with %s"
-msgstr "Actualitzacions amb «%s»"
+msgstr "Llistes que contenen %s"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
-#, fuzzy, php-format
+#. TRANS: %s is a user nickname.
+#, php-format
 msgctxt "TOOLTIP"
 msgid "Lists with %s."
-msgstr "Actualitzacions amb «%s»"
+msgstr "Llistes que contenen %s."
 
 #. TRANS: Menu item in the group navigation page.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgctxt "MENU"
 msgid "Lists by %s"
-msgstr ""
+msgstr "Llistes per %s"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
-#, fuzzy, php-format
+#. TRANS: %s is a user nickname.
+#, php-format
 msgctxt "TOOLTIP"
 msgid "Lists by %s."
-msgstr "%1$s i %2$s"
+msgstr "Llistes per %s."
 
-#. TRANS: Label in people tags widget.
+#. TRANS: Label in lists widget.
+#, fuzzy
 msgctxt "LABEL"
-msgid "Tags by you"
-msgstr ""
+msgid "Your lists"
+msgstr "Llistes populars"
 
-#. TRANS: Fieldset legend in people tags widget.
+#. TRANS: Fieldset legend in lists widget.
 #, fuzzy
 msgctxt "LEGEND"
-msgid "Edit tags"
-msgstr "Edita"
+msgid "Edit lists"
+msgstr "Edita la llista %s"
+
+#. TRANS: Label in self tags widget.
+msgctxt "LABEL"
+msgid "Tags"
+msgstr "Etiquetes"
 
 #. TRANS: Title for section contaning lists with the most subscribers.
-#, fuzzy
 msgid "Popular lists"
-msgstr "Avisos populars"
+msgstr "Llistes populars"
 
 #. TRANS: List summary. %1$d is the number of users in the list,
 #. TRANS: %2$d is the number of subscribers to the list.
-#, fuzzy, php-format
+#, php-format
 msgid "Listed: %1$d Subscribers: %2$d"
-msgstr "%1$s subscriptors, pàgina %2$d"
+msgstr "Llistat: %1$d Subscriptors: %2$d"
 
-#, fuzzy, php-format
+#. TRANS: Title for page that displays which lists current user is part of.
+#, php-format
 msgid "Lists with you"
-msgstr "No s'ha trobat el mètode API!"
+msgstr "Llistes en què hi apareixeu"
 
-#. TRANS: Title for page that displays which people tags a user has been tagged with.
+#. TRANS: Title for page that displays which lists a user is part of.
 #. TRANS: %s is a profile name.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists with %s"
-msgstr "Actualitzacions amb «%s»"
+msgstr "Llistes que contenen %s"
 
 #. TRANS: Title for page that displays lists a user has subscribed to.
-#, fuzzy
 msgid "List subscriptions"
-msgstr "Subscripcions de %s"
+msgstr "Subscripcions de llistes"
 
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
@@ -9634,14 +9618,12 @@ msgid "Search the site."
 msgstr "Cerca al lloc"
 
 #. TRANS: H2 text for user subscription statistics.
-#, fuzzy
 msgid "Following"
-msgstr "Segueix"
+msgstr "Seguint"
 
 #. TRANS: H2 text for user subscriber statistics.
-#, fuzzy
 msgid "Followers"
-msgstr "Segueix"
+msgstr "Seguidors"
 
 #. TRANS: Label for user statistics.
 msgid "User ID"
@@ -9665,9 +9647,8 @@ msgid "Groups"
 msgstr "Grups"
 
 #. TRANS: H2 text for user list membership statistics.
-#, fuzzy
 msgid "Lists"
-msgstr "Límits"
+msgstr "Llistes"
 
 #. TRANS: Server error displayed when using an unimplemented method.
 msgid "Unimplemented method."
@@ -9766,6 +9747,7 @@ msgid ""
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Collecta](http://collecta.com/#q=%s)\n"
 msgstr ""
+"\n"
 "També podeu provar de cercar a altres motors de cerca:\n"
 "\n"
 "* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
@@ -9973,9 +9955,9 @@ msgstr "Groups on %s n'és membre."
 
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "List subscriptions by %s."
-msgstr "Gent subscrita a %s."
+msgstr "Subscripcions de llistes per %s."
 
 #. TRANS: Menu item in local navigation menu.
 msgctxt "MENU"
@@ -10110,50 +10092,46 @@ msgstr[0] "Una persona ha repetit l'avís."
 msgstr[1] "%d persones ha repetit l'avís."
 
 #. TRANS: Form legend.
-#, fuzzy, php-format
+#, php-format
 msgid "Search and list people"
-msgstr "Cerca al lloc"
+msgstr "Cerca i llista la gent"
 
 #. TRANS: Dropdown option for searching in profiles.
-#, fuzzy
 msgid "Everything"
-msgstr "Tothom"
+msgstr "Tot"
 
 #. TRANS: Dropdown option for searching in profiles.
-#, fuzzy
 msgid "Fullname"
 msgstr "Nom complet"
 
 #. TRANS: Dropdown option for searching in profiles.
 msgid "URI (Remote users)"
-msgstr ""
+msgstr "URI (usuaris remots)"
 
 #. TRANS: Dropdown field label.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Search in"
-msgstr "Cerca al lloc"
+msgstr "Cerca a"
 
 #. TRANS: Dropdown field title.
-#, fuzzy
 msgid "Choose a field to search."
-msgstr "Trieu una etiqueta per escurçar la llista"
+msgstr "Trieu un camp per cercar-hi."
 
 #. TRANS: Form legend.
-#. TRANS: %1$s is a nickname, $2$s is a people tag.
+#. TRANS: %1$s is a nickname, $2$s is a list.
 #, fuzzy, php-format
-msgid "Untag %1$s as %2$s"
-msgstr "%1$s i %2$s"
+msgid "Remove %1$s from list %2$s"
+msgstr "Llista %1$s per %2$s."
 
-#. TRANS: Legend on form to add a tag to a profile.
-#. TRANS: %1$s is a nickname, %2$s ia a people tag.
+#. TRANS: Legend on form to add a profile to a list.
+#. TRANS: %1$s is a nickname, %2$s is a list.
 #, fuzzy, php-format
-msgid "Tag %1$s as %2$s"
-msgstr "RT @%1$s %2$s"
+msgid "Add %1$s to list %2$s"
+msgstr "Llista %1$s per %2$s."
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
-msgstr "Qui més publica"
+msgstr "Qui publica més"
 
 #. TRANS: Option in drop-down of potential addressees.
 msgctxt "SENDTO"
@@ -10164,7 +10142,7 @@ msgstr "Tothom"
 #. TRANS: %s is a StatusNet sitename.
 #, php-format
 msgid "My colleagues at %s"
-msgstr "Els meus col·legues a %s"
+msgstr "Els meus companys a %s"
 
 #. TRANS: Label for drop-down of potential addressees.
 msgctxt "LABEL"
@@ -10208,7 +10186,7 @@ msgid "Unsubscribe from this user"
 msgstr "Cancel·la la subscripció d'aquest usuari"
 
 #. TRANS: Button text on unsubscribe form.
-#. TRANS: Button text for unsubscribing from a people tag.
+#. TRANS: Button text for unsubscribing from a list.
 msgctxt "BUTTON"
 msgid "Unsubscribe"
 msgstr "Cancel·la la subscripció"
@@ -10294,86 +10272,44 @@ msgstr "L'XML no és vàlid, hi manca l'arrel XRD."
 msgid "Getting backup from file '%s'."
 msgstr "Es recupera la còpia de seguretat del fitxer '%s'."
 
-#~ msgid "Use this form to edit the people tag."
-#~ msgstr "Utilitza aquest formulari per editar l'etiqueta d'usuari."
+#~ msgid "No such people tag."
+#~ msgstr "No existeix l'etiqueta d'usuari."
 
-#~ msgid "Could not update people tag."
-#~ msgstr "No s'ha pogut actualitzar l'etiqueta d'usuari."
+#~ msgid "Public people tag %s"
+#~ msgstr "Etiqueta d'usuari pública %s"
 
-#, fuzzy
-#~ msgid "People tags by %s"
-#~ msgstr "Repeticions de %s"
+#~ msgid "Subscribers of people tagged %1$s by %2$s"
+#~ msgstr "Subscriptor de gent etiquetada amb %1$s per %2$s"
 
-#, fuzzy
-#~ msgid "People tags by %1$s, page %2$d"
-#~ msgstr "Respostes a %1$s, pàgina %2$d"
+#~ msgid "Public people tag cloud"
+#~ msgstr "Núvol públic d'etiquetes d'usuari"
 
-#, fuzzy
-#~ msgid "People tags for %s"
-#~ msgstr "Repeticions de %s"
+#~ msgid "These are most used people tags on %s"
+#~ msgstr "Aquestes són les etiquetes d'usuari més populars a %s"
 
-#, fuzzy
-#~ msgid "People tags for %1$s, page %2$d"
-#~ msgstr "Respostes a %1$s, pàgina %2$d"
+#~ msgid "People tag cloud"
+#~ msgstr "Núvol d'etiquetes d'usuari"
 
-#, fuzzy
-#~ msgid "Problem saving profile_tag inbox."
-#~ msgstr "S'ha produït un problema en desar la safata d'entrada del grup."
+#~ msgid "Tag %s"
+#~ msgstr "Etiqueta %s"
 
-#~ msgid "Groups with most members"
-#~ msgstr "Grups amb més membres"
+#~ msgid "Tag user"
+#~ msgstr "Etiqueta usuari"
 
-#~ msgid "Groups with most posts"
-#~ msgstr "Grups amb més entrades"
-
-#, fuzzy
-#~ msgid "Describe the people tag or topic."
-#~ msgstr "Descriviu el grup o la temàtica."
-
-#, fuzzy
-#~ msgid "Delete this people tag."
-#~ msgstr "Elimina el grup."
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "People tag"
-#~ msgstr "Gent"
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "Tagged"
+#~ msgctxt "LABEL"
+#~ msgid "Tag"
 #~ msgstr "Etiqueta"
 
-#, fuzzy
-#~ msgid "Edit people tag settings."
-#~ msgstr "Edita els paràmetres del perfil."
+#~ msgctxt "LABEL"
+#~ msgid "Tags by you"
+#~ msgstr "Etiquetes que heu creat"
 
-#, fuzzy
-#~ msgid "People tags with most subscribers"
-#~ msgstr "Gent a qui %s s'ha subscrit."
+#~ msgctxt "LEGEND"
+#~ msgid "Edit tags"
+#~ msgstr "Edita les etiquetes"
 
-#, fuzzy
-#~ msgid "People tag subscriptions"
-#~ msgstr "Totes les subscripcions"
+#~ msgid "Untag %1$s as %2$s"
+#~ msgstr "Desetiqueta %1$s com %2$s"
 
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "People tags"
-#~ msgstr "Gent"
-
-#~ msgid "User"
-#~ msgstr "Usuari"
-
-#~ msgid "Tags in %s's notices"
-#~ msgstr "Etiquetes en els avisos de %s"
-
-#~ msgid "All subscriptions"
-#~ msgstr "Totes les subscripcions"
-
-#, fuzzy
-#~ msgid "People tags"
-#~ msgstr "Gent"
-
-#, fuzzy
-#~ msgid "People tags by %s."
-#~ msgstr "Gent subscrita a %s."
+#~ msgid "Tag %1$s as %2$s"
+#~ msgstr "Etiqueta %1$s com %2$s"

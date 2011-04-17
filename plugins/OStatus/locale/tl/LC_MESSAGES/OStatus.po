@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
-"PO-Revision-Date: 2011-04-16 22:58:44+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"PO-Revision-Date: 2011-04-17 18:21:51+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-13 13:57:08+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-16 23:18:41+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -117,21 +117,22 @@ msgid "%1$s has left group %2$s."
 msgstr "Lumisan si %1$s magmula sa pangkat na %2$s."
 
 #. TRANS: Exception thrown when setup of remote list subscription fails.
-#, fuzzy
 msgid "Could not set up remote list subscription."
-msgstr "Hindi maihanda ang malayuang pagpapasipi."
+msgstr "Hindi maihanda ang pagpapasipi ng malayong talaan."
 
 #. TRANS: Title for remote follow list.
 msgctxt "TITLE"
 msgid "Follow list"
 msgstr "Sundan ang talaan"
 
-#. TRANS: Exception thrown when subscription of remote people tag fails.
-msgid "Failed subscribing to remote people tag."
+#. TRANS: Exception thrown when subscription to remote list fails.
+#, fuzzy
+msgid "Failed subscribing to remote list."
 msgstr "Nabigo sa pagpapasipi sa malayong tatak ng mga tao."
 
-msgid "Unfollow people tag"
-msgstr "Huwag sundan ang tatak ng mga tao"
+#, fuzzy
+msgid "Unfollow list"
+msgstr "Sundan ang talaan"
 
 #, php-format
 msgid "%1$s stopped following the list %2$s by %3$s."
@@ -141,9 +142,9 @@ msgctxt "TITLE"
 msgid "Tag"
 msgstr "Tatak"
 
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s listed %2$s in the list %3$s."
-msgstr "Tinatakan ni %1$s si %2$s sa loob ng talaang %3$s."
+msgstr "Itinala ni %1$s si %2$s sa loob ng talaang %3$s."
 
 #, php-format
 msgid ""
@@ -244,8 +245,8 @@ msgstr ""
 "Hindi katanggap-tanggap na hub.topic na \"%s\". Hindi umiiral ang pangkat."
 
 #. TRANS: Client exception. %s is a feed URL.
-#, php-format
-msgid "Invalid hub.topic %s; people tag does not exist."
+#, fuzzy, php-format
+msgid "Invalid hub.topic %s; list does not exist."
 msgstr ""
 "Hindi katanggap-tanggap na hub.topic na \"%s\"; hindi umiiral ang tatak ng "
 "mga tao."
@@ -288,7 +289,8 @@ msgstr "Hindi makita ang balangkas ng akawnt ng OStatus."
 msgid "Could not confirm remote profile address."
 msgstr "Hindi matiyak ang malayong tirahan ng balangkas."
 
-msgid "OStatus people tag"
+#, fuzzy
+msgid "OStatus list"
 msgstr "Tatak ng mga tao sa OStatus"
 
 msgid "Empty or invalid feed id."
@@ -319,6 +321,7 @@ msgstr "Hindi inaasahang kahilingan ng pagpapasipi para sa %s."
 msgid "Unexpected unsubscribe request for %s."
 msgstr "Hindi inaasahang kahilingan ng hindi pagpapasipi para sa %s."
 
+#. TRANS: Client error.
 msgid "No such user."
 msgstr "Walang ganyang tagagamit."
 
@@ -479,10 +482,12 @@ msgstr "Hindi nalalaman ang pabatid na may ID na %s."
 msgid "Notice with ID %1$s not posted by %2$s."
 msgstr "Hindi ipinaskil ni %2$s ang pabatid na may ID na %1$s."
 
-msgid "Subscribe to people tag"
-msgstr "Tumanggap ng sipi mula sa tatak ng mga tao"
+#, fuzzy
+msgid "Subscribe to list"
+msgstr "Tumanggap ng sipi mula sa %s"
 
-msgid "Address of the OStatus people tag, like http://example.net/user/all/tag"
+#, fuzzy
+msgid "Address of the OStatus list, like http://example.net/user/all/tag"
 msgstr ""
 "Tirahan ng tatak ng mga pangkat ng OStatus, katulad ng http://example.net/"
 "user/all/tag"
@@ -490,21 +495,22 @@ msgstr ""
 msgid "Continue"
 msgstr "Ipagpatuloy"
 
-msgid "You are already subscribed to this people tag."
-msgstr "Tumatanggap ka na ng sipi mula sa tatak na ito ng mga tao."
+#, fuzzy
+msgid "You are already subscribed to this list."
+msgstr "Tumatanggap ka na ng sipi mula sa tagagamit na ito."
 
-#. TRANS: Page title for OStatus remote people tag subscription form
-msgid "Confirm subscription to remote people tag"
+#. TRANS: Page title for OStatus remote list subscription form
+#, fuzzy
+msgid "Confirm subscription to remote list"
 msgstr "Tiyakin ang pagsali sa tatak ng malalayong mga tao"
 
 #. TRANS: Instructions for OStatus list subscription form.
-#, fuzzy
 msgid ""
 "You can subscribe to lists from other supported sites. Paste the lists's URI "
 "below:"
 msgstr ""
-"Maaari kang magpasipi sa mga tatak ng mga tao mula sa iba pang mga sityong "
-"tinatangkilik.  Idikit ang tirahan o URI ng balangkas ng tatak sa ibaba:"
+"Maaari kang magpasipi sa mga talaan mula sa iba pang mga sityong "
+"tinatangkilik.  Idikit ang tirahan o URI ng balangkas ng talaang nasa ibaba:"
 
 #. TRANS: Client error.
 msgid "No such group."
@@ -541,38 +547,31 @@ msgid "Could not remove remote user %1$s from group %2$s."
 msgstr ""
 "Hindi matanggal ang malayong tagagamit na si %1$s mula sa pangkat na %2$s."
 
-#, fuzzy
 msgid "No such list."
-msgstr "Walang ganyang tagagamit."
+msgstr "Walang ganyang talaan."
 
-#, fuzzy
 msgid "Cannot accept remote posts for a remote list."
 msgstr ""
-"Hindi matanggap ang malalayong mga paskil para sa isang malayong pangkat."
+"Hindi matanggap ang malalayong mga paskil para sa isang malayong talaan."
 
 msgid "Cannot read profile to set up profile tag subscription."
 msgstr ""
 "Hindi mabasa ang balangkas upang maihanda ang tatak ng pagsapi sa pangkat."
 
-#, fuzzy
 msgid "Groups cannot subscribe to lists."
-msgstr "Ang mga pangkat ay hindi maaaring sumipi sa mga tatak ng mga tao."
+msgstr "Ang mga pangkat ay hindi maaaring sumipi sa mga talaan."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Could not subscribe remote user %1$s to list %2$s."
-msgstr ""
-"Hindi mapasipian ang malayong tagagamit na si %1$s sa tatak ng mga tao na %2"
-"$s."
+msgstr "Hindi mapasipian ang malayong tagagamit na si %1$s sa talaang %2$s."
 
-#, fuzzy
 msgid "Cannot read profile to cancel list membership."
-msgstr ""
-"Hindi mabasa ang balangkas upang huwag maituloy ang kasapian sa pangkat."
+msgstr "Hindi mabasa ang balangkas upang huwag ituloy ang kasapian sa talaan."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove remote user %1$s from list %2$s."
 msgstr ""
-"Hindi matanggal ang malayong tagagamit na si %1$s mula sa pangkat na %2$s."
+"Hindi matanggal ang malayong tagagamit na si %1$s mula sa talaang %2$s."
 
 #. TRANS: Client error.
 msgid "You can use the local subscription!"
@@ -593,12 +592,12 @@ msgctxt "BUTTON"
 msgid "Join"
 msgstr "Sumali"
 
-#. TRANS: Form legend. %1$s is a people tag, %2$s is a tagger's name.
-#, php-format
-msgid "Subscribe to people tagged %1$s by %2$s"
+#. TRANS: Form legend. %1$s is a list, %2$s is a tagger's name.
+#, fuzzy, php-format
+msgid "Subscribe to list %1$s by %2$s"
 msgstr "Makisipi sa mga taong natatakan ni %2$s ng %1$s"
 
-#. TRANS: Button text to subscribe to a people tag.
+#. TRANS: Button text to subscribe to a list.
 #. TRANS: Button text to subscribe to a profile.
 msgctxt "BUTTON"
 msgid "Subscribe"
@@ -628,6 +627,10 @@ msgstr "ID ng akawnt mo (katulad ng user@identi.ca)."
 #. TRANS: Client error.
 msgid "Must provide a remote profile."
 msgstr "Dapat na magbigay ng isang malayong balangkas."
+
+#. TRANS: Client error.
+msgid "No local user or group nickname provided."
+msgstr ""
 
 #. TRANS: Page title.
 msgid "OStatus Connect"
@@ -725,6 +728,13 @@ msgstr ""
 msgid "Unable to fetch avatar from %s."
 msgstr "Hindi nagawang damputin ang huwaran mula sa %s."
 
+msgid "No author ID URI found."
+msgstr ""
+
+#, fuzzy
+msgid "No profile URI."
+msgstr "Malayong balangkas"
+
 #. TRANS: Exception.
 msgid "Local user cannot be referenced as remote."
 msgstr "Hindi masanggunian bilang malayo ang katutubong tagagamit."
@@ -733,8 +743,16 @@ msgstr "Hindi masanggunian bilang malayo ang katutubong tagagamit."
 msgid "Local group cannot be referenced as remote."
 msgstr "Hindi masanggunian bilang malayo ang katutubong pangkat."
 
+#, fuzzy
+msgid "Local list cannot be referenced as remote."
+msgstr "Hindi masanggunian bilang malayo ang katutubong tagagamit."
+
 #. TRANS: Server exception.
 msgid "Cannot save local profile."
+msgstr "Hindi masagip ang katutubong balangkas."
+
+#, fuzzy
+msgid "Cannot save local list."
 msgstr "Hindi masagip ang katutubong balangkas."
 
 #. TRANS: Server exception.
@@ -751,8 +769,8 @@ msgid "Could not save profile for \"%s\"."
 msgstr "Hindi masagip ang balangkas para sa \"%s\"."
 
 #. TRANS: Exception. %s is a webfinger address.
-#, php-format
-msgid "Could not save ostatus_profile for \"%s\"."
+#, fuzzy, php-format
+msgid "Could not save OStatus profile for \"%s\"."
 msgstr "Hindi masagip ang ostatus_profile para sa \"%s\"."
 
 #. TRANS: Exception. %s is a webfinger address.
@@ -865,24 +883,11 @@ msgstr ""
 msgid "Received a salmon slap from unidentified actor."
 msgstr "Tumanggap ng isang sampal ng salmon mula sa hindi nakikilalang aktor."
 
-#~ msgid "Could not set up remote people tag subscription."
-#~ msgstr ""
-#~ "Hindi maihanda ang malayuang pagpapasipi ng malayong tatak ng mga tao."
+#~ msgid "Unfollow people tag"
+#~ msgstr "Huwag sundan ang tatak ng mga tao"
 
-#~ msgid "No such people tag."
-#~ msgstr "Walang ganyang tatak ng mga pangkat."
+#~ msgid "Subscribe to people tag"
+#~ msgstr "Tumanggap ng sipi mula sa tatak ng mga tao"
 
-#~ msgid "Cannot accept remote posts for a remote people tag."
-#~ msgstr ""
-#~ "Hindi matanggap ang malalayong mga paskil para sa isang tatak ng malayong "
-#~ "pangkat."
-
-#~ msgid "Cannot read profile to cancel people tag membership."
-#~ msgstr ""
-#~ "Hindi mabasa ang balangkas upang huwag maituloy ang tatak ng kasapian sa "
-#~ "mga tao."
-
-#~ msgid "Could not remove remote user %1$s from people tag %2$s."
-#~ msgstr ""
-#~ "Hindi matanggal ang malayong tagagamit na si %1$s mula sa tatak ng mga "
-#~ "tao na %2$s."
+#~ msgid "You are already subscribed to this people tag."
+#~ msgstr "Tumatanggap ka na ng sipi mula sa tatak na ito ng mga tao."
