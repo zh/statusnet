@@ -46,10 +46,10 @@ class PeopletagsforuserAction extends OwnerDesignAction
     function title()
     {
         if ($this->page == 1) {
-            // Page title. %s is a tagged user's nickname.
+            // TRANS: Page title. %s is a tagged user's nickname.
             return sprintf(_('Lists with %s in them'), $this->tagged->nickname);
         } else {
-            // Page title. %1$s is a tagged user's nickname, %2$s is a page number.
+            // TRANS: Page title. %1$s is a tagged user's nickname, %2$s is a page number.
             return sprintf(_('Lists with %1$s, page %2$d'), $this->tagged->nickname, $this->page);
         }
     }
