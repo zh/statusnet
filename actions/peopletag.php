@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * People tags by a user
+ * Lists by a user
  *
  * PHP version 5
  *
@@ -52,13 +52,13 @@ class PeopletagAction extends Action
     function title()
     {
         if ($this->page == 1) {
-            // TRANS: Title for people tag page.
-            // TRANS: %s is a tag.
-            return sprintf(_('Public people tag %s'), $this->tag);
+            // TRANS: Title for list page.
+            // TRANS: %s is a list.
+            return sprintf(_('Public list %s'), $this->tag);
         } else {
-            // TRANS: Title for people tag page.
-            // TRANS: %1$s is a tag, %2$d is a page number.
-            return sprintf(_('Public people tag %1$s, page %2$d'), $this->tag, $this->page);
+            // TRANS: Title for list page.
+            // TRANS: %1$s is a list, %2$d is a page number.
+            return sprintf(_('Public list %1$s, page %2$d'), $this->tag, $this->page);
         }
     }
 
@@ -100,14 +100,14 @@ class PeopletagAction extends Action
     function showAnonymousMessage()
     {
         $notice =
-          // TRANS: Message for anonymous users on people tag page.
+          // TRANS: Message for anonymous users on list page.
           // TRANS: This message contains Markdown links in the form [description](link).
-          _('People tags are how you sort similar ' .
+          _('Lists are how you sort similar ' .
             'people on %%site.name%%, a [micro-blogging]' .
             '(http://en.wikipedia.org/wiki/Micro-blogging) service ' .
             'based on the Free Software [StatusNet](http://status.net/) tool. ' .
             'You can then easily keep track of what they ' .
-            'are doing by subscribing to the tag\'s timeline.' );
+            'are doing by subscribing to the list\'s timeline.' );
         $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($notice));
         $this->elementEnd('div');
