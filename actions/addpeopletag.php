@@ -117,9 +117,9 @@ class AddpeopletagAction extends Action
         $omb01 = Remote_profile::staticGet('id', $tagged_id);
 
         if (!empty($omb01)) {
-            // TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-            $this->clientError(_('You cannot tag an OMB 0.1'.
-                                 ' remote profile with this action.'));
+            // TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
+            $this->clientError(_('You cannot list an OMB 0.1 '.
+                                 'remote profile with this action.'));
             return false;
         }
 
@@ -145,24 +145,24 @@ class AddpeopletagAction extends Action
             $user = User::staticGet('id', $id);
             if ($user) {
                 $this->clientError(
-                        // TRANS: Client error displayed when an unknown error occurs while tagging a user.
+                        // TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
                         // TRANS: %s is a username.
-                        sprintf(_('There was an unexpected error while tagging %s.'),
+                        sprintf(_('There was an unexpected error while listing %s.'),
                         $user->nickname));
             } else {
-                // TRANS: Client error displayed when an unknown error occurs while tagging a user.
+                // TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
                 // TRANS: %s is a profile URL.
-                $this->clientError(sprintf(_('There was a problem tagging %s. ' .
-                                      'The remote server is probably not responding correctly, ' .
-                                      'please try retrying later.'), $this->profile->profileurl));
+                $this->clientError(sprintf(_('There was a problem listing %s. ' .
+                                      'The remote server is probably not responding correctly. ' .
+                                      'Please try retrying later.'), $this->profile->profileurl));
             }
             return false;
         }
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            // TRANS: Title after subscribing to a list.
-            $this->element('title', null, _('Subscribed'));
+            // TRANS: Title after adding a user to a list.
+            $this->element('title', null, _m('TITLE','Listed'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $unsubscribe = new UntagButton($this, $this->tagged, $this->peopletag);
