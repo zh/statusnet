@@ -170,20 +170,21 @@ class HTMLOutputter extends XMLOutputter
      * @param string $label        text of label for the element
      * @param string $value        value of the element, default null
      * @param string $instructions instructions for valid input
+     * @param string $name         name of the element; if null, the id will
+     *                             be used
      *
-     * @todo add a $name parameter
      * @todo add a $maxLength parameter
      * @todo add a $size parameter
      *
      * @return void
      */
 
-    function input($id, $label, $value=null, $instructions=null)
+    function input($id, $label, $value=null, $instructions=null, $name=null)
     {
         $this->element('label', array('for' => $id), $label);
-        $attrs = array('name' => $id,
-                       'type' => 'text',
-                       'id' => $id);
+        $attrs = array('type' => 'text',
+                       'id'   => $id);
+        $attrs['name'] = is_null($name) ? $id : $name;
         if (!is_null($value)) { // value can be 0 or ''
             $attrs['value'] = $value;
         }
