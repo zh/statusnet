@@ -82,15 +82,6 @@ class EmailRegistrationPlugin extends Plugin
         return true;
     }
 
-    function onEndConnectPath($path, $defaults, $rules, $result)
-    {
-        static $toblock = array('main/register', 'main/register/:code');
-
-        if (in_array($path, $toblock) && $defaults['action'] == 'emailregister') {
-            common_debug("for email register got " . print_r($result, true));
-        }
-    }
-
     function onStartInitializeRouter($m)
     {
         $m->connect('main/register', array('action' => 'emailregister'));
