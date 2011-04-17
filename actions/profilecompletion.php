@@ -97,8 +97,8 @@ class ProfilecompletionAction extends Action
         $this->peopletag = Profile_list::staticGet('id', $id);
 
         if (empty($this->peopletag)) {
-            // TRANS: Client error displayed trying to reference a non-existing people tag.
-            $this->clientError(_('No such people tag.'));
+            // TRANS: Client error displayed trying to reference a non-existing list.
+            $this->clientError(_('No such list.'));
             return false;
         }
 

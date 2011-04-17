@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
-"PO-Revision-Date: 2011-04-16 22:58:44+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"PO-Revision-Date: 2011-04-17 18:21:50+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-13 13:57:08+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-16 23:18:41+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -133,13 +133,14 @@ msgctxt "TITLE"
 msgid "Follow list"
 msgstr ""
 
-#. TRANS: Exception thrown when subscription of remote people tag fails.
+#. TRANS: Exception thrown when subscription to remote list fails.
 #, fuzzy
-msgid "Failed subscribing to remote people tag."
+msgid "Failed subscribing to remote list."
 msgstr "Falleva de facer se membro del gruppo remote."
 
-msgid "Unfollow people tag"
-msgstr ""
+#, fuzzy
+msgid "Unfollow list"
+msgstr "Non plus sequer"
 
 #, fuzzy, php-format
 msgid "%1$s stopped following the list %2$s by %3$s."
@@ -243,7 +244,7 @@ msgstr "Invalide hub.topic \"%s\". Gruppo non existe."
 
 #. TRANS: Client exception. %s is a feed URL.
 #, fuzzy, php-format
-msgid "Invalid hub.topic %s; people tag does not exist."
+msgid "Invalid hub.topic %s; list does not exist."
 msgstr "Invalide hub.topic \"%s\". Gruppo non existe."
 
 #. TRANS: Client exception.
@@ -290,7 +291,7 @@ msgid "Could not confirm remote profile address."
 msgstr "Non poteva confirmar le adresse del profilo remote."
 
 #, fuzzy
-msgid "OStatus people tag"
+msgid "OStatus list"
 msgstr "Connexion OStatus"
 
 msgid "Empty or invalid feed id."
@@ -321,6 +322,7 @@ msgstr "Requesta de subscription inexpectate pro %s."
 msgid "Unexpected unsubscribe request for %s."
 msgstr "Requesta de cancellation de subscription inexpectate pro %s."
 
+#. TRANS: Client error.
 msgid "No such user."
 msgstr "Iste usator non existe."
 
@@ -483,11 +485,11 @@ msgid "Notice with ID %1$s not posted by %2$s."
 msgstr "Nota con ID %1$s non publicate per %2$s."
 
 #, fuzzy
-msgid "Subscribe to people tag"
-msgstr "Subscriber a usator"
+msgid "Subscribe to list"
+msgstr "Subscriber a %s"
 
 #, fuzzy
-msgid "Address of the OStatus people tag, like http://example.net/user/all/tag"
+msgid "Address of the OStatus list, like http://example.net/user/all/tag"
 msgstr ""
 "Un adresse de gruppo OStatus, como http://example.net/group/pseudonymo."
 
@@ -496,12 +498,12 @@ msgid "Continue"
 msgstr "Continuar"
 
 #, fuzzy
-msgid "You are already subscribed to this people tag."
+msgid "You are already subscribed to this list."
 msgstr "Tu es ja subscribite a iste usator."
 
-#. TRANS: Page title for OStatus remote people tag subscription form
+#. TRANS: Page title for OStatus remote list subscription form
 #, fuzzy
-msgid "Confirm subscription to remote people tag"
+msgid "Confirm subscription to remote list"
 msgstr "Confirmar adhesion a gruppo remote"
 
 #. TRANS: Instructions for OStatus list subscription form.
@@ -597,12 +599,12 @@ msgctxt "BUTTON"
 msgid "Join"
 msgstr "Inscriber"
 
-#. TRANS: Form legend. %1$s is a people tag, %2$s is a tagger's name.
-#, php-format
-msgid "Subscribe to people tagged %1$s by %2$s"
-msgstr ""
+#. TRANS: Form legend. %1$s is a list, %2$s is a tagger's name.
+#, fuzzy, php-format
+msgid "Subscribe to list %1$s by %2$s"
+msgstr "Subscriber a %s"
 
-#. TRANS: Button text to subscribe to a people tag.
+#. TRANS: Button text to subscribe to a list.
 #. TRANS: Button text to subscribe to a profile.
 msgctxt "BUTTON"
 msgid "Subscribe"
@@ -633,6 +635,10 @@ msgstr "Le ID de tu conto (p.ex. usator@identi.ca)."
 #. TRANS: Client error.
 msgid "Must provide a remote profile."
 msgstr "Debe fornir un profilo remote."
+
+#. TRANS: Client error.
+msgid "No local user or group nickname provided."
+msgstr ""
 
 #. TRANS: Page title.
 msgid "OStatus Connect"
@@ -721,6 +727,13 @@ msgstr "Tentava actualisar avatar pro profilo remote non salveguardate %s."
 msgid "Unable to fetch avatar from %s."
 msgstr "Incapace de obtener avatar ab %s."
 
+msgid "No author ID URI found."
+msgstr ""
+
+#, fuzzy
+msgid "No profile URI."
+msgstr "Le adhesion al gruppo remote ha fallite!"
+
 #. TRANS: Exception.
 #, fuzzy
 msgid "Local user cannot be referenced as remote."
@@ -731,9 +744,17 @@ msgstr "Usator local non pote esser referentiate como remote."
 msgid "Local group cannot be referenced as remote."
 msgstr "Gruppo local non pote esser referentiate como remote."
 
+#, fuzzy
+msgid "Local list cannot be referenced as remote."
+msgstr "Usator local non pote esser referentiate como remote."
+
 #. TRANS: Server exception.
 #, fuzzy
 msgid "Cannot save local profile."
+msgstr "Non pote salveguardar profilo local."
+
+#, fuzzy
+msgid "Cannot save local list."
 msgstr "Non pote salveguardar profilo local."
 
 #. TRANS: Server exception.
@@ -752,7 +773,7 @@ msgstr "Non poteva salveguardar profilo pro \"%s\"."
 
 #. TRANS: Exception. %s is a webfinger address.
 #, fuzzy, php-format
-msgid "Could not save ostatus_profile for \"%s\"."
+msgid "Could not save OStatus profile for \"%s\"."
 msgstr "Non poteva salveguardar osatus_profile pro %s."
 
 #. TRANS: Exception. %s is a webfinger address.
@@ -868,21 +889,9 @@ msgid "Received a salmon slap from unidentified actor."
 msgstr "Recipeva un claffo de salmon de un actor non identificate."
 
 #, fuzzy
-#~ msgid "Could not set up remote people tag subscription."
-#~ msgstr "Non poteva configurar le subscription remote."
+#~ msgid "Subscribe to people tag"
+#~ msgstr "Subscriber a usator"
 
 #, fuzzy
-#~ msgid "No such people tag."
-#~ msgstr "Gruppo non existe."
-
-#, fuzzy
-#~ msgid "Cannot accept remote posts for a remote people tag."
-#~ msgstr "Non pote acceptar messages remote pro un gruppo remote."
-
-#, fuzzy
-#~ msgid "Cannot read profile to cancel people tag membership."
-#~ msgstr "Non pote leger profilo pro cancellar membrato de gruppo."
-
-#, fuzzy
-#~ msgid "Could not remove remote user %1$s from people tag %2$s."
-#~ msgstr "Non poteva remover le usator remote %1$s del gruppo %2$s."
+#~ msgid "You are already subscribed to this people tag."
+#~ msgstr "Tu es ja subscribite a iste usator."

@@ -63,9 +63,9 @@ class SelftagAction extends Action
         $this->tag = $this->trimmed('tag');
 
         if (!common_valid_profile_tag($this->tag)) {
-            // TRANS: Client error displayed when trying to tag a profile with an invalid tag.
-            // TRANS: %s is the invalid tag.
-            $this->clientError(sprintf(_('Not a valid people tag: %s.'),
+            // TRANS: Client error displayed when trying to list a profile with an invalid list.
+            // TRANS: %s is the invalid list name.
+            $this->clientError(sprintf(_('Not a valid list: %s.'),
                 $this->tag));
             return;
         }

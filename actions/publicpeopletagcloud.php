@@ -53,33 +53,33 @@ class PublicpeopletagcloudAction extends Action
 
     function title()
     {
-        // TRANS: Title for page with public people tag cloud.
-        return _('Public people tag cloud');
+        // TRANS: Title for page with public list cloud.
+        return _('Public list cloud');
     }
 
     function showPageNotice()
     {
         $this->element('p', 'instructions',
-                       // TRANS: Page notice for page with public people tag cloud.
+                       // TRANS: Page notice for page with public list cloud.
                        // TRANS: %s is a StatusNet sitename.
-                       sprintf(_('These are most used people tags on %s'),
+                       sprintf(_('These are largest lists on %s'),
                                common_config('site', 'name')));
     }
 
     function showEmptyList()
     {
-        // TRANS: Empty list message on page with public people tag cloud.
+        // TRANS: Empty list message on page with public list cloud.
         // TRANS: This message contains Markdown links in the form [description](link).
-        $message = _('No one has [tagged](%%doc.tags%%) anyone yet.') . ' ';
+        $message = _('No one has [listed](%%doc.tags%%) anyone yet.') . ' ';
 
         if (common_logged_in()) {
-            // TRANS: Additional empty list message on page with public people tag cloud for logged in users.
-            $message .= _('Be the first to tag someone!');
+            // TRANS: Additional empty list message on page with public list cloud for logged in users.
+            $message .= _('Be the first to list someone!');
         }
         else {
-            // TRANS: Additional empty list message on page with public people tag cloud for anonymous users.
+            // TRANS: Additional empty list message on page with public list cloud for anonymous users.
         // TRANS: This message contains Markdown links in the form [description](link).
-            $message .= _('Why not [register an account](%%action.register%%) and be the first to tag someone!');
+            $message .= _('Why not [register an account](%%action.register%%) and be the first to list someone!');
         }
 
         $this->elementStart('div', 'guide');
@@ -132,8 +132,8 @@ class PublicpeopletagcloudAction extends Action
             ksort($tw);
 
             $this->elementStart('dl');
-            // TRANS: DT element on on page with public people tag cloud.
-            $this->element('dt', null, _('People tag cloud'));
+            // TRANS: DT element on on page with public list cloud.
+            $this->element('dt', null, _('List cloud'));
             $this->elementStart('dd');
             $this->elementStart('ul', 'tags xoxo tag-cloud');
             foreach ($tw as $tag => $weight) {
@@ -173,8 +173,8 @@ class PublicpeopletagcloudAction extends Action
 
         $this->elementStart('li', $rel);
 
-        // TRANS: Link title for number of people tagged. %d is the number of people tagged.
-        $title = sprintf(_m('1 person tagged','%d people tagged',$weight),$weight);
+        // TRANS: Link title for number of listed people. %d is the number of listed people.
+        $title = sprintf(_m('1 person listed','%d people listed',$weight),$weight);
         $this->element('a', array('href'  => common_local_url('peopletag', array('tag' => $tag)),
                                   'title' => $title), $tag);
         $this->elementEnd('li');

@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
-"PO-Revision-Date: 2011-04-16 22:56:16+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"PO-Revision-Date: 2011-04-17 18:19:25+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian <http://translatewiki.net/wiki/Portal:fa>\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,9 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
-"X-POT-Import-Date: 2011-04-13 13:56:48+0000\n"
+"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -123,7 +123,7 @@ msgstr "ذخیرهٔ تنظیمات دسترسی"
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Button text to save snapshot settings.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
-#. TRANS: Button text to save people tags.
+#. TRANS: Button text to save lists.
 #. TRANS: Button text for saving "Other settings" in profile.
 #. TRANS: Button text to save user settings in user admin panel.
 #. TRANS: Button label in the "Edit application" form.
@@ -160,9 +160,11 @@ msgstr "شما به سیستم وارد نشده اید."
 msgid "No such profile."
 msgstr "چنین نمایه‌ای وجود ندارد."
 
-#. TRANS: Client error displayed trying to reference a non-existing people tag.
+#. TRANS: Client error displayed trying to reference a non-existing list.
+#. TRANS: Client error displayed when referring to a non-existing list.
+#. TRANS: Client error displayed trying to reference a non-existing list.
 #, fuzzy
-msgid "No such people tag."
+msgid "No such list."
 msgstr "چنین برچسبی وجود ندارد."
 
 #. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
@@ -184,7 +186,7 @@ msgid ""
 "correctly, please try retrying later."
 msgstr ""
 
-#. TRANS: Title after subscribing to a people tag.
+#. TRANS: Title after subscribing to a list.
 #. TRANS: Page title when subscription succeeded.
 msgid "Subscribed"
 msgstr "مشترک‌شده"
@@ -615,7 +617,7 @@ msgstr "نام کامل خیلی طولانی است (حداکثر ۲۵۵ نوی
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Group edit form validation error.
-#. TRANS: Client error shown when providing too long a description when editing a people tag.
+#. TRANS: Client error shown when providing too long a description when editing a list.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Form validation error in New application form.
 #. TRANS: %d is the maximum number of characters for the description.
@@ -2270,7 +2272,7 @@ msgid "Invalid alias: \"%s\""
 msgstr "نام‌مستعار غیر مجاز: «%s»"
 
 #. TRANS: Group edit form success message.
-#. TRANS: Edit people tag form success message.
+#. TRANS: Edit list form success message.
 msgid "Options saved."
 msgstr "گزینه‌ها ذخیره شدند."
 
@@ -2292,11 +2294,6 @@ msgstr "یک برچسب کاربری معتبر نیست: %s."
 #, fuzzy
 msgid "No tagger or ID."
 msgstr "نام‌مستعار یا شناسه‌ای وجود ندارد."
-
-#. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
-msgid "No such list."
-msgstr "چنین برچسبی وجود ندارد."
 
 #. TRANS: Client error displayed when referring to non-local user.
 #, fuzzy
@@ -4147,26 +4144,26 @@ msgstr ""
 msgid "People search"
 msgstr "جست‌وجوی کاربران"
 
-#. TRANS: Title for people tag page.
-#. TRANS: %s is a tag.
+#. TRANS: Title for list page.
+#. TRANS: %s is a list.
 #, fuzzy, php-format
-msgid "Public people tag %s"
-msgstr "خط‌زمانی عمومی، صفحهٔ %d"
+msgid "Public list %s"
+msgstr "ابر برچسب عمومی"
 
-#. TRANS: Title for people tag page.
-#. TRANS: %1$s is a tag, %2$d is a page number.
+#. TRANS: Title for list page.
+#. TRANS: %1$s is a list, %2$d is a page number.
 #, fuzzy, php-format
-msgid "Public people tag %1$s, page %2$d"
+msgid "Public list %1$s, page %2$d"
 msgstr "پاسخ‌های به %1$s، صفحهٔ %2$d"
 
-#. TRANS: Message for anonymous users on people tag page.
+#. TRANS: Message for anonymous users on list page.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
-"People tags are how you sort similar people on %%site.name%%, a [micro-"
-"blogging](http://en.wikipedia.org/wiki/Micro-blogging) service based on the "
-"Free Software [StatusNet](http://status.net/) tool. You can then easily keep "
-"track of what they are doing by subscribing to the tag's timeline."
+"Lists are how you sort similar people on %%site.name%%, a [micro-blogging]"
+"(http://en.wikipedia.org/wiki/Micro-blogging) service based on the Free "
+"Software [StatusNet](http://status.net/) tool. You can then easily keep "
+"track of what they are doing by subscribing to the list's timeline."
 msgstr ""
 "**%s** یک گروه کاربری در %%%%site.name%%%%، یک سرویس [میکروبلاگینگ](http://"
 "fa.wikipedia.org/wiki/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D8%A8%D9%84%D8%A7%DA%AF%"
@@ -4289,10 +4286,12 @@ msgstr ""
 msgid "%s has not created any [lists](%%%%doc.lists%%%%) yet."
 msgstr "هیچ‌کس هنوز پیامی با یک [برچسب](%%doc.tags%%) نفرستاده است."
 
+#. TRANS: Page title. %s is a tagged user's nickname.
 #, php-format
 msgid "Lists with %s in them"
 msgstr ""
 
+#. TRANS: Page title. %1$s is a tagged user's nickname, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Lists with %1$s, page %2$d"
 msgstr "پیام‌های برچسب‌دار شده با %1$s، صفحهٔ %2$d"
@@ -4314,23 +4313,23 @@ msgstr ""
 "است. کاربران آن پیام‌های کوتاهی را دربارهٔ زندگی و علاقه‌مندی‌هایشان به اشتراک "
 "می‌گذارند. "
 
-#. TRANS: Message displayed on page that displays lists for a user when there are none.
+#. TRANS: Message displayed on page that displays lists a user was added to when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
-#. TRANS: %s is a tagger nickname.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgid "%s has not been [listed](%%%%doc.lists%%%%) by anyone yet."
 msgstr "هیچ‌کس هنوز پیامی با یک [برچسب](%%doc.tags%%) نفرستاده است."
 
-#. TRANS: Page title for list of people tag subscribers.
-#. TRANS: %1$s is a tag, %2$s is a user nickname.
-#, php-format
-msgid "Subscribers of people tagged %1$s by %2$s"
-msgstr ""
-
-#. TRANS: Page title for list of people tag subscribers.
-#. TRANS: %1$s is a tag, %2$s is a user nickname, %3$d is a page number.
+#. TRANS: Page title for list of list subscribers.
+#. TRANS: %1$s is a list, %2$s is a user nickname.
 #, fuzzy, php-format
-msgid "Subscribers of people tagged %1$s by %2$s, page %3$d"
+msgid "Subscribers to list %1$s by %2$s"
+msgstr "پاسخ‌های به %1$s در %2$s!"
+
+#. TRANS: Page title for list of list subscribers.
+#. TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
+#, fuzzy, php-format
+msgid "Subscribers to list %1$s by %2$s, page %3$d"
 msgstr "پیام‌های برچسب‌دار شده با %1$s، صفحهٔ %2$d"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
@@ -4711,47 +4710,47 @@ msgstr ""
 "85%DB%8C%DA%A9%D8%B1%D9%88%D8%A8%D9%84%D8%A7%DA%AF%DB%8C%D9%86%DA%AF) بر "
 "پایهٔ نرم‌افزار آزاد [StatusNet](http://status.net/) است."
 
-#. TRANS: Title for page with public people tag cloud.
+#. TRANS: Title for page with public list cloud.
 #, fuzzy
-msgid "Public people tag cloud"
+msgid "Public list cloud"
 msgstr "ابر برچسب عمومی"
 
-#. TRANS: Page notice for page with public people tag cloud.
+#. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
 #, fuzzy, php-format
-msgid "These are most used people tags on %s"
+msgid "These are largest lists on %s"
 msgstr "این‌ها محبوب‌ترین برچسب‌های اخیر روی %s هستند "
 
-#. TRANS: Empty list message on page with public people tag cloud.
+#. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
-msgid "No one has [tagged](%%doc.tags%%) anyone yet."
+msgid "No one has [listed](%%doc.tags%%) anyone yet."
 msgstr "هیچ‌کس هنوز پیامی با یک [برچسب](%%doc.tags%%) نفرستاده است."
 
-#. TRANS: Additional empty list message on page with public people tag cloud for logged in users.
+#. TRANS: Additional empty list message on page with public list cloud for logged in users.
 #, fuzzy
-msgid "Be the first to tag someone!"
+msgid "Be the first to list someone!"
 msgstr "اولین نفری باشید که چیزی می‌فرستد!"
 
-#. TRANS: Additional empty list message on page with public people tag cloud for anonymous users.
+#. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
-"Why not [register an account](%%action.register%%) and be the first to tag "
+"Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
 msgstr ""
 "چرا به [باز کردن یک حساب](%%action.register%%) اقدام نمی‌کنید و اولین نفری "
 "باشید که چیزی می‌فرستد!"
 
-#. TRANS: DT element on on page with public people tag cloud.
+#. TRANS: DT element on on page with public list cloud.
 #, fuzzy
-msgid "People tag cloud"
-msgstr "ابر برچسب عمومی"
+msgid "List cloud"
+msgstr "رابط مورد نظر پیدا نشد."
 
-#. TRANS: Link title for number of people tagged. %d is the number of people tagged.
+#. TRANS: Link title for number of listed people. %d is the number of listed people.
 #, php-format
-msgid "1 person tagged"
-msgid_plural "%d people tagged"
+msgid "1 person listed"
+msgid_plural "%d people listed"
 msgstr[0] ""
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
@@ -5132,7 +5131,7 @@ msgstr "نشانی اینترنتی نمایهٔ شما در سرویس میکر
 #. TRANS: Button text on page for remote subscribe.
 #. TRANS: Link text for link that will subscribe to a remote profile.
 #. TRANS: Button text to subscribe to a user.
-#. TRANS: Button text for subscribing to a people tag.
+#. TRANS: Button text for subscribing to a list.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Subscribe"
@@ -5165,7 +5164,21 @@ msgstr "نمی‌توان یک نشانهٔ درخواست را به‌دست آ
 msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
 msgstr "نمی‌توان با این کار مشترک یک نمایهٔ از راه دور OMB 0.1شد."
 
-#. TRANS: Title after untagging a people tag.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a username.
+#, php-format
+msgid "There was an unexpected error while listing %s."
+msgstr ""
+
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
+#. TRANS: %s is a profile URL.
+#, php-format
+msgid ""
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly, please try retrying later."
+msgstr ""
+
+#. TRANS: Title after removing a user from a list.
 msgid "Untagged"
 msgstr ""
 
@@ -5354,10 +5367,10 @@ msgstr "شما نمی توانید کاربری را در این سایت ساک
 msgid "User is already sandboxed."
 msgstr "کاربر قبلا ساکت شده است."
 
-#. TRANS: Client error displayed when trying to tag a profile with an invalid tag.
-#. TRANS: %s is the invalid tag.
-#, php-format
-msgid "Not a valid people tag: %s."
+#. TRANS: Client error displayed when trying to list a profile with an invalid list.
+#. TRANS: %s is the invalid list name.
+#, fuzzy, php-format
+msgid "Not a valid list: %s."
 msgstr "یک برچسب کاربری معتبر نیست: %s."
 
 #. TRANS: Page title for page showing self tags.
@@ -5654,19 +5667,19 @@ msgid "Notice deleted."
 msgstr "پیام پاک شد."
 
 #. TRANS: Title for private list timeline.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
+#. TRANS: %1$s is a list, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Private timeline for %1$s list by you, page %2$d"
 msgstr "کاربران خود برچسب‌گذاری شده با %1$s - صفحهٔ %2$d"
 
 #. TRANS: Title for public list timeline where the viewer is the tagger.
-#. TRANS: %1$s is a people tag, %2$s is a page number.
+#. TRANS: %1$s is a list, %2$s is a page number.
 #, fuzzy, php-format
 msgid "Timeline for %1$s list by you, page %2$d"
 msgstr "کاربران خود برچسب‌گذاری شده با %1$s - صفحهٔ %2$d"
 
 #. TRANS: Title for private list timeline.
-#. TRANS: %1$s is a people tag, %2$s is the tagger's nickname, %3$d is a page number.
+#. TRANS: %1$s is a list, %2$s is the tagger's nickname, %3$d is a page number.
 #, fuzzy, php-format
 msgid "Timeline for %1$s list by %2$s, page %3$d"
 msgstr "پیام‌های برچسب‌دار شده با %1$s، صفحهٔ %2$d"
@@ -5703,11 +5716,11 @@ msgid ""
 "yet."
 msgstr "این خط‌زمانی %s و دوستانش است، اما هیچ‌یک تاکنون چیزی نفرستاده‌اند."
 
-#. TRANS: Additional empty list message for people tag timeline for currently logged in user tagged tags.
+#. TRANS: Additional empty list message for list timeline for currently logged in user tagged tags.
 msgid "Try tagging more people."
 msgstr ""
 
-#. TRANS: Additional empty list message for people tag timeline.
+#. TRANS: Additional empty list message for list timeline.
 #. TRANS: This message contains Markdown links in the form [description](link).
 #, fuzzy, php-format
 msgid ""
@@ -5722,7 +5735,7 @@ msgstr ""
 msgid "Listed"
 msgstr "مجوز"
 
-#. TRANS: Link for more "People tagged x by a user"
+#. TRANS: Link for more "People in list x by a user"
 #. TRANS: if there are more than the mini list's maximum.
 msgid "Show all"
 msgstr ""
@@ -6244,7 +6257,7 @@ msgstr "نمی‌توان با این کار مشترک یک نمایهٔ از �
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
 #, fuzzy
-msgid "You must be logged in to unsubscribe to a people tag."
+msgid "You must be logged in to unsubscribe from a list."
 msgstr "برای ساخت یک گروه، باید وارد شده باشید."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
@@ -6252,16 +6265,16 @@ msgstr "برای ساخت یک گروه، باید وارد شده باشید."
 msgid "No ID given."
 msgstr "هیچ پیوستی وجود ندارد."
 
-#. TRANS: Server error displayed subscribing to a people tag fails.
-#. TRANS: %1$s is a user nickname, %2$s is a people tag.
+#. TRANS: Server error displayed subscribing to a list fails.
+#. TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
 #, fuzzy, php-format
-msgid "Could not subscribe user %1$s to people tag %2$s."
+msgid "Could not subscribe user %1$s to list %2$s: %3$s"
 msgstr "نمی‌توان کاربر %1$s را عضو گروه %2$s کرد."
 
-#. TRANS: Title of form to subscribe to a people tag.
-#. TRANS: %1%s is a user nickname, %2$s is a people tag, %3$s is a tagger nickname.
+#. TRANS: Title of form to subscribe to a list.
+#. TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
 #, fuzzy, php-format
-msgid "%1$s subscribed to people tag %2$s by %3$s"
+msgid "%1$s subscribed to list %2$s by %3$s"
 msgstr "مشترک‌های %1$s، صفحهٔ %2$d"
 
 #. TRANS: Header for list of subscribers for a user (first page).
@@ -6405,42 +6418,43 @@ msgstr "خوراک پیام برای برچسب %s (Atom)"
 msgid "You cannot tag this user."
 msgstr "شما نمی توانید به این کاربر پیام بفرستید."
 
-#. TRANS: Title for people tag form when not on a profile page.
+#. TRANS: Title for list form when not on a profile page.
 #, fuzzy
-msgid "Tag a profile"
+msgid "List a profile"
 msgstr "نمایهٔ کاربر"
 
-#. TRANS: Title for people tag form when on a profile page.
+#. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, php-format
-msgid "Tag %s"
-msgstr "برچسب %s"
+#, fuzzy, php-format
+msgctxt "ADDTOLIST"
+msgid "List %s"
+msgstr "محدودیت ها"
 
-#. TRANS: Title for people tag form when an error has occurred.
+#. TRANS: Title for list form when an error has occurred.
 #, fuzzy
 msgctxt "TITLE"
 msgid "Error"
 msgstr "خطای آژاکس"
 
-#. TRANS: Header in people tag form.
+#. TRANS: Header in list form.
 msgid "User profile"
 msgstr "نمایهٔ کاربر"
 
-#. TRANS: Fieldset legend for people tag form.
-msgid "Tag user"
-msgstr "برچسب‌گذاری کاربر"
+#. TRANS: Fieldset legend for list form.
+#, fuzzy
+msgid "List user"
+msgstr "محدودیت ها"
 
-#. TRANS: Field label on people tag form.
-#. TRANS: Label in self tags widget.
+#. TRANS: Field label on list form.
 #, fuzzy
 msgctxt "LABEL"
-msgid "Tags"
-msgstr "برچسب‌ها"
+msgid "Lists"
+msgstr "محدودیت ها"
 
-#. TRANS: Field title on people tag form.
+#. TRANS: Field title on list form.
 #, fuzzy
 msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
 "برچسب‌ها برای خودتان (حروف، اعداد، -، .، و _) جدا شده با کاما- یا فاصله-"
@@ -6451,13 +6465,14 @@ msgctxt "TITLE"
 msgid "Tags"
 msgstr "برچسب‌ها"
 
-#. TRANS: Success message if people tags are saved.
+#. TRANS: Success message if lists are saved.
 #, fuzzy
-msgid "Tags saved."
+msgid "Lists saved."
 msgstr "گذرواژه ذخیره شد."
 
 #. TRANS: Page notice.
-msgid "Use this form to add tags to your subscribers or subscriptions."
+#, fuzzy
+msgid "Use this form to add your subscribers or subscriptions to lists."
 msgstr "از این روش برای افزودن برچسب به مشترک‌ها یا اشتراک‌هایتان استفاده کنید."
 
 #. TRANS: Client error when requesting a tag feed for a non-existing tag.
@@ -6481,10 +6496,10 @@ msgstr "کاربر ساکت نشده است."
 msgid "Unsubscribed"
 msgstr "لغو اشتراک شده"
 
-#. TRANS: Page title for form that allows unsubscribing from a people tag.
-#. TRANS: %1$s is a nickname, %2$s is a people tag, %3$s is a tagger nickname.
+#. TRANS: Page title for form that allows unsubscribing from a list.
+#. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
 #, fuzzy, php-format
-msgid "%1$s unsubscribed to people tag %2$s by %3$s"
+msgid "%1$s unsubscribed from list %2$s by %3$s"
 msgstr "مشترک‌های %1$s، صفحهٔ %2$d"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
@@ -7165,21 +7180,21 @@ msgid ""
 "of tags. Try using or deleting some existing tags."
 msgstr ""
 
-#. TRANS: Client exception thrown trying to set one tag for more people than allowed.
+#. TRANS: Client exception thrown when trying to add more people than allowed to a list.
 #, php-format
 msgid ""
-"You already have %1$d or more people tagged %2$s, which is the maximum "
-"allowed number.Try untagging others with the same tag first."
+"You already have %1$d or more people in list %2$s, which is the maximum "
+"allowed number.Try unlisting others first."
 msgstr ""
 
-#. TRANS: Exception thrown when inserting a people tag subscription in the database fails.
+#. TRANS: Exception thrown when inserting a list subscription in the database fails.
 #, fuzzy
-msgid "Adding people tag subscription failed."
+msgid "Adding list subscription failed."
 msgstr "نمی‌توان اشتراک را ذخیره کرد."
 
-#. TRANS: Exception thrown when deleting a people tag subscription from the database fails.
+#. TRANS: Exception thrown when deleting a list subscription from the database fails.
 #, fuzzy
-msgid "Removing people tag subscription failed."
+msgid "Removing list subscription failed."
 msgstr "نمی‌توان اشتراک را ذخیره کرد."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
@@ -7799,7 +7814,7 @@ msgid "Cancel"
 msgstr "انصراف"
 
 #. TRANS: Submit button title.
-#. TRANS: Button text to save a people tag.
+#. TRANS: Button text to save a list.
 msgid "Save"
 msgstr "ذخیره‌کردن"
 
@@ -7847,14 +7862,14 @@ msgid "Do not use this method!"
 msgstr "این پیام را پاک نکن"
 
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-#, php-format
-msgid "Timeline for people tagged #%1$s by %2$s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Timeline for people in list %1$s by %2$s"
+msgstr "پاسخ‌های به %1$s در %2$s!"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
 #, fuzzy, php-format
-msgid "Updates from %1$s's %2$s people tag on %3$s!"
+msgid "Updates from %1$s's list %2$s on %3$s!"
 msgstr "به روز رسانی‌های %1$s در %2$s"
 
 #. TRANS: Title.
@@ -9523,15 +9538,15 @@ msgstr "نمی‌توان اشتراک تازه‌ای افزود."
 msgid "No oEmbed API endpoint available."
 msgstr "پیام‌رسان فوری در دسترس نیست."
 
-#. TRANS: Field label for people tag.
+#. TRANS: Field label for list.
 #, fuzzy
 msgctxt "LABEL"
-msgid "Tag"
-msgstr "برچسب"
+msgid "List"
+msgstr "پیوندها"
 
-#. TRANS: Field title for people tag.
+#. TRANS: Field title for list.
 #, fuzzy
-msgid "Change the tag (letters, numbers, -, ., and _ are allowed)."
+msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
 msgstr ""
 "برچسب‌ها برای این کاربر (حروف، اعداد، -، .، و _)، جدا شده با کاما- یا فاصله-"
 
@@ -9552,11 +9567,11 @@ msgstr[0] "گروه یا موضوع را در %d نویسه توصیف کنید"
 msgid "Delete this list."
 msgstr "این کاربر حذف شود."
 
-#. TRANS: Header in people tag edit form.
+#. TRANS: Header in list edit form.
 msgid "Add or remove people"
 msgstr ""
 
-#. TRANS: Header in people tag edit form.
+#. TRANS: Header in list edit form.
 #, fuzzy
 msgctxt "HEADER"
 msgid "Search"
@@ -9593,7 +9608,7 @@ msgstr "مشترک‌ها"
 msgid "Subscribers to %1$s list by %2$s."
 msgstr "پاسخ‌های به %1$s در %2$s!"
 
-#. TRANS: Menu item in people tag navigation panel.
+#. TRANS: Menu item in list navigation panel.
 #, fuzzy
 msgctxt "MENU"
 msgid "Edit"
@@ -9619,7 +9634,7 @@ msgstr "ویرایش تنظیمات نمایه"
 msgid "Edit"
 msgstr "ویرایش"
 
-#. TRANS: Privacy mode text in people tag list item for private tags.
+#. TRANS: Privacy mode text in list list item for private list.
 #, fuzzy
 msgctxt "MODE"
 msgid "Private"
@@ -9632,48 +9647,57 @@ msgid "List Subscriptions"
 msgstr "اشتراک‌ها"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists subscribed to by %s."
 msgstr "افراد مشترک %s"
 
 #. TRANS: Menu item in the group navigation page.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "MENU"
 msgid "Lists with %s"
 msgstr "پیام‌های با %s"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists with %s."
 msgstr "پیام‌های با %s"
 
 #. TRANS: Menu item in the group navigation page.
+#. TRANS: %s is a user nickname.
 #, php-format
 msgctxt "MENU"
 msgid "Lists by %s"
 msgstr ""
 
 #. TRANS: Tooltip for menu item in the group navigation page.
-#. TRANS: %s is the nickname of the group.
+#. TRANS: %s is a user nickname.
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Lists by %s."
 msgstr "%1$s (%2$s)"
 
-#. TRANS: Label in people tags widget.
+#. TRANS: Label in lists widget.
+#, fuzzy
 msgctxt "LABEL"
-msgid "Tags by you"
-msgstr ""
+msgid "Your lists"
+msgstr "پیام‌های برگزیده"
 
-#. TRANS: Fieldset legend in people tags widget.
+#. TRANS: Fieldset legend in lists widget.
 #, fuzzy
 msgctxt "LEGEND"
-msgid "Edit tags"
-msgstr "ویرایش"
+msgid "Edit lists"
+msgstr "یک برچسب کاربری معتبر نیست: %s."
+
+#. TRANS: Label in self tags widget.
+#, fuzzy
+msgctxt "LABEL"
+msgid "Tags"
+msgstr "برچسب‌ها"
 
 #. TRANS: Title for section contaning lists with the most subscribers.
 #, fuzzy
@@ -9686,11 +9710,12 @@ msgstr "پیام‌های برگزیده"
 msgid "Listed: %1$d Subscribers: %2$d"
 msgstr "مشترک‌های %1$s، صفحهٔ %2$d"
 
+#. TRANS: Title for page that displays which lists current user is part of.
 #, fuzzy, php-format
 msgid "Lists with you"
 msgstr "رابط مورد نظر پیدا نشد."
 
-#. TRANS: Title for page that displays which people tags a user has been tagged with.
+#. TRANS: Title for page that displays which lists a user is part of.
 #. TRANS: %s is a profile name.
 #, fuzzy, php-format
 msgid "Lists with %s"
@@ -10321,16 +10346,16 @@ msgid "Choose a field to search."
 msgstr "یک برچسب را برای محدود کردن فهرست انتخاب کنید"
 
 #. TRANS: Form legend.
-#. TRANS: %1$s is a nickname, $2$s is a people tag.
+#. TRANS: %1$s is a nickname, $2$s is a list.
 #, fuzzy, php-format
-msgid "Untag %1$s as %2$s"
+msgid "Remove %1$s from list %2$s"
 msgstr "%1$s (%2$s)"
 
-#. TRANS: Legend on form to add a tag to a profile.
-#. TRANS: %1$s is a nickname, %2$s ia a people tag.
+#. TRANS: Legend on form to add a profile to a list.
+#. TRANS: %1$s is a nickname, %2$s is a list.
 #, fuzzy, php-format
-msgid "Tag %1$s as %2$s"
-msgstr "RT @%1$s %2$s"
+msgid "Add %1$s to list %2$s"
+msgstr "%1$s (%2$s)"
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -10394,7 +10419,7 @@ msgid "Unsubscribe from this user"
 msgstr "لغو مشترک‌شدن از این کاربر"
 
 #. TRANS: Button text on unsubscribe form.
-#. TRANS: Button text for unsubscribing from a people tag.
+#. TRANS: Button text for unsubscribing from a list.
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Unsubscribe"
@@ -10480,87 +10505,45 @@ msgid "Getting backup from file '%s'."
 msgstr ""
 
 #, fuzzy
-#~ msgid "Use this form to edit the people tag."
-#~ msgstr "از این روش برای ویرایش گروه استفاده کنید."
+#~ msgid "No such people tag."
+#~ msgstr "چنین برچسبی وجود ندارد."
 
 #, fuzzy
-#~ msgid "Could not update people tag."
-#~ msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
+#~ msgid "Public people tag %s"
+#~ msgstr "خط‌زمانی عمومی، صفحهٔ %d"
 
 #, fuzzy
-#~ msgid "People tags by %s"
-#~ msgstr "تکرار %s"
+#~ msgid "Public people tag cloud"
+#~ msgstr "ابر برچسب عمومی"
 
 #, fuzzy
-#~ msgid "People tags by %1$s, page %2$d"
-#~ msgstr "پاسخ‌های به %1$s، صفحهٔ %2$d"
+#~ msgid "These are most used people tags on %s"
+#~ msgstr "این‌ها محبوب‌ترین برچسب‌های اخیر روی %s هستند "
 
 #, fuzzy
-#~ msgid "People tags for %s"
-#~ msgstr "تکرار %s"
+#~ msgid "People tag cloud"
+#~ msgstr "ابر برچسب عمومی"
+
+#~ msgid "Tag %s"
+#~ msgstr "برچسب %s"
+
+#~ msgid "Tag user"
+#~ msgstr "برچسب‌گذاری کاربر"
 
 #, fuzzy
-#~ msgid "People tags for %1$s, page %2$d"
-#~ msgstr "پاسخ‌های به %1$s، صفحهٔ %2$d"
-
-#, fuzzy
-#~ msgid "Problem saving profile_tag inbox."
-#~ msgstr "هنگام ذخیرهٔ صندوق ورودی گروه مشکلی رخ داد."
-
-#~ msgid "Groups with most members"
-#~ msgstr "گروه های با اعضاء بیشتر"
-
-#~ msgid "Groups with most posts"
-#~ msgstr "گروه های با پست های بیشتر"
-
-#, fuzzy
-#~ msgid "Describe the people tag or topic."
-#~ msgstr "گروه یا موضوع را توصیف کنید"
-
-#, fuzzy
-#~ msgid "Delete this people tag."
-#~ msgstr "حذف این کاربر"
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "People tag"
-#~ msgstr "افراد"
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "Tagged"
+#~ msgctxt "LABEL"
+#~ msgid "Tag"
 #~ msgstr "برچسب"
 
 #, fuzzy
-#~ msgid "Edit people tag settings."
-#~ msgstr "ویرایش تنظیمات نمایه"
+#~ msgctxt "LEGEND"
+#~ msgid "Edit tags"
+#~ msgstr "ویرایش"
 
 #, fuzzy
-#~ msgid "People tags with most subscribers"
-#~ msgstr "افراد مشترک %s"
+#~ msgid "Untag %1$s as %2$s"
+#~ msgstr "%1$s (%2$s)"
 
 #, fuzzy
-#~ msgid "People tag subscriptions"
-#~ msgstr "تمام اشتراک‌ها"
-
-#, fuzzy
-#~ msgctxt "MENU"
-#~ msgid "People tags"
-#~ msgstr "افراد"
-
-#~ msgid "User"
-#~ msgstr "کاربر"
-
-#~ msgid "Tags in %s's notices"
-#~ msgstr "برچسب‌ها در پیام‌های %s"
-
-#~ msgid "All subscriptions"
-#~ msgstr "تمام اشتراک‌ها"
-
-#, fuzzy
-#~ msgid "People tags"
-#~ msgstr "افراد"
-
-#, fuzzy
-#~ msgid "People tags by %s."
-#~ msgstr "افراد مشترک %s"
+#~ msgid "Tag %1$s as %2$s"
+#~ msgstr "RT @%1$s %2$s"

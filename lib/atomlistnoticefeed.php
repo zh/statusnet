@@ -62,14 +62,14 @@ class AtomListNoticeFeed extends AtomNoticeFeed
         $this->tagger = Profile::staticGet('id', $list->tagger);
 
         // TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-        $title = sprintf(_('Timeline for people tagged #%1$s by %2$s'), $list->tag, $this->tagger->nickname);
+        $title = sprintf(_('Timeline for people in list %1$s by %2$s'), $list->tag, $this->tagger->nickname);
         $this->setTitle($title);
 
         $sitename   = common_config('site', 'name');
         $subtitle   = sprintf(
             // TRANS: Message is used as a subtitle in atom list notice feed.
             // TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
-            _('Updates from %1$s\'s %2$s people tag on %3$s!'),
+            _('Updates from %1$s\'s list %2$s on %3$s!'),
             $this->tagger->nickname,
             $list->tag,
             $sitename

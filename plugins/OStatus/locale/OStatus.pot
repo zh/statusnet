@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,13 +136,13 @@ msgctxt "TITLE"
 msgid "Follow list"
 msgstr ""
 
-#. TRANS: Exception thrown when subscription of remote people tag fails.
+#. TRANS: Exception thrown when subscription to remote list fails.
 #: OStatusPlugin.php:889
-msgid "Failed subscribing to remote people tag."
+msgid "Failed subscribing to remote list."
 msgstr ""
 
 #: OStatusPlugin.php:925
-msgid "Unfollow people tag"
+msgid "Unfollow list"
 msgstr ""
 
 #: OStatusPlugin.php:926
@@ -263,7 +263,7 @@ msgstr ""
 #. TRANS: Client exception. %s is a feed URL.
 #: actions/pushhub.php:186
 #, php-format
-msgid "Invalid hub.topic %s; people tag does not exist."
+msgid "Invalid hub.topic %s; list does not exist."
 msgstr ""
 
 #. TRANS: Client exception.
@@ -315,7 +315,7 @@ msgid "Could not confirm remote profile address."
 msgstr ""
 
 #: actions/ostatustag.php:115
-msgid "OStatus people tag"
+msgid "OStatus list"
 msgstr ""
 
 #: actions/pushcallback.php:50
@@ -352,7 +352,9 @@ msgstr ""
 msgid "Unexpected unsubscribe request for %s."
 msgstr ""
 
+#. TRANS: Client error.
 #: actions/ownerxrd.php:39 actions/usersalmon.php:43
+#: actions/ostatusinit.php:221 actions/ostatusinit.php:234
 msgid "No such user."
 msgstr ""
 
@@ -537,11 +539,11 @@ msgid "Notice with ID %1$s not posted by %2$s."
 msgstr ""
 
 #: actions/ostatuspeopletag.php:73
-msgid "Subscribe to people tag"
+msgid "Subscribe to list"
 msgstr ""
 
 #: actions/ostatuspeopletag.php:75
-msgid "Address of the OStatus people tag, like http://example.net/user/all/tag"
+msgid "Address of the OStatus list, like http://example.net/user/all/tag"
 msgstr ""
 
 #: actions/ostatuspeopletag.php:79
@@ -549,12 +551,12 @@ msgid "Continue"
 msgstr ""
 
 #: actions/ostatuspeopletag.php:98
-msgid "You are already subscribed to this people tag."
+msgid "You are already subscribed to this list."
 msgstr ""
 
-#. TRANS: Page title for OStatus remote people tag subscription form
+#. TRANS: Page title for OStatus remote list subscription form
 #: actions/ostatuspeopletag.php:161
-msgid "Confirm subscription to remote people tag"
+msgid "Confirm subscription to remote list"
 msgstr ""
 
 #. TRANS: Instructions for OStatus list subscription form.
@@ -565,7 +567,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: Client error.
-#: actions/groupsalmon.php:47
+#: actions/groupsalmon.php:47 actions/ostatusinit.php:229
 msgid "No such group."
 msgstr ""
 
@@ -604,7 +606,7 @@ msgstr ""
 msgid "Could not remove remote user %1$s from group %2$s."
 msgstr ""
 
-#: actions/peopletagsalmon.php:45
+#: actions/peopletagsalmon.php:45 actions/ostatusinit.php:242
 msgid "No such list."
 msgstr ""
 
@@ -657,13 +659,13 @@ msgctxt "BUTTON"
 msgid "Join"
 msgstr ""
 
-#. TRANS: Form legend. %1$s is a people tag, %2$s is a tagger's name.
+#. TRANS: Form legend. %1$s is a list, %2$s is a tagger's name.
 #: actions/ostatusinit.php:108
 #, php-format
-msgid "Subscribe to people tagged %1$s by %2$s"
+msgid "Subscribe to list %1$s by %2$s"
 msgstr ""
 
-#. TRANS: Button text to subscribe to a people tag.
+#. TRANS: Button text to subscribe to a list.
 #. TRANS: Button text to subscribe to a profile.
 #: actions/ostatusinit.php:110 actions/ostatusinit.php:116
 msgctxt "BUTTON"
@@ -699,6 +701,11 @@ msgstr ""
 #. TRANS: Client error.
 #: actions/ostatusinit.php:170
 msgid "Must provide a remote profile."
+msgstr ""
+
+#. TRANS: Client error.
+#: actions/ostatusinit.php:245
+msgid "No local user or group nickname provided."
 msgstr ""
 
 #. TRANS: Page title.
@@ -799,6 +806,14 @@ msgstr ""
 msgid "Unable to fetch avatar from %s."
 msgstr ""
 
+#: classes/Ostatus_profile.php:1212
+msgid "No author ID URI found."
+msgstr ""
+
+#: classes/Ostatus_profile.php:1237
+msgid "No profile URI."
+msgstr ""
+
 #. TRANS: Exception.
 #: classes/Ostatus_profile.php:1243
 msgid "Local user cannot be referenced as remote."
@@ -809,9 +824,17 @@ msgstr ""
 msgid "Local group cannot be referenced as remote."
 msgstr ""
 
+#: classes/Ostatus_profile.php:1255
+msgid "Local list cannot be referenced as remote."
+msgstr ""
+
 #. TRANS: Server exception.
 #: classes/Ostatus_profile.php:1308 classes/Ostatus_profile.php:1319
 msgid "Cannot save local profile."
+msgstr ""
+
+#: classes/Ostatus_profile.php:1329
+msgid "Cannot save local list."
 msgstr ""
 
 #. TRANS: Server exception.
@@ -833,7 +856,7 @@ msgstr ""
 #. TRANS: Exception. %s is a webfinger address.
 #: classes/Ostatus_profile.php:1775
 #, php-format
-msgid "Could not save ostatus_profile for \"%s\"."
+msgid "Could not save OStatus profile for \"%s\"."
 msgstr ""
 
 #. TRANS: Exception. %s is a webfinger address.

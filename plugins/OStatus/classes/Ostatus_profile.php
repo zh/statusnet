@@ -1209,7 +1209,7 @@ class Ostatus_profile extends Managed_DataObject
         if ($object->link && common_valid_http_url($object->link)) {
             return $object->link;
         }
-        throw new ServerException("No author ID URI found.");
+        throw new ServerException(_m('No author ID URI found.'));
     }
 
     /**
@@ -1234,7 +1234,7 @@ class Ostatus_profile extends Managed_DataObject
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
-            throw new Exception('No profile URI.');
+            throw new Exception(_m('No profile URI.'));
         }
 
         $user = User::staticGet('uri', $homeuri);
@@ -1252,7 +1252,7 @@ class Ostatus_profile extends Managed_DataObject
         if ($ptag) {
             $local_user = User::staticGet('id', $ptag->tagger);
             if (!empty($local_user)) {
-                throw new Exception('Local people tag cannot be referenced as remote.');
+                throw new Exception(_m('Local list cannot be referenced as remote.'));
             }
         }
 
@@ -1326,7 +1326,7 @@ class Ostatus_profile extends Managed_DataObject
 
             $oprofile->peopletag_id = $ptag->insert();
             if (!$oprofile->peopletag_id) {
-                throw new ServerException('Cannot save local people tag.');
+                throw new ServerException(_m('Cannot save local list.'));
             }
         }
 
@@ -1772,7 +1772,7 @@ class Ostatus_profile extends Managed_DataObject
             if (!$result) {
                 common_log_db_error($oprofile, 'INSERT', __FILE__);
                 // TRANS: Exception. %s is a webfinger address.
-                throw new Exception(sprintf(_m('Could not save ostatus_profile for "%s".'),$addr));
+                throw new Exception(sprintf(_m('Could not save OStatus profile for "%s".'),$addr));
             }
 
             self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);

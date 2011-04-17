@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2011, StatusNet, Inc.
  *
- * Stream of notices for a people tag
+ * Stream of notices for a list
  *
  * PHP version 5
  *
@@ -35,7 +35,7 @@ if (!defined('STATUSNET')) {
 }
 
 /**
- * Stream of notices for a people tag
+ * Stream of notices for a list
  *
  * @category  Stream
  * @package   StatusNet
@@ -59,7 +59,7 @@ class PeopletagNoticeStream extends ScopingNoticeStream
 }
 
 /**
- * Stream of notices for a people tag
+ * Stream of notices for a list
  *
  * @category  Stream
  * @package   StatusNet

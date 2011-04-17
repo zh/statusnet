@@ -186,8 +186,8 @@ class UntagButton extends Form
     function formLegend()
     {
         // TRANS: Form legend.
-        // TRANS: %1$s is a nickname, $2$s is a people tag.
-        $this->out->element('legend', null, sprintf(_('Untag %1$s as %2$s'),
+        // TRANS: %1$s is a nickname, $2$s is a list.
+        $this->out->element('legend', null, sprintf(_('Remove %1$s from list %2$s'),
             $this->profile->nickname, $this->peopletag->tag));
     }
 
@@ -263,9 +263,9 @@ class TagButton extends Form
      */
     function formLegend()
     {
-        // TRANS: Legend on form to add a tag to a profile.
-        // TRANS: %1$s is a nickname, %2$s ia a people tag.
-        $this->out->element('legend', null, sprintf(_('Tag %1$s as %2$s'),
+        // TRANS: Legend on form to add a profile to a list.
+        // TRANS: %1$s is a nickname, %2$s is a list.
+        $this->out->element('legend', null, sprintf(_('Add %1$s to list %2$s'),
             $this->profile->nickname, $this->peopletag->tag));
     }
 

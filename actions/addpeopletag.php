@@ -106,8 +106,8 @@ class AddpeopletagAction extends Action
         $this->peopletag = Profile_list::staticGet('id', $id);
 
         if (empty($this->peopletag)) {
-            // TRANS: Client error displayed trying to reference a non-existing people tag.
-            $this->clientError(_('No such people tag.'));
+            // TRANS: Client error displayed trying to reference a non-existing list.
+            $this->clientError(_('No such list.'));
             return false;
         }
 
@@ -161,7 +161,7 @@ class AddpeopletagAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            // TRANS: Title after subscribing to a people tag.
+            // TRANS: Title after subscribing to a list.
             $this->element('title', null, _('Subscribed'));
             $this->elementEnd('head');
             $this->elementStart('body');

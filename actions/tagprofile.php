@@ -74,12 +74,12 @@ class TagprofileAction extends Action
     function title()
     {
         if (!$this->profile) {
-            // TRANS: Title for people tag form when not on a profile page.
-            return _('Tag a profile');
+            // TRANS: Title for list form when not on a profile page.
+            return _('List a profile');
         }
-        // TRANS: Title for people tag form when on a profile page.
+        // TRANS: Title for list form when on a profile page.
         // TRANS: %s is a profile nickname.
-        return sprintf(_('Tag %s'), $this->profile->nickname);
+        return sprintf(_m('ADDTOLIST','List %s'), $this->profile->nickname);
     }
 
     function showForm($error=null)
@@ -88,7 +88,7 @@ class TagprofileAction extends Action
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            // TRANS: Title for people tag form when an error has occurred.
+            // TRANS: Title for list form when an error has occurred.
             $this->element('title', null, _m('TITLE','Error'));
             $this->elementEnd('head');
             $this->elementStart('body');
@@ -104,7 +104,7 @@ class TagprofileAction extends Action
     {
         if (Event::handle('StartShowTagProfileForm', array($this, $this->profile)) && $this->profile) {
             $this->elementStart('div', 'entity_profile vcard author');
-            // TRANS: Header in people tag form.
+            // TRANS: Header in list form.
             $this->element('h2', null, _('User profile'));
 
             $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -147,8 +147,8 @@ class TagprofileAction extends Action
                                                'action' => common_local_url('tagprofile', array('id' => $this->profile->id))));
 
             $this->elementStart('fieldset');
-            // TRANS: Fieldset legend for people tag form.
-            $this->element('legend', null, _('Tag user'));
+            // TRANS: Fieldset legend for list form.
+            $this->element('legend', null, _('List user'));
             $this->hidden('token', common_session_token());
             $this->hidden('id', $this->profile->id);
 
@@ -158,14 +158,14 @@ class TagprofileAction extends Action
             $this->elementStart('li');
 
             $tags = Profile_tag::getTagsArray($user->id, $this->profile->id, $user->id);
-            // TRANS: Field label on people tag form.
-            $this->input('tags', _m('LABEL','Tags'),
+            // TRANS: Field label on list form.
+            $this->input('tags', _m('LABEL','Lists'),
                          ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $tags),
-                         // TRANS: Field title on people tag form.
-                         _('Tags for this user (letters, numbers, -, ., and _), comma- or space- separated.'));
+                         // TRANS: Field title on list form.
+                         _('Lists for this user (letters, numbers, -, ., and _), comma- or space- separated.'));
             $this->elementEnd('li');
             $this->elementEnd('ul');
-            // TRANS: Button text to save people tags.
+            // TRANS: Button text to save lists.
             $this->submit('save', _m('BUTTON','Save'));
             $this->elementEnd('fieldset');
             $this->elementEnd('form');
@@ -240,8 +240,8 @@ class TagprofileAction extends Action
                 $this->elementEnd('body');
                 $this->elementEnd('html');
             } else {
-                // TRANS: Success message if people tags are saved.
-                $this->error = _('Tags saved.');
+                // TRANS: Success message if lists are saved.
+                $this->error = _('Lists saved.');
                 $this->showForm();
             }
 
@@ -257,7 +257,7 @@ class TagprofileAction extends Action
             $this->elementStart('div', 'instructions');
             $this->element('p', null,
                            // TRANS: Page notice.
-                           _('Use this form to add tags to your subscribers or subscriptions.'));
+                           _('Use this form to add your subscribers or subscriptions to lists.'));
             $this->elementEnd('div');
         }
     }

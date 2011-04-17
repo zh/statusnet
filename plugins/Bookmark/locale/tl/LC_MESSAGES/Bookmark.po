@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Bookmark\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 22:54+0000\n"
-"PO-Revision-Date: 2011-04-16 22:57:16+0000\n"
+"POT-Creation-Date: 2011-04-17 18:17+0000\n"
+"PO-Revision-Date: 2011-04-17 18:20:23+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-13 13:56:56+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86243); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-16 23:17:24+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-bookmark\n"
@@ -45,26 +45,27 @@ msgstr "Pananda ni %1$s para sa \"%2$s\""
 
 #. TRANS: Plugin description.
 msgid "Simple extension for supporting bookmarks."
-msgstr ""
+msgstr "Payak na dugtong para sa pagtatangkilik ng mga pananda."
 
 #. TRANS: Link text in proile leading to import form.
 #. TRANS: Title for page to import del.icio.us bookmark backups on.
 msgid "Import del.icio.us bookmarks"
-msgstr ""
+msgstr "Angkatin ang mga pananda ng del.icio.us"
 
 #. TRANS: Client exception thrown when a bookmark is formatted incorrectly.
 msgid "Expected exactly 1 link rel=related in a Bookmark."
 msgstr ""
+"Inaasahan ang talagang 1 kawing na rel=kaugnay sa loob ng isang Pananda."
 
 #. TRANS: Server exception thrown when a bookmark has multiple attachments.
 msgid "Bookmark notice with the wrong number of attachments."
-msgstr ""
+msgstr "Pabatid ng pananda na may maling bilang ng mga kalakip."
 
 #. TRANS: Exception thrown when a bookmark has no attachments.
 #. TRANS: %1$s is a bookmark ID, %2$s is a notice ID (number).
 #, php-format
 msgid "Bookmark %1$s (notice %2$d) has no attachments."
-msgstr ""
+msgstr "Ang panandang %1$s (pabatid na %2$d) ay walang mga kalakip."
 
 #. TRANS: Application title.
 msgctxt "TITLE"
@@ -86,7 +87,7 @@ msgstr "Umiiral na ang pananda."
 #. TRANS: %4$s is space separated list of hash tags.
 #, php-format
 msgid "\"%1$s\" %2$s %3$s %4$s"
-msgstr ""
+msgstr "\"%1$s\" %2$s %3$s %4$s"
 
 #. TRANS: Rendered bookmark content.
 #. TRANS: %1$s is a URL, %2$s the bookmark title, %3$s is the bookmark description,
@@ -97,6 +98,9 @@ msgid ""
 "<span class=\"description\">%3$s</span> <span class=\"meta\">%4$s</span></"
 "span>"
 msgstr ""
+"<span class=\"pagpapasok ng xfolk\"><a class=\"tinatakang kawing\" href=\"%1"
+"$s\">%2$s</a> <span class=\"paglalarawan\">%3$s</span> <span class=\"meta\">%"
+"4$s</span></span>"
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -106,7 +110,7 @@ msgstr "URL"
 #. TRANS: Button text for action to save a new bookmark.
 msgctxt "BUTTON"
 msgid "Add"
-msgstr ""
+msgstr "Idagdag"
 
 #. TRANS: Client exception thrown when an unknown URL is provided.
 msgid "Unknown URL."
@@ -127,6 +131,8 @@ msgstr "Mga pabatid na kumakawing sa %1$s, pahina %2$d"
 #. TRANS: Client exception thrown when trying to import bookmarks without being logged in.
 msgid "Only logged-in users can import del.icio.us backups."
 msgstr ""
+"Tanging nakalagdang mga tagagamit lamang ang makapag-aangkat ng mga kopyang "
+"pamalit ng del.icio.us."
 
 #. TRANS: Client exception thrown when trying to import bookmarks without having the rights to do so.
 msgid "You may not restore your account."
@@ -140,16 +146,20 @@ msgstr "Walang naikargang talaksan."
 #. TRANS: Client exception thrown when an uploaded file is too large.
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
 msgstr ""
+"Ang ikinargang talaksan ay lumalampas sa kautusang "
+"magkarga_ng_pinakamataas_na_sukat_ng_talaksan sa loob ng php.ini."
 
 #. TRANS: Client exception thrown when an uploaded file is too large.
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form."
 msgstr ""
+"Lumalampas ang ikinargang talaksan sa kaatasang MAX_FILE_SIZE na tinukoy sa "
+"loob ng pormularyo ng HTML."
 
 #. TRANS: Client exception thrown when a file was only partially uploaded.
 msgid "The uploaded file was only partially uploaded."
-msgstr ""
+msgstr "Bahagi lamang ng naikargang talaksan ang naikargang papaitaas."
 
 #. TRANS: Client exception thrown when a temporary folder is not present.
 msgid "Missing a temporary folder."
@@ -208,6 +218,8 @@ msgstr ""
 #. TRANS: Form instructions for importing bookmarks.
 msgid "You can upload a backed-up delicious.com bookmarks file."
 msgstr ""
+"Makapagkakarga kang papaitaas ng isang pamalit na kopya ng talaksan ng mga "
+"pananda ng delicious.com"
 
 #. TRANS: Button text on form to import bookmarks.
 msgctxt "BUTTON"
@@ -226,7 +238,7 @@ msgstr "Pamagat"
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
 msgid "Notes"
-msgstr ""
+msgstr "Mga tala"
 
 #. TRANS: Field label on form for adding a new bookmark.
 msgctxt "LABEL"
@@ -266,16 +278,3 @@ msgstr "Ipinaskil na ang pananda."
 #, php-format
 msgid "Getting backup from file \"%s\"."
 msgstr "Kinukuha ang kopyang pamalit mula sa talaksang \"%s\"."
-
-#~ msgid "Title of the bookmark."
-#~ msgstr "Pamagat ng pananda."
-
-#~ msgid "URL to bookmark."
-#~ msgstr "URL na tatandaan."
-
-#~ msgctxt "LABEL"
-#~ msgid "Description"
-#~ msgstr "Paglalarawan"
-
-#~ msgid "Description of the URL."
-#~ msgstr "Paglalarawan ng URL."

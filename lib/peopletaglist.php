@@ -256,7 +256,7 @@ class PeopletagListItem extends Widget
             $this->out->elementStart('a',
                 array('href' => common_local_url('peopletagsbyuser',
                     array('nickname' => $this->profile->nickname, 'private' => 1))));
-            // TRANS: Privacy mode text in people tag list item for private tags.
+            // TRANS: Privacy mode text in list list item for private list.
             $this->out->element('span', 'privacy_mode', _m('MODE','Private'));
             $this->out->elementEnd('a');
         }

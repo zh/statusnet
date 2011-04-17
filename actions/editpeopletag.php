@@ -260,7 +260,7 @@ class EditpeopletagAction extends OwnerDesignAction
             return;
         } else if (Profile_list::descriptionTooLong($description)) {
             $this->showForm(sprintf(
-                    // TRANS: Client error shown when providing too long a description when editing a people tag.
+                    // TRANS: Client error shown when providing too long a description when editing a list.
                     // TRANS: %d is the maximum number of allowed characters.
                     _m('Description is too long (maximum %d character).',
                       'Description is too long (maximum %d characters).',
@@ -318,7 +318,7 @@ class EditpeopletagAction extends OwnerDesignAction
                                                    'tag'    => $tag)),
                             303);
         } else {
-            // TRANS: Edit people tag form success message.
+            // TRANS: Edit list form success message.
             $this->showForm(_('Options saved.'));
         }
     }
