@@ -262,37 +262,30 @@ class InviteAction extends CurrentUserDesignAction
             return false;
         }
 
+        $confirmUrl = common_local_url('register', array('code' => $invite->code));
+
         $recipients = array($email);
 
         $headers['From'] = mail_notify_from();
         $headers['To'] = trim($email);
+        $headers['Content-Type'] = 'text/html; charset=UTF-8';
+
         // TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral
         // TRANS: singular 3rd-person pronoun in English. %1$s is the inviting user, $2$s is
         // TRANS: the StatusNet sitename.
+
         $headers['Subject'] = sprintf(_('%1$s has invited you to join them on %2$s'), $bestname, $sitename);
 
-        // TRANS: Body text for invitation email. Note that 'them' is correct as a gender-neutral
-        // TRANS: singular 3rd-person pronoun in English. %1$s is the inviting user, %2$s is the
-        // TRANS: StatusNet sitename, %3$s is the site URL, %4$s is the personal message from the
-        // TRANS: inviting user, %s%5 a link to the timeline for the inviting user, %s$6 is a link
-        // TRANS: to register with the StatusNet site.
-        $body = sprintf(_("%1\$s has invited you to join them on %2\$s (%3\$s).\n\n".
-                          "%2\$s is a micro-blogging service that lets you keep up-to-date with people you know and people who interest you.\n\n".
-                          "You can also share news about yourself, your thoughts, or your life online with people who know about you. ".
-                          "It's also great for meeting new people who share your interests.\n\n".
-                          "%1\$s said:\n\n%4\$s\n\n".
-                          "You can see %1\$s's profile page on %2\$s here:\n\n".
-                          "%5\$s\n\n".
-                          "If you'd like to try the service, click on the link below to accept the invitation.\n\n".
-                          "%6\$s\n\n".
-                          "If not, you can ignore this message. Thanks for your patience and your time.\n\n".
-                          "Sincerely, %2\$s\n"),
-                        $bestname,
-                        $sitename,
-                        common_root_url(),
-                        $personal,
-                        common_local_url('showstream', array('nickname' => $user->nickname)),
-                        common_local_url('register', array('code' => $invite->code)));
+        $title = (empty($personal)) ? 'invite' : 'invitepersonal';
+
+        $inviteTemplate = DocFile::fromTitle($title, DocFile::mailPaths());
+
+        $body = $inviteTemplate->toHTML(array('inviter' => $bestname,
+                                              'inviteurl' => $profile->profileurl,
+                                              'confirmurl' => $confirmUrl,
+                                              'personal' => $personal));
+
+        common_debug('Confirm URL is ' . common_local_url('register', array('code' => $invite->code)));
 
         mail_send($recipients, $headers, $body);
     }
