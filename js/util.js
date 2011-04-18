@@ -650,8 +650,14 @@ var SN = { // StatusNet
                 // and we'll add on the end of it. Will add if needed.
                 list = $('ul.threaded-replies', notice);
                 if (list.length == 0) {
+                    console.log("list = 0");
                     SN.U.NoticeInlineReplyPlaceholder(notice);
                     list = $('ul.threaded-replies', notice);
+                } else {
+                    var placeholder = $('li.notice-reply-placeholder', notice);
+                    if (placeholder.length == 0) {
+                        SN.U.NoticeInlineReplyPlaceholder(notice);
+                    }
                 }
             }
 
