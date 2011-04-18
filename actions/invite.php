@@ -28,6 +28,11 @@ class InviteAction extends CurrentUserDesignAction
     var $subbed = null;
     var $sent = null;
 
+    function showNoticeForm()
+    {
+        return;
+    }
+
     function isReadOnly($args)
     {
         return false;
