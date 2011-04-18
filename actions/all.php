@@ -59,9 +59,7 @@ class AllAction extends ProfileAction
         $stream = new ThreadingInboxNoticeStream($this->user, Profile::current());
 
         $this->notice = $stream->getNotices(($this->page-1)*NOTICES_PER_PAGE,
-                                            NOTICES_PER_PAGE + 1,
-                                            null,
-                                            null);
+                                            NOTICES_PER_PAGE + 1);
 
         if ($this->page > 1 && $this->notice->N == 0) {
             // TRANS: Server error when page not found (404).
