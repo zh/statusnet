@@ -639,6 +639,7 @@ var SN = { // StatusNet
          */
         NoticeInlineReplyTrigger: function(notice, initialText) {
             // Find the notice we're replying to...
+            console.log('NoticeInlineReplyTrigger');
             var id = $($('.notice_id', notice)[0]).text();
             var parentNotice = notice;
 

@@ -185,6 +185,6 @@ class QnashowanswerForm extends Form
      */
     function formClass()
     {
-        return 'form_show ajax';
+        return 'form_answer_show ajax';
     }
 }

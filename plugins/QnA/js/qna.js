@@ -1,28 +1,32 @@
 
 var QnA = {
 
-    // hide all the 'close' and 'best' buttons for this question
-
     // @fixme: Should use ID
     close: function(closeButt) {
-        notice = $(closeButt).closest('li.hentry.notice.question');
-        notice.find('input[name=best],[name=close]').hide();
+        var notice = $(closeButt).closest('li.hentry.notice.question');
+
+        console.log("close");
+
+        notice.find('input#qna-best-answer,#qna-question-close').hide();
         notice.find('textarea').hide();
-        notice.find('li.notice-answer-placeholder').hide();
-        notice.find('#answer-form').hide();
+
+        var list = notice.find('ul');
+
+        console.log("found this many uls: " + list.length);
+
+        notice.find('ul > li.notice-answer-placeholder').remove();
+        notice.find('ul > li.notice-answer').remove();
     },
 
     init: function() {
 
-        var that = this;
-
         QnA.NoticeInlineAnswerSetup();
 
-        $('input[name=close]').live('click', function() {
-            that.close(this);
+        $('form.form_question_show').live('submit', function() {
+            QnA.close(this);
         });
-        $('input[name=best]').live('click', function() {
-            that.close(this);
+        $('form.form_answer_show').live('click', function() {
+            QnA.close(this);
         });
     },
 
@@ -41,6 +45,7 @@ var QnA = {
 
         // Find the threaded replies view we'll be adding to...
         var list = notice.closest('.notices');
+
         if (list.hasClass('threaded-replies')) {
             console.log("NoticeInlineAnswerTrigger - there's already a threaded-replies ul above me");
             // We're replying to a reply; use reply form on the end of this list.
@@ -48,84 +53,92 @@ var QnA = {
             parentNotice = list.closest('.notice');
             console.log("NoticeInlineAnswerTrigger - trying to find the closed .notice above me");
             if (parentNotice.length > 0) {
-                console.log("NoticeInlineAnswerTrigger - found that closest .notice");
+                console.log("NoticeInlineAnswerTrigger - found that closest .notice - length = " + parentNotice.length);
             }
         } else {
             console.log("NoticeInlineAnswerTrigger - this notice does not have a threaded-reples ul");
             // We're replying to a parent notice; pull its threaded list
             // and we'll add on the end of it. Will add if needed.
             list = $('ul.threaded-replies', notice);
-            console.log('NoticeInlineAnswerTrigger - looking for threaded-replies ul on the parent notice (on the passed in notice)');
-            if (list.length == 0) {
-                console.log("NoticeInlineAnswerTrigger - there is no threaded-replies ul on the parent notice");
-                console.log("NoticeInlineAnswerTrigger - calling NoticeInlineAnswerPlaceholder(notice)");
-                QnA.NoticeInlineAnswerPlaceholder(notice);
-                console.log("NoticeInlineAnswerTrigger - checking once again for a ul.threaded-replies on the notice");
-                list = $('ul.threaded-replies', notice);
-            }
         }
-
+        
+        // See if the form's already open...
+        var answerForm = $('.qna_answer_form', list);
 
         var nextStep = function() {
             console.log("NoticeInlineAnswerTrigger (nextStep) - begin");
 
-            // Set focus...
+             // Set focus...
             var text = answerForm.find('textarea');
 
             if (text.length == 0) {
                 throw "No textarea";
             }
 
+            text.focus();
+
             console.log("NoticeInlineAnswerTrigger (nextStep) - setting up body click handler to hide open form when clicking away");
             $('body').click(function(e) {
                 console.log("body click handler - got click");
+
+                // hide any reply placeholders if the notice has an answer placeholder
+                var dummyPlaceholders = $('li.qna-dummy-placeholder');
+                if (dummyPlaceholders.length > 0) {
+                    console.log("found dummy placholder so hiding reply placeholder");
+                    dummyPlaceholders.each(function() {
+                        $(this).closest('li.notice').find('li.notice-reply-placeholder').hide();
+                    });
+                }
 
                 var openAnswers = $('li.notice-answer');
                     if (openAnswers.length > 0) {
                         console.log("body click handler - Found one or more open answer forms to close");
                         var target = $(e.target);
+
                         openAnswers.each(function() {
                             console.log("body click handler - found an open answer form");
                             // Did we click outside this one?
                             var answerItem = $(this);
+                            var parentNotice = answerItem.closest('li.notice');
+                            parentNotice.find('ul > li.qna-dummy-placeholder').hide();
+
                             if (answerItem.has(e.target).length == 0) {
                                 var textarea = answerItem.find('.notice_data-text:first');
                                 var cur = $.trim(textarea.val());
                                 // Only close if there's been no edit.
                                 if (cur == '' || cur == textarea.data('initialText')) {
                                     console.log("body click handler - no text in answer form, closing it");
-                                    var parentNotice = answerItem.closest('li.notice');
                                     answerItem.remove();
-                                    console.log("body click handler - showing answer placeholder");
-                                    parentNotice.find('li.notice-answer-placeholder').show();
+                                    console.log("body click handler - showing dummy placeholder");
+                                    parentNotice.find('ul > li.qna-dummy-placeholder').show();
+                                    
                                 } else {
                                     console.log("body click handler - there is text in the answer form, wont close it");
                                 }
                             }
                         });
                     }
-                });
 
-            text.focus();
-            console.log('body click handler - exit');
+                console.log('body click handler - exit');
+                });
         };
 
         // See if the form's already open...
-        var answerForm = $('.notice-answer-form', list);
+
         if (answerForm.length > 0 ) {
             console.log("NoticeInlineAnswerTrigger - found an open .notice-answer-form - doing nextStep()");
             nextStep();
         } else {
 
             console.log("NoticeInlineAnswerTrigger - hiding the answer placeholder");
-            var placeholder = list.find('li.notice-answer-placeholder').hide();
+            var placeholder = list.find('li.qna-dummy-placeholder').hide();
 
             // Create the answer form entry at the end
 
             var answerItem = $('li.notice-answer', list);
 
             if (answerItem.length > 0) {
-                console.log("NoticeInlineAnswerTrigger - Found answer item (notice-answer li)");
+                console.log("NoticeInlineAnswerTrigger - Found " + answerItem.length + " answer items (notice-answer li)");
             }
 
             if (answerItem.length == 0) {
@@ -133,8 +146,16 @@ var QnA = {
                  answerItem = $('<li class="notice-answer"></li>');
 
                  var intermediateStep = function(formMaster) {
+
+                     // cache it
+                     if (!QnA.AnswerFormMaster) {
+                         QnA.AnswerFormMaster = formMaster;
+                     }
+
                      console.log("NoticeInlineAnswerTrigger - (intermediate) step begin");
                      var formEl = document._importNode(formMaster, true);
+
+               
                      console.log("NoticeInlineAnswerTrigger - (intermediate step) appending answer form to answer item");
                      answerItem.append(formEl);
                      console.log("NoticeInlineAnswerTrigger - (intermediate step) appending answer to replies list, after placeholder");
@@ -179,10 +200,11 @@ var QnA = {
      */
     NoticeInlineAnswerSetup: function() {
         console.log("NoticeInlineAnswerSetup - begin");
-        $('li.notice-answer-placeholder input.placeholder')
+        $('li.qna-dummy-placeholder input.placeholder')
             .live('focus', function() {
                 var notice = $(this).closest('li.notice');
                 QnA.NoticeInlineAnswerTrigger(notice);
+                $(this).hide();
                 return false;
             });
         console.log("NoticeInlineAnswerSetup - exit");
@@ -190,30 +212,20 @@ var QnA = {
 
     AnswerFormSetup: function(form) {
         console.log("AnswerFormSetup");
-        $('input[type=submit]').live('click', function() {
-            console.log("AnswerFormSetup click");
-            QnA.FormAnswerXHR(form);
+          form.find('textarea').focus();
+
+        // this is a bad hack
+        $('form.ajax').die();
+        $('form.ajax input[type=submit]').die();
+
+        form.live('submit', function(e) {
+            QnA.FormAnswerXHR($(this));
+            e.stopPropagation();
+            return false;
         });
+
+        SN.Init.AjaxForms();
     },
-
-    NoticeInlineAnswerPlaceholder: function(notice) {
-        console.log("NoticeInlineAnswerPlaceholder - begin")
-        var list = notice.find('ul.threaded-replies');
-        if (list.length == 0) {
-            list = $('<ul class="notices threaded-replies xoxo"></ul>');
-            notice.append(list);
-            list = notice.find('ul.threaded-replies');
-        }
-
-        var placeholder = $('<li class="notice-answer-placeholder">' +
-                                '<input class="placeholder">' +
-                            '</li>');
-        placeholder.find('input')
-            .val(SN.msg('reply_placeholder'));
-        list.append(placeholder);
-        console.log("NoticeInlineAnswerPlaceholder - exit");
-    },
-
 
    /**
      * Setup function -- DOES NOT trigger actions immediately.
@@ -343,7 +355,7 @@ var QnA = {
                     console.log("FormAnswerXHR - looking for the closest notice with a notice-reply class");
 
                     var replyItem = form.closest('li.notice-answer, .notice-reply');
-
+                    var questionItem = form.closest('li.question');
                     if (replyItem.length > 0) {
                         console.log("FormAnswerXHR - I found a reply li to append to");
                         // If this is an inline reply, remove the form...
@@ -352,6 +364,7 @@ var QnA = {
                         console.log("FormAnswerXHR - search list for the answer placeholder")
                         var placeholder = list.find('.notice-answer-placeholder');
                         console.log("FormAnswerXHR - removing reply item");
+
                         replyItem.remove();
 
                         var id = $(notice).attr('id');
@@ -359,9 +372,12 @@ var QnA = {
                         if ($("#"+id).length == 0) {
                             console.log("FormAnswerXHR - the notice is not there already so realtime hasn't inserted it before us");
                             console.log("FormAnswerXHR - inserting new notice before placeholder");
-                            $(placeholder).removeClass('notice-answer-placeholder').addClass('notice-reply-placeholder');
+                            //$(placeholder).removeClass('notice-answer-placeholder').addClass('notice-reply-placeholder');
                             $(notice).insertBefore(placeholder);
-                            placeholder.show();
+                            placeholder.remove();
+
+                            SN.U.NoticeInlineReplyPlaceholder(questionItem);
+
                            
                         } else {
                             // Realtime came through before us...

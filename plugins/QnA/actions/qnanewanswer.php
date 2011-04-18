@@ -76,7 +76,7 @@ class QnanewanswerAction extends Action
         if ($this->boolean('ajax')) {
             StatusNet::setApi(true);
         }
-
+        common_debug("in qnanewanswer");
         $this->user = common_current_user();
 
         if (empty($this->user)) {
@@ -163,7 +163,7 @@ class QnanewanswerAction extends Action
             $this->elementStart('body');
 
             
-            $nli = new NoticeAnswerListItem($notice, $this);
+            $nli = new NoticeAnswerListItem($notice, $this, $this->question, $answer);
             $nli->show();
   
             $this->elementEnd('body');
@@ -282,8 +282,8 @@ class QnanewanswerAction extends Action
 
 class NoticeAnswerListItem extends NoticeListItem
 {
-
     protected $question;
+    protected $answer;
 
     /**
      * constructor
@@ -292,10 +292,12 @@ class NoticeAnswerListItem extends NoticeListItem
      *
      * @param Notice $notice The notice we'll display
      */
-    function __construct($notice, $out=null)
+    function __construct($notice, $out=null, $question, $answer)
     {
         parent::__construct($notice, $out);
-        $this->question = $out->question;
+        $this->question = $question;
+        $this->answer   = $answer;
+
     }
 
     function show()
@@ -314,6 +316,37 @@ class NoticeAnswerListItem extends NoticeListItem
         $notice = $this->question->getNotice();
         $this->out->hidden('inreplyto', $notice->id);
         $this->showEnd();
+    }
+
+    /**
+     * show the content of the notice
+     *
+     * Shows the content of the notice. This is pre-rendered for efficiency
+     * at save time. Some very old notices might not be pre-rendered, so
+     * they're rendered on the spot.
+     *
+     * @return void
+     */
+    function showContent()
+    {
+        $this->out->elementStart('p', array('class' => 'entry-content answer-content'));
+        if ($this->notice->rendered) {
+            $this->out->raw($this->notice->rendered);
+        } else {
+            // XXX: may be some uncooked notices in the DB,
+            // we cook them right now. This should probably disappear in future
+            // versions (>> 0.4.x)
+            $this->out->raw(common_render_content($this->notice->content, $this->notice));
+        }
+
+        if (!empty($this->answer)) {
+            $form = new QnashowanswerForm($this->out, $this->answer);
+            $form->show();
+        } else {
+            $out->text(_m('Answer data is missing.'));
+        }
+
+        $this->out->elementEnd('p');
     }
 
 }
