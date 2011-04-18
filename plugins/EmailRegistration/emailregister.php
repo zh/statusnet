@@ -477,10 +477,12 @@ class ConfirmRegistrationForm extends Form
     function formData()
     {
         $this->out->element('p', 'instructions',
-                            _('Enter a password to confirm your account.'));
+                            sprintf(_('Enter a password to confirm your account.')));
                             
         $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
         $this->out->elementStart('ul', 'form_data');
+
+        $this->hidden('code', $this->code);
 
         $this->elementStart('li');
         // TRANS: Field label on account registration page.
