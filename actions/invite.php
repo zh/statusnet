@@ -283,7 +283,7 @@ class InviteAction extends CurrentUserDesignAction
 
         $title = (empty($personal)) ? 'invite' : 'invitepersonal';
 
-        $inviteTemplate = DocFile::fromTitle($title, DocFile::mailPaths());
+        $inviteTemplate = DocFile::forTitle($title, DocFile::mailPaths());
 
         $body = $inviteTemplate->toHTML(array('inviter' => $bestname,
                                               'inviteurl' => $profile->profileurl,
