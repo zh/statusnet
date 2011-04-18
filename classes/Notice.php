@@ -2407,4 +2407,22 @@ class Notice extends Memcached_DataObject
         }
         return $this->_original;
     }
+
+    /**
+     * Magic function called at serialize() time.
+     *
+     * We use this to drop a couple process-specific references
+     * from DB_DataObject which can cause trouble in future
+     * processes.
+     *
+     * @return array of variable names to include in serialization.
+     */
+
+    function __sleep()
+    {
+        $vars = parent::__sleep();
+        $skip = array('_original', '_profile');
+        return array_diff($vars, $skip);
+    }
+
 }
