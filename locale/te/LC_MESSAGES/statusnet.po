@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 22:24+0000\n"
-"PO-Revision-Date: 2011-04-17 22:27:52+0000\n"
+"POT-Creation-Date: 2011-04-18 11:21+0000\n"
+"PO-Revision-Date: 2011-04-18 11:24:47+0000\n"
 "Language-Team: Telugu <http://translatewiki.net/wiki/Portal:te>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86276); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86294); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-17 18:38:19+0000\n"
+"X-POT-Import-Date: 2011-04-17 22:40:29+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -146,16 +146,14 @@ msgstr "లోనికి ప్రవేశించలేదు."
 #. TRANS: Client error displayed when referring to a non-existing profile.
 #. TRANS: Client error displayed trying to subscribe to a non-existing profile.
 #. TRANS: Client error displayed trying to perform an action related to a non-existing profile.
-#, fuzzy
 msgid "No such profile."
-msgstr "అటువంటి ఫైలు లేదు."
+msgstr "అటువంటి ప్రొఫైలు లేదు."
 
 #. TRANS: Client error displayed trying to reference a non-existing list.
 #. TRANS: Client error displayed when referring to a non-existing list.
 #. TRANS: Client error displayed trying to reference a non-existing list.
-#, fuzzy
 msgid "No such list."
-msgstr "అటువంటి ట్యాగు లేదు."
+msgstr "అటువంటి జాబితా లేదు."
 
 #. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
 #, fuzzy
@@ -179,10 +177,9 @@ msgid ""
 msgstr ""
 
 #. TRANS: Title after adding a user to a list.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Listed"
-msgstr "లైసెన్సు"
+msgstr "జాబితాలో చేర్చారు"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -794,18 +791,16 @@ msgid "You must specify a member."
 msgstr "వాడుకరికి ప్రొఫైలు లేదు."
 
 #. TRANS: Client error displayed when trying to remove members from a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to remove members from this list."
-msgstr "ఈ సైటులో గుంపులను సృష్టించడానికి మీకు అనుమతి లేదు."
+msgstr "ఈ జాబితా నుండి సభ్యులను తొలగించడానికి మీకు అనుమతి లేదు."
 
 #. TRANS: Client error displayed when trying to remove a list member that is not part of a list.
 msgid "The user you are trying to remove from the list is not a member."
 msgstr ""
 
 #. TRANS: Client error displayed when trying to create a list without a name.
-#, fuzzy
 msgid "A list must have a name."
-msgstr "మారుపేరు పేరుతో సమానంగా ఉండకూడదు."
+msgstr "జాబితాకి తప్పనిసరిగా ఒక పేరు ఉండాలి."
 
 #. TRANS: Client error displayed when a membership check for a user is nagative.
 msgid "The specified user is not a subscriber of this list."
@@ -1306,10 +1301,10 @@ msgstr "వాడుకరి %1$sని %2$s గుంపులో చేర్
 
 #. TRANS: Title for subscription approval ajax return
 #. TRANS: %1$s is the approved user's nickname
-#, fuzzy, php-format
+#, php-format
 msgctxt "TITLE"
 msgid "%1$s's request"
-msgstr "%2$sలో %1$s యొక్క స్థితి"
+msgstr "%1$s యొక్క అభ్యర్థన"
 
 #. TRANS: Message on page for user after approving a subscription request.
 msgid "Subscription approved."
@@ -2222,9 +2217,9 @@ msgstr "ఎంపికలు భద్రమయ్యాయి."
 
 #. TRANS: Title for edit list page after deleting a tag.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Delete %s list"
-msgstr "ఈ వాడుకరిని తొలగించు"
+msgstr "%s జాబితాను తొలగించు"
 
 #. TRANS: Title for edit list page.
 #. TRANS: %s is a list.
@@ -3312,9 +3307,8 @@ msgid "URL for an image to display with the license."
 msgstr ""
 
 #. TRANS: Button title in the license admin panel.
-#, fuzzy
 msgid "Save license settings."
-msgstr "లైసెన్సు అమరికలను భద్రపరచు"
+msgstr "లైసెన్సు అమరికలను భద్రపరచండి."
 
 #. TRANS: Client error displayed when trying to log in while already logged in.
 #. TRANS: Client error displayed trying to use "one time password login" when already logged in.
@@ -3489,7 +3483,6 @@ msgstr "అజాక్స్ పొరపాటు"
 
 #. TRANS: Page title for sending a new notice.
 #. TRANS: Title for form to send a new notice.
-#, fuzzy
 msgctxt "TITLE"
 msgid "New notice"
 msgstr "కొత్త సందేశం"
@@ -4106,7 +4099,7 @@ msgstr "%s గుంపుని మార్చు"
 #. TRANS: %s is a user nickname.
 #, php-format
 msgid "Lists by %s"
-msgstr ""
+msgstr "%s యొక్క జాబితాలు"
 
 #. TRANS: Title for lists by a user page.
 #. TRANS: %1$s is a user nickname, %2$d is a page number.
@@ -4116,7 +4109,7 @@ msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నో�
 
 #. TRANS: Client error displayed when trying view another user's private lists.
 msgid "You cannot view others' private lists"
-msgstr ""
+msgstr "ఇతరుల అంతరంగిక జాబితాలను మీరు చూడలేదు"
 
 #. TRANS: Mode selector label.
 #, fuzzy
@@ -4319,10 +4312,9 @@ msgid "Unidentified field %s."
 msgstr ""
 
 #. TRANS: Page title.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Search results"
-msgstr "సైటుని వెతుకు"
+msgstr "అన్వేషణ ఫలితాలు"
 
 #. TRANS: Error message in case a search is shorter than three characters.
 msgid "The search string must be at least 3 characters long."
@@ -4592,15 +4584,14 @@ msgstr ""
 "ఆధారపడిన ఒక [మైక్రో-బ్లాగింగు](http://en.wikipedia.org/wiki/Micro-blogging) సేవ."
 
 #. TRANS: Title for page with public list cloud.
-#, fuzzy
 msgid "Public list cloud"
-msgstr "ట్యాగు మేఘం"
+msgstr "బహిరంగ జాబితా మేఘం"
 
 #. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "These are largest lists on %s"
-msgstr "%sలో అత్యంత ప్రాచుర్యమైన ట్యాగులు ఇవి"
+msgstr "%sలో అత్యంత పెద్ద జాబితాలు ఇవి"
 
 #. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
@@ -4609,29 +4600,29 @@ msgid "No one has [listed](%%doc.tags%%) anyone yet."
 msgstr "[హ్యాష్‌ట్యాగు](%%doc.tags%%)తో ఇంకా ఎవరూ నోటీసులు వ్రాయలేదు."
 
 #. TRANS: Additional empty list message on page with public list cloud for logged in users.
-#, fuzzy
 msgid "Be the first to list someone!"
-msgstr "మీరే మొదటివారవ్వండి!"
+msgstr "మీరే ఇతరులను జాబితాలో పెట్టుకునే మొదటివారవ్వండి!"
 
 #. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
-msgstr "[ఒక ఖాతాని నమోదుచేసుకుని](%%action.register%%) మీరే మొదట వ్రాసేవారు ఎందుకు కాకూడదు!"
+msgstr ""
+"[ఒక ఖాతాని నమోదుచేసుకుని](%%action.register%%) మీరే మొదటగా జాబితాలను సృష్టించేవారు ఎందుకు "
+"కాకూడదు!"
 
 #. TRANS: DT element on on page with public list cloud.
-#, fuzzy
 msgid "List cloud"
-msgstr "జాబితా దొరకలేదు."
+msgstr "జాబితా మేఘం"
 
 #. TRANS: Link title for number of listed people. %d is the number of listed people.
 #, php-format
 msgid "1 person listed"
 msgid_plural "%d people listed"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 వ్యక్తి"
+msgstr[1] "%d వ్యక్తులు"
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
 #, php-format
@@ -6238,10 +6229,10 @@ msgstr "వాడుకరి ప్రొఫైలు"
 
 #. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "ADDTOLIST"
 msgid "List %s"
-msgstr "పరిమితులు"
+msgstr "జాబితా %s"
 
 #. TRANS: Title for list form when an error has occurred.
 msgctxt "TITLE"
@@ -6253,9 +6244,8 @@ msgid "User profile"
 msgstr "వాడుకరి ప్రొఫైలు"
 
 #. TRANS: Fieldset legend for list form.
-#, fuzzy
 msgid "List user"
-msgstr "పరిమితులు"
+msgstr "జాబితా వాడుకరి"
 
 #. TRANS: Field label on list form.
 #, fuzzy
@@ -6308,9 +6298,9 @@ msgstr "చందామాను"
 
 #. TRANS: Page title for form that allows unsubscribing from a list.
 #. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s unsubscribed from list %2$s by %3$s"
-msgstr "%1$s చందాదార్లు, పేజీ %2$d"
+msgstr "%3$s యొక్క %2$s అనే జాబితా నుండి %1$s చందా విరమించారు"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
 #. TRANS: %1$s is the license incompatible with site license %2$s.
@@ -6434,9 +6424,8 @@ msgid "New user welcome"
 msgstr "కొత్త వాడుకరి స్వాగతం"
 
 #. TRANS: Tooltip in user admin panel for setting new user welcome text.
-#, fuzzy
 msgid "Welcome text for new users (maximum 255 characters)."
-msgstr "కొత్త వాడుకరులకై స్వాగత సందేశం (255 అక్షరాలు గరిష్ఠం)."
+msgstr "కొత్త వాడుకరులకు స్వాగత సందేశం (255 అక్షరాలు గరిష్ఠం)."
 
 #. TRANS: Field label in user admin panel for setting default subscription for new users.
 msgid "Default subscription"
@@ -7399,7 +7388,6 @@ msgid "Edit site notice"
 msgstr "సైటు గమనికని భద్రపరచు"
 
 #. TRANS: Menu item in administrator navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Site notice"
 msgstr "సైటు గమనిక"
@@ -8198,10 +8186,9 @@ msgstr "గుంపులు"
 
 #. TRANS: Menu item in default local navigation panel.
 #. TRANS: Menu item title in local navigation menu.
-#, fuzzy
 msgctxt "MENU"
 msgid "Lists"
-msgstr "పరిమితులు"
+msgstr "జాబితాలు"
 
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
@@ -8470,14 +8457,12 @@ msgid "Group actions"
 msgstr "గుంపు చర్యలు"
 
 #. TRANS: Title for groups with the most members section.
-#, fuzzy
 msgid "Popular groups"
-msgstr "ప్రాచుర్య నోటీసులు"
+msgstr "ప్రసిద్ధ గుంపులు"
 
 #. TRANS: Title for groups with the most posts section.
-#, fuzzy
 msgid "Active groups"
-msgstr "అన్ని గుంపులు"
+msgstr "క్రియాశీల గుంపులు"
 
 #. TRANS: Title for group tag cloud section.
 #. TRANS: %s is a group name.
@@ -9151,14 +9136,13 @@ msgid "Notices"
 msgstr "నోటీసులు"
 
 #. TRANS: Separator in profile addressees list.
-#, fuzzy
 msgctxt "SEPARATOR"
 msgid ", "
 msgstr ", "
 
 #. TRANS: Start of profile addressees list.
 msgid " ▶ "
-msgstr ""
+msgstr " ▶ "
 
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
@@ -9260,19 +9244,17 @@ msgid "No oEmbed API endpoint available."
 msgstr "IM అందుబాటులో లేదు."
 
 #. TRANS: Field label for list.
-#, fuzzy
 msgctxt "LABEL"
 msgid "List"
-msgstr "లంకెలు"
+msgstr "జాబితా"
 
 #. TRANS: Field title for list.
 msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
 msgstr ""
 
 #. TRANS: Field title for description of list.
-#, fuzzy
 msgid "Describe the list or topic."
-msgstr "గుంపుని లేదా విషయాన్ని వివరించండి."
+msgstr "జాబితాను లేదా విషయాన్ని వివరించండి."
 
 #. TRANS: Field title for description of list.
 #. TRANS: %d is the maximum number of characters for the description.
@@ -9297,10 +9279,9 @@ msgid "Search"
 msgstr "వెతుకు"
 
 #. TRANS: Menu item in list navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "List"
-msgstr "లంకెలు"
+msgstr "జాబితా"
 
 #. TRANS: Menu item title in list navigation panel.
 #. TRANS: %1$s is a list, %2$s is a nickname.
@@ -9327,7 +9308,6 @@ msgid "Subscribers to %1$s list by %2$s."
 msgstr "%sకి చందా చేరారు."
 
 #. TRANS: Menu item in list navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Edit"
 msgstr "మార్చు"
@@ -9353,16 +9333,14 @@ msgid "Edit"
 msgstr "మార్చు"
 
 #. TRANS: Privacy mode text in list list item for private list.
-#, fuzzy
 msgctxt "MODE"
 msgid "Private"
 msgstr "అంతరంగికం"
 
 #. TRANS: Menu item in the group navigation page.
-#, fuzzy
 msgctxt "MENU"
 msgid "List Subscriptions"
-msgstr "చందాలు"
+msgstr "జాబితా చందాలు"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is a user nickname.
@@ -9418,9 +9396,8 @@ msgid "Tags"
 msgstr "ట్యాగులు"
 
 #. TRANS: Title for section contaning lists with the most subscribers.
-#, fuzzy
 msgid "Popular lists"
-msgstr "ప్రాచుర్య నోటీసులు"
+msgstr "ప్రసిద్ధ జాబితాలు"
 
 #. TRANS: List summary. %1$d is the number of users in the list,
 #. TRANS: %2$d is the number of subscribers to the list.
@@ -9440,9 +9417,8 @@ msgid "Lists with %s"
 msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నోటీసులు!"
 
 #. TRANS: Title for page that displays lists a user has subscribed to.
-#, fuzzy
 msgid "List subscriptions"
-msgstr "%s చందాలు"
+msgstr "జాబితా చందాలు"
 
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
@@ -9544,9 +9520,8 @@ msgid "Following"
 msgstr "అనుసరించు"
 
 #. TRANS: H2 text for user subscriber statistics.
-#, fuzzy
 msgid "Followers"
-msgstr "అనుసరించు"
+msgstr "అనుచరులు"
 
 #. TRANS: Label for user statistics.
 msgid "User ID"
@@ -9583,7 +9558,6 @@ msgid "User groups"
 msgstr "వాడుకరి గుంపులు"
 
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Recent tags"
 msgstr "ఇటీవలి ట్యాగులు"
@@ -9593,16 +9567,14 @@ msgid "Recent tags"
 msgstr "ఇటీవలి ట్యాగులు"
 
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Featured"
 msgstr "విశేషం"
 
 #. TRANS: Menu item in search group navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Popular"
-msgstr "ప్రాచుర్యం"
+msgstr "ప్రసిద్ధం"
 
 #. TRANS: Client error displayed when return-to was defined without a target.
 msgid "No return-to arguments."
@@ -9613,9 +9585,8 @@ msgid "Repeat this notice?"
 msgstr "ఈ నోటీసుని పునరావృతించాలా?"
 
 #. TRANS: Button title to repeat a notice on notice repeat form.
-#, fuzzy
 msgid "Repeat this notice."
-msgstr "ఈ నోటీసుని పునరావృతించు"
+msgstr "ఈ నోటీసుని పునరావృతించండి."
 
 #. TRANS: Description of role revoke form. %s is the role to be revoked.
 #, fuzzy, php-format

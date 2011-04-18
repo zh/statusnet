@@ -16,17 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 22:24+0000\n"
-"PO-Revision-Date: 2011-04-17 22:27:11+0000\n"
+"POT-Creation-Date: 2011-04-18 11:21+0000\n"
+"PO-Revision-Date: 2011-04-18 11:24:11+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86276); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86294); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-17 18:38:19+0000\n"
+"X-POT-Import-Date: 2011-04-17 22:40:29+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -6306,10 +6306,10 @@ msgstr "Etiqueta un perfil"
 
 #. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "ADDTOLIST"
 msgid "List %s"
-msgstr "Llistes"
+msgstr "Llista %s"
 
 #. TRANS: Title for list form when an error has occurred.
 msgctxt "TITLE"
@@ -6321,24 +6321,21 @@ msgid "User profile"
 msgstr "Perfil de l'usuari"
 
 #. TRANS: Fieldset legend for list form.
-#, fuzzy
 msgid "List user"
-msgstr "Llistes"
+msgstr "Llista l'usuari"
 
 #. TRANS: Field label on list form.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Lists"
 msgstr "Llistes"
 
 #. TRANS: Field title on list form.
-#, fuzzy
 msgid ""
 "Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
-"Etiquetes d'aquest usuari (lletres, nombres, -, ., i _), separades amb comes "
-"o espais."
+"Llistes d'aquest usuari (lletres, nombres, -, ., i _), separades amb comes o "
+"espais."
 
 #. TRANS: Title for personal tag cloud section.
 msgctxt "TITLE"
@@ -6346,16 +6343,14 @@ msgid "Tags"
 msgstr "Etiquetes"
 
 #. TRANS: Success message if lists are saved.
-#, fuzzy
 msgid "Lists saved."
-msgstr "S'han desat les etiquetes."
+msgstr "S'han desat les llistes."
 
 #. TRANS: Page notice.
-#, fuzzy
 msgid "Use this form to add your subscribers or subscriptions to lists."
 msgstr ""
-"Utilitzeu aquest formulari per afegir etiquetes als vostres subscriptors i "
-"subscripcions."
+"Feu servir aquest formulari per afegir els vostres subscriptors o "
+"subscripcions a les llistes."
 
 #. TRANS: Client error when requesting a tag feed for a non-existing tag.
 msgid "No such tag."
@@ -6379,9 +6374,9 @@ msgstr "No subscrit"
 
 #. TRANS: Page title for form that allows unsubscribing from a list.
 #. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s unsubscribed from list %2$s by %3$s"
-msgstr "%1$s han cancel·lat la subscripció a l'etiquet d'usuari %2$s per %3$s"
+msgstr "%1$s han cancel·lat la subscripció de la llista %2$s per %3$s"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
 #. TRANS: %1$s is the license incompatible with site license %2$s.
@@ -7058,24 +7053,21 @@ msgstr ""
 "Proveu de reemplaçar o eliminar etiquetes que ja existeixen."
 
 #. TRANS: Client exception thrown when trying to add more people than allowed to a list.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You already have %1$d or more people in list %2$s, which is the maximum "
 "allowed number.Try unlisting others first."
 msgstr ""
-"Ja teniu %1$d o més persones etiquetades amb %2$s, que és el nombre màxim "
-"permès. Proveu de desetiquetar-ne uns quants que tinguin la mateixa etiqueta "
-"abans de res."
+"Ja teniu %1$d o més persones a la llista %2$s, que és el nombre màxim "
+"permès. Proveu de treure'n de la llista uns quants primer."
 
 #. TRANS: Exception thrown when inserting a list subscription in the database fails.
-#, fuzzy
 msgid "Adding list subscription failed."
-msgstr "No s'ha pogut afegir la subscripció de l'etiqueta d'usuari."
+msgstr "No s'ha pogut afegir la subscripció a la llista."
 
 #. TRANS: Exception thrown when deleting a list subscription from the database fails.
-#, fuzzy
 msgid "Removing list subscription failed."
-msgstr "No s'ha pogut eliminar la subscripció de l'etiqueta d'usuari."
+msgstr "No s'ha pogut eliminar la subscripció a la llista."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 msgid "Missing profile."
@@ -7726,9 +7718,9 @@ msgid "Do not use this method!"
 msgstr "No feu servir aquest mètode!"
 
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for people in list %1$s by %2$s"
-msgstr "Línia temporal de la gent etiqueta amb #%1$s per %2$s"
+msgstr "Línia temporal de la gent a la llista %1$s per %2$s"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
@@ -10274,21 +10266,3 @@ msgstr "L'XML no és vàlid, hi manca l'arrel XRD."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "Es recupera la còpia de seguretat del fitxer '%s'."
-
-#~ msgid "There was an unexpected error while tagging %s."
-#~ msgstr "S'ha produït un error no esperat en etiquetar %s."
-
-#~ msgid ""
-#~ "There was a problem tagging %s. The remote server is probably not "
-#~ "responding correctly, please try retrying later."
-#~ msgstr ""
-#~ "S'ha produït un error en etiquetar %s. El servidor remot probablement no "
-#~ "està responent correctament. Torneu-ho a provar més endavant."
-
-#~ msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
-#~ msgstr ""
-#~ "No podeu etiquetar o desetiquetar un perfil remot OMB 0.1 amb aquesta "
-#~ "acció."
-
-#~ msgid "Untagged"
-#~ msgstr "Desetiquetat"
