@@ -480,7 +480,7 @@ class EventPlugin extends MicroappPlugin
 
     function onEndShowScripts($action)
     {
-        $action->inlineScript('$(document).ready(function() { $("#startdate").datepicker(); $("#enddate").datepicker(); });');
+        $action->inlineScript('$(document).ready(function() { $("#event-startdate").datepicker(); $("#event-enddate").datepicker(); });');
     }
 
     function onEndShowStyles($action)
