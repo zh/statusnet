@@ -62,11 +62,35 @@ class ConfirmRegistrationForm extends Form
     function formData()
     {
         $this->out->element('p', 'instructions',
-                            sprintf(_('Enter a password to confirm your account.')));
+                            sprintf(_('Enter a password to confirm your new account.')));
                             
         $this->hidden('code', $this->code);
 
         $this->out->elementStart('ul', 'form_data');
+
+        $this->elementStart('li');
+
+        $this->element('label', array('for' => 'nickname-ignore'), _('User name'));
+
+        $this->element('input', array('name' => 'nickname-ignore',
+                                      'type' => 'text',
+                                      'id' => 'nickname-ignore',
+                                      'disabled' => 'true',
+                                      'value' => $this->nickname));
+
+        $this->elementEnd('li');
+
+        $this->elementStart('li');
+
+        $this->element('label', array('for' => 'email-ignore'), _('Email'));
+
+        $this->element('input', array('name' => 'email-ignore',
+                                      'type' => 'text',
+                                      'id' => 'email-ignore',
+                                      'disabled' => 'true',
+                                      'value' => $this->email));
+
+        $this->elementEnd('li');
 
         $this->elementStart('li');
         // TRANS: Field label on account registration page.
@@ -96,8 +120,8 @@ class ConfirmRegistrationForm extends Form
 
         $this->raw(sprintf(_('I agree to the <a href="%1$s">Terms of service</a> and '.
                              '<a href="%1$s">Privacy policy</a> of this site.'),
-                           common_local_url('doc', 'tos'),
-                           common_local_url('doc', 'privacy')));
+                           common_local_url('doc', array('title' => 'tos')),
+                           common_local_url('doc', array('title' => 'privacy'))));
                            
         $this->elementEnd('label');
 
