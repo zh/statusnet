@@ -83,7 +83,7 @@ class EventForm extends Form
      */
     function formData()
     {
-        $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
+        $this->out->elementStart('fieldset', array('id' => 'new_event_data'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
