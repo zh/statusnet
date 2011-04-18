@@ -148,6 +148,26 @@ class RequireValidatedEmailPlugin extends Plugin
     }
 
     /**
+     * Event handler for registration attempts; rejects the registration
+     * if email field is missing.
+     *
+     * @param Action $action Action being executed
+     *
+     * @return bool hook result code
+     */
+
+    function onStartRegisterUser(&$user, &$profile)
+    {
+        $email = $user->email;
+
+        if (empty($email)) {
+            throw new ClientException(_m('You must provide an email address to register.'));
+        }
+
+        return true;
+    }
+
+    /**
      * Check if a user has a validated email address or has been
      * otherwise grandfathered in.
      *

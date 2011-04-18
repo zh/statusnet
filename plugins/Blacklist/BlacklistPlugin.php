@@ -141,9 +141,9 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook value
      */
-    function onStartRegistrationTry($action)
+    function onStartRegisterUser(&$user, &$profile)
     {
-        $homepage = strtolower($action->trimmed('homepage'));
+        $homepage = strtolower($profile->homepage);
 
         if (!empty($homepage)) {
             if (!$this->_checkUrl($homepage)) {
@@ -154,7 +154,7 @@ class BlacklistPlugin extends Plugin
             }
         }
 
-        $nickname = strtolower($action->trimmed('nickname'));
+        $nickname = strtolower($profile->nickname);
 
         if (!empty($nickname)) {
             if (!$this->_checkNickname($nickname)) {
