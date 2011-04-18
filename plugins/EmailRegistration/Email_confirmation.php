@@ -52,7 +52,6 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
  *
  * @see      DB_DataObject
  */
-
 class User_greeting_count extends Memcached_DataObject
 {
     public $__table = 'user_greeting_count'; // table name
@@ -174,7 +173,7 @@ class User_greeting_count extends Memcached_DataObject
             if (!$result) {
                 // TRANS: Exception thrown when the user greeting count could not be saved in the database.
                 // TRANS: %d is a user ID (number).
-                throw Exception(sprintf(_m("Could not increment greeting count for %d."),
+                throw Exception(sprintf(_m('Could not increment greeting count for %d.'),
                                         $user_id));
             }
         }

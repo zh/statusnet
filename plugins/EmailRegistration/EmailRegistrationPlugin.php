@@ -45,7 +45,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class EmailRegistrationPlugin extends Plugin
 {
     function onAutoload($cls)
@@ -88,6 +87,7 @@ class EmailRegistrationPlugin extends Plugin
     {
         $dir = dirname(__FILE__);
 
+        // @todo FIXME: i18n issue.
         $docFile = DocFile::forTitle($title, $dir.'/doc-src/');
 
         if (!empty($docFile)) {
@@ -105,7 +105,8 @@ class EmailRegistrationPlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:EmailRegistration',
                             'rawdescription' =>
-                            _m('Use email only for registration'));
+                            // TRANS: Plugin description.
+                            _m('Use email only for registration.'));
         return true;
     }
 }

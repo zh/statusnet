@@ -58,11 +58,16 @@ class DomainWhitelistPlugin extends Plugin
             if (!$this->matchesWhitelist($email)) {
                 $whitelist = $this->getWhitelist();
                 if (count($whitelist) == 1) {
-                    $message = sprintf(_("Email address must be in this domain: %s"),
+                    // TRANS: Client exception thrown when a given e-mailaddress is not in the domain whitelist.
+                    // TRANS: %s is a whitelisted e-mail domain.
+                    $message = sprintf(_m('Email address must be in this domain: %s.'),
                                        $whitelist[0]);
                 } else {
-                    $message = sprintf(_("Email address must be in one of these domains: %s"),
-                                       implode(', ', $whitelist));
+                    // TRANS: Client exception thrown when a given e-mailaddress is not in the domain whitelist.
+                    // TRANS: %s are whitelisted e-mail domains separated by comma's (localisable).
+                    $message = sprintf(_('Email address must be in one of these domains: %s.'),
+                                       // TRANS: Separator for whitelisted domains.
+                                       implode(_m('SEPARATOR',', '), $whitelist));
                 }
                 throw new ClientException($message);
             }
