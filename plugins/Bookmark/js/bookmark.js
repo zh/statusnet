@@ -11,10 +11,8 @@ var Bookmark = {
     // Special initialization function just for the
     // second step in the bookmarking workflow
     InitBookmarkForm: function() {
-        alert('Gar!');
-
-        // Put fancy stuff here
-
+        SN.Init.CheckBoxes();
+        $('fieldset fieldset label').inFieldLabels({ fadeOpacity:0 });
     }
 }
 
