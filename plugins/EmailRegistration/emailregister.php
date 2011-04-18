@@ -74,6 +74,7 @@ class EmailregisterAction extends Action
     protected $password2;
     protected $state;
     protected $error;
+    protected $complete;
 
     function prepare($argarray)
     {
@@ -99,14 +100,12 @@ class EmailregisterAction extends Action
 
                 $this->invitation = Invitation::staticGet('code', $this->code);
 
-                if (!empty($this->invitation)) {
-                    $this->state = self::CONFIRMINVITE;
-                } else {
-                    $this->state = self::CONFIRMREGISTER;
+                if (empty($this->invitation)) {
+
                     $this->confirmation = Confirm_address::staticGet('code', $this->code);
 
                     if (empty($this->confirmation)) {
-                        throw new ClientException(_('No such confirmation code.'), 405);
+                        throw new ClientException(_('No such confirmation code.'), 403);
                     }
                 }
 
@@ -247,7 +246,7 @@ class EmailregisterAction extends Action
         $this->form = new ConfirmRegistrationForm($this,
                                                   $nickname,
                                                   $email,
-                                                  $this->invitation->code);
+                                                  $this->code);
         $this->showPage();
     }
 
@@ -271,9 +270,9 @@ class EmailregisterAction extends Action
 
         $nickname = $this->nicknameFromEmail($email);
 
-        $this->user = User::registerNew(array('nickname' => $nickname,
-                                              'email' => $email,
-                                              'email_confirmed' => true));
+        $this->user = User::register(array('nickname' => $nickname,
+                                           'email' => $email,
+                                           'email_confirmed' => true));
 
         if (empty($this->user)) {
             throw new Exception("Failed to register user.");
@@ -293,7 +292,7 @@ class EmailregisterAction extends Action
             throw new Exception('No confirmation thing.');
         }
 
-        common_redirect(common_local_url('doc', array('file' => 'registered')),
+        common_redirect(common_local_url('doc', array('title' => 'welcome')),
                         303);
     }
 
@@ -307,6 +306,10 @@ class EmailregisterAction extends Action
         $headers['To'] = trim($confirm->address);
         $headers['Subject'] = sprintf(_('Confirm your registration on %1$s'), $sitename);
 
+        $confirmUrl = common_local_url('register', array('code' => $confirm->code));
+
+        common_debug('Confirm URL is ' . $confirmUrl);
+
         $body = sprintf(_('Someone (probably you) has requested an account on %1$s using this email address.'.
                           "\n".
                           'To confirm the address, click the following URL or copy it into the address bar of your browser.'.
@@ -315,7 +318,7 @@ class EmailregisterAction extends Action
                           "\n".
                           'If it was not you, you can safely ignore this message.'),
                         $sitename,
-                        common_local_url('register', array('code' => $confirm->code)));
+                        $confirmUrl);
 
         mail_send($recipients, $headers, $body);
     }
@@ -374,205 +377,5 @@ class EmailregisterAction extends Action
         }
 
         return $nickname;
-    }
-}
-
-class EmailRegistrationForm extends Form
-{
-    protected $email;
-
-    function __construct($out, $email)
-    {
-        parent::__construct($out);
-        $this->email = $email;
-    }
-
-    function formData()
-    {
-        $this->out->element('p', 'instructions',
-                            _('Enter your email address to register for an account.'));
-                            
-        $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
-        $this->out->elementStart('ul', 'form_data');
-
-        $this->li();
-        $this->out->input('email',
-                          // TRANS: Field label on form for adding a new bookmark.
-                          _m('LABEL','E-mail address'),
-                          $this->email);
-        $this->unli();
-
-        $this->out->elementEnd('ul');
-        $this->out->elementEnd('fieldset');
-    }
-
-     function method()
-     {
-         return 'post';
-     }
-
-    /**
-     * Buttons for form actions
-     *
-     * Submit and cancel buttons (or whatever)
-     * Sub-classes should overload this to show their own buttons.
-     *
-     * @return void
-     */
-
-    function formActions()
-    {
-        // TRANS: Button text for action to save a new bookmark.
-        $this->out->submit('submit', _m('BUTTON', 'Register'));
-    }
-
-    /**
-     * ID of the form
-     *
-     * Should be unique on the page. Sub-classes should overload this
-     * to show their own IDs.
-     *
-     * @return int ID of the form
-     */
-
-    function id()
-    {
-        return 'form_email_registration';
-    }
-
-    /**
-     * Action of the form.
-     *
-     * URL to post to. Should be overloaded by subclasses to give
-     * somewhere to post to.
-     *
-     * @return string URL to post to
-     */
-
-    function action()
-    {
-        return common_local_url('register');
-    }
-
-    function formClass()
-    {
-        return 'form_email_registration';
-    }
-}
-
-class ConfirmRegistrationForm extends Form
-{
-    protected $code;
-    protected $nickname;
-    protected $email;
-
-    function __construct($out, $nickname, $email, $code)
-    {
-        parent::__construct($out);
-        $this->nickname = $nickname;
-        $this->email = $email;
-        $this->code = $code;
-    }
-
-    function formData()
-    {
-        $this->out->element('p', 'instructions',
-                            sprintf(_('Enter a password to confirm your account.')));
-                            
-        $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
-        $this->out->elementStart('ul', 'form_data');
-
-        $this->hidden('code', $this->code);
-
-        $this->elementStart('li');
-        // TRANS: Field label on account registration page.
-        $this->password('password', _('Password'),
-                        // TRANS: Field title on account registration page.
-                        _('6 or more characters.'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        // TRANS: Field label on account registration page. In this field the password has to be entered a second time.
-        $this->password('confirm', _m('PASSWORD','Confirm'),
-                        // TRANS: Field title on account registration page.
-                        _('Same as password above.'));
-        $this->elementEnd('li');
-
-        $this->elementStart('li');
-
-        $this->element('input', array('name' => 'tos',
-                                      'type' => 'checkbox',
-                                      'class' => 'checkbox',
-                                      'id' => 'tos',
-                                      'value' => 'true'));
-        $this->text(' ');
-
-        $this->elementStart('label', array('class' => 'checkbox',
-                                           'for' => 'tos'));
-
-
-        $this->raw(sprintf(_('I agree to the <a href="%1$s">Terms of service</a> and '.
-                             '<a href="%1$s">Privacy policy</a> of this site.'),
-                           common_local_url('doc', 'tos'),
-                           common_local_url('doc', 'privacy')));
-                           
-        $this->elementEnd('label');
-
-        $this->elementEnd('li');
-
-        $this->out->elementEnd('ul');
-        $this->out->elementEnd('fieldset');
-    }
-
-     function method()
-     {
-         return 'post';
-     }
-
-    /**
-     * Buttons for form actions
-     *
-     * Submit and cancel buttons (or whatever)
-     * Sub-classes should overload this to show their own buttons.
-     *
-     * @return void
-     */
-
-    function formActions()
-    {
-        // TRANS: Button text for action to save a new bookmark.
-        $this->out->submit('submit', _m('BUTTON', 'Register'));
-    }
-
-    /**
-     * ID of the form
-     *
-     * Should be unique on the page. Sub-classes should overload this
-     * to show their own IDs.
-     *
-     * @return int ID of the form
-     */
-
-    function id()
-    {
-        return 'form_email_registration';
-    }
-
-    /**
-     * Action of the form.
-     *
-     * URL to post to. Should be overloaded by subclasses to give
-     * somewhere to post to.
-     *
-     * @return string URL to post to
-     */
-
-    function action()
-    {
-        return common_local_url('register');
-    }
-
-    function formClass()
-    {
-        return 'form_confirm_registration';
     }
 }

@@ -57,6 +57,10 @@ class EmailRegistrationPlugin extends Plugin
         case 'EmailregisterAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
+        case 'EmailRegistrationForm':
+        case 'ConfirmRegistrationForm':
+            include_once $dir . '/' . strtolower($cls) . '.php';
+            return false;
         default:
             return true;
         }
