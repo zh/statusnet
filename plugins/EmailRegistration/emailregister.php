@@ -387,4 +387,18 @@ class EmailregisterAction extends Action
 
         return $nickname;
     }
+
+    /**
+     * A local menu
+     *
+     * Shows different login/register actions.
+     *
+     * @return void
+     */
+
+    function showLocalNav()
+    {
+        $nav = new LoginGroupNav($this);
+        $nav->show();
+    }
 }
