@@ -133,10 +133,6 @@ class RawInboxNoticeStream extends NoticeStream
 
         $ids = array_slice($ids, $offset, $limit);
 
-        if (common_config('debug', 'homevspublic')) {
-            common_debug('Home raw: ' . implode(',', $ids));
-        }
-
         return $ids;
     }
 }

@@ -103,10 +103,6 @@ class RawPublicNoticeStream extends NoticeStream
         $notice->free();
         $notice = NULL;
 
-        if (common_config('debug', 'homevspublic')) {
-            common_debug('Public raw: ' . implode(',', $ids));
-        }
-
-       return $ids;
+        return $ids;
     }
 }
