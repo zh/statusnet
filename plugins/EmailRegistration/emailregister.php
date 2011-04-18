@@ -297,7 +297,7 @@ class EmailregisterAction extends Action
                 $inviter = User::staticGet('id', $this->invitation->user_id);
                 if (!empty($inviter)) {
                     Subscription::start($inviter->getProfile(),
-                                        $user->getProfile());
+                                        $this->user->getProfile());
                 }
 
                 $this->invitation->delete();
