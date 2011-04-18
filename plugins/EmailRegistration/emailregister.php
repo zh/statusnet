@@ -211,13 +211,18 @@ class EmailregisterAction extends Action
 
         $valid = false;
 
-        if (Event::handle('StartValidateUserEmail', array(null, $this->email, &$valid))) {
-            $valid = Validate::email($this->email, common_config('email', 'check_domain'));
-            Event::handle('EndValidateUserEmail', array(null, $this->email, &$valid));
-        }
-
-        if (!$valid) {
-            $this->error = _('Not a valid email address.');
+        try {
+            if (Event::handle('StartValidateUserEmail', array(null, $this->email, &$valid))) {
+                $valid = Validate::email($this->email, common_config('email', 'check_domain'));
+                Event::handle('EndValidateUserEmail', array(null, $this->email, &$valid));
+            }
+            if (!$valid) {
+                $this->error = _('Not a valid email address.');
+                $this->showRegistrationForm();
+                return;
+            }
+        } catch (ClientException $e) {
+            $this->error = $e->getMessage();
             $this->showRegistrationForm();
             return;
         }
