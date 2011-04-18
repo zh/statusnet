@@ -480,6 +480,13 @@ class StompQueueManager extends QueueManager
     {
         $host = $this->cons[$this->defaultIdx]->getServer();
         $message = unserialize($frame->body);
+
+        if ($message === false) {
+            $this->_log(LOG_ERR, "Can't unserialize frame: {$frame->body}");
+            $this->stats('baditem', $queue);
+            return false;
+        }
+
         $site = $message['site'];
         $queue = $message['handler'];
 
