@@ -80,15 +80,28 @@ class InviteAction extends CurrentUserDesignAction
             $email = trim($email);
             $valid = null;
 
-            if (Event::handle('StartValidateEmailInvite', array($user, $email, &$valid))) {
-                $valid = Validate::email($email, common_config('email', 'check_domain'));
-                Event::handle('EndValidateEmailInvite', array($user, $email, &$valid));
-            }
+            try {
 
-            if (!$valid) {
-                // TRANS: Form validation message when providing an e-mail address that does not validate.
-                // TRANS: %s is an invalid e-mail address.
-                $this->showForm(sprintf(_('Invalid email address: %s.'), $email));
+                if (Event::handle('StartValidateUserEmail', array(null, $email, &$valid))) {
+                    $valid = Validate::email($email, common_config('email', 'check_domain'));
+                    Event::handle('EndValidateUserEmail', array(null, $email, &$valid));
+                }
+
+                if ($valid) {
+                    if (Event::handle('StartValidateEmailInvite', array($user, $email, &$valid))) {
+                        $valid = true;
+                        Event::handle('EndValidateEmailInvite', array($user, $email, &$valid));
+                    }
+                }
+
+                if (!$valid) {
+                    // TRANS: Form validation message when providing an e-mail address that does not validate.
+                    // TRANS: %s is an invalid e-mail address.
+                    $this->showForm(sprintf(_('Invalid email address: %s.'), $email));
+                    return;
+                }
+            } catch (ClientException $e) {
+                $this->showForm($e->getMessage());
                 return;
             }
         }
