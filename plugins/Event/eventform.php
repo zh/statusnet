@@ -83,79 +83,87 @@ class EventForm extends Form
      */
     function formData()
     {
-        $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
+        $this->out->elementStart('fieldset', array('id' => 'new_event_data'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->out->input('title',
+        $this->out->input('event-title',
                           // TRANS: Field label on event form.
                           _m('LABEL','Title'),
                           null,
                           // TRANS: Field title on event form.
-                          _m('Title of the event.'));
+                          _m('Title of the event.'),
+                          'title');
         $this->unli();
 
         $this->li();
-        $this->out->input('startdate',
+        $this->out->input('event-startdate',
                           // TRANS: Field label on event form.
                           _m('LABEL','Start date'),
                           null,
                           // TRANS: Field title on event form.
-                          _m('Date the event starts.'));
+                          _m('Date the event starts.'),
+                          'startdate');
         $this->unli();
 
         $this->li();
-        $this->out->input('starttime',
+        $this->out->input('event-starttime',
                           // TRANS: Field label on event form.
                           _m('LABEL','Start time'),
                           null,
                           // TRANS: Field title on event form.
-                          _m('Time the event starts.'));
+                          _m('Time the event starts.'),
+                          'starttime');
         $this->unli();
 
         $this->li();
-        $this->out->input('enddate',
+        $this->out->input('event-enddate',
                           // TRANS: Field label on event form.
                           _m('LABEL','End date'),
                           null,
                           // TRANS: Field title on event form.
-                          _m('Date the event ends.'));
+                          _m('Date the event ends.'),
+                          'enddate');
         $this->unli();
 
         $this->li();
-        $this->out->input('endtime',
+        $this->out->input('event-endtime',
                           // TRANS: Field label on event form.
                           _m('LABEL','End time'),
                           null,
                           // TRANS: Field title on event form.
-                          _m('Time the event ends.'));
+                          _m('Time the event ends.'),
+                          'endtime');
         $this->unli();
 
         $this->li();
-        $this->out->input('location',
+        $this->out->input('event-location',
                           // TRANS: Field label on event form.
                           _m('LABEL','Location'),
                           null,
                           // TRANS: Field title on event form.
-                          _m('Event location.'));
+                          _m('Event location.'),
+                          'location');
         $this->unli();
 
         $this->li();
-        $this->out->input('url',
+        $this->out->input('event-url',
                           // TRANS: Field label on event form.
                           _m('LABEL','URL'),
                           null,
                           // TRANS: Field title on event form.
-                          _m('URL for more information.'));
+                          _m('URL for more information.'),
+                          'url');
         $this->unli();
 
         $this->li();
-        $this->out->input('description',
+        $this->out->input('event-description',
                           // TRANS: Field label on event form.
                           _m('LABEL','Description'),
                           null,
                           // TRANS: Field title on event form.
-                          _m('Description of the event.'));
+                          _m('Description of the event.'),
+                          'description');
         $this->unli();
 
         $this->out->elementEnd('ul');
@@ -176,6 +184,6 @@ class EventForm extends Form
     function formActions()
     {
         // TRANS: Button text to save an event..
-        $this->out->submit('submit', _m('BUTTON', 'Save'));
+        $this->out->submit('event-submit', _m('BUTTON', 'Save'), 'submit', 'submit');
     }
 }

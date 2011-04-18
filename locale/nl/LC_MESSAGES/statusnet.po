@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
-"PO-Revision-Date: 2011-04-17 18:19:46+0000\n"
+"POT-Creation-Date: 2011-04-18 11:21+0000\n"
+"PO-Revision-Date: 2011-04-18 11:24:37+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86294); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
+"X-POT-Import-Date: 2011-04-17 22:40:29+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -167,33 +167,36 @@ msgstr "Het profiel bestaat niet."
 msgid "No such list."
 msgstr "De lijst bestaat niet."
 
-#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-msgid "You cannot tag an OMB 0.1 remote profile with this action."
+#. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
+msgid "You cannot list an OMB 0.1 remote profile with this action."
 msgstr ""
-"U kunt een OMB 1.0 profiel van een andere omgeving niet labelen via deze "
+"U kunt een extern OMB 1.0-profiel niet opnemen in een lijst via deze "
 "handeling."
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
+#. TRANS: %s is a username.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a username.
 #, php-format
-msgid "There was an unexpected error while tagging %s."
-msgstr "Er is een onverwachte fout opgetreden tijdens het labelen van %s."
+msgid "There was an unexpected error while listing %s."
+msgstr ""
+"Er is een onverwachte fout opgetreden tijdens het in de lijst opnemen van %s."
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
 #, php-format
 msgid ""
-"There was a problem tagging %s. The remote server is probably not responding "
-"correctly, please try retrying later."
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly. Please try retrying later."
 msgstr ""
-"Er is een probleem opgetreden tijdens het labelen van %s. De omgeving aan de "
-"andere kant geeft waarschijnlijk geen correct antwoord. Probeer het later "
-"opnieuw."
+"Er is een probleem opgetreden tijdens toevoegen van %s aan de lijst. De "
+"externe omgeving geeft waarschijnlijk geen correct antwoord. Probeer het "
+"later opnieuw."
 
-#. TRANS: Title after subscribing to a list.
-#. TRANS: Page title when subscription succeeded.
-msgid "Subscribed"
-msgstr "Geabonneerd"
+#. TRANS: Title after adding a user to a list.
+msgctxt "TITLE"
+msgid "Listed"
+msgstr "In lijst opgenomen"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -685,7 +688,7 @@ msgstr "Ongeldige alias: \"%s\"."
 #. TRANS: Group create form validation error. %s is the already used alias.
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr "De alias \"%s\" wordt al gebruikt. Geef een andere alias op."
+msgstr "De alias \"%s\" wordt al gebruikt. Geef een ander alias op."
 
 #. TRANS: Client error displayed when trying to use an alias during group creation that is the same as the group's nickname.
 #. TRANS: Group edit form validation error.
@@ -1002,7 +1005,7 @@ msgstr "Deze methode vereist een POST of DELETE."
 
 #. TRANS: Client error displayed trying to delete a status of another user.
 msgid "You may not delete another user's status."
-msgstr "U kunt de status van een andere gebruiker niet verwijderen."
+msgstr "U kunt een status van een andere gebruiker niet verwijderen."
 
 #. TRANS: Client error displayed trying to repeat a non-existing notice through the API.
 #. TRANS: Client error displayed trying to display redents of a non-exiting notice.
@@ -2198,7 +2201,7 @@ msgstr "De naam is te lang (maximaal 255 tekens)."
 #. TRANS: Validation error shown when providing a name for an application that already exists in the "Edit application" form.
 #. TRANS: Validation error shown when providing a name for an application that already exists in the "New application" form.
 msgid "Name already in use. Try another one."
-msgstr "Deze naam wordt al gebruikt. Kies een andere."
+msgstr "Deze naam wordt al gebruikt. Kies een andere naam."
 
 #. TRANS: Validation error shown when not providing a description in the "Edit application" form.
 #. TRANS: Validation error shown when not providing a description in the "New application" form.
@@ -4102,19 +4105,19 @@ msgstr "Gebruikers zoeken"
 
 #. TRANS: Title for list page.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Public list %s"
-msgstr "Uw openbare lijsten"
+msgstr "Openbare lijst %s"
 
 #. TRANS: Title for list page.
 #. TRANS: %1$s is a list, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Public list %1$s, page %2$d"
-msgstr "Openbaar persoonslabel %1$s, pagina %2$d"
+msgstr "Openbare lijst %1$s, pagina %2$d"
 
 #. TRANS: Message for anonymous users on list page.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Lists are how you sort similar people on %%site.name%%, a [micro-blogging]"
 "(http://en.wikipedia.org/wiki/Micro-blogging) service based on the Free "
@@ -4123,7 +4126,7 @@ msgid ""
 msgstr ""
 "Lijsten zijn een manier om gelijksoortige mensen te ordenen op %%site.name%"
 "%, een [microblogdienst](http://nl.wikipedia.org/wiki/Microblogging) "
-"gebaseerde op het vrije softwareprogramma [StatusNet](http://status.net/). U "
+"gebaseerd op het vrije softwareprogramma [StatusNet](http://status.net/). U "
 "kunt ze dan eenvoudig volgen door te abonneren op de tijdlijn van de lijst."
 
 #. TRANS: Client error displayed when a tagger is expected but not provided.
@@ -4221,7 +4224,7 @@ msgid ""
 msgstr ""
 "Dit zijn de lijsten die zijn gemaakt door **%s**. Via lijsten kunt u "
 "gelijksoortige mensen ordenen op %%%%site.name%%%%, a [microblogdienst]"
-"(http://en.wikipedia.org/wiki/Micro-blogging) service gebaseerd op het vrije "
+"(http://en.wikipedia.org/wiki/Micro-blogging) gebaseerd op het vrije "
 "softwareprogramma [StatusNet](http://status.net/). U kunt eenvoudig "
 "bijhouden wat ze doen door te abonneren op de tijdlijn van de lijst."
 
@@ -4268,15 +4271,15 @@ msgstr "%s is nog niemand in een [lijst](%%%%doc.tags%%%%) opgenomen."
 
 #. TRANS: Page title for list of list subscribers.
 #. TRANS: %1$s is a list, %2$s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to list %1$s by %2$s"
-msgstr "Abonnees op de lijst %1$s van %2$s."
+msgstr "Abonnees op de lijst %1$s van %2$s"
 
 #. TRANS: Page title for list of list subscribers.
 #. TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to list %1$s by %2$s, page %3$d"
-msgstr "Abonnees op mensen met het label %1$s door %2$s, pagina %3$d"
+msgstr "Abonnees op de lijst %1$s van %2$s, pagina %3$d"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %s is a profile nickname.
@@ -4655,48 +4658,45 @@ msgstr ""
 "net/)"
 
 #. TRANS: Title for page with public list cloud.
-#, fuzzy
 msgid "Public list cloud"
-msgstr "Publieke woordwolk"
+msgstr "Publieke lijstwoordwolk"
 
 #. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "These are largest lists on %s"
-msgstr "De meest recente en populairste labels op %s"
+msgstr "Dit zijn de grootste lijsten op %s"
 
 #. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid "No one has [listed](%%doc.tags%%) anyone yet."
-msgstr "Niemand heeft nog iemand [gelabeld](%%doc.tags%%)."
+msgstr "Niemand heeft nog iemand in een [lijst](%%doc.tags%%) opgenomen."
 
 #. TRANS: Additional empty list message on page with public list cloud for logged in users.
-#, fuzzy
 msgid "Be the first to list someone!"
-msgstr "U kunt de eerste zijn die iemand labelt!"
+msgstr "U kunt de eerste zijn die iemand in een lijst opneemt!"
 
 #. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
 msgstr ""
 "U kunt een [gebruiker registeren](%%action.register%%) en dan de eerste zijn "
-"die iemand labelt!"
+"die iemand in een lijst opneemt!"
 
 #. TRANS: DT element on on page with public list cloud.
-#, fuzzy
 msgid "List cloud"
-msgstr "De lijst is niet aangetroffen."
+msgstr "Lijstwoordwolk"
 
 #. TRANS: Link title for number of listed people. %d is the number of listed people.
-#, fuzzy, php-format
+#, php-format
 msgid "1 person listed"
 msgid_plural "%d people listed"
-msgstr[0] "Eén persoon gelabeld"
-msgstr[1] "%d personen gelabeld"
+msgstr[0] "Eén persoon in lijst"
+msgstr[1] "%d personen in de lijst"
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
 #, php-format
@@ -5046,7 +5046,7 @@ msgstr "Abonneren op afstand"
 
 #. TRANS: Field legend on page for remote subscribe.
 msgid "Subscribe to a remote user"
-msgstr "Op een gebruiker uit een andere systeem abonneren"
+msgstr "Op een externe gebruiker abonneren"
 
 #. TRANS: Field label on page for remote subscribe.
 msgid "User nickname"
@@ -5091,32 +5091,26 @@ msgstr "Dat is een lokaal profiel. Meld u aan om te abonneren."
 msgid "Could not get a request token."
 msgstr "Het was niet mogelijk een verzoektoken te krijgen."
 
-#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
-msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
+#. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
+msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
 msgstr ""
-"U kunt via deze handeling geen label toevoegen of verwijderen van een OMB "
-"1.0-profiel van een andere omgeving."
-
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#, fuzzy, php-format
-msgid "There was an unexpected error while listing %s."
-msgstr "Er is een onverwachte fout opgetreden tijdens het labelen van %s."
+"U kunt een extern OMB 1.0-profiel niet opnemen in of verwijderen uit een "
+"lijst via deze handeling."
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There was a problem listing %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
-"Er is een probleem opgetreden tijdens het labelen van %s. De omgeving aan de "
-"andere kant geeft waarschijnlijk geen correct antwoord. Probeer het later "
-"opnieuw."
+"Er is een probleem opgetreden tijdens het in de lijst opnemen van %s. De "
+"omgeving aan de andere kant geeft waarschijnlijk geen correct antwoord. "
+"Probeer het later opnieuw."
 
 #. TRANS: Title after removing a user from a list.
-msgid "Untagged"
-msgstr "Ongelabeld"
+msgid "Unlisted"
+msgstr "Uit lijst verwijderd"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -5308,9 +5302,9 @@ msgstr "Deze gebruiker is al in de zandbak geplaatst."
 
 #. TRANS: Client error displayed when trying to list a profile with an invalid list.
 #. TRANS: %s is the invalid list name.
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid list: %s."
-msgstr "Geen geldig gebruikerslabel: %s."
+msgstr "Geen geldige lijst: %s."
 
 #. TRANS: Page title for page showing self tags.
 #. TRANS: %1$s is a tag, %2$d is a page number.
@@ -6175,13 +6169,15 @@ msgstr "Een lijst met gebruikers die wachten op goedkeuring om u te volgen."
 #. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
-"U kunt via deze handeling niet abonneren op een OMB 1.0-profiel van een "
-"andere omgeving."
+"U kunt via deze handeling niet abonneren op een extern OMB 1.0-profiel."
+
+#. TRANS: Page title when subscription succeeded.
+msgid "Subscribed"
+msgstr "Geabonneerd"
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
-#, fuzzy
 msgid "You must be logged in to unsubscribe from a list."
-msgstr "U moet aangemeld zijn om uit te kunnen schrijven op een persoonslabel."
+msgstr "U moet aangemeld zijn uw abonnement op een lijst op te zeggen."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
 msgid "No ID given."
@@ -6189,17 +6185,16 @@ msgstr "Geen ID opgegeven."
 
 #. TRANS: Server error displayed subscribing to a list fails.
 #. TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
-#, fuzzy, php-format
+#, php-format
 msgid "Could not subscribe user %1$s to list %2$s: %3$s"
 msgstr ""
-"Het was niet mogelijk om gebruiker %1$s te abonneren op het persoonslabel %2"
-"$s."
+"Het was niet mogelijk om gebruiker %1$s te abonneren op de lijst %2$s: %3$s"
 
 #. TRANS: Title of form to subscribe to a list.
 #. TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribed to list %2$s by %3$s"
-msgstr "%1$s is geabonneerd op het persoonslabel %2$s van %3$s"
+msgstr "%1$s is geabonneerd op de lijst %2$s van %3$s"
 
 #. TRANS: Header for list of subscribers for a user (first page).
 #. TRANS: %s is the user's nickname.
@@ -6340,16 +6335,15 @@ msgid "You cannot tag this user."
 msgstr "U kunt deze gebruiker niet labelen."
 
 #. TRANS: Title for list form when not on a profile page.
-#, fuzzy
 msgid "List a profile"
-msgstr "Profiel labelen"
+msgstr "Profiel in lijst opnemen"
 
 #. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "ADDTOLIST"
 msgid "List %s"
-msgstr "Lijsten"
+msgstr "%s in lijst opnemen"
 
 #. TRANS: Title for list form when an error has occurred.
 msgctxt "TITLE"
@@ -6361,24 +6355,21 @@ msgid "User profile"
 msgstr "Gebruikersprofiel"
 
 #. TRANS: Fieldset legend for list form.
-#, fuzzy
 msgid "List user"
-msgstr "Lijsten"
+msgstr "Gebruiker in lijst opnemen"
 
 #. TRANS: Field label on list form.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Lists"
 msgstr "Lijsten"
 
 #. TRANS: Field title on list form.
-#, fuzzy
 msgid ""
 "Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
-"Labels voor deze gebruiker (letters, cijfers, -, ., en _). Gebruik komma's "
-"of spaties als scheidingsteken."
+"Lijsten waar deze gebruiker in is opgenomen (letters, cijfers, -, ., en _). "
+"Gebruik komma's of spaties als scheidingsteken."
 
 #. TRANS: Title for personal tag cloud section.
 msgctxt "TITLE"
@@ -6386,16 +6377,13 @@ msgid "Tags"
 msgstr "Labels"
 
 #. TRANS: Success message if lists are saved.
-#, fuzzy
 msgid "Lists saved."
-msgstr "De labels zijn opgeslagen."
+msgstr "De lijsten zijn opgeslagen."
 
 #. TRANS: Page notice.
-#, fuzzy
 msgid "Use this form to add your subscribers or subscriptions to lists."
 msgstr ""
-"Gebruik dit formulier om labels toe te voegen aan uw abonnementen of "
-"abonnees."
+"Gebruik dit formulier om uw abonnementen of abonnees in lijsten op te nemen."
 
 #. TRANS: Client error when requesting a tag feed for a non-existing tag.
 msgid "No such tag."
@@ -6419,9 +6407,9 @@ msgstr "Uitgeschreven"
 
 #. TRANS: Page title for form that allows unsubscribing from a list.
 #. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s unsubscribed from list %2$s by %3$s"
-msgstr "%1$s is uitgeschreven van het persoonslabel %2$s van %3$s"
+msgstr "%1$s is niet langer geabonneerd op de lijst %2$s van %3$s"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
 #. TRANS: %1$s is the license incompatible with site license %2$s.
@@ -7106,24 +7094,22 @@ msgstr ""
 "Verwijder bestaande labels om nieuwe labels aan te kunnen maken."
 
 #. TRANS: Client exception thrown when trying to add more people than allowed to a list.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You already have %1$d or more people in list %2$s, which is the maximum "
 "allowed number.Try unlisting others first."
 msgstr ""
-"U hebt al %1$d of meer mensen gelabeld met %2$s. Meer mensen labelen is niet "
-"mogelijk. Verwijder eerst labels van mensen om nieuwe mensen te kunnen "
-"labelen."
+"U hebt al %1$d of meer mensen in de lijst %2$s opgenomen. Meer mensen "
+"opnemen is niet mogelijk. Verwijder eerst mensen uit de lijst voordat u "
+"nieuwe mensen kunt toevoegen."
 
 #. TRANS: Exception thrown when inserting a list subscription in the database fails.
-#, fuzzy
 msgid "Adding list subscription failed."
-msgstr "Het abonneren op het persoonslabel is mislukt."
+msgstr "Het abonneren op de lijst is mislukt."
 
 #. TRANS: Exception thrown when deleting a list subscription from the database fails.
-#, fuzzy
 msgid "Removing list subscription failed."
-msgstr "Het uitschrijven van het persoonslabel is mislukt."
+msgstr "Het uitschrijven van de lijst is mislukt."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 msgid "Missing profile."
@@ -7387,8 +7373,7 @@ msgstr ""
 #. TRANS: Client exception thrown when trying to force a remote user to subscribe.
 msgid "Cannot force remote user to subscribe."
 msgstr ""
-"Het is niet mogelijk een gebruiker op een andere server te verplichten te "
-"abonneren."
+"Het is niet mogelijk een externe gebruiker te verplichten te abonneren."
 
 #. TRANS: Client exception thrown when trying to subscribe to an unknown profile.
 msgid "Unknown profile."
@@ -7400,7 +7385,7 @@ msgstr "Deze activiteit lijkt geen relatie te hebben met onze gebruiker."
 
 #. TRANS: Client exception thrown when trying to join a remote group that is not a group.
 msgid "Remote profile is not a group!"
-msgstr "Het profiel op de andere server is geen groep!"
+msgstr "Het externe profiel is geen groep!"
 
 #. TRANS: Client exception thrown when trying to join a group the importing user is already a member of.
 msgid "User is already a member of this group."
@@ -7442,7 +7427,7 @@ msgstr "%1$s %2$s %3$s"
 
 #. TRANS: Client exception thrown when there is no source attribute.
 msgid "Can't handle remote content yet."
-msgstr "Het is nog niet mogelijk inhoud uit andere omgevingen te verwerken."
+msgstr "Het is nog niet mogelijk inhoud uit externe omgevingen te verwerken."
 
 #. TRANS: Client exception thrown when there embedded XML content is found that cannot be processed yet.
 msgid "Can't handle embedded XML content yet."
@@ -7781,16 +7766,15 @@ msgid "Do not use this method!"
 msgstr "Gebruik deze methode niet!"
 
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for people in list %1$s by %2$s"
-msgstr "Tijdlijn voor mensen die door %2$s met #%1$s zijn gelabeld"
+msgstr "Tijdlijn voor mensen in de lijst %1$s van %2$s"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from %1$s's list %2$s on %3$s!"
-msgstr ""
-"Mededelingen van gebruikers met het persoonslabel %2$s door %1$s op %3$s"
+msgstr "Mededelingen van gebruikers in de lijst %2$s van %1$s op %3$s"
 
 #. TRANS: Title.
 msgid "Notices where this attachment appears"
@@ -9405,7 +9389,7 @@ msgstr "Fout bij het invoegen van de avatar."
 
 #. TRANS: Exception thrown when creating a remote profile fails in OAuth store.
 msgid "Error inserting remote profile."
-msgstr "Fout bij het invoegen van het profiel van een andere server."
+msgstr "Fout bij het toevoegen van het externe profiel."
 
 #. TRANS: Exception thrown when a notice is denied because it has been sent before.
 msgid "Duplicate notice."
@@ -9420,15 +9404,13 @@ msgid "No oEmbed API endpoint available."
 msgstr "Er is geen API-eindpunt beschikbaar."
 
 #. TRANS: Field label for list.
-#, fuzzy
 msgctxt "LABEL"
 msgid "List"
 msgstr "Lijst"
 
 #. TRANS: Field title for list.
-#, fuzzy
 msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
-msgstr "Wijzigen het label (letters, cijfers, -, ., en _ zijn toegestaan)."
+msgstr "Lijst wijzigen (letters, cijfers, -, ., en _ zijn toegestaan)."
 
 #. TRANS: Field title for description of list.
 msgid "Describe the list or topic."
@@ -9552,16 +9534,14 @@ msgid "Lists by %s."
 msgstr "Lijsten van %s."
 
 #. TRANS: Label in lists widget.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Your lists"
-msgstr "Populaire lijsten"
+msgstr "Uw lijsten"
 
 #. TRANS: Fieldset legend in lists widget.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Edit lists"
-msgstr "Lijst %s bewerken"
+msgstr "Lijsten bewerken"
 
 #. TRANS: Label in self tags widget.
 msgctxt "LABEL"
@@ -10193,15 +10173,15 @@ msgstr "Kies een veld om te doorzoeken."
 
 #. TRANS: Form legend.
 #. TRANS: %1$s is a nickname, $2$s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Remove %1$s from list %2$s"
-msgstr "Lijst %1$s van %2$s"
+msgstr "%1$s uit de lijst %2$s verwijderen"
 
 #. TRANS: Legend on form to add a profile to a list.
 #. TRANS: %1$s is a nickname, %2$s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Add %1$s to list %2$s"
-msgstr "Lijst %1$s van %2$s"
+msgstr "%1$s aan de lijst %2$s toevoegen"
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -10345,45 +10325,3 @@ msgstr "Ongeldige XML. De XRD-root mist."
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr "De back-up wordt uit het bestand \"%s\" geladen."
-
-#~ msgid "No such people tag."
-#~ msgstr "Onbekend persoonslabel."
-
-#~ msgid "Public people tag %s"
-#~ msgstr "Openbaar persoonslabel %s"
-
-#~ msgid "Subscribers of people tagged %1$s by %2$s"
-#~ msgstr "Abonnees op mensen met het label %1$s door %2$s"
-
-#~ msgid "Public people tag cloud"
-#~ msgstr "Woordwolk voor openbare persoonslabels"
-
-#~ msgid "These are most used people tags on %s"
-#~ msgstr "Dit zijn de meest gebruikte persoonslabels op %s"
-
-#~ msgid "People tag cloud"
-#~ msgstr "Personenwoordwolk"
-
-#~ msgid "Tag %s"
-#~ msgstr "Label %s"
-
-#~ msgid "Tag user"
-#~ msgstr "Gebruiker labelen"
-
-#~ msgctxt "LABEL"
-#~ msgid "Tag"
-#~ msgstr "Label"
-
-#~ msgctxt "LABEL"
-#~ msgid "Tags by you"
-#~ msgstr "Uw labels"
-
-#~ msgctxt "LEGEND"
-#~ msgid "Edit tags"
-#~ msgstr "Labels bewerken"
-
-#~ msgid "Untag %1$s as %2$s"
-#~ msgstr "Label %2$s van %1$s verwijderen"
-
-#~ msgid "Tag %1$s as %2$s"
-#~ msgstr "Label %2$s aan %1$s toevoegen"

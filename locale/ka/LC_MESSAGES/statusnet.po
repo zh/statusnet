@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
-"PO-Revision-Date: 2011-04-17 18:19:39+0000\n"
+"POT-Creation-Date: 2011-04-18 11:21+0000\n"
+"PO-Revision-Date: 2011-04-18 11:24:32+0000\n"
 "Language-Team: Georgian <http://translatewiki.net/wiki/Portal:ka>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86294); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ka\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
+"X-POT-Import-Date: 2011-04-17 22:40:29+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -156,30 +156,33 @@ msgstr "ასეთი პროფილი არ არსებობს."
 msgid "No such list."
 msgstr "ასეთი სანიშნე არ არსებობს."
 
-#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
+#. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
 #, fuzzy
-msgid "You cannot tag an OMB 0.1 remote profile with this action."
+msgid "You cannot list an OMB 0.1 remote profile with this action."
 msgstr ""
 "თქვენ არ შეგიძლიათ გამოიწეროთ 0მბ-იანი 0.1 დაშორებული პროფილი ამ მოქმედებით."
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
+#. TRANS: %s is a username.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a username.
 #, php-format
-msgid "There was an unexpected error while tagging %s."
+msgid "There was an unexpected error while listing %s."
 msgstr ""
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
 #, php-format
 msgid ""
-"There was a problem tagging %s. The remote server is probably not responding "
-"correctly, please try retrying later."
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly. Please try retrying later."
 msgstr ""
 
-#. TRANS: Title after subscribing to a list.
-#. TRANS: Page title when subscription succeeded.
-msgid "Subscribed"
-msgstr "გამოწერილია"
+#. TRANS: Title after adding a user to a list.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Listed"
+msgstr "ლიცენზია"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -5135,17 +5138,11 @@ msgstr "ეს ადგილობრივი პროფილია! შ�
 msgid "Could not get a request token."
 msgstr "შეტყობინების ჩასმა ვერ მოხერხდა."
 
-#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
+#. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
 #, fuzzy
-msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
+msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
 msgstr ""
 "თქვენ არ შეგიძლიათ გამოიწეროთ 0მბ-იანი 0.1 დაშორებული პროფილი ამ მოქმედებით."
-
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#, php-format
-msgid "There was an unexpected error while listing %s."
-msgstr ""
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
@@ -5156,8 +5153,9 @@ msgid ""
 msgstr ""
 
 #. TRANS: Title after removing a user from a list.
-msgid "Untagged"
-msgstr ""
+#, fuzzy
+msgid "Unlisted"
+msgstr "ლიცენზია"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -6213,6 +6211,10 @@ msgstr "ამ ჯგუფის წევრების სია."
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
 "თქვენ არ შეგიძლიათ გამოიწეროთ 0მბ-იანი 0.1 დაშორებული პროფილი ამ მოქმედებით."
+
+#. TRANS: Page title when subscription succeeded.
+msgid "Subscribed"
+msgstr "გამოწერილია"
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
 #, fuzzy
@@ -10458,47 +10460,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#, fuzzy
-#~ msgid "No such people tag."
-#~ msgstr "ასეთი სანიშნე არ არსებობს."
-
-#, fuzzy
-#~ msgid "Public people tag %s"
-#~ msgstr "საჯარო განახლებების ნაკადი, გვერდი %d"
-
-#, fuzzy
-#~ msgid "Public people tag cloud"
-#~ msgstr "საჯარო სანიშნეების ღრუბელი."
-
-#, fuzzy
-#~ msgid "These are most used people tags on %s"
-#~ msgstr "ეს არის ყველაზე პოპულარული სანიშნეები %s–ზე "
-
-#, fuzzy
-#~ msgid "People tag cloud"
-#~ msgstr "საჯარო სანიშნეების ღრუბელი."
-
-#~ msgid "Tag %s"
-#~ msgstr "სანიშნე %s"
-
-#~ msgid "Tag user"
-#~ msgstr "მონიშნე მომხმარებელი"
-
-#, fuzzy
-#~ msgctxt "LABEL"
-#~ msgid "Tag"
-#~ msgstr "სანიშნე"
-
-#, fuzzy
-#~ msgctxt "LEGEND"
-#~ msgid "Edit tags"
-#~ msgstr "რედაქტირება"
-
-#, fuzzy
-#~ msgid "Untag %1$s as %2$s"
-#~ msgstr "%1$s - %2$s"
-
-#, fuzzy
-#~ msgid "Tag %1$s as %2$s"
-#~ msgstr "RT @%1$s %2$s"

@@ -309,6 +309,7 @@ class Action extends HTMLOutputter // lawsuit
                     $this->script('jquery.cookie.min.js');
                     $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.min.js').'"); }');
                     $this->script('jquery.joverlay.min.js');
+                    $this->script('jquery.infieldlabel.min.js');
                 } else {
                     $this->script('jquery.js');
                     $this->script('jquery.form.js');
@@ -316,6 +317,7 @@ class Action extends HTMLOutputter // lawsuit
                     $this->script('jquery.cookie.js');
                     $this->inlineScript('if (typeof window.JSON !== "object") { $.getScript("'.common_path('js/json2.js').'"); }');
                     $this->script('jquery.joverlay.js');
+                    $this->script('jquery.infieldlabel.js');
                 }
 
                 Event::handle('EndShowJQueryScripts', array($this));

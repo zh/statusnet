@@ -116,10 +116,12 @@ class BookmarkForm extends Form
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->out->input('url',
+        $this->out->input('bookmark-url',
                           // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','URL'),
-                          $this->_url);
+                          $this->_url,
+                          null,
+                          'url');
         $this->unli();
 
         list($width, $height) = $this->scaleImage($this->_thumbnail->width,
@@ -128,31 +130,37 @@ class BookmarkForm extends Form
         if (!empty($this->_thumbnail)) {
             $this->out->element('img',
                                 array('src' => $this->_thumbnail->url,
+                                      'class' => 'bookmarkform-thumbnail',
                                       'width' => $width,
                                       'height' => $height));
         }
 
         $this->li();
-        $this->out->input('title',
+        $this->out->input('bookmark-title',
                           // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','Title'),
-                          $this->_title);
+                          $this->_title,
+                          null,
+                          'title');
         $this->unli();
 
         $this->li();
-        $this->out->textarea('description',
+        $this->out->textarea('bookmark-description',
                              // TRANS: Field label on form for adding a new bookmark.
                              _m('LABEL','Notes'),
-                             $this->_description);
+                             $this->_description,
+                             null,
+                             'description');
         $this->unli();
 
         $this->li();
-        $this->out->input('tags',
+        $this->out->input('bookmark-tags',
                           // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','Tags'),
                           $this->_tags,
                           // TRANS: Field title on form for adding a new bookmark.
-                          _m('Comma- or space-separated list of tags.'));
+                          _m('Comma- or space-separated list of tags.'),
+                          'tags');
         $this->unli();
 
         $this->out->elementEnd('ul');
@@ -174,7 +182,7 @@ class BookmarkForm extends Form
     function formActions()
     {
         // TRANS: Button text for action to save a new bookmark.
-        $this->out->submit('submit', _m('BUTTON', 'Save'));
+        $this->out->submit('bookmark-submit', _m('BUTTON', 'Save'), 'submit', 'submit');
     }
 
     function scaleImage($width, $height)

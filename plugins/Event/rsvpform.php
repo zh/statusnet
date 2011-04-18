@@ -96,7 +96,7 @@ class RSVPForm extends Form
         // TRANS: Field label on form to RSVP ("please respond") for an event.
         $this->out->text(_m('RSVP:'));
 
-        $this->out->hidden('event', $this->event->id);
+        $this->out->hidden('event-id', $this->event->id, 'event');
         $this->out->hidden('submitvalue', '');
 
         $this->out->elementEnd('fieldset');
@@ -119,12 +119,17 @@ class RSVPForm extends Form
 
     function submitButton($id, $label)
     {
-        $this->out->element('input', array('type' => 'submit',
-                                           'id' => $id,
-                                           'name' => $id,
-                                           'class' => 'submit',
-                                           'value' => $label,
-                                           'title' => $label,
-                                           'onClick' => 'this.form.submitvalue.value = this.name; return true;'));
+        $this->out->element(
+            'input',
+                array(
+                    'type'    => 'submit',
+                    'id'      => 'rsvp-submit',
+                    'name'    => $id,
+                    'class'   => 'submit',
+                    'value'   => $label,
+                    'title'   => $label,
+                    'onClick' => 'this.form.submitvalue.value = this.name; return true;'
+            )
+        );
     }
 }

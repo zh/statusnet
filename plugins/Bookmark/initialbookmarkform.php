@@ -73,10 +73,12 @@ class InitialBookmarkForm extends Form
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->out->input('url',
+        $this->out->input('initial-bookmark-url',
                           // TRANS: Field label on form for adding a new bookmark.
                           _m('LABEL','URL'),
-                          null);
+                          null,
+                          null,
+                          'url');
         $this->unli();
 
         $this->out->elementEnd('ul');
@@ -86,6 +88,6 @@ class InitialBookmarkForm extends Form
     function formActions()
     {
         // TRANS: Button text for action to save a new bookmark.
-        $this->out->submit('submit', _m('BUTTON', 'Add'));
+        $this->out->submit('initial-bookmark-submit', _m('BUTTON', 'Add'), 'submit', 'submit');
     }
 }

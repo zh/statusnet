@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
-"PO-Revision-Date: 2011-04-17 18:19:44+0000\n"
+"POT-Creation-Date: 2011-04-18 11:21+0000\n"
+"PO-Revision-Date: 2011-04-18 11:24:36+0000\n"
 "Language-Team: Malayalam <http://translatewiki.net/wiki/Portal:ml>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-17 22:40:29+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86294); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ml\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -156,28 +156,31 @@ msgstr ""
 msgid "No such list."
 msgstr "അത്തരത്തിൽ ഒരു റ്റാഗില്ല."
 
-#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
-msgid "You cannot tag an OMB 0.1 remote profile with this action."
+#. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
+msgid "You cannot list an OMB 0.1 remote profile with this action."
 msgstr ""
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
+#. TRANS: %s is a username.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a username.
 #, php-format
-msgid "There was an unexpected error while tagging %s."
+msgid "There was an unexpected error while listing %s."
 msgstr ""
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
 #, php-format
 msgid ""
-"There was a problem tagging %s. The remote server is probably not responding "
-"correctly, please try retrying later."
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly. Please try retrying later."
 msgstr ""
 
-#. TRANS: Title after subscribing to a list.
-#. TRANS: Page title when subscription succeeded.
-msgid "Subscribed"
-msgstr ""
+#. TRANS: Title after adding a user to a list.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Listed"
+msgstr "അനുമതി"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -4957,14 +4960,8 @@ msgstr "വരിക്കാരനാകുന്നതിൽ നിന്ന�
 msgid "Could not get a request token."
 msgstr "അഭ്യർത്ഥനാ ചീട്ട് ലഭ്യമാക്കാനായില്ല."
 
-#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
-msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
-msgstr ""
-
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#, php-format
-msgid "There was an unexpected error while listing %s."
+#. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
+msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
 msgstr ""
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
@@ -4976,8 +4973,9 @@ msgid ""
 msgstr ""
 
 #. TRANS: Title after removing a user from a list.
-msgid "Untagged"
-msgstr ""
+#, fuzzy
+msgid "Unlisted"
+msgstr "അനുമതി"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -6004,6 +6002,10 @@ msgstr "ഈ സംഘത്തിലെ ഉപയോക്താക്കളു�
 
 #. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr ""
+
+#. TRANS: Page title when subscription succeeded.
+msgid "Subscribed"
 msgstr ""
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
@@ -10079,39 +10081,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#, fuzzy
-#~ msgid "No such people tag."
-#~ msgstr "അത്തരത്തിൽ ഒരു റ്റാഗില്ല."
-
-#, fuzzy
-#~ msgid "These are most used people tags on %s"
-#~ msgstr "സമീപകാലത്ത് %s സൈറ്റിൽ ഏറ്റവും ജനപ്രിയമായ റ്റാഗുകൾ"
-
-#, fuzzy
-#~ msgid "People tag cloud"
-#~ msgstr "ഉപയോക്താക്കളെ തിരയുക"
-
-#~ msgid "Tag %s"
-#~ msgstr "റ്റാഗ് %s"
-
-#~ msgid "Tag user"
-#~ msgstr "ഉപയോക്താവിനെ റ്റാഗ് ചെയ്യുക"
-
-#, fuzzy
-#~ msgctxt "LABEL"
-#~ msgid "Tag"
-#~ msgstr "റ്റാഗ്"
-
-#, fuzzy
-#~ msgctxt "LEGEND"
-#~ msgid "Edit tags"
-#~ msgstr "തിരുത്തുക"
-
-#, fuzzy
-#~ msgid "Untag %1$s as %2$s"
-#~ msgstr "%1$s, താൾ %2$d"
-
-#, fuzzy
-#~ msgid "Tag %1$s as %2$s"
-#~ msgstr "%1$s, താൾ %2$d"

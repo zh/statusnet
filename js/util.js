@@ -236,10 +236,11 @@ var SN = { // StatusNet
          * @fixme can't submit file uploads
          *
          * @param {jQuery} form: jQuery object whose first element is a form
+         * @param function onSuccess: something extra to do on success
          *
          * @access public
          */
-        FormXHR: function(form) {
+        FormXHR: function(form, onSuccess) {
             $.ajax({
                 type: 'POST',
                 dataType: 'xml',
@@ -274,9 +275,15 @@ var SN = { // StatusNet
                     if (typeof($('form', data)[0]) != 'undefined') {
                         form_new = document._importNode($('form', data)[0], true);
                         form.replaceWith(form_new);
+                        if (onSuccess) {
+                            onSuccess();
+                        }
                     }
                     else if (typeof($('p', data)[0]) != 'undefined') {
                         form.replaceWith(document._importNode($('p', data)[0], true));
+                        if (onSuccess) {
+                            onSuccess();
+                        }
                     }
                     else {
                         alert('Unknown error.');
@@ -643,8 +650,14 @@ var SN = { // StatusNet
                 // and we'll add on the end of it. Will add if needed.
                 list = $('ul.threaded-replies', notice);
                 if (list.length == 0) {
+                    console.log("list = 0");
                     SN.U.NoticeInlineReplyPlaceholder(notice);
                     list = $('ul.threaded-replies', notice);
+                } else {
+                    var placeholder = $('li.notice-reply-placeholder', notice);
+                    if (placeholder.length == 0) {
+                        SN.U.NoticeInlineReplyPlaceholder(notice);
+                    }
                 }
             }
 
@@ -1408,7 +1421,7 @@ var SN = { // StatusNet
                     var form = $(this);
                     SN.Init.NoticeFormSetup(form);
                 })
-                .find('textarea:first').focus();
+                .find('.notice_data-text').focus();
 	}
     },
 
@@ -1467,6 +1480,10 @@ var SN = { // StatusNet
                         });
                     }
                 });
+
+                // Infield labels for notice form inputs.
+                $('.input_forms fieldset fieldset label').inFieldLabels({ fadeOpacity:0 });
+
             }
         },
 

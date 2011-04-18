@@ -114,8 +114,9 @@ class QnashowquestionForm extends Form
     function formData()
     {
         $this->out->hidden(
-            'id',
-            'question-' . $this->question->id
+            'qna-quesiton-id',
+            'question-' . $this->question->id,
+            'id'
         );
 
         $this->out->raw($this->question->asHTML());
@@ -136,11 +137,11 @@ class QnashowquestionForm extends Form
         if (empty($this->question->closed)) {
             if ($user->id == $this->question->profile_id) {
              $this->out->submit(
-                'close',
+                'qna-question-close',
                 // TRANS: Button text for closing a question
                 _m('BUTTON', 'Close'),
                 'submit',
-                null,
+                'submit',
                 // TRANS: Title for button text for closing a question
                 _('Close the question')
              );

@@ -121,8 +121,9 @@ class QnashowanswerForm extends Form
     function formData()
     {
         $this->out->hidden(
-            'id',
-            'answer-' . $this->answer->id
+            'qna-answer-id',
+            'answer-' . $this->answer->id,
+            'id'
         );
 
         $this->out->raw($this->answer->asHTML());
@@ -144,11 +145,11 @@ class QnashowanswerForm extends Form
             if ($user->id == $this->question->profile_id) {
                 if (empty($this->answer->best)) {
                     $this->out->submit(
-                        'best',
+                        'qna-best-answer',
                         // TRANS: Button text for marking an answer as "best"
                         _m('BUTTON', 'Best'),
                         'submit',
-                        null,
+                        'submit',
                         // TRANS: Title for button text marking an answer as "best"
                         _('Mark as best answer')
                     );

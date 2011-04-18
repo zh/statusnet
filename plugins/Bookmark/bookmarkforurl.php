@@ -67,7 +67,6 @@ class BookmarkforurlAction extends Action
         }
 
         $this->checkSessionToken();
-
         $this->url = $this->trimmed('url');
 
         if (empty($this->url)) {

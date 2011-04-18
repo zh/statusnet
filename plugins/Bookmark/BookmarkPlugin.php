@@ -130,6 +130,11 @@ class BookmarkPlugin extends MicroAppPlugin
         return true;
     }
 
+    function onEndShowScripts($action)
+    {
+        $action->script($this->path('js/bookmark.js'));
+        return true;
+    }
     /**
      * Load related modules when needed
      *

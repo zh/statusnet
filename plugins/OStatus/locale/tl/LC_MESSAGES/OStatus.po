@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
-"PO-Revision-Date: 2011-04-17 18:21:51+0000\n"
+"POT-Creation-Date: 2011-04-18 11:22+0000\n"
+"PO-Revision-Date: 2011-04-18 11:23:52+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-16 23:18:41+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-17 22:40:41+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86294); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -126,13 +126,11 @@ msgid "Follow list"
 msgstr "Sundan ang talaan"
 
 #. TRANS: Exception thrown when subscription to remote list fails.
-#, fuzzy
 msgid "Failed subscribing to remote list."
-msgstr "Nabigo sa pagpapasipi sa malayong tatak ng mga tao."
+msgstr "Nabigo sa pagpapasipi sa malayong talaan."
 
-#, fuzzy
 msgid "Unfollow list"
-msgstr "Sundan ang talaan"
+msgstr "Huwag sundan ang talaan"
 
 #, php-format
 msgid "%1$s stopped following the list %2$s by %3$s."
@@ -245,11 +243,9 @@ msgstr ""
 "Hindi katanggap-tanggap na hub.topic na \"%s\". Hindi umiiral ang pangkat."
 
 #. TRANS: Client exception. %s is a feed URL.
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid hub.topic %s; list does not exist."
-msgstr ""
-"Hindi katanggap-tanggap na hub.topic na \"%s\"; hindi umiiral ang tatak ng "
-"mga tao."
+msgstr "Hindi katanggap-tanggap na hub.topic na %s; hindi umiiral ang talaan."
 
 #. TRANS: Client exception.
 #. TRANS: %1$s is this argument to the method this exception occurs in, %2$s is a URL.
@@ -289,9 +285,8 @@ msgstr "Hindi makita ang balangkas ng akawnt ng OStatus."
 msgid "Could not confirm remote profile address."
 msgstr "Hindi matiyak ang malayong tirahan ng balangkas."
 
-#, fuzzy
 msgid "OStatus list"
-msgstr "Tatak ng mga tao sa OStatus"
+msgstr "Talaan ng OStatus"
 
 msgid "Empty or invalid feed id."
 msgstr "Walang laman o hindi katanggap-tanggap na ID ng pasubo."
@@ -482,27 +477,23 @@ msgstr "Hindi nalalaman ang pabatid na may ID na %s."
 msgid "Notice with ID %1$s not posted by %2$s."
 msgstr "Hindi ipinaskil ni %2$s ang pabatid na may ID na %1$s."
 
-#, fuzzy
 msgid "Subscribe to list"
-msgstr "Tumanggap ng sipi mula sa %s"
+msgstr "Tumanggap ng sipi mula sa talaan"
 
-#, fuzzy
 msgid "Address of the OStatus list, like http://example.net/user/all/tag"
 msgstr ""
-"Tirahan ng tatak ng mga pangkat ng OStatus, katulad ng http://example.net/"
-"user/all/tag"
+"Tirahan ng tatak ng talaan ng OStatus, katulad ng http://example.net/user/"
+"all/tag"
 
 msgid "Continue"
 msgstr "Ipagpatuloy"
 
-#, fuzzy
 msgid "You are already subscribed to this list."
-msgstr "Tumatanggap ka na ng sipi mula sa tagagamit na ito."
+msgstr "Tumatanggap ka na ng sipi mula sa talaang ito."
 
 #. TRANS: Page title for OStatus remote list subscription form
-#, fuzzy
 msgid "Confirm subscription to remote list"
-msgstr "Tiyakin ang pagsali sa tatak ng malalayong mga tao"
+msgstr "Tiyakin ang pagpapasipi sa malayong talaan"
 
 #. TRANS: Instructions for OStatus list subscription form.
 msgid ""
@@ -593,9 +584,9 @@ msgid "Join"
 msgstr "Sumali"
 
 #. TRANS: Form legend. %1$s is a list, %2$s is a tagger's name.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribe to list %1$s by %2$s"
-msgstr "Makisipi sa mga taong natatakan ni %2$s ng %1$s"
+msgstr "Magpasipi sa talaang %1$s ni %2$s"
 
 #. TRANS: Button text to subscribe to a list.
 #. TRANS: Button text to subscribe to a profile.
@@ -630,7 +621,7 @@ msgstr "Dapat na magbigay ng isang malayong balangkas."
 
 #. TRANS: Client error.
 msgid "No local user or group nickname provided."
-msgstr ""
+msgstr "Walang ibinigay na palayaw ng katutubong tagagamit o pangkat."
 
 #. TRANS: Page title.
 msgid "OStatus Connect"
@@ -729,11 +720,10 @@ msgid "Unable to fetch avatar from %s."
 msgstr "Hindi nagawang damputin ang huwaran mula sa %s."
 
 msgid "No author ID URI found."
-msgstr ""
+msgstr "Walang natagpuang URI ng ID ng may-akda."
 
-#, fuzzy
 msgid "No profile URI."
-msgstr "Malayong balangkas"
+msgstr "Walang URI ng balangkas."
 
 #. TRANS: Exception.
 msgid "Local user cannot be referenced as remote."
@@ -743,17 +733,15 @@ msgstr "Hindi masanggunian bilang malayo ang katutubong tagagamit."
 msgid "Local group cannot be referenced as remote."
 msgstr "Hindi masanggunian bilang malayo ang katutubong pangkat."
 
-#, fuzzy
 msgid "Local list cannot be referenced as remote."
-msgstr "Hindi masanggunian bilang malayo ang katutubong tagagamit."
+msgstr "Hindi masanggunian bilang malayo ang katutubong talaan."
 
 #. TRANS: Server exception.
 msgid "Cannot save local profile."
 msgstr "Hindi masagip ang katutubong balangkas."
 
-#, fuzzy
 msgid "Cannot save local list."
-msgstr "Hindi masagip ang katutubong balangkas."
+msgstr "Hindi masagip ang katutubong talaan."
 
 #. TRANS: Server exception.
 msgid "Cannot save OStatus profile."
@@ -769,9 +757,9 @@ msgid "Could not save profile for \"%s\"."
 msgstr "Hindi masagip ang balangkas para sa \"%s\"."
 
 #. TRANS: Exception. %s is a webfinger address.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not save OStatus profile for \"%s\"."
-msgstr "Hindi masagip ang ostatus_profile para sa \"%s\"."
+msgstr "Hindi masagip ang balangkas ng Ostatus para sa \"%s\"."
 
 #. TRANS: Exception. %s is a webfinger address.
 #, php-format
@@ -882,12 +870,3 @@ msgstr ""
 #. TRANS: Exception.
 msgid "Received a salmon slap from unidentified actor."
 msgstr "Tumanggap ng isang sampal ng salmon mula sa hindi nakikilalang aktor."
-
-#~ msgid "Unfollow people tag"
-#~ msgstr "Huwag sundan ang tatak ng mga tao"
-
-#~ msgid "Subscribe to people tag"
-#~ msgstr "Tumanggap ng sipi mula sa tatak ng mga tao"
-
-#~ msgid "You are already subscribed to this people tag."
-#~ msgstr "Tumatanggap ka na ng sipi mula sa tatak na ito ng mga tao."

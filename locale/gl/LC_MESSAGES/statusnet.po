@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-17 18:17+0000\n"
-"PO-Revision-Date: 2011-04-17 18:19:31+0000\n"
+"POT-Creation-Date: 2011-04-18 11:21+0000\n"
+"PO-Revision-Date: 2011-04-18 11:24:25+0000\n"
 "Language-Team: Galician <http://translatewiki.net/wiki/Portal:gl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86268); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86294); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: gl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-16 23:17:06+0000\n"
+"X-POT-Import-Date: 2011-04-17 22:40:29+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -159,29 +159,32 @@ msgstr "Non existe ese perfil."
 msgid "No such list."
 msgstr "Esa etiqueta non existe."
 
-#. TRANS: Client error displayed trying to tag an OMB 0.1 remote profile.
+#. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
 #, fuzzy
-msgid "You cannot tag an OMB 0.1 remote profile with this action."
+msgid "You cannot list an OMB 0.1 remote profile with this action."
 msgstr "Non se pode subscribir a un perfil remoto OMB 0.1 con esta acción."
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
+#. TRANS: %s is a username.
+#. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a username.
 #, php-format
-msgid "There was an unexpected error while tagging %s."
+msgid "There was an unexpected error while listing %s."
 msgstr ""
 
-#. TRANS: Client error displayed when an unknown error occurs while tagging a user.
+#. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
 #, php-format
 msgid ""
-"There was a problem tagging %s. The remote server is probably not responding "
-"correctly, please try retrying later."
+"There was a problem listing %s. The remote server is probably not responding "
+"correctly. Please try retrying later."
 msgstr ""
 
-#. TRANS: Title after subscribing to a list.
-#. TRANS: Page title when subscription succeeded.
-msgid "Subscribed"
-msgstr "Subscrito"
+#. TRANS: Title after adding a user to a list.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Listed"
+msgstr "Licenza"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -5199,16 +5202,10 @@ msgstr "Ese é un perfil local! Identifíquese para subscribirse."
 msgid "Could not get a request token."
 msgstr "Non se puido obter o pase solicitado."
 
-#. TRANS: Client error displayed when trying to (un)tag an OMB 0.1 remote profile.
+#. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
 #, fuzzy
-msgid "You cannot tag or untag an OMB 0.1 remote profile with this action."
+msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
 msgstr "Non se pode subscribir a un perfil remoto OMB 0.1 con esta acción."
-
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#, php-format
-msgid "There was an unexpected error while listing %s."
-msgstr ""
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
@@ -5219,8 +5216,9 @@ msgid ""
 msgstr ""
 
 #. TRANS: Title after removing a user from a list.
-msgid "Untagged"
-msgstr ""
+#, fuzzy
+msgid "Unlisted"
+msgstr "Licenza"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -6306,6 +6304,10 @@ msgstr "Unha lista dos usuarios pertencentes a este grupo."
 #. TRANS: Client error displayed trying to subscribe to an OMB 0.1 remote profile.
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr "Non se pode subscribir a un perfil remoto OMB 0.1 con esta acción."
+
+#. TRANS: Page title when subscription succeeded.
+msgid "Subscribed"
+msgstr "Subscrito"
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
 #, fuzzy
@@ -10623,47 +10625,3 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
-
-#, fuzzy
-#~ msgid "No such people tag."
-#~ msgstr "Esa etiqueta non existe."
-
-#, fuzzy
-#~ msgid "Public people tag %s"
-#~ msgstr "Liña do tempo pública, páxina %d"
-
-#, fuzzy
-#~ msgid "Public people tag cloud"
-#~ msgstr "Nube de etiquetas públicas"
-
-#, fuzzy
-#~ msgid "These are most used people tags on %s"
-#~ msgstr "Estas son as etiquetas máis populares en %s "
-
-#, fuzzy
-#~ msgid "People tag cloud"
-#~ msgstr "Nube de etiquetas públicas"
-
-#~ msgid "Tag %s"
-#~ msgstr "Etiqueta %s"
-
-#~ msgid "Tag user"
-#~ msgstr "Etiquetar ao usuario"
-
-#, fuzzy
-#~ msgctxt "LABEL"
-#~ msgid "Tag"
-#~ msgstr "Etiqueta"
-
-#, fuzzy
-#~ msgctxt "LEGEND"
-#~ msgid "Edit tags"
-#~ msgstr "Modificar"
-
-#, fuzzy
-#~ msgid "Untag %1$s as %2$s"
-#~ msgstr "%1$s - %2$s"
-
-#, fuzzy
-#~ msgid "Tag %1$s as %2$s"
-#~ msgstr "RT @%1$s %2$s"
