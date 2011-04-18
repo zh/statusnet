@@ -84,6 +84,20 @@ class EmailRegistrationPlugin extends Plugin
         return true;
     }
 
+    function onStartLoadDoc(&$title, &$output)
+    {
+        $dir = dirname(__FILE__);
+
+        $docFile = DocFile::forTitle($title, $dir.'/doc-src/');
+
+        if (!empty($docFile)) {
+            $output = $docFile->toHTML();
+            return false;
+        }
+
+        return true;
+    }
+
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'EmailRegistration',
