@@ -483,7 +483,7 @@ class StompQueueManager extends QueueManager
 
         if ($message === false) {
             $this->_log(LOG_ERR, "Can't unserialize frame: {$frame->body}");
-            $this->stats('baditem', $queue);
+            $this->_log(LOG_ERR, "Unserializable frame length: " . strlen($frame->body));
             return false;
         }
 
