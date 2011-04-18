@@ -28,6 +28,7 @@ var QnA = {
         $('form.form_answer_show').live('click', function() {
             QnA.close(this);
         });
+        
     },
 
     /**
@@ -39,7 +40,7 @@ var QnA = {
         // Find the notice we're replying to...
         var id = $($('.notice_id', notice)[0]).text();
 
-        console.log("NoticeInlineAnswerTrigger - replying to notice " + id);
+        console.log("NoticeInlineAnswerTrigger - answering notice " + id);
 
         var parentNotice = notice;
 
@@ -51,7 +52,7 @@ var QnA = {
             // We're replying to a reply; use reply form on the end of this list.
             // We'll add our form at the end of this; grab the root notice.
             parentNotice = list.closest('.notice');
-            console.log("NoticeInlineAnswerTrigger - trying to find the closed .notice above me");
+            console.log("NoticeInlineAnswerTrigger - trying to find the closest .notice above me");
             if (parentNotice.length > 0) {
                 console.log("NoticeInlineAnswerTrigger - found that closest .notice - length = " + parentNotice.length);
             }
@@ -65,8 +66,25 @@ var QnA = {
         // See if the form's already open...
         var answerForm = $('.qna_answer_form', list);
 
+        var hideReplyPlaceholders = function(notice) {
+            // Do we still have a dummy answer placeholder? If so get rid of
+            // reply place holders for this question. If the current user hasn't
+            // answered the question we want to direct her to providing an
+            // answer. She can still reply by hitting the reply button if she
+            // really wants to.
+            var dummyAnswer = $('ul.qna-dummy', notice);
+            if (dummyAnswer.length > 0) {
+                console.log("hiding any reply placeholders");
+                notice.find('li.notice-reply-placeholder').hide();
+            }
+        }
+
+
         var nextStep = function() {
             console.log("NoticeInlineAnswerTrigger (nextStep) - begin");
+
+            var dummyAnswer = $('ul.qna-dummy', notice);
+            dummyAnswer.hide();
 
              // Set focus...
             var text = answerForm.find('textarea');
@@ -81,14 +99,7 @@ var QnA = {
             $('body').click(function(e) {
                 console.log("body click handler - got click");
 
-                // hide any reply placeholders if the notice has an answer placeholder
-                var dummyPlaceholders = $('li.qna-dummy-placeholder');
-                if (dummyPlaceholders.length > 0) {
-                    console.log("found dummy placholder so hiding reply placeholder");
-                    dummyPlaceholders.each(function() {
-                        $(this).closest('li.notice').find('li.notice-reply-placeholder').hide();
-                    });
-                }
+                hideReplyPlaceholders(notice);
 
                 var openAnswers = $('li.notice-answer');
                     if (openAnswers.length > 0) {
@@ -100,8 +111,7 @@ var QnA = {
                             // Did we click outside this one?
                             var answerItem = $(this);
                             var parentNotice = answerItem.closest('li.notice');
-                            parentNotice.find('ul > li.qna-dummy-placeholder').hide();
-
+                            
                             if (answerItem.has(e.target).length == 0) {
                                 var textarea = answerItem.find('.notice_data-text:first');
                                 var cur = $.trim(textarea.val());
@@ -110,7 +120,7 @@ var QnA = {
                                     console.log("body click handler - no text in answer form, closing it");
                                     answerItem.remove();
                                     console.log("body click handler - showing dummy placeholder");
-                                    parentNotice.find('ul > li.qna-dummy-placeholder').show();
+                                    dummyAnswer.show();
                                     
                                 } else {
                                     console.log("body click handler - there is text in the answer form, wont close it");
@@ -130,7 +140,7 @@ var QnA = {
             nextStep();
         } else {
 
-            console.log("NoticeInlineAnswerTrigger - hiding the answer placeholder");
+            console.log("NoticeInlineAnswerTrigger - hiding the dummy placeholder");
             var placeholder = list.find('li.qna-dummy-placeholder').hide();
 
             // Create the answer form entry at the end
@@ -148,18 +158,21 @@ var QnA = {
                  var intermediateStep = function(formMaster) {
 
                      // cache it
-                     if (!QnA.AnswerFormMaster) {
-                         QnA.AnswerFormMaster = formMaster;
-                     }
+                     //if (!QnA.AnswerFormMaster) {
+                     //    QnA.AnswerFormMaster = formMaster;
+                     //}
+
 
                      console.log("NoticeInlineAnswerTrigger - (intermediate) step begin");
                      var formEl = document._importNode(formMaster, true);
 
-               
                      console.log("NoticeInlineAnswerTrigger - (intermediate step) appending answer form to answer item");
+                     $(formEl).data('NoticeFormSetup', true);
+
                      answerItem.append(formEl);
+
                      console.log("NoticeInlineAnswerTrigger - (intermediate step) appending answer to replies list, after placeholder");
-                     list.append(answerItem); // *after* the placeholder
+                     list.prepend(answerItem); // *before* the placeholder
                      var form = answerForm = $(formEl);
                      console.log("NoticeInlineAnswerTrigger - (intermediate step) calling QnA.AnswerFormSetup on the form")
                      QnA.AnswerFormSetup(form);
@@ -204,7 +217,6 @@ var QnA = {
             .live('focus', function() {
                 var notice = $(this).closest('li.notice');
                 QnA.NoticeInlineAnswerTrigger(notice);
-                $(this).hide();
                 return false;
             });
         console.log("NoticeInlineAnswerSetup - exit");
@@ -212,43 +224,29 @@ var QnA = {
 
     AnswerFormSetup: function(form) {
         console.log("AnswerFormSetup");
-          form.find('textarea').focus();
+        form.find('textarea').focus();
 
-        // this is a bad hack
-        $('form.ajax').die();
-        $('form.ajax input[type=submit]').die();
+        if (!form.data('NoticeFormSetup')) {
+            alert('gargargar');
+        }
 
-        form.live('submit', function(e) {
-            QnA.FormAnswerXHR($(this));
-            e.stopPropagation();
-            return false;
-        });
-
-        SN.Init.AjaxForms();
+        if (!form.data('AnswerFormSetup')) {
+            //SN.U.NoticeLocationAttach(form);
+            QnA.FormAnswerXHR(form);
+            //SN.U.FormNoticeEnhancements(form);
+            //SN.U.NoticeDataAttach(form);
+            form.data('NoticeFormSetup', true);
+        }
     },
 
    /**
      * Setup function -- DOES NOT trigger actions immediately.
      *
      * Sets up event handlers for special-cased async submission of the
-     * notice-posting form, including some pre-post validation.
+     * answer-posting form, including some pre-post validation.
      *
-     * Unlike FormXHR() this does NOT submit the form immediately!
-     * It sets up event handlers so that any method of submitting the
-     * form (click on submit button, enter, submit() etc) will trigger
-     * it properly.
-     *
-     * Also unlike FormXHR(), this system will use a hidden iframe
-     * automatically to handle file uploads via <input type="file">
-     * controls.
-     *
-     * @fixme tl;dr
-     * @fixme vast swaths of duplicate code and really long variable names clutter this function up real bad
-     * @fixme error handling is unreliable
-     * @fixme cookieValue is a global variable, but probably shouldn't be
-     * @fixme saving the location cache cookies should be split out
-     * @fixme some error messages are hardcoded english: needs i18n
-     * @fixme special-case for bookmarklet is confusing and uses a global var "self". Is this ok?
+     * @fixme geodata
+     * @fixme refactor and unify with FormNoticeXHR in util.js
      *
      * @param {jQuery} form: jQuery object whose first element is a form
      *
@@ -291,6 +289,7 @@ var QnA = {
         form.ajaxForm({
             dataType: 'xml',
             timeout: '60000',
+
             beforeSend: function(formData) {
                 console.log("FormAnswerXHR - beforeSend");
                 if (form.find('.notice_data-text:first').val() == '') {
@@ -302,9 +301,6 @@ var QnA = {
                     .find('.submit')
                         .addClass(SN.C.S.Disabled)
                         .attr(SN.C.S.Disabled, SN.C.S.Disabled);
-
-                SN.U.normalizeGeoData(form);
-
                 return true;
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -352,32 +348,30 @@ var QnA = {
 
                     var notices = $('#notices_primary .notices:first');
 
-                    console.log("FormAnswerXHR - looking for the closest notice with a notice-reply class");
+                    console.log("FormAnswerXHR - looking for the closest notice with a notice-answer li");
 
-                    var replyItem = form.closest('li.notice-answer, .notice-reply');
+                    var answerItem = form.closest('li.notice-answer');
                     var questionItem = form.closest('li.question');
-                    if (replyItem.length > 0) {
-                        console.log("FormAnswerXHR - I found a reply li to append to");
+                    var dummyAnswer = form.find('ul.qna-dummy').remove();
+
+                    if (answerItem.length > 0) {
+                        console.log("FormAnswerXHR - I found the answer li to append to");
                         // If this is an inline reply, remove the form...
                         console.log("FormAnswerXHR - looking for the closest .threaded-replies ul")
                         var list = form.closest('.threaded-replies');
                         console.log("FormAnswerXHR - search list for the answer placeholder")
-                        var placeholder = list.find('.notice-answer-placeholder');
-                        console.log("FormAnswerXHR - removing reply item");
-
-                        replyItem.remove();
+                       
 
                         var id = $(notice).attr('id');
                         console.log("FormAnswerXHR - the new notice id is: " + id);
+
                         if ($("#"+id).length == 0) {
                             console.log("FormAnswerXHR - the notice is not there already so realtime hasn't inserted it before us");
                             console.log("FormAnswerXHR - inserting new notice before placeholder");
-                            //$(placeholder).removeClass('notice-answer-placeholder').addClass('notice-reply-placeholder');
-                            $(notice).insertBefore(placeholder);
-                            placeholder.remove();
+                            $(notice).insertBefore(answerItem);
+                            answerItem.remove();
 
                             SN.U.NoticeInlineReplyPlaceholder(questionItem);
-
                            
                         } else {
                             // Realtime came through before us...
@@ -428,12 +422,6 @@ var QnA = {
                     .find('.submit')
                         .removeAttr(SN.C.S.Disabled)
                         .removeClass(SN.C.S.Disabled);
-
-                form.find('[name=lat]').val(SN.C.I.NoticeDataGeo.NLat);
-                form.find('[name=lon]').val(SN.C.I.NoticeDataGeo.NLon);
-                form.find('[name=location_ns]').val(SN.C.I.NoticeDataGeo.NLNS);
-                form.find('[name=location_id]').val(SN.C.I.NoticeDataGeo.NLID);
-                form.find('[name=notice_data-geo]').attr('checked', SN.C.I.NoticeDataGeo.NDG);
             }
         });
     }

@@ -169,6 +169,7 @@ class QnanewanswerAction extends Action
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
+            common_debug("not ajax");
             common_redirect($this->question->bestUrl(), 303);
         }
     }

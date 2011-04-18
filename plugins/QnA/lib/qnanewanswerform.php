@@ -81,7 +81,7 @@ class QnanewanswerForm extends Form
      */
     function formClass()
     {
-        return 'form_settings qna_answer_form';
+        return 'form_settings qna_answer_form ajax-notice';
     }
 
     /**

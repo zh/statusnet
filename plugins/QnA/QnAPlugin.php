@@ -463,7 +463,7 @@ class QnAPlugin extends MicroAppPlugin
         $nli = new NoticeListItem($notice, $out);
         $nli->showNotice();
 
-        $out->elementStart('p', array('class' => 'entry-content answer-content'));
+        $out->elementStart('div', array('class' => 'entry-content answer-content'));
 
         if (!empty($answer)) {
             $form = new QnashowanswerForm($out, $answer);
@@ -472,7 +472,7 @@ class QnAPlugin extends MicroAppPlugin
             $out->text(_m('Answer data is missing.'));
         }
 
-        $out->elementEnd('p');
+        $out->elementEnd('div');
 
         // @fixme
         $out->elementStart('div', array('class' => 'entry-content'));
