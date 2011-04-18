@@ -1415,7 +1415,7 @@ var SN = { // StatusNet
                     var form = $(this);
                     SN.Init.NoticeFormSetup(form);
                 })
-                .find('textarea:first').focus();
+                .find('.notice_data-text').focus();
 	}
     },
 
