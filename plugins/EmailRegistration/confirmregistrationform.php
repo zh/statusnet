@@ -94,13 +94,13 @@ class ConfirmRegistrationForm extends Form
 
         $this->elementStart('li');
         // TRANS: Field label on account registration page.
-        $this->password('password', _('Password'),
+        $this->password('password1', _('Password'),
                         // TRANS: Field title on account registration page.
                         _('6 or more characters.'));
         $this->elementEnd('li');
         $this->elementStart('li');
         // TRANS: Field label on account registration page. In this field the password has to be entered a second time.
-        $this->password('confirm', _m('PASSWORD','Confirm'),
+        $this->password('password2', _m('PASSWORD','Confirm'),
                         // TRANS: Field title on account registration page.
                         _('Same as password above.'));
         $this->elementEnd('li');
