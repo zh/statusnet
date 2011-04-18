@@ -57,7 +57,7 @@ class DocFile
 
     static function forTitle($title, $paths)
     {
-        if (is_string($paths)) {
+        if (!is_array($paths)) {
             $paths = array($paths);
         }
 
@@ -66,6 +66,7 @@ class DocFile
         foreach ($paths as $path) {
 
             $def = $path.'/'.$title;
+
             if (!file_exists($def)) {
                 $def = null;
             }
@@ -95,7 +96,7 @@ class DocFile
             $this->contents = file_get_contents($this->filename);
         }
 
-        $this->output = common_markup_to_html($this->contents);
+        return common_markup_to_html($this->contents);
     }
 
     static function defaultPaths()
@@ -108,6 +109,8 @@ class DocFile
         if (!empty($site)) {
             array_unshift($paths, INSTALLDIR.'/local/doc-src/'.$site.'/');
         }
+
+        return $paths;
     }
 
     static function negotiateLanguage($filenames, $defaultFilename=null)
