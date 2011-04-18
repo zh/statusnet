@@ -1931,8 +1931,9 @@ function common_confirmation_code($bits)
 
 // convert markup to HTML
 
-function common_markup_to_html($c)
+function common_markup_to_html($c, $args=null)
 {
+    $c = preg_replace('/%%arg.(\w+)%%/', "{$args['\\1']}", $c);
     $c = preg_replace('/%%user.(\w+)%%/e', "common_user_property('\\1')", $c);
     $c = preg_replace('/%%action.(\w+)%%/e', "common_local_url('\\1')", $c);
     $c = preg_replace('/%%doc.(\w+)%%/e', "common_local_url('doc', array('title'=>'\\1'))", $c);
