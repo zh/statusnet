@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Registration confirmation form
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class ConfirmRegistrationForm extends Form
 {
     protected $code;
@@ -62,15 +61,16 @@ class ConfirmRegistrationForm extends Form
     function formData()
     {
         $this->out->element('p', 'instructions',
-                            sprintf(_('Enter a password to confirm your new account.')));
-                            
+                            // TRANS: Form instructions.
+                            sprintf(_m('Enter a password to confirm your new account.')));
+
         $this->hidden('code', $this->code);
 
         $this->out->elementStart('ul', 'form_data');
 
         $this->elementStart('li');
 
-        $this->element('label', array('for' => 'nickname-ignore'), _('User name'));
+        $this->element('label', array('for' => 'nickname-ignore'), _m('User name'));
 
         $this->element('input', array('name' => 'nickname-ignore',
                                       'type' => 'text',
@@ -82,7 +82,8 @@ class ConfirmRegistrationForm extends Form
 
         $this->elementStart('li');
 
-        $this->element('label', array('for' => 'email-ignore'), _('Email'));
+        // TRANS: Field label.
+        $this->element('label', array('for' => 'email-ignore'), _m('Email address'));
 
         $this->element('input', array('name' => 'email-ignore',
                                       'type' => 'text',
@@ -94,15 +95,15 @@ class ConfirmRegistrationForm extends Form
 
         $this->elementStart('li');
         // TRANS: Field label on account registration page.
-        $this->password('password1', _('Password'),
+        $this->password('password1', _m('Password'),
                         // TRANS: Field title on account registration page.
-                        _('6 or more characters.'));
+                        _m('6 or more characters.'));
         $this->elementEnd('li');
         $this->elementStart('li');
         // TRANS: Field label on account registration page. In this field the password has to be entered a second time.
         $this->password('password2', _m('PASSWORD','Confirm'),
                         // TRANS: Field title on account registration page.
-                        _('Same as password above.'));
+                        _m('Same as password above.'));
         $this->elementEnd('li');
 
         $this->elementStart('li');
@@ -117,12 +118,12 @@ class ConfirmRegistrationForm extends Form
         $this->elementStart('label', array('class' => 'checkbox',
                                            'for' => 'tos'));
 
-
-        $this->raw(sprintf(_('I agree to the <a href="%1$s">Terms of service</a> and '.
+        // TRANS: Checkbox title for terms of service and privacy policy.
+        $this->raw(sprintf(_m('I agree to the <a href="%1$s">Terms of service</a> and '.
                              '<a href="%1$s">Privacy policy</a> of this site.'),
                            common_local_url('doc', array('title' => 'tos')),
                            common_local_url('doc', array('title' => 'privacy'))));
-                           
+
         $this->elementEnd('label');
 
         $this->elementEnd('li');
@@ -146,7 +147,7 @@ class ConfirmRegistrationForm extends Form
 
     function formActions()
     {
-        // TRANS: Button text for action to save a new bookmark.
+        // TRANS: Button text for action to register.
         $this->out->submit('submit', _m('BUTTON', 'Register'));
     }
 

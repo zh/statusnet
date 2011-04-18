@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Register a user by their email address
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -39,10 +39,10 @@ if (!defined('STATUSNET')) {
  *
  * There are four cases where we're called:
  *
- * 1. GET, no arguments. Initial registration; ask for an email address.  
+ * 1. GET, no arguments. Initial registration; ask for an email address.
  * 2. POST, email address argument. Initial registration; send an email to confirm.
  * 3. GET, code argument. Confirming an invitation or a registration; look them up,
- *    create the relevant user if possible, login as that user, and 
+ *    create the relevant user if possible, login as that user, and
  *    show a password-entry form.
  * 4. POST, password argument. After confirmation, set the password for the new
  *    user, and redirect to a registration complete action with some instructions.
@@ -54,7 +54,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class EmailregisterAction extends Action
 {
     const NEWEMAIL = 1;
@@ -95,7 +94,8 @@ class EmailregisterAction extends Action
                 $this->code = $this->trimmed('code');
 
                 if (empty($this->code)) {
-                    throw new ClientException(_('No confirmation code.'));
+                    // TRANS: Client exception thrown when no confirmation code was provided.
+                    throw new ClientException(_m('No confirmation code.'));
                 }
 
                 $this->invitation = Invitation::staticGet('code', $this->code);
@@ -105,13 +105,14 @@ class EmailregisterAction extends Action
                     $this->confirmation = Confirm_address::staticGet('code', $this->code);
 
                     if (empty($this->confirmation)) {
-                        throw new ClientException(_('No such confirmation code.'), 403);
+                        // TRANS: Client exception thrown when given confirmation code was not issued.
+                        throw new ClientException(_m('No such confirmation code.'), 403);
                     }
                 }
 
                 $this->password1 = $this->trimmed('password1');
                 $this->password2 = $this->trimmed('password2');
-                
+
                 $this->tos = $this->boolean('tos');
             }
         } else { // GET
@@ -128,7 +129,8 @@ class EmailregisterAction extends Action
                     $this->confirmation = Confirm_address::staticGet('code', $this->code);
 
                     if (empty($this->confirmation)) {
-                        throw new ClientException(_('No such confirmation code.'), 405);
+                        // TRANS: Client exception thrown when given confirmation code was not issued.
+                        throw new ClientException(_m('No such confirmation code.'), 405);
                     }
                 }
             }
@@ -148,7 +150,7 @@ class EmailregisterAction extends Action
         case self::SETPASSWORD:
         case self::CONFIRMINVITE:
         case self::CONFIRMREGISTER:
-            // TRANS: Title for page where to change password.
+            // TRANS: Title for page where to register with a confirmation code.
             return _m('TITLE','Complete registration');
             break;
         }
@@ -202,7 +204,8 @@ class EmailregisterAction extends Action
         $old = User::staticGet('email', $this->email);
 
         if (!empty($old)) {
-            $this->error = sprintf(_('A user with that email address already exists. You can use the '.
+            // TRANS: Error text when trying to register with an already registered e-mail address.
+            $this->error = sprintf(_m('A user with that email address already exists. You can use the '.
                                      '<a href="%s">password recovery</a> tool to recover a missing password.'),
                                    common_local_url('recoverpassword'));
             $this->showRegistrationForm();
@@ -217,7 +220,8 @@ class EmailregisterAction extends Action
                 Event::handle('EndValidateUserEmail', array(null, $this->email, &$valid));
             }
             if (!$valid) {
-                $this->error = _('Not a valid email address.');
+                // TRANS: Error text when trying to register with an invalid e-mail address.
+                $this->error = _m('Not a valid email address.');
                 $this->showRegistrationForm();
                 return;
             }
@@ -231,17 +235,19 @@ class EmailregisterAction extends Action
 
         if (empty($confirm)) {
             $confirm = Confirm_address::saveNew(null, $this->email, 'register');
-            $prompt = sprintf(_('An email was sent to %s to confirm that address. Check your email inbox for instructions.'),
+            // TRANS: Confirmation text after initial registration.
+            $prompt = sprintf(_m('An email was sent to %s to confirm that address. Check your email inbox for instructions.'),
                               $this->email);
         } else {
-            $prompt = sprintf(_('The address %s was already registered but not confirmed. The confirmation code was resent.'),
+            // TRANS: Confirmation text after re-requesting an e-mail confirmation code.
+            $prompt = sprintf(_m('The address %s was already registered but not confirmed. The confirmation code was resent.'),
                               $this->email);
         }
 
         $this->sendConfirmEmail($confirm);
 
         $this->complete = $prompt;
-        
+
         $this->showPage();
     }
 
@@ -252,7 +258,7 @@ class EmailregisterAction extends Action
         } else if (!empty($this->confirmation)) {
             $email = $this->confirmation->address;
         }
-        
+
         $nickname = $this->nicknameFromEmail($email);
 
         $this->form = new ConfirmRegistrationForm($this,
@@ -270,18 +276,22 @@ class EmailregisterAction extends Action
             } else if (!empty($this->confirmation)) {
                 $email = $this->confirmation->address;
             } else {
+                // TRANS: Exception.
                 throw new Exception('No confirmation thing.');
             }
 
             if (!$this->tos) {
-                $this->error = _('You must accept the terms of service and privacy policy to register.');
+                // TRANS: Error text when trying to register without accepting TOS and privacy policy.
+                $this->error = _m('You must accept the terms of service and privacy policy to register.');
                 return;
             } else if (empty($this->password1)) {
-                $this->error = _('You must set a password');
+                // TRANS: Error text when trying to register without a password.
+                $this->error = _m('You must set a password.');
             } else if (strlen($this->password1) < 6) {
-                $this->error = _('Password must be 6 or more characters.');
+                // TRANS: Error text when trying to register with too short a password.
+                $this->error = _m('Password must be 6 or more characters.');
             } else if ($this->password1 != $this->password2) {
-                $this->error = _('Passwords do not match.');
+                $this->error = _m('Passwords do not match.');
             }
 
             if (!empty($this->error)) {
@@ -299,7 +309,8 @@ class EmailregisterAction extends Action
                                                'email_confirmed' => true));
 
             if (empty($this->user)) {
-                throw new Exception("Failed to register user.");
+                // TRANS: Exception thrown when user registration fails.
+                throw new Exception('Failed to register user.');
             }
 
             common_set_user($this->user);
@@ -320,6 +331,7 @@ class EmailregisterAction extends Action
             } else if (!empty($this->confirmation)) {
                 $this->confirmation->delete();
             } else {
+                // TRANS: Exception.
                 throw new Exception('No confirmation thing.');
             }
 
@@ -338,11 +350,15 @@ class EmailregisterAction extends Action
 
         $headers['From'] = mail_notify_from();
         $headers['To'] = trim($confirm->address);
-        $headers['Subject'] = sprintf(_('Confirm your registration on %1$s'), $sitename);
+         // TRANS: Subject for confirmation e-mail.
+         // TRANS: %s is the StatusNet sitename.
+        $headers['Subject'] = sprintf(_m('Confirm your registration on %s'), $sitename);
 
         $confirmUrl = common_local_url('register', array('code' => $confirm->code));
 
-        $body = sprintf(_('Someone (probably you) has requested an account on %1$s using this email address.'.
+         // TRANS: Body for confirmation e-mail.
+         // TRANS: %1$s is the StatusNet sitename, %2$s is the confirmation URL.
+        $body = sprintf(_m('Someone (probably you) has requested an account on %1$s using this email address.'.
                           "\n".
                           'To confirm the address, click the following URL or copy it into the address bar of your browser.'.
                           "\n".
@@ -383,7 +399,6 @@ class EmailregisterAction extends Action
      *
      * @return boolean is read only action?
      */
-
     function isReadOnly($args)
     {
         return false;
@@ -392,9 +407,9 @@ class EmailregisterAction extends Action
     function nicknameFromEmail($email)
     {
         $parts = explode('@', $email);
-        
+
         $nickname = $parts[0];
-        
+
         $nickname = preg_replace('/[^A-Za-z0-9]/', '', $nickname);
 
         $nickname = Nickname::normalize($nickname);
@@ -418,7 +433,6 @@ class EmailregisterAction extends Action
      *
      * @return void
      */
-
     function showLocalNav()
     {
         $nav = new LoginGroupNav($this);

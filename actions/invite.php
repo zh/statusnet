@@ -291,11 +291,11 @@ class InviteAction extends CurrentUserDesignAction
         // TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral
         // TRANS: singular 3rd-person pronoun in English. %1$s is the inviting user, $2$s is
         // TRANS: the StatusNet sitename.
-
         $headers['Subject'] = sprintf(_('%1$s has invited you to join them on %2$s'), $bestname, $sitename);
 
         $title = (empty($personal)) ? 'invite' : 'invitepersonal';
 
+        // @todo FIXME: i18n issue.
         $inviteTemplate = DocFile::forTitle($title, DocFile::mailPaths());
 
         $body = $inviteTemplate->toHTML(array('inviter' => $bestname,
