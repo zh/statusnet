@@ -113,6 +113,20 @@ class DocFile
         return $paths;
     }
 
+    static function mailPaths()
+    {
+        $paths = array(INSTALLDIR.'/local/mail-src/',
+                       INSTALLDIR.'/mail-src/');
+
+        $site = StatusNet::currentSite();
+        
+        if (!empty($site)) {
+            array_unshift($paths, INSTALLDIR.'/local/mail-src/'.$site.'/');
+        }
+
+        return $paths;
+    }
+
     static function negotiateLanguage($filenames, $defaultFilename=null)
     {
         // XXX: do this better
