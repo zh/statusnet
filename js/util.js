@@ -1476,7 +1476,7 @@ var SN = { // StatusNet
                 });
 
                 // Infield labels for notice form inputs.
-                $('fieldset fieldset label').inFieldLabels({ fadeOpacity:0 });
+                $('.input_forms fieldset fieldset label').inFieldLabels({ fadeOpacity:0 });
 
             }
         },
