@@ -2,8 +2,8 @@
 var QnA = {
 
     // @fixme: Should use ID
-    close: function(closeButt) {
-        var notice = $(closeButt).closest('li.hentry.notice.question');
+    close: function(form, best) {
+        var notice = $(form).closest('li.hentry.notice.question');
 
         console.log("close");
 
@@ -16,7 +16,17 @@ var QnA = {
 
         notice.find('ul > li.notice-answer-placeholder').remove();
         notice.find('ul > li.notice-answer').remove();
+
+        if (best) {
+            var p = notice.parent().find('div.question-description > form > fieldset > p');
+            if (p.length != 0) {
+                p.append($('<span class="question-closed">This question is closed.</span>'));
+            }
+        }
+
     },
+
+ 
 
     init: function() {
 
@@ -25,8 +35,8 @@ var QnA = {
         $('form.form_question_show').live('submit', function() {
             QnA.close(this);
         });
-        $('form.form_answer_show').live('click', function() {
-            QnA.close(this);
+        $('form.form_answer_show').live('submit', function() {
+            QnA.close(this, true);
         });
         
     },
@@ -99,7 +109,12 @@ var QnA = {
             $('body').click(function(e) {
                 console.log("body click handler - got click");
 
-                hideReplyPlaceholders(notice);
+                var dummyAnswer = $('ul.qna-dummy', notice);
+
+                var style = dummyAnswer.attr('style');
+                if (style !== 'display: none;') {
+                    hideReplyPlaceholders(notice);
+                }                
 
                 var openAnswers = $('li.notice-answer');
                     if (openAnswers.length > 0) {
@@ -352,7 +367,7 @@ var QnA = {
 
                     var answerItem = form.closest('li.notice-answer');
                     var questionItem = form.closest('li.question');
-                    var dummyAnswer = form.find('ul.qna-dummy').remove();
+                    var dummyAnswer = form.find('ul.qna-dummy', questionItem).remove();
 
                     if (answerItem.length > 0) {
                         console.log("FormAnswerXHR - I found the answer li to append to");
