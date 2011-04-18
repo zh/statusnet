@@ -1933,10 +1933,38 @@ function common_confirmation_code($bits)
 
 function common_markup_to_html($c)
 {
+    $c = preg_replace('/%%user.(\w+)%%/e', "common_user_property('\\1')", $c);
     $c = preg_replace('/%%action.(\w+)%%/e', "common_local_url('\\1')", $c);
     $c = preg_replace('/%%doc.(\w+)%%/e', "common_local_url('doc', array('title'=>'\\1'))", $c);
     $c = preg_replace('/%%(\w+).(\w+)%%/e', 'common_config(\'\\1\', \'\\2\')', $c);
     return Markdown($c);
+}
+
+function common_user_property($property)
+{
+    $profile = Profile::current();
+
+    if (empty($profile)) {
+        return null;
+    }
+
+    switch ($property) {
+    case 'profileurl':
+    case 'nickname':
+    case 'fullname':
+    case 'location':
+    case 'bio':
+        return $profile->$property;
+        break;
+    case 'avatar':
+        return $profile->getAvatar(AVATAR_STREAM_SIZE);
+        break;
+    case 'bestname':
+        return $profile->getBestName();
+        break;
+    default:
+        return null;
+    }
 }
 
 function common_profile_uri($profile)
