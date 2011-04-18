@@ -52,6 +52,22 @@ class DomainWhitelistPlugin extends Plugin
         return true;
     }
 
+    function onStartValidateUserEmail($user, $email, &$valid)
+    {
+        if (!$this->matchesWhitelist($email)) {
+            $whitelist = $this->getWhitelist();
+            if (count($whitelist) == 1) {
+                $message = sprintf(_("Email address must be in this domain: %s"),
+                                   $whitelist[0]);
+            } else {
+                $message = sprintf(_("Email address must be in one of these domains: %s"),
+                                   implode(', ', $whitelist));
+            }
+            throw new ClientException($message);
+        }
+        return true;
+    }
+
     function onStartAddEmailAddress($user, $email)
     {
         if (!$this->matchesWhitelist($email)) {
