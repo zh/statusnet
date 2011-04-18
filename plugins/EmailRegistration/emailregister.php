@@ -319,8 +319,6 @@ class EmailregisterAction extends Action
 
         $confirmUrl = common_local_url('register', array('code' => $confirm->code));
 
-        common_debug('Confirm URL is ' . $confirmUrl);
-
         $body = sprintf(_('Someone (probably you) has requested an account on %1$s using this email address.'.
                           "\n".
                           'To confirm the address, click the following URL or copy it into the address bar of your browser.'.
