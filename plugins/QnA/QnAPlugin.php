@@ -299,6 +299,13 @@ class QnAPlugin extends MicroAppPlugin
             if ($nli->notice->scope != 0 && $nli->notice->scope != 1) {
                 $class .= ' limited-scope';
             }
+
+            $question = QnA_Question::staticGet('uri', $nli->notice->uri);
+
+            if (!empty($question->closed)) {
+                $class .= ' closed';
+            }
+
             $nli->out->elementStart(
                 'li', array(
                     'class' => $class,
