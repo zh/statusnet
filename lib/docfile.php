@@ -90,13 +90,17 @@ class DocFile
         }
     }
 
-    function toHTML()
+    function toHTML($args=null)
     {
+        if (is_null($args)) {
+            $args = array();
+        }
+
         if (empty($this->contents)) {
             $this->contents = file_get_contents($this->filename);
         }
 
-        return common_markup_to_html($this->contents);
+        return common_markup_to_html($this->contents, $args);
     }
 
     static function defaultPaths()

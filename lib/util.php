@@ -1933,6 +1933,10 @@ function common_confirmation_code($bits)
 
 function common_markup_to_html($c, $args=null)
 {
+    if (is_null($args)) {
+        $args = array();
+    }
+
     $c = preg_replace('/%%arg.(\w+)%%/', "{$args['\\1']}", $c);
     $c = preg_replace('/%%user.(\w+)%%/e', "common_user_property('\\1')", $c);
     $c = preg_replace('/%%action.(\w+)%%/e', "common_local_url('\\1')", $c);
