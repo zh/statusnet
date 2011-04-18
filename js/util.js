@@ -236,10 +236,11 @@ var SN = { // StatusNet
          * @fixme can't submit file uploads
          *
          * @param {jQuery} form: jQuery object whose first element is a form
+         * @param function onSuccess: something extra to do on success
          *
          * @access public
          */
-        FormXHR: function(form) {
+        FormXHR: function(form, onSuccess) {
             $.ajax({
                 type: 'POST',
                 dataType: 'xml',
@@ -274,9 +275,15 @@ var SN = { // StatusNet
                     if (typeof($('form', data)[0]) != 'undefined') {
                         form_new = document._importNode($('form', data)[0], true);
                         form.replaceWith(form_new);
+                        if (onSuccess) {
+                            onSuccess();
+                        }
                     }
                     else if (typeof($('p', data)[0]) != 'undefined') {
                         form.replaceWith(document._importNode($('p', data)[0], true));
+                        if (onSuccess) {
+                            onSuccess();
+                        }
                     }
                     else {
                         alert('Unknown error.');
