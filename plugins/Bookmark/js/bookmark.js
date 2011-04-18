@@ -31,7 +31,7 @@ $(document).ready(function() {
         return false;
     });
 
-    // Restore live event stuff to other forms & submit buttions
+    // Restore live event stuff to other forms & submit buttons
     SN.Init.AjaxForms();
 
 });
