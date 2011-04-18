@@ -164,6 +164,13 @@ class EmailregisterAction extends Action
 
     function handle($argarray=null)
     {
+        $cur = common_current_user();
+
+        if (!empty($cur)) {
+            common_redirect(common_local_url('all', array('nickname' => $cur->nickname)));
+            return;
+        }
+
         switch ($this->state) {
         case self::NEWREGISTER:
             $this->showRegistrationForm();
