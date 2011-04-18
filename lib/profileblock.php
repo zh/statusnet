@@ -62,7 +62,7 @@ abstract class ProfileBlock extends Widget
         $this->showLocation();
         $this->showHomepage();
         $this->showDescription();
-        //        $this->showTags();
+        $this->showTags();
     }
 
     function showAvatar()
