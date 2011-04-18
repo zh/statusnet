@@ -275,6 +275,16 @@ class EmailregisterAction extends Action
 
             if (!$this->tos) {
                 $this->error = _('You must accept the terms of service and privacy policy to register.');
+                return;
+            } else if (empty($this->password1)) {
+                $this->error = _('You must set a password');
+            } else if (strlen($this->password1) < 6) {
+                $this->error = _('Password must be 6 or more characters.');
+            } else if ($this->password1 != $this->password2) {
+                $this->error = _('Passwords do not match.');
+            }
+
+            if (!empty($this->error)) {
                 $nickname = $this->nicknameFromEmail($email);
                 $this->form = new ConfirmRegistrationForm($this, $nickname, $this->email, $this->code);
                 $this->showPage();
@@ -285,6 +295,7 @@ class EmailregisterAction extends Action
 
             $this->user = User::register(array('nickname' => $nickname,
                                                'email' => $email,
+                                               'password' => $this->password1,
                                                'email_confirmed' => true));
 
             if (empty($this->user)) {
