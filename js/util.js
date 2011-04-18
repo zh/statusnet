@@ -95,7 +95,6 @@ var SN = { // StatusNet
          * @access private
          */
         FormNoticeEnhancements: function(form) {
-            console.log("FormNoticeEnhancements - begin");
             if (jQuery.data(form[0], 'ElementData') === undefined) {
                 MaxLength = form.find('.count').text();
                 if (typeof(MaxLength) == 'undefined') {
@@ -321,7 +320,6 @@ var SN = { // StatusNet
          * @access public
          */
         FormNoticeXHR: function(form) {
-            console.log("FormNoticeXHR - begin");
             SN.C.I.NoticeDataGeo = {};
             form.append('<input type="hidden" name="ajax" value="1"/>');
 
@@ -428,7 +426,6 @@ var SN = { // StatusNet
 
                                 var id = $(notice).attr('id');
                                 if ($("#"+id).length == 0) {
-                                    console.log("inserting before placeholder");
                                     $(notice).insertBefore(placeholder);
                                 } else {
                                     // Realtime came through before us...
@@ -639,7 +636,6 @@ var SN = { // StatusNet
          */
         NoticeInlineReplyTrigger: function(notice, initialText) {
             // Find the notice we're replying to...
-            console.log('NoticeInlineReplyTrigger');
             var id = $($('.notice_id', notice)[0]).text();
             var parentNotice = notice;
 
@@ -654,7 +650,6 @@ var SN = { // StatusNet
                 // and we'll add on the end of it. Will add if needed.
                 list = $('ul.threaded-replies', notice);
                 if (list.length == 0) {
-                    console.log("list = 0");
                     SN.U.NoticeInlineReplyPlaceholder(notice);
                     list = $('ul.threaded-replies', notice);
                 } else {
