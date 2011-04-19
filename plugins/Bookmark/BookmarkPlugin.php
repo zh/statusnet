@@ -32,6 +32,8 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+require_once INSTALLDIR.'/plugins/Bookmark/bookmarknoticelistitemadapter.php';
+
 /**
  * Bookmark plugin main class
  *
