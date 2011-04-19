@@ -162,10 +162,10 @@ class QnanewanswerAction extends Action
 
             $this->elementStart('body');
 
-            
+
             $nli = new NoticeAnswerListItem($notice, $this, $this->question, $answer);
             $nli->show();
-  
+
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
@@ -224,7 +224,7 @@ class QnanewanswerAction extends Action
         $this->startHTML('text/xml;charset=utf-8', true);
         $this->elementStart('head');
         // TRANS: Page title after an AJAX error occurs on the post answer page.
-        $this->element('title', null, _('Ajax Error'));
+        $this->element('title', null, _m('Ajax Error'));
         $this->elementEnd('head');
         $this->elementStart('body');
         $this->element('p', array('id' => 'error'), $msg);

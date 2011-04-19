@@ -1,6 +1,6 @@
 <?php
 /**
- * Data class to save users votes for 
+ * Data class to save users votes for
  *
  * PHP version 5
  *
@@ -46,7 +46,7 @@ class QnA_Vote extends Managed_DataObject
 {
     const UP   = 'http://activitystrea.ms/schema/1.0/like';
     const DOWN = 'http://activityschema.org/object/dislike'; // Gar!
-    
+
     public $__table = 'qna_vote'; // table name
     public $id;          // char(36) primary key not null -> UUID
     public $question_id; // char(36) -> question.id UUID
@@ -97,20 +97,20 @@ class QnA_Vote extends Managed_DataObject
             'description' => 'For storing votes on questions and answers',
             'fields' => array(
                 'id' => array(
-                    'type'        => 'char', 
-                    'length'      => 36, 
-                    'not null'    => true, 
+                    'type'        => 'char',
+                    'length'      => 36,
+                    'not null'    => true,
                     'description' => 'UUID of the vote'
                 ),
                 'question_id' => array(
-                    'type'        => 'char', 
-                    'length'      => 36, 
-                    'not null'    => true, 
+                    'type'        => 'char',
+                    'length'      => 36,
+                    'not null'    => true,
                     'description' => 'UUID of question being voted on'
                 ),
                 'answer_id' => array(
-                    'type'        => 'char', 
-                    'length'      => 36, 
+                    'type'        => 'char',
+                    'length'      => 36,
                     'not null'    => true,
                     'description' => 'UUID of answer being voted on'
                 ),
@@ -121,11 +121,11 @@ class QnA_Vote extends Managed_DataObject
             'primary key' => array('id'),
             'indexes' => array(
                 'profile_id_question_Id_index' => array(
-                    'profile_id', 
+                    'profile_id',
                     'question_id'
                 ),
                 'profile_id_question_Id_index' => array(
-                    'profile_id', 
+                    'profile_id',
                     'answer_id'
                 )
             )
@@ -154,7 +154,7 @@ class QnA_Vote extends Managed_DataObject
         $v->created     = common_sql_now();
 
         common_log(LOG_DEBUG, "Saving vote: $v->id $v->vote");
-        
+
         $v->insert();
     }
 }

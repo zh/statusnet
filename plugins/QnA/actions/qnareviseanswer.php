@@ -89,7 +89,7 @@ class QnareviseanswerAction extends Action
         $id = substr($this->trimmed('id'), 7);
 
         $this->answer   = QnA_Answer::staticGet('id', $id);
-        $this->question = $this->answer->getQuestion(); 
+        $this->question = $this->answer->getQuestion();
 
         if (empty($this->answer) || empty($this->question)) {
             // TRANS: Client exception thrown trying to respond to a non-existing question.
@@ -142,7 +142,7 @@ class QnareviseanswerAction extends Action
     function reviseAnswer()
     {
         $answer = $this->answer;
-        
+
         try {
             $orig = clone($answer);
             $answer->content = $this->answerText;
@@ -181,13 +181,13 @@ class QnareviseanswerAction extends Action
     {
         $question = $this->question;
         $answer   = $this->answer;
-       
+
         try {
             // close the question to further answers
             $orig = clone($question);
             $question->closed = 1;
             $result = $question->update($orig);
-            
+
             // mark this answer an the best answer
             $orig = clone($answer);
             $answer->best = 1;

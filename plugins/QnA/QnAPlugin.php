@@ -167,12 +167,14 @@ class QnAPlugin extends MicroAppPlugin
             'author'      => 'Zach Copley',
             'homepage'    => 'http://status.net/wiki/Plugin:QnA',
             'description' =>
+             // TRANS: Plugin description.
              _m('Question and Answers micro-app.')
         );
         return true;
     }
 
     function appTitle() {
+        // TRANS: Application title.
         return _m('Question');
     }
 
@@ -200,13 +202,13 @@ class QnAPlugin extends MicroAppPlugin
     function saveNoticeFromActivity($activity, $actor, $options=array())
     {
         if (count($activity->objects) != 1) {
-            throw new Exception('Too many activity objects.');
+            throw new Exception(_m('Too many activity objects.'));
         }
 
         $questionObj = $activity->objects[0];
 
         if ($questionObj->type != QnA_Question::OBJECT_TYPE) {
-            throw new Exception('Wrong type for object.');
+            throw new Exception(_m('Wrong type for object.'));
         }
 
         $notice = null;
@@ -224,12 +226,12 @@ class QnAPlugin extends MicroAppPlugin
             $question = QnA_Question::staticGet('uri', $questionObj->id);
             if (empty($question)) {
                 // FIXME: save the question
-                throw new Exception("Answer to unknown question.");
+                throw new Exception(_m('Answer to unknown question.'));
             }
             $notice = QnA_Answer::saveNew($actor, $question, $options);
             break;
         default:
-            throw new Exception("Unknown object type received by QnA Plugin");
+            throw new Exception(_m('Unknown object type received by QnA Plugin.'));
         }
 
         return $notice;
@@ -258,13 +260,13 @@ class QnAPlugin extends MicroAppPlugin
         }
 
         if (empty($question)) {
-            throw new Exception("Unknown object type.");
+            throw new Exception(_m('Unknown object type.'));
         }
 
         $notice = $question->getNotice();
 
         if (empty($notice)) {
-            throw new Exception("Unknown question notice.");
+            throw new Exception(_m('Unknown question notice.'));
         }
 
         $obj = new ActivityObject();
@@ -349,7 +351,6 @@ class QnAPlugin extends MicroAppPlugin
      * @param Notice $notice
      * @param HTMLOutputter $out
      */
-
     function showNotice($notice, $out)
     {
         switch ($notice->object_type) {
@@ -358,12 +359,11 @@ class QnAPlugin extends MicroAppPlugin
         case QnA_Answer::OBJECT_TYPE:
             return $this->showNoticeAnswer($notice, $out);
         default:
-            // TRANS: Exception thrown when performing an unexpected action on a question.
-            // TRANS: %s is the unpexpected object type.
             throw new Exception(
-                sprintf(
-                    _m('Unexpected type for QnA plugin: %s.'),
-                    $notice->object_type
+                // TRANS: Exception thrown when performing an unexpected action on a question.
+                // TRANS: %s is the unpexpected object type.
+                sprintf(_m('Unexpected type for QnA plugin: %s.'),
+                        $notice->object_type
                 )
             );
         }
@@ -494,9 +494,11 @@ class QnAPlugin extends MicroAppPlugin
             $max = Notice::maxContent();
             $short = mb_substr($content, 0, $max - 1);
             $short .= sprintf(
-                '<a href="%s" rel="more" title="%s">…</a>',
+                // TRANS: Link to full notice text if it is longer than what will be dispplayed.
+                // TRANS: %s a notice URI.
+                _m('<a href="%s" rel="more" title="%s">…</a>'),
                 $notice->uri,
-                _m('more')
+                _m('more...')
             );
         } else {
             $short = $content;

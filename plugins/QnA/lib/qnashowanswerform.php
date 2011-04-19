@@ -110,7 +110,7 @@ class QnashowanswerForm extends Form
     function formLegend()
     {
         // TRANS: Form legend for showing the answer.
-        $this->out->element('legend', null, _('Answer'));
+        $this->out->element('legend', null, _m('Answer'));
     }
 
     /**
@@ -151,9 +151,9 @@ class QnashowanswerForm extends Form
                         'submit',
                         'best',
                         // TRANS: Title for button text marking an answer as "best"
-                        _('Mark as best answer')
+                        _m('Mark as best answer')
                     );
-        
+
                 }
             }
 
@@ -171,7 +171,7 @@ class QnashowanswerForm extends Form
                     'submit',
                     null,
                     // TRANS: Title for button text for revising an answer
-                    _('Revise your answer')
+                    _m('Revise your answer')
                 );
             }
              */

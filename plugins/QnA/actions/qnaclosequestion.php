@@ -140,7 +140,7 @@ class QnaclosequestionAction extends Action
             $orig = clone($this->question);
             $this->question->closed = 1;
             $this->question->update($orig);
-            
+
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
             $this->showPage();

@@ -103,7 +103,7 @@ class QnashowquestionForm extends Form
     function formLegend()
     {
         // TRANS: Form legend for revising the answer.
-        $this->out->element('legend', null, _('Question'));
+        $this->out->element('legend', null, _m('Question'));
     }
 
     /**
@@ -152,9 +152,9 @@ class QnashowquestionForm extends Form
                 'submit',
                 'submit',
                 // TRANS: Title for button text for closing a question
-                _('Close the question')
+                _m('Close the question')
              );
-            }            
+            }
         }
     }
 

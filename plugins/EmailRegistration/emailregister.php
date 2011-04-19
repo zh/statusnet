@@ -205,6 +205,7 @@ class EmailregisterAction extends Action
 
         if (!empty($old)) {
             // TRANS: Error text when trying to register with an already registered e-mail address.
+            // TRANS: %s is the URL to recover password at.
             $this->error = sprintf(_m('A user with that email address already exists. You can use the '.
                                      '<a href="%s">password recovery</a> tool to recover a missing password.'),
                                    common_local_url('recoverpassword'));
@@ -236,10 +237,12 @@ class EmailregisterAction extends Action
         if (empty($confirm)) {
             $confirm = Confirm_address::saveNew(null, $this->email, 'register');
             // TRANS: Confirmation text after initial registration.
+            // TRANS: %s an e-mail address.
             $prompt = sprintf(_m('An email was sent to %s to confirm that address. Check your email inbox for instructions.'),
                               $this->email);
         } else {
             // TRANS: Confirmation text after re-requesting an e-mail confirmation code.
+            // TRANS: %s is an e-mail address.
             $prompt = sprintf(_m('The address %s was already registered but not confirmed. The confirmation code was resent.'),
                               $this->email);
         }
@@ -279,14 +282,18 @@ class EmailregisterAction extends Action
         }
 
         if (!$this->tos) {
-            $this->error = _('You must accept the terms of service and privacy policy to register.');
+            // TRANS: Error text when trying to register without agreeing to the terms.
+            $this->error = _m('You must accept the terms of service and privacy policy to register.');
             return;
         } else if (empty($this->password1)) {
-            $this->error = _('You must set a password');
+            // TRANS: Error text when trying to register without a password.
+            $this->error = _m('You must set a password');
         } else if (strlen($this->password1) < 6) {
-            $this->error = _('Password must be 6 or more characters.');
+            // TRANS: Error text when trying to register with too short a password.
+            $this->error = _m('Password must be 6 or more characters.');
         } else if ($this->password1 != $this->password2) {
-            $this->error = _('Passwords do not match.');
+            // TRANS: Error text when trying to register without providing the same password twice.
+            $this->error = _m('Passwords do not match.');
         }
 
         if (!empty($this->error)) {
@@ -312,7 +319,7 @@ class EmailregisterAction extends Action
         }
 
         if (empty($this->user)) {
-            throw new Exception("Failed to register user.");
+            throw new Exception('Failed to register user.');
         }
 
         common_set_user($this->user);
