@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Email registration form
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class EmailRegistrationForm extends Form
 {
     protected $email;
@@ -58,14 +57,15 @@ class EmailRegistrationForm extends Form
     function formData()
     {
         $this->out->element('p', 'instructions',
-                            _('Enter your email address to register for an account.'));
-                            
+                            // TRANS: Form instructions.
+                            _m('Enter your email address to register for an account.'));
+
         $this->out->elementStart('fieldset', array('id' => 'new_bookmark_data'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
         $this->out->input('email',
-                          // TRANS: Field label on form for adding a new bookmark.
+                          // TRANS: Field label on form for registering an account.
                           _m('LABEL','E-mail address'),
                           $this->email);
         $this->unli();
@@ -87,10 +87,9 @@ class EmailRegistrationForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
-        // TRANS: Button text for action to save a new bookmark.
+        // TRANS: Button text for registering an account.
         $this->out->submit('submit', _m('BUTTON', 'Register'));
     }
 
@@ -102,7 +101,6 @@ class EmailRegistrationForm extends Form
      *
      * @return int ID of the form
      */
-
     function id()
     {
         return 'form_email_registration';
@@ -116,7 +114,6 @@ class EmailRegistrationForm extends Form
      *
      * @return string URL to post to
      */
-
     function action()
     {
         return common_local_url('register');
@@ -127,4 +124,3 @@ class EmailRegistrationForm extends Form
         return 'form_email_registration form_settings';
     }
 }
-

@@ -175,8 +175,7 @@ class QnanewquestionAction extends Action
      */
     function showNotice($notice)
     {
-        class_exists('NoticeList'); // @fixme hack for autoloader
-        $nli = new NoticeListItem($notice, $this);
+        $nli = new NoticeQuestionListItem($notice, $this);
         $nli->show();
     }
 
@@ -220,4 +219,26 @@ class QnanewquestionAction extends Action
             return false;
         }
     }
+}
+
+class NoticeQuestionListItem extends NoticeListItem
+{
+    /**
+     * constructor
+     *
+     * Also initializes the profile attribute.
+     *
+     * @param Notice $notice The notice we'll display
+     */
+    function __construct($notice, $out=null)
+    {
+        parent::__construct($notice, $out);
+    }
+
+    function showEnd()
+    {
+        $this->out->element('ul', 'notices threaded-replies xoxo');
+        parent::showEnd();
+    }
+
 }

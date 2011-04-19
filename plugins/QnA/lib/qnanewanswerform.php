@@ -57,7 +57,7 @@ class QnanewanswerForm extends Form
      *
      * @return void
      */
-    function __construct(HTMLOutputter $out, QnA_Question $question, $showQuestion = true)
+    function __construct(HTMLOutputter $out, QnA_Question $question, $showQuestion = false)
     {
         parent::__construct($out);
         $this->question = $question;
@@ -81,7 +81,7 @@ class QnanewanswerForm extends Form
      */
     function formClass()
     {
-        return 'form_settings ajax';
+        return 'form_settings qna_answer_form ajax-notice';
     }
 
     /**
@@ -110,7 +110,7 @@ class QnanewanswerForm extends Form
         }
 
         $out->hidden('qna-question-id', $id, 'id');
-        $out->textarea('qna-answer', 'answer', null, null, 'answer');
+        $out->textarea('qna-answer', _m('Enter your answer'), null, null, 'answer');
     }
 
     /**

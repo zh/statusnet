@@ -262,7 +262,7 @@ var SN = { // StatusNet
                         errorReported = $('#error', xhr.responseXML).text();
                     }
                     alert(errorReported || errorThrown || textStatus);
-                    
+
                     // Restore the form to original state.
                     // Hopefully. :D
                     form
@@ -506,7 +506,7 @@ var SN = { // StatusNet
                         results_placeholder.replaceWith(list);
                     }
                     else {
-                        var _error = $('<li/>').append(document._importNode($('p', data)[0], true)); 
+                        var _error = $('<li/>').append(document._importNode($('p', data)[0], true));
                         results_placeholder.html(_error);
                     }
                     form
@@ -650,7 +650,6 @@ var SN = { // StatusNet
                 // and we'll add on the end of it. Will add if needed.
                 list = $('ul.threaded-replies', notice);
                 if (list.length == 0) {
-                    console.log("list = 0");
                     SN.U.NoticeInlineReplyPlaceholder(notice);
                     list = $('ul.threaded-replies', notice);
                 } else {
@@ -777,6 +776,7 @@ var SN = { // StatusNet
          * popout before submitting.
          *
          * Uses 'live' rather than 'bind', so applies to future as well as present items.
+         *
          */
         NoticeRepeat: function() {
             $('.form_repeat').live('click', function(e) {

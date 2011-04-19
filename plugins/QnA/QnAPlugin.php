@@ -299,6 +299,13 @@ class QnAPlugin extends MicroAppPlugin
             if ($nli->notice->scope != 0 && $nli->notice->scope != 1) {
                 $class .= ' limited-scope';
             }
+
+            $question = QnA_Question::staticGet('uri', $nli->notice->uri);
+
+            if (!empty($question->closed)) {
+                $class .= ' closed';
+            }
+
             $nli->out->elementStart(
                 'li', array(
                     'class' => $class,
@@ -375,20 +382,10 @@ class QnAPlugin extends MicroAppPlugin
         $question = QnA_Question::getByNotice($notice);
 
         if (!empty($question)) {
-            if (empty($user)) {
-                $form = new QnashowquestionForm($out, $question);
-                $form->show();
-            } else {
-                $profile = $user->getProfile();
-                $answer = $question->getAnswer($profile);
-                if (empty($answer)) {
-                    $form = new QnanewanswerForm($out, $question);
-                    $form->show();
-                } else {
-                    $form = new QnashowquestionForm($out, $question);
-                    $form->show();
-                }
-            }
+
+            $form = new QnashowquestionForm($out, $question);
+            $form->show();
+
         } else {
             $out->text(_m('Question data is missing.'));
         }
@@ -397,6 +394,71 @@ class QnAPlugin extends MicroAppPlugin
         // @fixme
         $out->elementStart('div', array('class' => 'entry-content'));
     }
+
+
+    /**
+     * Output the HTML for this kind of object in a list
+     *
+     * @param NoticeListItem $nli The list item being shown.
+     *
+     * @return boolean hook value
+     *
+     * @fixme WARNING WARNING WARNING this closes a 'div' that is implicitly opened in BookmarkPlugin's showNotice implementation
+     */
+    function onStartShowNoticeItem($nli)
+    {
+        if (!$this->isMyNotice($nli->notice)) {
+            return true;
+        }
+
+        $out = $nli->out;
+        $notice = $nli->notice;
+
+        $this->showNotice($notice, $out);
+
+        $nli->showNoticeLink();
+        $nli->showNoticeSource();
+        $nli->showNoticeLocation();
+        $nli->showContext();
+        $nli->showRepeat();
+
+        $out->elementEnd('div');
+
+        $nli->showNoticeOptions();
+
+        if ($notice->object_type == QnA_Question::OBJECT_TYPE) {
+
+            $user = common_current_user();
+            $question = QnA_Question::getByNotice($notice);
+
+            if (!empty($user)) {
+
+                $profile = $user->getProfile();
+                $answer = $question->getAnswer($profile);
+
+                // Output a placeholder input -- clicking on it will
+                // bring up a real answer form
+
+                // NOTE: this whole ul is just a placeholder
+                if (empty($question->closed) && empty($answer)) {
+                    $out->elementStart('ul', 'notices qna-dummy');
+                    $out->elementStart('li', 'qna-dummy-placeholder');
+                    $out->element(
+                        'input',
+                        array(
+                            'class' => 'placeholder',
+                            'value' => _m('Your answer...')
+                        )
+                    );
+                    $out->elementEnd('li');
+                    $out->elementEnd('ul');
+                }
+            }
+        }
+
+        return false;
+    }
+
 
     function showNoticeAnswer($notice, $out)
     {

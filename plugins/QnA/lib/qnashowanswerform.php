@@ -149,7 +149,7 @@ class QnashowanswerForm extends Form
                         // TRANS: Button text for marking an answer as "best"
                         _m('BUTTON', 'Best'),
                         'submit',
-                        'submit',
+                        'best',
                         // TRANS: Title for button text marking an answer as "best"
                         _('Mark as best answer')
                     );
@@ -185,6 +185,6 @@ class QnashowanswerForm extends Form
      */
     function formClass()
     {
-        return 'form_show ajax';
+        return 'form_answer_show ajax';
     }
 }

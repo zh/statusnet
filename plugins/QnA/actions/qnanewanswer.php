@@ -49,7 +49,7 @@ class QnanewanswerAction extends Action
     protected $error    = null;
     protected $complete = null;
 
-    protected $question = null;
+    public    $question = null;
     protected $content  = null;
 
     /**
@@ -76,7 +76,7 @@ class QnanewanswerAction extends Action
         if ($this->boolean('ajax')) {
             StatusNet::setApi(true);
         }
-
+        common_debug("in qnanewanswer");
         $this->user = common_current_user();
 
         if (empty($this->user)) {
@@ -92,8 +92,6 @@ class QnanewanswerAction extends Action
         }
 
         $id = substr($this->trimmed('id'), 9);
-
-        common_debug("XXXXXXXXXXXXXXXXXX id = " . $id);
 
         $this->question = QnA_Question::staticGet('id', $id);
 
@@ -124,7 +122,7 @@ class QnanewanswerAction extends Action
         if ($this->isPost()) {
             $this->newAnswer();
         } else {
-            $this->showPage();
+            $this->showForm();
         }
 
         return;
@@ -147,7 +145,7 @@ class QnanewanswerAction extends Action
             );
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
-            $this->showPage();
+            $this->showForm($this->error);
             return;
         }
         if ($this->boolean('ajax')) {
@@ -164,33 +162,14 @@ class QnanewanswerAction extends Action
 
             $this->elementStart('body');
 
-            $nli = new NoticeListItem($notice, $this);
+            
+            $nli = new NoticeAnswerListItem($notice, $this, $this->question, $answer);
             $nli->show();
-            //$this->raw($answer->asHTML());
-
-            /*
-            $question = $this->question;
-
-            $nli = new NoticeListItem($notice, $this);
-            $nli->showNotice();
-
-            $this->elementStart('div', array('class' => 'entry-content answer-content'));
-
-            if (!empty($answer)) {
-                $form = new QnashowanswerForm($this, $answer);
-                $form->show();
-            } else {
-                $this->text(_m('Answer data is missing.'));
-            }
-
-            $this->elementEnd('div');
-
-            // @fixme
-            //$this->elementStart('div', array('class' => 'entry-content'));
-            */
+  
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
+            common_debug("not ajax");
             common_redirect($this->question->bestUrl(), 303);
         }
     }
@@ -230,4 +209,145 @@ class QnanewanswerAction extends Action
             return false;
         }
     }
+
+    /**
+     * Show an Ajax-y error message
+     *
+     * Goes back to the browser, where it's shown in a popup.
+     *
+     * @param string $msg Message to show
+     *
+     * @return void
+     */
+    function ajaxErrorMsg($msg)
+    {
+        $this->startHTML('text/xml;charset=utf-8', true);
+        $this->elementStart('head');
+        // TRANS: Page title after an AJAX error occurs on the post answer page.
+        $this->element('title', null, _('Ajax Error'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $this->element('p', array('id' => 'error'), $msg);
+        $this->elementEnd('body');
+        $this->elementEnd('html');
+    }
+
+    /**
+     * Show an Ajax-y answer form
+     *
+     * Goes back to the browser, where it's shown in a popup.
+     *
+     * @param string $msg Message to show
+     *
+     * @return void
+     */
+    function ajaxShowForm()
+    {
+        common_debug('ajaxShowForm()');
+        $this->startHTML('text/xml;charset=utf-8', true);
+        $this->elementStart('head');
+        // TRANS: Title for form to send answer to a question.
+        $this->element('title', null, _m('TITLE','Your answer'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+
+        $form = new QnanewanswerForm($this, $this->question);
+        $form->show();
+
+        $this->elementEnd('body');
+        $this->elementEnd('html');
+    }
+
+    /**
+     * @param string $msg An error message, if any
+     *
+     * @return void
+     */
+    function showForm($msg = null)
+    {
+        common_debug("show form - msg = $msg");
+        if ($this->boolean('ajax')) {
+            if ($msg) {
+                $this->ajaxErrorMsg($msg);
+            } else {
+                $this->ajaxShowForm();
+            }
+            return;
+        }
+
+        $this->msg = $msg;
+        $this->showPage();
+    }
+
+}
+
+class NoticeAnswerListItem extends NoticeListItem
+{
+    protected $question;
+    protected $answer;
+
+    /**
+     * constructor
+     *
+     * Also initializes the profile attribute.
+     *
+     * @param Notice $notice The notice we'll display
+     */
+    function __construct($notice, $out=null, $question, $answer)
+    {
+        parent::__construct($notice, $out);
+        $this->question = $question;
+        $this->answer   = $answer;
+
+    }
+
+    function show()
+    {
+        if (empty($this->notice)) {
+            common_log(LOG_WARNING, "Trying to show missing notice; skipping.");
+            return;
+        } else if (empty($this->profile)) {
+            common_log(LOG_WARNING, "Trying to show missing profile (" . $this->notice->profile_id . "); skipping.");
+            return;
+        }
+
+        $this->showStart();
+        $this->showNotice();
+        $this->showNoticeInfo();
+        $notice = $this->question->getNotice();
+        $this->out->hidden('inreplyto', $notice->id);
+        $this->showEnd();
+    }
+
+    /**
+     * show the content of the notice
+     *
+     * Shows the content of the notice. This is pre-rendered for efficiency
+     * at save time. Some very old notices might not be pre-rendered, so
+     * they're rendered on the spot.
+     *
+     * @return void
+     */
+    function showContent()
+    {
+        $this->out->elementStart('p', array('class' => 'entry-content answer-content'));
+        if ($this->notice->rendered) {
+            $this->out->raw($this->notice->rendered);
+        } else {
+            // XXX: may be some uncooked notices in the DB,
+            // we cook them right now. This should probably disappear in future
+            // versions (>> 0.4.x)
+            $this->out->raw(common_render_content($this->notice->content, $this->notice));
+        }
+
+        if (!empty($this->answer)) {
+            $form = new QnashowanswerForm($this->out, $this->answer);
+            $form->show();
+        } else {
+            $out->text(_m('Answer data is missing.'));
+        }
+
+        $this->out->elementEnd('p');
+    }
+
 }
