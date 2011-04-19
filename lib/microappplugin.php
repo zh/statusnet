@@ -138,21 +138,6 @@ abstract class MicroAppPlugin extends Plugin
     abstract function activityObjectFromNotice($notice);
 
     /**
-     * Custom HTML output for your special notice; called when a
-     * matching notice turns up in a NoticeListItem.
-     *
-     * All micro-app classes must override this method.
-     *
-     * @param Notice $notice
-     * @param HTMLOutputter $out
-     *
-     * @fixme WARNING WARNING WARNING base plugin stuff below tries to close
-     * a div that this function opens in the BookmarkPlugin child class.
-     * This is probably wrong.
-     */
-    abstract function showNotice($notice, $out);
-
-    /**
      * When building the primary notice form, we'll fetch also some
      * alternate forms for specialized types -- that's you!
      *
@@ -560,20 +545,8 @@ abstract class MicroAppPlugin extends Plugin
         return true;
     }
 
-    /**
-     * Custom HTML output for your special notice; called when a
-     * matching notice turns up in a NoticeListItem.
-     *
-     * All micro-app classes must override this method.
-     *
-     * @param Notice $notice
-     * @param HTMLOutputter $out
-     *
-     * @fixme WARNING WARNING WARNING base plugin stuff below tries to close
-     * a div that this function opens in the BookmarkPlugin child class.
-     * This is probably wrong.
-     */
-    abstract function showNotice($notice, $out);
-
-
+    function showNotice($notice, $out)
+    {
+        throw new ServerException("You must implement either adaptNoticeListItem() or showNotice()");
+    }
 }
