@@ -234,15 +234,6 @@ class ShownoticeAction extends OwnerDesignAction
     }
 
     /**
-     * Don't show local navigation
-     *
-     * @return void
-     */
-    function showLocalNavBlock()
-    {
-    }
-
-    /**
      * Fill the content area of the page
      *
      * Shows a single notice list item.
