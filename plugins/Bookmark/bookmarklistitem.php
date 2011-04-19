@@ -45,7 +45,7 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class BookmarkNoticeListItemAdapter extends NoticeListItemAdapter
+class BookmarkListItem extends NoticeListItemAdapter
 {
     function showContent()
     {

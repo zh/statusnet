@@ -159,6 +159,7 @@ class BookmarkPlugin extends MicroAppPlugin
         case 'Bookmark':
             include_once $dir.'/'.$cls.'.php';
             return false;
+        case 'BookmarkListItem':
         case 'BookmarkForm':
         case 'InitialBookmarkForm':
         case 'DeliciousBackupImporter':
@@ -521,7 +522,7 @@ class BookmarkPlugin extends MicroAppPlugin
      */
     function adaptNoticeListItem($nli)
     {
-        return new BookmarkNoticeListItemAdapter($nli);
+        return new BookmarkListItem($nli);
     }
 
     function entryForm($out)
