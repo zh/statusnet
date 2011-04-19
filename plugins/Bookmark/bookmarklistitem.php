@@ -49,6 +49,8 @@ class BookmarkListItem extends NoticeListItemAdapter
 {
     function showContent()
     {
+        $this->out->elementStart('p', array('class' => 'entry-content'));
+
         $notice = $this->nli->notice;
         $out    = $this->nli->out;
 
@@ -123,5 +125,7 @@ class BookmarkListItem extends NoticeListItemAdapter
                           array('class' => 'bookmark-description'),
                           $nb->description);
         }
+
+        $this->out->elementEnd('p');
     }
 }
