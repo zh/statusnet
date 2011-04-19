@@ -163,7 +163,6 @@ class BookmarkPlugin extends MicroAppPlugin
         case 'InitialBookmarkForm':
         case 'DeliciousBackupImporter':
         case 'DeliciousBookmarkImporter':
-        case 'BookmarkNoticeListItemAdapter':
             include_once $dir.'/'.strtolower($cls).'.php';
             return false;
         default:
