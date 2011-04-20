@@ -334,27 +334,6 @@ class ShownoticeAction extends OwnerDesignAction
 class SingleNoticeItem extends DoFollowListItem
 {
     /**
-     * Recipe function for displaying a single notice.
-     *
-     * We overload to show attachments.
-     *
-     * @return void
-     */
-    function show()
-    {
-        $this->showStart();
-        if (Event::handle('StartShowNoticeItem', array($this))) {
-            $this->showNotice();
-            $this->showNoticeAttachments();
-            $this->showNoticeInfo();
-            $this->showNoticeOptions();
-            Event::handle('EndShowNoticeItem', array($this));
-        }
-
-        $this->showEnd();
-    }
-
-    /**
      * show the avatar of the notice's author
      *
      * We use the larger size for single notice page.
