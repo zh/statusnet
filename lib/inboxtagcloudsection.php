@@ -70,34 +70,38 @@ class InboxTagCloudSection extends TagCloudSection
 
             $ids = $stream->getNoticeIds(0, Inbox::MAX_NOTICES, null, null);
 
-            $weightexpr = common_sql_weight('notice_tag.created', common_config('tag', 'dropoff'));
-            // @fixme should we use the cutoff too? Doesn't help with indexing per-user.
-
-            $qry = 'SELECT notice_tag.tag, '.
-                $weightexpr . ' as weight ' .
-                'FROM notice_tag JOIN notice ' .
-                'ON notice_tag.notice_id = notice.id ' .
-                'WHERE notice.id in (' . implode(',', $ids) . ')'.
-                'GROUP BY notice_tag.tag ' .
-                'ORDER BY weight DESC ';
-
-            $limit = TAGS_PER_SECTION;
-            $offset = 0;
-
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            if (empty($ids)) {
+                $tag = array();
             } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-            }
+                $weightexpr = common_sql_weight('notice_tag.created', common_config('tag', 'dropoff'));
+                // @fixme should we use the cutoff too? Doesn't help with indexing per-user.
 
-            $t = new Notice_tag();
+                $qry = 'SELECT notice_tag.tag, '.
+                    $weightexpr . ' as weight ' .
+                    'FROM notice_tag JOIN notice ' .
+                    'ON notice_tag.notice_id = notice.id ' .
+                    'WHERE notice.id in (' . implode(',', $ids) . ')'.
+                    'GROUP BY notice_tag.tag ' .
+                    'ORDER BY weight DESC ';
 
-            $t->query($qry);
+                $limit = TAGS_PER_SECTION;
+                $offset = 0;
 
-            $tag = array();
+                if (common_config('db','type') == 'pgsql') {
+                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+                } else {
+                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+                }
 
-            while ($t->fetch()) {
-                $tag[] = clone($t);
+                $t = new Notice_tag();
+
+                $t->query($qry);
+
+                $tag = array();
+
+                while ($t->fetch()) {
+                    $tag[] = clone($t);
+                }
             }
 
             Memcached_DataObject::cacheSet($keypart, $tag, 3600);
