@@ -226,8 +226,8 @@ class PublicAction extends Action
         $ibs->show();
         $pop = new PopularNoticeSection($this);
         $pop->show();
-        $gbp = new GroupsByMembersSection($this);
-        $gbp->show();
+        $cloud = new PublicTagCloudSection($this);
+        $cloud->show();
         $feat = new FeaturedUsersSection($this);
         $feat->show();
     }
