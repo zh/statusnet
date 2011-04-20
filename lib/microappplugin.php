@@ -138,21 +138,6 @@ abstract class MicroAppPlugin extends Plugin
     abstract function activityObjectFromNotice($notice);
 
     /**
-     * Custom HTML output for your special notice; called when a
-     * matching notice turns up in a NoticeListItem.
-     *
-     * All micro-app classes must override this method.
-     *
-     * @param Notice $notice
-     * @param HTMLOutputter $out
-     *
-     * @fixme WARNING WARNING WARNING base plugin stuff below tries to close
-     * a div that this function opens in the BookmarkPlugin child class.
-     * This is probably wrong.
-     */
-    abstract function showNotice($notice, $out);
-
-    /**
      * When building the primary notice form, we'll fetch also some
      * alternate forms for specialized types -- that's you!
      *
@@ -281,6 +266,35 @@ abstract class MicroAppPlugin extends Plugin
             return true;
         }
 
+        $adapter = $this->adaptNoticeListItem($nli);
+
+        if (!empty($adapter)) {
+            $adapter->showNotice();
+            $adapter->showNoticeAttachments();
+            $adapter->showNoticeInfo();
+            $adapter->showNoticeOptions();
+        } else {
+            $this->oldShowNotice($nli);
+        }
+
+        return false;
+    }
+
+    /**
+     * Given a notice list item, returns an adapter specific
+     * to this plugin.
+     *
+     * @param NoticeListItem $nli item to adapt
+     *
+     * @return NoticeListItemAdapter adapter or null
+     */
+    function adaptNoticeListItem($nli)
+    {
+      return null;
+    }
+
+    function oldShowNotice($nli)
+    {
         $out = $nli->out;
         $notice = $nli->notice;
 
@@ -303,8 +317,6 @@ abstract class MicroAppPlugin extends Plugin
         $out->elementEnd('div');
 
         $nli->showNoticeOptions();
-
-        return false;
     }
 
     /**
@@ -534,5 +546,10 @@ abstract class MicroAppPlugin extends Plugin
         }
 
         return true;
+    }
+
+    function showNotice($notice, $out)
+    {
+        throw new ServerException("You must implement either adaptNoticeListItem() or showNotice()");
     }
 }

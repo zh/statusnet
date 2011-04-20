@@ -159,6 +159,7 @@ class BookmarkPlugin extends MicroAppPlugin
         case 'Bookmark':
             include_once $dir.'/'.$cls.'.php';
             return false;
+        case 'BookmarkListItem':
         case 'BookmarkForm':
         case 'InitialBookmarkForm':
         case 'DeliciousBackupImporter':
@@ -512,128 +513,16 @@ class BookmarkPlugin extends MicroAppPlugin
     }
 
     /**
-     * @fixme WARNING WARNING WARNING this opens a 'div' that is apparently closed by MicroAppPlugin
-     * @fixme that's probably wrong?
+     * Given a notice list item, returns an adapter specific
+     * to this plugin.
      *
-     * @param Notice $notice
-     * @param HTMLOutputter $out
+     * @param NoticeListItem $nli item to adapt
+     *
+     * @return NoticeListItemAdapter adapter or null
      */
-    function showNotice($notice, $out)
+    function adaptNoticeListItem($nli)
     {
-        $nb = Bookmark::getByNotice($notice);
-
-        $profile = $notice->getProfile();
-
-        $atts = $notice->attachments();
-
-        if (count($atts) < 1) {
-            // Something wrong; let default code deal with it.
-            // TRANS: Exception thrown when a bookmark has no attachments.
-            // TRANS: %1$s is a bookmark ID, %2$s is a notice ID (number).
-            throw new Exception(sprintf(_m('Bookmark %1$s (notice %2$d) has no attachments.'),
-                                        $nb->id,
-                                        $notice->id));
-        }
-
-        $att = $atts[0];
-
-        // XXX: only show the bookmark URL for non-single-page stuff
-
-        if ($out instanceof ShowbookmarkAction) {
-        } else {
-            $out->elementStart('h3');
-            $out->element('a',
-                          array('href' => $att->url,
-                                'class' => 'bookmark-title entry-title'),
-                          $nb->title);
-            $out->elementEnd('h3');
-
-            $countUrl = common_local_url('noticebyurl',
-                                         array('id' => $att->id));
-
-            $out->element('a', array('class' => 'bookmark-notice-count',
-                                     'href' => $countUrl),
-                          $att->noticeCount());
-        }
-
-        // Replies look like "for:" tags
-
-        $replies = $notice->getReplies();
-        $tags = $notice->getTags();
-
-        if (!empty($replies) || !empty($tags)) {
-
-            $out->elementStart('ul', array('class' => 'bookmark-tags'));
-
-            foreach ($replies as $reply) {
-                $other = Profile::staticGet('id', $reply);
-                if (!empty($other)) {
-                    $out->elementStart('li');
-                    $out->element('a', array('rel' => 'tag',
-                                             'href' => $other->profileurl,
-                                             'title' => $other->getBestName()),
-                                  sprintf('for:%s', $other->nickname));
-                    $out->elementEnd('li');
-                    $out->text(' ');
-                }
-            }
-
-            foreach ($tags as $tag) {
-                $out->elementStart('li');
-                $out->element('a',
-                              array('rel' => 'tag',
-                                    'href' => Notice_tag::url($tag)),
-                              $tag);
-                $out->elementEnd('li');
-                $out->text(' ');
-            }
-
-            $out->elementEnd('ul');
-        }
-
-        if (!empty($nb->description)) {
-            $out->element('p',
-                          array('class' => 'bookmark-description'),
-                          $nb->description);
-        }
-
-        if (common_config('attachments', 'show_thumbs')) {
-            $haveThumbs = false;
-            foreach ($atts as $check) {
-                $thumbnail = File_thumbnail::staticGet('file_id', $check->id);
-                if (!empty($thumbnail)) {
-                    $haveThumbs = true;
-                    break;
-                }
-            }
-            if ($haveThumbs) {
-                $al = new InlineAttachmentList($notice, $out);
-                $al->show();
-            }
-        }
-
-        $out->elementStart('div', array('class' => 'bookmark-info entry-content'));
-
-        $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
-
-        $out->element('img',
-                      array('src' => ($avatar) ?
-                            $avatar->displayUrl() :
-                            Avatar::defaultImage(AVATAR_MINI_SIZE),
-                            'class' => 'avatar photo bookmark-avatar',
-                            'width' => AVATAR_MINI_SIZE,
-                            'height' => AVATAR_MINI_SIZE,
-                            'alt' => $profile->getBestName()));
-
-        $out->raw('&#160;'); // avoid &nbsp; for AJAX XML compatibility
-
-        $out->elementStart('span', 'vcard author'); // hack for belongsOnTimeline; JS needs to be able to find the author
-        $out->element('a',
-                      array('class' => 'url',
-                            'href' => $profile->profileurl,
-                            'title' => $profile->getBestName()),
-                      $profile->nickname);
-        $out->elementEnd('span');
+        return new BookmarkListItem($nli);
     }
 
     function entryForm($out)
