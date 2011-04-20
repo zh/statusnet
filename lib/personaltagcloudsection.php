@@ -58,8 +58,6 @@ class PersonalTagCloudSection extends TagCloudSection
 
     function getTags()
     {
-        $inbox = Inbox::staticGet('user_id', $this->user->id);
-
         $weightexpr = common_sql_weight('notice_tag.created', common_config('tag', 'dropoff'));
         // @fixme should we use the cutoff too? Doesn't help with indexing per-user.
 
