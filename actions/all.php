@@ -185,10 +185,10 @@ class AllAction extends ProfileAction
     {
         $ibs = new InviteButtonSection($this);
         $ibs->show();
-        $this->showSubscriptions();
-        $this->showSubscribers();
-        $this->showGroups();
-        $this->showLists();
+        $pop = new PopularNoticeSection($this);
+        $pop->show();
+        $pop = new InboxTagCloudSection($this, $this->user);
+        $pop->show();
     }
 
     function showPageTitle()
