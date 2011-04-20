@@ -47,7 +47,15 @@ if (!defined('STATUSNET')) {
 
 class RSVPListItem extends NoticeListItemAdapter
 {
-    function showRSVPNotice($notice, $out)
+    function showNotice()
+    {
+        $this->nli->out->elementStart('div', 'entry-title');
+        $this->nli->showAuthor();
+        $this->showContent();
+        $this->nli->out->elementEnd('div');
+    }
+
+    function showContent($notice, $out)
     {
         $rsvp = RSVP::fromNotice($notice);
 

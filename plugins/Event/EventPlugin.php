@@ -296,6 +296,7 @@ class EventPlugin extends MicroappPlugin
             return new RSVPListItem($nli);
             break;
         }
+        return null;
     }
 
 
