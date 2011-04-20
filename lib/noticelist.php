@@ -81,8 +81,6 @@ class NoticeList extends Widget
     function show()
     {
         $this->out->elementStart('div', array('id' =>'notices_primary'));
-        // TRANS: Header in notice list.
-        $this->out->element('h2', null, _m('HEADER','Notices'));
         $this->out->elementStart('ol', array('class' => 'notices xoxo'));
 
         $cnt = 0;
