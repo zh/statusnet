@@ -1191,15 +1191,8 @@ class Notice extends Memcached_DataObject
                 continue;
             }
 
-            $reply = new Reply();
-
-            $reply->notice_id  = $this->id;
-            $reply->profile_id = $profile->id;
-            $reply->modified   = $this->created;
-
-            common_log(LOG_INFO, __METHOD__ . ": saving reply: notice $this->id to profile $profile->id");
-
-            $id = $reply->insert();
+            $this->saveReply($profile->id);
+            self::blow('reply:stream:%d', $profile->id);
         }
 
         return;
@@ -1225,12 +1218,26 @@ class Notice extends Memcached_DataObject
 
         $sender = Profile::staticGet($this->profile_id);
 
+        $replied = array();
+
+        // If it's a reply, save for the replied-to author
+
+        if (!empty($this->reply_to)) {
+            $original = $this->getOriginal();
+            if (!empty($original)) { // that'd be weird
+                $author = $original->getProfile();
+                if (!empty($author)) {
+                    $this->saveReply($author->id);
+                    $replied[$author->id] = 1;
+                    self::blow('reply:stream:%d', $author->id);
+                }
+            }
+        }
+
         // @todo ideally this parser information would only
         // be calculated once.
 
         $mentions = common_find_mentions($this->content, $this);
-
-        $replied = array();
 
         // store replied only for first @ (what user/notice what the reply directed,
         // we assume first @ is it)
@@ -1252,29 +1259,28 @@ class Notice extends Memcached_DataObject
                     continue;
                 }
 
-                $reply = new Reply();
-
-                $reply->notice_id  = $this->id;
-                $reply->profile_id = $mentioned->id;
-                $reply->modified   = $this->created;
-
-                $id = $reply->insert();
-
-                if (!$id) {
-                    common_log_db_error($reply, 'INSERT', __FILE__);
-                    // TRANS: Server exception thrown when a reply cannot be saved.
-                    // TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-                    throw new ServerException(sprintf(_('Could not save reply for %1$d, %2$d.'), $this->id, $mentioned->id));
-                } else {
-                    $replied[$mentioned->id] = 1;
-                    self::blow('reply:stream:%d', $mentioned->id);
-                }
+                $this->saveReply($mentioned->id);
+                $replied[$mentioned->id] = 1;
+                self::blow('reply:stream:%d', $mentioned->id);
             }
         }
 
         $recipientIds = array_keys($replied);
 
         return $recipientIds;
+    }
+
+    function saveReply($profileId)
+    {
+        $reply = new Reply();
+
+        $reply->notice_id  = $this->id;
+        $reply->profile_id = $profileId;
+        $reply->modified   = $this->created;
+
+        $reply->insert();
+
+        return $reply;
     }
 
     /**
