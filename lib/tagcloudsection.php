@@ -31,7 +31,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-define('TAGS_PER_SECTION', 20);
+define('TAGS_PER_SECTION', 10);
 
 /**
  * Base class for sections
