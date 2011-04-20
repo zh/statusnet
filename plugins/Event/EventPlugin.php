@@ -84,6 +84,8 @@ class EventPlugin extends MicroappPlugin
         case 'ShowrsvpAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
+        case 'EventListItem':
+        case 'RSVPListItem':
         case 'EventForm':
         case 'RSVPForm':
         case 'CancelRSVPForm':
@@ -280,166 +282,22 @@ class EventPlugin extends MicroappPlugin
         return true;
     }
 
-    /**
-     * Custom HTML output for our notices
-     *
-     * @param Notice $notice
-     * @param HTMLOutputter $out
-     */
-    function showNotice($notice, $out)
+    function adaptNoticeListItem($nli)
     {
+        $notice = $nli->notice;
+
         switch ($notice->object_type) {
         case Happening::OBJECT_TYPE:
-            $this->showEventNotice($notice, $out);
+            return new EventListItem($nli);
             break;
         case RSVP::POSITIVE:
         case RSVP::NEGATIVE:
         case RSVP::POSSIBLE:
-            $this->showRSVPNotice($notice, $out);
+            return new RSVPListItem($nli);
             break;
         }
-
-        // @fixme we have to start the name/avatar and open this div
-        $out->elementStart('div', array('class' => 'event-info entry-content')); // EVENT-INFO.ENTRY-CONTENT IN
-
-        $profile = $notice->getProfile();
-        $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
-
-        $out->element('img',
-                      array('src' => ($avatar) ?
-                            $avatar->displayUrl() :
-                            Avatar::defaultImage(AVATAR_MINI_SIZE),
-                            'class' => 'avatar photo bookmark-avatar',
-                            'width' => AVATAR_MINI_SIZE,
-                            'height' => AVATAR_MINI_SIZE,
-                            'alt' => $profile->getBestName()));
-
-        $out->raw('&#160;'); // avoid &nbsp; for AJAX XML compatibility
-
-        $out->elementStart('span', 'vcard author'); // hack for belongsOnTimeline; JS needs to be able to find the author
-        $out->element('a',
-                      array('class' => 'url',
-                            'href' => $profile->profileurl,
-                            'title' => $profile->getBestName()),
-                      $profile->nickname);
-        $out->elementEnd('span');
     }
 
-    function showRSVPNotice($notice, $out)
-    {
-        $rsvp = RSVP::fromNotice($notice);
-
-        if (empty($rsvp)) {
-            $out->element('p', null, _('Deleted.'));
-            return;
-        }
-
-        $out->elementStart('div', 'rsvp');
-        $out->raw($rsvp->asHTML());
-        $out->elementEnd('div');
-        return;
-    }
-
-    function showEventNotice($notice, $out)
-    {
-        $profile = $notice->getProfile();
-        $event   = Happening::fromNotice($notice);
-
-        if (empty($event)) {
-            $out->element('p', null, _('Deleted.'));
-            return;
-        }
-
-        $out->elementStart('div', 'vevent event'); // VEVENT IN
-
-        $out->elementStart('h3');  // VEVENT/H3 IN
-
-        if (!empty($event->url)) {
-            $out->element('a',
-                          array('href' => $event->url,
-                                'class' => 'event-title entry-title summary'),
-                          $event->title);
-        } else {
-            $out->text($event->title);
-        }
-
-        $out->elementEnd('h3'); // VEVENT/H3 OUT
-
-        $startDate = strftime("%x", strtotime($event->start_time));
-        $startTime = strftime("%R", strtotime($event->start_time));
-
-        $endDate = strftime("%x", strtotime($event->end_time));
-        $endTime = strftime("%R", strtotime($event->end_time));
-
-        // FIXME: better dates
-
-        $out->elementStart('div', 'event-times'); // VEVENT/EVENT-TIMES IN
-
-        // TRANS: Field label for event description.
-        $out->element('strong', null, _m('Time:'));
-
-        $out->element('abbr', array('class' => 'dtstart',
-                                    'title' => common_date_iso8601($event->start_time)),
-                      $startDate . ' ' . $startTime);
-        $out->text(' - ');
-        if ($startDate == $endDate) {
-            $out->element('span', array('class' => 'dtend',
-                                        'title' => common_date_iso8601($event->end_time)),
-                          $endTime);
-        } else {
-            $out->element('span', array('class' => 'dtend',
-                                        'title' => common_date_iso8601($event->end_time)),
-                          $endDate . ' ' . $endTime);
-        }
-
-        $out->elementEnd('div'); // VEVENT/EVENT-TIMES OUT
-
-        if (!empty($event->location)) {
-            $out->elementStart('div', 'event-location');
-            // TRANS: Field label for event description.
-            $out->element('strong', null, _m('Location:'));
-            $out->element('span', 'location', $event->location);
-            $out->elementEnd('div');
-        }
-
-        if (!empty($event->description)) {
-            $out->elementStart('div', 'event-description');
-            // TRANS: Field label for event description.
-            $out->element('strong', null, _m('Description:'));
-            $out->element('span', 'description', $event->description);
-            $out->elementEnd('div');
-        }
-
-        $rsvps = $event->getRSVPs();
-
-        $out->elementStart('div', 'event-rsvps');
-        // TRANS: Field label for event description.
-        $out->element('strong', null, _m('Attending:'));
-        $out->element('span', 'event-rsvps',
-                      // TRANS: RSVP counts.
-		      // TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
-                      sprintf(_m('Yes: %1$d No: %2$d Maybe: %3$d'),
-                              count($rsvps[RSVP::POSITIVE]),
-                              count($rsvps[RSVP::NEGATIVE]),
-                              count($rsvps[RSVP::POSSIBLE])));
-        $out->elementEnd('div');
-
-        $user = common_current_user();
-
-        if (!empty($user)) {
-            $rsvp = $event->getRSVP($user->getProfile());
-
-            if (empty($rsvp)) {
-                $form = new RSVPForm($event, $out);
-            } else {
-                $form = new CancelRSVPForm($rsvp, $out);
-            }
-
-            $form->show();
-        }
-
-        $out->elementEnd('div'); // vevent out
-    }
 
     /**
      * Form for our app
