@@ -55,8 +55,11 @@ class RSVPListItem extends NoticeListItemAdapter
         $this->nli->out->elementEnd('div');
     }
 
-    function showContent($notice, $out)
+    function showContent()
     {
+        $notice = $this->nli->notice;
+        $out    = $this->nli->out;
+
         $rsvp = RSVP::fromNotice($notice);
 
         if (empty($rsvp)) {

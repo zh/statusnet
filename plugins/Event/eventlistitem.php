@@ -55,8 +55,11 @@ class EventListItem extends NoticeListItemAdapter
         $this->nli->out->elementEnd('div');
     }
 
-    function showContent($notice, $out)
+    function showContent()
     {
+        $notice = $this->nli->notice;
+        $out    = $this->nli->out;
+
         $profile = $notice->getProfile();
         $event   = Happening::fromNotice($notice);
 
