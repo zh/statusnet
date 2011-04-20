@@ -1071,13 +1071,15 @@ class Notice extends Memcached_DataObject
                     common_log_db_error($gi, 'INSERT', __FILE__);
                 }
 
-                // we automatically add a tag for every group name, too
+                if (common_config('group', 'addtag')) {
+                    // we automatically add a tag for every group name, too
 
-                $tag = Notice_tag::pkeyGet(array('tag' => common_canonical_tag($group->nickname),
-                                                 'notice_id' => $this->id));
+                    $tag = Notice_tag::pkeyGet(array('tag' => common_canonical_tag($group->nickname),
+                                                     'notice_id' => $this->id));
 
-                if (is_null($tag)) {
-                    $this->saveTag($group->nickname);
+                    if (is_null($tag)) {
+                        $this->saveTag($group->nickname);
+                    }
                 }
 
                 $groups[] = clone($group);
