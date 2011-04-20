@@ -47,12 +47,20 @@ if (!defined('STATUSNET')) {
 
 class BookmarkListItem extends NoticeListItemAdapter
 {
+    function showNotice()
+    {
+        $this->nli->out->elementStart('div', 'entry-title');
+        $this->nli->showAuthor();
+        $this->showContent();
+        $this->nli->out->elementEnd('div');
+    }
+
     function showContent()
     {
-        $this->out->elementStart('p', array('class' => 'entry-content'));
-
         $notice = $this->nli->notice;
         $out    = $this->nli->out;
+
+        $out->elementStart('p', array('class' => 'entry-content'));
 
         $nb = Bookmark::getByNotice($notice);
 
@@ -74,16 +82,9 @@ class BookmarkListItem extends NoticeListItemAdapter
         $out->elementStart('h3');
         $out->element('a',
                       array('href' => $att->url,
-                            'class' => 'bookmark-title entry-title'),
+                            'class' => 'bookmark-title'),
                       $nb->title);
         $out->elementEnd('h3');
-
-        $countUrl = common_local_url('noticebyurl',
-                                     array('id' => $att->id));
-
-        $out->element('a', array('class' => 'bookmark-notice-count',
-                                 'href' => $countUrl),
-                      $att->noticeCount());
 
         // Replies look like "for:" tags
 
@@ -126,6 +127,6 @@ class BookmarkListItem extends NoticeListItemAdapter
                           $nb->description);
         }
 
-        $this->out->elementEnd('p');
+        $out->elementEnd('p');
     }
 }
