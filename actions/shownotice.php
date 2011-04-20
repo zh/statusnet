@@ -335,6 +335,6 @@ class SingleNoticeItem extends DoFollowListItem
 {
     function avatarSize()
     {
-        return AVATAR_PROFILE_SIZE;
+        return AVATAR_STREAM_SIZE;
     }
 }
