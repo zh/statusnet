@@ -13,17 +13,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-18 11:21+0000\n"
-"PO-Revision-Date: 2011-04-18 11:24:46+0000\n"
+"POT-Creation-Date: 2011-04-20 07:12+0000\n"
+"PO-Revision-Date: 2011-04-20 07:15:36+0000\n"
 "Language-Team: Swedish <http://translatewiki.net/wiki/Portal:sv>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86294); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-17 22:40:29+0000\n"
+"X-POT-Import-Date: 2011-04-18 11:51:41+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -168,30 +168,28 @@ msgid "No such list."
 msgstr "Ingen sådan lista."
 
 #. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
-#, fuzzy
 msgid "You cannot list an OMB 0.1 remote profile with this action."
-msgstr "Du kan inte tagga en OMB 0.1-fjärrprofil med denna åtgärd."
+msgstr "Du kan inte lista en OMB 0,1-fjärrprofil med denna åtgärd."
 
 #. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a username.
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "There was an unexpected error while listing %s."
-msgstr "Det uppstod ett oväntat fel vid taggning av %s."
+msgstr "Det uppstod ett oväntat fel när %s listades."
 
 #. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There was a problem listing %s. The remote server is probably not responding "
 "correctly. Please try retrying later."
 msgstr ""
-"Det uppstod ett problem vid taggning av %s. Fjärrservern svarar förmodligen "
+"Det uppstod ett problem när %s listades. Fjärrservern svarar förmodligen "
 "inte korrekt, prova att försöka igen senare."
 
 #. TRANS: Title after adding a user to a list.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Listed"
 msgstr "Listade"
@@ -2297,9 +2295,8 @@ msgid ""
 msgstr ""
 
 #. TRANS: TRANS: Server error displayed when updating a list fails.
-#, fuzzy
 msgid "Could not update list."
-msgstr "Kunde inte uppdatera användare."
+msgstr "Kunde inte uppdatera lista."
 
 #. TRANS: Title for e-mail settings.
 msgid "Email settings"
@@ -2379,6 +2376,8 @@ msgid ""
 "To send notices via email, we need to create a unique email address for you "
 "on this server:"
 msgstr ""
+"För att skicka meddelanden via e-post, måste vi skapa en unik e-postadress "
+"för dig på den här servern:"
 
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
@@ -2836,7 +2835,7 @@ msgstr "Grupper, sida %d"
 #. TRANS: Page notice of group list. %%%%site.name%%%% is the StatusNet site name,
 #. TRANS: %%%%action.groupsearch%%%% and %%%%action.newgroup%%%% are URLs. Do not change them.
 #. TRANS: This message contains Markdown links in the form [link text](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%%%%site.name%%%% groups let you find and talk with people of similar "
 "interests. After you join a group you can send messages to all other members "
@@ -2844,11 +2843,11 @@ msgid ""
 "for one](%%%%action.groupsearch%%%%) or [start your own](%%%%action.newgroup%"
 "%%%)!"
 msgstr ""
-"%%%%site.name%%%% grupper låter dig hitta och samtala med personer med "
-"liknande intressen. Efter att ha gått med i en grupp kan du skicka "
-"meddelanden till alla andra medlemmar mha syntaxen \"!gruppnamn\". Ser du "
-"inte någon grupp du gillar? Prova att [söka efter en](%%%%action.groupsearch%"
-"%%%) eller [starta din egen!](%%%%action.newgroup%%%%)"
+"%%%%site.name%%%%-grupper låter dig hitta och prata med människor med "
+"liknande intressen. När du har gått med i en grupp kan du skicka meddelanden "
+"till alla andra medlemmar med syntaxen \"!gruppnamn\". Hittar du inte en "
+"grupp du gillar? Prova att [söka efter en](%%%%action.groupsearch%%%%) eller "
+"[starta din egen](%%%%action.newgroup%%%%)!"
 
 #. TRANS: Link to create a new group on the group list page.
 #. TRANS: Link text on group page to create a new group.
@@ -2879,12 +2878,12 @@ msgstr "Inga resultat."
 
 #. TRANS: Additional text on page where groups can be searched if no results were found for a query for a logged in user.
 #. TRANS: This message contains Markdown links in the form [link text](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "If you cannot find the group you're looking for, you can [create it](%%"
 "action.newgroup%%) yourself."
 msgstr ""
-"Om du inte kan hitta gruppen du söker efter kan du [skapa den](%%action."
+"Om du inte hittar den grupp du letar efter kan du [skapa den](%%action."
 "newgroup%%) själv."
 
 #. TRANS: Additional text on page where groups can be searched if no results were found for a query for a not logged in user.
@@ -2917,13 +2916,13 @@ msgstr "Inställningar för snabbmeddelanden"
 #. TRANS: Instant messaging settings page instructions.
 #. TRANS: [instant messages] is link text, "(%%doc.im%%)" is the link.
 #. TRANS: the order and formatting of link text and link should remain unchanged.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can send and receive notices through instant messaging [instant messages]"
 "(%%doc.im%%). Configure your addresses and settings below."
 msgstr ""
-"Du kan skicka och ta emot notiser genom Jabber/GTalk-[snabbmeddelanden](%%"
-"doc.im%%). Konfigurera din adress och dina inställningar nedan."
+"Du kan skicka och ta emot meddelanden via [snabbmeddelanden](%%doc.im%%). "
+"Konfigurera adresser och inställningarna nedan."
 
 #. TRANS: Message given in the IM settings if IM is not enabled on the site.
 msgid "IM is not available."
@@ -2936,13 +2935,14 @@ msgstr "Nuvarande bekräftad %s-adress."
 
 #. TRANS: Form note in IM settings form.
 #. TRANS: %s is the IM service name, %2$s is the IM address set.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Awaiting confirmation on this address. Check your %1$s account for a message "
 "with further instructions. (Did you add %2$s to your buddy list?)"
 msgstr ""
-"Väntar på bekräftelse för denna adress. Kontrollera ditt Jabber/GTalk-konto "
-"för vidare instruktioner. (La du till %s i din kompislista?)"
+"Väntar på bekräftelse för denna adress. Kontrollera ditt %1$s-konto för ett "
+"meddelande vidare instruktioner. (Har du lagt till till %2$s i din "
+"kompislista?)"
 
 #. TRANS: Field label for IM address.
 msgid "IM address"
@@ -3003,20 +3003,17 @@ msgid "Screenname already belongs to another user."
 msgstr "Skärmnamn tillhör redan en annan användare."
 
 #. TRANS: Message given saving valid IM address that is to be confirmed.
-#, fuzzy
 msgid "A confirmation code was sent to the IM address you added."
 msgstr ""
-"En bekräftelsekod skickades till den IM-adress du angav. Du måste godkänna "
-"att %s får skicka meddelanden till dig."
+"En bekräftelsekod skickades till snabbmeddelandeadressen som du lagt till."
 
 #. TRANS: Message given canceling IM address confirmation for the wrong IM address.
 msgid "That is the wrong IM address."
 msgstr "Detta är fel IM-adress."
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
-#, fuzzy
 msgid "Could not delete confirmation."
-msgstr "Kunde inte ta bort bekräftelse för snabbmeddelanden."
+msgstr "Kunde inte ta bort bekräftelse."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 msgid "IM confirmation cancelled."
@@ -3024,9 +3021,8 @@ msgstr "Bekräftelse för snabbmeddelanden avbruten."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
-#, fuzzy
 msgid "That is not your screenname."
-msgstr "Detta är inte ditt telefonnummer."
+msgstr "Det är inte din skärmnamn."
 
 #. TRANS: Message given after successfully removing a registered Instant Messaging address.
 msgid "The IM address was removed."
@@ -3157,67 +3153,6 @@ msgstr "Skicka"
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr "%1$s har bjudit in dig att gå med dem på %2$s"
-
-#. TRANS: Body text for invitation email. Note that 'them' is correct as a gender-neutral
-#. TRANS: singular 3rd-person pronoun in English. %1$s is the inviting user, %2$s is the
-#. TRANS: StatusNet sitename, %3$s is the site URL, %4$s is the personal message from the
-#. TRANS: inviting user, %s%5 a link to the timeline for the inviting user, %s$6 is a link
-#. TRANS: to register with the StatusNet site.
-#, php-format
-msgid ""
-"%1$s has invited you to join them on %2$s (%3$s).\n"
-"\n"
-"%2$s is a micro-blogging service that lets you keep up-to-date with people "
-"you know and people who interest you.\n"
-"\n"
-"You can also share news about yourself, your thoughts, or your life online "
-"with people who know about you. It's also great for meeting new people who "
-"share your interests.\n"
-"\n"
-"%1$s said:\n"
-"\n"
-"%4$s\n"
-"\n"
-"You can see %1$s's profile page on %2$s here:\n"
-"\n"
-"%5$s\n"
-"\n"
-"If you'd like to try the service, click on the link below to accept the "
-"invitation.\n"
-"\n"
-"%6$s\n"
-"\n"
-"If not, you can ignore this message. Thanks for your patience and your "
-"time.\n"
-"\n"
-"Sincerely, %2$s\n"
-msgstr ""
-"%1$s har bjudit in dig till dem på %2$s (%3$s).\n"
-"\n"
-"%2$s är en mikrobloggtjänst som låter dig hålla dig uppdaterad med folk du "
-"känner och folk som intresserar dig . \n"
-"\n"
-"Du kan också dela nyheter om dig själv, dina tankar, eller ditt liv online "
-"med folk som känner till dig. Det är också bra för att träffa nya människor "
-"som delar dina intressen.\n"
-"\n"
-"%1$s sa:\n"
-"\n"
-"%4$s\n"
-"\n"
-"Du kan se %1$ss profilsida på %2$s här: \n"
-"\n"
-"%5$s\n"
-"\n"
-"Om du vill prova tjänsten, klicka på länken nedan för att acceptera "
-"inbjudan. \n"
-"\n"
-"%6$s\n"
-"\n"
-"Om inte, kan du bortse från detta meddelande. Tack för ditt tålamod och din "
-"tid\n"
-"\n"
-"Vänliga hälsningar, %2$s\n"
 
 #. TRANS: Client error displayed when trying to join a group while not logged in.
 msgid "You must be logged in to join a group."
@@ -4050,29 +3985,29 @@ msgstr "Personsökning"
 
 #. TRANS: Title for list page.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Public list %s"
-msgstr "Publika listor av dig"
+msgstr "Publik lista %s"
 
 #. TRANS: Title for list page.
 #. TRANS: %1$s is a list, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Public list %1$s, page %2$d"
-msgstr "Publik persontagg %1$s, sida %2$d"
+msgstr "Publik lista %1$s, sida %2$d"
 
 #. TRANS: Message for anonymous users on list page.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Lists are how you sort similar people on %%site.name%%, a [micro-blogging]"
 "(http://en.wikipedia.org/wiki/Micro-blogging) service based on the Free "
 "Software [StatusNet](http://status.net/) tool. You can then easily keep "
 "track of what they are doing by subscribing to the list's timeline."
 msgstr ""
-"**%s** är en användargrupp på %%%%site.name%%%%, en [mikroblogg](http://sv."
-"wikipedia.org/wiki/Mikroblogg)tjänst baserad den fria programvaran "
-"[StatusNet](http://status.net/). Dess medlemmar delar korta meddelande om "
-"sina liv och intressen. "
+"Listor är hur du sorterar liknande personer på %%site.name%%, en [mikroblogg]"
+"(http://sv.wikipedia.org/wiki/Mikroblogg)-tjänst baserat på den fria "
+"programvara [StatusNet](http://status.net/). Du kan sedan enkelt hålla reda "
+"på vad de gör genom att prenumerera på i listans tidslinje."
 
 #. TRANS: Client error displayed when a tagger is expected but not provided.
 msgid "No tagger."
@@ -4159,7 +4094,7 @@ msgstr "Gå"
 #. TRANS: Message displayed for anonymous users on page that displays lists by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are lists created by **%s**. Lists are how you sort similar people on %"
 "%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4167,10 +4102,11 @@ msgid ""
 "tool. You can easily keep track of what they are doing by subscribing to the "
 "tag's timeline."
 msgstr ""
-"**%s** är en användargrupp på %%%%site.name%%%%, en [mikroblogg](http://sv."
-"wikipedia.org/wiki/Mikroblogg)tjänst baserad den fria programvaran "
-"[StatusNet](http://status.net/). Dess medlemmar delar korta meddelande om "
-"sina liv och intressen. "
+"Dessa är listor som skapats av **%s**. Listor är hur du sorterar liknande "
+"personer på %%site.name%%, en [mikroblogg](http://sv.wikipedia.org/wiki/"
+"Mikroblogg)-tjänst baserat på den fria programvara [StatusNet](http://status."
+"net/). Du kan enkelt hålla reda på vad de gör genom att prenumerera på i "
+"listans tidslinje."
 
 #. TRANS: Message displayed on page that displays lists by a user when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
@@ -4192,7 +4128,7 @@ msgstr "Listor med %1$s, sida %2$d"
 #. TRANS: Message displayed for anonymous users on page that displays lists for a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are lists for **%s**. lists are how you sort similar people on %%%%"
 "site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4200,10 +4136,10 @@ msgid ""
 "tool. You can easily keep track of what they are doing by subscribing to the "
 "tag's timeline."
 msgstr ""
-"**%s** är en användargrupp på %%%%site.name%%%%, en [mikroblogg](http://sv."
-"wikipedia.org/wiki/Mikroblogg)tjänst baserad den fria programvaran "
-"[StatusNet](http://status.net/). Dess medlemmar delar korta meddelande om "
-"sina liv och intressen. "
+"Dessa är listor för **%s**. Listor är hur du sorterar liknande personer på %%"
+"site.name%%, en [mikroblogg](http://sv.wikipedia.org/wiki/Mikroblogg)-tjänst "
+"baserat på den fria programvara [StatusNet](http://status.net/). Du kan "
+"enkelt hålla reda på vad de gör genom att prenumerera på i listans tidslinje."
 
 #. TRANS: Message displayed on page that displays lists a user was added to when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
@@ -4214,15 +4150,15 @@ msgstr "%s har inte [listats](%%% %doc.lists% %%%) av någon ännu."
 
 #. TRANS: Page title for list of list subscribers.
 #. TRANS: %1$s is a list, %2$s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to list %1$s by %2$s"
-msgstr "Prenumeranter på %1$s-listan av %2$s ."
+msgstr "Prenumeranter på listan %1$s av %2$s"
 
 #. TRANS: Page title for list of list subscribers.
 #. TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to list %1$s by %2$s, page %3$d"
-msgstr "Prenumeranter av personer som taggats %1$s av %2$s, sida %3$d"
+msgstr "Prenumeranter på listan %1$s av %2$s , sida %3$d"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %s is a profile nickname.
@@ -4232,14 +4168,14 @@ msgstr "Listor som prenumereras av %s"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %1$s is a profile nickname, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists subscribed to by %1$s, page %2$d"
-msgstr "%1$s prenumerationer, sida %2$d"
+msgstr "Listor som %1$s prenumererar på, sida %2$d"
 
 #. TRANS: Message displayed for anonymous users on page that displays lists subscribed to by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are lists subscribed to by **%s**. Lists are how you sort similar "
 "people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/"
@@ -4247,10 +4183,11 @@ msgid ""
 "net/) tool. You can easily keep track of what they are doing by subscribing "
 "to the list's timeline."
 msgstr ""
-"**%s** är en användargrupp på %%%%site.name%%%%, en [mikroblogg](http://sv."
-"wikipedia.org/wiki/Mikroblogg)tjänst baserad den fria programvaran "
-"[StatusNet](http://status.net/). Dess medlemmar delar korta meddelande om "
-"sina liv och intressen. "
+"Dessa är listor som **%s** prenumererar på. Listor är hur du sorterar "
+"liknande personer på %%site.name%%, en [mikroblogg](http://sv.wikipedia.org/"
+"wiki/Mikroblogg)-tjänst baserat på den fria programvara [StatusNet](http://"
+"status.net/). Du kan enkelt hålla reda på vad de gör genom att prenumerera "
+"på i listans tidslinje."
 
 #. TRANS: Page title for AJAX form return when a disabling a plugin.
 msgctxt "plugin"
@@ -4583,9 +4520,9 @@ msgid ""
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
 "Detta är %%site.name%%, en [mikroblogg](http://sv.wikipedia.org/wiki/"
-"Mikroblogg)tjänst baserad på den fria programvaran [StatusNet](http://status."
-"net/). [Gå med nu](%%action.register%%) för att dela notiser om dig själv "
-"med vänner, familj och kollegor! ([Läs mer](%%doc.help%%))"
+"Mikroblogg)-tjänst baserad på den fria programvaran [StatusNet](http://"
+"status.net/). [Gå med nu](%%action.register%%) för att dela notiser om dig "
+"själv med vänner, familj och kollegor! ([Läs mer](%%doc.help%%))"
 
 #. TRANS: Message for not logged in users at a closed site trying to view the public feed of notices.
 #. TRANS: This message contains Markdown links. Please mind the formatting.
@@ -4600,48 +4537,45 @@ msgstr ""
 "net/)."
 
 #. TRANS: Title for page with public list cloud.
-#, fuzzy
 msgid "Public list cloud"
-msgstr "Publikt taggmoln"
+msgstr "Publikt listmoln"
 
 #. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "These are largest lists on %s"
-msgstr "Dessa är de populäraste senaste taggar på %s"
+msgstr "Dessa är de största listorna på %s"
 
 #. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid "No one has [listed](%%doc.tags%%) anyone yet."
-msgstr "Ingen har [taggat] (%%doc.tags%%) någon ännu."
+msgstr "Ingen har [listat] (%%doc.tags%%) någon ännu."
 
 #. TRANS: Additional empty list message on page with public list cloud for logged in users.
-#, fuzzy
 msgid "Be the first to list someone!"
-msgstr "Bli först att tagga någon!"
+msgstr "Var den första att lista någon!"
 
 #. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
 msgstr ""
-"Varför inte [registrera ett konto](%%action.register%%) och var den första "
-"att tagga någon!"
+"Varför inte [registrera ett konto] (%%action.register%%) och bli den första "
+"att lista någon!"
 
 #. TRANS: DT element on on page with public list cloud.
-#, fuzzy
 msgid "List cloud"
-msgstr "Lista hittades inte."
+msgstr "Listmoln"
 
 #. TRANS: Link title for number of listed people. %d is the number of listed people.
-#, fuzzy, php-format
+#, php-format
 msgid "1 person listed"
 msgid_plural "%d people listed"
-msgstr[0] " 1 person taggad"
-msgstr[1] " %d personer taggade"
+msgstr[0] " 1 person listad"
+msgstr[1] " %d personer listade"
 
 #. TRANS: Public RSS feed description. %s is the StatusNet site name.
 #, php-format
@@ -5032,24 +4966,24 @@ msgid "Could not get a request token."
 msgstr "Kunde inte få en förfrågan-token."
 
 #. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
-#, fuzzy
 msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
-msgstr "Du kan inte tagga en OMB 0.1-fjärrprofil med denna åtgärd."
+msgstr ""
+"Du kan inte lägga till eller ta bort en OMB 0.1-fjärrprofil från en lista "
+"med denna åtgärd."
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There was a problem listing %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
-"Det uppstod ett problem vid taggning av %s. Fjärrservern svarar förmodligen "
+"Det uppstod ett problem vid listning av %s. Fjärrservern svarar förmodligen "
 "inte korrekt, prova att försöka igen senare."
 
 #. TRANS: Title after removing a user from a list.
-#, fuzzy
 msgid "Unlisted"
-msgstr "Listade"
+msgstr "Struken från lista"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -5237,9 +5171,9 @@ msgstr "Användare är redan flyttad till sandlådan."
 
 #. TRANS: Client error displayed when trying to list a profile with an invalid list.
 #. TRANS: %s is the invalid list name.
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid list: %s."
-msgstr "Inte en giltig persontagg: %s."
+msgstr "Inte en giltig lista: %s."
 
 #. TRANS: Page title for page showing self tags.
 #. TRANS: %1$s is a tag, %2$d is a page number.
@@ -6095,9 +6029,8 @@ msgid "Subscribed"
 msgstr "Prenumerant"
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
-#, fuzzy
 msgid "You must be logged in to unsubscribe from a list."
-msgstr "Du måste vara inloggad för att sluta prenumerera på ett persontagg."
+msgstr "Du måste vara inloggad för att avsluta prenumerationen på en lista."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
 msgid "No ID given."
@@ -6105,15 +6038,15 @@ msgstr "Inget ID angiven."
 
 #. TRANS: Server error displayed subscribing to a list fails.
 #. TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
-#, fuzzy, php-format
+#, php-format
 msgid "Could not subscribe user %1$s to list %2$s: %3$s"
-msgstr "Kunde inte teckna användare %1$s att prenumerara på persontagg %2$s."
+msgstr "Kunde inte teckna användare %1$s att prenumerara på listan %2$s: %3$s"
 
 #. TRANS: Title of form to subscribe to a list.
 #. TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribed to list %2$s by %3$s"
-msgstr "%1$s prenumeranter, sida %2$d"
+msgstr "%1$s prenumererar på listan %2$s av %3$s"
 
 #. TRANS: Header for list of subscribers for a user (first page).
 #. TRANS: %s is the user's nickname.
@@ -6139,13 +6072,12 @@ msgid "These are the people who listen to %s's notices."
 msgstr "Det är dessa personer som lyssnar på %ss notiser."
 
 #. TRANS: Subscriber list text when the logged in user has no subscribers.
-#, fuzzy
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor."
 msgstr ""
-"Du har inga prenumeranter. Prova att prenumerera på personer du känner och "
-"de kommer kanske återgälda tjänsten"
+"Du har inga prenumeranter. Prova att prenumerera på folk du känner och de "
+"kanske återgäldar tjänsten."
 
 #. TRANS: Subscriber list text when looking at the subscribers for a of a user other
 #. TRANS: than the logged in user that has no subscribers. %s is the user nickname.
@@ -6255,16 +6187,15 @@ msgid "You cannot tag this user."
 msgstr "Du kan inte tagga den här användaren."
 
 #. TRANS: Title for list form when not on a profile page.
-#, fuzzy
 msgid "List a profile"
-msgstr "Tagga en profil"
+msgstr "Lista en profil"
 
 #. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "ADDTOLIST"
 msgid "List %s"
-msgstr "Listor"
+msgstr "Lista %s"
 
 #. TRANS: Title for list form when an error has occurred.
 msgctxt "TITLE"
@@ -6276,23 +6207,20 @@ msgid "User profile"
 msgstr "Användarprofil"
 
 #. TRANS: Fieldset legend for list form.
-#, fuzzy
 msgid "List user"
-msgstr "Listor"
+msgstr "Lista användare"
 
 #. TRANS: Field label on list form.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Lists"
 msgstr "Listor"
 
 #. TRANS: Field title on list form.
-#, fuzzy
 msgid ""
 "Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
-"Taggar för denna användare (bokstäver, siffror, -, ., och _), separerade med "
+"Listor för denna användare (bokstäver, siffror, -, ., och _), separerade med "
 "kommatecken eller mellanslag."
 
 #. TRANS: Title for personal tag cloud section.
@@ -6301,16 +6229,14 @@ msgid "Tags"
 msgstr "Taggar"
 
 #. TRANS: Success message if lists are saved.
-#, fuzzy
 msgid "Lists saved."
-msgstr "Taggar sparade."
+msgstr "Listor sparades."
 
 #. TRANS: Page notice.
-#, fuzzy
 msgid "Use this form to add your subscribers or subscriptions to lists."
 msgstr ""
-"Använd detta formulär för att lägga till taggar till dina prenumeranter "
-"eller prenumerationer."
+"Använd detta formulär för att lägga till dina prenumeranter eller "
+"prenumerationer på listor."
 
 #. TRANS: Client error when requesting a tag feed for a non-existing tag.
 msgid "No such tag."
@@ -6334,9 +6260,9 @@ msgstr "Prenumeration avslutad"
 
 #. TRANS: Page title for form that allows unsubscribing from a list.
 #. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s unsubscribed from list %2$s by %3$s"
-msgstr "%1$s prenumeranter, sida %2$d"
+msgstr "%1$s struken från listan %2$s av %3$s"
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
 #. TRANS: %1$s is the license incompatible with site license %2$s.
@@ -7065,7 +6991,6 @@ msgid "Could not delete subscription."
 msgstr "Kunde inte spara prenumeration."
 
 #. TRANS: Activity title when subscribing to another person.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Follow"
 msgstr "Följ"
@@ -8654,7 +8579,7 @@ msgstr "E-postadressbekräftelse"
 #. TRANS: Body for address confirmation email.
 #. TRANS: %1$s is the addressed user's nickname, %2$s is the StatusNet sitename,
 #. TRANS: %3$s is the URL to confirm at.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hey, %1$s.\n"
 "\n"
@@ -8669,18 +8594,18 @@ msgid ""
 "Thanks for your time, \n"
 "%2$s\n"
 msgstr ""
-"Hej %s!\n"
+"Hej %1$s!\n"
 "\n"
-"Någon la precis till den här e-postadressen på %s.\n"
+"Någon la precis till den här e-postadressen på %2$s.\n"
 "\n"
 "Om det var du och du vill bekräfta det, använd webbadressen nedan:\n"
 "\n"
-"%s\n"
+"%3$s\n"
 "\n"
 "Om inte, ignorera bara det här meddelandet.\n"
 "\n"
 "Tack för din tid,  \n"
-"%s\n"
+"%2$s\n"
 
 #. TRANS: Subject of new-subscriber notification e-mail.
 #. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
@@ -8793,7 +8718,7 @@ msgstr "%s: bekräfta detta telefonnummer med denna kod:"
 
 #. TRANS: Subject for 'nudge' notification email.
 #. TRANS: %s is the nudging user.
-#, fuzzy, php-format
+#, php-format
 msgid "You have been nudged by %s"
 msgstr "Du har blivit knuffad av %s"
 
@@ -9198,9 +9123,8 @@ msgid "Attach"
 msgstr "Bifoga"
 
 #. TRANS: Title for input field to attach a file to a notice.
-#, fuzzy
 msgid "Attach a file."
-msgstr "Bifoga en fil"
+msgstr "Bifoga en fil."
 
 #. TRANS: Field label to add location to a notice.
 msgid "Share my location"
@@ -9220,7 +9144,6 @@ msgstr ""
 
 #. TRANS: Header in notice list.
 #. TRANS: Header for Notices section.
-#, fuzzy
 msgctxt "HEADER"
 msgid "Notices"
 msgstr "Notiser"
@@ -9228,11 +9151,12 @@ msgstr "Notiser"
 #. TRANS: Separator in profile addressees list.
 msgctxt "SEPARATOR"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #. TRANS: Start of profile addressees list.
-msgid " ▶ "
-msgstr ""
+#, fuzzy
+msgid " ▸ "
+msgstr " ▶ "
 
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
@@ -9284,28 +9208,25 @@ msgid "Delete this notice"
 msgstr "Ta bort denna notis"
 
 #. TRANS: Title for repeat form status in notice list when a notice has been repeated.
-#, fuzzy
 msgid "Notice repeated."
-msgstr "Notis upprepad"
+msgstr "Notis upprepad."
 
 #. TRANS: Field label for notice text.
 msgid "Update your status..."
-msgstr ""
+msgstr "Uppdatera din status ..."
 
 #. TRANS: Form legend of form to nudge/ping another user.
 msgid "Nudge this user"
 msgstr "Knuffa denna användare"
 
 #. TRANS: Button text to nudge/ping another user.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Nudge"
 msgstr "Knuffa"
 
 #. TRANS: Button title to nudge/ping another user.
-#, fuzzy
 msgid "Send a nudge to this user."
-msgstr "Skicka en knuff till denna användare"
+msgstr "Skicka en knuff till denna användare."
 
 #. TRANS: Exception thrown when creating a new profile fails in OAuth store.
 msgid "Error inserting new profile."
@@ -9324,7 +9245,6 @@ msgid "Duplicate notice."
 msgstr "Duplicera notis."
 
 #. TRANS: Exception thrown when creating a new subscription fails in OAuth store.
-#, fuzzy
 msgid "Could not insert new subscription."
 msgstr "Kunde inte infoga ny prenumeration."
 
@@ -9340,16 +9260,12 @@ msgid "List"
 msgstr "Lista"
 
 #. TRANS: Field title for list.
-#, fuzzy
 msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
-msgstr ""
-"Taggar för denna användare (bokstäver, nummer, -, ., och _), separerade med "
-"kommatecken eller mellanslag"
+msgstr "Ändra listan (bokstäver, siffror, -, ., och _ är tillåtna)."
 
 #. TRANS: Field title for description of list.
-#, fuzzy
 msgid "Describe the list or topic."
-msgstr "Beskriv gruppen eller ämnet"
+msgstr "Beskriv listan eller ämnet."
 
 #. TRANS: Field title for description of list.
 #. TRANS: %d is the maximum number of characters for the description.
@@ -10251,3 +10167,58 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
+
+#~ msgid ""
+#~ "%1$s has invited you to join them on %2$s (%3$s).\n"
+#~ "\n"
+#~ "%2$s is a micro-blogging service that lets you keep up-to-date with "
+#~ "people you know and people who interest you.\n"
+#~ "\n"
+#~ "You can also share news about yourself, your thoughts, or your life "
+#~ "online with people who know about you. It's also great for meeting new "
+#~ "people who share your interests.\n"
+#~ "\n"
+#~ "%1$s said:\n"
+#~ "\n"
+#~ "%4$s\n"
+#~ "\n"
+#~ "You can see %1$s's profile page on %2$s here:\n"
+#~ "\n"
+#~ "%5$s\n"
+#~ "\n"
+#~ "If you'd like to try the service, click on the link below to accept the "
+#~ "invitation.\n"
+#~ "\n"
+#~ "%6$s\n"
+#~ "\n"
+#~ "If not, you can ignore this message. Thanks for your patience and your "
+#~ "time.\n"
+#~ "\n"
+#~ "Sincerely, %2$s\n"
+#~ msgstr ""
+#~ "%1$s har bjudit in dig till dem på %2$s (%3$s).\n"
+#~ "\n"
+#~ "%2$s är en mikrobloggtjänst som låter dig hålla dig uppdaterad med folk "
+#~ "du känner och folk som intresserar dig . \n"
+#~ "\n"
+#~ "Du kan också dela nyheter om dig själv, dina tankar, eller ditt liv "
+#~ "online med folk som känner till dig. Det är också bra för att träffa nya "
+#~ "människor som delar dina intressen.\n"
+#~ "\n"
+#~ "%1$s sa:\n"
+#~ "\n"
+#~ "%4$s\n"
+#~ "\n"
+#~ "Du kan se %1$ss profilsida på %2$s här: \n"
+#~ "\n"
+#~ "%5$s\n"
+#~ "\n"
+#~ "Om du vill prova tjänsten, klicka på länken nedan för att acceptera "
+#~ "inbjudan. \n"
+#~ "\n"
+#~ "%6$s\n"
+#~ "\n"
+#~ "Om inte, kan du bortse från detta meddelande. Tack för ditt tålamod och "
+#~ "din tid\n"
+#~ "\n"
+#~ "Vänliga hälsningar, %2$s\n"

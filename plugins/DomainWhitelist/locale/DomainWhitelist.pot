@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-18 11:21+0000\n"
+"POT-Creation-Date: 2011-04-20 07:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,20 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. TRANS: Client exception thrown when a given e-mailaddress is not in the domain whitelist.
+#. TRANS: %s is a whitelisted e-mail domain.
+#: DomainWhitelistPlugin.php:63
+#, php-format
+msgid "Email address must be in this domain: %s."
+msgstr ""
+
+#. TRANS: Separator for whitelisted domains.
+#: DomainWhitelistPlugin.php:70
+msgctxt "SEPARATOR"
+msgid ", "
+msgstr ""
+
 #. TRANS: Plugin description.
-#: DomainWhitelistPlugin.php:108
+#: DomainWhitelistPlugin.php:131
 msgid "Restrict domains for email users."
 msgstr ""

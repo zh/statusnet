@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - QnA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-18 11:21+0000\n"
-"PO-Revision-Date: 2011-04-18 11:24:03+0000\n"
+"POT-Creation-Date: 2011-04-20 07:13+0000\n"
+"PO-Revision-Date: 2011-04-20 07:14:56+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-11 13:17:36+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86294); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-qna\n"
@@ -70,6 +70,7 @@ msgstr "Неправильна або відсутня відповідь."
 
 #. TRANS: Page title after sending an answer.
 #. TRANS: Page title for and answer to a question.
+#. TRANS: Form legend for showing the answer.
 msgid "Answer"
 msgstr "Відповідь"
 
@@ -103,12 +104,49 @@ msgstr "Ви не ставили цього запитання."
 msgid "Answers"
 msgstr "Відповіді"
 
+#. TRANS: Page title after an AJAX error occurs on the post answer page.
+msgid "Ajax Error"
+msgstr ""
+
+#. TRANS: Title for form to send answer to a question.
+#, fuzzy
+msgctxt "TITLE"
+msgid "Your answer"
+msgstr "Немає такої відповіді."
+
+msgid "Answer data is missing."
+msgstr "Дані відповіді відсутні."
+
+#. TRANS: Plugin description.
 msgid "Question and Answers micro-app."
 msgstr "Додаток для запитань і відповідей."
 
+#. TRANS: Application title.
+#. TRANS: Form legend for revising the answer.
 msgid "Question"
 msgstr "Запитання"
 
+msgid "Too many activity objects."
+msgstr ""
+
+msgid "Wrong type for object."
+msgstr ""
+
+msgid "Answer to unknown question."
+msgstr ""
+
+msgid "Unknown object type received by QnA Plugin."
+msgstr ""
+
+msgid "Unknown object type."
+msgstr ""
+
+#, fuzzy
+msgid "Unknown question notice."
+msgstr "Немає такого допису із запитанням."
+
+#. TRANS: Exception thrown when performing an unexpected action on a question.
+#. TRANS: %s is the unpexpected object type.
 #, php-format
 msgid "Unexpected type for QnA plugin: %s."
 msgstr "Несподіваний тип для додатку QnA: %s ."
@@ -116,10 +154,18 @@ msgstr "Несподіваний тип для додатку QnA: %s ."
 msgid "Question data is missing."
 msgstr "Дані запитання відсутні."
 
-msgid "Answer data is missing."
-msgstr "Дані відповіді відсутні."
+#, fuzzy
+msgid "Your answer..."
+msgstr "Немає такої відповіді."
 
-msgid "more"
+#. TRANS: Link to full notice text if it is longer than what will be dispplayed.
+#. TRANS: %s a notice URI.
+#, php-format
+msgid "<a href=\"%s\" rel=\"more\" title=\"%s\">…</a>"
+msgstr ""
+
+#, fuzzy
+msgid "more..."
 msgstr "ще"
 
 #, php-format
@@ -154,6 +200,9 @@ msgctxt "BUTTON"
 msgid "Submit"
 msgstr "Надіслати"
 
+msgid "Enter your answer"
+msgstr ""
+
 #. TRANS: Button text for submitting a poll response.
 msgctxt "BUTTON"
 msgid "Answer"
@@ -181,7 +230,16 @@ msgctxt "BUTTON"
 msgid "Close"
 msgstr "Закрити"
 
+#. TRANS: Title for button text for closing a question
+#, fuzzy
+msgid "Close the question"
+msgstr "Закрити питання."
+
 #. TRANS: Button text for marking an answer as "best"
 msgctxt "BUTTON"
 msgid "Best"
 msgstr "Краще"
+
+#. TRANS: Title for button text marking an answer as "best"
+msgid "Mark as best answer"
+msgstr ""

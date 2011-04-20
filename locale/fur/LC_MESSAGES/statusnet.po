@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-18 11:21+0000\n"
-"PO-Revision-Date: 2011-04-18 11:24:23+0000\n"
+"POT-Creation-Date: 2011-04-20 07:12+0000\n"
+"PO-Revision-Date: 2011-04-20 07:15:14+0000\n"
 "Language-Team: Friulian <http://translatewiki.net/wiki/Portal:fur>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-17 22:40:29+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86294); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-18 11:51:41+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fur\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -246,7 +246,7 @@ msgstr "Utent no cjatât."
 #. TRANS: Page title. %1$s is user nickname, %2$d is page number
 #, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "%1$s e ams, page %2$d"
+msgstr "%1$s e amîs, pagjine %2$d"
 
 #. TRANS: Page title. %s is user nickname
 #. TRANS: H1 text for page. %s is a user nickname.
@@ -988,7 +988,7 @@ msgstr ""
 #. TRANS: %s is the requested output format.
 #, php-format
 msgid "Unsupported format: %s."
-msgstr ""
+msgstr "Formât no supuartât: %s"
 
 #. TRANS: Client error displayed requesting a deleted status.
 msgid "Status deleted."
@@ -1046,7 +1046,7 @@ msgstr[1] ""
 #. TRANS: Client error displayed when requesting profiles of followers in an unsupported format.
 #. TRANS: Client error displayed when requesting IDs of followers in an unsupported format.
 msgid "Unsupported format."
-msgstr ""
+msgstr "Formât no supuartât."
 
 #. TRANS: Title for timeline of most recent favourite notices by a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -1379,7 +1379,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown when trying to remove a favorite notice of another user.
 msgid "Cannot delete someone else's favorite."
-msgstr ""
+msgstr "No si pues eliminâ un preferît di cualchidun altri."
 
 #. TRANS: Client exception thrown when trying to show membership of a non-subscribed group
 msgid "Not a member."
@@ -1387,7 +1387,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown when deleting someone else's membership.
 msgid "Cannot delete someone else's membership."
-msgstr ""
+msgstr "No si pues eliminâ la apartignince di cualchidun altri."
 
 #. TRANS: Client exception thrown when trying to display a subscription for a non-existing profile ID.
 #. TRANS: %d is the non-existing profile ID number.
@@ -1403,7 +1403,7 @@ msgstr "Il profîl %1$d nol è sotscrivût al profîl %2$d."
 
 #. TRANS: Client exception thrown when trying to delete a subscription of another user.
 msgid "Cannot delete someone else's subscription."
-msgstr ""
+msgstr "No si pues eliminâ la sotscrizion di cualchidun altri."
 
 #. TRANS: Subtitle for Atom subscription feed.
 #. TRANS: %1$s is a user nickname, %s$s is the StatusNet sitename.
@@ -1690,7 +1690,7 @@ msgstr "Sotscrizion anulade"
 
 #. TRANS: Client error displayed when not providing a confirmation code in the contact address confirmation action.
 msgid "No confirmation code."
-msgstr ""
+msgstr "Nissun codiç di conferme."
 
 #. TRANS: Client error displayed when providing a non-existing confirmation code in the contact address confirmation action.
 msgid "Confirmation code not found."
@@ -1708,7 +1708,7 @@ msgstr ""
 #. TRANS: Client error for an already confirmed email/jabber/sms address.
 #. TRANS: Client error for an already confirmed IM address.
 msgid "That address has already been confirmed."
-msgstr ""
+msgstr "Cheste direzion e je za stade confermade."
 
 #. TRANS: Server error displayed when updating IM preferences fails.
 #. TRANS: Server error thrown on database error removing a registered IM address.
@@ -1835,7 +1835,7 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting an application.
 msgid "Do not delete this application."
-msgstr ""
+msgstr "No stâ eliminâ cheste aplicazion"
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 msgid "Delete this application."
@@ -1843,7 +1843,7 @@ msgstr "Elimine cheste aplicazion"
 
 #. TRANS: Client error when trying to delete group while not logged in.
 msgid "You must be logged in to delete a group."
-msgstr ""
+msgstr "Tu scugnis jessi jentrât par eliminâ un grup."
 
 #. TRANS: Client error when trying to delete a group without having the rights to delete it.
 msgid "You are not allowed to delete this group."
@@ -3082,41 +3082,6 @@ msgstr "Mande"
 msgid "%1$s has invited you to join them on %2$s"
 msgstr ""
 
-#. TRANS: Body text for invitation email. Note that 'them' is correct as a gender-neutral
-#. TRANS: singular 3rd-person pronoun in English. %1$s is the inviting user, %2$s is the
-#. TRANS: StatusNet sitename, %3$s is the site URL, %4$s is the personal message from the
-#. TRANS: inviting user, %s%5 a link to the timeline for the inviting user, %s$6 is a link
-#. TRANS: to register with the StatusNet site.
-#, php-format
-msgid ""
-"%1$s has invited you to join them on %2$s (%3$s).\n"
-"\n"
-"%2$s is a micro-blogging service that lets you keep up-to-date with people "
-"you know and people who interest you.\n"
-"\n"
-"You can also share news about yourself, your thoughts, or your life online "
-"with people who know about you. It's also great for meeting new people who "
-"share your interests.\n"
-"\n"
-"%1$s said:\n"
-"\n"
-"%4$s\n"
-"\n"
-"You can see %1$s's profile page on %2$s here:\n"
-"\n"
-"%5$s\n"
-"\n"
-"If you'd like to try the service, click on the link below to accept the "
-"invitation.\n"
-"\n"
-"%6$s\n"
-"\n"
-"If not, you can ignore this message. Thanks for your patience and your "
-"time.\n"
-"\n"
-"Sincerely, %2$s\n"
-msgstr ""
-
 #. TRANS: Client error displayed when trying to join a group while not logged in.
 msgid "You must be logged in to join a group."
 msgstr "Tu scugnis jessi jentrât par unîti a un grup."
@@ -3143,7 +3108,7 @@ msgstr "Licence"
 
 #. TRANS: Form instructions for the site license admin panel.
 msgid "License for this StatusNet site"
-msgstr ""
+msgstr "Licence par chest sît StatusNet"
 
 #. TRANS: Client error displayed selecting an invalid license in the license admin panel.
 msgid "Invalid license selection."
@@ -4242,7 +4207,7 @@ msgstr "Informazions sul profîl"
 #. TRANS: Field title on account registration page.
 #. TRANS: Field title on group edit form.
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
-msgstr ""
+msgstr "1-64 letaris minusculis o numars, cence segns di puntuazion o spazis."
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
@@ -4382,7 +4347,7 @@ msgstr "La lenghe e je masse lungje (max 50 caratars)."
 #. TRANS: %s is the invalid tag.
 #, php-format
 msgid "Invalid tag: \"%s\"."
-msgstr ""
+msgstr "La etichete no je valide: \"%s\"."
 
 #. TRANS: Server error thrown when user profile settings could not be updated to
 #. TRANS: automatically subscribe to any subscriber.
@@ -4610,7 +4575,7 @@ msgstr "Sorenon o direzion di pueste"
 
 #. TRANS: Title for field label on password recovery page.
 msgid "Your nickname on this server, or your registered email address."
-msgstr ""
+msgstr "Il to sorenon su chest servidôr o la direzion di pueste regjistrade."
 
 #. TRANS: Field label on password recovery page.
 msgid "Recover"
@@ -5100,7 +5065,7 @@ msgstr "La liste %s no je valide."
 #. TRANS: %1$s is a tag, %2$d is a page number.
 #, php-format
 msgid "Users self-tagged with %1$s, page %2$d"
-msgstr ""
+msgstr "Utents che si son di bessôi etichetâts come %1$s, pagjine %2$d"
 
 #. TRANS: Title for the sessions administration panel.
 msgctxt "TITLE"
@@ -5214,6 +5179,8 @@ msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
 "notices you like to bookmark them for later or shed a spotlight on them."
 msgstr ""
+"No tu âs ancjemò sielzût avîs preferîts. Frache sul boton dai preferîts sui "
+"avîs che ti plasin par salvâju par un altri moment o fâju cognossi."
 
 #. TRANS: Text displayed instead of favourite notices for a user that has no favourites while logged in.
 #. TRANS: %s is a username.
@@ -6033,6 +6000,11 @@ msgid ""
 "featured%%). If you're a [Twitter user](%%action.twittersettings%%), you can "
 "automatically subscribe to people you already follow there."
 msgstr ""
+"No tu stâs seguint i avîs di nissun par cumò, prove a sotscrivi cualchidun "
+"che tu cognossis. Prove a [cirî int](%%action.peoplesearch%%), cjalâ i "
+"membris di grups che ti interessin e i [utents plui famôs](%%action.featured%"
+"%). Se tu sês un [utent di Twitter](%%action.twittersettings%%), tu puedis "
+"in automatic sotscriviti ae int che tu seguivis di là."
 
 #. TRANS: Subscription list text when looking at the subscriptions for a of a user other
 #. TRANS: than the logged in user that has no subscriptions. %s is the user nickname.
@@ -6209,10 +6181,12 @@ msgstr "URL plui lungjis di"
 #. TRANS: Field title in URL settings in profile.
 msgid "URLs longer than this will be shortened, 0 means always shorten."
 msgstr ""
+"Lis URL plui lungjis di chest numar a vignaran scurtadis, 0 al vûl di di "
+"scurtâ simpri."
 
 #. TRANS: Field label in URL settings in profile.
 msgid "Text longer than"
-msgstr ""
+msgstr "Test plui lunc di"
 
 #. TRANS: Field title in URL settings in profile.
 msgid ""
@@ -6599,7 +6573,7 @@ msgstr[1] ""
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
 msgid "Invalid filename."
-msgstr ""
+msgstr "Il non dal file nol è valit."
 
 #. TRANS: Exception thrown providing an invalid profile ID.
 #. TRANS: %s is the invalid profile ID.
@@ -7455,9 +7429,9 @@ msgstr "Ativitât par int inte liste %1$s di %2$s"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from %1$s's list %2$s on %3$s!"
-msgstr "Inzornaments de liste %2$s di %1$s su %2$s!"
+msgstr "Inzornaments de liste %2$s di %1$s su %3$s!"
 
 #. TRANS: Title.
 msgid "Notices where this attachment appears"
@@ -8263,14 +8237,14 @@ msgstr "Logo"
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Add or edit %s logo"
-msgstr ""
+msgstr "Zonte o cambie il logo di %s"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
-msgstr ""
+msgstr "Zonte o cambie la grafiche di %s"
 
 #. TRANS: Group actions header (h2). Text hidden by default.
 msgid "Group actions"
@@ -8877,7 +8851,7 @@ msgid ", "
 msgstr ", "
 
 #. TRANS: Start of profile addressees list.
-msgid " ▶ "
+msgid " ▸ "
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of north.
