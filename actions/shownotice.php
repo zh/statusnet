@@ -355,15 +355,6 @@ class SingleNoticeItem extends DoFollowListItem
     }
 
     /**
-     * For our zoomed-in special case we'll use a fuller list
-     * for the attachment info.
-     */
-    function showNoticeAttachments() {
-        $al = new AttachmentList($this->notice, $this->out);
-        $al->show();
-    }
-
-    /**
      * show the avatar of the notice's author
      *
      * We use the larger size for single notice page.
