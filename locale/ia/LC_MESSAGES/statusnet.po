@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:12+0000\n"
-"PO-Revision-Date: 2011-04-20 07:15:18+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
+"PO-Revision-Date: 2011-04-21 18:41:20+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-18 11:51:41+0000\n"
+"X-POT-Import-Date: 2011-04-20 08:40:21+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -6885,12 +6885,6 @@ msgstr "Mal typo fornite a saveKnownGroups."
 msgid "Problem saving group inbox."
 msgstr "Problema salveguardar le cassa de entrata del gruppo."
 
-#. TRANS: Server exception thrown when a reply cannot be saved.
-#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#, php-format
-msgid "Could not save reply for %1$d, %2$d."
-msgstr "Non poteva salveguardar le responsa pro %1$d, %2$d."
-
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #, php-format
@@ -8547,6 +8541,11 @@ msgstr ""
 msgid "Transport cannot be null."
 msgstr "Le methodo de transporto non pote esser nulle."
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trends"
+msgstr ""
+
 #. TRANS: Button text for inviting more users to the StatusNet instance.
 msgctxt "BUTTON"
 msgid "Invite more colleagues"
@@ -9076,17 +9075,21 @@ msgstr "API"
 msgid "Cannot get author for activity."
 msgstr "Non pote determinar le autor pro le activitate."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception thrown when ...
 msgid "Bookmark not posted to this group."
 msgstr "Le marcapaginas non es publicate in iste gruppo."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception when ...
 msgid "Object not posted to this user."
 msgstr "Le objecto non es inviate a iste usator."
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
 msgid "Do not know how to handle this kind of target."
 msgstr "Non sape manear iste typo de destination."
+
+#. TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
+msgid "You must implement either adaptNoticeListItem() or showNotice()."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -9131,12 +9134,6 @@ msgid ""
 msgstr ""
 "Pardono, le obtention de tu geolocalisation prende plus tempore que "
 "previste. Per favor reproba plus tarde."
-
-#. TRANS: Header in notice list.
-#. TRANS: Header for Notices section.
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "Notas"
 
 #. TRANS: Separator in profile addressees list.
 msgctxt "SEPARATOR"
@@ -9560,6 +9557,11 @@ msgctxt "MENU"
 msgid "Popular"
 msgstr "Popular"
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trending topics"
+msgstr ""
+
 #. TRANS: Client error displayed when return-to was defined without a target.
 msgid "No return-to arguments."
 msgstr "Nulle parametro return-to."
@@ -9934,6 +9936,11 @@ msgstr ""
 msgid "Error opening theme archive."
 msgstr "Error durante le apertura del archivo del apparentia."
 
+#. TRANS: Header for Notices section.
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "Notas"
+
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, php-format
@@ -10161,57 +10168,5 @@ msgstr "XML invalide, radice XRD mancante."
 msgid "Getting backup from file '%s'."
 msgstr "Obtene copia de reserva ex file '%s'."
 
-#~ msgid ""
-#~ "%1$s has invited you to join them on %2$s (%3$s).\n"
-#~ "\n"
-#~ "%2$s is a micro-blogging service that lets you keep up-to-date with "
-#~ "people you know and people who interest you.\n"
-#~ "\n"
-#~ "You can also share news about yourself, your thoughts, or your life "
-#~ "online with people who know about you. It's also great for meeting new "
-#~ "people who share your interests.\n"
-#~ "\n"
-#~ "%1$s said:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "You can see %1$s's profile page on %2$s here:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "If you'd like to try the service, click on the link below to accept the "
-#~ "invitation.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "If not, you can ignore this message. Thanks for your patience and your "
-#~ "time.\n"
-#~ "\n"
-#~ "Sincerely, %2$s\n"
-#~ msgstr ""
-#~ "%1$s te ha invitate a accompaniar le/la in %2$s (%3$s).\n"
-#~ "\n"
-#~ "%2$s es un servicio de micro-blogging que te permitte tener te al "
-#~ "currente con personas que tu cognosce o que te interessa.\n"
-#~ "\n"
-#~ "Tu pote condivider novas super te, tu pensamentos o tu vita con personas "
-#~ "que sape de te. Es anque optime pro cognoscer nove personas con "
-#~ "interesses commun al tues.\n"
-#~ "\n"
-#~ "%1$s diceva:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "Tu pote vider le profilo de %1$s's in %2$s hic:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "Si tu vole probar le servicio, clicca super le ligamine sequente pro "
-#~ "acceptar le invitation.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "Si non, tu pote ignorar iste message. Gratias pro tu patientia e tu "
-#~ "tempore.\n"
-#~ "\n"
-#~ "Sincermente, %2$s\n"
+#~ msgid "Could not save reply for %1$d, %2$d."
+#~ msgstr "Non poteva salveguardar le responsa pro %1$d, %2$d."
