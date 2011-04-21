@@ -465,22 +465,36 @@ class ThreadedNoticeListFavesItem extends NoticeListActorsItem
         return $profiles;
     }
 
+    function magicList($items)
+    {
+        if (count($items) > 4) {
+            return parent::magicList(array_slice($items, 0, 3));
+        } else {
+            return parent::magicList($items);
+        }
+    }
+
     function getListMessage($count, $you)
     {
         if ($count == 1 && $you) {
             // darn first person being different from third person!
             // TRANS: List message for notice favoured by logged in user.
-            return _m('FAVELIST', 'You have favored this notice.');
+            return _m('FAVELIST', 'You like this.');
+        } else if ($count > 4) {
+            // TRANS: List message for when more than 4 people like something.
+            return sprintf(_m('FAVELIST', '%%s and %d others like this.'),
+                           $count - 3);
         } else {
             // TRANS: List message for favoured notices.
             // TRANS: %d is the number of users that have favoured a notice.
-            return sprintf(_m('One person has favored this notice.',
-                              '%d people have favored this notice.',
+            return sprintf(_m('%%s likes this.',
+                              '%%s like this.',
                               $count),
                            $count);
         }
     }
 
+    
     function showStart()
     {
         $this->out->elementStart('li', array('class' => 'notice-data notice-faves'));
