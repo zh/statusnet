@@ -241,9 +241,9 @@ class EmailregisterAction extends Action
     function setPassword()
     {
         if (!empty($this->invitation)) {
-            $email = $this->invitation->address;
+            $email = trim($this->invitation->address);
         } else if (!empty($this->confirmation)) {
-            $email = $this->confirmation->address;
+            $email = trim($this->confirmation->address);
         } else {
             throw new Exception('No confirmation thing.');
         }
