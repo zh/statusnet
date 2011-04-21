@@ -75,6 +75,10 @@ class NewbookmarkAction extends Action
     {
         parent::prepare($argarray);
 
+        if ($this->boolean('ajax')) {
+            StatusNet::setApi(true);
+        }
+
         $this->user = common_current_user();
 
         if (empty($this->user)) {
@@ -122,9 +126,6 @@ class NewbookmarkAction extends Action
      */
     function newBookmark()
     {
-        if ($this->boolean('ajax')) {
-            StatusNet::setApi(true);
-        }
         try {
             if (empty($this->title)) {
                 // TRANS: Client exception thrown when trying to create a new bookmark without a title.
@@ -148,9 +149,13 @@ class NewbookmarkAction extends Action
                                        $options);
 
         } catch (ClientException $ce) {
-            $this->error = $ce->getMessage();
-            $this->showPage();
-            return;
+            if ($this->boolean('ajax')) {
+                throw $ce;
+            } else {
+                $this->error = $ce->getMessage();
+                $this->showPage();
+                return;
+            }
         }
 
         if ($this->boolean('ajax')) {

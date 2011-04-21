@@ -109,13 +109,16 @@ class BookmarkListItem extends NoticeListItemAdapter
             }
 
             foreach ($tags as $tag) {
-                $out->elementStart('li');
-                $out->element('a',
-                              array('rel' => 'tag',
-                                    'href' => Notice_tag::url($tag)),
-                              $tag);
-                $out->elementEnd('li');
-                $out->text(' ');
+                $tag = trim($tag);
+                if (!empty($tag)) {
+                    $out->elementStart('li');
+                    $out->element('a',
+                                  array('rel' => 'tag',
+                                        'href' => Notice_tag::url($tag)),
+                                  $tag);
+                    $out->elementEnd('li');
+                    $out->text(' ');
+                }
             }
 
             $out->elementEnd('ul');

@@ -12,18 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:12+0000\n"
-"PO-Revision-Date: 2011-04-20 07:15:40+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
+"PO-Revision-Date: 2011-04-21 18:41:44+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2011-04-18 11:51:41+0000\n"
+"X-POT-Import-Date: 2011-04-20 08:40:21+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -6952,12 +6952,6 @@ msgstr "Вказано невірний тип для saveKnownGroups."
 msgid "Problem saving group inbox."
 msgstr "Проблема при збереженні вхідних дописів спільноти."
 
-#. TRANS: Server exception thrown when a reply cannot be saved.
-#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#, php-format
-msgid "Could not save reply for %1$d, %2$d."
-msgstr "Не вдалося зберегти відповідь для %1$d, %2$d."
-
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #, php-format
@@ -8637,6 +8631,11 @@ msgstr "Для обслуговування додаток ІМ повинен �
 msgid "Transport cannot be null."
 msgstr "Транспорт не може бути відсутнім."
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trends"
+msgstr ""
+
 #. TRANS: Button text for inviting more users to the StatusNet instance.
 #, fuzzy
 msgctxt "BUTTON"
@@ -9170,17 +9169,21 @@ msgstr "api"
 msgid "Cannot get author for activity."
 msgstr "Не вдається отримати автора діяльності."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception thrown when ...
 msgid "Bookmark not posted to this group."
 msgstr "Закладку не додано до цієї спільноти."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception when ...
 msgid "Object not posted to this user."
 msgstr "Об’єкт не додано до цього користувача."
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
 msgid "Do not know how to handle this kind of target."
 msgstr "Не знаю, як обробити ціль такого типу."
+
+#. TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
+msgid "You must implement either adaptNoticeListItem() or showNotice()."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -9226,12 +9229,6 @@ msgid ""
 msgstr ""
 "На жаль, отримання інформації щодо вашого розташування займе більше часу, "
 "ніж очікувалось; будь ласка, спробуйте пізніше"
-
-#. TRANS: Header in notice list.
-#. TRANS: Header for Notices section.
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "Дописи"
 
 #. TRANS: Separator in profile addressees list.
 #, fuzzy
@@ -9678,6 +9675,11 @@ msgctxt "MENU"
 msgid "Popular"
 msgstr "Популярне"
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trending topics"
+msgstr ""
+
 #. TRANS: Client error displayed when return-to was defined without a target.
 msgid "No return-to arguments."
 msgstr "Немає аргументів return-to."
@@ -10052,6 +10054,11 @@ msgstr "Тема містить файл типу «.%s», який є непр�
 msgid "Error opening theme archive."
 msgstr "Помилка при відкритті архіву з темою."
 
+#. TRANS: Header for Notices section.
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "Дописи"
+
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, php-format
@@ -10290,58 +10297,5 @@ msgstr "Неправильний XML, корінь XRD відсутній."
 msgid "Getting backup from file '%s'."
 msgstr "Отримання резервної копії файлу «%s»."
 
-#~ msgid ""
-#~ "%1$s has invited you to join them on %2$s (%3$s).\n"
-#~ "\n"
-#~ "%2$s is a micro-blogging service that lets you keep up-to-date with "
-#~ "people you know and people who interest you.\n"
-#~ "\n"
-#~ "You can also share news about yourself, your thoughts, or your life "
-#~ "online with people who know about you. It's also great for meeting new "
-#~ "people who share your interests.\n"
-#~ "\n"
-#~ "%1$s said:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "You can see %1$s's profile page on %2$s here:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "If you'd like to try the service, click on the link below to accept the "
-#~ "invitation.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "If not, you can ignore this message. Thanks for your patience and your "
-#~ "time.\n"
-#~ "\n"
-#~ "Sincerely, %2$s\n"
-#~ msgstr ""
-#~ "%1$s запросив(ла) вас приєднатися до нього(неї) на %2$s (%3$s).\n"
-#~ "\n"
-#~ "%2$s — це сервіс мікроблоґів що дозволяє вам знаходитись у курсі подій, "
-#~ "які відбуваються з вашими знайомими і тими особами, якими ви цікавитесь.\n"
-#~ "\n"
-#~ "Також ви маєте можливість ділитись новинами про себе, своїми думками, "
-#~ "подіями у житті, розміщуючи все це у режимі «онлайн» для своїх знайомих та "
-#~ "друзів. А ще це чудовий спосіб зустріти нових друзів зі спільними "
-#~ "інтересами.\n"
-#~ "\n"
-#~ "%1$s говорить:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "Ви можете переглянути профіль %1$s на %2$s тут:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "Якщо ви виявили бажання спробувати користуватись даним сервісом, то "
-#~ "перейдіть за посиланням внизу, аби погодитись із запрошенням.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "Якщо ж ні, то просто проігноруйте це повідомлення. Дякуємо за розуміння "
-#~ "та витрачений час.\n"
-#~ "\n"
-#~ "Щиро ваші, %2$s\n"
+#~ msgid "Could not save reply for %1$d, %2$d."
+#~ msgstr "Не вдалося зберегти відповідь для %1$d, %2$d."

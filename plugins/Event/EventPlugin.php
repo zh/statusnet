@@ -165,7 +165,8 @@ class EventPlugin extends MicroappPlugin
     function saveNoticeFromActivity($activity, $actor, $options=array())
     {
         if (count($activity->objects) != 1) {
-            throw new Exception(_('Too many activity objects.'));
+            // TRANS: Exception thrown when there are too many activity objects.
+            throw new Exception(_m('Too many activity objects.'));
         }
 
         $happeningObj = $activity->objects[0];

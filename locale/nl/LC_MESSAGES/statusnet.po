@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:12+0000\n"
-"PO-Revision-Date: 2011-04-20 07:15:28+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
+"PO-Revision-Date: 2011-04-21 18:41:31+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-18 11:51:41+0000\n"
+"X-POT-Import-Date: 2011-04-20 08:40:21+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -6963,12 +6963,6 @@ msgstr ""
 "Er is een probleem opgetreden bij het opslaan van het Postvak IN van de "
 "groep."
 
-#. TRANS: Server exception thrown when a reply cannot be saved.
-#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#, php-format
-msgid "Could not save reply for %1$d, %2$d."
-msgstr "Het was niet mogelijk antwoord %1$d voor %2$d op te slaan."
-
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #, php-format
@@ -8645,6 +8639,11 @@ msgstr "Wachtrijen moeten zijn ingeschakeld om IM-plugins te kunnen gebruiken."
 msgid "Transport cannot be null."
 msgstr "Er moet een transportmethode worden opgegeven."
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trends"
+msgstr ""
+
 #. TRANS: Button text for inviting more users to the StatusNet instance.
 msgctxt "BUTTON"
 msgid "Invite more colleagues"
@@ -9177,17 +9176,21 @@ msgstr "API"
 msgid "Cannot get author for activity."
 msgstr "Het was niet mogelijk de auteur te achterhalen voor de activiteit."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception thrown when ...
 msgid "Bookmark not posted to this group."
 msgstr "De bladwijzer is niet aan deze groep verzonden."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception when ...
 msgid "Object not posted to this user."
 msgstr "Het object is niet aan deze gebruiker verzonden."
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
 msgid "Do not know how to handle this kind of target."
 msgstr "Het is niet bekend hoe dit doel afgehandeld moet worden."
+
+#. TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
+msgid "You must implement either adaptNoticeListItem() or showNotice()."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -9233,21 +9236,14 @@ msgstr ""
 "Het ophalen van uw geolocatie duurt langer dan verwacht. Probeer het later "
 "nog eens"
 
-#. TRANS: Header in notice list.
-#. TRANS: Header for Notices section.
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "Mededelingen"
-
 #. TRANS: Separator in profile addressees list.
 msgctxt "SEPARATOR"
 msgid ", "
 msgstr ", "
 
 #. TRANS: Start of profile addressees list.
-#, fuzzy
 msgid " ▸ "
-msgstr " ▶ "
+msgstr " ▸ "
 
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
@@ -9661,6 +9657,11 @@ msgctxt "MENU"
 msgid "Popular"
 msgstr "Populair"
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trending topics"
+msgstr ""
+
 #. TRANS: Client error displayed when return-to was defined without a target.
 msgid "No return-to arguments."
 msgstr "Er zijn geen \"terug naar\"-parameters opgegeven."
@@ -10037,6 +10038,11 @@ msgstr ""
 "Er is een fout opgetreden tijdens het openen van het archiefbestand met de "
 "vormgeving."
 
+#. TRANS: Header for Notices section.
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "Mededelingen"
+
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, php-format
@@ -10266,57 +10272,5 @@ msgstr "Ongeldige XML. De XRD-root mist."
 msgid "Getting backup from file '%s'."
 msgstr "De back-up wordt uit het bestand \"%s\" geladen."
 
-#~ msgid ""
-#~ "%1$s has invited you to join them on %2$s (%3$s).\n"
-#~ "\n"
-#~ "%2$s is a micro-blogging service that lets you keep up-to-date with "
-#~ "people you know and people who interest you.\n"
-#~ "\n"
-#~ "You can also share news about yourself, your thoughts, or your life "
-#~ "online with people who know about you. It's also great for meeting new "
-#~ "people who share your interests.\n"
-#~ "\n"
-#~ "%1$s said:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "You can see %1$s's profile page on %2$s here:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "If you'd like to try the service, click on the link below to accept the "
-#~ "invitation.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "If not, you can ignore this message. Thanks for your patience and your "
-#~ "time.\n"
-#~ "\n"
-#~ "Sincerely, %2$s\n"
-#~ msgstr ""
-#~ "%1$s heeft u uitgenodigd voor %2$s (%3$s).\n"
-#~ "\n"
-#~ "%2$s is een microblogdienst waarmee u mensen op de hoogte kunt houden van "
-#~ "wat u interesseert en bezig houdt.\n"
-#~ "\n"
-#~ "U kunt ook nieuws over uzelf of uw ideeën en gedachten met anderen delen. "
-#~ "Het is ook de ideale plek om mensen te ontmoeten met dezelfde interesses "
-#~ "als u.\n"
-#~ "\n"
-#~ "%1$s schreef:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "U kunt %1$s's profielpagina op %2$s hier bekijken:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "Als u het wilt proberen, klik dan op de verwijzing hieronder om de "
-#~ "uitnodiging te accepteren.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "Als u geen interesse hebt, kunt u dit bericht negeren. Bedankt voor uw "
-#~ "geduld.\n"
-#~ "\n"
-#~ "Met vriendelijke groet, %2$s\n"
+#~ msgid "Could not save reply for %1$d, %2$d."
+#~ msgstr "Het was niet mogelijk antwoord %1$d voor %2$d op te slaan."

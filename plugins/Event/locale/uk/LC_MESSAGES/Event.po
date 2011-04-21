@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Event\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:13+0000\n"
-"PO-Revision-Date: 2011-04-20 07:13:39+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
+"PO-Revision-Date: 2011-04-21 18:39:41+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-11 13:14:48+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-event\n"
@@ -94,6 +94,11 @@ msgstr ""
 "Ви повинні знаходитися у системі, щоб надсилати запрошення на участь у "
 "заходах."
 
+#. TRANS: Client exception thrown when using an invalid value for RSVP ("please respond").
+#, fuzzy
+msgid "Unknown submit value."
+msgstr "Невідомий тип об’єкта."
+
 #. TRANS: Page title after creating an event.
 #. TRANS: Page title after sending a notice.
 msgid "Event saved"
@@ -103,6 +108,10 @@ msgstr "Подію збережено"
 msgctxt "TITLE"
 msgid "Cancel RSVP"
 msgstr "Відмінити запрошення"
+
+#. TRANS: Content for a deleted RSVP list item (RSVP stands for "please respond").
+msgid "Deleted."
+msgstr ""
 
 #. TRANS: Field label on form to RSVP ("please respond") for an event.
 msgid "RSVP:"
@@ -209,6 +218,10 @@ msgctxt "TITLE"
 msgid "Event"
 msgstr "Подія"
 
+#. TRANS: Exception thrown when there are too many activity objects.
+msgid "Too many activity objects."
+msgstr ""
+
 #. TRANS: Exception thrown when event plugin comes across a non-event type object.
 msgid "Wrong type for object."
 msgstr "Неправильний тип для об’єкта."
@@ -228,28 +241,6 @@ msgstr "Невідомий тип об’єкта."
 #. TRANS: Exception thrown when referring to a notice that is not an event an in event context.
 msgid "Unknown event notice."
 msgstr "Невідоме повідомлення події."
-
-#. TRANS: Field label for event description.
-msgid "Time:"
-msgstr "Час:"
-
-#. TRANS: Field label for event description.
-msgid "Location:"
-msgstr "Розташування:"
-
-#. TRANS: Field label for event description.
-msgid "Description:"
-msgstr "Опис:"
-
-#. TRANS: Field label for event description.
-msgid "Attending:"
-msgstr "Присутні:"
-
-#. TRANS: RSVP counts.
-#. TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
-#, php-format
-msgid "Yes: %1$d No: %2$d Maybe: %3$d"
-msgstr "Так: %1$d Ні: %2$d Можливо: %3$d"
 
 #. TRANS: Client exception thrown when trying to save an already existing RSVP ("please respond").
 msgid "RSVP already exists."
@@ -383,3 +374,25 @@ msgstr "В події має бути зазначеним час початку
 #. TRANS: Client exception thrown when trying to post an event without providing an end time.
 msgid "Event must have an end time."
 msgstr "В події має бути зазначеним час закінчення."
+
+#. TRANS: Field label for event description.
+msgid "Time:"
+msgstr "Час:"
+
+#. TRANS: Field label for event description.
+msgid "Location:"
+msgstr "Розташування:"
+
+#. TRANS: Field label for event description.
+msgid "Description:"
+msgstr "Опис:"
+
+#. TRANS: Field label for event description.
+msgid "Attending:"
+msgstr "Присутні:"
+
+#. TRANS: RSVP counts.
+#. TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
+#, php-format
+msgid "Yes: %1$d No: %2$d Maybe: %3$d"
+msgstr "Так: %1$d Ні: %2$d Можливо: %3$d"

@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Notice-list representation of an event
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class EventListItem extends NoticeListItemAdapter
 {
     function showNotice()
@@ -64,7 +63,8 @@ class EventListItem extends NoticeListItemAdapter
         $event   = Happening::fromNotice($notice);
 
         if (empty($event)) {
-            $out->element('p', null, _('Deleted.'));
+            // TRANS: Content for a deleted RSVP list item (RSVP stands for "please respond").
+            $out->element('p', null, _m('Deleted.'));
             return;
         }
 
@@ -135,7 +135,7 @@ class EventListItem extends NoticeListItemAdapter
         $out->element('strong', null, _m('Attending:'));
         $out->element('span', 'event-rsvps',
                       // TRANS: RSVP counts.
-		      // TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
+                      // TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
                       sprintf(_m('Yes: %1$d No: %2$d Maybe: %3$d'),
                               count($rsvps[RSVP::POSITIVE]),
                               count($rsvps[RSVP::NEGATIVE]),

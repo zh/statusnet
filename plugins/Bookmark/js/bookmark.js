@@ -13,6 +13,7 @@ var Bookmark = {
     InitBookmarkForm: function() {
         SN.Init.CheckBoxes();
         $('fieldset fieldset label').inFieldLabels({ fadeOpacity:0 });
+        SN.Init.NoticeFormSetup($('#form_new_bookmark'));
     }
 }
 

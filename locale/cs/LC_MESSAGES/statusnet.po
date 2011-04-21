@@ -13,18 +13,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:12+0000\n"
-"PO-Revision-Date: 2011-04-20 07:15:03+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
+"PO-Revision-Date: 2011-04-21 18:41:04+0000\n"
 "Language-Team: Czech <http://translatewiki.net/wiki/Portal:cs>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ( (n >= 2 && n <= 4) ? 1 : "
 "2 );\n"
-"X-POT-Import-Date: 2011-04-18 11:51:41+0000\n"
+"X-POT-Import-Date: 2011-04-20 08:40:21+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -7103,12 +7103,6 @@ msgstr "saveKnownGroups obdrželo špatný typ."
 msgid "Problem saving group inbox."
 msgstr "Problém při ukládání skupinového inboxu"
 
-#. TRANS: Server exception thrown when a reply cannot be saved.
-#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#, fuzzy, php-format
-msgid "Could not save reply for %1$d, %2$d."
-msgstr "Nelze uložit místní info skupiny."
-
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #, php-format
@@ -8818,6 +8812,11 @@ msgstr ""
 msgid "Transport cannot be null."
 msgstr ""
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trends"
+msgstr ""
+
 #. TRANS: Button text for inviting more users to the StatusNet instance.
 #, fuzzy
 msgctxt "BUTTON"
@@ -9375,18 +9374,22 @@ msgstr ""
 msgid "Cannot get author for activity."
 msgstr ""
 
-#. TRANS: Client exception.
+#. TRANS: Client exception thrown when ...
 #, fuzzy
 msgid "Bookmark not posted to this group."
 msgstr "Nejste členem této skupiny."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception when ...
 #, fuzzy
 msgid "Object not posted to this user."
 msgstr "Neodstraňujte toto oznámení"
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
 msgid "Do not know how to handle this kind of target."
+msgstr ""
+
+#. TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
+msgid "You must implement either adaptNoticeListItem() or showNotice()."
 msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
@@ -9434,13 +9437,6 @@ msgid ""
 msgstr ""
 "Je nám líto, načítání vaší geo lokace trvá déle, než se očekávalo, zkuste to "
 "prosím znovu později"
-
-#. TRANS: Header in notice list.
-#. TRANS: Header for Notices section.
-#, fuzzy
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "Sdělení"
 
 #. TRANS: Separator in profile addressees list.
 msgctxt "SEPARATOR"
@@ -9906,6 +9902,11 @@ msgctxt "MENU"
 msgid "Popular"
 msgstr "Populární"
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trending topics"
+msgstr ""
+
 #. TRANS: Client error displayed when return-to was defined without a target.
 msgid "No return-to arguments."
 msgstr "Chybí argument return-to."
@@ -10290,6 +10291,12 @@ msgstr "Téma obsahuje soubor typu '.%s', což není povoleno."
 msgid "Error opening theme archive."
 msgstr "Chyba při otevírání archivu tématu."
 
+#. TRANS: Header for Notices section.
+#, fuzzy
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "Sdělení"
+
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, php-format
@@ -10536,57 +10543,6 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid ""
-#~ "%1$s has invited you to join them on %2$s (%3$s).\n"
-#~ "\n"
-#~ "%2$s is a micro-blogging service that lets you keep up-to-date with "
-#~ "people you know and people who interest you.\n"
-#~ "\n"
-#~ "You can also share news about yourself, your thoughts, or your life "
-#~ "online with people who know about you. It's also great for meeting new "
-#~ "people who share your interests.\n"
-#~ "\n"
-#~ "%1$s said:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "You can see %1$s's profile page on %2$s here:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "If you'd like to try the service, click on the link below to accept the "
-#~ "invitation.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "If not, you can ignore this message. Thanks for your patience and your "
-#~ "time.\n"
-#~ "\n"
-#~ "Sincerely, %2$s\n"
-#~ msgstr ""
-#~ " %1$s vás pozval, abyste se k nim připojil(a) na %2$s (%3$s). \n"
-#~ "\n"
-#~ "%2$s je mikro-blogovací služba, která vám umožní být v kontaktu s lidmi, "
-#~ "které znáte, a s lidmi, kteří vás zajímají. \n"
-#~ "\n"
-#~ "Můžete také sdílet novinky o sobě, své myšlenky, nebo svůj online život s "
-#~ "lidmi, kteří o vás vědí. Je to také skvělé pro setkávání s novými lidmi, "
-#~ "kteří sdílejí vaše zájmy. \n"
-#~ "\n"
-#~ "%1$s řekl: \n"
-#~ "\n"
-#~ "%4$s \n"
-#~ "\n"
-#~ "Můžete vidět profil uživatele %1$s na %2$s zde: \n"
-#~ "\n"
-#~ "%5$s \n"
-#~ "\n"
-#~ "Pokud si chcete službu vyzkoušet, klikněte na odkaz níže k přijmutí "
-#~ "pozvání. \n"
-#~ "\n"
-#~ "%6$s \n"
-#~ "\n"
-#~ "Pokud ne, můžete tuto zprávu ignorovat. Děkujeme za vaši trpělivost a "
-#~ "čas. \n"
-#~ "\n"
-#~ "S pozdravem, %2$s \n"
+#, fuzzy
+#~ msgid "Could not save reply for %1$d, %2$d."
+#~ msgstr "Nelze uložit místní info skupiny."
