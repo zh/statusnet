@@ -104,7 +104,7 @@ class DomainWhitelistPlugin extends Plugin
 
         $parts = explode('@', $email);
 
-        $userDomain = strtolower($parts[1]);
+        $userDomain = strtolower(trim($parts[1]));
 
         return in_array($userDomain, $whitelist);
     }
