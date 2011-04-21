@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:12+0000\n"
-"PO-Revision-Date: 2011-04-20 07:15:39+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
+"PO-Revision-Date: 2011-04-21 18:41:43+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-18 11:51:41+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-20 08:40:21+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -7087,12 +7087,6 @@ msgstr "Masamang uri ang ibinigay sa saveKnownGroups."
 msgid "Problem saving group inbox."
 msgstr "Nagkasuliranin ang pagsagip sa kahong-tanggapan ng pangkat."
 
-#. TRANS: Server exception thrown when a reply cannot be saved.
-#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#, php-format
-msgid "Could not save reply for %1$d, %2$d."
-msgstr "Hindi masagip ang tugon para sa %1$d, %2$d."
-
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #, php-format
@@ -8782,6 +8776,11 @@ msgstr "Ang pagpapapila ay dapat paganahin na gumagamit ng mga pampasak ng IM."
 msgid "Transport cannot be null."
 msgstr "Ang sakayan ay hindi maaaring walang halaga."
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trends"
+msgstr ""
+
 #. TRANS: Button text for inviting more users to the StatusNet instance.
 msgctxt "BUTTON"
 msgid "Invite more colleagues"
@@ -9323,17 +9322,21 @@ msgstr "api"
 msgid "Cannot get author for activity."
 msgstr "Hindi makuha ang may-akda para sa gawain."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception thrown when ...
 msgid "Bookmark not posted to this group."
 msgstr "Hindi nakapaskil ang pananda sa pangkat na ito."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception when ...
 msgid "Object not posted to this user."
 msgstr "Hindi nakapaskil ang bagay sa tagagamit na ito."
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
 msgid "Do not know how to handle this kind of target."
 msgstr "Hindi alam kung paano panghahawakan ang ganitong uri ng pinupukol."
+
+#. TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
+msgid "You must implement either adaptNoticeListItem() or showNotice()."
+msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -9380,21 +9383,14 @@ msgstr ""
 "Paumanhin, ang muling pagkuha ng pangheograpiyang kinalalagyan mo ay mas "
 "tumatagal pa kaysa sa inaasahan, mangyaring subukan ulit mamaya"
 
-#. TRANS: Header in notice list.
-#. TRANS: Header for Notices section.
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "Mga pabatid"
-
 #. TRANS: Separator in profile addressees list.
 msgctxt "SEPARATOR"
 msgid ", "
 msgstr ", "
 
 #. TRANS: Start of profile addressees list.
-#, fuzzy
 msgid " ▸ "
-msgstr "▶ "
+msgstr " ▸ "
 
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
@@ -9810,6 +9806,11 @@ msgctxt "MENU"
 msgid "Popular"
 msgstr "Tanyag"
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trending topics"
+msgstr ""
+
 #. TRANS: Client error displayed when return-to was defined without a target.
 msgid "No return-to arguments."
 msgstr "Walang mga pangangatwiran na bumalik-sa."
@@ -10188,6 +10189,11 @@ msgstr ""
 msgid "Error opening theme archive."
 msgstr "Kamalian sa pagbubukas ng supnayan ng tema."
 
+#. TRANS: Header for Notices section.
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "Mga pabatid"
+
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, php-format
@@ -10417,58 +10423,5 @@ msgstr "Hindi katanggap-tanggap na XML, nawawalang ugat ng XRD."
 msgid "Getting backup from file '%s'."
 msgstr "Kinukuha ang kopyang pamalit mula sa talaksang '%s'"
 
-#~ msgid ""
-#~ "%1$s has invited you to join them on %2$s (%3$s).\n"
-#~ "\n"
-#~ "%2$s is a micro-blogging service that lets you keep up-to-date with "
-#~ "people you know and people who interest you.\n"
-#~ "\n"
-#~ "You can also share news about yourself, your thoughts, or your life "
-#~ "online with people who know about you. It's also great for meeting new "
-#~ "people who share your interests.\n"
-#~ "\n"
-#~ "%1$s said:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "You can see %1$s's profile page on %2$s here:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "If you'd like to try the service, click on the link below to accept the "
-#~ "invitation.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "If not, you can ignore this message. Thanks for your patience and your "
-#~ "time.\n"
-#~ "\n"
-#~ "Sincerely, %2$s\n"
-#~ msgstr ""
-#~ "Inanyayahan ka ni %1$s upang sumali sa kanila sa %2$s (%3$s).\n"
-#~ "\n"
-#~ "Ang %2$s ay isang palingkuran ng maliitang pagboblog na nagpapahintulot "
-#~ "sa iyong makabalita sa mga taong kakilala mo at mga taong kinagigiliwan "
-#~ "mo. \n"
-#~ "Maaari ka ring makapagbahagi ng balita sa mga nakakaalam sa iyo tungkol "
-#~ "sa sarili mo, mga naiisip mo, o ng buhay mo habang nasa Internet.  "
-#~ "Mahusay rin ito sa pakikipagtagpo sa bagong mga tao na nakikibahagi sa "
-#~ "mga hilig mo. \n"
-#~ "\n"
-#~ "Sinabi ni %1$s:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "Makikita mo ang pahina ng balangkas ni %1$s sa %2$s dito:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "Kung nais mong subukan ang palingkuran, pindutin ang kawing na nasa ibaba "
-#~ "upang tanggapin ang paanyaya.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "Kung hindi, maaari mong huwag pansinin ang mensaheng ito.  Salamat sa "
-#~ "iyong pagtitiyaga at sa iyong panahon.\n"
-#~ "\n"
-#~ "Namimitagan, %2$s\n"
+#~ msgid "Could not save reply for %1$d, %2$d."
+#~ msgstr "Hindi masagip ang tugon para sa %1$d, %2$d."

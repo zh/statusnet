@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Title of module
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class RSVPListItem extends NoticeListItemAdapter
 {
     function showNotice()
@@ -63,7 +62,8 @@ class RSVPListItem extends NoticeListItemAdapter
         $rsvp = RSVP::fromNotice($notice);
 
         if (empty($rsvp)) {
-            $out->element('p', null, _('Deleted.'));
+            // TRANS: Content for a deleted RSVP list item (RSVP stands for "please respond").
+            $out->element('p', null, _m('Deleted.'));
             return;
         }
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:13+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,6 +95,11 @@ msgstr ""
 msgid "You must be logged in to RSVP for an event."
 msgstr ""
 
+#. TRANS: Client exception thrown when using an invalid value for RSVP ("please respond").
+#: newrsvp.php:113
+msgid "Unknown submit value."
+msgstr ""
+
 #. TRANS: Page title after creating an event.
 #. TRANS: Page title after sending a notice.
 #: newrsvp.php:163 cancelrsvp.php:158 newevent.php:234
@@ -105,6 +110,11 @@ msgstr ""
 #: cancelrsvp.php:61
 msgctxt "TITLE"
 msgid "Cancel RSVP"
+msgstr ""
+
+#. TRANS: Content for a deleted RSVP list item (RSVP stands for "please respond").
+#: rsvplistitem.php:66 eventlistitem.php:67
+msgid "Deleted."
 msgstr ""
 
 #. TRANS: Field label on form to RSVP ("please respond") for an event.
@@ -225,66 +235,44 @@ msgid "Save"
 msgstr ""
 
 #. TRANS: Plugin description.
-#: EventPlugin.php:133
+#: EventPlugin.php:135
 msgid "Event invitations and RSVPs."
 msgstr ""
 
 #. TRANS: Title for event application.
-#: EventPlugin.php:139
+#: EventPlugin.php:141
 msgctxt "TITLE"
 msgid "Event"
 msgstr ""
 
+#. TRANS: Exception thrown when there are too many activity objects.
+#: EventPlugin.php:169
+msgid "Too many activity objects."
+msgstr ""
+
 #. TRANS: Exception thrown when event plugin comes across a non-event type object.
-#: EventPlugin.php:173
+#: EventPlugin.php:176
 msgid "Wrong type for object."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to RSVP for an unknown event.
-#: EventPlugin.php:195
+#: EventPlugin.php:198
 msgid "RSVP for unknown event."
 msgstr ""
 
 #. TRANS: Exception thrown when event plugin comes across a undefined verb.
-#: EventPlugin.php:201
+#: EventPlugin.php:204
 msgid "Unknown verb for events."
 msgstr ""
 
 #. TRANS: Exception thrown when event plugin comes across a unknown object type.
-#: EventPlugin.php:232
+#: EventPlugin.php:235
 msgid "Unknown object type."
 msgstr ""
 
 #. TRANS: Exception thrown when referring to a notice that is not an event an in event context.
-#: EventPlugin.php:239
+#: EventPlugin.php:242
 msgid "Unknown event notice."
-msgstr ""
-
-#. TRANS: Field label for event description.
-#: EventPlugin.php:379
-msgid "Time:"
-msgstr ""
-
-#. TRANS: Field label for event description.
-#: EventPlugin.php:400
-msgid "Location:"
-msgstr ""
-
-#. TRANS: Field label for event description.
-#: EventPlugin.php:408
-msgid "Description:"
-msgstr ""
-
-#. TRANS: Field label for event description.
-#: EventPlugin.php:417
-msgid "Attending:"
-msgstr ""
-
-#. TRANS: RSVP counts.
-#. TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
-#: EventPlugin.php:421
-#, php-format
-msgid "Yes: %1$d No: %2$d Maybe: %3$d"
 msgstr ""
 
 #. TRANS: Client exception thrown when trying to save an already existing RSVP ("please respond").
@@ -435,4 +423,31 @@ msgstr ""
 #. TRANS: Client exception thrown when trying to post an event without providing an end time.
 #: newevent.php:198
 msgid "Event must have an end time."
+msgstr ""
+
+#. TRANS: Field label for event description.
+#: eventlistitem.php:97
+msgid "Time:"
+msgstr ""
+
+#. TRANS: Field label for event description.
+#: eventlistitem.php:118
+msgid "Location:"
+msgstr ""
+
+#. TRANS: Field label for event description.
+#: eventlistitem.php:126
+msgid "Description:"
+msgstr ""
+
+#. TRANS: Field label for event description.
+#: eventlistitem.php:135
+msgid "Attending:"
+msgstr ""
+
+#. TRANS: RSVP counts.
+#. TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
+#: eventlistitem.php:139
+#, php-format
+msgid "Yes: %1$d No: %2$d Maybe: %3$d"
 msgstr ""

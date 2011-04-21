@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:13+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,37 +44,37 @@ msgid "%1$s's bookmark for \"%2$s\""
 msgstr ""
 
 #. TRANS: Plugin description.
-#: BookmarkPlugin.php:236
+#: BookmarkPlugin.php:237
 msgid "Simple extension for supporting bookmarks."
 msgstr ""
 
 #. TRANS: Link text in proile leading to import form.
 #. TRANS: Title for page to import del.icio.us bookmark backups on.
-#: BookmarkPlugin.php:277 importdelicious.php:60
+#: BookmarkPlugin.php:278 importdelicious.php:60
 msgid "Import del.icio.us bookmarks"
 msgstr ""
 
 #. TRANS: Client exception thrown when a bookmark is formatted incorrectly.
-#: BookmarkPlugin.php:383
+#: BookmarkPlugin.php:384
 msgid "Expected exactly 1 link rel=related in a Bookmark."
 msgstr ""
 
 #. TRANS: Server exception thrown when a bookmark has multiple attachments.
-#: BookmarkPlugin.php:477
+#: BookmarkPlugin.php:478
 msgid "Bookmark notice with the wrong number of attachments."
+msgstr ""
+
+#. TRANS: Application title.
+#: BookmarkPlugin.php:541
+msgctxt "TITLE"
+msgid "Bookmark"
 msgstr ""
 
 #. TRANS: Exception thrown when a bookmark has no attachments.
 #. TRANS: %1$s is a bookmark ID, %2$s is a notice ID (number).
-#: BookmarkPlugin.php:533
+#: bookmarklistitem.php:75
 #, php-format
 msgid "Bookmark %1$s (notice %2$d) has no attachments."
-msgstr ""
-
-#. TRANS: Application title.
-#: BookmarkPlugin.php:652
-msgctxt "TITLE"
-msgid "Bookmark"
 msgstr ""
 
 #. TRANS: Title for mini-posting window loaded from bookmarklet.

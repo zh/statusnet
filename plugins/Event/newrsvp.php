@@ -109,8 +109,8 @@ class NewrsvpAction extends Action
             $this->verb = RSVP::POSSIBLE;
             break;
         default:
-            // TRANS: Client exception thrown when using an invalud value for RSVP ("please respond").
-            throw new ClientException(_('Unknown submit value.'));
+            // TRANS: Client exception thrown when using an invalid value for RSVP ("please respond").
+            throw new ClientException(_m('Unknown submit value.'));
         }
 
         return true;

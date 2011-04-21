@@ -6,6 +6,7 @@
 # Author: Brion
 # Author: George Animal
 # Author: Habi
+# Author: Jan Luca
 # Author: Kghbln
 # Author: Lutzgh
 # Author: March
@@ -22,17 +23,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:12+0000\n"
-"PO-Revision-Date: 2011-04-20 07:15:05+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
+"PO-Revision-Date: 2011-04-21 18:41:06+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-18 11:51:41+0000\n"
+"X-POT-Import-Date: 2011-04-20 08:40:21+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -60,9 +61,8 @@ msgid ""
 msgstr ""
 
 #. TRANS: Error message displayed when trying to access a non-existing page.
-#, fuzzy
 msgid "Unknown page"
-msgstr "Unbekannt"
+msgstr "Unbekannte Seite"
 
 #. TRANS: Error message displayed when trying to perform an undefined action.
 #. TRANS: Title for password recovery page when an unknown action has been specified.
@@ -166,9 +166,8 @@ msgstr "Profil nicht gefunden."
 #. TRANS: Client error displayed trying to reference a non-existing list.
 #. TRANS: Client error displayed when referring to a non-existing list.
 #. TRANS: Client error displayed trying to reference a non-existing list.
-#, fuzzy
 msgid "No such list."
-msgstr "Tag nicht vorhanden."
+msgstr "Liste nicht gefunden."
 
 #. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
 #, fuzzy
@@ -181,7 +180,7 @@ msgstr "Du hast dieses OMB 0.1 Profil nicht abonniert."
 #. TRANS: %s is a username.
 #, php-format
 msgid "There was an unexpected error while listing %s."
-msgstr ""
+msgstr "Ein unerwarteter Fehler ist aufgetreten während der Auflistung von %s."
 
 #. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
@@ -7117,12 +7116,6 @@ msgstr ""
 msgid "Problem saving group inbox."
 msgstr "Problem bei Speichern der Nachricht."
 
-#. TRANS: Server exception thrown when a reply cannot be saved.
-#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#, php-format
-msgid "Could not save reply for %1$d, %2$d."
-msgstr "Konnte Antwort auf %1$d, %2$d nicht speichern."
-
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #, php-format
@@ -8822,6 +8815,11 @@ msgstr ""
 msgid "Transport cannot be null."
 msgstr ""
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trends"
+msgstr ""
+
 #. TRANS: Button text for inviting more users to the StatusNet instance.
 #, fuzzy
 msgctxt "BUTTON"
@@ -9380,18 +9378,22 @@ msgstr ""
 msgid "Cannot get author for activity."
 msgstr ""
 
-#. TRANS: Client exception.
+#. TRANS: Client exception thrown when ...
 #, fuzzy
 msgid "Bookmark not posted to this group."
 msgstr "Du darfst diese Gruppe nicht löschen."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception when ...
 #, fuzzy
 msgid "Object not posted to this user."
 msgstr "Diesen Benutzer nicht löschen"
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
 msgid "Do not know how to handle this kind of target."
+msgstr ""
+
+#. TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
+msgid "You must implement either adaptNoticeListItem() or showNotice()."
 msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
@@ -9438,13 +9440,6 @@ msgid ""
 msgstr ""
 "Es tut uns leid, aber die Abfrage deiner GPS-Position hat zu lange gedauert. "
 "Bitte versuche es später wieder."
-
-#. TRANS: Header in notice list.
-#. TRANS: Header for Notices section.
-#, fuzzy
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "Nachrichten"
 
 #. TRANS: Separator in profile addressees list.
 msgctxt "SEPARATOR"
@@ -9910,6 +9905,11 @@ msgctxt "MENU"
 msgid "Popular"
 msgstr "Beliebte Beiträge"
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trending topics"
+msgstr ""
+
 #. TRANS: Client error displayed when return-to was defined without a target.
 msgid "No return-to arguments."
 msgstr "Kein Rückkehr-Argument."
@@ -10290,6 +10290,12 @@ msgstr "Das Theme enthält Dateien des Types „.%s“, die nicht erlaubt sind."
 msgid "Error opening theme archive."
 msgstr "Fehler beim Öffnen des Theme-Archives."
 
+#. TRANS: Header for Notices section.
+#, fuzzy
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "Nachrichten"
+
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, fuzzy, php-format
@@ -10527,56 +10533,5 @@ msgstr "Ungültiges XML, XRD-Root fehlt."
 msgid "Getting backup from file '%s'."
 msgstr "Hole Backup von der Datei „%s“."
 
-#~ msgid ""
-#~ "%1$s has invited you to join them on %2$s (%3$s).\n"
-#~ "\n"
-#~ "%2$s is a micro-blogging service that lets you keep up-to-date with "
-#~ "people you know and people who interest you.\n"
-#~ "\n"
-#~ "You can also share news about yourself, your thoughts, or your life "
-#~ "online with people who know about you. It's also great for meeting new "
-#~ "people who share your interests.\n"
-#~ "\n"
-#~ "%1$s said:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "You can see %1$s's profile page on %2$s here:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "If you'd like to try the service, click on the link below to accept the "
-#~ "invitation.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "If not, you can ignore this message. Thanks for your patience and your "
-#~ "time.\n"
-#~ "\n"
-#~ "Sincerely, %2$s\n"
-#~ msgstr ""
-#~ "%1$s hat dich eingeladen, auch bei %2$s mitzumachen. (%3$s).\n"
-#~ "\n"
-#~ "%2$s ist ein Mikroblogging-Service, der dich über deine Freunde auf dem "
-#~ "Laufenden hält und deine Freunde über dich informiert. \n"
-#~ "\n"
-#~ "Du kannst Neuigkeiten über dich und deine Gedanken verbreiten. Lerne neue "
-#~ "Leute mit ähnlichen Interessen kennen. \n"
-#~ "\n"
-#~ "%1$s sagte:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "Du kannst die Profilseite von  %1$s bei %2$s hier finden:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "Wenn du den Service ausprobieren möchtest, klicke den Link unten an, um "
-#~ "die Einladung anzunehmen.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "Wenn nicht, ignoriere diese Nachricht. Danke für deine Geduld und deine "
-#~ "Zeit\n"
-#~ "\n"
-#~ "Schöne Grüße von %2$s\n"
+#~ msgid "Could not save reply for %1$d, %2$d."
+#~ msgstr "Konnte Antwort auf %1$d, %2$d nicht speichern."

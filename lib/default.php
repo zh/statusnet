@@ -28,7 +28,7 @@
  */
 
 $default =
-  array('site' =>
+    array('site' =>
         array('name' => 'Just another StatusNet microblog',
               'nickname' => 'statusnet',
               'wildcard' => null,
@@ -357,6 +357,6 @@ $default =
               'proxy_password' => null,
               'proxy_auth_scheme' => null,
               ),
-	'router' =>
-	array('cache' => true), // whether to cache the router object. Defaults to true, turn off for devel
-        );
+        'router' =>
+        array('cache' => true), // whether to cache the router object. Defaults to true, turn off for devel
+    );

@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:12+0000\n"
-"PO-Revision-Date: 2011-04-20 07:15:10+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
+"PO-Revision-Date: 2011-04-21 18:41:12+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian <http://translatewiki.net/wiki/Portal:fa>\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,9 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
-"X-POT-Import-Date: 2011-04-18 11:51:41+0000\n"
+"X-POT-Import-Date: 2011-04-20 08:40:21+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -7052,12 +7052,6 @@ msgstr ""
 msgid "Problem saving group inbox."
 msgstr "هنگام ذخیرهٔ صندوق ورودی گروه مشکلی رخ داد."
 
-#. TRANS: Server exception thrown when a reply cannot be saved.
-#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#, fuzzy, php-format
-msgid "Could not save reply for %1$d, %2$d."
-msgstr "نمی‌توان اطلاعات گروه محلی را ذخیره کرد."
-
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #, php-format
@@ -8750,6 +8744,11 @@ msgstr ""
 msgid "Transport cannot be null."
 msgstr ""
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trends"
+msgstr ""
+
 #. TRANS: Button text for inviting more users to the StatusNet instance.
 #, fuzzy
 msgctxt "BUTTON"
@@ -9304,18 +9303,22 @@ msgstr ""
 msgid "Cannot get author for activity."
 msgstr ""
 
-#. TRANS: Client exception.
+#. TRANS: Client exception thrown when ...
 #, fuzzy
 msgid "Bookmark not posted to this group."
 msgstr "شما یک عضو این گروه نیستید."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception when ...
 #, fuzzy
 msgid "Object not posted to this user."
 msgstr "این پیام را پاک نکن"
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
 msgid "Do not know how to handle this kind of target."
+msgstr ""
+
+#. TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
+msgid "You must implement either adaptNoticeListItem() or showNotice()."
 msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
@@ -9361,13 +9364,6 @@ msgid ""
 msgstr ""
 "متاسفیم، دریافت محل جغرافیایی شما بیش از انتظار طول کشیده است، لطفا بعدا "
 "دوباره تلاش کنید."
-
-#. TRANS: Header in notice list.
-#. TRANS: Header for Notices section.
-#, fuzzy
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "پیام‌ها"
 
 #. TRANS: Separator in profile addressees list.
 msgctxt "SEPARATOR"
@@ -9832,6 +9828,11 @@ msgctxt "MENU"
 msgid "Popular"
 msgstr "محبوب"
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trending topics"
+msgstr ""
+
 #. TRANS: Client error displayed when return-to was defined without a target.
 #, fuzzy
 msgid "No return-to arguments."
@@ -10211,6 +10212,12 @@ msgstr ""
 msgid "Error opening theme archive."
 msgstr "خطا هنگام به‌هنگام‌سازی نمایهٔ از راه دور."
 
+#. TRANS: Header for Notices section.
+#, fuzzy
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "پیام‌ها"
+
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, php-format
@@ -10444,58 +10451,6 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid ""
-#~ "%1$s has invited you to join them on %2$s (%3$s).\n"
-#~ "\n"
-#~ "%2$s is a micro-blogging service that lets you keep up-to-date with "
-#~ "people you know and people who interest you.\n"
-#~ "\n"
-#~ "You can also share news about yourself, your thoughts, or your life "
-#~ "online with people who know about you. It's also great for meeting new "
-#~ "people who share your interests.\n"
-#~ "\n"
-#~ "%1$s said:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "You can see %1$s's profile page on %2$s here:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "If you'd like to try the service, click on the link below to accept the "
-#~ "invitation.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "If not, you can ignore this message. Thanks for your patience and your "
-#~ "time.\n"
-#~ "\n"
-#~ "Sincerely, %2$s\n"
-#~ msgstr ""
-#~ "%1$s شما را دعودت کرده است تا به آن‌ها در %2$s (%3$s) بپیوندید.\n"
-#~ "\n"
-#~ "%2$s یک سرویس میکروبلاگینگ است که به شما امکان می‌دهد که با کسانی که "
-#~ "می‌شناسید و کسانی که به شما توجه دارند، به‌روز بمانید.\n"
-#~ "\n"
-#~ "شما همچنین می‌توانید خبرهایی دربارهٔ خودتان، افکارتان و یا زندگی‌تان با "
-#~ "کسانی که شما را می‌شناسند، به صورت آنلاین به اشتراک بگذارید. همچنین این "
-#~ "راهی خوب برای ملاقات افراد تازه‌ای است که علاقه‌مندی‌هایتان را با آن‌ها به "
-#~ "اشتراک می‌گذارید.\n"
-#~ "\n"
-#~ "%1$s گفته‌است:\n"
-#~ "\n"
-#~ "%4$s\n"
-#~ "\n"
-#~ "شما می‌توانید صفحهٔ نمایهٔ %1$s' را در %2$s اینجا ببینید:\n"
-#~ "\n"
-#~ "%5$s\n"
-#~ "\n"
-#~ "اگر شما دوست دارید که سرویس را آزمایش کنید، روی پیوند زیر برای قبول دعوت "
-#~ "کلیک کنید.\n"
-#~ "\n"
-#~ "%6$s\n"
-#~ "\n"
-#~ "اگر چنین نیست، شما می‌توانید این پیام را نادیده بگیرید. از شما برای طاقت و "
-#~ "وقت‌تان تشکر می‌کنیم.\n"
-#~ "\n"
-#~ "با تشکر، %2$s\n"
+#, fuzzy
+#~ msgid "Could not save reply for %1$d, %2$d."
+#~ msgstr "نمی‌توان اطلاعات گروه محلی را ذخیره کرد."

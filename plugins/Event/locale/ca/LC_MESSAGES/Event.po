@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Event\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:13+0000\n"
-"PO-Revision-Date: 2011-04-20 07:13:38+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
+"PO-Revision-Date: 2011-04-21 18:39:40+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-11 13:14:48+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-plugin-event\n"
@@ -87,6 +87,10 @@ msgstr ""
 msgid "You must be logged in to RSVP for an event."
 msgstr ""
 
+#. TRANS: Client exception thrown when using an invalid value for RSVP ("please respond").
+msgid "Unknown submit value."
+msgstr ""
+
 #. TRANS: Page title after creating an event.
 #. TRANS: Page title after sending a notice.
 msgid "Event saved"
@@ -97,6 +101,10 @@ msgstr ""
 msgctxt "TITLE"
 msgid "Cancel RSVP"
 msgstr "Cancel·la"
+
+#. TRANS: Content for a deleted RSVP list item (RSVP stands for "please respond").
+msgid "Deleted."
+msgstr ""
 
 #. TRANS: Field label on form to RSVP ("please respond") for an event.
 msgid "RSVP:"
@@ -203,6 +211,10 @@ msgctxt "TITLE"
 msgid "Event"
 msgstr ""
 
+#. TRANS: Exception thrown when there are too many activity objects.
+msgid "Too many activity objects."
+msgstr ""
+
 #. TRANS: Exception thrown when event plugin comes across a non-event type object.
 msgid "Wrong type for object."
 msgstr ""
@@ -222,28 +234,6 @@ msgstr ""
 #. TRANS: Exception thrown when referring to a notice that is not an event an in event context.
 msgid "Unknown event notice."
 msgstr ""
-
-#. TRANS: Field label for event description.
-msgid "Time:"
-msgstr "Hora:"
-
-#. TRANS: Field label for event description.
-msgid "Location:"
-msgstr "Ubicació:"
-
-#. TRANS: Field label for event description.
-msgid "Description:"
-msgstr "Descripció:"
-
-#. TRANS: Field label for event description.
-msgid "Attending:"
-msgstr "Assistents:"
-
-#. TRANS: RSVP counts.
-#. TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
-#, php-format
-msgid "Yes: %1$d No: %2$d Maybe: %3$d"
-msgstr "Sí: %1$d No: %2$d Potser: %3$d"
 
 #. TRANS: Client exception thrown when trying to save an already existing RSVP ("please respond").
 msgid "RSVP already exists."
@@ -371,3 +361,25 @@ msgstr ""
 #. TRANS: Client exception thrown when trying to post an event without providing an end time.
 msgid "Event must have an end time."
 msgstr ""
+
+#. TRANS: Field label for event description.
+msgid "Time:"
+msgstr "Hora:"
+
+#. TRANS: Field label for event description.
+msgid "Location:"
+msgstr "Ubicació:"
+
+#. TRANS: Field label for event description.
+msgid "Description:"
+msgstr "Descripció:"
+
+#. TRANS: Field label for event description.
+msgid "Attending:"
+msgstr "Assistents:"
+
+#. TRANS: RSVP counts.
+#. TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
+#, php-format
+msgid "Yes: %1$d No: %2$d Maybe: %3$d"
+msgstr "Sí: %1$d No: %2$d Potser: %3$d"

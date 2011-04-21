@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:12+0000\n"
-"PO-Revision-Date: 2011-04-20 07:15:27+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
+"PO-Revision-Date: 2011-04-21 18:41:30+0000\n"
 "Language-Team: Malayalam <http://translatewiki.net/wiki/Portal:ml>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-18 11:51:41+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-POT-Import-Date: 2011-04-20 08:40:21+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ml\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -6792,12 +6792,6 @@ msgstr ""
 msgid "Problem saving group inbox."
 msgstr "സംഘത്തിന്റെ ഇൻബോക്സ് സേവ് ചെയ്യുന്നതിൽ പ്രശ്നമുണ്ടായി."
 
-#. TRANS: Server exception thrown when a reply cannot be saved.
-#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#, php-format
-msgid "Could not save reply for %1$d, %2$d."
-msgstr " %2$d, %1$d എന്ന അറിയിപ്പിനുള്ള മറുപടി സേവ് ചെയ്യാൻ കഴിഞ്ഞില്ല."
-
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #, php-format
@@ -8463,6 +8457,11 @@ msgstr ""
 msgid "Transport cannot be null."
 msgstr ""
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trends"
+msgstr ""
+
 #. TRANS: Button text for inviting more users to the StatusNet instance.
 #, fuzzy
 msgctxt "BUTTON"
@@ -8918,18 +8917,22 @@ msgstr ""
 msgid "Cannot get author for activity."
 msgstr ""
 
-#. TRANS: Client exception.
+#. TRANS: Client exception thrown when ...
 #, fuzzy
 msgid "Bookmark not posted to this group."
 msgstr "ഈ സംഘത്തെ മായ്ക്കരുത്."
 
-#. TRANS: Client exception.
+#. TRANS: Client exception when ...
 #, fuzzy
 msgid "Object not posted to this user."
 msgstr "ഈ ഉപയോക്താവിനെ നീക്കം ചെയ്യരുത്."
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
 msgid "Do not know how to handle this kind of target."
+msgstr ""
+
+#. TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
+msgid "You must implement either adaptNoticeListItem() or showNotice()."
 msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
@@ -8976,13 +8979,6 @@ msgid ""
 msgstr ""
 "ക്ഷമിക്കുക, താങ്കളുടെ പ്രദേശം കണ്ടെത്താൻ പ്രതീക്ഷിച്ചതിലധികം സമയം എടുക്കുന്നു, ദയവായി പിന്നീട് "
 "വീണ്ടും ശ്രമിക്കുക"
-
-#. TRANS: Header in notice list.
-#. TRANS: Header for Notices section.
-#, fuzzy
-msgctxt "HEADER"
-msgid "Notices"
-msgstr "അറിയിപ്പുകൾ"
 
 #. TRANS: Separator in profile addressees list.
 msgctxt "SEPARATOR"
@@ -9442,6 +9438,11 @@ msgctxt "MENU"
 msgid "Popular"
 msgstr "ജനപ്രിയം"
 
+#. TRANS: Title for inbox tag cloud section.
+msgctxt "TITLE"
+msgid "Trending topics"
+msgstr ""
+
 #. TRANS: Client error displayed when return-to was defined without a target.
 msgid "No return-to arguments."
 msgstr ""
@@ -9811,6 +9812,12 @@ msgstr ""
 msgid "Error opening theme archive."
 msgstr ""
 
+#. TRANS: Header for Notices section.
+#, fuzzy
+msgctxt "HEADER"
+msgid "Notices"
+msgstr "അറിയിപ്പുകൾ"
+
 #. TRANS: Link to show replies for a notice.
 #. TRANS: %d is the number of replies to a notice and used for plural.
 #, fuzzy, php-format
@@ -10046,3 +10053,6 @@ msgstr ""
 #, php-format
 msgid "Getting backup from file '%s'."
 msgstr ""
+
+#~ msgid "Could not save reply for %1$d, %2$d."
+#~ msgstr " %2$d, %1$d എന്ന അറിയിപ്പിനുള്ള മറുപടി സേവ് ചെയ്യാൻ കഴിഞ്ഞില്ല."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:12+0000\n"
+"POT-Creation-Date: 2011-04-21 18:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8044,20 +8044,13 @@ msgid "Bad type provided to saveKnownGroups."
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1151
+#: classes/Notice.php:1153
 msgid "Problem saving group inbox."
-msgstr ""
-
-#. TRANS: Server exception thrown when a reply cannot be saved.
-#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
-#: classes/Notice.php:1267
-#, php-format
-msgid "Could not save reply for %1$d, %2$d."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1779
+#: classes/Notice.php:1787
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -9986,6 +9979,12 @@ msgstr ""
 msgid "Transport cannot be null."
 msgstr ""
 
+#. TRANS: Title for inbox tag cloud section.
+#: lib/inboxtagcloudsection.php:56
+msgctxt "TITLE"
+msgid "Trends"
+msgstr ""
+
 #. TRANS: Button text for inviting more users to the StatusNet instance.
 #: lib/invitebuttonsection.php:60
 msgctxt "BUTTON"
@@ -10489,23 +10488,28 @@ msgid "api"
 msgstr ""
 
 #. TRANS: Client exception thrown when no author for an activity was found.
-#: lib/microappplugin.php:344
+#: lib/microappplugin.php:356
 msgid "Cannot get author for activity."
 msgstr ""
 
-#. TRANS: Client exception.
-#: lib/microappplugin.php:382
+#. TRANS: Client exception thrown when ...
+#: lib/microappplugin.php:394
 msgid "Bookmark not posted to this group."
 msgstr ""
 
-#. TRANS: Client exception.
-#: lib/microappplugin.php:396
+#. TRANS: Client exception when ...
+#: lib/microappplugin.php:408
 msgid "Object not posted to this user."
 msgstr ""
 
 #. TRANS: Server exception thrown when a micro app plugin uses a target that cannot be handled.
-#: lib/microappplugin.php:400
+#: lib/microappplugin.php:412
 msgid "Do not know how to handle this kind of target."
+msgstr ""
+
+#. TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
+#: lib/microappplugin.php:554
+msgid "You must implement either adaptNoticeListItem() or showNotice()."
 msgstr ""
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
@@ -10557,13 +10561,6 @@ msgstr ""
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
-msgstr ""
-
-#. TRANS: Header in notice list.
-#. TRANS: Header for Notices section.
-#: lib/noticelist.php:85 lib/threadednoticelist.php:76
-msgctxt "HEADER"
-msgid "Notices"
 msgstr ""
 
 #. TRANS: Separator in profile addressees list.
@@ -11076,6 +11073,12 @@ msgctxt "MENU"
 msgid "Popular"
 msgstr ""
 
+#. TRANS: Title for inbox tag cloud section.
+#: lib/publictagcloudsection.php:53
+msgctxt "TITLE"
+msgid "Trending topics"
+msgstr ""
+
 #. TRANS: Client error displayed when return-to was defined without a target.
 #: lib/redirectingaction.php:93
 msgid "No return-to arguments."
@@ -11500,6 +11503,12 @@ msgstr ""
 #. TRANS: Server exception thrown when an uploaded compressed theme cannot be opened.
 #: lib/themeuploader.php:273
 msgid "Error opening theme archive."
+msgstr ""
+
+#. TRANS: Header for Notices section.
+#: lib/threadednoticelist.php:76
+msgctxt "HEADER"
+msgid "Notices"
 msgstr ""
 
 #. TRANS: Link to show replies for a notice.
