@@ -390,7 +390,7 @@ abstract class MicroAppPlugin extends Plugin
                 $uri = $target->getUri();
                 if (!in_array($uri, $activity->context->attention)) {
                     // @todo FIXME: please document (i18n).
-                    // TRANS: Client exception.
+                    // TRANS: Client exception thrown when ...
                     throw new ClientException(_('Bookmark not posted to this group.'));
                 }
             } else if ($target instanceof User) {
@@ -404,7 +404,7 @@ abstract class MicroAppPlugin extends Plugin
                     (empty($original) ||
                      $original->profile_id != $target->id)) {
                     // @todo FIXME: Please document (i18n).
-                    // TRANS: Client exception.
+                    // TRANS: Client exception when ...
                     throw new ClientException(_('Object not posted to this user.'));
                 }
             } else {
@@ -550,6 +550,7 @@ abstract class MicroAppPlugin extends Plugin
 
     function showNotice($notice, $out)
     {
-        throw new ServerException("You must implement either adaptNoticeListItem() or showNotice()");
+        // TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
+        throw new ServerException(_('You must implement either adaptNoticeListItem() or showNotice().'));
     }
 }
