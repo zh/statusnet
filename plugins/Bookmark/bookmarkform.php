@@ -124,10 +124,11 @@ class BookmarkForm extends Form
                           'url');
         $this->unli();
 
-        list($width, $height) = $this->scaleImage($this->_thumbnail->width,
-                                                  $this->_thumbnail->height);
-
         if (!empty($this->_thumbnail)) {
+
+            list($width, $height) = $this->scaleImage($this->_thumbnail->width,
+                                                      $this->_thumbnail->height);
+
             $this->out->element('img',
                                 array('src' => $this->_thumbnail->url,
                                       'class' => 'bookmarkform-thumbnail',
