@@ -410,10 +410,9 @@ abstract class NoticeListActorsItem extends NoticeListItem
             } else {
                 $profile = Profile::staticGet('id', $id);
                 if ($profile) {
-                    $links[] = sprintf('<a href="%s" title="%s">%s</a>',
+                    $links[] = sprintf('<a href="%s">%s</a>',
                                        htmlspecialchars($profile->profileurl),
-                                       htmlspecialchars($profile->getBestName()),
-                                       htmlspecialchars($profile->nickname));
+                                       htmlspecialchars($profile->getBestName()));
                 }
             }
         }
