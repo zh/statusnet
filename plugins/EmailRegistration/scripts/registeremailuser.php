@@ -21,7 +21,11 @@
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
 $helptext = <<<END_OF_REGISTEREMAILUSER_HELP
-registeremailuser.php [options] <email>
+registeremailuser.php [options] <email address>
+
+Options:
+-e --email     Send a confirmation message to the email address
+
 register a new user by email address.
 
 END_OF_REGISTEREMAILUSER_HELP;
@@ -35,6 +39,11 @@ if (count($args) == 0) {
 $email = $args[0];
 
 $confirm = EmailRegistrationPlugin::registerEmail($email);
+
+if (have_option('e', 'email')) {
+    EmailRegistrationPlugin::sendConfirmEmail($confirm);
+}
+
 $confirmUrl = common_local_url('register', array('code' => $confirm->code));
 
 print $confirmUrl."\n";

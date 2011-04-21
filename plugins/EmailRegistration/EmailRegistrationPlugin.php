@@ -47,6 +47,8 @@ if (!defined('STATUSNET')) {
  */
 class EmailRegistrationPlugin extends Plugin
 {
+    const CONFIRMTYPE = 'register';
+
     function onAutoload($cls)
     {
         $dir = dirname(__FILE__);
@@ -96,6 +98,90 @@ class EmailRegistrationPlugin extends Plugin
         }
 
         return true;
+    }
+
+    static function registerEmail($email)
+    {
+        $old = User::staticGet('email', $email);
+
+        if (!empty($old)) {
+            // TRANS: Error text when trying to register with an already registered e-mail address.
+            // TRANS: %s is the URL to recover password at.
+            throw new ClientException(sprintf(_m('A user with that email address already exists. You can use the '.
+                                                 '<a href="%s">password recovery</a> tool to recover a missing password.'),
+                                              common_local_url('recoverpassword')));
+        }
+
+        $valid = false;
+
+        if (Event::handle('StartValidateUserEmail', array(null, $email, &$valid))) {
+            $valid = Validate::email($email, common_config('email', 'check_domain'));
+            Event::handle('EndValidateUserEmail', array(null, $email, &$valid));
+        }
+
+        if (!$valid) {
+            // TRANS: Error text when trying to register with an invalid e-mail address.
+            throw new ClientException(_m('Not a valid email address.'));
+        }
+
+        $confirm = Confirm_address::getAddress($email, self::CONFIRMTYPE);
+
+        if (empty($confirm)) {
+            $confirm = Confirm_address::saveNew(null, $email, 'register');
+        }
+
+        return $confirm;
+    }
+
+    static function nicknameFromEmail($email)
+    {
+        $parts = explode('@', $email);
+
+        $nickname = $parts[0];
+
+        $nickname = preg_replace('/[^A-Za-z0-9]/', '', $nickname);
+
+        $nickname = Nickname::normalize($nickname);
+
+        $original = $nickname;
+
+        $n = 0;
+
+        while (User::staticGet('nickname', $nickname)) {
+            $n++;
+            $nickname = $original . $n;
+        }
+
+        return $nickname;
+    }
+
+    static function sendConfirmEmail($confirm)
+    {
+        $sitename = common_config('site', 'name');
+
+        $recipients = array($confirm->address);
+
+        $headers['From'] = mail_notify_from();
+        $headers['To'] = trim($confirm->address);
+         // TRANS: Subject for confirmation e-mail.
+         // TRANS: %s is the StatusNet sitename.
+        $headers['Subject'] = sprintf(_m('Confirm your registration on %s'), $sitename);
+
+        $confirmUrl = common_local_url('register', array('code' => $confirm->code));
+
+         // TRANS: Body for confirmation e-mail.
+         // TRANS: %1$s is the StatusNet sitename, %2$s is the confirmation URL.
+        $body = sprintf(_m('Someone (probably you) has requested an account on %1$s using this email address.'.
+                          "\n".
+                          'To confirm the address, click the following URL or copy it into the address bar of your browser.'.
+                          "\n".
+                          '%2$s'.
+                          "\n".
+                          'If it was not you, you can safely ignore this message.'),
+                        $sitename,
+                        $confirmUrl);
+
+        mail_send($recipients, $headers, $body);
     }
 
     function onPluginVersion(&$versions)

@@ -201,53 +201,20 @@ class EmailregisterAction extends Action
 
     function registerUser()
     {
-        $old = User::staticGet('email', $this->email);
-
-        if (!empty($old)) {
-            // TRANS: Error text when trying to register with an already registered e-mail address.
-            // TRANS: %s is the URL to recover password at.
-            $this->error = sprintf(_m('A user with that email address already exists. You can use the '.
-                                     '<a href="%s">password recovery</a> tool to recover a missing password.'),
-                                   common_local_url('recoverpassword'));
-            $this->showRegistrationForm();
-            return;
-        }
-
-        $valid = false;
-
         try {
-            if (Event::handle('StartValidateUserEmail', array(null, $this->email, &$valid))) {
-                $valid = Validate::email($this->email, common_config('email', 'check_domain'));
-                Event::handle('EndValidateUserEmail', array(null, $this->email, &$valid));
-            }
-            if (!$valid) {
-                // TRANS: Error text when trying to register with an invalid e-mail address.
-                $this->error = _m('Not a valid email address.');
-                $this->showRegistrationForm();
-                return;
-            }
-        } catch (ClientException $e) {
-            $this->error = $e->getMessage();
+            $confirm = EmailRegistrationPlugin::registerEmail($this->email);
+        } catch (ClientException $ce) {
+            $this->error = $ce->getMessage();
             $this->showRegistrationForm();
             return;
         }
 
-        $confirm = Confirm_address::getAddress($this->email, self::CONFIRMTYPE);
+        EmailRegistrationPlugin::sendConfirmEmail($confirm);
 
-        if (empty($confirm)) {
-            $confirm = Confirm_address::saveNew(null, $this->email, 'register');
-            // TRANS: Confirmation text after initial registration.
-            // TRANS: %s an e-mail address.
-            $prompt = sprintf(_m('An email was sent to %s to confirm that address. Check your email inbox for instructions.'),
-                              $this->email);
-        } else {
-            // TRANS: Confirmation text after re-requesting an e-mail confirmation code.
-            // TRANS: %s is an e-mail address.
-            $prompt = sprintf(_m('The address %s was already registered but not confirmed. The confirmation code was resent.'),
-                              $this->email);
-        }
-
-        $this->sendConfirmEmail($confirm);
+        // TRANS: Confirmation text after initial registration.
+        // TRANS: %s an e-mail address.
+        $prompt = sprintf(_m('An email was sent to %s to confirm that address. Check your email inbox for instructions.'),
+                          $this->email);
 
         $this->complete = $prompt;
 
@@ -411,24 +378,7 @@ class EmailregisterAction extends Action
 
     function nicknameFromEmail($email)
     {
-        $parts = explode('@', $email);
-
-        $nickname = $parts[0];
-
-        $nickname = preg_replace('/[^A-Za-z0-9]/', '', $nickname);
-
-        $nickname = Nickname::normalize($nickname);
-
-        $original = $nickname;
-
-        $n = 0;
-
-        while (User::staticGet('nickname', $nickname)) {
-            $n++;
-            $nickname = $original . $n;
-        }
-
-        return $nickname;
+        return EmailRegistrationPlugin::nicknameFromEmail($email);
     }
 
     /**
