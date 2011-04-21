@@ -192,17 +192,20 @@ class ThreadedNoticeListItem extends NoticeListItem
             $cnt = 0;
             $moreCutoff = null;
             while ($notice->fetch()) {
-                if ($notice->id == $this->notice->id) {
-                    // Skip!
-                    continue;
+                if (Event::handle('StartAddNoticeReply', array($this, $this->notice, $notice))) {
+                    if ($notice->id == $this->notice->id) {
+                        // Skip!
+                        continue;
+                    }
+                    $cnt++;
+                    if ($cnt > $max) {
+                        // boo-yah
+                        $moreCutoff = clone($notice);
+                        break;
+                    }
+                    $notices[] = clone($notice); // *grumble* inefficient as hell
+                    Event::handle('EndAddNoticeReply', array($this, $this->notice, $notice));
                 }
-                $cnt++;
-                if ($cnt > $max) {
-                    // boo-yah
-                    $moreCutoff = clone($notice);
-                    break;
-                }
-                $notices[] = clone($notice); // *grumble* inefficient as hell
             }
 
             if (Event::handle('StartShowThreadedNoticeTail', array($this, $this->notice, &$notices))) {
@@ -215,8 +218,9 @@ class ThreadedNoticeListItem extends NoticeListItem
                 $hasRepeats = $item->show();
 
                 if ($notices) {
+
                     if ($moreCutoff) {
-                        $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out);
+                        $item = new ThreadedNoticeListMoreItem($moreCutoff, $this->out, count($notices));
                         $item->show();
                     }
                     foreach (array_reverse($notices) as $notice) {
@@ -306,6 +310,14 @@ class ThreadedNoticeListSubItem extends NoticeListItem
  */
 class ThreadedNoticeListMoreItem extends NoticeListItem
 {
+    protected $cnt;
+
+    function __construct($notice, $out, $cnt)
+    {
+        parent::__construct($notice, $out);
+        $this->cnt = $cnt;
+    }
+
     /**
      * recipe function for displaying a single notice.
      *
