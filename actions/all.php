@@ -183,10 +183,10 @@ class AllAction extends ProfileAction
 
     function showSections()
     {
-        // $ibs = new InviteButtonSection($this);
-        // $ibs->show();
-        //        $pop = new PopularNoticeSection($this);
-        //        $pop->show();
+        $ibs = new InviteButtonSection($this);
+        $ibs->show();
+        $pop = new PopularNoticeSection($this);
+        $pop->show();
         //        $pop = new InboxTagCloudSection($this, $this->user);
         //        $pop->show();
     }
