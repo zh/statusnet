@@ -194,7 +194,7 @@ class UserEmailSummaryHandler extends QueueHandler
 
         // TRANS: Link text for link to e-mail settings.
         // TRANS: %1$s is a link to the e-mail settings, %2$s is the StatusNet sitename.
-        $out->raw("<p>" . sprintf(_m('<a href="%1s">change your email settings for %2$s</a>'),
+        $out->raw("<p>" . sprintf(_m('<a href="%1$s">change your email settings for %2$s</a>'),
                           common_local_url('emailsettings'),
                           common_config('site', 'name'))."</p>");
 
