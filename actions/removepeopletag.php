@@ -147,9 +147,9 @@ class RemovepeopletagAction extends Action
             $user = User::staticGet('id', $this->tagged->id);
             if ($user) {
                 $this->clientError(
-                        // TRANS: Client error displayed when an unknown error occurs while listing a user.
+                        // TRANS: Client error displayed when an unknown error occurs while delisting a user.
                         // TRANS: %s is a username.
-                        sprintf(_('There was an unexpected error while listing %s.'),
+                        sprintf(_('There was an unexpected error while delisting %s.'),
                         $user->nickname));
             } else {
                 // TRANS: Client error displayed when an unknown error occurs while listing a user.
