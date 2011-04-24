@@ -47,7 +47,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/ext
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class IrcPlugin extends ImPlugin {
     public $host =  null;
     public $port = null;
@@ -76,6 +75,7 @@ class IrcPlugin extends ImPlugin {
      * @return string Name of service
      */
     public function getDisplayName() {
+        // TRANS: Service name for IRC.
         return _m('IRC');
     }
 
@@ -290,6 +290,9 @@ class IrcPlugin extends ImPlugin {
      * @return boolean success value
      */
     public function sendConfirmationCode($screenname, $code, $user, $checked = false) {
+        // TRANS: Body text for e-mail confirmation message for IRC.
+        // TRANS: %1$s is a user nickname, %2$s is the StatusNet sitename,
+        // TRANS: %3$s is the plugin display name ("IRC"), %4$s is the confirm address URL.
         $body = sprintf(_m('User "%1$s" on %2$s has said that your %3$s screenname belongs to them. ' .
           'If that\'s true, you can confirm by clicking on this URL: ' .
           '%4$s' .
@@ -339,16 +342,20 @@ class IrcPlugin extends ImPlugin {
     */
     public function initialize() {
         if (!isset($this->host)) {
-            throw new Exception('must specify a host');
+            // TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
+            throw new Exception(_m('You must specify a host.'));
         }
         if (!isset($this->username)) {
-            throw new Exception('must specify a username');
+            // TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
+            throw new Exception(_m('You must specify a username.'));
         }
         if (!isset($this->realname)) {
-            throw new Exception('must specify a "real name"');
+            // TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
+            throw new Exception(_m('You must specify a "real name".'));
         }
         if (!isset($this->nick)) {
-            throw new Exception('must specify a nickname');
+            // TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
+            throw new Exception(_m('You must specify a nickname.'));
         }
 
         if (!isset($this->port)) {
@@ -390,6 +397,7 @@ class IrcPlugin extends ImPlugin {
                             'author' => 'Luke Fitzgerald',
                             'homepage' => 'http://status.net/wiki/Plugin:IRC',
                             'rawdescription' =>
+                            // TRANS: Plugin description.
                             _m('The IRC plugin allows users to send and receive notices over an IRC network.'));
         return true;
     }
