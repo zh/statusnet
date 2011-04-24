@@ -506,7 +506,6 @@ class ThreadedNoticeListFavesItem extends NoticeListActorsItem
         }
     }
 
-    
     function showStart()
     {
         $this->out->elementStart('li', array('class' => 'notice-data notice-faves'));
@@ -516,7 +515,6 @@ class ThreadedNoticeListFavesItem extends NoticeListActorsItem
     {
         $this->out->elementEnd('li');
     }
-
 }
 
 // @todo FIXME: needs documentation.
