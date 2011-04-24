@@ -181,6 +181,7 @@ class UserEmailSummaryHandler extends QueueHandler
                     $out->text(' ');
                     $out->element('a',
                                   array('href' => $convurl.'#notice-'.$notice->id),
+                                  // TRANS: Link text for link to conversation view.
                                   _m('in context'));
                 }
             }
@@ -191,9 +192,11 @@ class UserEmailSummaryHandler extends QueueHandler
 
         $out->elementEnd('table');
 
-        $out->raw(sprintf(_m('<p><a href="%1s">change your email settings for %2s</a></p>'),
+        // TRANS: Link text for link to e-mail settings.
+        // TRANS: %1$s is a link to the e-mail settings, %2$s is the StatusNet sitename.
+        $out->raw("<p>" . sprintf(_m('<a href="%1s">change your email settings for %2$s</a>'),
                           common_local_url('emailsettings'),
-                          common_config('site', 'name')));
+                          common_config('site', 'name'))."</p>");
 
         $out->elementEnd('div');
 
@@ -201,6 +204,7 @@ class UserEmailSummaryHandler extends QueueHandler
 
         // FIXME: do something for people who don't like HTML email
 
+        // TRANS: Subject for e-mail.
         mail_to_user($user, _m('Updates from your network'), $body,
                      array('Content-Type' => 'text/html; charset=UTF-8'));
 

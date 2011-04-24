@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  */
 class SiteEmailSummaryHandler extends QueueHandler
 {
-
     /**
      * Return transport keyword which identifies items this queue handler
      * services; must be defined for all subclasses.
