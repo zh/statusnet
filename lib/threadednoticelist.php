@@ -487,6 +487,7 @@ class ThreadedNoticeListFavesItem extends NoticeListActorsItem
 
     function getListMessage($count, $you)
     {
+        // @todo FIXME:: Does not look correct. %%?
         if ($count == 1 && $you) {
             // darn first person being different from third person!
             // TRANS: List message for notice favoured by logged in user.
