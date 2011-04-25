@@ -1022,7 +1022,7 @@ background-color:rgba(200, 200, 200, 0.300);
 
 .error, .success, .notice-status {
     background-color: #F7E8E8;
-    padding: 4px;
+    padding: 4px 10px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
@@ -1097,10 +1097,6 @@ background-color:rgba(200, 200, 200, 0.300);
     margin-left: 26%;
 }
 
-#form_search ul.form_data #q {
-    margin-left: 10px;
-}
-
 .form_settings fieldset fieldset {
     margin-bottom: 30px;
     padding-top: 25px;
@@ -1128,6 +1124,38 @@ vertical-align:top;
 padding-right:0;
 }
 
+/* Search */
+
+#form_search {
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    background: url('../images/brdr_black_dot.png') repeat-x bottom left;
+}
+
+#form_search fieldset {
+    margin-bottom: 0px;
+}
+
+#form_search ul.form_data #q {
+    margin-left: 10px;
+    width: 210px;
+}
+
+#form_search input.submit {
+    height: 1.6em;
+    line-height: 1.6em;
+    font-size: 1.1em;
+    padding-bottom: 2px;
+    margin-left: 5px;
+}
+
+#noticesearch .entity_actions {
+    margin: 0px;
+}
+
+#noticesearch p.error {
+    margin-top: 60px;
+}
 
 /* Bookmark specific styles */
 
