@@ -71,9 +71,8 @@ class UserauthorizationAction extends Action
             $profile = $user->getProfile();
             if (!$profile) {
                 common_log_db_error($user, 'SELECT', __FILE__);
-                // TRANS: Server error displayed when trying to authorise a remote subscription request
-                // TRANS: while the user has no profile.
-                $this->serverError(_('User without matching profile.'));
+                // TRANS: Error message displayed when referring to a user without a profile.
+                $this->serverError(_('User has no profile.'));
                 return;
             }
 

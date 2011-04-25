@@ -99,7 +99,7 @@ class UsergroupsAction extends ProfileAction
         $this->profile = $this->user->getProfile();
 
         if (!$this->profile) {
-            // TRANS: Server error displayed requesting groups for a user without a profile.
+            // TRANS: Error message displayed when referring to a user without a profile.
             $this->serverError(_('User has no profile.'));
             return false;
         }

@@ -81,7 +81,7 @@ class ProfileAction extends OwnerDesignAction
         $this->profile = $this->user->getProfile();
 
         if (!$this->profile) {
-            // TRANS: Server error displayed when calling a profile action while the specified user does not have a profile.
+            // TRANS: Error message displayed when referring to a user without a profile.
             $this->serverError(_('User has no profile.'));
             return false;
         }

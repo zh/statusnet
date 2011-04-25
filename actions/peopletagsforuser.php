@@ -83,7 +83,7 @@ class PeopletagsforuserAction extends OwnerDesignAction
         $this->tagged = $this->user->getProfile();
 
         if (!$this->tagged) {
-            // TRANS: Server error displayed when a user has no profile.
+            // TRANS: Error message displayed when referring to a user without a profile.
             $this->serverError(_('User has no profile.'));
             return false;
         }

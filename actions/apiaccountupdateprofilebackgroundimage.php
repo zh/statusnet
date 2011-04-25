@@ -195,7 +195,7 @@ class ApiAccountUpdateProfileBackgroundImageAction extends ApiAuthAction
         $profile = $this->user->getProfile();
 
         if (empty($profile)) {
-            // TRANS: Client error displayed when a user has no profile.
+            // TRANS: Error message displayed when referring to a user without a profile.
             $this->clientError(_('User has no profile.'));
             return;
         }

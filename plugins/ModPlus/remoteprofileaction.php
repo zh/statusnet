@@ -15,6 +15,7 @@ class RemoteProfileAction extends ShowstreamAction
         $this->profile = Profile::staticGet('id', $id);
 
         if (!$this->profile) {
+            // TRANS: Error message displayed when referring to a user without a profile.
             $this->serverError(_m('User has no profile.'));
             return false;
         }

@@ -179,7 +179,7 @@ class ApiAccountUpdateProfileColorsAction extends ApiAuthAction
         $profile = $this->user->getProfile();
 
         if (empty($profile)) {
-            // TRANS: Client error displayed a user has no profile updating profile colours.
+            // TRANS: Error message displayed when referring to a user without a profile.
             $this->clientError(_('User has no profile.'));
             return;
         }

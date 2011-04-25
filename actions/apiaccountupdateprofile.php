@@ -107,7 +107,7 @@ class ApiAccountUpdateProfileAction extends ApiAuthAction
         $profile = $this->user->getProfile();
 
         if (empty($profile)) {
-            // TRANS: Client error displayed if a user profile could not be found.
+            // TRANS: Error message displayed when referring to a user without a profile.
             $this->clientError(_('User has no profile.'));
             return;
         }

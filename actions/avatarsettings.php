@@ -104,8 +104,8 @@ class AvatarsettingsAction extends SettingsAction
 
         if (!$profile) {
             common_log_db_error($user, 'SELECT', __FILE__);
-            // TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
-            $this->serverError(_('User without matching profile.'));
+            // TRANS: Error message displayed when referring to a user without a profile.
+            $this->serverError(_('User has no profile.'));
             return;
         }
 
@@ -190,8 +190,8 @@ class AvatarsettingsAction extends SettingsAction
 
         if (!$profile) {
             common_log_db_error($user, 'SELECT', __FILE__);
-            // TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
-            $this->serverError(_('User without matching profile.'));
+            // TRANS: Error message displayed when referring to a user without a profile.
+            $this->serverError(_('User has no profile.'));
             return;
         }
 

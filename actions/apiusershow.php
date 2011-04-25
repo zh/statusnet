@@ -104,7 +104,7 @@ class ApiUserShowAction extends ApiPrivateAuthAction
         $profile = $this->user->getProfile();
 
         if (empty($profile)) {
-            // TRANS: Client error displayed when requesting user information for a user without a profile.
+            // TRANS: Error message displayed when referring to a user without a profile.
             $this->clientError(_('User has no profile.'));
             return;
         }
