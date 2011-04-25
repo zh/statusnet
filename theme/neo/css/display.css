@@ -223,12 +223,14 @@ address {
 
 #site_nav_local_views a {
     display: block;
-    padding: 0px 0px 1px 10px;
+    width: 118px;
+    padding: 0px 10px 1px 10px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
     text-transform: uppercase;
     text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.5);
+    word-wrap: break-word;
 }
 
 #site_nav_local_views a:hover, #site_nav_local_views .current a {
