@@ -445,19 +445,19 @@ class Notice extends Memcached_DataObject
 
     function blowOnInsert($conversation = false)
     {
-        self::blow('profile:notice_ids:%d', $this->profile_id);
+        $this->blowStream('profile:notice_ids:%d', $this->profile_id);
 
         if ($this->isPublic()) {
-            self::blow('public');
+            $this->blowStream('public');
         }
 
         // XXX: Before we were blowing the casche only if the notice id
         // was not the root of the conversation.  What to do now?
 
-        self::blow('notice:conversation_ids:%d', $this->conversation);
+        $this->blowStream('notice:conversation_ids:%d', $this->conversation);
 
         if (!empty($this->repeat_of)) {
-            self::blow('notice:repeats:%d', $this->repeat_of);
+            $this->blowStream('notice:repeats:%d', $this->repeat_of);
         }
 
         $original = Notice::staticGet('id', $this->repeat_of);
@@ -465,11 +465,12 @@ class Notice extends Memcached_DataObject
         if (!empty($original)) {
             $originalUser = User::staticGet('id', $original->profile_id);
             if (!empty($originalUser)) {
-                self::blow('user:repeats_of_me:%d', $originalUser->id);
+                $this->blowStream('user:repeats_of_me:%d', $originalUser->id);
             }
         }
 
         $profile = Profile::staticGet($this->profile_id);
+
         if (!empty($profile)) {
             $profile->blowNoticeCount();
         }
@@ -487,6 +488,42 @@ class Notice extends Memcached_DataObject
 
         if ($this->isPublic()) {
             self::blow('public;last');
+        }
+    }
+
+    function blowStream()
+    {
+        $c = self::memcache();
+
+        if (empty($c)) {
+            return false;
+        }
+
+        $args = func_get_args();
+
+        $format = array_shift($args);
+
+        $keyPart = vsprintf($format, $args);
+
+        $cacheKey = Cache::key($keyPart);
+        
+        $c->delete($cacheKey);
+
+        // delete the "last" stream, too, if this notice is
+        // older than the top of that stream
+
+        $lastKey = $cacheKey.';last';
+
+        $lastStr = $c->get($lastKey);
+
+        if ($lastStr !== false) {
+            $window     = explode(',', $lastStr);
+            $lastID     = $window[0];
+            $lastNotice = Notice::staticGet('id', $lastID);
+            if (empty($lastNotice) // just weird
+                || strtotime($lastNotice->created) >= strtotime($this->created)) {
+                $c->delete($lastKey);
+            }
         }
     }
 
@@ -1513,22 +1550,22 @@ class Notice extends Memcached_DataObject
         }
 
         $laststr = $cache->get($idkey.';last');
-
+        
         if ($laststr !== false) {
             $window = explode(',', $laststr);
             $last_id = $window[0];
             $new_ids = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
                                                                           $last_id, 0, null)));
-
+            
             $new_window = array_merge($new_ids, $window);
 
             $new_windowstr = implode(',', $new_window);
-
+            
             $result = $cache->set($idkey, $new_windowstr);
             $result = $cache->set($idkey . ';last', $new_windowstr);
-
+            
             $ids = array_slice($new_window, $offset, $limit);
-
+            
             return $ids;
         }
 
