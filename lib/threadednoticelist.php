@@ -452,9 +452,9 @@ abstract class NoticeListActorsItem extends NoticeListItem
         } else {
             $first = array_slice($items, 0, -1);
             $last = array_slice($items, -1, 1);
-            // TRANS: Separator in list of user names like "You, Bob, Mary".
+            // TRANS: Separator in list of user names like "Jim, Bob, Mary".
             $separator = _(', ');
-            // TRANS: For building a list such as "You, bob, mary and 5 others have favored this notice".
+            // TRANS: For building a list such as "Jim, Bob, Mary and 5 others like this".
             // TRANS: %1$s is a list of users, separated by a separator (default: ", "), %2$s is the last user in the list.
             return sprintf(_m('FAVELIST', '%1$s and %2$s'), implode($separator, $first), implode($separator, $last));
         }
@@ -487,18 +487,22 @@ class ThreadedNoticeListFavesItem extends NoticeListActorsItem
 
     function getListMessage($count, $you)
     {
-        // @todo FIXME:: Does not look correct. %%?
         if ($count == 1 && $you) {
             // darn first person being different from third person!
             // TRANS: List message for notice favoured by logged in user.
             return _m('FAVELIST', 'You like this.');
         } else if ($count > 4) {
             // TRANS: List message for when more than 4 people like something.
-            return sprintf(_m('FAVELIST', '%%s and %d others like this.'),
+            // TRANS: %%s is a list of users liking a notice, %d is the number over 4 that like the notice.
+            // TRANS: Plural is decided on the total number of users liking the notice (count of %%s + %d).
+            return sprintf(_m('%%s and %d others like this.',
+                              '%%s and %d others like this.',
+                              $count),
                            $count - 3);
         } else {
             // TRANS: List message for favoured notices.
-            // TRANS: %d is the number of users that have favoured a notice.
+            // TRANS: %%s is a list of users liking a notice.
+            // TRANS: Plural is based on the number of of users that have favoured a notice.
             return sprintf(_m('%%s likes this.',
                               '%%s like this.',
                               $count),
