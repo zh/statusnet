@@ -3,6 +3,7 @@
 #
 # Author: Apmon
 # Author: Fujnky
+# Author: Giftpflanze
 # Author: The Evil IP address
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -11,13 +12,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:13+0000\n"
-"PO-Revision-Date: 2011-04-20 07:14:32+0000\n"
+"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"PO-Revision-Date: 2011-04-27 12:37:59+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-17 22:40:39+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -181,10 +182,12 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1-64 Kleinbuchstaben oder Zahlen, keine Satz- oder Leerzeichen"
 
 msgid "Email"
-msgstr ""
+msgstr "E-Mail"
 
 msgid "Used only for updates, announcements, and password recovery."
 msgstr ""
+"Wird nur für Updates, Bekanntmachungen und die Passwortwiederherstellung "
+"verwendet."
 
 #. TRANS: OpenID plugin link text.
 #. TRANS: %s is a link to a licese with the license name as link text.
@@ -193,6 +196,8 @@ msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
+"Meine Daten, außer Passwort, E-Mail-Adresse, IM-Adresse und Telefonnummer, "
+"sind unter %s verfügbar."
 
 #. TRANS: Button label in form in which to create a new user on the site for an OpenID.
 msgctxt "BUTTON"
@@ -266,6 +271,7 @@ msgstr "Gespeicherte OpenID nicht gefunden."
 #. TRANS: OpenID plugin server error.
 msgid "Creating new account for OpenID that already has a user."
 msgstr ""
+"Erstellen eines neuen Kontos für OpenID, das bereits einen Benutzer hat."
 
 #. TRANS: OpenID plugin message.
 msgid "Invalid username or password."
@@ -318,7 +324,7 @@ msgstr "Unauthorisierte URL für OpenID-Anmeldung benutzt."
 
 #. TRANS: Title
 msgid "OpenID Login Submission"
-msgstr ""
+msgstr "OpenID-Anmeldeübertragung"
 
 #. TRANS: OpenID plugin message used while requesting authorization user's OpenID login provider.
 msgid "Requesting authorization from your login provider..."
@@ -399,7 +405,7 @@ msgstr ""
 "Passwort-Authentifizierung aller Benutzer!"
 
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #, fuzzy
 msgid "Save OpenID settings."

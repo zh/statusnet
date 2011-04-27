@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-21 18:39+0000\n"
-"PO-Revision-Date: 2011-04-21 18:41:27+0000\n"
+"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"PO-Revision-Date: 2011-04-27 12:38:46+0000\n"
 "Language-Team: Korean <http://translatewiki.net/wiki/Portal:ko>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2011-04-20 08:40:21+0000\n"
+"X-POT-Import-Date: 2011-04-21 18:57:13+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -159,38 +159,33 @@ msgstr "그런 프로필이 없습니다."
 #. TRANS: Client error displayed trying to reference a non-existing list.
 #. TRANS: Client error displayed when referring to a non-existing list.
 #. TRANS: Client error displayed trying to reference a non-existing list.
-#, fuzzy
 msgid "No such list."
-msgstr "그런 태그가 없습니다."
+msgstr "그런 리스트가 없습니다."
 
 #. TRANS: Client error displayed when trying to add an OMB 0.1 remote profile to a list.
-#, fuzzy
 msgid "You cannot list an OMB 0.1 remote profile with this action."
-msgstr "이 동작으로 OMB 0.1 원격 프로필에 구독할 수 없습니다."
+msgstr "이 동작으로 OMB 0.1 원격 프로필을 리스트에 넣을 수 없습니다."
 
 #. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a username.
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
-#. TRANS: %s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "There was an unexpected error while listing %s."
-msgstr "%s 사용자에 태그를 붙이는데 예상치 못한 오류가 발생했습니다."
+msgstr "%s 사용자를 리스트에 넣는데 예상치 못한 오류가 발생했습니다."
 
 #. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
 #. TRANS: %s is a profile URL.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There was a problem listing %s. The remote server is probably not responding "
 "correctly. Please try retrying later."
 msgstr ""
-"%s님에 태그를 붙이는데 문제가 발생했습니다. 원격 서버가 제대로 응답하지 않는 "
+"%s님을 리스트에 넣는데 문제가 발생했습니다. 원격 서버가 제대로 응답하지 않는 "
 "것 같습니다. 나중에 다시 시도해 보십시오."
 
 #. TRANS: Title after adding a user to a list.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Listed"
-msgstr "라이선스"
+msgstr "리스트에 포함"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -371,19 +366,7 @@ msgstr "'device' 파라미터의 값은 다음 중 하나로 지정해야 합니
 msgid "Could not update user."
 msgstr "사용자를 업데이트할 수 없습니다."
 
-#. TRANS: Client error displayed if a user profile could not be found.
-#. TRANS: Client error displayed when a user has no profile.
-#. TRANS: Client error displayed a user has no profile updating profile colours.
-#. TRANS: Client error displayed if a user profile could not be found updating a profile image.
-#. TRANS: Client error displayed when requesting user information for a user without a profile.
-#. TRANS: Client error displayed trying to get an avatar for a user without a profile.
-#. TRANS: Server error displayed when requesting Friends of a Friend feed for a user for which the profile could not be found.
-#. TRANS: Server error displayed when trying to get a user hCard for a user without a profile.
-#. TRANS: Server error displayed when a user has no profile.
-#. TRANS: Server error displayed when trying to reply to a user without a profile.
-#. TRANS: Server error displayed requesting groups for a user without a profile.
-#. TRANS: Server error displayed when trying to perform a gallery action with a user without a profile.
-#. TRANS: Server error displayed when calling a profile action while the specified user does not have a profile.
+#. TRANS: Error message displayed when referring to a user without a profile.
 msgid "User has no profile."
 msgstr "사용자가 프로필이 없습니다."
 
@@ -1469,15 +1452,6 @@ msgstr "아바타"
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "자기 아바타를 업로드할 수 있습니다. 최대 파일 크기는 %s 입니다."
 
-#. TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
-#. TRANS: Server error displayed coming across a request from a user without a profile.
-#. TRANS: Server error displayed on page for remote subscribe when user does not have a matching profile.
-#. TRANS: Server error displayed when trying to authorise a remote subscription request
-#. TRANS: while the user has no profile.
-#. TRANS: Server error displayed in user RSS when user does not have a matching profile.
-msgid "User without matching profile."
-msgstr "사용자가 해당 프로필이 없습니다."
-
 #. TRANS: Avatar upload page form legend.
 #. TRANS: Avatar upload page crop form legend.
 #. TRANS: Legend for group logo settings fieldset.
@@ -2208,17 +2182,17 @@ msgstr "옵션을 저장했습니다."
 
 #. TRANS: Title for edit list page after deleting a tag.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Delete %s list"
-msgstr "사람 태그 %s 삭제"
+msgstr "%s 리스트 삭제"
 
 #. TRANS: Title for edit list page.
 #. TRANS: %s is a list.
 #. TRANS: Form legend for list edit form.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Edit list %s"
-msgstr "사람 태그 %s 편집"
+msgstr "%s 리스트 편집"
 
 #. TRANS: Error message displayed when trying to perform an action that requires a tagging user or ID.
 msgid "No tagger or ID."
@@ -2233,9 +2207,8 @@ msgid "You must be the creator of the tag to edit it."
 msgstr "태그를 편집하려면 그 태그를 만든 사람이어야 합니다."
 
 #. TRANS: Form instruction for edit list form.
-#, fuzzy
 msgid "Use this form to edit the list."
-msgstr "다음 양식을 이용해 그룹을 편집하십시오."
+msgstr "다음 양식을 이용해 리스트를 편집하십시오."
 
 #. TRANS: Form validation error displayed if the form data for deleting a tag was incorrect.
 msgid "Delete aborted."
@@ -2268,9 +2241,8 @@ msgstr ""
 "겠습니까?"
 
 #. TRANS: TRANS: Server error displayed when updating a list fails.
-#, fuzzy
 msgid "Could not update list."
-msgstr "사용자를 업데이트할 수 없습니다."
+msgstr "리스트를 업데이트할 수 없습니다."
 
 #. TRANS: Title for e-mail settings.
 msgid "Email settings"
@@ -3937,30 +3909,30 @@ msgstr "사람 검색"
 
 #. TRANS: Title for list page.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Public list %s"
-msgstr "내 공개 사람 태그"
+msgstr "공개 리스트 %s"
 
 #. TRANS: Title for list page.
 #. TRANS: %1$s is a list, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Public list %1$s, page %2$d"
-msgstr "공개 사람 태그 %1$s, %2$d 페이지"
+msgstr "공개 리스트 %1$s, %2$d 페이지"
 
 #. TRANS: Message for anonymous users on list page.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Lists are how you sort similar people on %%site.name%%, a [micro-blogging]"
 "(http://en.wikipedia.org/wiki/Micro-blogging) service based on the Free "
 "Software [StatusNet](http://status.net/) tool. You can then easily keep "
 "track of what they are doing by subscribing to the list's timeline."
 msgstr ""
-"사람 태그는 %%%%site.name%%%% 사이트에서 사람들을 분류하는 수단입니다. %%%%"
-"site.name%%%%  사이트는 자유소프트웨어 [StatusNet](http://status.net/) 소프트"
-"웨어를 사용하는 [마이크로블로깅)(http://en.wikipedia.org/wiki/Micro-"
-"blogging) 서비스입니다. 사람 태그를 붙이면 해당 태그의 타임라인에 구독하는 식"
-"으로 간단히 이 사람들이 무슨 일을 하는지 알아 볼 수 있습니다."
+"리스트는 %%%%site.name%%%% 사이트에서 사람들을 분류하는 수단입니다. %%%%site."
+"name%%%%  사이트는 자유소프트웨어 [StatusNet](http://status.net/) 소프트웨어"
+"를 사용하는 [마이크로블로깅)(http://en.wikipedia.org/wiki/Micro-blogging) 서"
+"비스입니다. 사람 태그를 붙이면 해당 태그의 타임라인에 구독하는 식으로 간단히 "
+"이 사람들이 무슨 일을 하는지 알아 볼 수 있습니다."
 
 #. TRANS: Client error displayed when a tagger is expected but not provided.
 msgid "No tagger."
@@ -3968,15 +3940,15 @@ msgstr "태그 붙인 사용자가 없습니다."
 
 #. TRANS: Title for list of people listed by the user.
 #. TRANS: %1$s is a list, %2$s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "People listed in %1$s by %2$s"
-msgstr "%2$s님이 %1$s 태그를 붙인 사람"
+msgstr "%2$s님이 %1$s 리스트에 넣은 사람"
 
 #. TRANS: Title for list of people listed by the user.
 #. TRANS: %1$s is a list, %2$s is a username, %2$s is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "People listed in %1$s by %2$s, page %3$d"
-msgstr "%2$s님이 %1$s 태그를 붙인 사람, %3$d 페이지"
+msgstr "%2$s님이 %1$s 리스트에 넣은 사람, %3$d 페이지"
 
 #. TRANS: Addition in tag membership list for creator of a tag.
 #. TRANS: Addition in tag subscribers list for creator of a tag.
@@ -3984,45 +3956,41 @@ msgid "Creator"
 msgstr "만든이"
 
 #. TRANS: Title for lists by a user page for a private tag.
-#, fuzzy
 msgid "Private lists by you"
-msgstr "내 비공개 사람 태그"
+msgstr "내 비공개 리스트"
 
 #. TRANS: Title for lists by a user page for a public tag.
-#, fuzzy
 msgid "Public lists by you"
-msgstr "내 공개 사람 태그"
+msgstr "내 공개 리스트"
 
 #. TRANS: Title for lists by a user page.
-#, fuzzy
 msgid "Lists by you"
-msgstr "나의 태그"
+msgstr "내 리스트"
 
 #. TRANS: Title for lists by a user page.
 #. TRANS: %s is a user nickname.
 #, php-format
 msgid "Lists by %s"
-msgstr ""
+msgstr "%s의 리스트"
 
 #. TRANS: Title for lists by a user page.
 #. TRANS: %1$s is a user nickname, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists by %1$s, page %2$d"
-msgstr "%1$s의 글, %2$d 페이지"
+msgstr "%1$s의 리스트, %2$d 페이지"
 
 #. TRANS: Client error displayed when trying view another user's private lists.
-#, fuzzy
 msgid "You cannot view others' private lists"
-msgstr "다른 사용자의 비공개 사람 태그는 볼 수 없습니다."
+msgstr "다른 사용자의 비공개 리스트는 볼 수 없습니다."
 
 #. TRANS: Mode selector label.
 msgid "Mode"
 msgstr "모드"
 
 #. TRANS: Link text to show lists for user %s.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists for %s"
-msgstr "%s의 보낸 쪽지함"
+msgstr "%s 사용자의 리스트"
 
 #. TRANS: Fieldset legend.
 #. TRANS: Fieldset legend on gallery action page.
@@ -4051,7 +4019,7 @@ msgstr "이동"
 #. TRANS: Message displayed for anonymous users on page that displays lists by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are lists created by **%s**. Lists are how you sort similar people on %"
 "%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4059,9 +4027,9 @@ msgid ""
 "tool. You can easily keep track of what they are doing by subscribing to the "
 "tag's timeline."
 msgstr ""
-"다음은 **%s** 사용자가 만든 사람 태그입니다. 사람 태그는 %%%%site.name%%%% 사"
-"이트에서 사람들을 분류하는 수단입니다. %%%%site.name%%%%  사이트는 자유소프트"
-"웨어 [StatusNet](http://status.net/) 소프트웨어를 사용하는 [마이크로블로깅)"
+"다음은 **%s** 사용자가 만든 리스트입니다. 리스트는 %%%%site.name%%%% 사이트에"
+"서 사람들을 분류하는 수단입니다. %%%%site.name%%%%  사이트는 자유소프트웨어 "
+"[StatusNet](http://status.net/) 소프트웨어를 사용하는 [마이크로블로깅)"
 "(http://en.wikipedia.org/wiki/Micro-blogging) 서비스입니다. 사람 태그를 붙이"
 "면 해당 태그의 타임라인에 구독하는 식으로 간단히 이 사람들이 무슨 일을 하는"
 "지 알아 볼 수 있습니다."
@@ -4069,24 +4037,24 @@ msgstr ""
 #. TRANS: Message displayed on page that displays lists by a user when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%s has not created any [lists](%%%%doc.lists%%%%) yet."
-msgstr "%s님은 [사람 태그](%%%%doc.tags%%%%%)를 아직 만들지 않았습니다."
+msgstr "%s님은 [리스트](%%%%doc.tags%%%%%)를 아직 만들지 않았습니다."
 
 #. TRANS: Page title. %s is a tagged user's nickname.
 #, php-format
 msgid "Lists with %s in them"
-msgstr ""
+msgstr "%s 사용자가 들어 있는 리스트"
 
 #. TRANS: Page title. %1$s is a tagged user's nickname, %2$s is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists with %1$s, page %2$d"
-msgstr "%1$s 태그가 붙은 글, %2$d 페이지"
+msgstr "%1$s 사용자가 들어 있는 리스트, %2$d 페이지"
 
 #. TRANS: Message displayed for anonymous users on page that displays lists for a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are lists for **%s**. lists are how you sort similar people on %%%%"
 "site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -4094,9 +4062,9 @@ msgid ""
 "tool. You can easily keep track of what they are doing by subscribing to the "
 "tag's timeline."
 msgstr ""
-"다음은 **%s**님에 붙은 사람 태그입니다. 사람 태그는 %%%%site.name%%%% 사이트"
-"에서 사람들을 분류하는 수단입니다. %%%%site.name%%%%  사이트는 자유소프트웨"
-"어 [StatusNet](http://status.net/) 소프트웨어를 사용하는 [마이크로블로깅)"
+"다음은 **%s**님이 들어 있는 리스트입니다. 리스트는 %%%%site.name%%%% 사이트에"
+"서 사람들을 분류하는 수단입니다. %%%%site.name%%%%  사이트는 자유소프트웨어 "
+"[StatusNet](http://status.net/) 소프트웨어를 사용하는 [마이크로블로깅)"
 "(http://en.wikipedia.org/wiki/Micro-blogging) 서비스입니다. 사람 태그를 붙이"
 "면 해당 태그의 타임라인에 구독하는 식으로 간단히 이 사람들이 무슨 일을 하는"
 "지 알아 볼 수 있습니다."
@@ -4104,38 +4072,38 @@ msgstr ""
 #. TRANS: Message displayed on page that displays lists a user was added to when there are none.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%s has not been [listed](%%%%doc.lists%%%%) by anyone yet."
-msgstr "%s님은 아직 어느 누구도 [태그를 붙이지](%%%%doc.tags%%%%) 않았습니다."
+msgstr "%s님은 아직 어느 누구도 [리스트에 넣지](%%%%doc.tags%%%%) 않았습니다."
 
 #. TRANS: Page title for list of list subscribers.
 #. TRANS: %1$s is a list, %2$s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to list %1$s by %2$s"
-msgstr "%2$s 사용자의 %1$s 태그 구독자."
+msgstr "%2$s 사용자의 %1$s 리스트 구독자."
 
 #. TRANS: Page title for list of list subscribers.
 #. TRANS: %1$s is a list, %2$s is a user nickname, %3$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to list %1$s by %2$s, page %3$d"
-msgstr "%2$s님이 %1$s 사람 태그를 붙인 구독자, %3$d 페이지"
+msgstr "%2$s님이 %1$s 리스트에 넣은 구독자, %3$d 페이지"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists subscribed to by %s"
-msgstr "%s에 구독했습니다."
+msgstr "%s님이 구독한 리스트"
 
 #. TRANS: Title for page that displays lists subscribed to by a user.
 #. TRANS: %1$s is a profile nickname, %2$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists subscribed to by %1$s, page %2$d"
-msgstr "%1$s님의 사람 태그 구독, %2$d 페이지"
+msgstr "%1$s님이 구독한 리스트, %2$d 페이지"
 
 #. TRANS: Message displayed for anonymous users on page that displays lists subscribed to by a user.
 #. TRANS: This message contains Markdown links in the form [description](links).
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "These are lists subscribed to by **%s**. Lists are how you sort similar "
 "people on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/"
@@ -4143,11 +4111,11 @@ msgid ""
 "net/) tool. You can easily keep track of what they are doing by subscribing "
 "to the list's timeline."
 msgstr ""
-"다음은 **%s**님이 구독한 사람 태그입니다. 사람 태그는 %%%%site.name%%%% 사이"
-"트에서 사람들을 분류하는 수단입니다. 이 사이트는 자유소프트웨어 [StatusNet]"
-"(http://status.net/) 소프트웨어를 사용하는 [마이크로블로깅)(http://en."
-"wikipedia.org/wiki/Micro-blogging) 서비스입니다. 해당 태그의 타임라인에 구독"
-"하는 식으로 간단히 이 사람들이 무슨 일을 하는지 알아 볼 수 있습니다."
+"다음은 **%s**님이 구독한 리스트입니다. 리스트는 %%%%site.name%%%% 사이트에서 "
+"사람들을 분류하는 수단입니다. 이 사이트는 자유소프트웨어 [StatusNet](http://"
+"status.net/) 소프트웨어를 사용하는 [마이크로블로깅)(http://en.wikipedia.org/"
+"wiki/Micro-blogging) 서비스입니다. 해당 태그의 타임라인에 구독하는 식으로 간"
+"단히 이 사람들이 무슨 일을 하는지 알아 볼 수 있습니다."
 
 #. TRANS: Page title for AJAX form return when a disabling a plugin.
 msgctxt "plugin"
@@ -4487,40 +4455,37 @@ msgstr ""
 "Micro-blogging) 서비스입니다."
 
 #. TRANS: Title for page with public list cloud.
-#, fuzzy
 msgid "Public list cloud"
-msgstr "공개 태그 클라우드"
+msgstr "공개 리스트 클라우드"
 
 #. TRANS: Page notice for page with public list cloud.
 #. TRANS: %s is a StatusNet sitename.
-#, fuzzy, php-format
+#, php-format
 msgid "These are largest lists on %s"
-msgstr "다음은 %s에서 가장 인기 있는 최근 태그입니다."
+msgstr "다음은 %s에서 가장 인기 있는 리스트입니다."
 
 #. TRANS: Empty list message on page with public list cloud.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid "No one has [listed](%%doc.tags%%) anyone yet."
-msgstr "아직 아무도 [태그](%%doc.tags%%)가 없습니다."
+msgstr "아직 아무도 [리스트](%%doc.tags%%)가 없습니다."
 
 #. TRANS: Additional empty list message on page with public list cloud for logged in users.
-#, fuzzy
 msgid "Be the first to list someone!"
-msgstr "태그를 붙이는 첫번째 사람이 되세요!"
+msgstr "리스트에 넣는 첫번째 사람이 되세요!"
 
 #. TRANS: Additional empty list message on page with public list cloud for anonymous users.
 #. TRANS: This message contains Markdown links in the form [description](link).
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to list "
 "someone!"
 msgstr ""
-"[계정을 등록해](%%action.register%%) 사람 태그를 붙이는 첫번째 사람이 되세요!"
+"[계정을 등록해](%%action.register%%) 리스트에 넣는 첫번째 사람이 되세요!"
 
 #. TRANS: DT element on on page with public list cloud.
-#, fuzzy
 msgid "List cloud"
-msgstr "목록이 없습니다."
+msgstr "리스트 클라우드"
 
 #. TRANS: Link title for number of listed people. %d is the number of listed people.
 #, php-format
@@ -4906,24 +4871,29 @@ msgid "Could not get a request token."
 msgstr "요청 토큰을 얻을 수 없습니다."
 
 #. TRANS: Client error displayed when trying to (un)list an OMB 0.1 remote profile.
-#, fuzzy
 msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
-msgstr "이 동작으로 OMB 0.1 원격 프로필에 구독할 수 없습니다."
+msgstr ""
+"이 동작으로 OMB 0.1 원격 프로필을 리스트에 넣을 수 (또는 뺼 수) 없습니다."
+
+#. TRANS: Client error displayed when an unknown error occurs while delisting a user.
+#. TRANS: %s is a username.
+#, fuzzy, php-format
+msgid "There was an unexpected error while delisting %s."
+msgstr "%s 사용자를 리스트에 넣는데 예상치 못한 오류가 발생했습니다."
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There was a problem listing %s. The remote server is probably not responding "
 "correctly, please try retrying later."
 msgstr ""
-"%s님에 태그를 붙이는데 문제가 발생했습니다. 원격 서버가 제대로 응답하지 않는 "
-"것 같습니다. 나중에 다시 시도해 보십시오."
+"%s 사용자를 리스트에 넣는데 문제가 발생했습니다. 원격 서버가 제대로 응답하지 "
+"않는 것 같습니다. 나중에 다시 시도해 보십시오."
 
 #. TRANS: Title after removing a user from a list.
-#, fuzzy
 msgid "Unlisted"
-msgstr "라이선스"
+msgstr "리스트 취소"
 
 #. TRANS: Client error displayed when trying to repeat a notice while not logged in.
 msgid "Only logged-in users can repeat notices."
@@ -5109,9 +5079,9 @@ msgstr "사용자가 이미 샌드박싱 상태입니다."
 
 #. TRANS: Client error displayed when trying to list a profile with an invalid list.
 #. TRANS: %s is the invalid list name.
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid list: %s."
-msgstr "올바른 사람 태그가 아닙니다: %s."
+msgstr "올바른 리스트가 아닙니다: %s."
 
 #. TRANS: Page title for page showing self tags.
 #. TRANS: %1$s is a tag, %2$d is a page number.
@@ -5393,55 +5363,54 @@ msgstr "글이 삭제되었습니다."
 
 #. TRANS: Title for private list timeline.
 #. TRANS: %1$s is a list, %2$s is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Private timeline for %1$s list by you, page %2$d"
-msgstr "내가 %1$s 태그를 붙인 사람들의 비공개 타임라인, %2$d 페이지"
+msgstr "내 %1$s 리스트의 비공개 타임라인, %2$d 페이지"
 
 #. TRANS: Title for public list timeline where the viewer is the tagger.
 #. TRANS: %1$s is a list, %2$s is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for %1$s list by you, page %2$d"
-msgstr "내가 %1$s 태그를 붙인 사람들의 비공개 타임라인, %2$d 페이지"
+msgstr "내 %1$s 리스트의 타임라인, %2$d 페이지"
 
 #. TRANS: Title for private list timeline.
 #. TRANS: %1$s is a list, %2$s is the tagger's nickname, %3$d is a page number.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for %1$s list by %2$s, page %3$d"
-msgstr "%2$s님이 %1$s 태그를 붙인 사람들의 타임라인, %3$d 페이지"
+msgstr "%1$s 사용자의 %2$s 리스트의 비공개 타임라인, %3$d 페이지"
 
 #. TRANS: Title for private list timeline.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Private timeline of %s list by you"
-msgstr "내가 %s 태그를 붙인 사람들의 비공개 타임라인"
+msgstr "내 %s 리스트의 비공개 타임라인"
 
 #. TRANS: Title for public list timeline where the viewer is the tagger.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for %s list by you"
-msgstr "내가 %s 태그를 붙인 사람들의 타임라인"
+msgstr "내 %s 리스트의 타임라인"
 
 #. TRANS: Title for private list timeline.
 #. TRANS: %1$s is a list, %2$s is the tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for %1$s list by %2$s"
-msgstr "%2$s님이 %1$s 태그를 붙인 사람들의 비공개 타임라인"
+msgstr "%2$s님의 %1$s 리스트의 타임라인"
 
 #. TRANS: Feed title.
 #. TRANS: %1$s is a list, %2$s is tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for %1$s list by %2$s (Atom)"
-msgstr "%2$s님이 %1$s 태그를 붙인 사람들의 피드 (Atom)"
+msgstr "%2$s님의 %1$s 리스트의 피드 (Atom)"
 
 #. TRANS: Empty list message for list timeline.
 #. TRANS: %1$s is a list, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline for %1$s list by %2$s but no one has posted anything "
 "yet."
 msgstr ""
-"%2$s님이 %1$s 태그를 붙인 사람들의 타임라인이지만, 아무도 아무 글도 올리지 않"
-"았습니다."
+"%2$s님의 %1$s 리스트의 타임라인이지만, 아무도 아무 글도 올리지 않았습니다."
 
 #. TRANS: Additional empty list message for list timeline for currently logged in user tagged tags.
 msgid "Try tagging more people."
@@ -5457,9 +5426,8 @@ msgstr ""
 "[계정을 등록해](%%action.register%%) 이 타임라인 팔로우를 시작해 보세요!"
 
 #. TRANS: Header on show list page.
-#, fuzzy
 msgid "Listed"
-msgstr "라이선스"
+msgstr "리스트 포함"
 
 #. TRANS: Link for more "People in list x by a user"
 #. TRANS: if there are more than the mini list's maximum.
@@ -5963,9 +5931,8 @@ msgid "Subscribed"
 msgstr "구독했습니다"
 
 #. TRANS: Client error displayed when trying to perform an action while not logged in.
-#, fuzzy
 msgid "You must be logged in to unsubscribe from a list."
-msgstr "사람 태그에서 구독 해제하려면 로그인해야 합니다."
+msgstr "리스트에서 구독 해제하려면 로그인해야 합니다."
 
 #. TRANS: Client error displayed when trying to perform an action without providing an ID.
 msgid "No ID given."
@@ -5973,15 +5940,15 @@ msgstr "아이디가 없습니다."
 
 #. TRANS: Server error displayed subscribing to a list fails.
 #. TRANS: %1$s is a user nickname, %2$s is a list, %3$s is the error message (no period).
-#, fuzzy, php-format
+#, php-format
 msgid "Could not subscribe user %1$s to list %2$s: %3$s"
-msgstr "%1$s 사용자가 %2$s 사람 태그에 구독할 수 없습니다."
+msgstr "%1$s 사용자가 %2$s 리스트에 구독할 수 없습니다: %3$s"
 
 #. TRANS: Title of form to subscribe to a list.
 #. TRANS: %1%s is a user nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribed to list %2$s by %3$s"
-msgstr "%1$s님이 %3$s님이 만든 %2$s 사람 태그에 구독했습니다."
+msgstr "%1$s님이 %3$s님이 만든 %2$s 리스트에 구독했습니다."
 
 #. TRANS: Header for list of subscribers for a user (first page).
 #. TRANS: %s is the user's nickname.
@@ -6082,7 +6049,6 @@ msgid "Subscription feed for %s (Atom)"
 msgstr "%s의 구독 피드 (Atom)"
 
 #. TRANS: Checkbox label for enabling IM messages for a profile in a subscriptions list.
-#, fuzzy
 msgctxt "LABEL"
 msgid "IM"
 msgstr "메신저"
@@ -6122,16 +6088,15 @@ msgid "You cannot tag this user."
 msgstr "이 사용자에게 태그를 붙일 수 없습니다."
 
 #. TRANS: Title for list form when not on a profile page.
-#, fuzzy
 msgid "List a profile"
-msgstr "프로필에 태그 붙이기"
+msgstr "프로필 리스트에 넣기"
 
 #. TRANS: Title for list form when on a profile page.
 #. TRANS: %s is a profile nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "ADDTOLIST"
 msgid "List %s"
-msgstr "제한"
+msgstr "%s 리스트"
 
 #. TRANS: Title for list form when an error has occurred.
 msgctxt "TITLE"
@@ -6143,23 +6108,20 @@ msgid "User profile"
 msgstr "사용자 프로필"
 
 #. TRANS: Fieldset legend for list form.
-#, fuzzy
 msgid "List user"
-msgstr "제한"
+msgstr "사용자 리스트에 넣기"
 
 #. TRANS: Field label on list form.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Lists"
-msgstr "제한"
+msgstr "리스트"
 
 #. TRANS: Field title on list form.
-#, fuzzy
 msgid ""
 "Lists for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated."
 msgstr ""
-"이 사용자의 태그 (문자,숫자,-, ., _ 문자로 구성), 쉼표나 공백으로 구분."
+"이 사용자의 리스트 (영문자, 숫자, -, ., _ 문자로 구성), 쉼표나 공백으로 구분."
 
 #. TRANS: Title for personal tag cloud section.
 msgctxt "TITLE"
@@ -6167,16 +6129,14 @@ msgid "Tags"
 msgstr "태그"
 
 #. TRANS: Success message if lists are saved.
-#, fuzzy
 msgid "Lists saved."
-msgstr "태그를 저장헸습니다."
+msgstr "리스트를 저장했습니다."
 
 #. TRANS: Page notice.
-#, fuzzy
 msgid "Use this form to add your subscribers or subscriptions to lists."
 msgstr ""
-"다음 양식을 사용해 나를 구독한 사람이나 내가 구독한 사람에게 태그를 추가하십"
-"시오."
+"다음 양식을 사용해 나를 구독한 사람이나 내가 구독한 사람을 리스트에 넣으십시"
+"오."
 
 #. TRANS: Client error when requesting a tag feed for a non-existing tag.
 msgid "No such tag."
@@ -6200,9 +6160,9 @@ msgstr "구독 취소되었습니다."
 
 #. TRANS: Page title for form that allows unsubscribing from a list.
 #. TRANS: %1$s is a nickname, %2$s is a list, %3$s is a tagger nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s unsubscribed from list %2$s by %3$s"
-msgstr "%1$s님이 %3$s님이 만든 %2$s 사람 태그에서 구독 해제했습니다."
+msgstr "%1$s님이 %3$s님이 만든 %2$s 리스트에서 구독 해제했습니다."
 
 #. TRANS: Client error displayed when trying to update profile with an incompatible license.
 #. TRANS: %1$s is the license incompatible with site license %2$s.
@@ -6849,23 +6809,21 @@ msgstr ""
 "하거나 태그를 지우고 새로 만들어 보십시오."
 
 #. TRANS: Client exception thrown when trying to add more people than allowed to a list.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You already have %1$d or more people in list %2$s, which is the maximum "
 "allowed number.Try unlisting others first."
 msgstr ""
-"이미 %2$s 태그가 붙은 사람이 %1$d명 이상 있습니다. 최대값입니다.  같은 태그"
-"가 가진 사람의 태그를 제거해 보십시오."
+"이미 %2$s 리스트에 들어 있는 사람이 %1$d명 이상 있습니다. 최대값입니다.  먼"
+"저 다른 사람들을 리스트에서 제거해 보십시오."
 
 #. TRANS: Exception thrown when inserting a list subscription in the database fails.
-#, fuzzy
 msgid "Adding list subscription failed."
-msgstr "사람 태그 구독 추가에 실패했습니다."
+msgstr "리스트 구독 추가에 실패했습니다."
 
 #. TRANS: Exception thrown when deleting a list subscription from the database fails.
-#, fuzzy
 msgid "Removing list subscription failed."
-msgstr "사람 태그 구독 제거에 실패했습니다."
+msgstr "리스트 구독 제거에 실패했습니다."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 msgid "Missing profile."
@@ -7501,15 +7459,15 @@ msgid "Do not use this method!"
 msgstr "이 메소드를 사용하지 마십시오!"
 
 #. TRANS: Title in atom list notice feed. %1$s is a list name, %2$s is a tagger's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Timeline for people in list %1$s by %2$s"
-msgstr "%2$s님의 #%1$s 태그가 붙은 사람들에 대한 타임라인"
+msgstr "%2$s님의 #%1$s 리스트에 있는 사람들에 대한 타임라인"
 
 #. TRANS: Message is used as a subtitle in atom list notice feed.
 #. TRANS: %1$s is a tagger's nickname, %2$s is a list name, %3$s is a site name.
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from %1$s's list %2$s on %3$s!"
-msgstr "%3$s 사이트의 %1$s님의 %2$s 사람들의 태그 업데이트"
+msgstr "%3$s 사이트의 %1$s님의 %2$s 리스트에서 업데이트"
 
 #. TRANS: Title.
 msgid "Notices where this attachment appears"
@@ -7646,7 +7604,7 @@ msgid_plural "%1$s was tagged %2$s"
 msgstr[0] ""
 
 #. TRANS: Separator for list of tags.
-#. TRANS: Separator in list of user names like "You, Bob, Mary".
+#. TRANS: Separator in list of user names like "Jim, Bob, Mary".
 msgid ", "
 msgstr ", "
 
@@ -8049,10 +8007,9 @@ msgstr "그룹"
 
 #. TRANS: Menu item in default local navigation panel.
 #. TRANS: Menu item title in local navigation menu.
-#, fuzzy
 msgctxt "MENU"
 msgid "Lists"
-msgstr "제한"
+msgstr "리스트"
 
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
@@ -8314,14 +8271,12 @@ msgid "Group actions"
 msgstr "그룹 동작"
 
 #. TRANS: Title for groups with the most members section.
-#, fuzzy
 msgid "Popular groups"
-msgstr "인기있는 글"
+msgstr "인기 그룹"
 
 #. TRANS: Title for groups with the most posts section.
-#, fuzzy
 msgid "Active groups"
-msgstr "모든 그룹"
+msgstr "활동적인 그룹"
 
 #. TRANS: Title for group tag cloud section.
 #. TRANS: %s is a group name.
@@ -8411,13 +8366,12 @@ msgstr "트랜스포트는 널이 되면 안 됩니다."
 #. TRANS: Title for inbox tag cloud section.
 msgctxt "TITLE"
 msgid "Trends"
-msgstr ""
+msgstr "트렌드"
 
 #. TRANS: Button text for inviting more users to the StatusNet instance.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Invite more colleagues"
-msgstr "새 사용자 초대"
+msgstr "친구 초대"
 
 #. TRANS: Button text for joining a group.
 msgctxt "BUTTON"
@@ -8955,7 +8909,7 @@ msgstr "이 종류의 대상을 처리하는 방법을 알지 못합니다."
 
 #. TRANS: Server exception thrown when a micro app plugin developer has not done his job too well.
 msgid "You must implement either adaptNoticeListItem() or showNotice()."
-msgstr ""
+msgstr "adaptNoticeListItem() 또는 showNotice() 구현이 필요합니다."
 
 #. TRANS: Validation error in form for registration, profile and group settings, etc.
 msgid "Nickname cannot be empty."
@@ -9001,14 +8955,13 @@ msgstr ""
 "십시오."
 
 #. TRANS: Separator in profile addressees list.
-#, fuzzy
 msgctxt "SEPARATOR"
 msgid ", "
 msgstr ", "
 
 #. TRANS: Start of profile addressees list.
 msgid " ▸ "
-msgstr ""
+msgstr " ▸ "
 
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
@@ -9105,32 +9058,28 @@ msgid "No oEmbed API endpoint available."
 msgstr "oEmbed API 엔드포인트가 없습니다."
 
 #. TRANS: Field label for list.
-#, fuzzy
 msgctxt "LABEL"
 msgid "List"
-msgstr "링크"
+msgstr "리스트"
 
 #. TRANS: Field title for list.
-#, fuzzy
 msgid "Change the list (letters, numbers, -, ., and _ are allowed)."
-msgstr "태그 바꾸기. (문자, 숫자, -, ., _ 문자로 구성)"
+msgstr "리스트 바꾸기 (문자, 숫자, -, ., _ 문자로 구성)"
 
 #. TRANS: Field title for description of list.
-#, fuzzy
 msgid "Describe the list or topic."
-msgstr "그룹이나 주제를 설명하십시오."
+msgstr "리스트 또는 주제 설명"
 
 #. TRANS: Field title for description of list.
 #. TRANS: %d is the maximum number of characters for the description.
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the list or topic in %d character."
 msgid_plural "Describe the list or topic in %d characters."
-msgstr[0] "사람 태그나 주제를 설명하십시오."
+msgstr[0] ""
 
 #. TRANS: Button title to delete a list.
-#, fuzzy
 msgid "Delete this list."
-msgstr "이 사용자 삭제."
+msgstr "이 리스트 삭제."
 
 #. TRANS: Header in list edit form.
 msgid "Add or remove people"
@@ -9142,22 +9091,20 @@ msgid "Search"
 msgstr "검색"
 
 #. TRANS: Menu item in list navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "List"
-msgstr "링크"
+msgstr "리스트"
 
 #. TRANS: Menu item title in list navigation panel.
 #. TRANS: %1$s is a list, %2$s is a nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s list by %2$s."
-msgstr "%1$s 태그, %2$s 사용자가 붙임"
+msgstr "%2$s 사용자의 %1$s 리스트."
 
 #. TRANS: Menu item in list navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Listed"
-msgstr "라이선스"
+msgstr "리스트 포함"
 
 #. TRANS: Menu item in list navigation panel.
 #. TRANS: Menu item in local navigation menu.
@@ -9167,9 +9114,9 @@ msgstr "구독자"
 
 #. TRANS: Menu item title in list navigation panel.
 #. TRANS: %1$s is a list, %2$s is a nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribers to %1$s list by %2$s."
-msgstr "%2$s 사용자의 %1$s 태그 구독자."
+msgstr "%2$s 사용자의 %1$s 리스트 구독자."
 
 #. TRANS: Menu item in list navigation panel.
 msgctxt "MENU"
@@ -9178,18 +9125,17 @@ msgstr "편집"
 
 #. TRANS: Menu item title in list navigation panel.
 #. TRANS: %s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Edit %s list by you."
-msgstr "나의 %s 태그 편집."
+msgstr "나의 %s 리스트 편집."
 
 #. TRANS: Link description for link to list of users tagged with a tag.
 msgid "Tagged"
 msgstr "태그 붙음"
 
 #. TRANS: Title for link to edit list settings.
-#, fuzzy
 msgid "Edit list settings."
-msgstr "프로필 설정 편집."
+msgstr "리스트 설정 편집."
 
 #. TRANS: Text for link to edit list settings.
 msgid "Edit"
@@ -9201,57 +9147,54 @@ msgid "Private"
 msgstr "비공개"
 
 #. TRANS: Menu item in the group navigation page.
-#, fuzzy
 msgctxt "MENU"
 msgid "List Subscriptions"
-msgstr "구독"
+msgstr "리스트 구독"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "TOOLTIP"
 msgid "Lists subscribed to by %s."
-msgstr "%s에 구독했습니다."
+msgstr "%s님이 구독한 리스트."
 
 #. TRANS: Menu item in the group navigation page.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "MENU"
 msgid "Lists with %s"
-msgstr "\"%s\" 검색어가 있는 업데이트"
+msgstr "%s 사용자가 들어 있는 리스트"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "TOOLTIP"
 msgid "Lists with %s."
-msgstr "\"%s\" 검색어가 있는 업데이트"
+msgstr "%s 사용자가 들어 있는 리스트."
 
 #. TRANS: Menu item in the group navigation page.
 #. TRANS: %s is a user nickname.
 #, php-format
 msgctxt "MENU"
 msgid "Lists by %s"
-msgstr ""
+msgstr "%s 사용자가 만든 리스트"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgctxt "TOOLTIP"
 msgid "Lists by %s."
-msgstr "%1$s 태그, %2$s 사용자가 붙임"
+msgstr "%s 사용자가 만든 리스트."
 
 #. TRANS: Label in lists widget.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Your lists"
-msgstr "인기있는 글"
+msgstr "내 리스트"
 
 #. TRANS: Fieldset legend in lists widget.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Edit lists"
-msgstr "사람 태그 %s 편집"
+msgstr "리스트 편집"
 
 #. TRANS: Label in self tags widget.
 msgctxt "LABEL"
@@ -9259,31 +9202,29 @@ msgid "Tags"
 msgstr "태그"
 
 #. TRANS: Title for section contaning lists with the most subscribers.
-#, fuzzy
 msgid "Popular lists"
-msgstr "인기있는 글"
+msgstr "인기 리스트"
 
 #. TRANS: List summary. %1$d is the number of users in the list,
 #. TRANS: %2$d is the number of subscribers to the list.
-#, fuzzy, php-format
+#, php-format
 msgid "Listed: %1$d Subscribers: %2$d"
-msgstr "태그 붙음:%1$d개 구독자: %2$d명"
+msgstr "리스트 포함: %1$d명, 구독자: %2$d명"
 
 #. TRANS: Title for page that displays which lists current user is part of.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists with you"
-msgstr "목록이 없습니다."
+msgstr "내가 들어 있는 리스트"
 
 #. TRANS: Title for page that displays which lists a user is part of.
 #. TRANS: %s is a profile name.
-#, fuzzy, php-format
+#, php-format
 msgid "Lists with %s"
-msgstr "\"%s\" 검색어가 있는 업데이트"
+msgstr "%s 사용자가 들어 있는 리스트"
 
 #. TRANS: Title for page that displays lists a user has subscribed to.
-#, fuzzy
 msgid "List subscriptions"
-msgstr "%s 구독"
+msgstr "리스트 구독"
 
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
@@ -9374,14 +9315,12 @@ msgid "Search the site."
 msgstr "사이트 검색."
 
 #. TRANS: H2 text for user subscription statistics.
-#, fuzzy
 msgid "Following"
-msgstr "팔로우"
+msgstr "팔로잉"
 
 #. TRANS: H2 text for user subscriber statistics.
-#, fuzzy
 msgid "Followers"
-msgstr "팔로우"
+msgstr "팔로워"
 
 #. TRANS: Label for user statistics.
 msgid "User ID"
@@ -9405,9 +9344,8 @@ msgid "Groups"
 msgstr "그룹"
 
 #. TRANS: H2 text for user list membership statistics.
-#, fuzzy
 msgid "Lists"
-msgstr "제한"
+msgstr "리스트"
 
 #. TRANS: Server error displayed when using an unimplemented method.
 msgid "Unimplemented method."
@@ -9439,7 +9377,7 @@ msgstr "인기 있음"
 #. TRANS: Title for inbox tag cloud section.
 msgctxt "TITLE"
 msgid "Trending topics"
-msgstr ""
+msgstr "트렌드 주제"
 
 #. TRANS: Client error displayed when return-to was defined without a target.
 msgid "No return-to arguments."
@@ -9718,9 +9656,9 @@ msgstr "%s님이 회원인 그룹."
 
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "List subscriptions by %s."
-msgstr "%s님의 사람 태그 구독"
+msgstr "%s님의 리스트 구독"
 
 #. TRANS: Menu item in local navigation menu.
 msgctxt "MENU"
@@ -9823,7 +9761,7 @@ msgctxt "FAVELIST"
 msgid "You"
 msgstr "나"
 
-#. TRANS: For building a list such as "You, bob, mary and 5 others have favored this notice".
+#. TRANS: For building a list such as "Jim, Bob, Mary and 5 others like this".
 #. TRANS: %1$s is a list of users, separated by a separator (default: ", "), %2$s is the last user in the list.
 #, php-format
 msgctxt "FAVELIST"
@@ -9831,15 +9769,25 @@ msgid "%1$s and %2$s"
 msgstr "%1$s 및 %2$s"
 
 #. TRANS: List message for notice favoured by logged in user.
+#, fuzzy
 msgctxt "FAVELIST"
-msgid "You have favored this notice."
-msgstr "이 글을 좋아합니다."
+msgid "You like this."
+msgstr "내 리스트"
+
+#. TRANS: List message for when more than 4 people like something.
+#. TRANS: %%s is a list of users liking a notice, %d is the number over 4 that like the notice.
+#. TRANS: Plural is decided on the total number of users liking the notice (count of %%s + %d).
+#, php-format
+msgid "%%s and %d others like this."
+msgid_plural "%%s and %d others like this."
+msgstr[0] ""
 
 #. TRANS: List message for favoured notices.
-#. TRANS: %d is the number of users that have favoured a notice.
+#. TRANS: %%s is a list of users liking a notice.
+#. TRANS: Plural is based on the number of of users that have favoured a notice.
 #, php-format
-msgid "One person has favored this notice."
-msgid_plural "%d people have favored this notice."
+msgid "%%s likes this."
+msgid_plural "%%s like this."
 msgstr[0] ""
 
 #. TRANS: List message for notice repeated by logged in user.
@@ -9882,15 +9830,15 @@ msgstr "검색할 항목을 고르십시오."
 
 #. TRANS: Form legend.
 #. TRANS: %1$s is a nickname, $2$s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Remove %1$s from list %2$s"
-msgstr "%1$s 태그, %2$s 사용자가 붙임"
+msgstr "%2$s 리스트에서 %1$s 사용자 제거"
 
 #. TRANS: Legend on form to add a profile to a list.
 #. TRANS: %1$s is a nickname, %2$s is a list.
-#, fuzzy, php-format
+#, php-format
 msgid "Add %1$s to list %2$s"
-msgstr "%1$s 태그, %2$s 사용자가 붙임"
+msgstr "%2$s 리스트에 %1$s 사용자 추가"
 
 #. TRANS: Title for top posters section.
 msgid "Top posters"
@@ -10031,5 +9979,9 @@ msgstr "XML이 잘못되었습니다. XRD 루트가 없습니다."
 msgid "Getting backup from file '%s'."
 msgstr "'%s' 파일에서 백업을 가져옵니다."
 
-#~ msgid "Could not save reply for %1$d, %2$d."
-#~ msgstr "%1$d, %2$d에 대한 답신을 저장할 수 없습니다."
+#~ msgid "User without matching profile."
+#~ msgstr "사용자가 해당 프로필이 없습니다."
+
+#~ msgctxt "FAVELIST"
+#~ msgid "You have favored this notice."
+#~ msgstr "이 글을 좋아합니다."

@@ -9,21 +9,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Irc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:13+0000\n"
-"PO-Revision-Date: 2011-04-20 07:14:03+0000\n"
+"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"PO-Revision-Date: 2011-04-27 12:37:26+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-17 22:40:37+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-irc\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. TRANS: Service name for IRC.
 msgid "IRC"
 msgstr "IRC"
 
+#. TRANS: Body text for e-mail confirmation message for IRC.
+#. TRANS: %1$s is a user nickname, %2$s is the StatusNet sitename,
+#. TRANS: %3$s is the plugin display name ("IRC"), %4$s is the confirm address URL.
 #, php-format
 msgid ""
 "User \"%1$s\" on %2$s has said that your %3$s screenname belongs to them. If "
@@ -39,19 +43,44 @@ msgstr ""
 "tagagamit na iyan, o hindi mo hiniling ang pagtitiyak na ito, huwag na "
 "lamang pansinin ang mensaheng ito."
 
+#. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
+msgid "You must specify a host."
+msgstr ""
+
+#. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
+msgid "You must specify a username."
+msgstr ""
+
+#. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
+msgid "You must specify a \"real name\"."
+msgstr ""
+
+#. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
+msgid "You must specify a nickname."
+msgstr ""
+
+#. TRANS: Plugin description.
 msgid ""
 "The IRC plugin allows users to send and receive notices over an IRC network."
 msgstr ""
 "Ang pampasak na IRC ay nagpapahintulot sa mga tagagamit na makapagpadala at "
 "makatanggap ng mga pabatid sa ibabaw ng kalambatan ng IRC."
 
-#, php-format
-msgid "Could not increment attempts count for %d"
+#. TRANS: Exception thrown when an IRC attempts count could not be updated.
+#. TRANS: %d is the object ID for which the count could not be updated.
+#, fuzzy, php-format
+msgid "Could not increment attempts count for %d."
 msgstr "Hindi masudlungan ang bilang ng pagtatangka para sa %d"
 
-msgid "Your nickname is not registered so IRC connectivity cannot be enabled"
+#. TRANS: Message given when using an unregistered IRC nickname.
+#, fuzzy
+msgid "Your nickname is not registered so IRC connectivity cannot be enabled."
 msgstr "Hindi nakatala ang palayaw mo kaya mapagana ang ugnayan ng IRC"
 
-#. TRANS: Server error thrown on database error canceling IM address confirmation.
+#. TRANS: Server error thrown on database error when deleting IRC nickname confirmation.
 msgid "Could not delete confirmation."
 msgstr "Hindi mabura ang pagtitiyak."
+
+#. TRANS: Server exception thrown when an IRC waiting queue item could not be added to the database.
+msgid "Database error inserting IRC waiting queue item."
+msgstr ""

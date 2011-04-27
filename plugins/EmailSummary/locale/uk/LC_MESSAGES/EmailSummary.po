@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - EmailSummary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:13+0000\n"
-"PO-Revision-Date: 2011-04-20 07:13:34+0000\n"
+"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"PO-Revision-Date: 2011-04-27 12:36:55+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-17 18:39:08+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-emailsummary\n"
@@ -28,14 +28,18 @@ msgstr ""
 msgid "Recent updates from %1$s for %2$s:"
 msgstr "Поточні оновлення від %1$s для %2$s:"
 
+#. TRANS: Link text for link to conversation view.
 msgid "in context"
 msgstr "у контексті"
 
-#, php-format
-msgid "<p><a href=\"%1s\">change your email settings for %2s</a></p>"
+#. TRANS: Link text for link to e-mail settings.
+#. TRANS: %1$s is a link to the e-mail settings, %2$s is the StatusNet sitename.
+#, fuzzy, php-format
+msgid "<a href=\"%1$s\">change your email settings for %2$s</a>"
 msgstr ""
 "<p><a href=\"%1s\">змінити налаштування електронної пошти для %2s</a></p>"
 
+#. TRANS: Subject for e-mail.
 msgid "Updates from your network"
 msgstr "Оновлення з вашої мережі"
 

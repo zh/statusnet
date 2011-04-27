@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Fujnky
+# Author: Giftpflanze
 # Author: Michael
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -10,13 +11,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-21 18:39+0000\n"
-"PO-Revision-Date: 2011-04-21 18:40:47+0000\n"
+"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"PO-Revision-Date: 2011-04-27 12:38:14+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-20 08:40:49+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -53,7 +54,7 @@ msgstr ""
 #. TRANS: Button text to fetch remote profile.
 msgctxt "BUTTON"
 msgid "Fetch"
-msgstr ""
+msgstr "Holen"
 
 #. TRANS: Exception in OStatus when invalid URI was entered.
 #, fuzzy
@@ -132,7 +133,7 @@ msgstr "Konnte Remote-Abonnement nicht einrichten."
 #. TRANS: Title for remote follow list.
 msgctxt "TITLE"
 msgid "Follow list"
-msgstr ""
+msgstr "Der Liste folgen"
 
 #. TRANS: Exception thrown when subscription to remote list fails.
 #, fuzzy
@@ -149,7 +150,7 @@ msgstr "%1$s folgt %2$s nicht mehr."
 
 msgctxt "TITLE"
 msgid "Tag"
-msgstr ""
+msgstr "Tag"
 
 #, fuzzy, php-format
 msgid "%1$s listed %2$s in the list %3$s."
@@ -160,13 +161,15 @@ msgid ""
 "Could not complete subscription to remote profile's feed. Tag %s could not "
 "be saved."
 msgstr ""
+"Konnte Abonnement für den Feed des entfernt liegenden Profils nicht "
+"vollenden. Tag %s konnte nicht gespeichert werden."
 
 msgctxt "TITLE"
 msgid "Untag"
-msgstr ""
+msgstr "Enttaggen"
 
 msgid "Disfavor"
-msgstr ""
+msgstr "Aus den Favoriten entfernen"
 
 #. TRANS: Success message for remove a favorite notice through OStatus.
 #. TRANS: %1$s is the unfavoring user's name, %2$s is URI to the no longer favored notice.
@@ -176,7 +179,7 @@ msgstr "%1$s markierte Nachricht %2$s nicht mehr als Favorit."
 
 #. TRANS: Link text for link to remote subscribe.
 msgid "Remote"
-msgstr ""
+msgstr "Außerhalb"
 
 #. TRANS: Title for activity.
 msgid "Profile update"
@@ -189,7 +192,7 @@ msgid "%s has updated their profile page."
 msgstr "%s hat die Profil-Seite aktualisiert."
 
 msgid "Tag"
-msgstr ""
+msgstr "Tag"
 
 #. TRANS: Plugin description.
 msgid ""
@@ -260,10 +263,10 @@ msgstr "Du kannst ein lokales Abonnement erstellen!"
 
 #, php-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Tag %s"
 
 msgid "Go"
-msgstr ""
+msgstr "Ausführen"
 
 #. TRANS: Field label.
 msgid "User nickname"
@@ -464,7 +467,7 @@ msgstr "Neuer Favorit konnte nicht gespeichert werden."
 
 #. TRANS: Client exception.
 msgid "Notice was not favorited!"
-msgstr ""
+msgstr "Notiz wurde nicht favorisiert!"
 
 #. TRANS: Client exception.
 #, fuzzy
@@ -640,7 +643,7 @@ msgstr "Du musst ein Remoteprofil angeben."
 
 #. TRANS: Client error.
 msgid "No local user or group nickname provided."
-msgstr ""
+msgstr "Kein lokaler Benutzer- oder Gruppenname angegeben."
 
 #. TRANS: Page title.
 msgid "OStatus Connect"
@@ -736,7 +739,7 @@ msgid "Unable to fetch avatar from %s."
 msgstr "Kann den Avatar von %s nicht abrufen."
 
 msgid "No author ID URI found."
-msgstr ""
+msgstr "Keine Autoren-ID-URI gefunden."
 
 #, fuzzy
 msgid "No profile URI."
@@ -799,12 +802,12 @@ msgstr ""
 #. TRANS: %1$s is a protocol, %2$s is a URI.
 #, php-format
 msgid "Unrecognized URI protocol for profile: %1$s (%2$s)."
-msgstr ""
+msgstr "Unbekanntes URI-Protokoll für Profil: %1$s (%2$s)."
 
 #. TRANS: Server exception. %s is a URI.
 #, php-format
 msgid "No URI protocol for profile: %s."
-msgstr ""
+msgstr "Kein URI-Protokoll für Profil: %s."
 
 #. TRANS: Client exception. %s is a HTTP status code.
 #, php-format
@@ -822,7 +825,7 @@ msgstr "Konnte den öffentlichen Schlüssel des Unterzeichners nicht finden."
 
 #. TRANS: Exception.
 msgid "Salmon invalid actor for signing."
-msgstr ""
+msgstr "Lachs ist ungültiger Agent für das Signieren."
 
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
 msgid "This method requires a POST."

@@ -10,18 +10,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Mapstraction\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:13+0000\n"
-"PO-Revision-Date: 2011-04-20 07:14:11+0000\n"
+"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"PO-Revision-Date: 2011-04-27 12:37:36+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-16 23:17:57+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-mapstraction\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. TRANS: Header for Map widget that displays a map with geodata for notices.
 msgid "Map"
 msgstr "Kaart"
 
@@ -29,6 +30,7 @@ msgstr "Kaart"
 msgid "Full size"
 msgstr "Groter"
 
+#. TRANS: Plugin description.
 msgid ""
 "Show maps of users' and friends' notices with <a href=\"http://www."
 "mapstraction.com/\">Mapstraction</a>."
@@ -48,12 +50,19 @@ msgstr "Kaart van %s en vrienden"
 msgid "%1$s friends map, page %2$d"
 msgstr "Kaart van vrienden van %1$s, pagina %2$d"
 
+#. TRANS: Client error displayed when referring to a non-existing user.
 msgid "No such user."
 msgstr "Deze gebruiker bestaat niet."
 
+#. TRANS: Error message displayed when referring to a user without a profile.
 msgid "User has no profile."
 msgstr "Deze gebruiker heeft geen profiel."
 
-#, php-format
-msgid "%s map, page %d"
-msgstr "Kaart van %s, pagina %d"
+#. TRANS: Title for map widget.
+#. TRANS: %s is a user name.
+#, fuzzy, php-format
+msgid "%s map"
+msgstr "Kaart van %s en vrienden"
+
+#~ msgid "%s map, page %d"
+#~ msgstr "Kaart van %s, pagina %d"

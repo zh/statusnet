@@ -9,22 +9,33 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - LinkPreview\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:13+0000\n"
-"PO-Revision-Date: 2011-04-20 07:14:09+0000\n"
+"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"PO-Revision-Date: 2011-04-27 12:37:33+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-16 23:17:55+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-linkpreview\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
 
-msgid "UI extensions previewing thumbnails from links."
+#. TRANS: Plugin description.
+#, fuzzy
+msgid "UI extension for previewing thumbnails from links."
 msgstr ""
 "Додаток до користувацького інтерфейсу для перегляду мініатюр з посилань."
 
+#. TRANS: Client error displayed when the session token does not match or is not given.
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Виникли певні проблеми з токеном сесії. Спробуйте знов, будь ласка."
+
+#. TRANS: Client exception thrown when requesting a different format than JSON.
+msgid "Invalid format; only JSON supported."
+msgstr ""
+
+#. TRANS: Client exception thrown when not providing a valid URL.
+msgid "Invalid URL."
+msgstr ""

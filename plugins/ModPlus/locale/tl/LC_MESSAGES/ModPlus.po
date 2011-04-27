@@ -9,33 +9,40 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - ModPlus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-20 07:13+0000\n"
-"PO-Revision-Date: 2011-04-20 07:14:20+0000\n"
+"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"PO-Revision-Date: 2011-04-27 12:37:45+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2011-04-17 22:40:38+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r86457); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-modplus\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. TRANS: Error message displayed when referring to a user without a profile.
 msgid "User has no profile."
 msgstr "Walang balangkas ang tagagamit."
 
-#, php-format
-msgid "%s on %s"
+#. TRANS: Remote profile action page title.
+#. TRANS: %1$s is a username, %2$s is a hostname.
+#, fuzzy, php-format
+msgid "%1$s on %2$s"
 msgstr "%s sa %s"
 
-#, php-format
+#. TRANS: Message on remote profile page.
+#. TRANS: This message contains Markdown links in the form [description](link).
+#. TRANS: %1$s is a profile nickname, %2$s is a hostname, %3$s is a URL.
+#, fuzzy, php-format
 msgid ""
-"This remote profile is registered on another site; see [%s's original "
-"profile page on %s](%s)."
+"This remote profile is registered on another site; see [%1$s's original "
+"profile page on %2$s](%3$s)."
 msgstr ""
 "Ang malayong balangkas na ito ay nagpatala sa ibang sityo; tingnan ang "
 "[pahina ng orihinal na balangkas ni %s sa %s](%s)."
 
+#. TRANS: Message on blocked remote profile page.
 msgid ""
 "Site moderators have silenced this profile, which prevents delivery of new "
 "messages to any users on this site."
@@ -44,8 +51,11 @@ msgstr ""
 "humahadlang sa paghahatid ng bagong mga mensahe sa sinumang mga tagagamit na "
 "nasa sityong ito."
 
-msgid "UI extensions for profile moderation actions."
+#. TRANS: Plugin description.
+#, fuzzy
+msgid "UI extension for profile moderation actions."
 msgstr "Mga dugtong na UI para sa mga galaw ng pagpapatimpi ng balangkas."
 
+#. TRANS: Label for access to remote profile options.
 msgid "Remote profile options..."
 msgstr "Malayong mga mapagpipilian ng balangkas..."

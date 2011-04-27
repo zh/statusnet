@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-21 18:39+0000\n"
-"PO-Revision-Date: 2011-04-21 18:41:22+0000\n"
+"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"PO-Revision-Date: 2011-04-27 12:38:42+0000\n"
 "Language-Team: Italian <http://translatewiki.net/wiki/Portal:it>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r86650); Translate extension (2011-04-13)\n"
+"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-20 08:40:21+0000\n"
+"X-POT-Import-Date: 2011-04-21 18:57:13+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -168,8 +168,6 @@ msgstr ""
 "Non è possibile abbonarsi a un profilo remoto OMB 0.1 con quest'azione."
 
 #. TRANS: Client error displayed when an unknown error occurs when adding a user to a list.
-#. TRANS: %s is a username.
-#. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a username.
 #, php-format
 msgid "There was an unexpected error while listing %s."
@@ -370,19 +368,7 @@ msgstr ""
 msgid "Could not update user."
 msgstr "Impossibile aggiornare l'utente."
 
-#. TRANS: Client error displayed if a user profile could not be found.
-#. TRANS: Client error displayed when a user has no profile.
-#. TRANS: Client error displayed a user has no profile updating profile colours.
-#. TRANS: Client error displayed if a user profile could not be found updating a profile image.
-#. TRANS: Client error displayed when requesting user information for a user without a profile.
-#. TRANS: Client error displayed trying to get an avatar for a user without a profile.
-#. TRANS: Server error displayed when requesting Friends of a Friend feed for a user for which the profile could not be found.
-#. TRANS: Server error displayed when trying to get a user hCard for a user without a profile.
-#. TRANS: Server error displayed when a user has no profile.
-#. TRANS: Server error displayed when trying to reply to a user without a profile.
-#. TRANS: Server error displayed requesting groups for a user without a profile.
-#. TRANS: Server error displayed when trying to perform a gallery action with a user without a profile.
-#. TRANS: Server error displayed when calling a profile action while the specified user does not have a profile.
+#. TRANS: Error message displayed when referring to a user without a profile.
 msgid "User has no profile."
 msgstr "L'utente non ha un profilo."
 
@@ -1525,15 +1511,6 @@ msgstr "Immagine"
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
 "Puoi caricare la tua immagine personale. La dimensione massima del file è %s."
-
-#. TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
-#. TRANS: Server error displayed coming across a request from a user without a profile.
-#. TRANS: Server error displayed on page for remote subscribe when user does not have a matching profile.
-#. TRANS: Server error displayed when trying to authorise a remote subscription request
-#. TRANS: while the user has no profile.
-#. TRANS: Server error displayed in user RSS when user does not have a matching profile.
-msgid "User without matching profile."
-msgstr "Utente senza profilo corrispondente."
 
 #. TRANS: Avatar upload page form legend.
 #. TRANS: Avatar upload page crop form legend.
@@ -5145,6 +5122,12 @@ msgid "You cannot (un)list an OMB 0.1 remote profile with this action."
 msgstr ""
 "Non è possibile abbonarsi a un profilo remoto OMB 0.1 con quest'azione."
 
+#. TRANS: Client error displayed when an unknown error occurs while delisting a user.
+#. TRANS: %s is a username.
+#, php-format
+msgid "There was an unexpected error while delisting %s."
+msgstr ""
+
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
 #, php-format
@@ -8012,7 +7995,7 @@ msgstr[0] "%1$s - %2$s"
 msgstr[1] "%1$s - %2$s"
 
 #. TRANS: Separator for list of tags.
-#. TRANS: Separator in list of user names like "You, Bob, Mary".
+#. TRANS: Separator in list of user names like "Jim, Bob, Mary".
 msgid ", "
 msgstr ""
 
@@ -10321,7 +10304,7 @@ msgctxt "FAVELIST"
 msgid "You"
 msgstr ""
 
-#. TRANS: For building a list such as "You, bob, mary and 5 others have favored this notice".
+#. TRANS: For building a list such as "Jim, Bob, Mary and 5 others like this".
 #. TRANS: %1$s is a list of users, separated by a separator (default: ", "), %2$s is the last user in the list.
 #, fuzzy, php-format
 msgctxt "FAVELIST"
@@ -10331,16 +10314,26 @@ msgstr "%1$s - %2$s"
 #. TRANS: List message for notice favoured by logged in user.
 #, fuzzy
 msgctxt "FAVELIST"
-msgid "You have favored this notice."
-msgstr "Rendi questo messaggio un preferito"
+msgid "You like this."
+msgstr "Messaggi famosi"
+
+#. TRANS: List message for when more than 4 people like something.
+#. TRANS: %%s is a list of users liking a notice, %d is the number over 4 that like the notice.
+#. TRANS: Plural is decided on the total number of users liking the notice (count of %%s + %d).
+#, php-format
+msgid "%%s and %d others like this."
+msgid_plural "%%s and %d others like this."
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: List message for favoured notices.
-#. TRANS: %d is the number of users that have favoured a notice.
-#, fuzzy, php-format
-msgid "One person has favored this notice."
-msgid_plural "%d people have favored this notice."
-msgstr[0] "Togli questo messaggio dai preferiti"
-msgstr[1] "Togli questo messaggio dai preferiti"
+#. TRANS: %%s is a list of users liking a notice.
+#. TRANS: Plural is based on the number of of users that have favoured a notice.
+#, php-format
+msgid "%%s likes this."
+msgid_plural "%%s like this."
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: List message for notice repeated by logged in user.
 #, fuzzy
@@ -10547,6 +10540,16 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
+#~ msgid "User without matching profile."
+#~ msgstr "Utente senza profilo corrispondente."
+
 #, fuzzy
-#~ msgid "Could not save reply for %1$d, %2$d."
-#~ msgstr "Impossibile salvare le informazioni del gruppo locale."
+#~ msgctxt "FAVELIST"
+#~ msgid "You have favored this notice."
+#~ msgstr "Rendi questo messaggio un preferito"
+
+#, fuzzy
+#~ msgid "One person has favored this notice."
+#~ msgid_plural "%d people have favored this notice."
+#~ msgstr[0] "Togli questo messaggio dai preferiti"
+#~ msgstr[1] "Togli questo messaggio dai preferiti"
