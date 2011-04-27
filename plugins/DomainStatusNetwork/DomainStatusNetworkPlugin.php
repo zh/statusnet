@@ -34,6 +34,11 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+$_dir = dirname(__FILE__);
+
+require_once $_dir . '/extlib/effectiveTLDs.inc.php';
+require_once $_dir . '/extlib/regDomain.inc.php';
+
 /**
  * Tools to map one status_network to one email domain in a multi-site
  * installation.
@@ -48,8 +53,20 @@ if (!defined('STATUSNET')) {
 
 class DomainStatusNetworkPlugin extends Plugin
 {
+    static $_thetree = null;
+
     function initialize()
     {
+        // For various reasons this gets squished
+
+        global $tldTree;
+        
+        if (empty($tldTree)) {
+            if (!empty(self::$_thetree)) {
+                $tldTree = self::$_thetree;
+            }
+        }
+
         $nickname = StatusNet::currentSite();
 
         if (empty($nickname)) {
@@ -73,6 +90,78 @@ class DomainStatusNetworkPlugin extends Plugin
         }
     }
 
+    static function toDomain($raw)
+    {
+        $parts = explode('@', $raw);
+
+        if (count($parts) == 1) {
+            $domain = $parts[0];
+        } else {
+            $domain = $parts[1];
+        }
+
+        $domain = strtolower(trim($domain));
+
+        return $domain;
+    }
+
+    static function registeredDomain($domain)
+    {
+        return getRegisteredDomain($domain);
+    }
+
+    static function nicknameAvailable($nickname)
+    {
+        $sn = Status_network::staticGet('nickname', $nickname);
+        return empty($sn);
+    }
+
+    static function nicknameForDomain($domain)
+    {
+        $registered = self::registeredDomain($domain);
+
+        $parts = explode('.', $registered);
+
+        $base = $parts[0];
+
+        if (self::nicknameAvailable($base)) {
+            return $base;
+        }
+
+        $domainish = str_replace('.', '-', $registered);
+
+        if (self::nicknameAvailable($domainish)) {
+            return $domainish;
+        }
+
+        $i = 1;
+
+        // We don't need to keep doing this forever
+
+        while ($i < 1024) {
+            $candidate = $domainish.'-'.$i;
+            if (self::nicknameAvailable($candidate)) {
+                return $candidate;
+            }
+            $i++;
+        }
+
+        return null;
+    }
+
+    static function siteForDomain($domain)
+    {
+        $snt = Status_network_tag::withTag('domain='.$domain);
+
+        while ($snt->fetch()) {
+            $sn = Status_network::staticGet('site_id', $snt->site_id);
+            if (!empty($sn)) {
+                return $sn;
+            }
+        }
+        return null;
+    }
+
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'DomainStatusNetwork',
@@ -84,3 +173,8 @@ class DomainStatusNetworkPlugin extends Plugin
         return true;
     }
 }
+
+// The way addPlugin() works, this global variable gets disappeared.
+// So, we re-appear it.
+
+DomainStatusNetworkPlugin::$_thetree = $tldTree;

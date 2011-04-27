@@ -30,23 +30,14 @@ END_OF_SITEFORDOMAIN_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-$raw = $args[0];
+$domain = DomainStatusNetworkPlugin::toDomain($args[0]);
 
-$parts = explode('@', $raw);
+$sn = DomainStatusNetworkPlugin::siteForDomain($domain);
 
-if (count($parts) == 1) {
-    $domain = $parts[0];
-} else {
-    $domain = $parts[1];
+if (empty($sn)) {
+    exit(1);
 }
 
-$domain = strtolower(trim($domain));
+print $sn->nickname."\n";
+exit(0);
 
-$snt = Status_network_tag::withTag('domain='.$domain);
-
-while ($snt->fetch()) {
-    $sn = Status_network::staticGet('site_id', $snt->site_id);
-    if (!empty($sn)) {
-        print $sn->nickname."\n";
-    }
-}
