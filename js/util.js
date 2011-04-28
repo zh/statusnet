@@ -273,15 +273,14 @@ var SN = { // StatusNet
                 },
                 success: function(data, textStatus) {
                     if (typeof($('form', data)[0]) != 'undefined') {
-                        var form_new = $('form', $(data).children());
+                        var form_new = document._importNode($('form', data)[0], true);
                         form.replaceWith(form_new);
                         if (onSuccess) {
                             onSuccess();
                         }
                     }
                     else if (typeof($('p', data)[0]) != 'undefined') {
-                        var p_new = $('p', $(data).children());
-                        form.replaceWith(p_new);
+                        form.replaceWith(document._importNode($('p', data)[0], true));
                         if (onSuccess) {
                             onSuccess();
                         }
@@ -503,11 +502,11 @@ var SN = { // StatusNet
                 success: function(data, textStatus) {
                     var results_placeholder = $('#profile_search_results');
                     if (typeof($('ul', data)[0]) != 'undefined') {
-                        var list = $('ul', $(data).children());
+                        var list = document._importNode($('ul', data)[0], true);
                         results_placeholder.replaceWith(list);
                     }
                     else {
-                        var _error = $('<li/>').append($('p', $(data).children()));
+                        var _error = $('<li/>').append(document._importNode($('p', data)[0], true));
                         results_placeholder.html(_error);
                     }
                     form
@@ -537,12 +536,12 @@ var SN = { // StatusNet
                 success: function(data, textStatus) {
                     var results_placeholder = form.parents('.entity_tags');
                     if (typeof($('.entity_tags', data)[0]) != 'undefined') {
-                        var tags = $('.entity_tags', $(data).children());
+                        var tags = document._importNode($('.entity_tags', data)[0], true);
                         $(tags).find('.editable').append($('<button class="peopletags_edit_button"/>'));
                         results_placeholder.replaceWith(tags);
                     } else {
                         results_placeholder.find('p').remove();
-                        results_placeholder.append($('p', $(data).children()));
+                        results_placeholder.append(document._importNode($('p', data)[0], true));
                         form.removeClass(SN.C.S.Processing)
                             .find('.submit')
                                 .removeClass(SN.C.S.Disabled)
@@ -694,7 +693,7 @@ var SN = { // StatusNet
                 nextStep();
             } else {
                 // Hide the placeholder...
-                var placeholder = list.find('li.notice-reply-placeholder').hide();
+                placeholder = list.find('li.notice-reply-placeholder').hide();
 
                 // Create the reply form entry at the end
                 var replyItem = $('li.notice-reply', list);
@@ -713,6 +712,7 @@ var SN = { // StatusNet
                     if (SN.C.I.NoticeFormMaster) {
                         // We've already saved a master copy of the form.
                         // Clone it in!
+                        console.debug("we have a saved for, using it");
                         intermediateStep(SN.C.I.NoticeFormMaster);
                     } else {
                         // Fetch a fresh copy of the notice form over AJAX.
