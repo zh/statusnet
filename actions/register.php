@@ -270,10 +270,10 @@ class RegisterAction extends Action
                     common_rememberme($user);
                 }
 
-                Event::handle('EndRegistrationTry', array($this));
-
                 // Re-init language env in case it changed (not yet, but soon)
                 common_init_language();
+
+                Event::handle('EndRegistrationTry', array($this));
 
                 $this->showSuccess();
             } else {
@@ -605,7 +605,7 @@ class RegisterAction extends Action
      */
     function showSuccessContent()
     {
-        if (Event::handle('onStartRegisterSuccess', array($this))) {
+        if (Event::handle('StartRegisterSuccess', array($this))) {
             $nickname = $this->arg('nickname');
 
             $profileurl = common_local_url('showstream',
@@ -649,7 +649,7 @@ class RegisterAction extends Action
             }
             $this->elementEnd('div');
 
-            Event::handle('onEndRegisterSuccess', array($this));
+            Event::handle('EndRegisterSuccess', array($this));
         }
     }
 
