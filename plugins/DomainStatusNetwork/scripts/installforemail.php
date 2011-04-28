@@ -37,6 +37,9 @@ $sn = DomainStatusNetworkPlugin::siteForDomain($domain);
 
 if (empty($sn)) {
     $installer = new DomainStatusNetworkInstaller($domain);
+
+    $installer->verbose = have_option('v', 'verbose');
+
     // Do the thing
     $installer->main();
     

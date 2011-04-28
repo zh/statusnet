@@ -53,7 +53,8 @@ class DomainStatusNetworkInstaller extends Installer
     protected $rootpass = null;
     protected $nickname = null;
     protected $sn       = null;
-    protected $verbose  = false;
+
+    public $verbose     = false;
 
     function __construct($domain)
     {
@@ -94,10 +95,18 @@ class DomainStatusNetworkInstaller extends Installer
         $this->path     = null;
         $this->fancy    = true;
 
+        $datanick = $this->databaseize($this->nickname);
+
         $this->host     = $config['DBHOSTNAME'];
-        $this->database = $this->nickname.$config['DBBASE'];
+        $this->database = $datanick.$config['DBBASE'];
         $this->dbtype   = 'mysql'; // XXX: support others... someday
-        $this->username = $this->nickname.$config['USERBASE'];
+        $this->username = $datanick.$config['USERBASE'];
+
+        // Max size for MySQL
+
+        if (strlen($this->username) > 16) {
+            $this->username = sprintf('%s%08x', substr($this->username, 0, 8), crc32($this->username));
+        }
 
         $pwgen = $config['PWDGEN'];
 
@@ -136,10 +145,14 @@ class DomainStatusNetworkInstaller extends Installer
 
     function setupDatabase()
     {
+        $this->updateStatus('Creating database...');
         $this->createDatabase();
         parent::setupDatabase();
+        $this->updateStatus('Creating file directories...');
         $this->createDirectories();
+        $this->updateStatus('Saving status network...');
         $this->saveStatusNetwork();
+        $this->updateStatus('Checking schema for plugins...');
         $this->checkSchema();
     }
 
@@ -157,6 +170,7 @@ class DomainStatusNetworkInstaller extends Installer
         $sn->dbuser   = $this->username;
         $sn->dbpass   = $this->password;
         $sn->dbname   = $this->database;
+        $sn->sitename = $this->sitename;
 
         $result = $sn->insert();
 
@@ -272,5 +286,11 @@ class DomainStatusNetworkInstaller extends Installer
                                  '\2 &lt;\1&gt;',
                                  $html);
         return html_entity_decode(strip_tags($breakout), ENT_QUOTES, 'UTF-8');
+    }
+
+    function databaseize($nickname)
+    {
+        $nickname = str_replace('-', '_', $nickname);
+        return $nickname;
     }
 }
