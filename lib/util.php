@@ -1860,6 +1860,30 @@ function common_config($main, $sub)
             array_key_exists($sub, $config[$main])) ? $config[$main][$sub] : false;
 }
 
+function common_config_set($main, $sub, $value)
+{
+    global $config;
+    if (!array_key_exists($main, $config)) {
+        $config[$main] = array();
+    }
+    $config[$main][$sub] = $value;
+}
+
+function common_config_append($main, $sub, $value)
+{
+    global $config;
+    if (!array_key_exists($main, $config)) {
+        $config[$main] = array();
+    }
+    if (!array_key_exists($sub, $config[$main])) {
+        $config[$main][$sub] = array();
+    }
+    if (!is_array($config[$main][$sub])) {
+        $config[$main][$sub] = array($config[$main][$sub]);
+    }
+    array_push($config[$main][$sub], $value);
+}
+
 /**
  * Pull arguments from a GET/POST/REQUEST array with first-level input checks:
  * strips "magic quotes" slashes if necessary, and kills invalid UTF-8 strings.
