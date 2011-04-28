@@ -40,6 +40,7 @@ class InfiniteScrollPlugin extends Plugin
 
     function onEndShowScripts($action)
     {
+        $action->inlineScript('var infinite_scroll_on_next_only = ' . ($this->on_next_only?'true':'false') . ';');
         $action->script($this->path('jquery.infinitescroll.js'));
         $action->script($this->path('infinitescroll.js'));
     }
