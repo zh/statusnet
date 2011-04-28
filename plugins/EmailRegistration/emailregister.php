@@ -240,78 +240,85 @@ class EmailregisterAction extends Action
 
     function setPassword()
     {
-        if (!empty($this->invitation)) {
-            $email = trim($this->invitation->address);
-        } else if (!empty($this->confirmation)) {
-            $email = trim($this->confirmation->address);
-        } else {
-            throw new Exception('No confirmation thing.');
-        }
-
-        if (!$this->tos) {
-            // TRANS: Error text when trying to register without agreeing to the terms.
-            $this->error = _m('You must accept the terms of service and privacy policy to register.');
-            return;
-        } else if (empty($this->password1)) {
-            // TRANS: Error text when trying to register without a password.
-            $this->error = _m('You must set a password');
-        } else if (strlen($this->password1) < 6) {
-            // TRANS: Error text when trying to register with too short a password.
-            $this->error = _m('Password must be 6 or more characters.');
-        } else if ($this->password1 != $this->password2) {
-            // TRANS: Error text when trying to register without providing the same password twice.
-            $this->error = _m('Passwords do not match.');
-        }
-
-        if (!empty($this->error)) {
-            $nickname = $this->nicknameFromEmail($email);
-            $this->form = new ConfirmRegistrationForm($this, $nickname, $this->email, $this->code);
-            $this->showPage();
-            return;
-        }
-
-        $nickname = $this->nicknameFromEmail($email);
-
-        try {
-            $this->user = User::register(array('nickname' => $nickname,
-                                               'email' => $email,
-                                               'password' => $this->password1,
-                                               'email_confirmed' => true));
-        } catch (ClientException $e) {
-            $this->error = $e->getMessage();
-            $nickname = $this->nicknameFromEmail($email);
-            $this->form = new ConfirmRegistrationForm($this, $nickname, $this->email, $this->code);
-            $this->showPage();
-            return;
-        }
-
-        if (empty($this->user)) {
-            throw new Exception('Failed to register user.');
-        }
-
-        common_set_user($this->user);
-        // this is a real login
-        common_real_login(true);
-
-        // Re-init language env in case it changed (not yet, but soon)
-        common_init_language();
-
-        if (!empty($this->invitation)) {
-            $inviter = User::staticGet('id', $this->invitation->user_id);
-            if (!empty($inviter)) {
-                Subscription::start($inviter->getProfile(),
-                                    $this->user->getProfile());
+        if (Event::handle('StartRegistrationTry', array($this))) {
+            if (!empty($this->invitation)) {
+                $email = trim($this->invitation->address);
+            } else if (!empty($this->confirmation)) {
+                $email = trim($this->confirmation->address);
+            } else {
+                throw new Exception('No confirmation thing.');
             }
 
-            $this->invitation->delete();
-        } else if (!empty($this->confirmation)) {
-            $this->confirmation->delete();
-        } else {
-            throw new Exception('No confirmation thing.');
+            if (!$this->tos) {
+                // TRANS: Error text when trying to register without agreeing to the terms.
+                $this->error = _m('You must accept the terms of service and privacy policy to register.');
+                return;
+            } else if (empty($this->password1)) {
+                // TRANS: Error text when trying to register without a password.
+                $this->error = _m('You must set a password');
+            } else if (strlen($this->password1) < 6) {
+                // TRANS: Error text when trying to register with too short a password.
+                $this->error = _m('Password must be 6 or more characters.');
+            } else if ($this->password1 != $this->password2) {
+                // TRANS: Error text when trying to register without providing the same password twice.
+                $this->error = _m('Passwords do not match.');
+            }
+
+            if (!empty($this->error)) {
+                $nickname = $this->nicknameFromEmail($email);
+                $this->form = new ConfirmRegistrationForm($this, $nickname, $this->email, $this->code);
+                $this->showPage();
+                return;
+            }
+
+            $nickname = $this->nicknameFromEmail($email);
+
+            try {
+                $this->user = User::register(array('nickname' => $nickname,
+                                                   'email' => $email,
+                                                   'password' => $this->password1,
+                                                   'email_confirmed' => true));
+            } catch (ClientException $e) {
+                $this->error = $e->getMessage();
+                $nickname = $this->nicknameFromEmail($email);
+                $this->form = new ConfirmRegistrationForm($this, $nickname, $this->email, $this->code);
+                $this->showPage();
+                return;
+            }
+
+            if (empty($this->user)) {
+                throw new Exception('Failed to register user.');
+            }
+
+            common_set_user($this->user);
+            // this is a real login
+            common_real_login(true);
+
+            // Re-init language env in case it changed (not yet, but soon)
+            common_init_language();
+
+            if (!empty($this->invitation)) {
+                $inviter = User::staticGet('id', $this->invitation->user_id);
+                if (!empty($inviter)) {
+                    Subscription::start($inviter->getProfile(),
+                                        $this->user->getProfile());
+                }
+
+                $this->invitation->delete();
+            } else if (!empty($this->confirmation)) {
+                $this->confirmation->delete();
+            } else {
+                throw new Exception('No confirmation thing.');
+            }
+
+            Event::handle('EndRegistrationTry', array($this));
         }
 
-        common_redirect(common_local_url('doc', array('title' => 'welcome')),
-                        303);
+        if (Event::handle('StartRegisterSuccess', array($this))) {
+            common_redirect(common_local_url('doc', array('title' => 'welcome')),
+                            303);
+            Event::handle('EndRegisterSuccess', array($this));
+        }
     }
 
     function sendConfirmEmail($confirm)
