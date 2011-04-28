@@ -128,7 +128,14 @@ class DomainStatusNetworkPlugin extends Plugin
     static function nicknameAvailable($nickname)
     {
         $sn = Status_network::staticGet('nickname', $nickname);
-        return empty($sn);
+        if (!empty($sn)) {
+            return false;
+        }
+        $usn = Unavailable_status_network::staticGet('nickname', $nickname);
+        if (!empty($usn)) {
+            return false;
+        }
+        return true;
     }
 
     static function nicknameForDomain($domain)
