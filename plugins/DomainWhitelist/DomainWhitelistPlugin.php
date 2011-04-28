@@ -98,7 +98,7 @@ class DomainWhitelistPlugin extends Plugin
     {
         $whitelist = $this->getWhitelist();
 
-        if (empty($whitelist)) {
+        if (empty($whitelist) || empty($whitelist[0])) {
             return true;
         }
 
