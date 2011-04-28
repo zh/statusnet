@@ -1,0 +1,276 @@
+<?php
+/**
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2011, StatusNet, Inc.
+ *
+ * Installer class for domain-based multi-homing systems
+ * 
+ * PHP version 5
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  DomainStatusNetwork
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2011 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
+
+if (!defined('STATUSNET')) {
+    // This check helps protect against security problems;
+    // your code file can't be executed directly from the web.
+    exit(1);
+}
+
+/**
+ * Installer class for domain-based multi-homing systems
+ *
+ * @category  DomainStatusNetwork
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2011 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
+
+class DomainStatusNetworkInstaller extends Installer
+{
+    protected $domain   = null;
+    protected $rootname = null;
+    protected $sitedb   = null;
+    protected $rootpass = null;
+    protected $nickname = null;
+    protected $sn       = null;
+    protected $verbose  = false;
+
+    function __construct($domain)
+    {
+        $this->domain = $domain;
+    }
+
+    /**
+     * Go for it!
+     * @return boolean success
+     */
+    function main()
+    {
+        // We don't check prereqs. Check 'em before setting up a
+        // multi-home system, kthxbi
+        if ($this->prepare()) {
+            return $this->handle();
+        } else {
+            $this->showHelp();
+            return false;
+        }
+    }
+
+    /**
+     * Get our input parameters...
+     * @return boolean success
+     */
+    function prepare()
+    {
+        $config = $this->getConfig();
+
+        $this->nickname = DomainStatusNetworkPlugin::nicknameForDomain($this->domain);
+
+        // XXX make this configurable
+
+        $this->sitename = sprintf('The %s Status Network', $this->domain);
+
+        $this->server   = $this->nickname.'.'.$config['WILDCARD'];
+        $this->path     = null;
+        $this->fancy    = true;
+
+        $this->host     = $config['DBHOSTNAME'];
+        $this->database = $this->nickname.$config['DBBASE'];
+        $this->dbtype   = 'mysql'; // XXX: support others... someday
+        $this->username = $this->nickname.$config['USERBASE'];
+
+        $pwgen = $config['PWDGEN'];
+
+        $password = `$pwgen`;
+
+        $this->password = trim($password);
+
+        // For setting up the database
+
+        $this->rootname = $config['ADMIN'];
+        $this->rootpass = $config['ADMINPASS'];
+        $this->sitehost = $config['DBHOST'];
+        $this->sitedb   = $config['SITEDB'];
+
+        // Explicitly empty
+
+        $this->adminNick    = null;
+        $this->adminPass    = null;
+        $this->adminEmail   = null;
+        $this->adminUpdates = null;
+
+        /** Should we skip writing the configuration file? */
+        $this->skipConfig = true;
+
+        if (!$this->validateDb()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function handle()
+    {
+        return $this->doInstall();
+    }
+
+    function setupDatabase()
+    {
+        $this->createDatabase();
+        parent::setupDatabase();
+        $this->createDirectories();
+        $this->saveStatusNetwork();
+        $this->checkSchema();
+    }
+
+    function saveStatusNetwork()
+    {
+        Status_network::setupDB($this->sitehost,
+                                $this->rootname,
+                                $this->rootpass,
+                                $this->sitedb, array());
+
+        $sn = new Status_network();
+
+        $sn->nickname = $this->nickname;
+        $sn->dbhost   = $this->host;
+        $sn->dbuser   = $this->username;
+        $sn->dbpass   = $this->password;
+        $sn->dbname   = $this->database;
+
+        $result = $sn->insert();
+
+        if (!$result) {
+            throw new ServerException("Couldn't create status_network: " . print_r($sn, true));
+        }
+
+        $sn->setTags(array('domain='.$this->domain));
+
+        $this->sn = $sn;
+
+    }
+    
+    function checkSchema()
+    {
+        $config = $this->getConfig();
+
+        Status_network::$wildcard = $config['WILDCARD'];
+
+        StatusNet::switchSite($this->nickname);
+
+        Event::handle('CheckSchema');
+    }
+
+    function getStatusNetwork()
+    {
+        return $this->sn;
+    }
+
+    function createDirectories()
+    {
+        $config = $this->getConfig();
+
+        foreach (array('AVATARBASE', 'BACKGROUNDBASE', 'FILEBASE') as $key) {
+            $base = $config[$key];
+            mkdir($base.'/'.$this->nickname, 0777, true);
+        }
+    }
+
+    function createDatabase()
+    {
+        // Create the New DB
+        $res = mysql_connect($this->host, $this->rootname, $this->rootpass);
+        if (!$res) {
+            throw new ServerException("Can't connect to {$this->host} as {$this->rootname}");
+        }
+
+        mysql_query("CREATE DATABASE ". mysql_real_escape_string($this->database), $res);
+
+        $return = mysql_select_db($this->database, $res);
+
+        if (!$return) {
+            throw new ServerException("Unable to connect to {$this->database} on {$this->host}");
+        }
+
+        foreach (array('localhost', '%') as $src) {
+            mysql_query("GRANT ALL ON " . 
+                        mysql_real_escape_string($this->database).".* TO '" .
+                        $this->username . "'@'".$src."' ".
+                        "IDENTIFIED BY '".$this->password."'", $res);
+        }
+
+        mysql_close($res);
+    }
+
+    function getConfig()
+    {
+        static $config;
+        
+        $cfg_file = "/etc/statusnet/setup.cfg";
+
+        if (empty($config)) {
+            $result = parse_ini_file($cfg_file);
+
+            $config = array();
+            foreach ($result as $key => $value) {
+                $key = str_replace('export ', '', $key);
+                $config[$key] = $value;
+            }
+        }
+
+        return $config;
+    }
+
+    function showHelp()
+    {
+    }
+
+    function warning($message, $submessage='')
+    {
+        print $this->html2text($message) . "\n";
+        if ($submessage != '') {
+            print "  " . $this->html2text($submessage) . "\n";
+        }
+        print "\n";
+    }
+
+    function updateStatus($status, $error=false)
+    {
+        if ($this->verbose || $error) {
+            if ($error) {
+                print "ERROR: ";
+            }
+            print $this->html2text($status);
+            print "\n";
+        }
+    }
+
+    private function html2text($html)
+    {
+        // break out any links for text legibility
+        $breakout = preg_replace('/<a[^>+]\bhref="(.*)"[^>]*>(.*)<\/a>/',
+                                 '\2 &lt;\1&gt;',
+                                 $html);
+        return html_entity_decode(strip_tags($breakout), ENT_QUOTES, 'UTF-8');
+    }
+}

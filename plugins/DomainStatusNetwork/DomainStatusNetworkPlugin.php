@@ -74,19 +74,34 @@ class DomainStatusNetworkPlugin extends Plugin
             return;
         }
 
-        $sn = Status_network::staticGet('nickname', $nickname);
-
-        if (empty($sn)) {
-            $this->log(LOG_ERR, "No site for nickname $nickname");
-            return;
+        try {
+            $sn = Status_network::staticGet('nickname', $nickname);
+        } catch (Exception $e) {
+            $this->log(LOG_ERR, $e->getMessage());
         }
 
         $tags = $sn->getTags();
 
         foreach ($tags as $tag) {
             if (strncmp($tag, 'domain=', 7) == 0) {
-                common_config_append('email', 'whitelist', substr($tag, 7));
+                $domain = substr($tag, 7);
+                $this->log("Setting email domain to {$domain}");
+                common_config_append('email', 'whitelist', $domain);
             }
+        }
+    }
+
+    function onAutoload($cls)
+    {
+        $dir = dirname(__FILE__);
+
+        switch ($cls)
+        {
+        case 'DomainStatusNetworkInstaller':
+            include_once $dir . '/' . strtolower($cls) . '.php';
+            return false;
+        default:
+            return true;
         }
     }
 
