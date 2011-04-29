@@ -84,7 +84,7 @@ class DomainStatusNetworkPlugin extends Plugin
         foreach ($tags as $tag) {
             if (strncmp($tag, 'domain=', 7) == 0) {
                 $domain = substr($tag, 7);
-                $this->log("Setting email domain to {$domain}");
+                $this->log(LOG_INFO, "Setting email domain to {$domain}");
                 common_config_append('email', 'whitelist', $domain);
             }
         }
