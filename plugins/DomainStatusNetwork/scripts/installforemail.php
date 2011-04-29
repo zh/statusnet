@@ -42,7 +42,7 @@ if (empty($sn)) {
 
     // Do the thing
     $installer->main();
-    
+
     $sn = $installer->getStatusNetwork();
 
     $config = $installer->getConfig();

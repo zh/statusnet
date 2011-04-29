@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * Installer class for domain-based multi-homing systems
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class DomainStatusNetworkInstaller extends Installer
 {
     protected $domain   = null;
@@ -175,7 +174,7 @@ class DomainStatusNetworkInstaller extends Installer
         $result = $sn->insert();
 
         if (!$result) {
-            throw new ServerException("Couldn't create status_network: " . print_r($sn, true));
+            throw new ServerException("Could not create status_network: " . print_r($sn, true));
         }
 
         $sn->setTags(array('domain='.$this->domain));
@@ -183,7 +182,7 @@ class DomainStatusNetworkInstaller extends Installer
         $this->sn = $sn;
 
     }
-    
+
     function checkSchema()
     {
         $config = $this->getConfig();
@@ -215,7 +214,7 @@ class DomainStatusNetworkInstaller extends Installer
         // Create the New DB
         $res = mysql_connect($this->host, $this->rootname, $this->rootpass);
         if (!$res) {
-            throw new ServerException("Can't connect to {$this->host} as {$this->rootname}");
+            throw new ServerException("Cannot connect to {$this->host} as {$this->rootname}.");
         }
 
         mysql_query("CREATE DATABASE ". mysql_real_escape_string($this->database), $res);
@@ -223,11 +222,11 @@ class DomainStatusNetworkInstaller extends Installer
         $return = mysql_select_db($this->database, $res);
 
         if (!$return) {
-            throw new ServerException("Unable to connect to {$this->database} on {$this->host}");
+            throw new ServerException("Unable to connect to {$this->database} on {$this->host}.");
         }
 
         foreach (array('localhost', '%') as $src) {
-            mysql_query("GRANT ALL ON " . 
+            mysql_query("GRANT ALL ON " .
                         mysql_real_escape_string($this->database).".* TO '" .
                         $this->username . "'@'".$src."' ".
                         "IDENTIFIED BY '".$this->password."'", $res);
@@ -239,7 +238,7 @@ class DomainStatusNetworkInstaller extends Installer
     function getConfig()
     {
         static $config;
-        
+
         $cfg_file = "/etc/statusnet/setup.cfg";
 
         if (empty($config)) {

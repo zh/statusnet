@@ -40,4 +40,3 @@ if (empty($sn)) {
 
 print $sn->nickname."\n";
 exit(0);
-

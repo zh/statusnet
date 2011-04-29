@@ -4,7 +4,7 @@
  * Copyright (C) 2011, StatusNet, Inc.
  *
  * One status_network per email domain
- * 
+ *
  * PHP version 5
  *
  * This program is free software: you can redistribute it and/or modify
@@ -50,7 +50,6 @@ require_once $_dir . '/extlib/regDomain.inc.php';
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class DomainStatusNetworkPlugin extends Plugin
 {
     static $_thetree = null;
@@ -60,7 +59,7 @@ class DomainStatusNetworkPlugin extends Plugin
         // For various reasons this gets squished
 
         global $tldTree;
-        
+
         if (empty($tldTree)) {
             if (!empty(self::$_thetree)) {
                 $tldTree = self::$_thetree;
@@ -191,6 +190,7 @@ class DomainStatusNetworkPlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:DomainStatusNetwork',
                             'rawdescription' =>
+                            // TRANS: Plugin description.
                             _m('A plugin that maps a single status_network to an email domain.'));
         return true;
     }

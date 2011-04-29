@@ -35,7 +35,7 @@ $domain   = DomainStatusNetworkPlugin::toDomain($args[0]);
 $nickname = DomainStatusNetworkPlugin::nicknameForDomain($domain);
 
 if (empty($nickname)) {
-    throw new ClientException("No candidate found.");
+    throw new ClientException('No candidate found.');
 } else {
     print $nickname;
     print "\n";
