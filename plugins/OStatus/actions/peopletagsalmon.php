@@ -36,18 +36,21 @@ class PeopletagsalmonAction extends SalmonAction
         $id = $this->trimmed('id');
 
         if (!$id) {
+            // TRANS: Client error displayed trying to perform an action without providing an ID.
             $this->clientError(_m('No ID.'));
         }
 
         $this->peopletag = Profile_list::staticGet('id', $id);
 
         if (empty($this->peopletag)) {
+            // TRANS: Client error displayed when referring to a non-existing list.
             $this->clientError(_m('No such list.'));
         }
 
         $oprofile = Ostatus_profile::staticGet('peopletag_id', $id);
 
         if (!empty($oprofile)) {
+            // TRANS: Client error displayed when trying to send a message to a remote list.
             $this->clientError(_m('Cannot accept remote posts for a remote list.'));
         }
 
@@ -81,14 +84,15 @@ class PeopletagsalmonAction extends SalmonAction
      *        currently we're doing the main logic in joingroup action
      *        and so have to repeat it here.
      */
-
     function handleSubscribe()
     {
         $oprofile = $this->ensureProfile();
         if (!$oprofile) {
-            $this->clientError(_m('Cannot read profile to set up profile tag subscription.'));
+            // TRANS: Client error displayed when referring to a non-existing remote list.
+            $this->clientError(_m('Cannot read profile to set up list subscription.'));
         }
         if ($oprofile->isGroup()) {
+            // TRANS: Client error displayed when trying to subscribe a group to a list.
             $this->clientError(_m('Groups cannot subscribe to lists.'));
         }
 
@@ -107,22 +111,25 @@ class PeopletagsalmonAction extends SalmonAction
         try {
             Profile_tag_subscription::add($this->peopletag, $profile);
         } catch (Exception $e) {
+            // TRANS: Server error displayed when subscribing a remote user to a list fails.
+            // TRANS: %1$s is a profile URI, %2$s is a list name.
             $this->serverError(sprintf(_m('Could not subscribe remote user %1$s to list %2$s.'),
                                        $oprofile->uri, $this->peopletag->getBestName()));
         }
     }
 
     /**
-     * A remote user unsubscribed from our peopletag.
+     * A remote user unsubscribed from our list.
      */
-
     function handleUnsubscribe()
     {
         $oprofile = $this->ensureProfile();
         if (!$oprofile) {
-            $this->clientError(_m('Cannot read profile to cancel list membership.'));
+            // TRANS: Client error displayed when trying to unsubscribe from non-existing list.
+            $this->clientError(_m('Cannot read profile to cancel list subscription.'));
         }
         if ($oprofile->isGroup()) {
+            // TRANS: Client error displayed when trying to unsubscribe a group from a list.
             $this->clientError(_m('Groups cannot subscribe to lists.'));
         }
 
@@ -133,7 +140,9 @@ class PeopletagsalmonAction extends SalmonAction
                 Profile_tag_subscription::remove($this->peopletag->tagger, $this->peopletag->tag, $profile->id);
 
         } catch (Exception $e) {
-            $this->serverError(sprintf(_m('Could not remove remote user %1$s from list %2$s.'),
+            // TRANS: Client error displayed when trying to unsubscribe a remote user from a list fails.
+            // TRANS: %1$s is a profile URL, %2$s is a list name.
+            $this->serverError(sprintf(_m('Could not unsubscribe remote user %1$s from list %2$s.'),
                                        $oprofile->uri, $this->peopletag->getBestName()));
             return;
         }

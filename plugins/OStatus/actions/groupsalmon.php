@@ -144,6 +144,7 @@ class GroupsalmonAction extends SalmonAction
         }
 
         if (Group_block::isBlocked($this->group, $profile)) {
+            // TRANS: Client error displayed when trying to join a group the user is blocked from by a group admin.
             $this->clientError(_m('You have been blocked from that group by the admin.'), 403);
             return false;
         }
@@ -164,9 +165,12 @@ class GroupsalmonAction extends SalmonAction
     {
         $oprofile = $this->ensureProfile();
         if (!$oprofile) {
+            // TRANS: Client error displayed when group membership cannot be cancelled
+            // TRANS: because the remote profile could not be read.
             $this->clientError(_m('Cannot read profile to cancel group membership.'));
         }
         if ($oprofile->isGroup()) {
+            // TRANS: Client error displayed when trying to have a group join another group.
             $this->clientError(_m('Groups cannot join groups.'));
         }
 

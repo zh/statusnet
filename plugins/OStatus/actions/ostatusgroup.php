@@ -102,7 +102,8 @@ class OStatusGroupAction extends OStatusSubAction
         $cur = common_current_user();
         if ($cur->isMember($group)) {
             $this->element('div', array('class' => 'error'),
-                           _m("You are already a member of this group."));
+                           // TRANS: Error text displayed when trying to join a remote group the user is already a member of.
+                           _m('You are already a member of this group.'));
             $ok = false;
         } else {
             $ok = true;
@@ -168,7 +169,7 @@ class OStatusGroupAction extends OStatusSubAction
      */
     function getInstructions()
     {
-        // TRANS: Instructions.
+        // TRANS: Form instructions.
         return _m('You can subscribe to groups from other supported sites. Paste the group\'s profile URI below:');
     }
 

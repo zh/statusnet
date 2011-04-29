@@ -68,7 +68,7 @@ class OStatusSubAction extends Action
                      _m('Subscribe to'),
                      $this->profile_uri,
                      // TRANS: Tooltip for field label "Subscribe to".
-                     _m('OStatus user\'s address, like nickname@example.com or http://example.net/nickname'));
+                     _m('OStatus user\'s address, like nickname@example.com or http://example.net/nickname.'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
         // TRANS: Button text.
@@ -106,8 +106,8 @@ class OStatusSubAction extends Action
         $this->hidden('token', common_session_token());
         $this->hidden('profile', $this->profile_uri);
         if ($this->oprofile->isGroup()) {
+            // TRANS: Button text.
             $this->submit('submit', _m('Join'), 'submit', null,
-                         // TRANS: Button text.
                          // TRANS: Tooltip for button "Join".
                          _m('BUTTON','Join this group'));
         } else {
@@ -135,7 +135,7 @@ class OStatusSubAction extends Action
         $cur = common_current_user();
         if ($cur->isSubscribed($profile)) {
             $this->element('div', array('class' => 'error'),
-                           _m("You are already subscribed to this user."));
+                           _m('You are already subscribed to this user.'));
             $ok = false;
         } else {
             $ok = true;
@@ -393,7 +393,7 @@ class OStatusSubAction extends Action
 
     function title()
     {
-        // TRANS: Page title for OStatus remote subscription form
+        // TRANS: Page title for OStatus remote subscription form.
         return _m('Confirm');
     }
 

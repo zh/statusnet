@@ -27,7 +27,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class OStatusTagAction extends OStatusInitAction
 {
-
     var $nickname;
     var $profile;
     var $err;
@@ -37,6 +36,7 @@ class OStatusTagAction extends OStatusInitAction
         parent::prepare($args);
 
         if (common_logged_in()) {
+            // TRANS: Client error displayed when trying to tag a local object as if it is remote.
             $this->clientError(_m('You can use the local tagging!'));
             return false;
         }
@@ -51,8 +51,10 @@ class OStatusTagAction extends OStatusInitAction
 
     function showContent()
     {
+        // TRANS: Header for tagging a remote object. %s is a remote object's name.
         $header = sprintf(_m('Tag %s'), $this->nickname);
-        $submit = _m('Go');
+        // TRANS: Button text to tag a remote object.
+        $submit = _m('BUTTON','Go');
         $this->elementStart('form', array('id' => 'form_ostatus_connect',
                                           'method' => 'post',
                                           'class' => 'form_settings',
@@ -63,12 +65,16 @@ class OStatusTagAction extends OStatusInitAction
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li', array('id' => 'ostatus_nickname'));
+        // TRANS: Field label.
         $this->input('nickname', _m('User nickname'), $this->nickname,
-                     _m('Nickname of the user you want to tag'));
+                     // TRANS: Field title.
+                     _m('Nickname of the user you want to tag.'));
         $this->elementEnd('li');
         $this->elementStart('li', array('id' => 'ostatus_profile'));
+        // TRANS: Field label.
         $this->input('profile', _m('Profile Account'), $this->profile,
-                     _m('Your account id (i.e. user@identi.ca)'));
+                     // TRANS: Field title.
+                     _m('Your account id (i.e. user@identi.ca).'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('submit', $submit);
@@ -83,6 +89,7 @@ class OStatusTagAction extends OStatusInitAction
         $disco = new Discovery;
         $result = $disco->lookup($acct);
         if (!$result) {
+            // TRANS: Client error displayed when remote profile could not be looked up.
             $this->clientError(_m('Could not look up OStatus account profile.'));
         }
 
@@ -95,6 +102,7 @@ class OStatusTagAction extends OStatusInitAction
             }
 
         }
+        // TRANS: Client error displayed when remote profile address could not be confirmed.
         $this->clientError(_m('Could not confirm remote profile address.'));
     }
 
@@ -112,6 +120,7 @@ class OStatusTagAction extends OStatusInitAction
 
     function title()
     {
+      // TRANS: Title for an OStatus list.
       return _m('OStatus list');  
     }
 }

@@ -34,12 +34,14 @@ class UsersalmonAction extends SalmonAction
         $id = $this->trimmed('id');
 
         if (!$id) {
+            // TRANS: Client error displayed trying to perform an action without providing an ID.
             $this->clientError(_m('No ID.'));
         }
 
         $this->user = User::staticGet('id', $id);
 
         if (empty($this->user)) {
+            // TRANS: Client error displayed when referring to a non-existing user.
             $this->clientError(_m('No such user.'));
         }
 
@@ -67,6 +69,7 @@ class UsersalmonAction extends SalmonAction
         case ActivityObject::COMMENT:
             break;
         default:
+            // TRANS: Client exception thrown when an undefied activity is performed.
             throw new ClientException(_m('Cannot handle that kind of post.'));
         }
 
@@ -92,11 +95,11 @@ class UsersalmonAction extends SalmonAction
                 !in_array(common_profile_url($this->user->nickname), $context->attention)) {
                 common_log(LOG_ERR, "{$this->user->uri} not in attention list (".implode(',', $context->attention).")");
                 // TRANS: Client exception.
-                throw new ClientException('To the attention of user(s), not including this one.');
+                throw new ClientException(_m('To the attention of user(s), not including this one.'));
             }
         } else {
             // TRANS: Client exception.
-            throw new ClientException('Not to anyone in reply to anything.');
+            throw new ClientException(_m('Not to anyone in reply to anything.'));
         }
 
         $existing = Notice::staticGet('uri', $this->activity->objects[0]->id);
@@ -189,18 +192,21 @@ class UsersalmonAction extends SalmonAction
     {
         if ($this->activity->target->type == ActivityObject::_LIST) {
             if ($this->activity->objects[0]->type != ActivityObject::PERSON) {
-                throw new ClientException("Not a person object");
+                // TRANS: Client exception.
+                throw new ClientException(_m('Not a person object.'));
                 return false;
             }
             // this is a peopletag
             $tagged = User::staticGet('uri', $this->activity->objects[0]->id);
 
             if (empty($tagged)) {
-                throw new ClientException("Unidentified profile being tagged");
+                // TRANS: Client exception.
+                throw new ClientException(_m('Unidentified profile being tagged.'));
             }
 
             if ($tagged->id !== $this->user->id) {
-                throw new ClientException("This user is not the one being tagged");
+                // TRANS: Client exception.
+                throw new ClientException(_m('This user is not the one being tagged.'));
             }
 
             // save the list
@@ -210,7 +216,8 @@ class UsersalmonAction extends SalmonAction
             $ptag = $list->localPeopletag();
             $result = Profile_tag::setTag($ptag->tagger, $tagged->id, $ptag->tag);
             if (!$result) {
-                throw new ClientException("The tag could not be saved.");
+                // TRANS: Client exception.
+                throw new ClientException(_m('The tag could not be saved.'));
             }
         }
     }
@@ -219,18 +226,21 @@ class UsersalmonAction extends SalmonAction
     {
         if ($this->activity->target->type == ActivityObject::_LIST) {
             if ($this->activity->objects[0]->type != ActivityObject::PERSON) {
-                throw new ClientException("Not a person object");
+                // TRANS: Client exception.
+                throw new ClientException(_m('Not a person object.'));
                 return false;
             }
             // this is a peopletag
             $tagged = User::staticGet('uri', $this->activity->objects[0]->id);
 
             if (empty($tagged)) {
-                throw new ClientException("Unidentified profile being untagged");
+                // TRANS: Client exception.
+                throw new ClientException(_m('Unidentified profile being untagged.'));
             }
 
             if ($tagged->id !== $this->user->id) {
-                throw new ClientException("This user is not the one being untagged");
+                // TRANS: Client exception.
+                throw new ClientException(_m('This user is not the one being untagged.'));
             }
 
             // save the list
@@ -241,7 +251,8 @@ class UsersalmonAction extends SalmonAction
             $result = Profile_tag::unTag($ptag->tagger, $tagged->id, $ptag->tag);
 
             if (!$result) {
-                throw new ClientException("The tag could not be deleted.");
+                // TRANS: Client exception.
+                throw new ClientException(_m('The tag could not be deleted.'));
             }
         }
     }

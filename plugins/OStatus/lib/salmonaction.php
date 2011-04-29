@@ -44,7 +44,7 @@ class SalmonAction extends Action
         }
 
         if (empty($_SERVER['CONTENT_TYPE']) || $_SERVER['CONTENT_TYPE'] != 'application/magic-envelope+xml') {
-            // TRANS: Client error. Do not translate "application/magic-envelope+xml"
+            // TRANS: Client error. Do not translate "application/magic-envelope+xml".
             $this->clientError(_m('Salmon requires "application/magic-envelope+xml".'));
         }
 

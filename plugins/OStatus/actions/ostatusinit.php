@@ -231,6 +231,7 @@ class OStatusInitAction extends Action
         } else if ($this->peopletag && $this->tagger) {
             $user = User::staticGet('nickname', $this->tagger);
             if (empty($user)) {
+                // TRANS: Client error.
                 $this->clientError(_m('No such user.'));
             }
 
@@ -239,6 +240,7 @@ class OStatusInitAction extends Action
                 return common_local_url('profiletagbyid',
                     array('tagger_id' => $user->id, 'id' => $peopletag->id));
             }
+            // TRANS: Client error.
             $this->clientError(_m('No such list.'));
         } else {
             // TRANS: Client error.

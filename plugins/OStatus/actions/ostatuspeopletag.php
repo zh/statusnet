@@ -70,13 +70,16 @@ class OStatusPeopletagAction extends OStatusSubAction
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->input('profile',
+                     // TRANS: Field label.
                      _m('Subscribe to list'),
                      $this->profile_uri,
-                     _m("Address of the OStatus list, like http://example.net/user/all/tag"));
+                     // TRANS: Field title.
+                     _m("Address of the OStatus list, like http://example.net/user/all/tag."));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
-        $this->submit('validate', _m('Continue'));
+        // TRANS: Button text to continue joining a remote list.
+        $this->submit('validate', _m('BUTTON','Continue'));
 
         $this->elementEnd('fieldset');
 
@@ -95,6 +98,7 @@ class OStatusPeopletagAction extends OStatusSubAction
         $cur = common_current_user();
         if ($ptag->hasSubscriber($cur->id)) {
             $this->element('div', array('class' => 'error'),
+                           // TRANS: Error text displayed when trying to subscribe to a list already a subscriber to.
                            _m('You are already subscribed to this list.'));
             $ok = false;
         } else {
@@ -170,7 +174,7 @@ class OStatusPeopletagAction extends OStatusSubAction
     function getInstructions()
     {
         // TRANS: Instructions for OStatus list subscription form.
-        return _m('You can subscribe to lists from other supported sites. Paste the lists\'s URI below:');
+        return _m('You can subscribe to lists from other supported sites. Paste the list\'s URI below:');
     }
 
     function selfLink()

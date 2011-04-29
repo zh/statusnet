@@ -575,8 +575,7 @@ class OStatusPlugin extends Plugin
                 }
 
                 $url = $notice->url;
-                // TRANS: Title.
-                // TRANS: %s is a domain name.
+                // TRANS: Title. %s is a domain name.
                 $title = sprintf(_m('Sent from %s via OStatus'), $domain);
                 return false;
             }
@@ -774,7 +773,7 @@ class OStatusPlugin extends Plugin
             $act->object = $oprofile->asActivityObject();
 
             $act->time = time();
-            // TRANS: Title to join a remote group.
+            // TRANS: Title for joining a remote groep.
             $act->title = _m('TITLE','Join');
             // TRANS: Success message for subscribe to group attempt through OStatus.
             // TRANS: %1$s is the member name, %2$s is the subscribed group's name.
@@ -872,11 +871,11 @@ class OStatusPlugin extends Plugin
             $act->object = $oprofile->asActivityObject();
 
             $act->time = time();
-            // TRANS: Title for remote follow list.
+            // TRANS: Title for following a remote list.
             $act->title = _m('TITLE','Follow list');
             // TRANS: Success message for remote list follow through OStatus.
             // TRANS: %1$s is the subscriber name, %2$s is the list, %3$s is the tagger's name.
-            $act->content = sprintf(_m("%1$s is now following people listed in %2$s by %3$s."),
+            $act->content = sprintf(_m('%1$s is now following people listed in %2$s by %3$s.'),
                                     $sub->getBestName(),
                                     $oprofile->getBestName(),
                                     $tagger->getBestName());
@@ -922,7 +921,10 @@ class OStatusPlugin extends Plugin
             $act->object = $oprofile->asActivityObject();
 
             $act->time = time();
+            // TRANS: Title for unfollowing a remote list.
             $act->title = _m('Unfollow list');
+            // TRANS: Success message for remote list unfollow through OStatus.
+            // TRANS: %1$s is the subscriber name, %2$s is the list, %3$s is the tagger's name.
             $act->content = sprintf(_m('%1$s stopped following the list %2$s by %3$s.'),
                                     $sub->getBestName(),
                                     $oprofile->getBestName(),
@@ -999,7 +1001,10 @@ class OStatusPlugin extends Plugin
                                   $plist->tagger, $plist->id,
                                   common_date_iso8601(time()));
         $act->time = time();
-        $act->title = _m('TITLE','Tag');
+        // TRANS: Title for listing a remote profile.
+        $act->title = _m('TITLE','List');
+        // TRANS: Success message for remote list addition through OStatus.
+        // TRANS: %1$s is the list creator's name, %2$s is the added list member, %3$s is the list name.
         $act->content = sprintf(_m('%1$s listed %2$s in the list %3$s.'),
                                 $tagger->getBestName(),
                                 $tagged->getBestName(),
@@ -1013,8 +1018,9 @@ class OStatusPlugin extends Plugin
 
         // initiate a PuSH subscription for the person being tagged
         if (!$oprofile->subscribe()) {
+            // TRANS: Exception thrown when subscribing to a remote list fails.
             throw new Exception(sprintf(_m('Could not complete subscription to remote '.
-                                          'profile\'s feed. Tag %s could not be saved.'), $ptag->tag));
+                                          'profile\'s feed. List %s could not be saved.'), $ptag->tag));
             return false;
         }
         return true;
@@ -1052,8 +1058,11 @@ class OStatusPlugin extends Plugin
                                   $plist->tagger, $plist->id,
                                   common_date_iso8601(time()));
         $act->time = time();
-        $act->title = _m('TITLE','Untag');
-        $act->content = sprintf(_('%1$s untagged %2$s from the list %3$s.'),
+        // TRANS: Title for unlisting a remote profile.
+        $act->title = _m('TITLE','Unlist');
+        // TRANS: Success message for remote list removal through OStatus.
+        // TRANS: %1$s is the list creator's name, %2$s is the removed list member, %3$s is the list name.
+        $act->content = sprintf(_m('%1$s removed %2$s from the list %3$s.'),
                                 $tagger->getBestName(),
                                 $tagged->getBestName(),
                                 $plist->getBestName());
@@ -1100,10 +1109,11 @@ class OStatusPlugin extends Plugin
                                   $notice->id,
                                   common_date_iso8601(time()));
         $act->time    = time();
-        $act->title   = _m('Disfavor');
+        // TRANS: Title for unliking a remote notice.
+        $act->title   = _m('Unlike');
         // TRANS: Success message for remove a favorite notice through OStatus.
         // TRANS: %1$s is the unfavoring user's name, %2$s is URI to the no longer favored notice.
-        $act->content = sprintf(_m('%1$s marked notice %2$s as no longer a favorite.'),
+        $act->content = sprintf(_m('%1$s no longer likes %2$s.'),
                                $profile->getBestName(),
                                $notice->uri);
 
@@ -1219,7 +1229,7 @@ class OStatusPlugin extends Plugin
                                   common_date_iso8601(time()));
         $act->time    = time();
         // TRANS: Title for activity.
-        $act->title   = _m("Profile update");
+        $act->title   = _m('Profile update');
         // TRANS: Ping text for remote profile update through OStatus.
         // TRANS: %s is user that updated their profile.
         $act->content = sprintf(_m('%s has updated their profile page.'),
@@ -1265,6 +1275,7 @@ class OStatusPlugin extends Plugin
                                         array('nickname' => $profileUser->nickname));
                 $output->element('a', array('href' => $url,
                                             'class' => 'entity_remote_tag'),
+                                  // TRANS: Link text for a user to tag an OStatus user.
                                  _m('Tag'));
                 $output->elementEnd('li');
             }

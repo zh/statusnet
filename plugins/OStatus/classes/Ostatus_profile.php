@@ -171,10 +171,10 @@ class Ostatus_profile extends Managed_DataObject
             return true;
         } else if ($this->group_id && ($this->profile_id || $this->peopletag_id)) {
             // TRANS: Server exception. %s is a URI
-            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: two or more IDs set for %s.'), $this->uri));
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: Two or more IDs set for %s.'), $this->uri));
         } else {
             // TRANS: Server exception. %s is a URI
-            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: all IDs empty for %s.'), $this->uri));
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: All IDs empty for %s.'), $this->uri));
         }
     }
 
@@ -189,10 +189,10 @@ class Ostatus_profile extends Managed_DataObject
             return true;
         } else if ($this->peopletag_id && ($this->profile_id || $this->group_id)) {
             // TRANS: Server exception. %s is a URI
-            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: two or more IDs set for %s.'), $this->uri));
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: Two or more IDs set for %s.'), $this->uri));
         } else {
             // TRANS: Server exception. %s is a URI
-            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: all IDs empty for %s.'), $this->uri));
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: All IDs empty for %s.'), $this->uri));
         }
     }
 
@@ -1209,6 +1209,7 @@ class Ostatus_profile extends Managed_DataObject
         if ($object->link && common_valid_http_url($object->link)) {
             return $object->link;
         }
+        // TRANS: Server exception.
         throw new ServerException(_m('No author ID URI found.'));
     }
 
@@ -1234,6 +1235,7 @@ class Ostatus_profile extends Managed_DataObject
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
+            // TRANS: Exception.
             throw new Exception(_m('No profile URI.'));
         }
 
@@ -1252,6 +1254,7 @@ class Ostatus_profile extends Managed_DataObject
         if ($ptag) {
             $local_user = User::staticGet('id', $ptag->tagger);
             if (!empty($local_user)) {
+                // TRANS: Exception.
                 throw new Exception(_m('Local list cannot be referenced as remote.'));
             }
         }
@@ -1326,6 +1329,7 @@ class Ostatus_profile extends Managed_DataObject
 
             $oprofile->peopletag_id = $ptag->insert();
             if (!$oprofile->peopletag_id) {
+            // TRANS: Server exception.
                 throw new ServerException(_m('Cannot save local list.'));
             }
         }
@@ -1673,7 +1677,7 @@ class Ostatus_profile extends Managed_DataObject
             // Save negative cache entry so we don't waste time looking it up again.
             // @fixme distinguish temporary failures?
             self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), null);
-                // TRANS: Exception.
+            // TRANS: Exception.
             throw new Exception(_m('Not a valid webfinger address.'));
         }
 
@@ -1731,7 +1735,6 @@ class Ostatus_profile extends Managed_DataObject
         // XXX: try FOAF
 
         if (array_key_exists('salmon', $hints)) {
-
             $salmonEndpoint = $hints['salmon'];
 
             // An account URL, a salmon endpoint, and a dream? Not much to go
