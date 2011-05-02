@@ -233,7 +233,13 @@ function common_check_user($nickname, $password)
     $authenticatedUser = false;
 
     if (Event::handle('StartCheckPassword', array($nickname, $password, &$authenticatedUser))) {
-        $user = User::staticGet('nickname', common_canonical_nickname($nickname));
+
+        if (common_is_email($nickname)) {
+            $user = User::staticGet('email', common_canonical_email($nickname));
+        } else {
+            $user = User::staticGet('nickname', common_canonical_nickname($nickname));
+        }
+
         if (!empty($user)) {
             if (!empty($password)) { // never allow login with blank password
                 if (0 == strcmp(common_munge_password($password, $user->id),
@@ -2296,4 +2302,9 @@ function common_log_perf_counters()
             common_log(LOG_DEBUG, "PERF COUNTER: $key $count ($unique unique)");
         }
     }
+}
+
+function common_is_email($str)
+{
+    return (strpos($str, '@') !== false);
 }
