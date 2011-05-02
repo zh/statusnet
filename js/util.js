@@ -273,15 +273,14 @@ var SN = { // StatusNet
                 },
                 success: function(data, textStatus) {
                     if (typeof($('form', data)[0]) != 'undefined') {
-                        var form_new = $('form', $(data).children());
+                        form_new = $('form', $(data).children());
                         form.replaceWith(form_new);
                         if (onSuccess) {
                             onSuccess();
                         }
                     }
                     else if (typeof($('p', data)[0]) != 'undefined') {
-                        var p_new = $('p', $(data).children());
-                        form.replaceWith(p_new);
+                        form.replaceWith$('form', $(data).children());
                         if (onSuccess) {
                             onSuccess();
                         }
