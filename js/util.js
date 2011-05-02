@@ -712,6 +712,7 @@ var SN = { // StatusNet
                     if (SN.C.I.NoticeFormMaster) {
                         // We've already saved a master copy of the form.
                         // Clone it in!
+                        console.debug("we have a saved for, using it");
                         intermediateStep(SN.C.I.NoticeFormMaster);
                     } else {
                         // Fetch a fresh copy of the notice form over AJAX.
