@@ -273,7 +273,7 @@ var SN = { // StatusNet
                 },
                 success: function(data, textStatus) {
                     if (typeof($('form', data)[0]) != 'undefined') {
-                        var form_new = document._importNode($('form', data)[0], true);
+                        form_new = document._importNode($('form', data)[0], true);
                         form.replaceWith(form_new);
                         if (onSuccess) {
                             onSuccess();
@@ -693,7 +693,7 @@ var SN = { // StatusNet
                 nextStep();
             } else {
                 // Hide the placeholder...
-                placeholder = list.find('li.notice-reply-placeholder').hide();
+                var placeholder = list.find('li.notice-reply-placeholder').hide();
 
                 // Create the reply form entry at the end
                 var replyItem = $('li.notice-reply', list);
@@ -701,10 +701,11 @@ var SN = { // StatusNet
                     replyItem = $('<li class="notice-reply"></li>');
 
                     var intermediateStep = function(formMaster) {
-                        replyItem.append(formMaster);
+                        var formEl = document._importNode(formMaster, true);
+                        replyItem.append(formEl);
                         list.append(replyItem); // *after* the placeholder
 
-                        var form = replyForm = formMaster;
+                        var form = replyForm = $(formEl);
                         SN.Init.NoticeFormSetup(form);
 
                         nextStep();
@@ -719,8 +720,8 @@ var SN = { // StatusNet
                         // @fixme this fallback may or may not work
                         var url = $('#form_notice').attr('action');
                         $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
-                            intermediateStep($('form', $(data).children()));
-                        }, 'xml');
+                            intermediateStep($('form', data)[0]);
+                        });
                     }
                 }
             }
@@ -759,11 +760,11 @@ var SN = { // StatusNet
                     var url = $(this).attr('href');
                     var area = $(this).closest('.threaded-replies');
                     $.get(url, {ajax: 1}, function(data, textStatus, xhr) {
-                        var replies = $('.threaded-replies', $(data).children());
+                        var replies = $('.threaded-replies', data);
                         if (replies.length) {
-                            area.replaceWith(replies);
+                            area.replaceWith(document._importNode(replies[0], true));
                         }
-                    }, 'xml');
+                    });
                     return false;
                 });
         },
@@ -1266,7 +1267,7 @@ var SN = { // StatusNet
                 if (NDMF.length === 0) {
                     $(this).addClass(SN.C.S.Processing);
                     $.get(NDM.attr('href'), null, function(data) {
-                        $('.entity_send-a-message').append($('form', $(data).children()));
+                        $('.entity_send-a-message').append(document._importNode($('form', data)[0], true));
                         NDMF = $('.entity_send-a-message .form_notice');
                         SN.U.FormNoticeXHR(NDMF);
                         SN.U.FormNoticeEnhancements(NDMF);
@@ -1276,7 +1277,7 @@ var SN = { // StatusNet
                             return false;
                         });
                         NDM.removeClass(SN.C.S.Processing);
-                    }, 'xml');
+                    });
                 }
                 else {
                     NDMF.show();
@@ -1513,7 +1514,7 @@ var SN = { // StatusNet
             if ($('body.user_in').length > 0) {
                 var masterForm = $('.form_notice:first');
                 if (masterForm.length > 0) {
-                    SN.C.I.NoticeFormMaster = masterForm;
+                    SN.C.I.NoticeFormMaster = document._importNode(masterForm[0], true);
                 }
                 SN.U.NoticeRepeat();
                 SN.U.NoticeReply();
