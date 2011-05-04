@@ -62,20 +62,6 @@ class SearchAction extends Action
         $this->showPage();
     }
 
-    /**
-     * Show tabset for this page
-     *
-     * Uses the SearchGroupNav widget
-     *
-     * @return void
-     * @see SearchGroupNav
-     */
-    function showObjectNav()
-    {
-        $nav = new SearchGroupNav($this, $this->trimmed('q'));
-        $nav->show();
-    }
-
     function showTop($arr=null)
     {
         $error = null;
