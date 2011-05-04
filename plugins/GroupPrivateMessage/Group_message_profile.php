@@ -125,7 +125,10 @@ class Group_message_profile extends Memcached_DataObject
 
         $gmp->insert();
 
-        $gmp->notify();
+        // If it's not for the author, send email notification
+        if ($gm->from_profile != $profile->id) {
+            $gmp->notify();
+        }
 
         return $gmp;
     }
