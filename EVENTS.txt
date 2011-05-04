@@ -1381,3 +1381,13 @@ StartRegisterSuccess: Before showing the registration success message
 
 StartRegisterSuccess: After showing the registration success message
 - $action: the registration action
+
+StartDocFileForTitle: Before searching for a doc or mail template
+- $title: Title we're looking for
+- &$paths: Paths we're searching
+- &$filename: Filename so far (set this if you want)
+
+EndDocFileForTitle: After searching for a doc or mail template
+- $title: Title we looked for
+- $paths: Paths we searched
+- &$filename: Filename so far (set this if you want)

@@ -63,24 +63,29 @@ class DocFile
 
         $filename = null;
 
-        foreach ($paths as $path) {
+        if (Event::handle('StartDocFileForTitle', array($title, &$paths, &$filename))) {
 
-            $def = $path.'/'.$title;
+            foreach ($paths as $path) {
 
-            if (!file_exists($def)) {
-                $def = null;
+                $def = $path.'/'.$title;
+
+                if (!file_exists($def)) {
+                    $def = null;
+                }
+
+                $lang = glob($path.'/'.$title.'.*');
+
+                if ($lang === false) {
+                    $lang = array();
+                }
+
+                if (!empty($lang) || !empty($def)) {
+                    $filename = self::negotiateLanguage($lang, $def);
+                    break;
+                }
             }
 
-            $lang = glob($path.'/'.$title.'.*');
-
-            if ($lang === false) {
-                $lang = array();
-            }
-
-            if (!empty($lang) || !empty($def)) {
-                $filename = self::negotiateLanguage($lang, $def);
-                break;
-            }
+            Event::handle('EndDocFileForTitle', array($title, $paths, &$filename));
         }
 
         if (empty($filename)) {
