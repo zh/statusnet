@@ -20,11 +20,14 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
+$shortoptions = 'w';
+$longoptions = array('welcome');
+
 $helptext = <<<END_OF_REGISTEREMAILUSER_HELP
 registeremailuser.php [options] <email address>
 
 Options:
--e --email     Send a confirmation message to the email address
+-w --welcome  Send a welcome email
 
 register a new user by email address.
 
@@ -40,7 +43,7 @@ $email = $args[0];
 
 $confirm = EmailRegistrationPlugin::registerEmail($email);
 
-if (have_option('e', 'email')) {
+if (have_option('w', 'welcome')) {
     EmailRegistrationPlugin::sendConfirmEmail($confirm);
 }
 
