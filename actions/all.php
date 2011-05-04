@@ -86,10 +86,10 @@ class AllAction extends ProfileAction
     {
         $user = common_current_user();
         if ($user->id == $this->user->id) {
-            return _('Home');
+            return _('Home timeline');
         } else {
             $profile = $this->user->getProfile();
-            return sprintf(_("%s's Home"), $profile->getBestName());
+            return sprintf(_("%s's home timeline"), $profile->getBestName());
         }
     }
 
