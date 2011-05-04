@@ -84,12 +84,12 @@ class AllAction extends ProfileAction
 
     function title()
     {
-        if ($this->page > 1) {
-            // TRANS: Page title. %1$s is user nickname, %2$d is page number
-            return sprintf(_('%1$s and friends, page %2$d'), $this->user->nickname, $this->page);
+        $user = common_current_user();
+        if ($user->id == $this->user->id) {
+            return _('Home');
         } else {
-            // TRANS: Page title. %s is user nickname
-            return sprintf(_("%s and friends"), $this->user->nickname);
+            $profile = $this->user->getProfile();
+            return sprintf(_("%s's Home"), $profile->getBestName());
         }
     }
 
@@ -189,18 +189,6 @@ class AllAction extends ProfileAction
         $pop->show();
         //        $pop = new InboxTagCloudSection($this, $this->user);
         //        $pop->show();
-    }
-
-    function showPageTitle()
-    {
-        $user = common_current_user();
-        if ($user && ($user->id == $this->user->id)) {
-            // TRANS: H1 text for page when viewing a list for self.
-            $this->element('h1', null, _("You and friends"));
-        } else {
-            // TRANS: H1 text for page. %s is a user nickname.
-            $this->element('h1', null, sprintf(_('%s and friends'), $this->user->nickname));
-        }
     }
 }
 
