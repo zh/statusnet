@@ -126,6 +126,15 @@ class Router
         return Router::$inst;
     }
 
+    /**
+     * Clear the global singleton instance for this class.
+     * Needed to ensure reset when switching site configurations.
+     */
+    static function clear()
+    {
+        Router::$inst = null;
+    }
+
     function __construct()
     {
         if (empty($this->m)) {

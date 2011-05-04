@@ -335,7 +335,9 @@ class Action extends HTMLOutputter // lawsuit
                     common_local_url('peopletagautocomplete') . '";');
                 $this->showScriptMessages();
                 // Frame-busting code to avoid clickjacking attacks.
-                $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
+                if (common_config('javascript', 'bustframes')) {
+                    $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
+                }
                 Event::handle('EndShowStatusNetScripts', array($this));
                 Event::handle('EndShowLaconicaScripts', array($this));
             }
