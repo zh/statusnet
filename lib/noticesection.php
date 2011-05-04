@@ -102,7 +102,7 @@ class NoticeSection extends Section
         $this->out->elementEnd('p');
 
         $this->out->elementStart('div', 'entry_content');
-        get_class('NoticeList');
+        class_exists('NoticeList');
         $nli = new NoticeListItem($notice, $this->out);
         $nli->showNoticeLink();
         $this->out->elementEnd('div');

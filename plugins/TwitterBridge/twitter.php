@@ -320,7 +320,20 @@ function process_error($e, $flink, $notice)
 
     common_log(LOG_WARNING, $logmsg);
 
+    // http://dev.twitter.com/pages/responses_errors
     switch($code) {
+     case 400:
+         // Probably invalid data (bad Unicode chars or coords) that
+         // cannot be resolved by just sending again.
+         //
+         // It could also be rate limiting, but retrying immediately
+         // won't help much with that, so we'll discard for now.
+         // If a facility for retrying things later comes up in future,
+         // we can detect the rate-limiting headers and use that.
+         //
+         // Discard the message permanently.
+         return true;
+         break;
      case 401:
         // Probably a revoked or otherwise bad access token - nuke!
         remove_twitter_link($flink);
@@ -330,6 +343,13 @@ function process_error($e, $flink, $notice)
         // User has exceeder her rate limit -- toss the notice
         return true;
         break;
+     case 404:
+         // Resource not found. Shouldn't happen much on posting,
+         // but just in case!
+         //
+         // Consider it a matter for tossing the notice.
+         return true;
+         break;
      default:
 
         // For every other case, it's probably some flakiness so try
