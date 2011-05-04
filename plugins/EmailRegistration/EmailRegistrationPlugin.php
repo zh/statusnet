@@ -155,7 +155,7 @@ class EmailRegistrationPlugin extends Plugin
         return $nickname;
     }
 
-    static function sendConfirmEmail($confirm)
+    static function sendConfirmEmail($confirm, $title=null)
     {
         $sitename = common_config('site', 'name');
 
@@ -165,23 +165,29 @@ class EmailRegistrationPlugin extends Plugin
         $headers['To'] = trim($confirm->address);
          // TRANS: Subject for confirmation e-mail.
          // TRANS: %s is the StatusNet sitename.
-        $headers['Subject'] = sprintf(_m('Confirm your registration on %s'), $sitename);
+        $headers['Subject'] = sprintf(_m('Welcome to %s'), $sitename);
+        $headers['Content-Type'] = 'text/html; charset=UTF-8';
 
         $confirmUrl = common_local_url('register', array('code' => $confirm->code));
 
-         // TRANS: Body for confirmation e-mail.
-         // TRANS: %1$s is the StatusNet sitename, %2$s is the confirmation URL.
-        $body = sprintf(_m('Someone (probably you) has requested an account on %1$s using this email address.'.
-                          "\n".
-                          'To confirm the address, click the following URL or copy it into the address bar of your browser.'.
-                          "\n".
-                          '%2$s'.
-                          "\n".
-                          'If it was not you, you can safely ignore this message.'),
-                        $sitename,
-                        $confirmUrl);
+        if (empty($title)) {
+            $title = 'confirmemailreg';
+        }
+
+        $confirmTemplate = DocFile::forTitle($title, DocFile::mailPaths());
+
+        $body = $confirmTemplate->toHTML(array('confirmurl' => $confirmUrl));
 
         mail_send($recipients, $headers, $body);
+    }
+
+    function onEndDocFileForTitle($title, $paths, &$filename)
+    {
+        if ($title == 'confirmemailreg' && empty($filename)) {
+            $filename = dirname(__FILE__).'/mail-src/'.$title;
+            return false;
+        }
+        return true;
     }
 
     function onPluginVersion(&$versions)
