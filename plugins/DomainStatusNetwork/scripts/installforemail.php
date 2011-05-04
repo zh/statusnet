@@ -22,8 +22,15 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
+$shortoptions = 'w';
+$longoptions = array('welcome');
+
 $helptext = <<<END_OF_INSTALLFOREMAIL_HELP
+
 installforemail.php [options] <email address>
+Create a new account and, if necessary, a new network for the given email address
+
+-w --welcome  Send a welcome email
 
 END_OF_INSTALLFOREMAIL_HELP;
 
@@ -53,6 +60,10 @@ if (empty($sn)) {
 StatusNet::switchSite($sn->nickname);
 
 $confirm = EmailRegistrationPlugin::registerEmail($email);
+
+if (have_option('w', 'welcome')) {
+    EmailRegistrationPlugin::sendConfirmEmail($confirm);
+}
 
 $confirmUrl = common_local_url('register', array('code' => $confirm->code));
 
