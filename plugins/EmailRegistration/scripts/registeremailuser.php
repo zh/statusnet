@@ -20,14 +20,15 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
-$shortoptions = 'w';
-$longoptions = array('welcome');
+$shortoptions = 'wt::';
+$longoptions = array('welcome', 'template=');
 
 $helptext = <<<END_OF_REGISTEREMAILUSER_HELP
 registeremailuser.php [options] <email address>
 
 Options:
--w --welcome  Send a welcome email
+-w --welcome   Send a welcome email
+-t --template= Use this email template
 
 register a new user by email address.
 
@@ -44,7 +45,13 @@ $email = $args[0];
 $confirm = EmailRegistrationPlugin::registerEmail($email);
 
 if (have_option('w', 'welcome')) {
-    EmailRegistrationPlugin::sendConfirmEmail($confirm);
+    if (have_option('t', 'template')) {
+        // use the provided template
+        EmailRegistrationPlugin::sendConfirmEmail($confirm, get_option_value('t', 'template'));
+    } else {
+        // use the default template
+        EmailRegistrationPlugin::sendConfirmEmail($confirm);
+    }
 }
 
 $confirmUrl = common_local_url('register', array('code' => $confirm->code));
