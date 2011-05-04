@@ -252,7 +252,6 @@ class EmailregisterAction extends Action
             if (!$this->tos) {
                 // TRANS: Error text when trying to register without agreeing to the terms.
                 $this->error = _m('You must accept the terms of service and privacy policy to register.');
-                return;
             } else if (empty($this->password1)) {
                 // TRANS: Error text when trying to register without a password.
                 $this->error = _m('You must set a password');
@@ -266,7 +265,7 @@ class EmailregisterAction extends Action
 
             if (!empty($this->error)) {
                 $nickname = $this->nicknameFromEmail($email);
-                $this->form = new ConfirmRegistrationForm($this, $nickname, $this->email, $this->code);
+                $this->form = new ConfirmRegistrationForm($this, $nickname, $email, $this->code);
                 $this->showPage();
                 return;
             }
@@ -281,7 +280,7 @@ class EmailregisterAction extends Action
             } catch (ClientException $e) {
                 $this->error = $e->getMessage();
                 $nickname = $this->nicknameFromEmail($email);
-                $this->form = new ConfirmRegistrationForm($this, $nickname, $this->email, $this->code);
+                $this->form = new ConfirmRegistrationForm($this, $nickname, $email, $this->code);
                 $this->showPage();
                 return;
             }
