@@ -1430,16 +1430,7 @@ ul.bookmark-tags a:hover {
 
 /* Directory specific styles */
 
-td.entity_profile {
-    width: auto;
-}
-
-#user_directory {
-    position: relative;
-    top: -20px;
-}
-
-div#user_directory div.alpha_nav > a {
+div#profile_directory div.alpha_nav > a {
     border-left: 1px solid #ccc !important;
     padding-left: 3.5px !important;
     padding-right: 4px !important;
@@ -1448,16 +1439,20 @@ div#user_directory div.alpha_nav > a {
     line-height: 1.4em;
 }
 
-div#user_directory div.alpha_nav > a.first {
+div#profile_directory div.alpha_nav > a.first {
     border-left: none !important;
 }
 
-div#user_directory div.alpha_nav a.current {
+div#profile_directory div.alpha_nav a.current {
     background-color: #ECECF2 !important;
 }
 
 table.profile_list {
-    margin-top: 10px;
+    margin-top: 25px;
+}
+
+.profile_list th {
+    font-size: 0.8em;
 }
 
 .profile_list th#created {
@@ -1465,25 +1460,112 @@ table.profile_list {
 }
 
 .profile_list th#subscriptions {
-    width: 120px;
+    width: 90px;
+}
+
+.profile_list th.current {
+        background: none !important;
+}
+
+.profile_list th.current.reverse {
+        background: none !important;
+}
+
+.profile_list th.current a {
+        padding-right: 25px;
+        background: url(../images/bluearrow_down.png) no-repeat top right;
+}
+
+.profile_list th.current.reverse a {
+        background: url(../images/bluearrow_up.png) no-repeat top right;
 }
 
 table.profile_list tr.alt {
     background-color: #fafafa !important;
+    border: none !important;
 }
 
-.profile_list .entity_actions {
-    width: 30px;
-    height: 26px;
-    margin-right: 5px;
+td.entity_profile {
+    width: auto;
+    min-width: 250px;
+}
+
+.profile_list .fn {
+    display: block;
+    font-size: 1.1em;
+    width: auto;
+}
+
+.profile_list .nickname, .profile_list .fn.nickname {
+    position: relative;
+    top: -8px;
+    display: block;
+    margin-bottom: -12px;
+    font-size: 1.4em;
+}
+
+.profile_list .label {
+    display: block;
+    margin-left: 59px !important;
+}
+
+.profile_list .note {
+    font-size: 0.88em;
+    line-height: 1.36em;
+}
+
+.profile_list .entry_created, .profile_list .entry_subscriber_count, .profile_list .entry_notice_count {
+    font-size: 0.88em;
+}
+
+.profile_list td.entity_actions {
+    width: 24px;
+    max-width: 24px;
+    min-width: 24px;
+    height: 20px;
+    padding-left: 6px !important;
+    position: relative;
+    float: none;
+    display: table-cell !important;
+}
+
+.profile_list .entity_actions ul {
+    position: absolute;
+    right: 20px;
 }
 
 .profile_list .entity_actions input {
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
+    padding-top: 1px;
+    padding-right: 0px;
+    padding-left: 20px;
     display: block;
     overflow: hidden;
     font-size: 0em;
+    border: 1px solid #CDD1DD;
+}
+
+.profile_list .form_group_leave input.submit,
+.profile_list .form_user_unsubscribe input.submit {
+    background-position: 2px -1250px;
+}
+
+.profile_list .form_group_join input.submit,
+.profile_list .form_user_subscribe input.submit {
+    background-position: 2px -1184px;
+}
+
+.profile_list .entity_actions input:hover {
+    width: auto;
+    padding-right: 10px;
+    overflow: visible;
+    font-size: 1em;
+    line-height: 1.3em;
+    border: 1px solid #A6ADBF;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Event specific styles */
