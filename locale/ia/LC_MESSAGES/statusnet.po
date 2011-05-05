@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:38:40+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:51:16+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-21 18:57:13+0000\n"
+"X-POT-Import-Date: 2011-05-05 10:52:40+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -247,26 +247,16 @@ msgstr "Pagina non existe."
 msgid "No such user."
 msgstr "Iste usator non existe."
 
-#. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#, php-format
-msgid "%1$s and friends, page %2$d"
-msgstr "%1$s e amicos, pagina %2$d"
+#. TRANS: Title of a user's own start page.
+#, fuzzy
+msgid "Home timeline"
+msgstr "Chronologia de %s"
 
-#. TRANS: Page title. %s is user nickname
-#. TRANS: H1 text for page. %s is a user nickname.
-#. TRANS: Message is used as link title. %s is a user nickname.
-#. TRANS: Title of API timeline for a user and friends.
-#. TRANS: %s is a username.
-#. TRANS: Timeline title for user and friends. %s is a user nickname.
-#. TRANS: Menu item title in administrator navigation panel.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in personal group navigation menu.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in settings navigation panel.
-#. TRANS: %s is a username.
-#, php-format
-msgid "%s and friends"
-msgstr "%s e amicos"
+#. TRANS: Title of another user's start page.
+#. TRANS: %s is the other user's name.
+#, fuzzy, php-format
+msgid "%s's home timeline"
+msgstr "Chronologia de %s"
 
 #. TRANS: %s is user nickname.
 #, php-format
@@ -327,9 +317,19 @@ msgstr ""
 "Proque non [registrar un conto](%%%%action.register%%%%) e postea dar un "
 "pulsata a %s o publicar un message a su attention."
 
-#. TRANS: H1 text for page when viewing a list for self.
-msgid "You and friends"
-msgstr "Tu e amicos"
+#. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
+#. TRANS: Timeline title for user and friends. %s is a user nickname.
+#. TRANS: Menu item title in administrator navigation panel.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in personal group navigation menu.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in settings navigation panel.
+#. TRANS: %s is a username.
+#, php-format
+msgid "%s and friends"
+msgstr "%s e amicos"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
@@ -895,7 +895,6 @@ msgid "Account"
 msgstr "Conto"
 
 #. TRANS: Field label on OAuth API authorisation form.
-#. TRANS: Field label on login page.
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Label for nickname on user authorisation page.
@@ -3284,6 +3283,11 @@ msgstr "Aperir session"
 msgid "Login to site"
 msgstr "Authenticar te a iste sito"
 
+#. TRANS: Field label on login page.
+#, fuzzy
+msgid "Username or email address"
+msgstr "Pseudonymo o adresse de e-mail"
+
 #. TRANS: Checkbox label label on login page.
 #. TRANS: Checkbox label on account registration page.
 msgid "Remember me"
@@ -3373,7 +3377,6 @@ msgstr "Le URL de origine es requirite."
 msgid "Could not create application."
 msgstr "Non poteva crear application."
 
-#. TRANS: Form validation error on New application page when providing an invalid image upload.
 msgid "Invalid image."
 msgstr "Imagine invalide."
 
@@ -4962,9 +4965,9 @@ msgstr "Tu non pote (dis)listar un profilo remote OMB 0.1 con iste action."
 
 #. TRANS: Client error displayed when an unknown error occurs while delisting a user.
 #. TRANS: %s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "There was an unexpected error while delisting %s."
-msgstr "Un error inexpectate occurreva durante le listage de %s."
+msgstr "Un error inexpectate occurreva durante le remotion de %s del lista."
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
@@ -9590,11 +9593,12 @@ msgid "Search"
 msgstr "Cercar"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
+#, fuzzy
 msgid ""
 "* Make sure all words are spelled correctly.\n"
 "* Try different keywords.\n"
 "* Try more general keywords.\n"
-"* Try fewer keywords.\n"
+"* Try fewer keywords."
 msgstr ""
 "* Verifica que tote le parolas es orthographiate correctemente.\n"
 "* Proba differente parolas-clave.\n"
@@ -9602,9 +9606,8 @@ msgstr ""
 "* Proba minus parolas-clave.\n"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"\n"
 "You can also try your search on other engines:\n"
 "\n"
 "* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
@@ -9612,9 +9615,8 @@ msgid ""
 "* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
 "* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
-"* [Collecta](http://collecta.com/#q=%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)"
 msgstr ""
-"\n"
 "Tu pote anque probar le recerca in altere motores:\n"
 "\n"
 "* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
@@ -9945,10 +9947,9 @@ msgid "%1$s and %2$s"
 msgstr "%1$s e %2$s"
 
 #. TRANS: List message for notice favoured by logged in user.
-#, fuzzy
 msgctxt "FAVELIST"
 msgid "You like this."
-msgstr "Tu listas"
+msgstr "Isto te place."
 
 #. TRANS: List message for when more than 4 people like something.
 #. TRANS: %%s is a list of users liking a notice, %d is the number over 4 that like the notice.
@@ -9956,8 +9957,8 @@ msgstr "Tu listas"
 #, php-format
 msgid "%%s and %d others like this."
 msgid_plural "%%s and %d others like this."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Isto place a %%s e a %d alteres."
+msgstr[1] "Isto place a %%s e a %d alteres."
 
 #. TRANS: List message for favoured notices.
 #. TRANS: %%s is a list of users liking a notice.
@@ -9965,8 +9966,8 @@ msgstr[1] ""
 #, php-format
 msgid "%%s likes this."
 msgid_plural "%%s like this."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%%s ama isto."
+msgstr[1] "%%s ama isto."
 
 #. TRANS: List message for notice repeated by logged in user.
 msgctxt "REPEATLIST"
@@ -10162,14 +10163,8 @@ msgstr "XML invalide, radice XRD mancante."
 msgid "Getting backup from file '%s'."
 msgstr "Obtene copia de reserva ex file '%s'."
 
-#~ msgid "User without matching profile."
-#~ msgstr "Usator sin profilo correspondente"
+#~ msgid "%1$s and friends, page %2$d"
+#~ msgstr "%1$s e amicos, pagina %2$d"
 
-#~ msgctxt "FAVELIST"
-#~ msgid "You have favored this notice."
-#~ msgstr "Tu ha favorite iste nota."
-
-#~ msgid "One person has favored this notice."
-#~ msgid_plural "%d people have favored this notice."
-#~ msgstr[0] "Un persona ha favorite iste nota."
-#~ msgstr[1] "%d personas ha favorite iste nota."
+#~ msgid "You and friends"
+#~ msgstr "Tu e amicos"

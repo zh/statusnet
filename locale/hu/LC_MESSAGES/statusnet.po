@@ -12,13 +12,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:38:39+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:51:14+0000\n"
 "Language-Team: Hungarian <http://translatewiki.net/wiki/Portal:hu>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-21 18:57:13+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-POT-Import-Date: 2011-05-05 10:52:40+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hu\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -243,26 +243,16 @@ msgstr "Nincs ilyen lap."
 msgid "No such user."
 msgstr "Nincs ilyen felhasználó."
 
-#. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#, php-format
-msgid "%1$s and friends, page %2$d"
-msgstr "%1$s és barátai, %2$d oldal"
+#. TRANS: Title of a user's own start page.
+#, fuzzy
+msgid "Home timeline"
+msgstr "%s története"
 
-#. TRANS: Page title. %s is user nickname
-#. TRANS: H1 text for page. %s is a user nickname.
-#. TRANS: Message is used as link title. %s is a user nickname.
-#. TRANS: Title of API timeline for a user and friends.
-#. TRANS: %s is a username.
-#. TRANS: Timeline title for user and friends. %s is a user nickname.
-#. TRANS: Menu item title in administrator navigation panel.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in personal group navigation menu.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in settings navigation panel.
-#. TRANS: %s is a username.
-#, php-format
-msgid "%s and friends"
-msgstr "%s és barátai"
+#. TRANS: Title of another user's start page.
+#. TRANS: %s is the other user's name.
+#, fuzzy, php-format
+msgid "%s's home timeline"
+msgstr "%s története"
 
 #. TRANS: %s is user nickname.
 #, php-format
@@ -319,9 +309,19 @@ msgid ""
 "post a notice to them."
 msgstr ""
 
-#. TRANS: H1 text for page when viewing a list for self.
-msgid "You and friends"
-msgstr "Te és a barátaid"
+#. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
+#. TRANS: Timeline title for user and friends. %s is a user nickname.
+#. TRANS: Menu item title in administrator navigation panel.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in personal group navigation menu.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in settings navigation panel.
+#. TRANS: %s is a username.
+#, php-format
+msgid "%s and friends"
+msgstr "%s és barátai"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
@@ -883,7 +883,6 @@ msgid "Account"
 msgstr "Fiók"
 
 #. TRANS: Field label on OAuth API authorisation form.
-#. TRANS: Field label on login page.
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Label for nickname on user authorisation page.
@@ -999,7 +998,7 @@ msgstr "Nem található ilyen azonosítójú állapot."
 
 #. TRANS: Client error displayed when trying to delete a notice not using the Atom format.
 msgid "Can only delete using the Atom format."
-msgstr ""
+msgstr "Csak az Atom formátum használatával lehet törölni."
 
 #. TRANS: Client error displayed when a user has no rights to delete notices of other users.
 #. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
@@ -1014,7 +1013,7 @@ msgstr "Törölt értesítés %d"
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 msgid "Client must provide a 'status' parameter with a value."
-msgstr ""
+msgstr "A kliensnek meg kell adnia a 'status' paramétert az érték mellett."
 
 #. TRANS: Client error displayed exceeding the maximum notice length.
 #. TRANS: %d is the maximum length for a notice.
@@ -1157,13 +1156,13 @@ msgstr ""
 
 #. TRANS: Client error displayed when not using the POST verb. Do not translate POST.
 msgid "Can only handle POST activities."
-msgstr ""
+msgstr "Csak POST műveletek végrehajtása lehetséges."
 
 #. TRANS: Client error displayed when using an unsupported activity object type.
 #. TRANS: %s is the unsupported activity object type.
 #, php-format
 msgid "Cannot handle activity object type \"%s\"."
-msgstr ""
+msgstr "A(z) „%s” objektumtípus nem kezelhető."
 
 #. TRANS: Client error displayed when posting a notice without content through the API.
 #. TRANS: %d is the notice ID (number).
@@ -1175,7 +1174,7 @@ msgstr "Keressünk a hírek tartalmában"
 #. TRANS: %s is the notice URI.
 #, php-format
 msgid "Notice with URI \"%s\" already exists."
-msgstr ""
+msgstr "Már létezik „%s” URI-címmel rendelkező értesítés."
 
 #. TRANS: Server error for unfinished API method showTrends.
 msgid "API method under construction."
@@ -3180,15 +3179,15 @@ msgstr "Nem vagy tagja annak a csoportnak."
 #. TRANS: User admin panel title
 msgctxt "TITLE"
 msgid "License"
-msgstr ""
+msgstr "Licenc"
 
 #. TRANS: Form instructions for the site license admin panel.
 msgid "License for this StatusNet site"
-msgstr ""
+msgstr "A StatusNet oldal licence"
 
 #. TRANS: Client error displayed selecting an invalid license in the license admin panel.
 msgid "Invalid license selection."
-msgstr ""
+msgstr "A kiválasztott licenc érvénytelen."
 
 #. TRANS: Client error displayed when not specifying an owner for the all rights reserved license in the license admin panel.
 msgid ""
@@ -3203,23 +3202,26 @@ msgstr "Érvénytelen SSL szerver. A maximális hossz 255 karakter."
 
 #. TRANS: Client error displayed specifying an invalid license URL in the license admin panel.
 msgid "Invalid license URL."
-msgstr ""
+msgstr "Érvénytelen licenc URL-cím."
 
 #. TRANS: Client error displayed specifying an invalid license image URL in the license admin panel.
 msgid "Invalid license image URL."
-msgstr ""
+msgstr "Érvénytelen URL-cím a licenc képének."
 
 #. TRANS: Client error displayed specifying an invalid license URL in the license admin panel.
 msgid "License URL must be blank or a valid URL."
 msgstr ""
+"A licenc URL-címét üresen kell hagyni, vagy érvényes URL-címnek kell lennie."
 
 #. TRANS: Client error displayed specifying an invalid license image URL in the license admin panel.
 msgid "License image must be blank or valid URL."
 msgstr ""
+"A licenc képének URL-címét üresen kell hagyni, vagy érvényes URL-címnek kell "
+"lennie."
 
 #. TRANS: Form legend in the license admin panel.
 msgid "License selection"
-msgstr ""
+msgstr "Licenc kiválasztása"
 
 #. TRANS: License option in the license admin panel.
 #. TRANS: Checkbox label to mark a list private.
@@ -3228,61 +3230,59 @@ msgstr "Privát"
 
 #. TRANS: License option in the license admin panel.
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "Minden jog fenntartva"
 
 #. TRANS: License option in the license admin panel.
 msgid "Creative Commons"
-msgstr ""
+msgstr "Creative Commons"
 
 #. TRANS: Dropdown field label in the license admin panel.
 msgid "Type"
-msgstr ""
+msgstr "Típus"
 
 #. TRANS: Dropdown field instructions in the license admin panel.
-#, fuzzy
 msgid "Select a license."
-msgstr "Válassz egy szolgáltatót"
+msgstr "Válassz egy licencet!"
 
 #. TRANS: Form legend in the license admin panel.
 msgid "License details"
-msgstr ""
+msgstr "A licenc részletei"
 
 #. TRANS: Field label in the license admin panel.
 msgid "Owner"
-msgstr ""
+msgstr "Tulajdonos"
 
 #. TRANS: Field title in the license admin panel.
 msgid "Name of the owner of the site's content (if applicable)."
-msgstr ""
+msgstr "Az oldal tartalom tulajdonosának neve (ha van ilyen)."
 
 #. TRANS: Field label in the license admin panel.
 msgid "License Title"
-msgstr ""
+msgstr "A licenc címe"
 
 #. TRANS: Field title in the license admin panel.
 msgid "The title of the license."
-msgstr ""
+msgstr "A licenc címe."
 
 #. TRANS: Field label in the license admin panel.
 msgid "License URL"
-msgstr ""
+msgstr "Licenc URL-címe"
 
 #. TRANS: Field title in the license admin panel.
 msgid "URL for more information about the license."
-msgstr ""
+msgstr "Az az URL-cím, ahol több információt lehet találni a licencről."
 
 #. TRANS: Field label in the license admin panel.
 msgid "License Image URL"
-msgstr ""
+msgstr "Licenc képének URL-címe"
 
 #. TRANS: Field title in the license admin panel.
 msgid "URL for an image to display with the license."
-msgstr ""
+msgstr "A licenc mellett megjelenő kép URL-címe."
 
 #. TRANS: Button title in the license admin panel.
-#, fuzzy
 msgid "Save license settings."
-msgstr "Mentsük el a webhely beállításait"
+msgstr "Licencbeállítások mentése"
 
 #. TRANS: Client error displayed when trying to log in while already logged in.
 #. TRANS: Client error displayed trying to use "one time password login" when already logged in.
@@ -3298,6 +3298,8 @@ msgstr "Rossz felhasználónév vagy jelszó."
 #. TRANS: Server error displayed when a user object could not be created trying to login using "one time password login".
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
+"Hiba történt a felhasználó előkészítése közben. Valószínűleg nem sikerült a "
+"hitelesítés."
 
 #. TRANS: Page title for login page.
 msgid "Login"
@@ -3306,6 +3308,11 @@ msgstr "Bejelentkezés"
 #. TRANS: Form legend on login page.
 msgid "Login to site"
 msgstr "Bejelentkezés az oldalra"
+
+#. TRANS: Field label on login page.
+#, fuzzy
+msgid "Username or email address"
+msgstr "Becenév vagy email cím"
 
 #. TRANS: Checkbox label label on login page.
 #. TRANS: Checkbox label on account registration page.
@@ -3320,7 +3327,6 @@ msgstr ""
 "számítógépet!"
 
 #. TRANS: Button text for log in on login page.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Login"
 msgstr "Bejelentkezés"
@@ -3334,10 +3340,12 @@ msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr ""
+"Biztonsági okok miatt írd be újra a felhasználónevedet és jelszavadat a "
+"beállítások módosítása előtt."
 
 #. TRANS: Form instructions on login page.
 msgid "Login with your username and password."
-msgstr ""
+msgstr "Bejelentkezés a felhasználóneveddel és jelszavaddal."
 
 #. TRANS: Form instructions on login page. This message contains Markdown links in the form [Link text](Link).
 #. TRANS: %%action.register%% is a link to the registration page.
@@ -3345,6 +3353,8 @@ msgstr ""
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
+"Még nincs felhasználói fiókod? [Regisztrálj](%%action.register%%) egy új "
+"fiókot!"
 
 #. TRANS: Client error displayed when trying to make another user admin on the Make Admin page while not an admin.
 msgid "Only an admin can make another user an admin."
@@ -3375,17 +3385,16 @@ msgid "No current status."
 msgstr "Nincs aktuális állapot."
 
 #. TRANS: This is the title of the form for adding a new application.
-#, fuzzy
 msgid "New application"
 msgstr "Új alkalmazás"
 
 #. TRANS: Client error displayed trying to add a new application while not logged in.
 msgid "You must be logged in to register an application."
-msgstr ""
+msgstr "Alkalmazás regisztrálásához be kell jelentkezned."
 
 #. TRANS: Form instructions for registering a new application.
 msgid "Use this form to register a new application."
-msgstr ""
+msgstr "Az alábbi űrlap segítségével regisztrálhatsz új alkalmazásokat."
 
 #. TRANS: Validation error shown when not providing a source URL in the "New application" form.
 msgid "Source URL is required."
@@ -3395,7 +3404,6 @@ msgstr "Meg kell adnod forrás URL-t."
 msgid "Could not create application."
 msgstr "Nem sikerült létrehozni az alkalmazást."
 
-#. TRANS: Form validation error on New application page when providing an invalid image upload.
 #, fuzzy
 msgid "Invalid image."
 msgstr "Érvénytelen méret."
@@ -3534,34 +3542,34 @@ msgstr ""
 
 #. TRANS: Page title for OAuth applications
 msgid "OAuth applications"
-msgstr ""
+msgstr "OAuth-alkalmazások"
 
 #. TRANS: Page instructions for OAuth applications
 msgid "Applications you have registered"
-msgstr ""
+msgstr "Általad regisztrált alkalmazások"
 
 #. TRANS: Empty list message on page with OAuth applications.
 #, php-format
 msgid "You have not registered any applications yet."
-msgstr ""
+msgstr "Még nem regisztráltál egyetlen alkalmazást sem."
 
 #. TRANS: Title for OAuth connection settings.
 msgid "Connected applications"
-msgstr ""
+msgstr "Összekapcsolt alkalmazások"
 
 #. TRANS: Instructions for OAuth connection settings.
 msgid "The following connections exist for your account."
-msgstr ""
+msgstr "Az alábbi kapcsolatok lettek kiépítve a fiókoddal."
 
 #. TRANS: Client error when trying to revoke access for an application while not being a user of it.
 msgid "You are not a user of that application."
-msgstr ""
+msgstr "Nem vagy az alkalmazás felhasználója."
 
 #. TRANS: Client error when revoking access has failed for some reason.
 #. TRANS: %s is the application ID revoking access failed for.
 #, php-format
 msgid "Unable to revoke access for application: %s."
-msgstr ""
+msgstr "Nem sikerült visszavonni a hozzáférést az alkalmazástól: %s"
 
 #. TRANS: Success message after revoking access for an application.
 #. TRANS: %1$s is the application name, %2$s is the first part of the user token.
@@ -3570,10 +3578,12 @@ msgid ""
 "You have successfully revoked access for %1$s and the access token starting "
 "with %2$s."
 msgstr ""
+"Sikeresen visszavontad a(z) %1$s alkalmazás hozzáférését és a(z) %2$s "
+"azonosítóval kezdődő tokenjét"
 
 #. TRANS: Empty list message when no applications have been authorised yet.
 msgid "You have not authorized any applications to use your account."
-msgstr ""
+msgstr "Egyetlen alkalmazásnak sem engedélyezted még a fiókod használatát."
 
 #. TRANS: Note for developers in the OAuth connection settings form.
 #. TRANS: This message contains a Markdown link. Do not separate "](".
@@ -3583,36 +3593,38 @@ msgid ""
 "Are you a developer? [Register an OAuth client application](%s) to use with "
 "this instance of StatusNet."
 msgstr ""
+"Fejlesztő vagy? [Regisztrálj egy OAuth kliensalkalmazást](%s), ami együtt "
+"tud működni a StatusNettel."
 
 #. TRANS: Server error displayed in oEmbed action when path not found.
 #. TRANS: %s is a path.
-#, fuzzy, php-format
+#, php-format
 msgid "\"%s\" not found."
-msgstr "Az API-metódus nem található."
+msgstr "„%s” nem található."
 
 #. TRANS: Server error displayed in oEmbed action when notice not found.
 #. TRANS: %s is a notice.
-#, fuzzy, php-format
+#, php-format
 msgid "Notice %s not found."
-msgstr "Az API-metódus nem található."
+msgstr "%s értesítés nem található."
 
 #. TRANS: Server error displayed in oEmbed action when notice has not profile.
 #. TRANS: Server error displayed trying to show a notice without a connected profile.
 msgid "Notice has no profile."
-msgstr ""
+msgstr "Az értesítéshez nem tartozik profil."
 
 #. TRANS: oEmbed title. %1$s is the author name, %2$s is the creation date.
 #. TRANS: Title of the page that shows a notice.
 #. TRANS: %1$s is a user name, %2$s is the notice creation date/time.
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s's status on %2$s"
-msgstr ""
+msgstr "%1$s állapota %2s-kor"
 
 #. TRANS: Server error displayed in oEmbed action when attachment not found.
 #. TRANS: %d is an attachment ID.
-#, fuzzy, php-format
+#, php-format
 msgid "Attachment %s not found."
-msgstr "A címzett felhasználó nem található."
+msgstr "A következő csatolmány nem található: %s."
 
 #. TRANS: Server error displayed in oEmbed request when a path is not supported.
 #. TRANS: %s is a path.
@@ -3628,7 +3640,7 @@ msgstr ""
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #, php-format
 msgid "Only %s URLs over plain HTTP please."
-msgstr ""
+msgstr "Csak %s URL-címeket, sima HTTP-n keresztül! Köszi!"
 
 #. TRANS: Server error displayed in oEmbed action when request specifies an unsupported data format.
 #. TRANS: Client error on an API request with an unsupported data format.
@@ -3645,23 +3657,23 @@ msgstr "Hírek keresése"
 
 #. TRANS: Client error displayed trying to use "one time password login" without specifying a user.
 msgid "No user ID specified."
-msgstr ""
+msgstr "Nincs megadva a felhasználó azonosítója."
 
 #. TRANS: Client error displayed trying to use "one time password login" without specifying a login token.
 msgid "No login token specified."
-msgstr ""
+msgstr "Nincs megadva a bejelentkezési token."
 
 #. TRANS: Client error displayed trying to use "one time password login" without requesting a login token.
 msgid "No login token requested."
-msgstr ""
+msgstr "Nem lett bejelentkezési token kérve."
 
 #. TRANS: Client error displayed trying to use "one time password login" while specifying an invalid login token.
 msgid "Invalid login token specified."
-msgstr ""
+msgstr "Érvénytelen bejelentkezési token lett megadva."
 
 #. TRANS: Client error displayed trying to use "one time password login" while specifying an expired login token.
 msgid "Login token expired."
-msgstr ""
+msgstr "A bejelentkezési token lejárt."
 
 #. TRANS: Title for outbox for any but the fist page.
 #. TRANS: %1$s is the user nickname, %2$d is the page number.
@@ -3679,7 +3691,6 @@ msgid "This is your outbox, which lists private messages you have sent."
 msgstr "Ez az elküldött privát üzeneteid postafiókja."
 
 #. TRANS: Title for page where to change password.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Change password"
 msgstr "Jelszó megváltoztatása"
@@ -3704,12 +3715,10 @@ msgstr "Új jelszó"
 
 #. TRANS: Field title on page where to change password.
 #. TRANS: Field title on account registration page.
-#, fuzzy
 msgid "6 or more characters."
 msgstr "6 vagy több karakter"
 
 #. TRANS: Field label on page where to change password. In this field the new password should be typed a second time.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Confirm"
 msgstr "Megerősítés"
@@ -3717,15 +3726,13 @@ msgstr "Megerősítés"
 #. TRANS: Field title on page where to change password.
 #. TRANS: Ttile for field label for password reset form where the password has to be typed again.
 #. TRANS: Field title on account registration page.
-#, fuzzy
 msgid "Same as password above."
-msgstr "Ugyanaz mint a fenti jelszó"
+msgstr "Ugyanaz, mint a fenti jelszó."
 
 #. TRANS: Button text on page where to change password.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Change"
-msgstr "Változtassunk"
+msgstr "Módosítás"
 
 #. TRANS: Form validation error on page where to change password.
 #. TRANS: Form validation error displayed when trying to register with too short a password.
@@ -3734,14 +3741,12 @@ msgstr "A jelszónak legalább 6 karakterből kell állnia."
 
 #. TRANS: Form validation error on password change when password confirmation does not match.
 #. TRANS: Form validation error displayed when trying to register with non-matching passwords.
-#, fuzzy
 msgid "Passwords do not match."
-msgstr "A jelszavak nem egyeznek."
+msgstr "A jelszavak nem egyeznek meg."
 
 #. TRANS: Form validation error on page where to change password.
-#, fuzzy
 msgid "Incorrect old password."
-msgstr "Érvénytelen a régi jelszó"
+msgstr "A régi jelszó érvénytelen."
 
 #. TRANS: Form validation error on page where to change password.
 msgid "Error saving user; invalid."
@@ -3750,9 +3755,8 @@ msgstr "Hiba a felhasználó mentésekor; érvénytelen."
 #. TRANS: Server error displayed on page where to change password when password change
 #. TRANS: could not be made because of a server error.
 #. TRANS: Reset password form validation error message.
-#, fuzzy
 msgid "Cannot save new password."
-msgstr "Az új jelszót nem sikerült elmenteni."
+msgstr "Nem sikerült elmenteni az új jelszót."
 
 #. TRANS: Form validation notice on page where to change password.
 msgid "Password saved."
@@ -3764,31 +3768,31 @@ msgstr "Útvonalak"
 
 #. TRANS: Form instructions for Path admin panel.
 msgid "Path and server settings for this StatusNet site"
-msgstr ""
+msgstr "A StatusNet oldal útvonal- és szerverbeállításai"
 
 #. TRANS: Client error in Paths admin panel.
 #. TRANS: %s is the directory that could not be read from.
 #, php-format
 msgid "Theme directory not readable: %s."
-msgstr ""
+msgstr "A témakönyvtár nem olvasható: %s."
 
 #. TRANS: Client error in Paths admin panel.
 #. TRANS: %s is the avatar directory that could not be written to.
 #, php-format
 msgid "Avatar directory not writable: %s."
-msgstr ""
+msgstr "Az avatárkönyvtár nem írható: %s."
 
 #. TRANS: Client error in Paths admin panel.
 #. TRANS: %s is the background directory that could not be written to.
 #, php-format
 msgid "Background directory not writable: %s."
-msgstr ""
+msgstr "A háttérkönyvtár nem írható: %s."
 
 #. TRANS: Client error in Paths admin panel.
 #. TRANS: %s is the locales directory that could not be read from.
 #, php-format
 msgid "Locales directory not readable: %s."
-msgstr ""
+msgstr "A nyelvi fájlok könyvtára nem olvasható: %s."
 
 #. TRANS: Client error in Paths admin panel.
 #. TRANS: %s is the SSL server URL that is too long.
@@ -3891,7 +3895,7 @@ msgstr "A webhely témája."
 
 #. TRANS: Field label in Paths admin panel.
 msgid "Avatar path"
-msgstr ""
+msgstr "Avatárok útvonala"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #, fuzzy
@@ -3918,7 +3922,7 @@ msgstr "A webhely témája."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 msgid "Web path to backgrounds."
-msgstr ""
+msgstr "Hátterek webes elérési útja."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 msgid "Server for backgrounds on SSL pages."
@@ -4036,7 +4040,7 @@ msgstr ""
 
 #. TRANS: Client error displayed when a tagger is expected but not provided.
 msgid "No tagger."
-msgstr ""
+msgstr "Nem címkéző."
 
 #. TRANS: Title for list of people listed by the user.
 #. TRANS: %1$s is a list, %2$s is a username.
@@ -4053,44 +4057,44 @@ msgstr ""
 #. TRANS: Addition in tag membership list for creator of a tag.
 #. TRANS: Addition in tag subscribers list for creator of a tag.
 msgid "Creator"
-msgstr ""
+msgstr "Szerző"
 
 #. TRANS: Title for lists by a user page for a private tag.
 msgid "Private lists by you"
-msgstr ""
+msgstr "Privát listáid"
 
 #. TRANS: Title for lists by a user page for a public tag.
 msgid "Public lists by you"
-msgstr ""
+msgstr "Nyilvános listáid"
 
 #. TRANS: Title for lists by a user page.
 msgid "Lists by you"
-msgstr ""
+msgstr "A te listáid"
 
 #. TRANS: Title for lists by a user page.
 #. TRANS: %s is a user nickname.
 #, php-format
 msgid "Lists by %s"
-msgstr ""
+msgstr "%s listái"
 
 #. TRANS: Title for lists by a user page.
 #. TRANS: %1$s is a user nickname, %2$d is a page number.
 #, php-format
 msgid "Lists by %1$s, page %2$d"
-msgstr ""
+msgstr "%1$s listái, %2$d. oldal"
 
 #. TRANS: Client error displayed when trying view another user's private lists.
 msgid "You cannot view others' private lists"
-msgstr ""
+msgstr "Nem tekintheted meg mások privát listáit"
 
 #. TRANS: Mode selector label.
 msgid "Mode"
-msgstr ""
+msgstr "Mód"
 
 #. TRANS: Link text to show lists for user %s.
 #, php-format
 msgid "Lists for %s"
-msgstr ""
+msgstr "%s listái"
 
 #. TRANS: Fieldset legend.
 #. TRANS: Fieldset legend on gallery action page.
@@ -4104,11 +4108,11 @@ msgstr ""
 #. TRANS: Checkbox label to show public tags.
 msgctxt "LABEL"
 msgid "Public"
-msgstr ""
+msgstr "Nyilvános"
 
 #. TRANS: Checkbox title.
 msgid "Show public tags."
-msgstr ""
+msgstr "Nyilvános címkék megjelenítése."
 
 #. TRANS: Submit button text for tag filter form.
 #. TRANS: Submit button text on gallery action page.
@@ -4204,7 +4208,7 @@ msgstr ""
 #. TRANS: Page title for AJAX form return when a disabling a plugin.
 msgctxt "plugin"
 msgid "Disabled"
-msgstr ""
+msgstr "Letiltva"
 
 #. TRANS: Client error displayed when trying to use another method than POST.
 #. TRANS: Do not translate POST.
@@ -4227,12 +4231,12 @@ msgstr "Nincs ilyen lap."
 #. TRANS: Page title for AJAX form return when enabling a plugin.
 msgctxt "plugin"
 msgid "Enabled"
-msgstr ""
+msgstr "Engedélyezve"
 
 #. TRANS: Tab and title for plugins admin panel.
 msgctxt "TITLE"
 msgid "Plugins"
-msgstr ""
+msgstr "Kiegészítők"
 
 #. TRANS: Instructions at top of plugin admin page.
 msgid ""
@@ -4463,7 +4467,7 @@ msgstr "Nem sikerült a helyszín beállításait elmenteni."
 
 #. TRANS: Server error thrown when user profile settings tags could not be saved.
 msgid "Could not save tags."
-msgstr ""
+msgstr "Nem sikerült elmenteni a címkéket."
 
 #. TRANS: Confirmation shown when user profile settings are saved.
 #. TRANS: Message after successful saving of administrative settings.
@@ -4473,17 +4477,17 @@ msgstr "A beállításokat elmentettük."
 #. TRANS: Option in profile settings to restore the account of the currently logged in user from a backup.
 #. TRANS: Page title for page where a user account can be restored from backup.
 msgid "Restore account"
-msgstr ""
+msgstr "Fiók helyreállítása"
 
 #. TRANS: Client error displayed when requesting a public timeline page beyond the page limit.
 #. TRANS: %s is the page limit.
 #, php-format
 msgid "Beyond the page limit (%s)."
-msgstr ""
+msgstr "A lapkorláton túl (%s)"
 
 #. TRANS: Server error displayed when a public timeline cannot be retrieved.
 msgid "Could not retrieve public stream."
-msgstr ""
+msgstr "Nem sikerült lekérni a nyilvános adatfolyamot."
 
 #. TRANS: Title for all public timeline pages but the first.
 #. TRANS: %d is the page number.
@@ -4579,7 +4583,7 @@ msgstr ""
 
 #. TRANS: DT element on on page with public list cloud.
 msgid "List cloud"
-msgstr ""
+msgstr "Listafelhő"
 
 #. TRANS: Link title for number of listed people. %d is the number of listed people.
 #, php-format
@@ -4758,7 +4762,7 @@ msgstr "Hiba a felhasználó beállításakor."
 
 #. TRANS: Success message for user after password reset.
 msgid "New password successfully saved. You are now logged in."
-msgstr ""
+msgstr "Új jelszó sikeresen elmentve. Most már bejelentkezhetsz."
 
 #. TRANS: Client exception thrown when no ID parameter was provided.
 #, fuzzy
@@ -4777,7 +4781,7 @@ msgstr "Elnézést, de csak meghívóval lehet regisztrálni."
 
 #. TRANS: Client error displayed when trying to register to an invite-only site without a valid invitation.
 msgid "Sorry, invalid invitation code."
-msgstr ""
+msgstr "Sajnáljuk, a meghívókód érvénytelen."
 
 #. TRANS: Title for registration page after a succesful registration.
 msgid "Registration successful"
@@ -4861,7 +4865,7 @@ msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
 msgid "All rights reserved."
-msgstr ""
+msgstr "Minden jog fenntartva."
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
 #, php-format
@@ -4944,7 +4948,7 @@ msgstr "Kövessük"
 
 #. TRANS: Form validation error on page for remote subscribe when an invalid profile URL was provided.
 msgid "Invalid profile URL (bad format)."
-msgstr ""
+msgstr "Érvénytelen profil URL-cím (hibás formátum)."
 
 #. TRANS: Form validation error on page for remote subscribe when no the provided profile URL
 #. TRANS: does not contain expected data.
@@ -5166,7 +5170,7 @@ msgstr ""
 #. TRANS: %s is the invalid list name.
 #, php-format
 msgid "Not a valid list: %s."
-msgstr ""
+msgstr "Érvénytelen lista: %s"
 
 #. TRANS: Page title for page showing self tags.
 #. TRANS: %1$s is a tag, %2$d is a page number.
@@ -5204,7 +5208,7 @@ msgstr "Mi magunk kezeljük-e a munkameneteket."
 #. TRANS: Checkbox label on the sessions administration panel.
 #. TRANS: Indicates if StatusNet should write session debugging output.
 msgid "Session debugging"
-msgstr ""
+msgstr "Munkamenet-hibakeresés"
 
 #. TRANS: Checkbox title on the sessions administration panel.
 msgid "Enable debugging output for sessions."
@@ -5221,7 +5225,7 @@ msgstr ""
 
 #. TRANS: Header on the OAuth application page.
 msgid "Application profile"
-msgstr ""
+msgstr "Alkalmazásprofil"
 
 #. TRANS: Information output on an OAuth application page.
 #. TRANS: %1$s is the application creator, %2$s is "read-only" or "read-write",
@@ -5234,7 +5238,7 @@ msgstr[1] ""
 
 #. TRANS: Header on the OAuth application page.
 msgid "Application actions"
-msgstr ""
+msgstr "Alkalmazásműveletek"
 
 #. TRANS: Link text to edit application on the OAuth application page.
 #, fuzzy
@@ -6190,7 +6194,7 @@ msgstr ""
 #. TRANS: Field label on list form.
 msgctxt "LABEL"
 msgid "Lists"
-msgstr ""
+msgstr "Listák"
 
 #. TRANS: Field title on list form.
 msgid ""
@@ -6206,7 +6210,7 @@ msgstr "Címkék"
 
 #. TRANS: Success message if lists are saved.
 msgid "Lists saved."
-msgstr ""
+msgstr "Listák elmentve."
 
 #. TRANS: Page notice.
 msgid "Use this form to add your subscribers or subscriptions to lists."
@@ -6265,15 +6269,15 @@ msgstr " (ingyenes szolgáltatás)"
 
 #. TRANS: Default value for URL shortening settings.
 msgid "[none]"
-msgstr ""
+msgstr "[semmi]"
 
 #. TRANS: Default value for URL shortening settings.
 msgid "[internal]"
-msgstr ""
+msgstr "[belső]"
 
 #. TRANS: Label for dropdown with URL shortener services.
 msgid "Shorten URLs with"
-msgstr ""
+msgstr "URL-címek rövidítése a következővel"
 
 #. TRANS: Tooltip for for dropdown with URL shortener services.
 msgid "Automatic shortening service to use."
@@ -6318,7 +6322,7 @@ msgstr ""
 #. TRANS: User admin panel title.
 msgctxt "TITLE"
 msgid "User"
-msgstr ""
+msgstr "Felhasználó"
 
 #. TRANS: Instruction for user admin panel.
 msgid "User settings for this StatusNet site"
@@ -6368,7 +6372,7 @@ msgstr "A teljes név túl hosszú (legfeljebb 255 karakter lehet)."
 
 #. TRANS: Field label in user admin panel for setting default subscription for new users.
 msgid "Default subscription"
-msgstr ""
+msgstr "Alapértelmezett feliratkozások"
 
 #. TRANS: Tooltip in user admin panel for setting default subscription for new users.
 msgid "Automatically subscribe new users to this user."
@@ -6446,7 +6450,7 @@ msgstr ""
 
 #. TRANS: Reject message header from Authorise subscription page.
 msgid "Subscription rejected"
-msgstr ""
+msgstr "Feliratkozás visszautasítva"
 
 #. TRANS: Reject message from Authorise subscription page.
 msgid ""
@@ -6500,7 +6504,7 @@ msgstr ""
 #. TRANS: Title for profile design page.
 #. TRANS: Page title for profile design page.
 msgid "Profile design"
-msgstr ""
+msgstr "Profilterv"
 
 #. TRANS: Instructions for Profile design page.
 #. TRANS: Instructions for profile design page.
@@ -6520,11 +6524,11 @@ msgstr "Mentsük el a webhely beállításait"
 
 #. TRANS: Checkbox label on Profile design page.
 msgid "View profile designs"
-msgstr ""
+msgstr "Profiltervek megtekintése"
 
 #. TRANS: Title for checkbox on Profile design page.
 msgid "Show or hide profile designs."
-msgstr ""
+msgstr "Profiltervek megjelenítése vagy elrejtése"
 
 #. TRANS: Form legend on Profile design page for form to choose a background image.
 #, fuzzy
@@ -6539,7 +6543,7 @@ msgstr ""
 
 #. TRANS: Link text on group page to search for groups.
 msgid "Search for more groups"
-msgstr ""
+msgstr "További csoportok keresése"
 
 #. TRANS: Text on group page for a user that is not a member of any group.
 #. TRANS: %s is a user nickname.
@@ -6565,7 +6569,7 @@ msgstr ""
 #. TRANS: Title for version page. %s is the StatusNet version.
 #, php-format
 msgid "StatusNet %s"
-msgstr ""
+msgstr "StatusNet %s"
 
 #. TRANS: Content part of StatusNet version page.
 #. TRANS: %1$s is the engine name (StatusNet) and %2$s is the StatusNet version.
@@ -6756,7 +6760,7 @@ msgstr ""
 #. TRANS: Server exception. %s are the error details.
 #, php-format
 msgid "Database error inserting hashtag: %s."
-msgstr ""
+msgstr "Adatbázishiba történt a hashtag beszúrásakor: %s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
 msgid "Problem saving notice. Too long."
@@ -7264,7 +7268,7 @@ msgstr "A webhely elemi beállításai"
 #. TRANS: Menu item in administrator navigation panel.
 msgctxt "MENU"
 msgid "Site"
-msgstr ""
+msgstr "Oldal"
 
 #. TRANS: Menu item title in administrator navigation panel.
 msgid "Design configuration"
@@ -7521,11 +7525,11 @@ msgstr ""
 
 #. TRANS: Application access type
 msgid "read-write"
-msgstr ""
+msgstr "írás-olvasás"
 
 #. TRANS: Application access type
 msgid "read-only"
-msgstr ""
+msgstr "csak olvasás"
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type ("read-write" or "read-only")
 #, php-format
@@ -7592,7 +7596,7 @@ msgstr "Felhasználó blokkolása"
 #. TRANS: Submit button text on form to cancel group join request.
 msgctxt "BUTTON"
 msgid "Cancel join request"
-msgstr ""
+msgstr "Csatlakozási kérelem visszavonása"
 
 #. TRANS: Button text for form action to cancel a subscription request.
 #, fuzzy
@@ -7757,7 +7761,7 @@ msgstr "Honlap: %s"
 #. TRANS: Whois output. %s is the bio information of the queried user.
 #, php-format
 msgid "About: %s"
-msgstr ""
+msgstr "%s adatai"
 
 #. TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
 #. TRANS: %s is a remote profile.
@@ -7803,7 +7807,7 @@ msgstr[1] "Az túl hosszú. Egy hír legfeljebb %d karakterből állhat."
 #. TRANS: %s is the nickname of the user of the notice the reply was sent to.
 #, php-format
 msgid "Reply to %s sent."
-msgstr ""
+msgstr "A válasz elküldve %s részére."
 
 #. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
 msgid "Error saving notice."
@@ -7832,7 +7836,7 @@ msgstr ""
 #. TRANS: %s is the name of the user the unsubscription was requested for.
 #, php-format
 msgid "Unsubscribed from %s."
-msgstr ""
+msgstr "Leiratkoztál a következőről: %s."
 
 #. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
 #. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
@@ -7845,7 +7849,7 @@ msgstr "Ne legyenek értesítések."
 
 #. TRANS: Error text shown when the command "off" fails for an unknown reason.
 msgid "Can't turn off notification."
-msgstr ""
+msgstr "Az értesítések nem kapcsolhatóak ki."
 
 #. TRANS: Text shown when issuing the command "on" successfully.
 msgid "Notification on."
@@ -7853,11 +7857,11 @@ msgstr "Legyenek értesítések."
 
 #. TRANS: Error text shown when the command "on" fails for an unknown reason.
 msgid "Can't turn on notification."
-msgstr ""
+msgstr "Az értesítések nem kapcsolhatóak be."
 
 #. TRANS: Error text shown when issuing the login command while login is disabled.
 msgid "Login command is disabled."
-msgstr ""
+msgstr "A bejelentkezési parancs le van tiltva."
 
 #. TRANS: Text shown after issuing the login command successfully.
 #. TRANS: %s is a logon link..
@@ -7917,12 +7921,12 @@ msgstr "Parancsok:"
 #. TRANS: Help message for IM/SMS command "on".
 msgctxt "COMMANDHELP"
 msgid "turn on notifications"
-msgstr ""
+msgstr "értesítések bekapcsolása"
 
 #. TRANS: Help message for IM/SMS command "off".
 msgctxt "COMMANDHELP"
 msgid "turn off notifications"
-msgstr ""
+msgstr "értesítések kikapcsolása"
 
 #. TRANS: Help message for IM/SMS command "help".
 msgctxt "COMMANDHELP"
@@ -7953,12 +7957,12 @@ msgstr "címke eltávolítása"
 #. TRANS: Help message for IM/SMS command "subscriptions".
 msgctxt "COMMANDHELP"
 msgid "list the people you follow"
-msgstr ""
+msgstr "követett emberek listája"
 
 #. TRANS: Help message for IM/SMS command "subscribers".
 msgctxt "COMMANDHELP"
 msgid "list the people that follow you"
-msgstr ""
+msgstr "téged követő emberek listája"
 
 #. TRANS: Help message for IM/SMS command "leave <nickname>".
 #, fuzzy
@@ -8109,7 +8113,7 @@ msgstr "Adatbázishiba"
 #. TRANS: Menu item in search group navigation panel.
 msgctxt "MENU"
 msgid "Public"
-msgstr ""
+msgstr "Nyilvános"
 
 #. TRANS: Menu item in default local navigation panel.
 #. TRANS: Menu item in search group navigation panel.
@@ -8360,7 +8364,7 @@ msgstr "%s csoport tagjai"
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 msgctxt "MENU"
 msgid "Blocked"
-msgstr ""
+msgstr "Blokkolva"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -8421,7 +8425,7 @@ msgstr "Címkék a(z) %s csoport híreiben"
 
 #. TRANS: Client exception 406
 msgid "This page is not available in a media type you accept"
-msgstr ""
+msgstr "A lap nem érhető el abban a médiatípusban, amit elfogadsz"
 
 #. TRANS: Exception thrown when trying to upload an unsupported image file format.
 msgid "Unsupported image file format."
@@ -9146,7 +9150,7 @@ msgstr "A hírt megismételtük"
 
 #. TRANS: Field label for notice text.
 msgid "Update your status..."
-msgstr ""
+msgstr "Állapotod frissítése..."
 
 #. TRANS: Form legend of form to nudge/ping another user.
 msgid "Nudge this user"
@@ -9165,15 +9169,15 @@ msgstr "Bökjük meg ezt a felhasználót"
 
 #. TRANS: Exception thrown when creating a new profile fails in OAuth store.
 msgid "Error inserting new profile."
-msgstr ""
+msgstr "Hiba az új profil beszúrásakor."
 
 #. TRANS: Exception thrown when creating a new avatar fails in OAuth store.
 msgid "Error inserting avatar."
-msgstr ""
+msgstr "Hiba az avatár beszúrásakor."
 
 #. TRANS: Exception thrown when creating a remote profile fails in OAuth store.
 msgid "Error inserting remote profile."
-msgstr ""
+msgstr "Hiba a távoli profil beszúrásakor."
 
 #. TRANS: Exception thrown when a notice is denied because it has been sent before.
 msgid "Duplicate notice."
@@ -9199,7 +9203,7 @@ msgstr ""
 
 #. TRANS: Field title for description of list.
 msgid "Describe the list or topic."
-msgstr ""
+msgstr "Mutasd be a listát vagy a témát."
 
 #. TRANS: Field title for description of list.
 #. TRANS: %d is the maximum number of characters for the description.
@@ -9215,7 +9219,7 @@ msgstr "A lista törlése."
 
 #. TRANS: Header in list edit form.
 msgid "Add or remove people"
-msgstr ""
+msgstr "Emberek hozzáadása vagy eltávolítása"
 
 #. TRANS: Header in list edit form.
 msgctxt "HEADER"
@@ -9264,11 +9268,11 @@ msgstr ""
 
 #. TRANS: Link description for link to list of users tagged with a tag.
 msgid "Tagged"
-msgstr ""
+msgstr "Címkézve"
 
 #. TRANS: Title for link to edit list settings.
 msgid "Edit list settings."
-msgstr ""
+msgstr "Listabeállítások szerkesztése."
 
 #. TRANS: Text for link to edit list settings.
 msgid "Edit"
@@ -9277,12 +9281,12 @@ msgstr "Szerkesztés"
 #. TRANS: Privacy mode text in list list item for private list.
 msgctxt "MODE"
 msgid "Private"
-msgstr ""
+msgstr "Privát"
 
 #. TRANS: Menu item in the group navigation page.
 msgctxt "MENU"
 msgid "List Subscriptions"
-msgstr ""
+msgstr "Feliratkozások listája"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is a user nickname.
@@ -9310,24 +9314,24 @@ msgstr ""
 #, php-format
 msgctxt "MENU"
 msgid "Lists by %s"
-msgstr ""
+msgstr "%s listái"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is a user nickname.
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Lists by %s."
-msgstr ""
+msgstr "%s listái."
 
 #. TRANS: Label in lists widget.
 msgctxt "LABEL"
 msgid "Your lists"
-msgstr ""
+msgstr "Saját listák"
 
 #. TRANS: Fieldset legend in lists widget.
 msgctxt "LEGEND"
 msgid "Edit lists"
-msgstr ""
+msgstr "Listák szerkesztése"
 
 #. TRANS: Label in self tags widget.
 msgctxt "LABEL"
@@ -9342,22 +9346,22 @@ msgstr "Népszerű listák"
 #. TRANS: %2$d is the number of subscribers to the list.
 #, php-format
 msgid "Listed: %1$d Subscribers: %2$d"
-msgstr ""
+msgstr "Listán szereplők: %1$d, feliratkozók: %2$d"
 
 #. TRANS: Title for page that displays which lists current user is part of.
 #, php-format
 msgid "Lists with you"
-msgstr ""
+msgstr "Téged tartalmazó listák"
 
 #. TRANS: Title for page that displays which lists a user is part of.
 #. TRANS: %s is a profile name.
 #, php-format
 msgid "Lists with %s"
-msgstr ""
+msgstr "A következő személyt tartalmazó listák: %s"
 
 #. TRANS: Title for page that displays lists a user has subscribed to.
 msgid "List subscriptions"
-msgstr ""
+msgstr "Feliratkozások listája"
 
 #. TRANS: Menu item in personal group navigation menu.
 #. TRANS: Menu item in settings navigation panel.
@@ -9402,21 +9406,21 @@ msgstr "A bejövő üzeneteid"
 
 #. TRANS: Displayed as version information for a plugin if no version information was found.
 msgid "Unknown"
-msgstr ""
+msgstr "Ismeretlen"
 
 #. TRANS: Plugin admin panel controls
 msgctxt "plugin"
 msgid "Disable"
-msgstr ""
+msgstr "Letiltás"
 
 #. TRANS: Plugin admin panel controls
 msgctxt "plugin"
 msgid "Enable"
-msgstr ""
+msgstr "Engedélyezés"
 
 msgctxt "plugin-description"
 msgid "(Plugin descriptions unavailable when disabled.)"
-msgstr ""
+msgstr "(A kiegészítők leírásai nem elérhetőek, ha le vannak tiltva.)"
 
 #. TRANS: Menu item in primary navigation panel.
 #, fuzzy
@@ -9463,11 +9467,11 @@ msgstr "A webhely témája."
 
 #. TRANS: H2 text for user subscription statistics.
 msgid "Following"
-msgstr ""
+msgstr "Követ"
 
 #. TRANS: H2 text for user subscriber statistics.
 msgid "Followers"
-msgstr ""
+msgstr "Követők"
 
 #. TRANS: Label for user statistics.
 msgid "User ID"
@@ -9581,13 +9585,12 @@ msgid ""
 "* Make sure all words are spelled correctly.\n"
 "* Try different keywords.\n"
 "* Try more general keywords.\n"
-"* Try fewer keywords.\n"
+"* Try fewer keywords."
 msgstr ""
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
 #, php-format
 msgid ""
-"\n"
 "You can also try your search on other engines:\n"
 "\n"
 "* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
@@ -9595,7 +9598,7 @@ msgid ""
 "* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
 "* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
-"* [Collecta](http://collecta.com/#q=%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)"
 msgstr ""
 
 #. TRANS: Menu item in search group navigation panel.
@@ -9693,7 +9696,7 @@ msgstr "SMS beállítások"
 
 #. TRANS: Menu item title in settings navigation panel.
 msgid "Change your profile settings"
-msgstr ""
+msgstr "Profilbeállítások módosítása"
 
 #. TRANS: Menu item in settings navigation panel.
 #, fuzzy
@@ -9727,7 +9730,7 @@ msgstr "Email kezelés megváltoztatása"
 
 #. TRANS: Menu item title in settings navigation panel.
 msgid "Design your profile"
-msgstr ""
+msgstr "Profil tervezése"
 
 #. TRANS: Menu item in settings navigation panel.
 #, fuzzy
@@ -9737,7 +9740,7 @@ msgstr "URL-cím"
 
 #. TRANS: Menu item title in settings navigation panel.
 msgid "URL shorteners"
-msgstr ""
+msgstr "URL-cím rövidítők"
 
 #. TRANS: Menu item in settings navigation panel.
 msgctxt "MENU"
@@ -9818,7 +9821,7 @@ msgstr "A legtöbb tagból álló csoportok"
 #. TRANS: %s is a user nickname.
 #, php-format
 msgid "List subscriptions by %s."
-msgstr ""
+msgstr "%s feliratkozásainak listája."
 
 #. TRANS: Menu item in local navigation menu.
 #, fuzzy
@@ -9977,7 +9980,7 @@ msgstr ""
 
 #. TRANS: Dropdown option for searching in profiles.
 msgid "Everything"
-msgstr ""
+msgstr "Minden"
 
 #. TRANS: Dropdown option for searching in profiles.
 msgid "Fullname"
@@ -10015,7 +10018,7 @@ msgstr ""
 #. TRANS: Option in drop-down of potential addressees.
 msgctxt "SENDTO"
 msgid "Everyone"
-msgstr ""
+msgstr "Mindenki"
 
 #. TRANS: Option in drop-down of potential addressees.
 #. TRANS: %s is a StatusNet sitename.
@@ -10031,7 +10034,7 @@ msgstr "Címzett"
 
 #. TRANS: Checkbox label in widget for selecting potential addressees to mark the notice private.
 msgid "Private?"
-msgstr ""
+msgstr "Privát?"
 
 #. TRANS: Client exception thrown in widget for selecting potential addressees when an invalid fill option was received.
 #, fuzzy, php-format
@@ -10157,16 +10160,8 @@ msgstr "Érvénytelen XML, hiányzó XRD gyökér."
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "User without matching profile."
-#~ msgstr "Felhasználó hozzátartozó profil nélkül."
+#~ msgid "%1$s and friends, page %2$d"
+#~ msgstr "%1$s és barátai, %2$d oldal"
 
-#, fuzzy
-#~ msgctxt "FAVELIST"
-#~ msgid "You have favored this notice."
-#~ msgstr "Kedvelem ezt a hírt"
-
-#, fuzzy
-#~ msgid "One person has favored this notice."
-#~ msgid_plural "%d people have favored this notice."
-#~ msgstr[0] "Nem kedvelem ezt a hírt"
-#~ msgstr[1] "Nem kedvelem ezt a hírt"
+#~ msgid "You and friends"
+#~ msgstr "Te és a barátaid"

@@ -212,7 +212,23 @@ class DomainStatusNetworkInstaller extends Installer
 
         foreach (array('AVATARBASE', 'BACKGROUNDBASE', 'FILEBASE') as $key) {
             $base = $config[$key];
-            mkdir($base.'/'.$this->nickname, 0777, true);
+            $dirname = $base.'/'.$this->nickname;
+
+            // Make sure our bits are set
+            $mask = umask(0);
+            mkdir($dirname, 0770, true);
+            umask($mask);
+
+            // If you set the setuid bit on your base dirs this should be
+            // unnecessary, but just in case. You must be root for this
+            // to work.
+
+            if (array_key_exists('WEBUSER', $config)) {
+                chown($dirname, $config['WEBUSER']);
+            }
+            if (array_key_exists('WEBGROUP', $config)) {
+                chgrp($dirname, $config['WEBGROUP']);
+            }
         }
     }
 

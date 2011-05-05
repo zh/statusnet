@@ -1,7 +1,9 @@
 # Translation of StatusNet - Poll to French (Français)
 # Exported from translatewiki.net
 #
+# Author: Brunoperel
 # Author: Iketsi
+# Author: Od1n
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -9,13 +11,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Poll\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:38:18+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:50:48+0000\n"
 "Language-Team: French <http://translatewiki.net/wiki/Portal:fr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-09 19:00:49+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-POT-Import-Date: 2011-04-27 13:28:49+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: #out-statusnet-plugin-poll\n"
@@ -23,7 +25,7 @@ msgstr ""
 
 #. TRANS: Client exception thrown trying to view a non-existing poll.
 msgid "No such poll."
-msgstr ""
+msgstr "Sondage non trouvé."
 
 #. TRANS: Client exception thrown trying to view a non-existing poll notice.
 msgid "No such poll notice."
@@ -33,7 +35,7 @@ msgstr ""
 #. TRANS: %1$s is the nickname of the user that created the poll, %2$s is the poll question.
 #, php-format
 msgid "%1$s's poll: %2$s"
-msgstr ""
+msgstr "Sondage de %1$s : %2$s"
 
 #. TRANS: Field label on the page to create a poll.
 msgid "Question"
@@ -41,7 +43,7 @@ msgstr "Question"
 
 #. TRANS: Field title on the page to create a poll.
 msgid "What question are people answering?"
-msgstr ""
+msgstr "A quelle question répondent les gens?"
 
 #. TRANS: Field label for an answer option on the page to create a poll.
 #. TRANS: %d is the option number.
@@ -56,24 +58,27 @@ msgstr "Sauvegarder"
 
 #. TRANS: Plugin description.
 msgid "Simple extension for supporting basic polls."
-msgstr ""
+msgstr "Extension simple supportant les sondages basiques."
 
 #. TRANS: Exception thrown trying to respond to a poll without a poll reference.
-msgid "Invalid poll response: no poll reference."
-msgstr ""
+#, fuzzy
+msgid "Invalid poll response: No poll reference."
+msgstr "Réponse au sondage invalide : aucune référence de sondage."
 
 #. TRANS: Exception thrown trying to respond to a non-existing poll.
-msgid "Invalid poll response: poll is unknown."
-msgstr ""
+#, fuzzy
+msgid "Invalid poll response: Poll is unknown."
+msgstr "Réponse au sondage invalide : sondage inconnu."
 
 #. TRANS: Exception thrown when performing an unexpected action on a poll.
-#. TRANS: %s is the unpexpected object type.
+#. TRANS: %s is the unexpected object type.
 #, php-format
 msgid "Unexpected type for poll plugin: %s."
-msgstr ""
+msgstr "Type inconnu pour le plugin de sondage : %s"
 
+#. TRANS: Error text displayed if no poll data could be found.
 msgid "Poll data is missing"
-msgstr ""
+msgstr "Les données du sondage sont manquantes"
 
 #. TRANS: Application title.
 msgctxt "APPTITLE"
@@ -83,7 +88,7 @@ msgstr "Sondage"
 #. TRANS: Client exception thrown when responding to a poll with an invalid option.
 #. TRANS: Client exception thrown responding to a poll with an invalid answer.
 msgid "Invalid poll selection."
-msgstr ""
+msgstr "Sélection de sondage invalide."
 
 #. TRANS: Notice content voting for a poll.
 #. TRANS: %s is the chosen option in the poll.
@@ -91,7 +96,7 @@ msgstr ""
 #. TRANS: %s a link to the poll with the chosen option as link description.
 #, php-format
 msgid "voted for \"%s\""
-msgstr ""
+msgstr "ont voté pour \"%s\""
 
 #. TRANS: Button text for submitting a poll response.
 msgctxt "BUTTON"
@@ -102,10 +107,10 @@ msgstr "Soumettre"
 #. TRANS: %1$s is the poll question, %2$s is a link to the poll.
 #, php-format
 msgid "Poll: %1$s %2$s"
-msgstr ""
+msgstr "Sondage : %1$s %2$s"
 
 #. TRANS: Rendered version of the notice content creating a poll.
-#. TRANS: %s a link to the poll with the question as link description.
+#. TRANS: %s is a link to the poll with the question as link description.
 #, php-format
 msgid "Poll: %s"
 msgstr "Sondage : %s"
@@ -116,7 +121,7 @@ msgstr "Nouveau sondage"
 
 #. TRANS: Client exception thrown trying to create a poll while not logged in.
 msgid "You must be logged in to post a poll."
-msgstr ""
+msgstr "Vous devez être connecté pour poster un sondage."
 
 #. TRANS: Client exception thrown trying to create a poll without a question.
 msgid "Poll must have a question."
@@ -128,19 +133,19 @@ msgstr "Le sondage doit avoir au moins deux options."
 
 #. TRANS: Page title after sending a notice.
 msgid "Notice posted"
-msgstr ""
+msgstr "Avis publié"
 
 #. TRANS: Page title for poll response.
 msgid "Poll response"
-msgstr ""
+msgstr "Réponse de sondage"
 
 #. TRANS: Client exception thrown trying to respond to a poll while not logged in.
 msgid "You must be logged in to respond to a poll."
-msgstr ""
+msgstr "Vous devez être connecté pour répondre à un sondage."
 
 #. TRANS: Client exception thrown trying to respond to a non-existing poll.
 msgid "Invalid or missing poll."
-msgstr ""
+msgstr "Sondage invalide ou manquant."
 
 #. TRANS: Page title after sending a poll response.
 msgid "Poll results"

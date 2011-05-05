@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Irc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:37:26+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:49:48+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-17 22:40:37+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-POT-Import-Date: 2011-04-27 13:27:55+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-irc\n"
@@ -44,19 +44,19 @@ msgstr ""
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a host."
-msgstr ""
+msgstr "Мора да наведете домаќин."
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a username."
-msgstr ""
+msgstr "Мора да наведете корисничко име."
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a \"real name\"."
-msgstr ""
+msgstr "Мора да наведете „вистинско име“."
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a nickname."
-msgstr ""
+msgstr "Мора да наведете прекар."
 
 #. TRANS: Plugin description.
 msgid ""
@@ -67,16 +67,15 @@ msgstr ""
 
 #. TRANS: Exception thrown when an IRC attempts count could not be updated.
 #. TRANS: %d is the object ID for which the count could not be updated.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not increment attempts count for %d."
-msgstr "Не можев да го дополнам бројот на обиди за %d"
+msgstr "Не можев да го дополнам бројот на обиди за %d."
 
 #. TRANS: Message given when using an unregistered IRC nickname.
-#, fuzzy
 msgid "Your nickname is not registered so IRC connectivity cannot be enabled."
 msgstr ""
 "Вашиот прекар не е регистриран, па затоа не може да се овозможи поврзувањето "
-"со IRC"
+"со IRC."
 
 #. TRANS: Server error thrown on database error when deleting IRC nickname confirmation.
 msgid "Could not delete confirmation."
@@ -84,4 +83,4 @@ msgstr "Не можев да ја избришам потврдата."
 
 #. TRANS: Server exception thrown when an IRC waiting queue item could not be added to the database.
 msgid "Database error inserting IRC waiting queue item."
-msgstr ""
+msgstr "Грешка во базата при вметнувањето на редицата на чекање за IRC ."
