@@ -177,10 +177,17 @@ class DomainStatusNetworkInstaller extends Installer
             throw new ServerException("Could not create status_network: " . print_r($sn, true));
         }
 
+        // Re-fetch; stupid auto-increment integer isn't working
+
+        $sn = Status_network::staticGet('nickname', $sn->nickname);
+
+        if (empty($sn)) {
+            throw new ServerException("Created {$this->nickname} status_network and could not find it again.");
+        }
+
         $sn->setTags(array('domain='.$this->domain));
 
         $this->sn = $sn;
-
     }
 
     function checkSchema()

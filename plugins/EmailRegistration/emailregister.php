@@ -79,6 +79,10 @@ class EmailregisterAction extends Action
     {
         parent::prepare($argarray);
 
+        if (common_config('site', 'closed')) {
+            throw new ClientException(_('Registration not allowed.'), 403);
+        }
+
         if ($this->isPost()) {
 
             $this->checkSessionToken();
@@ -86,6 +90,9 @@ class EmailregisterAction extends Action
             $this->email = $this->trimmed('email');
 
             if (!empty($this->email)) {
+                if (common_config('site', 'inviteonly')) {
+                    throw new ClientException(_('Sorry, only invited people can register.'), 403);
+                }
                 $this->email = common_canonical_email($this->email);
                 $this->state = self::NEWEMAIL;
             } else {
@@ -119,6 +126,9 @@ class EmailregisterAction extends Action
             $this->code = $this->trimmed('code');
 
             if (empty($this->code)) {
+                if (common_config('site', 'inviteonly')) {
+                    throw new ClientException(_('Sorry, only invited people can register.'), 403);
+                }
                 $this->state = self::NEWREGISTER;
             } else {
                 $this->invitation = Invitation::staticGet('code', $this->code);
