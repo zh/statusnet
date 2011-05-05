@@ -15,6 +15,7 @@
 # Author: McDutchie
 # Author: Michael
 # Author: Michi
+# Author: Od1n
 # Author: Purodha
 # Author: The Evil IP address
 # Author: Umherirrender
@@ -27,17 +28,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:38:25+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:50:52+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-21 18:57:13+0000\n"
+"X-POT-Import-Date: 2011-05-05 10:52:40+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -268,26 +269,16 @@ msgstr "Seite nicht vorhanden"
 msgid "No such user."
 msgstr "Unbekannter Benutzer."
 
-#. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#, php-format
-msgid "%1$s and friends, page %2$d"
-msgstr "%1$s und Freunde, Seite% 2$d"
+#. TRANS: Title of a user's own start page.
+#, fuzzy
+msgid "Home timeline"
+msgstr "%s-Zeitleiste"
 
-#. TRANS: Page title. %s is user nickname
-#. TRANS: H1 text for page. %s is a user nickname.
-#. TRANS: Message is used as link title. %s is a user nickname.
-#. TRANS: Title of API timeline for a user and friends.
-#. TRANS: %s is a username.
-#. TRANS: Timeline title for user and friends. %s is a user nickname.
-#. TRANS: Menu item title in administrator navigation panel.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in personal group navigation menu.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in settings navigation panel.
-#. TRANS: %s is a username.
-#, php-format
-msgid "%s and friends"
-msgstr "%s und Freunde"
+#. TRANS: Title of another user's start page.
+#. TRANS: %s is the other user's name.
+#, fuzzy, php-format
+msgid "%s's home timeline"
+msgstr "%s-Zeitleiste"
 
 #. TRANS: %s is user nickname.
 #, php-format
@@ -348,9 +339,19 @@ msgstr ""
 "Warum [registrierst du nicht ein Benutzerkonto](%%%%action.register%%%%) und "
 "gibst %s dann einen Stups oder postest ihm etwas."
 
-#. TRANS: H1 text for page when viewing a list for self.
-msgid "You and friends"
-msgstr "Du und Freunde"
+#. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
+#. TRANS: Timeline title for user and friends. %s is a user nickname.
+#. TRANS: Menu item title in administrator navigation panel.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in personal group navigation menu.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in settings navigation panel.
+#. TRANS: %s is a username.
+#, php-format
+msgid "%s and friends"
+msgstr "%s und Freunde"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
@@ -790,9 +791,8 @@ msgstr "Alias kann nicht gleich wie der Spitzname sein."
 #. TRANS: Client error displayed when referring to a non-existing list.
 #. TRANS: Client error displayed trying to perform an action related to a non-existing list.
 #. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
 msgid "List not found."
-msgstr "API-Methode nicht gefunden."
+msgstr "Liste nicht gefunden."
 
 #. TRANS: Client error displayed when trying to update another user's list.
 msgid "You cannot update lists that do not belong to you."
@@ -810,14 +810,12 @@ msgid "You cannot delete lists that do not belong to you."
 msgstr "Listen, die Ihnen nicht gehören, können Sie nicht löschen."
 
 #. TRANS: Client error displayed when referring to a non-list member.
-#, fuzzy
 msgid "The specified user is not a member of this list."
-msgstr "Benutzer ist kein Mitglied dieser Gruppe."
+msgstr "Der angegebene Benutzer ist kein Mitglied dieser Liste"
 
 #. TRANS: Client error displayed when trying to add members to a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to add members to this list."
-msgstr "Du darfst diese Gruppe nicht löschen."
+msgstr "Du bist nicht berechtigt, Mitglieder zu dieser Liste hinzufügen."
 
 #. TRANS: Client error displayed when trying to modify list members without specifying them.
 #, fuzzy
@@ -825,9 +823,8 @@ msgid "You must specify a member."
 msgstr "Benutzer hat kein Profil."
 
 #. TRANS: Client error displayed when trying to remove members from a list without having the right to do so.
-#, fuzzy
 msgid "You are not allowed to remove members from this list."
-msgstr "Du darfst diese Gruppe nicht löschen."
+msgstr "Du bist nicht berechtigt, Mitglieder aus dieser Liste zu entfernen."
 
 #. TRANS: Client error displayed when trying to remove a list member that is not part of a list.
 msgid "The user you are trying to remove from the list is not a member."
@@ -929,7 +926,6 @@ msgid "Account"
 msgstr "Profil"
 
 #. TRANS: Field label on OAuth API authorisation form.
-#. TRANS: Field label on login page.
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Label for nickname on user authorisation page.
@@ -1282,9 +1278,8 @@ msgstr "Kein Benutzername oder ID"
 
 #. TRANS: Client error displayed trying to approve group membership while not logged in.
 #. TRANS: Client error displayed when trying to leave a group while not logged in.
-#, fuzzy
 msgid "Must be logged in."
-msgstr "Nicht angemeldet."
+msgstr "Du musst angemeldet sein."
 
 #. TRANS: Client error displayed trying to approve group membership while not a group administrator.
 #. TRANS: Client error displayed when trying to approve or cancel a group join request without
@@ -1358,9 +1353,8 @@ msgid "%1$s's request"
 msgstr "Status von %1$s auf %2$s"
 
 #. TRANS: Message on page for user after approving a subscription request.
-#, fuzzy
 msgid "Subscription approved."
-msgstr "Abonnement autorisiert"
+msgstr "Abonnement genehmigt."
 
 #. TRANS: Message on page for user after rejecting a subscription request.
 #, fuzzy
@@ -1389,7 +1383,6 @@ msgid "Can only fave notices."
 msgstr "Kann nur Notizen favorisieren."
 
 #. TRANS: Client exception thrown when trying favorite a notice without content.
-#, fuzzy
 msgid "Unknown notice."
 msgstr "Unbekannter Hinweis."
 
@@ -1399,9 +1392,9 @@ msgstr "Bereits ein Favorit."
 
 #. TRANS: Title for group membership feed.
 #. TRANS: %s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "Group memberships of %s"
-msgstr "%s Gruppen-Mitgliedschaften"
+msgstr "Gruppen-Mitgliedschaften von %s"
 
 #. TRANS: Subtitle for group membership feed.
 #. TRANS: %1$s is a username, %2$s is the StatusNet sitename.
@@ -3395,6 +3388,11 @@ msgstr "Anmelden"
 msgid "Login to site"
 msgstr "An Seite anmelden"
 
+#. TRANS: Field label on login page.
+#, fuzzy
+msgid "Username or email address"
+msgstr "Spitzname oder E-Mail-Adresse"
+
 #. TRANS: Checkbox label label on login page.
 #. TRANS: Checkbox label on account registration page.
 msgid "Remember me"
@@ -3406,7 +3404,6 @@ msgid "Automatically login in the future; not for shared computers!"
 msgstr "Automatisch anmelden; nicht bei gemeinsam genutzten PCs einsetzen!"
 
 #. TRANS: Button text for log in on login page.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Login"
 msgstr "Anmelden"
@@ -3484,7 +3481,6 @@ msgstr "Quell-URL ist erforderlich."
 msgid "Could not create application."
 msgstr "Konnte das Programm nicht erstellen."
 
-#. TRANS: Form validation error on New application page when providing an invalid image upload.
 #, fuzzy
 msgid "Invalid image."
 msgstr "Ungültige Größe."
@@ -9469,7 +9465,7 @@ msgstr ", "
 
 #. TRANS: Start of profile addressees list.
 msgid " ▸ "
-msgstr "▸ "
+msgstr " ▸ "
 
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
@@ -9979,11 +9975,12 @@ msgid "Search"
 msgstr "Suchen"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
+#, fuzzy
 msgid ""
 "* Make sure all words are spelled correctly.\n"
 "* Try different keywords.\n"
 "* Try more general keywords.\n"
-"* Try fewer keywords.\n"
+"* Try fewer keywords."
 msgstr ""
 "* Stelle sicher, dass alle Worte richtig geschrieben sind.\n"
 "* Versuche andere Schlüsselwörter zu benutzen.\n"
@@ -9991,9 +9988,8 @@ msgstr ""
 "* Versuche weniger Schlüsselwörter zu benutzen.\n"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"\n"
 "You can also try your search on other engines:\n"
 "\n"
 "* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
@@ -10001,9 +9997,8 @@ msgid ""
 "* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
 "* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
-"* [Collecta](http://collecta.com/#q=%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)"
 msgstr ""
-"\n"
 "Du kannst deine Suche auch auf anderen Suchmaschinen versuchen:\n"
 "\n"
 "* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
@@ -10577,16 +10572,8 @@ msgstr "Ungültiges XML, XRD-Root fehlt."
 msgid "Getting backup from file '%s'."
 msgstr "Hole Backup von der Datei „%s“."
 
-#~ msgid "User without matching profile."
-#~ msgstr "Benutzer ohne passendes Profil"
+#~ msgid "%1$s and friends, page %2$d"
+#~ msgstr "%1$s und Freunde, Seite% 2$d"
 
-#, fuzzy
-#~ msgctxt "FAVELIST"
-#~ msgid "You have favored this notice."
-#~ msgstr "Zu den Favoriten hinzufügen"
-
-#, fuzzy
-#~ msgid "One person has favored this notice."
-#~ msgid_plural "%d people have favored this notice."
-#~ msgstr[0] "Aus Favoriten entfernen"
-#~ msgstr[1] "Aus Favoriten entfernen"
+#~ msgid "You and friends"
+#~ msgstr "Du und Freunde"

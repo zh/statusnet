@@ -1,6 +1,7 @@
 # Translation of StatusNet - Irc to Dutch (Nederlands)
 # Exported from translatewiki.net
 #
+# Author: SPQRobin
 # Author: Siebrand
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -9,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Irc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:37:26+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:49:48+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-17 22:40:37+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-POT-Import-Date: 2011-04-27 13:27:55+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-plugin-irc\n"
@@ -44,19 +45,19 @@ msgstr ""
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a host."
-msgstr ""
+msgstr "U moet een host opgeven."
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a username."
-msgstr ""
+msgstr "U moet een gebruikersnaam opgeven."
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a \"real name\"."
-msgstr ""
+msgstr "U moet een echte naam opgeven."
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a nickname."
-msgstr ""
+msgstr "U moet een gebruikersnaam opgeven."
 
 #. TRANS: Plugin description.
 msgid ""
@@ -67,16 +68,15 @@ msgstr ""
 
 #. TRANS: Exception thrown when an IRC attempts count could not be updated.
 #. TRANS: %d is the object ID for which the count could not be updated.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not increment attempts count for %d."
 msgstr "Het was niet mogelijk om het aantal pogingen voor %d op te hogen"
 
 #. TRANS: Message given when using an unregistered IRC nickname.
-#, fuzzy
 msgid "Your nickname is not registered so IRC connectivity cannot be enabled."
 msgstr ""
 "Uw gebruikersnaam is niet geregistreerd en daarom kan er geen koppeling met "
-"IRC worden gemaakt"
+"IRC worden gemaakt."
 
 #. TRANS: Server error thrown on database error when deleting IRC nickname confirmation.
 msgid "Could not delete confirmation."
@@ -85,3 +85,4 @@ msgstr "De bevestiging kon niet verwijderd worden."
 #. TRANS: Server exception thrown when an IRC waiting queue item could not be added to the database.
 msgid "Database error inserting IRC waiting queue item."
 msgstr ""
+"Er is een databasefout opgetreden tijdens het invoegen van het IRC-queueitem."

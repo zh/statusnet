@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Irc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:37:26+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:49:49+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-17 22:40:37+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-POT-Import-Date: 2011-04-27 13:27:55+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-irc\n"
@@ -45,19 +45,19 @@ msgstr ""
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a host."
-msgstr ""
+msgstr "Dapat kang tumukoy ng isang tagapagpasinaya."
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a username."
-msgstr ""
+msgstr "Dapat kang tumukoy ng isang pangalan ng tagagamit."
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a \"real name\"."
-msgstr ""
+msgstr "Dapat kang tumukoy ng isang \"tunay na pangalan\"."
 
 #. TRANS: Exception thrown when initialising the IRC plugin fails because of an incorrect configuration.
 msgid "You must specify a nickname."
-msgstr ""
+msgstr "Dapat kang tumukoy ng isang palayaw."
 
 #. TRANS: Plugin description.
 msgid ""
@@ -68,14 +68,13 @@ msgstr ""
 
 #. TRANS: Exception thrown when an IRC attempts count could not be updated.
 #. TRANS: %d is the object ID for which the count could not be updated.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not increment attempts count for %d."
-msgstr "Hindi masudlungan ang bilang ng pagtatangka para sa %d"
+msgstr "Hindi masudlungan ang bilang ng mga pagtatangka para sa %d."
 
 #. TRANS: Message given when using an unregistered IRC nickname.
-#, fuzzy
 msgid "Your nickname is not registered so IRC connectivity cannot be enabled."
-msgstr "Hindi nakatala ang palayaw mo kaya mapagana ang ugnayan ng IRC"
+msgstr "Hindi nakatala ang palayaw mo kaya't hindi mapagana ang ugnay ng IRC."
 
 #. TRANS: Server error thrown on database error when deleting IRC nickname confirmation.
 msgid "Could not delete confirmation."
@@ -84,3 +83,5 @@ msgstr "Hindi mabura ang pagtitiyak."
 #. TRANS: Server exception thrown when an IRC waiting queue item could not be added to the database.
 msgid "Database error inserting IRC waiting queue item."
 msgstr ""
+"Kamalian ng kalipunan ng dato sa pagsisingit ng IRD na naghihintay ng bagay "
+"ng pila."

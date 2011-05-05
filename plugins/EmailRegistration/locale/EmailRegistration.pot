@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,30 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. TRANS: Client exception thrown when no confirmation code was provided.
-#: emailregister.php:98
+#: emailregister.php:105
 msgid "No confirmation code."
 msgstr ""
 
 #. TRANS: Client exception thrown when given confirmation code was not issued.
-#: emailregister.php:109 emailregister.php:133
+#: emailregister.php:116 emailregister.php:143
 msgid "No such confirmation code."
 msgstr ""
 
 #. TRANS: Title for registration page.
-#: emailregister.php:148
+#: emailregister.php:158
 msgctxt "TITLE"
 msgid "Register"
 msgstr ""
 
 #. TRANS: Title for page where to register with a confirmation code.
-#: emailregister.php:154
+#: emailregister.php:164
 msgctxt "TITLE"
 msgid "Complete registration"
 msgstr ""
 
 #. TRANS: Confirmation text after initial registration.
 #. TRANS: %s an e-mail address.
-#: emailregister.php:216
+#: emailregister.php:226
 #, php-format
 msgid ""
 "An email was sent to %s to confirm that address. Check your email inbox for "
@@ -48,35 +48,35 @@ msgid ""
 msgstr ""
 
 #. TRANS: Error text when trying to register without agreeing to the terms.
-#: emailregister.php:253
+#: emailregister.php:264
 msgid "You must accept the terms of service and privacy policy to register."
 msgstr ""
 
 #. TRANS: Error text when trying to register without a password.
-#: emailregister.php:257
+#: emailregister.php:267
 msgid "You must set a password"
 msgstr ""
 
 #. TRANS: Error text when trying to register with too short a password.
-#: emailregister.php:260
+#: emailregister.php:270
 msgid "Password must be 6 or more characters."
 msgstr ""
 
 #. TRANS: Error text when trying to register without providing the same password twice.
-#: emailregister.php:263
+#: emailregister.php:273
 msgid "Passwords do not match."
 msgstr ""
 
 #. TRANS: Subject for confirmation e-mail.
 #. TRANS: %s is the StatusNet sitename.
-#: emailregister.php:327 EmailRegistrationPlugin.php:168
+#: emailregister.php:343
 #, php-format
 msgid "Confirm your registration on %s"
 msgstr ""
 
 #. TRANS: Body for confirmation e-mail.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is the confirmation URL.
-#: emailregister.php:333 EmailRegistrationPlugin.php:174
+#: emailregister.php:349
 #, php-format
 msgid ""
 "Someone (probably you) has requested an account on %1$s using this email "
@@ -164,8 +164,15 @@ msgstr ""
 msgid "Not a valid email address."
 msgstr ""
 
+#. TRANS: Subject for confirmation e-mail.
+#. TRANS: %s is the StatusNet sitename.
+#: EmailRegistrationPlugin.php:168
+#, php-format
+msgid "Welcome to %s"
+msgstr ""
+
 #. TRANS: Plugin description.
-#: EmailRegistrationPlugin.php:195
+#: EmailRegistrationPlugin.php:201
 msgid "Use email only for registration."
 msgstr ""
 

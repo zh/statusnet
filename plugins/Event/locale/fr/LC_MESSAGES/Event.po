@@ -1,6 +1,7 @@
 # Translation of StatusNet - Event to French (Français)
 # Exported from translatewiki.net
 #
+# Author: Brunoperel
 # Author: Iketsi
 # Author: Od1n
 # --
@@ -10,13 +11,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Event\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:36:59+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:49:20+0000\n"
 "Language-Team: French <http://translatewiki.net/wiki/Portal:fr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-21 18:57:29+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-POT-Import-Date: 2011-04-27 13:26:39+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: #out-statusnet-plugin-event\n"
@@ -24,13 +25,13 @@ msgstr ""
 
 #. TRANS: Client exception thrown when trying to create an event that already exists.
 msgid "Event already exists."
-msgstr ""
+msgstr "Cet événement existe déjà."
 
 #. TRANS: Event description. %1$s is a title, %2$s is start time, %3$s is end time,
 #. TRANS: %4$s is location, %5$s is a description.
 #, php-format
 msgid "\"%1$s\" %2$s - %3$s (%4$s): %5$s"
-msgstr ""
+msgstr "\"%1$s\" %2$s - %3$s (%4$s): %5$s"
 
 #. TRANS: Rendered event description. %1$s is a title, %2$s is start time, %3$s is start time,
 #. TRANS: %4$s is end time, %5$s is end time, %6$s is location, %7$s is description.
@@ -42,24 +43,28 @@ msgid ""
 "$s</a> (<span class=\"location\">%6$s</span>): <span class=\"description\">%7"
 "$s</span> </span>"
 msgstr ""
+"<span class=\"vevent\"><span class=\"summary\">%1$s</span> <abbr class="
+"\"dtstart\" title=\"%2$s\">%3$s</a> - <abbr class=\"dtend\" title=\"%4$s\">%5"
+"$s</a> (<span class=\"location\">%6$s</span>): <span class=\"description\">%7"
+"$s</span> </span>"
 
 #. TRANS: Client exception thrown when referring to a non-existing RSVP.
 #. TRANS: RSVP stands for "Please reply".
 #. TRANS: Client exception thrown when referring to a non-existing RSVP ("please respond") item.
 msgid "No such RSVP."
-msgstr ""
+msgstr "RSVP introuvable."
 
 #. TRANS: Client exception thrown when referring to a non-existing event.
 #. TRANS: Client exception thrown when requesting a non-exsting event.
 #. TRANS: Client exception thrown when referring to a non-existing event.
 msgid "No such event."
-msgstr ""
+msgstr "Evénement introuvable."
 
 #. TRANS: Title for event.
 #. TRANS: %1$s is a user nickname, %2$s is an event title.
 #, php-format
 msgid "%1$s's RSVP for \"%2$s\""
-msgstr ""
+msgstr "RSVP de %1$s pour \"%2$s\""
 
 #. TRANS: Possible status for RSVP ("please respond") item.
 msgid "You will attend this event."
@@ -86,11 +91,11 @@ msgstr "Nouveau RSVP"
 #. TRANS: Client exception thrown when trying to RSVP ("please respond") while not logged in.
 #. TRANS: Client exception thrown when trying tp RSVP ("please respond") while not logged in.
 msgid "You must be logged in to RSVP for an event."
-msgstr ""
+msgstr "Vous devez être connecté à RSVP pour un événement."
 
 #. TRANS: Client exception thrown when using an invalid value for RSVP ("please respond").
 msgid "Unknown submit value."
-msgstr ""
+msgstr "Valeur d'envoi inconnue."
 
 #. TRANS: Page title after creating an event.
 #. TRANS: Page title after sending a notice.
@@ -150,7 +155,7 @@ msgstr "Heure de départ"
 
 #. TRANS: Field title on event form.
 msgid "Time the event starts."
-msgstr ""
+msgstr "Heure de début de l'événement."
 
 #. TRANS: Field label on event form.
 msgctxt "LABEL"
@@ -159,7 +164,7 @@ msgstr "Date de fin"
 
 #. TRANS: Field title on event form.
 msgid "Date the event ends."
-msgstr ""
+msgstr "Date de fin de l'événement."
 
 #. TRANS: Field label on event form.
 msgctxt "LABEL"
@@ -168,7 +173,7 @@ msgstr "Heure de fin"
 
 #. TRANS: Field title on event form.
 msgid "Time the event ends."
-msgstr ""
+msgstr "Heure de fin de l'événement."
 
 #. TRANS: Field label on event form.
 msgctxt "LABEL"
@@ -204,7 +209,7 @@ msgstr "Enregistrer"
 
 #. TRANS: Plugin description.
 msgid "Event invitations and RSVPs."
-msgstr ""
+msgstr "Invitations aux événements et RSVP."
 
 #. TRANS: Title for event application.
 msgctxt "TITLE"
@@ -213,11 +218,11 @@ msgstr "Evénement"
 
 #. TRANS: Exception thrown when there are too many activity objects.
 msgid "Too many activity objects."
-msgstr ""
+msgstr "Les objets d'activité sont trop nombreux."
 
 #. TRANS: Exception thrown when event plugin comes across a non-event type object.
 msgid "Wrong type for object."
-msgstr ""
+msgstr "Mauvais type d'objet."
 
 #. TRANS: Exception thrown when trying to RSVP for an unknown event.
 msgid "RSVP for unknown event."
@@ -275,6 +280,8 @@ msgid ""
 "<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is attending <a "
 "href='%3$s'>%4$s</a>.</span>"
 msgstr ""
+"<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> assiste à <a "
+"href='%3$s'>%4$s</a>.</span>"
 
 #. TRANS: HTML version of an RSVP ("please respond") status for a user.
 #. TRANS: %1$s is a profile URL, %2$s a profile name,
@@ -284,6 +291,8 @@ msgid ""
 "<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> is not attending "
 "<a href='%3$s'>%4$s</a>.</span>"
 msgstr ""
+"<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> n'assiste pas à "
+"<a href='%3$s'>%4$s</a>.</span>"
 
 #. TRANS: HTML version of an RSVP ("please respond") status for a user.
 #. TRANS: %1$s is a profile URL, %2$s a profile name,
@@ -293,6 +302,8 @@ msgid ""
 "<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> might attend <a "
 "href='%3$s'>%4$s</a>.</span>"
 msgstr ""
+"<span class='automatic event-rsvp'><a href='%1$s'>%2$s</a> assistera peut-"
+"être à <a href='%3$s'>%4$s</a>.</span>"
 
 #. TRANS: Exception thrown when requesting a user's RSVP status for a non-existing response code.
 #. TRANS: %s is the non-existing response code.
@@ -348,7 +359,7 @@ msgstr "Date de fin requise."
 #. TRANS: %s is the data that could not be processed.
 #, php-format
 msgid "Could not parse date \"%s\"."
-msgstr ""
+msgstr "Impossible d'analyser la date \"%s\"."
 
 #. TRANS: Client exception thrown when trying to post an event without providing a title.
 msgid "Event must have a title."
@@ -356,15 +367,15 @@ msgstr "L'événement doit avoir un titre."
 
 #. TRANS: Client exception thrown when trying to post an event without providing a start time.
 msgid "Event must have a start time."
-msgstr ""
+msgstr "L'événement doit avoir une heure de début."
 
 #. TRANS: Client exception thrown when trying to post an event without providing an end time.
 msgid "Event must have an end time."
-msgstr ""
+msgstr "L'événement doit avoir une heure de fin."
 
 #. TRANS: Field label for event description.
 msgid "Time:"
-msgstr ""
+msgstr "Heure:"
 
 #. TRANS: Field label for event description.
 msgid "Location:"
@@ -376,7 +387,7 @@ msgstr "Description :"
 
 #. TRANS: Field label for event description.
 msgid "Attending:"
-msgstr ""
+msgstr "Participants :"
 
 #. TRANS: RSVP counts.
 #. TRANS: %1$d, %2$d and %3$d are numbers of RSVPs.
