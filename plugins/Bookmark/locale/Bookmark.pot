@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. TRANS: Client exception thrown when a file upload is incorrect.
-#: deliciousbackupimporter.php:83
+#: deliciousbackupimporter.php:89
 msgid "Bad import file."
 msgstr ""
 
 #. TRANS: Client exception thrown when a bookmark in an import file is incorrectly formatted.
-#: deliciousbackupimporter.php:166
+#: deliciousbackupimporter.php:174
 msgid "No <A> tag in a <DT>."
 msgstr ""
 
 #. TRANS: Client exception thrown when a bookmark in an import file is private.
-#: deliciousbackupimporter.php:175
+#: deliciousbackupimporter.php:183
 msgid "Skipping private bookmark."
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 #. TRANS: Bookmark content.
 #. TRANS: %1$s is a title, %2$s is a short URL, %3$s is the bookmark description,
 #. TRANS: %4$s is space separated list of hash tags.
-#: Bookmark.php:286
+#: Bookmark.php:301
 #, php-format
 msgid "\"%1$s\" %2$s %3$s %4$s"
 msgstr ""
@@ -100,7 +100,7 @@ msgstr ""
 #. TRANS: Rendered bookmark content.
 #. TRANS: %1$s is a URL, %2$s the bookmark title, %3$s is the bookmark description,
 #. TRANS: %4$s is space separated list of hash tags.
-#: Bookmark.php:295
+#: Bookmark.php:310
 #, php-format
 msgid ""
 "<span class=\"xfolkentry\"><a class=\"taggedlink\" href=\"%1$s\">%2$s</a> "

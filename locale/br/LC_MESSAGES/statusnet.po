@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:38:21+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:50:46+0000\n"
 "Language-Team: Breton <http://translatewiki.net/wiki/Portal:br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-POT-Import-Date: 2011-04-21 18:57:13+0000\n"
+"X-POT-Import-Date: 2011-05-05 10:52:40+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -41,7 +41,7 @@ msgstr ""
 
 #. TRANS: Error message.
 msgid "An error occurred."
-msgstr ""
+msgstr "Ur fazi zo bet."
 
 #. TRANS: Error message displayed when there is no StatusNet configuration file.
 #, php-format
@@ -245,26 +245,16 @@ msgstr "N'eus ket eus ar bajenn-se."
 msgid "No such user."
 msgstr "N'eus ket eus an implijer-se."
 
-#. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#, php-format
-msgid "%1$s and friends, page %2$d"
-msgstr "%1$s hag e vignoned, pajenn %2$d"
+#. TRANS: Title of a user's own start page.
+#, fuzzy
+msgid "Home timeline"
+msgstr "Oberezhioù %s"
 
-#. TRANS: Page title. %s is user nickname
-#. TRANS: H1 text for page. %s is a user nickname.
-#. TRANS: Message is used as link title. %s is a user nickname.
-#. TRANS: Title of API timeline for a user and friends.
-#. TRANS: %s is a username.
-#. TRANS: Timeline title for user and friends. %s is a user nickname.
-#. TRANS: Menu item title in administrator navigation panel.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in personal group navigation menu.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in settings navigation panel.
-#. TRANS: %s is a username.
-#, php-format
-msgid "%s and friends"
-msgstr "%s hag e vignoned"
+#. TRANS: Title of another user's start page.
+#. TRANS: %s is the other user's name.
+#, fuzzy, php-format
+msgid "%s's home timeline"
+msgstr "Oberezhioù %s"
 
 #. TRANS: %s is user nickname.
 #, php-format
@@ -323,9 +313,19 @@ msgstr ""
 "Perak ne [groufec'h ket ur gont](%%%%action.register%%%%) ha goude-se demata "
 "%s pe postañ ur c'hemenn bennak evitañ."
 
-#. TRANS: H1 text for page when viewing a list for self.
-msgid "You and friends"
-msgstr "C'hwi hag o mignoned"
+#. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
+#. TRANS: Timeline title for user and friends. %s is a user nickname.
+#. TRANS: Menu item title in administrator navigation panel.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in personal group navigation menu.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in settings navigation panel.
+#. TRANS: %s is a username.
+#, php-format
+msgid "%s and friends"
+msgstr "%s hag e vignoned"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
@@ -893,7 +893,6 @@ msgid "Account"
 msgstr "Kont"
 
 #. TRANS: Field label on OAuth API authorisation form.
-#. TRANS: Field label on login page.
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Label for nickname on user authorisation page.
@@ -3291,6 +3290,11 @@ msgstr "Kevreañ"
 msgid "Login to site"
 msgstr "Kevreañ d'al lec'hienn"
 
+#. TRANS: Field label on login page.
+#, fuzzy
+msgid "Username or email address"
+msgstr "Lesanv pe chomlec'h postel"
+
 #. TRANS: Checkbox label label on login page.
 #. TRANS: Checkbox label on account registration page.
 msgid "Remember me"
@@ -3382,7 +3386,6 @@ msgstr "Ezhomm 'zo eus ar vammenn URL."
 msgid "Could not create application."
 msgstr "N'eo ket posubl krouiñ ar poellad."
 
-#. TRANS: Form validation error on New application page when providing an invalid image upload.
 #, fuzzy
 msgid "Invalid image."
 msgstr "Ment direizh."
@@ -5447,7 +5450,6 @@ msgstr ""
 "Microblog) diazezet war ar meziant frank [StatusNet](http://status.net/)."
 
 #. TRANS: Title for list of group administrators on a group page.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Admins"
 msgstr "Merourien"
@@ -5459,7 +5461,7 @@ msgstr "N'eus ket eus ar gemennadenn-se."
 #. TRANS: Client error displayed requesting a single direct message the requesting user was not a party in.
 msgid "Only the sender and recipient may read this message."
 msgstr ""
-"Ne c'hell bezañ lennet ar gemenadenn-mañ nemet gant ar c'haser hag ar "
+"Ne c'hall ar gemennadenn-mañ bezañ lennet nemet gant ar c'haser hag ar "
 "resever."
 
 #. TRANS: Page title for single direct message display when viewing user is the sender.
@@ -5475,9 +5477,8 @@ msgid "Message from %1$s on %2$s"
 msgstr "Kemenadenn resevet eus %1$s d'an %2$s"
 
 #. TRANS: Client exception thrown when trying a view a notice the user has no access to.
-#, fuzzy
 msgid "Not available."
-msgstr "Dizimplijadus eo ar bostelerezh prim"
+msgstr "N'eo ket hegerz."
 
 #. TRANS: Client error displayed trying to show a deleted notice.
 msgid "Notice deleted."
@@ -5550,25 +5551,23 @@ msgstr ""
 "gentañ da embann un dra !"
 
 #. TRANS: Header on show list page.
-#, fuzzy
 msgid "Listed"
-msgstr "Aotre implijout"
+msgstr "Rollet"
 
 #. TRANS: Link for more "People in list x by a user"
 #. TRANS: if there are more than the mini list's maximum.
-#, fuzzy
 msgid "Show all"
-msgstr "Diskouez muioc'h"
+msgstr "Diskouez pep tra"
 
 #. TRANS: Header for tag subscribers.
 #. TRANS: Link description for link to list of users subscribed to a tag.
 msgid "Subscribers"
-msgstr "Ar re koumanantet"
+msgstr "Koumananterien"
 
 #. TRANS: Link for more "People following tag x"
 #. TRANS: if there are more than the mini list's maximum.
 msgid "All subscribers"
-msgstr "An holl re koumanantet"
+msgstr "An holl goumananterien"
 
 #. TRANS: Page title showing tagged notices in one user's stream.
 #. TRANS: %1$s is the username, %2$s is the hash tag.
@@ -5711,21 +5710,18 @@ msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
 #. TRANS: Fieldset legend on site settings panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "General"
 msgstr "Hollek"
 
 #. TRANS: Field label on site settings panel.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Site name"
 msgstr "Anv al lec'hienn"
 
 #. TRANS: Field title on site settings panel.
-#, fuzzy
 msgid "The name of your site, like \"Yourcompany Microblog\"."
-msgstr "Anv ho lec'hienn, evel \"Microblog ho embregerezh\""
+msgstr "Anv ho lec'hienn, da skouer \"Mikroblog ho embregerezh\""
 
 #. TRANS: Field label on site settings panel.
 msgid "Brought by"
@@ -5753,15 +5749,13 @@ msgid "Contact email address for your site."
 msgstr "Chomlec'h postel daremprediñ ho lec'hienn"
 
 #. TRANS: Fieldset legend on site settings panel.
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Local"
 msgstr "Lec'hel"
 
 #. TRANS: Dropdown label on site settings panel.
-#, fuzzy
 msgid "Default timezone"
-msgstr "Koumanantoù dre ziouer"
+msgstr "Gwerzhid eur dre ziouer"
 
 #. TRANS: Dropdown title on site settings panel.
 msgid "Default timezone for the site; usually UTC."
@@ -6691,7 +6685,7 @@ msgstr ""
 
 #. TRANS: Header for StatusNet plugins section on the version page.
 msgid "Plugins"
-msgstr "Pluginoù"
+msgstr "Toupinoù"
 
 #. TRANS: Column header for plugins table on version page.
 #, fuzzy
@@ -7447,10 +7441,9 @@ msgid "Plugins configuration"
 msgstr "Kefluniadur an hentoù"
 
 #. TRANS: Menu item in administrator navigation panel.
-#, fuzzy
 msgctxt "MENU"
 msgid "Plugins"
-msgstr "Pluginoù"
+msgstr "Toupinoù"
 
 #. TRANS: Client error 401.
 msgid "API resource requires read-write access, but you only have read access."
@@ -7536,7 +7529,7 @@ msgstr[1] "Diskrivit ho poellad gant %d arouezenn"
 
 #. TRANS: Form input field instructions.
 msgid "Describe your application"
-msgstr "Deskrivit ho poellad"
+msgstr "Deskrivit ho arload"
 
 #. TRANS: Form input field label.
 #. TRANS: Text area label on group edit form; contains description of group.
@@ -7689,17 +7682,15 @@ msgid "Cancel join request"
 msgstr ""
 
 #. TRANS: Button text for form action to cancel a subscription request.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Cancel subscription request"
-msgstr "An holl koumanantoù"
+msgstr "Nullañ ar goulenn koumanantiñ"
 
 #. TRANS: Title for command results.
 msgid "Command results"
 msgstr "Disoc'hoù an urzhiad"
 
 #. TRANS: Title for command results.
-#, fuzzy
 msgid "AJAX error"
 msgstr "Fazi Ajax"
 
@@ -8039,7 +8030,7 @@ msgstr "Dibosupl eo diweredekaat ar c'hemennoù."
 #. TRANS: Help message for IM/SMS command "help".
 msgctxt "COMMANDHELP"
 msgid "show this help"
-msgstr ""
+msgstr "Diskouez an taol skoazell-mañ"
 
 #. TRANS: Help message for IM/SMS command "follow <nickname>".
 #, fuzzy
@@ -8230,17 +8221,15 @@ msgstr "Foran"
 #. TRANS: Menu item in default local navigation panel.
 #. TRANS: Menu item in search group navigation panel.
 #. TRANS: Menu item in local navigation menu.
-#, fuzzy
 msgctxt "MENU"
 msgid "Groups"
 msgstr "Strolladoù"
 
 #. TRANS: Menu item in default local navigation panel.
 #. TRANS: Menu item title in local navigation menu.
-#, fuzzy
 msgctxt "MENU"
 msgid "Lists"
-msgstr "Bevennoù"
+msgstr "Rolloù"
 
 #. TRANS: Title of form for deleting a user.
 #. TRANS: Link text in notice list item to delete a notice.
@@ -8422,10 +8411,9 @@ msgid ""
 msgstr ""
 
 #. TRANS: Indicator in group members list that this user is a group administrator.
-#, fuzzy
 msgctxt "GROUPADMIN"
 msgid "Admin"
-msgstr "Merañ"
+msgstr "Merour"
 
 #. TRANS: Menu item in the group navigation page.
 msgctxt "MENU"
@@ -9140,11 +9128,11 @@ msgstr ""
 #. TRANS: Separator in profile addressees list.
 msgctxt "SEPARATOR"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #. TRANS: Start of profile addressees list.
 msgid " ▸ "
-msgstr ""
+msgstr " ▸ "
 
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
@@ -9403,10 +9391,9 @@ msgid "Edit lists"
 msgstr "N'eo ket reizh ar merk-se : %s."
 
 #. TRANS: Label in self tags widget.
-#, fuzzy
 msgctxt "LABEL"
 msgid "Tags"
-msgstr "Balizennoù"
+msgstr "Tikedennoù"
 
 #. TRANS: Title for section contaning lists with the most subscribers.
 #, fuzzy
@@ -9657,13 +9644,12 @@ msgid ""
 "* Make sure all words are spelled correctly.\n"
 "* Try different keywords.\n"
 "* Try more general keywords.\n"
-"* Try fewer keywords.\n"
+"* Try fewer keywords."
 msgstr ""
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
 #, php-format
 msgid ""
-"\n"
 "You can also try your search on other engines:\n"
 "\n"
 "* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
@@ -9671,7 +9657,7 @@ msgid ""
 "* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
 "* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
-"* [Collecta](http://collecta.com/#q=%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)"
 msgstr ""
 
 #. TRANS: Menu item in search group navigation panel.
@@ -10240,16 +10226,8 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "User without matching profile."
-#~ msgstr "Implijer hep profil klotus."
+#~ msgid "%1$s and friends, page %2$d"
+#~ msgstr "%1$s hag e vignoned, pajenn %2$d"
 
-#, fuzzy
-#~ msgctxt "FAVELIST"
-#~ msgid "You have favored this notice."
-#~ msgstr "Ouzhpennañ d'ar pennrolloù"
-
-#, fuzzy
-#~ msgid "One person has favored this notice."
-#~ msgid_plural "%d people have favored this notice."
-#~ msgstr[0] "Tennañ eus ar pennrolloù"
-#~ msgstr[1] "Tennañ eus ar pennrolloù"
+#~ msgid "You and friends"
+#~ msgstr "C'hwi hag o mignoned"

@@ -5,6 +5,7 @@
 # Author: Kjell
 # Author: McDutchie
 # Author: Nghtwlkr
+# Author: Od1n
 # Author: WikiPhoenix
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -13,17 +14,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:38:59+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:51:45+0000\n"
 "Language-Team: Swedish <http://translatewiki.net/wiki/Portal:sv>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-21 18:57:13+0000\n"
+"X-POT-Import-Date: 2011-05-05 10:52:40+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -252,26 +253,16 @@ msgstr "Ingen sådan sida"
 msgid "No such user."
 msgstr "Ingen sådan användare."
 
-#. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#, php-format
-msgid "%1$s and friends, page %2$d"
-msgstr "%1$s och vänner, sida %2$d"
+#. TRANS: Title of a user's own start page.
+#, fuzzy
+msgid "Home timeline"
+msgstr "%s tidslinje"
 
-#. TRANS: Page title. %s is user nickname
-#. TRANS: H1 text for page. %s is a user nickname.
-#. TRANS: Message is used as link title. %s is a user nickname.
-#. TRANS: Title of API timeline for a user and friends.
-#. TRANS: %s is a username.
-#. TRANS: Timeline title for user and friends. %s is a user nickname.
-#. TRANS: Menu item title in administrator navigation panel.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in personal group navigation menu.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in settings navigation panel.
-#. TRANS: %s is a username.
-#, php-format
-msgid "%s and friends"
-msgstr "%s och vänner"
+#. TRANS: Title of another user's start page.
+#. TRANS: %s is the other user's name.
+#, fuzzy, php-format
+msgid "%s's home timeline"
+msgstr "%s tidslinje"
 
 #. TRANS: %s is user nickname.
 #, php-format
@@ -330,9 +321,19 @@ msgstr ""
 "Varför inte [registrera ett konto](%%action.register%%) och bli först att "
 "posta en!"
 
-#. TRANS: H1 text for page when viewing a list for self.
-msgid "You and friends"
-msgstr "Du och vänner"
+#. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
+#. TRANS: Timeline title for user and friends. %s is a user nickname.
+#. TRANS: Menu item title in administrator navigation panel.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in personal group navigation menu.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in settings navigation panel.
+#. TRANS: %s is a username.
+#, php-format
+msgid "%s and friends"
+msgstr "%s och vänner"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
@@ -896,7 +897,6 @@ msgid "Account"
 msgstr "Konto"
 
 #. TRANS: Field label on OAuth API authorisation form.
-#. TRANS: Field label on login page.
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Label for nickname on user authorisation page.
@@ -1160,7 +1160,7 @@ msgstr "Atom-post måste vara välformaterad XML."
 
 #. TRANS: Client error displayed when not using an Atom entry.
 msgid "Atom post must be an Atom entry."
-msgstr ""
+msgstr "Atom-inlägg måste vara en Atom-post."
 
 #. TRANS: Client error displayed when not using the POST verb. Do not translate POST.
 msgid "Can only handle POST activities."
@@ -2254,6 +2254,8 @@ msgid ""
 "Deleting this tag will permanantly remove all its subscription and "
 "membership records. Do you still want to continue?"
 msgstr ""
+"Borttagande av den här taggen kommer permanent ta bort alla dess "
+"prenumerations- och medlemsregister. Vill du fortfarande fortsätta?"
 
 #. TRANS: Form validation error displayed if a given tag is invalid.
 msgid "Invalid tag."
@@ -2270,6 +2272,8 @@ msgid ""
 "Setting a public tag as private will permanently remove all the existing "
 "subscriptions to it. Do you still want to continue?"
 msgstr ""
+"Ställa om en publik tagg som privat kommer permanent ta bort alla befintliga "
+"prenumerationer på den. Vill du fortfarande fortsätta?"
 
 #. TRANS: TRANS: Server error displayed when updating a list fails.
 msgid "Could not update list."
@@ -3065,25 +3069,21 @@ msgstr "%1$s (%2$s)"
 #. TRANS: Message displayed inviting users to use a StatusNet site while the invited user
 #. TRANS: already uses a this StatusNet site. Plural form is based on the number of
 #. TRANS: reported already present people. Followed by a bullet list.
-#, fuzzy
 msgid "This person is already a user and you were automatically subscribed:"
 msgid_plural ""
 "These people are already users and you were automatically subscribed to them:"
 msgstr[0] ""
-"Dessa personer är redan registrerade användare och du blev automatiskt "
-"prenumerat hos dem:"
+"Denna person är redan en användare och du blev automatiskt prenumerat: "
 msgstr[1] ""
-"Dessa personer är redan registrerade användare och du blev automatiskt "
-"prenumerat hos dem:"
+"Dessa personer är redan användare och du blev automatiskt prenumerat: "
 
 #. TRANS: Message displayed inviting users to use a StatusNet site. Plural form is
 #. TRANS: based on the number of invitations sent. Followed by a bullet list of
 #. TRANS: e-mail addresses to which invitations were sent.
-#, fuzzy
 msgid "Invitation sent to the following person:"
 msgid_plural "Invitations sent to the following people:"
-msgstr[0] "Inbjudning(ar) har skickats till följande personer:"
-msgstr[1] "Inbjudning(ar) har skickats till följande personer:"
+msgstr[0] "Inbjudan har skickats till följande person: "
+msgstr[1] "Inbjudningar har skickats till följande personer: "
 
 #. TRANS: Generic message displayed after sending out one or more invitations to
 #. TRANS: people to join a StatusNet site.
@@ -3106,9 +3106,8 @@ msgid "Email addresses"
 msgstr "E-postadresser"
 
 #. TRANS: Tooltip for field label for a list of e-mail addresses.
-#, fuzzy
 msgid "Addresses of friends to invite (one per line)."
-msgstr "Adresser till vänner att bjuda in (en rad per adress)"
+msgstr "Adresser till vänner att bjuda in (en per rad)."
 
 #. TRANS: Field label for a personal message to send to invitees.
 msgid "Personal message"
@@ -3277,6 +3276,11 @@ msgstr "Logga in"
 msgid "Login to site"
 msgstr "Logga in på webbplatsen"
 
+#. TRANS: Field label on login page.
+#, fuzzy
+msgid "Username or email address"
+msgstr "Smeknamn eller e-postadress"
+
 #. TRANS: Checkbox label label on login page.
 #. TRANS: Checkbox label on account registration page.
 msgid "Remember me"
@@ -3365,7 +3369,6 @@ msgstr "Webbadress till källa krävs."
 msgid "Could not create application."
 msgstr "Kunde inte skapa applikation."
 
-#. TRANS: Form validation error on New application page when providing an invalid image upload.
 msgid "Invalid image."
 msgstr "Ogiltig bild."
 
@@ -3559,6 +3562,8 @@ msgid ""
 "Are you a developer? [Register an OAuth client application](%s) to use with "
 "this instance of StatusNet."
 msgstr ""
+"Är du en utvecklare? [Registrera en OAuth-klientapplikation](%s) att "
+"användna med detta exemplar av StatusNet."
 
 #. TRANS: Server error displayed in oEmbed action when path not found.
 #. TRANS: %s is a path.
@@ -4950,9 +4955,9 @@ msgstr ""
 
 #. TRANS: Client error displayed when an unknown error occurs while delisting a user.
 #. TRANS: %s is a username.
-#, fuzzy, php-format
+#, php-format
 msgid "There was an unexpected error while delisting %s."
-msgstr "Det uppstod ett oväntat fel när %s listades."
+msgstr "Det uppstod ett oväntat fel vid borttagning av %s från listan."
 
 #. TRANS: Client error displayed when an unknown error occurs while listing a user.
 #. TRANS: %s is a profile URL.
@@ -6251,13 +6256,13 @@ msgstr "%1$s struken från listan %2$s av %3$s"
 #. TRANS: %1$s is the license incompatible with site license %2$s.
 #. TRANS: Exception thrown when licenses are not compatible for an authorisation request.
 #. TRANS: %1$s is the license for the listenee, %2$s is the license for "this" StatusNet site.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Listenee stream license \"%1$s\" is not compatible with site license \"%2$s"
 "\"."
 msgstr ""
-"Licensen för lyssnarströmmen '%1$s' är inte förenlig med webbplatslicensen '%"
-"2$s'."
+"Licensen för lyssnarströmmen \"%1$s\" är inte förenlig med webbplatslicensen "
+"\"%2$s\"."
 
 #. TRANS: Title of URL settings tab in profile settings.
 msgid "URL settings"
@@ -6323,7 +6328,7 @@ msgstr "Ogiltigt nummer för maximal notislängd."
 
 #. TRANS: Server exception thrown in profile URL settings when preferences could not be saved.
 msgid "Error saving user URL shortening preferences."
-msgstr ""
+msgstr "Fel vid sparande av användarens inställningar för URL-förkortare."
 
 #. TRANS: User admin panel title.
 msgctxt "TITLE"
@@ -6912,23 +6917,21 @@ msgstr ""
 "antalet taggar. Försök använda eller stryka några befintliga taggar."
 
 #. TRANS: Client exception thrown when trying to add more people than allowed to a list.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You already have %1$d or more people in list %2$s, which is the maximum "
 "allowed number.Try unlisting others first."
 msgstr ""
-"Du har redan %1$d eller flera personer taggade %2$s, vilket är den högsta "
-"tillåtna antalet. Försök ta bort taggar från andra med samma tagg först."
+"Du har redan %1$d eller flera personer i listan %2$s, vilket är den högsta "
+"tillåtna antalet. Prova ta bort andra från listan först."
 
 #. TRANS: Exception thrown when inserting a list subscription in the database fails.
-#, fuzzy
 msgid "Adding list subscription failed."
-msgstr "Att lägga till prenumeration på persontagg misslyckades."
+msgstr "Det gick inte att lägga till prenumeration på listan."
 
 #. TRANS: Exception thrown when deleting a list subscription from the database fails.
-#, fuzzy
 msgid "Removing list subscription failed."
-msgstr "Kunde inte spara prenumeration."
+msgstr "Det gick inte att ta bort prenumeration på listan."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 msgid "Missing profile."
@@ -6974,9 +6977,9 @@ msgstr "Följ"
 
 #. TRANS: Notification given when one person starts following another.
 #. TRANS: %1$s is the subscriber, %2$s is the subscribed.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s is now following %2$s."
-msgstr "%1$s lyssnar nu på dina notiser på %2$s."
+msgstr "%1$s följer nu %2$s."
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -6986,7 +6989,7 @@ msgstr "Välkommen till %1$s, @%2$s!"
 
 #. TRANS: Exception thrown when trying view "repeated to me".
 msgid "Not implemented since inbox change."
-msgstr ""
+msgstr "Inte implementerad sedan inkorgsförändring."
 
 #. TRANS: Server exception.
 msgid "No single user defined for single-user mode."
@@ -6994,7 +6997,7 @@ msgstr "Ingen enskild användare definierad för enanvändarläge."
 
 #. TRANS: Server exception.
 msgid "Single-user mode code called when not enabled."
-msgstr ""
+msgstr "Enanvändarlägeskod anropad när den inte var aktiverad."
 
 #. TRANS: Server exception thrown when creating a group failed.
 msgid "Could not create group."
@@ -7014,21 +7017,21 @@ msgstr "Kunde inte spara lokal gruppinformation."
 
 #. TRANS: Exception thrown when an account could not be located when it should be moved.
 #. TRANS: %s is the remote site.
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot locate account %s."
-msgstr "Du kan inte ta bort användare."
+msgstr "Kan inte hitta kontot %s."
 
 #. TRANS: Exception thrown when a service document could not be located account move.
 #. TRANS: %s is the remote site.
 #, php-format
 msgid "Cannot find XRD for %s."
-msgstr ""
+msgstr "Kan inte hitta XRD för %s."
 
 #. TRANS: Exception thrown when an account could not be located when it should be moved.
 #. TRANS: %s is the remote site.
 #, php-format
 msgid "No AtomPub API service for %s."
-msgstr ""
+msgstr "Ingen AtomPub API-tjänst för %s."
 
 #. TRANS: H2 for user actions in a profile.
 #. TRANS: H2 for entity actions in a profile.
@@ -7195,7 +7198,7 @@ msgstr "Denna aktivitet verkar inte relaterat till vår användare."
 
 #. TRANS: Client exception thrown when trying to join a remote group that is not a group.
 msgid "Remote profile is not a group!"
-msgstr ""
+msgstr "Fjärrprofilen är inte en grupp!"
 
 #. TRANS: Client exception thrown when trying to join a group the importing user is already a member of.
 msgid "User is already a member of this group."
@@ -7384,11 +7387,11 @@ msgstr ""
 
 #. TRANS: OAuth exception thrown when no application is found for a given consumer key.
 msgid "No application for that consumer key."
-msgstr ""
+msgstr "Ingen applikation för den konsumentnyckeln."
 
 #. TRANS: Authorization exception thrown when a user without API access tries to access the API.
 msgid "Not allowed to use API."
-msgstr ""
+msgstr "Inte tillåten att använda API."
 
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
 msgid "Bad access token."
@@ -7415,28 +7418,28 @@ msgstr "Kunde inte skapa anonym OAuth-applikation."
 msgid ""
 "Could not find a profile and application associated with the request token."
 msgstr ""
+"Kunde inte hitta en profil och applikation som är associerade med begäran-"
+"token."
 
 #. TRANS: Exception thrown when no access token can be issued.
-#, fuzzy
 msgid "Could not issue access token."
-msgstr "Kunde inte infoga meddelande."
+msgstr "Kunde inte utfärda åtkomst-token."
 
 #. TRANS: Exception thrown when a database error occurs.
 msgid "Database error inserting OAuth application user."
 msgstr "Databasfel vid infogning av OAuth-applikationsanvändare."
 
 #. TRANS: Exception thrown when a database error occurs.
-#, fuzzy
 msgid "Database error updating OAuth application user."
-msgstr "Databasfel vid infogning av OAuth-applikationsanvändare."
+msgstr "Databasfel vid uppdatering av OAuth-applikationsanvändare."
 
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
 msgid "Tried to revoke unknown token."
-msgstr ""
+msgstr "Försökte återkalla okänd token."
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
 msgid "Failed to delete revoked token."
-msgstr ""
+msgstr "Det gick inte att ta bort återkallad token."
 
 #. TRANS: Form input field label for application icon.
 msgid "Icon"
@@ -7452,11 +7455,11 @@ msgstr "Namn"
 
 #. TRANS: Form input field instructions.
 #. TRANS: %d is the number of available characters for the description.
-#, fuzzy, php-format
+#, php-format
 msgid "Describe your application in %d character"
 msgid_plural "Describe your application in %d characters"
-msgstr[0] "Beskriv din applikation med högst %d tecken"
-msgstr[1] "Beskriv din applikation med högst %d tecken"
+msgstr[0] "Beskriv din applikation med %d tecken"
+msgstr[1] "Beskriv din applikation med %d tecken"
 
 #. TRANS: Form input field instructions.
 msgid "Describe your application"
@@ -7553,7 +7556,7 @@ msgstr "Godkänd %1$s - \"%2$s\" åtkomst."
 #. TRANS: %s are the first 7 characters of the access token.
 #, php-format
 msgid "Access token starting with: %s"
-msgstr ""
+msgstr "Åtkomsttoken som börjar med: %s"
 
 #. TRANS: Button label in application list to revoke access to user data.
 msgctxt "BUTTON"
@@ -7785,11 +7788,11 @@ msgstr ""
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #. TRANS: Message given when a status is too long. %1$s is the maximum number of characters,
 #. TRANS: %2$s is the number of characters sent (used for plural).
-#, fuzzy, php-format
+#, php-format
 msgid "Message too long - maximum is %1$d character, you sent %2$d."
 msgid_plural "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr[0] "Meddelande för långt - maximum är %1$d tecken, du skickade %2$d."
-msgstr[1] "Meddelande för långt - maximum är %1$d tecken, du skickade %2$d."
+msgstr[0] "Meddelandet för långt - maximum är %1$d tecken, du skickade %2$d."
+msgstr[1] "Meddelandet för långt - maximum är %1$d tecken, du skickade %2$d."
 
 #. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
 msgid "You can't send a message to this user."
@@ -7807,11 +7810,11 @@ msgstr "Notis från %s upprepad."
 
 #. TRANS: Message given if content of a notice for a reply is too long. %1$d is used for plural.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#, fuzzy, php-format
+#, php-format
 msgid "Notice too long - maximum is %1$d character, you sent %2$d."
 msgid_plural "Notice too long - maximum is %1$d characters, you sent %2$d."
-msgstr[0] "Notis för långt - maximum är %1$d tecken, du skickade %2$d."
-msgstr[1] "Notis för långt - maximum är %1$d tecken, du skickade %2$d."
+msgstr[0] "Notisen för lång - maximum är %1$d tecken, du skickade %2$d."
+msgstr[1] "Notisen för lång - maximum är %1$d tecken, du skickade %2$d."
 
 #. TRANS: Text shown having sent a reply to a notice successfully.
 #. TRANS: %s is the nickname of the user of the notice the reply was sent to.
@@ -8275,10 +8278,9 @@ msgstr[0] "Beskriv gruppen eller ämnet med högst %d tecken eller färre"
 msgstr[1] "Beskriv gruppen eller ämnet med högst %d tecken eller färre"
 
 #. TRANS: Field title on group edit form.
-#, fuzzy
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\"."
-msgstr "Plats för gruppen, om den finns, såsom \"Stad, Län, Land\""
+msgstr "Plats för gruppen, om någon, som \"stad, stat (eller region), land\"."
 
 #. TRANS: Field label on group edit form.
 msgid "Aliases"
@@ -8286,7 +8288,7 @@ msgstr "Alias"
 
 #. TRANS: Input field title for group aliases.
 #. TRANS: %d is the maximum number of group aliases available.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
 "alias allowed."
@@ -8294,9 +8296,11 @@ msgid_plural ""
 "Extra nicknames for the group, separated with commas or spaces. Maximum %d "
 "aliases allowed."
 msgstr[0] ""
-"Extra smeknamn för gruppen, komma- eller mellanslagsseparerade, max &d"
+" Extra smeknamn för gruppen, separerade med kommatecken eller blanksteg. "
+"Maximalt %d alias tillåtet."
 msgstr[1] ""
-"Extra smeknamn för gruppen, komma- eller mellanslagsseparerade, max &d"
+"Extra smeknamn för gruppen, separerade med kommatecken eller blanksteg. "
+"Maximalt %d alias tillåtna."
 
 #. TRANS: Checkbox field title on group edit form to mark a group private.
 msgid ""
@@ -8340,15 +8344,15 @@ msgstr "%s gruppmedlemmar"
 msgctxt "MENU"
 msgid "Pending members (%d)"
 msgid_plural "Pending members (%d)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Väntande medlemmar (%d) "
+msgstr[1] "Väntande medlemmar (%d)"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
-#, fuzzy, php-format
+#, php-format
 msgctxt "TOOLTIP"
 msgid "%s pending members"
-msgstr "%s gruppmedlemmar"
+msgstr "%s väntande medlemmar"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 msgctxt "MENU"
@@ -8399,14 +8403,12 @@ msgid "Group actions"
 msgstr "Åtgärder för grupp"
 
 #. TRANS: Title for groups with the most members section.
-#, fuzzy
 msgid "Popular groups"
-msgstr "Populära notiser"
+msgstr "Populära grupper"
 
 #. TRANS: Title for groups with the most posts section.
-#, fuzzy
 msgid "Active groups"
-msgstr "Alla grupper"
+msgstr "Aktiva grupper"
 
 #. TRANS: Title for group tag cloud section.
 #. TRANS: %s is a group name.
@@ -8477,6 +8479,11 @@ msgid ""
 "user is not you, or if you did not request this confirmation, just ignore "
 "this message."
 msgstr ""
+"Användaren \"%1$s\" på %2$s har sagt att ditt %3$s-skärmnamn tillhör honom/"
+"henne. Om det är sant, kan du bekräfta genom att klicka på denna länk: %4"
+"$s . (Om du inte kan klicka på den, kopiera och klistra in den i "
+"adressfältet i din webbläsare). Om användaren inte är du, eller om du inte "
+"har begärt denna bekräftelse, bara ignorera detta meddelandet."
 
 #. TRANS: Exception thrown when trying to deliver a notice to an unknown inbox.
 #. TRANS: %d is the unknown inbox ID (number).
@@ -8487,10 +8494,11 @@ msgstr "Okänd källa för inkorg %d."
 #. TRANS: Server exception thrown trying to initialise an IM plugin without meeting all prerequisites.
 msgid "Queueing must be enabled to use IM plugins."
 msgstr ""
+"Köande måste aktiveras för att använda snabbmeddelande-insticksmoduler."
 
 #. TRANS: Server exception thrown trying to initialise an IM plugin without a transport method.
 msgid "Transport cannot be null."
-msgstr ""
+msgstr "Transport får inte vara tom."
 
 #. TRANS: Title for inbox tag cloud section.
 msgctxt "TITLE"
@@ -8587,6 +8595,8 @@ msgid ""
 "%1$s would like to listen to your notices on %2$s. You may approve or reject "
 "their subscription at %3$s"
 msgstr ""
+"%1$s skulle vilja lyssna på dina notiser på %2$s. Du kan godkänna eller "
+"avslå deras prenumeration på %3$s"
 
 #. TRANS: Common footer block for StatusNet notification emails.
 #. TRANS: %1$s is the StatusNet sitename,
@@ -8676,7 +8686,7 @@ msgstr "Du har blivit knuffad av %s"
 #. TRANS: Body for 'nudge' notification email.
 #. TRANS: %1$s is the nuding user's long name, $2$s is the nudging user's nickname,
 #. TRANS: %3$s is a URL to post notices at.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
 "to post some news.\n"
@@ -8694,10 +8704,7 @@ msgstr ""
 "\n"
 "%3$s\n"
 "\n"
-"Svara inte på det här e-postmeddelandet; det kommer inte komma fram.\n"
-"\n"
-"Med vänliga hälsningar,\n"
-"%4$s\n"
+"Svara inte på detta e-postmeddelandet; det kommer inte komma fram."
 
 #. TRANS: Subject for direct-message notification email.
 #. TRANS: %s is the sending user's nickname.
@@ -8708,7 +8715,7 @@ msgstr "Nytt privat meddelande från %s"
 #. TRANS: Body for direct-message notification email.
 #. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
 #. TRANS: %3$s is the message content, %4$s a URL to the message,
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
 "\n"
@@ -8732,23 +8739,20 @@ msgstr ""
 "\n"
 "%4$s\n"
 "\n"
-"Svara inte på detta e-postmeddelande; det kommer inte komma fram.\n"
-"\n"
-"Med vänliga hälsningar,\n"
-"%5$s\n"
+"Svara inte på detta e-postmeddelande; det kommer inte komma fram."
 
 #. TRANS: Subject for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s (@%2$s) added your notice as a favorite"
-msgstr "%s (@%s) lade till din notis som en favorit"
+msgstr "%1$s (@%2$s) lade till din notis som en favorit"
 
 #. TRANS: Body for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, $2$s is the date the notice was created,
 #. TRANS: %3$s is a URL to the faved notice, %4$s is the faved notice text,
 #. TRANS: %5$s is a URL to all faves of the adding user, %6$s is the StatusNet sitename,
 #. TRANS: %7$s is the adding user's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
 "\n"
@@ -8776,10 +8780,7 @@ msgstr ""
 "\n"
 "Du kan se listan med %1$ss favoriter här:\n"
 "\n"
-"%5$s\n"
-"\n"
-"Med vänliga hälsningar,\n"
-"%6$s\n"
+"%5$s"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
 #, php-format
@@ -8794,16 +8795,16 @@ msgstr ""
 
 #. TRANS: E-mail subject for notice notification.
 #. TRANS: %1$s is the sending user's long name, %2$s is the adding user's nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s (@%2$s) sent a notice to your attention"
-msgstr "%s (@%s) skickade en notis för din uppmärksamhet"
+msgstr "%1$s (@%2$s) skickade en notis för din uppmärksamhet"
 
 #. TRANS: Body of @-reply notification e-mail.
 #. TRANS: %1$s is the sending user's name, $2$s is the StatusNet sitename,
 #. TRANS: %3$s is a URL to the notice, %4$s is the notice text,
 #. TRANS: %5$s is a URL to the full conversion if it exists (otherwise empty),
 #. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replies for the addressed user,
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s just sent a notice to your attention (an '@-reply') on %2$s.\n"
 "\n"
@@ -8823,8 +8824,7 @@ msgid ""
 "\n"
 "%7$s"
 msgstr ""
-"%1$s (@%9$s) skickade precis en notis för din uppmärksamhet (ett '@-svar') "
-"på %2$s.\n"
+"%1$s skickade precis en notis för din uppmärksamhet (ett '@-svar') på %2$s.\n"
 "\n"
 "Notisen är här:\n"
 "\n"
@@ -8836,15 +8836,11 @@ msgstr ""
 "\n"
 "%5$sDu kan svara här:\n"
 "\n"
-"\t%6$s\n"
+"%6$s\n"
 "\n"
 "Listan med alla @-svar till dig hittar du här:\n"
-"%7$s\n"
 "\n"
-"Med vänliga hälsningar,\n"
-"%2$s\n"
-"\n"
-"P.S. Du kan stänga av dessa e-postnotifikationer här: %8$s\n"
+"%7$s"
 
 #. TRANS: Subject of group join notification e-mail.
 #. TRANS: %1$s is the joining user's nickname, %2$s is the group name, and %3$s is the StatusNet sitename.
@@ -9035,7 +9031,7 @@ msgstr "api"
 
 #. TRANS: Client exception thrown when no author for an activity was found.
 msgid "Cannot get author for activity."
-msgstr ""
+msgstr "Kan inte hämta författare för aktiviteten."
 
 #. TRANS: Client exception thrown when ...
 msgid "Bookmark not posted to this group."
@@ -9062,8 +9058,8 @@ msgstr "Smeknamn kan inte vara tomt."
 #, php-format
 msgid "Nickname cannot be more than %d character long."
 msgid_plural "Nickname cannot be more than %d characters long."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Smeknamn kan inte vara mer än %d tecken långt."
+msgstr[1] "Smeknamn kan inte vara mer än %d tecken långt."
 
 #. TRANS: Form legend for notice form.
 msgid "Send a notice"
@@ -9105,7 +9101,7 @@ msgstr ", "
 
 #. TRANS: Start of profile addressees list.
 msgid " ▸ "
-msgstr "▸ "
+msgstr " ▸ "
 
 #. TRANS: Used in coordinates as abbreviation of north.
 msgid "N"
@@ -9198,9 +9194,8 @@ msgid "Could not insert new subscription."
 msgstr "Kunde inte infoga ny prenumeration."
 
 #. TRANS: Server exception thrown in oEmbed action if no API endpoint is available.
-#, fuzzy
 msgid "No oEmbed API endpoint available."
-msgstr "IM är inte tillgänglig."
+msgstr "Ingen oEmbed API-slutpunkt är tillgänglig."
 
 #. TRANS: Field label for list.
 msgctxt "LABEL"
@@ -9217,11 +9212,11 @@ msgstr "Beskriv listan eller ämnet."
 
 #. TRANS: Field title for description of list.
 #. TRANS: %d is the maximum number of characters for the description.
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the list or topic in %d character."
 msgid_plural "Describe the list or topic in %d characters."
-msgstr[0] "Beskriv gruppen eller ämnet med högst %d tecken"
-msgstr[1] "Beskriv gruppen eller ämnet med högst %d tecken"
+msgstr[0] "Beskriv listan eller ämnet med %d tecken."
+msgstr[1] "Beskriv listan eller ämnet med %d tecken."
 
 #. TRANS: Button title to delete a list.
 msgid "Delete this list."
@@ -9571,21 +9566,22 @@ msgid "Search"
 msgstr "Sök"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
+#, fuzzy
 msgid ""
 "* Make sure all words are spelled correctly.\n"
 "* Try different keywords.\n"
 "* Try more general keywords.\n"
-"* Try fewer keywords.\n"
+"* Try fewer keywords."
 msgstr ""
 " * Kontrollera att alla ord är korrekt stavade.\n"
 " * Prova olika nyckelord.\n"
 " * Prova mer allmänna nyckelord.\n"
 " * Prova färre nyckelord.\n"
+" "
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"\n"
 "You can also try your search on other engines:\n"
 "\n"
 "* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
@@ -9593,9 +9589,8 @@ msgid ""
 "* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
 "* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
-"* [Collecta](http://collecta.com/#q=%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)"
 msgstr ""
-"\n"
 "Du kan också prova din sökning på andra motorer:\n"
 "\n"
 " * [Twingly] (http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
@@ -9605,6 +9600,7 @@ msgstr ""
 " * [Yahoo] (http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%"
 "s)\n"
 " * [Collecta] (http://collecta.com/#q=%s)\n"
+" "
 
 #. TRANS: Menu item in search group navigation panel.
 msgctxt "MENU"
@@ -9804,9 +9800,9 @@ msgstr "Grupper %s är medlem i."
 
 #. TRANS: Menu item title in local navigation menu.
 #. TRANS: %s is a user nickname.
-#, fuzzy, php-format
+#, php-format
 msgid "List subscriptions by %s."
-msgstr "Personer som prenumererar på %s"
+msgstr "Prenumerationer på listor av %s"
 
 #. TRANS: Menu item in local navigation menu.
 msgctxt "MENU"
@@ -9918,10 +9914,9 @@ msgid "%1$s and %2$s"
 msgstr "%1$s och %2$s"
 
 #. TRANS: List message for notice favoured by logged in user.
-#, fuzzy
 msgctxt "FAVELIST"
 msgid "You like this."
-msgstr "Dina listor"
+msgstr "Du gillar detta."
 
 #. TRANS: List message for when more than 4 people like something.
 #. TRANS: %%s is a list of users liking a notice, %d is the number over 4 that like the notice.
@@ -9929,8 +9924,8 @@ msgstr "Dina listor"
 #, php-format
 msgid "%%s and %d others like this."
 msgid_plural "%%s and %d others like this."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%%s och %d andra gillar detta. "
+msgstr[1] "%%s och %d andra gillar detta."
 
 #. TRANS: List message for favoured notices.
 #. TRANS: %%s is a list of users liking a notice.
@@ -9938,8 +9933,8 @@ msgstr[1] ""
 #, php-format
 msgid "%%s likes this."
 msgid_plural "%%s like this."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%%s gillar detta. "
+msgstr[1] "%%s gillar detta."
 
 #. TRANS: List message for notice repeated by logged in user.
 msgctxt "REPEATLIST"
@@ -10135,14 +10130,8 @@ msgstr "Ogiltig XML, saknar XRD-rot."
 msgid "Getting backup from file '%s'."
 msgstr "Hämtar säkerhetskopia från filen '%s'."
 
-#~ msgid "User without matching profile."
-#~ msgstr "Användare utan matchande profil."
+#~ msgid "%1$s and friends, page %2$d"
+#~ msgstr "%1$s och vänner, sida %2$d"
 
-#~ msgctxt "FAVELIST"
-#~ msgid "You have favored this notice."
-#~ msgstr "Du har markerat denna notis som favorit."
-
-#~ msgid "One person has favored this notice."
-#~ msgid_plural "%d people have favored this notice."
-#~ msgstr[0] " En person har markerat denna notis som favorit."
-#~ msgstr[1] "%d personer har markerat denna notis som favorit."
+#~ msgid "You and friends"
+#~ msgstr "Du och vänner"

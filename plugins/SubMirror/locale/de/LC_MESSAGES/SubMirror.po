@@ -3,6 +3,7 @@
 #
 # Author: Fujnky
 # Author: Giftpflanze
+# Author: MF-Warburg
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -10,13 +11,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - SubMirror\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:38:49+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:51:29+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2011-04-09 19:01:28+0000\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-POT-Import-Date: 2011-04-27 13:31:22+0000\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-submirror\n"
@@ -24,16 +25,15 @@ msgstr ""
 
 #. TRANS: Client error displayed when entering an invalid URL for a feed.
 #. TRANS: %s is the invalid feed URL.
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid feed URL: %s."
-msgstr "Ungültige Feed-URL."
+msgstr "Ungültige Feed-URL: %s."
 
 #. TRANS: Error message returned to user when setting up feed mirroring,
 #. TRANS: but we were unable to resolve the given URL to a working feed.
 msgid "Invalid profile for mirroring."
 msgstr "Ungültiges Profil für das Spiegeln."
 
-#, fuzzy
 msgid "Cannot mirror a StatusNet group at this time."
 msgstr "Kann im Moment keine StatusNet-Gruppe spiegeln."
 

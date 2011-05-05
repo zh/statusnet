@@ -16,17 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-27 12:36+0000\n"
-"PO-Revision-Date: 2011-04-27 12:38:32+0000\n"
+"POT-Creation-Date: 2011-05-05 20:48+0000\n"
+"PO-Revision-Date: 2011-05-05 20:51:03+0000\n"
 "Language-Team: Finnish <http://translatewiki.net/wiki/Portal:fi>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.18alpha (r87008); Translate extension (2011-04-26)\n"
+"X-Generator: MediaWiki 1.18alpha (r87509); Translate extension (2011-04-26)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fi\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2011-04-21 18:57:13+0000\n"
+"X-POT-Import-Date: 2011-05-05 10:52:40+0000\n"
 
 #. TRANS: Database error message.
 #, php-format
@@ -183,10 +183,9 @@ msgid ""
 msgstr ""
 
 #. TRANS: Title after adding a user to a list.
-#, fuzzy
 msgctxt "TITLE"
 msgid "Listed"
-msgstr "Lisenssi"
+msgstr "Luettelossa"
 
 #. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
@@ -248,26 +247,16 @@ msgstr "Sivua ei ole."
 msgid "No such user."
 msgstr "Käyttäjää ei ole."
 
-#. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#, php-format
-msgid "%1$s and friends, page %2$d"
-msgstr "%1$s ja kaverit, sivu %2$d"
+#. TRANS: Title of a user's own start page.
+#, fuzzy
+msgid "Home timeline"
+msgstr "%s aikajana"
 
-#. TRANS: Page title. %s is user nickname
-#. TRANS: H1 text for page. %s is a user nickname.
-#. TRANS: Message is used as link title. %s is a user nickname.
-#. TRANS: Title of API timeline for a user and friends.
-#. TRANS: %s is a username.
-#. TRANS: Timeline title for user and friends. %s is a user nickname.
-#. TRANS: Menu item title in administrator navigation panel.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in personal group navigation menu.
-#. TRANS: %s is a username.
-#. TRANS: Menu item title in settings navigation panel.
-#. TRANS: %s is a username.
-#, php-format
-msgid "%s and friends"
-msgstr "%s ja kaverit"
+#. TRANS: Title of another user's start page.
+#. TRANS: %s is the other user's name.
+#, fuzzy, php-format
+msgid "%s's home timeline"
+msgstr "%s aikajana"
 
 #. TRANS: %s is user nickname.
 #, php-format
@@ -328,9 +317,19 @@ msgstr ""
 "Miksi et [loisi tunnusta](%%%%action.register%%%%) ja tökkäisi käyttäjää %s "
 "tai lähettää ilmoituksen hänelle?"
 
-#. TRANS: H1 text for page when viewing a list for self.
-msgid "You and friends"
-msgstr "Sinä ja kaverisi"
+#. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title of API timeline for a user and friends.
+#. TRANS: %s is a username.
+#. TRANS: Timeline title for user and friends. %s is a user nickname.
+#. TRANS: Menu item title in administrator navigation panel.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in personal group navigation menu.
+#. TRANS: %s is a username.
+#. TRANS: Menu item title in settings navigation panel.
+#. TRANS: %s is a username.
+#, php-format
+msgid "%s and friends"
+msgstr "%s ja kaverit"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
@@ -390,7 +389,11 @@ msgid_plural ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
 msgstr[0] ""
+"Nykyisien asetusten johdosta palvelin ei voinut käsitellä näin paljoa POST-"
+"dataa (%s tavu)."
 msgstr[1] ""
+"Nykyisien asetusten johdosta palvelin ei voinut käsitellä näin paljoa POST-"
+"dataa (%s tavua)."
 
 #. TRANS: Client error displayed when saving design settings fails because of an empty id.
 #. TRANS: Client error displayed when saving design settings fails because of an empty result.
@@ -761,13 +764,12 @@ msgstr "Alias ei voi olla sama kuin ryhmätunnus."
 #. TRANS: Client error displayed when referring to a non-existing list.
 #. TRANS: Client error displayed trying to perform an action related to a non-existing list.
 #. TRANS: Client error displayed when referring to a non-existing list.
-#, fuzzy
 msgid "List not found."
-msgstr "API-metodia ei löytynyt."
+msgstr "Luetteloa ei löytynyt."
 
 #. TRANS: Client error displayed when trying to update another user's list.
 msgid "You cannot update lists that do not belong to you."
-msgstr ""
+msgstr "Et voi päivittää luetteloita, joita et omista."
 
 #. TRANS: Client error displayed when an unknown error occurs updating a list.
 #. TRANS: Client error displayed when an unknown error occurs viewing list members.
@@ -778,7 +780,7 @@ msgstr ""
 
 #. TRANS: Client error displayed when trying to delete another user's list.
 msgid "You cannot delete lists that do not belong to you."
-msgstr ""
+msgstr "Et voi poistaa luetteloita, joita et omista."
 
 #. TRANS: Client error displayed when referring to a non-list member.
 #, fuzzy
@@ -802,12 +804,11 @@ msgstr "Sinä et kuulu tähän ryhmään."
 
 #. TRANS: Client error displayed when trying to remove a list member that is not part of a list.
 msgid "The user you are trying to remove from the list is not a member."
-msgstr ""
+msgstr "Käyttäjä, jota yrität poistaa, ei ole luettelon jäsen."
 
 #. TRANS: Client error displayed when trying to create a list without a name.
-#, fuzzy
 msgid "A list must have a name."
-msgstr "Atom-viestin tulee olla Atom-kohteen muodossa."
+msgstr "Luettelolla pitää olla nimi."
 
 #. TRANS: Client error displayed when a membership check for a user is nagative.
 msgid "The specified user is not a subscriber of this list."
@@ -900,7 +901,6 @@ msgid "Account"
 msgstr "Käyttäjätili"
 
 #. TRANS: Field label on OAuth API authorisation form.
-#. TRANS: Field label on login page.
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Field label on account registration page.
 #. TRANS: Label for nickname on user authorisation page.
@@ -1075,9 +1075,9 @@ msgstr "Käyttäjän %2$s / %3$s suosikit sivulla %1$s."
 
 #. TRANS: Server error displayed whe trying to get a timeline fails.
 #. TRANS: %s is the error message.
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for list - %s"
-msgstr "Ei voitu lisätä aliasta."
+msgstr "Luettelon syötettä ei voitu luoda - %s"
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -2251,9 +2251,8 @@ msgid "Use this form to edit the list."
 msgstr "Käytä tätä lomaketta muokataksesi ryhmää."
 
 #. TRANS: Form validation error displayed if the form data for deleting a tag was incorrect.
-#, fuzzy
 msgid "Delete aborted."
-msgstr "Poista päivitys"
+msgstr "Poistaminen keskeytettiin."
 
 #. TRANS: Text in confirmation dialog for deleting a tag.
 msgid ""
@@ -2279,9 +2278,8 @@ msgid ""
 msgstr ""
 
 #. TRANS: TRANS: Server error displayed when updating a list fails.
-#, fuzzy
 msgid "Could not update list."
-msgstr "Käyttäjän päivitys epäonnistui."
+msgstr "Luettelon päivittäminen epäonnistui."
 
 #. TRANS: Title for e-mail settings.
 msgid "Email settings"
@@ -2791,9 +2789,8 @@ msgid "%1$s group members awaiting approval, page %2$d"
 msgstr "Ryhmän %s jäsenet"
 
 #. TRANS: Page notice for group members page.
-#, fuzzy
 msgid "A list of users awaiting approval to join this group."
-msgstr "Lista ryhmän käyttäjistä."
+msgstr "Lista tähän ryhmään liittymisen hyväksymistä odottavista käyttäjistä."
 
 #. TRANS: Message is used as link description. %1$s is a group name, %2$s is a site name.
 #, php-format
@@ -3121,7 +3118,6 @@ msgstr "Voit myös lisätä oman viestisi kutsuun"
 
 #. TRANS: Send button for inviting friends
 #. TRANS: Button text for sending notice.
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Send"
 msgstr "Lähetä"
@@ -3156,52 +3152,52 @@ msgstr "Sinä et kuulu tähän ryhmään."
 #. TRANS: User admin panel title
 msgctxt "TITLE"
 msgid "License"
-msgstr ""
+msgstr "Lisenssi"
 
 #. TRANS: Form instructions for the site license admin panel.
 msgid "License for this StatusNet site"
-msgstr ""
+msgstr "Tämän StatusNet-sivuston lisenssi"
 
 #. TRANS: Client error displayed selecting an invalid license in the license admin panel.
 msgid "Invalid license selection."
-msgstr ""
+msgstr "Virheellinen lisenssivalinta."
 
 #. TRANS: Client error displayed when not specifying an owner for the all rights reserved license in the license admin panel.
 msgid ""
 "You must specify the owner of the content when using the All Rights Reserved "
 "license."
 msgstr ""
+"Sisällön oikeuksien haltija pitää määritellä, jos valitset \"Kaikki oikeudet "
+"pidätetään\" -lisenssin."
 
 #. TRANS: Client error displayed selecting a too long license title in the license admin panel.
-#, fuzzy
 msgid "Invalid license title. Maximum length is 255 characters."
-msgstr "Kotipaikka on liian pitkä (max 255 merkkiä)."
+msgstr "Lisenssin nimi on liian pitkä. Maksimipituus 255 merkkiä."
 
 #. TRANS: Client error displayed specifying an invalid license URL in the license admin panel.
 msgid "Invalid license URL."
-msgstr ""
+msgstr "Virheellinen lisenssi-URL."
 
 #. TRANS: Client error displayed specifying an invalid license image URL in the license admin panel.
 msgid "Invalid license image URL."
-msgstr ""
+msgstr "Virheellinen lisenssin kuvan URL."
 
 #. TRANS: Client error displayed specifying an invalid license URL in the license admin panel.
 msgid "License URL must be blank or a valid URL."
-msgstr ""
+msgstr "Lisenssi-URLin pitää olla joko tyhjä tai oikeassa muodossa."
 
 #. TRANS: Client error displayed specifying an invalid license image URL in the license admin panel.
 msgid "License image must be blank or valid URL."
-msgstr ""
+msgstr "Lisenssin kuvan URLin pitää olla joko tyhjä tai oikeassa muodossa."
 
 #. TRANS: Form legend in the license admin panel.
 msgid "License selection"
-msgstr ""
+msgstr "Lisenssin valinta"
 
 #. TRANS: License option in the license admin panel.
 #. TRANS: Checkbox label to mark a list private.
-#, fuzzy
 msgid "Private"
-msgstr "Yksityisyys"
+msgstr "Yksityinen"
 
 #. TRANS: License option in the license admin panel.
 msgid "All Rights Reserved"
@@ -3216,50 +3212,48 @@ msgid "Type"
 msgstr "Tyyppi"
 
 #. TRANS: Dropdown field instructions in the license admin panel.
-#, fuzzy
 msgid "Select a license."
-msgstr "Valitse lisenssi"
+msgstr "Valitse lisenssi."
 
 #. TRANS: Form legend in the license admin panel.
 msgid "License details"
-msgstr ""
+msgstr "Lisenssin yksityiskohdat"
 
 #. TRANS: Field label in the license admin panel.
 msgid "Owner"
-msgstr ""
+msgstr "Oikeuksien haltija"
 
 #. TRANS: Field title in the license admin panel.
 msgid "Name of the owner of the site's content (if applicable)."
-msgstr ""
+msgstr "Sivuston sisällön tekijänoikeuksien haltija (tarvittaessa)."
 
 #. TRANS: Field label in the license admin panel.
 msgid "License Title"
-msgstr ""
+msgstr "Lisenssin nimi"
 
 #. TRANS: Field title in the license admin panel.
 msgid "The title of the license."
-msgstr ""
+msgstr "Lisenssin nimi."
 
 #. TRANS: Field label in the license admin panel.
 msgid "License URL"
-msgstr ""
+msgstr "Lisenssin URL"
 
 #. TRANS: Field title in the license admin panel.
 msgid "URL for more information about the license."
-msgstr ""
+msgstr "URL-osoite, jossa on lisää tietoa lisenssistä."
 
 #. TRANS: Field label in the license admin panel.
 msgid "License Image URL"
-msgstr ""
+msgstr "Lisenssikuvan URL-osoite"
 
 #. TRANS: Field title in the license admin panel.
 msgid "URL for an image to display with the license."
-msgstr ""
+msgstr "URL, jossa lisenssin yhteydessä näytettävä kuva."
 
 #. TRANS: Button title in the license admin panel.
-#, fuzzy
 msgid "Save license settings."
-msgstr "Profiilikuva-asetukset"
+msgstr "Tallenna lisenssin asetukset."
 
 #. TRANS: Client error displayed when trying to log in while already logged in.
 #. TRANS: Client error displayed trying to use "one time password login" when already logged in.
@@ -3284,6 +3278,11 @@ msgstr "Kirjaudu sisään"
 #. TRANS: Form legend on login page.
 msgid "Login to site"
 msgstr "Kirjaudu sisään"
+
+#. TRANS: Field label on login page.
+#, fuzzy
+msgid "Username or email address"
+msgstr "Käyttäjätunnus tai sähköpostiosoite"
 
 #. TRANS: Checkbox label label on login page.
 #. TRANS: Checkbox label on account registration page.
@@ -3358,9 +3357,8 @@ msgid "No current status."
 msgstr "Ei tuloksia"
 
 #. TRANS: This is the title of the form for adding a new application.
-#, fuzzy
 msgid "New application"
-msgstr "Päivitystä ei ole."
+msgstr "Uusi sovellus"
 
 #. TRANS: Client error displayed trying to add a new application while not logged in.
 #, fuzzy
@@ -3381,7 +3379,6 @@ msgstr ""
 msgid "Could not create application."
 msgstr "Ei voitu lisätä aliasta."
 
-#. TRANS: Form validation error on New application page when providing an invalid image upload.
 #, fuzzy
 msgid "Invalid image."
 msgstr "Koko ei kelpaa."
@@ -3446,7 +3443,6 @@ msgstr "Ajax-virhe"
 
 #. TRANS: Page title for sending a new notice.
 #. TRANS: Title for form to send a new notice.
-#, fuzzy
 msgctxt "TITLE"
 msgid "New notice"
 msgstr "Uusi päivitys"
@@ -3530,9 +3526,8 @@ msgstr ""
 "Sinun pitää olla kirjautunut sisään, jotta voit muuttaa ryhmän tietoja."
 
 #. TRANS: Page title for OAuth applications
-#, fuzzy
 msgid "OAuth applications"
-msgstr "Muita asetuksia"
+msgstr "OAuth-sovellukset"
 
 #. TRANS: Page instructions for OAuth applications
 msgid "Applications you have registered"
@@ -9765,13 +9760,12 @@ msgid ""
 "* Make sure all words are spelled correctly.\n"
 "* Try different keywords.\n"
 "* Try more general keywords.\n"
-"* Try fewer keywords.\n"
+"* Try fewer keywords."
 msgstr ""
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
 #, php-format
 msgid ""
-"\n"
 "You can also try your search on other engines:\n"
 "\n"
 "* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=%%%%"
@@ -9779,7 +9773,7 @@ msgid ""
 "* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)\n"
 "* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)\n"
 "* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)\n"
-"* [Collecta](http://collecta.com/#q=%s)\n"
+"* [Collecta](http://collecta.com/#q=%s)"
 msgstr ""
 
 #. TRANS: Menu item in search group navigation panel.
@@ -10348,16 +10342,8 @@ msgstr ""
 msgid "Getting backup from file '%s'."
 msgstr ""
 
-#~ msgid "User without matching profile."
-#~ msgstr "Käyttäjällä ei ole profiilia."
+#~ msgid "%1$s and friends, page %2$d"
+#~ msgstr "%1$s ja kaverit, sivu %2$d"
 
-#, fuzzy
-#~ msgctxt "FAVELIST"
-#~ msgid "You have favored this notice."
-#~ msgstr "Merkitse päivitys suosikkeihin"
-
-#, fuzzy
-#~ msgid "One person has favored this notice."
-#~ msgid_plural "%d people have favored this notice."
-#~ msgstr[0] "Poista tämä päivitys suosikeista"
-#~ msgstr[1] "Poista tämä päivitys suosikeista"
+#~ msgid "You and friends"
+#~ msgstr "Sinä ja kaverisi"
