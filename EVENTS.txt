@@ -1391,3 +1391,12 @@ EndDocFileForTitle: After searching for a doc or mail template
 - $title: Title we looked for
 - $paths: Paths we searched
 - &$filename: Filename so far (set this if you want)
+
+StartReadWriteTables: when noting which tables must be read-write, even on read-only actions
+- &$tables: list of table names
+- &$rwdb: read-write database URI
+
+EndReadWriteTables: after noting which tables must be read-write, even on read-only actions
+- $tables: list of table names
+- $rwdb: read-write database URI
+

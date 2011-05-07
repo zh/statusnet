@@ -175,15 +175,24 @@ function setupRW()
 
     static $alwaysRW = array('session', 'remember_me');
 
-    // We ensure that these tables always are used
-    // on the master DB
+    $rwdb = $config['db']['database'];
 
-    $config['db']['database_rw'] = $config['db']['database'];
-    $config['db']['ini_rw'] = INSTALLDIR.'/classes/statusnet.ini';
+    if (Event::handle('StartReadWriteTables', array(&$alwaysRW, &$rwdb))) {
 
-    foreach ($alwaysRW as $table) {
-        $config['db']['table_'.$table] = 'rw';
+        // We ensure that these tables always are used
+        // on the master DB
+
+        $config['db']['database_rw'] = $rwdb;
+        $config['db']['ini_rw'] = INSTALLDIR.'/classes/statusnet.ini';
+
+        foreach ($alwaysRW as $table) {
+            $config['db']['table_'.$table] = 'rw';
+        }
+
+        Event::handle('EndReadWriteTables', array($alwaysRW, $rwdb));
     }
+
+    return;
 }
 
 function checkMirror($action_obj, $args)
