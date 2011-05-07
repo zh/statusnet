@@ -250,6 +250,27 @@ class SortableSubscriptionListItem extends SubscriptionListItem
     }
 
     /**
+     * Overrided to truncate the bio if it's real long, because it
+     * looks better that way in the SortableSubscriptionList's table
+     */
+    function showBio()
+    {
+        if (!empty($this->profile->bio)) {
+            $cutoff = 140; // XXX Should this be configurable?
+            $bio    = htmlspecialchars($this->profile->bio);
+
+            if (mb_strlen($bio) > $cutoff) {
+                $bio = mb_substr($bio, 0, $cutoff - 1)
+                    .'<a href="' . $this->profile->profileurl .'">…</a>';
+            }
+
+            $this->out->elementStart('p', 'note');
+            $this->out->raw($bio);
+            $this->out->elementEnd('p');
+        }
+    }
+
+    /**
      * Only show the tags if we're logged in
      */
     function showTags()

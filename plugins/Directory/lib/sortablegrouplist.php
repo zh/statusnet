@@ -149,6 +149,24 @@ class SortableGroupListItem extends SortableSubscriptionListItem
         }
     }
 
+    function showDescription()
+    {
+        if (!empty($this->profile->description)) {
+            $cutoff      = 140; // XXX Should this be configurable?
+            $description = htmlspecialchars($this->profile->description);
+
+            if (mb_strlen($description) > $cutoff) {
+                $description = mb_substr($description, 0, $cutoff - 1)
+                    .'<a href="' . $this->profile->homeUrl() .'">…</a>';
+            }
+
+            $this->out->elementStart('p', 'note');
+            $this->out->raw($description);
+            $this->out->elementEnd('p');
+        }
+
+    }
+
     function showAvatar()
     {
         $logo = ($this->profile->stream_logo) ?
@@ -203,6 +221,19 @@ class SortableGroupListItem extends SortableSubscriptionListItem
 
             Event::handle('EndProfileListItem', array($this));
         }
+    }
+
+    function showProfile()
+    {
+        $this->startProfile();
+        $this->showAvatar();
+        $this->showFullName();
+        $this->showLocation();
+        $this->showHomepage();
+        $this->showDescription(); // groups have this instead of bios
+        // Relevant portion!
+        $this->showTags();
+        $this->endProfile();
     }
 
     function showActions()
