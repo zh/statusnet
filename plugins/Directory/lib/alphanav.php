@@ -42,7 +42,6 @@ if (!defined('STATUSNET')) {
  *
  * @see      HTMLOutputter
  */
-
 class AlphaNav extends Widget
 {
     protected $action  = null;
@@ -89,7 +88,6 @@ class AlphaNav extends Widget
      *
      * @return void
      */
-
     function show()
     {
         $actionName = $this->action->trimmed('action');
@@ -148,5 +146,4 @@ class AlphaNav extends Widget
 
         $this->action->elementEnd('div');
     }
-
 }

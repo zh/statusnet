@@ -1,5 +1,4 @@
 <?php
-
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
@@ -43,7 +42,6 @@ require_once INSTALLDIR . '/lib/subscriptionlist.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class SortableSubscriptionList extends SubscriptionList
 {
     /** Owner of this list */
@@ -63,7 +61,9 @@ class SortableSubscriptionList extends SubscriptionList
         $this->out->elementStart('tr');
 
         $tableHeaders = array(
+            // TRANS: Column header in table for user nickname.
             'nickname'    => _m('Nickname'),
+            // TRANS: Column header in table for timestamp when user was created.
             'created'     => _m('Created')
         );
 
@@ -110,8 +110,10 @@ class SortableSubscriptionList extends SubscriptionList
             $this->out->elementEnd('th');
         }
 
-        $this->out->element('th', array('id' => 'subscriptions'), 'Subscriptions');
-        $this->out->element('th', array('id' => 'notices'), 'Notices');
+        // TRANS: Column header for number of subscriptions.
+        $this->out->element('th', array('id' => 'subscriptions'), _m('Subscriptions'));
+        // TRANS: Column header for number of notices.
+        $this->out->element('th', array('id' => 'notices'), _m('Notices'));
         $this->out->element('th', array('id' => 'controls'), null);
 
         $this->out->elementEnd('tr');
@@ -280,5 +282,4 @@ class SortableSubscriptionListItem extends SubscriptionListItem
         }
 
     }
-
 }
