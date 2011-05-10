@@ -155,11 +155,22 @@ class DomainWhitelistPlugin extends Plugin
             return true;
         }
 
-        $parts = explode('@', $email);
-
-        $userDomain = strtolower(trim($parts[1]));
+        $userDomain = $this->domainFromEmail($email);
 
         return in_array($userDomain, $whitelist);
+    }
+
+    /**
+     * Helper function to pull out a domain from
+     * an email address
+     *
+     * @param string $email and email address
+     * @return string the domain
+     */
+    function domainFromEmail($email)
+    {
+        $parts = explode('@', $email);
+        return strtolower(trim($parts[1]));
     }
 
     function getWhitelist()
@@ -167,10 +178,65 @@ class DomainWhitelistPlugin extends Plugin
         $whitelist = common_config('email', 'whitelist');
 
         if (is_array($whitelist)) {
-            return $whitelist;
+            return $this->sortWhiteList($whitelist);
         } else {
             return explode('|', $whitelist);
         }
+    }
+
+    /**
+     * This is a filter function passed in to array_filter()
+     * in order to strip out the user's domain, which will
+     * be re-inserted as the first element (see sortWhitelist()
+     * below).
+     *
+     * @param string $domain domain to check
+     * @return boolean whether to include the domain
+     */
+    function userDomainFilter($domain)
+    {
+        $user       = common_current_user();
+        $userDomain = $this->domainFromEmail($user->email);
+        if ($userDomain == $domain) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * This function sorts the whitelist alphabetically, and sets the
+     * current user's domain as the first element in the array of
+     * allowed domains. Mostly, this is for the JavaScript on the invite
+     * page--in the case of multiple allowed domains, it's nicer if the
+     * user's own domain is the first option, and this seemed like a good
+     * way to do it.
+     *
+     * @param array $whitelist whitelist of allowed email domains
+     * @return array an ordered or sorted version of the whitelist
+     */
+    function sortWhitelist($whitelist)
+    {
+        $whitelist = array_unique($whitelist);
+        natcasesort($whitelist);
+
+        $user = common_current_user();
+
+        if (!empty($user) && !empty($user->email)) {
+            $userDomain = $this->domainFromEmail($user->email);
+
+            $orderedWhitelist = array_values(
+                array_filter(
+                    $whitelist,
+                    array($this, "userDomainFilter")
+                )
+            );
+
+            array_unshift($orderedWhitelist, $userDomain);
+
+            return $orderedWhitelist;
+        }
+
+        return $whitelist;
     }
 
     /**
