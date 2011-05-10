@@ -1400,3 +1400,21 @@ EndReadWriteTables: after noting which tables must be read-write, even on read-o
 - $tables: list of table names
 - $rwdb: read-write database URI
 
+StartShowInviteForm: Right before displaying the invitations form
+- $action: invitation action
+
+EndShowInviteForm: After displaying the invitations form
+- $action: invitation action
+
+StartSendInvitations: Right before sending invitations
+- $action: invitation action
+
+EndSendInvitations: Right after sending invitations
+- $action: invitation action
+
+StartShowInvitationSuccess: Right before showing invitations success msg
+- $action: invitation action
+
+EndShowInvitationSuccess: After showing invitations success msg
+- $action: invitation action
+

@@ -23,6 +23,7 @@
  * @category  Cache
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
+ * @author    Zach Copley <zach@status.net>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
@@ -40,12 +41,64 @@ if (!defined('STATUSNET')) {
  * @category  General
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
+ * @author    Zach Copley <zach@status.net>
  * @copyright 2011 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
 class DomainWhitelistPlugin extends Plugin
 {
+    /**
+     * Load related modules when needed
+     *
+     * @param string $cls Name of the class to be loaded
+     *
+     * @return boolean hook value; true means continue processing, false
+     *         means stop.
+     */
+    function onAutoload($cls) {
+        $base = dirname(__FILE__);
+        $lower = strtolower($cls);
+
+        $files = array("$base/classes/$cls.php",
+            "$base/lib/$lower.php");
+        if (substr($lower, -6) == 'action') {
+            $files[] = "$base/actions/" . substr($lower, 0, -6) . ".php";
+        }
+        foreach ($files as $file) {
+            if (file_exists($file)) {
+                include_once $file;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Get the path to the plugin's installation directory. Used
+     * to link in js files and whatnot.
+     *
+     * @return String the absolute path
+     */
+    protected function getPath() {
+        return preg_replace('/^' . preg_quote(INSTALLDIR, '/') . '\//', '', dirname(__FILE__));
+    }
+
+    /**
+     * Link in a JavaScript script for the whitelist invite form
+     *
+     * @param Action $action Action being shown
+     *
+     * @return boolean hook flag
+     */
+    function onEndShowStatusNetScripts($action) {
+        $name = $action->arg('action');
+        if ($name == 'invite') {
+            $action->script($this->getPath() . '/js/whitelistinvite.js');
+        }
+        return true;
+    }
+
     function onRequireValidatedEmailPlugin_Override($user, &$knownGood)
     {
         $knownGood = (!empty($user->email) && $this->matchesWhitelist($user->email));
@@ -120,11 +173,50 @@ class DomainWhitelistPlugin extends Plugin
         }
     }
 
+    /**
+     * Show a fancier invite form when domains are restricted to the
+     * whitelist.
+     *
+     * @param action $action the invite action
+     * @return boolean hook value
+     */
+    function onStartShowInviteForm($action)
+    {
+        $form = new WhitelistInviteForm($action, $this->getWhitelist());
+        $form->show();
+        return false;
+    }
+
+    /**
+     * This is a bit of a hack. We take the values from the custom
+     * whitelist invite form and reformat them so they look like
+     * their coming from the the normal invite form.
+     *
+     * @param action &$action the invite action
+     * @return boolean hook value
+     */
+    function onStartSendInvitations(&$action)
+    {
+       $emails    = array();
+       $usernames = $action->arg('username');
+       $domains   = $action->arg('domain');
+
+       for($i = 0; $i < count($usernames); $i++) {
+           if (!empty($usernames[$i])) {
+               $emails[] = $usernames[$i] . '@' . $domains[$i] . "\n";
+           }
+       }
+
+       $action->args['addresses'] = implode($emails);
+
+       return true;
+    }
+
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'DomainWhitelist',
                             'version' => STATUSNET_VERSION,
-                            'author' => 'Evan Prodromou',
+                            'author' => 'Evan Prodromou, Zach Copley',
                             'homepage' => 'http://status.net/wiki/Plugin:DomainWhitelist',
                             'rawdescription' =>
                             // TRANS: Plugin description.
