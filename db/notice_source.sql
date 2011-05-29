@@ -47,7 +47,6 @@ VALUES
     ('qwit', 'Qwit', 'http://code.google.com/p/qwit/', now()),
     ('royalewithcheese','Royale With Cheese','http://p.hellyeah.org/', now()),
     ('rssdent','rssdent','http://github.com/zcopley/rssdent/tree/master', now()),
-    ('rss.me','rss.me','http://rss.me/', now()),
     ('rygh.no','rygh.no','http://rygh.no/', now()),
     ('ryghsms','ryghsms','http://sms.rygh.no/', now()),
     ('smob','SMOB','http://smob.sioc-project.org/', now()),
